@@ -65,6 +65,10 @@
       "types": "./dist/select/index.d.ts",
       "import": "./dist/select/index.js"
     },
+    "./sidebar": {
+      "types": "./dist/sidebar/index.d.ts",
+      "import": "./dist/sidebar/index.js"
+    },
     "./switch": {
       "types": "./dist/switch/index.d.ts",
       "import": "./dist/switch/index.js"
@@ -89,6 +93,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@lenso/primitives": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@stylexjs/stylex": "catalog:",
     "lucide-react": "catalog:"

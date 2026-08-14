@@ -19,6 +19,7 @@ type DocsPage =
   | "overview"
   | "radio"
   | "select"
+  | "sidebar"
   | "switch"
   | "text-field";
 
@@ -114,6 +115,7 @@ function ComponentNavigation({
     | "label"
     | "radio"
     | "select"
+    | "sidebar"
     | "switch"
     | "text-field";
 }) {
@@ -126,7 +128,10 @@ function ComponentNavigation({
     current === "switch" ||
     current === "text-field";
   const navigationCurrent =
-    current === "breadcrumb" || current === "command-menu" || current === "disclosure";
+    current === "breadcrumb" ||
+    current === "command-menu" ||
+    current === "disclosure" ||
+    current === "sidebar";
   const contentCurrent = current === "avatar";
 
   return (
@@ -229,6 +234,13 @@ function ComponentNavigation({
                 href="/components/disclosure"
               >
                 Disclosure
+              </Link>
+              <Link
+                aria-current={current === "sidebar" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/sidebar"
+              >
+                Sidebar
               </Link>
             </>
           )}

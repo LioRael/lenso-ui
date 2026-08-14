@@ -94,8 +94,8 @@
     },
     {
       "name": "sidebar",
-      "title": "Sidebar Recipe",
-      "type": "registry:component"
+      "title": "Sidebar",
+      "type": "registry:ui"
     }
   ],
   "name": "lenso"

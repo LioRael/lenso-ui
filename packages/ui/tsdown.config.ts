@@ -24,6 +24,7 @@ export default defineConfig({
     "label/index": source("label"),
     "radio/index": source("radio"),
     "select/index": source("select"),
+    "sidebar/index": source("sidebar"),
     "switch/index": source("switch"),
     "text-field/index": source("text-field"),
     "theme-scope/index": source("theme-scope"),

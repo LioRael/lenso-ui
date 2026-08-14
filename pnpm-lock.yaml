@@ -241,6 +241,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@lenso/primitives':
+        specifier: workspace:*
+        version: link:../primitives
       '@lenso/tokens':
         specifier: workspace:*
         version: link:../tokens

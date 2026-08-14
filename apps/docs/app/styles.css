@@ -779,6 +779,21 @@ a {
   text-align: center;
 }
 
+.sidebar-playground {
+  height: 844px;
+}
+
+.sidebar-playground-body,
+.sidebar-rendered-stage,
+.sidebar-playground-body .playground-inspector {
+  height: 790px;
+}
+
+.sidebar-stage-canvas {
+  height: 744px;
+  padding-top: 12px;
+}
+
 .playground-inspector {
   display: flex;
   flex-direction: column;

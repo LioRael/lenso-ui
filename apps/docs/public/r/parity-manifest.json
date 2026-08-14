@@ -366,16 +366,22 @@
     "sidebar": {
       "files": [
         {
-          "registrySha256": "ca2668304732c85d68e0fb478e6587a204f87f9252cc8365c17ef06ae98d462b",
-          "source": "registry/recipes/sidebar.tsx",
-          "sourceSha256": "ca2668304732c85d68e0fb478e6587a204f87f9252cc8365c17ef06ae98d462b",
-          "target": "components/lenso/sidebar/sidebar.tsx"
+          "registrySha256": "791b32d00fa5671f7bb6e15aec5216e82cc32d42a3b9a89f7487620dee157d35",
+          "source": "packages/ui/src/sidebar/index.tsx",
+          "sourceSha256": "791b32d00fa5671f7bb6e15aec5216e82cc32d42a3b9a89f7487620dee157d35",
+          "target": "components/lenso/sidebar/index.tsx"
         },
         {
-          "registrySha256": "c9c864432d3a252ec0def8a35c12966ef9fafce878735d9998bea07dc95404a3",
-          "source": "registry/recipes/sidebar.stylex.ts",
-          "sourceSha256": "c9c864432d3a252ec0def8a35c12966ef9fafce878735d9998bea07dc95404a3",
+          "registrySha256": "5a512e09c1d92b8f01641f3b3658dff1ab9b7ea9899a86ad3ecc85a9a3024cbe",
+          "source": "packages/ui/src/sidebar/sidebar.stylex.ts",
+          "sourceSha256": "5a512e09c1d92b8f01641f3b3658dff1ab9b7ea9899a86ad3ecc85a9a3024cbe",
           "target": "components/lenso/sidebar/sidebar.stylex.ts"
+        },
+        {
+          "registrySha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "source": "packages/ui/src/shared/merge-class-name.ts",
+          "sourceSha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
           "registrySha256": "74879d142b59dfdc32c62bdece23b6910a29a0774c8ad6f9fb8834c3fdf06373",

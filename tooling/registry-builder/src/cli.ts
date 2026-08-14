@@ -369,27 +369,27 @@ const specs: RegistryItemSpec[] = [
     type: "registry:lib",
   },
   {
-    dependencies: ["@stylexjs/stylex@0.19.0"],
+    dependencies: [
+      `@lenso/primitives@${releaseVersion}`,
+      "@base-ui/react@1.7.0",
+      "@stylexjs/stylex@0.19.0",
+    ],
     files: [
       {
-        source: "registry/recipes/sidebar.tsx",
-        target: "components/lenso/sidebar/sidebar.tsx",
+        source: "packages/ui/src/sidebar/index.tsx",
+        target: "components/lenso/sidebar/index.tsx",
       },
       {
-        source: "registry/recipes/sidebar.stylex.ts",
+        source: "packages/ui/src/sidebar/sidebar.stylex.ts",
         target: "components/lenso/sidebar/sidebar.stylex.ts",
         type: "registry:style",
       },
-      {
-        source: "packages/ui/src/tokens.stylex.ts",
-        target: "components/lenso/tokens.stylex.ts",
-        type: "registry:style",
-      },
+      ...sharedFiles,
     ],
     name: "sidebar",
-    registryDependencies: [stable("setup"), stable("sidebar-primitive")],
-    title: "Sidebar Recipe",
-    type: "registry:component",
+    registryDependencies: [stable("setup")],
+    title: "Sidebar",
+    type: "registry:ui",
   },
 ];
 

@@ -156,11 +156,14 @@
     },
     "sidebar": {
       "nodeId": "375:189",
-      "codeSubpath": "@lenso/primitives/sidebar",
-      "variants": ["left", "right", "simultaneous", "nested"],
-      "states": ["open", "closed", "keyboard-dismissed"],
-      "documentation": "/#sidebar",
-      "stateBoard": { "nodeId": "375:189", "baseline": "sidebar-state-board" }
+      "codeSubpath": "@lenso/ui/sidebar",
+      "variants": ["app", "settings", "left", "right", "simultaneous", "nested"],
+      "states": ["open", "closed", "hover", "selected", "keyboard-dismissed"],
+      "documentation": "/components/sidebar",
+      "stateBoard": {
+        "nodeId": "375:189",
+        "baseline": "docs/figma-baselines/sidebar-state-board.png"
+      }
     }
   }
 }
