@@ -113,6 +113,44 @@ const specs: RegistryItemSpec[] = [
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
       {
+        source: "packages/ui/src/icon-button/index.tsx",
+        target: "components/lenso/icon-button/index.tsx",
+      },
+      {
+        source: "packages/ui/src/icon-button/icon-button.stylex.ts",
+        target: "components/lenso/icon-button/icon-button.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "icon-button",
+    registryDependencies: [stable("setup")],
+    title: "Icon Button",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/label/index.tsx",
+        target: "components/lenso/label/index.tsx",
+      },
+      {
+        source: "packages/ui/src/label/label.stylex.ts",
+        target: "components/lenso/label/label.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "label",
+    registryDependencies: [stable("setup")],
+    title: "Label",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
         source: "packages/ui/src/text-field/index.tsx",
         target: "components/lenso/text-field/index.tsx",
       },

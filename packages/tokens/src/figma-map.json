@@ -91,6 +91,51 @@
       "type": "color"
     },
     {
+      "path": "color.label.border",
+      "cssName": "--color-label-border",
+      "type": "color"
+    },
+    {
+      "path": "color.label.contentDefault",
+      "cssName": "--color-label-content-default",
+      "type": "color"
+    },
+    {
+      "path": "color.label.contentHover",
+      "cssName": "--color-label-content-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.label.markerBlue",
+      "cssName": "--color-label-marker-blue",
+      "type": "color"
+    },
+    {
+      "path": "color.label.markerPurple",
+      "cssName": "--color-label-marker-purple",
+      "type": "color"
+    },
+    {
+      "path": "color.label.markerRed",
+      "cssName": "--color-label-marker-red",
+      "type": "color"
+    },
+    {
+      "path": "color.label.surfaceDefault",
+      "cssName": "--color-label-surface-default",
+      "type": "color"
+    },
+    {
+      "path": "color.label.surfaceHover",
+      "cssName": "--color-label-surface-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.label.surfaceOpen",
+      "cssName": "--color-label-surface-open",
+      "type": "color"
+    },
+    {
       "path": "color.sidebar.itemActive",
       "cssName": "--color-sidebar-item-active",
       "type": "color"
@@ -271,6 +316,16 @@
       "type": "dimension"
     },
     {
+      "path": "size.label",
+      "cssName": "--size-label",
+      "type": "dimension"
+    },
+    {
+      "path": "size.labelMarker",
+      "cssName": "--size-label-marker",
+      "type": "dimension"
+    },
+    {
       "path": "size.sidebar",
       "cssName": "--size-sidebar",
       "type": "dimension"
@@ -298,6 +353,11 @@
     {
       "path": "space.6",
       "cssName": "--space-6",
+      "type": "dimension"
+    },
+    {
+      "path": "space.labelGap",
+      "cssName": "--space-label-gap",
       "type": "dimension"
     }
   ]

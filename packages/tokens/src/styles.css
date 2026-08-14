@@ -16,6 +16,15 @@
   --color-content-tertiary: #6f6e77;
   --color-focus-ring: #5e6ad2;
   --color-interaction-pressed-overlay: #00000014;
+  --color-label-border: #dedede;
+  --color-label-content-default: #2f2f31;
+  --color-label-content-hover: #1b1b1b;
+  --color-label-marker-blue: #4ea7fc;
+  --color-label-marker-purple: #bb87fc;
+  --color-label-marker-red: #eb5757;
+  --color-label-surface-default: #f8f8f9;
+  --color-label-surface-hover: #ececed;
+  --color-label-surface-open: #f0f0f1;
   --color-sidebar-item-active: #eaeaea;
   --color-sidebar-item-hover: #f5f5f5;
   --color-status-error-border: #dc2626;
@@ -52,12 +61,15 @@
   --size-icon-button-default: 28px;
   --size-icon-default: 14px;
   --size-input-default: 32px;
+  --size-label: 25px;
+  --size-label-marker: 9px;
   --size-sidebar: 244px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-6: 24px;
+  --space-label-gap: 6px;
 }
 
 [data-theme="dark"] {
@@ -78,6 +90,15 @@
   --color-content-tertiary: #8a8f98;
   --color-focus-ring: #5e6ad2;
   --color-interaction-pressed-overlay: #ffffff0d;
+  --color-label-border: #3f4044;
+  --color-label-content-default: #d4d4d4;
+  --color-label-content-hover: #ffffff;
+  --color-label-marker-blue: #4ea7fc;
+  --color-label-marker-purple: #bb87fc;
+  --color-label-marker-red: #eb5757;
+  --color-label-surface-default: #28282c;
+  --color-label-surface-hover: #282a30;
+  --color-label-surface-open: #28292b;
   --color-sidebar-item-active: #28282c;
   --color-sidebar-item-hover: #1f1f1f;
   --color-status-error-border: #e5484d;
@@ -114,10 +135,13 @@
   --size-icon-button-default: 28px;
   --size-icon-default: 14px;
   --size-input-default: 32px;
+  --size-label: 25px;
+  --size-label-marker: 9px;
   --size-sidebar: 244px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-6: 24px;
+  --space-label-gap: 6px;
 }

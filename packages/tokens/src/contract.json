@@ -19,6 +19,15 @@
     "color.content.tertiary",
     "color.focus.ring",
     "color.interaction.pressedOverlay",
+    "color.label.border",
+    "color.label.contentDefault",
+    "color.label.contentHover",
+    "color.label.markerBlue",
+    "color.label.markerPurple",
+    "color.label.markerRed",
+    "color.label.surfaceDefault",
+    "color.label.surfaceHover",
+    "color.label.surfaceOpen",
     "color.sidebar.itemActive",
     "color.sidebar.itemHover",
     "color.status.errorBorder",
@@ -55,12 +64,15 @@
     "size.iconButtonDefault",
     "size.iconDefault",
     "size.inputDefault",
+    "size.label",
+    "size.labelMarker",
     "size.sidebar",
     "space.1",
     "space.2",
     "space.3",
     "space.4",
-    "space.6"
+    "space.6",
+    "space.labelGap"
   ],
   "contexts": {
     "dark": {
@@ -318,6 +330,141 @@
         },
         "cssName": "--color-interaction-pressed-overlay",
         "cssValue": "#ffffff0d"
+      },
+      "color.label.border": {
+        "path": "color.label.border",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.247059,
+            0.25098,
+            0.266667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-border",
+        "cssValue": "#3f4044"
+      },
+      "color.label.contentDefault": {
+        "path": "color.label.contentDefault",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-content-default",
+        "cssValue": "#d4d4d4"
+      },
+      "color.label.contentHover": {
+        "path": "color.label.contentHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-content-hover",
+        "cssValue": "#ffffff"
+      },
+      "color.label.markerBlue": {
+        "path": "color.label.markerBlue",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.305882,
+            0.654902,
+            0.988235
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-marker-blue",
+        "cssValue": "#4ea7fc"
+      },
+      "color.label.markerPurple": {
+        "path": "color.label.markerPurple",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.733333,
+            0.529412,
+            0.988235
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-marker-purple",
+        "cssValue": "#bb87fc"
+      },
+      "color.label.markerRed": {
+        "path": "color.label.markerRed",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.921569,
+            0.341176,
+            0.341176
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-marker-red",
+        "cssValue": "#eb5757"
+      },
+      "color.label.surfaceDefault": {
+        "path": "color.label.surfaceDefault",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.156863,
+            0.172549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-surface-default",
+        "cssValue": "#28282c"
+      },
+      "color.label.surfaceHover": {
+        "path": "color.label.surfaceHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.164706,
+            0.188235
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-surface-hover",
+        "cssValue": "#282a30"
+      },
+      "color.label.surfaceOpen": {
+        "path": "color.label.surfaceOpen",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.160784,
+            0.168627
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-surface-open",
+        "cssValue": "#28292b"
       },
       "color.sidebar.itemActive": {
         "path": "color.sidebar.itemActive",
@@ -767,6 +914,26 @@
         "cssName": "--size-input-default",
         "cssValue": "32px"
       },
+      "size.label": {
+        "path": "size.label",
+        "type": "dimension",
+        "value": {
+          "value": 25,
+          "unit": "px"
+        },
+        "cssName": "--size-label",
+        "cssValue": "25px"
+      },
+      "size.labelMarker": {
+        "path": "size.labelMarker",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--size-label-marker",
+        "cssValue": "9px"
+      },
       "size.sidebar": {
         "path": "size.sidebar",
         "type": "dimension",
@@ -826,6 +993,16 @@
         },
         "cssName": "--space-6",
         "cssValue": "24px"
+      },
+      "space.labelGap": {
+        "path": "space.labelGap",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--space-label-gap",
+        "cssValue": "6px"
       }
     },
     "light": {
@@ -1083,6 +1260,141 @@
         },
         "cssName": "--color-interaction-pressed-overlay",
         "cssValue": "#00000014"
+      },
+      "color.label.border": {
+        "path": "color.label.border",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.870588,
+            0.870588,
+            0.870588
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-border",
+        "cssValue": "#dedede"
+      },
+      "color.label.contentDefault": {
+        "path": "color.label.contentDefault",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.184314,
+            0.184314,
+            0.192157
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-content-default",
+        "cssValue": "#2f2f31"
+      },
+      "color.label.contentHover": {
+        "path": "color.label.contentHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.105882,
+            0.105882,
+            0.105882
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-content-hover",
+        "cssValue": "#1b1b1b"
+      },
+      "color.label.markerBlue": {
+        "path": "color.label.markerBlue",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.305882,
+            0.654902,
+            0.988235
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-marker-blue",
+        "cssValue": "#4ea7fc"
+      },
+      "color.label.markerPurple": {
+        "path": "color.label.markerPurple",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.733333,
+            0.529412,
+            0.988235
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-marker-purple",
+        "cssValue": "#bb87fc"
+      },
+      "color.label.markerRed": {
+        "path": "color.label.markerRed",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.921569,
+            0.341176,
+            0.341176
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-marker-red",
+        "cssValue": "#eb5757"
+      },
+      "color.label.surfaceDefault": {
+        "path": "color.label.surfaceDefault",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.972549,
+            0.972549,
+            0.976471
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-surface-default",
+        "cssValue": "#f8f8f9"
+      },
+      "color.label.surfaceHover": {
+        "path": "color.label.surfaceHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.92549,
+            0.92549,
+            0.929412
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-surface-hover",
+        "cssValue": "#ececed"
+      },
+      "color.label.surfaceOpen": {
+        "path": "color.label.surfaceOpen",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.941176,
+            0.941176,
+            0.945098
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-label-surface-open",
+        "cssValue": "#f0f0f1"
       },
       "color.sidebar.itemActive": {
         "path": "color.sidebar.itemActive",
@@ -1532,6 +1844,26 @@
         "cssName": "--size-input-default",
         "cssValue": "32px"
       },
+      "size.label": {
+        "path": "size.label",
+        "type": "dimension",
+        "value": {
+          "value": 25,
+          "unit": "px"
+        },
+        "cssName": "--size-label",
+        "cssValue": "25px"
+      },
+      "size.labelMarker": {
+        "path": "size.labelMarker",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--size-label-marker",
+        "cssValue": "9px"
+      },
       "size.sidebar": {
         "path": "size.sidebar",
         "type": "dimension",
@@ -1591,6 +1923,16 @@
         },
         "cssName": "--space-6",
         "cssValue": "24px"
+      },
+      "space.labelGap": {
+        "path": "space.labelGap",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--space-label-gap",
+        "cssValue": "6px"
       }
     }
   }

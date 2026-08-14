@@ -6,10 +6,14 @@ import "virtual:stylex:runtime";
 
 import { semanticTokenNames } from "@lenso/tokens";
 
+import "../../tokens/src/styles.css";
 import { Button } from "./button/index.js";
 import { Dialog } from "./dialog/index.js";
+import { IconButton } from "./icon-button/index.js";
+import { Label } from "./label/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
+import { PlusIcon } from "lucide-react";
 
 test("Button preserves native behavior while exposing Lenso variants", async () => {
   const onClick = vi.fn();
@@ -35,6 +39,118 @@ test("Button loading state is busy and non-interactive", async () => {
 
   await expect.element(button).toBeDisabled();
   await expect.element(button).toHaveAttribute("aria-busy", "true");
+  await expect.poll(() => getComputedStyle(button.element()).opacity).toBe("1");
+  const spinner = button.element().querySelector("svg");
+  expect(spinner?.getBoundingClientRect().toJSON()).toMatchObject({ height: 10, width: 10 });
+  expect(spinner?.querySelector("path[mask]")).not.toBeNull();
+});
+
+test("Button hover and keyboard focus use the approved state layers", async () => {
+  const screen = await render(<Button>Continue</Button>);
+  const button = screen.getByRole("button", { name: "Continue" });
+  const stateLayer = button
+    .element()
+    .querySelector<HTMLElement>('[data-slot="button-state-layer"]');
+
+  await button.hover();
+  await expect
+    .poll(() => getComputedStyle(button.element()).backgroundColor)
+    .toBe("rgb(31, 32, 36)");
+  await button.unhover();
+  await userEvent.tab();
+  await expect.poll(() => getComputedStyle(stateLayer!).borderColor).toBe("rgb(94, 106, 210)");
+});
+
+test("Button state layers resolve through a dark ThemeScope", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Button data-visual-state="hover">Hover</Button>
+      <Button data-visual-state="pressed" variant="secondary">
+        Pressed
+      </Button>
+      <Button disabled variant="ghost">
+        Disabled
+      </Button>
+    </ThemeScope>,
+  );
+  const hover = screen.getByRole("button", { name: "Hover" }).element();
+  const pressed = screen.getByRole("button", { name: "Pressed" }).element();
+  const disabled = screen.getByRole("button", { name: "Disabled" }).element();
+
+  await expect.poll(() => getComputedStyle(hover).backgroundColor).toBe("rgb(255, 255, 255)");
+  expect(getComputedStyle(pressed).backgroundColor).toBe("rgb(25, 26, 27)");
+  expect(
+    getComputedStyle(pressed.querySelector<HTMLElement>('[data-slot="button-state-layer"]')!)
+      .backgroundColor,
+  ).toBe("rgba(255, 255, 255, 0.05)");
+  expect(getComputedStyle(disabled).opacity).toBe("0.5");
+});
+
+test("Icon Button preserves Base UI render composition and an accessible name", async () => {
+  const screen = await render(
+    <IconButton aria-label="Create issue" render={<a aria-label="Create issue" href="/create" />}>
+      <PlusIcon />
+    </IconButton>,
+  );
+  const link = screen.getByRole("button", { name: "Create issue" });
+
+  await expect.element(link).toHaveAttribute("href", "/create");
+  await expect.poll(() => getComputedStyle(link.element()).width).toBe("24px");
+  const icon = link.element().querySelector<HTMLElement>('[data-slot="icon-button-icon"]');
+  expect(icon?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(icon?.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
+});
+
+test("Icon Button exposes selected toggle semantics", async () => {
+  const screen = await render(
+    <IconButton aria-label="Pin issue" selected variant="ghost">
+      <PlusIcon />
+    </IconButton>,
+  );
+  const button = screen.getByRole("button", { name: "Pin issue" });
+
+  await expect.element(button).toHaveAttribute("aria-pressed", "true");
+  await expect.element(button).toHaveAttribute("data-selected", "true");
+  await expect
+    .poll(() => getComputedStyle(button.element()).backgroundColor)
+    .toBe("rgb(255, 255, 255)");
+});
+
+test("Label preserves Base UI render composition and marker customization", async () => {
+  const screen = await render(
+    <Label
+      color="violet"
+      marker={<span data-testid="custom-marker">◆</span>}
+      render={<a aria-label="Feature" href="/issues" />}
+    >
+      Feature
+    </Label>,
+  );
+  const link = screen.getByRole("button", { name: "Feature" });
+
+  await expect.element(link).toHaveAttribute("href", "/issues");
+  await expect.poll(() => getComputedStyle(link.element()).height).toBe("25px");
+  expect(link.element().querySelector('[data-slot="label-marker"]')).not.toBeNull();
+  await expect.element(screen.getByTestId("custom-marker")).toBeVisible();
+});
+
+test("Label resolves open and dark theme states through semantic tokens", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Label color="blue" open>
+        Feature
+      </Label>
+    </ThemeScope>,
+  );
+  const label = screen.getByRole("button", { name: "Feature" });
+  const marker = label.element().querySelector<HTMLElement>('[data-slot="label-marker"]');
+
+  await expect.element(label).toHaveAttribute("aria-expanded", "true");
+  await expect
+    .poll(() => getComputedStyle(label.element()).backgroundColor)
+    .toBe("rgb(40, 41, 43)");
+  expect(getComputedStyle(label.element()).color).toBe("rgb(255, 255, 255)");
+  expect(getComputedStyle(marker!).backgroundColor).toBe("rgb(78, 167, 252)");
 });
 
 test("TextField wires its compound label, control, description, and error", async () => {
@@ -100,6 +216,7 @@ test("the MVP foundation surface has no automatic accessibility violations", asy
   await render(
     <main>
       <Button>Continue</Button>
+      <Label color="violet">Feature</Label>
       <TextField.Root>
         <TextField.Label>Name</TextField.Label>
         <TextField.Control />

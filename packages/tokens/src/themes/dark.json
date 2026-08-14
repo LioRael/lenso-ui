@@ -48,6 +48,23 @@
     "sidebar": {
       "itemHover": { "$value": "{primitive.color.gray800}" },
       "itemActive": { "$value": "{primitive.color.slate875}" }
+    },
+    "label": {
+      "surfaceDefault": {
+        "$value": { "colorSpace": "srgb", "components": [0.156863, 0.156863, 0.172549], "alpha": 1 }
+      },
+      "surfaceHover": { "$value": "{primitive.color.slate850}" },
+      "surfaceOpen": {
+        "$value": { "colorSpace": "srgb", "components": [0.156863, 0.160784, 0.168627], "alpha": 1 }
+      },
+      "border": {
+        "$value": { "colorSpace": "srgb", "components": [0.247059, 0.25098, 0.266667], "alpha": 1 }
+      },
+      "contentDefault": { "$value": "{primitive.color.gray300}" },
+      "contentHover": { "$value": "{primitive.color.gray0}" },
+      "markerRed": { "$value": "{primitive.color.labelMarkerRed}" },
+      "markerPurple": { "$value": "{primitive.color.labelMarkerPurple}" },
+      "markerBlue": { "$value": "{primitive.color.labelMarkerBlue}" }
     }
   }
 }

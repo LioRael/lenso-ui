@@ -9,7 +9,32 @@
       "variants": ["primary", "secondary", "ghost", "danger", "compact", "default"],
       "states": ["default", "hover", "focus-visible", "pressed", "disabled", "loading"],
       "documentation": "/#button",
-      "stateBoard": { "nodeId": "27:56", "baseline": "button-state-board" }
+      "stateBoard": {
+        "nodeId": "27:56",
+        "baseline": "docs/figma-baselines/button-state-board.png"
+      }
+    },
+    "icon-button": {
+      "nodeId": "28:74",
+      "codeSubpath": "@lenso/ui/icon-button",
+      "variants": ["secondary", "ghost", "compact", "default"],
+      "states": ["default", "hover", "pressed", "focus-visible", "selected", "disabled"],
+      "documentation": "/components/icon-button",
+      "stateBoard": {
+        "nodeId": "28:74",
+        "baseline": "docs/figma-baselines/icon-button-state-board.png"
+      }
+    },
+    "label": {
+      "nodeId": "32:22",
+      "codeSubpath": "@lenso/ui/label",
+      "variants": ["red", "violet", "blue", "marker-hidden", "custom-marker"],
+      "states": ["default", "hover", "active", "open", "focus-visible"],
+      "documentation": "/components/label",
+      "stateBoard": {
+        "nodeId": "32:22",
+        "baseline": "docs/figma-baselines/label-state-board.png"
+      }
     },
     "text-field": {
       "nodeId": "30:42",

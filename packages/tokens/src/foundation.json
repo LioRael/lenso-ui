@@ -66,6 +66,33 @@
       "red700": {
         "$value": { "colorSpace": "srgb", "components": [0.862745, 0.14902, 0.14902], "alpha": 1 }
       },
+      "labelSurfaceDefault": {
+        "$value": { "colorSpace": "srgb", "components": [0.972549, 0.972549, 0.976471], "alpha": 1 }
+      },
+      "labelSurfaceHover": {
+        "$value": { "colorSpace": "srgb", "components": [0.92549, 0.92549, 0.929412], "alpha": 1 }
+      },
+      "labelSurfaceOpen": {
+        "$value": { "colorSpace": "srgb", "components": [0.941176, 0.941176, 0.945098], "alpha": 1 }
+      },
+      "labelBorder": {
+        "$value": { "colorSpace": "srgb", "components": [0.870588, 0.870588, 0.870588], "alpha": 1 }
+      },
+      "labelContentDefault": {
+        "$value": { "colorSpace": "srgb", "components": [0.184314, 0.184314, 0.192157], "alpha": 1 }
+      },
+      "labelContentHover": {
+        "$value": { "colorSpace": "srgb", "components": [0.105882, 0.105882, 0.105882], "alpha": 1 }
+      },
+      "labelMarkerRed": {
+        "$value": { "colorSpace": "srgb", "components": [0.921569, 0.341176, 0.341176], "alpha": 1 }
+      },
+      "labelMarkerPurple": {
+        "$value": { "colorSpace": "srgb", "components": [0.733333, 0.529412, 0.988235], "alpha": 1 }
+      },
+      "labelMarkerBlue": {
+        "$value": { "colorSpace": "srgb", "components": [0.305882, 0.654902, 0.988235], "alpha": 1 }
+      },
       "transparent": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0 } },
       "black8": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.08 } },
       "white3": { "$value": { "colorSpace": "srgb", "components": [1, 1, 1], "alpha": 0.03 } },
@@ -79,12 +106,15 @@
       "px0_5": { "$value": { "value": 0.5, "unit": "px" } },
       "px1": { "$value": { "value": 1, "unit": "px" } },
       "px4": { "$value": { "value": 4, "unit": "px" } },
+      "px6": { "$value": { "value": 6, "unit": "px" } },
       "px8": { "$value": { "value": 8, "unit": "px" } },
+      "px9": { "$value": { "value": 9, "unit": "px" } },
       "px10": { "$value": { "value": 10, "unit": "px" } },
       "px12": { "$value": { "value": 12, "unit": "px" } },
       "px14": { "$value": { "value": 14, "unit": "px" } },
       "px16": { "$value": { "value": 16, "unit": "px" } },
       "px24": { "$value": { "value": 24, "unit": "px" } },
+      "px25": { "$value": { "value": 25, "unit": "px" } },
       "px28": { "$value": { "value": 28, "unit": "px" } },
       "px32": { "$value": { "value": 32, "unit": "px" } },
       "px244": { "$value": { "value": 244, "unit": "px" } },

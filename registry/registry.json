@@ -23,6 +23,16 @@
       "type": "registry:ui"
     },
     {
+      "name": "icon-button",
+      "title": "Icon Button",
+      "type": "registry:ui"
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "type": "registry:ui"
+    },
+    {
       "name": "text-field",
       "title": "Text Field",
       "type": "registry:ui"

@@ -10,9 +10,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "catalog:",
+    "@fontsource/ibm-plex-sans": "catalog:",
+    "@fontsource/inter": "catalog:",
     "@lenso/primitives": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@lenso/ui": "workspace:*",
+    "dialkit": "catalog:",
+    "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
@@ -21,7 +26,6 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "dialkit": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }

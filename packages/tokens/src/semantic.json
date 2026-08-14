@@ -48,6 +48,17 @@
     "sidebar": {
       "itemHover": { "$value": "{primitive.color.gray100}" },
       "itemActive": { "$value": "{primitive.color.gray200}" }
+    },
+    "label": {
+      "surfaceDefault": { "$value": "{primitive.color.labelSurfaceDefault}" },
+      "surfaceHover": { "$value": "{primitive.color.labelSurfaceHover}" },
+      "surfaceOpen": { "$value": "{primitive.color.labelSurfaceOpen}" },
+      "border": { "$value": "{primitive.color.labelBorder}" },
+      "contentDefault": { "$value": "{primitive.color.labelContentDefault}" },
+      "contentHover": { "$value": "{primitive.color.labelContentHover}" },
+      "markerRed": { "$value": "{primitive.color.labelMarkerRed}" },
+      "markerPurple": { "$value": "{primitive.color.labelMarkerPurple}" },
+      "markerBlue": { "$value": "{primitive.color.labelMarkerBlue}" }
     }
   },
   "radius": {
@@ -66,6 +77,8 @@
     "iconDefault": { "$value": "{primitive.dimension.px14}" },
     "iconButtonCompact": { "$value": "{primitive.dimension.px24}" },
     "iconButtonDefault": { "$value": "{primitive.dimension.px28}" },
+    "label": { "$value": "{primitive.dimension.px25}" },
+    "labelMarker": { "$value": "{primitive.dimension.px9}" },
     "sidebar": { "$value": "{primitive.dimension.px244}" },
     "dialog": { "$value": "{primitive.dimension.px480}" },
     "borderControl": { "$value": "{primitive.dimension.px0_5}" },
@@ -77,7 +90,8 @@
     "2": { "$value": "{primitive.dimension.px8}" },
     "3": { "$value": "{primitive.dimension.px12}" },
     "4": { "$value": "{primitive.dimension.px16}" },
-    "6": { "$value": "{primitive.dimension.px24}" }
+    "6": { "$value": "{primitive.dimension.px24}" },
+    "labelGap": { "$value": "{primitive.dimension.px6}" }
   },
   "opacity": {
     "$type": "number",
