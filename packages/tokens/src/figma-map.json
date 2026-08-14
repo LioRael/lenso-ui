@@ -161,6 +161,26 @@
       "type": "color"
     },
     {
+      "path": "color.status.presenceAway",
+      "cssName": "--color-status-presence-away",
+      "type": "color"
+    },
+    {
+      "path": "color.status.presenceBusy",
+      "cssName": "--color-status-presence-busy",
+      "type": "color"
+    },
+    {
+      "path": "color.status.presenceOffline",
+      "cssName": "--color-status-presence-offline",
+      "type": "color"
+    },
+    {
+      "path": "color.status.presenceOnline",
+      "cssName": "--color-status-presence-online",
+      "type": "color"
+    },
+    {
       "path": "color.surface.canvas",
       "cssName": "--color-surface-canvas",
       "type": "color"

@@ -7,6 +7,7 @@ import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../tokens/src/styles.css";
+import { Avatar } from "./avatar/index.js";
 import { Button } from "./button/index.js";
 import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
@@ -28,6 +29,108 @@ const screenshotOptions = {
   // Exact theme values and component geometry are asserted separately above.
   comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
 };
+
+const avatarSizes = ["compact", "default", "large", "xlarge"] as const;
+const avatarGradient =
+  "linear-gradient(135deg, rgb(92, 120, 242) 14.286%, rgb(161, 97, 222) 85.714%)";
+
+function BoardAvatar({ image, size }: { image?: boolean; size: (typeof avatarSizes)[number] }) {
+  return (
+    <Avatar.Root size={size}>
+      <Avatar.Fallback
+        style={image ? { backgroundImage: avatarGradient, color: "#fafafa" } : undefined}
+      >
+        {image ? "L" : "LR"}
+      </Avatar.Fallback>
+    </Avatar.Root>
+  );
+}
+
+function BoardGroup({ count, size }: { count: number; size: "default" | "large" }) {
+  return (
+    <Avatar.Group>
+      {Array.from({ length: count }, (_, index) => (
+        <BoardAvatar image={index % 2 === 0} key={index} size={size} />
+      ))}
+    </Avatar.Group>
+  );
+}
+
+test("Avatar matches the approved Figma state board", async () => {
+  const screen = await render(
+    <div
+      data-testid="avatar-figma-state-board"
+      style={{ background: "#fafafa", height: 337, position: "relative", width: 1296 }}
+    >
+      <span style={{ color: "#333", font: "12px Inter", left: 0, position: "absolute", top: 0 }}>
+        Avatar — Size × Content
+      </span>
+      {avatarSizes.flatMap((size, sizeIndex) =>
+        [true, false].map((image, contentIndex) => {
+          const x = [
+            [16, 54],
+            [92, 136],
+            [180, 232],
+            [284, 344],
+          ][sizeIndex]![contentIndex]!;
+          return (
+            <div key={`${size}-${image}`} style={{ left: x, position: "absolute", top: 47 }}>
+              <BoardAvatar image={image} size={size} />
+            </div>
+          );
+        }),
+      )}
+      <span style={{ color: "#333", font: "12px Inter", left: 0, position: "absolute", top: 119 }}>
+        Avatar Status — Size × State
+      </span>
+      {(["online", "away", "busy", "offline"] as const).flatMap((state, index) =>
+        ["small", "default"].map((size, sizeIndex) => (
+          <Avatar.Status
+            key={`${size}-${state}`}
+            size={size as "small" | "default"}
+            state={state}
+            style={{
+              left: sizeIndex === 0 ? 16 + index * 30 : 136 + index * 32,
+              position: "absolute",
+              top: 166,
+            }}
+          />
+        )),
+      )}
+      <span style={{ color: "#333", font: "12px Inter", left: 0, position: "absolute", top: 210 }}>
+        Avatar Group — Size × Count
+      </span>
+      {[2, 3, 4].map((count, index) => (
+        <div
+          key={`default-${count}`}
+          style={{ left: [16, 82, 166][index], position: "absolute", top: 257 }}
+        >
+          <BoardGroup count={count} size="default" />
+        </div>
+      ))}
+      {[2, 3, 4].map((count, index) => (
+        <div
+          key={`large-${count}`}
+          style={{ left: [268, 350, 458][index], position: "absolute", top: 257 }}
+        >
+          <BoardGroup count={count} size="large" />
+        </div>
+      ))}
+    </div>,
+  );
+  await document.fonts.load('500 12px "Inter"', "Avatar Status Group LR");
+  const board = screen.getByTestId("avatar-figma-state-board");
+  const roots = board.element().querySelectorAll<HTMLElement>('[data-slot="avatar-root"]');
+  expect(roots[0]?.getBoundingClientRect().width).toBe(18);
+  expect(roots[6]?.getBoundingClientRect().width).toBe(40);
+  expect(
+    getComputedStyle(board.element().querySelector('[data-state="online"]')!).backgroundColor,
+  ).toBe("rgb(0, 122, 61)");
+  await expect.element(board).toMatchScreenshot("avatar-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
 
 const figmaButtonStates = [
   { name: "default", x: 96 },

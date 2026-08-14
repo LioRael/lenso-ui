@@ -3,6 +3,17 @@
   "fileKey": "H2JoXtMe808gFetAPE9tN6",
   "status": "approved",
   "components": {
+    "avatar": {
+      "nodeId": "349:19",
+      "codeSubpath": "@lenso/ui/avatar",
+      "variants": ["compact", "default", "large", "xlarge", "image", "fallback", "group"],
+      "states": ["online", "away", "busy", "offline"],
+      "documentation": "/components/avatar",
+      "stateBoard": {
+        "nodeId": "341:1072",
+        "baseline": "docs/figma-baselines/avatar-state-board.png"
+      }
+    },
     "button": {
       "nodeId": "27:56",
       "codeSubpath": "@lenso/ui/button",

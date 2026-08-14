@@ -3,6 +3,11 @@
   "homepage": "https://ui.lenso.dev",
   "items": [
     {
+      "name": "avatar",
+      "title": "Avatar",
+      "type": "registry:ui"
+    },
+    {
       "name": "setup",
       "title": "Lenso StyleX setup",
       "type": "registry:style"

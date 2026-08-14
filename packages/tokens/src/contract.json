@@ -33,6 +33,10 @@
     "color.sidebar.itemHover",
     "color.status.errorBorder",
     "color.status.errorContent",
+    "color.status.presenceAway",
+    "color.status.presenceBusy",
+    "color.status.presenceOffline",
+    "color.status.presenceOnline",
     "color.surface.canvas",
     "color.surface.dialog",
     "color.surface.elevated",
@@ -548,6 +552,66 @@
         },
         "cssName": "--color-status-error-content",
         "cssValue": "#e5484d"
+      },
+      "color.status.presenceAway": {
+        "path": "color.status.presenceAway",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.541176,
+            0.352941,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-away",
+        "cssValue": "#8a5a00"
+      },
+      "color.status.presenceBusy": {
+        "path": "color.status.presenceBusy",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.862745,
+            0.14902,
+            0.14902
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-busy",
+        "cssValue": "#dc2626"
+      },
+      "color.status.presenceOffline": {
+        "path": "color.status.presenceOffline",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-offline",
+        "cssValue": "#707172"
+      },
+      "color.status.presenceOnline": {
+        "path": "color.status.presenceOnline",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.478431,
+            0.239216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-online",
+        "cssValue": "#007a3d"
       },
       "color.surface.canvas": {
         "path": "color.surface.canvas",
@@ -1598,6 +1662,66 @@
         },
         "cssName": "--color-status-error-content",
         "cssValue": "#dc2626"
+      },
+      "color.status.presenceAway": {
+        "path": "color.status.presenceAway",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.541176,
+            0.352941,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-away",
+        "cssValue": "#8a5a00"
+      },
+      "color.status.presenceBusy": {
+        "path": "color.status.presenceBusy",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.862745,
+            0.14902,
+            0.14902
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-busy",
+        "cssValue": "#dc2626"
+      },
+      "color.status.presenceOffline": {
+        "path": "color.status.presenceOffline",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-offline",
+        "cssValue": "#707172"
+      },
+      "color.status.presenceOnline": {
+        "path": "color.status.presenceOnline",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.478431,
+            0.239216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-presence-online",
+        "cssValue": "#007a3d"
       },
       "color.surface.canvas": {
         "path": "color.surface.canvas",

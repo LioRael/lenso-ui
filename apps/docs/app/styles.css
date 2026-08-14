@@ -1134,6 +1134,15 @@ a {
   transform-origin: top center;
 }
 
+.avatar-docs-content {
+  padding-bottom: 40px;
+}
+.avatar-stage {
+  align-items: center;
+  gap: 64px;
+  padding-top: 76px;
+}
+
 .select-guidance {
   height: 152px;
 }

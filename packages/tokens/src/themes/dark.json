@@ -48,7 +48,11 @@
     "focus": { "ring": { "$value": "{primitive.color.blue500}" } },
     "status": {
       "errorBorder": { "$value": "{primitive.color.red500}" },
-      "errorContent": { "$value": "{primitive.color.red500}" }
+      "errorContent": { "$value": "{primitive.color.red500}" },
+      "presenceOnline": { "$value": "{primitive.color.presenceOnline}" },
+      "presenceAway": { "$value": "{primitive.color.presenceAway}" },
+      "presenceBusy": { "$value": "{primitive.color.red700}" },
+      "presenceOffline": { "$value": "{primitive.color.gray500}" }
     },
     "interaction": { "pressedOverlay": { "$value": "{primitive.color.white5}" } },
     "sidebar": {

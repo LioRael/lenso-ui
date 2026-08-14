@@ -7,6 +7,7 @@ import "virtual:stylex:runtime";
 import { semanticTokenNames } from "@lenso/tokens";
 
 import "../../tokens/src/styles.css";
+import { Avatar } from "./avatar/index.js";
 import { Button } from "./button/index.js";
 import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
@@ -20,6 +21,36 @@ import { Switch } from "./switch/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
+
+test("Avatar falls back after an image error and exposes presence semantics", async () => {
+  const screen = await render(
+    <main>
+      <Avatar.Root size="large">
+        <Avatar.Image alt="Lenso member" src="/missing-avatar.png" />
+        <Avatar.Fallback>LR</Avatar.Fallback>
+        <Avatar.Status attached state="away" />
+      </Avatar.Root>
+      <Avatar.Group aria-label="Project members">
+        <Avatar.Root size="default">
+          <Avatar.Fallback>AL</Avatar.Fallback>
+        </Avatar.Root>
+        <Avatar.Root size="default">
+          <Avatar.Fallback>MK</Avatar.Fallback>
+        </Avatar.Root>
+      </Avatar.Group>
+    </main>,
+  );
+
+  await expect.element(screen.getByText("LR")).toBeVisible();
+  await expect.element(screen.getByText("away status")).toBeInTheDocument();
+  const root = screen.getByText("LR").element().parentElement!;
+  expect(root.getBoundingClientRect().width).toBe(32);
+  expect(
+    getComputedStyle(screen.getByText("away status").element().parentElement!).backgroundColor,
+  ).toBe("rgb(138, 90, 0)");
+  const accessibility = await axe.run(document.body);
+  expect(accessibility.violations).toEqual([]);
+});
 
 test("Button preserves native behavior while exposing Lenso variants", async () => {
   const onClick = vi.fn();

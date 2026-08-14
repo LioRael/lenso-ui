@@ -13,6 +13,10 @@
     "./dist/preflight.css"
   ],
   "exports": {
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js"
+    },
     "./checkbox": {
       "types": "./dist/checkbox/index.d.ts",
       "import": "./dist/checkbox/index.js"
