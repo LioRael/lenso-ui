@@ -767,6 +767,10 @@ a {
   font-family: "Inter", var(--font-sans);
 }
 
+.stage-canvas [data-slot="quick-link"] {
+  font-family: "Inter", var(--font-sans);
+}
+
 .stage-canvas > p {
   position: absolute;
   top: 126px;

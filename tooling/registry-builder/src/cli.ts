@@ -410,6 +410,25 @@ const specs: RegistryItemSpec[] = [
     title: "Page Header",
     type: "registry:ui",
   },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/quick-link/index.tsx",
+        target: "components/lenso/quick-link/index.tsx",
+      },
+      {
+        source: "packages/ui/src/quick-link/quick-link.stylex.ts",
+        target: "components/lenso/quick-link/quick-link.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "quick-link",
+    registryDependencies: [stable("setup")],
+    title: "Quick Link",
+    type: "registry:ui",
+  },
 ];
 
 const sourceCache = new Map<string, string>();
