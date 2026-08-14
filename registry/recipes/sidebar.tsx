@@ -6,98 +6,66 @@ import * as stylex from "@stylexjs/stylex";
 import { Sidebar } from "../primitives/sidebar.js";
 import { styles } from "./sidebar.stylex.js";
 
-function classes(generated: string | undefined, className?: string): string {
-  return [generated, className].filter(Boolean).join(" ");
+type StyledPartProps<Component extends React.ElementType> = Omit<
+  React.ComponentPropsWithRef<Component>,
+  "className" | "style"
+> & {
+  style?: stylex.StyleXStyles;
+};
+
+export type SidebarPanelProps = StyledPartProps<typeof Sidebar.Panel>;
+export function SidebarPanel({ style, ...props }: SidebarPanelProps) {
+  return <Sidebar.Panel {...props} {...stylex.props(styles.panel, style)} />;
 }
 
-export const SidebarPanel = React.forwardRef<
-  HTMLElement,
-  React.ComponentPropsWithoutRef<typeof Sidebar.Panel>
->(function SidebarPanel({ className, ...props }, ref) {
-  return (
-    <Sidebar.Panel
-      {...props}
-      className={classes(stylex.props(styles.panel).className, className)}
-      ref={ref}
-    />
-  );
-});
+export type SidebarHeaderProps = StyledPartProps<typeof Sidebar.Header>;
+export function SidebarHeader({ style, ...props }: SidebarHeaderProps) {
+  return <Sidebar.Header {...props} {...stylex.props(styles.header, style)} />;
+}
 
-export const SidebarHeader = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof Sidebar.Header>
->(function SidebarHeader({ className, ...props }, ref) {
-  return (
-    <Sidebar.Header
-      {...props}
-      className={classes(stylex.props(styles.header).className, className)}
-      ref={ref}
-    />
-  );
-});
+export type SidebarContentProps = StyledPartProps<typeof Sidebar.Content>;
+export function SidebarContent({ style, ...props }: SidebarContentProps) {
+  return <Sidebar.Content {...props} {...stylex.props(styles.content, style)} />;
+}
 
-export const SidebarContent = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof Sidebar.Content>
->(function SidebarContent({ className, ...props }, ref) {
-  return (
-    <Sidebar.Content
-      {...props}
-      className={classes(stylex.props(styles.content).className, className)}
-      ref={ref}
-    />
-  );
-});
+export type SidebarFooterProps = StyledPartProps<typeof Sidebar.Footer>;
+export function SidebarFooter({ style, ...props }: SidebarFooterProps) {
+  return <Sidebar.Footer {...props} {...stylex.props(styles.footer, style)} />;
+}
 
-export const SidebarFooter = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof Sidebar.Footer>
->(function SidebarFooter({ className, ...props }, ref) {
-  return (
-    <Sidebar.Footer
-      {...props}
-      className={classes(stylex.props(styles.footer).className, className)}
-      ref={ref}
-    />
-  );
-});
-
-export interface SidebarItemProps extends React.ComponentPropsWithoutRef<"button"> {
+export type SidebarItemProps = StyledPartProps<typeof Sidebar.Item> & {
   icon?: React.ReactNode;
-  nested?: boolean;
-  selected?: boolean;
-}
+};
 
-export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>(
-  function SidebarItem(
-    { children, className, icon, nested = false, selected = false, type = "button", ...props },
-    ref,
-  ) {
-    return (
-      <button
-        {...props}
-        aria-current={selected ? "page" : undefined}
-        className={classes(
-          stylex.props(styles.item, nested && styles.nestedItem, selected && styles.selectedItem)
-            .className,
-          className,
-        )}
-        data-level={nested ? "nested" : "root"}
-        data-slot="sidebar-item"
-        data-state={selected ? "selected" : "default"}
-        ref={ref}
-        type={type}
-      >
-        {icon && (
-          <span aria-hidden="true" {...stylex.props(styles.icon)}>
-            {icon}
-          </span>
-        )}
-        <span {...stylex.props(styles.label)}>{children}</span>
-      </button>
-    );
-  },
-);
+export function SidebarItem({
+  children,
+  icon,
+  nested = false,
+  selected = false,
+  style,
+  ...props
+}: SidebarItemProps) {
+  return (
+    <Sidebar.Item
+      {...props}
+      nested={nested}
+      selected={selected}
+      {...stylex.props(
+        styles.item,
+        nested && styles.nestedItem,
+        selected && styles.selectedItem,
+        style,
+      )}
+    >
+      {icon && (
+        <span aria-hidden="true" {...stylex.props(styles.icon)}>
+          {icon}
+        </span>
+      )}
+      <span {...stylex.props(styles.label)}>{children}</span>
+    </Sidebar.Item>
+  );
+}
 
 export const SidebarRecipe = {
   ...Sidebar,

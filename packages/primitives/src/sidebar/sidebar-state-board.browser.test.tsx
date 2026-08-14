@@ -1,9 +1,29 @@
+import type * as React from "react";
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
+import * as stylex from "@stylexjs/stylex";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
 import { SidebarRecipe } from "../../../../registry/recipes/sidebar.js";
+
+const testStyles = stylex.create({
+  item: {
+    minHeight: "36px",
+  },
+});
+
+function RouterLink({
+  children,
+  to,
+  ...props
+}: Omit<React.ComponentProps<"a">, "href"> & { to: string }) {
+  return (
+    <a {...props} href={to}>
+      {children}
+    </a>
+  );
+}
 
 test("Sidebar Recipe canonical Light and Dark state board", async () => {
   const screen = await render(
@@ -50,4 +70,17 @@ test("Sidebar Recipe canonical Light and Dark state board", async () => {
       comparatorName: "pixelmatch",
       comparatorOptions: { allowedMismatchedPixelRatio: 0.02 },
     });
+});
+
+test("Sidebar Recipe accepts StyleX overrides and preserves Item render composition", async () => {
+  const screen = await render(
+    <SidebarRecipe.Item render={<RouterLink to="/projects" />} selected style={testStyles.item}>
+      Projects
+    </SidebarRecipe.Item>,
+  );
+
+  const link = screen.getByRole("link", { name: "Projects" });
+  await expect.element(link).toHaveAttribute("href", "/projects");
+  await expect.element(link).toHaveAttribute("data-state", "selected");
+  await expect.poll(() => getComputedStyle(link.element()).minHeight).toBe("36px");
 });
