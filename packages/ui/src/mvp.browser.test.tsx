@@ -8,6 +8,7 @@ import { semanticTokenNames } from "@lenso/tokens";
 
 import "../../tokens/src/styles.css";
 import { Button } from "./button/index.js";
+import { Checkbox } from "./checkbox/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
@@ -169,6 +170,57 @@ test("TextField wires its compound label, control, description, and error", asyn
   await expect.element(screen.getByText("Choose another name.")).toBeVisible();
 });
 
+test("Checkbox preserves Base UI keyboard, form, and indeterminate semantics", async () => {
+  const onCheckedChange = vi.fn();
+  const screen = await render(
+    <form>
+      <Checkbox.Root defaultChecked={false} name="completed" onCheckedChange={onCheckedChange}>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Include completed issues</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root indeterminate>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Select all issues</Checkbox.Label>
+      </Checkbox.Root>
+    </form>,
+  );
+  const checkbox = screen.getByRole("checkbox", { name: "Include completed issues" });
+  const mixed = screen.getByRole("checkbox", { name: "Select all issues" });
+
+  await expect.element(checkbox).not.toBeChecked();
+  await checkbox.click();
+  await expect.element(checkbox).toBeChecked();
+  expect(onCheckedChange).toHaveBeenCalledOnce();
+  checkbox.element().focus();
+  await userEvent.keyboard(" ");
+  await expect.element(checkbox).not.toBeChecked();
+  await expect.element(mixed).toHaveAttribute("aria-checked", "mixed");
+  expect(
+    checkbox.element().parentElement?.querySelector<HTMLInputElement>('input[name="completed"]'),
+  ).not.toBeNull();
+});
+
+test("Checkbox permits a consumer-owned indicator", async () => {
+  const screen = await render(
+    <Checkbox.Root defaultChecked>
+      <Checkbox.Indicator>
+        <span data-testid="custom-checkbox-mark">Custom</span>
+      </Checkbox.Indicator>
+      <Checkbox.Label>Custom selection</Checkbox.Label>
+    </Checkbox.Root>,
+  );
+  await expect.element(screen.getByTestId("custom-checkbox-mark")).toBeVisible();
+  expect(
+    getComputedStyle(
+      screen
+        .getByRole("checkbox", { name: "Custom selection" })
+        .element()
+        .querySelector('[data-slot="checkbox-indicator"]')!,
+      "::after",
+    ).content,
+  ).toBe("none");
+});
+
 test("Dialog portals into the nearest theme scope and closes with Escape", async () => {
   const screen = await render(
     <ThemeScope theme="dark" data-testid="theme-host">
@@ -217,6 +269,10 @@ test("the MVP foundation surface has no automatic accessibility violations", asy
     <main>
       <Button>Continue</Button>
       <Label color="violet">Feature</Label>
+      <Checkbox.Root defaultChecked>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Include completed issues</Checkbox.Label>
+      </Checkbox.Root>
       <TextField.Root>
         <TextField.Label>Name</TextField.Label>
         <TextField.Control />

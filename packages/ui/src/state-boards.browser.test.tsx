@@ -1,11 +1,13 @@
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
 import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../tokens/src/styles.css";
 import { Button } from "./button/index.js";
+import { Checkbox } from "./checkbox/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
@@ -387,6 +389,105 @@ test("Text Field resolves dark theme values", async () => {
   await expect.poll(() => getComputedStyle(label).color).toBe("rgb(247, 248, 248)");
   await expect.poll(() => getComputedStyle(control).backgroundColor).toBe("rgb(0, 0, 0)");
   expect(getComputedStyle(control).borderColor).toBe("rgb(51, 51, 51)");
+});
+
+const figmaCheckboxStates = [
+  { name: "default", x: 0 },
+  { name: "hover", x: 144 },
+  { name: "pressed", x: 288 },
+  { name: "focus-visible", x: 432 },
+  { name: "disabled", x: 576 },
+] as const;
+
+const figmaCheckboxValues = [
+  { name: "off", y: 24 },
+  { name: "on", y: 76 },
+  { name: "indeterminate", y: 128 },
+] as const;
+
+test("Checkbox matches the approved Figma state board", async () => {
+  const screen = await render(
+    <div
+      data-testid="checkbox-figma-state-board"
+      style={{ background: "#ececed", height: 172, position: "relative", width: 800 }}
+    >
+      {figmaCheckboxValues.flatMap((value) =>
+        figmaCheckboxStates.map((state) => (
+          <Checkbox.Root
+            checked={value.name === "on"}
+            data-visual-state={state.name === "default" ? undefined : state.name}
+            disabled={state.name === "disabled"}
+            indeterminate={value.name === "indeterminate"}
+            key={`${value.name}-${state.name}`}
+            style={{ left: state.x, position: "absolute", top: value.y, width: 120 }}
+          >
+            <Checkbox.Indicator />
+            <Checkbox.Label>Checkbox label</Checkbox.Label>
+          </Checkbox.Root>
+        )),
+      )}
+    </div>,
+  );
+
+  await document.fonts.load('400 13px "Inter"', "Checkbox label");
+  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+
+  const board = screen.getByTestId("checkbox-figma-state-board");
+  const roots = board.element().querySelectorAll<HTMLElement>('[data-slot="checkbox"]');
+  const indicators = board
+    .element()
+    .querySelectorAll<HTMLElement>('[data-slot="checkbox-indicator"]');
+  expect(roots).toHaveLength(15);
+  expect(indicators).toHaveLength(15);
+  expect(roots[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 28, width: 120 });
+  expect(indicators[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
+  expect(getComputedStyle(roots[0]!).fontWeight).toBe("400");
+  expect(getComputedStyle(roots[0]!).gap).toBe("8px");
+  expect(getComputedStyle(indicators[0]!).borderRadius).toBe("3px");
+  expect(getComputedStyle(indicators[0]!).boxShadow).toContain("rgb(212, 212, 212)");
+  expect(getComputedStyle(indicators[5]!).backgroundColor).toBe("rgb(40, 42, 48)");
+  expect(getComputedStyle(indicators[10]!).backgroundColor).toBe("rgb(40, 42, 48)");
+  expect(getComputedStyle(indicators[5]!).opacity).toBe("0.9");
+  expect(getComputedStyle(roots[4]!).color).toBe("rgb(111, 110, 119)");
+  expect(getComputedStyle(indicators[4]!).opacity).toBe("0.5");
+  expect(getComputedStyle(indicators[9]!).backgroundColor).toBe("rgb(111, 110, 119)");
+  expect(getComputedStyle(indicators[9]!).boxShadow).toBe("none");
+  expect(getComputedStyle(indicators[9]!).opacity).toBe("0.45");
+  expect(getComputedStyle(indicators[0]!, "::after").content).toBe("none");
+  expect(getComputedStyle(indicators[9]!, "::after").display).toBe("none");
+
+  const pressedLayer = indicators[2]?.querySelector<HTMLElement>(
+    '[data-slot="checkbox-pressed-layer"]',
+  );
+  const focusLayer = indicators[3]?.querySelector<HTMLElement>(
+    '[data-slot="checkbox-focus-layer"]',
+  );
+  expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
+  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
+
+  await expect.element(board).toMatchScreenshot("checkbox-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
+
+test("Checkbox resolves dark theme values", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Checkbox.Root defaultChecked>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Checkbox label</Checkbox.Label>
+      </Checkbox.Root>
+    </ThemeScope>,
+  );
+  const root = screen.getByRole("checkbox", { name: "Checkbox label" }).element();
+  const indicator = root.querySelector<HTMLElement>('[data-slot="checkbox-indicator"]');
+  await expect.poll(() => getComputedStyle(root).color).toBe("rgb(247, 248, 248)");
+  expect(getComputedStyle(indicator!).backgroundColor).toBe("rgb(247, 248, 248)");
+  expect(getComputedStyle(indicator!).opacity).toBe("0.9");
+  expect(getComputedStyle(indicator!, "::after").backgroundColor).toBe("rgb(0, 0, 0)");
 });
 
 for (const theme of ["light", "dark"] as const) {

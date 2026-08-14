@@ -38,6 +38,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "type": "registry:ui"
+    },
+    {
       "name": "dialog",
       "title": "Dialog",
       "type": "registry:ui"

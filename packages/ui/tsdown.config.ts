@@ -12,6 +12,7 @@ export default defineConfig({
   dts: false,
   entry: {
     "button/index": source("button"),
+    "checkbox/index": source("checkbox"),
     "csp-provider/index": source("csp-provider"),
     "dialog/index": source("dialog"),
     "icon-button/index": source("icon-button"),

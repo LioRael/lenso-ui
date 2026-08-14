@@ -47,6 +47,17 @@
         "baseline": "docs/figma-baselines/text-field-state-board.png"
       }
     },
+    "checkbox": {
+      "nodeId": "31:28",
+      "codeSubpath": "@lenso/ui/checkbox",
+      "variants": ["off", "on", "indeterminate"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "documentation": "/components/checkbox",
+      "stateBoard": {
+        "nodeId": "31:28",
+        "baseline": "docs/figma-baselines/checkbox-state-board.png"
+      }
+    },
     "dialog": {
       "nodeId": "245:804",
       "codeSubpath": "@lenso/ui/dialog",

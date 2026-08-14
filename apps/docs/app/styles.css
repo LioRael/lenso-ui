@@ -1031,6 +1031,30 @@ a {
   height: 144px;
 }
 
+.checkbox-docs-content {
+  padding-bottom: 40px;
+}
+
+.checkbox-guidance {
+  height: 132px;
+}
+
+.checkbox-guidance article:first-child {
+  height: 68px;
+}
+
+.checkbox-guidance article:last-child {
+  height: 48px;
+}
+
+.checkbox-implementation {
+  height: 166px;
+}
+
+.checkbox-implementation pre {
+  height: 112px;
+}
+
 @media (max-width: 1100px) {
   .overview-section {
     grid-template-columns: minmax(0, 1fr);
