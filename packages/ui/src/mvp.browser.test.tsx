@@ -20,7 +20,7 @@ test("Button preserves native behavior while exposing Lenso variants", async () 
   );
   const button = screen.getByRole("button", { name: "Continue" });
 
-  expect(getComputedStyle(button.element()).borderRadius).toBe("999px");
+  await expect.poll(() => getComputedStyle(button.element()).borderRadius).toBe("999px");
 
   await button.click();
 

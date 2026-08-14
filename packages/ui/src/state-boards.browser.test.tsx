@@ -30,7 +30,9 @@ const scopeStyle = {
 
 const screenshotOptions = {
   comparatorName: "pixelmatch" as const,
-  comparatorOptions: { allowedMismatchedPixelRatio: 0.02 },
+  // Chromium's bundled fonts are rasterized differently on Linux and macOS.
+  // Exact theme values and component geometry are asserted separately above.
+  comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
 };
 
 test("Button canonical Light and Dark state board", async () => {
