@@ -1,0 +1,28 @@
+{
+  "name": "@lenso/docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lenso/primitives": "workspace:*",
+    "@lenso/tokens": "workspace:*",
+    "@lenso/ui": "workspace:*",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "dialkit": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

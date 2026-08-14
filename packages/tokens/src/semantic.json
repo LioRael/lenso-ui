@@ -1,0 +1,92 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "surface": {
+      "canvas": { "$value": "{primitive.color.gray50}" },
+      "sidebar": { "$value": "{primitive.color.slate75}" },
+      "surface": { "$value": "{primitive.color.gray0}" },
+      "dialog": { "$value": "{primitive.color.gray0}" },
+      "elevated": { "$value": "{primitive.color.gray0}" },
+      "subtle": { "$value": "{primitive.color.gray50}" },
+      "interactive": { "$value": "{primitive.color.gray0}" },
+      "interactiveHover": { "$value": "{primitive.color.gray100}" },
+      "selected": { "$value": "{primitive.color.gray100}" },
+      "quaternary": { "$value": "{primitive.color.slate75}" },
+      "translucent": { "$value": "{primitive.color.gray0}" },
+      "level3": { "$value": "{primitive.color.slate50}" },
+      "readOnly": { "$value": "{primitive.color.gray50}" },
+      "scrim": { "$value": "{primitive.color.black32}" }
+    },
+    "content": {
+      "primary": { "$value": "{primitive.color.slate850}" },
+      "secondary": { "$value": "{primitive.color.gray700}" },
+      "tertiary": { "$value": "{primitive.color.slate500}" },
+      "inverse": { "$value": "{primitive.color.gray0}" }
+    },
+    "border": {
+      "transparent": { "$value": "{primitive.color.transparent}" },
+      "translucent": { "$value": "{primitive.color.black8}" },
+      "tertiary": { "$value": "{primitive.color.gray200}" },
+      "secondary": { "$value": "{primitive.color.gray300}" },
+      "primary": { "$value": "{primitive.color.gray500}" },
+      "dialog": { "$value": "{primitive.color.gray300}" }
+    },
+    "action": {
+      "primary": { "$value": "{primitive.color.slate850}" },
+      "primaryHover": { "$value": "{primitive.color.slate900}" },
+      "primaryContent": { "$value": "{primitive.color.gray50}" },
+      "danger": { "$value": "{primitive.color.red700}" },
+      "dangerHover": { "$value": "{primitive.color.red500}" }
+    },
+    "focus": { "ring": { "$value": "{primitive.color.blue500}" } },
+    "status": {
+      "errorBorder": { "$value": "{primitive.color.red700}" },
+      "errorContent": { "$value": "{primitive.color.red700}" }
+    },
+    "interaction": { "pressedOverlay": { "$value": "{primitive.color.black8}" } },
+    "sidebar": {
+      "itemHover": { "$value": "{primitive.color.gray100}" },
+      "itemActive": { "$value": "{primitive.color.gray200}" }
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "control": { "$value": "{primitive.dimension.px8}" },
+    "panel": { "$value": "{primitive.dimension.px10}" },
+    "popover": { "$value": "{primitive.dimension.px12}" },
+    "overlay": { "$value": "{primitive.dimension.px8}" },
+    "rounded": { "$value": "{primitive.dimension.rounded}" }
+  },
+  "size": {
+    "$type": "dimension",
+    "controlCompact": { "$value": "{primitive.dimension.px28}" },
+    "controlDefault": { "$value": "{primitive.dimension.px32}" },
+    "inputDefault": { "$value": "{primitive.dimension.px32}" },
+    "iconDefault": { "$value": "{primitive.dimension.px14}" },
+    "iconButtonCompact": { "$value": "{primitive.dimension.px24}" },
+    "iconButtonDefault": { "$value": "{primitive.dimension.px28}" },
+    "sidebar": { "$value": "{primitive.dimension.px244}" },
+    "dialog": { "$value": "{primitive.dimension.px480}" },
+    "borderControl": { "$value": "{primitive.dimension.px0_5}" },
+    "borderDialog": { "$value": "{primitive.dimension.px0_5}" }
+  },
+  "space": {
+    "$type": "dimension",
+    "1": { "$value": "{primitive.dimension.px4}" },
+    "2": { "$value": "{primitive.dimension.px8}" },
+    "3": { "$value": "{primitive.dimension.px12}" },
+    "4": { "$value": "{primitive.dimension.px16}" },
+    "6": { "$value": "{primitive.dimension.px24}" }
+  },
+  "opacity": {
+    "$type": "number",
+    "enabled": { "$value": "{primitive.number.enabled}" },
+    "disabled": { "$value": "{primitive.number.disabled}" }
+  },
+  "font": {
+    "$type": "fontFamily",
+    "sans": { "$value": "{primitive.fontFamily.sans}" },
+    "button": { "$value": "{primitive.fontFamily.button}" }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "surface": {
+      "canvas": { "$value": "{primitive.color.gray950}" },
+      "sidebar": { "$value": "{primitive.color.gray900}" },
+      "surface": { "$value": "{primitive.color.gray950}" },
+      "dialog": { "$value": "{primitive.color.slate950}" },
+      "elevated": { "$value": "{primitive.color.gray900}" },
+      "subtle": { "$value": "{primitive.color.gray900}" },
+      "interactive": { "$value": "{primitive.color.gray950}" },
+      "interactiveHover": { "$value": "{primitive.color.gray800}" },
+      "selected": { "$value": "{primitive.color.gray800}" },
+      "quaternary": { "$value": "{primitive.color.slate875}" },
+      "translucent": { "$value": "{primitive.color.white5}" },
+      "level3": { "$value": "{primitive.color.slate950}" },
+      "readOnly": { "$value": "{primitive.color.gray900}" },
+      "scrim": { "$value": "{primitive.color.black32}" }
+    },
+    "content": {
+      "primary": { "$value": "{primitive.color.slate0}" },
+      "secondary": { "$value": "{primitive.color.gray300}" },
+      "tertiary": { "$value": "{primitive.color.slate450}" },
+      "inverse": { "$value": "{primitive.color.gray950}" }
+    },
+    "border": {
+      "transparent": { "$value": "{primitive.color.transparent}" },
+      "translucent": { "$value": "{primitive.color.white3}" },
+      "tertiary": { "$value": "{primitive.color.gray800}" },
+      "secondary": { "$value": "{primitive.color.gray700}" },
+      "primary": { "$value": "{primitive.color.gray500}" },
+      "dialog": { "$value": "{primitive.color.gray800}" }
+    },
+    "action": {
+      "primary": { "$value": "{primitive.color.slate100}" },
+      "primaryHover": { "$value": "{primitive.color.gray0}" },
+      "primaryContent": { "$value": "{primitive.color.slate950}" },
+      "danger": { "$value": "{primitive.color.red500}" },
+      "dangerHover": { "$value": "{primitive.color.red700}" }
+    },
+    "focus": { "ring": { "$value": "{primitive.color.blue500}" } },
+    "status": {
+      "errorBorder": { "$value": "{primitive.color.red500}" },
+      "errorContent": { "$value": "{primitive.color.red500}" }
+    },
+    "interaction": { "pressedOverlay": { "$value": "{primitive.color.white5}" } },
+    "sidebar": {
+      "itemHover": { "$value": "{primitive.color.gray800}" },
+      "itemActive": { "$value": "{primitive.color.slate875}" }
+    }
+  }
+}

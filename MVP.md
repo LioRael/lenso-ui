@@ -1,6 +1,6 @@
 # Lenso UI MVP Contract
 
-Status: awaiting implementation confirmation
+Status: implementation candidate; publication and downstream Console adoption pending
 
 ## Outcome
 
@@ -14,7 +14,7 @@ The MVP proves one canonical source can produce both a managed npm package and e
 @lenso/ui          styled Foundation Components
 @lenso/primitives  Lenso-owned headless Product Primitives
 @lenso/tokens      DTCG source-derived semantic contract and artifacts
-@lenso/fonts       optional licensed font assets
+@lenso/fonts       reserved; public release deferred until provenance assets exist
 @lenso registry    editable components, primitives, setup items, and Recipes
 ```
 

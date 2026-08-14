@@ -1,0 +1,46 @@
+{
+  "name": "@lenso/tokens",
+  "version": "0.1.0",
+  "description": "Semantic design token contract for Lenso UI.",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "./dist/styles.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens.stylex": {
+      "types": "./dist/tokens.stylex.d.ts",
+      "import": "./dist/tokens.stylex.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./contract.json": "./dist/contract.json",
+    "./figma-map.json": "./dist/figma-map.json",
+    "./consumer-theme": "./dist/consumer-theme.ts.txt",
+    "./tokens.json": "./dist/tokens.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown --config tsdown.config.ts && tsc --declaration --emitDeclarationOnly --noEmit false --outDir dist && node scripts/copy-assets.mjs",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stylexjs/stylex": "catalog:"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "dependencies": [
+    "@lenso/tokens@0.1.0"
+  ],
+  "files": [
+    {
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport { semanticTokenNames, type SemanticToken, type ThemeName } from \"@lenso/tokens\";\n\ninterface ThemeContextValue {\n  overrides: Partial<Record<SemanticToken, string>>;\n  portalHost: HTMLDivElement | null;\n  theme: ThemeName;\n}\n\nconst ThemeContext = React.createContext<ThemeContextValue | null>(null);\n\nexport interface ThemeScopeProps extends React.ComponentPropsWithoutRef<\"div\"> {\n  overrides?: Partial<Record<SemanticToken, string>>;\n  theme?: ThemeName;\n}\n\nexport const ThemeScope = React.forwardRef<HTMLDivElement, ThemeScopeProps>(function ThemeScope(\n  { children, className, overrides, style, theme, ...props },\n  forwardedRef,\n) {\n  const parent = React.useContext(ThemeContext);\n  const resolvedTheme = theme ?? parent?.theme ?? \"light\";\n  const resolvedOverrides = React.useMemo(\n    () => ({ ...parent?.overrides, ...overrides }),\n    [overrides, parent?.overrides],\n  );\n  const hostRef = React.useRef<HTMLDivElement>(null);\n  const [portalHost, setPortalHost] = React.useState<HTMLDivElement | null>(null);\n  const setRef = React.useCallback(\n    (node: HTMLDivElement | null) => {\n      hostRef.current = node;\n      if (typeof forwardedRef === \"function\") forwardedRef(node);\n      else if (forwardedRef) forwardedRef.current = node;\n    },\n    [forwardedRef],\n  );\n  const overrideStyle = React.useMemo(() => {\n    const entries = Object.entries(resolvedOverrides).map(([path, value]) => [\n      semanticTokenNames[path as SemanticToken],\n      value,\n    ]);\n    return Object.fromEntries(entries) as React.CSSProperties;\n  }, [resolvedOverrides]);\n\n  React.useLayoutEffect(() => {\n    const host = document.createElement(\"div\");\n    host.dataset.slot = \"theme-portal-host\";\n    document.body.append(host);\n    setPortalHost(host);\n    return () => host.remove();\n  }, []);\n\n  React.useLayoutEffect(() => {\n    if (!portalHost) return;\n    portalHost.dataset.theme = resolvedTheme;\n    for (const tokenName of Object.values(semanticTokenNames)) {\n      portalHost.style.removeProperty(tokenName);\n    }\n    for (const [tokenName, value] of Object.entries(overrideStyle)) {\n      if (value != null) portalHost.style.setProperty(tokenName, String(value));\n    }\n  }, [overrideStyle, portalHost, resolvedTheme]);\n\n  const context = React.useMemo<ThemeContextValue>(\n    () => ({ overrides: resolvedOverrides, portalHost, theme: resolvedTheme }),\n    [portalHost, resolvedOverrides, resolvedTheme],\n  );\n\n  return (\n    <ThemeContext.Provider value={context}>\n      <div\n        {...props}\n        className={className}\n        data-slot=\"theme-scope\"\n        data-theme={resolvedTheme}\n        ref={setRef}\n        style={{ ...overrideStyle, ...style }}\n      >\n        {children}\n      </div>\n    </ThemeContext.Provider>\n  );\n});\n\nexport function useThemePortalContainer(): HTMLDivElement | null {\n  return React.useContext(ThemeContext)?.portalHost ?? null;\n}\n",
+      "path": "components/lenso/theme-scope/index.tsx",
+      "target": "components/lenso/theme-scope/index.tsx",
+      "type": "registry:ui"
+    }
+  ],
+  "name": "theme-scope",
+  "registryDependencies": [
+    "https://ui.lenso.dev/r/v/0.1.0/setup.json"
+  ],
+  "title": "Theme Scope",
+  "type": "registry:ui"
+}

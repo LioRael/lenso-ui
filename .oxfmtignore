@@ -1,0 +1,12 @@
+apps/docs/public/r/**
+docs/agents/**
+packages/tokens/src/contract.json
+packages/tokens/src/figma-map.json
+packages/tokens/src/index.ts
+packages/tokens/src/styles.css
+packages/tokens/src/tokens.json
+packages/tokens/src/tokens.stylex.ts
+packages/ui/src/tokens.stylex.ts
+registry/**/*.json
+registry/tokens.stylex.ts
+tooling/token-generator/schemas/**

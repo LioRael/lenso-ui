@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+  "access": "public",
+  "baseBranch": "main",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [["@lenso/ui", "@lenso/primitives", "@lenso/tokens"]],
+  "ignore": [],
+  "linked": [],
+  "privatePackages": {
+    "version": false,
+    "tag": false
+  },
+  "updateInternalDependencies": "patch"
+}

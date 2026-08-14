@@ -1,0 +1,1597 @@
+{
+  "specification": "DTCG 2025.10",
+  "defaultContext": "light",
+  "semanticPaths": [
+    "color.action.danger",
+    "color.action.dangerHover",
+    "color.action.primary",
+    "color.action.primaryContent",
+    "color.action.primaryHover",
+    "color.border.dialog",
+    "color.border.primary",
+    "color.border.secondary",
+    "color.border.tertiary",
+    "color.border.translucent",
+    "color.border.transparent",
+    "color.content.inverse",
+    "color.content.primary",
+    "color.content.secondary",
+    "color.content.tertiary",
+    "color.focus.ring",
+    "color.interaction.pressedOverlay",
+    "color.sidebar.itemActive",
+    "color.sidebar.itemHover",
+    "color.status.errorBorder",
+    "color.status.errorContent",
+    "color.surface.canvas",
+    "color.surface.dialog",
+    "color.surface.elevated",
+    "color.surface.interactive",
+    "color.surface.interactiveHover",
+    "color.surface.level3",
+    "color.surface.quaternary",
+    "color.surface.readOnly",
+    "color.surface.scrim",
+    "color.surface.selected",
+    "color.surface.sidebar",
+    "color.surface.subtle",
+    "color.surface.surface",
+    "color.surface.translucent",
+    "font.button",
+    "font.sans",
+    "opacity.disabled",
+    "opacity.enabled",
+    "radius.control",
+    "radius.overlay",
+    "radius.panel",
+    "radius.popover",
+    "radius.rounded",
+    "size.borderControl",
+    "size.borderDialog",
+    "size.controlCompact",
+    "size.controlDefault",
+    "size.dialog",
+    "size.iconButtonCompact",
+    "size.iconButtonDefault",
+    "size.iconDefault",
+    "size.inputDefault",
+    "size.sidebar",
+    "space.1",
+    "space.2",
+    "space.3",
+    "space.4",
+    "space.6"
+  ],
+  "contexts": {
+    "dark": {
+      "color.action.danger": {
+        "path": "color.action.danger",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.898039,
+            0.282353,
+            0.301961
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-danger",
+        "cssValue": "#e5484d"
+      },
+      "color.action.dangerHover": {
+        "path": "color.action.dangerHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.862745,
+            0.14902,
+            0.14902
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-danger-hover",
+        "cssValue": "#dc2626"
+      },
+      "color.action.primary": {
+        "path": "color.action.primary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.898039,
+            0.898039,
+            0.901961
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-primary",
+        "cssValue": "#e5e5e6"
+      },
+      "color.action.primaryContent": {
+        "path": "color.action.primaryContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.098039,
+            0.101961,
+            0.105882
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-primary-content",
+        "cssValue": "#191a1b"
+      },
+      "color.action.primaryHover": {
+        "path": "color.action.primaryHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-primary-hover",
+        "cssValue": "#ffffff"
+      },
+      "color.border.dialog": {
+        "path": "color.border.dialog",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.121569,
+            0.121569
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-dialog",
+        "cssValue": "#1f1f1f"
+      },
+      "color.border.primary": {
+        "path": "color.border.primary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-primary",
+        "cssValue": "#707172"
+      },
+      "color.border.secondary": {
+        "path": "color.border.secondary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2,
+            0.2,
+            0.2
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-secondary",
+        "cssValue": "#333333"
+      },
+      "color.border.tertiary": {
+        "path": "color.border.tertiary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.121569,
+            0.121569
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-tertiary",
+        "cssValue": "#1f1f1f"
+      },
+      "color.border.translucent": {
+        "path": "color.border.translucent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 0.03
+        },
+        "cssName": "--color-border-translucent",
+        "cssValue": "#ffffff08"
+      },
+      "color.border.transparent": {
+        "path": "color.border.transparent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "cssName": "--color-border-transparent",
+        "cssValue": "#00000000"
+      },
+      "color.content.inverse": {
+        "path": "color.content.inverse",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-inverse",
+        "cssValue": "#000000"
+      },
+      "color.content.primary": {
+        "path": "color.content.primary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.968627,
+            0.972549,
+            0.972549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-primary",
+        "cssValue": "#f7f8f8"
+      },
+      "color.content.secondary": {
+        "path": "color.content.secondary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-secondary",
+        "cssValue": "#d4d4d4"
+      },
+      "color.content.tertiary": {
+        "path": "color.content.tertiary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.541176,
+            0.560784,
+            0.596078
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-tertiary",
+        "cssValue": "#8a8f98"
+      },
+      "color.focus.ring": {
+        "path": "color.focus.ring",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.368627,
+            0.415686,
+            0.823529
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-focus-ring",
+        "cssValue": "#5e6ad2"
+      },
+      "color.interaction.pressedOverlay": {
+        "path": "color.interaction.pressedOverlay",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 0.05
+        },
+        "cssName": "--color-interaction-pressed-overlay",
+        "cssValue": "#ffffff0d"
+      },
+      "color.sidebar.itemActive": {
+        "path": "color.sidebar.itemActive",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.156863,
+            0.172549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-sidebar-item-active",
+        "cssValue": "#28282c"
+      },
+      "color.sidebar.itemHover": {
+        "path": "color.sidebar.itemHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.121569,
+            0.121569
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-sidebar-item-hover",
+        "cssValue": "#1f1f1f"
+      },
+      "color.status.errorBorder": {
+        "path": "color.status.errorBorder",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.898039,
+            0.282353,
+            0.301961
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-error-border",
+        "cssValue": "#e5484d"
+      },
+      "color.status.errorContent": {
+        "path": "color.status.errorContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.898039,
+            0.282353,
+            0.301961
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-error-content",
+        "cssValue": "#e5484d"
+      },
+      "color.surface.canvas": {
+        "path": "color.surface.canvas",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-canvas",
+        "cssValue": "#000000"
+      },
+      "color.surface.dialog": {
+        "path": "color.surface.dialog",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.098039,
+            0.101961,
+            0.105882
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-dialog",
+        "cssValue": "#191a1b"
+      },
+      "color.surface.elevated": {
+        "path": "color.surface.elevated",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.039216,
+            0.039216,
+            0.039216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-elevated",
+        "cssValue": "#0a0a0a"
+      },
+      "color.surface.interactive": {
+        "path": "color.surface.interactive",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-interactive",
+        "cssValue": "#000000"
+      },
+      "color.surface.interactiveHover": {
+        "path": "color.surface.interactiveHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.121569,
+            0.121569
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-interactive-hover",
+        "cssValue": "#1f1f1f"
+      },
+      "color.surface.level3": {
+        "path": "color.surface.level3",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.098039,
+            0.101961,
+            0.105882
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-level3",
+        "cssValue": "#191a1b"
+      },
+      "color.surface.quaternary": {
+        "path": "color.surface.quaternary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.156863,
+            0.172549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-quaternary",
+        "cssValue": "#28282c"
+      },
+      "color.surface.readOnly": {
+        "path": "color.surface.readOnly",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.039216,
+            0.039216,
+            0.039216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-read-only",
+        "cssValue": "#0a0a0a"
+      },
+      "color.surface.scrim": {
+        "path": "color.surface.scrim",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.32
+        },
+        "cssName": "--color-surface-scrim",
+        "cssValue": "#00000052"
+      },
+      "color.surface.selected": {
+        "path": "color.surface.selected",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.121569,
+            0.121569
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-selected",
+        "cssValue": "#1f1f1f"
+      },
+      "color.surface.sidebar": {
+        "path": "color.surface.sidebar",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.039216,
+            0.039216,
+            0.039216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-sidebar",
+        "cssValue": "#0a0a0a"
+      },
+      "color.surface.subtle": {
+        "path": "color.surface.subtle",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.039216,
+            0.039216,
+            0.039216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-subtle",
+        "cssValue": "#0a0a0a"
+      },
+      "color.surface.surface": {
+        "path": "color.surface.surface",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-surface",
+        "cssValue": "#000000"
+      },
+      "color.surface.translucent": {
+        "path": "color.surface.translucent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 0.05
+        },
+        "cssName": "--color-surface-translucent",
+        "cssValue": "#ffffff0d"
+      },
+      "font.button": {
+        "path": "font.button",
+        "type": "fontFamily",
+        "value": [
+          "IBM Plex Sans",
+          "Inter",
+          "ui-sans-serif",
+          "sans-serif"
+        ],
+        "cssName": "--font-button",
+        "cssValue": "\"IBM Plex Sans\", \"Inter\", ui-sans-serif, sans-serif"
+      },
+      "font.sans": {
+        "path": "font.sans",
+        "type": "fontFamily",
+        "value": [
+          "Inter",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif"
+        ],
+        "cssName": "--font-sans",
+        "cssValue": "\"Inter\", ui-sans-serif, system-ui, sans-serif"
+      },
+      "opacity.disabled": {
+        "path": "opacity.disabled",
+        "type": "number",
+        "value": 0.5,
+        "cssName": "--opacity-disabled",
+        "cssValue": "0.5"
+      },
+      "opacity.enabled": {
+        "path": "opacity.enabled",
+        "type": "number",
+        "value": 1,
+        "cssName": "--opacity-enabled",
+        "cssValue": "1"
+      },
+      "radius.control": {
+        "path": "radius.control",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--radius-control",
+        "cssValue": "8px"
+      },
+      "radius.overlay": {
+        "path": "radius.overlay",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--radius-overlay",
+        "cssValue": "8px"
+      },
+      "radius.panel": {
+        "path": "radius.panel",
+        "type": "dimension",
+        "value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "cssName": "--radius-panel",
+        "cssValue": "10px"
+      },
+      "radius.popover": {
+        "path": "radius.popover",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--radius-popover",
+        "cssValue": "12px"
+      },
+      "radius.rounded": {
+        "path": "radius.rounded",
+        "type": "dimension",
+        "value": {
+          "value": 999,
+          "unit": "px"
+        },
+        "cssName": "--radius-rounded",
+        "cssValue": "999px"
+      },
+      "size.borderControl": {
+        "path": "size.borderControl",
+        "type": "dimension",
+        "value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "cssName": "--size-border-control",
+        "cssValue": "0.5px"
+      },
+      "size.borderDialog": {
+        "path": "size.borderDialog",
+        "type": "dimension",
+        "value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "cssName": "--size-border-dialog",
+        "cssValue": "0.5px"
+      },
+      "size.controlCompact": {
+        "path": "size.controlCompact",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--size-control-compact",
+        "cssValue": "28px"
+      },
+      "size.controlDefault": {
+        "path": "size.controlDefault",
+        "type": "dimension",
+        "value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "cssName": "--size-control-default",
+        "cssValue": "32px"
+      },
+      "size.dialog": {
+        "path": "size.dialog",
+        "type": "dimension",
+        "value": {
+          "value": 480,
+          "unit": "px"
+        },
+        "cssName": "--size-dialog",
+        "cssValue": "480px"
+      },
+      "size.iconButtonCompact": {
+        "path": "size.iconButtonCompact",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--size-icon-button-compact",
+        "cssValue": "24px"
+      },
+      "size.iconButtonDefault": {
+        "path": "size.iconButtonDefault",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--size-icon-button-default",
+        "cssValue": "28px"
+      },
+      "size.iconDefault": {
+        "path": "size.iconDefault",
+        "type": "dimension",
+        "value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "cssName": "--size-icon-default",
+        "cssValue": "14px"
+      },
+      "size.inputDefault": {
+        "path": "size.inputDefault",
+        "type": "dimension",
+        "value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "cssName": "--size-input-default",
+        "cssValue": "32px"
+      },
+      "size.sidebar": {
+        "path": "size.sidebar",
+        "type": "dimension",
+        "value": {
+          "value": 244,
+          "unit": "px"
+        },
+        "cssName": "--size-sidebar",
+        "cssValue": "244px"
+      },
+      "space.1": {
+        "path": "space.1",
+        "type": "dimension",
+        "value": {
+          "value": 4,
+          "unit": "px"
+        },
+        "cssName": "--space-1",
+        "cssValue": "4px"
+      },
+      "space.2": {
+        "path": "space.2",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--space-2",
+        "cssValue": "8px"
+      },
+      "space.3": {
+        "path": "space.3",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--space-3",
+        "cssValue": "12px"
+      },
+      "space.4": {
+        "path": "space.4",
+        "type": "dimension",
+        "value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "cssName": "--space-4",
+        "cssValue": "16px"
+      },
+      "space.6": {
+        "path": "space.6",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--space-6",
+        "cssValue": "24px"
+      }
+    },
+    "light": {
+      "color.action.danger": {
+        "path": "color.action.danger",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.862745,
+            0.14902,
+            0.14902
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-danger",
+        "cssValue": "#dc2626"
+      },
+      "color.action.dangerHover": {
+        "path": "color.action.dangerHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.898039,
+            0.282353,
+            0.301961
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-danger-hover",
+        "cssValue": "#e5484d"
+      },
+      "color.action.primary": {
+        "path": "color.action.primary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.164706,
+            0.188235
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-primary",
+        "cssValue": "#282a30"
+      },
+      "color.action.primaryContent": {
+        "path": "color.action.primaryContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-primary-content",
+        "cssValue": "#fafafa"
+      },
+      "color.action.primaryHover": {
+        "path": "color.action.primaryHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.12549,
+            0.141176
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-primary-hover",
+        "cssValue": "#1f2024"
+      },
+      "color.border.dialog": {
+        "path": "color.border.dialog",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-dialog",
+        "cssValue": "#d4d4d4"
+      },
+      "color.border.primary": {
+        "path": "color.border.primary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-primary",
+        "cssValue": "#707172"
+      },
+      "color.border.secondary": {
+        "path": "color.border.secondary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-secondary",
+        "cssValue": "#d4d4d4"
+      },
+      "color.border.tertiary": {
+        "path": "color.border.tertiary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.917647,
+            0.917647,
+            0.917647
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-tertiary",
+        "cssValue": "#eaeaea"
+      },
+      "color.border.translucent": {
+        "path": "color.border.translucent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.08
+        },
+        "cssName": "--color-border-translucent",
+        "cssValue": "#00000014"
+      },
+      "color.border.transparent": {
+        "path": "color.border.transparent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "cssName": "--color-border-transparent",
+        "cssValue": "#00000000"
+      },
+      "color.content.inverse": {
+        "path": "color.content.inverse",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-inverse",
+        "cssValue": "#ffffff"
+      },
+      "color.content.primary": {
+        "path": "color.content.primary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.164706,
+            0.188235
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-primary",
+        "cssValue": "#282a30"
+      },
+      "color.content.secondary": {
+        "path": "color.content.secondary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2,
+            0.2,
+            0.2
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-secondary",
+        "cssValue": "#333333"
+      },
+      "color.content.tertiary": {
+        "path": "color.content.tertiary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.435294,
+            0.431373,
+            0.466667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-tertiary",
+        "cssValue": "#6f6e77"
+      },
+      "color.focus.ring": {
+        "path": "color.focus.ring",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.368627,
+            0.415686,
+            0.823529
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-focus-ring",
+        "cssValue": "#5e6ad2"
+      },
+      "color.interaction.pressedOverlay": {
+        "path": "color.interaction.pressedOverlay",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.08
+        },
+        "cssName": "--color-interaction-pressed-overlay",
+        "cssValue": "#00000014"
+      },
+      "color.sidebar.itemActive": {
+        "path": "color.sidebar.itemActive",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.917647,
+            0.917647,
+            0.917647
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-sidebar-item-active",
+        "cssValue": "#eaeaea"
+      },
+      "color.sidebar.itemHover": {
+        "path": "color.sidebar.itemHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.960784,
+            0.960784,
+            0.960784
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-sidebar-item-hover",
+        "cssValue": "#f5f5f5"
+      },
+      "color.status.errorBorder": {
+        "path": "color.status.errorBorder",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.862745,
+            0.14902,
+            0.14902
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-error-border",
+        "cssValue": "#dc2626"
+      },
+      "color.status.errorContent": {
+        "path": "color.status.errorContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.862745,
+            0.14902,
+            0.14902
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-error-content",
+        "cssValue": "#dc2626"
+      },
+      "color.surface.canvas": {
+        "path": "color.surface.canvas",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-canvas",
+        "cssValue": "#fafafa"
+      },
+      "color.surface.dialog": {
+        "path": "color.surface.dialog",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-dialog",
+        "cssValue": "#ffffff"
+      },
+      "color.surface.elevated": {
+        "path": "color.surface.elevated",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-elevated",
+        "cssValue": "#ffffff"
+      },
+      "color.surface.interactive": {
+        "path": "color.surface.interactive",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-interactive",
+        "cssValue": "#ffffff"
+      },
+      "color.surface.interactiveHover": {
+        "path": "color.surface.interactiveHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.960784,
+            0.960784,
+            0.960784
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-interactive-hover",
+        "cssValue": "#f5f5f5"
+      },
+      "color.surface.level3": {
+        "path": "color.surface.level3",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.941176,
+            0.941176,
+            0.941176
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-level3",
+        "cssValue": "#f0f0f0"
+      },
+      "color.surface.quaternary": {
+        "path": "color.surface.quaternary",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.933333,
+            0.929412,
+            0.941176
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-quaternary",
+        "cssValue": "#eeedf0"
+      },
+      "color.surface.readOnly": {
+        "path": "color.surface.readOnly",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-read-only",
+        "cssValue": "#fafafa"
+      },
+      "color.surface.scrim": {
+        "path": "color.surface.scrim",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.32
+        },
+        "cssName": "--color-surface-scrim",
+        "cssValue": "#00000052"
+      },
+      "color.surface.selected": {
+        "path": "color.surface.selected",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.960784,
+            0.960784,
+            0.960784
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-selected",
+        "cssValue": "#f5f5f5"
+      },
+      "color.surface.sidebar": {
+        "path": "color.surface.sidebar",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.933333,
+            0.929412,
+            0.941176
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-sidebar",
+        "cssValue": "#eeedf0"
+      },
+      "color.surface.subtle": {
+        "path": "color.surface.subtle",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-subtle",
+        "cssValue": "#fafafa"
+      },
+      "color.surface.surface": {
+        "path": "color.surface.surface",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-surface",
+        "cssValue": "#ffffff"
+      },
+      "color.surface.translucent": {
+        "path": "color.surface.translucent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-translucent",
+        "cssValue": "#ffffff"
+      },
+      "font.button": {
+        "path": "font.button",
+        "type": "fontFamily",
+        "value": [
+          "IBM Plex Sans",
+          "Inter",
+          "ui-sans-serif",
+          "sans-serif"
+        ],
+        "cssName": "--font-button",
+        "cssValue": "\"IBM Plex Sans\", \"Inter\", ui-sans-serif, sans-serif"
+      },
+      "font.sans": {
+        "path": "font.sans",
+        "type": "fontFamily",
+        "value": [
+          "Inter",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif"
+        ],
+        "cssName": "--font-sans",
+        "cssValue": "\"Inter\", ui-sans-serif, system-ui, sans-serif"
+      },
+      "opacity.disabled": {
+        "path": "opacity.disabled",
+        "type": "number",
+        "value": 0.5,
+        "cssName": "--opacity-disabled",
+        "cssValue": "0.5"
+      },
+      "opacity.enabled": {
+        "path": "opacity.enabled",
+        "type": "number",
+        "value": 1,
+        "cssName": "--opacity-enabled",
+        "cssValue": "1"
+      },
+      "radius.control": {
+        "path": "radius.control",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--radius-control",
+        "cssValue": "8px"
+      },
+      "radius.overlay": {
+        "path": "radius.overlay",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--radius-overlay",
+        "cssValue": "8px"
+      },
+      "radius.panel": {
+        "path": "radius.panel",
+        "type": "dimension",
+        "value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "cssName": "--radius-panel",
+        "cssValue": "10px"
+      },
+      "radius.popover": {
+        "path": "radius.popover",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--radius-popover",
+        "cssValue": "12px"
+      },
+      "radius.rounded": {
+        "path": "radius.rounded",
+        "type": "dimension",
+        "value": {
+          "value": 999,
+          "unit": "px"
+        },
+        "cssName": "--radius-rounded",
+        "cssValue": "999px"
+      },
+      "size.borderControl": {
+        "path": "size.borderControl",
+        "type": "dimension",
+        "value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "cssName": "--size-border-control",
+        "cssValue": "0.5px"
+      },
+      "size.borderDialog": {
+        "path": "size.borderDialog",
+        "type": "dimension",
+        "value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "cssName": "--size-border-dialog",
+        "cssValue": "0.5px"
+      },
+      "size.controlCompact": {
+        "path": "size.controlCompact",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--size-control-compact",
+        "cssValue": "28px"
+      },
+      "size.controlDefault": {
+        "path": "size.controlDefault",
+        "type": "dimension",
+        "value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "cssName": "--size-control-default",
+        "cssValue": "32px"
+      },
+      "size.dialog": {
+        "path": "size.dialog",
+        "type": "dimension",
+        "value": {
+          "value": 480,
+          "unit": "px"
+        },
+        "cssName": "--size-dialog",
+        "cssValue": "480px"
+      },
+      "size.iconButtonCompact": {
+        "path": "size.iconButtonCompact",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--size-icon-button-compact",
+        "cssValue": "24px"
+      },
+      "size.iconButtonDefault": {
+        "path": "size.iconButtonDefault",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--size-icon-button-default",
+        "cssValue": "28px"
+      },
+      "size.iconDefault": {
+        "path": "size.iconDefault",
+        "type": "dimension",
+        "value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "cssName": "--size-icon-default",
+        "cssValue": "14px"
+      },
+      "size.inputDefault": {
+        "path": "size.inputDefault",
+        "type": "dimension",
+        "value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "cssName": "--size-input-default",
+        "cssValue": "32px"
+      },
+      "size.sidebar": {
+        "path": "size.sidebar",
+        "type": "dimension",
+        "value": {
+          "value": 244,
+          "unit": "px"
+        },
+        "cssName": "--size-sidebar",
+        "cssValue": "244px"
+      },
+      "space.1": {
+        "path": "space.1",
+        "type": "dimension",
+        "value": {
+          "value": 4,
+          "unit": "px"
+        },
+        "cssName": "--space-1",
+        "cssValue": "4px"
+      },
+      "space.2": {
+        "path": "space.2",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--space-2",
+        "cssValue": "8px"
+      },
+      "space.3": {
+        "path": "space.3",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--space-3",
+        "cssValue": "12px"
+      },
+      "space.4": {
+        "path": "space.4",
+        "type": "dimension",
+        "value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "cssName": "--space-4",
+        "cssValue": "16px"
+      },
+      "space.6": {
+        "path": "space.6",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--space-6",
+        "cssValue": "24px"
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@lenso/token-generator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "check-generated": "tsx scripts/check-generated.ts",
+    "generate": "tsx src/cli.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "vendor-schemas": "tsx scripts/vendor-schemas.ts"
+  },
+  "dependencies": {
+    "ajv": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
