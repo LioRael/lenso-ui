@@ -37,6 +37,10 @@
       "types": "./dist/label/index.d.ts",
       "import": "./dist/label/index.js"
     },
+    "./radio": {
+      "types": "./dist/radio/index.d.ts",
+      "import": "./dist/radio/index.js"
+    },
     "./text-field": {
       "types": "./dist/text-field/index.d.ts",
       "import": "./dist/text-field/index.js"

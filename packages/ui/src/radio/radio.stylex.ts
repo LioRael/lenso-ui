@@ -1,0 +1,108 @@
+import * as stylex from "@stylexjs/stylex";
+
+import { tokens } from "../tokens.stylex.js";
+
+export const radioState = stylex.defineVars({
+  focus: "transparent",
+  pressed: "transparent",
+});
+
+export const styles = stylex.create({
+  item: {
+    [radioState.focus]: {
+      default: null,
+      ":focus-visible": tokens.colorFocusRing,
+      '[data-visual-state="focus-visible"]': tokens.colorFocusRing,
+    },
+    [radioState.pressed]: {
+      default: null,
+      ":active": tokens.colorInteractionPressedOverlay,
+      '[data-visual-state="pressed"]': tokens.colorInteractionPressedOverlay,
+    },
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderStyle: "none",
+    borderWidth: 0,
+    boxSizing: "border-box",
+    color: {
+      default: tokens.colorContentPrimary,
+      "[data-disabled]": tokens.colorContentTertiary,
+    },
+    cursor: { default: "pointer", "[data-disabled]": "default" },
+    display: "inline-flex",
+    flexShrink: 0,
+    fontFamily: tokens.fontSans,
+    fontSize: "13px",
+    fontWeight: 400,
+    gap: tokens.space2,
+    height: "28px",
+    lineHeight: "16px",
+    outline: "none",
+    paddingBlock: 0,
+    paddingLeft: "3px",
+    paddingRight: 0,
+    position: "relative",
+    transitionDuration: "80ms",
+    transitionProperty: "color",
+    transitionTimingFunction: "ease-out",
+    userSelect: "none",
+    whiteSpace: "nowrap",
+  },
+  indicator: {
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderRadius: "50%",
+    boxShadow: {
+      default: `inset 0 0 0 1px ${tokens.colorBorderSecondary}`,
+      "[data-checked]": `inset 0 0 0 1px ${tokens.colorContentPrimary}`,
+      "[data-disabled]": `inset 0 0 0 1px color-mix(in srgb, ${tokens.colorContentTertiary} 50%, transparent)`,
+    },
+    boxSizing: "border-box",
+    color: {
+      default: tokens.colorContentPrimary,
+      "[data-disabled]": tokens.colorContentTertiary,
+    },
+    display: "inline-flex",
+    flexShrink: 0,
+    height: "14px",
+    justifyContent: "center",
+    position: "relative",
+    transitionDuration: "80ms",
+    transitionProperty: "box-shadow, color",
+    transitionTimingFunction: "ease-out",
+    width: "14px",
+  },
+  selected: {
+    "::after": {
+      backgroundColor: "currentColor",
+      borderRadius: "50%",
+      content: "''",
+      display: "block",
+      height: "4px",
+      width: "4px",
+    },
+  },
+  pressedLayer: {
+    backgroundColor: radioState.pressed,
+    borderRadius: "50%",
+    height: "16px",
+    left: "-3px",
+    pointerEvents: "none",
+    position: "absolute",
+    top: "-1px",
+    width: "16px",
+  },
+  focusLayer: {
+    borderColor: radioState.focus,
+    borderRadius: "50%",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    boxSizing: "border-box",
+    height: "20px",
+    left: "-3px",
+    pointerEvents: "none",
+    position: "absolute",
+    top: "-3px",
+    width: "20px",
+  },
+});

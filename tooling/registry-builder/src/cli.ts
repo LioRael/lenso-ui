@@ -186,6 +186,25 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/radio/index.tsx",
+        target: "components/lenso/radio/index.tsx",
+      },
+      {
+        source: "packages/ui/src/radio/radio.stylex.ts",
+        target: "components/lenso/radio/radio.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "radio",
+    registryDependencies: [stable("setup")],
+    title: "Radio",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {

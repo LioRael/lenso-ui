@@ -43,6 +43,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "radio",
+      "title": "Radio",
+      "type": "registry:ui"
+    },
+    {
       "name": "dialog",
       "title": "Dialog",
       "type": "registry:ui"

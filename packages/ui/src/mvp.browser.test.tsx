@@ -12,6 +12,7 @@ import { Checkbox } from "./checkbox/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
+import { RadioGroup } from "./radio/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
@@ -221,6 +222,59 @@ test("Checkbox permits a consumer-owned indicator", async () => {
   ).toBe("none");
 });
 
+test("Radio preserves grouped selection, keyboard navigation, and form semantics", async () => {
+  const onValueChange = vi.fn();
+  const screen = await render(
+    <form>
+      <RadioGroup.Root defaultValue="compact" name="density" onValueChange={onValueChange}>
+        <RadioGroup.Item value="compact">
+          <RadioGroup.Indicator />
+          Compact
+        </RadioGroup.Item>
+        <RadioGroup.Item value="comfortable">
+          <RadioGroup.Indicator />
+          Comfortable
+        </RadioGroup.Item>
+      </RadioGroup.Root>
+    </form>,
+  );
+  const compact = screen.getByRole("radio", { name: "Compact" });
+  const comfortable = screen.getByRole("radio", { name: "Comfortable" });
+
+  await expect.element(compact).toBeChecked();
+  await expect.element(comfortable).not.toBeChecked();
+  compact.element().focus();
+  await userEvent.keyboard("{ArrowDown}");
+  await expect.element(comfortable).toBeChecked();
+  expect(onValueChange).toHaveBeenCalledWith("comfortable", expect.anything());
+  expect(
+    comfortable.element().parentElement?.querySelector<HTMLInputElement>('input[name="density"]'),
+  ).not.toBeNull();
+});
+
+test("Radio permits a consumer-owned selection indicator", async () => {
+  const screen = await render(
+    <RadioGroup.Root defaultValue="custom">
+      <RadioGroup.Item value="custom">
+        <RadioGroup.Indicator>
+          <span data-testid="custom-radio-mark">Custom</span>
+        </RadioGroup.Indicator>
+        Custom option
+      </RadioGroup.Item>
+    </RadioGroup.Root>,
+  );
+  await expect.element(screen.getByTestId("custom-radio-mark")).toBeVisible();
+  expect(
+    getComputedStyle(
+      screen
+        .getByRole("radio", { name: "Custom option" })
+        .element()
+        .querySelector('[data-slot="radio-group-indicator"]')!,
+      "::after",
+    ).content,
+  ).toBe("none");
+});
+
 test("Dialog portals into the nearest theme scope and closes with Escape", async () => {
   const screen = await render(
     <ThemeScope theme="dark" data-testid="theme-host">
@@ -273,6 +327,12 @@ test("the MVP foundation surface has no automatic accessibility violations", asy
         <Checkbox.Indicator />
         <Checkbox.Label>Include completed issues</Checkbox.Label>
       </Checkbox.Root>
+      <RadioGroup.Root defaultValue="compact">
+        <RadioGroup.Item value="compact">
+          <RadioGroup.Indicator />
+          Compact
+        </RadioGroup.Item>
+      </RadioGroup.Root>
       <TextField.Root>
         <TextField.Label>Name</TextField.Label>
         <TextField.Control />

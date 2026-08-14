@@ -6,7 +6,14 @@ import Link from "next/link";
 import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
-type DocsPage = "button" | "checkbox" | "icon-button" | "label" | "overview" | "text-field";
+type DocsPage =
+  | "button"
+  | "checkbox"
+  | "icon-button"
+  | "label"
+  | "overview"
+  | "radio"
+  | "text-field";
 
 interface DocsShellProps {
   actions: readonly [string, string];
@@ -88,9 +95,13 @@ function OverviewNavigation() {
 function ComponentNavigation({
   current,
 }: {
-  current: "button" | "checkbox" | "icon-button" | "label" | "text-field";
+  current: "button" | "checkbox" | "icon-button" | "label" | "radio" | "text-field";
 }) {
-  const formsCurrent = current === "checkbox" || current === "label" || current === "text-field";
+  const formsCurrent =
+    current === "checkbox" ||
+    current === "label" ||
+    current === "radio" ||
+    current === "text-field";
 
   return (
     <>
@@ -138,7 +149,7 @@ function ComponentNavigation({
                   ["Label", "/components/label"],
                   ["Text Field", "/components/text-field"],
                   ["Checkbox", "/components/checkbox"],
-                  ["Radio", "#radio"],
+                  ["Radio", "/components/radio"],
                   ["Switch", "#switch"],
                   ["Select", "#select"],
                   ["Combobox", "#combobox"],
@@ -148,7 +159,8 @@ function ComponentNavigation({
                   aria-current={
                     (label === "Label" && current === "label") ||
                     (label === "Text Field" && current === "text-field") ||
-                    (label === "Checkbox" && current === "checkbox")
+                    (label === "Checkbox" && current === "checkbox") ||
+                    (label === "Radio" && current === "radio")
                       ? "page"
                       : undefined
                   }

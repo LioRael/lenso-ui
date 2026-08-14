@@ -11,6 +11,7 @@ import { Checkbox } from "./checkbox/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
+import { RadioGroup } from "./radio/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
@@ -488,6 +489,109 @@ test("Checkbox resolves dark theme values", async () => {
   expect(getComputedStyle(indicator!).backgroundColor).toBe("rgb(247, 248, 248)");
   expect(getComputedStyle(indicator!).opacity).toBe("0.9");
   expect(getComputedStyle(indicator!, "::after").backgroundColor).toBe("rgb(0, 0, 0)");
+});
+
+const figmaRadioStates = [
+  { name: "default", x: 0 },
+  { name: "hover", x: 117 },
+  { name: "pressed", x: 234 },
+  { name: "focus-visible", x: 351 },
+  { name: "disabled", x: 468 },
+] as const;
+
+const figmaRadioValues = [
+  { selected: false, y: 24 },
+  { selected: true, y: 76 },
+] as const;
+
+test("Radio matches the approved Figma state board", async () => {
+  const screen = await render(
+    <div
+      data-testid="radio-figma-state-board"
+      style={{ background: "#ececed", height: 120, position: "relative", width: 650 }}
+    >
+      {figmaRadioValues.flatMap((value) =>
+        figmaRadioStates.map((state) => {
+          const radioValue = `${value.selected}-${state.name}`;
+          return (
+            <RadioGroup.Root
+              key={radioValue}
+              style={{ left: state.x, position: "absolute", top: value.y }}
+              value={value.selected ? radioValue : "other"}
+            >
+              <RadioGroup.Item
+                data-visual-state={state.name === "default" ? undefined : state.name}
+                disabled={state.name === "disabled"}
+                style={{ width: 93 }}
+                value={radioValue}
+              >
+                <RadioGroup.Indicator />
+                Radio label
+              </RadioGroup.Item>
+            </RadioGroup.Root>
+          );
+        }),
+      )}
+    </div>,
+  );
+
+  await document.fonts.load('400 13px "Inter"', "Radio label");
+  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+
+  const board = screen.getByTestId("radio-figma-state-board");
+  const items = board.element().querySelectorAll<HTMLElement>('[data-slot="radio-group-item"]');
+  const indicators = board
+    .element()
+    .querySelectorAll<HTMLElement>('[data-slot="radio-group-indicator"]');
+  expect(items).toHaveLength(10);
+  expect(indicators).toHaveLength(10);
+  expect(items[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 28, width: 93 });
+  expect(indicators[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(getComputedStyle(items[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(items[0]!).fontSize).toBe("13px");
+  expect(getComputedStyle(items[0]!).fontWeight).toBe("400");
+  expect(getComputedStyle(items[0]!).gap).toBe("8px");
+  expect(getComputedStyle(indicators[0]!).borderRadius).toBe("50%");
+  expect(getComputedStyle(indicators[0]!).boxShadow).toContain("rgb(212, 212, 212)");
+  expect(getComputedStyle(indicators[5]!).boxShadow).toContain("rgb(40, 42, 48)");
+  expect(getComputedStyle(indicators[5]!, "::after").height).toBe("4px");
+  expect(getComputedStyle(indicators[5]!, "::after").width).toBe("4px");
+  expect(getComputedStyle(items[4]!).color).toBe("rgb(111, 110, 119)");
+  expect(getComputedStyle(indicators[9]!, "::after").backgroundColor).toBe("rgb(111, 110, 119)");
+
+  const pressedLayer = indicators[2]?.querySelector<HTMLElement>(
+    '[data-slot="radio-group-pressed-layer"]',
+  );
+  const focusLayer = indicators[3]?.querySelector<HTMLElement>(
+    '[data-slot="radio-group-focus-layer"]',
+  );
+  expect(pressedLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 16, width: 16 });
+  expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
+  expect(focusLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 20, width: 20 });
+  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
+
+  await expect.element(board).toMatchScreenshot("radio-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
+
+test("Radio resolves dark theme values", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <RadioGroup.Root defaultValue="compact">
+        <RadioGroup.Item value="compact">
+          <RadioGroup.Indicator />
+          Compact
+        </RadioGroup.Item>
+      </RadioGroup.Root>
+    </ThemeScope>,
+  );
+  const item = screen.getByRole("radio", { name: "Compact" }).element();
+  const indicator = item.querySelector<HTMLElement>('[data-slot="radio-group-indicator"]');
+  await expect.poll(() => getComputedStyle(item).color).toBe("rgb(247, 248, 248)");
+  expect(getComputedStyle(indicator!).boxShadow).toContain("rgb(247, 248, 248)");
+  expect(getComputedStyle(indicator!, "::after").backgroundColor).toBe("rgb(247, 248, 248)");
 });
 
 for (const theme of ["light", "dark"] as const) {

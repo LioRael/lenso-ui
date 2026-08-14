@@ -58,6 +58,17 @@
         "baseline": "docs/figma-baselines/checkbox-state-board.png"
       }
     },
+    "radio": {
+      "nodeId": "31:45",
+      "codeSubpath": "@lenso/ui/radio",
+      "variants": ["selected", "unselected"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "documentation": "/components/radio",
+      "stateBoard": {
+        "nodeId": "31:45",
+        "baseline": "docs/figma-baselines/radio-state-board.png"
+      }
+    },
     "dialog": {
       "nodeId": "245:804",
       "codeSubpath": "@lenso/ui/dialog",
