@@ -1,6 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { Button } from "@base-ui/react/button";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 
 export type SidebarSide = "left" | "right";
 export type SidebarDirection = "ltr" | "rtl";
@@ -19,7 +22,7 @@ export interface SidebarMeta {
   panelId: string;
   rootId: string;
   side: SidebarSide;
-  triggerRef: React.RefObject<HTMLButtonElement | null>;
+  triggerRef: React.RefObject<HTMLElement | null>;
 }
 
 interface SidebarController {
@@ -36,6 +39,13 @@ interface SidebarGroupContextValue {
 
 const SidebarContext = React.createContext<SidebarController | null>(null);
 const SidebarGroupContext = React.createContext<SidebarGroupContextValue | null>(null);
+
+type SidebarRenderProps<ElementType extends React.ElementType, State = {}> = Omit<
+  useRender.ComponentProps<ElementType, State>,
+  "ref"
+> & {
+  ref?: React.Ref<HTMLElement>;
+};
 
 function useSidebarController(part: string): SidebarController {
   const nearest = React.useContext(SidebarContext);
@@ -76,55 +86,54 @@ function useControllableOpen({
   return [currentOpen, setOpen];
 }
 
-function composeRefs<T>(
-  localRef: React.RefObject<T | null>,
-  forwardedRef: React.ForwardedRef<T>,
-): (node: T | null) => void {
+function composeRefs<T>(...refs: Array<React.Ref<T> | undefined>): (node: T | null) => void {
   return (node) => {
-    localRef.current = node;
-    if (typeof forwardedRef === "function") forwardedRef(node);
-    else if (forwardedRef) forwardedRef.current = node;
+    for (const ref of refs) {
+      if (typeof ref === "function") ref(node);
+      else if (ref) ref.current = node;
+    }
   };
 }
 
-export interface SidebarGroupProps extends React.ComponentPropsWithoutRef<"div"> {}
+export interface SidebarGroupProps extends SidebarRenderProps<"div"> {}
 
-export const SidebarGroup = React.forwardRef<HTMLDivElement, SidebarGroupProps>(
-  function SidebarGroup({ children, ...props }, ref) {
-    const store = React.useRef<{
-      controllers: Map<string, SidebarController>;
-      listeners: Set<() => void>;
-    }>({ controllers: new Map(), listeners: new Set() });
-    const value = React.useMemo<SidebarGroupContextValue>(
-      () => ({
-        get: (rootId) => store.current.controllers.get(rootId) ?? null,
-        register: (controller) => {
-          store.current.controllers.set(controller.meta.rootId, controller);
-          for (const listener of store.current.listeners) listener();
-          return () => {
-            if (store.current.controllers.get(controller.meta.rootId) === controller) {
-              store.current.controllers.delete(controller.meta.rootId);
-              for (const listener of store.current.listeners) listener();
-            }
-          };
-        },
-        subscribe: (listener) => {
-          store.current.listeners.add(listener);
-          return () => store.current.listeners.delete(listener);
-        },
-      }),
-      [],
-    );
+export function SidebarGroup({ children, ref, render, ...props }: SidebarGroupProps) {
+  const store = React.useRef<{
+    controllers: Map<string, SidebarController>;
+    listeners: Set<() => void>;
+  }>({ controllers: new Map(), listeners: new Set() });
+  const value = React.useMemo<SidebarGroupContextValue>(
+    () => ({
+      get: (rootId) => store.current.controllers.get(rootId) ?? null,
+      register: (controller) => {
+        store.current.controllers.set(controller.meta.rootId, controller);
+        for (const listener of store.current.listeners) listener();
+        return () => {
+          if (store.current.controllers.get(controller.meta.rootId) === controller) {
+            store.current.controllers.delete(controller.meta.rootId);
+            for (const listener of store.current.listeners) listener();
+          }
+        };
+      },
+      subscribe: (listener) => {
+        store.current.listeners.add(listener);
+        return () => store.current.listeners.delete(listener);
+      },
+    }),
+    [],
+  );
+  const element = useRender({
+    defaultTagName: "div",
+    ref,
+    render,
+    props: {
+      ...mergeProps<"div">({ children }, props),
+      "data-slot": "sidebar-group",
+    },
+  });
 
-    return (
-      <SidebarGroupContext.Provider value={value}>
-        <div {...props} data-slot="sidebar-group" ref={ref}>
-          {children}
-        </div>
-      </SidebarGroupContext.Provider>
-    );
-  },
-);
+  return <SidebarGroupContext.Provider value={value}>{element}</SidebarGroupContext.Provider>;
+}
 
 export interface SidebarProviderProps {
   actions: SidebarActions;
@@ -142,8 +151,14 @@ export function SidebarProvider({ actions, children, meta, state }: SidebarProvi
   return <SidebarContext.Provider value={controller}>{children}</SidebarContext.Provider>;
 }
 
+export type SidebarRootState = {
+  dir: SidebarDirection;
+  open: boolean;
+  side: SidebarSide;
+};
+
 export interface SidebarRootProps extends Omit<
-  React.ComponentPropsWithoutRef<"div">,
+  SidebarRenderProps<"div", SidebarRootState>,
   "defaultValue" | "dir"
 > {
   defaultOpen?: boolean;
@@ -153,15 +168,22 @@ export interface SidebarRootProps extends Omit<
   side?: SidebarSide;
 }
 
-export const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarRootProps>(function SidebarRoot(
-  { defaultOpen = true, dir = "ltr", id, onOpenChange, open, side = "left", ...props },
+export function SidebarRoot({
+  defaultOpen = true,
+  dir = "ltr",
+  id,
+  onOpenChange,
+  open,
   ref,
-) {
+  render,
+  side = "left",
+  ...props
+}: SidebarRootProps) {
   const generatedId = React.useId();
   const rootId = id ?? `sidebar-${generatedId.replaceAll(":", "")}`;
   const panelId = `${rootId}-panel`;
   const [currentOpen, setOpen] = useControllableOpen({ defaultOpen, onOpenChange, open });
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const triggerRef = React.useRef<HTMLElement>(null);
   const state = React.useMemo(() => ({ open: currentOpen }), [currentOpen]);
   const actions = React.useMemo<SidebarActions>(
     () => ({
@@ -174,168 +196,244 @@ export const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarRootProps>(fu
     () => ({ dir, panelId, rootId, side, triggerRef }),
     [dir, panelId, rootId, side],
   );
+  const renderState = React.useMemo<SidebarRootState>(
+    () => ({ dir, open: currentOpen, side }),
+    [currentOpen, dir, side],
+  );
+  const element = useRender<SidebarRootState, HTMLElement>({
+    defaultTagName: "div",
+    ref,
+    render,
+    state: renderState,
+    stateAttributesMapping: {
+      dir: () => null,
+      open: (value) => ({ "data-state": value ? "open" : "closed" }),
+      side: (value) => ({ "data-side": value }),
+    },
+    props: {
+      ...mergeProps<"div">({ dir, id: rootId }, props),
+      "data-slot": "sidebar-root",
+    },
+  });
 
   return (
     <SidebarProvider actions={actions} meta={meta} state={state}>
-      <div
-        {...props}
-        data-side={side}
-        data-slot="sidebar-root"
-        data-state={currentOpen ? "open" : "closed"}
-        dir={dir}
-        id={rootId}
-        ref={ref}
-      />
+      {element}
     </SidebarProvider>
   );
-});
+}
 
-export interface SidebarTriggerProps extends React.ComponentPropsWithoutRef<"button"> {
+export interface SidebarTriggerProps extends Omit<Button.Props, "ref"> {
+  ref?: React.Ref<HTMLElement>;
   targetId?: string;
 }
 
-export const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
-  function SidebarTrigger({ onClick, targetId, type = "button", ...props }, forwardedRef) {
-    const nearest = React.useContext(SidebarContext);
-    const targeted = useTargetController(targetId);
-    const controller = targetId ? targeted : nearest;
-    if (!targetId && !controller) {
-      throw new Error("Sidebar.Trigger must be used within Sidebar.Root or specify targetId");
-    }
-    const panelId = controller?.meta.panelId ?? `${targetId}-panel`;
-    const open = controller?.state.open ?? false;
-    return (
-      <button
-        {...props}
-        aria-controls={panelId}
-        aria-expanded={open}
-        data-side={controller?.meta.side}
-        data-slot="sidebar-trigger"
-        data-state={open ? "open" : "closed"}
-        disabled={props.disabled || !controller}
-        onClick={(event) => {
-          onClick?.(event);
-          if (!event.defaultPrevented) controller?.actions.toggle();
-        }}
-        ref={controller ? composeRefs(controller.meta.triggerRef, forwardedRef) : forwardedRef}
-        type={type}
-      />
-    );
-  },
-);
-
-export interface SidebarPanelProps extends React.ComponentPropsWithoutRef<"aside"> {}
-
-export const SidebarPanel = React.forwardRef<HTMLElement, SidebarPanelProps>(function SidebarPanel(
-  { onKeyDown, ...props },
-  ref,
-) {
-  const controller = useSidebarController("Panel");
+export function SidebarTrigger({ onClick, ref, targetId, ...props }: SidebarTriggerProps) {
+  const nearest = React.useContext(SidebarContext);
+  const targeted = useTargetController(targetId);
+  const controller = targetId ? targeted : nearest;
+  if (!targetId && !controller) {
+    throw new Error("Sidebar.Trigger must be used within Sidebar.Root or specify targetId");
+  }
+  const panelId = controller?.meta.panelId ?? `${targetId}-panel`;
+  const open = controller?.state.open ?? false;
   return (
-    // Escape is delegated from interactive descendants so the landmark itself stays non-interactive.
-    // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    <aside
+    <Button
       {...props}
-      aria-hidden={!controller.state.open}
-      data-side={controller.meta.side}
-      data-slot="sidebar-panel"
-      data-state={controller.state.open ? "open" : "closed"}
-      hidden={!controller.state.open}
-      id={controller.meta.panelId}
-      onKeyDown={(event) => {
-        onKeyDown?.(event);
-        if (event.key === "Escape" && !event.defaultPrevented) {
-          event.preventDefault();
-          controller.actions.setOpen(false);
-          queueMicrotask(() => controller.meta.triggerRef.current?.focus());
+      aria-controls={panelId}
+      aria-expanded={open}
+      data-side={controller?.meta.side}
+      data-slot="sidebar-trigger"
+      data-state={open ? "open" : "closed"}
+      disabled={props.disabled || !controller}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented && !event.baseUIHandlerPrevented) {
+          controller?.actions.toggle();
+        }
+      }}
+      ref={controller ? composeRefs(controller.meta.triggerRef, ref) : ref}
+    />
+  );
+}
+
+export type SidebarPanelState = {
+  open: boolean;
+  side: SidebarSide;
+};
+
+export interface SidebarPanelProps extends SidebarRenderProps<"aside", SidebarPanelState> {}
+
+export function SidebarPanel({ onKeyDown, ref, render, ...props }: SidebarPanelProps) {
+  const controller = useSidebarController("Panel");
+  const state = React.useMemo<SidebarPanelState>(
+    () => ({ open: controller.state.open, side: controller.meta.side }),
+    [controller.meta.side, controller.state.open],
+  );
+
+  // Escape is delegated from interactive descendants so the landmark itself stays non-interactive.
+  return useRender<SidebarPanelState, HTMLElement>({
+    defaultTagName: "aside",
+    ref,
+    render,
+    state,
+    stateAttributesMapping: {
+      open: (value) => ({ "data-state": value ? "open" : "closed" }),
+      side: (value) => ({ "data-side": value }),
+    },
+    props: {
+      ...mergeProps<"aside">(
+        {
+          "aria-hidden": !controller.state.open,
+          hidden: !controller.state.open,
+          id: controller.meta.panelId,
+          onKeyDown(event) {
+            if (event.key === "Escape" && !event.defaultPrevented) {
+              event.preventDefault();
+              controller.actions.setOpen(false);
+              queueMicrotask(() => controller.meta.triggerRef.current?.focus());
+            }
+          },
+        },
+        { ...props, onKeyDown },
+      ),
+      "data-slot": "sidebar-panel",
+    },
+  });
+}
+
+export interface SidebarRailProps extends Omit<Button.Props, "ref"> {
+  closeLabel?: string;
+  openLabel?: string;
+  ref?: React.Ref<HTMLElement>;
+  targetId?: string;
+}
+
+export function SidebarRail({
+  "aria-label": ariaLabel,
+  closeLabel = "Close sidebar",
+  onClick,
+  openLabel = "Open sidebar",
+  ref,
+  targetId,
+  ...props
+}: SidebarRailProps) {
+  const nearest = React.useContext(SidebarContext);
+  const targeted = useTargetController(targetId);
+  const controller = targetId ? targeted : nearest;
+  if (!targetId && !controller) {
+    throw new Error("Sidebar.Rail must be used within Sidebar.Root or specify targetId");
+  }
+  const panelId = controller?.meta.panelId ?? `${targetId}-panel`;
+  const open = controller?.state.open ?? false;
+  return (
+    <Button
+      {...props}
+      aria-controls={panelId}
+      aria-expanded={open}
+      aria-label={ariaLabel ?? (open ? closeLabel : openLabel)}
+      data-side={controller?.meta.side}
+      data-slot="sidebar-rail"
+      data-state={open ? "open" : "closed"}
+      disabled={props.disabled || !controller}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented && !event.baseUIHandlerPrevented) {
+          controller?.actions.toggle();
         }
       }}
       ref={ref}
     />
   );
-});
-
-export interface SidebarRailProps extends React.ComponentPropsWithoutRef<"button"> {
-  closeLabel?: string;
-  openLabel?: string;
-  targetId?: string;
 }
 
-export const SidebarRail = React.forwardRef<HTMLButtonElement, SidebarRailProps>(
-  function SidebarRail(
-    {
-      "aria-label": ariaLabel,
-      closeLabel = "Close sidebar",
-      onClick,
-      openLabel = "Open sidebar",
-      targetId,
-      type = "button",
-      ...props
-    },
+function useSidebarPart<TagName extends keyof React.JSX.IntrinsicElements>(
+  defaultTagName: TagName,
+  slot: string,
+  { ref, render, ...props }: SidebarRenderProps<TagName>,
+) {
+  return useRender({
+    defaultTagName,
     ref,
-  ) {
-    const nearest = React.useContext(SidebarContext);
-    const targeted = useTargetController(targetId);
-    const controller = targetId ? targeted : nearest;
-    if (!targetId && !controller) {
-      throw new Error("Sidebar.Rail must be used within Sidebar.Root or specify targetId");
-    }
-    const panelId = controller?.meta.panelId ?? `${targetId}-panel`;
-    const open = controller?.state.open ?? false;
-    return (
-      <button
-        {...props}
-        aria-controls={panelId}
-        aria-expanded={open}
-        aria-label={ariaLabel ?? (open ? closeLabel : openLabel)}
-        data-side={controller?.meta.side}
-        data-slot="sidebar-rail"
-        data-state={open ? "open" : "closed"}
-        disabled={props.disabled || !controller}
-        onClick={(event) => {
-          onClick?.(event);
-          if (!event.defaultPrevented) controller?.actions.toggle();
-        }}
-        ref={ref}
-        type={type}
-      />
-    );
-  },
-);
-
-function createSidebarDivPart(slot: string) {
-  return React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(
-    function SidebarPart(props, ref) {
-      return <div {...props} data-slot={slot} ref={ref} />;
-    },
-  );
+    render,
+    props: { ...props, "data-slot": slot },
+  });
 }
 
-function createSidebarListPart(slot: string) {
-  return React.forwardRef<HTMLUListElement, React.ComponentPropsWithoutRef<"ul">>(
-    function SidebarListPart(props, ref) {
-      return <ul {...props} data-slot={slot} ref={ref} />;
-    },
-  );
+export interface SidebarHeaderProps extends SidebarRenderProps<"div"> {}
+export function SidebarHeader(props: SidebarHeaderProps) {
+  return useSidebarPart("div", "sidebar-header", props);
 }
 
-export const SidebarHeader = createSidebarDivPart("sidebar-header");
-export const SidebarContent = createSidebarDivPart("sidebar-content");
-export const SidebarFooter = createSidebarDivPart("sidebar-footer");
-export const SidebarMenu = createSidebarListPart("sidebar-menu");
-export const SidebarSubmenu = createSidebarListPart("sidebar-submenu");
-export const SidebarMenuItem = React.forwardRef<
-  HTMLLIElement,
-  React.ComponentPropsWithoutRef<"li">
->(function SidebarMenuItem(props, ref) {
-  return <li {...props} data-slot="sidebar-menu-item" ref={ref} />;
-});
+export interface SidebarContentProps extends SidebarRenderProps<"div"> {}
+export function SidebarContent(props: SidebarContentProps) {
+  return useSidebarPart("div", "sidebar-content", props);
+}
 
-export const SidebarInset = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<"main">>(
-  function SidebarInset(props, ref) {
-    return <main {...props} data-slot="sidebar-inset" ref={ref} />;
-  },
-);
+export interface SidebarFooterProps extends SidebarRenderProps<"div"> {}
+export function SidebarFooter(props: SidebarFooterProps) {
+  return useSidebarPart("div", "sidebar-footer", props);
+}
+
+export interface SidebarMenuProps extends SidebarRenderProps<"ul"> {}
+export function SidebarMenu(props: SidebarMenuProps) {
+  return useSidebarPart("ul", "sidebar-menu", props);
+}
+
+export interface SidebarSubmenuProps extends SidebarRenderProps<"ul"> {}
+export function SidebarSubmenu(props: SidebarSubmenuProps) {
+  return useSidebarPart("ul", "sidebar-submenu", props);
+}
+
+export interface SidebarMenuItemProps extends SidebarRenderProps<"li"> {}
+export function SidebarMenuItem(props: SidebarMenuItemProps) {
+  return useSidebarPart("li", "sidebar-menu-item", props);
+}
+
+export type SidebarItemState = {
+  nested: boolean;
+  selected: boolean;
+};
+
+export interface SidebarItemProps extends SidebarRenderProps<"button", SidebarItemState> {
+  nested?: boolean;
+  selected?: boolean;
+}
+
+export function SidebarItem({
+  nested = false,
+  ref,
+  render,
+  selected = false,
+  ...props
+}: SidebarItemProps) {
+  const state = React.useMemo<SidebarItemState>(() => ({ nested, selected }), [nested, selected]);
+
+  return useRender<SidebarItemState, HTMLElement>({
+    defaultTagName: "button",
+    ref,
+    render,
+    state,
+    stateAttributesMapping: {
+      nested: (value) => ({ "data-level": value ? "nested" : "root" }),
+      selected: (value) => ({ "data-state": value ? "selected" : "default" }),
+    },
+    props: {
+      ...mergeProps<"button">(
+        {
+          "aria-current": selected ? "page" : undefined,
+        },
+        props,
+      ),
+      "data-slot": "sidebar-item",
+    },
+  });
+}
+
+export interface SidebarInsetProps extends SidebarRenderProps<"main"> {}
+export function SidebarInset(props: SidebarInsetProps) {
+  return useSidebarPart("main", "sidebar-inset", props);
+}
 
 export const Sidebar = {
   Content: SidebarContent,
@@ -343,6 +441,7 @@ export const Sidebar = {
   Group: SidebarGroup,
   Header: SidebarHeader,
   Inset: SidebarInset,
+  Item: SidebarItem,
   Menu: SidebarMenu,
   MenuItem: SidebarMenuItem,
   Panel: SidebarPanel,

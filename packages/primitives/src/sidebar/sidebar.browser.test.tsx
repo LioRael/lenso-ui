@@ -1,9 +1,22 @@
+import * as React from "react";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 
 import { Sidebar } from "./index.js";
+
+function RouterLink({
+  children,
+  to,
+  ...props
+}: Omit<React.ComponentPropsWithRef<"a">, "href"> & { to: string }) {
+  return (
+    <a {...props} href={to}>
+      {children}
+    </a>
+  );
+}
 
 test("left and right sidebars remain independently controllable", async () => {
   const screen = await render(
@@ -96,4 +109,58 @@ test("Escape closes a sidebar, restores trigger focus, and passes axe", async ()
   await expect.element(trigger).toHaveAttribute("aria-expanded", "false");
   await expect.element(trigger).toHaveFocus();
   expect((await axe.run(document.body)).violations).toEqual([]);
+});
+
+test("Item composes a router Link while preserving state, props, events, and refs", async () => {
+  const linkRef = React.createRef<HTMLAnchorElement>();
+  let clicks = 0;
+  const screen = await render(
+    <Sidebar.Item
+      className="primitive-item"
+      onClick={(event) => {
+        event.preventDefault();
+        clicks += 1;
+      }}
+      ref={linkRef}
+      render={<RouterLink className="router-link" to="/projects" />}
+      selected
+    >
+      Projects
+    </Sidebar.Item>,
+  );
+
+  const link = screen.getByRole("link", { name: "Projects" });
+  await expect.element(link).toHaveAttribute("href", "/projects");
+  await expect.element(link).toHaveAttribute("aria-current", "page");
+  await expect.element(link).toHaveAttribute("data-slot", "sidebar-item");
+  await expect.element(link).toHaveAttribute("data-state", "selected");
+  await expect.element(link).toHaveClass("primitive-item", "router-link");
+  expect(linkRef.current).toBe(link.element());
+
+  await link.click();
+  expect(clicks).toBe(1);
+});
+
+test("structural parts expose the same render contract", async () => {
+  const screen = await render(
+    <Sidebar.Group render={<section aria-label="Application shell" />}>
+      <Sidebar.Root defaultOpen id="navigation-render" render={<div data-root="custom" />}>
+        <Sidebar.Trigger>Toggle navigation</Sidebar.Trigger>
+        <Sidebar.Panel aria-label="Primary" render={<nav />}>
+          Navigation
+        </Sidebar.Panel>
+      </Sidebar.Root>
+    </Sidebar.Group>,
+  );
+
+  await expect
+    .element(screen.getByRole("region", { name: "Application shell" }))
+    .toHaveAttribute("data-slot", "sidebar-group");
+  await expect
+    .element(screen.getByRole("navigation", { name: "Primary" }))
+    .toHaveAttribute("id", "navigation-render-panel");
+  expect(document.querySelector('[data-root="custom"]')).toHaveAttribute(
+    "data-slot",
+    "sidebar-root",
+  );
 });
