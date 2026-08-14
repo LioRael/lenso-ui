@@ -409,6 +409,34 @@
         }
       ]
     },
+    "settings-row": {
+      "files": [
+        {
+          "registrySha256": "cb6cb8baa4909ac159f59e62f7249370870154ce9cdd902a53421f7fa6dbc3ed",
+          "source": "packages/ui/src/settings-row/index.tsx",
+          "sourceSha256": "cb6cb8baa4909ac159f59e62f7249370870154ce9cdd902a53421f7fa6dbc3ed",
+          "target": "components/lenso/settings-row/index.tsx"
+        },
+        {
+          "registrySha256": "63105a1735ef9bcc542b2f508beeed2e69bbf4267b3c8272abaf5fdf93578dfb",
+          "source": "packages/ui/src/settings-row/settings-row.stylex.ts",
+          "sourceSha256": "63105a1735ef9bcc542b2f508beeed2e69bbf4267b3c8272abaf5fdf93578dfb",
+          "target": "components/lenso/settings-row/settings-row.stylex.ts"
+        },
+        {
+          "registrySha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "source": "packages/ui/src/shared/merge-class-name.ts",
+          "sourceSha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "target": "components/lenso/shared/merge-class-name.ts"
+        },
+        {
+          "registrySha256": "74879d142b59dfdc32c62bdece23b6910a29a0774c8ad6f9fb8834c3fdf06373",
+          "source": "packages/ui/src/tokens.stylex.ts",
+          "sourceSha256": "74879d142b59dfdc32c62bdece23b6910a29a0774c8ad6f9fb8834c3fdf06373",
+          "target": "components/lenso/tokens.stylex.ts"
+        }
+      ]
+    },
     "setup": {
       "files": [
         {

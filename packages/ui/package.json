@@ -77,6 +77,10 @@
       "types": "./dist/sidebar/index.d.ts",
       "import": "./dist/sidebar/index.js"
     },
+    "./settings-row": {
+      "types": "./dist/settings-row/index.d.ts",
+      "import": "./dist/settings-row/index.js"
+    },
     "./switch": {
       "types": "./dist/switch/index.d.ts",
       "import": "./dist/switch/index.js"

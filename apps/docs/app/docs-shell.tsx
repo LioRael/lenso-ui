@@ -19,6 +19,7 @@ type DocsPage =
   | "overview"
   | "page-header"
   | "quick-link"
+  | "settings-row"
   | "radio"
   | "select"
   | "sidebar"
@@ -117,6 +118,7 @@ function ComponentNavigation({
     | "label"
     | "page-header"
     | "quick-link"
+    | "settings-row"
     | "radio"
     | "select"
     | "sidebar"
@@ -137,6 +139,7 @@ function ComponentNavigation({
     current === "disclosure" ||
     current === "page-header" ||
     current === "quick-link" ||
+    current === "settings-row" ||
     current === "sidebar";
   const contentCurrent = current === "avatar";
 
@@ -254,6 +257,13 @@ function ComponentNavigation({
                 href="/components/quick-link"
               >
                 Quick Link
+              </Link>
+              <Link
+                aria-current={current === "settings-row" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/settings-row"
+              >
+                Settings Row
               </Link>
               <Link
                 aria-current={current === "sidebar" ? "page" : undefined}

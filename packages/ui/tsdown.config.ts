@@ -26,6 +26,7 @@ export default defineConfig({
     "quick-link/index": source("quick-link"),
     "radio/index": source("radio"),
     "select/index": source("select"),
+    "settings-row/index": source("settings-row"),
     "sidebar/index": source("sidebar"),
     "switch/index": source("switch"),
     "text-field/index": source("text-field"),

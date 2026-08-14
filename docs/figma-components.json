@@ -186,6 +186,17 @@
         "nodeId": "377:14",
         "baseline": "docs/figma-baselines/quick-link-state-board.png"
       }
+    },
+    "settings-row": {
+      "nodeId": "376:59",
+      "codeSubpath": "@lenso/ui/settings-row",
+      "variants": ["select", "toggle", "action", "custom-control"],
+      "states": ["default", "hover", "disabled"],
+      "documentation": "/components/settings-row",
+      "stateBoard": {
+        "nodeId": "376:59",
+        "baseline": "docs/figma-baselines/settings-row-state-board.png"
+      }
     }
   }
 }

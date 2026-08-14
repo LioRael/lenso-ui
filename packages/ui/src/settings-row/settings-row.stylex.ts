@@ -1,0 +1,66 @@
+import * as stylex from "@stylexjs/stylex";
+
+import { tokens } from "../tokens.stylex.js";
+
+export const styles = stylex.create({
+  root: {
+    alignItems: "center",
+    backgroundColor: {
+      default: "transparent",
+      ":hover": tokens.colorSurfaceInteractiveHover,
+      '[data-visual-state="hover"]': tokens.colorSurfaceInteractiveHover,
+    },
+    borderBottomColor: tokens.colorBorderTertiary,
+    borderBottomStyle: "solid",
+    borderBottomWidth: "0.5px",
+    boxSizing: "border-box",
+    display: "flex",
+    fontFamily: tokens.fontSans,
+    gap: "12px",
+    height: "65px",
+    opacity: { default: 1, '[data-disabled="true"]': 0.4 },
+    paddingBlock: "10px",
+    paddingInline: "16px",
+    transitionDuration: "120ms",
+    transitionProperty: "background-color, opacity",
+    transitionTimingFunction: "ease-out",
+    width: "100%",
+  },
+  copy: {
+    alignItems: "flex-start",
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    minWidth: 0,
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+  },
+  title: {
+    color: tokens.colorContentPrimary,
+    fontFamily: tokens.fontSans,
+    fontSize: "13px",
+    fontWeight: 500,
+    lineHeight: "19.5px",
+    margin: 0,
+    maxWidth: "100%",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  description: {
+    color: tokens.colorContentTertiary,
+    fontFamily: tokens.fontSans,
+    fontSize: "12px",
+    fontWeight: 400,
+    lineHeight: "18px",
+    margin: 0,
+    maxWidth: "100%",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  control: {
+    alignItems: "center",
+    display: "flex",
+    flexShrink: 0,
+    justifyContent: "flex-end",
+  },
+});

@@ -429,6 +429,25 @@ const specs: RegistryItemSpec[] = [
     title: "Quick Link",
     type: "registry:ui",
   },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/settings-row/index.tsx",
+        target: "components/lenso/settings-row/index.tsx",
+      },
+      {
+        source: "packages/ui/src/settings-row/settings-row.stylex.ts",
+        target: "components/lenso/settings-row/settings-row.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "settings-row",
+    registryDependencies: [stable("setup")],
+    title: "Settings Row",
+    type: "registry:ui",
+  },
 ];
 
 const sourceCache = new Map<string, string>();

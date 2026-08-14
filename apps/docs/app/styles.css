@@ -788,6 +788,14 @@ a {
   padding-top: 52px;
 }
 
+.settings-row-stage {
+  padding-inline: 16px;
+}
+
+.settings-row-stage [data-slot="settings-row"] {
+  font-family: "Inter", var(--font-sans);
+}
+
 .sidebar-playground {
   height: 844px;
 }
