@@ -1,3 +1,4 @@
+import * as React from "react";
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
 import "@fontsource/ibm-plex-sans/500.css";
@@ -8,6 +9,7 @@ import "virtual:stylex:runtime";
 import "../../tokens/src/styles.css";
 import { Button } from "./button/index.js";
 import { Checkbox } from "./checkbox/index.js";
+import { Combobox } from "./combobox/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
@@ -712,6 +714,100 @@ test("Switch resolves dark theme values", async () => {
 });
 
 const selectValues = ["Smaller", "Small", "Default", "Large", "Larger"] as const;
+
+const comboboxLabels = ["Bug", "Feature", "Improvement"] as const;
+const comboboxMarkerColors = ["#eb5757", "#bb87fc", "#4ea7fc"] as const;
+
+function ComboboxExample({ state }: { state: "closed" | "empty" | "loading" | "open" }) {
+  const items = state === "empty" ? [] : comboboxLabels;
+  const portalRef = React.useRef<HTMLDivElement>(null);
+  return (
+    <div ref={portalRef} style={{ position: "relative", width: 207 }}>
+      <Combobox.Root
+        autoHighlight={false}
+        defaultValue={[]}
+        items={items}
+        multiple
+        open={state !== "closed"}
+      >
+        <Combobox.InputGroup>
+          <Combobox.Input
+            disabled={state === "loading"}
+            placeholder={state === "loading" ? "Loading labels…" : "Change or add labels…"}
+          />
+          <Combobox.Shortcut>L</Combobox.Shortcut>
+        </Combobox.InputGroup>
+        <Combobox.Portal container={portalRef}>
+          <Combobox.Positioner
+            collisionAvoidance={{ align: "none", fallbackAxisSide: "none", side: "none" }}
+            positionMethod="absolute"
+            sideOffset={-36}
+            style={{ left: 0, position: "absolute", top: 0, transform: "none" }}
+          >
+            <Combobox.Popup>
+              {state === "loading" ? (
+                <Combobox.Status>Loading labels…</Combobox.Status>
+              ) : state === "empty" ? (
+                <Combobox.Empty>No labels found</Combobox.Empty>
+              ) : (
+                <Combobox.List>
+                  {(label: string) => {
+                    const index = comboboxLabels.indexOf(label as (typeof comboboxLabels)[number]);
+                    return (
+                      <Combobox.Item data-visual-state="default" key={label} value={label}>
+                        <Combobox.ItemIndicator keepMounted />
+                        <Combobox.Marker style={{ color: comboboxMarkerColors[index] }} />
+                        <Combobox.ItemText>{label}</Combobox.ItemText>
+                      </Combobox.Item>
+                    );
+                  }}
+                </Combobox.List>
+              )}
+            </Combobox.Popup>
+          </Combobox.Positioner>
+        </Combobox.Portal>
+      </Combobox.Root>
+    </div>
+  );
+}
+
+test("Combobox matches the approved Figma state board", async () => {
+  function StateBoard() {
+    return (
+      <div
+        data-testid="combobox-figma-state-board"
+        style={{ height: 178, left: 0, position: "fixed", top: 0, width: 944 }}
+      >
+        {(["closed", "open", "empty", "loading"] as const).map((state, index) => (
+          <div key={state} style={{ left: index * 235 + 16, position: "absolute", top: 17 }}>
+            <ComboboxExample state={state} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  const screen = await render(<StateBoard />);
+  await document.fonts.load('400 13px "Inter"', "Change or add labels Loading labels");
+  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+  const board = screen.getByTestId("combobox-figma-state-board");
+  const inputs = board.element().querySelectorAll<HTMLElement>('[data-slot="combobox-input"]');
+  await expect.poll(() => inputs.length).toBe(4);
+  expect(inputs[0]?.getBoundingClientRect().height).toBe(36);
+  expect(getComputedStyle(inputs[0]!).fontFamily).toContain("Inter");
+  await expect
+    .poll(() => board.element().querySelectorAll('[data-slot="combobox-popup"][data-open]').length)
+    .toBe(3);
+  board
+    .element()
+    .querySelectorAll<HTMLElement>('[data-slot="combobox-list"]')
+    .forEach((list) => {
+      list.scrollTop = 0;
+    });
+  await expect.element(board).toMatchScreenshot("combobox-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
 
 function SelectExample({ open, value }: { open?: boolean; value: string }) {
   return (

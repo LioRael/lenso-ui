@@ -17,6 +17,10 @@
       "types": "./dist/checkbox/index.d.ts",
       "import": "./dist/checkbox/index.js"
     },
+    "./combobox": {
+      "types": "./dist/combobox/index.d.ts",
+      "import": "./dist/combobox/index.js"
+    },
     "./button": {
       "types": "./dist/button/index.d.ts",
       "import": "./dist/button/index.js"

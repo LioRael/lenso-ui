@@ -9,6 +9,7 @@ import { ThemeScope } from "@lenso/ui/theme-scope";
 type DocsPage =
   | "button"
   | "checkbox"
+  | "combobox"
   | "icon-button"
   | "label"
   | "overview"
@@ -100,6 +101,7 @@ function ComponentNavigation({
   current:
     | "button"
     | "checkbox"
+    | "combobox"
     | "icon-button"
     | "label"
     | "radio"
@@ -109,6 +111,7 @@ function ComponentNavigation({
 }) {
   const formsCurrent =
     current === "checkbox" ||
+    current === "combobox" ||
     current === "label" ||
     current === "radio" ||
     current === "select" ||
@@ -164,7 +167,7 @@ function ComponentNavigation({
                   ["Radio", "/components/radio"],
                   ["Switch", "/components/switch"],
                   ["Select", "/components/select"],
-                  ["Combobox", "#combobox"],
+                  ["Combobox", "/components/combobox"],
                 ] as const
               ).map(([label, href]) => (
                 <Link
@@ -172,6 +175,7 @@ function ComponentNavigation({
                     (label === "Label" && current === "label") ||
                     (label === "Text Field" && current === "text-field") ||
                     (label === "Checkbox" && current === "checkbox") ||
+                    (label === "Combobox" && current === "combobox") ||
                     (label === "Radio" && current === "radio") ||
                     (label === "Switch" && current === "switch") ||
                     (label === "Select" && current === "select")

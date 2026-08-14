@@ -58,6 +58,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "combobox",
+      "title": "Combobox",
+      "type": "registry:ui"
+    },
+    {
       "name": "dialog",
       "title": "Dialog",
       "type": "registry:ui"

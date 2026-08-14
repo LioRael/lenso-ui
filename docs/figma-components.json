@@ -91,6 +91,17 @@
         "baseline": "docs/figma-baselines/select-state-board.png"
       }
     },
+    "combobox": {
+      "nodeId": "346:130",
+      "codeSubpath": "@lenso/ui/combobox",
+      "variants": ["closed", "open", "empty", "loading", "multiple"],
+      "states": ["default", "highlighted", "selected", "disabled", "focus-visible"],
+      "documentation": "/components/combobox",
+      "stateBoard": {
+        "nodeId": "346:130",
+        "baseline": "docs/figma-baselines/combobox-state-board.png"
+      }
+    },
     "dialog": {
       "nodeId": "245:804",
       "codeSubpath": "@lenso/ui/dialog",

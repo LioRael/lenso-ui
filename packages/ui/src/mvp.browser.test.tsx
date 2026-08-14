@@ -9,6 +9,7 @@ import { semanticTokenNames } from "@lenso/tokens";
 import "../../tokens/src/styles.css";
 import { Button } from "./button/index.js";
 import { Checkbox } from "./checkbox/index.js";
+import { Combobox } from "./combobox/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
@@ -367,6 +368,70 @@ test("Select permits consumer-owned icon and selection indicator", async () => {
   );
   await expect.element(screen.getByTestId("custom-select-icon")).toBeVisible();
   await expect.element(screen.getByTestId("custom-select-indicator")).toBeVisible();
+});
+
+test("Combobox filters and selects with keyboard while preserving focus", async () => {
+  const onValueChange = vi.fn();
+  const screen = await render(
+    <Combobox.Root items={["Bug", "Feature", "Improvement"]} onValueChange={onValueChange}>
+      <Combobox.InputGroup>
+        <Combobox.Input aria-label="Labels" placeholder="Change or add labels…" />
+        <Combobox.Shortcut>L</Combobox.Shortcut>
+      </Combobox.InputGroup>
+      <Combobox.Portal>
+        <Combobox.Positioner>
+          <Combobox.Popup>
+            <Combobox.Empty>No labels found</Combobox.Empty>
+            <Combobox.List>
+              {(label: string) => (
+                <Combobox.Item key={label} value={label}>
+                  {label}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </Combobox.Popup>
+        </Combobox.Positioner>
+      </Combobox.Portal>
+    </Combobox.Root>,
+  );
+  const input = screen.getByRole("combobox", { name: "Labels" });
+  await input.fill("fea");
+  await expect.element(screen.getByRole("option", { name: "Feature" })).toBeVisible();
+  expect(
+    Array.from(document.querySelectorAll('[role="option"]')).some(
+      (option) => option.textContent === "Bug",
+    ),
+  ).toBe(false);
+  await userEvent.keyboard("{ArrowDown}{Enter}");
+  expect(onValueChange).toHaveBeenCalledWith("Feature", expect.anything());
+  expect(document.activeElement).toBe(input.element());
+  const results = await axe.run(screen.container);
+  expect(results.violations).toEqual([]);
+});
+
+test("Combobox permits consumer-owned selection visuals", async () => {
+  const screen = await render(
+    <Combobox.Root defaultOpen defaultValue="Custom" items={["Custom"]}>
+      <Combobox.Input aria-label="Custom label" />
+      <Combobox.Portal>
+        <Combobox.Positioner>
+          <Combobox.Popup>
+            <Combobox.List>
+              {(label: string) => (
+                <Combobox.Item key={label} value={label}>
+                  <Combobox.ItemIndicator>
+                    <span data-testid="custom-combobox-indicator">Chosen</span>
+                  </Combobox.ItemIndicator>
+                  {label}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </Combobox.Popup>
+        </Combobox.Positioner>
+      </Combobox.Portal>
+    </Combobox.Root>,
+  );
+  await expect.element(screen.getByTestId("custom-combobox-indicator")).toBeVisible();
 });
 
 test("Dialog portals into the nearest theme scope and closes with Escape", async () => {

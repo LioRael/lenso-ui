@@ -243,6 +243,25 @@ const specs: RegistryItemSpec[] = [
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
+        source: "packages/ui/src/combobox/index.tsx",
+        target: "components/lenso/combobox/index.tsx",
+      },
+      {
+        source: "packages/ui/src/combobox/combobox.stylex.ts",
+        target: "components/lenso/combobox/combobox.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "combobox",
+    registryDependencies: [stable("setup"), stable("theme-scope")],
+    title: "Combobox",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      {
         source: "packages/ui/src/dialog/index.tsx",
         target: "components/lenso/dialog/index.tsx",
       },
