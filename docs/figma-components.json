@@ -219,6 +219,17 @@
         "nodeId": "237:346",
         "baseline": "docs/figma-baselines/tooltip-state-board.png"
       }
+    },
+    "popover": {
+      "nodeId": "341:1025",
+      "codeSubpath": "@lenso/ui/popover",
+      "variants": ["top", "right", "bottom", "left", "arrow", "custom-item-render"],
+      "states": ["default", "hover", "pressed", "focus-visible", "open", "dismissed"],
+      "documentation": "/components/popover",
+      "stateBoard": {
+        "nodeId": "343:81",
+        "baseline": "docs/figma-baselines/popover-state-board.png"
+      }
     }
   }
 }

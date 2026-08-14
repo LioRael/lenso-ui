@@ -23,6 +23,7 @@ export default defineConfig({
     "icon-button/index": source("icon-button"),
     "label/index": source("label"),
     "page-header/index": source("page-header"),
+    "popover/index": source("popover"),
     "quick-link/index": source("quick-link"),
     "radio/index": source("radio"),
     "select/index": source("select"),

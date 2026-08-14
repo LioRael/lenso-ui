@@ -55,6 +55,25 @@ const specs: RegistryItemSpec[] = [
   {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
+      {
+        source: "packages/ui/src/popover/index.tsx",
+        target: "components/lenso/popover/index.tsx",
+      },
+      {
+        source: "packages/ui/src/popover/popover.stylex.ts",
+        target: "components/lenso/popover/popover.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "popover",
+    registryDependencies: [stable("setup")],
+    title: "Popover",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
       { source: "packages/ui/src/avatar/index.tsx", target: "components/lenso/avatar/index.tsx" },
       {
         source: "packages/ui/src/avatar/avatar.stylex.ts",

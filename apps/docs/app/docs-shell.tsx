@@ -18,6 +18,7 @@ type DocsPage =
   | "label"
   | "overview"
   | "page-header"
+  | "popover"
   | "quick-link"
   | "settings-row"
   | "radio"
@@ -119,6 +120,7 @@ function ComponentNavigation({
     | "icon-button"
     | "label"
     | "page-header"
+    | "popover"
     | "quick-link"
     | "settings-row"
     | "radio"
@@ -146,7 +148,7 @@ function ComponentNavigation({
     current === "settings-row" ||
     current === "sidebar";
   const tabsCurrent = current === "tabs";
-  const overlaysCurrent = current === "tooltip";
+  const overlaysCurrent = current === "popover" || current === "tooltip";
   const contentCurrent = current === "avatar";
 
   return (
@@ -293,9 +295,22 @@ function ComponentNavigation({
             Overlays
           </NavHeading>
           {overlaysCurrent && (
-            <Link aria-current="page" className="nav-item nav-item-deep" href="/components/tooltip">
-              Tooltip
-            </Link>
+            <>
+              <Link
+                aria-current={current === "tooltip" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/tooltip"
+              >
+                Tooltip
+              </Link>
+              <Link
+                aria-current={current === "popover" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/popover"
+              >
+                Popover
+              </Link>
+            </>
           )}
         </div>
         <div className="nav-category">

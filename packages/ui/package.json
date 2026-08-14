@@ -61,6 +61,10 @@
       "types": "./dist/page-header/index.d.ts",
       "import": "./dist/page-header/index.js"
     },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "import": "./dist/popover/index.js"
+    },
     "./quick-link": {
       "types": "./dist/quick-link/index.d.ts",
       "import": "./dist/quick-link/index.js"

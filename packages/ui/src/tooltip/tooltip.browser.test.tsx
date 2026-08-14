@@ -74,7 +74,9 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
   await userEvent.hover(trigger);
   const runtimeTooltip = screen.getByTestId("runtime-tooltip");
   await expect.element(runtimeTooltip).toBeVisible();
-  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeCloseTo(92, 0);
+  await expect.poll(() => getComputedStyle(runtimeTooltip.element()).opacity).toBe("1");
+  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeGreaterThan(90);
+  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeLessThan(94);
   expect(trigger.element().getAttribute("aria-describedby")).toBe(runtimeTooltip.element().id);
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,

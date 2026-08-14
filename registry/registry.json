@@ -3,6 +3,11 @@
   "homepage": "https://ui.lenso.dev",
   "items": [
     {
+      "name": "popover",
+      "title": "Popover",
+      "type": "registry:ui"
+    },
+    {
       "name": "avatar",
       "title": "Avatar",
       "type": "registry:ui"
