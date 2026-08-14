@@ -96,10 +96,9 @@ Node 24 and pnpm 11.5 are pinned by the repository.
 ```bash
 pnpm install
 pnpm check
-pnpm smoke
 pnpm dev
 ```
 
-`pnpm smoke` packs the public packages and builds fresh temporary Next and Vite consumers. No framework fixtures are retained in the repository.
+The repository validates package builds, registry schemas, browser behavior, accessibility, and curated Chromium state boards without retaining framework consumer fixtures.
 
 Architecture decisions live in `docs/adr`, and the current delivery contract is defined in `MVP.md`.

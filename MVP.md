@@ -82,7 +82,7 @@ Public CSS custom properties are unbranded complete semantic paths such as `--co
 5. Sidebar Product Primitive and one styled Registry Recipe, including nested and simultaneous left/right sidebars.
 6. Package and registry artifacts from the same canonical sources.
 7. Next App Router documentation and Component Lab consumption.
-8. Temporary real-install smoke for npm with Next and registry with Vite.
+8. Package export validation and shadcn Registry schema validation.
 
 Remaining Foundation Components expand only after this slice proves packed and installed artifacts.
 
