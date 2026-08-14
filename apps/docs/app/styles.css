@@ -1103,6 +1103,30 @@ a {
   height: 112px;
 }
 
+.select-docs-content {
+  padding-bottom: 40px;
+}
+
+.select-guidance {
+  height: 152px;
+}
+
+.select-guidance article:first-child {
+  height: 88px;
+}
+
+.select-guidance article:last-child {
+  height: 48px;
+}
+
+.select-implementation {
+  height: 246px;
+}
+
+.select-implementation pre {
+  height: 192px;
+}
+
 @media (max-width: 1100px) {
   .overview-section {
     grid-template-columns: minmax(0, 1fr);

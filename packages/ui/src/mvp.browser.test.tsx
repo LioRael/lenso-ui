@@ -13,6 +13,7 @@ import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
 import { RadioGroup } from "./radio/index.js";
+import { Select } from "./select/index.js";
 import { Switch } from "./switch/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
@@ -300,6 +301,74 @@ test("Switch toggles, submits its value, and permits a consumer-owned thumb", as
   ).toBe("enabled");
 });
 
+test("Select supports keyboard selection, form semantics, and focus restoration", async () => {
+  const onValueChange = vi.fn();
+  const screen = await render(
+    <form>
+      <Select.Root defaultValue="small" name="density" onValueChange={onValueChange}>
+        <Select.Trigger aria-label="Density">
+          <Select.Value />
+          <Select.Icon />
+        </Select.Trigger>
+        <Select.Portal>
+          <Select.Positioner>
+            <Select.Popup>
+              <Select.List>
+                <Select.Item label="Small" value="small">
+                  <Select.ItemText>Small</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+                <Select.Item label="Default" value="default">
+                  <Select.ItemText>Default</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              </Select.List>
+            </Select.Popup>
+          </Select.Positioner>
+        </Select.Portal>
+      </Select.Root>
+    </form>,
+  );
+  const trigger = screen.getByRole("combobox");
+  trigger.element().focus();
+  await userEvent.keyboard("{ArrowDown}");
+  await expect.element(screen.getByRole("listbox")).toBeVisible();
+  await userEvent.keyboard("{ArrowDown}{Enter}");
+  await expect.element(trigger).toHaveTextContent("default");
+  expect(onValueChange).toHaveBeenCalledWith("default", expect.anything());
+  expect(document.activeElement).toBe(trigger.element());
+  expect(document.querySelector<HTMLInputElement>('input[name="density"]')?.value).toBe("default");
+});
+
+test("Select permits consumer-owned icon and selection indicator", async () => {
+  const screen = await render(
+    <Select.Root defaultOpen defaultValue="custom">
+      <Select.Trigger>
+        <Select.Value />
+        <Select.Icon>
+          <span data-testid="custom-select-icon">Icon</span>
+        </Select.Icon>
+      </Select.Trigger>
+      <Select.Portal>
+        <Select.Positioner>
+          <Select.Popup>
+            <Select.List>
+              <Select.Item value="custom">
+                <Select.ItemText>Custom</Select.ItemText>
+                <Select.ItemIndicator>
+                  <span data-testid="custom-select-indicator">Chosen</span>
+                </Select.ItemIndicator>
+              </Select.Item>
+            </Select.List>
+          </Select.Popup>
+        </Select.Positioner>
+      </Select.Portal>
+    </Select.Root>,
+  );
+  await expect.element(screen.getByTestId("custom-select-icon")).toBeVisible();
+  await expect.element(screen.getByTestId("custom-select-indicator")).toBeVisible();
+});
+
 test("Dialog portals into the nearest theme scope and closes with Escape", async () => {
   const screen = await render(
     <ThemeScope theme="dark" data-testid="theme-host">
@@ -362,6 +431,24 @@ test("the MVP foundation surface has no automatic accessibility violations", asy
         <Switch.Thumb />
         Notifications
       </Switch.Root>
+      <Select.Root defaultValue="small">
+        <Select.Trigger aria-label="Density">
+          <Select.Value />
+          <Select.Icon />
+        </Select.Trigger>
+        <Select.Portal>
+          <Select.Positioner>
+            <Select.Popup>
+              <Select.List>
+                <Select.Item value="small">
+                  <Select.ItemText>Small</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              </Select.List>
+            </Select.Popup>
+          </Select.Positioner>
+        </Select.Portal>
+      </Select.Root>
       <TextField.Root>
         <TextField.Label>Name</TextField.Label>
         <TextField.Control />

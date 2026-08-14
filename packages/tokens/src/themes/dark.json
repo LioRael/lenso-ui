@@ -8,6 +8,9 @@
       "surface": { "$value": "{primitive.color.gray950}" },
       "dialog": { "$value": "{primitive.color.slate950}" },
       "elevated": { "$value": "{primitive.color.gray900}" },
+      "popover": {
+        "$value": { "colorSpace": "srgb", "components": [0.156863, 0.160784, 0.168627], "alpha": 1 }
+      },
       "subtle": { "$value": "{primitive.color.gray900}" },
       "interactive": { "$value": "{primitive.color.gray950}" },
       "interactiveHover": { "$value": "{primitive.color.gray800}" },
@@ -30,7 +33,10 @@
       "tertiary": { "$value": "{primitive.color.gray800}" },
       "secondary": { "$value": "{primitive.color.gray700}" },
       "primary": { "$value": "{primitive.color.gray500}" },
-      "dialog": { "$value": "{primitive.color.gray800}" }
+      "dialog": { "$value": "{primitive.color.gray800}" },
+      "popover": {
+        "$value": { "colorSpace": "srgb", "components": [0.247059, 0.25098, 0.266667], "alpha": 1 }
+      }
     },
     "action": {
       "primary": { "$value": "{primitive.color.slate100}" },

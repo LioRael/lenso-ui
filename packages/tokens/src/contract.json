@@ -8,6 +8,7 @@
     "color.action.primaryContent",
     "color.action.primaryHover",
     "color.border.dialog",
+    "color.border.popover",
     "color.border.primary",
     "color.border.secondary",
     "color.border.tertiary",
@@ -38,6 +39,7 @@
     "color.surface.interactive",
     "color.surface.interactiveHover",
     "color.surface.level3",
+    "color.surface.popover",
     "color.surface.quaternary",
     "color.surface.readOnly",
     "color.surface.scrim",
@@ -171,6 +173,21 @@
         },
         "cssName": "--color-border-dialog",
         "cssValue": "#1f1f1f"
+      },
+      "color.border.popover": {
+        "path": "color.border.popover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.247059,
+            0.25098,
+            0.266667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-popover",
+        "cssValue": "#3f4044"
       },
       "color.border.primary": {
         "path": "color.border.primary",
@@ -621,6 +638,21 @@
         },
         "cssName": "--color-surface-level3",
         "cssValue": "#191a1b"
+      },
+      "color.surface.popover": {
+        "path": "color.surface.popover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.160784,
+            0.168627
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-popover",
+        "cssValue": "#28292b"
       },
       "color.surface.quaternary": {
         "path": "color.surface.quaternary",
@@ -1192,6 +1224,21 @@
         "cssName": "--color-border-dialog",
         "cssValue": "#d4d4d4"
       },
+      "color.border.popover": {
+        "path": "color.border.popover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.847059,
+            0.847059,
+            0.847059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-popover",
+        "cssValue": "#d8d8d8"
+      },
       "color.border.primary": {
         "path": "color.border.primary",
         "type": "color",
@@ -1641,6 +1688,21 @@
         },
         "cssName": "--color-surface-level3",
         "cssValue": "#f0f0f0"
+      },
+      "color.surface.popover": {
+        "path": "color.surface.popover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-popover",
+        "cssValue": "#ffffff"
       },
       "color.surface.quaternary": {
         "path": "color.surface.quaternary",

@@ -80,6 +80,17 @@
         "baseline": "docs/figma-baselines/switch-state-board.png"
       }
     },
+    "select": {
+      "nodeId": "224:518",
+      "codeSubpath": "@lenso/ui/select",
+      "variants": ["closed", "open", "consumer-owned-icon", "consumer-owned-indicator"],
+      "states": ["default", "highlighted", "selected", "disabled", "focus-visible"],
+      "documentation": "/components/select",
+      "stateBoard": {
+        "nodeId": "224:518",
+        "baseline": "docs/figma-baselines/select-state-board.png"
+      }
+    },
     "dialog": {
       "nodeId": "245:804",
       "codeSubpath": "@lenso/ui/dialog",

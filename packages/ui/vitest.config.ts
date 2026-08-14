@@ -5,7 +5,7 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   optimizeDeps: {
-    include: ["@base-ui/react/switch"],
+    include: ["@base-ui/react/select", "@base-ui/react/switch"],
   },
   plugins: [stylex({ devMode: "full", useCSSLayers: true })],
   test: {

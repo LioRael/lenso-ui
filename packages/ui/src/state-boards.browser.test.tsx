@@ -12,6 +12,7 @@ import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
 import { RadioGroup } from "./radio/index.js";
+import { Select } from "./select/index.js";
 import { Switch } from "./switch/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
@@ -708,6 +709,96 @@ test("Switch resolves dark theme values", async () => {
   const thumb = root.querySelector<HTMLElement>('[data-slot="switch-thumb"]');
   await expect.poll(() => getComputedStyle(root).color).toBe("rgb(247, 248, 248)");
   expect(getComputedStyle(thumb!).backgroundColor).toBe("rgb(255, 255, 255)");
+});
+
+const selectValues = ["Smaller", "Small", "Default", "Large", "Larger"] as const;
+
+function SelectExample({ open, value }: { open?: boolean; value: string }) {
+  return (
+    <Select.Root defaultOpen={open} defaultValue={value}>
+      <Select.Trigger>
+        <Select.Value />
+        <Select.Icon />
+      </Select.Trigger>
+      <Select.Positioner
+        collisionAvoidance={{ align: "none", fallbackAxisSide: "none", side: "none" }}
+      >
+        <Select.Popup>
+          <Select.List>
+            {selectValues.map((option) => (
+              <Select.Item data-visual-state="default" key={option} value={option}>
+                <Select.ItemText>{option}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.List>
+        </Select.Popup>
+      </Select.Positioner>
+    </Select.Root>
+  );
+}
+
+test("Select matches the approved Figma state board", async () => {
+  const screen = await render(
+    <div
+      data-testid="select-figma-state-board"
+      style={{ height: 301, position: "relative", width: 1008 }}
+    >
+      {selectValues.map((value, index) => (
+        <div key={`closed-${value}`} style={{ left: index * 198, position: "absolute", top: 24 }}>
+          <SelectExample value={value} />
+        </div>
+      ))}
+      {selectValues.map((value, index) => (
+        <div key={`open-${value}`} style={{ left: index * 198, position: "absolute", top: 72 }}>
+          <SelectExample open value={value} />
+        </div>
+      ))}
+    </div>,
+  );
+
+  await document.fonts.load('400 13px "Inter"', selectValues.join(" "));
+  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+
+  const board = screen.getByTestId("select-figma-state-board");
+  const triggers = board.element().querySelectorAll<HTMLElement>('[data-slot="select-trigger"]');
+  await expect.poll(() => triggers.length).toBe(10);
+  await expect.poll(() => triggers[0]?.getBoundingClientRect().height).toBe(32);
+  expect(Math.abs((triggers[2]?.getBoundingClientRect().width ?? 0) - 85.15)).toBeLessThan(1);
+  expect(getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(triggers[0]!).fontSize).toBe("13px");
+  await expect
+    .poll(
+      () =>
+        board.element().querySelectorAll<HTMLElement>('[data-slot="select-popup"][data-open]')
+          .length,
+    )
+    .toBe(5);
+  const popup = board
+    .element()
+    .querySelector<HTMLElement>('[data-slot="select-popup"][data-open]')!;
+  expect(popup.getBoundingClientRect().toJSON()).toMatchObject({ height: 168, width: 180 });
+  expect(getComputedStyle(popup).backgroundColor).toBe("rgb(255, 255, 255)");
+  expect(getComputedStyle(popup).borderRadius).toBe("12px");
+
+  await expect.element(board).toMatchScreenshot("select-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
+
+test("Select resolves dark popup tokens", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <SelectExample open value="Default" />
+    </ThemeScope>,
+  );
+  const popup = screen
+    .getByRole("listbox")
+    .element()
+    .closest('[data-slot="select-popup"]') as HTMLElement;
+  await expect.poll(() => getComputedStyle(popup).backgroundColor).toBe("rgb(40, 41, 43)");
+  expect(getComputedStyle(popup).borderColor).toBe("rgb(63, 64, 68)");
 });
 
 for (const theme of ["light", "dark"] as const) {

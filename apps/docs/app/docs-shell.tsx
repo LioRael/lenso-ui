@@ -13,6 +13,7 @@ type DocsPage =
   | "label"
   | "overview"
   | "radio"
+  | "select"
   | "switch"
   | "text-field";
 
@@ -96,12 +97,21 @@ function OverviewNavigation() {
 function ComponentNavigation({
   current,
 }: {
-  current: "button" | "checkbox" | "icon-button" | "label" | "radio" | "switch" | "text-field";
+  current:
+    | "button"
+    | "checkbox"
+    | "icon-button"
+    | "label"
+    | "radio"
+    | "select"
+    | "switch"
+    | "text-field";
 }) {
   const formsCurrent =
     current === "checkbox" ||
     current === "label" ||
     current === "radio" ||
+    current === "select" ||
     current === "switch" ||
     current === "text-field";
 
@@ -153,7 +163,7 @@ function ComponentNavigation({
                   ["Checkbox", "/components/checkbox"],
                   ["Radio", "/components/radio"],
                   ["Switch", "/components/switch"],
-                  ["Select", "#select"],
+                  ["Select", "/components/select"],
                   ["Combobox", "#combobox"],
                 ] as const
               ).map(([label, href]) => (
@@ -163,7 +173,8 @@ function ComponentNavigation({
                     (label === "Text Field" && current === "text-field") ||
                     (label === "Checkbox" && current === "checkbox") ||
                     (label === "Radio" && current === "radio") ||
-                    (label === "Switch" && current === "switch")
+                    (label === "Switch" && current === "switch") ||
+                    (label === "Select" && current === "select")
                       ? "page"
                       : undefined
                   }

@@ -5,6 +5,7 @@
   --color-action-primary-content: #fafafa;
   --color-action-primary-hover: #1f2024;
   --color-border-dialog: #d4d4d4;
+  --color-border-popover: #d8d8d8;
   --color-border-primary: #707172;
   --color-border-secondary: #d4d4d4;
   --color-border-tertiary: #eaeaea;
@@ -35,6 +36,7 @@
   --color-surface-interactive: #ffffff;
   --color-surface-interactive-hover: #f5f5f5;
   --color-surface-level3: #f0f0f0;
+  --color-surface-popover: #ffffff;
   --color-surface-quaternary: #eeedf0;
   --color-surface-read-only: #fafafa;
   --color-surface-scrim: #00000052;
@@ -85,6 +87,7 @@
   --color-action-primary-content: #191a1b;
   --color-action-primary-hover: #ffffff;
   --color-border-dialog: #1f1f1f;
+  --color-border-popover: #3f4044;
   --color-border-primary: #707172;
   --color-border-secondary: #333333;
   --color-border-tertiary: #1f1f1f;
@@ -115,6 +118,7 @@
   --color-surface-interactive: #000000;
   --color-surface-interactive-hover: #1f1f1f;
   --color-surface-level3: #191a1b;
+  --color-surface-popover: #28292b;
   --color-surface-quaternary: #28282c;
   --color-surface-read-only: #0a0a0a;
   --color-surface-scrim: #00000052;

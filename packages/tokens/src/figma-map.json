@@ -36,6 +36,11 @@
       "type": "color"
     },
     {
+      "path": "color.border.popover",
+      "cssName": "--color-border-popover",
+      "type": "color"
+    },
+    {
       "path": "color.border.primary",
       "cssName": "--color-border-primary",
       "type": "color"
@@ -183,6 +188,11 @@
     {
       "path": "color.surface.level3",
       "cssName": "--color-surface-level3",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.popover",
+      "cssName": "--color-surface-popover",
       "type": "color"
     },
     {
