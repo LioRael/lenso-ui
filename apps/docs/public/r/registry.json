@@ -111,6 +111,11 @@
       "name": "settings-row",
       "title": "Settings Row",
       "type": "registry:ui"
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "type": "registry:ui"
     }
   ],
   "name": "lenso"

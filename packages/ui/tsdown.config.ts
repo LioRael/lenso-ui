@@ -29,6 +29,7 @@ export default defineConfig({
     "settings-row/index": source("settings-row"),
     "sidebar/index": source("sidebar"),
     "switch/index": source("switch"),
+    "tabs/index": source("tabs"),
     "text-field/index": source("text-field"),
     "theme-scope/index": source("theme-scope"),
   },

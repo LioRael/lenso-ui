@@ -796,6 +796,19 @@ a {
   font-family: "Inter", var(--font-sans);
 }
 
+.tabs-stage {
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tabs-stage [data-slot="tabs-panel"] p {
+  color: var(--color-content-tertiary);
+  font:
+    400 12px/18px "Inter",
+    var(--font-sans);
+  margin: 0;
+}
+
 .sidebar-playground {
   height: 844px;
 }

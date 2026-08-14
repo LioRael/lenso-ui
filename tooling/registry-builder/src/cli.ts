@@ -448,6 +448,25 @@ const specs: RegistryItemSpec[] = [
     title: "Settings Row",
     type: "registry:ui",
   },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/tabs/index.tsx",
+        target: "components/lenso/tabs/index.tsx",
+      },
+      {
+        source: "packages/ui/src/tabs/tabs.stylex.ts",
+        target: "components/lenso/tabs/tabs.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "tabs",
+    registryDependencies: [stable("setup")],
+    title: "Tabs",
+    type: "registry:ui",
+  },
 ];
 
 const sourceCache = new Map<string, string>();

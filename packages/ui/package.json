@@ -85,6 +85,10 @@
       "types": "./dist/switch/index.d.ts",
       "import": "./dist/switch/index.js"
     },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "import": "./dist/tabs/index.js"
+    },
     "./text-field": {
       "types": "./dist/text-field/index.d.ts",
       "import": "./dist/text-field/index.js"

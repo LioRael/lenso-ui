@@ -59,6 +59,16 @@
       "itemHover": { "$value": "{primitive.color.gray800}" },
       "itemActive": { "$value": "{primitive.color.slate875}" }
     },
+    "navigation": {
+      "tabBg": { "$value": "{primitive.color.gray950}" },
+      "tabBgHover": { "$value": "{primitive.color.gray800}" },
+      "tabBgSelected": { "$value": "{primitive.color.slate875}" },
+      "tabEdge": { "$value": "{primitive.color.white3}" },
+      "tabEdgeHover": { "$value": "{primitive.color.gray700}" },
+      "tabFg": { "$value": "{primitive.color.slate450}" },
+      "tabFgHover": { "$value": "{primitive.color.gray0}" },
+      "tabFgSelected": { "$value": "{primitive.color.slate0}" }
+    },
     "label": {
       "surfaceDefault": {
         "$value": { "colorSpace": "srgb", "components": [0.156863, 0.156863, 0.172549], "alpha": 1 }

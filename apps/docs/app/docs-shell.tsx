@@ -24,6 +24,7 @@ type DocsPage =
   | "select"
   | "sidebar"
   | "switch"
+  | "tabs"
   | "text-field";
 
 interface DocsShellProps {
@@ -123,6 +124,7 @@ function ComponentNavigation({
     | "select"
     | "sidebar"
     | "switch"
+    | "tabs"
     | "text-field";
 }) {
   const formsCurrent =
@@ -141,6 +143,7 @@ function ComponentNavigation({
     current === "quick-link" ||
     current === "settings-row" ||
     current === "sidebar";
+  const tabsCurrent = current === "tabs";
   const contentCurrent = current === "avatar";
 
   return (
@@ -218,11 +221,18 @@ function ComponentNavigation({
           )}
         </div>
         <div className="nav-category">
-          <NavHeading expanded={navigationCurrent} nested>
+          <NavHeading expanded={navigationCurrent || tabsCurrent} nested>
             Navigation
           </NavHeading>
-          {navigationCurrent && (
+          {(navigationCurrent || tabsCurrent) && (
             <>
+              <Link
+                aria-current={current === "tabs" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/tabs"
+              >
+                Tabs
+              </Link>
               <Link
                 aria-current={current === "breadcrumb" ? "page" : undefined}
                 className="nav-item nav-item-deep"

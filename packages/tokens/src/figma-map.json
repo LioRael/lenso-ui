@@ -141,6 +141,46 @@
       "type": "color"
     },
     {
+      "path": "color.navigation.tabBg",
+      "cssName": "--color-navigation-tab-bg",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabBgHover",
+      "cssName": "--color-navigation-tab-bg-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabBgSelected",
+      "cssName": "--color-navigation-tab-bg-selected",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabEdge",
+      "cssName": "--color-navigation-tab-edge",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabEdgeHover",
+      "cssName": "--color-navigation-tab-edge-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabFg",
+      "cssName": "--color-navigation-tab-fg",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabFgHover",
+      "cssName": "--color-navigation-tab-fg-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabFgSelected",
+      "cssName": "--color-navigation-tab-fg-selected",
+      "type": "color"
+    },
+    {
       "path": "color.sidebar.itemActive",
       "cssName": "--color-sidebar-item-active",
       "type": "color"

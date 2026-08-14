@@ -197,6 +197,17 @@
         "nodeId": "376:59",
         "baseline": "docs/figma-baselines/settings-row-state-board.png"
       }
+    },
+    "tabs": {
+      "nodeId": "163:45",
+      "codeSubpath": "@lenso/ui/tabs",
+      "variants": ["first", "second", "third", "custom-render"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled", "selected"],
+      "documentation": "/components/tabs",
+      "stateBoard": {
+        "nodeId": "32:61",
+        "baseline": "docs/figma-baselines/tabs-state-board.png"
+      }
     }
   }
 }
