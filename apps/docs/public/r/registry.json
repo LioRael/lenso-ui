@@ -116,6 +116,11 @@
       "name": "tabs",
       "title": "Tabs",
       "type": "registry:ui"
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "type": "registry:ui"
     }
   ],
   "name": "lenso"

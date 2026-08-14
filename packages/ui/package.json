@@ -97,6 +97,10 @@
       "types": "./dist/theme-scope/index.d.ts",
       "import": "./dist/theme-scope/index.js"
     },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "import": "./dist/tooltip/index.js"
+    },
     "./styles.css": "./dist/assets/stylex.css",
     "./preflight.css": "./dist/preflight.css"
   },

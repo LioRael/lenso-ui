@@ -25,7 +25,8 @@ type DocsPage =
   | "sidebar"
   | "switch"
   | "tabs"
-  | "text-field";
+  | "text-field"
+  | "tooltip";
 
 interface DocsShellProps {
   actions: readonly [string, string];
@@ -125,7 +126,8 @@ function ComponentNavigation({
     | "sidebar"
     | "switch"
     | "tabs"
-    | "text-field";
+    | "text-field"
+    | "tooltip";
 }) {
   const formsCurrent =
     current === "checkbox" ||
@@ -144,6 +146,7 @@ function ComponentNavigation({
     current === "settings-row" ||
     current === "sidebar";
   const tabsCurrent = current === "tabs";
+  const overlaysCurrent = current === "tooltip";
   const contentCurrent = current === "avatar";
 
   return (
@@ -285,11 +288,19 @@ function ComponentNavigation({
             </>
           )}
         </div>
-        {(["Overlays", "Feedback"] as const).map((group) => (
-          <div className="nav-category" key={group}>
-            <NavHeading nested>{group}</NavHeading>
-          </div>
-        ))}
+        <div className="nav-category">
+          <NavHeading expanded={overlaysCurrent} nested>
+            Overlays
+          </NavHeading>
+          {overlaysCurrent && (
+            <Link aria-current="page" className="nav-item nav-item-deep" href="/components/tooltip">
+              Tooltip
+            </Link>
+          )}
+        </div>
+        <div className="nav-category">
+          <NavHeading nested>Feedback</NavHeading>
+        </div>
         <div className="nav-category">
           <NavHeading expanded={contentCurrent} nested>
             Content

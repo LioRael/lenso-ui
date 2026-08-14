@@ -809,6 +809,10 @@ a {
   margin: 0;
 }
 
+.tooltip-stage {
+  min-height: 208px;
+}
+
 .sidebar-playground {
   height: 844px;
 }

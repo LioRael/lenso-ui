@@ -467,6 +467,25 @@ const specs: RegistryItemSpec[] = [
     title: "Tabs",
     type: "registry:ui",
   },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/tooltip/index.tsx",
+        target: "components/lenso/tooltip/index.tsx",
+      },
+      {
+        source: "packages/ui/src/tooltip/tooltip.stylex.ts",
+        target: "components/lenso/tooltip/tooltip.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "tooltip",
+    registryDependencies: [stable("setup")],
+    title: "Tooltip",
+    type: "registry:ui",
+  },
 ];
 
 const sourceCache = new Map<string, string>();

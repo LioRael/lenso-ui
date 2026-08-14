@@ -32,6 +32,7 @@ export default defineConfig({
     "tabs/index": source("tabs"),
     "text-field/index": source("text-field"),
     "theme-scope/index": source("theme-scope"),
+    "tooltip/index": source("tooltip"),
   },
   format: "esm",
   outDir: path.resolve(import.meta.dirname, "dist"),

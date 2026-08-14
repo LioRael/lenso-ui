@@ -208,6 +208,17 @@
         "nodeId": "32:61",
         "baseline": "docs/figma-baselines/tabs-state-board.png"
       }
+    },
+    "tooltip": {
+      "nodeId": "237:346",
+      "codeSubpath": "@lenso/ui/tooltip",
+      "variants": ["plain", "shortcut", "custom-trigger", "custom-content"],
+      "states": ["closed", "open", "hover", "focus-visible", "dismissed"],
+      "documentation": "/components/tooltip",
+      "stateBoard": {
+        "nodeId": "237:346",
+        "baseline": "docs/figma-baselines/tooltip-state-board.png"
+      }
     }
   }
 }
