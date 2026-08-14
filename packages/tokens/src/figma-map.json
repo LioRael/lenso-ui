@@ -226,6 +226,36 @@
       "type": "color"
     },
     {
+      "path": "color.switch.thumb",
+      "cssName": "--color-switch-thumb",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOff",
+      "cssName": "--color-switch-track-off",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOffCompact",
+      "cssName": "--color-switch-track-off-compact",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOffHover",
+      "cssName": "--color-switch-track-off-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOn",
+      "cssName": "--color-switch-track-on",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOnHover",
+      "cssName": "--color-switch-track-on-hover",
+      "type": "color"
+    },
+    {
       "path": "font.button",
       "cssName": "--font-button",
       "type": "fontFamily"

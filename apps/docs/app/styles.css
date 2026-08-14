@@ -1079,6 +1079,30 @@ a {
   height: 144px;
 }
 
+.switch-docs-content {
+  padding-bottom: 40px;
+}
+
+.switch-guidance {
+  height: 152px;
+}
+
+.switch-guidance article:first-child {
+  height: 88px;
+}
+
+.switch-guidance article:last-child {
+  height: 48px;
+}
+
+.switch-implementation {
+  height: 166px;
+}
+
+.switch-implementation pre {
+  height: 112px;
+}
+
 @media (max-width: 1100px) {
   .overview-section {
     grid-template-columns: minmax(0, 1fr);

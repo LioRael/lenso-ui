@@ -45,6 +45,14 @@
       "errorContent": { "$value": "{primitive.color.red700}" }
     },
     "interaction": { "pressedOverlay": { "$value": "{primitive.color.black8}" } },
+    "switch": {
+      "trackOff": { "$value": "{primitive.color.gray500}" },
+      "trackOffCompact": { "$value": "{primitive.color.gray300}" },
+      "trackOffHover": { "$value": "{primitive.color.gray550}" },
+      "trackOn": { "$value": "{primitive.color.blue500}" },
+      "trackOnHover": { "$value": "{primitive.color.blue550}" },
+      "thumb": { "$value": "{primitive.color.gray0}" }
+    },
     "sidebar": {
       "itemHover": { "$value": "{primitive.color.gray100}" },
       "itemActive": { "$value": "{primitive.color.gray200}" }

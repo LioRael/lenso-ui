@@ -43,6 +43,12 @@
   --color-surface-subtle: #fafafa;
   --color-surface-surface: #ffffff;
   --color-surface-translucent: #ffffff;
+  --color-switch-thumb: #ffffff;
+  --color-switch-track-off: #707172;
+  --color-switch-track-off-compact: #d4d4d4;
+  --color-switch-track-off-hover: #868789;
+  --color-switch-track-on: #5e6ad2;
+  --color-switch-track-on-hover: #6975e2;
   --font-button: "IBM Plex Sans", "Inter", ui-sans-serif, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --opacity-disabled: 0.5;
@@ -117,6 +123,12 @@
   --color-surface-subtle: #0a0a0a;
   --color-surface-surface: #000000;
   --color-surface-translucent: #ffffff0d;
+  --color-switch-thumb: #ffffff;
+  --color-switch-track-off: #707172;
+  --color-switch-track-off-compact: #d4d4d4;
+  --color-switch-track-off-hover: #868789;
+  --color-switch-track-on: #5e6ad2;
+  --color-switch-track-on-hover: #6975e2;
   --font-button: "IBM Plex Sans", "Inter", ui-sans-serif, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --opacity-disabled: 0.5;

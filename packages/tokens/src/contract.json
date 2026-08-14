@@ -46,6 +46,12 @@
     "color.surface.subtle",
     "color.surface.surface",
     "color.surface.translucent",
+    "color.switch.thumb",
+    "color.switch.trackOff",
+    "color.switch.trackOffCompact",
+    "color.switch.trackOffHover",
+    "color.switch.trackOn",
+    "color.switch.trackOnHover",
     "font.button",
     "font.sans",
     "opacity.disabled",
@@ -735,6 +741,96 @@
         },
         "cssName": "--color-surface-translucent",
         "cssValue": "#ffffff0d"
+      },
+      "color.switch.thumb": {
+        "path": "color.switch.thumb",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-thumb",
+        "cssValue": "#ffffff"
+      },
+      "color.switch.trackOff": {
+        "path": "color.switch.trackOff",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off",
+        "cssValue": "#707172"
+      },
+      "color.switch.trackOffCompact": {
+        "path": "color.switch.trackOffCompact",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off-compact",
+        "cssValue": "#d4d4d4"
+      },
+      "color.switch.trackOffHover": {
+        "path": "color.switch.trackOffHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.52549,
+            0.529412,
+            0.537255
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off-hover",
+        "cssValue": "#868789"
+      },
+      "color.switch.trackOn": {
+        "path": "color.switch.trackOn",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.368627,
+            0.415686,
+            0.823529
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-on",
+        "cssValue": "#5e6ad2"
+      },
+      "color.switch.trackOnHover": {
+        "path": "color.switch.trackOnHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.411765,
+            0.458824,
+            0.886275
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-on-hover",
+        "cssValue": "#6975e2"
       },
       "font.button": {
         "path": "font.button",
@@ -1665,6 +1761,96 @@
         },
         "cssName": "--color-surface-translucent",
         "cssValue": "#ffffff"
+      },
+      "color.switch.thumb": {
+        "path": "color.switch.thumb",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-thumb",
+        "cssValue": "#ffffff"
+      },
+      "color.switch.trackOff": {
+        "path": "color.switch.trackOff",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off",
+        "cssValue": "#707172"
+      },
+      "color.switch.trackOffCompact": {
+        "path": "color.switch.trackOffCompact",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off-compact",
+        "cssValue": "#d4d4d4"
+      },
+      "color.switch.trackOffHover": {
+        "path": "color.switch.trackOffHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.52549,
+            0.529412,
+            0.537255
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off-hover",
+        "cssValue": "#868789"
+      },
+      "color.switch.trackOn": {
+        "path": "color.switch.trackOn",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.368627,
+            0.415686,
+            0.823529
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-on",
+        "cssValue": "#5e6ad2"
+      },
+      "color.switch.trackOnHover": {
+        "path": "color.switch.trackOnHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.411765,
+            0.458824,
+            0.886275
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-on-hover",
+        "cssValue": "#6975e2"
       },
       "font.button": {
         "path": "font.button",

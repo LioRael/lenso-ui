@@ -4,6 +4,9 @@ import path from "node:path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  optimizeDeps: {
+    include: ["@base-ui/react/switch"],
+  },
   plugins: [stylex({ devMode: "full", useCSSLayers: true })],
   test: {
     browser: {

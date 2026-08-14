@@ -205,6 +205,25 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/switch/index.tsx",
+        target: "components/lenso/switch/index.tsx",
+      },
+      {
+        source: "packages/ui/src/switch/switch.stylex.ts",
+        target: "components/lenso/switch/switch.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "switch",
+    registryDependencies: [stable("setup")],
+    title: "Switch",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {

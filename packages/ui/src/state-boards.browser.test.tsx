@@ -12,6 +12,7 @@ import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
 import { RadioGroup } from "./radio/index.js";
+import { Switch } from "./switch/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
@@ -416,7 +417,9 @@ test("Checkbox matches the approved Figma state board", async () => {
         figmaCheckboxStates.map((state) => (
           <Checkbox.Root
             checked={value.name === "on"}
-            data-visual-state={state.name === "default" ? undefined : state.name}
+            data-visual-state={
+              state.name === "default" || state.name === "disabled" ? undefined : state.name
+            }
             disabled={state.name === "disabled"}
             indeterminate={value.name === "indeterminate"}
             key={`${value.name}-${state.name}`}
@@ -592,6 +595,119 @@ test("Radio resolves dark theme values", async () => {
   await expect.poll(() => getComputedStyle(item).color).toBe("rgb(247, 248, 248)");
   expect(getComputedStyle(indicator!).boxShadow).toContain("rgb(247, 248, 248)");
   expect(getComputedStyle(indicator!, "::after").backgroundColor).toBe("rgb(247, 248, 248)");
+});
+
+const figmaSwitchStates = [
+  { name: "default", x: 0 },
+  { name: "hover", x: 143 },
+  { name: "pressed", x: 286 },
+  { name: "focus-visible", x: 429 },
+  { name: "disabled", x: 572 },
+] as const;
+
+test("Switch matches the approved Figma state board", async () => {
+  const compactStates = [
+    { checked: false, x: 0 },
+    { checked: false, x: 58 },
+    { checked: false, x: 116 },
+    { checked: false, x: 174 },
+    { checked: false, x: 232 },
+    { checked: true, x: 290 },
+    { checked: true, x: 348 },
+    { checked: true, x: 406 },
+    { checked: true, x: 464 },
+    { checked: true, x: 522 },
+  ] as const;
+  const screen = await render(
+    <div
+      data-testid="switch-figma-state-board"
+      style={{ background: "#ececed", height: 178, position: "relative", width: 760 }}
+    >
+      {[false, true].flatMap((checked, row) =>
+        figmaSwitchStates.map((state) => (
+          <Switch.Root
+            checked={checked}
+            data-visual-state={
+              state.name === "default" || state.name === "disabled" ? undefined : state.name
+            }
+            disabled={state.name === "disabled"}
+            key={`default-${checked}-${state.name}`}
+            style={{ left: state.x, position: "absolute", top: row === 0 ? 24 : 80 }}
+          >
+            <Switch.Thumb />
+            Switch label
+          </Switch.Root>
+        )),
+      )}
+      {compactStates.map((item, index) => {
+        const state = figmaSwitchStates[index % figmaSwitchStates.length]!;
+        return (
+          <Switch.Root
+            aria-label={`Compact ${item.checked ? "on" : "off"} ${state.name}`}
+            checked={item.checked}
+            data-visual-state={
+              state.name === "default" || state.name === "disabled" ? undefined : state.name
+            }
+            disabled={state.name === "disabled"}
+            key={`compact-${item.checked}-${state.name}`}
+            size="compact"
+            style={{ left: item.x, position: "absolute", top: 136 }}
+          >
+            <Switch.Thumb />
+          </Switch.Root>
+        );
+      })}
+    </div>,
+  );
+
+  await document.fonts.load('400 13px "Inter"', "Switch label");
+  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+
+  const board = screen.getByTestId("switch-figma-state-board");
+  const roots = board.element().querySelectorAll<HTMLElement>('[data-slot="switch"]');
+  const tracks = board.element().querySelectorAll<HTMLElement>('[data-slot="switch-track"]');
+  const thumbs = board.element().querySelectorAll<HTMLElement>('[data-slot="switch-thumb"]');
+  expect(roots).toHaveLength(20);
+  expect(roots[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 32, width: 119 });
+  expect(tracks[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 20, width: 30 });
+  expect(thumbs[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(roots[10]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 26, width: 34 });
+  expect(tracks[10]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 22 });
+  expect(thumbs[10]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 10, width: 10 });
+  expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
+  await expect.poll(() => getComputedStyle(tracks[0]!).backgroundColor).toBe("rgb(112, 113, 114)");
+  await expect.poll(() => getComputedStyle(tracks[1]!).backgroundColor).toBe("rgb(134, 135, 137)");
+  await expect.poll(() => getComputedStyle(tracks[5]!).backgroundColor).toBe("rgb(94, 106, 210)");
+  await expect.poll(() => getComputedStyle(tracks[6]!).backgroundColor).toBe("rgb(105, 117, 226)");
+  await expect.poll(() => getComputedStyle(tracks[10]!).backgroundColor).toBe("rgb(212, 212, 212)");
+  await expect.poll(() => getComputedStyle(thumbs[1]!).width).toBe("16px");
+  await expect.poll(() => getComputedStyle(thumbs[11]!).width).toBe("12px");
+  expect(getComputedStyle(roots[4]!).opacity).toBe("0.5");
+
+  const pressedLayer = roots[2]?.querySelector<HTMLElement>('[data-slot="switch-pressed-layer"]');
+  const focusLayer = roots[3]?.querySelector<HTMLElement>('[data-slot="switch-focus-layer"]');
+  expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
+  expect(pressedLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 20, width: 30 });
+  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
+  expect(focusLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 26, width: 36 });
+
+  await expect.element(board).toMatchScreenshot("switch-figma-state-board", screenshotOptions);
+});
+
+test("Switch resolves dark theme values", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Switch.Root defaultChecked>
+        <Switch.Thumb />
+        Switch label
+      </Switch.Root>
+    </ThemeScope>,
+  );
+  const root = screen.getByRole("switch", { name: "Switch label" }).element();
+  const thumb = root.querySelector<HTMLElement>('[data-slot="switch-thumb"]');
+  await expect.poll(() => getComputedStyle(root).color).toBe("rgb(247, 248, 248)");
+  expect(getComputedStyle(thumb!).backgroundColor).toBe("rgb(255, 255, 255)");
 });
 
 for (const theme of ["light", "dark"] as const) {

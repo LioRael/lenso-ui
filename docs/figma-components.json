@@ -69,6 +69,17 @@
         "baseline": "docs/figma-baselines/radio-state-board.png"
       }
     },
+    "switch": {
+      "nodeId": "31:62",
+      "codeSubpath": "@lenso/ui/switch",
+      "variants": ["default", "compact", "off", "on"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "documentation": "/components/switch",
+      "stateBoard": {
+        "nodeId": "31:62",
+        "baseline": "docs/figma-baselines/switch-state-board.png"
+      }
+    },
     "dialog": {
       "nodeId": "245:804",
       "codeSubpath": "@lenso/ui/dialog",

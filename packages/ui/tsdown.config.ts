@@ -18,6 +18,7 @@ export default defineConfig({
     "icon-button/index": source("icon-button"),
     "label/index": source("label"),
     "radio/index": source("radio"),
+    "switch/index": source("switch"),
     "text-field/index": source("text-field"),
     "theme-scope/index": source("theme-scope"),
   },

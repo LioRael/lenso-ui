@@ -13,6 +13,7 @@ type DocsPage =
   | "label"
   | "overview"
   | "radio"
+  | "switch"
   | "text-field";
 
 interface DocsShellProps {
@@ -95,12 +96,13 @@ function OverviewNavigation() {
 function ComponentNavigation({
   current,
 }: {
-  current: "button" | "checkbox" | "icon-button" | "label" | "radio" | "text-field";
+  current: "button" | "checkbox" | "icon-button" | "label" | "radio" | "switch" | "text-field";
 }) {
   const formsCurrent =
     current === "checkbox" ||
     current === "label" ||
     current === "radio" ||
+    current === "switch" ||
     current === "text-field";
 
   return (
@@ -150,7 +152,7 @@ function ComponentNavigation({
                   ["Text Field", "/components/text-field"],
                   ["Checkbox", "/components/checkbox"],
                   ["Radio", "/components/radio"],
-                  ["Switch", "#switch"],
+                  ["Switch", "/components/switch"],
                   ["Select", "#select"],
                   ["Combobox", "#combobox"],
                 ] as const
@@ -160,7 +162,8 @@ function ComponentNavigation({
                     (label === "Label" && current === "label") ||
                     (label === "Text Field" && current === "text-field") ||
                     (label === "Checkbox" && current === "checkbox") ||
-                    (label === "Radio" && current === "radio")
+                    (label === "Radio" && current === "radio") ||
+                    (label === "Switch" && current === "switch")
                       ? "page"
                       : undefined
                   }

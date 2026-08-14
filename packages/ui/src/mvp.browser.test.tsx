@@ -13,6 +13,7 @@ import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
 import { RadioGroup } from "./radio/index.js";
+import { Switch } from "./switch/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
@@ -275,6 +276,30 @@ test("Radio permits a consumer-owned selection indicator", async () => {
   ).toBe("none");
 });
 
+test("Switch toggles, submits its value, and permits a consumer-owned thumb", async () => {
+  const onCheckedChange = vi.fn();
+  const screen = await render(
+    <form>
+      <Switch.Root name="notifications" onCheckedChange={onCheckedChange} value="enabled">
+        <Switch.Thumb>
+          <span data-testid="custom-switch-thumb">Custom</span>
+        </Switch.Thumb>
+        Notifications
+      </Switch.Root>
+    </form>,
+  );
+  const control = screen.getByRole("switch", { name: "Notifications" });
+  await expect.element(control).not.toBeChecked();
+  await control.click();
+  await expect.element(control).toBeChecked();
+  expect(onCheckedChange).toHaveBeenCalledWith(true, expect.anything());
+  await expect.element(screen.getByTestId("custom-switch-thumb")).toBeVisible();
+  expect(
+    control.element().parentElement?.querySelector<HTMLInputElement>('input[name="notifications"]')
+      ?.value,
+  ).toBe("enabled");
+});
+
 test("Dialog portals into the nearest theme scope and closes with Escape", async () => {
   const screen = await render(
     <ThemeScope theme="dark" data-testid="theme-host">
@@ -333,6 +358,10 @@ test("the MVP foundation surface has no automatic accessibility violations", asy
           Compact
         </RadioGroup.Item>
       </RadioGroup.Root>
+      <Switch.Root defaultChecked>
+        <Switch.Thumb />
+        Notifications
+      </Switch.Root>
       <TextField.Root>
         <TextField.Label>Name</TextField.Label>
         <TextField.Control />
