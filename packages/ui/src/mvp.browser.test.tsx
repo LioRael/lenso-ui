@@ -14,6 +14,7 @@ import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
 import { CommandMenu } from "./command-menu/index.js";
 import { Dialog } from "./dialog/index.js";
+import { Disclosure } from "./disclosure/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
 import { RadioGroup } from "./radio/index.js";
@@ -557,10 +558,51 @@ test("Dialog portals into the nearest theme scope and closes with Escape", async
   await expect.element(screen.getByRole("dialog", { name: "Settings" })).not.toBeInTheDocument();
 });
 
+test("Disclosure coordinates single expansion and keyboard activation", async () => {
+  const screen = await render(
+    <Disclosure.Root defaultValue={["workspace"]}>
+      <Disclosure.Item value="workspace">
+        <Disclosure.Header>
+          <Disclosure.Trigger>
+            Workspace <Disclosure.Icon />
+          </Disclosure.Trigger>
+        </Disclosure.Header>
+        <Disclosure.Panel>Workspace content</Disclosure.Panel>
+      </Disclosure.Item>
+      <Disclosure.Item value="projects">
+        <Disclosure.Header>
+          <Disclosure.Trigger>
+            Projects <Disclosure.Icon />
+          </Disclosure.Trigger>
+        </Disclosure.Header>
+        <Disclosure.Panel>Projects content</Disclosure.Panel>
+      </Disclosure.Item>
+    </Disclosure.Root>,
+  );
+  const workspace = screen.getByRole("button", { name: "Workspace" });
+  const projects = screen.getByRole("button", { name: "Projects" });
+  await expect.element(workspace).toHaveAttribute("aria-expanded", "true");
+  projects.element().focus();
+  await userEvent.keyboard("{Enter}");
+  await expect.element(projects).toHaveAttribute("aria-expanded", "true");
+  await expect.element(workspace).toHaveAttribute("aria-expanded", "false");
+  expect((await axe.run(document.body)).violations).toEqual([]);
+});
+
 test("the MVP foundation surface has no automatic accessibility violations", async () => {
   await render(
     <main>
       <Button>Continue</Button>
+      <Disclosure.Root defaultValue={["workspace"]}>
+        <Disclosure.Item value="workspace">
+          <Disclosure.Header>
+            <Disclosure.Trigger>
+              Workspace <Disclosure.Icon />
+            </Disclosure.Trigger>
+          </Disclosure.Header>
+          <Disclosure.Panel>Projects and workspace views.</Disclosure.Panel>
+        </Disclosure.Item>
+      </Disclosure.Root>
       <Breadcrumb.Root>
         <Breadcrumb.List>
           <Breadcrumb.Item>

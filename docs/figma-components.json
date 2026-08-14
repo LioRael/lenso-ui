@@ -143,6 +143,17 @@
       "documentation": "/#dialog",
       "stateBoard": { "nodeId": "245:804", "baseline": "dialog-state-board" }
     },
+    "disclosure": {
+      "nodeId": "354:86",
+      "codeSubpath": "@lenso/ui/disclosure",
+      "variants": ["item", "group", "single", "multiple", "custom-icon"],
+      "states": ["collapsed", "expanded", "hover", "focus-visible", "disabled"],
+      "documentation": "/components/disclosure",
+      "stateBoard": {
+        "nodeId": "354:86",
+        "baseline": "docs/figma-baselines/disclosure-state-board.png"
+      }
+    },
     "sidebar": {
       "nodeId": "375:189",
       "codeSubpath": "@lenso/primitives/sidebar",

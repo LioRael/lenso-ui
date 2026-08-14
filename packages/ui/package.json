@@ -45,6 +45,10 @@
       "types": "./dist/dialog/index.d.ts",
       "import": "./dist/dialog/index.js"
     },
+    "./disclosure": {
+      "types": "./dist/disclosure/index.d.ts",
+      "import": "./dist/disclosure/index.js"
+    },
     "./icon-button": {
       "types": "./dist/icon-button/index.d.ts",
       "import": "./dist/icon-button/index.js"

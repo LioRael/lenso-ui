@@ -335,6 +335,29 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/disclosure/index.tsx",
+        target: "components/lenso/disclosure/index.tsx",
+      },
+      {
+        source: "packages/ui/src/disclosure/disclosure.stylex.ts",
+        target: "components/lenso/disclosure/disclosure.stylex.ts",
+        type: "registry:style",
+      },
+      {
+        source: "packages/ui/src/disclosure/disclosure-chevron.svg",
+        target: "components/lenso/disclosure/disclosure-chevron.svg",
+      },
+      ...sharedFiles,
+    ],
+    name: "disclosure",
+    registryDependencies: [stable("setup")],
+    title: "Disclosure",
+    type: "registry:ui",
+  },
+  {
     files: [
       {
         source: "packages/primitives/src/sidebar/index.tsx",

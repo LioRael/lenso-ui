@@ -14,6 +14,7 @@ import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
 import { CommandMenu } from "./command-menu/index.js";
 import { Dialog } from "./dialog/index.js";
+import { Disclosure } from "./disclosure/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
 import { RadioGroup } from "./radio/index.js";
@@ -33,6 +34,80 @@ const screenshotOptions = {
 };
 
 const avatarSizes = ["compact", "default", "large", "xlarge"] as const;
+
+function DisclosureBoardGroup({ expanded }: { expanded: "first" | "second" }) {
+  return (
+    <Disclosure.Root defaultValue={[expanded]} style={{ height: 180, overflow: "hidden" }}>
+      <Disclosure.Item value="first">
+        <Disclosure.Header>
+          <Disclosure.Trigger>
+            Workspace <Disclosure.Icon />
+          </Disclosure.Trigger>
+        </Disclosure.Header>
+        <Disclosure.Panel>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <span>Projects</span>
+            <span>Views</span>
+            <span>More</span>
+          </div>
+        </Disclosure.Panel>
+      </Disclosure.Item>
+      <Disclosure.Item value="second">
+        <Disclosure.Header>
+          <Disclosure.Trigger>
+            Workspace <Disclosure.Icon />
+          </Disclosure.Trigger>
+        </Disclosure.Header>
+        <Disclosure.Panel>Projects and workspace views.</Disclosure.Panel>
+      </Disclosure.Item>
+      <Disclosure.Item value="third">
+        <Disclosure.Header>
+          <Disclosure.Trigger>
+            Workspace <Disclosure.Icon />
+          </Disclosure.Trigger>
+        </Disclosure.Header>
+        <Disclosure.Panel>More workspace settings.</Disclosure.Panel>
+      </Disclosure.Item>
+    </Disclosure.Root>
+  );
+}
+
+test("Disclosure matches the approved Figma state board", async () => {
+  const screen = await render(
+    <div
+      data-testid="disclosure-figma-state-board"
+      style={{
+        background: "#fafafa",
+        boxSizing: "border-box",
+        height: 212,
+        padding: 16,
+        position: "relative",
+        width: 492,
+      }}
+    >
+      <div style={{ left: 16, position: "absolute", top: 16 }}>
+        <DisclosureBoardGroup expanded="first" />
+      </div>
+      <div style={{ left: 256, position: "absolute", top: 16 }}>
+        <DisclosureBoardGroup expanded="second" />
+      </div>
+    </div>,
+  );
+  await document.fonts.load('500 12px "Inter"', "Workspace Projects Views More");
+  const board = screen.getByTestId("disclosure-figma-state-board");
+  const triggers = board
+    .element()
+    .querySelectorAll<HTMLElement>('[data-slot="disclosure-trigger"]');
+  await expect.poll(() => getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
+  expect(triggers[0]?.getBoundingClientRect().height).toBe(28);
+  expect(triggers[0]?.getBoundingClientRect().width).toBe(215);
+  expect(triggers[0]?.getAttribute("aria-expanded")).toBe("true");
+  expect(triggers[1]?.getAttribute("aria-expanded")).toBe("false");
+  await expect.element(board).toMatchScreenshot("disclosure-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
 
 function TeamIcon() {
   return (

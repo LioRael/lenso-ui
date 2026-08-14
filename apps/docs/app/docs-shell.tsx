@@ -13,6 +13,7 @@ type DocsPage =
   | "checkbox"
   | "combobox"
   | "command-menu"
+  | "disclosure"
   | "icon-button"
   | "label"
   | "overview"
@@ -108,6 +109,7 @@ function ComponentNavigation({
     | "checkbox"
     | "combobox"
     | "command-menu"
+    | "disclosure"
     | "icon-button"
     | "label"
     | "radio"
@@ -123,7 +125,8 @@ function ComponentNavigation({
     current === "select" ||
     current === "switch" ||
     current === "text-field";
-  const navigationCurrent = current === "breadcrumb" || current === "command-menu";
+  const navigationCurrent =
+    current === "breadcrumb" || current === "command-menu" || current === "disclosure";
   const contentCurrent = current === "avatar";
 
   return (
@@ -219,6 +222,13 @@ function ComponentNavigation({
                 href="/components/command-menu"
               >
                 Command Menu
+              </Link>
+              <Link
+                aria-current={current === "disclosure" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/disclosure"
+              >
+                Disclosure
               </Link>
             </>
           )}
