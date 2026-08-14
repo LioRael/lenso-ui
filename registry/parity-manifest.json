@@ -168,15 +168,15 @@
     "text-field": {
       "files": [
         {
-          "registrySha256": "6fb07cbe3e6e1b4e7ccc97065c99d5a543f846dded0e9162c0554700b4f90202",
+          "registrySha256": "bf5bcbe6769d20b91c818028de46329b147b9b0dada11466f2ba344f4f955767",
           "source": "packages/ui/src/text-field/index.tsx",
-          "sourceSha256": "6fb07cbe3e6e1b4e7ccc97065c99d5a543f846dded0e9162c0554700b4f90202",
+          "sourceSha256": "bf5bcbe6769d20b91c818028de46329b147b9b0dada11466f2ba344f4f955767",
           "target": "components/lenso/text-field/index.tsx"
         },
         {
-          "registrySha256": "5969abb1c979e9c14922adcf8c6987327cf6aebd3c266d1b5f15527c9d7df0a7",
+          "registrySha256": "9ad918e022ae7208a3f817600a4690254207a5daec9d8a4247fc54cbf69c75e2",
           "source": "packages/ui/src/text-field/text-field.stylex.ts",
-          "sourceSha256": "5969abb1c979e9c14922adcf8c6987327cf6aebd3c266d1b5f15527c9d7df0a7",
+          "sourceSha256": "9ad918e022ae7208a3f817600a4690254207a5daec9d8a4247fc54cbf69c75e2",
           "target": "components/lenso/text-field/text-field.stylex.ts"
         },
         {

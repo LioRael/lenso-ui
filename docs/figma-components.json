@@ -39,10 +39,13 @@
     "text-field": {
       "nodeId": "30:42",
       "codeSubpath": "@lenso/ui/text-field",
-      "variants": ["default", "invalid", "disabled", "read-only"],
-      "states": ["default", "hover", "focus-visible", "filled", "invalid", "disabled"],
-      "documentation": "/#text-field",
-      "stateBoard": { "nodeId": "30:42", "baseline": "text-field-state-board" }
+      "variants": ["default"],
+      "states": ["default", "hover", "active", "focus-visible", "error", "read-only", "disabled"],
+      "documentation": "/components/text-field",
+      "stateBoard": {
+        "nodeId": "30:42",
+        "baseline": "docs/figma-baselines/text-field-state-board.png"
+      }
     },
     "dialog": {
       "nodeId": "245:804",

@@ -13,26 +13,6 @@ import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
 
-const boardStyle = {
-  alignItems: "flex-start",
-  display: "flex",
-  gap: "24px",
-  padding: "24px",
-  width: "760px",
-} as const;
-
-const scopeStyle = {
-  alignItems: "flex-start",
-  background: "var(--color-surface-canvas)",
-  color: "var(--color-content-primary)",
-  display: "flex",
-  flex: 1,
-  flexWrap: "wrap",
-  gap: "12px",
-  minHeight: "120px",
-  padding: "20px",
-} as const;
-
 const screenshotOptions = {
   comparatorName: "pixelmatch" as const,
   // Chromium's bundled fonts are rasterized differently on Linux and macOS.
@@ -61,7 +41,12 @@ test("Button matches the approved Figma state board", async () => {
   const screen = await render(
     <div
       data-testid="button-state-board"
-      style={{ background: "#ececed", height: 442, position: "relative", width: 640 }}
+      style={{
+        background: "#ececed",
+        height: 442,
+        position: "relative",
+        width: 640,
+      }}
     >
       {figmaButtonGroups.flatMap((group) =>
         figmaButtonStates.map((state) => (
@@ -151,7 +136,12 @@ test("Icon Button matches the approved Figma state board", async () => {
   const screen = await render(
     <div
       data-testid="icon-button-state-board"
-      style={{ background: "#ececed", height: 280, position: "relative", width: 1296 }}
+      style={{
+        background: "#ececed",
+        height: 280,
+        position: "relative",
+        width: 1296,
+      }}
     >
       {figmaIconButtonGroups.flatMap((group) =>
         figmaIconButtonStates.map((state) => (
@@ -196,7 +186,10 @@ test("Icon Button matches the approved Figma state board", async () => {
   const focusLayer = buttons[3]?.querySelector<HTMLElement>(
     '[data-slot="icon-button-state-layer"]',
   );
-  expect(icon?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(icon?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 14,
+    width: 14,
+  });
   expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
   expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
 
@@ -223,7 +216,12 @@ test("Label matches the approved Figma state board", async () => {
   const screen = await render(
     <div
       data-testid="label-state-board"
-      style={{ background: "#ececed", height: 107, position: "relative", width: 310 }}
+      style={{
+        background: "#ececed",
+        height: 107,
+        position: "relative",
+        width: 310,
+      }}
     >
       {figmaLabelGroups.flatMap((group) =>
         figmaLabelStates.map((state) => (
@@ -260,7 +258,10 @@ test("Label matches the approved Figma state board", async () => {
   const markers = Array.from(labels, (label) =>
     label.querySelector<HTMLElement>('[data-slot="label-marker"]'),
   );
-  expect(markers[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 9, width: 9 });
+  expect(markers[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 9,
+    width: 9,
+  });
   expect(getComputedStyle(markers[0]!).backgroundColor).toBe("rgb(235, 87, 87)");
   expect(getComputedStyle(markers[4]!).backgroundColor).toBe("rgb(187, 135, 252)");
   expect(getComputedStyle(markers[8]!).backgroundColor).toBe("rgb(78, 167, 252)");
@@ -271,48 +272,121 @@ test("Label matches the approved Figma state board", async () => {
   });
 });
 
-test("Text Field canonical Light and Dark state board", async () => {
+const figmaTextFieldStates = [
+  { name: "default", x: 0, y: 24 },
+  { name: "hover", x: 320, y: 24 },
+  { name: "active", x: 640, y: 24 },
+  { name: "focus-visible", x: 960, y: 24 },
+  { name: "error", x: 0, y: 136 },
+  { name: "read-only", x: 320, y: 136 },
+  { name: "disabled", x: 640, y: 136 },
+] as const;
+
+test("Text Field matches the approved Figma state board", async () => {
   const screen = await render(
-    <div data-testid="text-field-state-board" style={boardStyle}>
-      {(["light", "dark"] as const).map((theme) => (
-        <ThemeScope key={theme} style={{ ...scopeStyle, display: "block" }} theme={theme}>
-          <TextField.Root>
-            <TextField.Label>Workspace name</TextField.Label>
-            <TextField.Control defaultValue="Lenso" />
-            <TextField.Description>Visible to teammates.</TextField.Description>
-          </TextField.Root>
-          <TextField.Root invalid style={{ marginTop: 16 }}>
-            <TextField.Label>Identifier</TextField.Label>
-            <TextField.Control defaultValue="Already used" />
-            <TextField.Error match>Choose another identifier.</TextField.Error>
-          </TextField.Root>
-          <TextField.Root disabled style={{ marginTop: 16 }}>
-            <TextField.Label>Disabled</TextField.Label>
-            <TextField.Control defaultValue="Unavailable" />
-          </TextField.Root>
-          <TextField.Root style={{ marginTop: 16 }}>
-            <TextField.Label>Read only</TextField.Label>
-            <TextField.Control defaultValue="Stable value" readOnly />
-          </TextField.Root>
-        </ThemeScope>
-      ))}
-    </div>,
+    <ThemeScope theme="light">
+      <div
+        data-testid="text-field-figma-state-board"
+        style={{
+          background: "#ececed",
+          height: 232,
+          position: "relative",
+          width: 1296,
+        }}
+      >
+        {figmaTextFieldStates.map((state) => {
+          const invalid = state.name === "error";
+          return (
+            <TextField.Root
+              disabled={state.name === "disabled"}
+              invalid={invalid}
+              key={state.name}
+              style={{
+                left: state.x,
+                position: "absolute",
+                top: state.y,
+                width: 304,
+              }}
+            >
+              <TextField.Label>Field label</TextField.Label>
+              <TextField.Control
+                data-visual-state={
+                  state.name === "hover" ||
+                  state.name === "active" ||
+                  state.name === "focus-visible"
+                    ? state.name
+                    : undefined
+                }
+                placeholder="Enter value"
+                readOnly={state.name === "read-only"}
+              />
+              {invalid ? (
+                <TextField.Error match>Resolve this field before continuing.</TextField.Error>
+              ) : (
+                <TextField.Description>
+                  {state.name === "active" || state.name === "focus-visible"
+                    ? "Ready for input."
+                    : "Optional supporting text."}
+                </TextField.Description>
+              )}
+            </TextField.Root>
+          );
+        })}
+      </div>
+    </ThemeScope>,
   );
 
-  const scopes = screen
-    .getByTestId("text-field-state-board")
+  await document.fonts.load('500 13px "Inter"', "Field label");
+  await document.fonts.load('400 13px "Inter"', "Enter value");
+  const board = screen.getByTestId("text-field-figma-state-board");
+  const fields = board.element().querySelectorAll<HTMLElement>('[data-slot="text-field"]');
+  const controls = board
     .element()
-    .querySelectorAll('[data-slot="theme-scope"]');
-  const darkLabel = scopes[1]?.querySelector('[data-slot="text-field-label"]');
-  const darkControl = scopes[1]?.querySelector('[data-slot="text-field-control"]');
-  expect(darkLabel).not.toBeNull();
-  expect(darkControl).not.toBeNull();
-  await expect.poll(() => getComputedStyle(darkLabel!).color).toBe("rgb(247, 248, 248)");
-  await expect.poll(() => getComputedStyle(darkControl!).backgroundColor).toBe("rgb(0, 0, 0)");
+    .querySelectorAll<HTMLInputElement>('[data-slot="text-field-control"]');
+  expect(fields).toHaveLength(7);
+  expect(controls).toHaveLength(7);
+  expect(fields[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 80,
+    width: 304,
+  });
+  expect(controls[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 32,
+    width: 304,
+  });
+  // Chromium rasterizes subpixel borders to the device pixel grid; the source token remains 0.5px.
+  expect(getComputedStyle(controls[0]!).borderStyle).toBe("solid");
+  expect(getComputedStyle(controls[0]!).borderColor).toBe("rgb(212, 212, 212)");
+  expect(getComputedStyle(controls[1]!).borderColor).toBe("rgb(112, 113, 114)");
+  expect(getComputedStyle(controls[2]!).outlineColor).toBe("rgb(94, 106, 210)");
+  expect(getComputedStyle(controls[3]!).outlineColor).toBe("rgb(94, 106, 210)");
+  expect(getComputedStyle(controls[4]!).borderColor).toBe("rgb(220, 38, 38)");
+  expect(getComputedStyle(controls[5]!).backgroundColor).toBe("rgb(250, 250, 250)");
+  expect(getComputedStyle(controls[5]!).borderColor).toBe("rgb(234, 234, 234)");
+  expect(getComputedStyle(controls[6]!).backgroundColor).toBe("rgb(255, 255, 255)");
+  expect(getComputedStyle(controls[6]!).borderColor).toBe("rgb(234, 234, 234)");
 
-  await expect
-    .element(screen.getByTestId("text-field-state-board"))
-    .toMatchScreenshot("text-field-state-board", screenshotOptions);
+  await expect.element(board).toMatchScreenshot("text-field-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
+
+test("Text Field resolves dark theme values", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <TextField.Root>
+        <TextField.Label>Field label</TextField.Label>
+        <TextField.Control placeholder="Enter value" />
+        <TextField.Description>Optional supporting text.</TextField.Description>
+      </TextField.Root>
+    </ThemeScope>,
+  );
+
+  const label = screen.getByText("Field label").element();
+  const control = screen.getByPlaceholder("Enter value").element();
+  await expect.poll(() => getComputedStyle(label).color).toBe("rgb(247, 248, 248)");
+  await expect.poll(() => getComputedStyle(control).backgroundColor).toBe("rgb(0, 0, 0)");
+  expect(getComputedStyle(control).borderColor).toBe("rgb(51, 51, 51)");
 });
 
 for (const theme of ["light", "dark"] as const) {

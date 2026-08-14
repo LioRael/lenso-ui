@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
-type DocsPage = "button" | "icon-button" | "label" | "overview";
+type DocsPage = "button" | "icon-button" | "label" | "overview" | "text-field";
 
 interface DocsShellProps {
   actions: readonly [string, string];
@@ -85,8 +85,12 @@ function OverviewNavigation() {
   );
 }
 
-function ComponentNavigation({ current }: { current: "button" | "icon-button" | "label" }) {
-  const formsCurrent = current === "label";
+function ComponentNavigation({
+  current,
+}: {
+  current: "button" | "icon-button" | "label" | "text-field";
+}) {
+  const formsCurrent = current === "label" || current === "text-field";
 
   return (
     <>
@@ -132,7 +136,7 @@ function ComponentNavigation({ current }: { current: "button" | "icon-button" | 
               {(
                 [
                   ["Label", "/components/label"],
-                  ["Text Field", "#text-field"],
+                  ["Text Field", "/components/text-field"],
                   ["Checkbox", "#checkbox"],
                   ["Radio", "#radio"],
                   ["Switch", "#switch"],
@@ -141,7 +145,12 @@ function ComponentNavigation({ current }: { current: "button" | "icon-button" | 
                 ] as const
               ).map(([label, href]) => (
                 <Link
-                  aria-current={label === "Label" ? "page" : undefined}
+                  aria-current={
+                    (label === "Label" && current === "label") ||
+                    (label === "Text Field" && current === "text-field")
+                      ? "page"
+                      : undefined
+                  }
                   className="nav-item nav-item-deep"
                   href={href}
                   key={label}

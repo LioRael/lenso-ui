@@ -20,14 +20,16 @@ export const styles = stylex.create({
   control: {
     backgroundColor: {
       default: tokens.colorSurfaceSurface,
+      "[data-read-only]": tokens.colorSurfaceReadOnly,
       ":disabled": tokens.colorSurfaceInteractive,
-      ":read-only": tokens.colorSurfaceReadOnly,
     },
     borderColor: {
       default: tokens.colorBorderSecondary,
       ":hover": tokens.colorBorderPrimary,
       "[data-invalid]": tokens.colorStatusErrorBorder,
+      '[data-visual-state="hover"]': tokens.colorBorderPrimary,
       ":disabled": tokens.colorBorderTertiary,
+      "[data-read-only]": tokens.colorBorderTertiary,
     },
     borderRadius: tokens.radiusControl,
     borderStyle: "solid",
@@ -41,12 +43,16 @@ export const styles = stylex.create({
     outlineColor: {
       default: "transparent",
       ":focus-visible": tokens.colorFocusRing,
+      '[data-visual-state="active"]': tokens.colorFocusRing,
+      '[data-visual-state="focus-visible"]': tokens.colorFocusRing,
     },
     outlineOffset: "0px",
     outlineStyle: "solid",
     outlineWidth: {
       default: 0,
       ":focus-visible": "1px",
+      '[data-visual-state="active"]': "1px",
+      '[data-visual-state="focus-visible"]': "1px",
     },
     paddingBlock: "6px",
     paddingInline: tokens.space3,
@@ -58,11 +64,13 @@ export const styles = stylex.create({
     fontFamily: tokens.fontSans,
     fontSize: "12px",
     lineHeight: "16px",
+    margin: 0,
   },
   error: {
     color: tokens.colorStatusErrorContent,
     fontFamily: tokens.fontSans,
     fontSize: "12px",
     lineHeight: "16px",
+    margin: 0,
   },
 });
