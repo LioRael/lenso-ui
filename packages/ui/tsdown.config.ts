@@ -1,0 +1,31 @@
+import path from "node:path";
+
+import stylex from "@stylexjs/unplugin/rolldown";
+import { defineConfig } from "tsdown";
+
+const source = (name: string): string => path.resolve(import.meta.dirname, `src/${name}/index.tsx`);
+
+export default defineConfig({
+  deps: {
+    neverBundle: ["@base-ui/react", "react", "react-dom"],
+  },
+  dts: false,
+  entry: {
+    "button/index": source("button"),
+    "csp-provider/index": source("csp-provider"),
+    "dialog/index": source("dialog"),
+    "text-field/index": source("text-field"),
+    "theme-scope/index": source("theme-scope"),
+  },
+  format: "esm",
+  outDir: path.resolve(import.meta.dirname, "dist"),
+  platform: "browser",
+  plugins: [
+    stylex({
+      devMode: "off",
+      useCSSLayers: true,
+    }),
+  ],
+  report: false,
+  tsconfig: path.resolve(import.meta.dirname, "tsconfig.json"),
+});

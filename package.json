@@ -1,0 +1,33 @@
+{
+  "name": "lenso-ui-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm generate && turbo run build",
+    "changeset": "changeset",
+    "check": "pnpm format:check && pnpm lint && pnpm generate && pnpm --filter @lenso/token-generator check-generated && turbo run typecheck test build",
+    "dev": "turbo run dev --parallel",
+    "format": "oxfmt --ignore-path .oxfmtignore .",
+    "format:check": "oxfmt --ignore-path .oxfmtignore --check .",
+    "generate": "pnpm --filter @lenso/token-generator generate && pnpm --filter @lenso/registry-builder generate",
+    "lint": "oxlint --deny-warnings --react-plugin --jsx-a11y-plugin .",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "version": "changeset version && pnpm generate && pnpm --filter @lenso/registry-builder snapshot"
+  },
+  "devDependencies": {
+    "@changesets/cli": "catalog:",
+    "@stylexjs/stylex": "catalog:",
+    "@stylexjs/unplugin": "catalog:",
+    "@types/node": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": "^24.18.0"
+  },
+  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1"
+}

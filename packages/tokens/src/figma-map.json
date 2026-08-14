@@ -1,0 +1,304 @@
+{
+  "collection": "Color",
+  "modes": [
+    "dark",
+    "light"
+  ],
+  "variables": [
+    {
+      "path": "color.action.danger",
+      "cssName": "--color-action-danger",
+      "type": "color"
+    },
+    {
+      "path": "color.action.dangerHover",
+      "cssName": "--color-action-danger-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.action.primary",
+      "cssName": "--color-action-primary",
+      "type": "color"
+    },
+    {
+      "path": "color.action.primaryContent",
+      "cssName": "--color-action-primary-content",
+      "type": "color"
+    },
+    {
+      "path": "color.action.primaryHover",
+      "cssName": "--color-action-primary-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.border.dialog",
+      "cssName": "--color-border-dialog",
+      "type": "color"
+    },
+    {
+      "path": "color.border.primary",
+      "cssName": "--color-border-primary",
+      "type": "color"
+    },
+    {
+      "path": "color.border.secondary",
+      "cssName": "--color-border-secondary",
+      "type": "color"
+    },
+    {
+      "path": "color.border.tertiary",
+      "cssName": "--color-border-tertiary",
+      "type": "color"
+    },
+    {
+      "path": "color.border.translucent",
+      "cssName": "--color-border-translucent",
+      "type": "color"
+    },
+    {
+      "path": "color.border.transparent",
+      "cssName": "--color-border-transparent",
+      "type": "color"
+    },
+    {
+      "path": "color.content.inverse",
+      "cssName": "--color-content-inverse",
+      "type": "color"
+    },
+    {
+      "path": "color.content.primary",
+      "cssName": "--color-content-primary",
+      "type": "color"
+    },
+    {
+      "path": "color.content.secondary",
+      "cssName": "--color-content-secondary",
+      "type": "color"
+    },
+    {
+      "path": "color.content.tertiary",
+      "cssName": "--color-content-tertiary",
+      "type": "color"
+    },
+    {
+      "path": "color.focus.ring",
+      "cssName": "--color-focus-ring",
+      "type": "color"
+    },
+    {
+      "path": "color.interaction.pressedOverlay",
+      "cssName": "--color-interaction-pressed-overlay",
+      "type": "color"
+    },
+    {
+      "path": "color.sidebar.itemActive",
+      "cssName": "--color-sidebar-item-active",
+      "type": "color"
+    },
+    {
+      "path": "color.sidebar.itemHover",
+      "cssName": "--color-sidebar-item-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.status.errorBorder",
+      "cssName": "--color-status-error-border",
+      "type": "color"
+    },
+    {
+      "path": "color.status.errorContent",
+      "cssName": "--color-status-error-content",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.canvas",
+      "cssName": "--color-surface-canvas",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.dialog",
+      "cssName": "--color-surface-dialog",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.elevated",
+      "cssName": "--color-surface-elevated",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.interactive",
+      "cssName": "--color-surface-interactive",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.interactiveHover",
+      "cssName": "--color-surface-interactive-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.level3",
+      "cssName": "--color-surface-level3",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.quaternary",
+      "cssName": "--color-surface-quaternary",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.readOnly",
+      "cssName": "--color-surface-read-only",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.scrim",
+      "cssName": "--color-surface-scrim",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.selected",
+      "cssName": "--color-surface-selected",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.sidebar",
+      "cssName": "--color-surface-sidebar",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.subtle",
+      "cssName": "--color-surface-subtle",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.surface",
+      "cssName": "--color-surface-surface",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.translucent",
+      "cssName": "--color-surface-translucent",
+      "type": "color"
+    },
+    {
+      "path": "font.button",
+      "cssName": "--font-button",
+      "type": "fontFamily"
+    },
+    {
+      "path": "font.sans",
+      "cssName": "--font-sans",
+      "type": "fontFamily"
+    },
+    {
+      "path": "opacity.disabled",
+      "cssName": "--opacity-disabled",
+      "type": "number"
+    },
+    {
+      "path": "opacity.enabled",
+      "cssName": "--opacity-enabled",
+      "type": "number"
+    },
+    {
+      "path": "radius.control",
+      "cssName": "--radius-control",
+      "type": "dimension"
+    },
+    {
+      "path": "radius.overlay",
+      "cssName": "--radius-overlay",
+      "type": "dimension"
+    },
+    {
+      "path": "radius.panel",
+      "cssName": "--radius-panel",
+      "type": "dimension"
+    },
+    {
+      "path": "radius.popover",
+      "cssName": "--radius-popover",
+      "type": "dimension"
+    },
+    {
+      "path": "radius.rounded",
+      "cssName": "--radius-rounded",
+      "type": "dimension"
+    },
+    {
+      "path": "size.borderControl",
+      "cssName": "--size-border-control",
+      "type": "dimension"
+    },
+    {
+      "path": "size.borderDialog",
+      "cssName": "--size-border-dialog",
+      "type": "dimension"
+    },
+    {
+      "path": "size.controlCompact",
+      "cssName": "--size-control-compact",
+      "type": "dimension"
+    },
+    {
+      "path": "size.controlDefault",
+      "cssName": "--size-control-default",
+      "type": "dimension"
+    },
+    {
+      "path": "size.dialog",
+      "cssName": "--size-dialog",
+      "type": "dimension"
+    },
+    {
+      "path": "size.iconButtonCompact",
+      "cssName": "--size-icon-button-compact",
+      "type": "dimension"
+    },
+    {
+      "path": "size.iconButtonDefault",
+      "cssName": "--size-icon-button-default",
+      "type": "dimension"
+    },
+    {
+      "path": "size.iconDefault",
+      "cssName": "--size-icon-default",
+      "type": "dimension"
+    },
+    {
+      "path": "size.inputDefault",
+      "cssName": "--size-input-default",
+      "type": "dimension"
+    },
+    {
+      "path": "size.sidebar",
+      "cssName": "--size-sidebar",
+      "type": "dimension"
+    },
+    {
+      "path": "space.1",
+      "cssName": "--space-1",
+      "type": "dimension"
+    },
+    {
+      "path": "space.2",
+      "cssName": "--space-2",
+      "type": "dimension"
+    },
+    {
+      "path": "space.3",
+      "cssName": "--space-3",
+      "type": "dimension"
+    },
+    {
+      "path": "space.4",
+      "cssName": "--space-4",
+      "type": "dimension"
+    },
+    {
+      "path": "space.6",
+      "cssName": "--space-6",
+      "type": "dimension"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[data-slot="dialog-portal"] {
+  isolation: isolate;
+}
+
+[data-slot="dialog-viewport"] {
+  overscroll-behavior: contain;
+}

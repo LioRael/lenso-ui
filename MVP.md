@@ -1,6 +1,6 @@
 # Lenso UI MVP Contract
 
-Status: awaiting implementation confirmation
+Status: implementation candidate; publication and downstream Console adoption pending
 
 ## Outcome
 
@@ -14,7 +14,7 @@ The MVP proves one canonical source can produce both a managed npm package and e
 @lenso/ui          styled Foundation Components
 @lenso/primitives  Lenso-owned headless Product Primitives
 @lenso/tokens      DTCG source-derived semantic contract and artifacts
-@lenso/fonts       optional licensed font assets
+@lenso/fonts       reserved; public release deferred until provenance assets exist
 @lenso registry    editable components, primitives, setup items, and Recipes
 ```
 
@@ -82,7 +82,7 @@ Public CSS custom properties are unbranded complete semantic paths such as `--co
 5. Sidebar Product Primitive and one styled Registry Recipe, including nested and simultaneous left/right sidebars.
 6. Package and registry artifacts from the same canonical sources.
 7. Next App Router documentation and Component Lab consumption.
-8. Temporary real-install smoke for npm with Next and registry with Vite.
+8. Package export validation and shadcn Registry schema validation.
 
 Remaining Foundation Components expand only after this slice proves packed and installed artifacts.
 

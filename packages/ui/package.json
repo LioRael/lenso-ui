@@ -1,0 +1,72 @@
+{
+  "name": "@lenso/ui",
+  "version": "0.1.0",
+  "description": "Styled React foundation components for Lenso UI.",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "./dist/assets/stylex.css",
+    "./dist/preflight.css"
+  ],
+  "exports": {
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "import": "./dist/button/index.js"
+    },
+    "./csp-provider": {
+      "types": "./dist/csp-provider/index.d.ts",
+      "import": "./dist/csp-provider/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "import": "./dist/dialog/index.js"
+    },
+    "./text-field": {
+      "types": "./dist/text-field/index.d.ts",
+      "import": "./dist/text-field/index.js"
+    },
+    "./theme-scope": {
+      "types": "./dist/theme-scope/index.d.ts",
+      "import": "./dist/theme-scope/index.js"
+    },
+    "./styles.css": "./dist/assets/stylex.css",
+    "./preflight.css": "./dist/preflight.css"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown --config tsdown.config.ts && tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --noEmit false --outDir dist && node scripts/copy-assets.mjs",
+    "test": "vitest run --config vitest.config.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lenso/tokens": "workspace:*",
+    "@stylexjs/stylex": "catalog:",
+    "lucide-react": "catalog:"
+  },
+  "devDependencies": {
+    "@base-ui/react": "catalog:",
+    "@stylexjs/unplugin": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
+    "axe-core": "catalog:",
+    "playwright": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "vitest-browser-react": "catalog:"
+  },
+  "peerDependencies": {
+    "@base-ui/react": ">=1.7.0 <2.0.0",
+    "react": ">=19.2.0 <20.0.0",
+    "react-dom": ">=19.2.0 <20.0.0"
+  }
+}

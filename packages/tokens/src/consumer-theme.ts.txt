@@ -1,0 +1,9 @@
+// Generated copyable adapter for Consumer-owned theme values.
+import type { CSSProperties } from "react";
+import { semanticTokenNames, type SemanticToken } from "@lenso/tokens";
+
+export function lensoTheme(values: Record<SemanticToken, string>): CSSProperties {
+  return Object.fromEntries(
+    Object.entries(values).map(([path, value]) => [semanticTokenNames[path as SemanticToken], value]),
+  ) as CSSProperties;
+}

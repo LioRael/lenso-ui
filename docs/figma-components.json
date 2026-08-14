@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "fileKey": "H2JoXtMe808gFetAPE9tN6",
+  "status": "approved",
+  "components": {
+    "button": {
+      "nodeId": "27:56",
+      "codeSubpath": "@lenso/ui/button",
+      "variants": ["primary", "secondary", "ghost", "danger", "compact", "default"],
+      "states": ["default", "hover", "focus-visible", "pressed", "disabled", "loading"],
+      "documentation": "/#button",
+      "stateBoard": { "nodeId": "27:56", "baseline": "button-state-board" }
+    },
+    "text-field": {
+      "nodeId": "30:42",
+      "codeSubpath": "@lenso/ui/text-field",
+      "variants": ["default", "invalid", "disabled", "read-only"],
+      "states": ["default", "hover", "focus-visible", "filled", "invalid", "disabled"],
+      "documentation": "/#text-field",
+      "stateBoard": { "nodeId": "30:42", "baseline": "text-field-state-board" }
+    },
+    "dialog": {
+      "nodeId": "245:804",
+      "codeSubpath": "@lenso/ui/dialog",
+      "variants": ["light", "dark"],
+      "states": ["open", "focus-trapped", "reduced-motion", "overflow"],
+      "documentation": "/#dialog",
+      "stateBoard": { "nodeId": "245:804", "baseline": "dialog-state-board" }
+    },
+    "sidebar": {
+      "nodeId": "375:189",
+      "codeSubpath": "@lenso/primitives/sidebar",
+      "variants": ["left", "right", "simultaneous", "nested"],
+      "states": ["open", "closed", "keyboard-dismissed"],
+      "documentation": "/#sidebar",
+      "stateBoard": { "nodeId": "375:189", "baseline": "sidebar-state-board" }
+    }
+  }
+}
