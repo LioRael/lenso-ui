@@ -164,6 +164,17 @@
         "nodeId": "375:189",
         "baseline": "docs/figma-baselines/sidebar-state-board.png"
       }
+    },
+    "page-header": {
+      "nodeId": "375:2939",
+      "codeSubpath": "@lenso/ui/page-header",
+      "variants": ["team", "simple", "custom-actions", "custom-leading"],
+      "states": ["default", "tab-selected", "tab-hover", "tab-focus-visible", "tab-disabled"],
+      "documentation": "/components/page-header",
+      "stateBoard": {
+        "nodeId": "375:2939",
+        "baseline": "docs/figma-baselines/page-header-state-board.png"
+      }
     }
   }
 }

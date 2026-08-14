@@ -779,6 +779,11 @@ a {
   text-align: center;
 }
 
+.page-header-stage {
+  align-items: flex-start;
+  padding-top: 52px;
+}
+
 .sidebar-playground {
   height: 844px;
 }

@@ -96,6 +96,11 @@
       "name": "sidebar",
       "title": "Sidebar",
       "type": "registry:ui"
+    },
+    {
+      "name": "page-header",
+      "title": "Page Header",
+      "type": "registry:ui"
     }
   ],
   "name": "lenso"

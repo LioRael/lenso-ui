@@ -391,6 +391,25 @@ const specs: RegistryItemSpec[] = [
     title: "Sidebar",
     type: "registry:ui",
   },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/page-header/index.tsx",
+        target: "components/lenso/page-header/index.tsx",
+      },
+      {
+        source: "packages/ui/src/page-header/page-header.stylex.ts",
+        target: "components/lenso/page-header/page-header.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "page-header",
+    registryDependencies: [stable("setup")],
+    title: "Page Header",
+    type: "registry:ui",
+  },
 ];
 
 const sourceCache = new Map<string, string>();

@@ -17,6 +17,7 @@ type DocsPage =
   | "icon-button"
   | "label"
   | "overview"
+  | "page-header"
   | "radio"
   | "select"
   | "sidebar"
@@ -113,6 +114,7 @@ function ComponentNavigation({
     | "disclosure"
     | "icon-button"
     | "label"
+    | "page-header"
     | "radio"
     | "select"
     | "sidebar"
@@ -131,6 +133,7 @@ function ComponentNavigation({
     current === "breadcrumb" ||
     current === "command-menu" ||
     current === "disclosure" ||
+    current === "page-header" ||
     current === "sidebar";
   const contentCurrent = current === "avatar";
 
@@ -234,6 +237,13 @@ function ComponentNavigation({
                 href="/components/disclosure"
               >
                 Disclosure
+              </Link>
+              <Link
+                aria-current={current === "page-header" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/page-header"
+              >
+                Page Header
               </Link>
               <Link
                 aria-current={current === "sidebar" ? "page" : undefined}
