@@ -69,6 +69,25 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/breadcrumb/index.tsx",
+        target: "components/lenso/breadcrumb/index.tsx",
+      },
+      {
+        source: "packages/ui/src/breadcrumb/breadcrumb.stylex.ts",
+        target: "components/lenso/breadcrumb/breadcrumb.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "breadcrumb",
+    registryDependencies: [stable("setup")],
+    title: "Breadcrumb",
+    type: "registry:ui",
+  },
+  {
     dependencies: [`@lenso/tokens@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
     files: [
       {

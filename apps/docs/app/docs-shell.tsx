@@ -8,6 +8,7 @@ import { ThemeScope } from "@lenso/ui/theme-scope";
 
 type DocsPage =
   | "avatar"
+  | "breadcrumb"
   | "button"
   | "checkbox"
   | "combobox"
@@ -102,6 +103,7 @@ function ComponentNavigation({
 }: {
   current:
     | "avatar"
+    | "breadcrumb"
     | "button"
     | "checkbox"
     | "combobox"
@@ -121,7 +123,7 @@ function ComponentNavigation({
     current === "select" ||
     current === "switch" ||
     current === "text-field";
-  const navigationCurrent = current === "command-menu";
+  const navigationCurrent = current === "breadcrumb" || current === "command-menu";
   const contentCurrent = current === "avatar";
 
   return (
@@ -203,13 +205,22 @@ function ComponentNavigation({
             Navigation
           </NavHeading>
           {navigationCurrent && (
-            <Link
-              aria-current="page"
-              className="nav-item nav-item-deep"
-              href="/components/command-menu"
-            >
-              Command Menu
-            </Link>
+            <>
+              <Link
+                aria-current={current === "breadcrumb" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/breadcrumb"
+              >
+                Breadcrumb
+              </Link>
+              <Link
+                aria-current={current === "command-menu" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/command-menu"
+              >
+                Command Menu
+              </Link>
+            </>
           )}
         </div>
         {(["Overlays", "Feedback"] as const).map((group) => (

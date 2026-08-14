@@ -12,6 +12,7 @@ export default defineConfig({
   dts: false,
   entry: {
     "avatar/index": source("avatar"),
+    "breadcrumb/index": source("breadcrumb"),
     "button/index": source("button"),
     "checkbox/index": source("checkbox"),
     "combobox/index": source("combobox"),

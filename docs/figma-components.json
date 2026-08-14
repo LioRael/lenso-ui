@@ -14,6 +14,17 @@
         "baseline": "docs/figma-baselines/avatar-state-board.png"
       }
     },
+    "breadcrumb": {
+      "nodeId": "352:1750",
+      "codeSubpath": "@lenso/ui/breadcrumb",
+      "variants": ["basic", "overflow", "external", "team", "custom-separator"],
+      "states": ["default", "hover", "focus-visible", "current", "disabled"],
+      "documentation": "/components/breadcrumb",
+      "stateBoard": {
+        "nodeId": "352:1750",
+        "baseline": "docs/figma-baselines/breadcrumb-state-board.png"
+      }
+    },
     "button": {
       "nodeId": "27:56",
       "codeSubpath": "@lenso/ui/button",

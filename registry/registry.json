@@ -8,6 +8,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "type": "registry:ui"
+    },
+    {
       "name": "setup",
       "title": "Lenso StyleX setup",
       "type": "registry:style"

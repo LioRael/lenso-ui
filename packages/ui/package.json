@@ -17,6 +17,10 @@
       "types": "./dist/avatar/index.d.ts",
       "import": "./dist/avatar/index.js"
     },
+    "./breadcrumb": {
+      "types": "./dist/breadcrumb/index.d.ts",
+      "import": "./dist/breadcrumb/index.js"
+    },
     "./checkbox": {
       "types": "./dist/checkbox/index.d.ts",
       "import": "./dist/checkbox/index.js"

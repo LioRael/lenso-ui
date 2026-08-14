@@ -9,6 +9,7 @@ import { semanticTokenNames } from "@lenso/tokens";
 import "../../tokens/src/styles.css";
 import { Avatar } from "./avatar/index.js";
 import { Button } from "./button/index.js";
+import { Breadcrumb } from "./breadcrumb/index.js";
 import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
 import { CommandMenu } from "./command-menu/index.js";
@@ -560,6 +561,17 @@ test("the MVP foundation surface has no automatic accessibility violations", asy
   await render(
     <main>
       <Button>Continue</Button>
+      <Breadcrumb.Root>
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link>Workspace</Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator />
+          <Breadcrumb.Item>
+            <Breadcrumb.Page>Issues</Breadcrumb.Page>
+          </Breadcrumb.Item>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
       <Label color="violet">Feature</Label>
       <Checkbox.Root defaultChecked>
         <Checkbox.Indicator />

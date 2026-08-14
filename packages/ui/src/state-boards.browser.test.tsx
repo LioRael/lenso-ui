@@ -8,6 +8,7 @@ import "virtual:stylex:runtime";
 
 import "../../tokens/src/styles.css";
 import { Avatar } from "./avatar/index.js";
+import { Breadcrumb } from "./breadcrumb/index.js";
 import { Button } from "./button/index.js";
 import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
@@ -22,6 +23,7 @@ import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
 import { CircleIcon } from "lucide-react";
+import { ArrowUpRightIcon } from "lucide-react";
 
 const screenshotOptions = {
   comparatorName: "pixelmatch" as const,
@@ -31,6 +33,104 @@ const screenshotOptions = {
 };
 
 const avatarSizes = ["compact", "default", "large", "xlarge"] as const;
+
+function TeamIcon() {
+  return (
+    <svg aria-hidden="true" height="14" viewBox="0 0 14 14" width="14">
+      <path
+        d="M1.327 2.625h9.1l1.2 4.35c.22.82-.4 1.65-1.25 1.65a1.3 1.3 0 0 1-1.3-1.3 1.3 1.3 0 0 1-2.6 0 1.3 1.3 0 0 1-2.6 0 1.3 1.3 0 0 1-2.6 0c-.85 0-1.47-.83-1.25-1.65l1.3-4.35Z"
+        fill="currentColor"
+        transform="translate(1.2)"
+      />
+      <path
+        d="M0 0h8.6v3.7H0Zm3.1 1.15V3.7h2.4V1.15Z"
+        fill="currentColor"
+        fillRule="evenodd"
+        transform="translate(2.7 8.14)"
+      />
+    </svg>
+  );
+}
+
+function BreadcrumbBoardRow({ type }: { type: "basic" | "external" | "overflow" | "team" }) {
+  return (
+    <Breadcrumb.Root>
+      <Breadcrumb.List>
+        <Breadcrumb.Item>
+          <Breadcrumb.Link>
+            {type === "external" && (
+              <Breadcrumb.Icon>
+                <ArrowUpRightIcon size={14} />
+              </Breadcrumb.Icon>
+            )}
+            {type === "team" && (
+              <Breadcrumb.Icon>
+                <TeamIcon />
+              </Breadcrumb.Icon>
+            )}
+            {type === "external" ? "Project" : type === "team" ? "TestABI" : "Workspace"}
+          </Breadcrumb.Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Separator />
+        {type !== "team" && (
+          <>
+            <Breadcrumb.Item>
+              {type === "overflow" ? (
+                <Breadcrumb.Ellipsis />
+              ) : (
+                <Breadcrumb.Link>Workspace</Breadcrumb.Link>
+              )}
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+          </>
+        )}
+        <Breadcrumb.Item>
+          <Breadcrumb.Page>{type === "team" ? "Issues" : "Workspace"}</Breadcrumb.Page>
+        </Breadcrumb.Item>
+      </Breadcrumb.List>
+    </Breadcrumb.Root>
+  );
+}
+
+test("Breadcrumb matches the approved Figma state board", async () => {
+  const screen = await render(
+    <div
+      data-testid="breadcrumb-figma-state-board"
+      style={{
+        background: "#fafafa",
+        boxSizing: "border-box",
+        height: 208,
+        padding: "20px",
+        width: 420,
+      }}
+    >
+      <div style={{ marginBottom: 26 }}>
+        <BreadcrumbBoardRow type="basic" />
+      </div>
+      <div style={{ marginBottom: 26 }}>
+        <BreadcrumbBoardRow type="overflow" />
+      </div>
+      <div style={{ marginBottom: 26 }}>
+        <BreadcrumbBoardRow type="external" />
+      </div>
+      <BreadcrumbBoardRow type="team" />
+    </div>,
+  );
+  await document.fonts.load('500 13px "Inter"', "Workspace Project TestABI Issues");
+  const board = screen.getByTestId("breadcrumb-figma-state-board");
+  const links = board.element().querySelectorAll<HTMLElement>('[data-slot="breadcrumb-link"]');
+  await expect.poll(() => getComputedStyle(links[0]!).fontFamily).toContain("Inter");
+  await expect.poll(() => getComputedStyle(links[0]!).borderWidth).toBe("0px");
+  expect(links[0]?.getBoundingClientRect().height).toBe(24);
+  expect(getComputedStyle(links[0]!).fontSize).toBe("13px");
+  expect(
+    getComputedStyle(board.element().querySelector('[data-slot="breadcrumb-page"]')!).fontWeight,
+  ).toBe("500");
+  await expect.element(board).toMatchScreenshot("breadcrumb-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
+  });
+});
 const avatarGradient =
   "linear-gradient(135deg, rgb(92, 120, 242) 14.286%, rgb(161, 97, 222) 85.714%)";
 
