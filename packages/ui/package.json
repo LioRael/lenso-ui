@@ -21,6 +21,10 @@
       "types": "./dist/combobox/index.d.ts",
       "import": "./dist/combobox/index.js"
     },
+    "./command-menu": {
+      "types": "./dist/command-menu/index.d.ts",
+      "import": "./dist/command-menu/index.js"
+    },
     "./button": {
       "types": "./dist/button/index.d.ts",
       "import": "./dist/button/index.js"

@@ -10,6 +10,7 @@ import "../../tokens/src/styles.css";
 import { Button } from "./button/index.js";
 import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
+import { CommandMenu } from "./command-menu/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
@@ -19,6 +20,7 @@ import { Switch } from "./switch/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 import { PlusIcon } from "lucide-react";
+import { CircleIcon } from "lucide-react";
 
 const screenshotOptions = {
   comparatorName: "pixelmatch" as const,
@@ -414,7 +416,12 @@ test("Checkbox matches the approved Figma state board", async () => {
   const screen = await render(
     <div
       data-testid="checkbox-figma-state-board"
-      style={{ background: "#ececed", height: 172, position: "relative", width: 800 }}
+      style={{
+        background: "#ececed",
+        height: 172,
+        position: "relative",
+        width: 800,
+      }}
     >
       {figmaCheckboxValues.flatMap((value) =>
         figmaCheckboxStates.map((state) => (
@@ -426,7 +433,12 @@ test("Checkbox matches the approved Figma state board", async () => {
             disabled={state.name === "disabled"}
             indeterminate={value.name === "indeterminate"}
             key={`${value.name}-${state.name}`}
-            style={{ left: state.x, position: "absolute", top: value.y, width: 120 }}
+            style={{
+              left: state.x,
+              position: "absolute",
+              top: value.y,
+              width: 120,
+            }}
           >
             <Checkbox.Indicator />
             <Checkbox.Label>Checkbox label</Checkbox.Label>
@@ -446,8 +458,14 @@ test("Checkbox matches the approved Figma state board", async () => {
     .querySelectorAll<HTMLElement>('[data-slot="checkbox-indicator"]');
   expect(roots).toHaveLength(15);
   expect(indicators).toHaveLength(15);
-  expect(roots[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 28, width: 120 });
-  expect(indicators[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(roots[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 28,
+    width: 120,
+  });
+  expect(indicators[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 14,
+    width: 14,
+  });
   expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
   expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
   expect(getComputedStyle(roots[0]!).fontWeight).toBe("400");
@@ -514,7 +532,12 @@ test("Radio matches the approved Figma state board", async () => {
   const screen = await render(
     <div
       data-testid="radio-figma-state-board"
-      style={{ background: "#ececed", height: 120, position: "relative", width: 650 }}
+      style={{
+        background: "#ececed",
+        height: 120,
+        position: "relative",
+        width: 650,
+      }}
     >
       {figmaRadioValues.flatMap((value) =>
         figmaRadioStates.map((state) => {
@@ -551,8 +574,14 @@ test("Radio matches the approved Figma state board", async () => {
     .querySelectorAll<HTMLElement>('[data-slot="radio-group-indicator"]');
   expect(items).toHaveLength(10);
   expect(indicators).toHaveLength(10);
-  expect(items[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 28, width: 93 });
-  expect(indicators[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(items[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 28,
+    width: 93,
+  });
+  expect(indicators[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 14,
+    width: 14,
+  });
   expect(getComputedStyle(items[0]!).fontFamily).toContain("Inter");
   expect(getComputedStyle(items[0]!).fontSize).toBe("13px");
   expect(getComputedStyle(items[0]!).fontWeight).toBe("400");
@@ -571,9 +600,15 @@ test("Radio matches the approved Figma state board", async () => {
   const focusLayer = indicators[3]?.querySelector<HTMLElement>(
     '[data-slot="radio-group-focus-layer"]',
   );
-  expect(pressedLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 16, width: 16 });
+  expect(pressedLayer?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 16,
+    width: 16,
+  });
   expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
-  expect(focusLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 20, width: 20 });
+  expect(focusLayer?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 20,
+    width: 20,
+  });
   expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
 
   await expect.element(board).toMatchScreenshot("radio-figma-state-board", {
@@ -624,7 +659,12 @@ test("Switch matches the approved Figma state board", async () => {
   const screen = await render(
     <div
       data-testid="switch-figma-state-board"
-      style={{ background: "#ececed", height: 178, position: "relative", width: 760 }}
+      style={{
+        background: "#ececed",
+        height: 178,
+        position: "relative",
+        width: 760,
+      }}
     >
       {[false, true].flatMap((checked, row) =>
         figmaSwitchStates.map((state) => (
@@ -635,7 +675,11 @@ test("Switch matches the approved Figma state board", async () => {
             }
             disabled={state.name === "disabled"}
             key={`default-${checked}-${state.name}`}
-            style={{ left: state.x, position: "absolute", top: row === 0 ? 24 : 80 }}
+            style={{
+              left: state.x,
+              position: "absolute",
+              top: row === 0 ? 24 : 80,
+            }}
           >
             <Switch.Thumb />
             Switch label
@@ -671,12 +715,30 @@ test("Switch matches the approved Figma state board", async () => {
   const tracks = board.element().querySelectorAll<HTMLElement>('[data-slot="switch-track"]');
   const thumbs = board.element().querySelectorAll<HTMLElement>('[data-slot="switch-thumb"]');
   expect(roots).toHaveLength(20);
-  expect(roots[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 32, width: 119 });
-  expect(tracks[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 20, width: 30 });
-  expect(thumbs[0]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
-  expect(roots[10]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 26, width: 34 });
-  expect(tracks[10]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 22 });
-  expect(thumbs[10]?.getBoundingClientRect().toJSON()).toMatchObject({ height: 10, width: 10 });
+  expect(roots[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 32,
+    width: 119,
+  });
+  expect(tracks[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 20,
+    width: 30,
+  });
+  expect(thumbs[0]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 14,
+    width: 14,
+  });
+  expect(roots[10]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 26,
+    width: 34,
+  });
+  expect(tracks[10]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 14,
+    width: 22,
+  });
+  expect(thumbs[10]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 10,
+    width: 10,
+  });
   expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
   expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
   await expect.poll(() => getComputedStyle(tracks[0]!).backgroundColor).toBe("rgb(112, 113, 114)");
@@ -691,9 +753,15 @@ test("Switch matches the approved Figma state board", async () => {
   const pressedLayer = roots[2]?.querySelector<HTMLElement>('[data-slot="switch-pressed-layer"]');
   const focusLayer = roots[3]?.querySelector<HTMLElement>('[data-slot="switch-focus-layer"]');
   expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
-  expect(pressedLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 20, width: 30 });
+  expect(pressedLayer?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 20,
+    width: 30,
+  });
   expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
-  expect(focusLayer?.getBoundingClientRect().toJSON()).toMatchObject({ height: 26, width: 36 });
+  expect(focusLayer?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 26,
+    width: 36,
+  });
 
   await expect.element(board).toMatchScreenshot("switch-figma-state-board", screenshotOptions);
 });
@@ -739,7 +807,11 @@ function ComboboxExample({ state }: { state: "closed" | "empty" | "loading" | "o
         </Combobox.InputGroup>
         <Combobox.Portal container={portalRef}>
           <Combobox.Positioner
-            collisionAvoidance={{ align: "none", fallbackAxisSide: "none", side: "none" }}
+            collisionAvoidance={{
+              align: "none",
+              fallbackAxisSide: "none",
+              side: "none",
+            }}
             positionMethod="absolute"
             sideOffset={-36}
             style={{ left: 0, position: "absolute", top: 0, transform: "none" }}
@@ -809,6 +881,93 @@ test("Combobox matches the approved Figma state board", async () => {
   });
 });
 
+const commandValues = [
+  "Assign to…",
+  "Un-assign from me",
+  "Change status…",
+  "Set priority…",
+  "Add to project…",
+  "Change or add labels…",
+  "Set due date…",
+];
+
+function CommandMenuExample({ query = "", empty = false }: { query?: string; empty?: boolean }) {
+  const items = empty ? [] : commandValues;
+  return (
+    <CommandMenu.Root
+      filter={query && !empty ? () => true : undefined}
+      items={items}
+      inputValue={query}
+    >
+      <CommandMenu.Panel>
+        <CommandMenu.Search>
+          <CommandMenu.Input aria-label="Command search" placeholder="Type a command or search…" />
+          <CommandMenu.SearchHint>Ask Linear　 Tab</CommandMenu.SearchHint>
+        </CommandMenu.Search>
+        {!empty && (
+          <CommandMenu.GroupLabel>{query ? "Commands" : "TES-14　·　kkk"}</CommandMenu.GroupLabel>
+        )}
+        <CommandMenu.List>
+          {(command: string) => (
+            <CommandMenu.Item
+              data-visual-state={command === commandValues[0] ? "highlighted" : undefined}
+              key={command}
+              value={command}
+            >
+              <CommandMenu.ItemIcon>
+                <CircleIcon aria-hidden="true" size={10} />
+              </CommandMenu.ItemIcon>
+              <CommandMenu.ItemText>{command}</CommandMenu.ItemText>
+              <CommandMenu.Shortcut>S</CommandMenu.Shortcut>
+            </CommandMenu.Item>
+          )}
+        </CommandMenu.List>
+        <CommandMenu.Empty>No commands found</CommandMenu.Empty>
+      </CommandMenu.Panel>
+    </CommandMenu.Root>
+  );
+}
+
+test("Command Menu matches the approved Figma state board", async () => {
+  const screen = await render(
+    <div
+      data-testid="command-menu-figma-state-board"
+      style={{ height: 843.32, overflow: "hidden", width: 440.8 }}
+    >
+      <div
+        style={{
+          background: "#fafafa",
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          gap: 24,
+          height: 1454,
+          padding: "15px 20px",
+          transform: "scale(0.58)",
+          transformOrigin: "top left",
+          width: 760,
+        }}
+      >
+        <CommandMenuExample />
+        <CommandMenuExample query="status" />
+        <CommandMenuExample empty query="zzzzzz" />
+      </div>
+    </div>,
+  );
+  await document.fonts.load('400 15px "Inter"', "Assign to Change status");
+  await expect.poll(() => document.fonts.check('400 15px "Inter"')).toBe(true);
+  const board = screen.getByTestId("command-menu-figma-state-board");
+  const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="command-menu-panel"]');
+  expect(panels).toHaveLength(3);
+  await expect.poll(() => getComputedStyle(panels[0]!).width).toBe("720px");
+  expect(getComputedStyle(panels[0]!).height).toBe("450px");
+  expect(getComputedStyle(panels[0]!).borderRadius).toBe("12px");
+  await expect.element(board).toMatchScreenshot("command-menu-figma-state-board", {
+    comparatorName: "pixelmatch",
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
+  });
+});
+
 function SelectExample({ open, value }: { open?: boolean; value: string }) {
   return (
     <Select.Root defaultOpen={open} defaultValue={value}>
@@ -817,7 +976,11 @@ function SelectExample({ open, value }: { open?: boolean; value: string }) {
         <Select.Icon />
       </Select.Trigger>
       <Select.Positioner
-        collisionAvoidance={{ align: "none", fallbackAxisSide: "none", side: "none" }}
+        collisionAvoidance={{
+          align: "none",
+          fallbackAxisSide: "none",
+          side: "none",
+        }}
       >
         <Select.Popup>
           <Select.List>
@@ -873,7 +1036,10 @@ test("Select matches the approved Figma state board", async () => {
   const popup = board
     .element()
     .querySelector<HTMLElement>('[data-slot="select-popup"][data-open]')!;
-  expect(popup.getBoundingClientRect().toJSON()).toMatchObject({ height: 168, width: 180 });
+  expect(popup.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 168,
+    width: 180,
+  });
   expect(getComputedStyle(popup).backgroundColor).toBe("rgb(255, 255, 255)");
   expect(getComputedStyle(popup).borderRadius).toBe("12px");
 

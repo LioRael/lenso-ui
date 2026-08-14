@@ -10,6 +10,7 @@ type DocsPage =
   | "button"
   | "checkbox"
   | "combobox"
+  | "command-menu"
   | "icon-button"
   | "label"
   | "overview"
@@ -102,6 +103,7 @@ function ComponentNavigation({
     | "button"
     | "checkbox"
     | "combobox"
+    | "command-menu"
     | "icon-button"
     | "label"
     | "radio"
@@ -117,6 +119,7 @@ function ComponentNavigation({
     current === "select" ||
     current === "switch" ||
     current === "text-field";
+  const navigationCurrent = current === "command-menu";
 
   return (
     <>
@@ -192,7 +195,21 @@ function ComponentNavigation({
             </>
           )}
         </div>
-        {(["Navigation", "Overlays", "Feedback", "Content"] as const).map((group) => (
+        <div className="nav-category">
+          <NavHeading expanded={navigationCurrent} nested>
+            Navigation
+          </NavHeading>
+          {navigationCurrent && (
+            <Link
+              aria-current="page"
+              className="nav-item nav-item-deep"
+              href="/components/command-menu"
+            >
+              Command Menu
+            </Link>
+          )}
+        </div>
+        {(["Overlays", "Feedback", "Content"] as const).map((group) => (
           <div className="nav-category" key={group}>
             <NavHeading nested>{group}</NavHeading>
           </div>

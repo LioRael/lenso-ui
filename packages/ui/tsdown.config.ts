@@ -14,6 +14,7 @@ export default defineConfig({
     "button/index": source("button"),
     "checkbox/index": source("checkbox"),
     "combobox/index": source("combobox"),
+    "command-menu/index": source("command-menu"),
     "csp-provider/index": source("csp-provider"),
     "dialog/index": source("dialog"),
     "icon-button/index": source("icon-button"),

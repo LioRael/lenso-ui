@@ -1111,6 +1111,29 @@ a {
   padding-bottom: 40px;
 }
 
+.command-menu-docs-content {
+  padding-bottom: 40px;
+}
+.command-menu-docs-content .button-playground {
+  height: 542px;
+}
+.command-menu-playground-body {
+  height: 488px;
+}
+.command-menu-playground-body .rendered-stage,
+.command-menu-playground-body .playground-inspector {
+  height: 488px;
+}
+.command-menu-stage {
+  height: 420px;
+  padding-top: 18px;
+  overflow: hidden;
+}
+.command-menu-stage [data-slot="command-menu-panel"] {
+  transform: scale(0.78);
+  transform-origin: top center;
+}
+
 .select-guidance {
   height: 152px;
 }

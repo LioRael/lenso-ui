@@ -10,6 +10,7 @@ import "../../tokens/src/styles.css";
 import { Button } from "./button/index.js";
 import { Checkbox } from "./checkbox/index.js";
 import { Combobox } from "./combobox/index.js";
+import { CommandMenu } from "./command-menu/index.js";
 import { Dialog } from "./dialog/index.js";
 import { IconButton } from "./icon-button/index.js";
 import { Label } from "./label/index.js";
@@ -46,7 +47,10 @@ test("Button loading state is busy and non-interactive", async () => {
   await expect.element(button).toHaveAttribute("aria-busy", "true");
   await expect.poll(() => getComputedStyle(button.element()).opacity).toBe("1");
   const spinner = button.element().querySelector("svg");
-  expect(spinner?.getBoundingClientRect().toJSON()).toMatchObject({ height: 10, width: 10 });
+  expect(spinner?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 10,
+    width: 10,
+  });
   expect(spinner?.querySelector("path[mask]")).not.toBeNull();
 });
 
@@ -102,7 +106,10 @@ test("Icon Button preserves Base UI render composition and an accessible name", 
   await expect.element(link).toHaveAttribute("href", "/create");
   await expect.poll(() => getComputedStyle(link.element()).width).toBe("24px");
   const icon = link.element().querySelector<HTMLElement>('[data-slot="icon-button-icon"]');
-  expect(icon?.getBoundingClientRect().toJSON()).toMatchObject({ height: 14, width: 14 });
+  expect(icon?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 14,
+    width: 14,
+  });
   expect(icon?.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
 });
 
@@ -188,7 +195,9 @@ test("Checkbox preserves Base UI keyboard, form, and indeterminate semantics", a
       </Checkbox.Root>
     </form>,
   );
-  const checkbox = screen.getByRole("checkbox", { name: "Include completed issues" });
+  const checkbox = screen.getByRole("checkbox", {
+    name: "Include completed issues",
+  });
   const mixed = screen.getByRole("checkbox", { name: "Select all issues" });
 
   await expect.element(checkbox).not.toBeChecked();
@@ -432,6 +441,45 @@ test("Combobox permits consumer-owned selection visuals", async () => {
     </Combobox.Root>,
   );
   await expect.element(screen.getByTestId("custom-combobox-indicator")).toBeVisible();
+});
+
+test("Command Menu filters commands and preserves keyboard navigation", async () => {
+  const onValueChange = vi.fn();
+  const commands = ["Assign to…", "Change status…", "Set priority…"];
+  const screen = await render(
+    <main>
+      <CommandMenu.Root items={commands} onValueChange={onValueChange}>
+        <CommandMenu.Panel>
+          <CommandMenu.Search>
+            <CommandMenu.Input aria-label="Command search" />
+          </CommandMenu.Search>
+          <CommandMenu.GroupLabel>Commands</CommandMenu.GroupLabel>
+          <CommandMenu.List>
+            {(command: string) => (
+              <CommandMenu.Item key={command} value={command}>
+                <CommandMenu.ItemIcon>
+                  <PlusIcon />
+                </CommandMenu.ItemIcon>
+                <CommandMenu.ItemText>{command}</CommandMenu.ItemText>
+                <CommandMenu.Shortcut>S</CommandMenu.Shortcut>
+              </CommandMenu.Item>
+            )}
+          </CommandMenu.List>
+          <CommandMenu.Empty>No commands found</CommandMenu.Empty>
+        </CommandMenu.Panel>
+      </CommandMenu.Root>
+    </main>,
+  );
+
+  const input = screen.getByRole("combobox", { name: "Command search" });
+  await input.fill("status");
+  await expect.element(screen.getByText("Change status…")).toBeVisible();
+  await expect.element(screen.getByText("Assign to…")).not.toBeInTheDocument();
+  input.element().focus();
+  await userEvent.keyboard("{ArrowDown}{Enter}");
+  expect(onValueChange).toHaveBeenCalledWith("Change status…", expect.anything());
+  const accessibility = await axe.run(document.body);
+  expect(accessibility.violations).toEqual([]);
 });
 
 test("Dialog portals into the nearest theme scope and closes with Escape", async () => {

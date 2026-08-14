@@ -63,6 +63,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "command-menu",
+      "title": "Command Menu",
+      "type": "registry:ui"
+    },
+    {
       "name": "dialog",
       "title": "Dialog",
       "type": "registry:ui"
