@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import "@fontsource/ibm-plex-sans/500.css";
@@ -10,6 +11,7 @@ import "../../../tokens/src/styles.css";
 import { Button } from "../button/index.js";
 import { Select } from "../select/index.js";
 import { Switch } from "../switch/index.js";
+import { ThemeScope } from "../theme-scope/index.js";
 import { SettingsRow } from "./index.js";
 
 type Control = "action" | "select" | "toggle";
@@ -108,9 +110,46 @@ test("Settings Row matches the approved Figma control and state matrix", async (
   expect(rows[0]!.getBoundingClientRect().width / 0.6).toBeCloseTo(640, 1);
   expect(rows[0]!.getBoundingClientRect().height / 0.6).toBeCloseTo(65, 1);
   await expect.poll(() => getComputedStyle(rows[2]!).opacity).toBe("0.4");
+  await userEvent.hover(rows[2]!);
+  await expect.poll(() => getComputedStyle(rows[2]!).backgroundColor).toBe("rgba(0, 0, 0, 0)");
   expect((await axe.run(board.element())).violations).toEqual([]);
   await expect.element(board).toMatchScreenshot("settings-row-figma-state-board", {
     comparatorName: "pixelmatch",
     comparatorOptions: { allowedMismatchedPixelRatio: 0.035 },
   });
+});
+
+test("Settings Row preserves dark hover semantics and consumer-owned controls", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <div style={{ width: 480 }}>
+        <SettingsRow.Root data-testid="custom-row" data-visual-state="hover">
+          <SettingsRow.Copy>
+            <SettingsRow.Title id="retention-title">Retention period</SettingsRow.Title>
+            <SettingsRow.Description id="retention-description">
+              Number of days before archived records are removed.
+            </SettingsRow.Description>
+          </SettingsRow.Copy>
+          <SettingsRow.Control>
+            <input
+              aria-describedby="retention-description"
+              aria-labelledby="retention-title"
+              defaultValue="30"
+              type="number"
+            />
+          </SettingsRow.Control>
+        </SettingsRow.Root>
+      </div>
+    </ThemeScope>,
+  );
+  const row = screen.getByTestId("custom-row");
+  await expect.poll(() => getComputedStyle(row.element()).backgroundColor).toBe("rgb(31, 31, 31)");
+  expect(row.element().getBoundingClientRect().height).toBe(65);
+  expect(
+    (screen.getByRole("spinbutton", { name: "Retention period" }).element() as HTMLInputElement)
+      .value,
+  ).toBe("30");
+  expect(
+    (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
+  ).toEqual([]);
 });

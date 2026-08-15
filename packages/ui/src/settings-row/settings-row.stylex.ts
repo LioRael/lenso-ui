@@ -9,6 +9,7 @@ export const styles = stylex.create({
       default: "transparent",
       ":hover": tokens.colorSurfaceInteractiveHover,
       '[data-visual-state="hover"]': tokens.colorSurfaceInteractiveHover,
+      '[data-disabled="true"]': "transparent",
     },
     borderBottomColor: tokens.colorBorderTertiary,
     borderBottomStyle: "solid",
