@@ -7,6 +7,7 @@ export const styles = stylex.create({
     backgroundColor: tokens.colorSurfaceScrim,
     inset: 0,
     position: "fixed",
+    zIndex: 100,
   },
   viewport: {
     alignItems: "center",
@@ -15,6 +16,7 @@ export const styles = stylex.create({
     justifyContent: "center",
     padding: tokens.space4,
     position: "fixed",
+    zIndex: 101,
   },
   popup: {
     backgroundColor: tokens.colorSurfaceDialog,

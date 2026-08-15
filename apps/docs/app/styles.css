@@ -1004,6 +1004,47 @@ a {
   font: inherit;
 }
 
+.mdx-component-content {
+  min-height: calc(100vh - 48px);
+}
+
+.mdx-live-playground .playground-heading {
+  justify-content: flex-start;
+}
+
+.mdx-rendered-stage {
+  overflow: hidden;
+}
+
+.dialkit-inspector {
+  padding: 0;
+}
+
+.dialkit-inspector > * {
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-stage {
+  padding-top: 76px;
+}
+
+.mdx-guidance {
+  height: auto;
+  min-height: 152px;
+}
+
+.mdx-guidance article {
+  height: auto;
+  min-height: 68px;
+}
+
+.mdx-code-example,
+.mdx-code-example pre {
+  height: auto;
+  min-height: 166px;
+}
+
 .icon-button-docs-content {
   padding-bottom: 40px;
 }
@@ -1310,6 +1351,33 @@ a {
 
   .button-docs-content {
     padding: 32px 20px 56px;
+  }
+
+  .button-description,
+  .mdx-live-playground .playground-heading > div:first-child,
+  .mdx-live-playground .rendered-stage,
+  .mdx-live-playground .stage-canvas,
+  .mdx-live-playground .stage-header {
+    width: 100%;
+    height: auto;
+  }
+
+  .mdx-live-playground .rendered-stage {
+    min-height: 256px;
+  }
+
+  .mdx-live-playground .stage-canvas {
+    min-height: 208px;
+  }
+
+  .mdx-live-playground .stage-header > span {
+    width: auto;
+  }
+
+  .mdx-live-playground .stage-canvas > p {
+    right: 0;
+    left: 0;
+    width: 100%;
   }
 
   .overview-copy,

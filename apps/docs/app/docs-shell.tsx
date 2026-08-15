@@ -13,6 +13,7 @@ type DocsPage =
   | "checkbox"
   | "combobox"
   | "command-menu"
+  | "dialog"
   | "disclosure"
   | "icon-button"
   | "label"
@@ -120,6 +121,7 @@ function ComponentNavigation({
     | "checkbox"
     | "combobox"
     | "command-menu"
+    | "dialog"
     | "disclosure"
     | "icon-button"
     | "label"
@@ -156,7 +158,8 @@ function ComponentNavigation({
     current === "settings-row" ||
     current === "sidebar";
   const tabsCurrent = current === "tabs";
-  const overlaysCurrent = current === "menu" || current === "popover" || current === "tooltip";
+  const overlaysCurrent =
+    current === "dialog" || current === "menu" || current === "popover" || current === "tooltip";
   const contentCurrent = current === "avatar" || current === "surface";
   const feedbackCurrent = current === "status-marker" || current === "toast";
 
@@ -305,6 +308,13 @@ function ComponentNavigation({
           </NavHeading>
           {overlaysCurrent && (
             <>
+              <Link
+                aria-current={current === "dialog" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/dialog"
+              >
+                Dialog
+              </Link>
               <Link
                 aria-current={current === "tooltip" ? "page" : undefined}
                 className="nav-item nav-item-deep"

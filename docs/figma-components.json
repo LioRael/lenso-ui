@@ -151,7 +151,7 @@
       "codeSubpath": "@lenso/ui/dialog",
       "variants": ["light", "dark"],
       "states": ["open", "focus-trapped", "reduced-motion", "overflow"],
-      "documentation": "/#dialog",
+      "documentation": "/components/dialog",
       "stateBoard": {
         "nodeId": "245:804",
         "baseline": "docs/figma-baselines/dialog-state-board.png"

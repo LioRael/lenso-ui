@@ -139,11 +139,12 @@ export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>
   function DialogClose({ children, className, icon, ...props }, ref) {
     const isIconOnly = children == null;
     const iconNode = icon === undefined ? <XIcon /> : icon;
+    const generated = isIconOnly ? stylex.props(styles.close).className : undefined;
     return (
       <BaseDialog.Close
         {...props}
         aria-label={isIconOnly ? (props["aria-label"] ?? "Close") : props["aria-label"]}
-        className={mergeClassName(stylex.props(styles.close).className, className)}
+        className={mergeClassName(generated, className)}
         data-slot="dialog-close"
         ref={ref}
       >

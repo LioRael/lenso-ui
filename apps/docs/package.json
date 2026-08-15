@@ -16,6 +16,8 @@
     "@lenso/primitives": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@lenso/ui": "workspace:*",
+    "@mdx-js/react": "catalog:",
+    "@next/mdx": "catalog:",
     "dialkit": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
@@ -23,6 +25,8 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@mdx-js/loader": "catalog:",
+    "@types/mdx": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
