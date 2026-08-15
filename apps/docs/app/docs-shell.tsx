@@ -16,6 +16,7 @@ type DocsPage =
   | "disclosure"
   | "icon-button"
   | "label"
+  | "menu"
   | "overview"
   | "page-header"
   | "popover"
@@ -119,6 +120,7 @@ function ComponentNavigation({
     | "disclosure"
     | "icon-button"
     | "label"
+    | "menu"
     | "page-header"
     | "popover"
     | "quick-link"
@@ -148,7 +150,7 @@ function ComponentNavigation({
     current === "settings-row" ||
     current === "sidebar";
   const tabsCurrent = current === "tabs";
-  const overlaysCurrent = current === "popover" || current === "tooltip";
+  const overlaysCurrent = current === "menu" || current === "popover" || current === "tooltip";
   const contentCurrent = current === "avatar";
 
   return (
@@ -302,6 +304,13 @@ function ComponentNavigation({
                 href="/components/tooltip"
               >
                 Tooltip
+              </Link>
+              <Link
+                aria-current={current === "menu" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/menu"
+              >
+                Menu
               </Link>
               <Link
                 aria-current={current === "popover" ? "page" : undefined}

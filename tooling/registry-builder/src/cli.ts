@@ -53,6 +53,22 @@ const sharedFiles = [
 
 const specs: RegistryItemSpec[] = [
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      { source: "packages/ui/src/menu/index.tsx", target: "components/lenso/menu/index.tsx" },
+      {
+        source: "packages/ui/src/menu/menu.stylex.ts",
+        target: "components/lenso/menu/menu.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "menu",
+    registryDependencies: [stable("setup")],
+    title: "Menu",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
       {

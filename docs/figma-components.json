@@ -230,6 +230,17 @@
         "nodeId": "343:81",
         "baseline": "docs/figma-baselines/popover-state-board.png"
       }
+    },
+    "menu": {
+      "nodeId": "366:429",
+      "codeSubpath": "@lenso/ui/menu",
+      "variants": ["action", "shortcut", "submenu", "destructive", "custom-render"],
+      "states": ["default", "hover", "pressed", "disabled", "open", "nested"],
+      "documentation": "/components/menu",
+      "stateBoard": {
+        "nodeId": "367:600",
+        "baseline": "docs/figma-baselines/menu-state-board.png"
+      }
     }
   }
 }

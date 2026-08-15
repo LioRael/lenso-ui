@@ -107,7 +107,7 @@ test("Settings Row matches the approved Figma control and state matrix", async (
   expect(rows).toHaveLength(9);
   expect(rows[0]!.getBoundingClientRect().width / 0.6).toBeCloseTo(640, 1);
   expect(rows[0]!.getBoundingClientRect().height / 0.6).toBeCloseTo(65, 1);
-  expect(getComputedStyle(rows[2]!).opacity).toBe("0.4");
+  await expect.poll(() => getComputedStyle(rows[2]!).opacity).toBe("0.4");
   expect((await axe.run(board.element())).violations).toEqual([]);
   await expect.element(board).toMatchScreenshot("settings-row-figma-state-board", {
     comparatorName: "pixelmatch",

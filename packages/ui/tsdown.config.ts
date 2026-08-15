@@ -22,6 +22,7 @@ export default defineConfig({
     "disclosure/index": source("disclosure"),
     "icon-button/index": source("icon-button"),
     "label/index": source("label"),
+    "menu/index": source("menu"),
     "page-header/index": source("page-header"),
     "popover/index": source("popover"),
     "quick-link/index": source("quick-link"),
