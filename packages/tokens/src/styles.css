@@ -4,8 +4,8 @@
   --color-action-primary: #282a30;
   --color-action-primary-content: #fafafa;
   --color-action-primary-hover: #1f2024;
-  --color-border-control: #d4d4d4;
-  --color-border-control-focus: #d4d4d4;
+  --color-border-control: #d8d8d8;
+  --color-border-control-focus: #c2c2c2;
   --color-border-dialog: #d4d4d4;
   --color-border-popover: #d8d8d8;
   --color-border-primary: #707172;
@@ -17,7 +17,7 @@
   --color-content-primary: #282a30;
   --color-content-secondary: #333333;
   --color-content-tertiary: #6f6e77;
-  --color-focus-ring: #5e6ad2;
+  --color-focus-ring: #6d78d5;
   --color-interaction-pressed-overlay: #00000014;
   --color-label-border: #dedede;
   --color-label-content-default: #2f2f31;

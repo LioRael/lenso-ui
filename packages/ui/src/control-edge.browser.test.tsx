@@ -9,7 +9,7 @@ import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 
 for (const [theme, expectedBorder] of [
-  ["light", "rgb(212, 212, 212)"],
+  ["light", "rgb(216, 216, 216)"],
   ["dark", "rgb(72, 73, 76)"],
 ] as const) {
   test(`boxed control edges match in ${theme} mode`, async () => {
@@ -53,5 +53,28 @@ for (const [theme, expectedBorder] of [
       expect(computed.boxShadow).toBe("none");
       expect(control.getBoundingClientRect().height).toBe(32);
     }
+  });
+}
+
+for (const [theme, expectedHoverBorder, expectedFocusRing] of [
+  ["light", "rgb(194, 194, 194)", "rgb(109, 120, 213)"],
+  ["dark", "rgb(62, 66, 77)", "rgb(94, 106, 210)"],
+] as const) {
+  test(`text field interaction edges match Linear in ${theme} mode`, async () => {
+    const screen = await render(
+      <ThemeScope theme={theme}>
+        <TextField.Root>
+          <TextField.Control aria-label="Title" data-testid="text-input" />
+        </TextField.Root>
+      </ThemeScope>,
+    );
+
+    const input = screen.getByTestId("text-input");
+    await input.hover();
+    expect(getComputedStyle(input.element()).borderColor).toBe(expectedHoverBorder);
+
+    await input.click();
+    expect(getComputedStyle(input.element()).outlineColor).toBe(expectedFocusRing);
+    expect(getComputedStyle(input.element()).outlineWidth).toBe("1px");
   });
 }

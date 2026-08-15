@@ -2141,14 +2141,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.831373,
-            0.831373,
-            0.831373
+            0.847059,
+            0.847059,
+            0.847059
           ],
           "alpha": 1
         },
         "cssName": "--color-border-control",
-        "cssValue": "#d4d4d4"
+        "cssValue": "#d8d8d8"
       },
       "color.border.controlFocus": {
         "path": "color.border.controlFocus",
@@ -2156,14 +2156,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.831373,
-            0.831373,
-            0.831373
+            0.760784,
+            0.760784,
+            0.760784
           ],
           "alpha": 1
         },
         "cssName": "--color-border-control-focus",
-        "cssValue": "#d4d4d4"
+        "cssValue": "#c2c2c2"
       },
       "color.border.dialog": {
         "path": "color.border.dialog",
@@ -2336,14 +2336,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.368627,
-            0.415686,
-            0.823529
+            0.427451,
+            0.470588,
+            0.835294
           ],
           "alpha": 1
         },
         "cssName": "--color-focus-ring",
-        "cssValue": "#5e6ad2"
+        "cssValue": "#6d78d5"
       },
       "color.interaction.pressedOverlay": {
         "path": "color.interaction.pressedOverlay",
