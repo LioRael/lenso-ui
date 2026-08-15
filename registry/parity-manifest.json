@@ -728,9 +728,9 @@
           "target": "components/lenso/tooltip/index.tsx"
         },
         {
-          "registrySha256": "20a2c3aaa9f9210bb8e43c5d0255e0438b813f7fead3d507c2934fd9494cb2c0",
+          "registrySha256": "661e405fe1d61ad9e27e02a79d9b34538050726cfb26638e414ade3fb256494a",
           "source": "packages/ui/src/tooltip/tooltip.stylex.ts",
-          "sourceSha256": "20a2c3aaa9f9210bb8e43c5d0255e0438b813f7fead3d507c2934fd9494cb2c0",
+          "sourceSha256": "661e405fe1d61ad9e27e02a79d9b34538050726cfb26638e414ade3fb256494a",
           "target": "components/lenso/tooltip/tooltip.stylex.ts"
         },
         {

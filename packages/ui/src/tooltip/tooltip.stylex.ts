@@ -11,7 +11,7 @@ export const styles = stylex.create({
     borderRadius: tokens.radiusControl,
     borderStyle: "solid",
     borderWidth: "0.5px",
-    boxShadow: "0 1px 1px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.02)",
+    boxShadow: `0 1px 1px ${tokens.elevationPanelDetail}, 0 ${tokens.elevationPanelKeyY} ${tokens.elevationPanelKeyBlur} ${tokens.elevationPanelKeySpread} ${tokens.elevationPanelKey}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     display: "flex",

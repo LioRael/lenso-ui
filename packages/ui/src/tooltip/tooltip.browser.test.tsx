@@ -67,6 +67,7 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
     .element()
     .querySelectorAll<HTMLElement>('[data-slot="tooltip-popup-preview"]');
   await expect.poll(() => getComputedStyle(previews[0]!).height).toBe("27px");
+  await expect.poll(() => getComputedStyle(previews[0]!).boxShadow).toContain("-2px");
   expect(previews[0]!.getBoundingClientRect().width).toBe(66);
   expect(previews[1]!.getBoundingClientRect().width).toBe(92);
 
