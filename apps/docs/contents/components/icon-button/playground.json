@@ -1,0 +1,38 @@
+{
+  "id": "icon-button",
+  "name": "Icon Button",
+  "description": "Try the real icon-only action across tone, size, state, and theme.",
+  "themeControl": "theme",
+  "codeTemplate": "<IconButton aria-label=\"Create issue\" variant=\"{{variant}}\" size=\"{{size}}\">\n  <PlusIcon />\n</IconButton>",
+  "controls": [
+    {
+      "id": "variant",
+      "label": "Tone",
+      "type": "select",
+      "options": ["secondary", "ghost"],
+      "default": "secondary"
+    },
+    {
+      "id": "size",
+      "label": "Size",
+      "type": "select",
+      "options": ["compact", "default"],
+      "default": "compact"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "pressed", "focus-visible", "selected", "disabled"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

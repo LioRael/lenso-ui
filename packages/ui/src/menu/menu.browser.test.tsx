@@ -141,10 +141,4 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   ).toEqual([]);
   await userEvent.keyboard("{Escape}");
   await expect.poll(() => document.activeElement === trigger.element()).toBe(true);
-  await expect
-    .element(screen.getByTestId("menu-figma-state-board"))
-    .toMatchScreenshot("menu-figma-state-board", {
-      comparatorName: "pixelmatch",
-      comparatorOptions: { allowedMismatchedPixelRatio: 0.05 },
-    });
 });

@@ -1,0 +1,43 @@
+---
+title: "Text Field"
+description: "Single-line input with label, supporting text, validation, and visible keyboard focus."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/text-field"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="text-field" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>
+          Use for short, structured values. Keep the visible label even when placeholder copy is
+          present.
+        </li>
+        <li>Size: Default</li>
+        <li>Patterns: Search, Leading icon</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Default, Hover, Active, Focus-visible, Error, Read-only, Disabled</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { TextField } from "@lenso/ui/text-field"
+
+<TextField.Root>
+  <TextField.Label>Project name</TextField.Label>
+  <TextField.Control placeholder="Untitled" />
+  <TextField.Description>Visible to your team.</TextField.Description>
+</TextField.Root>`}
+    description="Use the composition pattern below; inspect source types for the complete inherited API."
+  />

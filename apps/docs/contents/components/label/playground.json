@@ -1,0 +1,30 @@
+{
+  "id": "label",
+  "name": "Label",
+  "description": "Try marker colors and interactive states on the real label component.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "marker",
+      "label": "Marker",
+      "type": "select",
+      "options": ["red", "purple", "blue"],
+      "default": "red"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "active", "open"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

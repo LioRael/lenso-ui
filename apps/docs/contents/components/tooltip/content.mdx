@@ -1,0 +1,47 @@
+---
+title: "Tooltip"
+description: "Compact contextual help for controls, with optional shortcut guidance."
+eyebrow: "Foundation component · Overlays"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="tooltip" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use concise supporting text; never place essential actions inside a tooltip.</li>
+        <li>Add a shortcut only when it helps users repeat the trigger action.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Base UI exposes the tooltip on both pointer hover and keyboard focus.</li>
+        <li>Escape dismisses it without moving focus away from the trigger.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Tooltip } from "@lenso/ui/tooltip"
+
+<Tooltip.Provider>
+  <Tooltip.Root>
+    <Tooltip.Trigger render={<button type="button" />}>Help</Tooltip.Trigger>
+    <Tooltip.Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Popup>
+          Help with <Tooltip.Shortcut>?</Tooltip.Shortcut>
+        </Tooltip.Popup>
+      </Tooltip.Positioner>
+    </Tooltip.Portal>
+  </Tooltip.Root>
+</Tooltip.Provider>`}
+    description="A themed portal with collision-aware positioning and an 8px target offset."
+  />

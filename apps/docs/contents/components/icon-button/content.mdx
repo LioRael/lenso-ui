@@ -1,0 +1,42 @@
+---
+title: "Icon Button"
+description: "Compact icon-only action with a stable interaction target and centered glyph."
+eyebrow: "Foundation component · Actions"
+metadata:
+  - "Figma canonical"
+  - "Implementation planned"
+actions:
+  - "View source"
+  - "Planned"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="icon-button" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Compact icon-only action with a stable interaction target and centered glyph.</li>
+        <li>Tone: Secondary, Ghost</li>
+        <li>Size: Compact, Default</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>State: Default, Hover, Pressed, Focus-visible, Selected, Disabled</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { IconButton } from "@lenso/ui/icon-button"
+import { PlusIcon } from "lucide-react"
+
+<IconButton aria-label="Create issue">
+  <PlusIcon />
+</IconButton>`}
+    description="Target composition API for this component; the named subpath will ship with its implementation."
+  />

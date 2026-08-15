@@ -1,0 +1,50 @@
+---
+title: "Page Header"
+description: "A compact page-level identity and peer-navigation surface for product and settings contexts."
+eyebrow: "Product component · Navigation"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="page-header" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use Team when a page needs identity, compact actions, and peer-view navigation.</li>
+        <li>Use Simple for settings and focused pages that only need a title.</li>
+        <li>Use Issues for a team breadcrumb followed by peer-view navigation.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Base UI owns roving focus, selected state, and keyboard navigation for tabs.</li>
+        <li>Provide an accessible label for the header landmark and every icon action.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { PageHeader } from "@lenso/ui/page-header"
+
+<PageHeader.Root variant="team">
+  <PageHeader.TabsRoot defaultValue="overview">
+    <PageHeader.Row>
+      <PageHeader.Leading>{teamIcon}</PageHeader.Leading>
+      <PageHeader.Title>TestABl</PageHeader.Title>
+      <PageHeader.Actions>{actions}</PageHeader.Actions>
+    </PageHeader.Row>
+    <PageHeader.TabsRow>
+      <PageHeader.TabsList aria-label="Team sections">
+        <PageHeader.Tab value="overview">Overview</PageHeader.Tab>
+      </PageHeader.TabsList>
+    </PageHeader.TabsRow>
+  </PageHeader.TabsRoot>
+</PageHeader.Root>`}
+    description="All identity, action, and navigation slots are replaceable; geometry remains stable across states."
+  />

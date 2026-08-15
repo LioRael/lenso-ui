@@ -344,6 +344,192 @@ test("Switch toggles, submits its value, and permits a consumer-owned thumb", as
   ).toBe("enabled");
 });
 
+test("Switch checked hover keeps the thumb's right edge anchored", async () => {
+  const screen = await render(
+    <div>
+      <Switch.Root aria-label="Default switch" defaultChecked>
+        <Switch.Thumb />
+      </Switch.Root>
+      <Switch.Root aria-label="Compact switch" defaultChecked size="compact">
+        <Switch.Thumb />
+      </Switch.Root>
+    </div>,
+  );
+
+  for (const [name, width] of [
+    ["Default switch", "16px"],
+    ["Compact switch", "12px"],
+  ] as const) {
+    const control = screen.getByRole("switch", { name });
+    const thumb = control.element().querySelector<HTMLElement>('[data-slot="switch-thumb"]')!;
+    const resting = thumb.getBoundingClientRect();
+
+    await control.hover();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(width);
+
+    const hovered = thumb.getBoundingClientRect();
+    expect(hovered.right).toBeCloseTo(resting.right, 4);
+    expect(hovered.left).toBeCloseTo(resting.left - 2, 4);
+    await control.unhover();
+  }
+});
+
+test("Switch consumes hover expansion after a toggle until the pointer leaves", async () => {
+  const screen = await render(
+    <div>
+      <Switch.Root aria-label="Default switch">
+        <Switch.Thumb />
+      </Switch.Root>
+      <Switch.Root aria-label="Compact switch" size="compact">
+        <Switch.Thumb />
+      </Switch.Root>
+    </div>,
+  );
+
+  for (const [name, expandedWidth, restingWidth] of [
+    ["Default switch", "16px", "14px"],
+    ["Compact switch", "12px", "10px"],
+  ] as const) {
+    const control = screen.getByRole("switch", { name });
+    const thumb = control.element().querySelector<HTMLElement>('[data-slot="switch-thumb"]')!;
+
+    await control.hover();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(expandedWidth);
+    await control.click();
+    await expect.element(control).toBeChecked();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(restingWidth);
+
+    await control.unhover();
+    await control.hover();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(expandedWidth);
+    await control.unhover();
+  }
+});
+
+test("Switch animates the consumed hover width during thumb movement", async () => {
+  const screen = await render(
+    <Switch.Root aria-label="Animated switch">
+      <Switch.Thumb />
+    </Switch.Root>,
+  );
+  const control = screen.getByRole("switch", { name: "Animated switch" });
+  const thumb = control.element().querySelector<HTMLElement>('[data-slot="switch-thumb"]')!;
+  const widthTransitionEvents: string[] = [];
+
+  thumb.addEventListener("transitionrun", (event) => {
+    if (event.propertyName === "width") widthTransitionEvents.push("run");
+  });
+  thumb.addEventListener("transitionend", (event) => {
+    if (event.propertyName === "width") widthTransitionEvents.push("end");
+  });
+
+  await control.hover();
+  await expect.poll(() => getComputedStyle(thumb).width).toBe("16px");
+  widthTransitionEvents.length = 0;
+
+  await control.click();
+  await expect.element(control).toBeChecked();
+  await expect.poll(() => widthTransitionEvents.includes("run")).toBe(true);
+  await expect.poll(() => widthTransitionEvents.includes("end")).toBe(true);
+  expect(getComputedStyle(thumb).transitionProperty).toContain("width");
+  expect(getComputedStyle(thumb).transitionProperty).toContain("transform");
+  expect(getComputedStyle(thumb).width).toBe("14px");
+});
+
+test("Switch replays hover expansion before consuming it on a second toggle", async () => {
+  const screen = await render(
+    <div>
+      <Switch.Root aria-label="Default switch">
+        <Switch.Thumb />
+      </Switch.Root>
+      <Switch.Root aria-label="Compact switch" size="compact">
+        <Switch.Thumb />
+      </Switch.Root>
+    </div>,
+  );
+
+  for (const [name, expandedWidth, restingWidth, innerAnchor] of [
+    ["Default switch", "16px", "14px", "7px"],
+    ["Compact switch", "12px", "10px", "6px"],
+  ] as const) {
+    const control = screen.getByRole("switch", { name });
+    const thumb = control.element().querySelector<HTMLElement>('[data-slot="switch-thumb"]')!;
+    const animationEnds: string[] = [];
+
+    thumb.addEventListener("animationend", () => {
+      animationEnds.push(getComputedStyle(thumb).width);
+    });
+
+    await control.hover();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(expandedWidth);
+    await control.click();
+    await expect.element(control).toBeChecked();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(restingWidth);
+
+    animationEnds.length = 0;
+    await control.click();
+    await expect.element(control).not.toBeChecked();
+    await expect
+      .poll(() => thumb.getAnimations().some((animation) => "animationName" in animation))
+      .toBe(true);
+    const feedbackAnimation = thumb
+      .getAnimations()
+      .find((animation) => "animationName" in animation)!;
+    feedbackAnimation.pause();
+    feedbackAnimation.currentTime = 90;
+    expect(getComputedStyle(thumb).width).toBe(expandedWidth);
+    expect(getComputedStyle(thumb).left).toBe(innerAnchor);
+    feedbackAnimation.play();
+    await expect.poll(() => animationEnds.length).toBe(1);
+    expect(animationEnds).toEqual([restingWidth]);
+    expect(getComputedStyle(thumb).width).toBe(restingWidth);
+    await control.unhover();
+  }
+});
+
+test("Switch anchors the reverse replay on the inner edge", async () => {
+  const screen = await render(
+    <div>
+      <Switch.Root aria-label="Default reverse switch" defaultChecked>
+        <Switch.Thumb />
+      </Switch.Root>
+      <Switch.Root aria-label="Compact reverse switch" defaultChecked size="compact">
+        <Switch.Thumb />
+      </Switch.Root>
+    </div>,
+  );
+
+  for (const [name, expandedWidth, restingWidth, innerAnchor] of [
+    ["Default reverse switch", "16px", "14px", "7px"],
+    ["Compact reverse switch", "12px", "10px", "6px"],
+  ] as const) {
+    const control = screen.getByRole("switch", { name });
+    const thumb = control.element().querySelector<HTMLElement>('[data-slot="switch-thumb"]')!;
+
+    await control.hover();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(expandedWidth);
+    await control.click();
+    await expect.element(control).not.toBeChecked();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(restingWidth);
+
+    await control.click();
+    await expect.element(control).toBeChecked();
+    await expect
+      .poll(() => thumb.getAnimations().some((animation) => "animationName" in animation))
+      .toBe(true);
+    const feedbackAnimation = thumb
+      .getAnimations()
+      .find((animation) => "animationName" in animation)!;
+    feedbackAnimation.pause();
+    feedbackAnimation.currentTime = 90;
+    expect(getComputedStyle(thumb).width).toBe(expandedWidth);
+    expect(getComputedStyle(thumb).left).toBe(innerAnchor);
+    feedbackAnimation.play();
+    await expect.poll(() => getComputedStyle(thumb).width).toBe(restingWidth);
+    await control.unhover();
+  }
+});
+
 test("Select supports keyboard selection, form semantics, and focus restoration", async () => {
   const onValueChange = vi.fn();
   const screen = await render(

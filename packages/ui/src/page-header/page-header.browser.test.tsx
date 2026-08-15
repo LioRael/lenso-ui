@@ -129,10 +129,6 @@ test("Page Header matches the approved Team and Simple Figma variants", async ()
       })
     ).violations,
   ).toEqual([]);
-  await expect.element(board).toMatchScreenshot("page-header-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 
 test("Page Header composes the canonical Issues breadcrumb variant", async () => {

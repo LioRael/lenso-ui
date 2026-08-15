@@ -1,0 +1,45 @@
+---
+title: "Application Sidebar"
+description: "A composable application rail for workspace navigation, nested teams, settings, and two-sided layouts."
+eyebrow: "Product component · Navigation"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="application-sidebar" />
+
+  <Guidance>
+    <GuidanceBlock title="Composition">
+      <ul>
+        <li>
+          Use Root and Panel for behavior, then compose sections and navigation at product level.
+        </li>
+        <li>Item supports Base UI render composition for Next.js Link or any custom element.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Use landmarks and descriptive labels for every icon-only action.</li>
+        <li>Escape closes a panel and restores focus to its trigger.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Sidebar } from "@lenso/ui/sidebar"
+
+<Sidebar.Root defaultOpen>
+  <Sidebar.Panel>
+    <Sidebar.Header>...</Sidebar.Header>
+    <Sidebar.Content>
+      <Sidebar.Item render={<Link href="/inbox" />}>Inbox</Sidebar.Item>
+    </Sidebar.Content>
+  </Sidebar.Panel>
+</Sidebar.Root>`}
+    description="Headless state stays in @lenso/primitives; the Figma-matched visual layer is exported from @lenso/ui."
+  />

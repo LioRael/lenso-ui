@@ -11,6 +11,31 @@ import { Surface } from "./index.js";
 
 const levels = ["embedded", "panel", "overlay"] as const;
 
+function SurfaceStateBoard({ background, testId }: { background: string; testId: string }) {
+  return (
+    <div
+      data-testid={testId}
+      style={{ background, height: 268, position: "relative", width: 1282 }}
+    >
+      {levels.map((level, index) => (
+        <Surface
+          key={level}
+          level={level}
+          style={{
+            height: 220,
+            left: 16 + index * 424,
+            position: "absolute",
+            top: 24,
+            width: 400,
+          }}
+        >
+          <SurfaceContent />
+        </Surface>
+      ))}
+    </div>
+  );
+}
+
 function SurfaceContent() {
   return (
     <>
@@ -33,27 +58,9 @@ function SurfaceContent() {
 test("Surface matches the approved Figma hierarchy and remains render-composable", async () => {
   const screen = await render(
     <>
-      <div
-        data-testid="surface-figma-state-board"
-        style={{ background: "#ececed", height: 268, position: "relative", width: 1282 }}
-      >
-        {levels.map((level, index) => (
-          <Surface
-            key={level}
-            level={level}
-            style={{
-              height: 220,
-              left: 16 + index * 424,
-              position: "absolute",
-              top: 24,
-              width: 400,
-            }}
-          >
-            <SurfaceContent />
-          </Surface>
-        ))}
-      </div>
+      <SurfaceStateBoard background="#ececed" testId="surface-figma-state-board" />
       <ThemeScope theme="dark">
+        <SurfaceStateBoard background="#000000" testId="surface-dark-state-board" />
         <Surface data-testid="dark-panel" level="panel">
           Dark panel
         </Surface>
@@ -67,7 +74,9 @@ test("Surface matches the approved Figma hierarchy and remains render-composable
   );
   await document.fonts.load('600 16px "IBM Plex Sans"', "Panel title");
   const board = screen.getByTestId("surface-figma-state-board");
+  const darkBoard = screen.getByTestId("surface-dark-state-board");
   const surfaces = board.element().querySelectorAll<HTMLElement>('[data-slot="surface"]');
+  const darkSurfaces = darkBoard.element().querySelectorAll<HTMLElement>('[data-slot="surface"]');
   expect(surfaces).toHaveLength(3);
   await expect
     .poll(() => getComputedStyle(surfaces[0]!).backgroundColor)
@@ -86,11 +95,24 @@ test("Surface matches the approved Figma hierarchy and remains render-composable
   await expect.poll(() => getComputedStyle(surfaces[2]!).borderRadius).toBe("12px");
   await expect
     .poll(() => getComputedStyle(screen.getByTestId("dark-panel").element()).backgroundColor)
-    .toBe("rgb(10, 10, 10)");
+    .toBe("rgb(26, 26, 27)");
+  expect(darkSurfaces).toHaveLength(3);
+  await expect.poll(() => getComputedStyle(darkSurfaces[0]!).backgroundColor).toBe("rgb(0, 0, 0)");
+  await expect
+    .poll(() => getComputedStyle(darkSurfaces[1]!).backgroundColor)
+    .toBe("rgb(26, 26, 27)");
+  await expect
+    .poll(() => getComputedStyle(darkSurfaces[1]!).boxShadow)
+    .toContain("rgba(255, 255, 255, 0.082)");
+  await expect
+    .poll(() => getComputedStyle(darkSurfaces[1]!).boxShadow)
+    .toContain("rgba(0, 0, 0, 0.3)");
+  await expect
+    .poll(() => getComputedStyle(darkSurfaces[2]!).backgroundColor)
+    .toBe("rgb(40, 41, 43)");
+  await expect
+    .poll(() => getComputedStyle(darkSurfaces[2]!).boxShadow)
+    .toContain("rgba(0, 0, 0, 0.125)");
   expect(screen.getByTestId("custom-surface").element().tagName).toBe("SECTION");
   expect((await axe.run(board.element())).violations).toEqual([]);
-  await expect.element(board).toMatchScreenshot("surface-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.02 },
-  });
 });

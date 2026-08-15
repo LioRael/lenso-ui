@@ -1,0 +1,44 @@
+---
+title: "Settings Row"
+description: "A consistent preference row that composes Select, Switch, Button, or consumer-owned controls."
+eyebrow: "Product component · Forms"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="settings-row" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use Switch for immediate binary preferences and Select for bounded choices.</li>
+        <li>Use the Action slot for secondary configuration flows.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>
+          Associate the visible title with the trailing control when additional context is needed.
+        </li>
+        <li>Pass disabled state to both the row and its interactive control.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { SettingsRow } from "@lenso/ui/settings-row"
+
+<SettingsRow.Root>
+  <SettingsRow.Copy>
+    <SettingsRow.Title>Setting title</SettingsRow.Title>
+    <SettingsRow.Description>Supporting description.</SettingsRow.Description>
+  </SettingsRow.Copy>
+  <SettingsRow.Control>{control}</SettingsRow.Control>
+</SettingsRow.Root>`}
+    description="The row owns layout only; existing controls retain their native Base UI semantics and behavior."
+  />

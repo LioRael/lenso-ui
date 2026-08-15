@@ -1026,14 +1026,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.039216,
-            0.039216,
-            0.039216
+            0.101961,
+            0.101961,
+            0.105882
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-panel",
-        "cssValue": "#0a0a0a"
+        "cssValue": "#1a1a1b"
       },
       "color.surface.popover": {
         "path": "color.surface.popover",
@@ -1540,30 +1540,30 @@
             0,
             0
           ],
-          "alpha": 0.02
+          "alpha": 0.125
         },
         "cssName": "--elevation-overlay-ambient",
-        "cssValue": "#00000005"
+        "cssValue": "#00000020"
       },
       "elevation.overlay.ambientBlur": {
         "path": "elevation.overlay.ambientBlur",
         "type": "dimension",
         "value": {
-          "value": 18,
+          "value": 8,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-ambient-blur",
-        "cssValue": "18px"
+        "cssValue": "8px"
       },
       "elevation.overlay.ambientY": {
         "path": "elevation.overlay.ambientY",
         "type": "dimension",
         "value": {
-          "value": 6,
+          "value": 3,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-ambient-y",
-        "cssValue": "6px"
+        "cssValue": "3px"
       },
       "elevation.overlay.detail": {
         "path": "elevation.overlay.detail",
@@ -1575,10 +1575,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.125
         },
         "cssName": "--elevation-overlay-detail",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000020"
       },
       "elevation.overlay.key": {
         "path": "elevation.overlay.key",
@@ -1590,30 +1590,30 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.125
         },
         "cssName": "--elevation-overlay-key",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000020"
       },
       "elevation.overlay.keyBlur": {
         "path": "elevation.overlay.keyBlur",
         "type": "dimension",
         "value": {
-          "value": 9,
+          "value": 5,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-key-blur",
-        "cssValue": "9px"
+        "cssValue": "5px"
       },
       "elevation.overlay.keyY": {
         "path": "elevation.overlay.keyY",
         "type": "dimension",
         "value": {
-          "value": 3,
+          "value": 2,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-key-y",
-        "cssValue": "3px"
+        "cssValue": "2px"
       },
       "elevation.panel.ambient": {
         "path": "elevation.panel.ambient",
@@ -1621,14 +1621,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            1,
+            1,
+            1
           ],
-          "alpha": 0.086275
+          "alpha": 0.083
         },
         "cssName": "--elevation-panel-ambient",
-        "cssValue": "#00000016"
+        "cssValue": "#ffffff15"
       },
       "elevation.panel.detail": {
         "path": "elevation.panel.detail",
@@ -1640,10 +1640,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0
         },
         "cssName": "--elevation-panel-detail",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000000"
       },
       "elevation.panel.key": {
         "path": "elevation.panel.key",
@@ -1655,40 +1655,40 @@
             0,
             0
           ],
-          "alpha": 0.02
+          "alpha": 0.3
         },
         "cssName": "--elevation-panel-key",
-        "cssValue": "#00000005"
+        "cssValue": "#0000004d"
       },
       "elevation.panel.keyBlur": {
         "path": "elevation.panel.keyBlur",
         "type": "dimension",
         "value": {
-          "value": 6,
+          "value": 1,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-blur",
-        "cssValue": "6px"
+        "cssValue": "1px"
       },
       "elevation.panel.keySpread": {
         "path": "elevation.panel.keySpread",
         "type": "dimension",
         "value": {
-          "value": -2,
+          "value": 1,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-spread",
-        "cssValue": "-2px"
+        "cssValue": "1px"
       },
       "elevation.panel.keyY": {
         "path": "elevation.panel.keyY",
         "type": "dimension",
         "value": {
-          "value": 3,
+          "value": 0.5,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-y",
-        "cssValue": "3px"
+        "cssValue": "0.5px"
       },
       "elevation.toast.ambient": {
         "path": "elevation.toast.ambient",

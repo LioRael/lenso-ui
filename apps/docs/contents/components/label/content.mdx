@@ -1,0 +1,40 @@
+---
+title: "Label"
+description: "Issue-label pill combining semantic marker color, text, and interactive states."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "Figma canonical"
+  - "Implementation planned"
+actions:
+  - "View source"
+  - "Planned"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="label" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Issue-label pill combining semantic marker color, text, and interactive states.</li>
+        <li>Marker: Red, Purple, Blue</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>State: Default, Hover, Active, Open</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Label } from "@lenso/ui/label"
+
+<Label color="violet">
+  Feature
+</Label>`}
+    description="Target composition API for this component; the named subpath will ship with its implementation."
+  />

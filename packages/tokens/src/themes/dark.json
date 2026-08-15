@@ -6,7 +6,7 @@
       "canvas": { "$value": "{primitive.color.gray950}" },
       "sidebar": { "$value": "{primitive.color.gray900}" },
       "surface": { "$value": "{primitive.color.gray950}" },
-      "panel": { "$value": "{primitive.color.gray900}" },
+      "panel": { "$value": "{primitive.color.gray850}" },
       "control": { "$value": "{primitive.color.slate950}" },
       "dialog": { "$value": "{primitive.color.slate950}" },
       "elevated": { "$value": "{primitive.color.gray900}" },
@@ -129,6 +129,23 @@
       "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px0_5}" },
       "keySpread": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
       "detail": { "$type": "color", "$value": "{primitive.color.transparent}" }
+    },
+    "panel": {
+      "ambient": { "$type": "color", "$value": "{primitive.color.white8}" },
+      "key": { "$type": "color", "$value": "{primitive.color.black30}" },
+      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px0_5}" },
+      "keySpread": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "detail": { "$type": "color", "$value": "{primitive.color.transparent}" }
+    },
+    "overlay": {
+      "ambient": { "$type": "color", "$value": "{primitive.color.black12}" },
+      "ambientBlur": { "$type": "dimension", "$value": "{primitive.dimension.px8}" },
+      "ambientY": { "$type": "dimension", "$value": "{primitive.dimension.px3}" },
+      "key": { "$type": "color", "$value": "{primitive.color.black12}" },
+      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px5}" },
+      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px2}" },
+      "detail": { "$type": "color", "$value": "{primitive.color.black12}" }
     }
   }
 }

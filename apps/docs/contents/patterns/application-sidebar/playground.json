@@ -1,0 +1,19 @@
+{
+  "id": "application-sidebar",
+  "name": "Sidebar",
+  "description": "Inspect the canonical 244px App sidebar, disclosure groups, and theme parity.",
+  "themeControl": "theme",
+  "bodyClassName": "sidebar-playground-body",
+  "sectionClassName": "sidebar-playground",
+  "stageClassName": "sidebar-rendered-stage",
+  "controls": [
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · App" }]
+}

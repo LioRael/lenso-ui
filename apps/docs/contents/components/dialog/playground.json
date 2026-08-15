@@ -1,0 +1,46 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "description": "Tune the real Dialog instance, then open it to verify focus and dismissal behavior.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Edit details"
+    },
+    {
+      "id": "description",
+      "label": "Description",
+      "type": "text",
+      "default": "Make changes to this item. Changes are saved when you confirm."
+    },
+    {
+      "id": "footer",
+      "label": "Footer",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default"
+    },
+    {
+      "id": "no-footer",
+      "label": "Example · No footer",
+      "values": {
+        "footer": false
+      }
+    }
+  ]
+}

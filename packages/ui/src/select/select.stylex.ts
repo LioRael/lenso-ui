@@ -21,6 +21,17 @@ export const styles = stylex.create({
     position: "relative",
     whiteSpace: "nowrap",
   },
+  triggerSurface: {
+    backgroundColor: {
+      default: tokens.colorSurfaceControl,
+      ":hover": tokens.colorSurfaceOverlayHover,
+      ":active": tokens.colorSurfaceOverlayHover,
+      '[data-visual-state="hover"]': tokens.colorSurfaceOverlayHover,
+      '[data-visual-state="pressed"]': tokens.colorSurfaceOverlayHover,
+      "[data-popup-open]": tokens.colorSurfaceControl,
+      "[data-disabled]": tokens.colorSurfaceControl,
+    },
+  },
   triggerDisabled: { opacity: tokens.opacityDisabled },
   value: {
     fontFamily: tokens.fontSans,

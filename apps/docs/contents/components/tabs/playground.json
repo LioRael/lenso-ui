@@ -1,0 +1,27 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "description": "Change the selected tab on the real component and verify keyboard navigation.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "selected",
+      "label": "Selected",
+      "type": "select",
+      "options": [
+        { "label": "Overview", "value": "overview" },
+        { "label": "Documents", "value": "documents" },
+        { "label": "Members", "value": "members" }
+      ],
+      "default": "overview"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

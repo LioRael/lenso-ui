@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import { withContentCollections } from "@content-collections/next";
 
 const config: NextConfig = {
   output: "export",
@@ -11,4 +12,10 @@ const config: NextConfig = {
   transpilePackages: ["@lenso/primitives", "@lenso/tokens", "@lenso/ui"],
 };
 
-export default createMDX()(config);
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ["remark-frontmatter"],
+  },
+});
+
+export default withContentCollections(withMDX(config));

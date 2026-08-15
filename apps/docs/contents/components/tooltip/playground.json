@@ -1,0 +1,23 @@
+{
+  "id": "tooltip",
+  "name": "Tooltip",
+  "description": "Check hover, keyboard focus, Escape dismissal, shortcut, and theme parity.",
+  "themeControl": "theme",
+  "controls": [
+    { "id": "shortcut", "label": "Shortcut", "type": "boolean", "default": true },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { Tooltip } from \"@lenso/ui/tooltip\"\n\n<Tooltip.Provider>\n  <Tooltip.Root>\n    <Tooltip.Trigger>Help</Tooltip.Trigger>\n    <Tooltip.Portal>\n      <Tooltip.Positioner>\n        <Tooltip.Popup>Help with</Tooltip.Popup>\n      </Tooltip.Positioner>\n    </Tooltip.Portal>\n  </Tooltip.Root>\n</Tooltip.Provider>"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+---
+title: "Toast"
+description: "Brief, non-blocking feedback with accessible announcements, timed dismissal, and swipe gestures."
+eyebrow: "Foundation component · Feedback"
+metadata:
+  - "Figma canonical"
+  - "Base UI behavior"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="toast" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use to confirm background actions without interrupting work.</li>
+        <li>Keep the message to one compact line whenever possible.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>
+          Base UI announces low- and high-priority messages through the appropriate live region.
+        </li>
+        <li>Close remains keyboard accessible; swipe dismissal is an additional gesture.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Toast } from "@lenso/ui/toast"
+
+<Toast.Provider>
+  <App />
+  <Toast.Portal>
+    <Toast.Viewport>
+      <Toast.List />
+    </Toast.Viewport>
+  </Toast.Portal>
+</Toast.Provider>`}
+    description="Composable toast parts with a convenient default list renderer."
+  />

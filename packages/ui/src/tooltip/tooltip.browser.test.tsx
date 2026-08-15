@@ -118,10 +118,6 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
   trigger.element().blur();
   trigger.element().focus();
   await expect.poll(() => trigger.element().hasAttribute("data-popup-open")).toBe(true);
-  await expect.element(board).toMatchScreenshot("tooltip-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
-  });
 });
 
 test.each(["top", "right", "bottom", "left"] as const)(

@@ -1,0 +1,16 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "description": "Open the real component and navigate nested actions with the keyboard.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Nested" }]
+}

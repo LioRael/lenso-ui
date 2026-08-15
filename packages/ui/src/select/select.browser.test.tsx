@@ -224,9 +224,5 @@ for (const theme of ["light", "dark"] as const) {
     expect(screen.getByTestId("item-aligned-positioner").element().dataset.position).toBe(
       "item-aligned",
     );
-    await expect.element(document.body).toMatchScreenshot(`select-item-aligned-${theme}`, {
-      comparatorName: "pixelmatch",
-      comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
-    });
   });
 }

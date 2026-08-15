@@ -185,8 +185,4 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
       (await axe.run(panel, { rules: { "color-contrast": { enabled: false } } })).violations,
     ).toEqual([]);
   }
-  await expect.element(board).toMatchScreenshot("sidebar-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });

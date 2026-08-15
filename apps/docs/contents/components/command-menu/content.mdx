@@ -1,0 +1,46 @@
+---
+title: "Command Menu"
+description: "Search, grouped commands, selected item, and keyboard shortcuts."
+eyebrow: "Foundation component · Navigation"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="command-menu" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use for fast, keyboard-first actions and navigation.</li>
+        <li>Compose inside a Dialog when the menu should be modal.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Combobox semantics, filtering, and arrow-key navigation come from Base UI.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { CommandMenu } from "@lenso/ui/command-menu"
+
+<CommandMenu.Root items={commands}>
+  <CommandMenu.Panel>
+    <CommandMenu.Search>
+      <CommandMenu.Input placeholder="Type a command or search…" />
+    </CommandMenu.Search>
+    <CommandMenu.List>
+      {(command) => (
+        <CommandMenu.Item value={command}>{command}</CommandMenu.Item>
+      )}
+    </CommandMenu.List>
+  </CommandMenu.Panel>
+</CommandMenu.Root>`}
+    description="Every visual part remains replaceable through the composition API."
+  />

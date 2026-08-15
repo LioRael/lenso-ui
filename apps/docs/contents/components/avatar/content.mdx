@@ -1,0 +1,39 @@
+---
+title: "Avatar"
+description: "Image and fallback avatars, status, sizes, and avatar groups."
+eyebrow: "Foundation component · Content"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="avatar" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Always provide meaningful image alt text or a concise fallback.</li>
+        <li>Use groups for compact collaborative identity, not as a people picker.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Presence status exposes an accessible state label by default.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Avatar } from "@lenso/ui/avatar"
+
+<Avatar.Root size="default">
+  <Avatar.Image alt="Lenso member" src="/avatar.jpg" />
+  <Avatar.Fallback>LR</Avatar.Fallback>
+  <Avatar.Status attached state="online" />
+</Avatar.Root>`}
+    description="Base UI owns image loading and fallback behavior; all visual parts remain replaceable."
+  />

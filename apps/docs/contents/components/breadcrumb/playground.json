@@ -1,0 +1,21 @@
+{
+  "id": "breadcrumb",
+  "name": "Breadcrumb",
+  "description": "Check composition, link rendering, overflow, and theme parity.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    { "id": "basic", "label": "Example · Basic" },
+    { "id": "overflow", "label": "Example · Overflow" },
+    { "id": "external", "label": "Example · External" },
+    { "id": "team", "label": "Example · Team" }
+  ]
+}

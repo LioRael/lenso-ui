@@ -1,0 +1,30 @@
+{
+  "id": "radio",
+  "name": "Radio",
+  "description": "Try selection and interaction states on the real radio group.",
+  "themeControl": "theme",
+  "controls": [
+    { "id": "selected", "label": "Selected", "type": "boolean", "default": false },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { RadioGroup } from \"@lenso/ui/radio\"\n\n<RadioGroup.Root>\n  <RadioGroup.Item value=\"example\">\n    <RadioGroup.Indicator />\n    Radio label\n  </RadioGroup.Item>\n</RadioGroup.Root>"
+    }
+  ]
+}

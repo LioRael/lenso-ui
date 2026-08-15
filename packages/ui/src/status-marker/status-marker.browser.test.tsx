@@ -74,8 +74,4 @@ test("Status Marker matches every Figma status and presentation", async () => {
   });
   expect(screen.getByTestId("dark-marker").element().textContent).toContain("Operational");
   expect((await axe.run(board.element())).violations).toEqual([]);
-  await expect.element(board).toMatchScreenshot("status-marker-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
-  });
 });

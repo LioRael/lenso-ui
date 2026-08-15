@@ -2,6 +2,26 @@ import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
 
+const defaultThumbFeedbackFromUnchecked = stylex.keyframes({
+  "0%, 100%": { left: "9px", width: "14px" },
+  "40%, 60%": { left: "7px", width: "16px" },
+});
+
+const compactThumbFeedbackFromUnchecked = stylex.keyframes({
+  "0%, 100%": { left: "8px", width: "10px" },
+  "40%, 60%": { left: "6px", width: "12px" },
+});
+
+const defaultThumbFeedbackFromChecked = stylex.keyframes({
+  "0%, 100%": { left: "9px", width: "14px" },
+  "40%, 60%": { left: "7px", width: "16px" },
+});
+
+const compactThumbFeedbackFromChecked = stylex.keyframes({
+  "0%, 100%": { left: "8px", width: "10px" },
+  "40%, 60%": { left: "6px", width: "12px" },
+});
+
 export const switchState = stylex.defineVars({
   focus: "transparent",
   focusHeight: "26px",
@@ -11,6 +31,7 @@ export const switchState = stylex.defineVars({
   thumbLeft: "9px",
   thumbTop: "9px",
   thumbTranslate: "10px",
+  thumbTranslateOffset: "0px",
   thumbWidth: "14px",
   track: tokens.colorSwitchTrackOff,
   trackHeight: "20px",
@@ -60,10 +81,6 @@ export const styles = stylex.create({
     },
     [switchState.thumbWidth]: {
       default: "14px",
-      ":hover": "16px",
-      ":active": "16px",
-      '[data-visual-state="hover"]': "16px",
-      '[data-visual-state="pressed"]': "16px",
       "[data-disabled]": "14px",
     },
     gap: tokens.space2,
@@ -90,10 +107,6 @@ export const styles = stylex.create({
     [switchState.trackWidth]: "22px",
     [switchState.thumbWidth]: {
       default: "10px",
-      ":hover": "12px",
-      ":active": "12px",
-      '[data-visual-state="hover"]': "12px",
-      '[data-visual-state="pressed"]': "12px",
       "[data-disabled]": "10px",
     },
     height: "26px",
@@ -102,6 +115,10 @@ export const styles = stylex.create({
     width: "34px",
   },
   checked: {
+    [switchState.thumbTranslateOffset]: {
+      default: "0px",
+      "[data-disabled]": "0px",
+    },
     [switchState.track]: {
       default: tokens.colorSwitchTrackOn,
       ":hover": tokens.colorSwitchTrackOnHover,
@@ -120,7 +137,36 @@ export const styles = stylex.create({
     [switchState.track]: tokens.colorSwitchTrackOffCompact,
   },
   checkedInteractive: {
+    [switchState.thumbTranslateOffset]: "-2px",
     [switchState.track]: tokens.colorSwitchTrackOnHover,
+  },
+  defaultFeedbackFromChecked: {
+    animationDelay: "50ms",
+    animationDuration: "100ms",
+    animationFillMode: "both",
+    animationName: defaultThumbFeedbackFromChecked,
+    animationTimingFunction: "ease-out",
+  },
+  defaultFeedbackFromUnchecked: {
+    animationDelay: "50ms",
+    animationDuration: "100ms",
+    animationFillMode: "both",
+    animationName: defaultThumbFeedbackFromUnchecked,
+    animationTimingFunction: "ease-out",
+  },
+  compactFeedbackFromChecked: {
+    animationDelay: "50ms",
+    animationDuration: "100ms",
+    animationFillMode: "both",
+    animationName: compactThumbFeedbackFromChecked,
+    animationTimingFunction: "ease-out",
+  },
+  compactFeedbackFromUnchecked: {
+    animationDelay: "50ms",
+    animationDuration: "100ms",
+    animationFillMode: "both",
+    animationName: compactThumbFeedbackFromUnchecked,
+    animationTimingFunction: "ease-out",
   },
   pressed: {
     [switchState.overlay]: tokens.colorInteractionPressedOverlay,
@@ -129,6 +175,7 @@ export const styles = stylex.create({
     [switchState.focus]: tokens.colorFocusRing,
   },
   disabled: {
+    [switchState.thumbTranslateOffset]: "0px",
     opacity: tokens.opacityDisabled,
   },
   track: {
@@ -154,7 +201,7 @@ export const styles = stylex.create({
     top: switchState.thumbTop,
     transform: {
       default: "translateX(0)",
-      "[data-checked]": `translateX(${switchState.thumbTranslate})`,
+      "[data-checked]": `translateX(calc(${switchState.thumbTranslate} + ${switchState.thumbTranslateOffset}))`,
     },
     transitionDelay: "50ms",
     transitionDuration: "100ms",

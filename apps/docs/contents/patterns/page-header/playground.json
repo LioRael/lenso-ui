@@ -1,0 +1,28 @@
+{
+  "id": "page-header",
+  "name": "Page Header",
+  "description": "Compare Team, Issues, and Simple geometry, keyboard tabs, action slots, and theme parity.",
+  "themeControl": "theme",
+  "stageClassName": "page-header-rendered-stage",
+  "controls": [
+    {
+      "id": "variant",
+      "label": "Variant",
+      "type": "select",
+      "options": [
+        { "label": "Team", "value": "team" },
+        { "label": "Issues", "value": "issues" },
+        { "label": "Simple", "value": "simple" }
+      ],
+      "default": "team"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

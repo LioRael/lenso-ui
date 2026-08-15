@@ -1,0 +1,40 @@
+---
+title: "Button"
+description: "Pill-shaped action control with predictable emphasis, compact density, and complete interaction states."
+eyebrow: "Foundation component · Actions"
+metadata:
+  - "@lenso/ui/button"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="button" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use Button for explicit, user-initiated actions.</li>
+        <li>Keep one primary action per focused surface.</li>
+        <li>Use Ghost only for low-emphasis or toolbar actions.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Use a clear action label; icon-only actions need an accessible name.</li>
+        <li>Preserve focus-visible and loading feedback.</li>
+        <li>Disabled actions must not be the only explanation.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Button } from "@lenso/ui/button"
+
+<Button variant="primary" size="compact">
+  Create issue
+</Button>`}
+    description="Use the typed variants directly; inspect the source types for inherited Base UI props."
+  />

@@ -1,0 +1,39 @@
+{
+  "id": "button",
+  "name": "Button",
+  "description": "Try every supported variant on the real component while the inspector keeps controls and values in sync.",
+  "themeControl": "theme",
+  "codeTemplate": "<Button variant=\"{{variant}}\" size=\"{{size}}\">{{label}}</Button>",
+  "controls": [
+    {
+      "id": "variant",
+      "label": "Tone",
+      "type": "select",
+      "options": ["primary", "secondary", "ghost", "danger"],
+      "default": "primary"
+    },
+    {
+      "id": "size",
+      "label": "Size",
+      "type": "select",
+      "options": ["compact", "default"],
+      "default": "compact"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "pressed", "focus-visible", "disabled", "loading"],
+      "default": "default"
+    },
+    { "id": "label", "label": "Label", "type": "text", "default": "Continue" },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

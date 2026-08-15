@@ -1,0 +1,17 @@
+{
+  "id": "quick-link",
+  "name": "Quick Link",
+  "description": "Inspect hover disclosure, disabled behavior, custom rendering, and theme parity.",
+  "themeControl": "theme",
+  "controls": [
+    { "id": "disabled", "label": "Disabled", "type": "boolean", "default": false },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Settings" }]
+}

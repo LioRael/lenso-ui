@@ -8,6 +8,15 @@ import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./switch.stylex.js";
 
 export type SwitchSize = "compact" | "default";
+type SwitchFeedbackDirection = "from-checked" | "from-unchecked";
+
+const SwitchFeedbackContext = React.createContext<{
+  direction: SwitchFeedbackDirection | null;
+  size: SwitchSize;
+}>({
+  direction: null,
+  size: "default",
+});
 
 export interface SwitchRootProps extends BaseSwitch.Root.Props {
   "data-visual-state"?: "focus-visible" | "hover" | "pressed" | undefined;
@@ -15,13 +24,57 @@ export interface SwitchRootProps extends BaseSwitch.Root.Props {
 }
 
 export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(function SwitchRoot(
-  { className, children, "data-visual-state": visualState, size = "default", ...props },
+  {
+    className,
+    children,
+    "data-visual-state": visualState,
+    onCheckedChange,
+    onPointerEnter,
+    onPointerLeave,
+    onAnimationEnd,
+    size = "default",
+    ...props
+  },
   ref,
 ) {
-  const interactive = visualState === "hover" || visualState === "pressed";
+  const [hovered, setHovered] = React.useState(false);
+  const [hoverConsumed, setHoverConsumed] = React.useState(false);
+  const [switchFeedback, setSwitchFeedback] = React.useState<SwitchFeedbackDirection | null>(null);
+  const interactive =
+    !hoverConsumed && (hovered || visualState === "hover" || visualState === "pressed");
   return (
     <BaseSwitch.Root
       {...props}
+      onCheckedChange={(checked, event) => {
+        if (hovered && hoverConsumed) {
+          setSwitchFeedback(checked ? "from-unchecked" : "from-checked");
+        }
+        setHoverConsumed(true);
+        onCheckedChange?.(checked, event);
+      }}
+      onPointerEnter={(event) => {
+        setHovered(true);
+        setHoverConsumed(false);
+        setSwitchFeedback(null);
+        onPointerEnter?.(event);
+      }}
+      onPointerLeave={(event) => {
+        setHovered(false);
+        setHoverConsumed(false);
+        setSwitchFeedback(null);
+        onPointerLeave?.(event);
+      }}
+      onAnimationEnd={(event) => {
+        const target = event.target;
+        if (
+          switchFeedback !== null &&
+          target instanceof HTMLElement &&
+          target.dataset.slot === "switch-thumb"
+        ) {
+          setSwitchFeedback(null);
+        }
+        onAnimationEnd?.(event);
+      }}
       className={(state) => {
         const generated = stylex.props(
           styles.root,
@@ -43,7 +96,9 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
       ref={ref}
     >
       <span aria-hidden="true" data-slot="switch-track" {...stylex.props(styles.track)} />
-      {children}
+      <SwitchFeedbackContext.Provider value={{ direction: switchFeedback, size }}>
+        {children}
+      </SwitchFeedbackContext.Provider>
       <span
         aria-hidden="true"
         data-slot="switch-pressed-layer"
@@ -60,10 +115,24 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
 
 export const SwitchThumb = React.forwardRef<HTMLSpanElement, BaseSwitch.Thumb.Props>(
   function SwitchThumb({ className, ...props }, ref) {
+    const feedback = React.useContext(SwitchFeedbackContext);
     return (
       <BaseSwitch.Thumb
         {...props}
-        className={mergeClassName(stylex.props(styles.thumb).className, className)}
+        className={mergeClassName(
+          stylex.props(
+            styles.thumb,
+            feedback.direction === "from-checked" &&
+              (feedback.size === "compact"
+                ? styles.compactFeedbackFromChecked
+                : styles.defaultFeedbackFromChecked),
+            feedback.direction === "from-unchecked" &&
+              (feedback.size === "compact"
+                ? styles.compactFeedbackFromUnchecked
+                : styles.defaultFeedbackFromUnchecked),
+          ).className,
+          className,
+        )}
         data-slot="switch-thumb"
         ref={ref}
       />

@@ -1,0 +1,50 @@
+---
+title: "Combobox"
+description: "Searchable selection control with closed, open, empty, and loading states."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="combobox" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Searchable selection control with closed, open, empty, and loading states.</li>
+        <li>Single canonical anatomy.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>State: Closed, Open, Empty, Loading</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Combobox } from "@lenso/ui/combobox"
+
+<Combobox.Root items={labels}>
+  <Combobox.InputGroup>
+    <Combobox.Input placeholder="Search labels…" />
+  </Combobox.InputGroup>
+  <Combobox.Portal>
+    <Combobox.Positioner>
+      <Combobox.Popup>
+        <Combobox.List>
+          {(label) => (
+            <Combobox.Item value={label}>{label}</Combobox.Item>
+          )}
+        </Combobox.List>
+      </Combobox.Popup>
+    </Combobox.Positioner>
+  </Combobox.Portal>
+</Combobox.Root>`}
+    description="Use the composition API below; every visual part remains consumer replaceable."
+  />
