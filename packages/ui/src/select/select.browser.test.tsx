@@ -105,6 +105,30 @@ test("item-aligned mode anchors the selected option to the trigger", async () =>
   expect(accessibility.violations).toEqual([]);
 });
 
+test("the selected item gains its hover background after pointer movement", async () => {
+  const screen = await render(
+    <ThemeScope style={stageStyle} theme="light">
+      <Example position="item-aligned" />
+    </ThemeScope>,
+  );
+
+  await screen.getByTestId("item-aligned-trigger").click();
+  const popup = screen.getByTestId("item-aligned-popup");
+  await expect.element(popup).toBeVisible();
+  const selectedItem = popup.element().querySelector<HTMLElement>("[data-selected]")!;
+  expect(getComputedStyle(selectedItem).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+
+  await userEvent.hover(selectedItem);
+
+  await expect
+    .poll(() => getComputedStyle(selectedItem).backgroundColor)
+    .toBe("rgb(240, 240, 241)");
+
+  await userEvent.unhover(selectedItem);
+
+  await expect.poll(() => getComputedStyle(selectedItem).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+});
+
 test("popper mode preserves the five pixel trigger gap", async () => {
   const screen = await render(
     <ThemeScope style={stageStyle} theme="light">

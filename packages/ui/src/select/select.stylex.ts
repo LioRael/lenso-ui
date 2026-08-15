@@ -62,6 +62,7 @@ export const styles = stylex.create({
       default: "transparent",
       "[data-highlighted]": tokens.colorSurfaceOverlayHover,
       "[data-selected][data-highlighted]": "transparent",
+      "[data-selected][data-highlighted][data-pointer-hovered]": tokens.colorSurfaceOverlayHover,
       '[data-highlighted][data-visual-state="default"]': "transparent",
     },
     borderRadius: tokens.radiusControl,

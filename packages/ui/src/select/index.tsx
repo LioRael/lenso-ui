@@ -140,9 +140,11 @@ export const SelectList = React.forwardRef<HTMLDivElement, BaseSelect.List.Props
 );
 
 export const SelectItem = React.forwardRef<HTMLElement, BaseSelect.Item.Props>(function SelectItem(
-  { className, ...props },
+  { className, onPointerLeave, onPointerMove, ...props },
   ref,
 ) {
+  const [pointerHovered, setPointerHovered] = React.useState(false);
+
   return (
     <BaseSelect.Item
       {...props}
@@ -154,7 +156,16 @@ export const SelectItem = React.forwardRef<HTMLElement, BaseSelect.Item.Props>(f
         const custom = typeof className === "function" ? className(state) : className;
         return custom ? `${generated} ${custom}` : generated;
       }}
+      data-pointer-hovered={pointerHovered ? "" : undefined}
       data-slot="select-item"
+      onPointerLeave={(event) => {
+        setPointerHovered(false);
+        onPointerLeave?.(event);
+      }}
+      onPointerMove={(event) => {
+        setPointerHovered(true);
+        onPointerMove?.(event);
+      }}
       ref={ref}
     />
   );
