@@ -12,6 +12,7 @@ import { useDocsPageTheme } from "./use-docs-page-theme";
 type StageTheme = "Dark" | "Light" | "System";
 const values = ["Smaller", "Small", "Default", "Large", "Larger"] as const;
 const selections = ["First", "Second", "Third", "Fourth", "Fifth"] as const;
+const positions = ["Popper", "Item aligned"] as const;
 
 const codeExample = `import { Select } from "@lenso/ui/select"
 
@@ -58,12 +59,14 @@ export function SelectDocumentation() {
   const [open, setOpen] = React.useState(false);
   const pageTheme = useDocsPageTheme();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [position, setPosition] = React.useState<(typeof positions)[number]>("Popper");
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
 
   const resolvedStageTheme =
     stageTheme === "System" ? pageTheme : (stageTheme.toLowerCase() as "dark" | "light");
   const reset = () => {
     setOpen(false);
+    setPosition("Popper");
     setSelectedIndex(0);
     setStageTheme("System");
   };
@@ -134,7 +137,9 @@ export function SelectDocumentation() {
                     <Select.Icon />
                   </Select.Trigger>
                   <Select.Portal>
-                    <Select.Positioner>
+                    <Select.Positioner
+                      position={position === "Item aligned" ? "item-aligned" : "popper"}
+                    >
                       <Select.Popup>
                         <Select.List>
                           {values.map((value) => (
@@ -172,6 +177,12 @@ export function SelectDocumentation() {
                 }
                 options={selections}
                 value={selections[selectedIndex] ?? "First"}
+              />
+              <InspectorSelect
+                label="Position"
+                onChange={(next) => setPosition(next as (typeof positions)[number])}
+                options={positions}
+                value={position}
               />
               <InspectorSelect
                 label="Theme"

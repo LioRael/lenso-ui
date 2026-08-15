@@ -9,6 +9,10 @@ import { mergeClassName } from "../shared/merge-class-name.js";
 import { useThemePortalContainer } from "../theme-scope/index.js";
 import { styles } from "./select.stylex.js";
 
+export type SelectPosition = "item-aligned" | "popper";
+
+const SelectPositionContext = React.createContext<SelectPosition>("popper");
+
 export const SelectRoot = BaseSelect.Root;
 export const SelectLabel = BaseSelect.Label;
 export const SelectGroup = BaseSelect.Group;
@@ -91,29 +95,32 @@ export const SelectPortal = React.forwardRef<HTMLDivElement, BaseSelect.Portal.P
   },
 );
 
-export const SelectPositioner = React.forwardRef<HTMLDivElement, BaseSelect.Positioner.Props>(
+export interface SelectPositionerProps extends Omit<
+  BaseSelect.Positioner.Props,
+  "alignItemWithTrigger"
+> {
+  position?: SelectPosition;
+}
+
+export const SelectPositioner = React.forwardRef<HTMLDivElement, SelectPositionerProps>(
   function SelectPositioner(
-    {
-      align = "start",
-      alignItemWithTrigger = false,
-      alignOffset = 1,
-      className,
-      sideOffset = 5,
-      ...props
-    },
+    { align = "start", alignOffset = 1, className, position = "popper", sideOffset, ...props },
     ref,
   ) {
     return (
-      <BaseSelect.Positioner
-        {...props}
-        align={align}
-        alignItemWithTrigger={alignItemWithTrigger}
-        alignOffset={alignOffset}
-        className={mergeClassName(stylex.props(styles.positioner).className, className)}
-        data-slot="select-positioner"
-        ref={ref}
-        sideOffset={sideOffset}
-      />
+      <SelectPositionContext.Provider value={position}>
+        <BaseSelect.Positioner
+          {...props}
+          align={align}
+          alignItemWithTrigger={position === "item-aligned"}
+          alignOffset={alignOffset}
+          className={mergeClassName(stylex.props(styles.positioner).className, className)}
+          data-position={position}
+          data-slot="select-positioner"
+          ref={ref}
+          sideOffset={sideOffset ?? (position === "popper" ? 5 : 0)}
+        />
+      </SelectPositionContext.Provider>
     );
   },
 );
@@ -148,12 +155,15 @@ export const SelectItem = React.forwardRef<HTMLElement, BaseSelect.Item.Props>(f
   { className, ...props },
   ref,
 ) {
+  const position = React.useContext(SelectPositionContext);
+
   return (
     <BaseSelect.Item
       {...props}
       className={(state) => {
         const generated = stylex.props(
           styles.item,
+          state.selected && position === "item-aligned" && styles.itemSelected,
           state.disabled && styles.itemDisabled,
         ).className;
         const custom = typeof className === "function" ? className(state) : className;

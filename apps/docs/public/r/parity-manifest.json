@@ -440,15 +440,15 @@
     "select": {
       "files": [
         {
-          "registrySha256": "0ea8b02c73f4f6aa665e29f0db7639059a4d190d453d0b01951c297643fbce5e",
+          "registrySha256": "68ae0bf6f271d7ae4c6d8e98e21be2cd40218e6a22e8628c623af742de0e94a2",
           "source": "packages/ui/src/select/index.tsx",
-          "sourceSha256": "0ea8b02c73f4f6aa665e29f0db7639059a4d190d453d0b01951c297643fbce5e",
+          "sourceSha256": "68ae0bf6f271d7ae4c6d8e98e21be2cd40218e6a22e8628c623af742de0e94a2",
           "target": "components/lenso/select/index.tsx"
         },
         {
-          "registrySha256": "e2b45bf5fb2231a9ed1c1cff1e5ec58439ebb8c2796f03de35864d1615b3e720",
+          "registrySha256": "4e8c3eb13d190133a7116dcf0e48f91f7297243f56a121e7844517fe497448e6",
           "source": "packages/ui/src/select/select.stylex.ts",
-          "sourceSha256": "e2b45bf5fb2231a9ed1c1cff1e5ec58439ebb8c2796f03de35864d1615b3e720",
+          "sourceSha256": "4e8c3eb13d190133a7116dcf0e48f91f7297243f56a121e7844517fe497448e6",
           "target": "components/lenso/select/select.stylex.ts"
         },
         {
@@ -534,9 +534,9 @@
     "sidebar-primitive": {
       "files": [
         {
-          "registrySha256": "f1519d1139a8c813afaf0bd25cfde9e314e6198d4457aaf10ca297a6f746f0b3",
+          "registrySha256": "9b587ea0d3d66f93070ad53bfea822988ca7e5051b6771da4b2893da1db82e01",
           "source": "packages/primitives/src/sidebar/index.tsx",
-          "sourceSha256": "f1519d1139a8c813afaf0bd25cfde9e314e6198d4457aaf10ca297a6f746f0b3",
+          "sourceSha256": "9b587ea0d3d66f93070ad53bfea822988ca7e5051b6771da4b2893da1db82e01",
           "target": "components/lenso/primitives/sidebar.tsx"
         }
       ]

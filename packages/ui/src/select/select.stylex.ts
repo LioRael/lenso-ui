@@ -94,6 +94,7 @@ export const styles = stylex.create({
     paddingRight: "4px",
     userSelect: "none",
   },
+  itemSelected: { backgroundColor: tokens.colorSurfaceSelected },
   itemDisabled: { opacity: tokens.opacityDisabled },
   itemIndicator: {
     alignItems: "center",
