@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "homepage": "https://ui.lenso.dev",
+  "items": [
+    {
+      "name": "setup",
+      "title": "Lenso StyleX setup",
+      "type": "registry:style"
+    },
+    {
+      "name": "theme-scope",
+      "title": "Theme Scope",
+      "type": "registry:ui"
+    },
+    {
+      "name": "csp-provider",
+      "title": "CSP Provider",
+      "type": "registry:ui"
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "type": "registry:ui"
+    },
+    {
+      "name": "text-field",
+      "title": "Text Field",
+      "type": "registry:ui"
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "type": "registry:ui"
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "type": "registry:ui"
+    },
+    {
+      "name": "sidebar-primitive",
+      "title": "Sidebar Primitive",
+      "type": "registry:lib"
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar Recipe",
+      "type": "registry:component"
+    }
+  ],
+  "name": "lenso"
+}
