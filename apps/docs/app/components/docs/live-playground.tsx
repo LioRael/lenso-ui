@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 interface LivePlaygroundProps {
+  actions?: ReactNode;
   controls: ReactNode;
   description: string;
   preview: ReactNode;
@@ -8,6 +9,7 @@ interface LivePlaygroundProps {
 }
 
 export function LivePlayground({
+  actions,
   controls,
   description,
   preview,
@@ -20,6 +22,7 @@ export function LivePlayground({
           <h2>{title}</h2>
           <p>{description}</p>
         </div>
+        {actions && <div className="playground-actions">{actions}</div>}
       </div>
       <div className="playground-body">
         <article className="rendered-stage mdx-rendered-stage">

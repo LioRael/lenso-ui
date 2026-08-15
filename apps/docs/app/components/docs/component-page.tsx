@@ -10,7 +10,7 @@ interface ComponentPageProps {
   name: string;
   packageName: string;
   section: string;
-  slug: "dialog";
+  slug: "button" | "dialog";
 }
 
 export function ComponentPage({
