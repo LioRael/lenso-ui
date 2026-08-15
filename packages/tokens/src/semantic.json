@@ -53,6 +53,7 @@
     "status": {
       "errorBorder": { "$value": "{primitive.color.red700}" },
       "errorContent": { "$value": "{primitive.color.red700}" },
+      "successContent": { "$value": "{primitive.color.presenceOnline}" },
       "presenceOnline": { "$value": "{primitive.color.presenceOnline}" },
       "presenceAway": { "$value": "{primitive.color.presenceAway}" },
       "presenceBusy": { "$value": "{primitive.color.red700}" },
@@ -153,6 +154,16 @@
       "detail": { "$type": "color", "$value": "{primitive.color.black4}" }
     },
     "overlay": {
+      "ambient": { "$type": "color", "$value": "{primitive.color.black2}" },
+      "ambientBlur": { "$type": "dimension", "$value": "{primitive.dimension.px18}" },
+      "ambientY": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
+      "key": { "$type": "color", "$value": "{primitive.color.black4}" },
+      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px9}" },
+      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px3}" },
+      "detail": { "$type": "color", "$value": "{primitive.color.black4}" }
+    },
+    "toast": {
+      "ring": { "$type": "color", "$value": "{primitive.color.black9}" },
       "ambient": { "$type": "color", "$value": "{primitive.color.black2}" },
       "ambientBlur": { "$type": "dimension", "$value": "{primitive.dimension.px18}" },
       "ambientY": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },

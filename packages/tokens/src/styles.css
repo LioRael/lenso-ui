@@ -42,6 +42,7 @@
   --color-status-presence-busy: #dc2626;
   --color-status-presence-offline: #707172;
   --color-status-presence-online: #007a3d;
+  --color-status-success-content: #007a3d;
   --color-surface-canvas: #fafafa;
   --color-surface-dialog: #ffffff;
   --color-surface-elevated: #ffffff;
@@ -78,6 +79,14 @@
   --elevation-panel-key-blur: 6px;
   --elevation-panel-key-spread: -2px;
   --elevation-panel-key-y: 3px;
+  --elevation-toast-ambient: #00000005;
+  --elevation-toast-ambient-blur: 18px;
+  --elevation-toast-ambient-y: 6px;
+  --elevation-toast-detail: #0000000a;
+  --elevation-toast-key: #0000000a;
+  --elevation-toast-key-blur: 9px;
+  --elevation-toast-key-y: 3px;
+  --elevation-toast-ring: #00000016;
   --font-button: "IBM Plex Sans", "Inter", ui-sans-serif, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --opacity-disabled: 0.5;
@@ -151,6 +160,7 @@
   --color-status-presence-busy: #dc2626;
   --color-status-presence-offline: #707172;
   --color-status-presence-online: #007a3d;
+  --color-status-success-content: #007a3d;
   --color-surface-canvas: #000000;
   --color-surface-dialog: #191a1b;
   --color-surface-elevated: #0a0a0a;
@@ -187,6 +197,14 @@
   --elevation-panel-key-blur: 6px;
   --elevation-panel-key-spread: -2px;
   --elevation-panel-key-y: 3px;
+  --elevation-toast-ambient: #00000005;
+  --elevation-toast-ambient-blur: 18px;
+  --elevation-toast-ambient-y: 6px;
+  --elevation-toast-detail: #0000000a;
+  --elevation-toast-key: #0000000a;
+  --elevation-toast-key-blur: 9px;
+  --elevation-toast-key-y: 3px;
+  --elevation-toast-ring: #00000016;
   --font-button: "IBM Plex Sans", "Inter", ui-sans-serif, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --opacity-disabled: 0.5;

@@ -45,6 +45,7 @@
     "color.status.presenceBusy",
     "color.status.presenceOffline",
     "color.status.presenceOnline",
+    "color.status.successContent",
     "color.surface.canvas",
     "color.surface.dialog",
     "color.surface.elevated",
@@ -81,6 +82,14 @@
     "elevation.panel.keyBlur",
     "elevation.panel.keySpread",
     "elevation.panel.keyY",
+    "elevation.toast.ambient",
+    "elevation.toast.ambientBlur",
+    "elevation.toast.ambientY",
+    "elevation.toast.detail",
+    "elevation.toast.key",
+    "elevation.toast.keyBlur",
+    "elevation.toast.keyY",
+    "elevation.toast.ring",
     "font.button",
     "font.sans",
     "opacity.disabled",
@@ -756,6 +765,21 @@
         "cssName": "--color-status-presence-online",
         "cssValue": "#007a3d"
       },
+      "color.status.successContent": {
+        "path": "color.status.successContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.478431,
+            0.239216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-success-content",
+        "cssValue": "#007a3d"
+      },
       "color.surface.canvas": {
         "path": "color.surface.canvas",
         "type": "color",
@@ -1260,6 +1284,106 @@
         },
         "cssName": "--elevation-panel-key-y",
         "cssValue": "3px"
+      },
+      "elevation.toast.ambient": {
+        "path": "elevation.toast.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.02
+        },
+        "cssName": "--elevation-toast-ambient",
+        "cssValue": "#00000005"
+      },
+      "elevation.toast.ambientBlur": {
+        "path": "elevation.toast.ambientBlur",
+        "type": "dimension",
+        "value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-ambient-blur",
+        "cssValue": "18px"
+      },
+      "elevation.toast.ambientY": {
+        "path": "elevation.toast.ambientY",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-ambient-y",
+        "cssValue": "6px"
+      },
+      "elevation.toast.detail": {
+        "path": "elevation.toast.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-toast-detail",
+        "cssValue": "#0000000a"
+      },
+      "elevation.toast.key": {
+        "path": "elevation.toast.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-toast-key",
+        "cssValue": "#0000000a"
+      },
+      "elevation.toast.keyBlur": {
+        "path": "elevation.toast.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-key-blur",
+        "cssValue": "9px"
+      },
+      "elevation.toast.keyY": {
+        "path": "elevation.toast.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 3,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-key-y",
+        "cssValue": "3px"
+      },
+      "elevation.toast.ring": {
+        "path": "elevation.toast.ring",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.086275
+        },
+        "cssName": "--elevation-toast-ring",
+        "cssValue": "#00000016"
       },
       "font.button": {
         "path": "font.button",
@@ -2176,6 +2300,21 @@
         "cssName": "--color-status-presence-online",
         "cssValue": "#007a3d"
       },
+      "color.status.successContent": {
+        "path": "color.status.successContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.478431,
+            0.239216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-success-content",
+        "cssValue": "#007a3d"
+      },
       "color.surface.canvas": {
         "path": "color.surface.canvas",
         "type": "color",
@@ -2680,6 +2819,106 @@
         },
         "cssName": "--elevation-panel-key-y",
         "cssValue": "3px"
+      },
+      "elevation.toast.ambient": {
+        "path": "elevation.toast.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.02
+        },
+        "cssName": "--elevation-toast-ambient",
+        "cssValue": "#00000005"
+      },
+      "elevation.toast.ambientBlur": {
+        "path": "elevation.toast.ambientBlur",
+        "type": "dimension",
+        "value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-ambient-blur",
+        "cssValue": "18px"
+      },
+      "elevation.toast.ambientY": {
+        "path": "elevation.toast.ambientY",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-ambient-y",
+        "cssValue": "6px"
+      },
+      "elevation.toast.detail": {
+        "path": "elevation.toast.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-toast-detail",
+        "cssValue": "#0000000a"
+      },
+      "elevation.toast.key": {
+        "path": "elevation.toast.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-toast-key",
+        "cssValue": "#0000000a"
+      },
+      "elevation.toast.keyBlur": {
+        "path": "elevation.toast.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-key-blur",
+        "cssValue": "9px"
+      },
+      "elevation.toast.keyY": {
+        "path": "elevation.toast.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 3,
+          "unit": "px"
+        },
+        "cssName": "--elevation-toast-key-y",
+        "cssValue": "3px"
+      },
+      "elevation.toast.ring": {
+        "path": "elevation.toast.ring",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.086275
+        },
+        "cssName": "--elevation-toast-ring",
+        "cssValue": "#00000016"
       },
       "font.button": {
         "path": "font.button",

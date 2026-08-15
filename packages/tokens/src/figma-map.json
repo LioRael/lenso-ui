@@ -221,6 +221,11 @@
       "type": "color"
     },
     {
+      "path": "color.status.successContent",
+      "cssName": "--color-status-success-content",
+      "type": "color"
+    },
+    {
       "path": "color.surface.canvas",
       "cssName": "--color-surface-canvas",
       "type": "color"
@@ -399,6 +404,46 @@
       "path": "elevation.panel.keyY",
       "cssName": "--elevation-panel-key-y",
       "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.ambient",
+      "cssName": "--elevation-toast-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.toast.ambientBlur",
+      "cssName": "--elevation-toast-ambient-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.ambientY",
+      "cssName": "--elevation-toast-ambient-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.detail",
+      "cssName": "--elevation-toast-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.toast.key",
+      "cssName": "--elevation-toast-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.toast.keyBlur",
+      "cssName": "--elevation-toast-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.keyY",
+      "cssName": "--elevation-toast-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.ring",
+      "cssName": "--elevation-toast-ring",
+      "type": "color"
     },
     {
       "path": "font.button",

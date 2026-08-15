@@ -18,7 +18,7 @@ function PreviewToast({ tone }: { tone: ToastTone }) {
       <div {...stylex.props(styles.content)}>
         <Toast.Icon tone={tone} />
         <p {...stylex.props(styles.text)}>
-          <span {...stylex.props(styles.title)}>“TES-11”</span> copied to clipboard
+          <span {...stylex.props(styles.title)}>&quot;TES-11&quot;</span> copied to clipboard
         </p>
         <button aria-label="Dismiss notification" {...stylex.props(styles.close)} type="button">
           <XIcon size={16} strokeWidth={1.5} />
@@ -79,6 +79,16 @@ test("Toast matches Figma and preserves Base UI behavior", async () => {
   await expect
     .poll(() => getComputedStyle(board.element().querySelector('[data-tone="default"]')!).width)
     .toBe("384px");
+  const defaultPreview = board.element().querySelector<HTMLElement>('[data-tone="default"]')!;
+  const successIcon = board
+    .element()
+    .querySelector<HTMLElement>('[data-tone="success"] [data-slot="toast-icon"]')!;
+  await expect.poll(() => getComputedStyle(defaultPreview).borderColor).toBe("rgba(0, 0, 0, 0)");
+  const edgeDecoration = getComputedStyle(defaultPreview, "::before");
+  expect(edgeDecoration.width).toBe("383px");
+  expect(edgeDecoration.height).toBe("40px");
+  expect(edgeDecoration.boxShadow).toContain("0.5px");
+  await expect.poll(() => getComputedStyle(successIcon).color).toBe("rgb(0, 122, 61)");
   expect(
     Math.round(
       board.element().querySelector('[data-tone="default"]')!.getBoundingClientRect().height,
