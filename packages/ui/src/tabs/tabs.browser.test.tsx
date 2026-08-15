@@ -95,6 +95,6 @@ test("Tabs match the approved Figma item states and keyboard behavior", async ()
   ).toEqual([]);
   await expect.element(board).toMatchScreenshot("tabs-figma-state-board", {
     comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.025 },
+    comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
   });
 });

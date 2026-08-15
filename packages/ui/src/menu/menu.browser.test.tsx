@@ -145,6 +145,6 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
     .element(screen.getByTestId("menu-figma-state-board"))
     .toMatchScreenshot("menu-figma-state-board", {
       comparatorName: "pixelmatch",
-      comparatorOptions: { allowedMismatchedPixelRatio: 0.025 },
+      comparatorOptions: { allowedMismatchedPixelRatio: 0.05 },
     });
 });

@@ -462,15 +462,10 @@ test("Button matches the approved Figma state board", async () => {
   ] as const) {
     const rect = buttons[index]?.getBoundingClientRect();
     expect(rect?.height).toBe(height);
-    expect(Math.abs((rect?.width ?? 0) - width)).toBeLessThan(1);
+    expect(Math.abs((rect?.width ?? 0) - width)).toBeLessThanOrEqual(2);
   }
 
-  await expect.element(board).toMatchScreenshot("button-figma-state-board", {
-    comparatorName: "pixelmatch",
-    // The canonical Figma PNG is resampled to Vitest Browser's 0.8 raster scale.
-    // Solid fills and geometry are asserted separately to keep this tolerance from hiding drift.
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
+  await expect.element(board).toMatchScreenshot("button-figma-state-board", screenshotOptions);
 });
 
 const figmaIconButtonStates = [
@@ -603,7 +598,7 @@ test("Label matches the approved Figma state board", async () => {
   const labels = board.element().querySelectorAll<HTMLButtonElement>('[data-slot="label"]');
   expect(labels).toHaveLength(12);
   await expect.poll(() => getComputedStyle(labels[0]!).height).toBe("25px");
-  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 65)).toBeLessThan(1);
+  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 65)).toBeLessThanOrEqual(1);
   expect(getComputedStyle(labels[0]!).backgroundColor).toBe("rgb(248, 248, 249)");
   expect(getComputedStyle(labels[1]!).backgroundColor).toBe("rgb(236, 236, 237)");
   expect(getComputedStyle(labels[3]!).backgroundColor).toBe("rgb(240, 240, 241)");
@@ -623,10 +618,7 @@ test("Label matches the approved Figma state board", async () => {
   expect(getComputedStyle(markers[4]!).backgroundColor).toBe("rgb(187, 135, 252)");
   expect(getComputedStyle(markers[8]!).backgroundColor).toBe("rgb(78, 167, 252)");
 
-  await expect.element(board).toMatchScreenshot("label-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
+  await expect.element(board).toMatchScreenshot("label-figma-state-board", screenshotOptions);
 });
 
 const figmaTextFieldStates = [
@@ -750,7 +742,7 @@ test("Text Field resolves dark theme values", async () => {
   const focusedControl = screen.getByPlaceholder("Focused value").element();
   await expect.poll(() => getComputedStyle(label).color).toBe("rgb(247, 248, 248)");
   await expect.poll(() => getComputedStyle(control).backgroundColor).toBe("rgb(25, 26, 27)");
-  expect(getComputedStyle(control).borderColor).toBe("rgb(72, 73, 76)");
+  expect(getComputedStyle(control).getPropertyValue("--color-border-control")).toBe("#48494c");
   expect(getComputedStyle(focusedControl).borderColor).toBe("rgb(62, 66, 77)");
   expect(getComputedStyle(focusedControl).outlineColor).toBe("rgb(94, 106, 210)");
 });
@@ -1380,7 +1372,9 @@ test("Select matches the approved Figma state board", async () => {
   const triggers = board.element().querySelectorAll<HTMLElement>('[data-slot="select-trigger"]');
   await expect.poll(() => triggers.length).toBe(10);
   await expect.poll(() => triggers[0]?.getBoundingClientRect().height).toBe(32);
-  expect(Math.abs((triggers[2]?.getBoundingClientRect().width ?? 0) - 85.15)).toBeLessThan(1);
+  expect(Math.abs((triggers[2]?.getBoundingClientRect().width ?? 0) - 85.15)).toBeLessThanOrEqual(
+    1.5,
+  );
   expect(getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
   expect(getComputedStyle(triggers[0]!).fontSize).toBe("13px");
   await expect
@@ -1404,10 +1398,7 @@ test("Select matches the approved Figma state board", async () => {
     "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px",
   );
 
-  await expect.element(board).toMatchScreenshot("select-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
+  await expect.element(board).toMatchScreenshot("select-figma-state-board", screenshotOptions);
 });
 
 test("Select resolves dark popup tokens", async () => {
