@@ -22,9 +22,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -50,9 +50,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -78,9 +78,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -106,9 +106,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -134,9 +134,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -162,9 +162,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -200,9 +200,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -234,9 +234,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -262,9 +262,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -290,9 +290,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -300,15 +300,15 @@
     "menu": {
       "files": [
         {
-          "registrySha256": "42e7cf2b0d52b464de81b7f0084dbef28c0a7f8f29aa72aae1cf0c02e72097d3",
+          "registrySha256": "a94eaaa333abb52d9d9e4408f4d07d8d1b1a8ccdd209272d362913929a10f9b7",
           "source": "packages/ui/src/menu/index.tsx",
-          "sourceSha256": "42e7cf2b0d52b464de81b7f0084dbef28c0a7f8f29aa72aae1cf0c02e72097d3",
+          "sourceSha256": "a94eaaa333abb52d9d9e4408f4d07d8d1b1a8ccdd209272d362913929a10f9b7",
           "target": "components/lenso/menu/index.tsx"
         },
         {
-          "registrySha256": "ea2136a449cd40f9889d4c392c7b05f3ba96873de372ffbb1e7379c3de9676d4",
+          "registrySha256": "710585de7f7e40c8f172b6876a2ed0c7a35f0e0355c8aea826e3fa3f576b3e40",
           "source": "packages/ui/src/menu/menu.stylex.ts",
-          "sourceSha256": "ea2136a449cd40f9889d4c392c7b05f3ba96873de372ffbb1e7379c3de9676d4",
+          "sourceSha256": "710585de7f7e40c8f172b6876a2ed0c7a35f0e0355c8aea826e3fa3f576b3e40",
           "target": "components/lenso/menu/menu.stylex.ts"
         },
         {
@@ -318,9 +318,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -346,9 +346,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -374,9 +374,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -402,9 +402,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -430,9 +430,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -458,9 +458,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -486,9 +486,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -496,9 +496,9 @@
     "setup": {
       "files": [
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -524,9 +524,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -562,9 +562,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -590,9 +590,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -618,9 +618,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -646,9 +646,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -674,9 +674,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -712,9 +712,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
@@ -740,9 +740,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "registrySha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "2e0b35d59d2c13edb2090f7b8e30f6bcb9a117bb754fda59f2700827a5c6ead7",
+          "sourceSha256": "6717ce1cd17026ffcd84c98b4b137ef04de235f7e9ebaa0fccdae787c3da1f44",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]

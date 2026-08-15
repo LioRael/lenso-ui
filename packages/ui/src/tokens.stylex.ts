@@ -40,6 +40,7 @@ export const tokens = stylex.defineConsts({
   colorSidebarItemHover: "var(--color-sidebar-item-hover, #f5f5f5)",
   colorStatusErrorBorder: "var(--color-status-error-border, #dc2626)",
   colorStatusErrorContent: "var(--color-status-error-content, #dc2626)",
+  colorStatusErrorSurface: "var(--color-status-error-surface, #fafafa)",
   colorStatusInfoContent: "var(--color-status-info-content, #333333)",
   colorStatusNeutralContent: "var(--color-status-neutral-content, #707172)",
   colorStatusPresenceAway: "var(--color-status-presence-away, #8a5a00)",

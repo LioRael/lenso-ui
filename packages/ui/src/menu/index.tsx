@@ -115,8 +115,13 @@ export const MenuLinkItem = React.forwardRef<
     />
   );
 });
-export const MenuSubmenuTrigger = React.forwardRef<HTMLElement, BaseMenu.SubmenuTrigger.Props>(
-  function MenuSubmenuTrigger({ children, className, ...props }, ref) {
+export interface MenuSubmenuTriggerProps extends BaseMenu.SubmenuTrigger.Props {
+  icon?: React.ReactNode;
+}
+export const MenuSubmenuTrigger = React.forwardRef<HTMLElement, MenuSubmenuTriggerProps>(
+  function MenuSubmenuTrigger({ children, className, icon, ...props }, ref) {
+    const iconNode =
+      icon === undefined ? <ChevronRightIcon {...stylex.props(styles.submenuIcon)} /> : icon;
     return (
       <BaseMenu.SubmenuTrigger
         {...props}
@@ -125,19 +130,19 @@ export const MenuSubmenuTrigger = React.forwardRef<HTMLElement, BaseMenu.Submenu
         ref={ref}
       >
         {children}
-        <MenuTrailing>
-          <ChevronRightIcon aria-hidden="true" {...stylex.props(styles.submenuIcon)} />
-        </MenuTrailing>
+        {iconNode === null ? null : (
+          <MenuTrailing>
+            <span aria-hidden="true" data-slot="icon" {...stylex.props(styles.submenuIconSlot)}>
+              {iconNode}
+            </span>
+          </MenuTrailing>
+        )}
       </BaseMenu.SubmenuTrigger>
     );
   },
 );
 
 type SpanProps = Omit<React.ComponentPropsWithoutRef<"span">, "className"> & { className?: string };
-const staticClassName = (value: unknown): string | undefined =>
-  typeof value === "string" ? value : undefined;
-const joinClass = (generated: string | undefined, custom: unknown): string =>
-  [generated, staticClassName(custom)].filter(Boolean).join(" ");
 export const MenuLeading = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuLeading(
   { className, ...props },
   ref,
@@ -145,7 +150,7 @@ export const MenuLeading = React.forwardRef<HTMLSpanElement, SpanProps>(function
   return (
     <span
       {...props}
-      className={joinClass(stylex.props(styles.leading).className, className)}
+      className={mergeClassName(stylex.props(styles.leading).className, className) as string}
       data-slot="menu-leading"
       ref={ref}
     />
@@ -158,7 +163,7 @@ export const MenuLabel = React.forwardRef<HTMLSpanElement, SpanProps>(function M
   return (
     <span
       {...props}
-      className={joinClass(stylex.props(styles.label).className, className)}
+      className={mergeClassName(stylex.props(styles.label).className, className) as string}
       data-slot="menu-label"
       ref={ref}
     />
@@ -171,7 +176,7 @@ export const MenuTrailing = React.forwardRef<HTMLSpanElement, SpanProps>(functio
   return (
     <span
       {...props}
-      className={joinClass(stylex.props(styles.trailing).className, className)}
+      className={mergeClassName(stylex.props(styles.trailing).className, className) as string}
       data-slot="menu-trailing"
       ref={ref}
     />
@@ -184,7 +189,7 @@ export const MenuShortcut = React.forwardRef<
   return (
     <kbd
       {...props}
-      className={joinClass(stylex.props(styles.shortcut).className, className)}
+      className={mergeClassName(stylex.props(styles.shortcut).className, className) as string}
       data-slot="menu-shortcut"
       ref={ref}
     />
@@ -197,7 +202,7 @@ export const MenuHint = React.forwardRef<
   return (
     <p
       {...props}
-      className={joinClass(stylex.props(styles.hint).className, className)}
+      className={mergeClassName(stylex.props(styles.hint).className, className) as string}
       data-slot="menu-hint"
       ref={ref}
     />
@@ -211,7 +216,7 @@ export const MenuSeparator = React.forwardRef<
   return (
     <hr
       {...props}
-      className={joinClass(stylex.props(styles.separator).className, className)}
+      className={mergeClassName(stylex.props(styles.separator).className, className) as string}
       data-slot="menu-separator"
       ref={ref}
     />
@@ -224,8 +229,12 @@ export const MenuGroupLabel = React.forwardRef<HTMLDivElement, BaseMenu.GroupLab
         {...props}
         className={
           typeof className === "function"
-            ? (state) => joinClass(stylex.props(styles.groupLabel).className, className(state))
-            : joinClass(stylex.props(styles.groupLabel).className, className)
+            ? (state) =>
+                mergeClassName(
+                  stylex.props(styles.groupLabel).className,
+                  className(state),
+                ) as string
+            : (mergeClassName(stylex.props(styles.groupLabel).className, className) as string)
         }
         data-slot="menu-group-label"
         ref={ref}

@@ -53,6 +53,7 @@
     "status": {
       "errorBorder": { "$value": "{primitive.color.red700}" },
       "errorContent": { "$value": "{primitive.color.red700}" },
+      "errorSurface": { "$value": "{primitive.color.gray50}" },
       "infoContent": { "$value": "{primitive.color.gray700}" },
       "neutralContent": { "$value": "{primitive.color.gray500}" },
       "successContent": { "$value": "{primitive.color.presenceOnline}" },

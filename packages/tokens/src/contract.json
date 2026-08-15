@@ -41,6 +41,7 @@
     "color.sidebar.itemHover",
     "color.status.errorBorder",
     "color.status.errorContent",
+    "color.status.errorSurface",
     "color.status.infoContent",
     "color.status.neutralContent",
     "color.status.presenceAway",
@@ -707,6 +708,21 @@
         },
         "cssName": "--color-status-error-content",
         "cssValue": "#e5484d"
+      },
+      "color.status.errorSurface": {
+        "path": "color.status.errorSurface",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.039216,
+            0.039216,
+            0.039216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-error-surface",
+        "cssValue": "#0a0a0a"
       },
       "color.status.infoContent": {
         "path": "color.status.infoContent",
@@ -2287,6 +2303,21 @@
         },
         "cssName": "--color-status-error-content",
         "cssValue": "#dc2626"
+      },
+      "color.status.errorSurface": {
+        "path": "color.status.errorSurface",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-error-surface",
+        "cssValue": "#fafafa"
       },
       "color.status.infoContent": {
         "path": "color.status.infoContent",

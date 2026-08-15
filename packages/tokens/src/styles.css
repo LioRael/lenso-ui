@@ -38,6 +38,7 @@
   --color-sidebar-item-hover: #f5f5f5;
   --color-status-error-border: #dc2626;
   --color-status-error-content: #dc2626;
+  --color-status-error-surface: #fafafa;
   --color-status-info-content: #333333;
   --color-status-neutral-content: #707172;
   --color-status-presence-away: #8a5a00;
@@ -159,6 +160,7 @@
   --color-sidebar-item-hover: #1f1f1f;
   --color-status-error-border: #e5484d;
   --color-status-error-content: #e5484d;
+  --color-status-error-surface: #0a0a0a;
   --color-status-info-content: #333333;
   --color-status-neutral-content: #707172;
   --color-status-presence-away: #8a5a00;

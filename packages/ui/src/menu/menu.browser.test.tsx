@@ -44,7 +44,11 @@ function PreviewRow({ row }: { row: Exclude<(typeof rows)[number], null> }) {
         <Icon size={16} strokeWidth={1.5} />
       </span>
       <span {...stylex.props(styles.label)}>{label}</span>
-      {shortcut && <span {...stylex.props(styles.trailing, styles.shortcut)}>{shortcut}</span>}
+      {shortcut && (
+        <span data-slot="menu-trailing" {...stylex.props(styles.trailing, styles.shortcut)}>
+          {shortcut}
+        </span>
+      )}
     </div>
   );
 }
@@ -83,7 +87,9 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
               <Menu.Popup aria-label="Issue actions" data-testid="runtime-menu">
                 <Menu.LinkItem href="#open">Open issue</Menu.LinkItem>
                 <Menu.SubmenuRoot>
-                  <Menu.SubmenuTrigger>Create related</Menu.SubmenuTrigger>
+                  <Menu.SubmenuTrigger icon={<span data-testid="custom-submenu-icon">→</span>}>
+                    Create related
+                  </Menu.SubmenuTrigger>
                   <Menu.Portal>
                     <Menu.Positioner side="right">
                       <Menu.Popup submenu aria-label="Related actions">
@@ -103,11 +109,21 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   await document.fonts.load('400 13px "Inter"', "Due date");
   const preview = screen.getByTestId("menu-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
+  const highlightedRow = preview
+    .element()
+    .querySelector<HTMLElement>('[data-visual-state="hover"]')!;
+  await expect
+    .poll(() => getComputedStyle(highlightedRow).backgroundColor)
+    .toBe("rgb(240, 240, 241)");
+  expect(getComputedStyle(highlightedRow.querySelector('[data-slot="menu-trailing"]')!).color).toBe(
+    "rgb(51, 51, 51)",
+  );
   expect(Math.round(preview.element().getBoundingClientRect().height)).toBe(457);
   const trigger = screen.getByRole("button", { name: "Issue actions" });
   await userEvent.click(trigger);
   await expect.element(screen.getByTestId("runtime-menu")).toBeVisible();
   expect(screen.getByRole("menuitem", { name: "Open issue" }).element().tagName).toBe("A");
+  expect(screen.getByTestId("custom-submenu-icon").element().textContent).toBe("→");
   await userEvent.keyboard("{ArrowDown}{ArrowDown}{ArrowRight}");
   await expect.element(screen.getByRole("menuitem", { name: "Create sub-issue" })).toBeVisible();
   await userEvent.keyboard("{Escape}");

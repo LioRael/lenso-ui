@@ -45,9 +45,9 @@ export const styles = stylex.create({
     alignItems: "center",
     backgroundColor: {
       default: "transparent",
-      "[data-highlighted]": tokens.colorSurfaceInteractiveHover,
-      '[data-visual-state="hover"]': tokens.colorSurfaceInteractiveHover,
-      '[data-visual-state="pressed"]': tokens.colorSurfaceInteractiveHover,
+      "[data-highlighted]": tokens.colorSurfaceOverlayHover,
+      '[data-visual-state="hover"]': tokens.colorSurfaceOverlayHover,
+      '[data-visual-state="pressed"]': tokens.colorSurfaceOverlayHover,
     },
     borderRadius: "8px",
     boxSizing: "border-box",
@@ -67,7 +67,15 @@ export const styles = stylex.create({
     textDecoration: "none",
     userSelect: "none",
   },
-  danger: { color: tokens.colorStatusErrorContent },
+  danger: {
+    backgroundColor: {
+      default: "transparent",
+      "[data-highlighted]": tokens.colorStatusErrorSurface,
+      '[data-visual-state="hover"]': tokens.colorStatusErrorSurface,
+      '[data-visual-state="pressed"]': tokens.colorStatusErrorSurface,
+    },
+    color: tokens.colorStatusErrorContent,
+  },
   disabled: { cursor: "not-allowed", opacity: 0.42 },
   leading: {
     alignItems: "center",
@@ -87,13 +95,21 @@ export const styles = stylex.create({
   },
   trailing: {
     alignItems: "center",
-    color: tokens.colorContentTertiary,
+    color: tokens.colorContentSecondary,
     display: "inline-flex",
     flexShrink: 0,
     gap: "6px",
   },
   shortcut: { fontFamily: tokens.fontSans, fontSize: "11px", fontWeight: 500, lineHeight: "16px" },
   submenuIcon: { height: "16px", strokeWidth: "1.5px", width: "16px" },
+  submenuIconSlot: {
+    alignItems: "center",
+    display: "inline-flex",
+    flex: "0 0 16px",
+    height: "16px",
+    justifyContent: "center",
+    width: "16px",
+  },
   separator: {
     backgroundImage: `linear-gradient(to bottom, transparent 5.75px, ${tokens.colorBorderTertiary} 5.75px, ${tokens.colorBorderTertiary} 6.25px, transparent 6.25px)`,
     borderWidth: 0,

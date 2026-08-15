@@ -65,6 +65,7 @@
     "status": {
       "errorBorder": { "$value": "{primitive.color.red500}" },
       "errorContent": { "$value": "{primitive.color.red500}" },
+      "errorSurface": { "$value": "{primitive.color.gray900}" },
       "presenceOnline": { "$value": "{primitive.color.presenceOnline}" },
       "presenceAway": { "$value": "{primitive.color.presenceAway}" },
       "presenceBusy": { "$value": "{primitive.color.red700}" },

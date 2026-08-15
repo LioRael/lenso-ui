@@ -201,6 +201,11 @@
       "type": "color"
     },
     {
+      "path": "color.status.errorSurface",
+      "cssName": "--color-status-error-surface",
+      "type": "color"
+    },
+    {
       "path": "color.status.infoContent",
       "cssName": "--color-status-info-content",
       "type": "color"
