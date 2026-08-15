@@ -149,6 +149,23 @@
     "button": { "$value": "{primitive.fontFamily.button}" }
   },
   "elevation": {
+    "dialog": {
+      "ambient": { "$type": "color", "$value": "{primitive.color.black8}" },
+      "ambientBlur": { "$type": "dimension", "$value": "{primitive.dimension.px48}" },
+      "ambientY": { "$type": "dimension", "$value": "{primitive.dimension.px9}" },
+      "key": { "$type": "color", "$value": "{primitive.color.black10}" },
+      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px24}" },
+      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
+      "mid": { "$type": "color", "$value": "{primitive.color.black4}" },
+      "midBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "midY": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "soft": { "$type": "color", "$value": "{primitive.color.transparent}" },
+      "softBlur": { "$type": "dimension", "$value": "{primitive.dimension.px8}" },
+      "softY": { "$type": "dimension", "$value": "{primitive.dimension.px2}" },
+      "detail": { "$type": "color", "$value": "{primitive.color.transparent}" },
+      "detailBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "detailY": { "$type": "dimension", "$value": "{primitive.dimension.px1}" }
+    },
     "panel": {
       "ambient": { "$type": "color", "$value": "{primitive.color.black9}" },
       "key": { "$type": "color", "$value": "{primitive.color.black2}" },

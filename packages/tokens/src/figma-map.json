@@ -361,6 +361,81 @@
       "type": "color"
     },
     {
+      "path": "elevation.dialog.ambient",
+      "cssName": "--elevation-dialog-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.ambientBlur",
+      "cssName": "--elevation-dialog-ambient-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.ambientY",
+      "cssName": "--elevation-dialog-ambient-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.detail",
+      "cssName": "--elevation-dialog-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.detailBlur",
+      "cssName": "--elevation-dialog-detail-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.detailY",
+      "cssName": "--elevation-dialog-detail-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.key",
+      "cssName": "--elevation-dialog-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.keyBlur",
+      "cssName": "--elevation-dialog-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.keyY",
+      "cssName": "--elevation-dialog-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.mid",
+      "cssName": "--elevation-dialog-mid",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.midBlur",
+      "cssName": "--elevation-dialog-mid-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.midY",
+      "cssName": "--elevation-dialog-mid-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.soft",
+      "cssName": "--elevation-dialog-soft",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.softBlur",
+      "cssName": "--elevation-dialog-soft-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.softY",
+      "cssName": "--elevation-dialog-soft-y",
+      "type": "dimension"
+    },
+    {
       "path": "elevation.overlay.ambient",
       "cssName": "--elevation-overlay-ambient",
       "type": "color"

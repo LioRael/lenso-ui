@@ -20,7 +20,7 @@ export const CommandMenuPanel = React.forwardRef<HTMLDivElement, DivProps>(
     return (
       <div
         {...props}
-        className={[stylex.props(styles.panel).className, className].filter(Boolean).join(" ")}
+        className={mergeClassName(stylex.props(styles.panel).className, className) as string}
         data-slot="command-menu-panel"
         ref={ref}
       />
@@ -33,7 +33,7 @@ export const CommandMenuSearch = React.forwardRef<HTMLDivElement, DivProps>(
     return (
       <div
         {...props}
-        className={[stylex.props(styles.search).className, className].filter(Boolean).join(" ")}
+        className={mergeClassName(stylex.props(styles.search).className, className) as string}
         data-slot="command-menu-search"
         ref={ref}
       />
@@ -59,7 +59,7 @@ export const CommandMenuSearchHint = React.forwardRef<HTMLSpanElement, SpanProps
     return (
       <span
         {...props}
-        className={[stylex.props(styles.searchHint).className, className].filter(Boolean).join(" ")}
+        className={mergeClassName(stylex.props(styles.searchHint).className, className) as string}
         data-slot="command-menu-search-hint"
         ref={ref}
       />
@@ -86,7 +86,7 @@ export const CommandMenuGroupLabel = React.forwardRef<HTMLDivElement, DivProps>(
     return (
       <div
         {...props}
-        className={[stylex.props(styles.groupLabel).className, className].filter(Boolean).join(" ")}
+        className={mergeClassName(stylex.props(styles.groupLabel).className, className) as string}
         data-slot="command-menu-group-label"
         ref={ref}
       />
@@ -119,7 +119,7 @@ export const CommandMenuItemIcon = React.forwardRef<HTMLSpanElement, SpanProps>(
     return (
       <span
         {...props}
-        className={[stylex.props(styles.itemIcon).className, className].filter(Boolean).join(" ")}
+        className={mergeClassName(stylex.props(styles.itemIcon).className, className) as string}
         data-slot="command-menu-item-icon"
         ref={ref}
       />
@@ -132,7 +132,7 @@ export const CommandMenuItemText = React.forwardRef<HTMLSpanElement, SpanProps>(
     return (
       <span
         {...props}
-        className={[stylex.props(styles.itemText).className, className].filter(Boolean).join(" ")}
+        className={mergeClassName(stylex.props(styles.itemText).className, className) as string}
         data-slot="command-menu-item-text"
         ref={ref}
       />
@@ -145,7 +145,7 @@ export const CommandMenuShortcut = React.forwardRef<HTMLElement, KbdProps>(
     return (
       <kbd
         {...props}
-        className={[stylex.props(styles.shortcut).className, className].filter(Boolean).join(" ")}
+        className={mergeClassName(stylex.props(styles.shortcut).className, className) as string}
         data-slot="command-menu-shortcut"
         ref={ref}
       />

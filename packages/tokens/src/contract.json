@@ -73,6 +73,21 @@
     "color.switch.trackOffHover",
     "color.switch.trackOn",
     "color.switch.trackOnHover",
+    "elevation.dialog.ambient",
+    "elevation.dialog.ambientBlur",
+    "elevation.dialog.ambientY",
+    "elevation.dialog.detail",
+    "elevation.dialog.detailBlur",
+    "elevation.dialog.detailY",
+    "elevation.dialog.key",
+    "elevation.dialog.keyBlur",
+    "elevation.dialog.keyY",
+    "elevation.dialog.mid",
+    "elevation.dialog.midBlur",
+    "elevation.dialog.midY",
+    "elevation.dialog.soft",
+    "elevation.dialog.softBlur",
+    "elevation.dialog.softY",
     "elevation.overlay.ambient",
     "elevation.overlay.ambientBlur",
     "elevation.overlay.ambientY",
@@ -1188,6 +1203,181 @@
         },
         "cssName": "--color-switch-track-on-hover",
         "cssValue": "#6975e2"
+      },
+      "elevation.dialog.ambient": {
+        "path": "elevation.dialog.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.08
+        },
+        "cssName": "--elevation-dialog-ambient",
+        "cssValue": "#00000014"
+      },
+      "elevation.dialog.ambientBlur": {
+        "path": "elevation.dialog.ambientBlur",
+        "type": "dimension",
+        "value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-ambient-blur",
+        "cssValue": "48px"
+      },
+      "elevation.dialog.ambientY": {
+        "path": "elevation.dialog.ambientY",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-ambient-y",
+        "cssValue": "9px"
+      },
+      "elevation.dialog.detail": {
+        "path": "elevation.dialog.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "cssName": "--elevation-dialog-detail",
+        "cssValue": "#00000000"
+      },
+      "elevation.dialog.detailBlur": {
+        "path": "elevation.dialog.detailBlur",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-detail-blur",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.detailY": {
+        "path": "elevation.dialog.detailY",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-detail-y",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.key": {
+        "path": "elevation.dialog.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.1
+        },
+        "cssName": "--elevation-dialog-key",
+        "cssValue": "#0000001a"
+      },
+      "elevation.dialog.keyBlur": {
+        "path": "elevation.dialog.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-key-blur",
+        "cssValue": "24px"
+      },
+      "elevation.dialog.keyY": {
+        "path": "elevation.dialog.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-key-y",
+        "cssValue": "6px"
+      },
+      "elevation.dialog.mid": {
+        "path": "elevation.dialog.mid",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-dialog-mid",
+        "cssValue": "#0000000a"
+      },
+      "elevation.dialog.midBlur": {
+        "path": "elevation.dialog.midBlur",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-mid-blur",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.midY": {
+        "path": "elevation.dialog.midY",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-mid-y",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.soft": {
+        "path": "elevation.dialog.soft",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "cssName": "--elevation-dialog-soft",
+        "cssValue": "#00000000"
+      },
+      "elevation.dialog.softBlur": {
+        "path": "elevation.dialog.softBlur",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-soft-blur",
+        "cssValue": "8px"
+      },
+      "elevation.dialog.softY": {
+        "path": "elevation.dialog.softY",
+        "type": "dimension",
+        "value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-soft-y",
+        "cssValue": "2px"
       },
       "elevation.overlay.ambient": {
         "path": "elevation.overlay.ambient",
@@ -2783,6 +2973,181 @@
         },
         "cssName": "--color-switch-track-on-hover",
         "cssValue": "#6975e2"
+      },
+      "elevation.dialog.ambient": {
+        "path": "elevation.dialog.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.08
+        },
+        "cssName": "--elevation-dialog-ambient",
+        "cssValue": "#00000014"
+      },
+      "elevation.dialog.ambientBlur": {
+        "path": "elevation.dialog.ambientBlur",
+        "type": "dimension",
+        "value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-ambient-blur",
+        "cssValue": "48px"
+      },
+      "elevation.dialog.ambientY": {
+        "path": "elevation.dialog.ambientY",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-ambient-y",
+        "cssValue": "9px"
+      },
+      "elevation.dialog.detail": {
+        "path": "elevation.dialog.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "cssName": "--elevation-dialog-detail",
+        "cssValue": "#00000000"
+      },
+      "elevation.dialog.detailBlur": {
+        "path": "elevation.dialog.detailBlur",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-detail-blur",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.detailY": {
+        "path": "elevation.dialog.detailY",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-detail-y",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.key": {
+        "path": "elevation.dialog.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.1
+        },
+        "cssName": "--elevation-dialog-key",
+        "cssValue": "#0000001a"
+      },
+      "elevation.dialog.keyBlur": {
+        "path": "elevation.dialog.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-key-blur",
+        "cssValue": "24px"
+      },
+      "elevation.dialog.keyY": {
+        "path": "elevation.dialog.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-key-y",
+        "cssValue": "6px"
+      },
+      "elevation.dialog.mid": {
+        "path": "elevation.dialog.mid",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-dialog-mid",
+        "cssValue": "#0000000a"
+      },
+      "elevation.dialog.midBlur": {
+        "path": "elevation.dialog.midBlur",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-mid-blur",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.midY": {
+        "path": "elevation.dialog.midY",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-mid-y",
+        "cssValue": "1px"
+      },
+      "elevation.dialog.soft": {
+        "path": "elevation.dialog.soft",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "cssName": "--elevation-dialog-soft",
+        "cssValue": "#00000000"
+      },
+      "elevation.dialog.softBlur": {
+        "path": "elevation.dialog.softBlur",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-soft-blur",
+        "cssValue": "8px"
+      },
+      "elevation.dialog.softY": {
+        "path": "elevation.dialog.softY",
+        "type": "dimension",
+        "value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "cssName": "--elevation-dialog-soft-y",
+        "cssValue": "2px"
       },
       "elevation.overlay.ambient": {
         "path": "elevation.overlay.ambient",
