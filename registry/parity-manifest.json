@@ -722,15 +722,15 @@
     "tooltip": {
       "files": [
         {
-          "registrySha256": "7b8ec816acacca89af9b0ba0d2146980ec0d118c5e8628db3e54e0c1844d9bff",
+          "registrySha256": "1f71c216abd83565d4009530e561ec401eff3d5a9b3a64c5ec7c67c18b7a7b89",
           "source": "packages/ui/src/tooltip/index.tsx",
-          "sourceSha256": "7b8ec816acacca89af9b0ba0d2146980ec0d118c5e8628db3e54e0c1844d9bff",
+          "sourceSha256": "1f71c216abd83565d4009530e561ec401eff3d5a9b3a64c5ec7c67c18b7a7b89",
           "target": "components/lenso/tooltip/index.tsx"
         },
         {
-          "registrySha256": "661e405fe1d61ad9e27e02a79d9b34538050726cfb26638e414ade3fb256494a",
+          "registrySha256": "42b5c738bb9adcfe245681a541da572f8dd3647de365ee8319f37da146bef8c2",
           "source": "packages/ui/src/tooltip/tooltip.stylex.ts",
-          "sourceSha256": "661e405fe1d61ad9e27e02a79d9b34538050726cfb26638e414ade3fb256494a",
+          "sourceSha256": "42b5c738bb9adcfe245681a541da572f8dd3647de365ee8319f37da146bef8c2",
           "target": "components/lenso/tooltip/tooltip.stylex.ts"
         },
         {
