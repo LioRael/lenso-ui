@@ -15,6 +15,10 @@ for (const [theme, expectedBorder] of [
   test(`boxed control edges match in ${theme} mode`, async () => {
     const screen = await render(
       <ThemeScope theme={theme}>
+        <div
+          data-testid="pointer-parking"
+          style={{ bottom: 0, height: 20, position: "fixed", right: 0, width: 20, zIndex: 1 }}
+        />
         <TextField.Root>
           <TextField.Control aria-label="Title" data-testid="text-input" />
         </TextField.Root>
@@ -29,6 +33,8 @@ for (const [theme, expectedBorder] of [
         </Menu.Root>
       </ThemeScope>,
     );
+
+    await screen.getByTestId("pointer-parking").hover();
 
     const controls: HTMLElement[] = ["text-input", "select-trigger", "menu-trigger"].map(
       (testId) => screen.getByTestId(testId).element() as HTMLElement,
