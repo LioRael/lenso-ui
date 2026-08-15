@@ -167,6 +167,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0"],
     files: [
       {
         source: "packages/primitives/src/sidebar/index.tsx",

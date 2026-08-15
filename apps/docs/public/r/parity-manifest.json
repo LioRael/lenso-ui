@@ -108,9 +108,9 @@
     "sidebar": {
       "files": [
         {
-          "registrySha256": "ca2668304732c85d68e0fb478e6587a204f87f9252cc8365c17ef06ae98d462b",
+          "registrySha256": "6cdcf4e3f0d282118a85b643e2c840aad5e0bcf6cce82408439f3a6442729b0a",
           "source": "registry/recipes/sidebar.tsx",
-          "sourceSha256": "ca2668304732c85d68e0fb478e6587a204f87f9252cc8365c17ef06ae98d462b",
+          "sourceSha256": "6cdcf4e3f0d282118a85b643e2c840aad5e0bcf6cce82408439f3a6442729b0a",
           "target": "components/lenso/sidebar/sidebar.tsx"
         },
         {
@@ -130,9 +130,9 @@
     "sidebar-primitive": {
       "files": [
         {
-          "registrySha256": "f1519d1139a8c813afaf0bd25cfde9e314e6198d4457aaf10ca297a6f746f0b3",
+          "registrySha256": "9b587ea0d3d66f93070ad53bfea822988ca7e5051b6771da4b2893da1db82e01",
           "source": "packages/primitives/src/sidebar/index.tsx",
-          "sourceSha256": "f1519d1139a8c813afaf0bd25cfde9e314e6198d4457aaf10ca297a6f746f0b3",
+          "sourceSha256": "9b587ea0d3d66f93070ad53bfea822988ca7e5051b6771da4b2893da1db82e01",
           "target": "components/lenso/primitives/sidebar.tsx"
         }
       ]
