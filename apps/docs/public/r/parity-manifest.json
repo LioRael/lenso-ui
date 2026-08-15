@@ -634,9 +634,9 @@
           "target": "components/lenso/tabs/index.tsx"
         },
         {
-          "registrySha256": "272b405efa522968e7127293bb1a0e22ad78fd896c3a3e73dec21a4229788fd5",
+          "registrySha256": "6e684004925f39b5febb92d111aaff2ae94f11bc099f17a92d8a67780ed85af8",
           "source": "packages/ui/src/tabs/tabs.stylex.ts",
-          "sourceSha256": "272b405efa522968e7127293bb1a0e22ad78fd896c3a3e73dec21a4229788fd5",
+          "sourceSha256": "6e684004925f39b5febb92d111aaff2ae94f11bc099f17a92d8a67780ed85af8",
           "target": "components/lenso/tabs/tabs.stylex.ts"
         },
         {

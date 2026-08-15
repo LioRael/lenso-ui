@@ -76,6 +76,9 @@ test("Tabs match the approved Figma item states and keyboard behavior", async ()
   await expect.poll(() => getComputedStyle(items[4]!).opacity).toBe("0.6");
   expect(items).toHaveLength(10);
   expect(items[0]!.getBoundingClientRect().width).toBe(72);
+  expect(getComputedStyle(items[0]!).borderColor).toBe("rgba(0, 0, 0, 0)");
+  expect(getComputedStyle(items[0]!, "::after").borderWidth).toBe("1px");
+  expect(getComputedStyle(items[0]!, "::after").inset).toBe("0.5px");
   expect(items[3]!.getAttribute("data-visual-state")).toBe("focus-visible");
   expect(items[5]!.getAttribute("data-active")).not.toBeNull();
 

@@ -2,6 +2,8 @@ import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
 
+export const tabState = stylex.defineVars({ edge: tokens.colorNavigationTabEdge });
+
 export const styles = stylex.create({
   root: { width: "fit-content" },
   list: {
@@ -11,6 +13,14 @@ export const styles = stylex.create({
     height: "28px",
   },
   tab: {
+    [tabState.edge]: {
+      default: tokens.colorNavigationTabEdge,
+      ":hover": tokens.colorNavigationTabEdgeHover,
+      ":active": tokens.colorNavigationTabEdgeHover,
+      "[data-visual-state=hover]": tokens.colorNavigationTabEdgeHover,
+      "[data-visual-state=pressed]": tokens.colorNavigationTabEdgeHover,
+      "[data-active]": tokens.colorNavigationTabEdge,
+    },
     alignItems: "center",
     appearance: "none",
     backgroundColor: {
@@ -21,14 +31,7 @@ export const styles = stylex.create({
       "[data-visual-state=pressed]": tokens.colorNavigationTabBgHover,
       "[data-active]": tokens.colorNavigationTabBgSelected,
     },
-    borderColor: {
-      default: tokens.colorNavigationTabEdge,
-      ":hover": tokens.colorNavigationTabEdgeHover,
-      ":active": tokens.colorNavigationTabEdgeHover,
-      "[data-visual-state=hover]": tokens.colorNavigationTabEdgeHover,
-      "[data-visual-state=pressed]": tokens.colorNavigationTabEdgeHover,
-      "[data-active]": tokens.colorNavigationTabEdge,
-    },
+    borderColor: "transparent",
     borderRadius: tokens.radiusRounded,
     borderStyle: "solid",
     borderWidth: "0.5px",
@@ -64,6 +67,19 @@ export const styles = stylex.create({
     transitionProperty: "background-color, border-color, color, opacity",
     transitionTimingFunction: "ease-out",
     whiteSpace: "nowrap",
+    "::after": {
+      borderColor: tabState.edge,
+      borderRadius: "inherit",
+      borderStyle: "solid",
+      borderWidth: "0.5px",
+      content: "''",
+      inset: "0.5px",
+      pointerEvents: "none",
+      position: "absolute",
+      transitionDuration: "150ms",
+      transitionProperty: "border-color",
+      transitionTimingFunction: "ease-out",
+    },
     "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
   panel: { outline: "none" },
