@@ -148,6 +148,25 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      {
+        source: "packages/ui/src/select/index.tsx",
+        target: "components/lenso/select/index.tsx",
+      },
+      {
+        source: "packages/ui/src/select/select.stylex.ts",
+        target: "components/lenso/select/select.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "select",
+    registryDependencies: [stable("setup"), stable("theme-scope")],
+    title: "Select",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0"],
     files: [
       {

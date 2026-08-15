@@ -14,6 +14,7 @@ export default defineConfig({
     "button/index": source("button"),
     "csp-provider/index": source("csp-provider"),
     "dialog/index": source("dialog"),
+    "select/index": source("select"),
     "text-field/index": source("text-field"),
     "theme-scope/index": source("theme-scope"),
   },
