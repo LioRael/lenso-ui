@@ -55,6 +55,16 @@ test("Status Marker matches every Figma status and presentation", async () => {
     success: "rgb(0, 122, 61)",
     warning: "rgb(138, 90, 0)",
   };
+  await expect
+    .poll(() =>
+      statuses.map((_, index) => {
+        const dot = markers[index * 2]?.querySelector<HTMLElement>(
+          '[data-slot="status-marker-dot"]',
+        );
+        return getComputedStyle(dot!).backgroundColor;
+      }),
+    )
+    .toEqual(statuses.map((status) => expectedColors[status]));
   statuses.forEach((status, index) => {
     const dot = markers[index * 2]?.querySelector<HTMLElement>('[data-slot="status-marker-dot"]');
     expect(getComputedStyle(dot!).backgroundColor).toBe(expectedColors[status]);

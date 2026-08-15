@@ -175,7 +175,9 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
   expect(panels).toHaveLength(2);
   await expect.poll(() => panels[0]?.getBoundingClientRect().width).toBe(244);
   await expect.poll(() => items[0]?.getBoundingClientRect().height).toBe(28);
-  expect(items[1]!.getBoundingClientRect().top - items[0]!.getBoundingClientRect().top).toBe(29);
+  await expect
+    .poll(() => items[1]!.getBoundingClientRect().top - items[0]!.getBoundingClientRect().top)
+    .toBe(29);
   await expect.poll(() => getComputedStyle(items[0]!).fontFamily).toContain("Inter");
   await expect.poll(() => getComputedStyle(panels[1]!).backgroundColor).toBe("rgb(10, 10, 10)");
   for (const panel of panels) {

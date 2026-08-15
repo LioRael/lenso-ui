@@ -362,9 +362,9 @@
           "target": "components/lenso/popover/index.tsx"
         },
         {
-          "registrySha256": "e45e0f19c85a57ee7933e5fbe723f732177c42e2cb68cab2fab73e1f81a1e1cf",
+          "registrySha256": "6f0c2db2377cbc8318fd3d02b5c913827ca7dd0b2098fdefd2c79f081f507411",
           "source": "packages/ui/src/popover/popover.stylex.ts",
-          "sourceSha256": "e45e0f19c85a57ee7933e5fbe723f732177c42e2cb68cab2fab73e1f81a1e1cf",
+          "sourceSha256": "6f0c2db2377cbc8318fd3d02b5c913827ca7dd0b2098fdefd2c79f081f507411",
           "target": "components/lenso/popover/popover.stylex.ts"
         },
         {
