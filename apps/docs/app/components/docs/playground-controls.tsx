@@ -68,11 +68,11 @@ export function PlaygroundSelectControl({
         value={value}
       >
         <Select.Trigger aria-label={label} className="lenso-playground-select-trigger">
-          <span>{selectedLabel}</span>
+          <Select.Value>{selectedLabel}</Select.Value>
           <Select.Icon />
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner align="start" sideOffset={4}>
+          <Select.Positioner position="item-aligned" align="start" sideOffset={4}>
             <Select.Popup className="lenso-playground-select-popup">
               <Select.List>
                 {options.map((option) => (
