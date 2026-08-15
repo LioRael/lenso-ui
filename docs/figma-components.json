@@ -241,6 +241,17 @@
         "nodeId": "367:600",
         "baseline": "docs/figma-baselines/menu-state-board.png"
       }
+    },
+    "toast": {
+      "nodeId": "256:11",
+      "codeSubpath": "@lenso/ui/toast",
+      "variants": ["default", "success", "error", "custom-icon", "custom-close"],
+      "states": ["open", "dismissed", "swiped"],
+      "documentation": "/components/toast",
+      "stateBoard": {
+        "nodeId": "256:11",
+        "baseline": "docs/figma-baselines/toast-state-board.png"
+      }
     }
   }
 }

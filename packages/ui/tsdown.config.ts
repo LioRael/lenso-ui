@@ -35,6 +35,7 @@ export default defineConfig({
     "text-field/index": source("text-field"),
     "theme-scope/index": source("theme-scope"),
     "tooltip/index": source("tooltip"),
+    "toast/index": source("toast"),
   },
   format: "esm",
   outDir: path.resolve(import.meta.dirname, "dist"),

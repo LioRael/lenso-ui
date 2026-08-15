@@ -28,7 +28,8 @@ type DocsPage =
   | "switch"
   | "tabs"
   | "text-field"
-  | "tooltip";
+  | "tooltip"
+  | "toast";
 
 interface DocsShellProps {
   actions: readonly [string, string];
@@ -131,7 +132,8 @@ function ComponentNavigation({
     | "switch"
     | "tabs"
     | "text-field"
-    | "tooltip";
+    | "tooltip"
+    | "toast";
 }) {
   const formsCurrent =
     current === "checkbox" ||
@@ -152,6 +154,7 @@ function ComponentNavigation({
   const tabsCurrent = current === "tabs";
   const overlaysCurrent = current === "menu" || current === "popover" || current === "tooltip";
   const contentCurrent = current === "avatar";
+  const feedbackCurrent = current === "toast";
 
   return (
     <>
@@ -323,7 +326,14 @@ function ComponentNavigation({
           )}
         </div>
         <div className="nav-category">
-          <NavHeading nested>Feedback</NavHeading>
+          <NavHeading expanded={feedbackCurrent} nested>
+            Feedback
+          </NavHeading>
+          {feedbackCurrent && (
+            <Link aria-current="page" className="nav-item nav-item-deep" href="/components/toast">
+              Toast
+            </Link>
+          )}
         </div>
         <div className="nav-category">
           <NavHeading expanded={contentCurrent} nested>

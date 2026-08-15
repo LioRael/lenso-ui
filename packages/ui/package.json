@@ -109,6 +109,10 @@
       "types": "./dist/tooltip/index.d.ts",
       "import": "./dist/tooltip/index.js"
     },
+    "./toast": {
+      "types": "./dist/toast/index.d.ts",
+      "import": "./dist/toast/index.js"
+    },
     "./styles.css": "./dist/assets/stylex.css",
     "./preflight.css": "./dist/preflight.css"
   },
