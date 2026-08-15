@@ -31,8 +31,8 @@
     "border": {
       "transparent": { "$value": "{primitive.color.transparent}" },
       "translucent": { "$value": "{primitive.color.black8}" },
-      "control": { "$value": "{primitive.color.gray300}" },
-      "controlFocus": { "$value": "{primitive.color.gray300}" },
+      "control": { "$value": "{primitive.color.gray350}" },
+      "controlFocus": { "$value": "{primitive.color.gray400}" },
       "tertiary": { "$value": "{primitive.color.gray200}" },
       "secondary": { "$value": "{primitive.color.gray300}" },
       "primary": { "$value": "{primitive.color.gray500}" },
@@ -52,7 +52,7 @@
       "danger": { "$value": "{primitive.color.red700}" },
       "dangerHover": { "$value": "{primitive.color.red500}" }
     },
-    "focus": { "ring": { "$value": "{primitive.color.blue500}" } },
+    "focus": { "ring": { "$value": "{primitive.color.blue475}" } },
     "status": {
       "errorBorder": { "$value": "{primitive.color.red700}" },
       "errorContent": { "$value": "{primitive.color.red700}" },

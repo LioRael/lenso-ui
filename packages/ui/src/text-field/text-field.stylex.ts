@@ -25,10 +25,10 @@ export const styles = stylex.create({
     },
     borderColor: {
       default: tokens.colorBorderControl,
-      ":hover": tokens.colorBorderPrimary,
+      ":hover": tokens.colorBorderControlFocus,
       ":focus-visible": tokens.colorBorderControlFocus,
       "[data-invalid]": tokens.colorStatusErrorBorder,
-      '[data-visual-state="hover"]': tokens.colorBorderPrimary,
+      '[data-visual-state="hover"]': tokens.colorBorderControlFocus,
       '[data-visual-state="active"]': tokens.colorBorderControlFocus,
       '[data-visual-state="focus-visible"]': tokens.colorBorderControlFocus,
       ":disabled": tokens.colorBorderTertiary,
