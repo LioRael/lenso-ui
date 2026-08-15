@@ -8,6 +8,7 @@ import { TextField } from "@lenso/ui/text-field";
 interface PlaygroundControlsProps {
   children: ReactNode;
   example: string;
+  exampleLabel?: string;
   name: string;
   onExampleChange: (value: string) => void;
 }
@@ -28,6 +29,7 @@ interface PlaygroundTextControlProps {
 export function PlaygroundControls({
   children,
   example,
+  exampleLabel = "Example · Default",
   name,
   onExampleChange,
 }: PlaygroundControlsProps) {
@@ -38,7 +40,7 @@ export function PlaygroundControls({
         <PlaygroundSelectControl
           label="Example"
           onValueChange={onExampleChange}
-          options={[{ label: "Example · Default", value: "default" }]}
+          options={[{ label: exampleLabel, value: example }]}
           value={example}
         />
       </div>

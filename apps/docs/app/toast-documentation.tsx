@@ -5,7 +5,10 @@ import * as React from "react";
 import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 import { Toast, type ToastTone } from "@lenso/ui/toast";
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const codeExample = `import { Toast } from "@lenso/ui/toast"
@@ -13,7 +16,9 @@ const codeExample = `import { Toast } from "@lenso/ui/toast"
 <Toast.Provider>
   <App />
   <Toast.Portal>
-    <Toast.Viewport><Toast.List /></Toast.Viewport>
+    <Toast.Viewport>
+      <Toast.List />
+    </Toast.Viewport>
   </Toast.Portal>
 </Toast.Provider>`;
 
@@ -63,42 +68,36 @@ export function ToastDocumentation() {
             <span>Base UI behavior</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Change the semantic tone and trigger the real notification.</p>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas" theme={pageTheme}>
-                <Toast.Provider timeout={5000}>
-                  <ToastPlayground tone={tone} />
-                </Toast.Provider>
-              </ThemeScope>
-            </article>
-            <aside className="playground-inspector">
-              <div className="inspector-header">
-                <strong>Toast</strong>
-                <button type="button">Example · Clipboard</button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Tone</span>
-                <select onChange={(event) => setTone(event.target.value as ToastTone)} value={tone}>
-                  <option value="default">Default</option>
-                  <option value="success">Success</option>
-                  <option value="error">Error</option>
-                </select>
-              </label>
-            </aside>
-          </div>
-        </section>
+        <LivePlayground
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Clipboard"
+              name="Toast"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Tone"
+                onValueChange={(value) => setTone(value as ToastTone)}
+                options={[
+                  { label: "Default", value: "default" },
+                  { label: "Success", value: "success" },
+                  { label: "Error", value: "error" },
+                ]}
+                value={tone}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Change the semantic tone and trigger the real notification."
+          preview={
+            <ThemeScope className="stage-canvas" theme={pageTheme}>
+              <Toast.Provider timeout={5000}>
+                <ToastPlayground tone={tone} />
+              </Toast.Provider>
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -123,9 +122,7 @@ export function ToastDocumentation() {
             <h2>Implementation</h2>
             <p>Composable toast parts with a convenient default list renderer.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

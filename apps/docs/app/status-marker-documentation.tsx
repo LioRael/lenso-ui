@@ -9,7 +9,10 @@ import {
   type StatusMarkerStatus,
 } from "@lenso/ui/status-marker";
 import { ThemeScope } from "@lenso/ui/theme-scope";
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const codeExample = `import { StatusMarker } from "@lenso/ui/status-marker"
@@ -41,13 +44,9 @@ export function StatusMarkerDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Try every semantic status and switch between dot and labeled presentations.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setPresentation("dot");
@@ -57,52 +56,46 @@ export function StatusMarkerDocumentation() {
               >
                 Reset
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas" theme={pageTheme}>
-                <StatusMarker presentation={presentation} status={status} />
-              </ThemeScope>
-            </article>
-            <aside className="playground-inspector">
-              <div className="inspector-header">
-                <strong>Status Marker</strong>
-                <button type="button">Example · Default</button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Status</span>
-                <select
-                  onChange={(event) => setStatus(event.target.value as StatusMarkerStatus)}
-                  value={status}
-                >
-                  <option value="neutral">Neutral</option>
-                  <option value="success">Success</option>
-                  <option value="warning">Warning</option>
-                  <option value="error">Error</option>
-                  <option value="info">Info</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Presentation</span>
-                <select
-                  onChange={(event) =>
-                    setPresentation(event.target.value as StatusMarkerPresentation)
-                  }
-                  value={presentation}
-                >
-                  <option value="dot">Dot</option>
-                  <option value="label">Label</option>
-                </select>
-              </label>
-            </aside>
-          </div>
-        </section>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Status Marker"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Status"
+                onValueChange={(value) => setStatus(value as StatusMarkerStatus)}
+                options={[
+                  { label: "Neutral", value: "neutral" },
+                  { label: "Success", value: "success" },
+                  { label: "Warning", value: "warning" },
+                  { label: "Error", value: "error" },
+                  { label: "Info", value: "info" },
+                ]}
+                value={status}
+              />
+              <PlaygroundSelectControl
+                label="Presentation"
+                onValueChange={(value) => setPresentation(value as StatusMarkerPresentation)}
+                options={[
+                  { label: "Dot", value: "dot" },
+                  { label: "Label", value: "label" },
+                ]}
+                value={presentation}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Try every semantic status and switch between dot and labeled presentations."
+          preview={
+            <ThemeScope className="stage-canvas" theme={pageTheme}>
+              <StatusMarker presentation={presentation} status={status} />
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -124,9 +117,7 @@ export function StatusMarkerDocumentation() {
             <h2>Implementation</h2>
             <p>Semantic StyleX colors with consumer-owned label content.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

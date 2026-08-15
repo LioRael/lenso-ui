@@ -6,7 +6,10 @@ import { Button } from "@lenso/ui/button";
 import { Surface, type SurfaceLevel } from "@lenso/ui/surface";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -47,13 +50,9 @@ export function SurfaceDocumentation() {
           </div>
         </section>
 
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Inspect hierarchy, elevation, theme parity, and custom rendering.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setLevel("embedded");
@@ -73,54 +72,48 @@ export function SurfaceDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas surface-stage" theme={resolvedTheme}>
-                <Surface className="surface-demo" level={level}>
-                  <h3>Panel title</h3>
-                  <p>Use this region for product content assembled from existing components.</p>
-                </Surface>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Surface</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Level</span>
-                <select
-                  onChange={(event) => setLevel(event.target.value as SurfaceLevel)}
-                  value={level}
-                >
-                  <option>embedded</option>
-                  <option>panel</option>
-                  <option>overlay</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Surface"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Level"
+                onValueChange={(value) => setLevel(value as SurfaceLevel)}
+                options={[
+                  { label: "embedded", value: "embedded" },
+                  { label: "panel", value: "panel" },
+                  { label: "overlay", value: "overlay" },
+                ]}
+                value={level}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Inspect hierarchy, elevation, theme parity, and custom rendering."
+          preview={
+            <ThemeScope className="stage-canvas surface-stage" theme={resolvedTheme}>
+              <Surface className="surface-demo" level={level}>
+                <h3>Panel title</h3>
+                <p>Use this region for product content assembled from existing components.</p>
+              </Surface>
+            </ThemeScope>
+          }
+        />
 
         <section className="button-guidance select-guidance">
           <article>
@@ -142,9 +135,7 @@ export function SurfaceDocumentation() {
             <h2>Implementation</h2>
             <p>Surface owns visual hierarchy only and accepts a custom element through render.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

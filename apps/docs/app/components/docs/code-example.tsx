@@ -1,3 +1,5 @@
+import { CodeBlock } from "./code-block";
+
 export function CodeExample({
   code,
   description = "Compose the component from its public parts and keep application content consumer-owned.",
@@ -13,9 +15,7 @@ export function CodeExample({
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      <pre>
-        <code>{code.trim()}</code>
-      </pre>
+      <CodeBlock code={code} />
     </section>
   );
 }

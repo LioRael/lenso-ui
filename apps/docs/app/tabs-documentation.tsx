@@ -6,7 +6,10 @@ import { Button } from "@lenso/ui/button";
 import { Tabs } from "@lenso/ui/tabs";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -53,13 +56,9 @@ export function TabsDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Compare selection, keyboard focus, content switching, and theme parity.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setSelected("overview");
@@ -79,65 +78,56 @@ export function TabsDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas tabs-stage" theme={resolvedTheme}>
-                <Tabs.Root
-                  onValueChange={(value) => setSelected(value as TabValue)}
-                  value={selected}
-                >
-                  <Tabs.List aria-label="Project sections">
-                    <Tabs.Tab value="overview">Overview</Tabs.Tab>
-                    <Tabs.Tab value="documents">Documents</Tabs.Tab>
-                    <Tabs.Tab value="members">Members</Tabs.Tab>
-                  </Tabs.List>
-                  {values.map((value) => (
-                    <Tabs.Panel key={value} value={value}>
-                      <p>{value[0]!.toUpperCase() + value.slice(1)} content</p>
-                    </Tabs.Panel>
-                  ))}
-                </Tabs.Root>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Tabs</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Selected</span>
-                <select
-                  onChange={(event) => setSelected(event.target.value as TabValue)}
-                  value={selected}
-                >
-                  <option value="overview">Overview</option>
-                  <option value="documents">Documents</option>
-                  <option value="members">Members</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Tabs"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Selected"
+                onValueChange={(value) => setSelected(value as TabValue)}
+                options={[
+                  { label: "Overview", value: "overview" },
+                  { label: "Documents", value: "documents" },
+                  { label: "Members", value: "members" },
+                ]}
+                value={selected}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Compare selection, keyboard focus, content switching, and theme parity."
+          preview={
+            <ThemeScope className="stage-canvas tabs-stage" theme={resolvedTheme}>
+              <Tabs.Root onValueChange={(value) => setSelected(value as TabValue)} value={selected}>
+                <Tabs.List aria-label="Project sections">
+                  <Tabs.Tab value="overview">Overview</Tabs.Tab>
+                  <Tabs.Tab value="documents">Documents</Tabs.Tab>
+                  <Tabs.Tab value="members">Members</Tabs.Tab>
+                </Tabs.List>
+                {values.map((value) => (
+                  <Tabs.Panel key={value} value={value}>
+                    <p>{value[0]!.toUpperCase() + value.slice(1)} content</p>
+                  </Tabs.Panel>
+                ))}
+              </Tabs.Root>
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -159,9 +149,7 @@ export function TabsDocumentation() {
             <h2>Implementation</h2>
             <p>Composable Base UI parts with StyleX visuals and consumer-owned content.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

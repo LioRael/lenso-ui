@@ -6,7 +6,10 @@ import { Button } from "@lenso/ui/button";
 import { Combobox } from "@lenso/ui/combobox";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -17,10 +20,20 @@ const markerColors = ["#eb5757", "#bb87fc", "#4ea7fc"] as const;
 const codeExample = `import { Combobox } from "@lenso/ui/combobox"
 
 <Combobox.Root items={labels}>
-  <Combobox.InputGroup><Combobox.Input placeholder="Search labels…" /></Combobox.InputGroup>
-  <Combobox.Portal><Combobox.Positioner><Combobox.Popup>
-    <Combobox.List>{(label) => <Combobox.Item value={label}>{label}</Combobox.Item>}</Combobox.List>
-  </Combobox.Popup></Combobox.Positioner></Combobox.Portal>
+  <Combobox.InputGroup>
+    <Combobox.Input placeholder="Search labels…" />
+  </Combobox.InputGroup>
+  <Combobox.Portal>
+    <Combobox.Positioner>
+      <Combobox.Popup>
+        <Combobox.List>
+          {(label) => (
+            <Combobox.Item value={label}>{label}</Combobox.Item>
+          )}
+        </Combobox.List>
+      </Combobox.Popup>
+    </Combobox.Positioner>
+  </Combobox.Portal>
 </Combobox.Root>`;
 
 function InspectorSelect({
@@ -35,19 +48,12 @@ function InspectorSelect({
   value: string;
 }) {
   return (
-    <label className="inspector-row">
-      <span>{label}</span>
-      <span className="inspector-control-wrap">
-        <select onChange={(event) => onChange(event.target.value)} value={value}>
-          {options.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-        <span aria-hidden="true" className="inspector-chevron">
-          ⌄
-        </span>
-      </span>
-    </label>
+    <PlaygroundSelectControl
+      label={label}
+      onValueChange={onChange}
+      options={options.map((option) => ({ label: option, value: option }))}
+      value={value}
+    />
   );
 }
 
@@ -84,16 +90,9 @@ export function ComboboxDocumentation() {
           </div>
         </section>
 
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>
-                Try supported variants on the real component; advanced token and motion tuning stays
-                in the internal lab.
-              </p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button onClick={reset} variant="secondary">
                 Reset
               </Button>
@@ -108,61 +107,15 @@ export function ComboboxDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas" theme={resolvedStageTheme}>
-                <Combobox.Root items={labels} open={state !== "Closed"}>
-                  <Combobox.InputGroup>
-                    <Combobox.Input
-                      disabled={state === "Loading"}
-                      placeholder={
-                        state === "Loading" ? "Loading labels…" : "Change or add labels…"
-                      }
-                    />
-                    <Combobox.Shortcut>L</Combobox.Shortcut>
-                  </Combobox.InputGroup>
-                  <Combobox.Portal>
-                    <Combobox.Positioner>
-                      <Combobox.Popup>
-                        {state === "Loading" ? (
-                          <Combobox.Status>Loading labels…</Combobox.Status>
-                        ) : state === "Empty" ? (
-                          <Combobox.Empty>No labels found</Combobox.Empty>
-                        ) : (
-                          <Combobox.List>
-                            {(label: string) => {
-                              const index = labels.indexOf(label as (typeof labels)[number]);
-                              return (
-                                <Combobox.Item key={label} value={label}>
-                                  <Combobox.ItemIndicator />
-                                  <Combobox.Marker style={{ color: markerColors[index] }} />
-                                  <Combobox.ItemText>{label}</Combobox.ItemText>
-                                </Combobox.Item>
-                              );
-                            }}
-                          </Combobox.List>
-                        )}
-                      </Combobox.Popup>
-                    </Combobox.Positioner>
-                  </Combobox.Portal>
-                </Combobox.Root>
-                <p>Controls update this example only.</p>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Combobox</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Combobox"
+              onExampleChange={() => {}}
+            >
               <InspectorSelect
                 label="State"
                 onChange={(next) => setState(next as ExampleState)}
@@ -175,15 +128,55 @@ export function ComboboxDocumentation() {
                 options={["System", "Light", "Dark"]}
                 value={stageTheme}
               />
-              <div className="inspector-row">
-                <span>Advanced</span>
-                <button className="inspector-static-control" type="button">
-                  Internal lab
-                </button>
-              </div>
-            </form>
-          </div>
-        </section>
+              <PlaygroundSelectControl
+                label="Advanced"
+                onValueChange={() => {}}
+                options={[{ label: "Internal lab", value: "internal-lab" }]}
+                value="internal-lab"
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Try supported variants on the real component; advanced token and motion tuning stays in the internal lab."
+          preview={
+            <ThemeScope className="stage-canvas" theme={resolvedStageTheme}>
+              <Combobox.Root items={labels} open={state !== "Closed"}>
+                <Combobox.InputGroup>
+                  <Combobox.Input
+                    disabled={state === "Loading"}
+                    placeholder={state === "Loading" ? "Loading labels…" : "Change or add labels…"}
+                  />
+                  <Combobox.Shortcut>L</Combobox.Shortcut>
+                </Combobox.InputGroup>
+                <Combobox.Portal>
+                  <Combobox.Positioner>
+                    <Combobox.Popup>
+                      {state === "Loading" ? (
+                        <Combobox.Status>Loading labels…</Combobox.Status>
+                      ) : state === "Empty" ? (
+                        <Combobox.Empty>No labels found</Combobox.Empty>
+                      ) : (
+                        <Combobox.List>
+                          {(label: string) => {
+                            const index = labels.indexOf(label as (typeof labels)[number]);
+                            return (
+                              <Combobox.Item key={label} value={label}>
+                                <Combobox.ItemIndicator />
+                                <Combobox.Marker style={{ color: markerColors[index] }} />
+                                <Combobox.ItemText>{label}</Combobox.ItemText>
+                              </Combobox.Item>
+                            );
+                          }}
+                        </Combobox.List>
+                      )}
+                    </Combobox.Popup>
+                  </Combobox.Positioner>
+                </Combobox.Portal>
+              </Combobox.Root>
+              <p>Controls update this example only.</p>
+            </ThemeScope>
+          }
+        />
 
         <section className="button-guidance select-guidance">
           <article>
@@ -205,9 +198,7 @@ export function ComboboxDocumentation() {
             <h2>Implementation</h2>
             <p>Use the composition API below; every visual part remains consumer replaceable.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>
