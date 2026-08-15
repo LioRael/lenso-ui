@@ -17,7 +17,10 @@ import { IconButton } from "@lenso/ui/icon-button";
 import { Sidebar } from "@lenso/ui/sidebar";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -160,45 +163,37 @@ export function SidebarDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground sidebar-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Inspect the canonical 244px App sidebar, disclosure groups, and theme parity.</p>
-            </div>
-          </div>
-          <div className="playground-body sidebar-playground-body">
-            <article className="rendered-stage sidebar-rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas sidebar-stage-canvas" theme={resolvedTheme}>
-                <SidebarDemo />
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Sidebar</strong>
-                <button type="button">
-                  Example · App <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+        <LivePlayground
+          bodyClassName="sidebar-playground-body"
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · App"
+              name="Sidebar"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Inspect the canonical 244px App sidebar, disclosure groups, and theme parity."
+          preview={
+            <ThemeScope className="stage-canvas sidebar-stage-canvas" theme={resolvedTheme}>
+              <SidebarDemo />
+            </ThemeScope>
+          }
+          sectionClassName="sidebar-playground"
+          stageClassName="sidebar-rendered-stage"
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Composition</h2>
@@ -228,9 +223,7 @@ export function SidebarDocumentation() {
               from @lenso/ui.
             </p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

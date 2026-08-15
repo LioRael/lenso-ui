@@ -6,7 +6,10 @@ import { Button } from "@lenso/ui/button";
 import { Popover } from "@lenso/ui/popover";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type Placement = "bottom" | "left" | "right" | "top";
@@ -57,13 +60,9 @@ export function PopoverDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Check placement, optional arrow, keyboard dismissal, and theme parity.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setArrow(false);
@@ -85,81 +84,79 @@ export function PopoverDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas popover-stage" theme={resolvedTheme}>
-                <Popover.Root onOpenChange={setOpen} open={open}>
-                  <Popover.Trigger>
-                    <span style={{ flex: 1, textAlign: "left" }}>Open popover</span>
-                    <span aria-hidden="true">{open ? "⌃" : "⌄"}</span>
-                  </Popover.Trigger>
-                  <Popover.Portal>
-                    <Popover.Positioner side={placement}>
-                      <Popover.Popup aria-label="Project actions">
-                        {arrow && <Popover.Arrow />}
-                        <Popover.Item>Edit issue</Popover.Item>
-                        <Popover.Item>Set reminder</Popover.Item>
-                        <Popover.Item tone="danger">Delete</Popover.Item>
-                      </Popover.Popup>
-                    </Popover.Positioner>
-                  </Popover.Portal>
-                </Popover.Root>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Popover</strong>
-                <button type="button">Example · Default</button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Open</span>
-                <input
-                  checked={open}
-                  onChange={(event) => setOpen(event.target.checked)}
-                  type="checkbox"
-                />
-              </label>
-              <label className="inspector-row">
-                <span>Placement</span>
-                <select
-                  onChange={(event) => setPlacement(event.target.value as Placement)}
-                  value={placement}
-                >
-                  <option value="top">Top</option>
-                  <option value="right">Right</option>
-                  <option value="bottom">Bottom</option>
-                  <option value="left">Left</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Arrow</span>
-                <input
-                  checked={arrow}
-                  onChange={(event) => setArrow(event.target.checked)}
-                  type="checkbox"
-                />
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Popover"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Open"
+                onValueChange={(value) => setOpen(value === "True")}
+                options={[
+                  { label: "False", value: "False" },
+                  { label: "True", value: "True" },
+                ]}
+                value={open ? "True" : "False"}
+              />
+              <PlaygroundSelectControl
+                label="Placement"
+                onValueChange={(value) => setPlacement(value as Placement)}
+                options={[
+                  { label: "Top", value: "top" },
+                  { label: "Right", value: "right" },
+                  { label: "Bottom", value: "bottom" },
+                  { label: "Left", value: "left" },
+                ]}
+                value={placement}
+              />
+              <PlaygroundSelectControl
+                label="Arrow"
+                onValueChange={(value) => setArrow(value === "True")}
+                options={[
+                  { label: "False", value: "False" },
+                  { label: "True", value: "True" },
+                ]}
+                value={arrow ? "True" : "False"}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Check placement, optional arrow, keyboard dismissal, and theme parity."
+          preview={
+            <ThemeScope className="stage-canvas popover-stage" theme={resolvedTheme}>
+              <Popover.Root onOpenChange={setOpen} open={open}>
+                <Popover.Trigger>
+                  <span style={{ flex: 1, textAlign: "left" }}>Open popover</span>
+                  <span aria-hidden="true">{open ? "⌃" : "⌄"}</span>
+                </Popover.Trigger>
+                <Popover.Portal>
+                  <Popover.Positioner side={placement}>
+                    <Popover.Popup aria-label="Project actions">
+                      {arrow && <Popover.Arrow />}
+                      <Popover.Item>Edit issue</Popover.Item>
+                      <Popover.Item>Set reminder</Popover.Item>
+                      <Popover.Item tone="danger">Delete</Popover.Item>
+                    </Popover.Popup>
+                  </Popover.Positioner>
+                </Popover.Portal>
+              </Popover.Root>
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -181,9 +178,7 @@ export function PopoverDocumentation() {
             <h2>Implementation</h2>
             <p>Composable Base UI parts with a themed portal and collision-aware positioning.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

@@ -6,7 +6,10 @@ import { Button } from "@lenso/ui/button";
 import { Select } from "@lenso/ui/select";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -17,13 +20,22 @@ const positions = ["Popper", "Item aligned"] as const;
 const codeExample = `import { Select } from "@lenso/ui/select"
 
 <Select.Root defaultValue="default">
-  <Select.Trigger><Select.Value /><Select.Icon /></Select.Trigger>
+  <Select.Trigger>
+    <Select.Value />
+    <Select.Icon />
+  </Select.Trigger>
   <Select.Portal>
     <Select.Positioner>
-      <Select.Popup><Select.List>
-        <Select.Item value="default"><Select.ItemText>Default</Select.ItemText><Select.ItemIndicator /></Select.Item>
-      </Select.List></Select.Popup>
-    </Select.Positioner></Select.Portal>
+      <Select.Popup>
+        <Select.List>
+          <Select.Item value="default">
+            <Select.ItemText>Default</Select.ItemText>
+            <Select.ItemIndicator />
+          </Select.Item>
+        </Select.List>
+      </Select.Popup>
+    </Select.Positioner>
+  </Select.Portal>
 </Select.Root>`;
 
 function InspectorSelect({
@@ -38,19 +50,12 @@ function InspectorSelect({
   value: string;
 }) {
   return (
-    <label className="inspector-row">
-      <span>{label}</span>
-      <span className="inspector-control-wrap">
-        <select onChange={(event) => onChange(event.target.value)} value={value}>
-          {options.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-        <span aria-hidden="true" className="inspector-chevron">
-          ⌄
-        </span>
-      </span>
-    </label>
+    <PlaygroundSelectControl
+      label={label}
+      onValueChange={onChange}
+      options={options.map((option) => ({ label: option, value: option }))}
+      value={value}
+    />
   );
 }
 
@@ -91,16 +96,9 @@ export function SelectDocumentation() {
           </div>
         </section>
 
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>
-                Try supported variants on the real component; advanced token and motion tuning stays
-                in the internal lab.
-              </p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button onClick={reset} variant="secondary">
                 Reset
               </Button>
@@ -115,55 +113,15 @@ export function SelectDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas" theme={resolvedStageTheme}>
-                <Select.Root
-                  onOpenChange={setOpen}
-                  onValueChange={(value) =>
-                    setSelectedIndex(Math.max(0, values.indexOf(value as (typeof values)[number])))
-                  }
-                  open={open}
-                  value={values[selectedIndex]}
-                >
-                  <Select.Trigger>
-                    <Select.Value />
-                    <Select.Icon />
-                  </Select.Trigger>
-                  <Select.Portal>
-                    <Select.Positioner
-                      position={position === "Item aligned" ? "item-aligned" : "popper"}
-                    >
-                      <Select.Popup>
-                        <Select.List>
-                          {values.map((value) => (
-                            <Select.Item key={value} value={value}>
-                              <Select.ItemText>{value}</Select.ItemText>
-                              <Select.ItemIndicator />
-                            </Select.Item>
-                          ))}
-                        </Select.List>
-                      </Select.Popup>
-                    </Select.Positioner>
-                  </Select.Portal>
-                </Select.Root>
-                <p>Controls update this example only.</p>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Select</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Select"
+              onExampleChange={() => {}}
+            >
               <InspectorSelect
                 label="Expanded"
                 onChange={(next) => setOpen(next === "True")}
@@ -190,15 +148,51 @@ export function SelectDocumentation() {
                 options={["System", "Light", "Dark"]}
                 value={stageTheme}
               />
-              <div className="inspector-row">
-                <span>Advanced</span>
-                <button className="inspector-static-control" type="button">
-                  Internal lab
-                </button>
-              </div>
-            </form>
-          </div>
-        </section>
+              <PlaygroundSelectControl
+                label="Advanced"
+                onValueChange={() => {}}
+                options={[{ label: "Internal lab", value: "internal-lab" }]}
+                value="internal-lab"
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Try supported variants on the real component; advanced token and motion tuning stays in the internal lab."
+          preview={
+            <ThemeScope className="stage-canvas" theme={resolvedStageTheme}>
+              <Select.Root
+                onOpenChange={setOpen}
+                onValueChange={(value) =>
+                  setSelectedIndex(Math.max(0, values.indexOf(value as (typeof values)[number])))
+                }
+                open={open}
+                value={values[selectedIndex]}
+              >
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Icon />
+                </Select.Trigger>
+                <Select.Portal>
+                  <Select.Positioner
+                    position={position === "Item aligned" ? "item-aligned" : "popper"}
+                  >
+                    <Select.Popup>
+                      <Select.List>
+                        {values.map((value) => (
+                          <Select.Item key={value} value={value}>
+                            <Select.ItemText>{value}</Select.ItemText>
+                            <Select.ItemIndicator />
+                          </Select.Item>
+                        ))}
+                      </Select.List>
+                    </Select.Popup>
+                  </Select.Positioner>
+                </Select.Portal>
+              </Select.Root>
+              <p>Controls update this example only.</p>
+            </ThemeScope>
+          }
+        />
 
         <section className="button-guidance select-guidance">
           <article>
@@ -229,9 +223,7 @@ export function SelectDocumentation() {
               API.
             </p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

@@ -42,11 +42,11 @@ export const styles = stylex.create({
   positioner: { outline: 0, zIndex: 50 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderTertiary,
+    borderColor: tokens.colorBorderPopover,
     borderRadius: tokens.radiusPopover,
     borderStyle: "solid",
     borderWidth: "0.5px",
-    boxShadow: `0 1px 1px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`,
+    boxShadow: `0 1px 0.5px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} calc(${tokens.elevationOverlayKeyBlur} / 2) ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} calc(${tokens.elevationOverlayAmbientBlur} / 2) ${tokens.elevationOverlayAmbient}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     height: "168px",
@@ -60,7 +60,7 @@ export const styles = stylex.create({
     alignItems: "center",
     backgroundColor: {
       default: "transparent",
-      "[data-highlighted]": tokens.colorSurfaceInteractiveHover,
+      "[data-highlighted]": tokens.colorSurfaceOverlayHover,
       "[data-selected][data-highlighted]": "transparent",
       '[data-highlighted][data-visual-state="default"]': "transparent",
     },

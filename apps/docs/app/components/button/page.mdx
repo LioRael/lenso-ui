@@ -36,11 +36,13 @@ export const metadata = {
 </Guidance>
 
   <CodeExample
-    code={`import { Button } from "@lenso/ui/button"
-
-<Button variant="primary" size="compact">
-  Create issue
-</Button>`}
+    code={[
+      'import { Button } from "@lenso/ui/button"',
+      "",
+      '<Button variant="primary" size="compact">',
+      "  Create issue",
+      "</Button>",
+    ].join("\n")}
     description="Use the typed variants directly; inspect the source types for inherited Base UI props."
   />
 </ComponentPage>

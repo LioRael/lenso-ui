@@ -6,7 +6,10 @@ import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 import { Tooltip } from "@lenso/ui/tooltip";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -54,13 +57,9 @@ export function TooltipDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Check hover, keyboard focus, Escape dismissal, shortcut, and theme parity.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setShortcut(true);
@@ -80,62 +79,58 @@ export function TooltipDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas tooltip-stage" theme={resolvedTheme}>
-                <Tooltip.Provider closeDelay={0} delay={200}>
-                  <Tooltip.Root defaultOpen>
-                    <Tooltip.Trigger render={<Button variant="secondary" />}>
-                      Hover for help
-                    </Tooltip.Trigger>
-                    <Tooltip.Portal>
-                      <Tooltip.Positioner>
-                        <Tooltip.Popup>
-                          Help with
-                          {shortcut && <Tooltip.Shortcut>?</Tooltip.Shortcut>}
-                        </Tooltip.Popup>
-                      </Tooltip.Positioner>
-                    </Tooltip.Portal>
-                  </Tooltip.Root>
-                </Tooltip.Provider>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Tooltip</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Shortcut</span>
-                <input
-                  checked={shortcut}
-                  onChange={(event) => setShortcut(event.target.checked)}
-                  type="checkbox"
-                />
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Tooltip"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Shortcut"
+                onValueChange={(value) => setShortcut(value === "True")}
+                options={[
+                  { label: "False", value: "False" },
+                  { label: "True", value: "True" },
+                ]}
+                value={shortcut ? "True" : "False"}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Check hover, keyboard focus, Escape dismissal, shortcut, and theme parity."
+          preview={
+            <ThemeScope className="stage-canvas tooltip-stage" theme={resolvedTheme}>
+              <Tooltip.Provider closeDelay={0} delay={200}>
+                <Tooltip.Root defaultOpen>
+                  <Tooltip.Trigger render={<Button variant="secondary" />}>
+                    Hover for help
+                  </Tooltip.Trigger>
+                  <Tooltip.Portal>
+                    <Tooltip.Positioner>
+                      <Tooltip.Popup>
+                        Help with
+                        {shortcut && <Tooltip.Shortcut>?</Tooltip.Shortcut>}
+                      </Tooltip.Popup>
+                    </Tooltip.Positioner>
+                  </Tooltip.Portal>
+                </Tooltip.Root>
+              </Tooltip.Provider>
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -157,9 +152,7 @@ export function TooltipDocumentation() {
             <h2>Implementation</h2>
             <p>A themed portal with collision-aware positioning and an 8px target offset.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

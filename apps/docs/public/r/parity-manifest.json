@@ -446,9 +446,9 @@
           "target": "components/lenso/select/index.tsx"
         },
         {
-          "registrySha256": "59501043406f3b076edb7a53cb7406e4e9af3d3d391997974209f4faa4d0894d",
+          "registrySha256": "eba68546684dcb26ca11d3358cd6cfeefa45052e4f3c0b567b7fcae325cecce0",
           "source": "packages/ui/src/select/select.stylex.ts",
-          "sourceSha256": "59501043406f3b076edb7a53cb7406e4e9af3d3d391997974209f4faa4d0894d",
+          "sourceSha256": "eba68546684dcb26ca11d3358cd6cfeefa45052e4f3c0b567b7fcae325cecce0",
           "target": "components/lenso/select/select.stylex.ts"
         },
         {

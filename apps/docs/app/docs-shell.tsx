@@ -440,7 +440,7 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
                 </Button>
               </div>
             </header>
-            {children}
+            <div className="docs-scroll">{children}</div>
           </main>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { IconButton } from "@lenso/ui/icon-button";
 
 import { useIsClient } from "./use-is-client";
 
@@ -14,15 +15,16 @@ export function ThemeToggle() {
   const currentTheme = isClient ? theme : "system";
 
   return (
-    <button
+    <IconButton
       aria-label={`Use ${nextTheme} theme`}
       className="docs-theme-toggle"
       data-current-theme={currentTheme}
       onClick={() => setTheme(nextTheme)}
+      size="default"
       title={`Theme: ${currentTheme}. Use ${nextTheme}.`}
-      type="button"
+      variant="ghost"
     >
       {dark ? <SunIcon aria-hidden="true" /> : <MoonIcon aria-hidden="true" />}
-    </button>
+    </IconButton>
   );
 }

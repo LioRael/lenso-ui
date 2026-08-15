@@ -8,7 +8,10 @@ import { Breadcrumb } from "@lenso/ui/breadcrumb";
 import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type Example = "basic" | "external" | "overflow" | "team";
@@ -23,7 +26,9 @@ import { Breadcrumb } from "@lenso/ui/breadcrumb"
       <Breadcrumb.Link render={<Link href="/workspace" />}>Workspace</Breadcrumb.Link>
     </Breadcrumb.Item>
     <Breadcrumb.Separator />
-    <Breadcrumb.Item><Breadcrumb.Page>Issues</Breadcrumb.Page></Breadcrumb.Item>
+    <Breadcrumb.Item>
+      <Breadcrumb.Page>Issues</Breadcrumb.Page>
+    </Breadcrumb.Item>
   </Breadcrumb.List>
 </Breadcrumb.Root>`;
 
@@ -113,13 +118,9 @@ export function BreadcrumbDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Check composition, link rendering, overflow, and theme parity.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setExample("basic");
@@ -139,53 +140,46 @@ export function BreadcrumbDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas" theme={resolvedTheme}>
-                <BreadcrumbDemo example={example} />
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Breadcrumb</strong>
-                <button type="button">
-                  Example · {example}
-                  <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Example</span>
-                <select
-                  onChange={(event) => setExample(event.target.value as Example)}
-                  value={example}
-                >
-                  <option value="basic">Basic</option>
-                  <option value="overflow">Overflow</option>
-                  <option value="external">External</option>
-                  <option value="team">Team</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Breadcrumb"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Example"
+                onValueChange={(value) => setExample(value as Example)}
+                options={[
+                  { label: "Basic", value: "basic" },
+                  { label: "Overflow", value: "overflow" },
+                  { label: "External", value: "external" },
+                  { label: "Team", value: "team" },
+                ]}
+                value={example}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Check composition, link rendering, overflow, and theme parity."
+          preview={
+            <ThemeScope className="stage-canvas" theme={resolvedTheme}>
+              <BreadcrumbDemo example={example} />
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -213,9 +207,7 @@ export function BreadcrumbDocumentation() {
               Semantic list markup with Base UI-powered interactive parts and replaceable icons.
             </p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

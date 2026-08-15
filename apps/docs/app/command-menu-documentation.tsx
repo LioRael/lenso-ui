@@ -7,7 +7,10 @@ import { Button } from "@lenso/ui/button";
 import { CommandMenu } from "@lenso/ui/command-menu";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const commands = [
@@ -28,7 +31,9 @@ const codeExample = `import { CommandMenu } from "@lenso/ui/command-menu"
       <CommandMenu.Input placeholder="Type a command or search…" />
     </CommandMenu.Search>
     <CommandMenu.List>
-      {(command) => <CommandMenu.Item value={command}>{command}</CommandMenu.Item>}
+      {(command) => (
+        <CommandMenu.Item value={command}>{command}</CommandMenu.Item>
+      )}
     </CommandMenu.List>
   </CommandMenu.Panel>
 </CommandMenu.Root>`;
@@ -64,15 +69,9 @@ export function CommandMenuDocumentation() {
           </div>
         </section>
 
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>
-                Filter the real Base UI-backed command collection and navigate it with the keyboard.
-              </p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setState("Default");
@@ -92,78 +91,73 @@ export function CommandMenuDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body command-menu-playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas command-menu-stage" theme={resolvedTheme}>
-                <CommandMenu.Root items={items} inputValue={query}>
-                  <CommandMenu.Panel>
-                    <CommandMenu.Search>
-                      <CommandMenu.Input
-                        aria-label="Command search"
-                        placeholder="Type a command or search…"
-                      />
-                      <CommandMenu.SearchHint>Ask Lenso　 Tab</CommandMenu.SearchHint>
-                    </CommandMenu.Search>
-                    {state !== "No Results" && (
-                      <CommandMenu.GroupLabel>
-                        {state === "Query" ? "Commands" : "TES-14　·　kkk"}
-                      </CommandMenu.GroupLabel>
+            </>
+          }
+          bodyClassName="command-menu-playground-body"
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Command Menu"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="State"
+                onValueChange={(value) => setState(value as typeof state)}
+                options={[
+                  { label: "Default", value: "Default" },
+                  { label: "Query", value: "Query" },
+                  { label: "No Results", value: "No Results" },
+                ]}
+                value={state}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as typeof stageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Filter the real Base UI-backed command collection and navigate it with the keyboard."
+          preview={
+            <ThemeScope className="stage-canvas command-menu-stage" theme={resolvedTheme}>
+              <CommandMenu.Root items={items} inputValue={query}>
+                <CommandMenu.Panel>
+                  <CommandMenu.Search>
+                    <CommandMenu.Input
+                      aria-label="Command search"
+                      placeholder="Type a command or search…"
+                    />
+                    <CommandMenu.SearchHint>Ask Lenso　 Tab</CommandMenu.SearchHint>
+                  </CommandMenu.Search>
+                  {state !== "No Results" && (
+                    <CommandMenu.GroupLabel>
+                      {state === "Query" ? "Commands" : "TES-14　·　kkk"}
+                    </CommandMenu.GroupLabel>
+                  )}
+                  <CommandMenu.List>
+                    {(command: string) => (
+                      <CommandMenu.Item key={command} value={command}>
+                        <CommandMenu.ItemIcon>
+                          <CircleIcon aria-hidden="true" size={10} />
+                        </CommandMenu.ItemIcon>
+                        <CommandMenu.ItemText>{command}</CommandMenu.ItemText>
+                        <CommandMenu.Shortcut>S</CommandMenu.Shortcut>
+                      </CommandMenu.Item>
                     )}
-                    <CommandMenu.List>
-                      {(command: string) => (
-                        <CommandMenu.Item key={command} value={command}>
-                          <CommandMenu.ItemIcon>
-                            <CircleIcon aria-hidden="true" size={10} />
-                          </CommandMenu.ItemIcon>
-                          <CommandMenu.ItemText>{command}</CommandMenu.ItemText>
-                          <CommandMenu.Shortcut>S</CommandMenu.Shortcut>
-                        </CommandMenu.Item>
-                      )}
-                    </CommandMenu.List>
-                    <CommandMenu.Empty>No commands found</CommandMenu.Empty>
-                  </CommandMenu.Panel>
-                </CommandMenu.Root>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Command Menu</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>State</span>
-                <select
-                  onChange={(event) => setState(event.target.value as typeof state)}
-                  value={state}
-                >
-                  <option>Default</option>
-                  <option>Query</option>
-                  <option>No Results</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as typeof stageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+                  </CommandMenu.List>
+                  <CommandMenu.Empty>No commands found</CommandMenu.Empty>
+                </CommandMenu.Panel>
+              </CommandMenu.Root>
+            </ThemeScope>
+          }
+        />
 
         <section className="button-guidance select-guidance">
           <article>
@@ -185,9 +179,7 @@ export function CommandMenuDocumentation() {
             <h2>Implementation</h2>
             <p>Every visual part remains replaceable through the composition API.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>
