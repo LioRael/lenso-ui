@@ -440,15 +440,15 @@
     "select": {
       "files": [
         {
-          "registrySha256": "c85b11c1884333487083fdcfa237045c13090c772d1a539593592aa2b80a1651",
+          "registrySha256": "78558265bae821d1e3ea560d120ff9f9302188658d2998271dcb72f545f16af2",
           "source": "packages/ui/src/select/index.tsx",
-          "sourceSha256": "c85b11c1884333487083fdcfa237045c13090c772d1a539593592aa2b80a1651",
+          "sourceSha256": "78558265bae821d1e3ea560d120ff9f9302188658d2998271dcb72f545f16af2",
           "target": "components/lenso/select/index.tsx"
         },
         {
-          "registrySha256": "eba68546684dcb26ca11d3358cd6cfeefa45052e4f3c0b567b7fcae325cecce0",
+          "registrySha256": "4f06ff97048772f7faab61ab40029d0bf37d0efc2442b92fa839f885063ebee9",
           "source": "packages/ui/src/select/select.stylex.ts",
-          "sourceSha256": "eba68546684dcb26ca11d3358cd6cfeefa45052e4f3c0b567b7fcae325cecce0",
+          "sourceSha256": "4f06ff97048772f7faab61ab40029d0bf37d0efc2442b92fa839f885063ebee9",
           "target": "components/lenso/select/select.stylex.ts"
         },
         {
