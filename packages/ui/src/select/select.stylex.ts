@@ -22,7 +22,13 @@ export const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   triggerDisabled: { opacity: tokens.opacityDisabled },
-  value: { position: "relative" },
+  value: {
+    fontFamily: tokens.fontSans,
+    fontSize: "13px",
+    fontWeight: 400,
+    lineHeight: "16px",
+    position: "relative",
+  },
   icon: {
     alignItems: "center",
     color: tokens.colorContentSecondary,
@@ -55,6 +61,7 @@ export const styles = stylex.create({
     backgroundColor: {
       default: "transparent",
       "[data-highlighted]": tokens.colorSurfaceInteractiveHover,
+      "[data-selected][data-highlighted]": "transparent",
       '[data-highlighted][data-visual-state="default"]': "transparent",
     },
     borderRadius: tokens.radiusControl,
@@ -67,14 +74,13 @@ export const styles = stylex.create({
     fontWeight: 400,
     height: "32px",
     justifyContent: "space-between",
-    lineHeight: "19.5px",
+    lineHeight: "16px",
     marginInline: "4px",
     outline: 0,
     paddingLeft: "8px",
     paddingRight: "4px",
     userSelect: "none",
   },
-  itemSelected: { backgroundColor: tokens.colorSurfaceSelected },
   itemDisabled: { opacity: tokens.opacityDisabled },
   itemIndicator: {
     alignItems: "center",
