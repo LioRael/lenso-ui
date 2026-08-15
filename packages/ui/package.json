@@ -3,6 +3,11 @@
   "version": "0.2.0",
   "description": "Styled React foundation components for Lenso UI.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/ui"
+  },
   "files": [
     "dist",
     "README.md"
