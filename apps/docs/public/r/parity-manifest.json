@@ -300,15 +300,15 @@
     "menu": {
       "files": [
         {
-          "registrySha256": "a94eaaa333abb52d9d9e4408f4d07d8d1b1a8ccdd209272d362913929a10f9b7",
+          "registrySha256": "bab5d0b014349629a224bb14e700339985d88eba757301affa684d17eacdbdc3",
           "source": "packages/ui/src/menu/index.tsx",
-          "sourceSha256": "a94eaaa333abb52d9d9e4408f4d07d8d1b1a8ccdd209272d362913929a10f9b7",
+          "sourceSha256": "bab5d0b014349629a224bb14e700339985d88eba757301affa684d17eacdbdc3",
           "target": "components/lenso/menu/index.tsx"
         },
         {
-          "registrySha256": "93e8952287c759eebedf94fde6399699dad928744bdbc2f2b91c81f6da46f190",
+          "registrySha256": "c3e84df79cd69b5b3d9beb376884db0d46f880bc32d6d7f431c097a3acd8b832",
           "source": "packages/ui/src/menu/menu.stylex.ts",
-          "sourceSha256": "93e8952287c759eebedf94fde6399699dad928744bdbc2f2b91c81f6da46f190",
+          "sourceSha256": "c3e84df79cd69b5b3d9beb376884db0d46f880bc32d6d7f431c097a3acd8b832",
           "target": "components/lenso/menu/menu.stylex.ts"
         },
         {
@@ -440,15 +440,15 @@
     "select": {
       "files": [
         {
-          "registrySha256": "68ae0bf6f271d7ae4c6d8e98e21be2cd40218e6a22e8628c623af742de0e94a2",
+          "registrySha256": "8875e920d0cab5fd3f4d4543b10824fcd0337b7fd8726ee3cd6d64def41019a7",
           "source": "packages/ui/src/select/index.tsx",
-          "sourceSha256": "68ae0bf6f271d7ae4c6d8e98e21be2cd40218e6a22e8628c623af742de0e94a2",
+          "sourceSha256": "8875e920d0cab5fd3f4d4543b10824fcd0337b7fd8726ee3cd6d64def41019a7",
           "target": "components/lenso/select/index.tsx"
         },
         {
-          "registrySha256": "4e8c3eb13d190133a7116dcf0e48f91f7297243f56a121e7844517fe497448e6",
+          "registrySha256": "b795d6d994d12148439a92428aafb9d737ff70f3b469849a29ffe524dc1aadb6",
           "source": "packages/ui/src/select/select.stylex.ts",
-          "sourceSha256": "4e8c3eb13d190133a7116dcf0e48f91f7297243f56a121e7844517fe497448e6",
+          "sourceSha256": "b795d6d994d12148439a92428aafb9d737ff70f3b469849a29ffe524dc1aadb6",
           "target": "components/lenso/select/select.stylex.ts"
         },
         {

@@ -1413,18 +1413,15 @@ test("Select resolves dark popup tokens", async () => {
     .closest('[data-slot="select-popup"]') as HTMLElement;
   await expect.poll(() => getComputedStyle(popup).backgroundColor).toBe("rgb(40, 41, 43)");
   expect(getComputedStyle(popup).borderColor).toBe("rgb(31, 31, 31)");
-  const trigger = screen
-    .getByRole("combobox")
-    .element()
-    .querySelector<HTMLElement>('[data-slot="select-trigger-surface"]')!;
+  const trigger = screen.getByRole("combobox").element();
   const icon = screen
     .getByRole("combobox")
     .element()
     .querySelector<HTMLElement>('[data-slot="select-icon"]')!;
   expect(getComputedStyle(trigger).backgroundColor).toBe("rgb(25, 26, 27)");
-  expect(getComputedStyle(trigger).boxShadow).toBe(
-    "rgba(255, 255, 255, 0.14) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.3) 0px 0.5px 1px 1px, rgba(0, 0, 0, 0) 0px 1px 1px 0px",
-  );
+  expect(getComputedStyle(trigger).borderColor).toBe("rgb(62, 66, 77)");
+  expect(parseFloat(getComputedStyle(trigger).borderWidth)).toBeLessThanOrEqual(1);
+  expect(getComputedStyle(trigger).boxShadow).toBe("none");
   expect(getComputedStyle(icon).color).toBe("rgb(212, 212, 212)");
 });
 

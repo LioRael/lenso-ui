@@ -3,7 +3,6 @@
 import * as React from "react";
 import { CalendarIcon, FileIcon, LinkIcon, StarIcon, Trash2Icon } from "lucide-react";
 
-import { Button } from "@lenso/ui/button";
 import { Menu } from "@lenso/ui/menu";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 import { DocsShell } from "./docs-shell";
@@ -12,7 +11,7 @@ import { useDocsPageTheme } from "./use-docs-page-theme";
 const codeExample = `import { Menu } from "@lenso/ui/menu"
 
 <Menu.Root>
-  <Menu.Trigger>Open menu</Menu.Trigger>
+  <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
   <Menu.Portal>
     <Menu.Positioner>
       <Menu.Popup>
@@ -87,7 +86,7 @@ export function MenuDocumentation() {
               </div>
               <ThemeScope className="stage-canvas popover-stage" theme={pageTheme}>
                 <Menu.Root>
-                  <Menu.Trigger render={<Button variant="secondary" />}>Open menu</Menu.Trigger>
+                  <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
                   <Menu.Portal>
                     <Menu.Positioner>
                       <Menu.Popup aria-label="Issue actions">
