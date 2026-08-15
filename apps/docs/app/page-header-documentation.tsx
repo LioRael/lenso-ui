@@ -3,6 +3,7 @@
 import * as React from "react";
 import { LinkIcon, MoreHorizontalIcon, StarIcon, StoreIcon } from "lucide-react";
 
+import { Breadcrumb } from "@lenso/ui/breadcrumb";
 import { Button } from "@lenso/ui/button";
 import { IconButton } from "@lenso/ui/icon-button";
 import { PageHeader } from "@lenso/ui/page-header";
@@ -11,7 +12,7 @@ import { ThemeScope } from "@lenso/ui/theme-scope";
 import { DocsShell } from "./docs-shell";
 
 type StageTheme = "Dark" | "Light" | "System";
-type Variant = "simple" | "team";
+type Variant = "issues" | "simple" | "team";
 
 const codeExample = `import { PageHeader } from "@lenso/ui/page-header"
 
@@ -37,6 +38,47 @@ function HeaderDemo({ variant }: { variant: Variant }) {
         <PageHeader.Row>
           <PageHeader.Title>Preferences</PageHeader.Title>
         </PageHeader.Row>
+      </PageHeader.Root>
+    );
+  }
+  if (variant === "issues") {
+    return (
+      <PageHeader.Root aria-label="Issues navigation" variant="issues">
+        <PageHeader.TabsRoot defaultValue="overview">
+          <PageHeader.Row>
+            <Breadcrumb.Root aria-label="Issues breadcrumb">
+              <Breadcrumb.List>
+                <Breadcrumb.Item>
+                  <Breadcrumb.Link>
+                    <Breadcrumb.Icon>
+                      <StoreIcon size={14} />
+                    </Breadcrumb.Icon>
+                    TestABl
+                  </Breadcrumb.Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Separator />
+                <Breadcrumb.Item>
+                  <Breadcrumb.Page>Issues</Breadcrumb.Page>
+                </Breadcrumb.Item>
+              </Breadcrumb.List>
+            </Breadcrumb.Root>
+            <PageHeader.Actions>
+              <IconButton aria-label="Add Issues to favorites" variant="ghost">
+                <StarIcon />
+              </IconButton>
+              <IconButton aria-label="Issues actions" variant="ghost">
+                <MoreHorizontalIcon />
+              </IconButton>
+            </PageHeader.Actions>
+          </PageHeader.Row>
+          <PageHeader.TabsRow>
+            <PageHeader.TabsList aria-label="Issue sections">
+              <PageHeader.Tab value="overview">Overview</PageHeader.Tab>
+              <PageHeader.Tab value="documents">Documents</PageHeader.Tab>
+              <PageHeader.Tab value="members">Members</PageHeader.Tab>
+            </PageHeader.TabsList>
+          </PageHeader.TabsRow>
+        </PageHeader.TabsRoot>
       </PageHeader.Root>
     );
   }
@@ -109,7 +151,8 @@ export function PageHeaderDocumentation() {
             <div>
               <h2>Live playground</h2>
               <p>
-                Compare Team and Simple geometry, keyboard tabs, action slots, and theme parity.
+                Compare Team, Issues, and Simple geometry, keyboard tabs, action slots, and theme
+                parity.
               </p>
             </div>
             <div className="playground-actions">
@@ -150,7 +193,8 @@ export function PageHeaderDocumentation() {
               <div className="inspector-header">
                 <strong>Page Header</strong>
                 <button type="button">
-                  Example · {variant === "team" ? "Team" : "Simple"}{" "}
+                  Example ·{" "}
+                  {variant === "team" ? "Team" : variant === "issues" ? "Issues" : "Simple"}{" "}
                   <span aria-hidden="true">⌄</span>
                 </button>
               </div>
@@ -162,6 +206,7 @@ export function PageHeaderDocumentation() {
                   value={variant}
                 >
                   <option value="team">Team</option>
+                  <option value="issues">Issues</option>
                   <option value="simple">Simple</option>
                 </select>
               </label>
@@ -187,6 +232,7 @@ export function PageHeaderDocumentation() {
                 Use Team when a page needs identity, compact actions, and peer-view navigation.
               </li>
               <li>Use Simple for settings and focused pages that only need a title.</li>
+              <li>Use Issues for a team breadcrumb followed by peer-view navigation.</li>
             </ul>
           </article>
           <article>

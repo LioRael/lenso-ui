@@ -7,6 +7,7 @@ import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
+import { Breadcrumb } from "../breadcrumb/index.js";
 import { IconButton } from "../icon-button/index.js";
 import { PageHeader } from "./index.js";
 
@@ -34,6 +35,48 @@ function TeamHeader() {
         </PageHeader.Row>
         <PageHeader.TabsRow>
           <PageHeader.TabsList aria-label="Team sections">
+            <PageHeader.Tab value="overview">Overview</PageHeader.Tab>
+            <PageHeader.Tab value="documents">Documents</PageHeader.Tab>
+            <PageHeader.Tab value="members">Members</PageHeader.Tab>
+          </PageHeader.TabsList>
+        </PageHeader.TabsRow>
+      </PageHeader.TabsRoot>
+    </PageHeader.Root>
+  );
+}
+
+function IssuesHeader() {
+  return (
+    <PageHeader.Root aria-label="Issues navigation" variant="issues">
+      <PageHeader.TabsRoot defaultValue="overview">
+        <PageHeader.Row>
+          <Breadcrumb.Root aria-label="Issues breadcrumb">
+            <Breadcrumb.List>
+              <Breadcrumb.Item>
+                <Breadcrumb.Link>
+                  <Breadcrumb.Icon>
+                    <StoreIcon size={14} />
+                  </Breadcrumb.Icon>
+                  TestABl
+                </Breadcrumb.Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Separator />
+              <Breadcrumb.Item>
+                <Breadcrumb.Page>Issues</Breadcrumb.Page>
+              </Breadcrumb.Item>
+            </Breadcrumb.List>
+          </Breadcrumb.Root>
+          <PageHeader.Actions>
+            <IconButton aria-label="Add Issues to favorites" variant="ghost">
+              <StarIcon />
+            </IconButton>
+            <IconButton aria-label="Issues actions" variant="ghost">
+              <MoreHorizontalIcon />
+            </IconButton>
+          </PageHeader.Actions>
+        </PageHeader.Row>
+        <PageHeader.TabsRow>
+          <PageHeader.TabsList aria-label="Issue sections">
             <PageHeader.Tab value="overview">Overview</PageHeader.Tab>
             <PageHeader.Tab value="documents">Documents</PageHeader.Tab>
             <PageHeader.Tab value="members">Members</PageHeader.Tab>
@@ -90,4 +133,24 @@ test("Page Header matches the approved Team and Simple Figma variants", async ()
     comparatorName: "pixelmatch",
     comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
   });
+});
+
+test("Page Header composes the canonical Issues breadcrumb variant", async () => {
+  const screen = await render(
+    <div style={{ width: 1027 }}>
+      <IssuesHeader />
+    </div>,
+  );
+  const header = screen.getByRole("banner", { name: "Issues navigation" });
+  const row = header.element().querySelector<HTMLElement>('[data-slot="page-header-row"]')!;
+  expect(header.element().getBoundingClientRect().height).toBe(87.5);
+  expect(row.getBoundingClientRect().height).toBe(44);
+  expect(getComputedStyle(row).paddingLeft).toBe("14px");
+  expect(screen.getByRole("navigation", { name: "Issues breadcrumb" }).element().tagName).toBe(
+    "NAV",
+  );
+  expect(
+    screen.getByRole("tab", { name: "Overview" }).element().getAttribute("data-active"),
+  ).not.toBeNull();
+  expect((await axe.run(header.element())).violations).toEqual([]);
 });

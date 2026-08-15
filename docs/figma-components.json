@@ -179,7 +179,7 @@
     "page-header": {
       "nodeId": "375:2939",
       "codeSubpath": "@lenso/ui/page-header",
-      "variants": ["team", "simple", "custom-actions", "custom-leading"],
+      "variants": ["team", "issues", "simple", "custom-actions", "custom-leading"],
       "states": ["default", "tab-selected", "tab-hover", "tab-focus-visible", "tab-disabled"],
       "documentation": "/components/page-header",
       "stateBoard": {

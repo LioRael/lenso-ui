@@ -328,15 +328,15 @@
     "page-header": {
       "files": [
         {
-          "registrySha256": "2ee32add33619d70e0ea802db7644c8d0fc65d0b0ff89cd29fead0050c4914f8",
+          "registrySha256": "f0dbeb6cac0c78ebec4436ef83ea5b91cb7330b801d993b0923085ea83d65276",
           "source": "packages/ui/src/page-header/index.tsx",
-          "sourceSha256": "2ee32add33619d70e0ea802db7644c8d0fc65d0b0ff89cd29fead0050c4914f8",
+          "sourceSha256": "f0dbeb6cac0c78ebec4436ef83ea5b91cb7330b801d993b0923085ea83d65276",
           "target": "components/lenso/page-header/index.tsx"
         },
         {
-          "registrySha256": "2e593439d876814b69df8c293626760d129663d1c6a922682aac398b6f3baba0",
+          "registrySha256": "393c1e1fbee281106652c509c7f8db86ecce5bcb6433d794579adc44527f0883",
           "source": "packages/ui/src/page-header/page-header.stylex.ts",
-          "sourceSha256": "2e593439d876814b69df8c293626760d129663d1c6a922682aac398b6f3baba0",
+          "sourceSha256": "393c1e1fbee281106652c509c7f8db86ecce5bcb6433d794579adc44527f0883",
           "target": "components/lenso/page-header/page-header.stylex.ts"
         },
         {

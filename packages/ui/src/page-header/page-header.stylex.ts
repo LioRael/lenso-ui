@@ -12,6 +12,7 @@ export const styles = stylex.create({
     width: "100%",
   },
   team: { height: "87.5px" },
+  issues: { height: "87.5px" },
   simple: { height: "32px" },
   row: {
     alignItems: "center",
@@ -25,6 +26,13 @@ export const styles = stylex.create({
     borderBottomWidth: "0.5px",
     height: "44px",
     paddingInline: "18px 8px",
+  },
+  issuesRow: {
+    borderBottomColor: tokens.colorBorderSecondary,
+    borderBottomStyle: "solid",
+    borderBottomWidth: "0.5px",
+    height: "44px",
+    paddingInline: "14px 8px",
   },
   simpleRow: { height: "32px", overflow: "hidden", paddingInline: "16px" },
   leading: {

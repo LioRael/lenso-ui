@@ -7,7 +7,7 @@ import { Tabs as BaseTabs } from "@base-ui/react/tabs";
 import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./page-header.stylex.js";
 
-export type PageHeaderVariant = "simple" | "team";
+export type PageHeaderVariant = "issues" | "simple" | "team";
 
 interface PageHeaderContextValue {
   variant: PageHeaderVariant;
@@ -50,8 +50,12 @@ export const PageHeaderRow = React.forwardRef<
       {...props}
       className={
         mergeClassName(
-          stylex.props(styles.row, variant === "team" ? styles.teamRow : styles.simpleRow)
-            .className,
+          stylex.props(
+            styles.row,
+            variant === "simple" && styles.simpleRow,
+            variant === "team" && styles.teamRow,
+            variant === "issues" && styles.issuesRow,
+          ).className,
           className,
         ) as string
       }
@@ -86,7 +90,7 @@ export const PageHeaderTitle = React.forwardRef<
       {...props}
       className={
         mergeClassName(
-          stylex.props(styles.title, variant === "team" ? styles.teamTitle : styles.simpleTitle)
+          stylex.props(styles.title, variant === "simple" ? styles.simpleTitle : styles.teamTitle)
             .className,
           className,
         ) as string
