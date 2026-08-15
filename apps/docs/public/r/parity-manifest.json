@@ -182,15 +182,15 @@
     "dialog": {
       "files": [
         {
-          "registrySha256": "6d79086bb5f6f07cf27c68e208959b2a1fa0b4f771f0e5bd6159486e94b76075",
+          "registrySha256": "2914f6dd3277944af9644896ccdd2e766f8e2320a2f8e4f31db0f1cace5d2624",
           "source": "packages/ui/src/dialog/index.tsx",
-          "sourceSha256": "6d79086bb5f6f07cf27c68e208959b2a1fa0b4f771f0e5bd6159486e94b76075",
+          "sourceSha256": "2914f6dd3277944af9644896ccdd2e766f8e2320a2f8e4f31db0f1cace5d2624",
           "target": "components/lenso/dialog/index.tsx"
         },
         {
-          "registrySha256": "cb3cac384d694eb7e46c0cd6f39c9c92ee2ecfed5d8027010f305fde215bd5d6",
+          "registrySha256": "2d96dd73acd2ef02a2de1097b887f95fd6524bbb6adec2c636a9920dbdca0a03",
           "source": "packages/ui/src/dialog/dialog.stylex.ts",
-          "sourceSha256": "cb3cac384d694eb7e46c0cd6f39c9c92ee2ecfed5d8027010f305fde215bd5d6",
+          "sourceSha256": "2d96dd73acd2ef02a2de1097b887f95fd6524bbb6adec2c636a9920dbdca0a03",
           "target": "components/lenso/dialog/dialog.stylex.ts"
         },
         {

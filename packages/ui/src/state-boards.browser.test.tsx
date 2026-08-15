@@ -1413,24 +1413,32 @@ test("Select resolves dark popup tokens", async () => {
 
 for (const theme of ["light", "dark"] as const) {
   test(`Dialog canonical ${theme} state board`, async () => {
+    const popupRef = React.createRef<HTMLDivElement>();
     const screen = await render(
       <ThemeScope theme={theme}>
         <Dialog.Root defaultOpen>
           <Dialog.Portal>
             <Dialog.Backdrop />
             <Dialog.Viewport>
-              <Dialog.Popup data-testid="dialog-state-board">
-                <Dialog.Title>Edit details</Dialog.Title>
-                <Dialog.Description>Update the canonical dialog contract.</Dialog.Description>
-                <TextField.Root>
-                  <TextField.Label>Name</TextField.Label>
-                  <TextField.Control defaultValue="Lenso UI" />
-                </TextField.Root>
-                <p style={{ marginBottom: 0 }}>
-                  Overflow behavior remains bounded to the viewport while content scrolls inside the
-                  popup.
-                </p>
-                <Dialog.Close />
+              <Dialog.Popup data-testid="dialog-state-board" initialFocus={popupRef} ref={popupRef}>
+                <Dialog.Header>
+                  <Dialog.Title>Edit details</Dialog.Title>
+                  <Dialog.Close />
+                </Dialog.Header>
+                <Dialog.Body>
+                  <Dialog.Description>
+                    Make changes to this item. Changes are saved when you confirm.
+                  </Dialog.Description>
+                  <TextField.Root style={{ width: 304 }}>
+                    <TextField.Label>Field label</TextField.Label>
+                    <TextField.Control placeholder="Enter value" />
+                    <TextField.Description>Optional supporting text.</TextField.Description>
+                  </TextField.Root>
+                </Dialog.Body>
+                <Dialog.Footer>
+                  <Button variant="secondary">Cancel</Button>
+                  <Button>Save</Button>
+                </Dialog.Footer>
               </Dialog.Popup>
             </Dialog.Viewport>
           </Dialog.Portal>
@@ -1441,6 +1449,20 @@ for (const theme of ["light", "dark"] as const) {
     const popup = screen.getByTestId("dialog-state-board");
     await expect.element(popup).toBeVisible();
     expect(getComputedStyle(popup.element()).width).toBe("480px");
+    expect(getComputedStyle(popup.element()).borderRadius).toBe("12px");
+    expect(popup.element().getBoundingClientRect().height).toBe(263);
+    expect(
+      popup
+        .element()
+        .querySelector<HTMLElement>('[data-slot="dialog-header"]')
+        ?.getBoundingClientRect().height,
+    ).toBe(71);
+    expect(
+      popup
+        .element()
+        .querySelector<HTMLElement>('[data-slot="dialog-close"]')
+        ?.getBoundingClientRect().width,
+    ).toBe(28);
     await expect
       .poll(() => getComputedStyle(popup.element()).backgroundColor)
       .toBe(theme === "dark" ? "rgb(25, 26, 27)" : "rgb(255, 255, 255)");
