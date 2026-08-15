@@ -506,15 +506,15 @@
     "sidebar": {
       "files": [
         {
-          "registrySha256": "791b32d00fa5671f7bb6e15aec5216e82cc32d42a3b9a89f7487620dee157d35",
+          "registrySha256": "ae9afd553c9b50c07db7a0827546155eaf9e9403376bfbf15e2e89f2b4ea2376",
           "source": "packages/ui/src/sidebar/index.tsx",
-          "sourceSha256": "791b32d00fa5671f7bb6e15aec5216e82cc32d42a3b9a89f7487620dee157d35",
+          "sourceSha256": "ae9afd553c9b50c07db7a0827546155eaf9e9403376bfbf15e2e89f2b4ea2376",
           "target": "components/lenso/sidebar/index.tsx"
         },
         {
-          "registrySha256": "5a512e09c1d92b8f01641f3b3658dff1ab9b7ea9899a86ad3ecc85a9a3024cbe",
+          "registrySha256": "41d96506177c14be09b6f5ad957efa39bb080038f2c8c01a4a19a5579d5fd61d",
           "source": "packages/ui/src/sidebar/sidebar.stylex.ts",
-          "sourceSha256": "5a512e09c1d92b8f01641f3b3658dff1ab9b7ea9899a86ad3ecc85a9a3024cbe",
+          "sourceSha256": "41d96506177c14be09b6f5ad957efa39bb080038f2c8c01a4a19a5579d5fd61d",
           "target": "components/lenso/sidebar/sidebar.stylex.ts"
         },
         {

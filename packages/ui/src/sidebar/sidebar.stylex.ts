@@ -75,7 +75,14 @@ export const styles = stylex.create({
     marginTop: "auto",
     paddingInline: "10px",
   },
-  menu: { display: "flex", flexDirection: "column", listStyle: "none", margin: 0, padding: 0 },
+  menu: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "1px",
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
   menuItem: { listStyle: "none", margin: 0, padding: 0 },
   item: {
     alignItems: "center",
@@ -124,7 +131,12 @@ export const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   badge: { color: tokens.colorContentTertiary, flexShrink: 0, fontSize: "11px" },
-  section: { display: "flex", flexDirection: "column", marginTop: "12px" },
+  section: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "2.5px",
+    marginTop: "16.5px",
+  },
   sectionHeader: {
     alignItems: "center",
     display: "flex",
@@ -138,6 +150,9 @@ export const styles = stylex.create({
     lineHeight: "14.5px",
   },
   sectionAction: { marginLeft: "auto" },
+  sectionContent: {
+    margin: "-8px -12px -8px -20px",
+  },
   submenu: {
     display: "flex",
     flexDirection: "column",

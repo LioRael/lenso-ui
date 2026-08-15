@@ -473,7 +473,7 @@ const specs: RegistryItemSpec[] = [
       ...sharedFiles,
     ],
     name: "sidebar",
-    registryDependencies: [stable("setup")],
+    registryDependencies: [stable("setup"), stable("disclosure")],
     title: "Sidebar",
     type: "registry:ui",
   },

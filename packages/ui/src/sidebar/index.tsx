@@ -5,6 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Button as BaseButton } from "@base-ui/react/button";
 import { Sidebar as SidebarPrimitive } from "@lenso/primitives/sidebar";
 
+import { Disclosure, type DisclosurePanelProps } from "../disclosure/index.js";
 import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./sidebar.stylex.js";
 
@@ -162,6 +163,18 @@ export const SidebarSectionAction = styledPart<HTMLDivElement>(
   styles.sectionAction,
 );
 
+export const SidebarSectionContent = React.forwardRef<HTMLDivElement, DisclosurePanelProps>(
+  function SidebarSectionContent({ children, layout = "auto", ...props }, ref) {
+    return (
+      <Disclosure.Panel {...props} layout={layout} ref={ref}>
+        <div data-slot="sidebar-section-content" {...stylex.props(styles.sectionContent)}>
+          {children}
+        </div>
+      </Disclosure.Panel>
+    );
+  },
+);
+
 export const Sidebar = {
   ...SidebarPrimitive,
   Content: SidebarContent,
@@ -174,6 +187,7 @@ export const Sidebar = {
   Panel: SidebarPanel,
   Section: SidebarSection,
   SectionAction: SidebarSectionAction,
+  SectionContent: SidebarSectionContent,
   SectionHeader: SidebarSectionHeader,
   SectionLabel: SidebarSectionLabel,
   Submenu: SidebarSubmenu,

@@ -51,7 +51,7 @@ function Section({ children, label }: { children: React.ReactNode; label: string
             </IconButton>
           </Sidebar.SectionAction>
         </Sidebar.SectionHeader>
-        <Disclosure.Panel>{children}</Disclosure.Panel>
+        <Sidebar.SectionContent>{children}</Sidebar.SectionContent>
       </Disclosure.Item>
     </Disclosure.Root>
   );
