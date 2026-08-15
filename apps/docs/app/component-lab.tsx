@@ -5,6 +5,7 @@ import { DialRoot, DialTimeline, useDialKit, useDialTimeline } from "dialkit";
 import { Sidebar } from "@lenso/primitives/sidebar";
 import { Button } from "@lenso/ui/button";
 import { Dialog } from "@lenso/ui/dialog";
+import { Select } from "@lenso/ui/select";
 import { TextField } from "@lenso/ui/text-field";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
@@ -124,6 +125,56 @@ export function ComponentLab() {
               <Button onClick={() => timeline.replay()} variant="ghost">
                 Replay entrance
               </Button>
+            </div>
+          </section>
+
+          <section className="card">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Selection</p>
+                <h2>Select positioning</h2>
+              </div>
+              <span>Figma 224:518</span>
+            </div>
+            <div className="row">
+              {(["popper", "item-aligned"] as const).map((position) => (
+                <Select.Root
+                  defaultValue="monday"
+                  items={[
+                    { label: "Sunday", value: "sunday" },
+                    { label: "Monday", value: "monday" },
+                    { label: "Tuesday", value: "tuesday" },
+                    { label: "Wednesday", value: "wednesday" },
+                    { label: "Thursday", value: "thursday" },
+                  ]}
+                  key={position}
+                >
+                  <Select.Trigger aria-label={`${position} weekday`}>
+                    <Select.Value />
+                    <Select.Icon />
+                  </Select.Trigger>
+                  <Select.Portal>
+                    <Select.Positioner position={position}>
+                      <Select.Popup>
+                        <Select.List>
+                          {[
+                            ["sunday", "Sunday"],
+                            ["monday", "Monday"],
+                            ["tuesday", "Tuesday"],
+                            ["wednesday", "Wednesday"],
+                            ["thursday", "Thursday"],
+                          ].map(([value, label]) => (
+                            <Select.Item key={value} value={value}>
+                              <Select.ItemText>{label}</Select.ItemText>
+                              <Select.ItemIndicator />
+                            </Select.Item>
+                          ))}
+                        </Select.List>
+                      </Select.Popup>
+                    </Select.Positioner>
+                  </Select.Portal>
+                </Select.Root>
+              ))}
             </div>
           </section>
 

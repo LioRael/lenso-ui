@@ -33,6 +33,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "select",
+      "title": "Select",
+      "type": "registry:ui"
+    },
+    {
       "name": "sidebar-primitive",
       "title": "Sidebar Primitive",
       "type": "registry:lib"
