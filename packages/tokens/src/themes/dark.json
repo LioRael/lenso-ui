@@ -9,11 +9,22 @@
       "dialog": { "$value": "{primitive.color.slate950}" },
       "elevated": { "$value": "{primitive.color.gray900}" },
       "popover": {
-        "$value": { "colorSpace": "srgb", "components": [0.156863, 0.160784, 0.168627], "alpha": 1 }
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.160784, 0.168627],
+          "alpha": 1
+        }
       },
       "subtle": { "$value": "{primitive.color.gray900}" },
       "interactive": { "$value": "{primitive.color.gray950}" },
       "interactiveHover": { "$value": "{primitive.color.gray800}" },
+      "overlayHover": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.160784, 0.168627],
+          "alpha": 1
+        }
+      },
       "selected": { "$value": "{primitive.color.gray800}" },
       "quaternary": { "$value": "{primitive.color.slate875}" },
       "translucent": { "$value": "{primitive.color.white5}" },
@@ -35,7 +46,11 @@
       "primary": { "$value": "{primitive.color.gray500}" },
       "dialog": { "$value": "{primitive.color.gray800}" },
       "popover": {
-        "$value": { "colorSpace": "srgb", "components": [0.247059, 0.25098, 0.266667], "alpha": 1 }
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.247059, 0.25098, 0.266667],
+          "alpha": 1
+        }
       }
     },
     "action": {
@@ -54,7 +69,9 @@
       "presenceBusy": { "$value": "{primitive.color.red700}" },
       "presenceOffline": { "$value": "{primitive.color.gray500}" }
     },
-    "interaction": { "pressedOverlay": { "$value": "{primitive.color.white5}" } },
+    "interaction": {
+      "pressedOverlay": { "$value": "{primitive.color.white5}" }
+    },
     "sidebar": {
       "itemHover": { "$value": "{primitive.color.gray800}" },
       "itemActive": { "$value": "{primitive.color.slate875}" }
@@ -71,14 +88,26 @@
     },
     "label": {
       "surfaceDefault": {
-        "$value": { "colorSpace": "srgb", "components": [0.156863, 0.156863, 0.172549], "alpha": 1 }
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.156863, 0.172549],
+          "alpha": 1
+        }
       },
       "surfaceHover": { "$value": "{primitive.color.slate850}" },
       "surfaceOpen": {
-        "$value": { "colorSpace": "srgb", "components": [0.156863, 0.160784, 0.168627], "alpha": 1 }
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.160784, 0.168627],
+          "alpha": 1
+        }
       },
       "border": {
-        "$value": { "colorSpace": "srgb", "components": [0.247059, 0.25098, 0.266667], "alpha": 1 }
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.247059, 0.25098, 0.266667],
+          "alpha": 1
+        }
       },
       "contentDefault": { "$value": "{primitive.color.gray300}" },
       "contentHover": { "$value": "{primitive.color.gray0}" },

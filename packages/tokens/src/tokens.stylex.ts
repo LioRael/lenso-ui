@@ -50,6 +50,7 @@ export const tokens = stylex.defineConsts({
   colorSurfaceInteractive: "var(--color-surface-interactive, #ffffff)",
   colorSurfaceInteractiveHover: "var(--color-surface-interactive-hover, #f5f5f5)",
   colorSurfaceLevel3: "var(--color-surface-level3, #f0f0f0)",
+  colorSurfaceOverlayHover: "var(--color-surface-overlay-hover, #f0f0f1)",
   colorSurfacePopover: "var(--color-surface-popover, #ffffff)",
   colorSurfaceQuaternary: "var(--color-surface-quaternary, #eeedf0)",
   colorSurfaceReadOnly: "var(--color-surface-read-only, #fafafa)",

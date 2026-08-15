@@ -118,7 +118,6 @@ export const AvatarGroup = React.forwardRef<HTMLSpanElement, AvatarGroupProps>(f
   { children, className, ...props },
   ref,
 ) {
-  const items = React.Children.toArray(children);
   return (
     <span
       {...props}
@@ -126,10 +125,9 @@ export const AvatarGroup = React.forwardRef<HTMLSpanElement, AvatarGroupProps>(f
       data-slot="avatar-group"
       ref={ref}
     >
-      {items.map((child, index) => (
+      {React.Children.map(children, (child, index) => (
         <span
           data-slot="avatar-group-item"
-          key={React.isValidElement(child) && child.key != null ? child.key : index}
           {...stylex.props(styles.groupItem, index === 0 && styles.groupFirst)}
         >
           {child}

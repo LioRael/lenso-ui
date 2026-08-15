@@ -251,6 +251,11 @@
       "type": "color"
     },
     {
+      "path": "color.surface.overlayHover",
+      "cssName": "--color-surface-overlay-hover",
+      "type": "color"
+    },
+    {
       "path": "color.surface.popover",
       "cssName": "--color-surface-popover",
       "type": "color"

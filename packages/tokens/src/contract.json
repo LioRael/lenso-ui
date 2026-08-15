@@ -51,6 +51,7 @@
     "color.surface.interactive",
     "color.surface.interactiveHover",
     "color.surface.level3",
+    "color.surface.overlayHover",
     "color.surface.popover",
     "color.surface.quaternary",
     "color.surface.readOnly",
@@ -830,6 +831,21 @@
         },
         "cssName": "--color-surface-level3",
         "cssValue": "#191a1b"
+      },
+      "color.surface.overlayHover": {
+        "path": "color.surface.overlayHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.156863,
+            0.160784,
+            0.168627
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-overlay-hover",
+        "cssValue": "#28292b"
       },
       "color.surface.popover": {
         "path": "color.surface.popover",
@@ -2060,6 +2076,21 @@
         },
         "cssName": "--color-surface-level3",
         "cssValue": "#f0f0f0"
+      },
+      "color.surface.overlayHover": {
+        "path": "color.surface.overlayHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.941176,
+            0.941176,
+            0.945098
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-overlay-hover",
+        "cssValue": "#f0f0f1"
       },
       "color.surface.popover": {
         "path": "color.surface.popover",

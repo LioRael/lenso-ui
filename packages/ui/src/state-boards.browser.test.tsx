@@ -233,74 +233,139 @@ function BoardGroup({ count, size }: { count: number; size: "default" | "large" 
 
 test("Avatar matches the approved Figma state board", async () => {
   const screen = await render(
-    <div
-      data-testid="avatar-figma-state-board"
-      style={{ background: "#fafafa", height: 337, position: "relative", width: 1296 }}
-    >
-      <span style={{ color: "#333", font: "12px Inter", left: 0, position: "absolute", top: 0 }}>
-        Avatar — Size × Content
-      </span>
-      {avatarSizes.flatMap((size, sizeIndex) =>
-        [true, false].map((image, contentIndex) => {
-          const x = [
-            [16, 54],
-            [92, 136],
-            [180, 232],
-            [284, 344],
-          ][sizeIndex]![contentIndex]!;
-          return (
-            <div key={`${size}-${image}`} style={{ left: x, position: "absolute", top: 47 }}>
-              <BoardAvatar image={image} size={size} />
-            </div>
-          );
-        }),
-      )}
-      <span style={{ color: "#333", font: "12px Inter", left: 0, position: "absolute", top: 119 }}>
-        Avatar Status — Size × State
-      </span>
-      {(["online", "away", "busy", "offline"] as const).flatMap((state, index) =>
-        ["small", "default"].map((size, sizeIndex) => (
-          <Avatar.Status
-            key={`${size}-${state}`}
-            size={size as "small" | "default"}
-            state={state}
+    <>
+      <div
+        data-testid="avatar-figma-state-board"
+        style={{
+          background: "#fafafa",
+          height: 337,
+          position: "relative",
+          width: 1296,
+        }}
+      >
+        <span
+          style={{
+            color: "#333",
+            font: "12px Inter",
+            left: 0,
+            position: "absolute",
+            top: 0,
+          }}
+        >
+          Avatar — Size × Content
+        </span>
+        {avatarSizes.flatMap((size, sizeIndex) =>
+          [true, false].map((image, contentIndex) => {
+            const x = [
+              [16, 54],
+              [92, 136],
+              [180, 232],
+              [284, 344],
+            ][sizeIndex]![contentIndex]!;
+            return (
+              <div key={`${size}-${image}`} style={{ left: x, position: "absolute", top: 47 }}>
+                <BoardAvatar image={image} size={size} />
+              </div>
+            );
+          }),
+        )}
+        <span
+          style={{
+            color: "#333",
+            font: "12px Inter",
+            left: 0,
+            position: "absolute",
+            top: 119,
+          }}
+        >
+          Avatar Status — Size × State
+        </span>
+        {(["online", "away", "busy", "offline"] as const).flatMap((state, index) =>
+          ["small", "default"].map((size, sizeIndex) => (
+            <Avatar.Status
+              key={`${size}-${state}`}
+              size={size as "small" | "default"}
+              state={state}
+              style={{
+                left: sizeIndex === 0 ? 16 + index * 30 : 136 + index * 32,
+                position: "absolute",
+                top: 166,
+              }}
+            />
+          )),
+        )}
+        <span
+          style={{
+            color: "#333",
+            font: "12px Inter",
+            left: 0,
+            position: "absolute",
+            top: 210,
+          }}
+        >
+          Avatar Group — Size × Count
+        </span>
+        {[2, 3, 4].map((count, index) => (
+          <div
+            key={`default-${count}`}
             style={{
-              left: sizeIndex === 0 ? 16 + index * 30 : 136 + index * 32,
+              left: [16, 82, 166][index],
               position: "absolute",
-              top: 166,
+              top: 257,
             }}
-          />
-        )),
-      )}
-      <span style={{ color: "#333", font: "12px Inter", left: 0, position: "absolute", top: 210 }}>
-        Avatar Group — Size × Count
-      </span>
-      {[2, 3, 4].map((count, index) => (
-        <div
-          key={`default-${count}`}
-          style={{ left: [16, 82, 166][index], position: "absolute", top: 257 }}
-        >
-          <BoardGroup count={count} size="default" />
-        </div>
-      ))}
-      {[2, 3, 4].map((count, index) => (
-        <div
-          key={`large-${count}`}
-          style={{ left: [268, 350, 458][index], position: "absolute", top: 257 }}
-        >
-          <BoardGroup count={count} size="large" />
-        </div>
-      ))}
-    </div>,
+          >
+            <BoardGroup count={count} size="default" />
+          </div>
+        ))}
+        {[2, 3, 4].map((count, index) => (
+          <div
+            key={`large-${count}`}
+            style={{
+              left: [268, 350, 458][index],
+              position: "absolute",
+              top: 257,
+            }}
+          >
+            <BoardGroup count={count} size="large" />
+          </div>
+        ))}
+      </div>
+      <ThemeScope theme="dark">
+        <Avatar.Root data-testid="avatar-dark" size="default">
+          <Avatar.Fallback>LR</Avatar.Fallback>
+          <Avatar.Status attached data-testid="avatar-dark-status" />
+        </Avatar.Root>
+      </ThemeScope>
+    </>,
   );
   await document.fonts.load('500 12px "Inter"', "Avatar Status Group LR");
   const board = screen.getByTestId("avatar-figma-state-board");
   const roots = board.element().querySelectorAll<HTMLElement>('[data-slot="avatar-root"]');
+  const fallbacks = board.element().querySelectorAll<HTMLElement>('[data-slot="avatar-fallback"]');
+  const statuses = board.element().querySelectorAll<HTMLElement>('[data-slot="avatar-status"]');
+  const groups = board.element().querySelectorAll<HTMLElement>('[data-slot="avatar-group"]');
+  await expect
+    .poll(() => getComputedStyle(fallbacks[1]!).backgroundColor)
+    .toBe("rgb(240, 240, 241)");
+  await expect.poll(() => getComputedStyle(fallbacks[1]!).fontFamily).toContain("Inter");
   expect(roots[0]?.getBoundingClientRect().width).toBe(18);
   expect(roots[6]?.getBoundingClientRect().width).toBe(40);
+  expect(getComputedStyle(roots[0]!).overflow).toBe("hidden");
+  expect(statuses[0]?.getBoundingClientRect().width).toBe(10);
+  expect(statuses[1]?.getBoundingClientRect().width).toBe(12);
+  expect(getComputedStyle(statuses[0]!).backgroundColor).toBe("rgb(0, 122, 61)");
+  expect(getComputedStyle(statuses[0]!).borderWidth).toBe("2px");
+  expect(Array.from(groups, (group) => group.getBoundingClientRect().width)).toEqual([
+    42, 60, 78, 58, 84, 110,
+  ]);
   expect(
-    getComputedStyle(board.element().querySelector('[data-state="online"]')!).backgroundColor,
-  ).toBe("rgb(0, 122, 61)");
+    getComputedStyle(
+      screen.getByTestId("avatar-dark").element().querySelector('[data-slot="avatar-fallback"]')!,
+    ).backgroundColor,
+  ).toBe("rgb(40, 41, 43)");
+  expect(getComputedStyle(screen.getByTestId("avatar-dark-status").element()).borderColor).toBe(
+    "rgb(0, 0, 0)",
+  );
   await expect.element(board).toMatchScreenshot("avatar-figma-state-board", {
     comparatorName: "pixelmatch",
     comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
