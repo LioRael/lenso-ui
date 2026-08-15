@@ -53,7 +53,10 @@
     "status": {
       "errorBorder": { "$value": "{primitive.color.red700}" },
       "errorContent": { "$value": "{primitive.color.red700}" },
+      "infoContent": { "$value": "{primitive.color.gray700}" },
+      "neutralContent": { "$value": "{primitive.color.gray500}" },
       "successContent": { "$value": "{primitive.color.presenceOnline}" },
+      "warningContent": { "$value": "{primitive.color.presenceAway}" },
       "presenceOnline": { "$value": "{primitive.color.presenceOnline}" },
       "presenceAway": { "$value": "{primitive.color.presenceAway}" },
       "presenceBusy": { "$value": "{primitive.color.red700}" },

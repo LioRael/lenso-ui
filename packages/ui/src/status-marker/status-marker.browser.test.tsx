@@ -68,6 +68,7 @@ test("Status Marker matches every Figma status and presentation", async () => {
   statuses.forEach((status, index) => {
     const dot = markers[index * 2]?.querySelector<HTMLElement>('[data-slot="status-marker-dot"]');
     expect(getComputedStyle(dot!).backgroundColor).toBe(expectedColors[status]);
+    expect(getComputedStyle(markers[index * 2 + 1]!).color).toBe("rgb(51, 51, 51)");
   });
   expect(screen.getByTestId("dark-marker").element().textContent).toContain("Operational");
   expect((await axe.run(board.element())).violations).toEqual([]);

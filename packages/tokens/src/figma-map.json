@@ -201,6 +201,16 @@
       "type": "color"
     },
     {
+      "path": "color.status.infoContent",
+      "cssName": "--color-status-info-content",
+      "type": "color"
+    },
+    {
+      "path": "color.status.neutralContent",
+      "cssName": "--color-status-neutral-content",
+      "type": "color"
+    },
+    {
       "path": "color.status.presenceAway",
       "cssName": "--color-status-presence-away",
       "type": "color"
@@ -223,6 +233,11 @@
     {
       "path": "color.status.successContent",
       "cssName": "--color-status-success-content",
+      "type": "color"
+    },
+    {
+      "path": "color.status.warningContent",
+      "cssName": "--color-status-warning-content",
       "type": "color"
     },
     {

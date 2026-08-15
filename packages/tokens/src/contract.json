@@ -41,11 +41,14 @@
     "color.sidebar.itemHover",
     "color.status.errorBorder",
     "color.status.errorContent",
+    "color.status.infoContent",
+    "color.status.neutralContent",
     "color.status.presenceAway",
     "color.status.presenceBusy",
     "color.status.presenceOffline",
     "color.status.presenceOnline",
     "color.status.successContent",
+    "color.status.warningContent",
     "color.surface.canvas",
     "color.surface.dialog",
     "color.surface.elevated",
@@ -705,6 +708,36 @@
         "cssName": "--color-status-error-content",
         "cssValue": "#e5484d"
       },
+      "color.status.infoContent": {
+        "path": "color.status.infoContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2,
+            0.2,
+            0.2
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-info-content",
+        "cssValue": "#333333"
+      },
+      "color.status.neutralContent": {
+        "path": "color.status.neutralContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-neutral-content",
+        "cssValue": "#707172"
+      },
       "color.status.presenceAway": {
         "path": "color.status.presenceAway",
         "type": "color",
@@ -779,6 +812,21 @@
         },
         "cssName": "--color-status-success-content",
         "cssValue": "#007a3d"
+      },
+      "color.status.warningContent": {
+        "path": "color.status.warningContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.541176,
+            0.352941,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-warning-content",
+        "cssValue": "#8a5a00"
       },
       "color.surface.canvas": {
         "path": "color.surface.canvas",
@@ -2240,6 +2288,36 @@
         "cssName": "--color-status-error-content",
         "cssValue": "#dc2626"
       },
+      "color.status.infoContent": {
+        "path": "color.status.infoContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2,
+            0.2,
+            0.2
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-info-content",
+        "cssValue": "#333333"
+      },
+      "color.status.neutralContent": {
+        "path": "color.status.neutralContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.439216,
+            0.443137,
+            0.447059
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-neutral-content",
+        "cssValue": "#707172"
+      },
       "color.status.presenceAway": {
         "path": "color.status.presenceAway",
         "type": "color",
@@ -2314,6 +2392,21 @@
         },
         "cssName": "--color-status-success-content",
         "cssValue": "#007a3d"
+      },
+      "color.status.warningContent": {
+        "path": "color.status.warningContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.541176,
+            0.352941,
+            0
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-status-warning-content",
+        "cssValue": "#8a5a00"
       },
       "color.surface.canvas": {
         "path": "color.surface.canvas",
