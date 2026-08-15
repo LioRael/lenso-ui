@@ -76,7 +76,6 @@ export function CodeBlock({
       className="shiki shiki-themes github-light-default github-dark-default"
       data-language={language}
       dangerouslySetInnerHTML={{ __html: `<code>${highlighted}</code>` }}
-      tabIndex={0}
     />
   );
 }
