@@ -54,9 +54,14 @@ const stageStyle = {
 
 test("item-aligned mode anchors the selected option to the trigger", async () => {
   const screen = await render(
-    <ThemeScope style={stageStyle} theme="light">
-      <Example position="item-aligned" />
-    </ThemeScope>,
+    <>
+      <style>
+        {'button[data-slot="select-trigger"] { font-family: "IBM Plex Sans", sans-serif; }'}
+      </style>
+      <ThemeScope style={stageStyle} theme="light">
+        <Example position="item-aligned" />
+      </ThemeScope>
+    </>,
   );
 
   const trigger = screen.getByTestId("item-aligned-trigger");
@@ -75,7 +80,16 @@ test("item-aligned mode anchors the selected option to the trigger", async () =>
   expect(triggerRect.height).toBe(32);
   expect(popupRect.width).toBeCloseTo(180, 0);
   expect(selectedRect.height).toBeCloseTo(32, 0);
-  expect(getComputedStyle(selectedItem!).backgroundColor).toBe("rgb(245, 245, 245)");
+  expect(getComputedStyle(selectedItem!).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+
+  const value = trigger.element().querySelector<HTMLElement>('[data-slot="select-value"]')!;
+  const itemText = selectedItem!.firstElementChild as HTMLElement;
+  const valueStyle = getComputedStyle(value);
+  const itemTextStyle = getComputedStyle(itemText);
+  expect(itemTextStyle.fontFamily).toBe(valueStyle.fontFamily);
+  expect(itemTextStyle.fontSize).toBe(valueStyle.fontSize);
+  expect(itemTextStyle.fontWeight).toBe(valueStyle.fontWeight);
+  expect(itemTextStyle.lineHeight).toBe(valueStyle.lineHeight);
 
   await expect
     .poll(() => {
@@ -142,6 +156,34 @@ test("selection updates the trigger and closes the popup", async () => {
   await screen.getByText("Thursday", { exact: true }).click();
   await expect.element(trigger).toHaveTextContent("Thursday");
   await expect.element(screen.getByTestId("item-aligned-popup")).not.toBeVisible();
+});
+
+test("item-aligned mode moves the popup with the current selection", async () => {
+  const screen = await render(
+    <ThemeScope style={stageStyle} theme="light">
+      <Example position="item-aligned" />
+    </ThemeScope>,
+  );
+
+  const trigger = screen.getByTestId("item-aligned-trigger");
+  const popup = screen.getByTestId("item-aligned-popup");
+  await trigger.click();
+  await expect.element(popup).toBeVisible();
+  const initialPopupTop = popup.element().getBoundingClientRect().top;
+
+  await screen.getByText("Thursday", { exact: true }).click();
+  await trigger.click();
+  await expect.element(popup).toBeVisible();
+
+  await expect
+    .poll(() => initialPopupTop - popup.element().getBoundingClientRect().top)
+    .toBeCloseTo(64, 0);
+  const selectedItem = popup.element().querySelector<HTMLElement>("[data-selected]")!;
+  expect(
+    Math.abs(
+      trigger.element().getBoundingClientRect().top - selectedItem.getBoundingClientRect().top,
+    ),
+  ).toBeLessThanOrEqual(1);
 });
 
 for (const theme of ["light", "dark"] as const) {

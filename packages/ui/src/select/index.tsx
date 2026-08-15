@@ -12,8 +12,6 @@ import { styles } from "./select.stylex.js";
 
 export type SelectPosition = "item-aligned" | "popper";
 
-const SelectPositionContext = React.createContext<SelectPosition>("popper");
-
 export const SelectRoot = BaseSelect.Root;
 export const SelectLabel = BaseSelect.Label;
 export const SelectGroup = BaseSelect.Group;
@@ -100,19 +98,17 @@ export const SelectPositioner = React.forwardRef<HTMLDivElement, SelectPositione
     ref,
   ) {
     return (
-      <SelectPositionContext.Provider value={position}>
-        <BaseSelect.Positioner
-          {...props}
-          align={align}
-          alignItemWithTrigger={position === "item-aligned"}
-          alignOffset={alignOffset}
-          className={mergeClassName(stylex.props(styles.positioner).className, className)}
-          data-position={position}
-          data-slot="select-positioner"
-          ref={ref}
-          sideOffset={sideOffset ?? (position === "popper" ? 5 : 0)}
-        />
-      </SelectPositionContext.Provider>
+      <BaseSelect.Positioner
+        {...props}
+        align={align}
+        alignItemWithTrigger={position === "item-aligned"}
+        alignOffset={alignOffset}
+        className={mergeClassName(stylex.props(styles.positioner).className, className)}
+        data-position={position}
+        data-slot="select-positioner"
+        ref={ref}
+        sideOffset={sideOffset ?? (position === "popper" ? 5 : 0)}
+      />
     );
   },
 );
@@ -147,15 +143,12 @@ export const SelectItem = React.forwardRef<HTMLElement, BaseSelect.Item.Props>(f
   { className, ...props },
   ref,
 ) {
-  const position = React.useContext(SelectPositionContext);
-
   return (
     <BaseSelect.Item
       {...props}
       className={(state) => {
         const generated = stylex.props(
           styles.item,
-          state.selected && position === "item-aligned" && styles.itemSelected,
           state.disabled && styles.itemDisabled,
         ).className;
         const custom = typeof className === "function" ? className(state) : className;
