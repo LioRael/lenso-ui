@@ -10,18 +10,27 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "catalog:",
+    "@fontsource/ibm-plex-sans": "catalog:",
+    "@fontsource/inter": "catalog:",
     "@lenso/primitives": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@lenso/ui": "workspace:*",
+    "@mdx-js/react": "catalog:",
+    "@next/mdx": "catalog:",
+    "dialkit": "catalog:",
+    "lucide-react": "catalog:",
     "next": "catalog:",
+    "next-themes": "0.4.6",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@mdx-js/loader": "catalog:",
+    "@types/mdx": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "dialkit": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }

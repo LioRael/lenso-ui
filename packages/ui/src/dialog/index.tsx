@@ -65,6 +65,45 @@ export const DialogPopup = React.forwardRef<HTMLDivElement, BaseDialog.Popup.Pro
   },
 );
 
+export const DialogHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(
+  function DialogHeader({ className, ...props }, ref) {
+    return (
+      <div
+        {...props}
+        className={mergeClassName(stylex.props(styles.header).className, className) as string}
+        data-slot="dialog-header"
+        ref={ref}
+      />
+    );
+  },
+);
+
+export const DialogBody = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(
+  function DialogBody({ className, ...props }, ref) {
+    return (
+      <div
+        {...props}
+        className={mergeClassName(stylex.props(styles.body).className, className) as string}
+        data-slot="dialog-body"
+        ref={ref}
+      />
+    );
+  },
+);
+
+export const DialogFooter = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(
+  function DialogFooter({ className, ...props }, ref) {
+    return (
+      <div
+        {...props}
+        className={mergeClassName(stylex.props(styles.footer).className, className) as string}
+        data-slot="dialog-footer"
+        ref={ref}
+      />
+    );
+  },
+);
+
 export const DialogTitle = React.forwardRef<HTMLHeadingElement, BaseDialog.Title.Props>(
   function DialogTitle({ className, ...props }, ref) {
     return (
@@ -100,11 +139,12 @@ export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>
   function DialogClose({ children, className, icon, ...props }, ref) {
     const isIconOnly = children == null;
     const iconNode = icon === undefined ? <XIcon /> : icon;
+    const generated = isIconOnly ? stylex.props(styles.close).className : undefined;
     return (
       <BaseDialog.Close
         {...props}
         aria-label={isIconOnly ? (props["aria-label"] ?? "Close") : props["aria-label"]}
-        className={mergeClassName(stylex.props(styles.close).className, className)}
+        className={mergeClassName(generated, className)}
         data-slot="dialog-close"
         ref={ref}
       >
@@ -121,8 +161,11 @@ export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>
 
 export const Dialog = {
   Backdrop: DialogBackdrop,
+  Body: DialogBody,
   Close: DialogClose,
   Description: DialogDescription,
+  Footer: DialogFooter,
+  Header: DialogHeader,
   Popup: DialogPopup,
   Portal: DialogPortal,
   Root: DialogRoot,

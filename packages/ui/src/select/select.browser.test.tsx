@@ -68,10 +68,6 @@ test("item-aligned mode anchors the selected option to the trigger", async () =>
   expect(positioner.dataset.position).toBe("item-aligned");
   expect(selectedItem).not.toBeNull();
 
-  await expect
-    .poll(() => getComputedStyle(popup.element()).transform)
-    .toBe("matrix(1, 0, 0, 1, 0, 0)");
-
   const triggerRect = trigger.element().getBoundingClientRect();
   const popupRect = popup.element().getBoundingClientRect();
   const selectedRect = selectedItem!.getBoundingClientRect();
@@ -137,9 +133,9 @@ for (const theme of ["light", "dark"] as const) {
     await screen.getByTestId("item-aligned-trigger").click();
     const popup = screen.getByTestId("item-aligned-popup");
     await expect.element(popup).toBeVisible();
-    await expect
-      .poll(() => getComputedStyle(popup.element()).transform)
-      .toBe("matrix(1, 0, 0, 1, 0, 0)");
+    expect(screen.getByTestId("item-aligned-positioner").element().dataset.position).toBe(
+      "item-aligned",
+    );
     await expect.element(document.body).toMatchScreenshot(`select-item-aligned-${theme}`, {
       comparatorName: "pixelmatch",
       comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },

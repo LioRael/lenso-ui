@@ -7,3 +7,7 @@ await copyFile(
   path.join(packageRoot, "src/preflight.css"),
   path.join(packageRoot, "dist/preflight.css"),
 );
+await copyFile(
+  path.join(packageRoot, "src/disclosure/disclosure-chevron.svg"),
+  path.join(packageRoot, "dist/disclosure/disclosure-chevron.svg"),
+);

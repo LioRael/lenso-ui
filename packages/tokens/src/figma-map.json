@@ -31,8 +31,23 @@
       "type": "color"
     },
     {
+      "path": "color.border.control",
+      "cssName": "--color-border-control",
+      "type": "color"
+    },
+    {
+      "path": "color.border.controlFocus",
+      "cssName": "--color-border-control-focus",
+      "type": "color"
+    },
+    {
       "path": "color.border.dialog",
       "cssName": "--color-border-dialog",
+      "type": "color"
+    },
+    {
+      "path": "color.border.popover",
+      "cssName": "--color-border-popover",
       "type": "color"
     },
     {
@@ -91,6 +106,91 @@
       "type": "color"
     },
     {
+      "path": "color.label.border",
+      "cssName": "--color-label-border",
+      "type": "color"
+    },
+    {
+      "path": "color.label.contentDefault",
+      "cssName": "--color-label-content-default",
+      "type": "color"
+    },
+    {
+      "path": "color.label.contentHover",
+      "cssName": "--color-label-content-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.label.markerBlue",
+      "cssName": "--color-label-marker-blue",
+      "type": "color"
+    },
+    {
+      "path": "color.label.markerPurple",
+      "cssName": "--color-label-marker-purple",
+      "type": "color"
+    },
+    {
+      "path": "color.label.markerRed",
+      "cssName": "--color-label-marker-red",
+      "type": "color"
+    },
+    {
+      "path": "color.label.surfaceDefault",
+      "cssName": "--color-label-surface-default",
+      "type": "color"
+    },
+    {
+      "path": "color.label.surfaceHover",
+      "cssName": "--color-label-surface-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.label.surfaceOpen",
+      "cssName": "--color-label-surface-open",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabBg",
+      "cssName": "--color-navigation-tab-bg",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabBgHover",
+      "cssName": "--color-navigation-tab-bg-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabBgSelected",
+      "cssName": "--color-navigation-tab-bg-selected",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabEdge",
+      "cssName": "--color-navigation-tab-edge",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabEdgeHover",
+      "cssName": "--color-navigation-tab-edge-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabFg",
+      "cssName": "--color-navigation-tab-fg",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabFgHover",
+      "cssName": "--color-navigation-tab-fg-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.navigation.tabFgSelected",
+      "cssName": "--color-navigation-tab-fg-selected",
+      "type": "color"
+    },
+    {
       "path": "color.sidebar.itemActive",
       "cssName": "--color-sidebar-item-active",
       "type": "color"
@@ -111,8 +211,58 @@
       "type": "color"
     },
     {
+      "path": "color.status.errorSurface",
+      "cssName": "--color-status-error-surface",
+      "type": "color"
+    },
+    {
+      "path": "color.status.infoContent",
+      "cssName": "--color-status-info-content",
+      "type": "color"
+    },
+    {
+      "path": "color.status.neutralContent",
+      "cssName": "--color-status-neutral-content",
+      "type": "color"
+    },
+    {
+      "path": "color.status.presenceAway",
+      "cssName": "--color-status-presence-away",
+      "type": "color"
+    },
+    {
+      "path": "color.status.presenceBusy",
+      "cssName": "--color-status-presence-busy",
+      "type": "color"
+    },
+    {
+      "path": "color.status.presenceOffline",
+      "cssName": "--color-status-presence-offline",
+      "type": "color"
+    },
+    {
+      "path": "color.status.presenceOnline",
+      "cssName": "--color-status-presence-online",
+      "type": "color"
+    },
+    {
+      "path": "color.status.successContent",
+      "cssName": "--color-status-success-content",
+      "type": "color"
+    },
+    {
+      "path": "color.status.warningContent",
+      "cssName": "--color-status-warning-content",
+      "type": "color"
+    },
+    {
       "path": "color.surface.canvas",
       "cssName": "--color-surface-canvas",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.control",
+      "cssName": "--color-surface-control",
       "type": "color"
     },
     {
@@ -138,6 +288,21 @@
     {
       "path": "color.surface.level3",
       "cssName": "--color-surface-level3",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.overlayHover",
+      "cssName": "--color-surface-overlay-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.panel",
+      "cssName": "--color-surface-panel",
+      "type": "color"
+    },
+    {
+      "path": "color.surface.popover",
+      "cssName": "--color-surface-popover",
       "type": "color"
     },
     {
@@ -178,6 +343,256 @@
     {
       "path": "color.surface.translucent",
       "cssName": "--color-surface-translucent",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.thumb",
+      "cssName": "--color-switch-thumb",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOff",
+      "cssName": "--color-switch-track-off",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOffCompact",
+      "cssName": "--color-switch-track-off-compact",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOffHover",
+      "cssName": "--color-switch-track-off-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOn",
+      "cssName": "--color-switch-track-on",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.trackOnHover",
+      "cssName": "--color-switch-track-on-hover",
+      "type": "color"
+    },
+    {
+      "path": "elevation.control.ambient",
+      "cssName": "--elevation-control-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.control.detail",
+      "cssName": "--elevation-control-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.control.detailBlur",
+      "cssName": "--elevation-control-detail-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.detailY",
+      "cssName": "--elevation-control-detail-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.key",
+      "cssName": "--elevation-control-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.control.keyBlur",
+      "cssName": "--elevation-control-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.keySpread",
+      "cssName": "--elevation-control-key-spread",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.keyY",
+      "cssName": "--elevation-control-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.ambient",
+      "cssName": "--elevation-dialog-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.ambientBlur",
+      "cssName": "--elevation-dialog-ambient-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.ambientY",
+      "cssName": "--elevation-dialog-ambient-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.detail",
+      "cssName": "--elevation-dialog-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.detailBlur",
+      "cssName": "--elevation-dialog-detail-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.detailY",
+      "cssName": "--elevation-dialog-detail-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.key",
+      "cssName": "--elevation-dialog-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.keyBlur",
+      "cssName": "--elevation-dialog-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.keyY",
+      "cssName": "--elevation-dialog-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.mid",
+      "cssName": "--elevation-dialog-mid",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.midBlur",
+      "cssName": "--elevation-dialog-mid-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.midY",
+      "cssName": "--elevation-dialog-mid-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.soft",
+      "cssName": "--elevation-dialog-soft",
+      "type": "color"
+    },
+    {
+      "path": "elevation.dialog.softBlur",
+      "cssName": "--elevation-dialog-soft-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.dialog.softY",
+      "cssName": "--elevation-dialog-soft-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.overlay.ambient",
+      "cssName": "--elevation-overlay-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.overlay.ambientBlur",
+      "cssName": "--elevation-overlay-ambient-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.overlay.ambientY",
+      "cssName": "--elevation-overlay-ambient-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.overlay.detail",
+      "cssName": "--elevation-overlay-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.overlay.key",
+      "cssName": "--elevation-overlay-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.overlay.keyBlur",
+      "cssName": "--elevation-overlay-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.overlay.keyY",
+      "cssName": "--elevation-overlay-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.panel.ambient",
+      "cssName": "--elevation-panel-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.panel.detail",
+      "cssName": "--elevation-panel-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.panel.key",
+      "cssName": "--elevation-panel-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.panel.keyBlur",
+      "cssName": "--elevation-panel-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.panel.keySpread",
+      "cssName": "--elevation-panel-key-spread",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.panel.keyY",
+      "cssName": "--elevation-panel-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.ambient",
+      "cssName": "--elevation-toast-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.toast.ambientBlur",
+      "cssName": "--elevation-toast-ambient-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.ambientY",
+      "cssName": "--elevation-toast-ambient-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.detail",
+      "cssName": "--elevation-toast-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.toast.key",
+      "cssName": "--elevation-toast-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.toast.keyBlur",
+      "cssName": "--elevation-toast-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.keyY",
+      "cssName": "--elevation-toast-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.toast.ring",
+      "cssName": "--elevation-toast-ring",
       "type": "color"
     },
     {
@@ -271,6 +686,16 @@
       "type": "dimension"
     },
     {
+      "path": "size.label",
+      "cssName": "--size-label",
+      "type": "dimension"
+    },
+    {
+      "path": "size.labelMarker",
+      "cssName": "--size-label-marker",
+      "type": "dimension"
+    },
+    {
       "path": "size.sidebar",
       "cssName": "--size-sidebar",
       "type": "dimension"
@@ -298,6 +723,11 @@
     {
       "path": "space.6",
       "cssName": "--space-6",
+      "type": "dimension"
+    },
+    {
+      "path": "space.labelGap",
+      "cssName": "--space-label-gap",
       "type": "dimension"
     }
   ]

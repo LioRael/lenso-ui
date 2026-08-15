@@ -34,12 +34,14 @@ export const TextFieldLabel = React.forwardRef<HTMLLabelElement, BaseField.Label
 );
 
 export const TextFieldControl = React.forwardRef<HTMLElement, BaseField.Control.Props>(
-  function TextFieldControl({ className, ...props }, ref) {
+  function TextFieldControl({ className, readOnly, ...props }, ref) {
     return (
       <BaseField.Control
         {...props}
         className={mergeClassName(stylex.props(styles.control).className, className)}
+        data-read-only={readOnly ? "" : undefined}
         data-slot="text-field-control"
+        readOnly={readOnly}
         ref={ref}
       />
     );

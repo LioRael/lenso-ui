@@ -6,11 +6,27 @@
       "canvas": { "$value": "{primitive.color.gray950}" },
       "sidebar": { "$value": "{primitive.color.gray900}" },
       "surface": { "$value": "{primitive.color.gray950}" },
+      "panel": { "$value": "{primitive.color.gray900}" },
+      "control": { "$value": "{primitive.color.slate950}" },
       "dialog": { "$value": "{primitive.color.slate950}" },
       "elevated": { "$value": "{primitive.color.gray900}" },
+      "popover": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.160784, 0.168627],
+          "alpha": 1
+        }
+      },
       "subtle": { "$value": "{primitive.color.gray900}" },
       "interactive": { "$value": "{primitive.color.gray950}" },
       "interactiveHover": { "$value": "{primitive.color.gray800}" },
+      "overlayHover": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.160784, 0.168627],
+          "alpha": 1
+        }
+      },
       "selected": { "$value": "{primitive.color.gray800}" },
       "quaternary": { "$value": "{primitive.color.slate875}" },
       "translucent": { "$value": "{primitive.color.white5}" },
@@ -27,10 +43,19 @@
     "border": {
       "transparent": { "$value": "{primitive.color.transparent}" },
       "translucent": { "$value": "{primitive.color.white3}" },
+      "control": { "$value": "{primitive.color.gray600}" },
+      "controlFocus": { "$value": "{primitive.color.gray625}" },
       "tertiary": { "$value": "{primitive.color.gray800}" },
       "secondary": { "$value": "{primitive.color.gray700}" },
       "primary": { "$value": "{primitive.color.gray500}" },
-      "dialog": { "$value": "{primitive.color.gray800}" }
+      "dialog": { "$value": "{primitive.color.gray800}" },
+      "popover": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.247059, 0.25098, 0.266667],
+          "alpha": 1
+        }
+      }
     },
     "action": {
       "primary": { "$value": "{primitive.color.slate100}" },
@@ -42,12 +67,68 @@
     "focus": { "ring": { "$value": "{primitive.color.blue500}" } },
     "status": {
       "errorBorder": { "$value": "{primitive.color.red500}" },
-      "errorContent": { "$value": "{primitive.color.red500}" }
+      "errorContent": { "$value": "{primitive.color.red500}" },
+      "errorSurface": { "$value": "{primitive.color.gray900}" },
+      "presenceOnline": { "$value": "{primitive.color.presenceOnline}" },
+      "presenceAway": { "$value": "{primitive.color.presenceAway}" },
+      "presenceBusy": { "$value": "{primitive.color.red700}" },
+      "presenceOffline": { "$value": "{primitive.color.gray500}" }
     },
-    "interaction": { "pressedOverlay": { "$value": "{primitive.color.white5}" } },
+    "interaction": {
+      "pressedOverlay": { "$value": "{primitive.color.white5}" }
+    },
     "sidebar": {
       "itemHover": { "$value": "{primitive.color.gray800}" },
       "itemActive": { "$value": "{primitive.color.slate875}" }
+    },
+    "navigation": {
+      "tabBg": { "$value": "{primitive.color.gray950}" },
+      "tabBgHover": { "$value": "{primitive.color.gray800}" },
+      "tabBgSelected": { "$value": "{primitive.color.slate875}" },
+      "tabEdge": { "$value": "{primitive.color.white3}" },
+      "tabEdgeHover": { "$value": "{primitive.color.gray700}" },
+      "tabFg": { "$value": "{primitive.color.slate450}" },
+      "tabFgHover": { "$value": "{primitive.color.gray0}" },
+      "tabFgSelected": { "$value": "{primitive.color.slate0}" }
+    },
+    "label": {
+      "surfaceDefault": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.156863, 0.172549],
+          "alpha": 1
+        }
+      },
+      "surfaceHover": { "$value": "{primitive.color.slate850}" },
+      "surfaceOpen": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.156863, 0.160784, 0.168627],
+          "alpha": 1
+        }
+      },
+      "border": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.247059, 0.25098, 0.266667],
+          "alpha": 1
+        }
+      },
+      "contentDefault": { "$value": "{primitive.color.gray300}" },
+      "contentHover": { "$value": "{primitive.color.gray0}" },
+      "markerRed": { "$value": "{primitive.color.labelMarkerRed}" },
+      "markerPurple": { "$value": "{primitive.color.labelMarkerPurple}" },
+      "markerBlue": { "$value": "{primitive.color.labelMarkerBlue}" }
+    }
+  },
+  "elevation": {
+    "control": {
+      "ambient": { "$type": "color", "$value": "{primitive.color.white14}" },
+      "key": { "$type": "color", "$value": "{primitive.color.black30}" },
+      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px0_5}" },
+      "keySpread": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "detail": { "$type": "color", "$value": "{primitive.color.transparent}" }
     }
   }
 }

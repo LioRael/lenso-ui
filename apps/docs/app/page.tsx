@@ -1,5 +1,5 @@
-import { ComponentLab } from "./component-lab";
+import { DocsOverview } from "./docs-overview";
 
 export default function HomePage() {
-  return <ComponentLab />;
+  return <DocsOverview />;
 }

@@ -18,6 +18,26 @@
     "./dist/preflight.css"
   ],
   "exports": {
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js"
+    },
+    "./breadcrumb": {
+      "types": "./dist/breadcrumb/index.d.ts",
+      "import": "./dist/breadcrumb/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "import": "./dist/checkbox/index.js"
+    },
+    "./combobox": {
+      "types": "./dist/combobox/index.d.ts",
+      "import": "./dist/combobox/index.js"
+    },
+    "./command-menu": {
+      "types": "./dist/command-menu/index.d.ts",
+      "import": "./dist/command-menu/index.js"
+    },
     "./button": {
       "types": "./dist/button/index.d.ts",
       "import": "./dist/button/index.js"
@@ -30,9 +50,65 @@
       "types": "./dist/dialog/index.d.ts",
       "import": "./dist/dialog/index.js"
     },
+    "./disclosure": {
+      "types": "./dist/disclosure/index.d.ts",
+      "import": "./dist/disclosure/index.js"
+    },
+    "./icon-button": {
+      "types": "./dist/icon-button/index.d.ts",
+      "import": "./dist/icon-button/index.js"
+    },
+    "./label": {
+      "types": "./dist/label/index.d.ts",
+      "import": "./dist/label/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "import": "./dist/menu/index.js"
+    },
+    "./page-header": {
+      "types": "./dist/page-header/index.d.ts",
+      "import": "./dist/page-header/index.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "import": "./dist/popover/index.js"
+    },
+    "./quick-link": {
+      "types": "./dist/quick-link/index.d.ts",
+      "import": "./dist/quick-link/index.js"
+    },
+    "./radio": {
+      "types": "./dist/radio/index.d.ts",
+      "import": "./dist/radio/index.js"
+    },
     "./select": {
       "types": "./dist/select/index.d.ts",
       "import": "./dist/select/index.js"
+    },
+    "./sidebar": {
+      "types": "./dist/sidebar/index.d.ts",
+      "import": "./dist/sidebar/index.js"
+    },
+    "./settings-row": {
+      "types": "./dist/settings-row/index.d.ts",
+      "import": "./dist/settings-row/index.js"
+    },
+    "./status-marker": {
+      "types": "./dist/status-marker/index.d.ts",
+      "import": "./dist/status-marker/index.js"
+    },
+    "./surface": {
+      "types": "./dist/surface/index.d.ts",
+      "import": "./dist/surface/index.js"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "import": "./dist/switch/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "import": "./dist/tabs/index.js"
     },
     "./text-field": {
       "types": "./dist/text-field/index.d.ts",
@@ -41,6 +117,14 @@
     "./theme-scope": {
       "types": "./dist/theme-scope/index.d.ts",
       "import": "./dist/theme-scope/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "import": "./dist/tooltip/index.js"
+    },
+    "./toast": {
+      "types": "./dist/toast/index.d.ts",
+      "import": "./dist/toast/index.js"
     },
     "./styles.css": "./dist/assets/stylex.css",
     "./preflight.css": "./dist/preflight.css"
@@ -54,12 +138,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@lenso/primitives": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@stylexjs/stylex": "catalog:",
     "lucide-react": "catalog:"
   },
   "devDependencies": {
     "@base-ui/react": "catalog:",
+    "@fontsource/ibm-plex-sans": "catalog:",
+    "@fontsource/inter": "catalog:",
     "@stylexjs/unplugin": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

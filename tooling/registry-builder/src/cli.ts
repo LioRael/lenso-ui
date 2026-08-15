@@ -53,6 +53,127 @@ const sharedFiles = [
 
 const specs: RegistryItemSpec[] = [
   {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/status-marker/index.tsx",
+        target: "components/lenso/status-marker/index.tsx",
+      },
+      {
+        source: "packages/ui/src/status-marker/status-marker.stylex.ts",
+        target: "components/lenso/status-marker/status-marker.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "status-marker",
+    registryDependencies: [stable("setup")],
+    title: "Status Marker",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      { source: "packages/ui/src/toast/index.tsx", target: "components/lenso/toast/index.tsx" },
+      {
+        source: "packages/ui/src/toast/toast.stylex.ts",
+        target: "components/lenso/toast/toast.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "toast",
+    registryDependencies: [stable("setup"), stable("theme-scope")],
+    title: "Toast",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      { source: "packages/ui/src/menu/index.tsx", target: "components/lenso/menu/index.tsx" },
+      {
+        source: "packages/ui/src/menu/menu.stylex.ts",
+        target: "components/lenso/menu/menu.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "menu",
+    registryDependencies: [stable("setup")],
+    title: "Menu",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/popover/index.tsx",
+        target: "components/lenso/popover/index.tsx",
+      },
+      {
+        source: "packages/ui/src/popover/popover.stylex.ts",
+        target: "components/lenso/popover/popover.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "popover",
+    registryDependencies: [stable("setup")],
+    title: "Popover",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      { source: "packages/ui/src/avatar/index.tsx", target: "components/lenso/avatar/index.tsx" },
+      {
+        source: "packages/ui/src/avatar/avatar.stylex.ts",
+        target: "components/lenso/avatar/avatar.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "avatar",
+    registryDependencies: [stable("setup")],
+    title: "Avatar",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      { source: "packages/ui/src/surface/index.tsx", target: "components/lenso/surface/index.tsx" },
+      {
+        source: "packages/ui/src/surface/surface.stylex.ts",
+        target: "components/lenso/surface/surface.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "surface",
+    registryDependencies: [stable("setup")],
+    title: "Surface",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/breadcrumb/index.tsx",
+        target: "components/lenso/breadcrumb/index.tsx",
+      },
+      {
+        source: "packages/ui/src/breadcrumb/breadcrumb.stylex.ts",
+        target: "components/lenso/breadcrumb/breadcrumb.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "breadcrumb",
+    registryDependencies: [stable("setup")],
+    title: "Breadcrumb",
+    type: "registry:ui",
+  },
+  {
     dependencies: [`@lenso/tokens@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
     files: [
       {
@@ -113,6 +234,44 @@ const specs: RegistryItemSpec[] = [
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
       {
+        source: "packages/ui/src/icon-button/index.tsx",
+        target: "components/lenso/icon-button/index.tsx",
+      },
+      {
+        source: "packages/ui/src/icon-button/icon-button.stylex.ts",
+        target: "components/lenso/icon-button/icon-button.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "icon-button",
+    registryDependencies: [stable("setup")],
+    title: "Icon Button",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/label/index.tsx",
+        target: "components/lenso/label/index.tsx",
+      },
+      {
+        source: "packages/ui/src/label/label.stylex.ts",
+        target: "components/lenso/label/label.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "label",
+    registryDependencies: [stable("setup")],
+    title: "Label",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
         source: "packages/ui/src/text-field/index.tsx",
         target: "components/lenso/text-field/index.tsx",
       },
@@ -129,22 +288,60 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
       {
-        source: "packages/ui/src/dialog/index.tsx",
-        target: "components/lenso/dialog/index.tsx",
+        source: "packages/ui/src/checkbox/index.tsx",
+        target: "components/lenso/checkbox/index.tsx",
       },
       {
-        source: "packages/ui/src/dialog/dialog.stylex.ts",
-        target: "components/lenso/dialog/dialog.stylex.ts",
+        source: "packages/ui/src/checkbox/checkbox.stylex.ts",
+        target: "components/lenso/checkbox/checkbox.stylex.ts",
         type: "registry:style",
       },
       ...sharedFiles,
     ],
-    name: "dialog",
-    registryDependencies: [stable("setup"), stable("theme-scope")],
-    title: "Dialog",
+    name: "checkbox",
+    registryDependencies: [stable("setup")],
+    title: "Checkbox",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/radio/index.tsx",
+        target: "components/lenso/radio/index.tsx",
+      },
+      {
+        source: "packages/ui/src/radio/radio.stylex.ts",
+        target: "components/lenso/radio/radio.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "radio",
+    registryDependencies: [stable("setup")],
+    title: "Radio",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/switch/index.tsx",
+        target: "components/lenso/switch/index.tsx",
+      },
+      {
+        source: "packages/ui/src/switch/switch.stylex.ts",
+        target: "components/lenso/switch/switch.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "switch",
+    registryDependencies: [stable("setup")],
+    title: "Switch",
     type: "registry:ui",
   },
   {
@@ -167,7 +364,86 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      {
+        source: "packages/ui/src/combobox/index.tsx",
+        target: "components/lenso/combobox/index.tsx",
+      },
+      {
+        source: "packages/ui/src/combobox/combobox.stylex.ts",
+        target: "components/lenso/combobox/combobox.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "combobox",
+    registryDependencies: [stable("setup"), stable("theme-scope")],
+    title: "Combobox",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/command-menu/index.tsx",
+        target: "components/lenso/command-menu/index.tsx",
+      },
+      {
+        source: "packages/ui/src/command-menu/command-menu.stylex.ts",
+        target: "components/lenso/command-menu/command-menu.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "command-menu",
+    registryDependencies: [stable("setup")],
+    title: "Command Menu",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      {
+        source: "packages/ui/src/dialog/index.tsx",
+        target: "components/lenso/dialog/index.tsx",
+      },
+      {
+        source: "packages/ui/src/dialog/dialog.stylex.ts",
+        target: "components/lenso/dialog/dialog.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "dialog",
+    registryDependencies: [stable("setup"), stable("theme-scope")],
+    title: "Dialog",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/disclosure/index.tsx",
+        target: "components/lenso/disclosure/index.tsx",
+      },
+      {
+        source: "packages/ui/src/disclosure/disclosure.stylex.ts",
+        target: "components/lenso/disclosure/disclosure.stylex.ts",
+        type: "registry:style",
+      },
+      {
+        source: "packages/ui/src/disclosure/disclosure-chevron.svg",
+        target: "components/lenso/disclosure/disclosure-chevron.svg",
+      },
+      ...sharedFiles,
+    ],
+    name: "disclosure",
+    registryDependencies: [stable("setup")],
+    title: "Disclosure",
+    type: "registry:ui",
+  },
+  {
     files: [
       {
         source: "packages/primitives/src/sidebar/index.tsx",
@@ -179,27 +455,122 @@ const specs: RegistryItemSpec[] = [
     type: "registry:lib",
   },
   {
-    dependencies: ["@stylexjs/stylex@0.19.0"],
+    dependencies: [
+      `@lenso/primitives@${releaseVersion}`,
+      "@base-ui/react@1.7.0",
+      "@stylexjs/stylex@0.19.0",
+    ],
     files: [
       {
-        source: "registry/recipes/sidebar.tsx",
-        target: "components/lenso/sidebar/sidebar.tsx",
+        source: "packages/ui/src/sidebar/index.tsx",
+        target: "components/lenso/sidebar/index.tsx",
       },
       {
-        source: "registry/recipes/sidebar.stylex.ts",
+        source: "packages/ui/src/sidebar/sidebar.stylex.ts",
         target: "components/lenso/sidebar/sidebar.stylex.ts",
         type: "registry:style",
       },
-      {
-        source: "packages/ui/src/tokens.stylex.ts",
-        target: "components/lenso/tokens.stylex.ts",
-        type: "registry:style",
-      },
+      ...sharedFiles,
     ],
     name: "sidebar",
-    registryDependencies: [stable("setup"), stable("sidebar-primitive")],
-    title: "Sidebar Recipe",
-    type: "registry:component",
+    registryDependencies: [stable("setup"), stable("disclosure")],
+    title: "Sidebar",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/page-header/index.tsx",
+        target: "components/lenso/page-header/index.tsx",
+      },
+      {
+        source: "packages/ui/src/page-header/page-header.stylex.ts",
+        target: "components/lenso/page-header/page-header.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "page-header",
+    registryDependencies: [stable("setup")],
+    title: "Page Header",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/quick-link/index.tsx",
+        target: "components/lenso/quick-link/index.tsx",
+      },
+      {
+        source: "packages/ui/src/quick-link/quick-link.stylex.ts",
+        target: "components/lenso/quick-link/quick-link.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "quick-link",
+    registryDependencies: [stable("setup")],
+    title: "Quick Link",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/settings-row/index.tsx",
+        target: "components/lenso/settings-row/index.tsx",
+      },
+      {
+        source: "packages/ui/src/settings-row/settings-row.stylex.ts",
+        target: "components/lenso/settings-row/settings-row.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "settings-row",
+    registryDependencies: [stable("setup")],
+    title: "Settings Row",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/tabs/index.tsx",
+        target: "components/lenso/tabs/index.tsx",
+      },
+      {
+        source: "packages/ui/src/tabs/tabs.stylex.ts",
+        target: "components/lenso/tabs/tabs.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "tabs",
+    registryDependencies: [stable("setup")],
+    title: "Tabs",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/tooltip/index.tsx",
+        target: "components/lenso/tooltip/index.tsx",
+      },
+      {
+        source: "packages/ui/src/tooltip/tooltip.stylex.ts",
+        target: "components/lenso/tooltip/tooltip.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "tooltip",
+    registryDependencies: [stable("setup")],
+    title: "Tooltip",
+    type: "registry:ui",
   },
 ];
 

@@ -14,16 +14,37 @@ export type SelectPosition = "item-aligned" | "popper";
 const SelectPositionContext = React.createContext<SelectPosition>("popper");
 
 export const SelectRoot = BaseSelect.Root;
+export const SelectLabel = BaseSelect.Label;
+export const SelectGroup = BaseSelect.Group;
 
 export const SelectTrigger = React.forwardRef<HTMLButtonElement, BaseSelect.Trigger.Props>(
-  function SelectTrigger({ className, ...props }, ref) {
+  function SelectTrigger({ children, className, ...props }, ref) {
     return (
       <BaseSelect.Trigger
         {...props}
-        className={mergeClassName(stylex.props(styles.trigger).className, className)}
+        className={(state) => {
+          const generated = stylex.props(
+            styles.trigger,
+            state.disabled && styles.triggerDisabled,
+          ).className;
+          const custom = typeof className === "function" ? className(state) : className;
+          return custom ? `${generated} ${custom}` : generated;
+        }}
         data-slot="select-trigger"
         ref={ref}
-      />
+      >
+        <span
+          aria-hidden="true"
+          data-slot="select-trigger-surface"
+          {...stylex.props(styles.triggerSurface)}
+        />
+        {children}
+        <span
+          aria-hidden="true"
+          data-slot="select-trigger-focus"
+          {...stylex.props(styles.triggerFocus)}
+        />
+      </BaseSelect.Trigger>
     );
   },
 );
@@ -41,25 +62,24 @@ export const SelectValue = React.forwardRef<HTMLSpanElement, BaseSelect.Value.Pr
   },
 );
 
-export interface SelectIconProps extends BaseSelect.Icon.Props {
-  children?: React.ReactNode;
-}
-
-export const SelectIcon = React.forwardRef<HTMLSpanElement, SelectIconProps>(function SelectIcon(
-  { children, className, ...props },
-  ref,
-) {
-  return (
-    <BaseSelect.Icon
-      {...props}
-      className={mergeClassName(stylex.props(styles.icon).className, className)}
-      data-slot="select-icon"
-      ref={ref}
-    >
-      {children ?? <ChevronDownIcon aria-hidden="true" {...stylex.props(styles.iconSvg)} />}
-    </BaseSelect.Icon>
-  );
-});
+export const SelectIcon = React.forwardRef<HTMLSpanElement, BaseSelect.Icon.Props>(
+  function SelectIcon({ children, className, ...props }, ref) {
+    return (
+      <BaseSelect.Icon
+        {...props}
+        className={mergeClassName(stylex.props(styles.icon).className, className)}
+        data-slot="select-icon"
+        ref={ref}
+      >
+        {children === undefined ? (
+          <ChevronDownIcon aria-hidden="true" {...stylex.props(styles.iconSvg)} />
+        ) : (
+          children
+        )}
+      </BaseSelect.Icon>
+    );
+  },
+);
 
 export const SelectPortal = React.forwardRef<HTMLDivElement, BaseSelect.Portal.Props>(
   function SelectPortal({ container, ...props }, ref) {
@@ -67,7 +87,7 @@ export const SelectPortal = React.forwardRef<HTMLDivElement, BaseSelect.Portal.P
     return (
       <BaseSelect.Portal
         {...props}
-        container={container ?? scopeContainer}
+        container={container ?? scopeContainer ?? undefined}
         data-slot="select-portal"
         ref={ref}
       />
@@ -83,12 +103,17 @@ export interface SelectPositionerProps extends Omit<
 }
 
 export const SelectPositioner = React.forwardRef<HTMLDivElement, SelectPositionerProps>(
-  function SelectPositioner({ className, position = "popper", sideOffset, ...props }, ref) {
+  function SelectPositioner(
+    { align = "start", alignOffset = 1, className, position = "popper", sideOffset, ...props },
+    ref,
+  ) {
     return (
       <SelectPositionContext.Provider value={position}>
         <BaseSelect.Positioner
           {...props}
+          align={align}
           alignItemWithTrigger={position === "item-aligned"}
+          alignOffset={alignOffset}
           className={mergeClassName(stylex.props(styles.positioner).className, className)}
           data-position={position}
           data-slot="select-positioner"
@@ -131,18 +156,18 @@ export const SelectItem = React.forwardRef<HTMLElement, BaseSelect.Item.Props>(f
   ref,
 ) {
   const position = React.useContext(SelectPositionContext);
+
   return (
     <BaseSelect.Item
       {...props}
       className={(state) => {
         const generated = stylex.props(
           styles.item,
-          state.highlighted && styles.itemInteractive,
           state.selected && position === "item-aligned" && styles.itemSelected,
           state.disabled && styles.itemDisabled,
         ).className;
         const custom = typeof className === "function" ? className(state) : className;
-        return [generated, custom].filter(Boolean).join(" ");
+        return custom ? `${generated} ${custom}` : generated;
       }}
       data-slot="select-item"
       ref={ref}
@@ -150,39 +175,27 @@ export const SelectItem = React.forwardRef<HTMLElement, BaseSelect.Item.Props>(f
   );
 });
 
-export const SelectItemText = React.forwardRef<HTMLDivElement, BaseSelect.ItemText.Props>(
-  function SelectItemText({ className, ...props }, ref) {
-    return (
-      <BaseSelect.ItemText
-        {...props}
-        className={mergeClassName(stylex.props(styles.itemText).className, className)}
-        data-slot="select-item-text"
-        ref={ref}
-      />
-    );
-  },
-);
+export const SelectItemText = BaseSelect.ItemText;
 
-export interface SelectItemIndicatorProps extends BaseSelect.ItemIndicator.Props {
-  children?: React.ReactNode;
-}
-
-export const SelectItemIndicator = React.forwardRef<HTMLSpanElement, SelectItemIndicatorProps>(
-  function SelectItemIndicator({ children, className, ...props }, ref) {
-    return (
-      <BaseSelect.ItemIndicator
-        {...props}
-        className={mergeClassName(stylex.props(styles.itemIndicator).className, className)}
-        data-slot="select-item-indicator"
-        ref={ref}
-      >
-        {children ?? <CheckIcon aria-hidden="true" {...stylex.props(styles.indicatorSvg)} />}
-      </BaseSelect.ItemIndicator>
-    );
-  },
-);
-
-export const SelectGroup = BaseSelect.Group;
+export const SelectItemIndicator = React.forwardRef<
+  HTMLSpanElement,
+  BaseSelect.ItemIndicator.Props
+>(function SelectItemIndicator({ children, className, ...props }, ref) {
+  return (
+    <BaseSelect.ItemIndicator
+      {...props}
+      className={mergeClassName(stylex.props(styles.itemIndicator).className, className)}
+      data-slot="select-item-indicator"
+      ref={ref}
+    >
+      {children === undefined ? (
+        <CheckIcon aria-hidden="true" {...stylex.props(styles.indicatorSvg)} />
+      ) : (
+        children
+      )}
+    </BaseSelect.ItemIndicator>
+  );
+});
 
 export const SelectGroupLabel = React.forwardRef<HTMLDivElement, BaseSelect.GroupLabel.Props>(
   function SelectGroupLabel({ className, ...props }, ref) {
@@ -210,6 +223,30 @@ export const SelectSeparator = React.forwardRef<HTMLDivElement, BaseSelect.Separ
   },
 );
 
+const makeScrollArrow = (BaseArrow: typeof BaseSelect.ScrollUpArrow, slot: string) =>
+  React.forwardRef<HTMLDivElement, BaseSelect.ScrollUpArrow.Props>(function SelectScrollArrow(
+    { className, ...props },
+    ref,
+  ) {
+    return (
+      <BaseArrow
+        {...props}
+        className={mergeClassName(stylex.props(styles.scrollArrow).className, className)}
+        data-slot={slot}
+        ref={ref}
+      />
+    );
+  });
+
+export const SelectScrollUpArrow = makeScrollArrow(
+  BaseSelect.ScrollUpArrow,
+  "select-scroll-up-arrow",
+);
+export const SelectScrollDownArrow = makeScrollArrow(
+  BaseSelect.ScrollDownArrow,
+  "select-scroll-down-arrow",
+);
+
 export const Select = {
   Group: SelectGroup,
   GroupLabel: SelectGroupLabel,
@@ -217,11 +254,14 @@ export const Select = {
   Item: SelectItem,
   ItemIndicator: SelectItemIndicator,
   ItemText: SelectItemText,
+  Label: SelectLabel,
   List: SelectList,
   Popup: SelectPopup,
   Portal: SelectPortal,
   Positioner: SelectPositioner,
   Root: SelectRoot,
+  ScrollDownArrow: SelectScrollDownArrow,
+  ScrollUpArrow: SelectScrollUpArrow,
   Separator: SelectSeparator,
   Trigger: SelectTrigger,
   Value: SelectValue,

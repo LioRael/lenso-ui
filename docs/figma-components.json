@@ -3,37 +3,280 @@
   "fileKey": "H2JoXtMe808gFetAPE9tN6",
   "status": "approved",
   "components": {
+    "surface": {
+      "nodeId": "33:20",
+      "codeSubpath": "@lenso/ui/surface",
+      "variants": ["embedded", "panel", "overlay"],
+      "states": ["light", "dark", "custom-render"],
+      "documentation": "/components/surface",
+      "stateBoard": {
+        "nodeId": "33:20",
+        "baseline": "docs/figma-baselines/surface-state-board.png"
+      }
+    },
+    "avatar": {
+      "nodeId": "349:19",
+      "codeSubpath": "@lenso/ui/avatar",
+      "variants": ["compact", "default", "large", "xlarge", "image", "fallback", "group"],
+      "states": ["online", "away", "busy", "offline"],
+      "documentation": "/components/avatar",
+      "stateBoard": {
+        "nodeId": "341:1072",
+        "baseline": "docs/figma-baselines/avatar-state-board.png"
+      }
+    },
+    "breadcrumb": {
+      "nodeId": "352:1750",
+      "codeSubpath": "@lenso/ui/breadcrumb",
+      "variants": ["basic", "overflow", "external", "team", "custom-separator"],
+      "states": ["default", "hover", "focus-visible", "current", "disabled"],
+      "documentation": "/components/breadcrumb",
+      "stateBoard": {
+        "nodeId": "352:1750",
+        "baseline": "docs/figma-baselines/breadcrumb-state-board.png"
+      }
+    },
     "button": {
       "nodeId": "27:56",
       "codeSubpath": "@lenso/ui/button",
       "variants": ["primary", "secondary", "ghost", "danger", "compact", "default"],
       "states": ["default", "hover", "focus-visible", "pressed", "disabled", "loading"],
       "documentation": "/#button",
-      "stateBoard": { "nodeId": "27:56", "baseline": "button-state-board" }
+      "stateBoard": {
+        "nodeId": "27:56",
+        "baseline": "docs/figma-baselines/button-state-board.png"
+      }
+    },
+    "icon-button": {
+      "nodeId": "28:74",
+      "codeSubpath": "@lenso/ui/icon-button",
+      "variants": ["secondary", "ghost", "compact", "default"],
+      "states": ["default", "hover", "pressed", "focus-visible", "selected", "disabled"],
+      "documentation": "/components/icon-button",
+      "stateBoard": {
+        "nodeId": "28:74",
+        "baseline": "docs/figma-baselines/icon-button-state-board.png"
+      }
+    },
+    "label": {
+      "nodeId": "32:22",
+      "codeSubpath": "@lenso/ui/label",
+      "variants": ["red", "violet", "blue", "marker-hidden", "custom-marker"],
+      "states": ["default", "hover", "active", "open", "focus-visible"],
+      "documentation": "/components/label",
+      "stateBoard": {
+        "nodeId": "32:22",
+        "baseline": "docs/figma-baselines/label-state-board.png"
+      }
     },
     "text-field": {
       "nodeId": "30:42",
       "codeSubpath": "@lenso/ui/text-field",
-      "variants": ["default", "invalid", "disabled", "read-only"],
-      "states": ["default", "hover", "focus-visible", "filled", "invalid", "disabled"],
-      "documentation": "/#text-field",
-      "stateBoard": { "nodeId": "30:42", "baseline": "text-field-state-board" }
+      "variants": ["default"],
+      "states": ["default", "hover", "active", "focus-visible", "error", "read-only", "disabled"],
+      "documentation": "/components/text-field",
+      "stateBoard": {
+        "nodeId": "30:42",
+        "baseline": "docs/figma-baselines/text-field-state-board.png"
+      }
+    },
+    "checkbox": {
+      "nodeId": "31:28",
+      "codeSubpath": "@lenso/ui/checkbox",
+      "variants": ["off", "on", "indeterminate"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "documentation": "/components/checkbox",
+      "stateBoard": {
+        "nodeId": "31:28",
+        "baseline": "docs/figma-baselines/checkbox-state-board.png"
+      }
+    },
+    "radio": {
+      "nodeId": "31:45",
+      "codeSubpath": "@lenso/ui/radio",
+      "variants": ["selected", "unselected"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "documentation": "/components/radio",
+      "stateBoard": {
+        "nodeId": "31:45",
+        "baseline": "docs/figma-baselines/radio-state-board.png"
+      }
+    },
+    "switch": {
+      "nodeId": "31:62",
+      "codeSubpath": "@lenso/ui/switch",
+      "variants": ["default", "compact", "off", "on"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "documentation": "/components/switch",
+      "stateBoard": {
+        "nodeId": "31:62",
+        "baseline": "docs/figma-baselines/switch-state-board.png"
+      }
+    },
+    "select": {
+      "nodeId": "224:518",
+      "codeSubpath": "@lenso/ui/select",
+      "variants": ["closed", "open", "consumer-owned-icon", "consumer-owned-indicator"],
+      "states": ["default", "highlighted", "selected", "disabled", "focus-visible"],
+      "documentation": "/components/select",
+      "stateBoard": {
+        "nodeId": "224:518",
+        "baseline": "docs/figma-baselines/select-state-board.png"
+      }
+    },
+    "combobox": {
+      "nodeId": "346:130",
+      "codeSubpath": "@lenso/ui/combobox",
+      "variants": ["closed", "open", "empty", "loading", "multiple"],
+      "states": ["default", "highlighted", "selected", "disabled", "focus-visible"],
+      "documentation": "/components/combobox",
+      "stateBoard": {
+        "nodeId": "346:130",
+        "baseline": "docs/figma-baselines/combobox-state-board.png"
+      }
+    },
+    "command-menu": {
+      "nodeId": "348:183",
+      "codeSubpath": "@lenso/ui/command-menu",
+      "variants": ["default", "query", "no-results", "consumer-owned-icon"],
+      "states": ["default", "highlighted", "disabled", "focus-visible"],
+      "documentation": "/components/command-menu",
+      "stateBoard": {
+        "nodeId": "348:183",
+        "baseline": "docs/figma-baselines/command-menu-state-board.png"
+      }
     },
     "dialog": {
       "nodeId": "245:804",
       "codeSubpath": "@lenso/ui/dialog",
       "variants": ["light", "dark"],
       "states": ["open", "focus-trapped", "reduced-motion", "overflow"],
-      "documentation": "/#dialog",
-      "stateBoard": { "nodeId": "245:804", "baseline": "dialog-state-board" }
+      "documentation": "/components/dialog",
+      "stateBoard": {
+        "nodeId": "245:804",
+        "baseline": "docs/figma-baselines/dialog-state-board.png"
+      }
+    },
+    "disclosure": {
+      "nodeId": "354:86",
+      "codeSubpath": "@lenso/ui/disclosure",
+      "variants": ["item", "group", "single", "multiple", "text", "list", "auto", "custom-icon"],
+      "states": ["collapsed", "expanded", "hover", "focus-visible", "disabled"],
+      "documentation": "/components/disclosure",
+      "stateBoard": {
+        "nodeId": "354:86",
+        "baseline": "docs/figma-baselines/disclosure-state-board.png"
+      }
     },
     "sidebar": {
       "nodeId": "375:189",
-      "codeSubpath": "@lenso/primitives/sidebar",
-      "variants": ["left", "right", "simultaneous", "nested"],
-      "states": ["open", "closed", "keyboard-dismissed"],
-      "documentation": "/#sidebar",
-      "stateBoard": { "nodeId": "375:189", "baseline": "sidebar-state-board" }
+      "codeSubpath": "@lenso/ui/sidebar",
+      "variants": ["app", "settings", "left", "right", "simultaneous", "nested"],
+      "states": ["open", "closed", "hover", "selected", "keyboard-dismissed"],
+      "documentation": "/components/sidebar",
+      "stateBoard": {
+        "nodeId": "375:189",
+        "baseline": "docs/figma-baselines/sidebar-state-board.png"
+      }
+    },
+    "page-header": {
+      "nodeId": "375:2939",
+      "codeSubpath": "@lenso/ui/page-header",
+      "variants": ["team", "issues", "simple", "custom-actions", "custom-leading"],
+      "states": ["default", "tab-selected", "tab-hover", "tab-focus-visible", "tab-disabled"],
+      "documentation": "/components/page-header",
+      "stateBoard": {
+        "nodeId": "375:2939",
+        "baseline": "docs/figma-baselines/page-header-state-board.png"
+      }
+    },
+    "quick-link": {
+      "nodeId": "377:14",
+      "codeSubpath": "@lenso/ui/quick-link",
+      "variants": ["custom-leading", "custom-trailing", "custom-render"],
+      "states": ["default", "hover", "focus-visible", "disabled"],
+      "documentation": "/components/quick-link",
+      "stateBoard": {
+        "nodeId": "377:14",
+        "baseline": "docs/figma-baselines/quick-link-state-board.png"
+      }
+    },
+    "settings-row": {
+      "nodeId": "376:59",
+      "codeSubpath": "@lenso/ui/settings-row",
+      "variants": ["select", "toggle", "action", "custom-control"],
+      "states": ["default", "hover", "disabled"],
+      "documentation": "/components/settings-row",
+      "stateBoard": {
+        "nodeId": "376:59",
+        "baseline": "docs/figma-baselines/settings-row-state-board.png"
+      }
+    },
+    "tabs": {
+      "nodeId": "163:45",
+      "codeSubpath": "@lenso/ui/tabs",
+      "variants": ["first", "second", "third", "custom-render"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled", "selected"],
+      "documentation": "/components/tabs",
+      "stateBoard": {
+        "nodeId": "32:61",
+        "baseline": "docs/figma-baselines/tabs-state-board.png"
+      }
+    },
+    "tooltip": {
+      "nodeId": "237:346",
+      "codeSubpath": "@lenso/ui/tooltip",
+      "variants": ["plain", "shortcut", "custom-trigger", "custom-content"],
+      "states": ["closed", "open", "hover", "focus-visible", "dismissed"],
+      "documentation": "/components/tooltip",
+      "stateBoard": {
+        "nodeId": "237:346",
+        "baseline": "docs/figma-baselines/tooltip-state-board.png"
+      }
+    },
+    "popover": {
+      "nodeId": "341:1025",
+      "codeSubpath": "@lenso/ui/popover",
+      "variants": ["top", "right", "bottom", "left", "arrow", "custom-item-render"],
+      "states": ["default", "hover", "pressed", "focus-visible", "open", "dismissed"],
+      "documentation": "/components/popover",
+      "stateBoard": {
+        "nodeId": "343:81",
+        "baseline": "docs/figma-baselines/popover-state-board.png"
+      }
+    },
+    "menu": {
+      "nodeId": "366:429",
+      "codeSubpath": "@lenso/ui/menu",
+      "variants": ["action", "shortcut", "submenu", "destructive", "custom-render"],
+      "states": ["default", "hover", "pressed", "disabled", "open", "nested"],
+      "documentation": "/components/menu",
+      "stateBoard": {
+        "nodeId": "367:600",
+        "baseline": "docs/figma-baselines/menu-state-board.png"
+      }
+    },
+    "toast": {
+      "nodeId": "256:11",
+      "codeSubpath": "@lenso/ui/toast",
+      "variants": ["default", "success", "error", "custom-icon", "custom-close"],
+      "states": ["open", "dismissed", "swiped"],
+      "documentation": "/components/toast",
+      "stateBoard": {
+        "nodeId": "256:11",
+        "baseline": "docs/figma-baselines/toast-state-board.png"
+      }
+    },
+    "status-marker": {
+      "nodeId": "32:48",
+      "codeSubpath": "@lenso/ui/status-marker",
+      "variants": ["neutral", "success", "warning", "error", "info", "dot", "label"],
+      "states": ["decorative-dot", "accessible-dot", "default-label", "custom-label"],
+      "documentation": "/components/status-marker",
+      "stateBoard": {
+        "nodeId": "32:48",
+        "baseline": "docs/figma-baselines/status-marker-state-board.png"
+      }
     }
   }
 }

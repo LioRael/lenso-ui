@@ -1,0 +1,46 @@
+import * as stylex from "@stylexjs/stylex";
+
+import { tokens } from "../tokens.stylex.js";
+
+export const styles = stylex.create({
+  positioner: { zIndex: 50 },
+  popup: {
+    alignItems: "center",
+    backgroundColor: tokens.colorSurfacePopover,
+    borderColor: tokens.colorBorderPopover,
+    borderRadius: tokens.radiusControl,
+    borderStyle: "solid",
+    borderWidth: "0.5px",
+    boxShadow: `0 1px 1px ${tokens.elevationPanelDetail}, 0 ${tokens.elevationPanelKeyY} ${tokens.elevationPanelKeyBlur} ${tokens.elevationPanelKeySpread} ${tokens.elevationPanelKey}`,
+    boxSizing: "border-box",
+    color: tokens.colorContentPrimary,
+    display: "flex",
+    fontFamily: tokens.fontSans,
+    fontSize: "11px",
+    fontWeight: 500,
+    gap: "8px",
+    height: "27px",
+    justifyContent: "center",
+    lineHeight: "16.5px",
+    opacity: 1,
+    paddingBlock: "5px",
+    paddingInline: "8px",
+    transform: "scale(1)",
+    transformOrigin: "var(--transform-origin)",
+    transitionDuration: "120ms",
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: "ease-out",
+    whiteSpace: "nowrap",
+    "[data-starting-style]": { opacity: 0, transform: "scale(0.98)" },
+    "[data-ending-style]": { opacity: 0, transform: "scale(0.98)" },
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
+  },
+  shortcut: {
+    color: tokens.colorContentSecondary,
+    display: "inline-block",
+    flexShrink: 0,
+    lineHeight: "16.5px",
+    minWidth: "18px",
+    textAlign: "center",
+  },
+});
