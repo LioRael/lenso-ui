@@ -8,6 +8,7 @@ import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { Button } from "@lenso/ui/button";
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type PlaygroundState = "Default" | "Disabled" | "Focus visible" | "Hover" | "Pressed" | "Selected";
 type StageTheme = "Dark" | "Light" | "System";
@@ -48,17 +49,12 @@ function InspectorSelect({
 }
 
 export function IconButtonDocumentation() {
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [size, setSize] = React.useState<IconButtonSize>("compact");
   const [state, setState] = React.useState<PlaygroundState>("Default");
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [variant, setVariant] = React.useState<IconButtonVariant>("secondary");
   const [copied, setCopied] = React.useState(false);
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const reset = () => {
     setSize("compact");

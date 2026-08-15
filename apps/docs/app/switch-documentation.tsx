@@ -7,6 +7,7 @@ import { Switch } from "@lenso/ui/switch";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type PlaygroundSize = "Compact" | "Default";
 type PlaygroundState = "Default" | "Disabled" | "Focus-visible" | "Hover" | "Pressed";
@@ -49,15 +50,10 @@ function InspectorSelect({
 export function SwitchDocumentation() {
   const [checked, setChecked] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [size, setSize] = React.useState<PlaygroundSize>("Default");
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [state, setState] = React.useState<PlaygroundState>("Default");
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const reset = () => {
     setChecked(false);

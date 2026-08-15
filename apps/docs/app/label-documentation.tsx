@@ -7,6 +7,7 @@ import { Label, type LabelColor } from "@lenso/ui/label";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type PlaygroundState = "Active" | "Default" | "Hover" | "Open";
 type StageTheme = "Dark" | "Light" | "System";
@@ -51,14 +52,9 @@ const colorForMarker = (marker: string): LabelColor =>
 export function LabelDocumentation() {
   const [copied, setCopied] = React.useState(false);
   const [marker, setMarker] = React.useState("Red");
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [state, setState] = React.useState<PlaygroundState>("Default");
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const reset = () => {
     setMarker("Red");

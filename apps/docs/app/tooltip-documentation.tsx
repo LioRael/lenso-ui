@@ -7,6 +7,7 @@ import { ThemeScope } from "@lenso/ui/theme-scope";
 import { Tooltip } from "@lenso/ui/tooltip";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
 
@@ -27,14 +28,10 @@ const codeExample = `import { Tooltip } from "@lenso/ui/tooltip"
 
 export function TooltipDocumentation() {
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [shortcut, setShortcut] = React.useState(true);
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
 
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
   const resolvedTheme =
     stageTheme === "System" ? pageTheme : (stageTheme.toLowerCase() as "dark" | "light");
 

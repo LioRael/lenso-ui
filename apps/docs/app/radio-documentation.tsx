@@ -7,6 +7,7 @@ import { RadioGroup } from "@lenso/ui/radio";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type PlaygroundState = "Default" | "Disabled" | "Focus-visible" | "Hover" | "Pressed";
 type StageTheme = "Dark" | "Light" | "System";
@@ -50,15 +51,10 @@ function InspectorSelect({
 
 export function RadioDocumentation() {
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [selected, setSelected] = React.useState(false);
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [state, setState] = React.useState<PlaygroundState>("Default");
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const reset = () => {
     setSelected(false);

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 interface LivePlaygroundProps {
   actions?: ReactNode;
   controls: ReactNode;
+  controlsMode?: "custom" | "dialkit";
   description: string;
   preview: ReactNode;
   title?: string;
@@ -11,6 +12,7 @@ interface LivePlaygroundProps {
 export function LivePlayground({
   actions,
   controls,
+  controlsMode = "dialkit",
   description,
   preview,
   title = "Live playground",
@@ -32,7 +34,10 @@ export function LivePlayground({
           </div>
           {preview}
         </article>
-        <aside aria-label="Playground controls" className="playground-inspector dialkit-inspector">
+        <aside
+          aria-label="Playground controls"
+          className={`playground-inspector${controlsMode === "dialkit" ? " dialkit-inspector" : ""}`}
+        >
           {controls}
         </aside>
       </div>

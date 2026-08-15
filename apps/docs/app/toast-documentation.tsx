@@ -6,6 +6,7 @@ import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 import { Toast, type ToastTone } from "@lenso/ui/toast";
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const codeExample = `import { Toast } from "@lenso/ui/toast"
 
@@ -40,12 +41,8 @@ function ToastPlayground({ tone }: { tone: ToastTone }) {
 }
 
 export function ToastDocumentation() {
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [tone, setTone] = React.useState<ToastTone>("default");
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
   return (
     <DocsShell
       actions={["View source", "Install"]}

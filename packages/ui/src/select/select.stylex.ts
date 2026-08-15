@@ -26,10 +26,9 @@ export const styles = stylex.create({
   },
   triggerDisabled: { opacity: tokens.opacityDisabled },
   triggerSurface: {
-    backgroundColor: tokens.colorSurfaceInteractive,
+    backgroundColor: tokens.colorSurfaceControl,
     borderRadius: tokens.radiusControl,
-    boxShadow:
-      "0 0 0 0.5px rgba(0,0,0,0.088), 0 3px 6px -2px rgba(0,0,0,0.02), 0 1px 1px rgba(0,0,0,0.04)",
+    boxShadow: `0 0 0 0.5px ${tokens.elevationControlAmbient}, 0 ${tokens.elevationControlKeyY} ${tokens.elevationControlKeyBlur} ${tokens.elevationControlKeySpread} ${tokens.elevationControlKey}, 0 ${tokens.elevationControlDetailY} ${tokens.elevationControlDetailBlur} ${tokens.elevationControlDetail}`,
     inset: "1px",
     pointerEvents: "none",
     position: "absolute",
@@ -46,7 +45,7 @@ export const styles = stylex.create({
   value: { position: "relative" },
   icon: {
     alignItems: "center",
-    color: "currentColor",
+    color: tokens.colorContentSecondary,
     display: "inline-flex",
     height: "5px",
     justifyContent: "center",
@@ -57,12 +56,11 @@ export const styles = stylex.create({
   positioner: { outline: 0, zIndex: 50 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
+    borderColor: tokens.colorBorderTertiary,
     borderRadius: tokens.radiusPopover,
     borderStyle: "solid",
     borderWidth: "0.5px",
-    boxShadow:
-      "0 3px 8px rgba(0,0,0,0.125), 0 2px 5px rgba(0,0,0,0.125), 0 1px 1px rgba(0,0,0,0.125)",
+    boxShadow: `0 1px 1px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     height: "168px",

@@ -10,6 +10,7 @@ import {
 } from "@lenso/ui/status-marker";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const codeExample = `import { StatusMarker } from "@lenso/ui/status-marker"
 
@@ -18,13 +19,9 @@ const codeExample = `import { StatusMarker } from "@lenso/ui/status-marker"
 </StatusMarker>`;
 
 export function StatusMarkerDocumentation() {
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [presentation, setPresentation] = React.useState<StatusMarkerPresentation>("dot");
   const [status, setStatus] = React.useState<StatusMarkerStatus>("neutral");
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
   return (
     <DocsShell
       actions={["View source", "Install"]}

@@ -7,6 +7,7 @@
       "sidebar": { "$value": "{primitive.color.gray900}" },
       "surface": { "$value": "{primitive.color.gray950}" },
       "panel": { "$value": "{primitive.color.gray900}" },
+      "control": { "$value": "{primitive.color.slate950}" },
       "dialog": { "$value": "{primitive.color.slate950}" },
       "elevated": { "$value": "{primitive.color.gray900}" },
       "popover": {
@@ -42,6 +43,8 @@
     "border": {
       "transparent": { "$value": "{primitive.color.transparent}" },
       "translucent": { "$value": "{primitive.color.white3}" },
+      "control": { "$value": "{primitive.color.gray600}" },
+      "controlFocus": { "$value": "{primitive.color.gray625}" },
       "tertiary": { "$value": "{primitive.color.gray800}" },
       "secondary": { "$value": "{primitive.color.gray700}" },
       "primary": { "$value": "{primitive.color.gray500}" },
@@ -116,6 +119,16 @@
       "markerRed": { "$value": "{primitive.color.labelMarkerRed}" },
       "markerPurple": { "$value": "{primitive.color.labelMarkerPurple}" },
       "markerBlue": { "$value": "{primitive.color.labelMarkerBlue}" }
+    }
+  },
+  "elevation": {
+    "control": {
+      "ambient": { "$type": "color", "$value": "{primitive.color.white14}" },
+      "key": { "$type": "color", "$value": "{primitive.color.black30}" },
+      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px0_5}" },
+      "keySpread": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "detail": { "$type": "color", "$value": "{primitive.color.transparent}" }
     }
   }
 }

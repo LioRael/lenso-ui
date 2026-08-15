@@ -1,10 +1,11 @@
 "use client";
 
-import * as React from "react";
+import { useTheme } from "next-themes";
 
 import { Button } from "@lenso/ui/button";
 
 import { DocsShell } from "./docs-shell";
+import { useIsClient } from "./use-is-client";
 
 const foundations = [
   ["Colors", "160 semantic roles · Light/Dark"],
@@ -54,7 +55,10 @@ function SectionCard({ description, title }: { description: string; title: strin
 }
 
 export function DocsOverview() {
-  const [dark, setDark] = React.useState(false);
+  const isClient = useIsClient();
+  const { resolvedTheme, setTheme } = useTheme();
+  const dark = isClient && resolvedTheme === "dark";
+  const toggleTheme = () => setTheme(dark ? "light" : "dark");
 
   return (
     <DocsShell
@@ -86,7 +90,7 @@ export function DocsOverview() {
             <div className="preview-controls">
               <Button className="preview-cta">Get started</Button>
               <CompactSelect />
-              <ThemeSwitch on={dark} onChange={() => setDark((value) => !value)} />
+              <ThemeSwitch on={dark} onChange={toggleTheme} />
             </div>
             <p>Linked instances · semantic tokens · prototype states</p>
           </article>
@@ -121,7 +125,7 @@ export function DocsOverview() {
               <h3>Form controls</h3>
               <div className="component-stage form-stage">
                 <CompactSelect />
-                <ThemeSwitch on={dark} onChange={() => setDark((value) => !value)} />
+                <ThemeSwitch on={dark} onChange={toggleTheme} />
               </div>
             </article>
             <article className="component-card">
@@ -135,7 +139,7 @@ export function DocsOverview() {
               <h3>Compact density</h3>
               <div className="component-stage density-stage">
                 <Button className="action-sample">Action</Button>
-                <ThemeSwitch on={dark} onChange={() => setDark((value) => !value)} />
+                <ThemeSwitch on={dark} onChange={toggleTheme} />
                 <span>24–28 px</span>
               </div>
             </article>

@@ -19,15 +19,18 @@ export const styles = stylex.create({
   },
   control: {
     backgroundColor: {
-      default: tokens.colorSurfaceSurface,
+      default: tokens.colorSurfaceControl,
       "[data-read-only]": tokens.colorSurfaceReadOnly,
       ":disabled": tokens.colorSurfaceInteractive,
     },
     borderColor: {
-      default: tokens.colorBorderSecondary,
+      default: tokens.colorBorderControl,
       ":hover": tokens.colorBorderPrimary,
+      ":focus-visible": tokens.colorBorderControlFocus,
       "[data-invalid]": tokens.colorStatusErrorBorder,
       '[data-visual-state="hover"]': tokens.colorBorderPrimary,
+      '[data-visual-state="active"]': tokens.colorBorderControlFocus,
+      '[data-visual-state="focus-visible"]': tokens.colorBorderControlFocus,
       ":disabled": tokens.colorBorderTertiary,
       "[data-read-only]": tokens.colorBorderTertiary,
     },

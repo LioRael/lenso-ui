@@ -8,6 +8,7 @@ import { CommandMenu } from "@lenso/ui/command-menu";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const commands = [
   "Assign to…",
@@ -34,14 +35,9 @@ const codeExample = `import { CommandMenu } from "@lenso/ui/command-menu"
 
 export function CommandMenuDocumentation() {
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [stageTheme, setStageTheme] = React.useState<"System" | "Light" | "Dark">("System");
   const [state, setState] = React.useState<"Default" | "No Results" | "Query">("Default");
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const query = state === "Query" ? "status" : state === "No Results" ? "zzzzzz" : "";
   const items = state === "No Results" ? [] : commands;

@@ -7,6 +7,7 @@ import { Button } from "@lenso/ui/button";
 import { Menu } from "@lenso/ui/menu";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const codeExample = `import { Menu } from "@lenso/ui/menu"
 
@@ -50,11 +51,7 @@ function Item({
 }
 
 export function MenuDocumentation() {
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
+  const pageTheme = useDocsPageTheme();
   return (
     <DocsShell
       actions={["View source", "Install"]}

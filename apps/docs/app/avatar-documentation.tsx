@@ -7,6 +7,7 @@ import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
 type DemoSize = "compact" | "default" | "large" | "xlarge";
@@ -22,15 +23,10 @@ const codeExample = `import { Avatar } from "@lenso/ui/avatar"
 
 export function AvatarDocumentation() {
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [size, setSize] = React.useState<DemoSize>("default");
   const [status, setStatus] = React.useState<DemoStatus>("online");
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const resolvedTheme =
     stageTheme === "System" ? pageTheme : (stageTheme.toLowerCase() as "dark" | "light");

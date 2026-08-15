@@ -7,6 +7,7 @@ import { TextField } from "@lenso/ui/text-field";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type PlaygroundState =
   | "Active"
@@ -56,14 +57,9 @@ function InspectorSelect({
 
 export function TextFieldDocumentation() {
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [state, setState] = React.useState<PlaygroundState>("Default");
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const reset = () => {
     setStageTheme("System");

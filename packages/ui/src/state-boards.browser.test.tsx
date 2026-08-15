@@ -731,19 +731,28 @@ test("Text Field matches the approved Figma state board", async () => {
 test("Text Field resolves dark theme values", async () => {
   const screen = await render(
     <ThemeScope theme="dark">
-      <TextField.Root>
-        <TextField.Label>Field label</TextField.Label>
-        <TextField.Control placeholder="Enter value" />
-        <TextField.Description>Optional supporting text.</TextField.Description>
-      </TextField.Root>
+      <div>
+        <TextField.Root>
+          <TextField.Label>Field label</TextField.Label>
+          <TextField.Control placeholder="Enter value" />
+          <TextField.Description>Optional supporting text.</TextField.Description>
+        </TextField.Root>
+        <TextField.Root>
+          <TextField.Label>Focused field</TextField.Label>
+          <TextField.Control data-visual-state="focus-visible" placeholder="Focused value" />
+        </TextField.Root>
+      </div>
     </ThemeScope>,
   );
 
   const label = screen.getByText("Field label").element();
   const control = screen.getByPlaceholder("Enter value").element();
+  const focusedControl = screen.getByPlaceholder("Focused value").element();
   await expect.poll(() => getComputedStyle(label).color).toBe("rgb(247, 248, 248)");
-  await expect.poll(() => getComputedStyle(control).backgroundColor).toBe("rgb(0, 0, 0)");
-  expect(getComputedStyle(control).borderColor).toBe("rgb(51, 51, 51)");
+  await expect.poll(() => getComputedStyle(control).backgroundColor).toBe("rgb(25, 26, 27)");
+  expect(getComputedStyle(control).borderColor).toBe("rgb(72, 73, 76)");
+  expect(getComputedStyle(focusedControl).borderColor).toBe("rgb(62, 66, 77)");
+  expect(getComputedStyle(focusedControl).outlineColor).toBe("rgb(94, 106, 210)");
 });
 
 const figmaCheckboxStates = [
@@ -1389,7 +1398,11 @@ test("Select matches the approved Figma state board", async () => {
     width: 180,
   });
   expect(getComputedStyle(popup).backgroundColor).toBe("rgb(255, 255, 255)");
+  expect(getComputedStyle(popup).borderColor).toBe("rgb(234, 234, 234)");
   expect(getComputedStyle(popup).borderRadius).toBe("12px");
+  expect(getComputedStyle(popup).boxShadow).toBe(
+    "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px",
+  );
 
   await expect.element(board).toMatchScreenshot("select-figma-state-board", {
     comparatorName: "pixelmatch",
@@ -1408,7 +1421,20 @@ test("Select resolves dark popup tokens", async () => {
     .element()
     .closest('[data-slot="select-popup"]') as HTMLElement;
   await expect.poll(() => getComputedStyle(popup).backgroundColor).toBe("rgb(40, 41, 43)");
-  expect(getComputedStyle(popup).borderColor).toBe("rgb(63, 64, 68)");
+  expect(getComputedStyle(popup).borderColor).toBe("rgb(31, 31, 31)");
+  const trigger = screen
+    .getByRole("combobox")
+    .element()
+    .querySelector<HTMLElement>('[data-slot="select-trigger-surface"]')!;
+  const icon = screen
+    .getByRole("combobox")
+    .element()
+    .querySelector<HTMLElement>('[data-slot="select-icon"]')!;
+  expect(getComputedStyle(trigger).backgroundColor).toBe("rgb(25, 26, 27)");
+  expect(getComputedStyle(trigger).boxShadow).toBe(
+    "rgba(255, 255, 255, 0.14) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.3) 0px 0.5px 1px 1px, rgba(0, 0, 0, 0) 0px 1px 1px 0px",
+  );
+  expect(getComputedStyle(icon).color).toBe("rgb(212, 212, 212)");
 });
 
 for (const theme of ["light", "dark"] as const) {

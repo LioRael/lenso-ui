@@ -7,6 +7,7 @@ import { Popover } from "@lenso/ui/popover";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type Placement = "bottom" | "left" | "right" | "top";
 type StageTheme = "Dark" | "Light" | "System";
@@ -30,14 +31,10 @@ export function PopoverDocumentation() {
   const [arrow, setArrow] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [open, setOpen] = React.useState(true);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [placement, setPlacement] = React.useState<Placement>("bottom");
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
 
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
   const resolvedTheme =
     stageTheme === "System" ? pageTheme : (stageTheme.toLowerCase() as "dark" | "light");
 

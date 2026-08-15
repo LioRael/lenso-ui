@@ -7,6 +7,8 @@
     "color.action.primary",
     "color.action.primaryContent",
     "color.action.primaryHover",
+    "color.border.control",
+    "color.border.controlFocus",
     "color.border.dialog",
     "color.border.popover",
     "color.border.primary",
@@ -51,6 +53,7 @@
     "color.status.successContent",
     "color.status.warningContent",
     "color.surface.canvas",
+    "color.surface.control",
     "color.surface.dialog",
     "color.surface.elevated",
     "color.surface.interactive",
@@ -73,6 +76,14 @@
     "color.switch.trackOffHover",
     "color.switch.trackOn",
     "color.switch.trackOnHover",
+    "elevation.control.ambient",
+    "elevation.control.detail",
+    "elevation.control.detailBlur",
+    "elevation.control.detailY",
+    "elevation.control.key",
+    "elevation.control.keyBlur",
+    "elevation.control.keySpread",
+    "elevation.control.keyY",
     "elevation.dialog.ambient",
     "elevation.dialog.ambientBlur",
     "elevation.dialog.ambientY",
@@ -213,6 +224,36 @@
         },
         "cssName": "--color-action-primary-hover",
         "cssValue": "#ffffff"
+      },
+      "color.border.control": {
+        "path": "color.border.control",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.282353,
+            0.286275,
+            0.298039
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-control",
+        "cssValue": "#48494c"
+      },
+      "color.border.controlFocus": {
+        "path": "color.border.controlFocus",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.243137,
+            0.258824,
+            0.301961
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-control-focus",
+        "cssValue": "#3e424d"
       },
       "color.border.dialog": {
         "path": "color.border.dialog",
@@ -874,6 +915,21 @@
         "cssName": "--color-surface-canvas",
         "cssValue": "#000000"
       },
+      "color.surface.control": {
+        "path": "color.surface.control",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.098039,
+            0.101961,
+            0.105882
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-control",
+        "cssValue": "#191a1b"
+      },
       "color.surface.dialog": {
         "path": "color.surface.dialog",
         "type": "color",
@@ -1203,6 +1259,101 @@
         },
         "cssName": "--color-switch-track-on-hover",
         "cssValue": "#6975e2"
+      },
+      "elevation.control.ambient": {
+        "path": "elevation.control.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 0.143
+        },
+        "cssName": "--elevation-control-ambient",
+        "cssValue": "#ffffff24"
+      },
+      "elevation.control.detail": {
+        "path": "elevation.control.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "cssName": "--elevation-control-detail",
+        "cssValue": "#00000000"
+      },
+      "elevation.control.detailBlur": {
+        "path": "elevation.control.detailBlur",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-detail-blur",
+        "cssValue": "1px"
+      },
+      "elevation.control.detailY": {
+        "path": "elevation.control.detailY",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-detail-y",
+        "cssValue": "1px"
+      },
+      "elevation.control.key": {
+        "path": "elevation.control.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.3
+        },
+        "cssName": "--elevation-control-key",
+        "cssValue": "#0000004d"
+      },
+      "elevation.control.keyBlur": {
+        "path": "elevation.control.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-key-blur",
+        "cssValue": "1px"
+      },
+      "elevation.control.keySpread": {
+        "path": "elevation.control.keySpread",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-key-spread",
+        "cssValue": "1px"
+      },
+      "elevation.control.keyY": {
+        "path": "elevation.control.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-key-y",
+        "cssValue": "0.5px"
       },
       "elevation.dialog.ambient": {
         "path": "elevation.dialog.ambient",
@@ -1984,6 +2135,36 @@
         "cssName": "--color-action-primary-hover",
         "cssValue": "#1f2024"
       },
+      "color.border.control": {
+        "path": "color.border.control",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-control",
+        "cssValue": "#d4d4d4"
+      },
+      "color.border.controlFocus": {
+        "path": "color.border.controlFocus",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.831373,
+            0.831373,
+            0.831373
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-control-focus",
+        "cssValue": "#d4d4d4"
+      },
       "color.border.dialog": {
         "path": "color.border.dialog",
         "type": "color",
@@ -2644,6 +2825,21 @@
         "cssName": "--color-surface-canvas",
         "cssValue": "#fafafa"
       },
+      "color.surface.control": {
+        "path": "color.surface.control",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-control",
+        "cssValue": "#ffffff"
+      },
       "color.surface.dialog": {
         "path": "color.surface.dialog",
         "type": "color",
@@ -2973,6 +3169,101 @@
         },
         "cssName": "--color-switch-track-on-hover",
         "cssValue": "#6975e2"
+      },
+      "elevation.control.ambient": {
+        "path": "elevation.control.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.086275
+        },
+        "cssName": "--elevation-control-ambient",
+        "cssValue": "#00000016"
+      },
+      "elevation.control.detail": {
+        "path": "elevation.control.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-control-detail",
+        "cssValue": "#0000000a"
+      },
+      "elevation.control.detailBlur": {
+        "path": "elevation.control.detailBlur",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-detail-blur",
+        "cssValue": "1px"
+      },
+      "elevation.control.detailY": {
+        "path": "elevation.control.detailY",
+        "type": "dimension",
+        "value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-detail-y",
+        "cssValue": "1px"
+      },
+      "elevation.control.key": {
+        "path": "elevation.control.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.02
+        },
+        "cssName": "--elevation-control-key",
+        "cssValue": "#00000005"
+      },
+      "elevation.control.keyBlur": {
+        "path": "elevation.control.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-key-blur",
+        "cssValue": "6px"
+      },
+      "elevation.control.keySpread": {
+        "path": "elevation.control.keySpread",
+        "type": "dimension",
+        "value": {
+          "value": -2,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-key-spread",
+        "cssValue": "-2px"
+      },
+      "elevation.control.keyY": {
+        "path": "elevation.control.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 3,
+          "unit": "px"
+        },
+        "cssName": "--elevation-control-key-y",
+        "cssValue": "3px"
       },
       "elevation.dialog.ambient": {
         "path": "elevation.dialog.ambient",

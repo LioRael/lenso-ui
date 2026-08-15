@@ -4,7 +4,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { Button } from "@lenso/ui/button";
-import { ThemeScope } from "@lenso/ui/theme-scope";
+
+import { ThemeToggle } from "./theme-toggle";
 
 type DocsPage =
   | "avatar"
@@ -397,7 +398,7 @@ function ComponentNavigation({
 
 export function DocsShell({ actions, breadcrumbs, children, current, theme }: DocsShellProps) {
   return (
-    <ThemeScope className="docs-theme" theme={theme}>
+    <div className="docs-theme" data-preview-theme={theme}>
       <div className="docs-shell">
         <aside className="docs-sidebar">
           <div className="sidebar-header">
@@ -430,6 +431,7 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
                 <strong>{breadcrumbs[1]}</strong>
               </nav>
               <div className="header-actions">
+                <ThemeToggle />
                 <Button className="header-button" variant="secondary">
                   {actions[0]}
                 </Button>
@@ -442,6 +444,6 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
           </main>
         </div>
       </div>
-    </ThemeScope>
+    </div>
   );
 }

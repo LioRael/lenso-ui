@@ -33,6 +33,9 @@ const rows = [
   ["Delete", Trash2Icon, "⌘ ⌫", "danger"],
 ] as const;
 
+const overlayShadow =
+  "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px";
+
 function PreviewRow({ row }: { row: Exclude<(typeof rows)[number], null> }) {
   const [label, Icon, shortcut, state] = row;
   return (
@@ -109,6 +112,8 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   await document.fonts.load('400 13px "Inter"', "Due date");
   const preview = screen.getByTestId("menu-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
+  expect(getComputedStyle(preview.element()).borderColor).toBe("rgb(234, 234, 234)");
+  expect(getComputedStyle(preview.element()).boxShadow).toBe(overlayShadow);
   const highlightedRow = preview
     .element()
     .querySelector<HTMLElement>('[data-visual-state="hover"]')!;
@@ -125,7 +130,11 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   expect(screen.getByRole("menuitem", { name: "Open issue" }).element().tagName).toBe("A");
   expect(screen.getByTestId("custom-submenu-icon").element().textContent).toBe("→");
   await userEvent.keyboard("{ArrowDown}{ArrowDown}{ArrowRight}");
-  await expect.element(screen.getByRole("menuitem", { name: "Create sub-issue" })).toBeVisible();
+  const submenuItem = screen.getByRole("menuitem", { name: "Create sub-issue" });
+  await expect.element(submenuItem).toBeVisible();
+  expect(
+    getComputedStyle(submenuItem.element().closest('[data-slot="menu-popup"]')!).boxShadow,
+  ).toBe(overlayShadow);
   await userEvent.keyboard("{Escape}");
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,

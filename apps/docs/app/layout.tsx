@@ -12,6 +12,8 @@ import "@lenso/ui/styles.css";
 import "dialkit/styles.css";
 import "./styles.css";
 
+import { DocsThemeProvider } from "./theme-provider";
+
 export const metadata: Metadata = {
   description: "An independent React design system built with Base UI and StyleX.",
   title: "Lenso UI",
@@ -19,8 +21,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <DocsThemeProvider>{children}</DocsThemeProvider>
+      </body>
     </html>
   );
 }

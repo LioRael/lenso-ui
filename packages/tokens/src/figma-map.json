@@ -31,6 +31,16 @@
       "type": "color"
     },
     {
+      "path": "color.border.control",
+      "cssName": "--color-border-control",
+      "type": "color"
+    },
+    {
+      "path": "color.border.controlFocus",
+      "cssName": "--color-border-control-focus",
+      "type": "color"
+    },
+    {
       "path": "color.border.dialog",
       "cssName": "--color-border-dialog",
       "type": "color"
@@ -251,6 +261,11 @@
       "type": "color"
     },
     {
+      "path": "color.surface.control",
+      "cssName": "--color-surface-control",
+      "type": "color"
+    },
+    {
       "path": "color.surface.dialog",
       "cssName": "--color-surface-dialog",
       "type": "color"
@@ -359,6 +374,46 @@
       "path": "color.switch.trackOnHover",
       "cssName": "--color-switch-track-on-hover",
       "type": "color"
+    },
+    {
+      "path": "elevation.control.ambient",
+      "cssName": "--elevation-control-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.control.detail",
+      "cssName": "--elevation-control-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.control.detailBlur",
+      "cssName": "--elevation-control-detail-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.detailY",
+      "cssName": "--elevation-control-detail-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.key",
+      "cssName": "--elevation-control-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.control.keyBlur",
+      "cssName": "--elevation-control-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.keySpread",
+      "cssName": "--elevation-control-key-spread",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.control.keyY",
+      "cssName": "--elevation-control-key-y",
+      "type": "dimension"
     },
     {
       "path": "elevation.dialog.ambient",

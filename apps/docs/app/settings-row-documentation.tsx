@@ -9,6 +9,7 @@ import { Switch } from "@lenso/ui/switch";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type Control = "action" | "select" | "toggle";
 type StageTheme = "Dark" | "Light" | "System";
@@ -50,12 +51,8 @@ export function SettingsRowDocumentation() {
   const [control, setControl] = React.useState<Control>("select");
   const [copied, setCopied] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
   const resolvedTheme =
     stageTheme === "System" ? pageTheme : (stageTheme.toLowerCase() as "dark" | "light");
   return (

@@ -7,6 +7,7 @@ import { Checkbox } from "@lenso/ui/checkbox";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type CheckboxValue = "Indeterminate" | "Off" | "On";
 type PlaygroundState = "Default" | "Disabled" | "Focus-visible" | "Hover" | "Pressed";
@@ -49,15 +50,10 @@ function InspectorSelect({
 
 export function CheckboxDocumentation() {
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [state, setState] = React.useState<PlaygroundState>("Default");
   const [value, setValue] = React.useState<CheckboxValue>("Off");
-
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
 
   const reset = () => {
     setStageTheme("System");

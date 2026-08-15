@@ -7,6 +7,7 @@
       "sidebar": { "$value": "{primitive.color.slate75}" },
       "surface": { "$value": "{primitive.color.gray0}" },
       "panel": { "$value": "{primitive.color.gray0}" },
+      "control": { "$value": "{primitive.color.gray0}" },
       "dialog": { "$value": "{primitive.color.gray0}" },
       "elevated": { "$value": "{primitive.color.gray0}" },
       "popover": { "$value": "{primitive.color.gray0}" },
@@ -30,6 +31,8 @@
     "border": {
       "transparent": { "$value": "{primitive.color.transparent}" },
       "translucent": { "$value": "{primitive.color.black8}" },
+      "control": { "$value": "{primitive.color.gray300}" },
+      "controlFocus": { "$value": "{primitive.color.gray300}" },
       "tertiary": { "$value": "{primitive.color.gray200}" },
       "secondary": { "$value": "{primitive.color.gray300}" },
       "primary": { "$value": "{primitive.color.gray500}" },
@@ -163,6 +166,16 @@
       "softBlur": { "$type": "dimension", "$value": "{primitive.dimension.px8}" },
       "softY": { "$type": "dimension", "$value": "{primitive.dimension.px2}" },
       "detail": { "$type": "color", "$value": "{primitive.color.transparent}" },
+      "detailBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
+      "detailY": { "$type": "dimension", "$value": "{primitive.dimension.px1}" }
+    },
+    "control": {
+      "ambient": { "$type": "color", "$value": "{primitive.color.black9}" },
+      "key": { "$type": "color", "$value": "{primitive.color.black2}" },
+      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
+      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px3}" },
+      "keySpread": { "$type": "dimension", "$value": "{primitive.dimension.negativePx2}" },
+      "detail": { "$type": "color", "$value": "{primitive.color.black4}" },
       "detailBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
       "detailY": { "$type": "dimension", "$value": "{primitive.dimension.px1}" }
     },

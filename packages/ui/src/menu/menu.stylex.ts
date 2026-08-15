@@ -20,12 +20,11 @@ export const styles = stylex.create({
   positioner: { outline: 0, zIndex: 60 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
+    borderColor: tokens.colorBorderTertiary,
     borderRadius: "12px",
     borderStyle: "solid",
     borderWidth: "0.5px",
-    boxShadow:
-      "0 1px 0.5px rgba(0,0,0,0.13), 0 2px 2.5px rgba(0,0,0,0.13), 0 3px 4px rgba(0,0,0,0.13)",
+    boxShadow: `0 1px 1px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     minWidth: "210px",
@@ -36,8 +35,6 @@ export const styles = stylex.create({
     width: "210px",
   },
   submenuPopup: {
-    boxShadow:
-      "0 1px 0.5px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.04), 0 1px 0.5px rgba(0,0,0,0.04), 0 6px 12px rgba(0,0,0,0.10), 0 9px 24px rgba(0,0,0,0.08)",
     minWidth: "232px",
     width: "232px",
   },

@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { DocsShell } from "../../docs-shell";
+import { useDocsPageTheme } from "../../use-docs-page-theme";
 
 interface ComponentPageProps {
   children: React.ReactNode;
@@ -21,12 +22,7 @@ export function ComponentPage({
   section,
   slug,
 }: ComponentPageProps) {
-  const [theme, setTheme] = React.useState<"dark" | "light">("light");
-
-  React.useEffect(() => {
-    const value = new URLSearchParams(window.location.search).get("theme");
-    if (value === "dark" || value === "light") setTheme(value);
-  }, []);
+  const theme = useDocsPageTheme();
 
   return (
     <DocsShell

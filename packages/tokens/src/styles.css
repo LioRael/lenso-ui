@@ -4,6 +4,8 @@
   --color-action-primary: #282a30;
   --color-action-primary-content: #fafafa;
   --color-action-primary-hover: #1f2024;
+  --color-border-control: #d4d4d4;
+  --color-border-control-focus: #d4d4d4;
   --color-border-dialog: #d4d4d4;
   --color-border-popover: #d8d8d8;
   --color-border-primary: #707172;
@@ -48,6 +50,7 @@
   --color-status-success-content: #007a3d;
   --color-status-warning-content: #8a5a00;
   --color-surface-canvas: #fafafa;
+  --color-surface-control: #ffffff;
   --color-surface-dialog: #ffffff;
   --color-surface-elevated: #ffffff;
   --color-surface-interactive: #ffffff;
@@ -70,6 +73,14 @@
   --color-switch-track-off-hover: #868789;
   --color-switch-track-on: #5e6ad2;
   --color-switch-track-on-hover: #6975e2;
+  --elevation-control-ambient: #00000016;
+  --elevation-control-detail: #0000000a;
+  --elevation-control-detail-blur: 1px;
+  --elevation-control-detail-y: 1px;
+  --elevation-control-key: #00000005;
+  --elevation-control-key-blur: 6px;
+  --elevation-control-key-spread: -2px;
+  --elevation-control-key-y: 3px;
   --elevation-dialog-ambient: #00000014;
   --elevation-dialog-ambient-blur: 48px;
   --elevation-dialog-ambient-y: 9px;
@@ -141,6 +152,8 @@
   --color-action-primary: #e5e5e6;
   --color-action-primary-content: #191a1b;
   --color-action-primary-hover: #ffffff;
+  --color-border-control: #48494c;
+  --color-border-control-focus: #3e424d;
   --color-border-dialog: #1f1f1f;
   --color-border-popover: #3f4044;
   --color-border-primary: #707172;
@@ -185,6 +198,7 @@
   --color-status-success-content: #007a3d;
   --color-status-warning-content: #8a5a00;
   --color-surface-canvas: #000000;
+  --color-surface-control: #191a1b;
   --color-surface-dialog: #191a1b;
   --color-surface-elevated: #0a0a0a;
   --color-surface-interactive: #000000;
@@ -207,6 +221,14 @@
   --color-switch-track-off-hover: #868789;
   --color-switch-track-on: #5e6ad2;
   --color-switch-track-on-hover: #6975e2;
+  --elevation-control-ambient: #ffffff24;
+  --elevation-control-detail: #00000000;
+  --elevation-control-detail-blur: 1px;
+  --elevation-control-detail-y: 1px;
+  --elevation-control-key: #0000004d;
+  --elevation-control-key-blur: 1px;
+  --elevation-control-key-spread: 1px;
+  --elevation-control-key-y: 0.5px;
   --elevation-dialog-ambient: #00000014;
   --elevation-dialog-ambient-blur: 48px;
   --elevation-dialog-ambient-y: 9px;

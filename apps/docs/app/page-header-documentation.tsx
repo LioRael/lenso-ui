@@ -10,6 +10,7 @@ import { PageHeader } from "@lenso/ui/page-header";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { DocsShell } from "./docs-shell";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
 type Variant = "issues" | "simple" | "team";
@@ -117,13 +118,9 @@ function HeaderDemo({ variant }: { variant: Variant }) {
 
 export function PageHeaderDocumentation() {
   const [copied, setCopied] = React.useState(false);
-  const [pageTheme, setPageTheme] = React.useState<"dark" | "light">("light");
+  const pageTheme = useDocsPageTheme();
   const [stageTheme, setStageTheme] = React.useState<StageTheme>("System");
   const [variant, setVariant] = React.useState<Variant>("team");
-  React.useEffect(() => {
-    const theme = new URLSearchParams(window.location.search).get("theme");
-    if (theme === "dark" || theme === "light") setPageTheme(theme);
-  }, []);
   const resolvedTheme =
     stageTheme === "System" ? pageTheme : (stageTheme.toLowerCase() as "dark" | "light");
   return (
