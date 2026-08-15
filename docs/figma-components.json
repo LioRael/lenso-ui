@@ -157,7 +157,7 @@
     "disclosure": {
       "nodeId": "354:86",
       "codeSubpath": "@lenso/ui/disclosure",
-      "variants": ["item", "group", "single", "multiple", "custom-icon"],
+      "variants": ["item", "group", "single", "multiple", "text", "list", "auto", "custom-icon"],
       "states": ["collapsed", "expanded", "hover", "focus-visible", "disabled"],
       "documentation": "/components/disclosure",
       "stateBoard": {

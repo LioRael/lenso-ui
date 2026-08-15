@@ -44,7 +44,7 @@ function DisclosureBoardGroup({ expanded }: { expanded: "first" | "second" }) {
             Workspace <Disclosure.Icon />
           </Disclosure.Trigger>
         </Disclosure.Header>
-        <Disclosure.Panel>
+        <Disclosure.Panel layout="list">
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <span>Projects</span>
             <span>Views</span>
@@ -98,11 +98,16 @@ test("Disclosure matches the approved Figma state board", async () => {
   const triggers = board
     .element()
     .querySelectorAll<HTMLElement>('[data-slot="disclosure-trigger"]');
+  const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="disclosure-panel"]');
   await expect.poll(() => getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
   expect(triggers[0]?.getBoundingClientRect().height).toBe(28);
   expect(triggers[0]?.getBoundingClientRect().width).toBe(215);
   expect(triggers[0]?.getAttribute("aria-expanded")).toBe("true");
   expect(triggers[1]?.getAttribute("aria-expanded")).toBe("false");
+  expect(getComputedStyle(panels[0]!).boxSizing).toBe("border-box");
+  expect(panels[0]?.getBoundingClientRect().width).toBe(220);
+  await expect.poll(() => panels[0]?.getBoundingClientRect().height).toBe(96);
+  await expect.poll(() => panels[1]?.getBoundingClientRect().height).toBe(68);
   await expect.element(board).toMatchScreenshot("disclosure-figma-state-board", {
     comparatorName: "pixelmatch",
     comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },

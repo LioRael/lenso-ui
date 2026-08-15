@@ -40,7 +40,7 @@ function DisclosureDemo({ multiple }: { multiple: boolean }) {
             Projects <Disclosure.Icon />
           </Disclosure.Trigger>
         </Disclosure.Header>
-        <Disclosure.Panel>
+        <Disclosure.Panel layout="list">
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <span>Active</span>
             <span>Archived</span>

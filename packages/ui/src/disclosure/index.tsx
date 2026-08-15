@@ -85,12 +85,24 @@ export const DisclosureIcon = React.forwardRef<
   );
 });
 
-export const DisclosurePanel = React.forwardRef<HTMLDivElement, BaseAccordion.Panel.Props>(
-  function DisclosurePanel({ className, ...props }, ref) {
+export interface DisclosurePanelProps extends BaseAccordion.Panel.Props {
+  layout?: "auto" | "list" | "text";
+}
+
+export const DisclosurePanel = React.forwardRef<HTMLDivElement, DisclosurePanelProps>(
+  function DisclosurePanel({ className, layout = "text", ...props }, ref) {
     return (
       <BaseAccordion.Panel
         {...props}
-        className={mergeClassName(stylex.props(styles.panel).className, className)}
+        className={mergeClassName(
+          stylex.props(
+            styles.panel,
+            layout === "text" && styles.panelText,
+            layout === "list" && styles.panelList,
+          ).className,
+          className,
+        )}
+        data-layout={layout}
         data-slot="disclosure-panel"
         ref={ref}
       />

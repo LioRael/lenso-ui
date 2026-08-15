@@ -42,7 +42,8 @@ export const styles = stylex.create({
     "[data-visual-state=focus-visible]": {
       boxShadow: `0 0 0 2px ${tokens.colorFocusRing}`,
     },
-    ":disabled": { cursor: "default", opacity: 0.45 },
+    ":disabled": { cursor: "default", opacity: tokens.opacityDisabled },
+    "[data-disabled]": { cursor: "default", opacity: tokens.opacityDisabled },
   },
   icon: {
     alignItems: "center",
@@ -66,6 +67,7 @@ export const styles = stylex.create({
     width: "4.7577px",
   },
   panel: {
+    boxSizing: "border-box",
     color: tokens.colorContentSecondary,
     fontFamily: tokens.fontSans,
     fontSize: "13px",
@@ -82,4 +84,6 @@ export const styles = stylex.create({
     "[data-ending-style]": { height: 0, paddingBlock: 0 },
     "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
+  panelText: { height: "68px" },
+  panelList: { height: "96px" },
 });
