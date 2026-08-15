@@ -72,20 +72,19 @@ export const TooltipPopup = React.forwardRef<HTMLDivElement, BaseTooltip.Popup.P
   },
 );
 
-export const TooltipShortcut = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentPropsWithoutRef<"span">
->(function TooltipShortcut({ className, ...props }, ref) {
-  return (
-    <span
-      {...props}
-      aria-hidden="true"
-      className={mergeClassName(stylex.props(styles.shortcut).className, className) as string}
-      data-slot="tooltip-shortcut"
-      ref={ref}
-    />
-  );
-});
+export const TooltipShortcut = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<"kbd">>(
+  function TooltipShortcut({ className, ...props }, ref) {
+    return (
+      <kbd
+        {...props}
+        aria-hidden="true"
+        className={mergeClassName(stylex.props(styles.shortcut).className, className) as string}
+        data-slot="tooltip-shortcut"
+        ref={ref}
+      />
+    );
+  },
+);
 
 export const Tooltip = {
   Popup: TooltipPopup,
