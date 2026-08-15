@@ -14,8 +14,8 @@ export const styles = stylex.create({
     alignItems: "center",
     backgroundColor: {
       default: "transparent",
-      ":hover": tokens.colorSurfaceLevel3,
-      '[data-visual-state="hover"]': tokens.colorSurfaceLevel3,
+      ":hover": tokens.colorSurfaceOverlayHover,
+      '[data-visual-state="hover"]': tokens.colorSurfaceOverlayHover,
     },
     borderStyle: "none",
     borderWidth: 0,

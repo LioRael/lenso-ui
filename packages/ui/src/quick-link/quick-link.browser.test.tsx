@@ -7,6 +7,7 @@ import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
+import { ThemeScope } from "../theme-scope/index.js";
 import { QuickLink } from "./index.js";
 
 function Example() {
@@ -53,9 +54,47 @@ test("Quick Link matches the approved Default and Hover Figma states", async () 
   await userEvent.hover(links[1]!);
   await expect.poll(() => getComputedStyle(trailing[0]!).opacity).toBe("0");
   await expect.poll(() => getComputedStyle(trailing[1]!).opacity).toBe("1");
+  await expect.poll(() => getComputedStyle(links[1]!).backgroundColor).toBe("rgb(240, 240, 241)");
   expect((await axe.run(board.element())).violations).toEqual([]);
   await expect.element(board).toMatchScreenshot("quick-link-figma-state-board", {
     comparatorName: "pixelmatch",
     comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
   });
+});
+
+test("Quick Link preserves dark hover tokens, disabled state, and render composition", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <QuickLink
+        data-testid="dark-link"
+        leadingIcon={<SettingsIcon size={16} />}
+        nativeButton={false}
+        render={<a aria-label="Team settings" href="/settings" />}
+        trailingIcon={<ChevronRightIcon size={14} />}
+      >
+        Team settings
+      </QuickLink>
+      <QuickLink
+        data-testid="disabled-link"
+        disabled
+        leadingIcon={<SettingsIcon size={16} />}
+        trailingIcon={<ChevronRightIcon size={14} />}
+      >
+        Disabled settings
+      </QuickLink>
+    </ThemeScope>,
+  );
+  const darkLink = screen.getByTestId("dark-link");
+  await userEvent.hover(darkLink);
+  await expect
+    .poll(() => getComputedStyle(darkLink.element()).backgroundColor)
+    .toBe("rgb(40, 41, 43)");
+  expect(darkLink.element().tagName).toBe("A");
+  expect(darkLink.element().getAttribute("href")).toBe("/settings");
+  const disabled = screen.getByTestId("disabled-link");
+  expect(disabled.element().getAttribute("disabled")).not.toBeNull();
+  expect(getComputedStyle(disabled.element()).opacity).toBe("0.5");
+  expect(
+    (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
+  ).toEqual([]);
 });

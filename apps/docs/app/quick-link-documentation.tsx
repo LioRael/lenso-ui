@@ -15,6 +15,7 @@ const codeExample = `import { QuickLink } from "@lenso/ui/quick-link"
 
 <QuickLink
   render={<Link href="/settings" />}
+  nativeButton={false}
   leadingIcon={<SettingsIcon />}
   trailingIcon={<ChevronRightIcon />}
 >

@@ -390,9 +390,9 @@
           "target": "components/lenso/quick-link/index.tsx"
         },
         {
-          "registrySha256": "cdbd3c7d67b6a72b75701b1f44302eaf591c8731c10c96c823c8045a134f040f",
+          "registrySha256": "996b58ef0519423345bf7b568babc379994be9da4787567cd886cf47d8ef3ae4",
           "source": "packages/ui/src/quick-link/quick-link.stylex.ts",
-          "sourceSha256": "cdbd3c7d67b6a72b75701b1f44302eaf591c8731c10c96c823c8045a134f040f",
+          "sourceSha256": "996b58ef0519423345bf7b568babc379994be9da4787567cd886cf47d8ef3ae4",
           "target": "components/lenso/quick-link/quick-link.stylex.ts"
         },
         {

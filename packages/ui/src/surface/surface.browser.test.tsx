@@ -78,13 +78,15 @@ test("Surface matches the approved Figma hierarchy and remains render-composable
   expect(Array.from(surfaces, (surface) => surface.getBoundingClientRect().height)).toEqual([
     220, 220, 220,
   ]);
-  expect(getComputedStyle(surfaces[0]!).borderRadius).toBe("10px");
-  expect(getComputedStyle(surfaces[1]!).boxShadow).toContain("rgba(0, 0, 0, 0.086)");
-  expect(getComputedStyle(surfaces[2]!).borderWidth).toBe("1px");
-  expect(getComputedStyle(surfaces[2]!).borderRadius).toBe("12px");
-  expect(getComputedStyle(screen.getByTestId("dark-panel").element()).backgroundColor).toBe(
-    "rgb(10, 10, 10)",
-  );
+  await expect.poll(() => getComputedStyle(surfaces[0]!).borderRadius).toBe("10px");
+  await expect
+    .poll(() => getComputedStyle(surfaces[1]!).boxShadow)
+    .toContain("rgba(0, 0, 0, 0.086)");
+  await expect.poll(() => getComputedStyle(surfaces[2]!).borderWidth).toBe("1px");
+  await expect.poll(() => getComputedStyle(surfaces[2]!).borderRadius).toBe("12px");
+  await expect
+    .poll(() => getComputedStyle(screen.getByTestId("dark-panel").element()).backgroundColor)
+    .toBe("rgb(10, 10, 10)");
   expect(screen.getByTestId("custom-surface").element().tagName).toBe("SECTION");
   expect((await axe.run(board.element())).violations).toEqual([]);
   await expect.element(board).toMatchScreenshot("surface-figma-state-board", {
