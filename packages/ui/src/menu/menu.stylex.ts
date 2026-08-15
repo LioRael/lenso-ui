@@ -17,6 +17,21 @@ export const styles = stylex.create({
     outline: "none",
     paddingInline: "12px",
   },
+  controlTrigger: {
+    gap: "8px",
+    justifyContent: "space-between",
+    lineHeight: "16px",
+    paddingInline: "10.5px",
+    position: "relative",
+    whiteSpace: "nowrap",
+  },
+  controlTriggerDisabled: { cursor: "default", opacity: tokens.opacityDisabled },
+  controlTriggerIcon: {
+    color: tokens.colorContentSecondary,
+    height: "10px",
+    strokeWidth: "1.5px",
+    width: "10px",
+  },
   positioner: { outline: 0, zIndex: 60 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,

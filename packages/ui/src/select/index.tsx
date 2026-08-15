@@ -5,6 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Select as BaseSelect } from "@base-ui/react/select";
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
 
+import { boxedControlStyles } from "../shared/boxed-control.stylex.js";
 import { mergeClassName } from "../shared/merge-class-name.js";
 import { useThemePortalContainer } from "../theme-scope/index.js";
 import { styles } from "./select.stylex.js";
@@ -25,6 +26,7 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, BaseSelect.Trig
         className={(state) => {
           const generated = stylex.props(
             styles.trigger,
+            boxedControlStyles.edge,
             state.disabled && styles.triggerDisabled,
           ).className;
           const custom = typeof className === "function" ? className(state) : className;
@@ -33,17 +35,7 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, BaseSelect.Trig
         data-slot="select-trigger"
         ref={ref}
       >
-        <span
-          aria-hidden="true"
-          data-slot="select-trigger-surface"
-          {...stylex.props(styles.triggerSurface)}
-        />
         {children}
-        <span
-          aria-hidden="true"
-          data-slot="select-trigger-focus"
-          {...stylex.props(styles.triggerFocus)}
-        />
       </BaseSelect.Trigger>
     );
   },

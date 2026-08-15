@@ -3,8 +3,9 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Menu as BaseMenu } from "@base-ui/react/menu";
-import { CheckIcon, ChevronRightIcon } from "lucide-react";
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 
+import { boxedControlStyles } from "../shared/boxed-control.stylex.js";
 import { mergeClassName } from "../shared/merge-class-name.js";
 import { useThemePortalContainer } from "../theme-scope/index.js";
 import { styles } from "./menu.stylex.js";
@@ -23,6 +24,39 @@ export const MenuTrigger = React.forwardRef<HTMLButtonElement, BaseMenu.Trigger.
         data-slot="menu-trigger"
         ref={ref}
       />
+    );
+  },
+);
+
+export interface MenuControlTriggerProps extends BaseMenu.Trigger.Props {
+  icon?: React.ReactNode;
+}
+
+export const MenuControlTrigger = React.forwardRef<HTMLButtonElement, MenuControlTriggerProps>(
+  function MenuControlTrigger({ children, className, icon, ...props }, ref) {
+    return (
+      <BaseMenu.Trigger
+        {...props}
+        className={(state) => {
+          const generated = stylex.props(
+            styles.trigger,
+            styles.controlTrigger,
+            boxedControlStyles.edge,
+            state.disabled && styles.controlTriggerDisabled,
+          ).className;
+          const custom = typeof className === "function" ? className(state) : className;
+          return custom ? `${generated} ${custom}` : generated;
+        }}
+        data-slot="menu-control-trigger"
+        ref={ref}
+      >
+        {children}
+        {icon === null ? null : (
+          <span aria-hidden="true" data-slot="menu-control-trigger-icon">
+            {icon ?? <ChevronDownIcon {...stylex.props(styles.controlTriggerIcon)} />}
+          </span>
+        )}
+      </BaseMenu.Trigger>
     );
   },
 );
@@ -262,6 +296,7 @@ export const MenuItemIndicator = React.forwardRef<
 
 export const Menu = {
   CheckboxItem: MenuCheckboxItem,
+  ControlTrigger: MenuControlTrigger,
   Group: MenuGroup,
   GroupLabel: MenuGroupLabel,
   Hint: MenuHint,
