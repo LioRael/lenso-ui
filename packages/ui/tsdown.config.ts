@@ -29,6 +29,7 @@ export default defineConfig({
     "radio/index": source("radio"),
     "select/index": source("select"),
     "settings-row/index": source("settings-row"),
+    "status-marker/index": source("status-marker"),
     "sidebar/index": source("sidebar"),
     "switch/index": source("switch"),
     "tabs/index": source("tabs"),

@@ -252,6 +252,17 @@
         "nodeId": "256:11",
         "baseline": "docs/figma-baselines/toast-state-board.png"
       }
+    },
+    "status-marker": {
+      "nodeId": "32:48",
+      "codeSubpath": "@lenso/ui/status-marker",
+      "variants": ["neutral", "success", "warning", "error", "info", "dot", "label"],
+      "states": ["decorative-dot", "accessible-dot", "default-label", "custom-label"],
+      "documentation": "/components/status-marker",
+      "stateBoard": {
+        "nodeId": "32:48",
+        "baseline": "docs/figma-baselines/status-marker-state-board.png"
+      }
     }
   }
 }

@@ -53,6 +53,25 @@ const sharedFiles = [
 
 const specs: RegistryItemSpec[] = [
   {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/status-marker/index.tsx",
+        target: "components/lenso/status-marker/index.tsx",
+      },
+      {
+        source: "packages/ui/src/status-marker/status-marker.stylex.ts",
+        target: "components/lenso/status-marker/status-marker.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "status-marker",
+    registryDependencies: [stable("setup")],
+    title: "Status Marker",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       { source: "packages/ui/src/toast/index.tsx", target: "components/lenso/toast/index.tsx" },

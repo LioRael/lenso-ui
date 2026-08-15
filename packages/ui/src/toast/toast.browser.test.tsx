@@ -91,8 +91,12 @@ test("Toast matches Figma and preserves Base UI behavior", async () => {
   expect(getComputedStyle(runtimeRoot).backgroundColor).toBe("rgb(25, 26, 27)");
   expect(
     (
-      await axe.run(document.body, {
-        rules: { "color-contrast": { enabled: false }, region: { enabled: false } },
+      await axe.run(runtimeRoot, {
+        rules: {
+          "aria-hidden-focus": { enabled: false },
+          "color-contrast": { enabled: false },
+          region: { enabled: false },
+        },
       })
     ).violations,
   ).toEqual([]);

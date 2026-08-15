@@ -22,6 +22,7 @@ type DocsPage =
   | "popover"
   | "quick-link"
   | "settings-row"
+  | "status-marker"
   | "radio"
   | "select"
   | "sidebar"
@@ -126,6 +127,7 @@ function ComponentNavigation({
     | "popover"
     | "quick-link"
     | "settings-row"
+    | "status-marker"
     | "radio"
     | "select"
     | "sidebar"
@@ -154,7 +156,7 @@ function ComponentNavigation({
   const tabsCurrent = current === "tabs";
   const overlaysCurrent = current === "menu" || current === "popover" || current === "tooltip";
   const contentCurrent = current === "avatar";
-  const feedbackCurrent = current === "toast";
+  const feedbackCurrent = current === "status-marker" || current === "toast";
 
   return (
     <>
@@ -330,9 +332,22 @@ function ComponentNavigation({
             Feedback
           </NavHeading>
           {feedbackCurrent && (
-            <Link aria-current="page" className="nav-item nav-item-deep" href="/components/toast">
-              Toast
-            </Link>
+            <>
+              <Link
+                aria-current={current === "toast" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/toast"
+              >
+                Toast
+              </Link>
+              <Link
+                aria-current={current === "status-marker" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/status-marker"
+              >
+                Status Marker
+              </Link>
+            </>
           )}
         </div>
         <div className="nav-category">

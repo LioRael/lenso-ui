@@ -89,6 +89,10 @@
       "types": "./dist/settings-row/index.d.ts",
       "import": "./dist/settings-row/index.js"
     },
+    "./status-marker": {
+      "types": "./dist/status-marker/index.d.ts",
+      "import": "./dist/status-marker/index.js"
+    },
     "./switch": {
       "types": "./dist/switch/index.d.ts",
       "import": "./dist/switch/index.js"
