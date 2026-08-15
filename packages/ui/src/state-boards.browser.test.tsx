@@ -367,7 +367,7 @@ test("Avatar matches the approved Figma state board", async () => {
     getComputedStyle(
       screen.getByTestId("avatar-dark").element().querySelector('[data-slot="avatar-fallback"]')!,
     ).backgroundColor,
-  ).toBe("rgb(40, 41, 43)");
+  ).toBe("rgb(57, 58, 61)");
   expect(getComputedStyle(screen.getByTestId("avatar-dark-status").element()).borderColor).toBe(
     "rgb(0, 0, 0)",
   );
@@ -1392,10 +1392,10 @@ test("Select matches the approved Figma state board", async () => {
     width: 180,
   });
   expect(getComputedStyle(popup).backgroundColor).toBe("rgb(255, 255, 255)");
-  expect(getComputedStyle(popup).borderColor).toBe("rgb(234, 234, 234)");
+  expect(getComputedStyle(popup).borderColor).toBe("rgb(216, 216, 216)");
   expect(getComputedStyle(popup).borderRadius).toBe("12px");
   expect(getComputedStyle(popup).boxShadow).toBe(
-    "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px",
+    "rgba(0, 0, 0, 0.04) 0px 1px 0.5px 0px, rgba(0, 0, 0, 0.04) 0px 3px 4.5px 0px, rgba(0, 0, 0, 0.02) 0px 6px 9px 0px",
   );
 
   await expect.element(board).toMatchScreenshot("select-figma-state-board", screenshotOptions);
@@ -1412,7 +1412,7 @@ test("Select resolves dark popup tokens", async () => {
     .element()
     .closest('[data-slot="select-popup"]') as HTMLElement;
   await expect.poll(() => getComputedStyle(popup).backgroundColor).toBe("rgb(40, 41, 43)");
-  expect(getComputedStyle(popup).borderColor).toBe("rgb(31, 31, 31)");
+  expect(getComputedStyle(popup).borderColor).toBe("rgb(63, 64, 68)");
   const trigger = screen.getByRole("combobox").element();
   const icon = screen
     .getByRole("combobox")

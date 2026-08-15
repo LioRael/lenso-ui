@@ -5,6 +5,9 @@ const config: NextConfig = {
   output: "export",
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactStrictMode: true,
+  experimental: {
+    turbopackFileSystemCacheForBuild: false,
+  },
   transpilePackages: ["@lenso/primitives", "@lenso/tokens", "@lenso/ui"],
 };
 

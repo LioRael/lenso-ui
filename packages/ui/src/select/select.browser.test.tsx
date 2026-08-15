@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import "virtual:stylex:runtime";
@@ -107,6 +108,27 @@ test("popper mode preserves the five pixel trigger gap", async () => {
   expect(gap).toBeGreaterThanOrEqual(4.5);
   expect(gap).toBeLessThanOrEqual(5.5);
 });
+
+for (const theme of ["light", "dark"] as const) {
+  test(`item hover uses the overlay token in ${theme} theme`, async () => {
+    const screen = await render(
+      <ThemeScope style={stageStyle} theme={theme}>
+        <Example position="popper" />
+      </ThemeScope>,
+    );
+
+    await screen.getByTestId("popper-trigger").click();
+    const item = screen.getByText("Monday", { exact: true });
+    await userEvent.hover(item);
+
+    await expect
+      .poll(
+        () =>
+          getComputedStyle(item.element().closest('[data-slot="select-item"]')!).backgroundColor,
+      )
+      .toBe(theme === "light" ? "rgb(240, 240, 241)" : "rgb(57, 58, 61)");
+  });
+}
 
 test("selection updates the trigger and closes the popup", async () => {
   const screen = await render(

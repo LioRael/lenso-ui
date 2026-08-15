@@ -8,7 +8,10 @@ import { SettingsRow } from "@lenso/ui/settings-row";
 import { Switch } from "@lenso/ui/switch";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type Control = "action" | "select" | "toggle";
@@ -75,13 +78,9 @@ export function SettingsRowDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Compare trailing controls, row hover, disabled treatment, and theme parity.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setControl("select");
@@ -102,71 +101,66 @@ export function SettingsRowDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas settings-row-stage" theme={resolvedTheme}>
-                <SettingsRow.Root disabled={disabled}>
-                  <SettingsRow.Copy>
-                    <SettingsRow.Title id="settings-row-example-title">
-                      Setting title
-                    </SettingsRow.Title>
-                    <SettingsRow.Description>
-                      Supporting description for this preference.
-                    </SettingsRow.Description>
-                  </SettingsRow.Copy>
-                  <SettingsRow.Control>
-                    <ControlExample control={control} disabled={disabled} />
-                  </SettingsRow.Control>
-                </SettingsRow.Root>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Settings Row</strong>
-                <button type="button">
-                  Example · Preference <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Control</span>
-                <select
-                  onChange={(event) => setControl(event.target.value as Control)}
-                  value={control}
-                >
-                  <option value="select">Select</option>
-                  <option value="toggle">Toggle</option>
-                  <option value="action">Action</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Disabled</span>
-                <input
-                  checked={disabled}
-                  onChange={(event) => setDisabled(event.target.checked)}
-                  type="checkbox"
-                />
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Preference"
+              name="Settings Row"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Control"
+                onValueChange={(value) => setControl(value as Control)}
+                options={[
+                  { label: "Select", value: "select" },
+                  { label: "Toggle", value: "toggle" },
+                  { label: "Action", value: "action" },
+                ]}
+                value={control}
+              />
+              <PlaygroundSelectControl
+                label="Disabled"
+                onValueChange={(value) => setDisabled(value === "True")}
+                options={[
+                  { label: "False", value: "False" },
+                  { label: "True", value: "True" },
+                ]}
+                value={disabled ? "True" : "False"}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Compare trailing controls, row hover, disabled treatment, and theme parity."
+          preview={
+            <ThemeScope className="stage-canvas settings-row-stage" theme={resolvedTheme}>
+              <SettingsRow.Root disabled={disabled}>
+                <SettingsRow.Copy>
+                  <SettingsRow.Title id="settings-row-example-title">
+                    Setting title
+                  </SettingsRow.Title>
+                  <SettingsRow.Description>
+                    Supporting description for this preference.
+                  </SettingsRow.Description>
+                </SettingsRow.Copy>
+                <SettingsRow.Control>
+                  <ControlExample control={control} disabled={disabled} />
+                </SettingsRow.Control>
+              </SettingsRow.Root>
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -194,9 +188,7 @@ export function SettingsRowDocumentation() {
               behavior.
             </p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

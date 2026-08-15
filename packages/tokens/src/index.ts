@@ -208,7 +208,7 @@ export const themes = {
     "color.surface.interactive": "#000000",
     "color.surface.interactiveHover": "#1f1f1f",
     "color.surface.level3": "#191a1b",
-    "color.surface.overlayHover": "#28292b",
+    "color.surface.overlayHover": "#393a3d",
     "color.surface.panel": "#0a0a0a",
     "color.surface.popover": "#28292b",
     "color.surface.quaternary": "#28282c",

@@ -6,7 +6,10 @@ import { Button } from "@lenso/ui/button";
 import { TextField } from "@lenso/ui/text-field";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type PlaygroundState =
@@ -39,19 +42,12 @@ function InspectorSelect({
   value: string;
 }) {
   return (
-    <label className="inspector-row">
-      <span>{label}</span>
-      <span className="inspector-control-wrap">
-        <select onChange={(event) => onChange(event.target.value)} value={value}>
-          {options.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-        <span aria-hidden="true" className="inspector-chevron">
-          ⌄
-        </span>
-      </span>
-    </label>
+    <PlaygroundSelectControl
+      label={label}
+      onValueChange={onChange}
+      options={options.map((option) => ({ label: option, value: option }))}
+      value={value}
+    />
   );
 }
 
@@ -97,16 +93,9 @@ export function TextFieldDocumentation() {
           </div>
         </section>
 
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>
-                Try supported variants on the real component; advanced token and motion tuning stays
-                in the internal lab.
-              </p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button onClick={reset} variant="secondary">
                 Reset
               </Button>
@@ -121,45 +110,15 @@ export function TextFieldDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas" theme={resolvedStageTheme}>
-                <TextField.Root disabled={state === "Disabled"} invalid={invalid}>
-                  <TextField.Label>Field label</TextField.Label>
-                  <TextField.Control
-                    data-visual-state={visualState}
-                    placeholder="Enter value"
-                    readOnly={state === "Read-only"}
-                  />
-                  {invalid ? (
-                    <TextField.Error match>Resolve this field before continuing.</TextField.Error>
-                  ) : (
-                    <TextField.Description>
-                      {state === "Active" || state === "Focus-visible"
-                        ? "Ready for input."
-                        : "Optional supporting text."}
-                    </TextField.Description>
-                  )}
-                </TextField.Root>
-                <p>Controls update this example only.</p>
-              </ThemeScope>
-            </article>
-
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Text Field</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Text Field"
+              onExampleChange={() => {}}
+            >
               <InspectorSelect
                 label="Size"
                 onChange={() => {}}
@@ -192,15 +151,39 @@ export function TextFieldDocumentation() {
                 options={["System", "Light", "Dark"]}
                 value={stageTheme}
               />
-              <div className="inspector-row">
-                <span>Advanced</span>
-                <button className="inspector-static-control" type="button">
-                  Internal lab <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </section>
+              <PlaygroundSelectControl
+                label="Advanced"
+                onValueChange={() => {}}
+                options={[{ label: "Internal lab", value: "internal-lab" }]}
+                value="internal-lab"
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Try supported variants on the real component; advanced token and motion tuning stays in the internal lab."
+          preview={
+            <ThemeScope className="stage-canvas" theme={resolvedStageTheme}>
+              <TextField.Root disabled={state === "Disabled"} invalid={invalid}>
+                <TextField.Label>Field label</TextField.Label>
+                <TextField.Control
+                  data-visual-state={visualState}
+                  placeholder="Enter value"
+                  readOnly={state === "Read-only"}
+                />
+                {invalid ? (
+                  <TextField.Error match>Resolve this field before continuing.</TextField.Error>
+                ) : (
+                  <TextField.Description>
+                    {state === "Active" || state === "Focus-visible"
+                      ? "Ready for input."
+                      : "Optional supporting text."}
+                  </TextField.Description>
+                )}
+              </TextField.Root>
+              <p>Controls update this example only.</p>
+            </ThemeScope>
+          }
+        />
 
         <section className="button-guidance text-field-guidance">
           <article>
@@ -230,9 +213,7 @@ export function TextFieldDocumentation() {
               API.
             </p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

@@ -6,7 +6,10 @@ import { Avatar } from "@lenso/ui/avatar";
 import { Button } from "@lenso/ui/button";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -51,13 +54,9 @@ export function AvatarDocumentation() {
           </div>
         </section>
 
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Check sizing, fallback content, presence, grouping, and theme-aware separators.</p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setSize("default");
@@ -78,79 +77,75 @@ export function AvatarDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas avatar-stage" theme={resolvedTheme}>
-                <Avatar.Root size={size}>
-                  <Avatar.Fallback>LR</Avatar.Fallback>
-                  <Avatar.Status
-                    attached
-                    size={size === "large" || size === "xlarge" ? "default" : "small"}
-                    state={status}
-                  />
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Avatar"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Size"
+                onValueChange={(value) => setSize(value as DemoSize)}
+                options={[
+                  { label: "compact", value: "compact" },
+                  { label: "default", value: "default" },
+                  { label: "large", value: "large" },
+                  { label: "xlarge", value: "xlarge" },
+                ]}
+                value={size}
+              />
+              <PlaygroundSelectControl
+                label="Status"
+                onValueChange={(value) => setStatus(value as DemoStatus)}
+                options={[
+                  { label: "online", value: "online" },
+                  { label: "away", value: "away" },
+                  { label: "busy", value: "busy" },
+                  { label: "offline", value: "offline" },
+                ]}
+                value={status}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Check sizing, fallback content, presence, grouping, and theme-aware separators."
+          preview={
+            <ThemeScope className="stage-canvas avatar-stage" theme={resolvedTheme}>
+              <Avatar.Root size={size}>
+                <Avatar.Fallback>LR</Avatar.Fallback>
+                <Avatar.Status
+                  attached
+                  size={size === "large" || size === "xlarge" ? "default" : "small"}
+                  state={status}
+                />
+              </Avatar.Root>
+              <Avatar.Group>
+                <Avatar.Root size="default">
+                  <Avatar.Fallback>L</Avatar.Fallback>
                 </Avatar.Root>
-                <Avatar.Group>
-                  <Avatar.Root size="default">
-                    <Avatar.Fallback>L</Avatar.Fallback>
-                  </Avatar.Root>
-                  <Avatar.Root size="default">
-                    <Avatar.Fallback>LR</Avatar.Fallback>
-                  </Avatar.Root>
-                  <Avatar.Root size="default">
-                    <Avatar.Fallback>L</Avatar.Fallback>
-                  </Avatar.Root>
-                </Avatar.Group>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Avatar</strong>
-                <button type="button">
-                  Example · Default <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Size</span>
-                <select onChange={(event) => setSize(event.target.value as DemoSize)} value={size}>
-                  <option>compact</option>
-                  <option>default</option>
-                  <option>large</option>
-                  <option>xlarge</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Status</span>
-                <select
-                  onChange={(event) => setStatus(event.target.value as DemoStatus)}
-                  value={status}
-                >
-                  <option>online</option>
-                  <option>away</option>
-                  <option>busy</option>
-                  <option>offline</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+                <Avatar.Root size="default">
+                  <Avatar.Fallback>LR</Avatar.Fallback>
+                </Avatar.Root>
+                <Avatar.Root size="default">
+                  <Avatar.Fallback>L</Avatar.Fallback>
+                </Avatar.Root>
+              </Avatar.Group>
+            </ThemeScope>
+          }
+        />
 
         <section className="button-guidance select-guidance">
           <article>
@@ -174,9 +169,7 @@ export function AvatarDocumentation() {
               Base UI owns image loading and fallback behavior; all visual parts remain replaceable.
             </p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

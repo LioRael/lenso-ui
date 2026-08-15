@@ -35,23 +35,25 @@ export const metadata = {
 </Guidance>
 
   <CodeExample
-    code={`import { Dialog } from "@lenso/ui/dialog"
-
-<Dialog.Root>
-  <Dialog.Trigger>Open dialog</Dialog.Trigger>
-  <Dialog.Portal>
-    <Dialog.Backdrop />
-    <Dialog.Viewport>
-      <Dialog.Popup>
-        <Dialog.Header>
-          <Dialog.Title>Edit details</Dialog.Title>
-          <Dialog.Close />
-        </Dialog.Header>
-        <Dialog.Body>...</Dialog.Body>
-        <Dialog.Footer>...</Dialog.Footer>
-      </Dialog.Popup>
-    </Dialog.Viewport>
-  </Dialog.Portal>
-</Dialog.Root>`}
+    code={[
+      'import { Dialog } from "@lenso/ui/dialog"',
+      "",
+      "<Dialog.Root>",
+      "  <Dialog.Trigger>Open dialog</Dialog.Trigger>",
+      "  <Dialog.Portal>",
+      "    <Dialog.Backdrop />",
+      "    <Dialog.Viewport>",
+      "      <Dialog.Popup>",
+      "        <Dialog.Header>",
+      "          <Dialog.Title>Edit details</Dialog.Title>",
+      "          <Dialog.Close />",
+      "        </Dialog.Header>",
+      "        <Dialog.Body>...</Dialog.Body>",
+      "        <Dialog.Footer>...</Dialog.Footer>",
+      "      </Dialog.Popup>",
+      "    </Dialog.Viewport>",
+      "  </Dialog.Portal>",
+      "</Dialog.Root>",
+    ].join("\n")}
   />
 </ComponentPage>

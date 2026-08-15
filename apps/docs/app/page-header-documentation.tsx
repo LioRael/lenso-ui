@@ -9,7 +9,10 @@ import { IconButton } from "@lenso/ui/icon-button";
 import { PageHeader } from "@lenso/ui/page-header";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 type StageTheme = "Dark" | "Light" | "System";
@@ -143,16 +146,9 @@ export function PageHeaderDocumentation() {
             <span>Implementation ready</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>
-                Compare Team, Issues, and Simple geometry, keyboard tabs, action slots, and theme
-                parity.
-              </p>
-            </div>
-            <div className="playground-actions">
+        <LivePlayground
+          actions={
+            <>
               <Button
                 onClick={() => {
                   setVariant("team");
@@ -172,55 +168,47 @@ export function PageHeaderDocumentation() {
               >
                 {copied ? "Copied" : "Copy JSX"}
               </Button>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
+            </>
+          }
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Default"
+              name="Page Header"
+              onExampleChange={() => {}}
+            >
+              <PlaygroundSelectControl
+                label="Variant"
+                onValueChange={(value) => setVariant(value as Variant)}
+                options={[
+                  { label: "Team", value: "team" },
+                  { label: "Issues", value: "issues" },
+                  { label: "Simple", value: "simple" },
+                ]}
+                value={variant}
+              />
+              <PlaygroundSelectControl
+                label="Theme"
+                onValueChange={(value) => setStageTheme(value as StageTheme)}
+                options={[
+                  { label: "System", value: "System" },
+                  { label: "Light", value: "Light" },
+                  { label: "Dark", value: "Dark" },
+                ]}
+                value={stageTheme}
+              />
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Compare Team, Issues, and Simple geometry, keyboard tabs, action slots, and theme parity."
+          preview={
+            <ThemeScope className="stage-canvas page-header-stage" theme={resolvedTheme}>
+              <div style={{ width: "100%" }}>
+                <HeaderDemo variant={variant} />
               </div>
-              <ThemeScope className="stage-canvas page-header-stage" theme={resolvedTheme}>
-                <div style={{ width: "100%" }}>
-                  <HeaderDemo variant={variant} />
-                </div>
-              </ThemeScope>
-            </article>
-            <form className="playground-inspector" onSubmit={(event) => event.preventDefault()}>
-              <div className="inspector-header">
-                <strong>Page Header</strong>
-                <button type="button">
-                  Example ·{" "}
-                  {variant === "team" ? "Team" : variant === "issues" ? "Issues" : "Simple"}{" "}
-                  <span aria-hidden="true">⌄</span>
-                </button>
-              </div>
-              <div className="inspector-divider" />
-              <label className="inspector-row">
-                <span>Variant</span>
-                <select
-                  onChange={(event) => setVariant(event.target.value as Variant)}
-                  value={variant}
-                >
-                  <option value="team">Team</option>
-                  <option value="issues">Issues</option>
-                  <option value="simple">Simple</option>
-                </select>
-              </label>
-              <label className="inspector-row">
-                <span>Theme</span>
-                <select
-                  onChange={(event) => setStageTheme(event.target.value as StageTheme)}
-                  value={stageTheme}
-                >
-                  <option>System</option>
-                  <option>Light</option>
-                  <option>Dark</option>
-                </select>
-              </label>
-            </form>
-          </div>
-        </section>
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -248,9 +236,7 @@ export function PageHeaderDocumentation() {
               across states.
             </p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

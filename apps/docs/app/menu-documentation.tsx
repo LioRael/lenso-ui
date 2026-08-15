@@ -5,7 +5,10 @@ import { CalendarIcon, FileIcon, LinkIcon, StarIcon, Trash2Icon } from "lucide-r
 
 import { Menu } from "@lenso/ui/menu";
 import { ThemeScope } from "@lenso/ui/theme-scope";
+import { CodeBlock } from "./components/docs/code-block";
 import { DocsShell } from "./docs-shell";
+import { LivePlayground } from "./components/docs/live-playground";
+import { PlaygroundControls } from "./components/docs/playground-controls";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const codeExample = `import { Menu } from "@lenso/ui/menu"
@@ -18,7 +21,11 @@ const codeExample = `import { Menu } from "@lenso/ui/menu"
         <Menu.LinkItem href="/issue/14">Open issue</Menu.LinkItem>
         <Menu.SubmenuRoot>
           <Menu.SubmenuTrigger>Create related</Menu.SubmenuTrigger>
-          <Menu.Portal><Menu.Positioner side="right"><Menu.Popup submenu>...</Menu.Popup></Menu.Positioner></Menu.Portal>
+          <Menu.Portal>
+            <Menu.Positioner side="right">
+              <Menu.Popup submenu>...</Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
         </Menu.SubmenuRoot>
       </Menu.Popup>
     </Menu.Positioner>
@@ -71,84 +78,76 @@ export function MenuDocumentation() {
             <span>Base UI behavior</span>
           </div>
         </section>
-        <section className="button-playground">
-          <div className="playground-heading">
-            <div>
-              <h2>Live playground</h2>
-              <p>Open the real component and navigate nested actions with the keyboard.</p>
-            </div>
-          </div>
-          <div className="playground-body">
-            <article className="rendered-stage">
-              <div className="stage-header">
-                <h3>Rendered component</h3>
-                <span>BOUND TO REAL INSTANCE</span>
-              </div>
-              <ThemeScope className="stage-canvas popover-stage" theme={pageTheme}>
-                <Menu.Root>
-                  <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
-                  <Menu.Portal>
-                    <Menu.Positioner>
-                      <Menu.Popup aria-label="Issue actions">
-                        <Item icon={CalendarIcon} shortcut="⇧ D">
-                          Due date
-                        </Item>
-                        <Menu.LinkItem href="#link">
-                          <Menu.Leading>
-                            <LinkIcon size={16} />
-                          </Menu.Leading>
-                          <Menu.Label>Add link…</Menu.Label>
-                          <Menu.Trailing>
-                            <Menu.Shortcut>⌃ L</Menu.Shortcut>
-                          </Menu.Trailing>
-                        </Menu.LinkItem>
-                        <Item icon={FileIcon}>Add document…</Item>
-                        <Menu.Separator />
-                        <Menu.SubmenuRoot>
-                          <Menu.SubmenuTrigger>
-                            <Menu.Leading>
-                              <StarIcon size={16} />
-                            </Menu.Leading>
-                            <Menu.Label>Create related</Menu.Label>
-                          </Menu.SubmenuTrigger>
-                          <Menu.Portal>
-                            <Menu.Positioner side="right" sideOffset={-4}>
-                              <Menu.Popup submenu>
-                                <Menu.Hint>Try: 24h, 7 days, Feb 9</Menu.Hint>
-                                <Item icon={CalendarIcon}>Custom…</Item>
-                                <Item icon={CalendarIcon}>Tomorrow</Item>
-                                <Item icon={CalendarIcon}>End of this week</Item>
-                                <Item icon={CalendarIcon}>In one week</Item>
-                              </Menu.Popup>
-                            </Menu.Positioner>
-                          </Menu.Portal>
-                        </Menu.SubmenuRoot>
-                        <Menu.Separator />
-                        <Menu.Item tone="danger">
-                          <Menu.Leading>
-                            <Trash2Icon size={16} />
-                          </Menu.Leading>
-                          <Menu.Label>Delete</Menu.Label>
-                          <Menu.Trailing>
-                            <Menu.Shortcut>⌘ ⌫</Menu.Shortcut>
-                          </Menu.Trailing>
-                        </Menu.Item>
-                      </Menu.Popup>
-                    </Menu.Positioner>
-                  </Menu.Portal>
-                </Menu.Root>
-              </ThemeScope>
-            </article>
-            <aside className="playground-inspector">
-              <div className="inspector-header">
-                <strong>Menu</strong>
-                <button type="button">Example · Nested</button>
-              </div>
-              <div className="inspector-divider" />
+        <LivePlayground
+          controls={
+            <PlaygroundControls
+              example="default"
+              exampleLabel="Example · Nested"
+              name="Menu"
+              onExampleChange={() => {}}
+            >
               <p>Icons and every structural part remain consumer replaceable.</p>
-            </aside>
-          </div>
-        </section>
+            </PlaygroundControls>
+          }
+          controlsMode="custom"
+          description="Open the real component and navigate nested actions with the keyboard."
+          preview={
+            <ThemeScope className="stage-canvas popover-stage" theme={pageTheme}>
+              <Menu.Root>
+                <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
+                <Menu.Portal>
+                  <Menu.Positioner>
+                    <Menu.Popup aria-label="Issue actions">
+                      <Item icon={CalendarIcon} shortcut="⇧ D">
+                        Due date
+                      </Item>
+                      <Menu.LinkItem href="#link">
+                        <Menu.Leading>
+                          <LinkIcon size={16} />
+                        </Menu.Leading>
+                        <Menu.Label>Add link…</Menu.Label>
+                        <Menu.Trailing>
+                          <Menu.Shortcut>⌃ L</Menu.Shortcut>
+                        </Menu.Trailing>
+                      </Menu.LinkItem>
+                      <Item icon={FileIcon}>Add document…</Item>
+                      <Menu.Separator />
+                      <Menu.SubmenuRoot>
+                        <Menu.SubmenuTrigger>
+                          <Menu.Leading>
+                            <StarIcon size={16} />
+                          </Menu.Leading>
+                          <Menu.Label>Create related</Menu.Label>
+                        </Menu.SubmenuTrigger>
+                        <Menu.Portal>
+                          <Menu.Positioner side="right" sideOffset={-4}>
+                            <Menu.Popup submenu>
+                              <Menu.Hint>Try: 24h, 7 days, Feb 9</Menu.Hint>
+                              <Item icon={CalendarIcon}>Custom…</Item>
+                              <Item icon={CalendarIcon}>Tomorrow</Item>
+                              <Item icon={CalendarIcon}>End of this week</Item>
+                              <Item icon={CalendarIcon}>In one week</Item>
+                            </Menu.Popup>
+                          </Menu.Positioner>
+                        </Menu.Portal>
+                      </Menu.SubmenuRoot>
+                      <Menu.Separator />
+                      <Menu.Item tone="danger">
+                        <Menu.Leading>
+                          <Trash2Icon size={16} />
+                        </Menu.Leading>
+                        <Menu.Label>Delete</Menu.Label>
+                        <Menu.Trailing>
+                          <Menu.Shortcut>⌘ ⌫</Menu.Shortcut>
+                        </Menu.Trailing>
+                      </Menu.Item>
+                    </Menu.Popup>
+                  </Menu.Positioner>
+                </Menu.Portal>
+              </Menu.Root>
+            </ThemeScope>
+          }
+        />
         <section className="button-guidance select-guidance">
           <article>
             <h2>Usage guidance</h2>
@@ -170,9 +169,7 @@ export function MenuDocumentation() {
             <h2>Implementation</h2>
             <p>StyleX visual slots over composable Base UI behavior.</p>
           </div>
-          <pre>
-            <code>{codeExample}</code>
-          </pre>
+          <CodeBlock code={codeExample} />
         </section>
       </div>
     </DocsShell>

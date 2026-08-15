@@ -90,7 +90,7 @@ test("Quick Link preserves dark hover tokens, disabled state, and render composi
   await userEvent.hover(darkLink);
   await expect
     .poll(() => getComputedStyle(darkLink.element()).backgroundColor)
-    .toBe("rgb(40, 41, 43)");
+    .toBe("rgb(57, 58, 61)");
   expect(darkLink.element().tagName).toBe("A");
   expect(darkLink.element().getAttribute("href")).toBe("/settings");
   const disabled = screen.getByTestId("disabled-link");
