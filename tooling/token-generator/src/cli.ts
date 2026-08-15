@@ -50,7 +50,7 @@ validateDtcgSources({
   resolverSchema: JSON.parse(resolverSchemaSource) as JsonObject,
   resolverSchemaSource,
 });
-const publicRoots = ["color", "font", "opacity", "radius", "size", "space"];
+const publicRoots = ["color", "elevation", "font", "opacity", "radius", "size", "space"];
 const requiredSemanticPaths = publicTokenPaths(files["semantic.json"]!, publicRoots);
 const ir = compileResolver(resolver, files, {
   publicRoots,

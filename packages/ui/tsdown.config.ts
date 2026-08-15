@@ -30,6 +30,7 @@ export default defineConfig({
     "select/index": source("select"),
     "settings-row/index": source("settings-row"),
     "status-marker/index": source("status-marker"),
+    "surface/index": source("surface"),
     "sidebar/index": source("sidebar"),
     "switch/index": source("switch"),
     "tabs/index": source("tabs"),

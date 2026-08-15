@@ -28,6 +28,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "surface",
+      "title": "Surface",
+      "type": "registry:ui"
+    },
+    {
       "name": "breadcrumb",
       "title": "Breadcrumb",
       "type": "registry:ui"

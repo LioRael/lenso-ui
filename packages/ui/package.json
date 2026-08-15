@@ -93,6 +93,10 @@
       "types": "./dist/status-marker/index.d.ts",
       "import": "./dist/status-marker/index.js"
     },
+    "./surface": {
+      "types": "./dist/surface/index.d.ts",
+      "import": "./dist/surface/index.js"
+    },
     "./switch": {
       "types": "./dist/switch/index.d.ts",
       "import": "./dist/switch/index.js"

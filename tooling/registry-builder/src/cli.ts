@@ -141,6 +141,22 @@ const specs: RegistryItemSpec[] = [
   {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
+      { source: "packages/ui/src/surface/index.tsx", target: "components/lenso/surface/index.tsx" },
+      {
+        source: "packages/ui/src/surface/surface.stylex.ts",
+        target: "components/lenso/surface/surface.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "surface",
+    registryDependencies: [stable("setup")],
+    title: "Surface",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
       {
         source: "packages/ui/src/breadcrumb/index.tsx",
         target: "components/lenso/breadcrumb/index.tsx",

@@ -52,6 +52,7 @@
     "color.surface.interactiveHover",
     "color.surface.level3",
     "color.surface.overlayHover",
+    "color.surface.panel",
     "color.surface.popover",
     "color.surface.quaternary",
     "color.surface.readOnly",
@@ -67,6 +68,19 @@
     "color.switch.trackOffHover",
     "color.switch.trackOn",
     "color.switch.trackOnHover",
+    "elevation.overlay.ambient",
+    "elevation.overlay.ambientBlur",
+    "elevation.overlay.ambientY",
+    "elevation.overlay.detail",
+    "elevation.overlay.key",
+    "elevation.overlay.keyBlur",
+    "elevation.overlay.keyY",
+    "elevation.panel.ambient",
+    "elevation.panel.detail",
+    "elevation.panel.key",
+    "elevation.panel.keyBlur",
+    "elevation.panel.keySpread",
+    "elevation.panel.keyY",
     "font.button",
     "font.sans",
     "opacity.disabled",
@@ -847,6 +861,21 @@
         "cssName": "--color-surface-overlay-hover",
         "cssValue": "#28292b"
       },
+      "color.surface.panel": {
+        "path": "color.surface.panel",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.039216,
+            0.039216,
+            0.039216
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-panel",
+        "cssValue": "#0a0a0a"
+      },
       "color.surface.popover": {
         "path": "color.surface.popover",
         "type": "color",
@@ -1071,6 +1100,166 @@
         },
         "cssName": "--color-switch-track-on-hover",
         "cssValue": "#6975e2"
+      },
+      "elevation.overlay.ambient": {
+        "path": "elevation.overlay.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.02
+        },
+        "cssName": "--elevation-overlay-ambient",
+        "cssValue": "#00000005"
+      },
+      "elevation.overlay.ambientBlur": {
+        "path": "elevation.overlay.ambientBlur",
+        "type": "dimension",
+        "value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-ambient-blur",
+        "cssValue": "18px"
+      },
+      "elevation.overlay.ambientY": {
+        "path": "elevation.overlay.ambientY",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-ambient-y",
+        "cssValue": "6px"
+      },
+      "elevation.overlay.detail": {
+        "path": "elevation.overlay.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-overlay-detail",
+        "cssValue": "#0000000a"
+      },
+      "elevation.overlay.key": {
+        "path": "elevation.overlay.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-overlay-key",
+        "cssValue": "#0000000a"
+      },
+      "elevation.overlay.keyBlur": {
+        "path": "elevation.overlay.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-key-blur",
+        "cssValue": "9px"
+      },
+      "elevation.overlay.keyY": {
+        "path": "elevation.overlay.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 3,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-key-y",
+        "cssValue": "3px"
+      },
+      "elevation.panel.ambient": {
+        "path": "elevation.panel.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.086275
+        },
+        "cssName": "--elevation-panel-ambient",
+        "cssValue": "#00000016"
+      },
+      "elevation.panel.detail": {
+        "path": "elevation.panel.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-panel-detail",
+        "cssValue": "#0000000a"
+      },
+      "elevation.panel.key": {
+        "path": "elevation.panel.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.02
+        },
+        "cssName": "--elevation-panel-key",
+        "cssValue": "#00000005"
+      },
+      "elevation.panel.keyBlur": {
+        "path": "elevation.panel.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-panel-key-blur",
+        "cssValue": "6px"
+      },
+      "elevation.panel.keySpread": {
+        "path": "elevation.panel.keySpread",
+        "type": "dimension",
+        "value": {
+          "value": -2,
+          "unit": "px"
+        },
+        "cssName": "--elevation-panel-key-spread",
+        "cssValue": "-2px"
+      },
+      "elevation.panel.keyY": {
+        "path": "elevation.panel.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 3,
+          "unit": "px"
+        },
+        "cssName": "--elevation-panel-key-y",
+        "cssValue": "3px"
       },
       "font.button": {
         "path": "font.button",
@@ -2092,6 +2281,21 @@
         "cssName": "--color-surface-overlay-hover",
         "cssValue": "#f0f0f1"
       },
+      "color.surface.panel": {
+        "path": "color.surface.panel",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-panel",
+        "cssValue": "#ffffff"
+      },
       "color.surface.popover": {
         "path": "color.surface.popover",
         "type": "color",
@@ -2316,6 +2520,166 @@
         },
         "cssName": "--color-switch-track-on-hover",
         "cssValue": "#6975e2"
+      },
+      "elevation.overlay.ambient": {
+        "path": "elevation.overlay.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.02
+        },
+        "cssName": "--elevation-overlay-ambient",
+        "cssValue": "#00000005"
+      },
+      "elevation.overlay.ambientBlur": {
+        "path": "elevation.overlay.ambientBlur",
+        "type": "dimension",
+        "value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-ambient-blur",
+        "cssValue": "18px"
+      },
+      "elevation.overlay.ambientY": {
+        "path": "elevation.overlay.ambientY",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-ambient-y",
+        "cssValue": "6px"
+      },
+      "elevation.overlay.detail": {
+        "path": "elevation.overlay.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-overlay-detail",
+        "cssValue": "#0000000a"
+      },
+      "elevation.overlay.key": {
+        "path": "elevation.overlay.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-overlay-key",
+        "cssValue": "#0000000a"
+      },
+      "elevation.overlay.keyBlur": {
+        "path": "elevation.overlay.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 9,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-key-blur",
+        "cssValue": "9px"
+      },
+      "elevation.overlay.keyY": {
+        "path": "elevation.overlay.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 3,
+          "unit": "px"
+        },
+        "cssName": "--elevation-overlay-key-y",
+        "cssValue": "3px"
+      },
+      "elevation.panel.ambient": {
+        "path": "elevation.panel.ambient",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.086275
+        },
+        "cssName": "--elevation-panel-ambient",
+        "cssValue": "#00000016"
+      },
+      "elevation.panel.detail": {
+        "path": "elevation.panel.detail",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "cssName": "--elevation-panel-detail",
+        "cssValue": "#0000000a"
+      },
+      "elevation.panel.key": {
+        "path": "elevation.panel.key",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.02
+        },
+        "cssName": "--elevation-panel-key",
+        "cssValue": "#00000005"
+      },
+      "elevation.panel.keyBlur": {
+        "path": "elevation.panel.keyBlur",
+        "type": "dimension",
+        "value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "cssName": "--elevation-panel-key-blur",
+        "cssValue": "6px"
+      },
+      "elevation.panel.keySpread": {
+        "path": "elevation.panel.keySpread",
+        "type": "dimension",
+        "value": {
+          "value": -2,
+          "unit": "px"
+        },
+        "cssName": "--elevation-panel-key-spread",
+        "cssValue": "-2px"
+      },
+      "elevation.panel.keyY": {
+        "path": "elevation.panel.keyY",
+        "type": "dimension",
+        "value": {
+          "value": 3,
+          "unit": "px"
+        },
+        "cssName": "--elevation-panel-key-y",
+        "cssValue": "3px"
       },
       "font.button": {
         "path": "font.button",

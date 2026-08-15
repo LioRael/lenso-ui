@@ -256,6 +256,11 @@
       "type": "color"
     },
     {
+      "path": "color.surface.panel",
+      "cssName": "--color-surface-panel",
+      "type": "color"
+    },
+    {
       "path": "color.surface.popover",
       "cssName": "--color-surface-popover",
       "type": "color"
@@ -329,6 +334,71 @@
       "path": "color.switch.trackOnHover",
       "cssName": "--color-switch-track-on-hover",
       "type": "color"
+    },
+    {
+      "path": "elevation.overlay.ambient",
+      "cssName": "--elevation-overlay-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.overlay.ambientBlur",
+      "cssName": "--elevation-overlay-ambient-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.overlay.ambientY",
+      "cssName": "--elevation-overlay-ambient-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.overlay.detail",
+      "cssName": "--elevation-overlay-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.overlay.key",
+      "cssName": "--elevation-overlay-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.overlay.keyBlur",
+      "cssName": "--elevation-overlay-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.overlay.keyY",
+      "cssName": "--elevation-overlay-key-y",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.panel.ambient",
+      "cssName": "--elevation-panel-ambient",
+      "type": "color"
+    },
+    {
+      "path": "elevation.panel.detail",
+      "cssName": "--elevation-panel-detail",
+      "type": "color"
+    },
+    {
+      "path": "elevation.panel.key",
+      "cssName": "--elevation-panel-key",
+      "type": "color"
+    },
+    {
+      "path": "elevation.panel.keyBlur",
+      "cssName": "--elevation-panel-key-blur",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.panel.keySpread",
+      "cssName": "--elevation-panel-key-spread",
+      "type": "dimension"
+    },
+    {
+      "path": "elevation.panel.keyY",
+      "cssName": "--elevation-panel-key-y",
+      "type": "dimension"
     },
     {
       "path": "font.button",

@@ -23,6 +23,7 @@ type DocsPage =
   | "quick-link"
   | "settings-row"
   | "status-marker"
+  | "surface"
   | "radio"
   | "select"
   | "sidebar"
@@ -128,6 +129,7 @@ function ComponentNavigation({
     | "quick-link"
     | "settings-row"
     | "status-marker"
+    | "surface"
     | "radio"
     | "select"
     | "sidebar"
@@ -155,7 +157,7 @@ function ComponentNavigation({
     current === "sidebar";
   const tabsCurrent = current === "tabs";
   const overlaysCurrent = current === "menu" || current === "popover" || current === "tooltip";
-  const contentCurrent = current === "avatar";
+  const contentCurrent = current === "avatar" || current === "surface";
   const feedbackCurrent = current === "status-marker" || current === "toast";
 
   return (
@@ -355,9 +357,22 @@ function ComponentNavigation({
             Content
           </NavHeading>
           {contentCurrent && (
-            <Link aria-current="page" className="nav-item nav-item-deep" href="/components/avatar">
-              Avatar
-            </Link>
+            <>
+              <Link
+                aria-current={current === "avatar" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/avatar"
+              >
+                Avatar
+              </Link>
+              <Link
+                aria-current={current === "surface" ? "page" : undefined}
+                className="nav-item nav-item-deep"
+                href="/components/surface"
+              >
+                Surface
+              </Link>
+            </>
           )}
         </div>
       </div>

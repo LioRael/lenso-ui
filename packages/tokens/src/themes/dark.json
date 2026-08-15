@@ -6,6 +6,7 @@
       "canvas": { "$value": "{primitive.color.gray950}" },
       "sidebar": { "$value": "{primitive.color.gray900}" },
       "surface": { "$value": "{primitive.color.gray950}" },
+      "panel": { "$value": "{primitive.color.gray900}" },
       "dialog": { "$value": "{primitive.color.slate950}" },
       "elevated": { "$value": "{primitive.color.gray900}" },
       "popover": {
