@@ -1,0 +1,29 @@
+{
+  "id": "surface",
+  "name": "Surface",
+  "description": "Inspect hierarchy, elevation, theme parity, and custom rendering.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "level",
+      "label": "Level",
+      "type": "select",
+      "options": ["embedded", "panel", "overlay"],
+      "default": "embedded"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { Surface } from \"@lenso/ui/surface\"\n\n<Surface level=\"panel\">\n  <h2>Panel title</h2>\n  <p>Compose product content from existing components.</p>\n</Surface>"
+    }
+  ]
+}

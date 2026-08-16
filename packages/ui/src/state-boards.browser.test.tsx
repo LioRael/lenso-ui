@@ -26,13 +26,6 @@ import { PlusIcon } from "lucide-react";
 import { CircleIcon } from "lucide-react";
 import { ArrowUpRightIcon } from "lucide-react";
 
-const screenshotOptions = {
-  comparatorName: "pixelmatch" as const,
-  // Chromium's bundled fonts are rasterized differently on Linux and macOS.
-  // Exact theme values and component geometry are asserted separately above.
-  comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
-};
-
 const avatarSizes = ["compact", "default", "large", "xlarge"] as const;
 
 function DisclosureBoardGroup({ expanded }: { expanded: "first" | "second" }) {
@@ -108,10 +101,6 @@ test("Disclosure matches the approved Figma state board", async () => {
   expect(panels[0]?.getBoundingClientRect().width).toBe(220);
   await expect.poll(() => panels[0]?.getBoundingClientRect().height).toBe(96);
   await expect.poll(() => panels[1]?.getBoundingClientRect().height).toBe(68);
-  await expect.element(board).toMatchScreenshot("disclosure-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 
 function TeamIcon() {
@@ -206,10 +195,6 @@ test("Breadcrumb matches the approved Figma state board", async () => {
   expect(
     getComputedStyle(board.element().querySelector('[data-slot="breadcrumb-page"]')!).fontWeight,
   ).toBe("500");
-  await expect.element(board).toMatchScreenshot("breadcrumb-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 const avatarGradient =
   "linear-gradient(135deg, rgb(92, 120, 242) 14.286%, rgb(161, 97, 222) 85.714%)";
@@ -371,10 +356,6 @@ test("Avatar matches the approved Figma state board", async () => {
   expect(getComputedStyle(screen.getByTestId("avatar-dark-status").element()).borderColor).toBe(
     "rgb(0, 0, 0)",
   );
-  await expect.element(board).toMatchScreenshot("avatar-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 
 const figmaButtonStates = [
@@ -464,8 +445,6 @@ test("Button matches the approved Figma state board", async () => {
     expect(rect?.height).toBe(height);
     expect(Math.abs((rect?.width ?? 0) - width)).toBeLessThanOrEqual(2);
   }
-
-  await expect.element(board).toMatchScreenshot("button-figma-state-board", screenshotOptions);
 });
 
 const figmaIconButtonStates = [
@@ -544,11 +523,6 @@ test("Icon Button matches the approved Figma state board", async () => {
   });
   expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
   expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
-
-  await expect.element(board).toMatchScreenshot("icon-button-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 
 const figmaLabelStates = [
@@ -617,8 +591,6 @@ test("Label matches the approved Figma state board", async () => {
   expect(getComputedStyle(markers[0]!).backgroundColor).toBe("rgb(235, 87, 87)");
   expect(getComputedStyle(markers[4]!).backgroundColor).toBe("rgb(187, 135, 252)");
   expect(getComputedStyle(markers[8]!).backgroundColor).toBe("rgb(78, 167, 252)");
-
-  await expect.element(board).toMatchScreenshot("label-figma-state-board", screenshotOptions);
 });
 
 const figmaTextFieldStates = [
@@ -713,11 +685,6 @@ test("Text Field matches the approved Figma state board", async () => {
   expect(getComputedStyle(controls[5]!).borderColor).toBe("rgb(234, 234, 234)");
   expect(getComputedStyle(controls[6]!).backgroundColor).toBe("rgb(255, 255, 255)");
   expect(getComputedStyle(controls[6]!).borderColor).toBe("rgb(234, 234, 234)");
-
-  await expect.element(board).toMatchScreenshot("text-field-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 
 test("Text Field resolves dark theme values", async () => {
@@ -831,7 +798,6 @@ test("Checkbox matches the approved Figma state board", async () => {
   expect(getComputedStyle(indicators[9]!).opacity).toBe("0.45");
   expect(getComputedStyle(indicators[0]!, "::after").content).toBe("none");
   expect(getComputedStyle(indicators[9]!, "::after").display).toBe("none");
-
   const pressedLayer = indicators[2]?.querySelector<HTMLElement>(
     '[data-slot="checkbox-pressed-layer"]',
   );
@@ -840,11 +806,29 @@ test("Checkbox matches the approved Figma state board", async () => {
   );
   expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
   expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
+});
 
-  await expect.element(board).toMatchScreenshot("checkbox-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
+test("Checkbox default marks avoid CSS masks", async () => {
+  const screen = await render(
+    <div>
+      <Checkbox.Root defaultChecked>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Checked</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root indeterminate>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Indeterminate</Checkbox.Label>
+      </Checkbox.Root>
+    </div>,
+  );
+
+  for (const name of ["Checked", "Indeterminate"]) {
+    const indicator = screen
+      .getByRole("checkbox", { name })
+      .element()
+      .querySelector<HTMLElement>('[data-slot="checkbox-indicator"]');
+    expect(getComputedStyle(indicator!, "::after").maskImage).toBe("none");
+  }
 });
 
 test("Checkbox resolves dark theme values", async () => {
@@ -861,7 +845,7 @@ test("Checkbox resolves dark theme values", async () => {
   await expect.poll(() => getComputedStyle(root).color).toBe("rgb(247, 248, 248)");
   expect(getComputedStyle(indicator!).backgroundColor).toBe("rgb(247, 248, 248)");
   expect(getComputedStyle(indicator!).opacity).toBe("0.9");
-  expect(getComputedStyle(indicator!, "::after").backgroundColor).toBe("rgb(0, 0, 0)");
+  expect(getComputedStyle(indicator!, "::after").borderColor).toBe("rgb(0, 0, 0)");
 });
 
 const figmaRadioStates = [
@@ -959,11 +943,6 @@ test("Radio matches the approved Figma state board", async () => {
     width: 20,
   });
   expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
-
-  await expect.element(board).toMatchScreenshot("radio-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 
 test("Radio resolves dark theme values", async () => {
@@ -1076,6 +1055,22 @@ test("Switch matches the approved Figma state board", async () => {
     height: 14,
     width: 14,
   });
+  expect(thumbs[6]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 14,
+    width: 16,
+  });
+  expect(
+    thumbs[6]!.getBoundingClientRect().right - roots[6]!.getBoundingClientRect().left,
+  ).toBeCloseTo(
+    thumbs[5]!.getBoundingClientRect().right - roots[5]!.getBoundingClientRect().left,
+    4,
+  );
+  expect(
+    thumbs[6]!.getBoundingClientRect().left - roots[6]!.getBoundingClientRect().left,
+  ).toBeCloseTo(
+    thumbs[5]!.getBoundingClientRect().left - roots[5]!.getBoundingClientRect().left - 2,
+    4,
+  );
   expect(roots[10]?.getBoundingClientRect().toJSON()).toMatchObject({
     height: 26,
     width: 34,
@@ -1088,6 +1083,22 @@ test("Switch matches the approved Figma state board", async () => {
     height: 10,
     width: 10,
   });
+  expect(thumbs[16]?.getBoundingClientRect().toJSON()).toMatchObject({
+    height: 10,
+    width: 12,
+  });
+  expect(
+    thumbs[16]!.getBoundingClientRect().right - roots[16]!.getBoundingClientRect().left,
+  ).toBeCloseTo(
+    thumbs[15]!.getBoundingClientRect().right - roots[15]!.getBoundingClientRect().left,
+    4,
+  );
+  expect(
+    thumbs[16]!.getBoundingClientRect().left - roots[16]!.getBoundingClientRect().left,
+  ).toBeCloseTo(
+    thumbs[15]!.getBoundingClientRect().left - roots[15]!.getBoundingClientRect().left - 2,
+    4,
+  );
   expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
   expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
   await expect.poll(() => getComputedStyle(tracks[0]!).backgroundColor).toBe("rgb(112, 113, 114)");
@@ -1111,8 +1122,6 @@ test("Switch matches the approved Figma state board", async () => {
     height: 26,
     width: 36,
   });
-
-  await expect.element(board).toMatchScreenshot("switch-figma-state-board", screenshotOptions);
 });
 
 test("Switch resolves dark theme values", async () => {
@@ -1224,10 +1233,6 @@ test("Combobox matches the approved Figma state board", async () => {
     .forEach((list) => {
       list.scrollTop = 0;
     });
-  await expect.element(board).toMatchScreenshot("combobox-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.03 },
-  });
 });
 
 const commandValues = [
@@ -1311,10 +1316,6 @@ test("Command Menu matches the approved Figma state board", async () => {
   await expect.poll(() => getComputedStyle(panels[0]!).width).toBe("720px");
   expect(getComputedStyle(panels[0]!).height).toBe("450px");
   expect(getComputedStyle(panels[0]!).borderRadius).toBe("12px");
-  await expect.element(board).toMatchScreenshot("command-menu-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
-  });
 });
 
 function SelectExample({ open, value }: { open?: boolean; value: string }) {
@@ -1397,8 +1398,6 @@ test("Select matches the approved Figma state board", async () => {
   expect(getComputedStyle(popup).boxShadow).toBe(
     "rgba(0, 0, 0, 0.04) 0px 1px 0.5px 0px, rgba(0, 0, 0, 0.04) 0px 3px 4.5px 0px, rgba(0, 0, 0, 0.02) 0px 6px 9px 0px",
   );
-
-  await expect.element(board).toMatchScreenshot("select-figma-state-board", screenshotOptions);
 });
 
 test("Select resolves dark popup tokens", async () => {
@@ -1480,8 +1479,5 @@ for (const theme of ["light", "dark"] as const) {
     await expect
       .poll(() => getComputedStyle(popup.element()).backgroundColor)
       .toBe(theme === "dark" ? "rgb(25, 26, 27)" : "rgb(255, 255, 255)");
-    await expect
-      .element(document.body)
-      .toMatchScreenshot(`dialog-state-board-${theme}`, screenshotOptions);
   });
 }

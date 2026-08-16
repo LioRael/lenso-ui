@@ -1,0 +1,38 @@
+---
+title: "Status Marker"
+description: "Compact status signal available as a dot or labeled presentation."
+eyebrow: "Foundation component · Feedback"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="status-marker" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use Dot where adjacent text already names the status.</li>
+        <li>Use Label when the marker must communicate independently.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Label presentation never relies on color alone.</li>
+        <li>Dot is decorative unless the consumer supplies an accessible label.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { StatusMarker } from "@lenso/ui/status-marker"
+
+<StatusMarker presentation="label" status="success">
+  On track
+</StatusMarker>`}
+    description="Semantic StyleX colors with consumer-owned label content."
+  />

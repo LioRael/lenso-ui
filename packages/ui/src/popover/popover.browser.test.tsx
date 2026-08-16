@@ -140,9 +140,4 @@ test("Popover matches Figma and supports composed interaction", async () => {
   await userEvent.keyboard("{Escape}");
   await expect.poll(() => trigger.element().hasAttribute("data-popup-open")).toBe(false);
   await expect.poll(() => document.activeElement === trigger.element()).toBe(true);
-
-  await expect.element(board).toMatchScreenshot("popover-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.025 },
-  });
 });

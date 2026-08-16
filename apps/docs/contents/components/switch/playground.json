@@ -1,0 +1,40 @@
+{
+  "id": "switch",
+  "name": "Switch",
+  "description": "Try supported sizes, checked state, interaction states, and theme parity.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "size",
+      "label": "Size",
+      "type": "select",
+      "options": [
+        { "label": "Default", "value": "default" },
+        { "label": "Compact", "value": "compact" }
+      ],
+      "default": "default"
+    },
+    { "id": "checked", "label": "On", "type": "boolean", "default": false },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { Switch } from \"@lenso/ui/switch\"\n\n<Switch.Root checked>\n  <Switch.Thumb />\n  Switch label\n</Switch.Root>"
+    }
+  ]
+}

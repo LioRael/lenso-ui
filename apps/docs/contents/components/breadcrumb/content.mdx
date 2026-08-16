@@ -1,0 +1,49 @@
+---
+title: "Breadcrumb"
+description: "A compact location trail with composable links, separators, overflow, and icons."
+eyebrow: "Foundation component · Navigation"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="breadcrumb" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Keep trails short; collapse intermediate locations when space is constrained.</li>
+        <li>
+          Render router links through <code>render</code> so navigation remains native.
+        </li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>The root exposes a named navigation landmark and the current page is announced.</li>
+        <li>Separators are decorative and excluded from the accessibility tree.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import Link from "next/link"
+import { Breadcrumb } from "@lenso/ui/breadcrumb"
+
+<Breadcrumb.Root>
+  <Breadcrumb.List>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link render={<Link href="/workspace" />}>Workspace</Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item>
+      <Breadcrumb.Page>Issues</Breadcrumb.Page>
+    </Breadcrumb.Item>
+  </Breadcrumb.List>
+</Breadcrumb.Root>`}
+    description="Semantic list markup with Base UI-powered interactive parts and replaceable icons."
+  />

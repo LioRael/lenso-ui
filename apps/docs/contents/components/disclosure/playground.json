@@ -1,0 +1,17 @@
+{
+  "id": "disclosure",
+  "name": "Disclosure",
+  "description": "Check single or multiple expansion, keyboard behavior, animation, and theme parity.",
+  "themeControl": "theme",
+  "controls": [
+    { "id": "multiple", "label": "Multiple", "type": "boolean", "default": false },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Group" }]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "description": "Check sizing, fallback content, presence, grouping, and theme-aware separators.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "size",
+      "label": "Size",
+      "type": "select",
+      "options": ["compact", "default", "large", "xlarge"],
+      "default": "default"
+    },
+    {
+      "id": "status",
+      "label": "Status",
+      "type": "select",
+      "options": ["online", "away", "busy", "offline"],
+      "default": "online"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { Avatar } from \"@lenso/ui/avatar\"\n\n<Avatar.Root size=\"default\">\n  <Avatar.Fallback>LR</Avatar.Fallback>\n  <Avatar.Status attached state=\"online\" />\n</Avatar.Root>"
+    }
+  ]
+}

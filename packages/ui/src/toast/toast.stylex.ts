@@ -2,6 +2,18 @@ import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
 
+const darkTheme = ':where([data-theme="dark"] *)';
+
+// Figma Toast 256:11 Dark mode values resolved from its Color and Elevation modes.
+const darkToastSurface = "#212122";
+const darkToastContentPrimary = "#ffffff";
+const darkToastContentSecondary = "#d4d4d4";
+const darkToastSuccess = "#00a63e";
+const darkToastError = "#e5484d";
+const toastInnerRadius = `calc(${tokens.radiusPopover} - 0.5px)`;
+const lightToastShadow = `0 0 0 0.5px ${tokens.elevationToastRing}, 0 1px 1px ${tokens.elevationToastDetail}, 0 ${tokens.elevationToastKeyY} ${tokens.elevationToastKeyBlur} ${tokens.elevationToastKey}, 0 ${tokens.elevationToastAmbientY} ${tokens.elevationToastAmbientBlur} ${tokens.elevationToastAmbient}`;
+const darkToastShadow = `0 0 0 0.5px #ffffff26, 0 1px 1px #00000020, 0 2px 5px #00000020, 0 3px 8px #00000020`;
+
 export const styles = stylex.create({
   viewport: {
     bottom: "24px",
@@ -43,10 +55,14 @@ export const styles = stylex.create({
     transitionProperty: "opacity, transform",
     transitionTimingFunction: "ease-out",
     width: "384px",
+    [darkTheme]: {
+      backgroundColor: darkToastSurface,
+      color: darkToastContentSecondary,
+    },
     "::before": {
       backgroundColor: tokens.colorSurfaceDialog,
-      borderRadius: tokens.radiusPopover,
-      boxShadow: `0 0 0 0.5px ${tokens.elevationToastRing}, 0 1px 1px ${tokens.elevationToastDetail}, 0 ${tokens.elevationToastKeyY} ${tokens.elevationToastKeyBlur} ${tokens.elevationToastKey}, 0 ${tokens.elevationToastAmbientY} ${tokens.elevationToastAmbientBlur} ${tokens.elevationToastAmbient}`,
+      borderRadius: toastInnerRadius,
+      boxShadow: lightToastShadow,
       content: "''",
       height: "40px",
       left: 0,
@@ -54,6 +70,10 @@ export const styles = stylex.create({
       position: "absolute",
       top: 0,
       width: "383px",
+      [darkTheme]: {
+        backgroundColor: darkToastSurface,
+        boxShadow: darkToastShadow,
+      },
     },
     "[data-starting-style]": { opacity: 0, transform: "translateY(8px)" },
     "[data-ending-style]": { opacity: 0, transform: "translateY(8px)" },
@@ -67,7 +87,6 @@ export const styles = stylex.create({
     display: "flex",
     gap: "8px",
     minWidth: 0,
-    position: "relative",
     width: "100%",
     zIndex: 1,
   },
@@ -81,7 +100,7 @@ export const styles = stylex.create({
   },
   infoIcon: {
     alignItems: "center",
-    backgroundColor: tokens.colorContentPrimary,
+    backgroundColor: tokens.colorContentSecondary,
     borderRadius: tokens.radiusRounded,
     color: tokens.colorContentInverse,
     display: "inline-flex",
@@ -93,9 +112,13 @@ export const styles = stylex.create({
     justifyContent: "center",
     lineHeight: "10px",
     width: "14px",
+    [darkTheme]: {
+      backgroundColor: darkToastContentSecondary,
+      color: darkToastSurface,
+    },
   },
-  success: { color: tokens.colorStatusSuccessContent },
-  error: { color: tokens.colorStatusErrorContent },
+  success: { color: tokens.colorStatusSuccessContent, [darkTheme]: { color: darkToastSuccess } },
+  error: { color: tokens.colorStatusErrorContent, [darkTheme]: { color: darkToastError } },
   statusGlyph: {
     fontFamily: tokens.fontSans,
     fontSize: "14px",
@@ -121,7 +144,7 @@ export const styles = stylex.create({
     flexDirection: "column",
     minWidth: 0,
   },
-  title: { color: tokens.colorContentPrimary },
+  title: { color: "#000000", [darkTheme]: { color: darkToastContentPrimary } },
   close: {
     alignItems: "center",
     backgroundColor: { default: "transparent", ":hover": tokens.colorSurfaceQuaternary },
@@ -135,9 +158,10 @@ export const styles = stylex.create({
     justifyContent: "center",
     padding: 0,
     position: "absolute",
-    right: "8px",
-    top: "8px",
+    right: "7.5px",
+    top: "7.5px",
     width: "24px",
+    [darkTheme]: { color: darkToastContentSecondary },
   },
   closeIcon: {
     alignItems: "center",
@@ -149,9 +173,10 @@ export const styles = stylex.create({
   action: {
     background: "transparent",
     border: 0,
-    color: tokens.colorContentPrimary,
+    color: "#000000",
     cursor: "pointer",
     font: "inherit",
     padding: 0,
+    [darkTheme]: { color: darkToastContentPrimary },
   },
 });

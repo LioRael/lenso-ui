@@ -1,0 +1,43 @@
+---
+title: "Tabs"
+description: "A compact peer-view switcher with keyboard navigation and consumer-owned panels."
+eyebrow: "Foundation component · Navigation"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="tabs" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use tabs for peer views within one context, not for primary navigation.</li>
+        <li>Keep labels short enough to preserve the compact 28px geometry.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Give every tab list an accessible name that describes the switched views.</li>
+        <li>Base UI owns roles, roving focus, arrow keys, selection, and panel linkage.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Tabs } from "@lenso/ui/tabs"
+
+<Tabs.Root defaultValue="overview">
+  <Tabs.List aria-label="Project sections">
+    <Tabs.Tab value="overview">Overview</Tabs.Tab>
+    <Tabs.Tab value="documents">Documents</Tabs.Tab>
+    <Tabs.Tab value="members">Members</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="overview">Overview content</Tabs.Panel>
+</Tabs.Root>`}
+    description="Composable Base UI parts with StyleX visuals and consumer-owned content."
+  />

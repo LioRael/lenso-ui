@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import "virtual:stylex:runtime";
 
@@ -76,5 +77,30 @@ for (const [theme, expectedHoverBorder, expectedFocusRing] of [
     await input.click();
     expect(getComputedStyle(input.element()).outlineColor).toBe(expectedFocusRing);
     expect(getComputedStyle(input.element()).outlineWidth).toBe("1px");
+  });
+}
+
+for (const [theme, expectedBackground] of [
+  ["light", "rgb(240, 240, 241)"],
+  ["dark", "rgb(57, 58, 61)"],
+] as const) {
+  test(`select trigger resolves its Figma hover surface in ${theme} mode`, async () => {
+    const screen = await render(
+      <ThemeScope theme={theme}>
+        <Select.Root defaultValue="active" items={[{ label: "Active", value: "active" }]}>
+          <Select.Trigger aria-label="Status">
+            <Select.Value />
+            <Select.Icon />
+          </Select.Trigger>
+        </Select.Root>
+      </ThemeScope>,
+    );
+
+    const trigger = screen.getByRole("combobox", { name: "Status" });
+    await userEvent.hover(trigger);
+
+    await expect
+      .poll(() => getComputedStyle(trigger.element()).backgroundColor)
+      .toBe(expectedBackground);
   });
 }

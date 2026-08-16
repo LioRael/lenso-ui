@@ -32,7 +32,7 @@ export default defineConfig({
         },
       },
       headless: true,
-      instances: [{ browser: "chromium" }],
+      instances: [{ browser: process.env.VITEST_BROWSER ?? "chromium" }],
       provider: playwright(),
       viewport: { height: 900, width: 1280 },
     },

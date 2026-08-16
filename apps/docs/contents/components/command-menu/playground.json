@@ -1,0 +1,28 @@
+{
+  "id": "command-menu",
+  "name": "Command Menu",
+  "description": "Filter the real Base UI-backed command collection and navigate it with the keyboard.",
+  "themeControl": "theme",
+  "bodyClassName": "command-menu-playground-body",
+  "controls": [
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": [
+        { "label": "Default", "value": "default" },
+        { "label": "Query", "value": "query" },
+        { "label": "No Results", "value": "no-results" }
+      ],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

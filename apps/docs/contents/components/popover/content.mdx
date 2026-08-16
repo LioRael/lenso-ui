@@ -1,0 +1,47 @@
+---
+title: "Popover"
+description: "Anchored non-modal surface for focused contextual content or controls."
+eyebrow: "Foundation component · Overlays"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="popover" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use for focused contextual controls that do not require a modal workflow.</li>
+        <li>Keep the arrow optional; anchored product menus commonly omit it.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Give every popup an accessible label or connect a visible title.</li>
+        <li>Base UI handles focus entry, Escape dismissal, and focus restoration.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Popover } from "@lenso/ui/popover"
+
+<Popover.Root>
+  <Popover.Trigger>Open popover</Popover.Trigger>
+  <Popover.Portal>
+    <Popover.Positioner side="bottom">
+      <Popover.Popup aria-label="Project actions">
+        <Popover.Item>Edit issue</Popover.Item>
+        <Popover.Item>Set reminder</Popover.Item>
+        <Popover.Item tone="danger">Delete</Popover.Item>
+      </Popover.Popup>
+    </Popover.Positioner>
+  </Popover.Portal>
+</Popover.Root>`}
+    description="Composable Base UI parts with a themed portal and collision-aware positioning."
+  />

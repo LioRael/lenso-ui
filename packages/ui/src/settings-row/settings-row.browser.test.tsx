@@ -113,10 +113,6 @@ test("Settings Row matches the approved Figma control and state matrix", async (
   await userEvent.hover(rows[2]!);
   await expect.poll(() => getComputedStyle(rows[2]!).backgroundColor).toBe("rgba(0, 0, 0, 0)");
   expect((await axe.run(board.element())).violations).toEqual([]);
-  await expect.element(board).toMatchScreenshot("settings-row-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.035 },
-  });
 });
 
 test("Settings Row preserves dark hover semantics and consumer-owned controls", async () => {

@@ -1,5 +1,6 @@
 node_modules/
 .next/
+.content-collections/
 .turbo/
 dist/
 out/

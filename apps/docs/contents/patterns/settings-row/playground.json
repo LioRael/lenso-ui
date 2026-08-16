@@ -1,0 +1,29 @@
+{
+  "id": "settings-row",
+  "name": "Settings Row",
+  "description": "Compare trailing controls, row hover, disabled treatment, and theme parity.",
+  "themeControl": "theme",
+  "stageClassName": "settings-row-rendered-stage",
+  "controls": [
+    {
+      "id": "control",
+      "label": "Control",
+      "type": "select",
+      "options": [
+        { "label": "Select", "value": "select" },
+        { "label": "Toggle", "value": "toggle" },
+        { "label": "Action", "value": "action" }
+      ],
+      "default": "select"
+    },
+    { "id": "disabled", "label": "Disabled", "type": "boolean", "default": false },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Preference" }]
+}

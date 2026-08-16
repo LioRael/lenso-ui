@@ -1,0 +1,38 @@
+---
+title: "Checkbox"
+description: "Binary or indeterminate form control with a visible label and keyboard focus."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/checkbox"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="checkbox" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Binary or indeterminate form control with a visible label and keyboard focus.</li>
+        <li>Value: Off, On, Indeterminate</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>State: Default, Hover, Pressed, Focus-visible, Disabled</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Checkbox } from "@lenso/ui/checkbox"
+
+<Checkbox.Root defaultChecked>
+  <Checkbox.Indicator />
+  <Checkbox.Label>Include completed issues</Checkbox.Label>
+</Checkbox.Root>`}
+    description="Use the composition pattern below; inspect source types for the complete inherited API."
+  />

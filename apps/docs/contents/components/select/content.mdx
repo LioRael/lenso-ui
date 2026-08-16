@@ -1,0 +1,55 @@
+---
+title: "Select"
+description: "Closed and open single-selection control for choosing from a short option list."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/select"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="select" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Closed and open single-selection control for choosing from a short option list.</li>
+        <li>Expanded: False, True</li>
+        <li>Selected: First, Second, Third, Fourth, Fifth</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>
+          Keyboard navigation, selection, dismissal, and focus restoration are provided by Base UI.
+        </li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Select } from "@lenso/ui/select"
+
+<Select.Root defaultValue="default">
+  <Select.Trigger>
+    <Select.Value />
+    <Select.Icon />
+  </Select.Trigger>
+  <Select.Portal>
+    <Select.Positioner>
+      <Select.Popup>
+        <Select.List>
+          <Select.Item value="default">
+            <Select.ItemText>Default</Select.ItemText>
+            <Select.ItemIndicator />
+          </Select.Item>
+        </Select.List>
+      </Select.Popup>
+    </Select.Positioner>
+  </Select.Portal>
+</Select.Root>`}
+    description="Use the composition pattern below; inspect source types for the complete inherited API."
+  />

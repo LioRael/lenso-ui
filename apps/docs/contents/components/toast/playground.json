@@ -1,0 +1,23 @@
+{
+  "id": "toast",
+  "name": "Toast",
+  "description": "Change the semantic tone and trigger the real notification.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "tone",
+      "label": "Tone",
+      "type": "select",
+      "options": ["default", "success", "error"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Clipboard" }]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "select",
+  "name": "Select",
+  "description": "Try expanded, selected, positioned, and theme-aware states on the real select.",
+  "themeControl": "theme",
+  "controls": [
+    { "id": "open", "label": "Expanded", "type": "boolean", "default": false },
+    {
+      "id": "selected",
+      "label": "Selected",
+      "type": "select",
+      "options": ["First", "Second", "Third", "Fourth", "Fifth"],
+      "default": "First"
+    },
+    {
+      "id": "position",
+      "label": "Position",
+      "type": "select",
+      "options": ["Popper", "Item aligned"],
+      "default": "Popper"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { Select } from \"@lenso/ui/select\"\n\n<Select.Root defaultValue=\"default\">\n  <Select.Trigger>\n    <Select.Value />\n    <Select.Icon />\n  </Select.Trigger>\n</Select.Root>"
+    }
+  ]
+}

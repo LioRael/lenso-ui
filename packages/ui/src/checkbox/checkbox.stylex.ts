@@ -88,30 +88,24 @@ export const styles = stylex.create({
   },
   checkedMark: {
     "::after": {
-      backgroundColor: "currentColor",
+      borderColor: "currentColor",
+      borderStyle: "solid",
+      borderWidth: "0 2px 2px 0",
       content: "''",
       display: "block",
-      height: "14px",
-      maskImage:
-        "url(\"data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.85 7L5.95 9.1L10.15 4.9' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")",
-      maskPosition: "center",
-      maskRepeat: "no-repeat",
-      maskSize: "14px 14px",
-      width: "14px",
+      height: "7px",
+      transform: "translateY(-1px) rotate(45deg)",
+      width: "3.5px",
     },
   },
   indeterminateMark: {
     "::after": {
       backgroundColor: "currentColor",
+      borderRadius: "1px",
       content: "''",
       display: "block",
-      height: "14px",
-      maskImage:
-        "url(\"data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.2 7H9.8' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E\")",
-      maskPosition: "center",
-      maskRepeat: "no-repeat",
-      maskSize: "14px 14px",
-      width: "14px",
+      height: "2px",
+      width: "6px",
     },
   },
   disabledMark: {

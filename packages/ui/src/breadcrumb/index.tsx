@@ -94,14 +94,14 @@ export const BreadcrumbSeparator = React.forwardRef<HTMLLIElement, BreadcrumbSep
         role="presentation"
       >
         {children ?? (
-          <svg aria-hidden="true" viewBox="0 0 5.25 9.25" {...stylex.props(styles.separatorIcon)}>
+          <svg aria-hidden="true" viewBox="0 0 5 7" {...stylex.props(styles.separatorIcon)}>
             <path
-              d="M0.625 0.625 4.625 4.625 0.625 8.625"
+              d="M0.5 0.5 3.5 3.5 0.5 6.5"
               fill="none"
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="1.25"
+              strokeWidth="1"
             />
           </svg>
         )}

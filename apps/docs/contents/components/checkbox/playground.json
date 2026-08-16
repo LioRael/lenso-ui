@@ -1,0 +1,36 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "description": "Try supported variants on the real component.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "value",
+      "label": "Value",
+      "type": "select",
+      "options": ["off", "on", "indeterminate"],
+      "default": "off"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { Checkbox } from \"@lenso/ui/checkbox\"\n\n<Checkbox.Root defaultChecked>\n  <Checkbox.Indicator />\n  <Checkbox.Label>Include completed issues</Checkbox.Label>\n</Checkbox.Root>"
+    }
+  ]
+}

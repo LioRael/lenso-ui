@@ -1,0 +1,23 @@
+{
+  "id": "combobox",
+  "name": "Combobox",
+  "description": "Try supported states on the real component and inspect the themed search surface.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["closed", "open", "empty", "loading"],
+      "default": "closed"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

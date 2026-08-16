@@ -1,0 +1,45 @@
+---
+title: "Disclosure"
+description: "Compact expandable sections for progressive navigation and supporting content."
+eyebrow: "Foundation component · Navigation"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="disclosure" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use disclosure for optional supporting content, not essential task steps.</li>
+        <li>Choose single expansion when sections compete for the same compact space.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Base UI connects each trigger to its panel and exposes expanded state.</li>
+        <li>Triggers remain native buttons and support Enter and Space.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Disclosure } from "@lenso/ui/disclosure"
+
+<Disclosure.Root defaultValue={["workspace"]}>
+  <Disclosure.Item value="workspace">
+    <Disclosure.Header>
+      <Disclosure.Trigger>
+        Workspace <Disclosure.Icon />
+      </Disclosure.Trigger>
+    </Disclosure.Header>
+    <Disclosure.Panel>Projects and workspace views.</Disclosure.Panel>
+  </Disclosure.Item>
+</Disclosure.Root>`}
+    description="Base UI owns accordion state and semantics; every visible part remains composable and replaceable."
+  />

@@ -1,0 +1,38 @@
+---
+title: "Switch"
+description: "Immediate on/off control with compact and default sizes plus stateful thumb motion."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/switch"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="switch" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Immediate on/off control with compact and default sizes plus stateful thumb motion.</li>
+        <li>Size: Default, Compact</li>
+        <li>On: False, True</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>State: Default, Hover, Pressed, Focus-visible, Disabled</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Switch } from "@lenso/ui/switch"
+
+<Switch.Root defaultChecked>
+  <Switch.Thumb />
+</Switch.Root>`}
+    description="Use the composition pattern below; inspect source types for the complete inherited API."
+  />

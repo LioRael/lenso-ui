@@ -1,0 +1,43 @@
+{
+  "id": "text-field",
+  "name": "Text Field",
+  "description": "Try supported interaction and validation states on the real text field.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "size",
+      "label": "Size",
+      "type": "select",
+      "options": ["default"],
+      "default": "default"
+    },
+    {
+      "id": "pattern",
+      "label": "Pattern",
+      "type": "select",
+      "options": ["search", "leading-icon"],
+      "default": "search"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "active", "focus-visible", "error", "read-only", "disabled"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Default",
+      "code": "import { TextField } from \"@lenso/ui/text-field\"\n\n<TextField.Root>\n  <TextField.Label>Project name</TextField.Label>\n  <TextField.Control placeholder=\"Untitled\" />\n  <TextField.Description>Visible to your team.</TextField.Description>\n</TextField.Root>"
+    }
+  ]
+}

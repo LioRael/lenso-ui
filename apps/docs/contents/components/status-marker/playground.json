@@ -1,0 +1,30 @@
+{
+  "id": "status-marker",
+  "name": "Status Marker",
+  "description": "Change semantic status and presentation on the real marker.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "status",
+      "label": "Status",
+      "type": "select",
+      "options": ["neutral", "success", "warning", "error", "info"],
+      "default": "neutral"
+    },
+    {
+      "id": "presentation",
+      "label": "Presentation",
+      "type": "select",
+      "options": ["dot", "label"],
+      "default": "dot"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Default" }]
+}

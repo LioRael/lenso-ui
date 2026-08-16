@@ -10,3 +10,4 @@ packages/ui/src/tokens.stylex.ts
 registry/**/*.json
 registry/tokens.stylex.ts
 tooling/token-generator/schemas/**
+apps/docs/contents/**/*.mdx

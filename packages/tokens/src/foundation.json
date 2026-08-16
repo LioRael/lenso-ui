@@ -38,6 +38,9 @@
       "gray800": {
         "$value": { "colorSpace": "srgb", "components": [0.121569, 0.121569, 0.121569], "alpha": 1 }
       },
+      "gray850": {
+        "$value": { "colorSpace": "srgb", "components": [0.101961, 0.101961, 0.105882], "alpha": 1 }
+      },
       "gray900": {
         "$value": { "colorSpace": "srgb", "components": [0.039216, 0.039216, 0.039216], "alpha": 1 }
       },
@@ -127,11 +130,13 @@
       },
       "white3": { "$value": { "colorSpace": "srgb", "components": [1, 1, 1], "alpha": 0.03 } },
       "white5": { "$value": { "colorSpace": "srgb", "components": [1, 1, 1], "alpha": 0.05 } },
+      "white8": { "$value": { "colorSpace": "srgb", "components": [1, 1, 1], "alpha": 0.083 } },
       "white14": {
         "$value": { "colorSpace": "srgb", "components": [1, 1, 1], "alpha": 0.143 }
       },
       "black2": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.02 } },
       "black10": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.1 } },
+      "black12": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.125 } },
       "black30": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.3 } },
       "black4": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.04 } },
       "black32": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.32 } }
@@ -143,6 +148,7 @@
       "px2": { "$value": { "value": 2, "unit": "px" } },
       "px3": { "$value": { "value": 3, "unit": "px" } },
       "px4": { "$value": { "value": 4, "unit": "px" } },
+      "px5": { "$value": { "value": 5, "unit": "px" } },
       "px6": { "$value": { "value": 6, "unit": "px" } },
       "px8": { "$value": { "value": 8, "unit": "px" } },
       "px9": { "$value": { "value": 9, "unit": "px" } },

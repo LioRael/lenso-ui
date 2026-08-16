@@ -7,14 +7,14 @@ import { semanticTokenNames, type SemanticToken, type ThemeName } from "@lenso/t
 interface ThemeContextValue {
   overrides: Partial<Record<SemanticToken, string>>;
   portalHost: HTMLDivElement | null;
-  theme: ThemeName;
+  theme: ThemeName | "system";
 }
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 
 export interface ThemeScopeProps extends React.ComponentPropsWithoutRef<"div"> {
   overrides?: Partial<Record<SemanticToken, string>>;
-  theme?: ThemeName;
+  theme?: ThemeName | "system";
 }
 
 export const ThemeScope = React.forwardRef<HTMLDivElement, ThemeScopeProps>(function ThemeScope(

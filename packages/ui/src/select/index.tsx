@@ -25,6 +25,7 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, BaseSelect.Trig
           const generated = stylex.props(
             styles.trigger,
             boxedControlStyles.edge,
+            styles.triggerSurface,
             state.disabled && styles.triggerDisabled,
           ).className;
           const custom = typeof className === "function" ? className(state) : className;

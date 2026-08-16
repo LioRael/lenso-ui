@@ -75,7 +75,7 @@ export const styles = stylex.create({
     justifyContent: "center",
     width: "12px",
   },
-  separatorIcon: { height: "9.25px", width: "5.25px" },
+  separatorIcon: { height: "7px", width: "5px" },
   ellipsis: { fontSize: "13px", lineHeight: "19.5px", minWidth: "22px" },
   icon: {
     alignItems: "center",

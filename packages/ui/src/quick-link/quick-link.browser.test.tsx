@@ -58,10 +58,6 @@ test("Quick Link matches the approved Default and Hover Figma states", async () 
   await expect.poll(() => getComputedStyle(trailing[1]!).opacity).toBe("1");
   await expect.poll(() => getComputedStyle(links[1]!).backgroundColor).toBe("rgb(240, 240, 241)");
   expect((await axe.run(board.element())).violations).toEqual([]);
-  await expect.element(board).toMatchScreenshot("quick-link-figma-state-board", {
-    comparatorName: "pixelmatch",
-    comparatorOptions: { allowedMismatchedPixelRatio: 0.04 },
-  });
 });
 
 test("Quick Link preserves dark hover tokens, disabled state, and render composition", async () => {

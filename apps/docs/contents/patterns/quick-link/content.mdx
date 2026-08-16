@@ -1,0 +1,43 @@
+---
+title: "Quick Link"
+description: "A compact contextual link with stable icon geometry and progressive hover affordance."
+eyebrow: "Foundation component · Navigation"
+metadata:
+  - "Figma canonical"
+  - "Implementation ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="quick-link" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use for compact contextual destinations such as settings and team resources.</li>
+        <li>Keep labels short enough to remain a single line.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Use render composition with a real link when the action navigates.</li>
+        <li>The trailing chevron is decorative and does not duplicate the accessible name.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { QuickLink } from "@lenso/ui/quick-link"
+
+<QuickLink
+  render={<Link href="/settings" />}
+  nativeButton={false}
+  leadingIcon={<SettingsIcon />}
+  trailingIcon={<ChevronRightIcon />}
+>
+  Team settings
+</QuickLink>`}
+    description="Base UI owns button and render composition behavior; both icon slots remain consumer-controlled."
+  />

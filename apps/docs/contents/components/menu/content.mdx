@@ -1,0 +1,53 @@
+---
+title: "Menu"
+description: "Composable application menu with shortcuts, links, nested surfaces, and complete keyboard navigation."
+eyebrow: "Foundation component · Overlays"
+metadata:
+  - "Figma canonical"
+  - "Base UI behavior"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="menu" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use Item for actions and LinkItem for navigation.</li>
+        <li>Keep labels concise and group destructive actions last.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Base UI owns roles, roving focus, typeahead, and nested keyboard navigation.</li>
+        <li>Escape closes the active surface and restores focus.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Menu } from "@lenso/ui/menu"
+
+<Menu.Root>
+  <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
+  <Menu.Portal>
+    <Menu.Positioner>
+      <Menu.Popup>
+        <Menu.LinkItem href="/issue/14">Open issue</Menu.LinkItem>
+        <Menu.SubmenuRoot>
+          <Menu.SubmenuTrigger>Create related</Menu.SubmenuTrigger>
+          <Menu.Portal>
+            <Menu.Positioner side="right">
+              <Menu.Popup submenu>...</Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.SubmenuRoot>
+      </Menu.Popup>
+    </Menu.Positioner>
+  </Menu.Portal>
+</Menu.Root>`}
+    description="StyleX visual slots over composable Base UI behavior."
+  />
