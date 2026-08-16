@@ -7,7 +7,7 @@
     "build": "next build",
     "dev": "next dev",
     "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@content-collections/core": "catalog:",
