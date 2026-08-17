@@ -2,35 +2,16 @@ import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
 
-const darkTheme = ':where([data-theme="dark"] *)';
-
 export const checkboxState = stylex.defineVars({
   focus: "transparent",
-  pressed: "transparent",
-});
-
-export const checkboxColor = stylex.defineVars({
-  border: "#d4d4d4",
-  content: "#000000",
-  inverse: "#ffffff",
-  tertiary: "#707172",
 });
 
 export const styles = stylex.create({
   root: {
-    [checkboxColor.border]: "#d4d4d4",
-    [checkboxColor.content]: "#000000",
-    [checkboxColor.inverse]: "#ffffff",
-    [checkboxColor.tertiary]: "#707172",
     [checkboxState.focus]: {
       default: null,
       ":focus-visible": tokens.colorFocusRing,
       '[data-visual-state="focus-visible"]': tokens.colorFocusRing,
-    },
-    [checkboxState.pressed]: {
-      default: null,
-      ":active": tokens.colorInteractionPressedOverlay,
-      '[data-visual-state="pressed"]': tokens.colorInteractionPressedOverlay,
     },
     alignItems: "center",
     backgroundColor: "transparent",
@@ -38,8 +19,8 @@ export const styles = stylex.create({
     borderWidth: 0,
     boxSizing: "border-box",
     color: {
-      default: checkboxColor.content,
-      "[data-disabled]": checkboxColor.tertiary,
+      default: tokens.colorContentPrimary,
+      "[data-disabled]": tokens.colorContentTertiary,
     },
     cursor: { default: "pointer", "[data-disabled]": "default" },
     display: "inline-flex",
@@ -60,24 +41,19 @@ export const styles = stylex.create({
     transitionTimingFunction: "ease-out",
     userSelect: "none",
     whiteSpace: "nowrap",
-    [darkTheme]: {
-      [checkboxColor.border]: "#333333",
-      [checkboxColor.content]: "#ffffff",
-      [checkboxColor.inverse]: "#000000",
-    },
   },
   indicator: {
     alignItems: "center",
     backgroundColor: {
       default: "transparent",
-      "[data-checked]": checkboxColor.content,
-      "[data-indeterminate]": checkboxColor.content,
-      "[data-disabled][data-checked]": checkboxColor.tertiary,
-      "[data-disabled][data-indeterminate]": checkboxColor.tertiary,
+      "[data-checked]": tokens.colorContentPrimary,
+      "[data-indeterminate]": tokens.colorContentPrimary,
+      "[data-disabled][data-checked]": tokens.colorContentTertiary,
+      "[data-disabled][data-indeterminate]": tokens.colorContentTertiary,
     },
     borderColor: {
-      default: checkboxColor.border,
-      "[data-disabled]": checkboxColor.tertiary,
+      default: tokens.colorBorderSecondary,
+      "[data-disabled]": tokens.colorContentTertiary,
       "[data-checked]": "transparent",
       "[data-indeterminate]": "transparent",
     },
@@ -85,7 +61,7 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: { default: "1px", "[data-checked]": 0, "[data-indeterminate]": 0 },
     boxSizing: "border-box",
-    color: { default: checkboxColor.inverse, "[data-disabled]": checkboxColor.tertiary },
+    color: { default: tokens.colorContentInverse, "[data-disabled]": tokens.colorContentTertiary },
     display: "inline-flex",
     flexShrink: 0,
     height: "14px",
@@ -150,24 +126,17 @@ export const styles = stylex.create({
       display: "none",
     },
   },
-  pressedLayer: {
-    backgroundColor: checkboxState.pressed,
-    borderRadius: "3px",
-    height: "14px",
-    left: "-4px",
-    pointerEvents: "none",
-    position: "absolute",
-    top: "-1px",
-    width: "14px",
-  },
   focusLayer: {
-    borderColor: checkboxState.focus,
     borderRadius: "5px",
-    borderStyle: "solid",
-    borderWidth: "1px",
-    inset: "-3px",
+    height: "18px",
+    left: "1px",
+    outlineColor: checkboxState.focus,
+    outlineStyle: "solid",
+    outlineWidth: "1px",
     pointerEvents: "none",
     position: "absolute",
+    top: "5px",
+    width: "18px",
   },
   label: {
     color: "inherit",

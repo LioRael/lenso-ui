@@ -8,14 +8,21 @@ import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./checkbox.stylex.js";
 
 export const CheckboxRoot = React.forwardRef<HTMLElement, BaseCheckbox.Root.Props>(
-  function CheckboxRoot({ className, ...props }, ref) {
+  function CheckboxRoot({ children, className, ...props }, ref) {
     return (
       <BaseCheckbox.Root
         {...props}
         className={mergeClassName(stylex.props(styles.root).className, className)}
         data-slot="checkbox"
         ref={ref}
-      />
+      >
+        {children}
+        <span
+          aria-hidden="true"
+          data-slot="checkbox-focus-layer"
+          {...stylex.props(styles.focusLayer)}
+        />
+      </BaseCheckbox.Root>
     );
   },
 );
@@ -46,16 +53,6 @@ export const CheckboxIndicator = React.forwardRef<HTMLSpanElement, CheckboxIndic
         ref={ref}
       >
         {children}
-        <span
-          aria-hidden="true"
-          data-slot="checkbox-pressed-layer"
-          {...stylex.props(styles.pressedLayer)}
-        />
-        <span
-          aria-hidden="true"
-          data-slot="checkbox-focus-layer"
-          {...stylex.props(styles.focusLayer)}
-        />
       </BaseCheckbox.Indicator>
     );
   },
