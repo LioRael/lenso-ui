@@ -2,13 +2,26 @@ import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
 
+const darkTheme = ':where([data-theme="dark"] *)';
+
 export const checkboxState = stylex.defineVars({
   focus: "transparent",
   pressed: "transparent",
 });
 
+export const checkboxColor = stylex.defineVars({
+  border: "#d4d4d4",
+  content: "#000000",
+  inverse: "#ffffff",
+  tertiary: "#707172",
+});
+
 export const styles = stylex.create({
   root: {
+    [checkboxColor.border]: "#d4d4d4",
+    [checkboxColor.content]: "#000000",
+    [checkboxColor.inverse]: "#ffffff",
+    [checkboxColor.tertiary]: "#707172",
     [checkboxState.focus]: {
       default: null,
       ":focus-visible": tokens.colorFocusRing,
@@ -25,8 +38,8 @@ export const styles = stylex.create({
     borderWidth: 0,
     boxSizing: "border-box",
     color: {
-      default: tokens.colorContentPrimary,
-      "[data-disabled]": tokens.colorContentTertiary,
+      default: checkboxColor.content,
+      "[data-disabled]": checkboxColor.tertiary,
     },
     cursor: { default: "pointer", "[data-disabled]": "default" },
     display: "inline-flex",
@@ -47,27 +60,32 @@ export const styles = stylex.create({
     transitionTimingFunction: "ease-out",
     userSelect: "none",
     whiteSpace: "nowrap",
+    [darkTheme]: {
+      [checkboxColor.border]: "#333333",
+      [checkboxColor.content]: "#ffffff",
+      [checkboxColor.inverse]: "#000000",
+    },
   },
   indicator: {
     alignItems: "center",
     backgroundColor: {
       default: "transparent",
-      "[data-checked]": tokens.colorContentPrimary,
-      "[data-indeterminate]": tokens.colorContentPrimary,
-      "[data-disabled][data-checked]": tokens.colorContentTertiary,
-      "[data-disabled][data-indeterminate]": tokens.colorContentTertiary,
+      "[data-checked]": checkboxColor.content,
+      "[data-indeterminate]": checkboxColor.content,
+      "[data-disabled][data-checked]": checkboxColor.tertiary,
+      "[data-disabled][data-indeterminate]": checkboxColor.tertiary,
+    },
+    borderColor: {
+      default: checkboxColor.border,
+      "[data-disabled]": checkboxColor.tertiary,
+      "[data-checked]": "transparent",
+      "[data-indeterminate]": "transparent",
     },
     borderRadius: "3px",
-    boxShadow: {
-      default: `inset 0 0 0 1px ${tokens.colorBorderSecondary}`,
-      "[data-checked]": "none",
-      "[data-indeterminate]": "none",
-      "[data-disabled]": `inset 0 0 0 1px ${tokens.colorContentTertiary}`,
-      "[data-disabled][data-checked]": "none",
-      "[data-disabled][data-indeterminate]": "none",
-    },
+    borderStyle: "solid",
+    borderWidth: { default: "1px", "[data-checked]": 0, "[data-indeterminate]": 0 },
     boxSizing: "border-box",
-    color: { default: tokens.colorContentInverse, "[data-disabled]": tokens.colorContentTertiary },
+    color: { default: checkboxColor.inverse, "[data-disabled]": checkboxColor.tertiary },
     display: "inline-flex",
     flexShrink: 0,
     height: "14px",
@@ -82,33 +100,52 @@ export const styles = stylex.create({
     },
     position: "relative",
     transitionDuration: "80ms",
-    transitionProperty: "background-color, box-shadow, opacity",
+    transitionProperty: "background-color, border-color, border-width, opacity",
     transitionTimingFunction: "ease-out",
     width: "14px",
   },
   checkedMark: {
-    "::after": {
-      borderColor: "currentColor",
-      borderStyle: "solid",
-      borderWidth: "0 2px 2px 0",
+    "::before": {
+      backgroundColor: "currentColor",
+      borderRadius: "999px",
       content: "''",
-      display: "block",
-      height: "7px",
-      transform: "translateY(-1px) rotate(45deg)",
-      width: "3.5px",
+      height: "1.7px",
+      left: "3px",
+      position: "absolute",
+      top: "6.15px",
+      transform: "rotate(45deg)",
+      transformOrigin: "0.85px 50%",
+      width: "4.67px",
+    },
+    "::after": {
+      backgroundColor: "currentColor",
+      borderRadius: "999px",
+      content: "''",
+      height: "1.7px",
+      left: "5.1px",
+      position: "absolute",
+      top: "8.25px",
+      transform: "rotate(-45deg)",
+      transformOrigin: "0.85px 50%",
+      width: "7.64px",
     },
   },
   indeterminateMark: {
     "::after": {
       backgroundColor: "currentColor",
-      borderRadius: "1px",
+      borderRadius: "999px",
       content: "''",
-      display: "block",
-      height: "2px",
-      width: "6px",
+      height: "1.7px",
+      left: "3.35px",
+      position: "absolute",
+      top: "6.15px",
+      width: "7.3px",
     },
   },
   disabledMark: {
+    "::before": {
+      display: "none",
+    },
     "::after": {
       display: "none",
     },
@@ -116,16 +153,19 @@ export const styles = stylex.create({
   pressedLayer: {
     backgroundColor: checkboxState.pressed,
     borderRadius: "3px",
-    inset: 0,
+    height: "14px",
+    left: "-4px",
     pointerEvents: "none",
     position: "absolute",
+    top: "-1px",
+    width: "14px",
   },
   focusLayer: {
     borderColor: checkboxState.focus,
     borderRadius: "5px",
     borderStyle: "solid",
     borderWidth: "1px",
-    inset: "-2px",
+    inset: "-3px",
     pointerEvents: "none",
     position: "absolute",
   },
