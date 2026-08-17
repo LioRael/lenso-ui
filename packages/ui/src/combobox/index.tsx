@@ -11,7 +11,82 @@ import { styles } from "./combobox.stylex.js";
 
 type SpanProps = Omit<React.HTMLAttributes<HTMLSpanElement>, "className"> & { className?: string };
 
-export const ComboboxRoot = BaseCombobox.Root;
+interface ComboboxContextValue {
+  multiple: boolean;
+}
+
+const ComboboxContext = React.createContext<ComboboxContextValue>({
+  multiple: false,
+});
+
+function stringifyInputValue(
+  value: React.ComponentPropsWithoutRef<"input">["defaultValue"],
+): string {
+  return value == null ? "" : String(value);
+}
+
+export type ComboboxRootProps<
+  Value,
+  Multiple extends boolean | undefined = false,
+> = BaseCombobox.Root.Props<Value, Multiple> & {
+  onInputValueChange?: (value: string, eventDetails: BaseCombobox.Root.ChangeEventDetails) => void;
+};
+
+export function ComboboxRoot<Value, Multiple extends boolean | undefined = false>(
+  props: ComboboxRootProps<Value, Multiple>,
+) {
+  const {
+    children,
+    defaultInputValue,
+    inputValue: inputValueProp,
+    multiple,
+    onInputValueChange,
+    ...rootProps
+  } = props;
+  const [uncontrolledInputValue, setUncontrolledInputValue] = React.useState(() =>
+    stringifyInputValue(defaultInputValue),
+  );
+  const selectionInputPendingRef = React.useRef(false);
+  const handleInputValueChange = React.useCallback(
+    (nextInputValue: string, eventDetails: BaseCombobox.Root.ChangeEventDetails) => {
+      const isItemPress = eventDetails.reason === "item-press";
+      const isSelectionSync = selectionInputPendingRef.current && eventDetails.reason === "none";
+      const resolvedInputValue = isItemPress || isSelectionSync ? "" : nextInputValue;
+
+      if (isItemPress) {
+        selectionInputPendingRef.current = true;
+      } else if (eventDetails.reason === "input-change" || eventDetails.reason === "input-clear") {
+        selectionInputPendingRef.current = false;
+      } else if (!isSelectionSync && eventDetails.reason !== "none") {
+        selectionInputPendingRef.current = false;
+      }
+
+      onInputValueChange?.(resolvedInputValue, eventDetails);
+      if (eventDetails.isCanceled) return;
+      if (inputValueProp === undefined) setUncontrolledInputValue(resolvedInputValue);
+    },
+    [inputValueProp, onInputValueChange],
+  );
+  const inputValue = inputValueProp === undefined ? uncontrolledInputValue : inputValueProp;
+  const contextValue = React.useMemo(() => ({ multiple: multiple === true }), [multiple]);
+  const BaseRoot = BaseCombobox.Root as unknown as React.ComponentType<
+    ComboboxRootProps<Value, Multiple>
+  >;
+
+  return (
+    <ComboboxContext.Provider value={contextValue}>
+      <BaseRoot
+        {...rootProps}
+        inputValue={inputValue}
+        multiple={multiple}
+        onInputValueChange={handleInputValueChange}
+      >
+        {children}
+      </BaseRoot>
+    </ComboboxContext.Provider>
+  );
+}
+
 export const ComboboxLabel = BaseCombobox.Label;
 export const ComboboxGroup = BaseCombobox.Group;
 export const ComboboxCollection = BaseCombobox.Collection;
@@ -120,17 +195,21 @@ export const ComboboxList = React.forwardRef<HTMLDivElement, BaseCombobox.List.P
 
 export const ComboboxItem = React.forwardRef<HTMLDivElement, BaseCombobox.Item.Props>(
   function ComboboxItem({ className, ...props }, ref) {
+    const { multiple } = React.useContext(ComboboxContext);
+
     return (
       <BaseCombobox.Item
         {...props}
         className={(state) => {
           const generated = stylex.props(
             styles.item,
+            !multiple && styles.itemSingle,
             state.disabled && styles.itemDisabled,
           ).className;
           const custom = typeof className === "function" ? className(state) : className;
           return custom ? `${generated} ${custom}` : generated;
         }}
+        data-selection-mode={multiple ? "multiple" : "single"}
         data-slot="combobox-item"
         ref={ref}
       />
@@ -142,18 +221,22 @@ export const ComboboxItemIndicator = React.forwardRef<
   HTMLSpanElement,
   BaseCombobox.ItemIndicator.Props
 >(function ComboboxItemIndicator({ children, className, ...props }, ref) {
+  const { multiple } = React.useContext(ComboboxContext);
   const keepMounted = props.keepMounted ?? children === undefined;
+  const indicatorStyle = multiple ? styles.itemIndicator : styles.itemIndicatorSingle;
+  const indicatorSvgStyle = multiple ? styles.indicatorSvg : styles.singleIndicatorSvg;
 
   return (
     <BaseCombobox.ItemIndicator
       {...props}
-      className={mergeClassName(stylex.props(styles.itemIndicator).className, className)}
+      className={mergeClassName(stylex.props(indicatorStyle).className, className)}
       data-slot="combobox-item-indicator"
+      data-selection-mode={multiple ? "multiple" : "single"}
       keepMounted={keepMounted}
       ref={ref}
     >
       {children === undefined ? (
-        <CheckIcon aria-hidden="true" {...stylex.props(styles.indicatorSvg)} />
+        <CheckIcon aria-hidden="true" {...stylex.props(indicatorSvgStyle)} />
       ) : (
         children
       )}
@@ -188,6 +271,26 @@ export const ComboboxMarker = React.forwardRef<HTMLSpanElement, SpanProps>(funct
     />
   );
 });
+
+export const ComboboxTrailing = React.forwardRef<HTMLSpanElement, SpanProps>(
+  function ComboboxTrailing({ className, ...props }, ref) {
+    const { multiple } = React.useContext(ComboboxContext);
+
+    return (
+      <span
+        {...props}
+        className={[
+          stylex.props(styles.trailing, !multiple && styles.trailingSingle).className,
+          className,
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        data-slot="combobox-trailing"
+        ref={ref}
+      />
+    );
+  },
+);
 
 export const ComboboxEmpty = React.forwardRef<HTMLDivElement, BaseCombobox.Empty.Props>(
   function ComboboxEmpty({ className, ...props }, ref) {
@@ -300,6 +403,7 @@ export const Combobox = {
   Separator: ComboboxSeparator,
   Shortcut: ComboboxShortcut,
   Status: ComboboxStatus,
+  Trailing: ComboboxTrailing,
   Trigger: ComboboxTrigger,
   Value: ComboboxValue,
 } as const;

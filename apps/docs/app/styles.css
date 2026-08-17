@@ -1018,18 +1018,6 @@ html[data-theme="dark"] .docs-theme {
   font-family: "Inter", var(--font-sans);
 }
 
-.stage-canvas > p {
-  position: absolute;
-  top: 126px;
-  left: 156px;
-  width: 360px;
-  margin: 0;
-  color: var(--color-content-secondary);
-  font-size: 11px;
-  line-height: 18px;
-  text-align: center;
-}
-
 .page-header-stage {
   align-items: flex-start;
   padding-top: 52px;

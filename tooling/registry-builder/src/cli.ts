@@ -51,6 +51,12 @@ const sharedFiles = [
   },
 ];
 
+const styledPartFile = {
+  source: "packages/ui/src/shared/styled-part.ts",
+  target: "components/lenso/shared/styled-part.ts",
+  type: "registry:lib" as const,
+};
+
 const specs: RegistryItemSpec[] = [
   {
     dependencies: ["@stylexjs/stylex@0.19.0"],
@@ -471,6 +477,7 @@ const specs: RegistryItemSpec[] = [
         type: "registry:style",
       },
       ...sharedFiles,
+      styledPartFile,
     ],
     name: "sidebar",
     registryDependencies: [stable("setup"), stable("disclosure")],
@@ -528,6 +535,7 @@ const specs: RegistryItemSpec[] = [
         type: "registry:style",
       },
       ...sharedFiles,
+      styledPartFile,
     ],
     name: "settings-row",
     registryDependencies: [stable("setup")],

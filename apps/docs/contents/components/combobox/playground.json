@@ -1,7 +1,7 @@
 {
   "id": "combobox",
   "name": "Combobox",
-  "description": "Try supported states on the real component and inspect the themed search surface.",
+  "description": "Try single and multiple selection states on the real component.",
   "themeControl": "theme",
   "controls": [
     {
@@ -10,6 +10,13 @@
       "type": "select",
       "options": ["closed", "open", "empty", "loading"],
       "default": "closed"
+    },
+    {
+      "id": "selection",
+      "label": "Selection",
+      "type": "select",
+      "options": ["single", "multiple"],
+      "default": "multiple"
     },
     {
       "id": "theme",

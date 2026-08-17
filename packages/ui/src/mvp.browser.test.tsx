@@ -639,6 +639,7 @@ test("Combobox filters and selects with keyboard while preserving focus", async 
   ).toBe(false);
   await userEvent.keyboard("{ArrowDown}{Enter}");
   expect(onValueChange).toHaveBeenCalledWith("Feature", expect.anything());
+  expect((input.element() as HTMLInputElement).value).toBe("");
   expect(document.activeElement).toBe(input.element());
   const results = await axe.run(screen.container);
   expect(results.violations).toEqual([]);

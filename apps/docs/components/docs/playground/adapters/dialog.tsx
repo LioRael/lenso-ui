@@ -43,7 +43,6 @@ export const dialogAdapter: PlaygroundAdapter = ({ theme, values }) => {
           </Dialog.Viewport>
         </Dialog.Portal>
       </Dialog.Root>
-      <p>Open the dialog to test its real modal behavior.</p>
     </ThemeScope>
   );
 };

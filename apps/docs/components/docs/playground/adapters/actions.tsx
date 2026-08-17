@@ -38,7 +38,6 @@ export const buttonAdapter: PlaygroundAdapter = ({ theme, values }) => {
       >
         {label}
       </Button>
-      <p>Controls update this example and its generated JSX.</p>
     </ThemeScope>
   );
 };
@@ -61,7 +60,6 @@ export const iconButtonAdapter: PlaygroundAdapter = ({ theme, values }) => {
       >
         <PlusIcon />
       </IconButton>
-      <p>Controls update this example only.</p>
     </ThemeScope>
   );
 };
