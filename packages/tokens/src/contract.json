@@ -2872,11 +2872,11 @@
         "path": "size.label",
         "type": "dimension",
         "value": {
-          "value": 25,
+          "value": 24,
           "unit": "px"
         },
         "cssName": "--size-label",
-        "cssValue": "25px"
+        "cssValue": "24px"
       },
       "size.labelMarker": {
         "path": "size.labelMarker",
@@ -4797,11 +4797,11 @@
         "path": "size.label",
         "type": "dimension",
         "value": {
-          "value": 25,
+          "value": 24,
           "unit": "px"
         },
         "cssName": "--size-label",
-        "cssValue": "25px"
+        "cssValue": "24px"
       },
       "size.labelMarker": {
         "path": "size.labelMarker",

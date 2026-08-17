@@ -196,7 +196,7 @@ export const tokens = stylex.defineConsts({
   sizeIconButtonDefault: "var(--size-icon-button-default, 28px)",
   sizeIconDefault: "var(--size-icon-default, 14px)",
   sizeInputDefault: "var(--size-input-default, 32px)",
-  sizeLabel: "var(--size-label, 25px)",
+  sizeLabel: "var(--size-label, 24px)",
   sizeLabelMarker: "var(--size-label-marker, 9px)",
   sizeSidebar: "var(--size-sidebar, 244px)",
   space1: "var(--space-1, 4px)",
