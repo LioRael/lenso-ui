@@ -126,7 +126,7 @@
     "iconDefault": { "$value": "{primitive.dimension.px14}" },
     "iconButtonCompact": { "$value": "{primitive.dimension.px24}" },
     "iconButtonDefault": { "$value": "{primitive.dimension.px28}" },
-    "label": { "$value": "{primitive.dimension.px25}" },
+    "label": { "$value": "{primitive.dimension.px24}" },
     "labelMarker": { "$value": "{primitive.dimension.px9}" },
     "sidebar": { "$value": "{primitive.dimension.px244}" },
     "dialog": { "$value": "{primitive.dimension.px480}" },

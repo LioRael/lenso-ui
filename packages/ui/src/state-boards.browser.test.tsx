@@ -565,21 +565,27 @@ test("Label matches the approved Figma state board", async () => {
     </div>,
   );
 
-  await document.fonts.load('500 13px "Inter"', "Label");
-  await expect.poll(() => document.fonts.check('500 13px "Inter"')).toBe(true);
+  await document.fonts.load('400 12px "Inter"', "Label");
+  await expect.poll(() => document.fonts.check('400 12px "Inter"')).toBe(true);
 
   const board = screen.getByTestId("label-state-board");
   const labels = board.element().querySelectorAll<HTMLButtonElement>('[data-slot="label"]');
   expect(labels).toHaveLength(12);
-  await expect.poll(() => getComputedStyle(labels[0]!).height).toBe("25px");
-  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 65)).toBeLessThanOrEqual(1);
+  await expect.poll(() => getComputedStyle(labels[0]!).height).toBe("24px");
+  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 64)).toBeLessThanOrEqual(1);
   expect(getComputedStyle(labels[0]!).backgroundColor).toBe("rgb(248, 248, 249)");
   expect(getComputedStyle(labels[1]!).backgroundColor).toBe("rgb(236, 236, 237)");
   expect(getComputedStyle(labels[3]!).backgroundColor).toBe("rgb(240, 240, 241)");
-  expect(getComputedStyle(labels[0]!).boxShadow).toContain("rgb(222, 222, 222)");
+  expect(getComputedStyle(labels[0]!).borderStyle).toBe("solid");
+  // Chromium rasterizes the 0.5px source border to a 1px device-pixel edge.
+  expect(getComputedStyle(labels[0]!).borderWidth).toBe("1px");
+  expect(getComputedStyle(labels[0]!).getPropertyValue("--size-border-control")).toBe("0.5px");
+  expect(getComputedStyle(labels[0]!).borderColor).toBe("rgb(222, 222, 222)");
+  expect(getComputedStyle(labels[0]!).boxShadow).toBe("none");
   expect(getComputedStyle(labels[0]!).fontFamily).toContain("Inter");
-  expect(getComputedStyle(labels[0]!).fontSize).toBe("13px");
-  expect(getComputedStyle(labels[0]!).lineHeight).toBe("15.5px");
+  expect(getComputedStyle(labels[0]!).fontSize).toBe("12px");
+  expect(getComputedStyle(labels[0]!).fontWeight).toBe("400");
+  expect(getComputedStyle(labels[0]!).lineHeight).toBe("14.5px");
 
   const markers = Array.from(labels, (label) =>
     label.querySelector<HTMLElement>('[data-slot="label-marker"]'),
@@ -591,6 +597,32 @@ test("Label matches the approved Figma state board", async () => {
   expect(getComputedStyle(markers[0]!).backgroundColor).toBe("rgb(235, 87, 87)");
   expect(getComputedStyle(markers[4]!).backgroundColor).toBe("rgb(187, 135, 252)");
   expect(getComputedStyle(markers[8]!).backgroundColor).toBe("rgb(78, 167, 252)");
+});
+
+test("Label resolves dark theme values", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Label data-testid="dark-label">Label</Label>
+      <Label data-testid="dark-hover-label" data-visual-state="hover">
+        Label
+      </Label>
+      <Label data-testid="dark-open-label" open>
+        Label
+      </Label>
+    </ThemeScope>,
+  );
+
+  const label = screen.getByTestId("dark-label").element();
+  const hoverLabel = screen.getByTestId("dark-hover-label").element();
+  const openLabel = screen.getByTestId("dark-open-label").element();
+  expect(getComputedStyle(label).height).toBe("24px");
+  expect(getComputedStyle(label).backgroundColor).toBe("rgb(40, 40, 44)");
+  expect(getComputedStyle(hoverLabel).backgroundColor).toBe("rgb(40, 42, 48)");
+  expect(getComputedStyle(openLabel).backgroundColor).toBe("rgb(40, 41, 43)");
+  expect(getComputedStyle(label).borderColor).toBe("rgb(63, 64, 68)");
+  expect(getComputedStyle(label).color).toBe("rgb(212, 212, 212)");
+  expect(getComputedStyle(label).fontSize).toBe("12px");
+  expect(getComputedStyle(label).lineHeight).toBe("14.5px");
 });
 
 const figmaTextFieldStates = [
