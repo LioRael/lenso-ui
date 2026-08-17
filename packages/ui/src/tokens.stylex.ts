@@ -67,6 +67,7 @@ export const tokens = stylex.defineConsts({
   colorBorderControl: "var(--color-border-control, #d8d8d8)",
   colorBorderControlFocus: "var(--color-border-control-focus, #c2c2c2)",
   colorBorderDialog: "var(--color-border-dialog, #d4d4d4)",
+  colorBorderMenuSeparator: "var(--color-border-menu-separator, #eaeaea)",
   colorBorderPopover: "var(--color-border-popover, #d8d8d8)",
   colorBorderPrimary: "var(--color-border-primary, #707172)",
   colorBorderSecondary: "var(--color-border-secondary, #d4d4d4)",

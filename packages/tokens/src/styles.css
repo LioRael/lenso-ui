@@ -62,6 +62,7 @@
   --color-border-control: #d8d8d8;
   --color-border-control-focus: #c2c2c2;
   --color-border-dialog: #d4d4d4;
+  --color-border-menu-separator: #eaeaea;
   --color-border-popover: #d8d8d8;
   --color-border-primary: #707172;
   --color-border-secondary: #d4d4d4;
@@ -210,6 +211,7 @@
   --color-border-control: #48494c;
   --color-border-control-focus: #3e424d;
   --color-border-dialog: #1f1f1f;
+  --color-border-menu-separator: #333333;
   --color-border-popover: #3f4044;
   --color-border-primary: #707172;
   --color-border-secondary: #333333;
