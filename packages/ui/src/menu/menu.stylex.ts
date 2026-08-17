@@ -2,6 +2,9 @@ import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
 
+const menuPopupShadow =
+  "0 1px 1px rgba(0, 0, 0, 0.125), 0 2px 5px rgba(0, 0, 0, 0.125), 0 3px 8px rgba(0, 0, 0, 0.125)";
+
 export const styles = stylex.create({
   trigger: {
     alignItems: "center",
@@ -35,11 +38,11 @@ export const styles = stylex.create({
   positioner: { outline: 0, zIndex: 60 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderTertiary,
+    borderColor: tokens.colorBorderPopover,
     borderRadius: "12px",
     borderStyle: "solid",
     borderWidth: "0.5px",
-    boxShadow: `0 1px 1px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`,
+    boxShadow: menuPopupShadow,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     minWidth: "210px",
@@ -72,7 +75,7 @@ export const styles = stylex.create({
     gap: "8px",
     height: "32px",
     lineHeight: "19.5px",
-    marginInline: "6px",
+    marginInline: "5.5px",
     outline: 0,
     paddingLeft: "8px",
     paddingRight: "12px",
@@ -126,6 +129,8 @@ export const styles = stylex.create({
     backgroundImage: `linear-gradient(to bottom, transparent 5.75px, ${tokens.colorBorderMenuSeparator} 5.75px, ${tokens.colorBorderMenuSeparator} 6.25px, transparent 6.25px)`,
     borderWidth: 0,
     height: "12px",
+    marginInline: "-0.5px",
+    width: "calc(100% + 1px)",
   },
   separatorLine: {
     backgroundColor: tokens.colorBorderMenuSeparator,
