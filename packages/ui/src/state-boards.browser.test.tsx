@@ -817,19 +817,19 @@ test("Checkbox matches the approved Figma state board", async () => {
   expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
   expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
   expect(getComputedStyle(roots[0]!).fontWeight).toBe("400");
-  expect(getComputedStyle(roots[0]!).color).toBe("rgb(0, 0, 0)");
+  expect(getComputedStyle(roots[0]!).color).toBe("rgb(40, 42, 48)");
   expect(getComputedStyle(roots[0]!).gap).toBe("8px");
   expect(getComputedStyle(indicators[0]!).borderRadius).toBe("3px");
   expect(getComputedStyle(indicators[0]!).borderColor).toBe("rgb(212, 212, 212)");
   expect(getComputedStyle(indicators[0]!).borderWidth).toBe("1px");
   expect(getComputedStyle(indicators[0]!).boxShadow).toBe("none");
-  expect(getComputedStyle(indicators[5]!).backgroundColor).toBe("rgb(0, 0, 0)");
-  expect(getComputedStyle(indicators[10]!).backgroundColor).toBe("rgb(0, 0, 0)");
+  expect(getComputedStyle(indicators[5]!).backgroundColor).toBe("rgb(40, 42, 48)");
+  expect(getComputedStyle(indicators[10]!).backgroundColor).toBe("rgb(40, 42, 48)");
   expect(getComputedStyle(indicators[5]!).opacity).toBe("0.9");
-  expect(getComputedStyle(roots[4]!).color).toBe("rgb(112, 113, 114)");
+  expect(getComputedStyle(roots[4]!).color).toBe("rgb(111, 110, 119)");
   expect(getComputedStyle(indicators[4]!).opacity).toBe("0.5");
-  expect(getComputedStyle(indicators[4]!).borderColor).toBe("rgb(112, 113, 114)");
-  expect(getComputedStyle(indicators[9]!).backgroundColor).toBe("rgb(112, 113, 114)");
+  expect(getComputedStyle(indicators[4]!).borderColor).toBe("rgb(111, 110, 119)");
+  expect(getComputedStyle(indicators[9]!).backgroundColor).toBe("rgb(111, 110, 119)");
   expect(getComputedStyle(indicators[9]!).borderWidth).toBe("0px");
   expect(getComputedStyle(indicators[9]!).opacity).toBe("0.45");
   expect(getComputedStyle(indicators[0]!, "::after").content).toBe("none");
@@ -852,26 +852,30 @@ test("Checkbox matches the approved Figma state board", async () => {
   expect(Number.parseFloat(getComputedStyle(indicators[10]!, "::after").width)).toBeCloseTo(7.3, 1);
   expect(getComputedStyle(indicators[9]!, "::after").display).toBe("none");
   expect(getComputedStyle(indicators[9]!, "::before").display).toBe("none");
-  const pressedLayer = indicators[2]?.querySelector<HTMLElement>(
-    '[data-slot="checkbox-pressed-layer"]',
-  );
-  const focusLayer = indicators[3]?.querySelector<HTMLElement>(
-    '[data-slot="checkbox-focus-layer"]',
-  );
-  expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
-  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
-  const pressedRect = pressedLayer!.getBoundingClientRect();
-  const pressedRootRect = roots[2]!.getBoundingClientRect();
-  expect(pressedRect.x - pressedRootRect.x).toBe(0);
-  expect(pressedRect.y - pressedRootRect.y).toBe(7);
-  expect(pressedRect.width).toBe(14);
-  expect(pressedRect.height).toBe(14);
-  const focusRect = focusLayer!.getBoundingClientRect();
-  const focusRootRect = roots[3]!.getBoundingClientRect();
-  expect(focusRect.x - focusRootRect.x).toBe(1);
-  expect(focusRect.y - focusRootRect.y).toBe(5);
-  expect(focusRect.width).toBe(18);
-  expect(focusRect.height).toBe(18);
+  for (const indicator of indicators) {
+    expect(indicator.querySelector('[data-slot="checkbox-pressed-layer"]')).toBeNull();
+  }
+  const focusGeometry = [3, 8, 13].map((focusIndex) => {
+    const focusLayer = roots[focusIndex]?.querySelector<HTMLElement>(
+      '[data-slot="checkbox-focus-layer"]',
+    );
+    const focusRect = focusLayer!.getBoundingClientRect();
+    const focusRootRect = roots[focusIndex]!.getBoundingClientRect();
+    expect(getComputedStyle(focusLayer!).outlineColor).toBe("rgb(109, 120, 213)");
+    expect(getComputedStyle(focusLayer!).outlineStyle).toBe("solid");
+    expect(getComputedStyle(focusLayer!).outlineWidth).toBe("1px");
+    return {
+      height: focusRect.height,
+      width: focusRect.width,
+      x: focusRect.x - focusRootRect.x,
+      y: focusRect.y - focusRootRect.y,
+    };
+  });
+  expect(focusGeometry).toEqual([
+    { height: 18, width: 18, x: 1, y: 5 },
+    { height: 18, width: 18, x: 1, y: 5 },
+    { height: 18, width: 18, x: 1, y: 5 },
+  ]);
 });
 
 test("Checkbox default marks avoid CSS masks", async () => {
@@ -908,10 +912,43 @@ test("Checkbox resolves dark theme values", async () => {
   );
   const root = screen.getByRole("checkbox", { name: "Checkbox label" }).element();
   const indicator = root.querySelector<HTMLElement>('[data-slot="checkbox-indicator"]');
-  await expect.poll(() => getComputedStyle(root).color).toBe("rgb(255, 255, 255)");
-  expect(getComputedStyle(indicator!).backgroundColor).toBe("rgb(255, 255, 255)");
+  await expect.poll(() => getComputedStyle(root).color).toBe("rgb(247, 248, 248)");
+  expect(getComputedStyle(indicator!).backgroundColor).toBe("rgb(247, 248, 248)");
   expect(getComputedStyle(indicator!).opacity).toBe("0.9");
   expect(getComputedStyle(indicator!, "::after").backgroundColor).toBe("rgb(0, 0, 0)");
+});
+
+test("Checkbox respects ThemeScope semantic color overrides", async () => {
+  const screen = await render(
+    <ThemeScope
+      overrides={{
+        "color.border.secondary": "#00ff00",
+        "color.content.inverse": "#0000ff",
+        "color.content.primary": "#ff0000",
+      }}
+    >
+      <Checkbox.Root>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Unchecked override</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root defaultChecked>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Checked override</Checkbox.Label>
+      </Checkbox.Root>
+    </ThemeScope>,
+  );
+  const unchecked = screen
+    .getByRole("checkbox", { exact: true, name: "Unchecked override" })
+    .element();
+  const checked = screen.getByRole("checkbox", { exact: true, name: "Checked override" }).element();
+  const uncheckedIndicator = unchecked.querySelector<HTMLElement>(
+    '[data-slot="checkbox-indicator"]',
+  );
+  const checkedIndicator = checked.querySelector<HTMLElement>('[data-slot="checkbox-indicator"]');
+  await expect.poll(() => getComputedStyle(unchecked).color).toBe("rgb(255, 0, 0)");
+  expect(getComputedStyle(uncheckedIndicator!).borderColor).toBe("rgb(0, 255, 0)");
+  expect(getComputedStyle(checkedIndicator!).backgroundColor).toBe("rgb(255, 0, 0)");
+  expect(getComputedStyle(checkedIndicator!, "::after").backgroundColor).toBe("rgb(0, 0, 255)");
 });
 
 const figmaRadioStates = [

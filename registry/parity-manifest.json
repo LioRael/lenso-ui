@@ -88,15 +88,15 @@
     "checkbox": {
       "files": [
         {
-          "registrySha256": "9fe2d67adfa956c960bf16fde6d86c6c007d07203cba697be4bc0c283cba11e4",
+          "registrySha256": "11afe449a7d06161482382032718c1cc12357ac42fd856a97a5c5f7940b1e014",
           "source": "packages/ui/src/checkbox/index.tsx",
-          "sourceSha256": "9fe2d67adfa956c960bf16fde6d86c6c007d07203cba697be4bc0c283cba11e4",
+          "sourceSha256": "11afe449a7d06161482382032718c1cc12357ac42fd856a97a5c5f7940b1e014",
           "target": "components/lenso/checkbox/index.tsx"
         },
         {
-          "registrySha256": "79d1778343145a8148daa34d1631de7a66ae9362fa0eda0b52ea790ed1a45acd",
+          "registrySha256": "4b8165638b74e1c41e580aca38306d6407d4264368a98d9ddf44ba4d2ca7f537",
           "source": "packages/ui/src/checkbox/checkbox.stylex.ts",
-          "sourceSha256": "79d1778343145a8148daa34d1631de7a66ae9362fa0eda0b52ea790ed1a45acd",
+          "sourceSha256": "4b8165638b74e1c41e580aca38306d6407d4264368a98d9ddf44ba4d2ca7f537",
           "target": "components/lenso/checkbox/checkbox.stylex.ts"
         },
         {
