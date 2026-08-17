@@ -37,7 +37,7 @@ export const styles = stylex.create({
     lineHeight: "18px",
     opacity: { default: 1, ":disabled": tokens.opacityDisabled },
     outline: { default: "none", ":focus-visible": `1px solid ${tokens.colorFocusRing}` },
-    outlineOffset: "1px",
+    outlineOffset: "0px",
     paddingBlock: "5px",
     paddingInline: "6px 8px",
     textDecoration: "none",

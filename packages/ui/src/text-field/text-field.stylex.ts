@@ -26,11 +26,8 @@ export const styles = stylex.create({
     borderColor: {
       default: tokens.colorBorderControl,
       ":hover": tokens.colorBorderControlFocus,
-      ":focus-visible": tokens.colorBorderControlFocus,
       "[data-invalid]": tokens.colorStatusErrorBorder,
       '[data-visual-state="hover"]': tokens.colorBorderControlFocus,
-      '[data-visual-state="active"]': tokens.colorBorderControlFocus,
-      '[data-visual-state="focus-visible"]': tokens.colorBorderControlFocus,
       ":disabled": tokens.colorBorderTertiary,
       "[data-read-only]": tokens.colorBorderTertiary,
     },
@@ -49,7 +46,7 @@ export const styles = stylex.create({
       '[data-visual-state="active"]': tokens.colorFocusRing,
       '[data-visual-state="focus-visible"]': tokens.colorFocusRing,
     },
-    outlineOffset: "0px",
+    outlineOffset: "-1px",
     outlineStyle: "solid",
     outlineWidth: {
       default: 0,

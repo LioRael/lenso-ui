@@ -9,7 +9,7 @@ import { Select } from "./select/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 
-for (const [theme, expectedBorder] of [
+for (const [theme, expectedTextBorder] of [
   ["light", "rgb(216, 216, 216)"],
   ["dark", "rgb(72, 73, 76)"],
 ] as const) {
@@ -42,23 +42,24 @@ for (const [theme, expectedBorder] of [
     );
     const textInputStyle = getComputedStyle(controls[0]!);
 
-    for (const control of controls) {
+    for (const [index, control] of controls.entries()) {
       const computed = getComputedStyle(control);
       expect(computed.backgroundColor).toBe(
         theme === "light" ? "rgb(255, 255, 255)" : "rgb(25, 26, 27)",
       );
-      expect(computed.borderColor).toBe(expectedBorder);
+      expect(computed.borderColor).toBe(index === 0 ? expectedTextBorder : "rgba(0, 0, 0, 0)");
       expect(computed.borderRadius).toBe("8px");
       expect(computed.borderStyle).toBe("solid");
       expect(computed.borderWidth).toBe(textInputStyle.borderWidth);
-      expect(computed.boxShadow).toBe("none");
+      expect(computed.boxShadow === "none").toBe(index === 0);
+      if (index > 0) expect(computed.boxShadow).toContain("0.5px");
       expect(control.getBoundingClientRect().height).toBe(32);
     }
   });
 }
 
 for (const [theme, expectedHoverBorder, expectedFocusRing] of [
-  ["light", "rgb(194, 194, 194)", "rgb(109, 120, 213)"],
+  ["light", "rgb(194, 194, 194)", "rgb(94, 106, 210)"],
   ["dark", "rgb(62, 66, 77)", "rgb(94, 106, 210)"],
 ] as const) {
   test(`text field interaction edges match Linear in ${theme} mode`, async () => {
@@ -76,6 +77,7 @@ for (const [theme, expectedHoverBorder, expectedFocusRing] of [
 
     await input.click();
     expect(getComputedStyle(input.element()).outlineColor).toBe(expectedFocusRing);
+    expect(getComputedStyle(input.element()).outlineOffset).toBe("-1px");
     expect(getComputedStyle(input.element()).outlineWidth).toBe("1px");
   });
 }

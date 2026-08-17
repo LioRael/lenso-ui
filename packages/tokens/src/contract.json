@@ -3251,14 +3251,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.427451,
-            0.470588,
-            0.835294
+            0.368627,
+            0.415686,
+            0.823529
           ],
           "alpha": 1
         },
         "cssName": "--color-focus-ring",
-        "cssValue": "#6d78d5"
+        "cssValue": "#5e6ad2"
       },
       "color.interaction.pressedOverlay": {
         "path": "color.interaction.pressedOverlay",

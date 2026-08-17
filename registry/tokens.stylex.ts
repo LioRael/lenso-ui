@@ -78,7 +78,7 @@ export const tokens = stylex.defineConsts({
   colorContentPrimary: "var(--color-content-primary, #282a30)",
   colorContentSecondary: "var(--color-content-secondary, #333333)",
   colorContentTertiary: "var(--color-content-tertiary, #6f6e77)",
-  colorFocusRing: "var(--color-focus-ring, #6d78d5)",
+  colorFocusRing: "var(--color-focus-ring, #5e6ad2)",
   colorInteractionPressedOverlay: "var(--color-interaction-pressed-overlay, #00000014)",
   colorLabelBorder: "var(--color-label-border, #dedede)",
   colorLabelContentDefault: "var(--color-label-content-default, #2f2f31)",
