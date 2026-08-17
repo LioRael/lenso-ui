@@ -33,8 +33,10 @@ const rows = [
   ["Delete", Trash2Icon, "⌘ ⌫", "danger"],
 ] as const;
 
-const overlayShadow =
+const lightOverlayShadow =
   "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px";
+const darkOverlayShadow =
+  "rgba(0, 0, 0, 0.125) 0px 1px 1px 0px, rgba(0, 0, 0, 0.125) 0px 2px 5px 0px, rgba(0, 0, 0, 0.125) 0px 3px 8px 0px";
 
 function PreviewRow({ row }: { row: Exclude<(typeof rows)[number], null> }) {
   const [label, Icon, shortcut, state] = row;
@@ -129,7 +131,10 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   const preview = screen.getByTestId("menu-light-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
   expect(getComputedStyle(preview.element()).borderColor).toBe("rgb(216, 216, 216)");
-  expect(getComputedStyle(preview.element()).boxShadow).toBe(overlayShadow);
+  expect(getComputedStyle(preview.element()).boxShadow).toBe(lightOverlayShadow);
+  expect(getComputedStyle(screen.getByTestId("menu-dark-preview").element()).boxShadow).toBe(
+    darkOverlayShadow,
+  );
   const highlightedRow = preview
     .element()
     .querySelector<HTMLElement>('[data-visual-state="hover"]')!;
@@ -184,7 +189,7 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   await expect.element(submenuItem).toBeVisible();
   expect(
     getComputedStyle(submenuItem.element().closest('[data-slot="menu-popup"]')!).boxShadow,
-  ).toBe(overlayShadow);
+  ).toBe(lightOverlayShadow);
   await userEvent.keyboard("{Escape}");
   expect(
     (
