@@ -75,7 +75,6 @@ export const checkboxAdapter: PlaygroundAdapter = ({ setValue, theme, values }) 
         <Checkbox.Indicator />
         <Checkbox.Label>Checkbox label</Checkbox.Label>
       </Checkbox.Root>
-      <p>Controls update this example only.</p>
     </ThemeScope>
   );
 };
@@ -93,7 +92,6 @@ export const labelAdapter: PlaygroundAdapter = ({ theme, values }) => {
       <Label color={labelColor(marker)} data-visual-state={visualState} open={state === "open"}>
         Label
       </Label>
-      <p>Controls update this example only.</p>
     </ThemeScope>
   );
 };
@@ -116,7 +114,6 @@ export const radioAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => 
           Radio label
         </RadioGroup.Item>
       </RadioGroup.Root>
-      <p>Controls update this example only.</p>
     </ThemeScope>
   );
 };
@@ -163,7 +160,6 @@ export const selectAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =>
           </Select.Positioner>
         </Select.Portal>
       </Select.Root>
-      <p>Controls update this example only.</p>
     </ThemeScope>
   );
 };
@@ -212,7 +208,6 @@ export const switchAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =>
         <Switch.Thumb />
         {size === "default" && "Switch label"}
       </Switch.Root>
-      <p>Controls update this example only.</p>
     </ThemeScope>
   );
 };
@@ -241,7 +236,6 @@ export const textFieldAdapter: PlaygroundAdapter = ({ theme, values }) => {
           </TextField.Description>
         )}
       </TextField.Root>
-      <p>Controls update this example only.</p>
     </ThemeScope>
   );
 };

@@ -1,6 +1,6 @@
 ---
 title: "Combobox"
-description: "Searchable selection control with closed, open, empty, and loading states."
+description: "Searchable single- or multiple-selection control with closed, open, empty, and loading states."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "Figma canonical"
@@ -17,12 +17,13 @@ import { Playground } from "@/components/docs/playground";
     <GuidanceBlock title="Usage guidance">
       <ul>
         <li>Searchable selection control with closed, open, empty, and loading states.</li>
-        <li>Single canonical anatomy.</li>
+        <li>Use multiple selection for checkbox indicators; single selection uses a trailing check and item metadata.</li>
       </ul>
     </GuidanceBlock>
     <GuidanceBlock title="Accessibility">
       <ul>
         <li>State: Closed, Open, Empty, Loading</li>
+        <li>Selection: Single, Multiple</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
@@ -30,7 +31,7 @@ import { Playground } from "@/components/docs/playground";
   <CodeExample
     code={String.raw`import { Combobox } from "@lenso/ui/combobox"
 
-<Combobox.Root items={labels}>
+<Combobox.Root items={labels} multiple>
   <Combobox.InputGroup>
     <Combobox.Input placeholder="Search labels…" />
   </Combobox.InputGroup>
@@ -39,7 +40,10 @@ import { Playground } from "@/components/docs/playground";
       <Combobox.Popup>
         <Combobox.List>
           {(label) => (
-            <Combobox.Item value={label}>{label}</Combobox.Item>
+            <Combobox.Item value={label}>
+              <Combobox.ItemIndicator />
+              <Combobox.ItemText>{label}</Combobox.ItemText>
+            </Combobox.Item>
           )}
         </Combobox.List>
       </Combobox.Popup>

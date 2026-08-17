@@ -1024,15 +1024,6 @@ html[data-theme="dark"] .docs-theme {
   font-family: "Inter", var(--font-sans);
 }
 
-.stage-canvas > p {
-  width: min(360px, 100%);
-  margin: 0;
-  color: var(--color-content-secondary);
-  font-size: 11px;
-  line-height: 18px;
-  text-align: center;
-}
-
 .page-header-stage {
   padding-top: 0;
 }

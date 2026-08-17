@@ -7,59 +7,32 @@ import { Sidebar as SidebarPrimitive } from "@lenso/primitives/sidebar";
 
 import { Disclosure, type DisclosurePanelProps } from "../disclosure/index.js";
 import { mergeClassName } from "../shared/merge-class-name.js";
+import { createStyledPart } from "../shared/styled-part.js";
 import { styles } from "./sidebar.stylex.js";
 
-function styledPart<T extends HTMLElement>(
-  Component: React.ElementType,
-  slot: string,
-  style: unknown,
-) {
-  return React.forwardRef<T, React.ComponentPropsWithoutRef<typeof Component>>(function StyledPart(
-    { className, ...props },
-    ref,
-  ) {
-    return (
-      <Component
-        {...props}
-        className={mergeClassName(stylex.props(style as never).className, className)}
-        data-slot={slot}
-        ref={ref}
-      />
-    );
-  });
-}
-
-export const SidebarPanel = styledPart<HTMLElement>(
-  SidebarPrimitive.Panel,
-  "sidebar-panel",
-  styles.panel,
-);
-export const SidebarHeader = styledPart<HTMLDivElement>(
+export const SidebarPanel = createStyledPart(SidebarPrimitive.Panel, "sidebar-panel", styles.panel);
+export const SidebarHeader = createStyledPart(
   SidebarPrimitive.Header,
   "sidebar-header",
   styles.header,
 );
-export const SidebarContent = styledPart<HTMLDivElement>(
+export const SidebarContent = createStyledPart(
   SidebarPrimitive.Content,
   "sidebar-content",
   styles.content,
 );
-export const SidebarFooter = styledPart<HTMLDivElement>(
+export const SidebarFooter = createStyledPart(
   SidebarPrimitive.Footer,
   "sidebar-footer",
   styles.footer,
 );
-export const SidebarMenu = styledPart<HTMLUListElement>(
-  SidebarPrimitive.Menu,
-  "sidebar-menu",
-  styles.menu,
-);
-export const SidebarMenuItem = styledPart<HTMLLIElement>(
+export const SidebarMenu = createStyledPart(SidebarPrimitive.Menu, "sidebar-menu", styles.menu);
+export const SidebarMenuItem = createStyledPart(
   SidebarPrimitive.MenuItem,
   "sidebar-menu-item",
   styles.menuItem,
 );
-export const SidebarSubmenu = styledPart<HTMLUListElement>(
+export const SidebarSubmenu = createStyledPart(
   SidebarPrimitive.Submenu,
   "sidebar-submenu",
   styles.submenu,
@@ -72,32 +45,37 @@ export interface SidebarWorkspaceProps extends Omit<BaseButton.Props, "children"
   indicator?: React.ReactNode;
 }
 
-export const SidebarWorkspace = React.forwardRef<HTMLElement, SidebarWorkspaceProps>(
-  function SidebarWorkspace({ children, className, icon, indicator, ...props }, ref) {
-    return (
-      <BaseButton
-        {...props}
-        className={mergeClassName(stylex.props(styles.workspace).className, className)}
-        data-slot="sidebar-workspace"
-        ref={ref}
-      >
-        {icon && (
-          <span aria-hidden="true" {...stylex.props(styles.workspaceMark)}>
-            {icon}
-          </span>
-        )}
-        <span {...stylex.props(styles.workspaceLabel)}>{children}</span>
-        {indicator && (
-          <span aria-hidden="true" {...stylex.props(styles.workspaceChevron)}>
-            {indicator}
-          </span>
-        )}
-      </BaseButton>
-    );
-  },
-);
+export function SidebarWorkspace({
+  children,
+  className,
+  icon,
+  indicator,
+  ref,
+  ...props
+}: SidebarWorkspaceProps) {
+  return (
+    <BaseButton
+      {...props}
+      className={mergeClassName(stylex.props(styles.workspace).className, className)}
+      data-slot="sidebar-workspace"
+      ref={ref}
+    >
+      {icon && (
+        <span aria-hidden="true" {...stylex.props(styles.workspaceMark)}>
+          {icon}
+        </span>
+      )}
+      <span {...stylex.props(styles.workspaceLabel)}>{children}</span>
+      {indicator && (
+        <span aria-hidden="true" {...stylex.props(styles.workspaceChevron)}>
+          {indicator}
+        </span>
+      )}
+    </BaseButton>
+  );
+}
 
-export const SidebarHeaderSpacer = styledPart<HTMLDivElement>(
+export const SidebarHeaderSpacer = createStyledPart(
   "div",
   "sidebar-header-spacer",
   styles.headerSpacer,
@@ -112,10 +90,16 @@ export interface SidebarItemProps extends Omit<BaseButton.Props, "children" | "c
   selected?: boolean;
 }
 
-export const SidebarItem = React.forwardRef<HTMLElement, SidebarItemProps>(function SidebarItem(
-  { badge, children, className, icon, nested = false, selected = false, ...props },
+export function SidebarItem({
+  badge,
+  children,
+  className,
+  icon,
+  nested = false,
   ref,
-) {
+  selected = false,
+  ...props
+}: SidebarItemProps) {
   const generated = stylex.props(
     styles.item,
     nested && styles.nestedItem,
@@ -140,40 +124,39 @@ export const SidebarItem = React.forwardRef<HTMLElement, SidebarItemProps>(funct
       {badge !== undefined && <span {...stylex.props(styles.badge)}>{badge}</span>}
     </BaseButton>
   );
-});
+}
 
-export const SidebarSection = styledPart<HTMLDivElement>(
-  "section",
-  "sidebar-section",
-  styles.section,
-);
-export const SidebarSectionHeader = styledPart<HTMLDivElement>(
+export const SidebarSection = createStyledPart("section", "sidebar-section", styles.section);
+export const SidebarSectionHeader = createStyledPart(
   "div",
   "sidebar-section-header",
   styles.sectionHeader,
 );
-export const SidebarSectionLabel = styledPart<HTMLSpanElement>(
+export const SidebarSectionLabel = createStyledPart(
   "span",
   "sidebar-section-label",
   styles.sectionLabel,
 );
-export const SidebarSectionAction = styledPart<HTMLDivElement>(
+export const SidebarSectionAction = createStyledPart(
   "div",
   "sidebar-section-action",
   styles.sectionAction,
 );
 
-export const SidebarSectionContent = React.forwardRef<HTMLDivElement, DisclosurePanelProps>(
-  function SidebarSectionContent({ children, layout = "auto", ...props }, ref) {
-    return (
-      <Disclosure.Panel {...props} layout={layout} ref={ref}>
-        <div data-slot="sidebar-section-content" {...stylex.props(styles.sectionContent)}>
-          {children}
-        </div>
-      </Disclosure.Panel>
-    );
-  },
-);
+export function SidebarSectionContent({
+  children,
+  layout = "auto",
+  ref,
+  ...props
+}: DisclosurePanelProps) {
+  return (
+    <Disclosure.Panel {...props} layout={layout} ref={ref}>
+      <div data-slot="sidebar-section-content" {...stylex.props(styles.sectionContent)}>
+        {children}
+      </div>
+    </Disclosure.Panel>
+  );
+}
 
 export const Sidebar = {
   ...SidebarPrimitive,

@@ -821,8 +821,9 @@ test("Checkbox matches the approved Figma state board", async () => {
   expect(getComputedStyle(roots[0]!).gap).toBe("8px");
   expect(getComputedStyle(indicators[0]!).borderRadius).toBe("3px");
   expect(getComputedStyle(indicators[0]!).borderColor).toBe("rgb(212, 212, 212)");
-  expect(getComputedStyle(indicators[0]!).borderWidth).toBe("1px");
-  expect(getComputedStyle(indicators[0]!).boxShadow).toBe("none");
+  expect(getComputedStyle(indicators[0]!).borderWidth).toBe("0px");
+  expect(getComputedStyle(indicators[0]!).boxShadow).toContain("rgb(212, 212, 212)");
+  expect(getComputedStyle(indicators[0]!).boxShadow).toContain("inset");
   expect(getComputedStyle(indicators[5]!).backgroundColor).toBe("rgb(40, 42, 48)");
   expect(getComputedStyle(indicators[10]!).backgroundColor).toBe("rgb(40, 42, 48)");
   expect(getComputedStyle(indicators[5]!).opacity).toBe("0.9");

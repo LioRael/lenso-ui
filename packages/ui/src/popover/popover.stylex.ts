@@ -39,7 +39,6 @@ export const styles = stylex.create({
     outlineOffset: "0px",
     paddingInline: "8px",
     whiteSpace: "nowrap",
-    width: "132px",
   },
   positioner: { outline: 0, zIndex: 50 },
   popup: {

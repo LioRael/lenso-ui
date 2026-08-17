@@ -1,7 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { CalendarIcon, CircleIcon, FileIcon, LinkIcon, StarIcon, Trash2Icon } from "lucide-react";
+import {
+  CalendarIcon,
+  ChevronDownIcon,
+  CircleIcon,
+  FileIcon,
+  LinkIcon,
+  StarIcon,
+  Trash2Icon,
+} from "lucide-react";
 
 import { Button } from "@lenso/ui/button";
 import { Combobox } from "@lenso/ui/combobox";
@@ -26,45 +34,78 @@ function stringValue(
 const labels = ["Bug", "Feature", "Improvement"] as const;
 const markerColors = ["#eb5757", "#bb87fc", "#4ea7fc"] as const;
 
+function ComboboxPreview({ multiple, state }: { multiple: boolean; state: string }) {
+  const content = (
+    <>
+      <Combobox.InputGroup>
+        <Combobox.Input
+          disabled={state === "loading"}
+          placeholder={state === "loading" ? "Loading labels…" : "Change or add labels…"}
+        />
+        <Combobox.Shortcut>L</Combobox.Shortcut>
+      </Combobox.InputGroup>
+      <Combobox.Portal>
+        <Combobox.Positioner>
+          <Combobox.Popup>
+            {state === "loading" ? (
+              <Combobox.Status>Loading labels…</Combobox.Status>
+            ) : state === "empty" ? (
+              <Combobox.Empty>No labels found</Combobox.Empty>
+            ) : (
+              <Combobox.List>
+                {(label: string) => {
+                  const index = labels.indexOf(label as (typeof labels)[number]);
+                  return (
+                    <Combobox.Item key={label} value={label}>
+                      {multiple ? (
+                        <>
+                          <Combobox.ItemIndicator />
+                          <Combobox.Marker style={{ color: markerColors[index] }} />
+                          <Combobox.ItemText>{label}</Combobox.ItemText>
+                        </>
+                      ) : (
+                        <>
+                          <Combobox.Marker style={{ color: markerColors[index] }} />
+                          <Combobox.ItemText>{label}</Combobox.ItemText>
+                          <Combobox.ItemIndicator />
+                          <Combobox.Trailing>{index}</Combobox.Trailing>
+                        </>
+                      )}
+                    </Combobox.Item>
+                  );
+                }}
+              </Combobox.List>
+            )}
+          </Combobox.Popup>
+        </Combobox.Positioner>
+      </Combobox.Portal>
+    </>
+  );
+
+  return multiple ? (
+    <Combobox.Root
+      key="multiple"
+      defaultValue={["Improvement"]}
+      items={labels}
+      multiple
+      open={state !== "closed"}
+    >
+      {content}
+    </Combobox.Root>
+  ) : (
+    <Combobox.Root key="single" defaultValue="Improvement" items={labels} open={state !== "closed"}>
+      {content}
+    </Combobox.Root>
+  );
+}
+
 export const comboboxAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const state = stringValue(values, "state", "closed");
+  const multiple = stringValue(values, "selection", "multiple") === "multiple";
 
   return (
     <ThemeScope className="stage-canvas" theme={theme}>
-      <Combobox.Root items={labels} open={state !== "closed"}>
-        <Combobox.InputGroup>
-          <Combobox.Input
-            disabled={state === "loading"}
-            placeholder={state === "loading" ? "Loading labels…" : "Change or add labels…"}
-          />
-          <Combobox.Shortcut>L</Combobox.Shortcut>
-        </Combobox.InputGroup>
-        <Combobox.Portal>
-          <Combobox.Positioner>
-            <Combobox.Popup>
-              {state === "loading" ? (
-                <Combobox.Status>Loading labels…</Combobox.Status>
-              ) : state === "empty" ? (
-                <Combobox.Empty>No labels found</Combobox.Empty>
-              ) : (
-                <Combobox.List>
-                  {(label: string) => {
-                    const index = labels.indexOf(label as (typeof labels)[number]);
-                    return (
-                      <Combobox.Item key={label} value={label}>
-                        <Combobox.ItemIndicator />
-                        <Combobox.Marker style={{ color: markerColors[index] }} />
-                        <Combobox.ItemText>{label}</Combobox.ItemText>
-                      </Combobox.Item>
-                    );
-                  }}
-                </Combobox.List>
-              )}
-            </Combobox.Popup>
-          </Combobox.Positioner>
-        </Combobox.Portal>
-      </Combobox.Root>
-      <p>Controls update this example only.</p>
+      <ComboboxPreview multiple={multiple} state={state} />
     </ThemeScope>
   );
 };
@@ -212,8 +253,16 @@ export const popoverAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =
     <ThemeScope className="stage-canvas popover-stage" theme={theme}>
       <Popover.Root onOpenChange={(nextOpen) => setValue("open", nextOpen)} open={open}>
         <Popover.Trigger>
-          <span style={{ flex: 1, textAlign: "left" }}>Open popover</span>
-          <span aria-hidden="true">{open ? "⌃" : "⌄"}</span>
+          Open popover
+          <ChevronDownIcon
+            aria-hidden="true"
+            size={10}
+            strokeWidth={1.5}
+            style={{
+              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+              transition: "transform 120ms ease-out",
+            }}
+          />
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.Positioner side={placement}>
