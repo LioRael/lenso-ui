@@ -512,14 +512,21 @@ test("Switch anchors the reverse replay on the inner edge", async () => {
     await expect.element(control).not.toBeChecked();
     await expect.poll(() => getComputedStyle(thumb).width).toBe(restingWidth);
 
+    const animationStarted = new Promise<Animation>((resolve) => {
+      const handleAnimationStart = (event: AnimationEvent) => {
+        const animation = thumb.getAnimations().find((candidate) => {
+          if (!("animationName" in candidate)) return false;
+          return candidate.animationName === event.animationName;
+        });
+        if (!animation) return;
+        thumb.removeEventListener("animationstart", handleAnimationStart);
+        resolve(animation);
+      };
+      thumb.addEventListener("animationstart", handleAnimationStart);
+    });
     await control.click();
     await expect.element(control).toBeChecked();
-    await expect
-      .poll(() => thumb.getAnimations().some((animation) => "animationName" in animation))
-      .toBe(true);
-    const feedbackAnimation = thumb
-      .getAnimations()
-      .find((animation) => "animationName" in animation)!;
+    const feedbackAnimation = await animationStarted;
     feedbackAnimation.pause();
     feedbackAnimation.currentTime = 90;
     expect(getComputedStyle(thumb).width).toBe(expandedWidth);

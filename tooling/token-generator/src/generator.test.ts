@@ -94,6 +94,7 @@ const files: JsonDocumentMap = {
 describe("compileResolver", () => {
   it("resolves a DTCG modifier into complete deterministic themes", () => {
     const result = compileResolver(resolver, files, {
+      publicPrimitiveRoots: ["primitive.color"],
       publicRoots: ["color", "radius"],
       requiredSemanticPaths: ["color.surface.canvas", "radius.control"],
     });
@@ -110,9 +111,13 @@ describe("compileResolver", () => {
     const second = renderTokenArtifacts(result);
     expect(first).toEqual(second);
     expect(first.css).toContain('[data-theme="dark"]');
+    expect(first.css).toContain("--color-primitive-white: #ffffff");
     expect(first.stylex).toContain("stylex.defineConsts");
+    expect(first.stylex).toContain("export const primitiveTokens");
     expect(first.stylex).toContain("var(--color-surface-canvas, #ffffff)");
     expect(first.typescript).toContain('"color.surface.canvas"');
+    expect(first.typescript).toContain('"primitive.color.white"');
+    expect(first.figmaManifestJson).toContain('"figmaName": "white"');
   });
 
   it("keeps CSS generic font families unquoted", () => {

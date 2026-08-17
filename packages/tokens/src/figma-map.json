@@ -730,5 +730,614 @@
       "cssName": "--space-label-gap",
       "type": "dimension"
     }
+  ],
+  "primitiveCollection": "Color Primitives",
+  "primitiveMode": "Value",
+  "primitiveVariables": [
+    {
+      "path": "primitive.color.black10",
+      "figmaName": "overlay/black/10",
+      "cssName": "--color-primitive-overlay-black-10",
+      "cssValue": "#0000001a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.black12",
+      "figmaName": "overlay/black/12",
+      "cssName": "--color-primitive-overlay-black-12",
+      "cssValue": "#00000020",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.black2",
+      "figmaName": "overlay/black/2",
+      "cssName": "--color-primitive-overlay-black-2",
+      "cssValue": "#00000005",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.black30",
+      "figmaName": "overlay/black/30",
+      "cssName": "--color-primitive-overlay-black-30",
+      "cssValue": "#0000004d",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.black32",
+      "figmaName": "overlay/black/32",
+      "cssName": "--color-primitive-overlay-black-32",
+      "cssValue": "#00000052",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.black4",
+      "figmaName": "overlay/black/4",
+      "cssName": "--color-primitive-overlay-black-4",
+      "cssValue": "#0000000a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.black8",
+      "figmaName": "overlay/black/8",
+      "cssName": "--color-primitive-overlay-black-8",
+      "cssValue": "#00000014",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.black9",
+      "figmaName": "overlay/black/9",
+      "cssName": "--color-primitive-overlay-black-9",
+      "cssValue": "#00000016",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.blue475",
+      "figmaName": "blue/475",
+      "cssName": "--color-primitive-blue-475",
+      "cssValue": "#6d78d5",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.blue500",
+      "figmaName": "blue/500",
+      "cssName": "--color-primitive-blue-500",
+      "cssValue": "#5e6ad2",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.blue550",
+      "figmaName": "blue/550",
+      "cssName": "--color-primitive-blue-550",
+      "cssValue": "#6975e2",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray0",
+      "figmaName": "gray/0",
+      "cssName": "--color-primitive-gray-0",
+      "cssValue": "#ffffff",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray100",
+      "figmaName": "gray/100",
+      "cssName": "--color-primitive-gray-100",
+      "cssValue": "#f5f5f5",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray200",
+      "figmaName": "gray/200",
+      "cssName": "--color-primitive-gray-200",
+      "cssValue": "#eaeaea",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray300",
+      "figmaName": "gray/300",
+      "cssName": "--color-primitive-gray-300",
+      "cssValue": "#d4d4d4",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray350",
+      "figmaName": "gray/350",
+      "cssName": "--color-primitive-gray-350",
+      "cssValue": "#d8d8d8",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray400",
+      "figmaName": "gray/400",
+      "cssName": "--color-primitive-gray-400",
+      "cssValue": "#c2c2c2",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray50",
+      "figmaName": "gray/50",
+      "cssName": "--color-primitive-gray-50",
+      "cssValue": "#fafafa",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray500",
+      "figmaName": "gray/500",
+      "cssName": "--color-primitive-gray-500",
+      "cssValue": "#707172",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray550",
+      "figmaName": "gray/550",
+      "cssName": "--color-primitive-gray-550",
+      "cssValue": "#868789",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray600",
+      "figmaName": "gray/600",
+      "cssName": "--color-primitive-gray-600",
+      "cssValue": "#48494c",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray625",
+      "figmaName": "gray/625",
+      "cssName": "--color-primitive-gray-625",
+      "cssValue": "#3e424d",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray700",
+      "figmaName": "gray/700",
+      "cssName": "--color-primitive-gray-700",
+      "cssValue": "#333333",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray800",
+      "figmaName": "gray/800",
+      "cssName": "--color-primitive-gray-800",
+      "cssValue": "#1f1f1f",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray850",
+      "figmaName": "gray/850",
+      "cssName": "--color-primitive-gray-850",
+      "cssValue": "#1a1a1b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray900",
+      "figmaName": "gray/900",
+      "cssName": "--color-primitive-gray-900",
+      "cssValue": "#0a0a0a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.gray950",
+      "figmaName": "gray/950",
+      "cssName": "--color-primitive-gray-950",
+      "cssValue": "#000000",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelBorder",
+      "figmaName": "label/border",
+      "cssName": "--color-primitive-label-border",
+      "cssValue": "#dedede",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelContentDefault",
+      "figmaName": "label/content/default",
+      "cssName": "--color-primitive-label-content-default",
+      "cssValue": "#2f2f31",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelContentHover",
+      "figmaName": "label/content/hover",
+      "cssName": "--color-primitive-label-content-hover",
+      "cssValue": "#1b1b1b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelMarkerBlue",
+      "figmaName": "label/marker/blue",
+      "cssName": "--color-primitive-label-marker-blue",
+      "cssValue": "#4ea7fc",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelMarkerPurple",
+      "figmaName": "label/marker/purple",
+      "cssName": "--color-primitive-label-marker-purple",
+      "cssValue": "#bb87fc",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelMarkerRed",
+      "figmaName": "label/marker/red",
+      "cssName": "--color-primitive-label-marker-red",
+      "cssValue": "#eb5757",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelSurfaceDefault",
+      "figmaName": "label/surface/default",
+      "cssName": "--color-primitive-label-surface-default",
+      "cssValue": "#f8f8f9",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelSurfaceHover",
+      "figmaName": "label/surface/hover",
+      "cssName": "--color-primitive-label-surface-hover",
+      "cssValue": "#ececed",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.labelSurfaceOpen",
+      "figmaName": "label/surface/open",
+      "cssName": "--color-primitive-label-surface-open",
+      "cssValue": "#f0f0f1",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.presenceAway",
+      "figmaName": "presence/away",
+      "cssName": "--color-primitive-presence-away",
+      "cssValue": "#8a5a00",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.presenceOnline",
+      "figmaName": "presence/online",
+      "cssName": "--color-primitive-presence-online",
+      "cssValue": "#007a3d",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.red500",
+      "figmaName": "red/500",
+      "cssName": "--color-primitive-red-500",
+      "cssValue": "#e5484d",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.red700",
+      "figmaName": "red/700",
+      "cssName": "--color-primitive-red-700",
+      "cssValue": "#dc2626",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate0",
+      "figmaName": "slate/0",
+      "cssName": "--color-primitive-slate-0",
+      "cssValue": "#f7f8f8",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate100",
+      "figmaName": "slate/100",
+      "cssName": "--color-primitive-slate-100",
+      "cssValue": "#e5e5e6",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate450",
+      "figmaName": "slate/450",
+      "cssName": "--color-primitive-slate-450",
+      "cssValue": "#8a8f98",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate50",
+      "figmaName": "slate/50",
+      "cssName": "--color-primitive-slate-50",
+      "cssValue": "#f0f0f0",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate500",
+      "figmaName": "slate/500",
+      "cssName": "--color-primitive-slate-500",
+      "cssValue": "#6f6e77",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate75",
+      "figmaName": "slate/75",
+      "cssName": "--color-primitive-slate-75",
+      "cssValue": "#eeedf0",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate850",
+      "figmaName": "slate/850",
+      "cssName": "--color-primitive-slate-850",
+      "cssValue": "#282a30",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate875",
+      "figmaName": "slate/875",
+      "cssName": "--color-primitive-slate-875",
+      "cssValue": "#28282c",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate900",
+      "figmaName": "slate/900",
+      "cssName": "--color-primitive-slate-900",
+      "cssValue": "#1f2024",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.slate950",
+      "figmaName": "slate/950",
+      "cssName": "--color-primitive-slate-950",
+      "cssValue": "#191a1b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.transparent",
+      "figmaName": "transparent",
+      "cssName": "--color-primitive-transparent",
+      "cssValue": "#00000000",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.white14",
+      "figmaName": "overlay/white/14",
+      "cssName": "--color-primitive-overlay-white-14",
+      "cssValue": "#ffffff24",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.white3",
+      "figmaName": "overlay/white/3",
+      "cssName": "--color-primitive-overlay-white-3",
+      "cssValue": "#ffffff08",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.white5",
+      "figmaName": "overlay/white/5",
+      "cssName": "--color-primitive-overlay-white-5",
+      "cssValue": "#ffffff0d",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.white8",
+      "figmaName": "overlay/white/8",
+      "cssName": "--color-primitive-overlay-white-8",
+      "cssValue": "#ffffff15",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    }
   ]
 }

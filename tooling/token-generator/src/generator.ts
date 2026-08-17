@@ -23,6 +23,7 @@ export interface ResolverDocument {
 
 export interface CompileOptions {
   publicRoots: string[];
+  publicPrimitiveRoots?: string[];
   requiredSemanticPaths: string[];
 }
 
@@ -37,6 +38,8 @@ export interface ResolvedToken {
 export interface ResolvedTokenIR {
   contexts: Record<string, Record<string, ResolvedToken>>;
   defaultContext: string;
+  primitivePaths: string[];
+  primitives: Record<string, ResolvedToken>;
   semanticPaths: string[];
 }
 
@@ -236,6 +239,18 @@ function cssValue(type: string, value: unknown): string {
 }
 
 function cssName(path: string): string {
+  if (path.startsWith("primitive.color.")) {
+    const rawPrimitiveName = path.slice("primitive.color.".length);
+    const primitiveName = rawPrimitiveName
+      .replace(/([a-z])([A-Z])/g, "$1-$2")
+      .replace(/([a-zA-Z])(\d+)/g, "$1-$2")
+      .replace(/[._\s]+/g, "-")
+      .toLowerCase();
+    if (/^(black|white)\d+$/.test(rawPrimitiveName)) {
+      return `--color-primitive-overlay-${primitiveName}`;
+    }
+    return `--color-primitive-${primitiveName}`;
+  }
   const name = `--${path}`
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
     .replace(/[._\s]+/g, "-")
@@ -244,6 +259,19 @@ function cssName(path: string): string {
     throw new Error(`Cannot create CSS custom property for ${path}`);
   }
   return name;
+}
+
+function primitiveFigmaName(path: string): string {
+  const name = path.slice("primitive.color.".length);
+  if (name === "transparent") return name;
+
+  const overlay = name.match(/^(black|white)(\d+)$/);
+  if (overlay) return `overlay/${overlay[1]}/${overlay[2]}`;
+
+  return name
+    .replace(/([a-z])([A-Z])/g, "$1/$2")
+    .replace(/([a-zA-Z])(\d+)$/g, "$1/$2")
+    .toLowerCase();
 }
 
 function tokenKey(path: string): string {
@@ -310,6 +338,32 @@ export function compileResolver(
 
   const contexts = dictionary<Record<string, ResolvedToken>>();
   const outputNames = new Map<string, string>();
+  const resolvedBase = resolveTokenGraph(flattenTokens(baseDocument));
+  const primitives = dictionary<ResolvedToken>();
+  for (const path of Object.keys(resolvedBase).sort()) {
+    if (
+      !(options.publicPrimitiveRoots ?? []).some(
+        (root) => path === root || path.startsWith(`${root}.`),
+      )
+    ) {
+      continue;
+    }
+    const token = resolvedBase[path];
+    if (!token) throw new Error(`Resolved primitive disappeared: ${path}`);
+    const name = cssName(path);
+    const existingPath = outputNames.get(name);
+    if (existingPath && existingPath !== path) {
+      throw new Error(`CSS output-name collision: ${existingPath} and ${path}`);
+    }
+    outputNames.set(name, path);
+    primitives[path] = {
+      path,
+      type: token.$type,
+      value: clone(token.$value),
+      cssName: name,
+      cssValue: cssValue(token.$type, token.$value),
+    };
+  }
   for (const [contextName, sources] of Object.entries(modifier.contexts).sort()) {
     const contextDocument = mergeSources(sources, files);
     const contextTokens = flattenTokens(contextDocument);
@@ -355,7 +409,13 @@ export function compileResolver(
     }
   }
 
-  return { contexts, defaultContext: modifier.default, semanticPaths };
+  return {
+    contexts,
+    defaultContext: modifier.default,
+    primitivePaths: Object.keys(primitives).sort(),
+    primitives,
+    semanticPaths,
+  };
 }
 
 function declarations(tokens: Record<string, ResolvedToken>, indent: string): string {
@@ -385,6 +445,7 @@ export function renderTokenArtifacts(ir: ResolvedTokenIR): RenderedTokenArtifact
   if (!defaultTokens) throw new Error(`Missing default theme: ${ir.defaultContext}`);
   const css = [
     `:root, [data-theme="${ir.defaultContext}"] {`,
+    declarations(ir.primitives, "  "),
     declarations(defaultTokens, "  "),
     "}",
     ...Object.entries(ir.contexts)
@@ -401,6 +462,13 @@ export function renderTokenArtifacts(ir: ResolvedTokenIR): RenderedTokenArtifact
   const stylex = [
     'import * as stylex from "@stylexjs/stylex";',
     "",
+    "export const primitiveTokens = stylex.defineConsts({",
+    ...ir.primitivePaths.map((path) => {
+      const token = ir.primitives[path]!;
+      return `  ${tokenKey(path)}: ${JSON.stringify(`var(${token.cssName}, ${token.cssValue})`)},`;
+    }),
+    "});",
+    "",
     // Constants deliberately inline each public CSS variable reference into the
     // consuming atomic rule. defineVars would declare a second custom property
     // on :root, where nested theme values are resolved too early.
@@ -413,6 +481,14 @@ export function renderTokenArtifacts(ir: ResolvedTokenIR): RenderedTokenArtifact
     "",
   ].join("\n");
   const typescript = [
+    "export const primitiveTokenNames = {",
+    ...ir.primitivePaths.map(
+      (path) => `  ${JSON.stringify(path)}: ${JSON.stringify(ir.primitives[path]!.cssName)},`,
+    ),
+    "} as const;",
+    "",
+    "export type PrimitiveToken = keyof typeof primitiveTokenNames;",
+    "",
     "export const semanticTokenNames = {",
     ...ir.semanticPaths.map(
       (path) => `  ${JSON.stringify(path)}: ${JSON.stringify(defaultTokens[path]!.cssName)},`,
@@ -444,13 +520,15 @@ export function renderTokenArtifacts(ir: ResolvedTokenIR): RenderedTokenArtifact
   const contract = {
     specification: "DTCG 2025.10",
     defaultContext: ir.defaultContext,
+    primitivePaths: ir.primitivePaths,
+    primitives: Object.fromEntries(Object.entries(ir.primitives).sort()),
     semanticPaths: ir.semanticPaths,
     contexts: orderedContexts,
   };
   const dtcgDocument: JsonObject = {
     $schema: "https://www.designtokens.org/schemas/2025.10/format.json",
   };
-  for (const path of ir.semanticPaths) {
+  for (const path of [...ir.primitivePaths, ...ir.semanticPaths]) {
     const segments = path.split(".");
     let parent = dtcgDocument;
     for (const segment of segments.slice(0, -1)) {
@@ -458,7 +536,7 @@ export function renderTokenArtifacts(ir: ResolvedTokenIR): RenderedTokenArtifact
       if (!isObject(child)) parent[segment] = {};
       parent = parent[segment] as JsonObject;
     }
-    const token = defaultTokens[path];
+    const token = ir.primitives[path] ?? defaultTokens[path];
     if (!token) throw new Error(`Missing default token: ${path}`);
     parent[segments.at(-1)!] = { $type: token.type, $value: token.value };
   }
@@ -489,6 +567,16 @@ export function renderTokenArtifacts(ir: ResolvedTokenIR): RenderedTokenArtifact
           path,
           cssName: defaultTokens[path]!.cssName,
           type: defaultTokens[path]!.type,
+        })),
+        primitiveCollection: "Color Primitives",
+        primitiveMode: "Value",
+        primitiveVariables: ir.primitivePaths.map((path) => ({
+          path,
+          figmaName: primitiveFigmaName(path),
+          cssName: ir.primitives[path]!.cssName,
+          cssValue: ir.primitives[path]!.cssValue,
+          scopes: ["ALL_FILLS", "STROKE_COLOR"],
+          type: ir.primitives[path]!.type,
         })),
       },
       null,
