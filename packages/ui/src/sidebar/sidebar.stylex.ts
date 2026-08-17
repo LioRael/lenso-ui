@@ -40,6 +40,8 @@ export const styles = stylex.create({
     gap: "6px",
     height: "28px",
     minWidth: 0,
+    outline: { default: "none", ":focus-visible": `1px solid ${tokens.colorFocusRing}` },
+    outlineOffset: "-1px",
     paddingInline: "5px 9px",
   },
   workspaceMark: {
@@ -100,7 +102,7 @@ export const styles = stylex.create({
     height: tokens.sizeControlCompact,
     lineHeight: "19.5px",
     outline: { default: "none", ":focus-visible": `1px solid ${tokens.colorFocusRing}` },
-    outlineOffset: "1px",
+    outlineOffset: "-1px",
     paddingInline: "10px 9px",
     textAlign: "left",
     textDecoration: "none",

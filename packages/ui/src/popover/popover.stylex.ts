@@ -36,7 +36,7 @@ export const styles = stylex.create({
       ":focus-visible": `1px solid ${tokens.colorFocusRing}`,
       '[data-visual-state="focus-visible"]': `1px solid ${tokens.colorFocusRing}`,
     },
-    outlineOffset: "1px",
+    outlineOffset: "0px",
     paddingInline: "8px",
     whiteSpace: "nowrap",
     width: "132px",

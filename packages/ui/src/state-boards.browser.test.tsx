@@ -429,7 +429,7 @@ test("Button matches the approved Figma state board", async () => {
   const pressedLayer = buttons[2]?.querySelector<HTMLElement>('[data-slot="button-state-layer"]');
   const focusLayer = buttons[3]?.querySelector<HTMLElement>('[data-slot="button-state-layer"]');
   expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
-  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
+  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
   expect(pressedLayer?.getBoundingClientRect().toJSON()).toMatchObject(
     buttons[2]?.getBoundingClientRect().toJSON() ?? {},
   );
@@ -522,7 +522,7 @@ test("Icon Button matches the approved Figma state board", async () => {
     width: 14,
   });
   expect(getComputedStyle(pressedLayer!).backgroundColor).toBe("rgba(0, 0, 0, 0.08)");
-  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
+  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
 });
 
 const figmaLabelStates = [
@@ -710,8 +710,8 @@ test("Text Field matches the approved Figma state board", async () => {
   expect(getComputedStyle(controls[0]!).borderStyle).toBe("solid");
   expect(getComputedStyle(controls[0]!).borderColor).toBe("rgb(216, 216, 216)");
   expect(getComputedStyle(controls[1]!).borderColor).toBe("rgb(194, 194, 194)");
-  expect(getComputedStyle(controls[2]!).outlineColor).toBe("rgb(109, 120, 213)");
-  expect(getComputedStyle(controls[3]!).outlineColor).toBe("rgb(109, 120, 213)");
+  expect(getComputedStyle(controls[2]!).outlineColor).toBe("rgb(94, 106, 210)");
+  expect(getComputedStyle(controls[3]!).outlineColor).toBe("rgb(94, 106, 210)");
   expect(getComputedStyle(controls[4]!).borderColor).toBe("rgb(220, 38, 38)");
   expect(getComputedStyle(controls[5]!).backgroundColor).toBe("rgb(250, 250, 250)");
   expect(getComputedStyle(controls[5]!).borderColor).toBe("rgb(234, 234, 234)");
@@ -742,7 +742,7 @@ test("Text Field resolves dark theme values", async () => {
   await expect.poll(() => getComputedStyle(label).color).toBe("rgb(247, 248, 248)");
   await expect.poll(() => getComputedStyle(control).backgroundColor).toBe("rgb(25, 26, 27)");
   expect(getComputedStyle(control).getPropertyValue("--color-border-control")).toBe("#48494c");
-  expect(getComputedStyle(focusedControl).borderColor).toBe("rgb(62, 66, 77)");
+  expect(getComputedStyle(focusedControl).borderColor).toBe("rgb(72, 73, 76)");
   expect(getComputedStyle(focusedControl).outlineColor).toBe("rgb(94, 106, 210)");
 });
 
@@ -861,7 +861,7 @@ test("Checkbox matches the approved Figma state board", async () => {
     );
     const focusRect = focusLayer!.getBoundingClientRect();
     const focusRootRect = roots[focusIndex]!.getBoundingClientRect();
-    expect(getComputedStyle(focusLayer!).outlineColor).toBe("rgb(109, 120, 213)");
+    expect(getComputedStyle(focusLayer!).outlineColor).toBe("rgb(94, 106, 210)");
     expect(getComputedStyle(focusLayer!).outlineStyle).toBe("solid");
     expect(getComputedStyle(focusLayer!).outlineWidth).toBe("1px");
     return {
@@ -1045,7 +1045,7 @@ test("Radio matches the approved Figma state board", async () => {
     height: 20,
     width: 20,
   });
-  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
+  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
 });
 
 test("Radio resolves dark theme values", async () => {
@@ -1220,7 +1220,7 @@ test("Switch matches the approved Figma state board", async () => {
     height: 20,
     width: 30,
   });
-  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(109, 120, 213)");
+  expect(getComputedStyle(focusLayer!).borderColor).toBe("rgb(94, 106, 210)");
   expect(focusLayer?.getBoundingClientRect().toJSON()).toMatchObject({
     height: 26,
     width: 36,
@@ -1521,9 +1521,9 @@ test("Select resolves dark popup tokens", async () => {
     .element()
     .querySelector<HTMLElement>('[data-slot="select-icon"]')!;
   expect(getComputedStyle(trigger).backgroundColor).toBe("rgb(25, 26, 27)");
-  expect(getComputedStyle(trigger).borderColor).toBe("rgb(62, 66, 77)");
+  expect(getComputedStyle(trigger).borderColor).toBe("rgba(0, 0, 0, 0)");
   expect(parseFloat(getComputedStyle(trigger).borderWidth)).toBeLessThanOrEqual(1);
-  expect(getComputedStyle(trigger).boxShadow).toBe("none");
+  expect(getComputedStyle(trigger).boxShadow).toContain("0.5px");
   expect(getComputedStyle(icon).color).toBe("rgb(212, 212, 212)");
 });
 

@@ -53,7 +53,7 @@
       "danger": { "$value": "{primitive.color.red700}" },
       "dangerHover": { "$value": "{primitive.color.red500}" }
     },
-    "focus": { "ring": { "$value": "{primitive.color.blue475}" } },
+    "focus": { "ring": { "$value": "{primitive.color.blue500}" } },
     "status": {
       "errorBorder": { "$value": "{primitive.color.red700}" },
       "errorContent": { "$value": "{primitive.color.red700}" },

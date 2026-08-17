@@ -100,7 +100,7 @@ test("Button hover and keyboard focus use the approved state layers", async () =
     .toBe("rgb(31, 32, 36)");
   await button.unhover();
   await userEvent.tab();
-  await expect.poll(() => getComputedStyle(stateLayer!).borderColor).toBe("rgb(109, 120, 213)");
+  await expect.poll(() => getComputedStyle(stateLayer!).borderColor).toBe("rgb(94, 106, 210)");
 });
 
 test("Button state layers resolve through a dark ThemeScope", async () => {

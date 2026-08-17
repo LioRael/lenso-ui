@@ -39,7 +39,7 @@ export const styles = stylex.create({
       default: "none",
       ":focus-visible": `1px solid ${tokens.colorFocusRing}`,
     },
-    outlineOffset: "1px",
+    outlineOffset: "0px",
     paddingBlock: 0,
     paddingInline: "8px",
     textAlign: "left",

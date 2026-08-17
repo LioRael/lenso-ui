@@ -5,10 +5,17 @@ import { tokens } from "../tokens.stylex.js";
 export const styles = stylex.create({
   inputGroup: {
     alignItems: "center",
+    borderRadius: "8px",
     boxSizing: "border-box",
     display: "flex",
     gap: "14px",
     height: "36px",
+    outline: {
+      default: "none",
+      ":focus-within": `1px solid ${tokens.colorFocusRing}`,
+      '[data-visual-state="focus-visible"]': `1px solid ${tokens.colorFocusRing}`,
+    },
+    outlineOffset: "-1px",
     paddingLeft: "14px",
     paddingRight: "12px",
     position: "relative",
