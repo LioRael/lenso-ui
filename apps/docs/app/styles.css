@@ -422,17 +422,18 @@ html[data-theme="dark"] .docs-theme {
 .document-metadata {
   width: 720px;
   margin: 0;
-  color: var(--color-content-secondary);
 }
 
 .document-description {
   font-size: 14px;
   line-height: 22px;
+  color: var(--color-content-secondary);
 }
 
 .document-metadata {
   font-size: 11px;
   line-height: 16px;
+  color: var(--color-content-tertiary);
 }
 
 .document-toc {
