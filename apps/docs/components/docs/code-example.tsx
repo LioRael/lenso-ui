@@ -1,4 +1,5 @@
 import { CodeBlock } from "./code-block";
+import { docsHeadingId } from "./heading";
 
 export function CodeExample({
   code,
@@ -12,7 +13,9 @@ export function CodeExample({
   return (
     <section className="button-implementation mdx-code-example">
       <div>
-        <h2>{title}</h2>
+        <h2 data-toc-heading id={docsHeadingId(title)}>
+          {title}
+        </h2>
         <p>{description}</p>
       </div>
       <CodeBlock code={code} />

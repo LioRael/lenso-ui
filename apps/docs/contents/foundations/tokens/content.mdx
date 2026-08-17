@@ -1,0 +1,45 @@
+---
+title: "Tokens"
+layout: "document"
+description: "A generated semantic contract keeps package styles, registry source, documentation, and themes on one resolved token graph."
+eyebrow: "Foundation · Semantic contract"
+metadata:
+  - "DTCG source"
+  - "Light + Dark"
+actions:
+  - "Themes"
+  - "Architecture"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+<CodeExample
+  code={String.raw`import "@lenso/tokens/styles.css"
+
+<section style={{ background: "var(--color-surface-canvas)" }}>
+  <h2 style={{ color: "var(--color-content-primary)" }}>Project settings</h2>
+</section>`}
+  description="Consumers use complete semantic CSS properties rather than private primitive values or short global names."
+  title="Use the public CSS contract"
+/>
+
+  <Guidance>
+    <GuidanceBlock title="Authoritative inputs">
+      <ul>
+        <li><code>foundation.json</code> contains primitive token values.</li>
+        <li><code>semantic.json</code> defines public semantic roles.</li>
+        <li><code>themes/light.json</code> and <code>themes/dark.json</code> provide complete defaults.</li>
+        <li><code>lenso.resolver.json</code> defines the DTCG resolution order.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Generated representations">
+      <ul>
+        <li>CSS custom properties and TypeScript token names.</li>
+        <li>StyleX variables for package and registry source.</li>
+        <li>Contract, DTCG, Figma mapping, and Consumer theme adapter artifacts.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+Do not edit generated token files directly. From the repository, run `pnpm generate`, inspect the complete generated diff, and run `pnpm --filter @lenso/token-generator check-generated` before handoff.

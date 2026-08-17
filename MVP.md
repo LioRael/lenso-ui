@@ -1,12 +1,14 @@
 # Lenso UI MVP Contract
 
-Status: implementation candidate; publication and downstream Console adoption pending
+Status: implementation baseline delivered; the current package line is `0.2.0`; downstream Console adoption and the 1.0 gate remain pending
 
 ## Outcome
 
 Build an independent, public React design system for Lenso products and community applications. Lenso Console becomes a real downstream Consumer but does not define the library's product boundary.
 
 The MVP proves one canonical source can produce both a managed npm package and editable shadcn-compatible registry source while preserving the same component API, visual contract, semantic themes, and Release Snapshot.
+
+The original MVP contract was written for the `0.1.0` gate. The repository now contains the `0.2.0` public package manifests and immutable registry snapshot, plus subsequent unreleased Changesets. Use the package manifests, generated release artifacts, and current tests as the implementation evidence; use this document for the durable product and release constraints.
 
 ## Public surfaces
 
@@ -18,7 +20,7 @@ The MVP proves one canonical source can produce both a managed npm package and e
 @lenso registry    editable components, primitives, setup items, and Recipes
 ```
 
-`@lenso/ui` does not depend on `@lenso/primitives`. Registry Recipes may compose both. The MVP does not publish `@lenso/icons`; necessary defaults use exact `lucide-react` imports and every built-in icon remains replaceable through a `ReactNode` slot.
+`@lenso/ui` depends on `@lenso/primitives` for the styled `Sidebar` adapter; the dependency remains one-way and the primitives package never depends on the styled UI package. Registry Recipes may compose either public surface. The MVP does not publish `@lenso/icons`; necessary defaults use exact `lucide-react` imports and every built-in icon remains replaceable through a `ReactNode` slot. See ADR-0034 for the Sidebar boundary.
 
 ## Repository shape
 
@@ -79,7 +81,7 @@ Public CSS custom properties are unbranded complete semantic paths such as `--co
 2. Button.
 3. Text Field.
 4. Dialog, including Portal, Theme Scope, CSP, keyboard, and focus behavior.
-5. Sidebar Product Primitive and one styled Registry Recipe, including nested and simultaneous left/right sidebars.
+5. Sidebar Product Primitive, its styled `@lenso/ui/sidebar` adapter, and one styled Registry Recipe, including nested and simultaneous left/right sidebars.
 6. Package and registry artifacts from the same canonical sources.
 7. Next App Router documentation and Component Lab consumption.
 8. Package export validation and shadcn Registry schema validation.
@@ -115,7 +117,7 @@ Remaining Foundation Components expand only after this slice proves packed and i
 
 ## Distribution and releases
 
-- `0.1.0` is the first public release.
+- `0.1.0` is the first public release; the current package line is `0.2.0`.
 - Changesets releases all public packages as one fixed group and generates the matching Registry Snapshot.
 - npm publication runs only through GitHub Actions Trusted Publishing with OIDC and provenance.
 - `https://ui.lenso.dev/r/{name}.json` resolves current stable registry items.
@@ -123,7 +125,7 @@ Remaining Foundation Components expand only after this slice proves packed and i
 - Public code, examples, and registry source use MIT; brands and third-party assets retain separate rights and notices.
 - Public APIs, semantic tokens, registry item names, and material visual contracts follow SemVer.
 
-## 0.1 completion gate
+## Historical 0.1 completion gate
 
 - The full first vertical slice works from packed npm and built registry artifacts.
 - Both certified installation paths pass from temporary clean projects.
@@ -132,7 +134,7 @@ Remaining Foundation Components expand only after this slice proves packed and i
 - Button, Text Field, Dialog, and Sidebar meet their canonical Figma state boards and automated accessibility contracts.
 - Documentation explains installation, theming, icon replacement, package versus registry ownership, and current experimental status.
 
-## Explicitly outside 0.1
+## Explicitly outside the historical 0.1 scope
 
 - All twenty-one Foundation Component families.
 - Figma Code Connect.

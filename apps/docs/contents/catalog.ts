@@ -10,6 +10,13 @@ export type DocsSectionId =
 
 export type DocsPage =
   | "overview"
+  | "installation"
+  | "quick-start"
+  | "package-vs-registry"
+  | "release-status"
+  | "tokens"
+  | "themes"
+  | "strict-csp"
   | "avatar"
   | "breadcrumb"
   | "button"
@@ -71,20 +78,38 @@ export const docsRegistry = [
     id: "start",
     items: [
       { href: "/", kind: "page", label: "Overview", slug: "overview" },
-      { href: "#installation", id: "installation", kind: "link", label: "Installation" },
-      { href: "#quick-start", id: "quick-start", kind: "link", label: "Quick start" },
       {
-        href: "#package-vs-registry",
-        id: "package-vs-registry",
-        kind: "link",
-        label: "Package vs Registry",
+        href: "/start/installation",
+        kind: "page",
+        label: "Installation",
+        slug: "installation",
       },
-      { href: "#release-status", id: "release-status", kind: "link", label: "Release status" },
+      { href: "/start/quick-start", kind: "page", label: "Quick start", slug: "quick-start" },
+      {
+        href: "/start/package-vs-registry",
+        kind: "page",
+        label: "Package vs Registry",
+        slug: "package-vs-registry",
+      },
+      {
+        href: "/start/release-status",
+        kind: "page",
+        label: "Release status",
+        slug: "release-status",
+      },
     ],
     label: "Start",
     order: 10,
   },
-  { id: "foundations", items: [], label: "Foundations", order: 20 },
+  {
+    id: "foundations",
+    items: [
+      { href: "/foundations/tokens", kind: "page", label: "Tokens", slug: "tokens" },
+      { href: "/foundations/themes", kind: "page", label: "Themes", slug: "themes" },
+    ],
+    label: "Foundations",
+    order: 20,
+  },
   {
     id: "components",
     items: [
@@ -169,7 +194,12 @@ export const docsRegistry = [
     order: 50,
   },
   { id: "templates", items: [], label: "Templates", order: 60 },
-  { id: "guides", items: [], label: "Guides", order: 70 },
+  {
+    id: "guides",
+    items: [{ href: "/guides/strict-csp", kind: "page", label: "Strict CSP", slug: "strict-csp" }],
+    label: "Guides",
+    order: 70,
+  },
   { id: "reference", items: [], label: "Reference", order: 80 },
 ] as const satisfies readonly DocsSection[];
 

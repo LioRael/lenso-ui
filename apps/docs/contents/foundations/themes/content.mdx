@@ -1,0 +1,45 @@
+---
+title: "Themes"
+layout: "document"
+description: "Apply complete Light or Dark defaults to a subtree and add only the semantic overrides that the Consumer owns."
+eyebrow: "Foundation · Theme scope"
+metadata:
+  - "Light + Dark"
+  - "Portal aware"
+actions:
+  - "Tokens"
+  - "Strict CSP"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+<CodeExample
+  code={String.raw`import { ThemeScope } from "@lenso/ui/theme-scope"
+
+<ThemeScope
+  theme="dark"
+  overrides={{ "color.content.primary": "#f4f4f5" }}
+>
+  <Workspace />
+</ThemeScope>`}
+  description="Nested scopes inherit the nearest theme and merge partial semantic overrides. Dialogs and other portalled content can use the nearest scope host."
+  title="Create a scoped theme"
+/>
+
+  <Guidance>
+    <GuidanceBlock title="Theme ownership">
+      <ul>
+        <li>Lenso UI supplies complete Light and Dark defaults.</li>
+        <li>The Consumer owns preference persistence, system-mode resolution, and product theme selection.</li>
+        <li>Use public semantic paths such as <code>color.surface.canvas</code> in <code>overrides</code>.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Scope behavior">
+      <ul>
+        <li>Nested scopes inherit values that their partial override does not replace.</li>
+        <li>Portalled overlays use the nearest scope's body-level host when no explicit container is supplied.</li>
+        <li>Use a deliberate <code>light</code> or <code>dark</code> value after resolving a Consumer's system preference.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>

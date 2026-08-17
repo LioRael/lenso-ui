@@ -154,7 +154,7 @@ function DocumentationSidebar({ current }: { current: DocsPage }) {
         <Sidebar.Header className="docs-sidebar-header">
           <div className="brand-row">
             <strong>Lenso UI</strong>
-            <span className="version">v0.1</span>
+            <span className="version">v0.2</span>
           </div>
           <button className="search-button" type="button">
             <span>Search documentation</span>
