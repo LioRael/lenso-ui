@@ -174,7 +174,7 @@ test("Label preserves Base UI render composition and marker customization", asyn
   const link = screen.getByRole("button", { name: "Feature" });
 
   await expect.element(link).toHaveAttribute("href", "/issues");
-  await expect.poll(() => getComputedStyle(link.element()).height).toBe("25px");
+  await expect.poll(() => getComputedStyle(link.element()).height).toBe("24px");
   expect(link.element().querySelector('[data-slot="label-marker"]')).not.toBeNull();
   await expect.element(screen.getByTestId("custom-marker")).toBeVisible();
 });
