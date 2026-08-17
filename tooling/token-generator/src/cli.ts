@@ -53,6 +53,7 @@ validateDtcgSources({
 const publicRoots = ["color", "elevation", "font", "opacity", "radius", "size", "space"];
 const requiredSemanticPaths = publicTokenPaths(files["semantic.json"]!, publicRoots);
 const ir = compileResolver(resolver, files, {
+  publicPrimitiveRoots: ["primitive.color"],
   publicRoots,
   requiredSemanticPaths,
 });
