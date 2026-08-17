@@ -4,7 +4,6 @@ interface LivePlaygroundProps {
   actions?: ReactNode;
   bodyClassName?: string;
   controls: ReactNode;
-  controlsMode?: "custom" | "dialkit";
   description: string;
   preview: ReactNode;
   sectionClassName?: string;
@@ -16,7 +15,6 @@ export function LivePlayground({
   actions,
   bodyClassName,
   controls,
-  controlsMode = "dialkit",
   description,
   preview,
   sectionClassName,
@@ -43,10 +41,7 @@ export function LivePlayground({
           </div>
           {preview}
         </article>
-        <aside
-          aria-label="Playground controls"
-          className={`playground-inspector${controlsMode === "dialkit" ? " dialkit-inspector" : ""}`}
-        >
+        <aside aria-label="Playground controls" className="playground-inspector">
           {controls}
         </aside>
       </div>
