@@ -34,7 +34,7 @@ const rows = [
 ] as const;
 
 const overlayShadow =
-  "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px";
+  "rgba(0, 0, 0, 0.125) 0px 1px 1px 0px, rgba(0, 0, 0, 0.125) 0px 2px 5px 0px, rgba(0, 0, 0, 0.125) 0px 3px 8px 0px";
 
 function PreviewRow({ row }: { row: Exclude<(typeof rows)[number], null> }) {
   const [label, Icon, shortcut, state] = row;
@@ -75,7 +75,11 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
             row ? (
               <PreviewRow key={row[0]} row={row} />
             ) : (
-              <div key={`separator-${index}`} {...stylex.props(styles.separator)}>
+              <div
+                key={`separator-${index}`}
+                data-slot="menu-separator"
+                {...stylex.props(styles.separator)}
+              >
                 <span {...stylex.props(styles.separatorLine)} />
               </div>
             ),
@@ -112,7 +116,7 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   await document.fonts.load('400 13px "Inter"', "Due date");
   const preview = screen.getByTestId("menu-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
-  expect(getComputedStyle(preview.element()).borderColor).toBe("rgb(234, 234, 234)");
+  expect(getComputedStyle(preview.element()).borderColor).toBe("rgb(216, 216, 216)");
   expect(getComputedStyle(preview.element()).boxShadow).toBe(overlayShadow);
   const highlightedRow = preview
     .element()
@@ -123,6 +127,9 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   expect(getComputedStyle(highlightedRow.querySelector('[data-slot="menu-trailing"]')!).color).toBe(
     "rgb(51, 51, 51)",
   );
+  expect(
+    preview.element().querySelector('[data-slot="menu-separator"]')?.getBoundingClientRect().width,
+  ).toBe(209);
   expect(Math.round(preview.element().getBoundingClientRect().height)).toBe(457);
   const trigger = screen.getByRole("button", { name: "Issue actions" });
   await userEvent.click(trigger);
