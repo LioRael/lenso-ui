@@ -116,15 +116,15 @@
     "combobox": {
       "files": [
         {
-          "registrySha256": "c134cce062f9f83e513458717d14151e5c57e2b45b312a4bd5b3b7f15a0ff3d0",
+          "registrySha256": "93ce05d9299aa0d57edd433468467cfe4128a5ab5d1af7ca0cb7ddd2c6125c8b",
           "source": "packages/ui/src/combobox/index.tsx",
-          "sourceSha256": "c134cce062f9f83e513458717d14151e5c57e2b45b312a4bd5b3b7f15a0ff3d0",
+          "sourceSha256": "93ce05d9299aa0d57edd433468467cfe4128a5ab5d1af7ca0cb7ddd2c6125c8b",
           "target": "components/lenso/combobox/index.tsx"
         },
         {
-          "registrySha256": "68b1a1ef52943301441d4c15bdf573aafd853a41dee36fba9a8a2da76f9f637d",
+          "registrySha256": "4fd293de34515d69bb46493f5a3eec0bdeb4617e065a298e5a7ffdf0a3c7676a",
           "source": "packages/ui/src/combobox/combobox.stylex.ts",
-          "sourceSha256": "68b1a1ef52943301441d4c15bdf573aafd853a41dee36fba9a8a2da76f9f637d",
+          "sourceSha256": "4fd293de34515d69bb46493f5a3eec0bdeb4617e065a298e5a7ffdf0a3c7676a",
           "target": "components/lenso/combobox/combobox.stylex.ts"
         },
         {

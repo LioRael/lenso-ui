@@ -142,11 +142,14 @@ export const ComboboxItemIndicator = React.forwardRef<
   HTMLSpanElement,
   BaseCombobox.ItemIndicator.Props
 >(function ComboboxItemIndicator({ children, className, ...props }, ref) {
+  const keepMounted = props.keepMounted ?? children === undefined;
+
   return (
     <BaseCombobox.ItemIndicator
       {...props}
       className={mergeClassName(stylex.props(styles.itemIndicator).className, className)}
       data-slot="combobox-item-indicator"
+      keepMounted={keepMounted}
       ref={ref}
     >
       {children === undefined ? (
