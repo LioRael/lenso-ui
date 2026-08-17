@@ -4,6 +4,7 @@
   "description": "Filter the real Base UI-backed command collection and navigate it with the keyboard.",
   "themeControl": "theme",
   "bodyClassName": "command-menu-playground-body",
+  "sectionClassName": "command-menu-playground",
   "controls": [
     {
       "id": "state",
