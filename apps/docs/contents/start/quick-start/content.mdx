@@ -1,0 +1,53 @@
+---
+title: "Quick start"
+layout: "document"
+description: "Compose a real component from the public package surface and keep product ownership at the application boundary."
+eyebrow: "Start · First component"
+metadata:
+  - "Named subpaths"
+  - "Semantic tokens"
+actions:
+  - "Components"
+  - "Themes"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+<CodeExample
+  code={String.raw`import "@lenso/tokens/styles.css"
+import "@lenso/ui/styles.css"
+import { Button } from "@lenso/ui/button"
+import { TextField } from "@lenso/ui/text-field"
+
+export function ProjectForm() {
+  return (
+    <form>
+      <TextField.Root>
+        <TextField.Label>Project name</TextField.Label>
+        <TextField.Control placeholder="Untitled" />
+      </TextField.Root>
+      <Button type="submit">Create project</Button>
+    </form>
+  )
+}`}
+  description="Use the same explicit subpath imports that the package exports and let the application own labels, layout, routing, and submission behavior."
+  title="Compose the first form"
+/>
+
+  <Guidance>
+    <GuidanceBlock title="Keep the boundary clear">
+      <ul>
+        <li>Foundation Components provide reusable behavior and visual states.</li>
+        <li>Product-specific data, navigation, persistence, and copy stay in the Consumer.</li>
+        <li>Use `ThemeScope` when a subtree needs a deliberate Light or Dark boundary.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Next steps">
+      <ul>
+        <li>Browse the live component pages for complete compound-part examples.</li>
+        <li>Read the Themes foundation page before adding brand overrides.</li>
+        <li>Choose the Registry channel if you need to change the component structure.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>

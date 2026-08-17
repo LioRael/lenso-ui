@@ -2,17 +2,26 @@
 
 Lenso UI is an independent React design system for Lenso products and community applications. It combines Base UI behavior, StyleX styling, DTCG design tokens, managed npm packages, and editable shadcn-compatible registry source.
 
-The project is experimental and starts at `0.1.x`. Public APIs, semantic tokens, registry item names, and material visual contracts follow SemVer, but the component set is intentionally small while the first vertical slice is validated.
+The public package line in this repository is `0.2.0`. The project is still experimental: the package, token, registry, and material visual contracts are public surfaces, while the component inventory and consumer certification continue to grow. Unreleased changesets may be present after the `0.2.0` snapshot.
 
-## Install from packages
+## Choose a distribution channel
 
-Use the package channel when you want managed upgrades and the stable component structure:
+| Channel                              | Use it when                                                   | Ownership after installation           |
+| ------------------------------------ | ------------------------------------------------------------- | -------------------------------------- |
+| `@lenso/ui` and `@lenso/primitives`  | You want managed upgrades and the published component API     | Lenso UI manages the package source    |
+| `https://ui.lenso.dev/r/{name}.json` | You need to edit a component or start from an editable Recipe | The Consumer owns the installed source |
+
+Both channels are generated from the repository sources. The registry parity manifest records the source-to-registry file mapping and hashes.
+
+## Install the managed packages
+
+Use the package channel when you want managed component upgrades and the precompiled StyleX output:
 
 ```bash
 pnpm add @lenso/ui @lenso/tokens @base-ui/react react react-dom
 ```
 
-Import the token and component CSS once in your application shell, then import components through named subpaths:
+Import the token contract and component CSS once in the application shell. Components are exposed from named subpaths; there is no all-components root barrel:
 
 ```tsx
 import "@lenso/tokens/styles.css";
@@ -24,45 +33,70 @@ export function SaveButton() {
 }
 ```
 
-`@lenso/ui/preflight.css` is optional. It contains narrowly scoped platform and overlay host rules, not a reset or font assets.
+`@lenso/ui/preflight.css` is optional. It contains narrowly scoped platform and overlay-host rules, not a reset and not font assets.
+
+Use `@lenso/primitives/sidebar` directly when you need the headless Sidebar state model without Lenso UI's visual layer:
+
+```bash
+pnpm add @lenso/primitives @base-ui/react react
+```
+
+The styled `@lenso/ui/sidebar` adapter uses that primitive internally and adds the Lenso UI StyleX contract.
 
 ## Install editable registry source
 
-Use the registry channel when you want to own and structurally change the installed source:
+Use the registry channel when the Consumer needs to own and structurally change the installed source:
 
 ```bash
+pnpm dlx shadcn@latest add https://ui.lenso.dev/r/setup.json
 pnpm dlx shadcn@latest add https://ui.lenso.dev/r/button.json
 ```
 
-Install the generated theme contract and import it once in the application shell:
-
-```bash
-pnpm add @lenso/tokens
-```
+The setup item installs the shared token bridge and its dependencies. The Consumer must configure a compatible StyleX compiler for the application and import the generated token CSS once:
 
 ```tsx
 import "@lenso/tokens/styles.css";
 ```
 
-Stable URLs resolve the current release. Immutable snapshots use `https://ui.lenso.dev/r/v/0.1.0/{name}.json`. Registry installations are Consumer-owned copies; package installations remain managed dependencies. Both channels are generated from the same canonical source and recorded in `registry/parity-manifest.json`.
+Stable URLs resolve the current generated registry. Immutable release snapshots use a versioned path, for example `https://ui.lenso.dev/r/v/0.2.0/button.json`. A versioned snapshot is never rewritten; the stable alias is the channel for the current registry output.
 
-## Themes
+## Public packages and current surface
 
-Light and dark themes are complete defaults. A `ThemeScope` can theme any subtree, including portalled Dialog content:
+- `@lenso/ui@0.2.0`: styled Foundation Components, each available from an explicit family subpath.
+- `@lenso/primitives@0.2.0`: headless Product Primitives; the current public primitive is `sidebar`.
+- `@lenso/tokens@0.2.0`: generated semantic CSS, TypeScript, StyleX, DTCG, contract, and Figma-map artifacts.
+- `@lenso/fonts`: private optional font boundary; it is not part of the public fixed release group yet because its redistributable asset provenance is incomplete.
+
+The current `@lenso/ui` subpaths are:
+
+```text
+avatar       breadcrumb   button        checkbox      combobox
+command-menu csp-provider dialog        disclosure    icon-button
+label        menu         page-header   popover       quick-link
+radio        select       sidebar       settings-row  status-marker
+surface      switch       tabs          text-field    theme-scope
+tooltip      toast
+```
+
+The documentation site covers the component pages plus the current Surface, Sidebar, Page Header, Quick Link, and Settings Row patterns. The registry also exposes setup, Theme Scope, CSP Provider, the Sidebar primitive, and the editable Sidebar Recipe.
+
+## Themes and semantic tokens
+
+Light and dark themes are complete defaults. `ThemeScope` applies a theme and optional partial semantic-token overrides to a subtree, including the body-level host used by portalled overlays:
 
 ```tsx
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
-<ThemeScope theme="dark">
+<ThemeScope theme="dark" overrides={{ "color.surface.canvas": "#101114" }}>
   <App />
 </ThemeScope>;
 ```
 
-Consumers can override public, unbranded semantic properties such as `--color-surface-canvas` on a scope. Product applications retain ownership of preference persistence, system-mode resolution, and theme selection.
+Public CSS properties use complete, unbranded semantic names such as `--color-surface-canvas`. Consumers retain ownership of preference persistence, system-mode resolution, product assets, and product-specific theme composition. The token source and generated-artifact rules are documented in [`docs/architecture.md`](docs/architecture.md).
 
 ## Strict CSP
 
-`CSPProvider` forwards Base UI's strict-CSP contract. Generate a unique nonce per server request, include it in `script-src` and `style-src-elem`, and pass the same value to the provider. If the product supplies the required external component styles itself, `disableStyleElements` prevents Base UI from creating inline style elements. It does not remove inline `style` attributes; those are governed separately by `style-src-attr`.
+`CSPProvider` forwards Base UI's strict-CSP contract. Generate a unique nonce per server request, include it in `script-src` and `style-src-elem`, and pass the same value to the provider:
 
 ```tsx
 import { CSPProvider } from "@lenso/ui/csp-provider";
@@ -72,33 +106,38 @@ import { CSPProvider } from "@lenso/ui/csp-provider";
 </CSPProvider>;
 ```
 
+If the application supplies the required external component styles itself, `disableStyleElements` prevents Base UI from creating inline style elements. It does not remove inline `style` attributes; those are governed separately by `style-src-attr`.
+
 ## Replace built-in icons
 
-Built-in Lucide icons are defaults rather than identity. Every component control that supplies one exposes a `ReactNode` slot:
+Built-in Lucide icons are defaults rather than product identity. Controls that provide one expose a `ReactNode` slot:
 
 ```tsx
 <Dialog.Close icon={<MyCloseIcon aria-hidden />} />
 <Button loadingIndicator={<MySpinner aria-hidden />}>Save</Button>
 ```
 
-## Packages
-
-- `@lenso/ui`: styled Foundation Components with precompiled StyleX CSS.
-- `@lenso/primitives`: headless, style-free Product Primitives such as Sidebar.
-- `@lenso/tokens`: DTCG-derived CSS, StyleX, TypeScript, and manifest artifacts.
-- `@lenso/fonts`: reserved optional font integration boundary; deferred from the 0.1 public release until its provenance bundle is complete.
-- Registry Recipes: editable product-grade compositions, including the styled Sidebar Recipe.
-
 ## Development
 
-Node 24 and pnpm 11.5 are pinned by the repository.
+The repository pins Node `24.18.0` through the workspace toolchain and pnpm `11.5.0` through `package.json`.
 
 ```bash
-pnpm install
-pnpm check
+pnpm install --frozen-lockfile
 pnpm dev
+pnpm check
 ```
 
-The repository validates package builds, registry schemas, browser behavior, accessibility, and curated Chromium state boards without retaining framework consumer fixtures.
+Useful focused commands:
 
-Architecture decisions live in `docs/adr`, and the current delivery contract is defined in `MVP.md`.
+```bash
+pnpm format:check
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm --filter @lenso/docs dev
+```
+
+`pnpm generate` updates token and registry artifacts from their source inputs. Run it after changing token sources or registry generation inputs, inspect the generated diff, and commit the generated outputs with the source change. `pnpm check` also runs the generated-artifact freshness check, so it should be run after the working tree has the intended generated state.
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the change workflow, [`docs/architecture.md`](docs/architecture.md) for the repository model, [`MVP.md`](MVP.md) for the delivery contract, and [`docs/adr/`](docs/adr/) for accepted architecture decisions. The Next documentation application under `apps/docs` is both the public documentation site and the component lab; its MDX content, playground configurations, and demos are part of the product surface.

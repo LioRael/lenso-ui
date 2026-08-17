@@ -1,0 +1,41 @@
+---
+title: "Package vs Registry"
+layout: "document"
+description: "The two delivery channels share canonical source but give the Consumer different ownership and upgrade behavior."
+eyebrow: "Start · Distribution"
+metadata:
+  - "Two channels"
+  - "One source"
+actions:
+  - "Installation"
+  - "Release status"
+---
+
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+  <Guidance>
+    <GuidanceBlock title="Choose the package channel">
+      <ul>
+        <li>Use <code>@lenso/ui</code> for managed JavaScript, declarations, and precompiled CSS.</li>
+        <li>Import components from named subpaths such as <code>@lenso/ui/dialog</code>.</li>
+        <li>Upgrade through package versions and Changesets.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Choose the registry channel">
+      <ul>
+        <li>Use the shadcn-compatible registry when structural ownership matters more than managed updates.</li>
+        <li>Install TypeScript and StyleX source into the Consumer application.</li>
+        <li>Review future upgrades as source diffs; local edits are not overwritten automatically.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+| Concern | Package channel | Registry channel |
+| --- | --- | --- |
+| Source ownership | Lenso UI package | Consumer-owned copy |
+| Styling | Precompiled `@lenso/ui/styles.css` | Consumer compiles StyleX source |
+| Upgrade model | Managed package version | Consumer applies source changes |
+| Best for | Stable component composition | Structural customization and Recipes |
+| Address | npm package subpath | `/r/{name}.json` or immutable `/r/v/{version}/{name}.json` |
+
+The channels are not separate implementations. The registry builder reads canonical component and primitive source and records parity hashes in `registry/parity-manifest.json`.

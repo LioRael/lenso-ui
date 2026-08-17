@@ -13,14 +13,15 @@ const docs = defineCollection({
     actions: z.tuple([z.string(), z.string()]).optional(),
     description: z.string().min(1),
     eyebrow: z.string().min(1).optional(),
-    layout: z.enum(["component", "overview"]).default("component"),
+    layout: z.enum(["component", "document", "overview"]).default("component"),
     metadata: z.tuple([z.string(), z.string()]).optional(),
     title: z.string().min(1),
   }),
   transform: ({ _meta, ...frontmatter }) => {
     const parts = _meta.filePath.split(/[\\/]/).filter(Boolean);
     const section = parts[0];
-    const slug = section === "start" ? "overview" : parts.at(-2);
+    const directory = parts.at(-2);
+    const slug = section === "start" && directory === "start" ? "overview" : directory;
 
     if (!section || !slug) {
       throw new Error(`Unable to derive docs route from ${_meta.filePath}`);

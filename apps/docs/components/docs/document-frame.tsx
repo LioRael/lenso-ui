@@ -3,10 +3,12 @@
 import type { ReactNode } from "react";
 
 import { DocsShell, type DocsPage } from "./shell";
+import { TableOfContents } from "./table-of-contents";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 import type { DocsSectionId } from "../../contents/catalog";
 
 const defaultComponentActions = ["View source", "Install"] as const;
+const defaultDocumentActions = ["Edit page", "Copy link"] as const;
 const defaultOverviewActions = ["Components", "Get started"] as const;
 const sectionLabels: Record<DocsSectionId, string> = {
   components: "Components",
@@ -24,7 +26,7 @@ interface DocumentFrameProps {
   children: ReactNode;
   description: string;
   eyebrow?: string | undefined;
-  layout: "component" | "overview";
+  layout: "component" | "document" | "overview";
   metadata?: readonly [string, string] | undefined;
   section: DocsSectionId;
   slug: DocsPage;
@@ -79,13 +81,35 @@ export function DocumentFrame({
 
   return (
     <DocsShell
-      actions={actions ?? (isOverview ? defaultOverviewActions : defaultComponentActions)}
+      actions={
+        actions ??
+        (isOverview
+          ? defaultOverviewActions
+          : layout === "document"
+            ? defaultDocumentActions
+            : defaultComponentActions)
+      }
       breadcrumbs={[isOverview ? "Documentation" : sectionLabels[section], title]}
       current={slug}
       theme={theme}
     >
       {isOverview ? (
         <div className="docs-content">{children}</div>
+      ) : layout === "document" ? (
+        <div className="document-docs-content mdx-document-content">
+          <div className="document-layout">
+            <article className="document-main" data-document-main={slug}>
+              <section className="document-hero">
+                <p className="document-eyebrow">{eyebrow?.toUpperCase()}</p>
+                <h1>{title}</h1>
+                <p className="document-description">{description}</p>
+                {metadata && <p className="document-metadata">{metadata.join(" · ")}</p>}
+              </section>
+              {children}
+            </article>
+            <TableOfContents page={slug} />
+          </div>
+        </div>
       ) : (
         <div
           className={["button-docs-content", "mdx-component-content", contentClassName].join(" ")}

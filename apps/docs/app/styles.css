@@ -373,6 +373,203 @@ html[data-theme="dark"] .docs-theme {
   padding: 32px 52px 40px 56px;
 }
 
+.document-docs-content {
+  width: 100%;
+  max-width: 1188px;
+  margin: 0 auto;
+  padding: 40px 52px 48px 56px;
+}
+
+.document-layout {
+  display: flex;
+  gap: 100px;
+  align-items: flex-start;
+  width: 1080px;
+}
+
+.document-main {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 48px;
+  width: 760px;
+  min-width: 0;
+}
+
+.document-hero {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 8px;
+  width: 760px;
+}
+
+.document-eyebrow {
+  width: 760px;
+  margin: 0;
+  color: var(--color-content-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.document-hero h1 {
+  width: 760px;
+  margin: 0;
+  color: var(--docs-fg-primary);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.document-description,
+.document-metadata {
+  width: 720px;
+  margin: 0;
+  color: var(--color-content-secondary);
+}
+
+.document-description {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.document-metadata {
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.document-toc {
+  position: sticky;
+  top: 40px;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 8px;
+  width: 220px;
+}
+
+.document-toc-label {
+  width: 220px;
+  margin: 0;
+  color: var(--color-content-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.document-toc-items {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 220px;
+}
+
+.document-toc-item {
+  display: flex;
+  align-items: center;
+  width: 220px;
+  height: 28px;
+  padding: 0 8px 0 18px;
+  border-radius: var(--radius-control);
+  color: var(--color-content-tertiary);
+  font-size: 12px;
+  line-height: 18px;
+  text-decoration: none;
+  transition:
+    background-color 120ms ease-out,
+    color 120ms ease-out;
+}
+
+.document-toc-item:hover {
+  background: var(--docs-sidebar-hover);
+}
+
+.document-toc-item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--color-focus-ring);
+}
+
+.document-toc-item.is-active {
+  color: var(--docs-fg-primary);
+}
+
+.document-toc-indicator {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  z-index: 1;
+  width: 2px;
+  height: 16px;
+  border-radius: 1px;
+  background: var(--docs-fg-primary);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition:
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 150ms ease-out,
+    opacity 120ms ease-out;
+  will-change: transform;
+}
+
+.document-toc-indicator.is-ready {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .document-toc-item,
+  .document-toc-indicator {
+    transition-duration: 0ms;
+  }
+}
+
+.document-main [data-toc-heading] {
+  scroll-margin-top: 72px;
+}
+
+.document-main .button-implementation,
+.document-main .button-guidance {
+  width: 760px;
+  margin-top: 0;
+}
+
+.document-main .button-guidance {
+  height: auto;
+}
+
+.document-main .button-guidance article {
+  width: 760px;
+}
+
+.document-main .button-implementation > div,
+.document-main .button-implementation pre {
+  width: 760px;
+}
+
+.document-main .button-implementation h2,
+.document-main .button-guidance h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.document-main .button-implementation > div > p {
+  width: 720px;
+  margin: 0;
+  color: var(--color-content-secondary);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.document-main .button-guidance .guidance-content > p,
+.document-main .button-guidance ul {
+  font-size: 14px;
+  line-height: 22px;
+}
+
 .overview-section {
   display: grid;
   grid-template-columns: 580px 420px;
@@ -1010,6 +1207,13 @@ html[data-theme="dark"] .docs-theme {
   height: 88px;
 }
 
+.button-guidance .guidance-content > p {
+  margin: 8px 0 0;
+  color: var(--color-content-secondary);
+  font-size: 13px;
+  line-height: 20px;
+}
+
 .button-guidance ul {
   margin: 8px 0 0;
   padding: 0;
@@ -1482,6 +1686,45 @@ html[data-theme="dark"] .button-implementation .shiki span {
   min-height: 0;
 }
 
+@media (max-width: 1320px) {
+  .document-layout {
+    width: 100%;
+    gap: 48px;
+  }
+
+  .document-main,
+  .document-hero,
+  .document-eyebrow,
+  .document-hero h1 {
+    width: auto;
+  }
+
+  .document-main {
+    flex: 1 1 auto;
+  }
+
+  .document-description,
+  .document-metadata,
+  .document-main .button-implementation > div > p {
+    width: 100%;
+  }
+
+  .document-toc,
+  .document-toc-label,
+  .document-toc-items,
+  .document-toc-item {
+    width: 180px;
+  }
+
+  .document-main .button-implementation,
+  .document-main .button-guidance,
+  .document-main .button-guidance article,
+  .document-main .button-implementation > div,
+  .document-main .button-implementation pre {
+    width: 100%;
+  }
+}
+
 @media (max-width: 1100px) {
   .overview-section {
     grid-template-columns: minmax(0, 1fr);
@@ -1554,6 +1797,37 @@ html[data-theme="dark"] .button-implementation .shiki span {
 
   .button-docs-content {
     padding: 32px 20px 56px;
+  }
+
+  .document-docs-content {
+    padding: 32px 20px 56px;
+  }
+
+  .document-layout {
+    display: block;
+  }
+
+  .document-main,
+  .document-hero,
+  .document-eyebrow,
+  .document-hero h1,
+  .document-description,
+  .document-metadata,
+  .document-main .button-implementation,
+  .document-main .button-guidance,
+  .document-main .button-guidance article,
+  .document-main .button-implementation > div,
+  .document-main .button-implementation > div > p,
+  .document-main .button-implementation pre {
+    width: 100%;
+  }
+
+  .document-main {
+    display: flex;
+  }
+
+  .document-toc {
+    display: none;
   }
 
   .button-description,

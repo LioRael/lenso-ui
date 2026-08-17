@@ -1,0 +1,60 @@
+---
+title: "Installation"
+layout: "document"
+description: "Choose the managed package or editable registry channel for a new Consumer application."
+eyebrow: "Start · Consumer setup"
+metadata:
+  - "Package line 0.2.0"
+  - "React 19"
+actions:
+  - "Quick start"
+  - "Registry"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+  <Guidance>
+    <GuidanceBlock title="Managed package channel">
+      Install <code>@lenso/ui</code> for precompiled StyleX output and managed component upgrades.
+      <code>@lenso/tokens/styles.css</code> and <code>@lenso/ui/styles.css</code> are explicit
+      application-shell imports.
+    </GuidanceBlock>
+    <GuidanceBlock title="Editable registry channel">
+      Install a registry item when the Consumer must own and structurally change the source. A
+      registry installation is a copy; it does not receive managed package updates.
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`pnpm add @lenso/ui @lenso/tokens @base-ui/react react react-dom
+
+// application entry or root layout
+import "@lenso/tokens/styles.css"
+import "@lenso/ui/styles.css"`}
+  description="The package channel requires React and Base UI peers and one explicit import for each generated stylesheet."
+  title="Install the package channel"
+/>
+
+<CodeExample
+  code={String.raw`pnpm dlx shadcn@latest add https://ui.lenso.dev/r/setup.json
+pnpm dlx shadcn@latest add https://ui.lenso.dev/r/button.json`}
+  description="The setup item adds the shared token bridge; each component item remains editable Consumer-owned source."
+  title="Install registry source"
+/>
+
+  <Guidance>
+    <GuidanceBlock title="Before using registry source">
+      <ul>
+        <li>Configure a compatible StyleX compiler in the Consumer application.</li>
+        <li>Keep the generated token CSS import in the application shell.</li>
+        <li>Use a versioned <code>/r/v/0.2.0/</code> URL when reproducible release input matters.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Optional packages">
+      <ul>
+        <li>Install <code>@lenso/primitives</code> directly for the headless Sidebar primitive.</li>
+        <li><code>@lenso/ui/preflight.css</code> is optional and is not a reset or font package.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>

@@ -1,0 +1,43 @@
+---
+title: "Strict CSP"
+layout: "document"
+description: "Pass a request-scoped nonce to Base UI through Lenso UI without combining CSP with unrelated providers."
+eyebrow: "Guide · Security boundary"
+metadata:
+  - "CSPProvider"
+  - "Base UI contract"
+actions:
+  - "Installation"
+  - "Themes"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+<CodeExample
+  code={String.raw`import { CSPProvider } from "@lenso/ui/csp-provider"
+
+<CSPProvider nonce={requestNonce}>
+  <App />
+</CSPProvider>`}
+  description="Generate a unique nonce for each server request and pass the same value to the provider."
+  title="Wire the provider"
+/>
+
+  <Guidance>
+    <GuidanceBlock title="CSP directives">
+      <ul>
+        <li>Include the nonce in <code>script-src</code> and <code>style-src-elem</code>.</li>
+        <li>Keep the nonce request-scoped; do not use one static application-wide value.</li>
+        <li>Use the application's existing policy for inline style attributes separately.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="External styles">
+      When the Consumer supplies the required external component styles, pass
+      <code>disableStyleElements</code> to prevent Base UI from creating inline style elements. This
+      does not remove inline <code>style</code> attributes, which are controlled by
+      <code>style-src-attr</code>.
+    </GuidanceBlock>
+  </Guidance>
+
+`CSPProvider` is intentionally independent from `ThemeScope`, Toast, and component-domain providers. Compose only the boundaries that the application needs.

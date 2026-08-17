@@ -14,7 +14,7 @@ export interface DocsDocument {
   actions?: readonly [string, string];
   description: string;
   eyebrow?: string;
-  layout: "component" | "overview";
+  layout: "component" | "document" | "overview";
   mdxContent: MDXContent;
   metadata?: readonly [string, string];
   section: DocsSectionId;
@@ -33,7 +33,7 @@ function normalizeDocument(document: GeneratedDocsDocument): DocsDocument {
 
   return {
     description: document.description,
-    layout: document.layout as "component" | "overview",
+    layout: document.layout as "component" | "document" | "overview",
     mdxContent: document.mdxContent,
     section: document.section as DocsSectionId,
     slug: document.slug as DocsPage,

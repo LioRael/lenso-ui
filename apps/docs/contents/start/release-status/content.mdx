@@ -1,0 +1,35 @@
+---
+title: "Release status"
+layout: "document"
+description: "The current package, registry, and documentation surfaces in this repository."
+eyebrow: "Start · Release status"
+metadata:
+  - "Current line 0.2.0"
+  - "Experimental"
+actions:
+  - "Architecture"
+  - "Planned"
+---
+
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+  <Guidance>
+    <GuidanceBlock title="Current public line">
+      <ul>
+        <li><code>@lenso/ui</code>, <code>@lenso/primitives</code>, and <code>@lenso/tokens</code> are currently at <code>0.2.0</code>.</li>
+        <li>The current package set is released as a Changesets fixed group.</li>
+        <li>The immutable registry snapshot is available under <code>/r/v/0.2.0/</code>.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="What remains experimental">
+      <ul>
+        <li>The public component inventory and certified Consumer paths continue to expand.</li>
+        <li><code>@lenso/fonts</code> remains private until its asset provenance bundle is complete.</li>
+        <li>Downstream Console adoption and the full 1.0 contract remain future gates.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+The stable registry alias at `/r/{name}.json` is regenerated from the current repository source. A versioned snapshot is immutable and is generated during the release versioning workflow. The stable alias and the immutable snapshot therefore represent different responsibilities: current development output versus reproducible release input.
+
+Public changes to component APIs, semantic token names, registry item names, or material visual contracts require a Changeset. See the repository [MVP contract](https://github.com/LioRael/lenso-ui/blob/main/MVP.md) and [architecture guide](https://github.com/LioRael/lenso-ui/blob/main/docs/architecture.md) for the durable constraints.
