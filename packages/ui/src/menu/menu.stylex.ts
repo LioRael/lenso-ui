@@ -2,6 +2,11 @@ import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
 
+const menuPopupShadow =
+  `0 1px 1px ${tokens.elevationOverlayDetail}, ` +
+  `0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, ` +
+  `0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`;
+
 export const styles = stylex.create({
   trigger: {
     alignItems: "center",
@@ -39,7 +44,7 @@ export const styles = stylex.create({
     borderRadius: "12px",
     borderStyle: "solid",
     borderWidth: "0.5px",
-    boxShadow: `0 1px 1px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`,
+    boxShadow: menuPopupShadow,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     minWidth: "210px",
