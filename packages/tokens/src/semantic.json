@@ -34,6 +34,7 @@
       "control": { "$value": "{primitive.color.gray350}" },
       "controlFocus": { "$value": "{primitive.color.gray400}" },
       "tertiary": { "$value": "{primitive.color.gray200}" },
+      "menuSeparator": { "$value": "{primitive.color.gray200}" },
       "secondary": { "$value": "{primitive.color.gray300}" },
       "primary": { "$value": "{primitive.color.gray500}" },
       "dialog": { "$value": "{primitive.color.gray300}" },

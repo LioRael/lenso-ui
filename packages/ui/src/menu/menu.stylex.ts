@@ -126,13 +126,17 @@ export const styles = stylex.create({
     width: "16px",
   },
   separator: {
-    backgroundImage: `linear-gradient(to bottom, transparent 5.75px, ${tokens.colorBorderTertiary} 5.75px, ${tokens.colorBorderTertiary} 6.25px, transparent 6.25px)`,
+    backgroundImage: `linear-gradient(to bottom, transparent 5.75px, ${tokens.colorBorderMenuSeparator} 5.75px, ${tokens.colorBorderMenuSeparator} 6.25px, transparent 6.25px)`,
     borderWidth: 0,
     height: "12px",
     marginInline: "-0.5px",
     width: "calc(100% + 1px)",
   },
-  separatorLine: { backgroundColor: tokens.colorBorderTertiary, height: "0.5px", width: "100%" },
+  separatorLine: {
+    backgroundColor: tokens.colorBorderMenuSeparator,
+    height: "0.5px",
+    width: "100%",
+  },
   groupLabel: {
     color: tokens.colorContentTertiary,
     fontFamily: tokens.fontSans,

@@ -46,6 +46,11 @@
       "type": "color"
     },
     {
+      "path": "color.border.menuSeparator",
+      "cssName": "--color-border-menu-separator",
+      "type": "color"
+    },
+    {
       "path": "color.border.popover",
       "cssName": "--color-border-popover",
       "type": "color"

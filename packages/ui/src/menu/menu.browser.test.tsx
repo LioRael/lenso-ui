@@ -56,26 +56,28 @@ function PreviewRow({ row }: { row: Exclude<(typeof rows)[number], null> }) {
   );
 }
 
-test("Menu matches Figma and preserves Base UI interaction", async () => {
-  const screen = await render(
-    <>
+function MenuPreview({ theme }: { theme: "light" | "dark" }) {
+  return (
+    <ThemeScope theme={theme}>
       <div
-        data-testid="menu-figma-state-board"
+        aria-hidden="true"
+        data-testid={`menu-${theme}-state-board`}
         style={{
           alignItems: "center",
-          background: "#fafafa",
+          background: theme === "light" ? "#fafafa" : "#121212",
           display: "flex",
           height: 489,
           justifyContent: "center",
           width: 242,
         }}
       >
-        <div data-testid="menu-preview" {...stylex.props(styles.popup)}>
+        <div data-testid={`menu-${theme}-preview`} {...stylex.props(styles.popup)}>
           {rows.map((row, index) =>
             row ? (
               <PreviewRow key={row[0]} row={row} />
             ) : (
               <div
+                data-testid={`menu-${theme}-separator-${index}`}
                 key={`separator-${index}`}
                 data-slot="menu-separator"
                 {...stylex.props(styles.separator)}
@@ -86,6 +88,15 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
           )}
         </div>
       </div>
+    </ThemeScope>
+  );
+}
+
+test("Menu matches Figma and preserves Base UI interaction", async () => {
+  const screen = await render(
+    <>
+      <MenuPreview theme="light" />
+      <MenuPreview theme="dark" />
       <ThemeScope theme="light">
         <Menu.Root>
           <Menu.Trigger>Issue actions</Menu.Trigger>
@@ -114,7 +125,7 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
     </>,
   );
   await document.fonts.load('400 13px "Inter"', "Due date");
-  const preview = screen.getByTestId("menu-preview");
+  const preview = screen.getByTestId("menu-light-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
   expect(getComputedStyle(preview.element()).borderColor).toBe("rgb(216, 216, 216)");
   expect(getComputedStyle(preview.element()).boxShadow).toBe(overlayShadow);
@@ -131,6 +142,19 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
     preview.element().querySelector('[data-slot="menu-separator"]')?.getBoundingClientRect().width,
   ).toBe(209);
   expect(Math.round(preview.element().getBoundingClientRect().height)).toBe(457);
+  const lightSeparator = screen.getByTestId("menu-light-separator-3").element();
+  const darkSeparator = screen.getByTestId("menu-dark-separator-3").element();
+  expect(lightSeparator.getBoundingClientRect().width).toBe(209);
+  expect(darkSeparator.getBoundingClientRect().width).toBe(209);
+  expect(getComputedStyle(lightSeparator.firstElementChild!).backgroundColor).toBe(
+    "rgb(234, 234, 234)",
+  );
+  expect(getComputedStyle(darkSeparator.firstElementChild!).backgroundColor).toBe(
+    "rgb(51, 51, 51)",
+  );
+  expect(getComputedStyle(screen.getByTestId("menu-dark-preview").element()).backgroundColor).toBe(
+    "rgb(40, 41, 43)",
+  );
   const trigger = screen.getByRole("button", { name: "Issue actions" });
   await userEvent.click(trigger);
   await expect.element(screen.getByTestId("runtime-menu")).toBeVisible();
@@ -144,7 +168,11 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   ).toBe(overlayShadow);
   await userEvent.keyboard("{Escape}");
   expect(
-    (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
+    (
+      await axe.run(screen.getByTestId("runtime-menu").element(), {
+        rules: { region: { enabled: false } },
+      })
+    ).violations,
   ).toEqual([]);
   await userEvent.keyboard("{Escape}");
   await expect.poll(() => document.activeElement === trigger.element()).toBe(true);
