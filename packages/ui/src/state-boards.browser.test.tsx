@@ -1217,7 +1217,7 @@ function ComboboxExample({ state }: { state: "closed" | "empty" | "loading" | "o
     <div ref={portalRef} style={{ position: "relative", width: 207 }}>
       <Combobox.Root
         autoHighlight={false}
-        defaultValue={[]}
+        defaultValue={[...comboboxLabels]}
         items={items}
         multiple
         open={state !== "closed"}
