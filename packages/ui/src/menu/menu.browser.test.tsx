@@ -34,7 +34,7 @@ const rows = [
 ] as const;
 
 const overlayShadow =
-  "rgba(0, 0, 0, 0.125) 0px 1px 1px 0px, rgba(0, 0, 0, 0.125) 0px 2px 5px 0px, rgba(0, 0, 0, 0.125) 0px 3px 8px 0px";
+  "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px";
 
 function PreviewRow({ row }: { row: Exclude<(typeof rows)[number], null> }) {
   const [label, Icon, shortcut, state] = row;
@@ -104,6 +104,7 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
             <Menu.Positioner>
               <Menu.Popup aria-label="Issue actions" data-testid="runtime-menu">
                 <Menu.LinkItem href="#open">Open issue</Menu.LinkItem>
+                <Menu.Separator data-testid="runtime-separator" />
                 <Menu.SubmenuRoot>
                   <Menu.SubmenuTrigger icon={<span data-testid="custom-submenu-icon">→</span>}>
                     Create related
@@ -158,7 +159,25 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   const trigger = screen.getByRole("button", { name: "Issue actions" });
   await userEvent.click(trigger);
   await expect.element(screen.getByTestId("runtime-menu")).toBeVisible();
-  expect(screen.getByRole("menuitem", { name: "Open issue" }).element().tagName).toBe("A");
+  const openIssue = screen.getByRole("menuitem", { name: "Open issue" }).element();
+  const runtimeSeparator = screen.getByTestId("runtime-separator").element();
+  const createRelated = screen.getByRole("menuitem", { name: "Create related" }).element();
+  expect(openIssue.tagName).toBe("A");
+  expect(runtimeSeparator.tagName).toBe("HR");
+  expect(Math.round(runtimeSeparator.getBoundingClientRect().width)).toBe(209);
+  expect(Math.round(runtimeSeparator.getBoundingClientRect().height)).toBe(12);
+  expect(getComputedStyle(runtimeSeparator).marginBlockStart).toBe("0px");
+  expect(getComputedStyle(runtimeSeparator).marginBlockEnd).toBe("0px");
+  expect(
+    Math.round(
+      runtimeSeparator.getBoundingClientRect().top - openIssue.getBoundingClientRect().bottom,
+    ),
+  ).toBe(0);
+  expect(
+    Math.round(
+      createRelated.getBoundingClientRect().top - runtimeSeparator.getBoundingClientRect().bottom,
+    ),
+  ).toBe(0);
   expect(screen.getByTestId("custom-submenu-icon").element().textContent).toBe("→");
   await userEvent.keyboard("{ArrowDown}{ArrowDown}{ArrowRight}");
   const submenuItem = screen.getByRole("menuitem", { name: "Create sub-issue" });
