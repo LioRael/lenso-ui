@@ -433,7 +433,7 @@ test("Switch animates the consumed hover width during thumb movement", async () 
   await expect.poll(() => widthTransitionEvents.includes("end")).toBe(true);
   expect(getComputedStyle(thumb).transitionProperty).toContain("width");
   expect(getComputedStyle(thumb).transitionProperty).toContain("transform");
-  expect(getComputedStyle(thumb).width).toBe("14px");
+  await expect.poll(() => getComputedStyle(thumb).width).toBe("14px");
 });
 
 test("Switch replays hover expansion before consuming it on a second toggle", async () => {
@@ -455,6 +455,9 @@ test("Switch replays hover expansion before consuming it on a second toggle", as
     const control = screen.getByRole("switch", { name });
     const thumb = control.element().querySelector<HTMLElement>('[data-slot="switch-thumb"]')!;
     const animationEnds: string[] = [];
+    const animationStarted = new Promise<void>((resolve) => {
+      thumb.addEventListener("animationstart", () => resolve(), { once: true });
+    });
 
     thumb.addEventListener("animationend", () => {
       animationEnds.push(getComputedStyle(thumb).width);
@@ -469,12 +472,11 @@ test("Switch replays hover expansion before consuming it on a second toggle", as
     animationEnds.length = 0;
     await control.click();
     await expect.element(control).not.toBeChecked();
-    await expect
-      .poll(() => thumb.getAnimations().some((animation) => "animationName" in animation))
-      .toBe(true);
+    await animationStarted;
     const feedbackAnimation = thumb
       .getAnimations()
-      .find((animation) => "animationName" in animation)!;
+      .find((animation) => "animationName" in animation);
+    if (!feedbackAnimation) throw new Error("Switch feedback animation did not start");
     feedbackAnimation.pause();
     feedbackAnimation.currentTime = 90;
     expect(getComputedStyle(thumb).width).toBe(expandedWidth);

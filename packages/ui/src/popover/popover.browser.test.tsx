@@ -108,11 +108,13 @@ test("Popover matches Figma and supports composed interaction", async () => {
   );
 
   await document.fonts.load('400 13px "Inter"', "Open popover");
+  await document.fonts.ready;
   const board = screen.getByTestId("popover-figma-state-board");
   const previews = board
     .element()
     .querySelectorAll<HTMLElement>('[data-slot="popover-popup-preview"]');
   await expect.poll(() => getComputedStyle(previews[0]!).height).toBe("108px");
+  await expect.poll(() => getComputedStyle(previews[0]!).width).toBe("225px");
   expect(previews).toHaveLength(8);
   expect(previews[0]!.getBoundingClientRect().width).toBe(225);
   expect(getComputedStyle(previews[0]!).boxShadow).toContain("18px");
