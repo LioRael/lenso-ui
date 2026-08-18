@@ -1,5 +1,17 @@
 # @lenso/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- 4328a44: Add an accessible, layout-independent Resize Handle primitive and a Linear-inspired styled adapter.
+
+### Patch Changes
+
+- Updated dependencies [4328a44]
+  - @lenso/primitives@0.3.0
+  - @lenso/tokens@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
