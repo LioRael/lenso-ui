@@ -27,6 +27,7 @@ export default defineConfig({
     "popover/index": source("popover"),
     "quick-link/index": source("quick-link"),
     "radio/index": source("radio"),
+    "resize-handle/index": source("resize-handle"),
     "select/index": source("select"),
     "settings-row/index": source("settings-row"),
     "status-marker/index": source("status-marker"),

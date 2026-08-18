@@ -1,0 +1,36 @@
+{
+  "id": "resize-handle",
+  "name": "Resize Handle",
+  "description": "Drag, click, or use the keyboard while comparing orientation, state, and theme parity.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "orientation",
+      "label": "Orientation",
+      "type": "select",
+      "options": ["vertical", "horizontal"],
+      "default": "vertical"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "focus-visible", "dragging", "disabled"],
+      "default": "hover"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Inspector",
+      "code": "import { ResizeHandle } from \"@lenso/ui/resize-handle\"\n\n<ResizeHandle\n  aria-controls=\"inspector\"\n  aria-label=\"Resize inspector\"\n  min={240}\n  max={560}\n  value={width}\n  onValueChange={setWidth}\n/>"
+    }
+  ]
+}

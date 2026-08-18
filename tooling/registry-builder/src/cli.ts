@@ -461,6 +461,37 @@ const specs: RegistryItemSpec[] = [
     type: "registry:lib",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0"],
+    files: [
+      {
+        source: "packages/primitives/src/resize-handle/index.tsx",
+        target: "components/lenso/primitives/resize-handle.tsx",
+      },
+    ],
+    name: "resize-handle-primitive",
+    title: "Resize Handle Primitive",
+    type: "registry:lib",
+  },
+  {
+    dependencies: [`@lenso/primitives@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/resize-handle/index.tsx",
+        target: "components/lenso/resize-handle/index.tsx",
+      },
+      {
+        source: "packages/ui/src/resize-handle/resize-handle.stylex.ts",
+        target: "components/lenso/resize-handle/resize-handle.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "resize-handle",
+    registryDependencies: [stable("setup")],
+    title: "Resize Handle",
+    type: "registry:ui",
+  },
+  {
     dependencies: [
       `@lenso/primitives@${releaseVersion}`,
       "@base-ui/react@1.7.0",

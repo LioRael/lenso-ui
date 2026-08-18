@@ -78,6 +78,10 @@
       "types": "./dist/quick-link/index.d.ts",
       "import": "./dist/quick-link/index.js"
     },
+    "./resize-handle": {
+      "types": "./dist/resize-handle/index.d.ts",
+      "import": "./dist/resize-handle/index.js"
+    },
     "./radio": {
       "types": "./dist/radio/index.d.ts",
       "import": "./dist/radio/index.js"

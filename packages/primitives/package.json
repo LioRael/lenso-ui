@@ -14,6 +14,10 @@
   ],
   "type": "module",
   "exports": {
+    "./resize-handle": {
+      "types": "./dist/resize-handle/index.d.ts",
+      "import": "./dist/resize-handle/index.js"
+    },
     "./sidebar": {
       "types": "./dist/sidebar/index.d.ts",
       "import": "./dist/sidebar/index.js"
