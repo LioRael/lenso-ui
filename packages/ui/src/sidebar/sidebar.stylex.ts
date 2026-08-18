@@ -141,9 +141,15 @@ export const styles = stylex.create({
   },
   sectionHeader: {
     alignItems: "center",
+    backgroundColor: {
+      default: "transparent",
+      ":hover": tokens.colorSidebarItemHover,
+    },
+    borderRadius: tokens.radiusControl,
     display: "flex",
     height: "28px",
     paddingInline: "5px 2px",
+    position: "relative",
   },
   sectionLabel: {
     color: tokens.colorContentSecondary,
@@ -151,13 +157,14 @@ export const styles = stylex.create({
     fontWeight: 500,
     lineHeight: "14.5px",
   },
-  sectionAction: { marginLeft: "auto" },
+  sectionAction: { position: "absolute", right: "2px" },
   sectionContent: {
     margin: "-8px -12px -8px -20px",
   },
   submenu: {
     display: "flex",
     flexDirection: "column",
+    gap: "1px",
     listStyle: "none",
     margin: 0,
     padding: "0 0 0 19px",

@@ -137,6 +137,22 @@ export const SidebarSectionLabel = createStyledPart(
   "sidebar-section-label",
   styles.sectionLabel,
 );
+export function SidebarSectionTrigger({
+  className,
+  style,
+  ...props
+}: React.ComponentProps<typeof Disclosure.Trigger>) {
+  return (
+    <Disclosure.Trigger
+      {...props}
+      className={className}
+      style={(state) => ({
+        ...(typeof style === "function" ? style(state) : style),
+        backgroundColor: "transparent",
+      })}
+    />
+  );
+}
 export const SidebarSectionAction = createStyledPart(
   "div",
   "sidebar-section-action",
@@ -173,6 +189,7 @@ export const Sidebar = {
   SectionContent: SidebarSectionContent,
   SectionHeader: SidebarSectionHeader,
   SectionLabel: SidebarSectionLabel,
+  SectionTrigger: SidebarSectionTrigger,
   Submenu: SidebarSubmenu,
   Workspace: SidebarWorkspace,
 } as const;

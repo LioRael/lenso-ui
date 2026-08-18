@@ -79,7 +79,13 @@
       "pressedOverlay": { "$value": "{primitive.color.white5}" }
     },
     "sidebar": {
-      "itemHover": { "$value": "{primitive.color.gray800}" },
+      "itemHover": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.094118, 0.094118, 0.101961],
+          "alpha": 1
+        }
+      },
       "itemActive": { "$value": "{primitive.color.slate875}" }
     },
     "navigation": {

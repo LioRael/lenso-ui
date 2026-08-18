@@ -79,7 +79,13 @@
       "thumb": { "$value": "{primitive.color.gray0}" }
     },
     "sidebar": {
-      "itemHover": { "$value": "{primitive.color.gray100}" },
+      "itemHover": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.905882, 0.905882, 0.909804],
+          "alpha": 1
+        }
+      },
       "itemActive": { "$value": "{primitive.color.gray200}" }
     },
     "navigation": {

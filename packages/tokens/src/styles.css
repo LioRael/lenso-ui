@@ -93,7 +93,7 @@
   --color-navigation-tab-fg-hover: #1f1f1f;
   --color-navigation-tab-fg-selected: #000000;
   --color-sidebar-item-active: #eaeaea;
-  --color-sidebar-item-hover: #f5f5f5;
+  --color-sidebar-item-hover: #e7e7e8;
   --color-status-error-border: #dc2626;
   --color-status-error-content: #dc2626;
   --color-status-error-surface: #fafafa;
@@ -242,7 +242,7 @@
   --color-navigation-tab-fg-hover: #ffffff;
   --color-navigation-tab-fg-selected: #f7f8f8;
   --color-sidebar-item-active: #28282c;
-  --color-sidebar-item-hover: #1f1f1f;
+  --color-sidebar-item-hover: #18181a;
   --color-status-error-border: #e5484d;
   --color-status-error-content: #e5484d;
   --color-status-error-surface: #0a0a0a;
