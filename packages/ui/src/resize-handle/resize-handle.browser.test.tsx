@@ -63,9 +63,10 @@ test("keeps Linear-inspired geometry and reveals the indicator on interaction", 
   expect(getComputedStyle(lightIndicator).width).toBe("0.5px");
   expect(getComputedStyle(lightIndicator).top).toBe("12px");
   expect(getComputedStyle(lightIndicator).bottom).toBe("12px");
-  expect(getComputedStyle(lightIndicator).opacity).toBe("0");
   expect(getComputedStyle(lightIndicator).transitionDuration).toBe("0.25s");
 
+  await userEvent.unhover(lightHandle);
+  await expect.poll(() => getComputedStyle(lightIndicator).opacity).toBe("0");
   await userEvent.hover(lightHandle);
   await expect.poll(() => getComputedStyle(lightIndicator).opacity).toBe("1");
   await userEvent.unhover(lightHandle);
