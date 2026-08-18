@@ -43,6 +43,8 @@ pnpm add @lenso/primitives @base-ui/react react
 
 The styled `@lenso/ui/sidebar` adapter uses that primitive internally and adds the Lenso UI StyleX contract.
 
+Use `@lenso/primitives/resize-handle` for layout-independent splitter behavior, or `@lenso/ui/resize-handle` for the Linear-inspired visual adapter. Pane layout and persistence remain Consumer-owned.
+
 ## Install editable registry source
 
 Use the registry channel when the Consumer needs to own and structurally change the installed source:
@@ -63,7 +65,7 @@ Stable URLs resolve the current generated registry. Immutable release snapshots 
 ## Public packages and current surface
 
 - `@lenso/ui@0.2.0`: styled Foundation Components, each available from an explicit family subpath.
-- `@lenso/primitives@0.2.0`: headless Product Primitives; the current public primitive is `sidebar`.
+- `@lenso/primitives@0.2.0`: headless Product Primitives for Sidebar and Resize Handle behavior.
 - `@lenso/tokens@0.2.0`: generated semantic CSS, TypeScript, StyleX, DTCG, contract, and Figma-map artifacts.
 - `@lenso/fonts`: private optional font boundary; it is not part of the public fixed release group yet because its redistributable asset provenance is incomplete.
 
@@ -73,12 +75,12 @@ The current `@lenso/ui` subpaths are:
 avatar       breadcrumb   button        checkbox      combobox
 command-menu csp-provider dialog        disclosure    icon-button
 label        menu         page-header   popover       quick-link
-radio        select       sidebar       settings-row  status-marker
-surface      switch       tabs          text-field    theme-scope
-tooltip      toast
+radio        resize-handle select       sidebar       settings-row
+status-marker surface      switch       tabs          text-field
+theme-scope  tooltip      toast
 ```
 
-The documentation site covers the component pages plus the current Surface, Sidebar, Page Header, Quick Link, and Settings Row patterns. The registry also exposes setup, Theme Scope, CSP Provider, the Sidebar primitive, and the editable Sidebar Recipe.
+The documentation site covers the component pages plus the current Surface, Sidebar, Page Header, Quick Link, and Settings Row patterns. The registry also exposes setup, Theme Scope, CSP Provider, Sidebar and Resize Handle primitives, and their styled adapters or Recipes.
 
 ## Themes and semantic tokens
 

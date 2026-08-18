@@ -1,6 +1,6 @@
 # @lenso/ui
 
-`@lenso/ui@0.2.0` is the managed package channel for Lenso UI's styled React Foundation Components. It targets React 19, uses Base UI for the underlying interaction primitives, and ships precompiled StyleX output.
+`@lenso/ui` is the managed package channel for Lenso UI's styled React Foundation Components. It targets React 19, uses Base UI for underlying interaction utilities and primitives, and ships precompiled StyleX output.
 
 ## Install and import
 
@@ -30,6 +30,7 @@ The package intentionally does not expose an all-components root barrel. The pub
 - `CSPProvider` forwards Base UI's nonce and `disableStyleElements` contract for strict-CSP applications.
 - Built-in Lucide icons are defaults. Components that expose an icon or loading-indicator slot accept Consumer-provided `ReactNode` values.
 - `@lenso/ui/sidebar` is the styled adapter over `@lenso/primitives/sidebar`; use the primitive directly when you need a headless visual boundary.
+- `@lenso/ui/resize-handle` is the Linear-inspired styled adapter over the layout-independent Resize Handle primitive.
 - `Select.Positioner` supports `position="popper"` and `position="item-aligned"` for different overlay geometry needs.
 
 For structural ownership, install the corresponding shadcn-compatible item from the [Lenso registry](https://ui.lenso.dev). Registry source is Consumer-owned; this package remains a managed dependency.

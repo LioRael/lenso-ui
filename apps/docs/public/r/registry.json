@@ -118,6 +118,16 @@
       "type": "registry:lib"
     },
     {
+      "name": "resize-handle-primitive",
+      "title": "Resize Handle Primitive",
+      "type": "registry:lib"
+    },
+    {
+      "name": "resize-handle",
+      "title": "Resize Handle",
+      "type": "registry:ui"
+    },
+    {
       "name": "sidebar",
       "title": "Sidebar",
       "type": "registry:ui"

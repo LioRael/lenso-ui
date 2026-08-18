@@ -13,6 +13,7 @@ import labelConfig from "@/contents/components/label/playground.json";
 import menuConfig from "@/contents/components/menu/playground.json";
 import popoverConfig from "@/contents/components/popover/playground.json";
 import radioConfig from "@/contents/components/radio/playground.json";
+import resizeHandleConfig from "@/contents/components/resize-handle/playground.json";
 import selectConfig from "@/contents/components/select/playground.json";
 import statusMarkerConfig from "@/contents/components/status-marker/playground.json";
 import switchConfig from "@/contents/components/switch/playground.json";
@@ -38,6 +39,7 @@ import {
   checkboxAdapter,
   labelAdapter,
   radioAdapter,
+  resizeHandleAdapter,
   selectAdapter,
   statusMarkerAdapter,
   surfaceAdapter,
@@ -80,6 +82,7 @@ const definitions: readonly PlaygroundDefinition[] = [
   { adapter: menuAdapter, config: parsePlaygroundConfig(menuConfig) },
   { adapter: popoverAdapter, config: parsePlaygroundConfig(popoverConfig) },
   { adapter: radioAdapter, config: parsePlaygroundConfig(radioConfig) },
+  { adapter: resizeHandleAdapter, config: parsePlaygroundConfig(resizeHandleConfig) },
   { adapter: selectAdapter, config: parsePlaygroundConfig(selectConfig) },
   { adapter: settingsRowAdapter, config: parsePlaygroundConfig(settingsRowConfig) },
   { adapter: statusMarkerAdapter, config: parsePlaygroundConfig(statusMarkerConfig) },
