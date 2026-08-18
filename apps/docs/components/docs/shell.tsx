@@ -10,6 +10,7 @@ import { Button } from "@lenso/ui/button";
 import { Disclosure } from "@lenso/ui/disclosure";
 import { Sidebar } from "@lenso/ui/sidebar";
 
+import uiPackage from "../../../../packages/ui/package.json";
 import {
   getDocsPageForPath,
   getDocsSectionForPage,
@@ -154,7 +155,7 @@ function DocumentationSidebar({ current }: { current: DocsPage }) {
         <Sidebar.Header className="docs-sidebar-header">
           <div className="brand-row">
             <strong>Lenso UI</strong>
-            <span className="version">v0.2</span>
+            <span className="version">v{uiPackage.version}</span>
           </div>
           <button className="search-button" type="button">
             <span>Search documentation</span>
