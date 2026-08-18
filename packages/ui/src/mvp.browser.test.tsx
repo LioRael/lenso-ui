@@ -455,9 +455,6 @@ test("Switch replays hover expansion before consuming it on a second toggle", as
     const control = screen.getByRole("switch", { name });
     const thumb = control.element().querySelector<HTMLElement>('[data-slot="switch-thumb"]')!;
     const animationEnds: string[] = [];
-    const animationStarted = new Promise<void>((resolve) => {
-      thumb.addEventListener("animationstart", () => resolve(), { once: true });
-    });
 
     thumb.addEventListener("animationend", () => {
       animationEnds.push(getComputedStyle(thumb).width);
@@ -472,7 +469,9 @@ test("Switch replays hover expansion before consuming it on a second toggle", as
     animationEnds.length = 0;
     await control.click();
     await expect.element(control).not.toBeChecked();
-    await animationStarted;
+    await expect
+      .poll(() => thumb.getAnimations().some((animation) => "animationName" in animation))
+      .toBe(true);
     const feedbackAnimation = thumb
       .getAnimations()
       .find((animation) => "animationName" in animation);
