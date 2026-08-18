@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "dependencies": [
-    "@lenso/tokens@0.2.0"
+    "@lenso/tokens@0.2.1"
   ],
   "files": [
     {
