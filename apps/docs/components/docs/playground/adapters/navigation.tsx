@@ -257,10 +257,10 @@ function SidebarSection({ children, label }: { children: React.ReactNode; label:
       <Disclosure.Item value={label}>
         <Sidebar.SectionHeader>
           <Disclosure.Header>
-            <Disclosure.Trigger>
+            <Sidebar.SectionTrigger>
               {label}
               <Disclosure.Icon />
-            </Disclosure.Trigger>
+            </Sidebar.SectionTrigger>
           </Disclosure.Header>
           <Sidebar.SectionAction>
             <IconButton aria-label={`Add to ${label}`} size="compact" variant="ghost">
