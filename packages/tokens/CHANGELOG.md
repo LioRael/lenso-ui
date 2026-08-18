@@ -1,5 +1,11 @@
 # @lenso/tokens
 
+## 0.4.0
+
+### Patch Changes
+
+- 567af56: Add a Figma-aligned Page Layout template, expose a collapsible Sidebar section trigger, and refine Sidebar hover states to match Linear.
+
 ## 0.3.0
 
 ## 0.2.1

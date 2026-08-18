@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "dependencies": [
+    "@base-ui/react@1.7.0"
+  ],
+  "files": [
+    {
+      "content": "\"use client\";\n\nexport { CSPProvider } from \"@base-ui/react/csp-provider\";\nexport type { CSPProviderProps } from \"@base-ui/react/csp-provider\";\n",
+      "path": "components/lenso/csp-provider/index.tsx",
+      "target": "components/lenso/csp-provider/index.tsx",
+      "type": "registry:ui"
+    }
+  ],
+  "name": "csp-provider",
+  "title": "CSP Provider",
+  "type": "registry:ui"
+}
