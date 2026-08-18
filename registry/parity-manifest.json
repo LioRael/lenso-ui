@@ -458,9 +458,9 @@
           "target": "components/lenso/shared/merge-class-name.ts"
         },
         {
-          "registrySha256": "b43b0f98aa7e6fa9d5bb1aa1ef7c0fdbf4365f10c271e30c44c0b0f420f3026c",
+          "registrySha256": "7bf2c7f23539ce9a999a8b3f32b205a7ce8e64eeda9969cb5dd3ec906da620b7",
           "source": "packages/ui/src/tokens.stylex.ts",
-          "sourceSha256": "b43b0f98aa7e6fa9d5bb1aa1ef7c0fdbf4365f10c271e30c44c0b0f420f3026c",
+          "sourceSha256": "7bf2c7f23539ce9a999a8b3f32b205a7ce8e64eeda9969cb5dd3ec906da620b7",
           "target": "components/lenso/tokens.stylex.ts"
         }
       ]
