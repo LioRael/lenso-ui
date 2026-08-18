@@ -39,8 +39,8 @@
   ],
   "name": "sidebar",
   "registryDependencies": [
-    "https://ui.lenso.dev/r/disclosure.json",
-    "https://ui.lenso.dev/r/setup.json"
+    "https://ui.lenso.dev/r/v/0.2.1/disclosure.json",
+    "https://ui.lenso.dev/r/v/0.2.1/setup.json"
   ],
   "title": "Sidebar",
   "type": "registry:ui"
