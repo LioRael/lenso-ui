@@ -6,6 +6,7 @@ import { Avatar } from "@lenso/ui/avatar";
 import { Checkbox } from "@lenso/ui/checkbox";
 import { Label, type LabelColor } from "@lenso/ui/label";
 import { RadioGroup } from "@lenso/ui/radio";
+import { ResizeHandle } from "@lenso/ui/resize-handle";
 import { Select } from "@lenso/ui/select";
 import {
   StatusMarker,
@@ -208,6 +209,90 @@ export const switchAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =>
         <Switch.Thumb />
         {size === "default" && "Switch label"}
       </Switch.Root>
+    </ThemeScope>
+  );
+};
+
+function ResizeHandlePreview({
+  orientation,
+  state,
+}: {
+  orientation: "horizontal" | "vertical";
+  state: string;
+}) {
+  const range =
+    orientation === "vertical"
+      ? { initial: 240, max: 340, min: 160 }
+      : { initial: 96, max: 136, min: 64 };
+  const [value, setValue] = React.useState(range.initial);
+  const previousValue = React.useRef(range.initial);
+  const collapsed = value === range.min;
+  const visualState =
+    state === "hover" || state === "focus-visible" || state === "dragging" ? state : undefined;
+
+  return (
+    <div className={`resize-handle-demo resize-handle-demo-${orientation}`}>
+      <section
+        aria-label="Resizable inspector"
+        className="resize-handle-demo-pane"
+        id="resize-handle-inspector"
+        style={orientation === "vertical" ? { width: value } : { height: value }}
+      >
+        <strong>Inspector</strong>
+        <span>{Math.round(value)} px</span>
+      </section>
+      <ResizeHandle
+        aria-controls="resize-handle-inspector"
+        aria-label="Resize inspector"
+        {...(visualState ? { "data-visual-state": visualState } : {})}
+        disabled={state === "disabled"}
+        key={orientation}
+        max={range.max}
+        min={range.min}
+        onCollapseToggle={() => {
+          if (collapsed) {
+            setValue(previousValue.current);
+          } else {
+            previousValue.current = value;
+            setValue(range.min);
+          }
+        }}
+        onValueChange={setValue}
+        orientation={orientation}
+        style={
+          orientation === "vertical"
+            ? {
+                bottom: 0,
+                height: "auto",
+                left: `calc(${value}px - 2px)`,
+                position: "absolute",
+                top: 0,
+              }
+            : {
+                left: 0,
+                position: "absolute",
+                right: 0,
+                top: `calc(${value}px - 2px)`,
+                width: "auto",
+              }
+        }
+        value={value}
+      />
+      <div aria-hidden="true" className="resize-handle-demo-content">
+        <span>Workspace</span>
+        <span>Drag the edge or use arrow keys</span>
+      </div>
+    </div>
+  );
+}
+
+export const resizeHandleAdapter: PlaygroundAdapter = ({ theme, values }) => {
+  const orientation = stringValue(values, "orientation", "vertical") as "horizontal" | "vertical";
+  const state = stringValue(values, "state", "hover");
+
+  return (
+    <ThemeScope className="stage-canvas resize-handle-stage" theme={theme}>
+      <ResizeHandlePreview key={orientation} orientation={orientation} state={state} />
     </ThemeScope>
   );
 };

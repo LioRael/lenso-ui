@@ -26,17 +26,17 @@ flowchart LR
 
 ### `@lenso/ui`
 
-`@lenso/ui` contains styled Foundation Components and visual adapters. It exposes explicit family subpaths such as `@lenso/ui/button`, `@lenso/ui/dialog`, and `@lenso/ui/sidebar`. Consumers import the generated StyleX CSS explicitly through `@lenso/ui/styles.css`.
+`@lenso/ui` contains styled Foundation Components and visual adapters. It exposes explicit family subpaths such as `@lenso/ui/button`, `@lenso/ui/dialog`, `@lenso/ui/resize-handle`, and `@lenso/ui/sidebar`. Consumers import the generated StyleX CSS explicitly through `@lenso/ui/styles.css`.
 
 The package is intentionally thin over Base UI. Base UI owns the underlying interaction model where a suitable primitive exists; Lenso UI adds the visual contract, semantic token usage, state-layer conventions, `data-slot` markers, and replaceable built-in icon slots.
 
-The current `Sidebar` adapter is the important boundary case: it consumes `@lenso/primitives/sidebar` and gives the headless primitive a StyleX visual layer. This is still a one-way dependency; the primitive package never imports `@lenso/ui`.
+The `Sidebar` and `ResizeHandle` adapters consume their corresponding headless Product Primitives and add the Lenso UI StyleX visual layer. This is still a one-way dependency; the primitive package never imports `@lenso/ui`.
 
 ### `@lenso/primitives`
 
-`@lenso/primitives` contains headless Product Primitives. The current public surface is `@lenso/primitives/sidebar`, which owns controlled and uncontrolled open state, left/right instances, nested Roots, targeting, dismissal, and focus restoration without StyleX, theme tokens, default CSS, or an animation runtime.
+`@lenso/primitives` contains headless Product Primitives. `@lenso/primitives/sidebar` owns controlled and uncontrolled open state, left/right instances, nested Roots, targeting, dismissal, and focus restoration. `@lenso/primitives/resize-handle` owns bounded controlled values, pointer capture, keyboard resizing, and window-splitter semantics. Neither primitive imposes StyleX, theme tokens, pane layout, persistence, default CSS, or an animation runtime.
 
-Consumers that need a different visual language can use the primitive directly. Consumers that want the Lenso visual layer can use `@lenso/ui/sidebar` or install the editable registry Sidebar Recipe.
+Consumers that need a different visual language can use the primitives directly. Consumers that want the Lenso visual layer can use the corresponding `@lenso/ui` adapters or install their editable registry sources.
 
 ### `@lenso/tokens`
 

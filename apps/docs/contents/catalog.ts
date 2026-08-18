@@ -32,6 +32,7 @@ export type DocsPage =
   | "popover"
   | "quick-link"
   | "radio"
+  | "resize-handle"
   | "select"
   | "settings-row"
   | "application-sidebar"
@@ -137,6 +138,12 @@ export const docsRegistry = [
       { href: "/components/menu", kind: "page", label: "Menu", slug: "menu" },
       { href: "/components/popover", kind: "page", label: "Popover", slug: "popover" },
       { href: "/components/radio", kind: "page", label: "Radio", slug: "radio" },
+      {
+        href: "/components/resize-handle",
+        kind: "page",
+        label: "Resize Handle",
+        slug: "resize-handle",
+      },
       { href: "/components/select", kind: "page", label: "Select", slug: "select" },
       {
         href: "/components/status-marker",

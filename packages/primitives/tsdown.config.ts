@@ -8,6 +8,7 @@ export default defineConfig({
   },
   dts: false,
   entry: {
+    "resize-handle/index": path.resolve(import.meta.dirname, "src/resize-handle/index.tsx"),
     "sidebar/index": path.resolve(import.meta.dirname, "src/sidebar/index.tsx"),
   },
   format: "esm",

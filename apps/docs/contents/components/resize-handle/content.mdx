@@ -1,0 +1,59 @@
+---
+title: "Resize Handle"
+description: "A quiet, Linear-inspired splitter for resizing and collapsing adjacent panels."
+eyebrow: "Foundation component · Layout controls"
+metadata:
+  - "@lenso/ui/resize-handle"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="resize-handle" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Overlay the handle on the shared pane edge instead of reserving a flex or grid track for its hit target.</li>
+        <li>Keep pane sizing, persistence, and collapse state in the Consumer.</li>
+        <li>The 7px hit target is intentionally wider than its 0.5px visual indicator.</li>
+        <li>Use <code>inverted</code> when increasing the controlled value moves against the pointer direction.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Provide an accessible name and the controlled pane ID through <code>aria-controls</code>.</li>
+        <li>Arrow keys resize by <code>step</code>; Home and End select the bounds; Enter invokes the optional collapse action.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import * as React from "react"
+import { ResizeHandle } from "@lenso/ui/resize-handle"
+
+export function InspectorLayout() {
+  const [width, setWidth] = React.useState(320)
+
+  return (
+    <div style={{ display: "flex" }}>
+      <aside id="inspector" style={{ position: "relative", width }}>
+        Inspector
+        <ResizeHandle
+          aria-controls="inspector"
+          aria-label="Resize inspector"
+          min={240}
+          max={560}
+          value={width}
+          onValueChange={setWidth}
+          style={{ position: "absolute", insetBlock: 0, right: -5 }}
+        />
+      </aside>
+      <main style={{ flex: 1 }}>Workspace</main>
+    </div>
+  )
+}`}
+    description="The handle is controlled and layout-independent; the Consumer owns pane geometry."
+  />

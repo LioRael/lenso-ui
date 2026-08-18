@@ -1049,6 +1049,61 @@ html[data-theme="dark"] .docs-theme {
   margin: 0;
 }
 
+.resize-handle-stage {
+  padding: 20px;
+}
+
+.resize-handle-demo {
+  position: relative;
+  display: flex;
+  width: min(100%, 560px);
+  height: 168px;
+  overflow: hidden;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-panel);
+}
+
+.resize-handle-demo-horizontal {
+  flex-direction: column;
+}
+
+.resize-handle-demo-pane,
+.resize-handle-demo-content {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  padding: 16px;
+}
+
+.resize-handle-demo-pane {
+  flex: none;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--color-surface-sidebar);
+}
+
+.resize-handle-demo-pane strong,
+.resize-handle-demo-content span:first-child {
+  color: var(--color-content-primary);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.resize-handle-demo-pane span,
+.resize-handle-demo-content span:last-child {
+  color: var(--color-content-tertiary);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.resize-handle-demo-content {
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .tooltip-stage {
   min-height: 208px;
 }
