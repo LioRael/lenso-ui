@@ -1626,14 +1626,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.121569,
-            0.121569
+            0.094118,
+            0.094118,
+            0.101961
           ],
           "alpha": 1
         },
         "cssName": "--color-sidebar-item-hover",
-        "cssValue": "#1f1f1f"
+        "cssValue": "#18181a"
       },
       "color.status.errorBorder": {
         "path": "color.status.errorBorder",
@@ -3551,14 +3551,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.960784,
-            0.960784,
-            0.960784
+            0.905882,
+            0.905882,
+            0.909804
           ],
           "alpha": 1
         },
         "cssName": "--color-sidebar-item-hover",
-        "cssValue": "#f5f5f5"
+        "cssValue": "#e7e7e8"
       },
       "color.status.errorBorder": {
         "path": "color.status.errorBorder",

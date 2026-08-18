@@ -98,7 +98,7 @@ export const tokens = stylex.defineConsts({
   colorNavigationTabFgHover: "var(--color-navigation-tab-fg-hover, #1f1f1f)",
   colorNavigationTabFgSelected: "var(--color-navigation-tab-fg-selected, #000000)",
   colorSidebarItemActive: "var(--color-sidebar-item-active, #eaeaea)",
-  colorSidebarItemHover: "var(--color-sidebar-item-hover, #f5f5f5)",
+  colorSidebarItemHover: "var(--color-sidebar-item-hover, #e7e7e8)",
   colorStatusErrorBorder: "var(--color-status-error-border, #dc2626)",
   colorStatusErrorContent: "var(--color-status-error-content, #dc2626)",
   colorStatusErrorSurface: "var(--color-status-error-surface, #fafafa)",

@@ -1,0 +1,52 @@
+{
+  "id": "page-layout",
+  "name": "Page Layout",
+  "description": "Inspect the Figma shell across dashboard, table, list, and settings contexts.",
+  "themeControl": "theme",
+  "bodyClassName": "page-layout-playground-body",
+  "sectionClassName": "page-layout-playground",
+  "stageClassName": "page-layout-rendered-stage",
+  "controls": [
+    {
+      "id": "context",
+      "label": "Context",
+      "type": "select",
+      "options": [
+        { "label": "Dashboard", "value": "dashboard" },
+        { "label": "Data table", "value": "data-table" },
+        { "label": "Data list", "value": "data-list" },
+        { "label": "Settings", "value": "settings" }
+      ],
+      "default": "dashboard"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "dashboard",
+      "label": "Example · Dashboard",
+      "values": { "context": "dashboard" }
+    },
+    {
+      "id": "data-table",
+      "label": "Example · Data table",
+      "values": { "context": "data-table" }
+    },
+    {
+      "id": "data-list",
+      "label": "Example · Data list",
+      "values": { "context": "data-list" }
+    },
+    {
+      "id": "settings",
+      "label": "Example · Settings",
+      "values": { "context": "settings" }
+    }
+  ]
+}

@@ -26,6 +26,7 @@ import pageHeaderConfig from "@/contents/patterns/page-header/playground.json";
 import quickLinkConfig from "@/contents/patterns/quick-link/playground.json";
 import settingsRowConfig from "@/contents/patterns/settings-row/playground.json";
 import surfaceConfig from "@/contents/primitives/surface/playground.json";
+import pageLayoutConfig from "@/contents/templates/page-layout/playground.json";
 
 import { ComponentPlayground } from "./playground/component-playground";
 import { parsePlaygroundConfig } from "./playground/config";
@@ -63,6 +64,7 @@ import {
   toastAdapter,
   tooltipAdapter,
 } from "./playground/adapters/overlays";
+import { pageLayoutAdapter } from "./playground/adapters/templates";
 import type { PlaygroundDefinition } from "./playground/types";
 
 const definitions: readonly PlaygroundDefinition[] = [
@@ -95,6 +97,7 @@ const definitions: readonly PlaygroundDefinition[] = [
   { adapter: sidebarAdapter, config: parsePlaygroundConfig(applicationSidebarConfig) },
   { adapter: pageHeaderAdapter, config: parsePlaygroundConfig(pageHeaderConfig) },
   { adapter: quickLinkAdapter, config: parsePlaygroundConfig(quickLinkConfig) },
+  { adapter: pageLayoutAdapter, config: parsePlaygroundConfig(pageLayoutConfig) },
 ];
 
 const registry = new Map(definitions.map((definition) => [definition.config.id, definition]));

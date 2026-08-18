@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { userEvent } from "vitest/browser";
 import type React from "react";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
@@ -25,10 +26,12 @@ import { Sidebar } from "./index.js";
 const iconProps = { size: 16, strokeWidth: 1.5 };
 
 function BoardSection({
+  action,
   children,
   label,
   theme,
 }: {
+  action?: string;
   children: React.ReactNode;
   label: string;
   theme: "dark" | "light";
@@ -39,10 +42,17 @@ function BoardSection({
         <Sidebar.Section>
           <Sidebar.SectionHeader>
             <Disclosure.Header>
-              <Disclosure.Trigger>
+              <Sidebar.SectionTrigger>
                 {label} <Disclosure.Icon />
-              </Disclosure.Trigger>
+              </Sidebar.SectionTrigger>
             </Disclosure.Header>
+            {action && (
+              <Sidebar.SectionAction>
+                <IconButton aria-label={action} size="compact" variant="ghost">
+                  <PlusIcon />
+                </IconButton>
+              </Sidebar.SectionAction>
+            )}
           </Sidebar.SectionHeader>
           <Sidebar.SectionContent aria-label={`${theme} ${label}`}>
             {children}
@@ -95,7 +105,7 @@ function BoardSidebar({ theme }: { theme: "dark" | "light" }) {
                 </Sidebar.MenuItem>
               </Sidebar.Menu>
             </BoardSection>
-            <BoardSection label="Favorites" theme={theme}>
+            <BoardSection action={`Add ${theme} favorite`} label="Favorites" theme={theme}>
               <Sidebar.Menu>
                 <Sidebar.MenuItem>
                   <Sidebar.Item icon={<InboxIcon {...iconProps} />}>Active issues</Sidebar.Item>
@@ -172,14 +182,53 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
   const board = screen.getByTestId("sidebar-figma-state-board");
   const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="sidebar-panel"]');
   const items = board.element().querySelectorAll<HTMLElement>('[data-slot="sidebar-item"]');
+  const sectionActions = board
+    .element()
+    .querySelectorAll<HTMLElement>('[data-slot="sidebar-section-action"]');
+  const nestedItems = panels[0]!.querySelectorAll<HTMLElement>(
+    '[data-slot="sidebar-item"][data-level="nested"]',
+  );
   expect(panels).toHaveLength(2);
+  expect(sectionActions).toHaveLength(2);
+  expect(nestedItems).toHaveLength(4);
   await expect.poll(() => panels[0]?.getBoundingClientRect().width).toBe(244);
   await expect.poll(() => items[0]?.getBoundingClientRect().height).toBe(28);
   await expect
     .poll(() => items[1]!.getBoundingClientRect().top - items[0]!.getBoundingClientRect().top)
     .toBe(29);
+  await expect
+    .poll(
+      () =>
+        nestedItems[1]!.getBoundingClientRect().top - nestedItems[0]!.getBoundingClientRect().top,
+    )
+    .toBe(29);
+  await expect.poll(() => sectionActions[0]!.getBoundingClientRect().width).toBe(24);
+  await expect
+    .poll(
+      () =>
+        sectionActions[0]!.getBoundingClientRect().right - panels[0]!.getBoundingClientRect().left,
+    )
+    .toBe(230);
   await expect.poll(() => getComputedStyle(items[0]!).fontFamily).toContain("Inter");
   await expect.poll(() => getComputedStyle(panels[1]!).backgroundColor).toBe("rgb(10, 10, 10)");
+  const expectedHoverBackgrounds = ["rgb(231, 231, 232)", "rgb(24, 24, 26)"];
+  for (const [index, panel] of panels.entries()) {
+    const sectionHeader = panel.querySelector<HTMLElement>('[data-slot="sidebar-section-header"]')!;
+    const sectionTrigger = sectionHeader.querySelector<HTMLElement>(
+      '[data-slot="disclosure-trigger"]',
+    )!;
+    const item = panel.querySelector<HTMLElement>('[data-slot="sidebar-item"]')!;
+
+    await userEvent.hover(sectionTrigger);
+    const sectionHoverBackground = getComputedStyle(sectionHeader).backgroundColor;
+    expect(sectionHoverBackground).toBe(expectedHoverBackgrounds[index]);
+    expect(getComputedStyle(sectionTrigger).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+    expect(getComputedStyle(sectionHeader).borderRadius).toBe("8px");
+    expect(sectionHeader.getBoundingClientRect().width).toBe(item.getBoundingClientRect().width);
+
+    await userEvent.hover(item);
+    expect(getComputedStyle(item).backgroundColor).toBe(sectionHoverBackground);
+  }
   for (const panel of panels) {
     expect(
       (await axe.run(panel, { rules: { "color-contrast": { enabled: false } } })).violations,

@@ -33,7 +33,6 @@ a {
   --docs-sidebar-active: #e1e1e2;
   --docs-sidebar-hover: #e7e7e8;
   --docs-page-border: #e4e4e6;
-  --color-sidebar-item-hover: var(--docs-sidebar-hover);
   color: var(--color-content-primary);
   background: var(--docs-sidebar);
 }
@@ -43,7 +42,7 @@ html[data-theme="dark"] .docs-theme {
   --docs-main: #121213;
   --docs-sidebar: #0a0a0a;
   --docs-sidebar-active: #232325;
-  --docs-sidebar-hover: #1f1f1f;
+  --docs-sidebar-hover: #18181a;
   --docs-page-border: #212224;
 }
 
@@ -65,6 +64,7 @@ html[data-theme="dark"] .docs-theme {
 }
 
 .docs-sidebar-panel {
+  --color-sidebar-item-hover: var(--docs-sidebar-hover);
   width: 244px;
   height: 100%;
   min-height: 0;

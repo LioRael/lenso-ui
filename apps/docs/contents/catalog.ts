@@ -42,7 +42,8 @@ export type DocsPage =
   | "tabs"
   | "text-field"
   | "tooltip"
-  | "toast";
+  | "toast"
+  | "page-layout";
 
 export interface DocsNavLink {
   readonly href: string;
@@ -200,7 +201,19 @@ export const docsRegistry = [
     label: "Patterns",
     order: 50,
   },
-  { id: "templates", items: [], label: "Templates", order: 60 },
+  {
+    id: "templates",
+    items: [
+      {
+        href: "/templates/page-layout",
+        kind: "page",
+        label: "Page Layout",
+        slug: "page-layout",
+      },
+    ],
+    label: "Templates",
+    order: 60,
+  },
   {
     id: "guides",
     items: [{ href: "/guides/strict-csp", kind: "page", label: "Strict CSP", slug: "strict-csp" }],

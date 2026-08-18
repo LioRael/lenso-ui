@@ -1,0 +1,114 @@
+---
+title: "Page Layout"
+description: "A desktop application shell that separates persistent navigation, the primary work surface, and compact environment utilities."
+eyebrow: "Template · Application shell"
+metadata:
+  - "Figma canonical"
+  - "Documentation example"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="page-layout" />
+
+  <Guidance>
+    <GuidanceBlock title="Composition">
+      <ul>
+        <li>
+          Keep product navigation inside Sidebar and pass product-owned content to the main landmark.
+        </li>
+        <li>Use the same shell geometry for dashboard, table, list, and settings workflows.</li>
+        <li>Keep low-frequency environment actions in the bottom utility strip.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Responsive behavior">
+      <ul>
+        <li>The Figma contract is the 1280 × 720 desktop shell with a 244px sidebar.</li>
+        <li>
+          At narrow widths, let Sidebar.Root own disclosure while the Consumer chooses overlay or
+          compact navigation.
+        </li>
+        <li>
+          Preserve the main landmark, focus order, and current route when the sidebar changes
+          presentation.
+        </li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { BotIcon, HistoryIcon } from "lucide-react"
+import { Button } from "@lenso/ui/button"
+import { IconButton } from "@lenso/ui/icon-button"
+import { Sidebar } from "@lenso/ui/sidebar"
+import { ThemeScope } from "@lenso/ui/theme-scope"
+import styles from "./page-layout.module.css"
+
+export function PageLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeScope theme="system">
+      <Sidebar.Group className={styles.shell}>
+        <Sidebar.Root className={styles.sidebar} defaultOpen id="app-sidebar">
+          <Sidebar.Panel aria-label="Workspace navigation">
+            <Sidebar.Header>{/* workspace and actions */}</Sidebar.Header>
+            <Sidebar.Content>{/* product navigation */}</Sidebar.Content>
+            <Sidebar.Footer>{/* help */}</Sidebar.Footer>
+          </Sidebar.Panel>
+        </Sidebar.Root>
+
+        <main className={styles.main}>{children}</main>
+
+        <footer aria-label="Application utilities" className={styles.utilities}>
+          <Button variant="ghost"><BotIcon aria-hidden />Agent</Button>
+          <IconButton aria-label="Open chat history" variant="ghost">
+            <HistoryIcon />
+          </IconButton>
+        </footer>
+      </Sidebar.Group>
+    </ThemeScope>
+  )
+}`}
+    description="The template is an application-owned composition of stable Lenso UI parts, not a new package component."
+  />
+
+  <CodeExample
+    title="Layout CSS"
+    code={String.raw`.shell {
+  display: grid;
+  grid-template-columns: 244px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 36px;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--color-surface-sidebar);
+}
+
+.sidebar {
+  --size-sidebar: 100%;
+  grid-row: 1 / -1;
+  min-height: 0;
+}
+
+.main {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 0;
+  margin: 8px 8px 0 0;
+  overflow: auto;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  background: var(--color-surface-canvas);
+}
+
+.utilities {
+  display: flex;
+  grid-column: 2;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 4px 10px;
+}`}
+    description="The 244px / 8px / 12px / 36px shell measurements come from the canonical Page Layout component set."
+  />
