@@ -21,3 +21,31 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @lenso/ui exec playwright install --with-deps chromium
       - run: pnpm check
+
+  deploy-docs:
+    if: github.event_name == 'push'
+    needs: verify
+    environment:
+      name: docs-production
+      url: https://ui.lenso.dev
+    permissions:
+      contents: read
+      deployments: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.18.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:packages
+      - run: pnpm --filter @lenso/docs build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: "4.124.0"
