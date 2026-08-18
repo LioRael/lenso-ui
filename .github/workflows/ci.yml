@@ -42,10 +42,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:packages
       - run: pnpm --filter @lenso/docs build
-      - uses: cloudflare/wrangler-action@v3
-        with:
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: "4.124.0"
+      - name: Deploy docs to Cloudflare Pages
+        run: pnpm dlx wrangler@4.124.0 pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
