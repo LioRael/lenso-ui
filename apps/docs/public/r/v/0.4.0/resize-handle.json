@@ -32,7 +32,7 @@
   ],
   "name": "resize-handle",
   "registryDependencies": [
-    "https://ui.lenso.dev/r/setup.json"
+    "https://ui.lenso.dev/r/v/0.4.0/setup.json"
   ],
   "title": "Resize Handle",
   "type": "registry:ui"
