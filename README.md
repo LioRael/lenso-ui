@@ -2,7 +2,10 @@
 
 Lenso UI is an independent React design system for Lenso products and community applications. It combines Base UI behavior, StyleX styling, DTCG design tokens, managed npm packages, and editable shadcn-compatible registry source.
 
-The public package line in this repository is `0.2.0`. The project is still experimental: the package, token, registry, and material visual contracts are public surfaces, while the component inventory and consumer certification continue to grow. Unreleased changesets may be present after the `0.2.0` snapshot.
+<!-- lenso-release-slot:start -->
+
+The public package line in this repository is `0.4.0`. The project is still experimental: the package, token, registry, and material visual contracts are public surfaces, while the component inventory and consumer certification continue to grow. Unreleased changesets may be present after the `0.4.0` snapshot.
+<!-- lenso-release-slot:end -->
 
 ## Choose a distribution channel
 
@@ -60,13 +63,21 @@ The setup item installs the shared token bridge and its dependencies. The Consum
 import "@lenso/tokens/styles.css";
 ```
 
-Stable URLs resolve the current generated registry. Immutable release snapshots use a versioned path, for example `https://ui.lenso.dev/r/v/0.2.0/button.json`. A versioned snapshot is never rewritten; the stable alias is the channel for the current registry output.
+<!-- lenso-release-slot:start -->
+
+Stable URLs resolve the current generated registry. Immutable release snapshots use a versioned path, for example `https://ui.lenso.dev/r/v/0.4.0/button.json`. A versioned snapshot is never rewritten; the stable alias is the channel for the current registry output.
+<!-- lenso-release-slot:end -->
 
 ## Public packages and current surface
 
-- `@lenso/ui@0.2.0`: styled Foundation Components, each available from an explicit family subpath.
-- `@lenso/primitives@0.2.0`: headless Product Primitives for Sidebar and Resize Handle behavior.
-- `@lenso/tokens@0.2.0`: generated semantic CSS, TypeScript, StyleX, DTCG, contract, and Figma-map artifacts.
+<!-- lenso-release-slot:start -->
+
+- `@lenso/ui@0.4.0`: styled Foundation Components, each available from an explicit family subpath.
+- `@lenso/primitives@0.4.0`: headless Product Primitives for Sidebar and Resize Handle behavior.
+- `@lenso/tokens@0.4.0`: generated semantic CSS, TypeScript, StyleX, DTCG, contract, and Figma-map artifacts.
+
+<!-- lenso-release-slot:end -->
+
 - `@lenso/fonts`: private optional font boundary; it is not part of the public fixed release group yet because its redistributable asset provenance is incomplete.
 
 The current `@lenso/ui` subpaths are:

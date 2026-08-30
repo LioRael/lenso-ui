@@ -4,7 +4,9 @@ layout: "document"
 description: "The current package, registry, and documentation surfaces in this repository."
 eyebrow: "Start · Release status"
 metadata:
-  - "Current line 0.2.0"
+  # lenso-release-slot:start
+  - "Current line 0.4.0"
+  # lenso-release-slot:end
   - "Experimental"
 actions:
   - "Architecture"
@@ -16,9 +18,13 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
   <Guidance>
     <GuidanceBlock title="Current public line">
       <ul>
-        <li><code>@lenso/ui</code>, <code>@lenso/primitives</code>, and <code>@lenso/tokens</code> are currently at <code>0.2.0</code>.</li>
+        {/* lenso-release-slot:start */}
+        <li><code>@lenso/ui</code>, <code>@lenso/primitives</code>, and <code>@lenso/tokens</code> are currently at <code>0.4.0</code>.</li>
+        {/* lenso-release-slot:end */}
         <li>The current package set is released as a Changesets fixed group.</li>
-        <li>The immutable registry snapshot is available under <code>/r/v/0.2.0/</code>.</li>
+        {/* lenso-release-slot:start */}
+        <li>The immutable registry snapshot is available under <code>/r/v/0.4.0/</code>.</li>
+        {/* lenso-release-slot:end */}
       </ul>
     </GuidanceBlock>
     <GuidanceBlock title="What remains experimental">
