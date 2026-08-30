@@ -526,6 +526,41 @@ html[data-theme="dark"] .docs-theme {
   scroll-margin-top: 72px;
 }
 
+.tokens-document-content {
+  height: 100%;
+  max-width: none;
+  padding: 16px 24px 24px;
+}
+
+.tokens-document-layout,
+.tokens-document-content .document-main {
+  height: 100%;
+  width: 100%;
+}
+
+.tokens-document-content .document-main {
+  flex: 1 1 auto;
+  gap: 0;
+}
+
+.main-inset[data-current-page="tokens"] .docs-scroll {
+  overflow: hidden;
+  scrollbar-gutter: auto;
+}
+
+@media (max-width: 900px) {
+  .main-inset[data-current-page="tokens"] .docs-scroll {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+
+  .tokens-document-content,
+  .tokens-document-layout,
+  .tokens-document-content .document-main {
+    height: auto;
+  }
+}
+
 .document-main .button-implementation,
 .document-main .button-guidance {
   width: 760px;
@@ -1531,6 +1566,10 @@ html[data-theme="dark"] .button-implementation .shiki span {
 
   .document-docs-content {
     padding: 32px 20px 56px;
+  }
+
+  .tokens-document-content {
+    padding: 16px;
   }
 
   .document-layout {
