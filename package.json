@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "actions:check": "node tooling/check-action-pins.mjs",
     "build": "pnpm generate && turbo run build",
     "build:packages": "pnpm generate && turbo run build --filter='!@lenso/docs'",
     "changeset": "changeset",
-    "check": "pnpm format:check && pnpm lint && pnpm generate && pnpm --filter @lenso/token-generator check-generated && turbo run typecheck test build",
+    "check": "pnpm format:check && pnpm lint && pnpm actions:check && pnpm release-status:check && pnpm test:tooling && pnpm generate && pnpm --filter @lenso/token-generator check-generated && turbo run typecheck test build",
     "dev": "turbo run dev --parallel",
     "format": "oxfmt --ignore-path .oxfmtignore . && pnpm format:mdx",
     "format:check": "oxfmt --ignore-path .oxfmtignore --check . && pnpm format:mdx:check",
@@ -15,9 +16,12 @@
     "format:mdx:check": "node tooling/format-mdx.mjs --check",
     "generate": "pnpm --filter @lenso/token-generator generate && pnpm --filter @lenso/registry-builder generate",
     "lint": "oxlint --deny-warnings --react-plugin --jsx-a11y-plugin .",
+    "release-status:check": "node tooling/release-status.mjs --check",
+    "release-status:write": "node tooling/release-status.mjs --write",
     "test": "turbo run test",
+    "test:tooling": "node --test tooling/*.test.mjs",
     "typecheck": "turbo run typecheck",
-    "version": "changeset version && pnpm generate && pnpm --filter @lenso/registry-builder snapshot"
+    "version": "changeset version && pnpm release-status:write && pnpm generate && pnpm --filter @lenso/registry-builder snapshot"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
