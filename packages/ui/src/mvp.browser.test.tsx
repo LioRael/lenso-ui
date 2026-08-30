@@ -747,6 +747,8 @@ test("Dialog portals into the nearest theme scope and closes with Escape", async
   expect(getComputedStyle(popup.element()).transitionProperty).toContain("transform");
   const backdrop = portalHost?.querySelector<HTMLElement>('[data-slot="dialog-backdrop"]');
   expect(getComputedStyle(backdrop!).transitionProperty).toContain("opacity");
+  await expect.poll(() => getComputedStyle(popup.element()).opacity).toBe("1");
+  await expect.poll(() => getComputedStyle(backdrop!).opacity).toBe("1");
   const popupRect = popup.element().getBoundingClientRect();
   const closeRect = screen
     .getByRole("button", { name: "Close settings" })
