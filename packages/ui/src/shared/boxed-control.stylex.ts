@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "./motion.stylex.js";
 
 export const boxedControlStyles = stylex.create({
   edge: {
@@ -27,5 +28,8 @@ export const boxedControlStyles = stylex.create({
     outlineOffset: "0px",
     outlineStyle: "solid",
     outlineWidth: { default: 0, ":focus-visible": "1px" },
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, border-color, box-shadow, outline-color",
+    transitionTimingFunction: motion.easeHover,
   },
 });

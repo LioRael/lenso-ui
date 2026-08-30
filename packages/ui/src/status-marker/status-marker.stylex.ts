@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   root: {
@@ -13,6 +14,9 @@ export const styles = stylex.create({
     height: "20px",
     lineHeight: "normal",
     position: "relative",
+    transitionDuration: motion.durationBase,
+    transitionProperty: "color",
+    transitionTimingFunction: motion.easeHover,
     whiteSpace: "nowrap",
   },
   label: { gap: "8px" },

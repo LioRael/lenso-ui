@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   positioner: { zIndex: 50 },
@@ -27,9 +28,9 @@ export const styles = stylex.create({
     paddingInline: "8px",
     transform: "scale(1)",
     transformOrigin: "var(--transform-origin)",
-    transitionDuration: "120ms",
+    transitionDuration: motion.durationFast,
     transitionProperty: "opacity, transform",
-    transitionTimingFunction: "ease-out",
+    transitionTimingFunction: motion.easeOut,
     whiteSpace: "nowrap",
     "[data-starting-style]": { opacity: 0, transform: "scale(0.98)" },
     "[data-ending-style]": { opacity: 0, transform: "scale(0.98)" },

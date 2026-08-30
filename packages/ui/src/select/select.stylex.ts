@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   trigger: {
@@ -19,6 +20,9 @@ export const styles = stylex.create({
     paddingBlock: "6px",
     paddingInline: "10.5px",
     position: "relative",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color, opacity",
+    transitionTimingFunction: motion.easeHover,
     whiteSpace: "nowrap",
   },
   triggerSurface: {

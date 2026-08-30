@@ -175,6 +175,8 @@ test("Label preserves Base UI render composition and marker customization", asyn
 
   await expect.element(link).toHaveAttribute("href", "/issues");
   await expect.poll(() => getComputedStyle(link.element()).height).toBe("24px");
+  expect(getComputedStyle(link.element()).transitionDuration).toBe("0.12s");
+  expect(getComputedStyle(link.element()).transitionProperty).toContain("background-color");
   expect(link.element().querySelector('[data-slot="label-marker"]')).not.toBeNull();
   await expect.element(screen.getByTestId("custom-marker")).toBeVisible();
 });
@@ -567,9 +569,11 @@ test("Select supports keyboard selection, form semantics, and focus restoration"
     </form>,
   );
   const trigger = screen.getByRole("combobox");
+  expect(getComputedStyle(trigger.element()).transitionProperty).toContain("background-color");
   trigger.element().focus();
   await userEvent.keyboard("{ArrowDown}");
-  await expect.element(screen.getByRole("listbox")).toBeVisible();
+  const listbox = screen.getByRole("listbox");
+  await expect.element(listbox).toBeVisible();
   await userEvent.keyboard("{ArrowDown}{Enter}");
   await expect.element(trigger).toHaveTextContent("default");
   expect(onValueChange).toHaveBeenCalledWith("default", expect.anything());
@@ -739,6 +743,10 @@ test("Dialog portals into the nearest theme scope and closes with Escape", async
   expect(portalHost?.querySelector('[role="dialog"]')).not.toBeNull();
   const popup = screen.getByRole("dialog", { name: "Settings" });
   expect(getComputedStyle(popup.element()).position).toBe("relative");
+  expect(getComputedStyle(popup.element()).transitionDuration).toBe("0.2s");
+  expect(getComputedStyle(popup.element()).transitionProperty).toContain("transform");
+  const backdrop = portalHost?.querySelector<HTMLElement>('[data-slot="dialog-backdrop"]');
+  expect(getComputedStyle(backdrop!).transitionProperty).toContain("opacity");
   const popupRect = popup.element().getBoundingClientRect();
   const closeRect = screen
     .getByRole("button", { name: "Close settings" })
