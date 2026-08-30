@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   trigger: {
@@ -38,6 +39,9 @@ export const styles = stylex.create({
     },
     outlineOffset: "0px",
     paddingInline: "8px",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motion.easeHover,
     whiteSpace: "nowrap",
   },
   positioner: { outline: 0, zIndex: 50 },
@@ -56,9 +60,9 @@ export const styles = stylex.create({
     paddingBlock: "5px",
     transform: "scale(1)",
     transformOrigin: "var(--transform-origin)",
-    transitionDuration: "120ms",
+    transitionDuration: motion.durationBase,
     transitionProperty: "opacity, transform",
-    transitionTimingFunction: "ease-out",
+    transitionTimingFunction: motion.easeOut,
     width: "225px",
     "[data-starting-style]": { opacity: 0, transform: "scale(0.98)" },
     "[data-ending-style]": { opacity: 0, transform: "scale(0.98)" },
@@ -115,6 +119,9 @@ export const styles = stylex.create({
     outline: "none",
     paddingInline: "8px",
     textAlign: "left",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motion.easeHover,
     width: "212px",
   },
   itemDanger: { color: tokens.colorActionDanger },

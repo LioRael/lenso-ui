@@ -220,14 +220,16 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
     const item = panel.querySelector<HTMLElement>('[data-slot="sidebar-item"]')!;
 
     await userEvent.hover(sectionTrigger);
+    await expect
+      .poll(() => getComputedStyle(sectionHeader).backgroundColor)
+      .toBe(expectedHoverBackgrounds[index]);
     const sectionHoverBackground = getComputedStyle(sectionHeader).backgroundColor;
-    expect(sectionHoverBackground).toBe(expectedHoverBackgrounds[index]);
     expect(getComputedStyle(sectionTrigger).backgroundColor).toBe("rgba(0, 0, 0, 0)");
     expect(getComputedStyle(sectionHeader).borderRadius).toBe("8px");
     expect(sectionHeader.getBoundingClientRect().width).toBe(item.getBoundingClientRect().width);
 
     await userEvent.hover(item);
-    expect(getComputedStyle(item).backgroundColor).toBe(sectionHoverBackground);
+    await expect.poll(() => getComputedStyle(item).backgroundColor).toBe(sectionHoverBackground);
   }
   for (const panel of panels) {
     expect(

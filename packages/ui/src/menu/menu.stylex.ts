@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 const menuPopupShadow =
   `0 1px 1px ${tokens.elevationOverlayDetail}, ` +
@@ -21,6 +22,9 @@ export const styles = stylex.create({
     height: "32px",
     outline: "none",
     paddingInline: "12px",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color, opacity",
+    transitionTimingFunction: motion.easeHover,
   },
   controlTrigger: {
     gap: "8px",
@@ -51,8 +55,15 @@ export const styles = stylex.create({
     outline: 0,
     paddingBottom: "5px",
     paddingTop: "6px",
+    transform: "scale(1)",
     transformOrigin: "var(--transform-origin)",
+    transitionDuration: motion.durationBase,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motion.easeOut,
     width: "210px",
+    "[data-starting-style]": { opacity: 0, transform: "scale(0.97)" },
+    "[data-ending-style]": { opacity: 0, transform: "scale(0.97)" },
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
   submenuPopup: {
     minWidth: "232px",

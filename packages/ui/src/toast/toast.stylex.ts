@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 const darkTheme = ':where([data-theme="dark"] *)';
 
@@ -51,9 +52,9 @@ export const styles = stylex.create({
     position: "relative",
     touchAction: "none",
     transform: "translateX(var(--toast-swipe-movement-x, 0))",
-    transitionDuration: "180ms",
+    transitionDuration: motion.durationOverlay,
     transitionProperty: "opacity, transform",
-    transitionTimingFunction: "ease-out",
+    transitionTimingFunction: motion.easeOut,
     width: "384px",
     [darkTheme]: {
       backgroundColor: darkToastSurface,
@@ -162,6 +163,9 @@ export const styles = stylex.create({
     position: "absolute",
     right: "7.5px",
     top: "7.5px",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color, opacity",
+    transitionTimingFunction: motion.easeHover,
     width: "24px",
     [darkTheme]: { color: darkToastContentSecondary },
   },
@@ -181,6 +185,9 @@ export const styles = stylex.create({
     outline: { default: "none", ":focus-visible": `1px solid ${tokens.colorFocusRing}` },
     outlineOffset: "0px",
     padding: 0,
+    transitionDuration: motion.durationFast,
+    transitionProperty: "color, opacity",
+    transitionTimingFunction: motion.easeHover,
     [darkTheme]: { color: darkToastContentPrimary },
   },
 });

@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   inputGroup: {
@@ -67,7 +68,14 @@ export const styles = stylex.create({
     minWidth: "207px",
     outline: 0,
     overflow: "hidden",
+    transform: "scale(1)",
     transformOrigin: "var(--transform-origin)",
+    transitionDuration: motion.durationBase,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motion.easeOut,
+    "[data-starting-style]": { opacity: 0, transform: "scale(0.97)" },
+    "[data-ending-style]": { opacity: 0, transform: "scale(0.97)" },
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
   list: { outline: 0, paddingBottom: "6px", paddingTop: "42px" },
   item: {
@@ -216,6 +224,9 @@ export const styles = stylex.create({
     display: "inline-flex",
     justifyContent: "center",
     padding: 0,
+    transitionDuration: motion.durationFast,
+    transitionProperty: "color, opacity",
+    transitionTimingFunction: motion.easeHover,
   },
   iconSvg: { height: "14px", strokeWidth: "1.5px", width: "14px" },
   chip: {
@@ -229,5 +240,8 @@ export const styles = stylex.create({
     gap: "4px",
     lineHeight: "18px",
     paddingInline: "6px",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color, opacity",
+    transitionTimingFunction: motion.easeHover,
   },
 });

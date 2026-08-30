@@ -11,9 +11,15 @@
       "type": "registry:ui"
     },
     {
-      "content": "import * as stylex from \"@stylexjs/stylex\";\n\nimport { tokens } from \"../tokens.stylex.js\";\n\nexport const styles = stylex.create({\n  root: {\n    alignItems: \"center\",\n    color: tokens.colorContentSecondary,\n    display: \"inline-flex\",\n    fontFamily: tokens.fontButton,\n    fontSize: \"11px\",\n    fontWeight: 500,\n    height: \"20px\",\n    lineHeight: \"normal\",\n    position: \"relative\",\n    whiteSpace: \"nowrap\",\n  },\n  label: { gap: \"8px\" },\n  dot: {\n    backgroundColor: \"currentColor\",\n    borderRadius: tokens.radiusRounded,\n    display: \"block\",\n    flex: \"0 0 8px\",\n    height: \"8px\",\n    width: \"8px\",\n  },\n  neutral: { color: tokens.colorStatusNeutralContent },\n  success: { color: tokens.colorStatusSuccessContent },\n  warning: { color: tokens.colorStatusWarningContent },\n  error: { color: tokens.colorStatusErrorContent },\n  info: { color: tokens.colorStatusInfoContent },\n  text: { color: tokens.colorContentSecondary },\n});\n",
+      "content": "import * as stylex from \"@stylexjs/stylex\";\n\nimport { tokens } from \"../tokens.stylex.js\";\nimport { motion } from \"../shared/motion.stylex.js\";\n\nexport const styles = stylex.create({\n  root: {\n    alignItems: \"center\",\n    color: tokens.colorContentSecondary,\n    display: \"inline-flex\",\n    fontFamily: tokens.fontButton,\n    fontSize: \"11px\",\n    fontWeight: 500,\n    height: \"20px\",\n    lineHeight: \"normal\",\n    position: \"relative\",\n    transitionDuration: motion.durationBase,\n    transitionProperty: \"color\",\n    transitionTimingFunction: motion.easeHover,\n    whiteSpace: \"nowrap\",\n  },\n  label: { gap: \"8px\" },\n  dot: {\n    backgroundColor: \"currentColor\",\n    borderRadius: tokens.radiusRounded,\n    display: \"block\",\n    flex: \"0 0 8px\",\n    height: \"8px\",\n    width: \"8px\",\n  },\n  neutral: { color: tokens.colorStatusNeutralContent },\n  success: { color: tokens.colorStatusSuccessContent },\n  warning: { color: tokens.colorStatusWarningContent },\n  error: { color: tokens.colorStatusErrorContent },\n  info: { color: tokens.colorStatusInfoContent },\n  text: { color: tokens.colorContentSecondary },\n});\n",
       "path": "components/lenso/status-marker/status-marker.stylex.ts",
       "target": "components/lenso/status-marker/status-marker.stylex.ts",
+      "type": "registry:style"
+    },
+    {
+      "content": "import * as stylex from \"@stylexjs/stylex\";\n\nexport const motion = stylex.defineVars({\n  durationFast: \"120ms\",\n  durationBase: \"160ms\",\n  durationOverlay: \"180ms\",\n  durationDialog: \"200ms\",\n  easeHover: \"ease\",\n  easeOut: \"cubic-bezier(0.23, 1, 0.32, 1)\",\n  easeInOut: \"cubic-bezier(0.77, 0, 0.175, 1)\",\n});\n",
+      "path": "components/lenso/shared/motion.stylex.ts",
+      "target": "components/lenso/shared/motion.stylex.ts",
       "type": "registry:style"
     },
     {

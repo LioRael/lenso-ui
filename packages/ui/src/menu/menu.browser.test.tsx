@@ -169,7 +169,7 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   const createRelated = screen.getByRole("menuitem", { name: "Create related" }).element();
   expect(openIssue.tagName).toBe("A");
   expect(runtimeSeparator.tagName).toBe("HR");
-  expect(Math.round(runtimeSeparator.getBoundingClientRect().width)).toBe(209);
+  await expect.poll(() => Math.round(runtimeSeparator.getBoundingClientRect().width)).toBe(209);
   expect(Math.round(runtimeSeparator.getBoundingClientRect().height)).toBe(12);
   expect(getComputedStyle(runtimeSeparator).marginBlockStart).toBe("0px");
   expect(getComputedStyle(runtimeSeparator).marginBlockEnd).toBe("0px");

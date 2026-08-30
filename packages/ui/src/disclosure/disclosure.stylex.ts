@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   root: {
@@ -42,6 +43,9 @@ export const styles = stylex.create({
     paddingBlock: 0,
     paddingInline: "4px",
     textAlign: "left",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color, opacity",
+    transitionTimingFunction: motion.easeHover,
     width: "215px",
     ":disabled": { cursor: "default", opacity: tokens.opacityDisabled },
     "[data-disabled]": { cursor: "default", opacity: tokens.opacityDisabled },
@@ -54,7 +58,9 @@ export const styles = stylex.create({
     height: "16px",
     justifyContent: "center",
     transform: "rotate(var(--disclosure-icon-rotation, 0deg))",
-    transition: "transform 160ms ease",
+    transitionDuration: motion.durationBase,
+    transitionProperty: "transform",
+    transitionTimingFunction: motion.easeInOut,
     width: "16px",
     "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
@@ -79,7 +85,9 @@ export const styles = stylex.create({
     paddingBlock: "8px",
     paddingLeft: "20px",
     paddingRight: "12px",
-    transition: "height 160ms ease, padding 160ms ease",
+    transitionDuration: motion.durationBase,
+    transitionProperty: "height, padding",
+    transitionTimingFunction: motion.easeInOut,
     width: "220px",
     "[data-starting-style]": { height: 0, paddingBlock: 0 },
     "[data-ending-style]": { height: 0, paddingBlock: 0 },

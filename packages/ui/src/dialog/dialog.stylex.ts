@@ -1,13 +1,21 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   backdrop: {
     backgroundColor: tokens.colorSurfaceScrim,
     inset: 0,
+    opacity: 1,
     position: "fixed",
+    transitionDuration: motion.durationOverlay,
+    transitionProperty: "opacity",
+    transitionTimingFunction: motion.easeOut,
     zIndex: 100,
+    "[data-starting-style]": { opacity: 0 },
+    "[data-ending-style]": { opacity: 0 },
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
   viewport: {
     alignItems: "center",
@@ -32,7 +40,14 @@ export const styles = stylex.create({
     outline: "none",
     overflow: "auto",
     position: "relative",
+    transform: "scale(1)",
+    transitionDuration: motion.durationDialog,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motion.easeOut,
     width: tokens.sizeDialog,
+    "[data-starting-style]": { opacity: 0, transform: "scale(0.96)" },
+    "[data-ending-style]": { opacity: 0, transform: "scale(0.96)" },
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
   header: {
     alignItems: "center",
@@ -99,6 +114,9 @@ export const styles = stylex.create({
     position: "absolute",
     right: tokens.space6,
     top: "21.5px",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color, opacity",
+    transitionTimingFunction: motion.easeHover,
     width: tokens.sizeIconButtonDefault,
   },
   closeIcon: {
