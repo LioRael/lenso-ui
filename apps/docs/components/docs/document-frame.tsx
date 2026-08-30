@@ -96,18 +96,26 @@ export function DocumentFrame({
       {isOverview ? (
         <div className="docs-content">{children}</div>
       ) : layout === "document" ? (
-        <div className="document-docs-content mdx-document-content">
-          <div className="document-layout">
+        <div
+          className={[
+            "document-docs-content",
+            "mdx-document-content",
+            `${slug}-document-content`,
+          ].join(" ")}
+        >
+          <div className={["document-layout", `${slug}-document-layout`].join(" ")}>
             <article className="document-main" data-document-main={slug}>
-              <section className="document-hero">
-                <p className="document-eyebrow">{eyebrow?.toUpperCase()}</p>
-                <h1>{title}</h1>
-                <p className="document-description">{description}</p>
-                {metadata && <p className="document-metadata">{metadata.join(" · ")}</p>}
-              </section>
+              {slug !== "tokens" && (
+                <section className="document-hero">
+                  <p className="document-eyebrow">{eyebrow?.toUpperCase()}</p>
+                  <h1>{title}</h1>
+                  <p className="document-description">{description}</p>
+                  {metadata && <p className="document-metadata">{metadata.join(" · ")}</p>}
+                </section>
+              )}
               {children}
             </article>
-            <TableOfContents page={slug} />
+            {slug !== "tokens" && <TableOfContents page={slug} />}
           </div>
         </div>
       ) : (
