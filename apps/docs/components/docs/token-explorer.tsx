@@ -9,11 +9,15 @@ import {
   CopyIcon,
   FolderIcon,
   Layers3Icon,
+  MoonIcon,
   PaletteIcon,
   SearchIcon,
+  SunIcon,
   TypeIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useState, type ComponentType, type CSSProperties } from "react";
+
+import { SegmentedControl } from "@lenso/ui/segmented-control";
 
 import tokenContract from "../../../../packages/tokens/src/contract.json";
 
@@ -293,19 +297,21 @@ function TokenDetails({
 
       <div className={styles.modeSection}>
         <span className={styles.fieldLabel}>MODE</span>
-        <div className={styles.segmented}>
-          {(["light", "dark"] as const).map((nextMode) => (
-            <button
-              aria-pressed={mode === nextMode}
-              className={mode === nextMode ? styles.segmentSelected : ""}
-              key={nextMode}
-              onClick={() => onModeChange(nextMode)}
-              type="button"
-            >
-              {nextMode}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl.Root
+          aria-label="Token theme mode"
+          onValueChange={(value) => onModeChange(value as ThemeMode)}
+          value={mode}
+          width="fill"
+        >
+          <SegmentedControl.Item value="light">
+            <SunIcon aria-hidden="true" size={13} />
+            Light
+          </SegmentedControl.Item>
+          <SegmentedControl.Item value="dark">
+            <MoonIcon aria-hidden="true" size={13} />
+            Dark
+          </SegmentedControl.Item>
+        </SegmentedControl.Root>
       </div>
 
       <dl className={styles.detailsList}>

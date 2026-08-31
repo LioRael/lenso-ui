@@ -102,9 +102,17 @@
       "types": "./dist/select/index.d.ts",
       "import": "./dist/select/index.js"
     },
+    "./segmented-control": {
+      "types": "./dist/segmented-control/index.d.ts",
+      "import": "./dist/segmented-control/index.js"
+    },
     "./sidebar": {
       "types": "./dist/sidebar/index.d.ts",
       "import": "./dist/sidebar/index.js"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "import": "./dist/slider/index.js"
     },
     "./settings-row": {
       "types": "./dist/settings-row/index.d.ts",

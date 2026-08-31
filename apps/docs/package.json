@@ -20,6 +20,7 @@
     "@lenso/ui": "workspace:*",
     "@mdx-js/react": "catalog:",
     "@next/mdx": "catalog:",
+    "culori": "4.0.2",
     "dialkit": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@mdx-js/loader": "catalog:",
+    "@types/culori": "4.0.1",
     "@types/mdx": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

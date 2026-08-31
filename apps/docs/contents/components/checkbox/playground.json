@@ -1,7 +1,6 @@
 {
   "id": "checkbox",
   "name": "Checkbox",
-  "description": "Try supported variants on the real component.",
   "themeControl": "theme",
   "controls": [
     {

@@ -1,7 +1,6 @@
 {
   "id": "menu",
   "name": "Menu",
-  "description": "Open the real component and navigate nested actions with the keyboard.",
   "themeControl": "theme",
   "controls": [
     {

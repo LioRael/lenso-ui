@@ -213,7 +213,6 @@ export function ComponentPlayground({
           ))}
         </PlaygroundControls>
       }
-      description={config.description}
       preview={adapter({
         example,
         pageTheme,

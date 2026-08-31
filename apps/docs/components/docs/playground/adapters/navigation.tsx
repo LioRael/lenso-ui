@@ -12,12 +12,14 @@ import {
   InboxIcon,
   LayersIcon,
   LinkIcon,
+  MoonIcon,
   MoreHorizontalIcon,
   PlusIcon,
   SearchIcon,
   SettingsIcon,
   StarIcon,
   StoreIcon,
+  SunIcon,
 } from "lucide-react";
 
 import { Breadcrumb } from "@lenso/ui/breadcrumb";
@@ -25,6 +27,7 @@ import { Disclosure } from "@lenso/ui/disclosure";
 import { IconButton } from "@lenso/ui/icon-button";
 import { PageHeader } from "@lenso/ui/page-header";
 import { QuickLink } from "@lenso/ui/quick-link";
+import { SegmentedControl } from "@lenso/ui/segmented-control";
 import { Sidebar } from "@lenso/ui/sidebar";
 import { Tabs } from "@lenso/ui/tabs";
 import { ThemeScope } from "@lenso/ui/theme-scope";
@@ -428,6 +431,30 @@ export const tabsAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
           </Tabs.Panel>
         ))}
       </Tabs.Root>
+    </ThemeScope>
+  );
+};
+
+export const segmentedControlAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
+  const selected = stringValue(values, "selected", "light");
+  const width = stringValue(values, "width", "fit") as "fill" | "fit";
+  return (
+    <ThemeScope className="stage-canvas" theme={theme}>
+      <SegmentedControl.Root
+        aria-label="Theme mode"
+        onValueChange={(value) => setValue("selected", value)}
+        value={selected}
+        width={width}
+      >
+        <SegmentedControl.Item value="light">
+          <SunIcon aria-hidden="true" size={13} />
+          Light
+        </SegmentedControl.Item>
+        <SegmentedControl.Item value="dark">
+          <MoonIcon aria-hidden="true" size={13} />
+          Dark
+        </SegmentedControl.Item>
+      </SegmentedControl.Root>
     </ThemeScope>
   );
 };

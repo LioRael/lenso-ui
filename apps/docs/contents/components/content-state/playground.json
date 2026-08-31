@@ -1,7 +1,6 @@
 {
   "id": "content-state",
   "name": "Content State",
-  "description": "Compare alignment and themes on the real composed state surface.",
   "themeControl": "theme",
   "controls": [
     {

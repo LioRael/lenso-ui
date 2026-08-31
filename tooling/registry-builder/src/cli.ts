@@ -469,6 +469,44 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/segmented-control/index.tsx",
+        target: "components/lenso/segmented-control/index.tsx",
+      },
+      {
+        source: "packages/ui/src/segmented-control/segmented-control.stylex.ts",
+        target: "components/lenso/segmented-control/segmented-control.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "segmented-control",
+    registryDependencies: [stable("setup")],
+    title: "Segmented Control",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/slider/index.tsx",
+        target: "components/lenso/slider/index.tsx",
+      },
+      {
+        source: "packages/ui/src/slider/slider.stylex.ts",
+        target: "components/lenso/slider/slider.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "slider",
+    registryDependencies: [stable("setup")],
+    title: "Slider",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
@@ -549,7 +587,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
         source: "packages/ui/src/disclosure/index.tsx",
@@ -559,10 +597,6 @@ const specs: RegistryItemSpec[] = [
         source: "packages/ui/src/disclosure/disclosure.stylex.ts",
         target: "components/lenso/disclosure/disclosure.stylex.ts",
         type: "registry:style",
-      },
-      {
-        source: "packages/ui/src/disclosure/disclosure-chevron.svg",
-        target: "components/lenso/disclosure/disclosure-chevron.svg",
       },
       motionFile,
       ...sharedFiles,

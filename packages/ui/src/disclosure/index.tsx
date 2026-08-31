@@ -3,12 +3,10 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
+import { ChevronRightIcon } from "lucide-react";
 
 import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./disclosure.stylex.js";
-
-const chevronUrl =
-  "data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjQuNzU3NyIgaGVpZ2h0PSI1LjM4NTQ4IiB2aWV3Qm94PSIwIDAgNC43NTc3IDUuMzg1NDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCI+CjxwYXRoIGlkPSJWZWN0b3IiIGQ9Ik0wLjc1MTk0IDUuMzE2NjNDMC40MTg2MSA1LjUxMTAzIDAgNS4yNzA2MyAwIDQuODg0NzNWMC41MDA3NTRDMCAwLjExNDg1NCAwLjQxODYxIC0wLjEyNTU3NiAwLjc1MTk0IDAuMDY4ODY0TDQuNTA5NiAyLjI2MDg0QzQuODQwNCAyLjQ1Mzc4IDQuODQwNCAyLjkzMTY4IDQuNTA5NiAzLjEyNDYyTDAuNzUxOTQgNS4zMTY2M1oiIGZpbGw9IiMzMzMzMzMiLz4KPC9nPgo8L3N2Zz4K";
 
 export const DisclosureRoot = React.forwardRef<HTMLDivElement, BaseAccordion.Root.Props>(
   function DisclosureRoot({ className, ...props }, ref) {
@@ -78,9 +76,7 @@ export const DisclosureIcon = React.forwardRef<
       data-slot="disclosure-icon"
       ref={ref}
     >
-      {children ?? (
-        <span style={{ maskImage: `url(${chevronUrl})` }} {...stylex.props(styles.iconGlyph)} />
-      )}
+      {children ?? <ChevronRightIcon size={12} strokeWidth={1.5} />}
     </span>
   );
 });
@@ -94,14 +90,7 @@ export const DisclosurePanel = React.forwardRef<HTMLDivElement, DisclosurePanelP
     return (
       <BaseAccordion.Panel
         {...props}
-        className={mergeClassName(
-          stylex.props(
-            styles.panel,
-            layout === "text" && styles.panelText,
-            layout === "list" && styles.panelList,
-          ).className,
-          className,
-        )}
+        className={mergeClassName(stylex.props(styles.panel).className, className)}
         data-layout={layout}
         data-slot="disclosure-panel"
         ref={ref}

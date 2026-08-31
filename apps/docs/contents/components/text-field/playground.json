@@ -1,7 +1,6 @@
 {
   "id": "text-field",
   "name": "Text Field",
-  "description": "Try supported interaction and validation states on the real text field.",
   "themeControl": "theme",
   "controls": [
     {

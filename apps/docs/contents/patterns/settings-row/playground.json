@@ -1,7 +1,6 @@
 {
   "id": "settings-row",
   "name": "Settings Row",
-  "description": "Compare trailing control interaction, disabled treatment, and theme parity.",
   "themeControl": "theme",
   "stageClassName": "settings-row-rendered-stage",
   "controls": [

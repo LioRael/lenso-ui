@@ -55,14 +55,12 @@ function NavDisclosure({
     >
       <Disclosure.Item className="nav-disclosure-item" value={value}>
         <Sidebar.Section className="nav-section">
-          <Sidebar.SectionHeader className="nav-section-header">
-            <Disclosure.Header>
-              <Disclosure.Trigger className="nav-heading">
-                {label}
-                <Disclosure.Icon />
-              </Disclosure.Trigger>
-            </Disclosure.Header>
-          </Sidebar.SectionHeader>
+          <Disclosure.Header className="nav-section-header">
+            <Disclosure.Trigger className="nav-heading">
+              {label}
+              <Disclosure.Icon />
+            </Disclosure.Trigger>
+          </Disclosure.Header>
           <Sidebar.SectionContent className="nav-section-content" layout="auto">
             {children}
           </Sidebar.SectionContent>

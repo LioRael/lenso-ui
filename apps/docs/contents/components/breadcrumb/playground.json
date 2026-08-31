@@ -1,7 +1,6 @@
 {
   "id": "breadcrumb",
   "name": "Breadcrumb",
-  "description": "Check composition, link rendering, overflow, and theme parity.",
   "themeControl": "theme",
   "controls": [
     {

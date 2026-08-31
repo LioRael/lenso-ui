@@ -1,7 +1,6 @@
 {
   "id": "combobox",
   "name": "Combobox",
-  "description": "Try single and multiple selection states on the real component.",
   "themeControl": "theme",
   "controls": [
     {

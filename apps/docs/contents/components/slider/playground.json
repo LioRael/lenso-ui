@@ -1,0 +1,35 @@
+{
+  "id": "slider",
+  "name": "Slider",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "value",
+      "label": "Value",
+      "type": "select",
+      "options": ["0", "25", "50", "75", "100"],
+      "default": "25"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Contrast",
+      "code": "import { Slider } from \"@lenso/ui/slider\"\n\n<Slider.Root defaultValue={25}>\n  <Slider.Control>\n    <Slider.Track>\n      <Slider.Indicator />\n      <Slider.Thumb aria-label=\"Contrast\" />\n    </Slider.Track>\n  </Slider.Control>\n</Slider.Root>"
+    }
+  ]
+}

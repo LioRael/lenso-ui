@@ -1,7 +1,6 @@
 {
   "id": "radio",
   "name": "Radio",
-  "description": "Try selection and interaction states on the real radio group.",
   "themeControl": "theme",
   "controls": [
     { "id": "selected", "label": "Selected", "type": "boolean", "default": false },

@@ -72,6 +72,7 @@ export function DocumentFrame({
 }: DocumentFrameProps) {
   const theme = useDocsPageTheme();
   const isOverview = layout === "overview";
+  const isWorkspace = slug === "theme-lab" || slug === "tokens";
   const contentClassName =
     slug === "application-sidebar" ? "sidebar-docs-content" : `${slug}-docs-content`;
 
@@ -105,7 +106,7 @@ export function DocumentFrame({
         >
           <div className={["document-layout", `${slug}-document-layout`].join(" ")}>
             <article className="document-main" data-document-main={slug}>
-              {slug !== "tokens" && (
+              {!isWorkspace && (
                 <section className="document-hero">
                   <p className="document-eyebrow">{eyebrow?.toUpperCase()}</p>
                   <h1>{title}</h1>
@@ -115,7 +116,7 @@ export function DocumentFrame({
               )}
               {children}
             </article>
-            {slug !== "tokens" && <TableOfContents page={slug} />}
+            {!isWorkspace && <TableOfContents page={slug} />}
           </div>
         </div>
       ) : (

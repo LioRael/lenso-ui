@@ -40,9 +40,12 @@ test("Inline Alert communicates tone without assuming announcement urgency", asy
   expect(
     screen.getByRole("heading", { level: 2, name: "Configuration changed" }).element().tagName,
   ).toBe("H2");
+  const icon = notice.element().querySelector<HTMLElement>('[data-slot="inline-alert-icon"]')!;
   await expect
     .poll(() => getComputedStyle(notice.element()).borderLeftColor)
-    .toBe("rgb(138, 90, 0)");
+    .toBe("rgb(234, 234, 234)");
+  expect(getComputedStyle(notice.element()).borderLeftWidth).toBe("1px");
+  expect(getComputedStyle(icon).color).toBe("rgb(138, 90, 0)");
   expect(screen.getByRole("alert").element().getAttribute("data-tone")).toBe("error");
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,

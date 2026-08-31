@@ -17,7 +17,9 @@ import menuConfig from "@/contents/components/menu/playground.json";
 import popoverConfig from "@/contents/components/popover/playground.json";
 import radioConfig from "@/contents/components/radio/playground.json";
 import resizeHandleConfig from "@/contents/components/resize-handle/playground.json";
+import segmentedControlConfig from "@/contents/components/segmented-control/playground.json";
 import selectConfig from "@/contents/components/select/playground.json";
+import sliderConfig from "@/contents/components/slider/playground.json";
 import shimmerTextConfig from "@/contents/components/shimmer-text/playground.json";
 import statusMarkerConfig from "@/contents/components/status-marker/playground.json";
 import switchConfig from "@/contents/components/switch/playground.json";
@@ -52,6 +54,7 @@ import {
   radioAdapter,
   resizeHandleAdapter,
   selectAdapter,
+  sliderAdapter,
   shimmerTextAdapter,
   statusMarkerAdapter,
   surfaceAdapter,
@@ -65,6 +68,7 @@ import {
   disclosureAdapter,
   pageHeaderAdapter,
   quickLinkAdapter,
+  segmentedControlAdapter,
   sidebarAdapter,
   tabsAdapter,
 } from "./playground/adapters/navigation";
@@ -102,7 +106,12 @@ const definitions: readonly PlaygroundDefinition[] = [
   { adapter: popoverAdapter, config: parsePlaygroundConfig(popoverConfig) },
   { adapter: radioAdapter, config: parsePlaygroundConfig(radioConfig) },
   { adapter: resizeHandleAdapter, config: parsePlaygroundConfig(resizeHandleConfig) },
+  {
+    adapter: segmentedControlAdapter,
+    config: parsePlaygroundConfig(segmentedControlConfig),
+  },
   { adapter: selectAdapter, config: parsePlaygroundConfig(selectConfig) },
+  { adapter: sliderAdapter, config: parsePlaygroundConfig(sliderConfig) },
   { adapter: shimmerTextAdapter, config: parsePlaygroundConfig(shimmerTextConfig) },
   { adapter: settingsRowAdapter, config: parsePlaygroundConfig(settingsRowConfig) },
   { adapter: statusMarkerAdapter, config: parsePlaygroundConfig(statusMarkerConfig) },

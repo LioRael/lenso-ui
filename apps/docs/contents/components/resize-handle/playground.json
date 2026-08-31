@@ -1,7 +1,6 @@
 {
   "id": "resize-handle",
   "name": "Resize Handle",
-  "description": "Drag, click, or use the keyboard while comparing orientation, state, and theme parity.",
   "themeControl": "theme",
   "controls": [
     {

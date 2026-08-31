@@ -1,7 +1,6 @@
 {
   "id": "shimmer-text",
   "name": "Shimmer Text",
-  "description": "Toggle progress motion and compare themes.",
   "themeControl": "theme",
   "controls": [
     { "id": "active", "label": "Active", "type": "boolean", "default": true },

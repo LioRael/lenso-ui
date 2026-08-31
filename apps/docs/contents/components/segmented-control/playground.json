@@ -1,0 +1,35 @@
+{
+  "id": "segmented-control",
+  "name": "Segmented Control",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "selected",
+      "label": "Selected",
+      "type": "select",
+      "options": ["light", "dark"],
+      "default": "light"
+    },
+    {
+      "id": "width",
+      "label": "Width",
+      "type": "select",
+      "options": ["fit", "fill"],
+      "default": "fit"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "default",
+      "label": "Example · Theme mode",
+      "code": "import { MoonIcon, SunIcon } from \"lucide-react\"\nimport { SegmentedControl } from \"@lenso/ui/segmented-control\"\n\n<SegmentedControl.Root aria-label=\"Theme mode\" defaultValue=\"light\">\n  <SegmentedControl.Item value=\"light\">\n    <SunIcon aria-hidden=\"true\" size={13} />\n    Light\n  </SegmentedControl.Item>\n  <SegmentedControl.Item value=\"dark\">\n    <MoonIcon aria-hidden=\"true\" size={13} />\n    Dark\n  </SegmentedControl.Item>\n</SegmentedControl.Root>"
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 {
   "id": "icon-button",
   "name": "Icon Button",
-  "description": "Try the real icon-only action across tone, size, state, and theme.",
   "themeControl": "theme",
   "codeTemplate": "<IconButton aria-label=\"Create issue\" variant=\"{{variant}}\" size=\"{{size}}\">\n  <PlusIcon />\n</IconButton>",
   "controls": [
