@@ -696,15 +696,15 @@
     "settings-row": {
       "files": [
         {
-          "registrySha256": "62d263160b3c430146cd8a445643f92051c6e0e046c140d377c41e303fa634e1",
+          "registrySha256": "f44eb4c2c5ce2e5ac70d0476e5696a19c3f66588f01657e04401208ddcf756f0",
           "source": "packages/ui/src/settings-row/index.tsx",
-          "sourceSha256": "62d263160b3c430146cd8a445643f92051c6e0e046c140d377c41e303fa634e1",
+          "sourceSha256": "f44eb4c2c5ce2e5ac70d0476e5696a19c3f66588f01657e04401208ddcf756f0",
           "target": "components/lenso/settings-row/index.tsx"
         },
         {
-          "registrySha256": "6b473373bcfbcfd258ee98dba4b12ed71191510c3b55f09279f230f9210a0264",
+          "registrySha256": "3356eb267ff6128ffabc01b6f34e0fd56c9d387f670d2ba6e5f7dbd6b0bf5caa",
           "source": "packages/ui/src/settings-row/settings-row.stylex.ts",
-          "sourceSha256": "6b473373bcfbcfd258ee98dba4b12ed71191510c3b55f09279f230f9210a0264",
+          "sourceSha256": "3356eb267ff6128ffabc01b6f34e0fd56c9d387f670d2ba6e5f7dbd6b0bf5caa",
           "target": "components/lenso/settings-row/settings-row.stylex.ts"
         },
         {

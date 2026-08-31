@@ -5,12 +5,7 @@ import { tokens } from "../tokens.stylex.js";
 export const styles = stylex.create({
   root: {
     alignItems: "center",
-    backgroundColor: {
-      default: "transparent",
-      ":hover": tokens.colorSurfaceInteractiveHover,
-      '[data-visual-state="hover"]': tokens.colorSurfaceInteractiveHover,
-      '[data-disabled="true"]': "transparent",
-    },
+    backgroundColor: "transparent",
     borderBottomColor: tokens.colorBorderTertiary,
     borderBottomStyle: "solid",
     borderBottomWidth: "0.5px",
@@ -23,7 +18,7 @@ export const styles = stylex.create({
     paddingBlock: "10px",
     paddingInline: "16px",
     transitionDuration: "120ms",
-    transitionProperty: "background-color, opacity",
+    transitionProperty: "opacity",
     transitionTimingFunction: "ease-out",
     width: "100%",
   },

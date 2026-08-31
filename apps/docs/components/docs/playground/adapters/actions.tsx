@@ -81,7 +81,7 @@ function ControlExample({
     return (
       <Switch.Root
         aria-labelledby={labelId}
-        checked
+        defaultChecked
         data-visual-state={visualState}
         disabled={disabled}
         id={controlId}
@@ -116,10 +116,10 @@ export const settingsRowAdapter: PlaygroundAdapter = ({ theme, values }) => {
     <ThemeScope className="stage-canvas settings-row-stage" theme={theme}>
       <SettingsRow.Root disabled={disabled}>
         <SettingsRow.Copy>
-          {control === "action" ? (
-            <SettingsRow.Title>Setting title</SettingsRow.Title>
-          ) : (
+          {control === "toggle" ? (
             <SettingsRow.Label>Setting title</SettingsRow.Label>
+          ) : (
+            <SettingsRow.Title>Setting title</SettingsRow.Title>
           )}
           <SettingsRow.Description>
             Supporting description for this preference.
