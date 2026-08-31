@@ -115,7 +115,7 @@ test("Page Header matches the approved Team and Simple Figma variants", async ()
   const board = screen.getByTestId("page-header-figma-state-board");
   const headers = board.element().querySelectorAll<HTMLElement>('[data-slot="page-header"]');
   const tabs = board.element().querySelectorAll<HTMLElement>('[data-slot="page-header-tab"]');
-  expect(headers[0]?.getBoundingClientRect().height).toBe(87.5);
+  await expect.poll(() => headers[0]?.getBoundingClientRect().height).toBe(87.5);
   expect(headers[1]?.getBoundingClientRect().height).toBe(32);
   expect(tabs[0]?.getBoundingClientRect().height).toBe(28);
   expect(tabs[0]?.getAttribute("data-active")).not.toBeNull();
@@ -139,7 +139,7 @@ test("Page Header composes the canonical Issues breadcrumb variant", async () =>
   );
   const header = screen.getByRole("banner", { name: "Issues navigation" });
   const row = header.element().querySelector<HTMLElement>('[data-slot="page-header-row"]')!;
-  expect(header.element().getBoundingClientRect().height).toBe(87.5);
+  await expect.poll(() => header.element().getBoundingClientRect().height).toBe(87.5);
   expect(row.getBoundingClientRect().height).toBe(44);
   expect(getComputedStyle(row).paddingLeft).toBe("14px");
   expect(screen.getByRole("navigation", { name: "Issues breadcrumb" }).element().tagName).toBe(
