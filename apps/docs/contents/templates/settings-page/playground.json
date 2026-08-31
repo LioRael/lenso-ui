@@ -3,6 +3,9 @@
   "name": "Settings Page",
   "description": "Inspect a settings workflow composed from semantic sections, grouped rows, and labelled controls.",
   "themeControl": "theme",
+  "bodyClassName": "template-playground-body",
+  "sectionClassName": "template-playground",
+  "stageClassName": "template-rendered-stage",
   "controls": [
     {
       "id": "theme",
