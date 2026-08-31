@@ -71,6 +71,104 @@ const styledPartFile = {
 
 const specs: RegistryItemSpec[] = [
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/content-state/index.tsx",
+        target: "components/lenso/content-state/index.tsx",
+      },
+      {
+        source: "packages/ui/src/content-state/content-state.stylex.ts",
+        target: "components/lenso/content-state/content-state.stylex.ts",
+        type: "registry:style",
+      },
+      styledPartFile,
+      ...sharedFiles,
+    ],
+    name: "content-state",
+    registryDependencies: [stable("setup")],
+    title: "Content State",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/description-list/index.tsx",
+        target: "components/lenso/description-list/index.tsx",
+      },
+      {
+        source: "packages/ui/src/description-list/description-list.stylex.ts",
+        target: "components/lenso/description-list/description-list.stylex.ts",
+        type: "registry:style",
+      },
+      styledPartFile,
+      ...sharedFiles,
+    ],
+    name: "description-list",
+    registryDependencies: [stable("setup")],
+    title: "Description List",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      {
+        source: "packages/ui/src/inline-alert/index.tsx",
+        target: "components/lenso/inline-alert/index.tsx",
+      },
+      {
+        source: "packages/ui/src/inline-alert/inline-alert.stylex.ts",
+        target: "components/lenso/inline-alert/inline-alert.stylex.ts",
+        type: "registry:style",
+      },
+      styledPartFile,
+      ...sharedFiles,
+    ],
+    name: "inline-alert",
+    registryDependencies: [stable("setup")],
+    title: "Inline Alert",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/shimmer-text/index.tsx",
+        target: "components/lenso/shimmer-text/index.tsx",
+      },
+      {
+        source: "packages/ui/src/shimmer-text/shimmer-text.stylex.ts",
+        target: "components/lenso/shimmer-text/shimmer-text.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "shimmer-text",
+    registryDependencies: [stable("setup")],
+    title: "Shimmer Text",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/text-area/index.tsx",
+        target: "components/lenso/text-area/index.tsx",
+      },
+      {
+        source: "packages/ui/src/text-area/text-area.stylex.ts",
+        target: "components/lenso/text-area/text-area.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "text-area",
+    registryDependencies: [stable("setup")],
+    title: "Text Area",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@stylexjs/stylex@0.19.0"],
     files: [
       {
@@ -294,7 +392,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
         source: "packages/ui/src/text-field/index.tsx",
@@ -638,6 +736,50 @@ const specs: RegistryItemSpec[] = [
     title: "Tooltip",
     type: "registry:ui",
   },
+  {
+    dependencies: [`@lenso/ui@${releaseVersion}`],
+    files: [
+      {
+        source: "registry/source/recipes/settings-section/index.tsx",
+        target: "components/lenso/recipes/settings-section/index.tsx",
+      },
+      {
+        source: "registry/source/recipes/settings-section/settings-section.module.css",
+        target: "components/lenso/recipes/settings-section/settings-section.module.css",
+        type: "registry:style",
+      },
+    ],
+    name: "settings-section",
+    title: "Settings Section",
+    type: "registry:component",
+  },
+  {
+    dependencies: [`@lenso/ui@${releaseVersion}`],
+    files: [
+      {
+        source: "registry/source/recipes/prompt-composer/index.tsx",
+        target: "components/lenso/recipes/prompt-composer/index.tsx",
+      },
+      {
+        source: "registry/source/recipes/prompt-composer/autosize.ts",
+        target: "components/lenso/recipes/prompt-composer/autosize.ts",
+        type: "registry:lib",
+      },
+      {
+        source: "registry/source/recipes/prompt-composer/keyboard.ts",
+        target: "components/lenso/recipes/prompt-composer/keyboard.ts",
+        type: "registry:lib",
+      },
+      {
+        source: "registry/source/recipes/prompt-composer/prompt-composer.module.css",
+        target: "components/lenso/recipes/prompt-composer/prompt-composer.module.css",
+        type: "registry:style",
+      },
+    ],
+    name: "prompt-composer",
+    title: "Prompt Composer",
+    type: "registry:component",
+  },
 ];
 
 const sourceCache = new Map<string, string>();
@@ -673,6 +815,7 @@ for (const item of [...items, ...versionedItems])
 
 await Promise.all([
   mkdir(path.join(registryRoot, "components"), { recursive: true }),
+  mkdir(path.join(registryRoot, "recipes"), { recursive: true }),
   mkdir(publicRoot, { recursive: true }),
   ...(snapshotMode ? [mkdir(versionedPublicRoot, { recursive: true })] : []),
 ]);

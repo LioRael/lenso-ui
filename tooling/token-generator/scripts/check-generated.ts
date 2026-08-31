@@ -14,7 +14,7 @@ const generatedPaths = [
   "packages/ui/src/tokens.stylex.ts",
   "registry/components",
   "registry/parity-manifest.json",
-  "registry/recipes/sidebar.json",
+  "registry/recipes",
   "registry/registry.json",
   "registry/setup/setup.json",
   "registry/tokens.stylex.ts",

@@ -23,9 +23,12 @@ export type DocsPage =
   | "checkbox"
   | "combobox"
   | "command-menu"
+  | "content-state"
+  | "description-list"
   | "dialog"
   | "disclosure"
   | "icon-button"
+  | "inline-alert"
   | "label"
   | "menu"
   | "page-header"
@@ -34,16 +37,20 @@ export type DocsPage =
   | "radio"
   | "resize-handle"
   | "select"
+  | "shimmer-text"
   | "settings-row"
   | "application-sidebar"
   | "status-marker"
   | "surface"
   | "switch"
   | "tabs"
+  | "text-area"
   | "text-field"
   | "tooltip"
   | "toast"
-  | "page-layout";
+  | "agent-page"
+  | "page-layout"
+  | "settings-page";
 
 export interface DocsNavLink {
   readonly href: string;
@@ -126,6 +133,18 @@ export const docsRegistry = [
         label: "Command Menu",
         slug: "command-menu",
       },
+      {
+        href: "/components/content-state",
+        kind: "page",
+        label: "Content State",
+        slug: "content-state",
+      },
+      {
+        href: "/components/description-list",
+        kind: "page",
+        label: "Description List",
+        slug: "description-list",
+      },
       { href: "/components/dialog", kind: "page", label: "Dialog", slug: "dialog" },
       { href: "/components/disclosure", kind: "page", label: "Disclosure", slug: "disclosure" },
       {
@@ -133,6 +152,12 @@ export const docsRegistry = [
         kind: "page",
         label: "Icon Button",
         slug: "icon-button",
+      },
+      {
+        href: "/components/inline-alert",
+        kind: "page",
+        label: "Inline Alert",
+        slug: "inline-alert",
       },
       { href: "/components/label", kind: "page", label: "Label", slug: "label" },
       { href: "/components/menu", kind: "page", label: "Menu", slug: "menu" },
@@ -146,6 +171,12 @@ export const docsRegistry = [
       },
       { href: "/components/select", kind: "page", label: "Select", slug: "select" },
       {
+        href: "/components/shimmer-text",
+        kind: "page",
+        label: "Shimmer Text",
+        slug: "shimmer-text",
+      },
+      {
         href: "/components/status-marker",
         kind: "page",
         label: "Status Marker",
@@ -153,6 +184,7 @@ export const docsRegistry = [
       },
       { href: "/components/switch", kind: "page", label: "Switch", slug: "switch" },
       { href: "/components/tabs", kind: "page", label: "Tabs", slug: "tabs" },
+      { href: "/components/text-area", kind: "page", label: "Text Area", slug: "text-area" },
       { href: "/components/text-field", kind: "page", label: "Text Field", slug: "text-field" },
       { href: "/components/toast", kind: "page", label: "Toast", slug: "toast" },
       { href: "/components/tooltip", kind: "page", label: "Tooltip", slug: "tooltip" },
@@ -205,10 +237,22 @@ export const docsRegistry = [
     id: "templates",
     items: [
       {
+        href: "/templates/agent-page",
+        kind: "page",
+        label: "Agent Page",
+        slug: "agent-page",
+      },
+      {
         href: "/templates/page-layout",
         kind: "page",
         label: "Page Layout",
         slug: "page-layout",
+      },
+      {
+        href: "/templates/settings-page",
+        kind: "page",
+        label: "Settings Page",
+        slug: "settings-page",
       },
     ],
     label: "Templates",

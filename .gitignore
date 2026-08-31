@@ -8,5 +8,7 @@ coverage/
 playwright-report/
 test-results/
 .vitest-attachments/
+.playwright-cli/
+output/playwright/
 *.tsbuildinfo
 .DS_Store

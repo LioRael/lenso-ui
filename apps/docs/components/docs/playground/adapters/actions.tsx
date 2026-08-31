@@ -66,28 +66,40 @@ export const iconButtonAdapter: PlaygroundAdapter = ({ theme, values }) => {
 
 function ControlExample({
   control,
+  controlId,
   disabled,
+  labelId,
+  visualState,
 }: {
   control: "action" | "select" | "toggle";
+  controlId: string;
   disabled: boolean;
+  labelId: string;
+  visualState: "hover" | undefined;
 }) {
   if (control === "toggle") {
     return (
-      <Switch.Root aria-labelledby="settings-row-example-title" checked disabled={disabled}>
+      <Switch.Root
+        aria-labelledby={labelId}
+        checked
+        data-visual-state={visualState}
+        disabled={disabled}
+        id={controlId}
+      >
         <Switch.Thumb />
       </Switch.Root>
     );
   }
   if (control === "action") {
     return (
-      <Button disabled={disabled} variant="secondary">
+      <Button data-visual-state={visualState} disabled={disabled} variant="secondary">
         Customize
       </Button>
     );
   }
   return (
     <Select.Root defaultValue="default" disabled={disabled}>
-      <Select.Trigger aria-labelledby="settings-row-example-title">
+      <Select.Trigger aria-labelledby={labelId} data-visual-state={visualState} id={controlId}>
         <Select.Value>Default</Select.Value>
         <Select.Icon />
       </Select.Trigger>
@@ -103,13 +115,25 @@ export const settingsRowAdapter: PlaygroundAdapter = ({ theme, values }) => {
     <ThemeScope className="stage-canvas settings-row-stage" theme={theme}>
       <SettingsRow.Root disabled={disabled}>
         <SettingsRow.Copy>
-          <SettingsRow.Title id="settings-row-example-title">Setting title</SettingsRow.Title>
+          {control === "action" ? (
+            <SettingsRow.Title>Setting title</SettingsRow.Title>
+          ) : (
+            <SettingsRow.Label>Setting title</SettingsRow.Label>
+          )}
           <SettingsRow.Description>
             Supporting description for this preference.
           </SettingsRow.Description>
         </SettingsRow.Copy>
         <SettingsRow.Control>
-          <ControlExample control={control} disabled={disabled} />
+          {({ controlId, disabled: rowDisabled, labelId, visualState }) => (
+            <ControlExample
+              control={control}
+              controlId={controlId}
+              disabled={rowDisabled}
+              labelId={labelId}
+              visualState={visualState}
+            />
+          )}
         </SettingsRow.Control>
       </SettingsRow.Root>
     </ThemeScope>

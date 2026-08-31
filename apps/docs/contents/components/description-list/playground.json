@@ -1,0 +1,23 @@
+{
+  "id": "description-list",
+  "name": "Description List",
+  "description": "Switch between inline and stacked metadata layouts.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "layout",
+      "label": "Layout",
+      "type": "select",
+      "options": ["inline", "stacked"],
+      "default": "inline"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "facts", "label": "Example · Facts" }]
+}

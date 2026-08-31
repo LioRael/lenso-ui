@@ -8,7 +8,7 @@
       "id": "size",
       "label": "Size",
       "type": "select",
-      "options": ["default"],
+      "options": ["default", "compact"],
       "default": "default"
     },
     {

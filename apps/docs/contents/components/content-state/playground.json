@@ -1,0 +1,23 @@
+{
+  "id": "content-state",
+  "name": "Content State",
+  "description": "Compare alignment and themes on the real composed state surface.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "align",
+      "label": "Alignment",
+      "type": "select",
+      "options": ["center", "start"],
+      "default": "center"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "empty", "label": "Example · Empty state" }]
+}

@@ -698,6 +698,7 @@ test("Text Field matches the approved Figma state board", async () => {
     .querySelectorAll<HTMLInputElement>('[data-slot="text-field-control"]');
   expect(fields).toHaveLength(7);
   expect(controls).toHaveLength(7);
+  expect(controls[6]!.disabled).toBe(true);
   expect(fields[0]?.getBoundingClientRect().toJSON()).toMatchObject({
     height: 80,
     width: 304,

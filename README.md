@@ -83,15 +83,16 @@ Stable URLs resolve the current generated registry. Immutable release snapshots 
 The current `@lenso/ui` subpaths are:
 
 ```text
-avatar       breadcrumb   button        checkbox      combobox
-command-menu csp-provider dialog        disclosure    icon-button
-label        menu         page-header   popover       quick-link
-radio        resize-handle select       sidebar       settings-row
-status-marker surface      switch       tabs          text-field
-theme-scope  tooltip      toast
+avatar           breadcrumb       button           checkbox      combobox
+command-menu     content-state    csp-provider     description-list dialog
+disclosure       icon-button      inline-alert     label         menu
+page-header      popover          quick-link       radio         resize-handle
+select           shimmer-text     sidebar          settings-row  status-marker
+surface          switch           tabs             text-area     text-field
+theme-scope      toast            tooltip
 ```
 
-The documentation site covers the component pages plus the current Surface, Sidebar, Page Header, Quick Link, and Settings Row patterns. The registry also exposes setup, Theme Scope, CSP Provider, Sidebar and Resize Handle primitives, and their styled adapters or Recipes.
+The documentation site covers the component pages plus the current Surface, Sidebar, Page Header, Quick Link, and Settings Row patterns, along with the Page Layout, Agent Page, and Settings Page templates. The registry also exposes setup, Theme Scope, CSP Provider, Sidebar and Resize Handle primitives, plus editable Settings Section and Prompt Composer Recipes.
 
 ## Themes and semantic tokens
 

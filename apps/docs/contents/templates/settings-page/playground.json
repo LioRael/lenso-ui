@@ -1,0 +1,21 @@
+{
+  "id": "settings-page",
+  "name": "Settings Page",
+  "description": "Inspect a settings workflow composed from semantic sections, grouped rows, and labelled controls.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "preferences",
+      "label": "Example · Preferences"
+    }
+  ]
+}

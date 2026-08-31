@@ -1609,6 +1609,7 @@ html[data-theme="dark"] .button-implementation .shiki span {
   }
 
   .mdx-live-playground .playground-heading {
+    flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }

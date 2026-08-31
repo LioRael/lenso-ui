@@ -18,12 +18,14 @@ import { Playground } from "@/components/docs/playground";
       <ul>
         <li>Use Switch for immediate binary preferences and Select for bounded choices.</li>
         <li>Use the Action slot for secondary configuration flows.</li>
+        <li>Keep Title for layout-only rows; use Label when the title should activate a control.</li>
       </ul>
     </GuidanceBlock>
     <GuidanceBlock title="Accessibility">
       <ul>
         <li>
-          Associate the visible title with the trailing control when additional context is needed.
+          Label and Control share generated IDs, so the visible label can name and natively activate
+          a labelable trailing control.
         </li>
         <li>Pass disabled state to both the row and its interactive control.</li>
       </ul>
@@ -41,4 +43,31 @@ import { Playground } from "@/components/docs/playground";
   <SettingsRow.Control>{control}</SettingsRow.Control>
 </SettingsRow.Root>`}
     description="The row owns layout only; existing controls retain their native Base UI semantics and behavior."
+  />
+
+  <CodeExample
+    code={String.raw`import { SettingsRow } from "@lenso/ui/settings-row"
+import { Switch } from "@lenso/ui/switch"
+
+<SettingsRow.Root>
+  <SettingsRow.Copy>
+    <SettingsRow.Label>Allow background tasks</SettingsRow.Label>
+    <SettingsRow.Description>
+      Continue work after closing this view.
+    </SettingsRow.Description>
+  </SettingsRow.Copy>
+  <SettingsRow.Control>
+    {({ controlId, disabled, labelId, visualState }) => (
+      <Switch.Root
+        aria-labelledby={labelId}
+        data-visual-state={visualState}
+        disabled={disabled}
+        id={controlId}
+      >
+        <Switch.Thumb />
+      </Switch.Root>
+    )}
+  </SettingsRow.Control>
+</SettingsRow.Root>`}
+    description="Label uses native label activation. Control exposes the generated IDs and coordinated hover state without DOM lookup or dataset mutation."
   />

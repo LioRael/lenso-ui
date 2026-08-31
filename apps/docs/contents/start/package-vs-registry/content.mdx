@@ -24,7 +24,7 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
     <GuidanceBlock title="Choose the registry channel">
       <ul>
         <li>Use the shadcn-compatible registry when structural ownership matters more than managed updates.</li>
-        <li>Install TypeScript and StyleX source into the Consumer application.</li>
+        <li>Install TypeScript and styling source into the Consumer application.</li>
         <li>Review future upgrades as source diffs; local edits are not overwritten automatically.</li>
       </ul>
     </GuidanceBlock>
@@ -38,4 +38,5 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 | Best for | Stable component composition | Structural customization and Recipes |
 | Address | npm package subpath | `/r/{name}.json` or immutable `/r/v/{version}/{name}.json` |
 
-The channels are not separate implementations. The registry builder reads canonical component and primitive source and records parity hashes in `registry/parity-manifest.json`.
+The channels are not separate implementations. The registry builder reads canonical component,
+primitive, and Recipe source and records parity hashes in `registry/parity-manifest.json`.

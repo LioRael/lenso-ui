@@ -1,3 +1,4 @@
+import * as React from "react";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -145,6 +146,96 @@ test("Settings Row preserves dark hover semantics and consumer-owned controls", 
     (screen.getByRole("spinbutton", { name: "Retention period" }).element() as HTMLInputElement)
       .value,
   ).toBe("30");
+  expect(
+    (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
+  ).toEqual([]);
+});
+
+test("Settings Row links native controls and coordinates label hover", async () => {
+  const screen = await render(
+    <SettingsRow.Root>
+      <SettingsRow.Copy>
+        <SettingsRow.Label>Archive completed sessions</SettingsRow.Label>
+        <SettingsRow.Description>Keep the active session list focused.</SettingsRow.Description>
+      </SettingsRow.Copy>
+      <SettingsRow.Control>
+        {({ controlId, disabled, labelId, visualState }) => (
+          <input
+            aria-labelledby={labelId}
+            data-visual-state={visualState}
+            disabled={disabled}
+            id={controlId}
+            type="checkbox"
+          />
+        )}
+      </SettingsRow.Control>
+    </SettingsRow.Root>,
+  );
+  const label = screen.getByText("Archive completed sessions");
+  const checkbox = screen.getByRole("checkbox", { name: "Archive completed sessions" });
+
+  expect(label.element().getAttribute("for")).toBe(checkbox.element().id);
+  expect(checkbox.element().getAttribute("aria-labelledby")).toBe(label.element().id);
+  expect((checkbox.element() as HTMLInputElement).checked).toBe(false);
+  await userEvent.click(label);
+  expect((checkbox.element() as HTMLInputElement).checked).toBe(true);
+
+  await userEvent.hover(label);
+  expect(checkbox.element().getAttribute("data-visual-state")).toBe("hover");
+  await userEvent.unhover(label);
+  expect(checkbox.element().hasAttribute("data-visual-state")).toBe(false);
+  expect(
+    (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
+  ).toEqual([]);
+});
+
+test("Settings Row activates labelable custom controls without DOM lookup", async () => {
+  function CustomControlRow({ disabled = false }: { disabled?: boolean }) {
+    const [checked, setChecked] = React.useState(false);
+
+    return (
+      <SettingsRow.Root disabled={disabled}>
+        <SettingsRow.Copy>
+          <SettingsRow.Label>Allow background tasks</SettingsRow.Label>
+          <SettingsRow.Description>Continue work after closing this view.</SettingsRow.Description>
+        </SettingsRow.Copy>
+        <SettingsRow.Control>
+          {({ controlId, disabled: controlDisabled, labelId, visualState }) => (
+            <Switch.Root
+              aria-labelledby={labelId}
+              checked={checked}
+              data-testid={disabled ? "disabled-switch" : "custom-switch"}
+              data-visual-state={visualState}
+              disabled={controlDisabled}
+              id={controlId}
+              onCheckedChange={setChecked}
+            >
+              <Switch.Thumb />
+            </Switch.Root>
+          )}
+        </SettingsRow.Control>
+      </SettingsRow.Root>
+    );
+  }
+
+  const screen = await render(
+    <div>
+      <CustomControlRow />
+      <CustomControlRow disabled />
+    </div>,
+  );
+  const labels = screen.getByText("Allow background tasks").all();
+  const enabledSwitch = screen.getByTestId("custom-switch");
+  const disabledSwitch = screen.getByTestId("disabled-switch");
+
+  expect(enabledSwitch.element().getAttribute("aria-checked")).toBe("false");
+  await userEvent.hover(labels[0]!);
+  expect(enabledSwitch.element().getAttribute("data-visual-state")).toBe("hover");
+  await userEvent.click(labels[0]!);
+  expect(enabledSwitch.element().getAttribute("aria-checked")).toBe("true");
+
+  expect(disabledSwitch.element().getAttribute("aria-checked")).toBe("false");
+  expect(disabledSwitch.element()).toBeDisabled();
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
   ).toEqual([]);
