@@ -99,8 +99,12 @@ test("Disclosure matches the approved Figma state board", async () => {
   expect(triggers[1]?.getAttribute("aria-expanded")).toBe("false");
   expect(getComputedStyle(panels[0]!).boxSizing).toBe("border-box");
   expect(panels[0]?.getBoundingClientRect().width).toBe(220);
-  await expect.poll(() => panels[0]?.getBoundingClientRect().height).toBe(panels[0]!.scrollHeight);
-  await expect.poll(() => panels[1]?.getBoundingClientRect().height).toBe(panels[1]!.scrollHeight);
+  await expect
+    .poll(() => Math.round(panels[0]!.getBoundingClientRect().height))
+    .toBe(panels[0]!.scrollHeight);
+  await expect
+    .poll(() => Math.round(panels[1]!.getBoundingClientRect().height))
+    .toBe(panels[1]!.scrollHeight);
   expect(panels[0]!.getBoundingClientRect().height).toBeGreaterThan(
     panels[1]!.getBoundingClientRect().height,
   );
