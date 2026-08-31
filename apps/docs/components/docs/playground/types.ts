@@ -42,7 +42,6 @@ export interface PlaygroundConfig {
   codeTemplate?: string;
   controls: readonly PlaygroundControl[];
   defaultExample?: string;
-  description: string;
   examples: readonly PlaygroundExample[];
   id: string;
   name: string;

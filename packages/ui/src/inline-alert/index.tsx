@@ -48,7 +48,7 @@ function DefaultIcon({ tone }: { tone: InlineAlertTone }) {
         : tone === "warning"
           ? TriangleAlertIcon
           : InfoIcon;
-  return <Icon size={16} strokeWidth={1.75} />;
+  return <Icon size={14} strokeWidth={1.5} />;
 }
 
 export const InlineAlertIcon = React.forwardRef<

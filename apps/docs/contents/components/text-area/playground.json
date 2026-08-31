@@ -1,7 +1,6 @@
 {
   "id": "text-area",
   "name": "Text Area",
-  "description": "Inspect validation and interaction states on the real multiline field.",
   "themeControl": "theme",
   "controls": [
     {

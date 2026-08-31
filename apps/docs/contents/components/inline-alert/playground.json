@@ -1,7 +1,6 @@
 {
   "id": "inline-alert",
   "name": "Inline Alert",
-  "description": "Inspect every semantic tone without changing announcement urgency.",
   "themeControl": "theme",
   "controls": [
     {

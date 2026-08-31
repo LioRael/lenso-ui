@@ -1,7 +1,6 @@
 {
   "id": "popover",
   "name": "Popover",
-  "description": "Check placement, optional arrow, keyboard dismissal, and theme parity.",
   "themeControl": "theme",
   "controls": [
     { "id": "open", "label": "Open", "type": "boolean", "default": true },

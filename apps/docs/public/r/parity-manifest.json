@@ -296,22 +296,16 @@
     "disclosure": {
       "files": [
         {
-          "registrySha256": "d0ca5491307a440f32b663bbf47de1b7b2c5b46fea978933c5a8ad06e1ebe712",
+          "registrySha256": "b9421d5751f008933c24948de1c8c9bca6c3b16ce110af968c29cde385d47b26",
           "source": "packages/ui/src/disclosure/index.tsx",
-          "sourceSha256": "d0ca5491307a440f32b663bbf47de1b7b2c5b46fea978933c5a8ad06e1ebe712",
+          "sourceSha256": "b9421d5751f008933c24948de1c8c9bca6c3b16ce110af968c29cde385d47b26",
           "target": "components/lenso/disclosure/index.tsx"
         },
         {
-          "registrySha256": "ad8d880ed004b4ce5188613080a5324f0ddb9835ff415d760650952bb6a433a7",
+          "registrySha256": "664077569d417f917f19cf61619b51a488535d7606722bb3c82d212a5a0cb7c5",
           "source": "packages/ui/src/disclosure/disclosure.stylex.ts",
-          "sourceSha256": "ad8d880ed004b4ce5188613080a5324f0ddb9835ff415d760650952bb6a433a7",
+          "sourceSha256": "664077569d417f917f19cf61619b51a488535d7606722bb3c82d212a5a0cb7c5",
           "target": "components/lenso/disclosure/disclosure.stylex.ts"
-        },
-        {
-          "registrySha256": "371893053e2fddccbfb71f3beb361c02d8e3207ee4c8e931413af2933ce09db6",
-          "source": "packages/ui/src/disclosure/disclosure-chevron.svg",
-          "sourceSha256": "371893053e2fddccbfb71f3beb361c02d8e3207ee4c8e931413af2933ce09db6",
-          "target": "components/lenso/disclosure/disclosure-chevron.svg"
         },
         {
           "registrySha256": "45f5ad9da59902fbd320f402168374e61e7213e640b9b09eb900d54ef9c45d66",
@@ -364,15 +358,15 @@
     "inline-alert": {
       "files": [
         {
-          "registrySha256": "02a7244b32594556383f6b0dfa9e9343535b3ffcc6d2abab8471699dac2e4367",
+          "registrySha256": "1fd0180a4c1f20b49d40b55cf3c30eaac4816d68d7b3069c9dc31959f27ca71f",
           "source": "packages/ui/src/inline-alert/index.tsx",
-          "sourceSha256": "02a7244b32594556383f6b0dfa9e9343535b3ffcc6d2abab8471699dac2e4367",
+          "sourceSha256": "1fd0180a4c1f20b49d40b55cf3c30eaac4816d68d7b3069c9dc31959f27ca71f",
           "target": "components/lenso/inline-alert/index.tsx"
         },
         {
-          "registrySha256": "853a1377dbb0378d654c774f1ea885ee622a6b7e47734aa38ce449b8971157fa",
+          "registrySha256": "fa417f33acafd2795c5a5f4c3a597d2cd66f42458d9a823ad10974b75341da37",
           "source": "packages/ui/src/inline-alert/inline-alert.stylex.ts",
-          "sourceSha256": "853a1377dbb0378d654c774f1ea885ee622a6b7e47734aa38ce449b8971157fa",
+          "sourceSha256": "fa417f33acafd2795c5a5f4c3a597d2cd66f42458d9a823ad10974b75341da37",
           "target": "components/lenso/inline-alert/inline-alert.stylex.ts"
         },
         {
@@ -653,6 +647,34 @@
         }
       ]
     },
+    "segmented-control": {
+      "files": [
+        {
+          "registrySha256": "fed3ec71cdd10dfd25419e8684d2da745826124c643eca323d3e4d262bdda2b6",
+          "source": "packages/ui/src/segmented-control/index.tsx",
+          "sourceSha256": "fed3ec71cdd10dfd25419e8684d2da745826124c643eca323d3e4d262bdda2b6",
+          "target": "components/lenso/segmented-control/index.tsx"
+        },
+        {
+          "registrySha256": "ac1827ad6ddb1a5be4be09d5ee0938568381939020d2b4e7227a4b0dd92559c9",
+          "source": "packages/ui/src/segmented-control/segmented-control.stylex.ts",
+          "sourceSha256": "ac1827ad6ddb1a5be4be09d5ee0938568381939020d2b4e7227a4b0dd92559c9",
+          "target": "components/lenso/segmented-control/segmented-control.stylex.ts"
+        },
+        {
+          "registrySha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "source": "packages/ui/src/shared/merge-class-name.ts",
+          "sourceSha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "target": "components/lenso/shared/merge-class-name.ts"
+        },
+        {
+          "registrySha256": "7bf2c7f23539ce9a999a8b3f32b205a7ce8e64eeda9969cb5dd3ec906da620b7",
+          "source": "packages/ui/src/tokens.stylex.ts",
+          "sourceSha256": "7bf2c7f23539ce9a999a8b3f32b205a7ce8e64eeda9969cb5dd3ec906da620b7",
+          "target": "components/lenso/tokens.stylex.ts"
+        }
+      ]
+    },
     "select": {
       "files": [
         {
@@ -828,6 +850,34 @@
           "source": "packages/primitives/src/sidebar/index.tsx",
           "sourceSha256": "9b587ea0d3d66f93070ad53bfea822988ca7e5051b6771da4b2893da1db82e01",
           "target": "components/lenso/primitives/sidebar.tsx"
+        }
+      ]
+    },
+    "slider": {
+      "files": [
+        {
+          "registrySha256": "d34960c3f42999935518a41b6e174307f6688ead59946c8606fe2fba02227d2d",
+          "source": "packages/ui/src/slider/index.tsx",
+          "sourceSha256": "d34960c3f42999935518a41b6e174307f6688ead59946c8606fe2fba02227d2d",
+          "target": "components/lenso/slider/index.tsx"
+        },
+        {
+          "registrySha256": "d6b1496fabd2b71d38e85ce0d00560d19e8455569b861061b8e552accc9e399a",
+          "source": "packages/ui/src/slider/slider.stylex.ts",
+          "sourceSha256": "d6b1496fabd2b71d38e85ce0d00560d19e8455569b861061b8e552accc9e399a",
+          "target": "components/lenso/slider/slider.stylex.ts"
+        },
+        {
+          "registrySha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "source": "packages/ui/src/shared/merge-class-name.ts",
+          "sourceSha256": "2ed51b71cd9038d75f4b8d713321c6c94750add2cee7a7560f6edffd4956e5d6",
+          "target": "components/lenso/shared/merge-class-name.ts"
+        },
+        {
+          "registrySha256": "7bf2c7f23539ce9a999a8b3f32b205a7ce8e64eeda9969cb5dd3ec906da620b7",
+          "source": "packages/ui/src/tokens.stylex.ts",
+          "sourceSha256": "7bf2c7f23539ce9a999a8b3f32b205a7ce8e64eeda9969cb5dd3ec906da620b7",
+          "target": "components/lenso/tokens.stylex.ts"
         }
       ]
     },

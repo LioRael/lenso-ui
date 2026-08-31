@@ -1,7 +1,6 @@
 {
   "id": "avatar",
   "name": "Avatar",
-  "description": "Check sizing, fallback content, presence, grouping, and theme-aware separators.",
   "themeControl": "theme",
   "controls": [
     {

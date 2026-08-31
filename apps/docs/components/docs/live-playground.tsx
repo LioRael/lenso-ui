@@ -4,7 +4,6 @@ interface LivePlaygroundProps {
   actions?: ReactNode;
   bodyClassName?: string;
   controls: ReactNode;
-  description: string;
   preview: ReactNode;
   sectionClassName?: string;
   stageClassName?: string;
@@ -15,7 +14,6 @@ export function LivePlayground({
   actions,
   bodyClassName,
   controls,
-  description,
   preview,
   sectionClassName,
   stageClassName,
@@ -26,19 +24,13 @@ export function LivePlayground({
       className={`button-playground mdx-live-playground${sectionClassName ? ` ${sectionClassName}` : ""}`}
     >
       <div className="playground-heading">
-        <div>
-          <h2>{title}</h2>
-          <p>{description}</p>
-        </div>
+        <h2>{title}</h2>
         {actions && <div className="playground-actions">{actions}</div>}
       </div>
       <div className={`playground-body${bodyClassName ? ` ${bodyClassName}` : ""}`}>
         <article
           className={`rendered-stage mdx-rendered-stage${stageClassName ? ` ${stageClassName}` : ""}`}
         >
-          <div className="stage-header">
-            <h3>Rendered component</h3>
-          </div>
           {preview}
         </article>
         <aside aria-label="Playground controls" className="playground-inspector">

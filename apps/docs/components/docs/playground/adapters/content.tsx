@@ -13,6 +13,7 @@ import { Label, type LabelColor } from "@lenso/ui/label";
 import { RadioGroup } from "@lenso/ui/radio";
 import { ResizeHandle } from "@lenso/ui/resize-handle";
 import { Select } from "@lenso/ui/select";
+import { Slider } from "@lenso/ui/slider";
 import { ShimmerText } from "@lenso/ui/shimmer-text";
 import {
   StatusMarker,
@@ -137,13 +138,13 @@ export const inlineAlertAdapter: PlaygroundAdapter = ({ theme, values }) => {
       <InlineAlert.Root style={{ maxWidth: 560 }} tone={tone}>
         <InlineAlert.Icon />
         <InlineAlert.Content>
-          <InlineAlert.Title as="h2">Review this change</InlineAlert.Title>
+          <InlineAlert.Title as="h2">Settings changed elsewhere</InlineAlert.Title>
           <InlineAlert.Description>
-            The current values changed while this view was open.
+            Reload to use the latest values before editing.
           </InlineAlert.Description>
         </InlineAlert.Content>
         <InlineAlert.Actions>
-          <Button variant="secondary">Review</Button>
+          <Button variant="secondary">Reload</Button>
         </InlineAlert.Actions>
       </InlineAlert.Root>
     </ThemeScope>
@@ -273,6 +274,35 @@ export const statusMarkerAdapter: PlaygroundAdapter = ({ theme, values }) => {
   return (
     <ThemeScope className="stage-canvas" theme={theme}>
       <StatusMarker presentation={presentation} status={status} />
+    </ThemeScope>
+  );
+};
+
+export const sliderAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
+  const value = Number(stringValue(values, "value", "25"));
+  const state = stringValue(values, "state", "default");
+  const visualState =
+    state === "hover" || state === "pressed" || state === "focus-visible" ? state : undefined;
+
+  return (
+    <ThemeScope className="stage-canvas" theme={theme}>
+      <div style={{ width: 240 }}>
+        <Slider.Root
+          data-visual-state={visualState}
+          disabled={state === "disabled"}
+          onValueChange={(nextValue) =>
+            setValue("value", String(Array.isArray(nextValue) ? nextValue[0] : nextValue))
+          }
+          value={value}
+        >
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Indicator />
+              <Slider.Thumb aria-label="Contrast" />
+            </Slider.Track>
+          </Slider.Control>
+        </Slider.Root>
+      </div>
     </ThemeScope>
   );
 };

@@ -1,7 +1,6 @@
 {
   "id": "toast",
   "name": "Toast",
-  "description": "Change the semantic tone and trigger the real notification.",
   "themeControl": "theme",
   "controls": [
     {

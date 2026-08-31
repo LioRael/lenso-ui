@@ -1,7 +1,6 @@
 {
   "id": "page-layout",
   "name": "Page Layout",
-  "description": "Inspect the Figma shell across dashboard, table, list, and settings contexts.",
   "themeControl": "theme",
   "bodyClassName": "template-playground-body",
   "sectionClassName": "template-playground",

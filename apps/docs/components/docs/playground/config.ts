@@ -52,7 +52,6 @@ const configSchema = z.object({
   codeTemplate: z.string().optional(),
   controls: z.array(controlSchema).min(1),
   defaultExample: z.string().optional(),
-  description: z.string().min(1),
   examples: z.array(exampleSchema).min(1),
   id: z.string().min(1),
   name: z.string().min(1),
@@ -89,7 +88,6 @@ export function parsePlaygroundConfig(value: unknown): PlaygroundConfig {
   return {
     defaultExample,
     controls: config.controls as PlaygroundControl[],
-    description: config.description,
     examples: config.examples as PlaygroundExample[],
     id: config.id,
     name: config.name,

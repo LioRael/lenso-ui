@@ -1,7 +1,6 @@
 {
   "id": "tabs",
   "name": "Tabs",
-  "description": "Change the selected tab on the real component and verify keyboard navigation.",
   "themeControl": "theme",
   "controls": [
     {

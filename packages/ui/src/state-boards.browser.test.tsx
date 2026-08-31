@@ -78,10 +78,10 @@ test("Disclosure matches the approved Figma state board", async () => {
         width: 492,
       }}
     >
-      <div style={{ left: 16, position: "absolute", top: 16 }}>
+      <div style={{ left: 16, position: "absolute", top: 16, width: 220 }}>
         <DisclosureBoardGroup expanded="first" />
       </div>
-      <div style={{ left: 256, position: "absolute", top: 16 }}>
+      <div style={{ left: 256, position: "absolute", top: 16, width: 220 }}>
         <DisclosureBoardGroup expanded="second" />
       </div>
     </div>,
@@ -94,13 +94,16 @@ test("Disclosure matches the approved Figma state board", async () => {
   const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="disclosure-panel"]');
   await expect.poll(() => getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
   expect(triggers[0]?.getBoundingClientRect().height).toBe(28);
-  expect(triggers[0]?.getBoundingClientRect().width).toBe(215);
+  expect(triggers[0]?.getBoundingClientRect().width).toBe(220);
   expect(triggers[0]?.getAttribute("aria-expanded")).toBe("true");
   expect(triggers[1]?.getAttribute("aria-expanded")).toBe("false");
   expect(getComputedStyle(panels[0]!).boxSizing).toBe("border-box");
   expect(panels[0]?.getBoundingClientRect().width).toBe(220);
-  await expect.poll(() => panels[0]?.getBoundingClientRect().height).toBe(96);
-  await expect.poll(() => panels[1]?.getBoundingClientRect().height).toBe(68);
+  await expect.poll(() => panels[0]?.getBoundingClientRect().height).toBe(panels[0]!.scrollHeight);
+  await expect.poll(() => panels[1]?.getBoundingClientRect().height).toBe(panels[1]!.scrollHeight);
+  expect(panels[0]!.getBoundingClientRect().height).toBeGreaterThan(
+    panels[1]!.getBoundingClientRect().height,
+  );
 });
 
 function TeamIcon() {

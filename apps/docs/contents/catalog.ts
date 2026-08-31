@@ -14,6 +14,7 @@ export type DocsPage =
   | "quick-start"
   | "package-vs-registry"
   | "release-status"
+  | "theme-lab"
   | "tokens"
   | "themes"
   | "strict-csp"
@@ -36,7 +37,9 @@ export type DocsPage =
   | "quick-link"
   | "radio"
   | "resize-handle"
+  | "segmented-control"
   | "select"
+  | "slider"
   | "shimmer-text"
   | "settings-row"
   | "application-sidebar"
@@ -115,6 +118,12 @@ export const docsRegistry = [
     items: [
       { href: "/foundations/tokens", kind: "page", label: "Tokens", slug: "tokens" },
       { href: "/foundations/themes", kind: "page", label: "Themes", slug: "themes" },
+      {
+        href: "/foundations/theme-lab",
+        kind: "page",
+        label: "Theme Lab",
+        slug: "theme-lab",
+      },
     ],
     label: "Foundations",
     order: 20,
@@ -169,7 +178,14 @@ export const docsRegistry = [
         label: "Resize Handle",
         slug: "resize-handle",
       },
+      {
+        href: "/components/segmented-control",
+        kind: "page",
+        label: "Segmented Control",
+        slug: "segmented-control",
+      },
       { href: "/components/select", kind: "page", label: "Select", slug: "select" },
+      { href: "/components/slider", kind: "page", label: "Slider", slug: "slider" },
       {
         href: "/components/shimmer-text",
         kind: "page",

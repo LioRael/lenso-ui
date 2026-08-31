@@ -113,6 +113,16 @@
       "type": "registry:ui"
     },
     {
+      "name": "segmented-control",
+      "title": "Segmented Control",
+      "type": "registry:ui"
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "type": "registry:ui"
+    },
+    {
       "name": "select",
       "title": "Select",
       "type": "registry:ui"
