@@ -999,6 +999,24 @@ html[data-theme="dark"] .docs-theme {
   margin-top: 12px;
 }
 
+.template-playground {
+  height: 818px;
+}
+
+.template-playground-body {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 548px 200px;
+  height: 764px;
+}
+
+.template-playground-body .template-rendered-stage {
+  height: 548px;
+}
+
+.template-playground-body .playground-inspector {
+  height: 200px;
+}
+
 .rendered-stage,
 .playground-inspector {
   height: 256px;
@@ -1528,6 +1546,17 @@ html[data-theme="dark"] .button-implementation .shiki span {
   .rendered-stage,
   .playground-inspector {
     width: 100%;
+  }
+
+  .template-playground,
+  .template-playground-body,
+  .template-playground-body .template-rendered-stage,
+  .template-playground-body .playground-inspector {
+    height: auto;
+  }
+
+  .template-playground-body {
+    grid-template-rows: auto;
   }
 }
 

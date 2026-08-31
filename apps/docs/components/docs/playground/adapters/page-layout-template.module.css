@@ -505,36 +505,7 @@
   line-height: 18px;
 }
 
-:global(.page-layout-playground) {
-  height: 818px;
-}
-
-:global(.page-layout-playground-body) {
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: 548px 200px;
-  height: 764px;
-}
-
-:global(.page-layout-rendered-stage) {
-  height: 548px;
-}
-
-:global(.page-layout-playground-body .playground-inspector) {
-  height: 200px;
-}
-
 @media (max-width: 1100px) {
-  :global(.page-layout-playground),
-  :global(.page-layout-playground-body),
-  :global(.page-layout-rendered-stage),
-  :global(.page-layout-playground-body .playground-inspector) {
-    height: auto;
-  }
-
-  :global(.page-layout-playground-body) {
-    grid-template-rows: auto;
-  }
-
   .stage {
     min-height: 430px;
   }

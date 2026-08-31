@@ -3,6 +3,9 @@
   "name": "Agent Page",
   "description": "Inspect a neutral conversation surface with an application-controlled Prompt Composer.",
   "themeControl": "theme",
+  "bodyClassName": "template-playground-body",
+  "sectionClassName": "template-playground",
+  "stageClassName": "template-rendered-stage",
   "controls": [
     {
       "id": "theme",
