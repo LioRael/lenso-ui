@@ -72,6 +72,7 @@ export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(fun
                     defaultChecked
                     disabled={disabled}
                     id={controlId}
+                    layout="control-only"
                   >
                     <Switch.Thumb />
                   </Switch.Root>
@@ -92,6 +93,7 @@ export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(fun
                     data-visual-state={visualState}
                     disabled={disabled}
                     id={controlId}
+                    layout="control-only"
                   >
                     <Switch.Thumb />
                   </Switch.Root>
@@ -124,6 +126,7 @@ export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(fun
                     defaultChecked
                     disabled={disabled}
                     id={controlId}
+                    layout="control-only"
                   >
                     <Switch.Thumb />
                   </Switch.Root>

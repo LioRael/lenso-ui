@@ -35,6 +35,7 @@ function TrailingControl({
         checked
         data-visual-state={state === "hover" ? "hover" : undefined}
         disabled={disabled}
+        layout="control-only"
       >
         <Switch.Thumb />
       </Switch.Root>
@@ -110,6 +111,16 @@ test("Settings Row matches the approved Figma control and state matrix", async (
   expect(rows).toHaveLength(9);
   expect(rows[0]!.getBoundingClientRect().width / 0.6).toBeCloseTo(640, 1);
   expect(rows[0]!.getBoundingClientRect().height / 0.6).toBeCloseTo(65, 1);
+  const toggle = rows[3]!.querySelector<HTMLElement>('[data-slot="switch"]');
+  const toggleTrack = rows[3]!.querySelector<HTMLElement>('[data-slot="switch-track"]');
+  expect(toggle).not.toBeNull();
+  expect(toggleTrack).not.toBeNull();
+  expect(
+    (rows[3]!.getBoundingClientRect().right - toggle!.getBoundingClientRect().right) / 0.6,
+  ).toBeCloseTo(16, 1);
+  expect(
+    (rows[3]!.getBoundingClientRect().right - toggleTrack!.getBoundingClientRect().right) / 0.6,
+  ).toBeCloseTo(22, 1);
   await expect.poll(() => getComputedStyle(rows[2]!).opacity).toBe("0.4");
   await userEvent.hover(rows[2]!);
   await expect.poll(() => getComputedStyle(rows[2]!).backgroundColor).toBe("rgba(0, 0, 0, 0)");
@@ -208,6 +219,7 @@ test("Settings Row activates labelable custom controls without DOM lookup", asyn
               data-visual-state={visualState}
               disabled={controlDisabled}
               id={controlId}
+              layout="control-only"
               onCheckedChange={setChecked}
             >
               <Switch.Thumb />
@@ -239,4 +251,38 @@ test("Settings Row activates labelable custom controls without DOM lookup", asyn
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
   ).toEqual([]);
+});
+
+test("Settings Row pins control-only switches to the logical trailing edge", async () => {
+  const screen = await render(
+    <div dir="rtl" style={{ width: 320 }}>
+      <SettingsRow.Root data-testid="rtl-row">
+        <SettingsRow.Copy>
+          <SettingsRow.Label>Keep generated summaries</SettingsRow.Label>
+          <SettingsRow.Description>
+            Preserve a long description without moving the trailing control.
+          </SettingsRow.Description>
+        </SettingsRow.Copy>
+        <SettingsRow.Control>
+          {({ controlId, labelId }) => (
+            <Switch.Root aria-labelledby={labelId} id={controlId} layout="control-only">
+              <Switch.Thumb />
+            </Switch.Root>
+          )}
+        </SettingsRow.Control>
+      </SettingsRow.Root>
+    </div>,
+  );
+  const row = screen.getByTestId("rtl-row").element();
+  const control = row.querySelector<HTMLElement>('[data-slot="switch"]');
+  const track = row.querySelector<HTMLElement>('[data-slot="switch-track"]');
+
+  expect(control).not.toBeNull();
+  expect(track).not.toBeNull();
+  expect(control!.getBoundingClientRect().width).toBe(42);
+  expect(control!.getBoundingClientRect().left - row.getBoundingClientRect().left).toBeCloseTo(
+    16,
+    4,
+  );
+  expect(track!.getBoundingClientRect().left - row.getBoundingClientRect().left).toBeCloseTo(22, 4);
 });

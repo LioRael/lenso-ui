@@ -1,6 +1,6 @@
 ---
 title: "Switch"
-description: "Immediate on/off control with compact and default sizes plus stateful thumb motion."
+description: "Immediate on/off control with inline-label and control-only layouts plus stateful thumb motion."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "@lenso/ui/switch"
@@ -18,6 +18,11 @@ import { Playground } from "@/components/docs/playground";
       <ul>
         <li>Immediate on/off control with compact and default sizes plus stateful thumb motion.</li>
         <li>Size: Default, Compact</li>
+        <li>
+          Use the control-only layout when a visible label outside the Switch names it, such as a
+          Settings Row label.
+        </li>
+        <li>Compact switches are always control-only.</li>
         <li>On: False, True</li>
       </ul>
     </GuidanceBlock>
@@ -31,7 +36,7 @@ import { Playground } from "@/components/docs/playground";
   <CodeExample
     code={String.raw`import { Switch } from "@lenso/ui/switch"
 
-<Switch.Root defaultChecked>
+<Switch.Root aria-label="Notifications" defaultChecked layout="control-only">
   <Switch.Thumb />
 </Switch.Root>`}
     description="Use the composition pattern below; inspect source types for the complete inherited API."

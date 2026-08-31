@@ -8,6 +8,7 @@ import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./switch.stylex.js";
 
 export type SwitchSize = "compact" | "default";
+export type SwitchLayout = "control-only" | "inline-label";
 type SwitchFeedbackDirection = "from-checked" | "from-unchecked";
 
 const SwitchFeedbackContext = React.createContext<{
@@ -20,6 +21,7 @@ const SwitchFeedbackContext = React.createContext<{
 
 export interface SwitchRootProps extends BaseSwitch.Root.Props {
   "data-visual-state"?: "focus-visible" | "hover" | "pressed" | undefined;
+  layout?: SwitchLayout;
   size?: SwitchSize;
 }
 
@@ -28,6 +30,7 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
     className,
     children,
     "data-visual-state": visualState,
+    layout: layoutProp = "inline-label",
     onCheckedChange,
     onPointerEnter,
     onPointerLeave,
@@ -40,6 +43,7 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
   const [hovered, setHovered] = React.useState(false);
   const [hoverConsumed, setHoverConsumed] = React.useState(false);
   const [switchFeedback, setSwitchFeedback] = React.useState<SwitchFeedbackDirection | null>(null);
+  const layout = size === "compact" ? "control-only" : layoutProp;
   const interactive =
     !hoverConsumed && (hovered || visualState === "hover" || visualState === "pressed");
   return (
@@ -79,6 +83,7 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
         const generated = stylex.props(
           styles.root,
           size === "compact" ? styles.compact : styles.defaultSize,
+          size === "default" && layout === "control-only" && styles.defaultControlOnly,
           state.checked && styles.checked,
           interactive &&
             (size === "compact" ? styles.compactInteractive : styles.defaultInteractive),
@@ -90,6 +95,7 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
         const custom = typeof className === "function" ? className(state) : className;
         return custom ? `${generated} ${custom}` : generated;
       }}
+      data-layout={layout}
       data-size={size}
       data-slot="switch"
       data-visual-state={visualState}
