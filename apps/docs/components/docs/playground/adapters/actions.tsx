@@ -85,6 +85,7 @@ function ControlExample({
         data-visual-state={visualState}
         disabled={disabled}
         id={controlId}
+        layout="control-only"
       >
         <Switch.Thumb />
       </Switch.Root>

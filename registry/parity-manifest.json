@@ -896,15 +896,15 @@
     "switch": {
       "files": [
         {
-          "registrySha256": "88afef5dd1c33bc3c31db2b9cfa3d32a27e623d966a4e584963585215aa19c97",
+          "registrySha256": "635d339065120c3542fe15043b75c15b481c6243f1c1e1bc3b807bc985cb7aeb",
           "source": "packages/ui/src/switch/index.tsx",
-          "sourceSha256": "88afef5dd1c33bc3c31db2b9cfa3d32a27e623d966a4e584963585215aa19c97",
+          "sourceSha256": "635d339065120c3542fe15043b75c15b481c6243f1c1e1bc3b807bc985cb7aeb",
           "target": "components/lenso/switch/index.tsx"
         },
         {
-          "registrySha256": "9cfcb7fa880984532c4457bc394c68970d21938e0aa1a4ec48a4118a1f1ad259",
+          "registrySha256": "da93f00fb29f56521105ea5a0a37dfa087e51310d196a13edbd9fc30ff91c777",
           "source": "packages/ui/src/switch/switch.stylex.ts",
-          "sourceSha256": "9cfcb7fa880984532c4457bc394c68970d21938e0aa1a4ec48a4118a1f1ad259",
+          "sourceSha256": "da93f00fb29f56521105ea5a0a37dfa087e51310d196a13edbd9fc30ff91c777",
           "target": "components/lenso/switch/switch.stylex.ts"
         },
         {

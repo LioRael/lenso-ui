@@ -88,6 +88,11 @@ export const styles = stylex.create({
     minWidth: "119px",
     paddingLeft: "44px",
   },
+  defaultControlOnly: {
+    minWidth: "42px",
+    paddingLeft: 0,
+    width: "42px",
+  },
   compact: {
     [switchState.focusHeight]: "20px",
     [switchState.focusWidth]: "28px",

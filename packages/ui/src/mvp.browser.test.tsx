@@ -376,6 +376,21 @@ test("Switch checked hover keeps the thumb's right edge anchored", async () => {
   }
 });
 
+test("Switch removes the inline-label footprint in control-only layout", async () => {
+  const screen = await render(
+    <Switch.Root aria-label="Control-only switch" layout="control-only">
+      <Switch.Thumb />
+    </Switch.Root>,
+  );
+  const control = screen.getByRole("switch", { name: "Control-only switch" }).element();
+  const track = control.querySelector<HTMLElement>('[data-slot="switch-track"]');
+
+  expect(control.dataset.layout).toBe("control-only");
+  expect(control.getBoundingClientRect().width).toBe(42);
+  expect(track).not.toBeNull();
+  expect(control.getBoundingClientRect().right - track!.getBoundingClientRect().right).toBe(6);
+});
+
 test("Switch consumes hover expansion after a toggle until the pointer leaves", async () => {
   const screen = await render(
     <div>
