@@ -18,14 +18,17 @@ import { Playground } from "@/components/docs/playground";
       <ul>
         <li>Use Switch for immediate binary preferences and Select for bounded choices.</li>
         <li>Use the Action slot for secondary configuration flows.</li>
-        <li>Keep Title for layout-only rows; use Label when the title should activate a control.</li>
+        <li>
+          Use Label when the title should activate the control—typically Switch. Use Title when it
+          should only name the control—typically Select or a secondary action.
+        </li>
       </ul>
     </GuidanceBlock>
     <GuidanceBlock title="Accessibility">
       <ul>
         <li>
-          Label and Control share generated IDs, so the visible label can name and natively activate
-          a labelable trailing control.
+          Title, Label, and Control share generated IDs. Label also natively activates a labelable
+          trailing control; Title does not.
         </li>
         <li>Pass disabled state to both the row and its interactive control.</li>
       </ul>
@@ -33,16 +36,26 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { SettingsRow } from "@lenso/ui/settings-row"
+    code={String.raw`import { Select } from "@lenso/ui/select"
+import { SettingsRow } from "@lenso/ui/settings-row"
 
 <SettingsRow.Root>
   <SettingsRow.Copy>
-    <SettingsRow.Title>Setting title</SettingsRow.Title>
-    <SettingsRow.Description>Supporting description.</SettingsRow.Description>
+    <SettingsRow.Title>Region</SettingsRow.Title>
+    <SettingsRow.Description>Choose where project data is stored.</SettingsRow.Description>
   </SettingsRow.Copy>
-  <SettingsRow.Control>{control}</SettingsRow.Control>
+  <SettingsRow.Control>
+    {({ controlId, disabled, labelId }) => (
+      <Select.Root defaultValue="us" disabled={disabled}>
+        <Select.Trigger aria-labelledby={labelId} id={controlId}>
+          <Select.Value />
+          <Select.Icon />
+        </Select.Trigger>
+      </Select.Root>
+    )}
+  </SettingsRow.Control>
 </SettingsRow.Root>`}
-    description="The row owns layout only; existing controls retain their native Base UI semantics and behavior."
+    description="Title names the Select through generated IDs without opening it when the title is clicked."
   />
 
   <CodeExample
@@ -70,5 +83,5 @@ import { Switch } from "@lenso/ui/switch"
     )}
   </SettingsRow.Control>
 </SettingsRow.Root>`}
-    description="Label uses native label activation. Control exposes the generated IDs and coordinated hover state without DOM lookup or dataset mutation."
+    description="Label uses native label activation for Switch. Control exposes generated IDs and coordinated hover state without DOM lookup or dataset mutation."
   />

@@ -74,7 +74,26 @@ export function SettingsRowRoot({
 }
 
 export const SettingsRowCopy = createStyledPart("div", "settings-row-copy", styles.copy);
-export const SettingsRowTitle = createStyledPart("h3", "settings-row-title", styles.title);
+
+export const SettingsRowTitle = React.forwardRef<
+  HTMLHeadingElement,
+  React.ComponentPropsWithRef<"h3">
+>(function SettingsRowTitle({ children, className, id, ...props }, ref) {
+  const { labelId } = React.useContext(SettingsRowContext);
+
+  return (
+    <h3
+      {...props}
+      className={mergeClassName(stylex.props(styles.title).className, className) as string}
+      data-slot="settings-row-title"
+      id={id ?? labelId}
+      ref={ref}
+    >
+      {children}
+    </h3>
+  );
+});
+
 export const SettingsRowDescription = createStyledPart(
   "p",
   "settings-row-description",

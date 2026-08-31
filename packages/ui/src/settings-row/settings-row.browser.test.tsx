@@ -107,7 +107,7 @@ test("Settings Row matches the approved Figma control and state matrix", async (
   await document.fonts.load('500 13px "Inter"', "Setting title");
   const board = screen.getByTestId("settings-row-figma-state-board");
   const rows = board.element().querySelectorAll<HTMLElement>('[data-slot="settings-row"]');
-  await expect.poll(() => getComputedStyle(rows[1]!).backgroundColor).toBe("rgb(245, 245, 245)");
+  await expect.poll(() => getComputedStyle(rows[1]!).backgroundColor).toBe("rgba(0, 0, 0, 0)");
   expect(rows).toHaveLength(9);
   expect(rows[0]!.getBoundingClientRect().width / 0.6).toBeCloseTo(640, 1);
   expect(rows[0]!.getBoundingClientRect().height / 0.6).toBeCloseTo(65, 1);
@@ -127,9 +127,9 @@ test("Settings Row matches the approved Figma control and state matrix", async (
   expect((await axe.run(board.element())).violations).toEqual([]);
 });
 
-test("Settings Row preserves dark hover semantics and consumer-owned controls", async () => {
+test("Settings Row keeps the row surface stable and preserves consumer-owned controls", async () => {
   const screen = await render(
-    <ThemeScope theme="dark">
+    <ThemeScope style={{ background: "var(--color-surface-surface)" }} theme="dark">
       <div style={{ width: 480 }}>
         <SettingsRow.Root data-testid="custom-row" data-visual-state="hover">
           <SettingsRow.Copy>
@@ -151,7 +151,8 @@ test("Settings Row preserves dark hover semantics and consumer-owned controls", 
     </ThemeScope>,
   );
   const row = screen.getByTestId("custom-row");
-  await expect.poll(() => getComputedStyle(row.element()).backgroundColor).toBe("rgb(31, 31, 31)");
+  await userEvent.hover(row);
+  await expect.poll(() => getComputedStyle(row.element()).backgroundColor).toBe("rgba(0, 0, 0, 0)");
   expect(row.element().getBoundingClientRect().height).toBe(65);
   expect(
     (screen.getByRole("spinbutton", { name: "Retention period" }).element() as HTMLInputElement)
@@ -160,6 +161,50 @@ test("Settings Row preserves dark hover semantics and consumer-owned controls", 
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
   ).toEqual([]);
+});
+
+test("Settings Row lets consumers choose whether the title activates the control", async () => {
+  const screen = await render(
+    <div>
+      <SettingsRow.Root>
+        <SettingsRow.Copy>
+          <SettingsRow.Label>Notifications</SettingsRow.Label>
+        </SettingsRow.Copy>
+        <SettingsRow.Control>
+          {({ controlId, labelId }) => (
+            <Switch.Root aria-labelledby={labelId} id={controlId} layout="control-only">
+              <Switch.Thumb />
+            </Switch.Root>
+          )}
+        </SettingsRow.Control>
+      </SettingsRow.Root>
+      <SettingsRow.Root>
+        <SettingsRow.Copy>
+          <SettingsRow.Title>Language</SettingsRow.Title>
+        </SettingsRow.Copy>
+        <SettingsRow.Control>
+          {({ controlId, labelId }) => (
+            <Select.Root defaultValue="english">
+              <Select.Trigger aria-labelledby={labelId} id={controlId}>
+                <Select.Value>English</Select.Value>
+                <Select.Icon />
+              </Select.Trigger>
+            </Select.Root>
+          )}
+        </SettingsRow.Control>
+      </SettingsRow.Root>
+    </div>,
+  );
+
+  const toggle = screen.getByRole("switch", { name: "Notifications" });
+  expect(toggle).not.toBeChecked();
+  await userEvent.click(screen.getByText("Notifications"));
+  expect(toggle).toBeChecked();
+
+  const selectTrigger = screen.getByRole("combobox", { name: "Language" });
+  expect(selectTrigger).toHaveAttribute("aria-expanded", "false");
+  await userEvent.click(screen.getByText("Language"));
+  expect(selectTrigger).toHaveAttribute("aria-expanded", "false");
 });
 
 test("Settings Row links native controls and coordinates label hover", async () => {
