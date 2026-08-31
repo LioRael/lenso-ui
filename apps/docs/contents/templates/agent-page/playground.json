@@ -1,0 +1,21 @@
+{
+  "id": "agent-page",
+  "name": "Agent Page",
+  "description": "Inspect a neutral conversation surface with an application-controlled Prompt Composer.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "conversation",
+      "label": "Example · Conversation"
+    }
+  ]
+}

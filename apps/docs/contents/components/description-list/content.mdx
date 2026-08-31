@@ -1,0 +1,41 @@
+---
+title: "Description List"
+description: "Semantic term-and-description rows for compact facts and technical metadata."
+eyebrow: "Foundation component · Data display"
+metadata:
+  - "@lenso/ui/description-list"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="description-list" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use the inline layout for short facts and stacked layout for longer values.</li>
+        <li>Keep field names, formatting, copy actions, and code presentation in the Consumer.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Semantics">
+      <ul>
+        <li>Root renders dl, Term renders dt, and Description renders dd.</li>
+        <li>Do not replace a data table when rows need sortable columns or headers.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { DescriptionList } from "@lenso/ui/description-list"
+
+<DescriptionList.Root>
+  <DescriptionList.Item>
+    <DescriptionList.Term>Status</DescriptionList.Term>
+    <DescriptionList.Description>Ready</DescriptionList.Description>
+  </DescriptionList.Item>
+</DescriptionList.Root>`}
+  description="The component owns semantic rows, responsive geometry, and overflow behavior."
+/>

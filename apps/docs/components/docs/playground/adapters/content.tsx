@@ -1,13 +1,19 @@
 "use client";
 
 import * as React from "react";
+import { SearchIcon } from "lucide-react";
 
 import { Avatar } from "@lenso/ui/avatar";
+import { Button } from "@lenso/ui/button";
 import { Checkbox } from "@lenso/ui/checkbox";
+import { ContentState, type ContentStateAlign } from "@lenso/ui/content-state";
+import { DescriptionList, type DescriptionListLayout } from "@lenso/ui/description-list";
+import { InlineAlert, type InlineAlertTone } from "@lenso/ui/inline-alert";
 import { Label, type LabelColor } from "@lenso/ui/label";
 import { RadioGroup } from "@lenso/ui/radio";
 import { ResizeHandle } from "@lenso/ui/resize-handle";
 import { Select } from "@lenso/ui/select";
+import { ShimmerText } from "@lenso/ui/shimmer-text";
 import {
   StatusMarker,
   type StatusMarkerPresentation,
@@ -15,6 +21,7 @@ import {
 } from "@lenso/ui/status-marker";
 import { Surface, type SurfaceLevel } from "@lenso/ui/surface";
 import { Switch } from "@lenso/ui/switch";
+import { TextArea } from "@lenso/ui/text-area";
 import { TextField } from "@lenso/ui/text-field";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
@@ -76,6 +83,100 @@ export const checkboxAdapter: PlaygroundAdapter = ({ setValue, theme, values }) 
         <Checkbox.Indicator />
         <Checkbox.Label>Checkbox label</Checkbox.Label>
       </Checkbox.Root>
+    </ThemeScope>
+  );
+};
+
+export const contentStateAdapter: PlaygroundAdapter = ({ theme, values }) => {
+  const align = stringValue(values, "align", "center") as ContentStateAlign;
+
+  return (
+    <ThemeScope className="stage-canvas" theme={theme}>
+      <ContentState.Root align={align} style={{ maxWidth: 520 }}>
+        <ContentState.Visual aria-hidden="true">⌕</ContentState.Visual>
+        <ContentState.Title as="h2">No matching results</ContentState.Title>
+        <ContentState.Description>
+          Try a broader search or clear the current filters.
+        </ContentState.Description>
+        <ContentState.Actions>
+          <Button variant="secondary">Clear filters</Button>
+        </ContentState.Actions>
+      </ContentState.Root>
+    </ThemeScope>
+  );
+};
+
+export const descriptionListAdapter: PlaygroundAdapter = ({ theme, values }) => {
+  const layout = stringValue(values, "layout", "inline") as DescriptionListLayout;
+
+  return (
+    <ThemeScope className="stage-canvas" theme={theme}>
+      <DescriptionList.Root layout={layout} style={{ maxWidth: 520 }}>
+        <DescriptionList.Item>
+          <DescriptionList.Term>Status</DescriptionList.Term>
+          <DescriptionList.Description>Ready</DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term>Owner</DescriptionList.Term>
+          <DescriptionList.Description>Interface systems</DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term>Revision</DescriptionList.Term>
+          <DescriptionList.Description>9f3a2d7c1b8e</DescriptionList.Description>
+        </DescriptionList.Item>
+      </DescriptionList.Root>
+    </ThemeScope>
+  );
+};
+
+export const inlineAlertAdapter: PlaygroundAdapter = ({ theme, values }) => {
+  const tone = stringValue(values, "tone", "info") as InlineAlertTone;
+
+  return (
+    <ThemeScope className="stage-canvas" theme={theme}>
+      <InlineAlert.Root style={{ maxWidth: 560 }} tone={tone}>
+        <InlineAlert.Icon />
+        <InlineAlert.Content>
+          <InlineAlert.Title as="h2">Review this change</InlineAlert.Title>
+          <InlineAlert.Description>
+            The current values changed while this view was open.
+          </InlineAlert.Description>
+        </InlineAlert.Content>
+        <InlineAlert.Actions>
+          <Button variant="secondary">Review</Button>
+        </InlineAlert.Actions>
+      </InlineAlert.Root>
+    </ThemeScope>
+  );
+};
+
+export const shimmerTextAdapter: PlaygroundAdapter = ({ theme, values }) => (
+  <ThemeScope className="stage-canvas" theme={theme}>
+    <ShimmerText active={values.active === true}>Preparing response…</ShimmerText>
+  </ThemeScope>
+);
+
+export const textAreaAdapter: PlaygroundAdapter = ({ theme, values }) => {
+  const state = stringValue(values, "state", "default");
+  const visualState = state === "hover" || state === "focus-visible" ? state : undefined;
+  const invalid = state === "error";
+
+  return (
+    <ThemeScope className="stage-canvas" theme={theme}>
+      <TextArea.Root disabled={state === "disabled"} invalid={invalid}>
+        <TextArea.Label>Workspace guidance</TextArea.Label>
+        <TextArea.Control
+          data-visual-state={visualState}
+          placeholder="Add optional context…"
+          readOnly={state === "read-only"}
+          rows={5}
+        />
+        {invalid ? (
+          <TextArea.Error match>Resolve this field before continuing.</TextArea.Error>
+        ) : (
+          <TextArea.Description>Used when preparing new responses.</TextArea.Description>
+        )}
+      </TextArea.Root>
     </ThemeScope>
   );
 };
@@ -298,19 +399,37 @@ export const resizeHandleAdapter: PlaygroundAdapter = ({ theme, values }) => {
 };
 
 export const textFieldAdapter: PlaygroundAdapter = ({ theme, values }) => {
+  const [query, setQuery] = React.useState("runtime");
+  const pattern = stringValue(values, "pattern", "search");
+  const size = stringValue(values, "size", "default") as "compact" | "default";
   const state = stringValue(values, "state", "default");
   const visualState = ["hover", "active", "focus-visible"].includes(state) ? state : undefined;
   const invalid = state === "error";
 
   return (
     <ThemeScope className="stage-canvas" theme={theme}>
-      <TextField.Root disabled={state === "disabled"} invalid={invalid}>
-        <TextField.Label>Field label</TextField.Label>
-        <TextField.Control
-          data-visual-state={visualState}
-          placeholder="Enter value"
-          readOnly={state === "read-only"}
-        />
+      <TextField.Root disabled={state === "disabled"} invalid={invalid} size={size}>
+        <TextField.Label>
+          {pattern === "search" ? "Search components" : "Repository"}
+        </TextField.Label>
+        <TextField.InputGroup>
+          <TextField.Leading>
+            <SearchIcon aria-hidden="true" size={14} />
+          </TextField.Leading>
+          <TextField.Control
+            data-visual-state={visualState}
+            onValueChange={setQuery}
+            placeholder={pattern === "search" ? "Search…" : "owner/project"}
+            readOnly={state === "read-only"}
+            type={pattern === "search" ? "search" : "text"}
+            value={query}
+          />
+          {pattern === "search" && query ? (
+            <TextField.Trailing>
+              <TextField.Clear aria-label="Clear component search" onClear={() => setQuery("")} />
+            </TextField.Trailing>
+          ) : null}
+        </TextField.InputGroup>
         {invalid ? (
           <TextField.Error match>Resolve this field before continuing.</TextField.Error>
         ) : (

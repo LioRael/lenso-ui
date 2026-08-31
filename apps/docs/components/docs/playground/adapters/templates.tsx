@@ -8,6 +8,7 @@ import { IconButton } from "@lenso/ui/icon-button";
 import { Sidebar } from "@lenso/ui/sidebar";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
+import { SettingsPage } from "../../../templates/settings-page";
 import type { PlaygroundAdapter, PlaygroundValue } from "../types";
 import styles from "./page-layout-template.module.css";
 
@@ -404,7 +405,11 @@ function PageLayoutPreview({ context }: { context: PageLayoutContext }) {
           ) : (
             <ApplicationSidebar context={context} key={context} />
           )}
-          <main aria-label="Application content" className={styles.main} />
+          {context === "settings" ? (
+            <SettingsPage className={styles.main} idPrefix="page-layout-settings-preview" />
+          ) : (
+            <main aria-label="Application content" className={styles.main} />
+          )}
           <footer aria-label="Application utilities" className={styles.utilityBar}>
             <Button className={styles.utilityButton} variant="ghost">
               <SidebarGlyph name="agent" nested />

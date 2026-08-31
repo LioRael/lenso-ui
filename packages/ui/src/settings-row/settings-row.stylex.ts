@@ -47,6 +47,9 @@ export const styles = stylex.create({
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
+  interactiveLabel: {
+    cursor: { default: "pointer", '[aria-disabled="true"]': "default" },
+  },
   description: {
     color: tokens.colorContentTertiary,
     fontFamily: tokens.fontSans,

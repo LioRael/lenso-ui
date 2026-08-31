@@ -80,7 +80,7 @@ for (const [theme, expectedHoverBorder, expectedFocusRing] of [
     await input.click();
     await expect.poll(() => getComputedStyle(input.element()).outlineColor).toBe(expectedFocusRing);
     expect(getComputedStyle(input.element()).outlineOffset).toBe("-1px");
-    expect(getComputedStyle(input.element()).outlineWidth).toBe("1px");
+    expect(getComputedStyle(input.element()).outlineWidth).toBe("2px");
   });
 }
 

@@ -1,0 +1,23 @@
+{
+  "id": "inline-alert",
+  "name": "Inline Alert",
+  "description": "Inspect every semantic tone without changing announcement urgency.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "tone",
+      "label": "Tone",
+      "type": "select",
+      "options": ["neutral", "info", "success", "warning", "error"],
+      "default": "info"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "notice", "label": "Example · Notice" }]
+}

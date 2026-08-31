@@ -1,0 +1,23 @@
+{
+  "id": "text-area",
+  "name": "Text Area",
+  "description": "Inspect validation and interaction states on the real multiline field.",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "state",
+      "label": "State",
+      "type": "select",
+      "options": ["default", "hover", "focus-visible", "error", "read-only", "disabled"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "guidance", "label": "Example · Guidance" }]
+}

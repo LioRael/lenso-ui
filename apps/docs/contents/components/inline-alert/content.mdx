@@ -1,0 +1,47 @@
+---
+title: "Inline Alert"
+description: "An inline notice with semantic tone, replaceable icon, supporting copy, and actions."
+eyebrow: "Foundation component · Feedback"
+metadata:
+  - "@lenso/ui/inline-alert"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="inline-alert" />
+
+  <Guidance>
+    <GuidanceBlock title="Usage guidance">
+      <ul>
+        <li>Use neutral or info for guidance, warning for risk, and error for a failed operation.</li>
+        <li>Keep recovery mutations and domain-specific copy in the Consumer.</li>
+        <li>Title is neutral by default; render the heading level required by the surrounding page.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Announcements">
+      <ul>
+        <li>Tone never implies role=alert.</li>
+        <li>
+          Use role=status for non-urgent updates and role=alert only for urgent failures that need
+          immediate attention.
+        </li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { InlineAlert } from "@lenso/ui/inline-alert"
+
+<InlineAlert.Root tone="warning">
+  <InlineAlert.Icon />
+  <InlineAlert.Content>
+    <InlineAlert.Title as="h2">Configuration changed</InlineAlert.Title>
+    <InlineAlert.Description>Review the new values before continuing.</InlineAlert.Description>
+  </InlineAlert.Content>
+  <InlineAlert.Actions>{reviewButton}</InlineAlert.Actions>
+</InlineAlert.Root>`}
+  description="The Consumer opts into live-region semantics only when the update is dynamic."
+/>

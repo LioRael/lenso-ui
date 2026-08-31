@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "dependencies": [
+    "@lenso/ui@0.4.0"
+  ],
+  "files": [
+    {
+      "content": "import * as React from \"react\";\n\nimport { Surface, type SurfaceProps } from \"@lenso/ui/surface\";\n\nimport styles from \"./settings-section.module.css\";\n\nfunction mergeClassName(generated?: string, className?: string): string {\n  return [generated, className].filter(Boolean).join(\" \");\n}\n\nexport type SettingsSectionRootProps = React.ComponentPropsWithoutRef<\"section\">;\n\nexport const SettingsSectionRoot = React.forwardRef<HTMLElement, SettingsSectionRootProps>(\n  function SettingsSectionRoot({ className, ...props }, ref) {\n    return (\n      <section\n        {...props}\n        className={mergeClassName(styles.root, className)}\n        data-slot=\"settings-section\"\n        ref={ref}\n      />\n    );\n  },\n);\n\nexport type SettingsSectionHeaderProps = React.ComponentPropsWithoutRef<\"header\">;\n\nexport const SettingsSectionHeader = React.forwardRef<HTMLElement, SettingsSectionHeaderProps>(\n  function SettingsSectionHeader({ className, ...props }, ref) {\n    return (\n      <header\n        {...props}\n        className={mergeClassName(styles.header, className)}\n        data-slot=\"settings-section-header\"\n        ref={ref}\n      />\n    );\n  },\n);\n\nexport type SettingsSectionTitleProps = React.ComponentPropsWithoutRef<\"h2\">;\n\nexport const SettingsSectionTitle = React.forwardRef<HTMLHeadingElement, SettingsSectionTitleProps>(\n  function SettingsSectionTitle({ children, className, ...props }, ref) {\n    return (\n      <h2\n        {...props}\n        className={mergeClassName(styles.title, className)}\n        data-slot=\"settings-section-title\"\n        ref={ref}\n      >\n        {children}\n      </h2>\n    );\n  },\n);\n\nexport type SettingsSectionDescriptionProps = React.ComponentPropsWithoutRef<\"p\">;\n\nexport const SettingsSectionDescription = React.forwardRef<\n  HTMLParagraphElement,\n  SettingsSectionDescriptionProps\n>(function SettingsSectionDescription({ className, ...props }, ref) {\n  return (\n    <p\n      {...props}\n      className={mergeClassName(styles.description, className)}\n      data-slot=\"settings-section-description\"\n      ref={ref}\n    />\n  );\n});\n\nexport type SettingsGroupProps = Omit<SurfaceProps, \"level\">;\n\n/**\n * The visual rows container used inside a SettingsSection. It is also exposed\n * as SettingsSection.Group so both spellings share this one implementation.\n */\nexport const SettingsGroup = React.forwardRef<HTMLElement, SettingsGroupProps>(\n  function SettingsGroup({ className, ...props }, ref) {\n    return (\n      <Surface\n        {...props}\n        className={mergeClassName(styles.group, className)}\n        data-recipe=\"settings-group\"\n        level=\"panel\"\n        ref={ref}\n      />\n    );\n  },\n);\n\nexport const SettingsSection = {\n  Description: SettingsSectionDescription,\n  Group: SettingsGroup,\n  Header: SettingsSectionHeader,\n  Root: SettingsSectionRoot,\n  Title: SettingsSectionTitle,\n} as const;\n",
+      "path": "components/lenso/recipes/settings-section/index.tsx",
+      "target": "components/lenso/recipes/settings-section/index.tsx",
+      "type": "registry:component"
+    },
+    {
+      "content": ".root {\n  display: grid;\n  gap: var(--space-3, 12px);\n}\n\n.header {\n  display: grid;\n  gap: var(--space-1, 4px);\n}\n\n.title {\n  margin: 0;\n  color: var(--color-content-primary);\n  font-family: var(--font-sans);\n  font-size: 15px;\n  font-weight: 600;\n  line-height: 1.4;\n}\n\n.description {\n  max-width: 68ch;\n  margin: 0;\n  color: var(--color-content-tertiary);\n  font-family: var(--font-sans);\n  font-size: 13px;\n  line-height: 1.5;\n}\n\n.group {\n  gap: 0;\n  width: 100%;\n  overflow: hidden;\n  padding: 0;\n}\n\n.group > :global([data-slot=\"settings-row\"]:last-child) {\n  border-bottom: 0;\n}\n",
+      "path": "components/lenso/recipes/settings-section/settings-section.module.css",
+      "target": "components/lenso/recipes/settings-section/settings-section.module.css",
+      "type": "registry:style"
+    }
+  ],
+  "name": "settings-section",
+  "title": "Settings Section",
+  "type": "registry:component"
+}

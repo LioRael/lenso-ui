@@ -34,6 +34,10 @@
       "types": "./dist/combobox/index.d.ts",
       "import": "./dist/combobox/index.js"
     },
+    "./content-state": {
+      "types": "./dist/content-state/index.d.ts",
+      "import": "./dist/content-state/index.js"
+    },
     "./command-menu": {
       "types": "./dist/command-menu/index.d.ts",
       "import": "./dist/command-menu/index.js"
@@ -50,6 +54,10 @@
       "types": "./dist/dialog/index.d.ts",
       "import": "./dist/dialog/index.js"
     },
+    "./description-list": {
+      "types": "./dist/description-list/index.d.ts",
+      "import": "./dist/description-list/index.js"
+    },
     "./disclosure": {
       "types": "./dist/disclosure/index.d.ts",
       "import": "./dist/disclosure/index.js"
@@ -57,6 +65,10 @@
     "./icon-button": {
       "types": "./dist/icon-button/index.d.ts",
       "import": "./dist/icon-button/index.js"
+    },
+    "./inline-alert": {
+      "types": "./dist/inline-alert/index.d.ts",
+      "import": "./dist/inline-alert/index.js"
     },
     "./label": {
       "types": "./dist/label/index.d.ts",
@@ -98,6 +110,10 @@
       "types": "./dist/settings-row/index.d.ts",
       "import": "./dist/settings-row/index.js"
     },
+    "./shimmer-text": {
+      "types": "./dist/shimmer-text/index.d.ts",
+      "import": "./dist/shimmer-text/index.js"
+    },
     "./status-marker": {
       "types": "./dist/status-marker/index.d.ts",
       "import": "./dist/status-marker/index.js"
@@ -113,6 +129,10 @@
     "./tabs": {
       "types": "./dist/tabs/index.d.ts",
       "import": "./dist/tabs/index.js"
+    },
+    "./text-area": {
+      "types": "./dist/text-area/index.d.ts",
+      "import": "./dist/text-area/index.js"
     },
     "./text-field": {
       "types": "./dist/text-field/index.d.ts",
