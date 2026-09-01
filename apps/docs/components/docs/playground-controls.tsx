@@ -1,11 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import * as stylex from "@stylexjs/stylex";
 
 import { Select } from "@lenso/ui/select";
 import { TextField } from "@lenso/ui/text-field";
-import { styles } from "./playground-controls.stylex";
 
 interface PlaygroundControlsProps {
   children: ReactNode;
@@ -38,9 +36,9 @@ export function PlaygroundControls({
   onExampleChange,
 }: PlaygroundControlsProps) {
   return (
-    <div {...stylex.props(styles.root)}>
-      <div {...stylex.props(styles.header)}>
-        <strong {...stylex.props(styles.headerTitle)}>{name}</strong>
+    <div className="lenso-playground-controls">
+      <div className="lenso-playground-controls-header">
+        <strong>{name}</strong>
         <PlaygroundSelectControl
           label="Example"
           onValueChange={onExampleChange}
@@ -48,8 +46,8 @@ export function PlaygroundControls({
           value={example}
         />
       </div>
-      <div {...stylex.props(styles.divider)} />
-      <div {...stylex.props(styles.list)}>{children}</div>
+      <div className="lenso-playground-controls-divider" />
+      <div className="lenso-playground-controls-list">{children}</div>
     </div>
   );
 }
@@ -63,24 +61,28 @@ export function PlaygroundSelectControl({
   const selectedLabel = options.find((option) => option.value === value)?.label ?? value;
 
   return (
-    <div {...stylex.props(styles.row)}>
-      <span {...stylex.props(styles.label)}>{label}</span>
+    <div className="lenso-playground-control-row">
+      <span>{label}</span>
       <Select.Root
         onValueChange={(nextValue) => {
           if (nextValue !== null) onValueChange(nextValue);
         }}
         value={value}
       >
-        <Select.Trigger aria-label={label} xstyle={styles.selectTrigger}>
+        <Select.Trigger aria-label={label} className="lenso-playground-select-trigger">
           <Select.Value>{selectedLabel}</Select.Value>
           <Select.Icon />
         </Select.Trigger>
         <Select.Portal>
           <Select.Positioner position="item-aligned" align="start" sideOffset={4}>
-            <Select.Popup xstyle={styles.selectPopup}>
+            <Select.Popup className="lenso-playground-select-popup">
               <Select.List>
                 {options.map((option) => (
-                  <Select.Item key={option.value} value={option.value} xstyle={styles.selectItem}>
+                  <Select.Item
+                    className="lenso-playground-select-item"
+                    key={option.value}
+                    value={option.value}
+                  >
                     <Select.ItemText>{option.label}</Select.ItemText>
                     <Select.ItemIndicator />
                   </Select.Item>
@@ -96,14 +98,14 @@ export function PlaygroundSelectControl({
 
 export function PlaygroundTextControl({ label, onValueChange, value }: PlaygroundTextControlProps) {
   return (
-    <div {...stylex.props(styles.row)}>
-      <span {...stylex.props(styles.label)}>{label}</span>
-      <TextField.Root xstyle={styles.textField}>
+    <div className="lenso-playground-control-row">
+      <span>{label}</span>
+      <TextField.Root className="lenso-playground-text-field">
         <TextField.Control
           aria-label={label}
+          className="lenso-playground-text-control"
           onChange={(event) => onValueChange(event.currentTarget.value)}
           value={value}
-          xstyle={styles.textControl}
         />
       </TextField.Root>
     </div>

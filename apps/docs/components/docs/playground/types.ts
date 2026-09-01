@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import type { PlaygroundLayout } from "../live-playground";
 
 export type PlaygroundValue = boolean | number | string;
 export type PlaygroundTheme = "dark" | "light" | "system";
@@ -39,13 +38,15 @@ export interface PlaygroundExample {
 }
 
 export interface PlaygroundConfig {
+  bodyClassName?: string;
   codeTemplate?: string;
   controls: readonly PlaygroundControl[];
   defaultExample?: string;
   examples: readonly PlaygroundExample[];
   id: string;
-  layout?: PlaygroundLayout;
   name: string;
+  sectionClassName?: string;
+  stageClassName?: string;
   themeControl?: string;
   title?: string;
 }

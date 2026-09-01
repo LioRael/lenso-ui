@@ -25,6 +25,7 @@ export default async function DocumentationPage({
     <DocumentFrame
       actions={document.actions}
       description={document.description}
+      eyebrow={document.eyebrow}
       layout={document.layout}
       metadata={document.metadata}
       section={document.section}

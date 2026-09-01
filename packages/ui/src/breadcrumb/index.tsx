@@ -4,50 +4,58 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button as BaseButton } from "@base-ui/react/button";
 
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./breadcrumb.stylex.js";
 
-export const BreadcrumbRoot = React.forwardRef<
-  HTMLElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"nav">>
->(function BreadcrumbRoot({ "aria-label": ariaLabel = "Breadcrumb", xstyle, ...props }, ref) {
+export const BreadcrumbRoot = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<"nav">>(
+  function BreadcrumbRoot({ "aria-label": ariaLabel = "Breadcrumb", className, ...props }, ref) {
+    return (
+      <nav
+        {...props}
+        aria-label={ariaLabel}
+        className={[stylex.props(styles.root).className, className].filter(Boolean).join(" ")}
+        data-slot="breadcrumb-root"
+        ref={ref}
+      />
+    );
+  },
+);
+
+export const BreadcrumbList = React.forwardRef<
+  HTMLOListElement,
+  React.ComponentPropsWithoutRef<"ol">
+>(function BreadcrumbList({ className, ...props }, ref) {
   return (
-    <nav
+    <ol
       {...props}
-      aria-label={ariaLabel}
-      {...stylex.props(styles.root, xstyle)}
-      data-slot="breadcrumb-root"
+      className={[stylex.props(styles.list).className, className].filter(Boolean).join(" ")}
+      data-slot="breadcrumb-list"
       ref={ref}
     />
   );
 });
 
-export const BreadcrumbList = React.forwardRef<
-  HTMLOListElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"ol">>
->(function BreadcrumbList({ xstyle, ...props }, ref) {
-  return (
-    <ol {...props} {...stylex.props(styles.list, xstyle)} data-slot="breadcrumb-list" ref={ref} />
-  );
-});
+export const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<"li">>(
+  function BreadcrumbItem({ className, ...props }, ref) {
+    return (
+      <li
+        {...props}
+        className={[stylex.props(styles.item).className, className].filter(Boolean).join(" ")}
+        data-slot="breadcrumb-item"
+        ref={ref}
+      />
+    );
+  },
+);
 
-export const BreadcrumbItem = React.forwardRef<
-  HTMLLIElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"li">>
->(function BreadcrumbItem({ xstyle, ...props }, ref) {
-  return (
-    <li {...props} {...stylex.props(styles.item, xstyle)} data-slot="breadcrumb-item" ref={ref} />
-  );
-});
-
-export type BreadcrumbLinkProps = StyleXProps<BaseButton.Props>;
+export type BreadcrumbLinkProps = BaseButton.Props;
 
 export const BreadcrumbLink = React.forwardRef<HTMLElement, BreadcrumbLinkProps>(
-  function BreadcrumbLink({ xstyle, ...props }, ref) {
+  function BreadcrumbLink({ className, ...props }, ref) {
     return (
       <BaseButton
         {...props}
-        className={stylex.props(styles.interactive, xstyle).className}
+        className={mergeClassName(stylex.props(styles.interactive).className, className)}
         data-slot="breadcrumb-link"
         ref={ref}
       />
@@ -57,32 +65,30 @@ export const BreadcrumbLink = React.forwardRef<HTMLElement, BreadcrumbLinkProps>
 
 export const BreadcrumbPage = React.forwardRef<
   HTMLSpanElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"span">>
->(function BreadcrumbPage({ xstyle, ...props }, ref) {
+  React.ComponentPropsWithoutRef<"span">
+>(function BreadcrumbPage({ className, ...props }, ref) {
   return (
     <span
       {...props}
       aria-current="page"
-      {...stylex.props(styles.page, xstyle)}
+      className={[stylex.props(styles.page).className, className].filter(Boolean).join(" ")}
       data-slot="breadcrumb-page"
       ref={ref}
     />
   );
 });
 
-export interface BreadcrumbSeparatorProps extends StyleXProps<
-  React.ComponentPropsWithoutRef<"li">
-> {
+export interface BreadcrumbSeparatorProps extends React.ComponentPropsWithoutRef<"li"> {
   children?: React.ReactNode;
 }
 
 export const BreadcrumbSeparator = React.forwardRef<HTMLLIElement, BreadcrumbSeparatorProps>(
-  function BreadcrumbSeparator({ children, xstyle, ...props }, ref) {
+  function BreadcrumbSeparator({ children, className, ...props }, ref) {
     return (
       <li
         {...props}
         aria-hidden="true"
-        {...stylex.props(styles.separator, xstyle)}
+        className={[stylex.props(styles.separator).className, className].filter(Boolean).join(" ")}
         data-slot="breadcrumb-separator"
         ref={ref}
         role="presentation"
@@ -104,20 +110,23 @@ export const BreadcrumbSeparator = React.forwardRef<HTMLLIElement, BreadcrumbSep
   },
 );
 
-export interface BreadcrumbEllipsisProps extends Omit<StyleXProps<BaseButton.Props>, "children"> {
+export interface BreadcrumbEllipsisProps extends Omit<BaseButton.Props, "children"> {
   children?: React.ReactNode;
 }
 
 export const BreadcrumbEllipsis = React.forwardRef<HTMLElement, BreadcrumbEllipsisProps>(
   function BreadcrumbEllipsis(
-    { "aria-label": ariaLabel = "Show more breadcrumbs", children = "…", xstyle, ...props },
+    { "aria-label": ariaLabel = "Show more breadcrumbs", children = "…", className, ...props },
     ref,
   ) {
     return (
       <BaseButton
         {...props}
         aria-label={ariaLabel}
-        className={stylex.props(styles.interactive, styles.ellipsis, xstyle).className}
+        className={mergeClassName(
+          stylex.props(styles.interactive, styles.ellipsis).className,
+          className,
+        )}
         data-slot="breadcrumb-ellipsis"
         ref={ref}
       >
@@ -129,13 +138,13 @@ export const BreadcrumbEllipsis = React.forwardRef<HTMLElement, BreadcrumbEllips
 
 export const BreadcrumbIcon = React.forwardRef<
   HTMLSpanElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"span">>
->(function BreadcrumbIcon({ xstyle, ...props }, ref) {
+  React.ComponentPropsWithoutRef<"span">
+>(function BreadcrumbIcon({ className, ...props }, ref) {
   return (
     <span
       {...props}
       aria-hidden="true"
-      {...stylex.props(styles.icon, xstyle)}
+      className={[stylex.props(styles.icon).className, className].filter(Boolean).join(" ")}
       data-slot="breadcrumb-icon"
       ref={ref}
     />

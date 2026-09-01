@@ -6,7 +6,7 @@ import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 
 import { boxedControlStyles } from "../shared/boxed-control.stylex.js";
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { useThemePortalContainer } from "../theme-scope/index.js";
 import { styles } from "./menu.stylex.js";
 
@@ -15,12 +15,12 @@ export const MenuSubmenuRoot = BaseMenu.SubmenuRoot;
 export const MenuGroup = BaseMenu.Group;
 export const MenuRadioGroup = BaseMenu.RadioGroup;
 
-export const MenuTrigger = React.forwardRef<HTMLButtonElement, StyleXProps<BaseMenu.Trigger.Props>>(
-  function MenuTrigger({ xstyle, ...props }, ref) {
+export const MenuTrigger = React.forwardRef<HTMLButtonElement, BaseMenu.Trigger.Props>(
+  function MenuTrigger({ className, ...props }, ref) {
     return (
       <BaseMenu.Trigger
         {...props}
-        className={stylex.props(styles.trigger, xstyle).className}
+        className={mergeClassName(stylex.props(styles.trigger).className, className)}
         data-slot="menu-trigger"
         ref={ref}
       />
@@ -28,12 +28,12 @@ export const MenuTrigger = React.forwardRef<HTMLButtonElement, StyleXProps<BaseM
   },
 );
 
-export interface MenuControlTriggerProps extends StyleXProps<BaseMenu.Trigger.Props> {
+export interface MenuControlTriggerProps extends BaseMenu.Trigger.Props {
   icon?: React.ReactNode;
 }
 
 export const MenuControlTrigger = React.forwardRef<HTMLButtonElement, MenuControlTriggerProps>(
-  function MenuControlTrigger({ children, icon, xstyle, ...props }, ref) {
+  function MenuControlTrigger({ children, className, icon, ...props }, ref) {
     return (
       <BaseMenu.Trigger
         {...props}
@@ -43,9 +43,9 @@ export const MenuControlTrigger = React.forwardRef<HTMLButtonElement, MenuContro
             styles.controlTrigger,
             boxedControlStyles.edge,
             state.disabled && styles.controlTriggerDisabled,
-            xstyle,
           ).className;
-          return generated;
+          const custom = typeof className === "function" ? className(state) : className;
+          return custom ? `${generated} ${custom}` : generated;
         }}
         data-slot="menu-control-trigger"
         ref={ref}
@@ -75,30 +75,32 @@ export const MenuPortal = React.forwardRef<HTMLDivElement, BaseMenu.Portal.Props
   },
 );
 
-export const MenuPositioner = React.forwardRef<
-  HTMLDivElement,
-  StyleXProps<BaseMenu.Positioner.Props>
->(function MenuPositioner({ align = "start", sideOffset = 5, xstyle, ...props }, ref) {
-  return (
-    <BaseMenu.Positioner
-      {...props}
-      align={align}
-      className={stylex.props(styles.positioner, xstyle).className}
-      data-slot="menu-positioner"
-      ref={ref}
-      sideOffset={sideOffset}
-    />
-  );
-});
+export const MenuPositioner = React.forwardRef<HTMLDivElement, BaseMenu.Positioner.Props>(
+  function MenuPositioner({ align = "start", className, sideOffset = 5, ...props }, ref) {
+    return (
+      <BaseMenu.Positioner
+        {...props}
+        align={align}
+        className={mergeClassName(stylex.props(styles.positioner).className, className)}
+        data-slot="menu-positioner"
+        ref={ref}
+        sideOffset={sideOffset}
+      />
+    );
+  },
+);
 
 export const MenuPopup = React.forwardRef<
   HTMLDivElement,
-  StyleXProps<BaseMenu.Popup.Props> & { submenu?: boolean }
->(function MenuPopup({ submenu = false, xstyle, ...props }, ref) {
+  BaseMenu.Popup.Props & { submenu?: boolean }
+>(function MenuPopup({ className, submenu = false, ...props }, ref) {
   return (
     <BaseMenu.Popup
       {...props}
-      className={stylex.props(styles.popup, submenu && styles.submenuPopup, xstyle).className}
+      className={mergeClassName(
+        stylex.props(styles.popup, submenu && styles.submenuPopup).className,
+        className,
+      )}
       data-slot="menu-popup"
       ref={ref}
     />
@@ -106,53 +108,58 @@ export const MenuPopup = React.forwardRef<
 });
 
 type Tone = "danger" | "default";
+function itemClass(className: BaseMenu.Item.Props["className"], tone: Tone) {
+  return (state: BaseMenu.Item.State) => {
+    const generated = stylex.props(
+      styles.item,
+      tone === "danger" && styles.danger,
+      state.disabled && styles.disabled,
+    ).className;
+    const custom = typeof className === "function" ? className(state) : className;
+    return custom ? `${generated} ${custom}` : generated;
+  };
+}
 
-export const MenuItem = React.forwardRef<
-  HTMLElement,
-  StyleXProps<BaseMenu.Item.Props> & { tone?: Tone }
->(function MenuItem({ tone = "default", xstyle, ...props }, ref) {
-  return (
-    <BaseMenu.Item
-      {...props}
-      className={(state) =>
-        stylex.props(
-          styles.item,
-          tone === "danger" && styles.danger,
-          state.disabled && styles.disabled,
-          xstyle,
-        ).className
-      }
-      data-slot="menu-item"
-      ref={ref}
-    />
-  );
-});
+export const MenuItem = React.forwardRef<HTMLElement, BaseMenu.Item.Props & { tone?: Tone }>(
+  function MenuItem({ className, tone = "default", ...props }, ref) {
+    return (
+      <BaseMenu.Item
+        {...props}
+        className={itemClass(className, tone)}
+        data-slot="menu-item"
+        ref={ref}
+      />
+    );
+  },
+);
 export const MenuLinkItem = React.forwardRef<
   HTMLAnchorElement,
-  StyleXProps<BaseMenu.LinkItem.Props> & { tone?: Tone }
->(function MenuLinkItem({ tone = "default", xstyle, ...props }, ref) {
+  BaseMenu.LinkItem.Props & { tone?: Tone }
+>(function MenuLinkItem({ className, tone = "default", ...props }, ref) {
   return (
     <BaseMenu.LinkItem
       {...props}
-      className={stylex.props(styles.item, tone === "danger" && styles.danger, xstyle).className}
+      className={(state) => {
+        const generated = stylex.props(styles.item, tone === "danger" && styles.danger).className;
+        const custom = typeof className === "function" ? className(state) : className;
+        return custom ? `${generated} ${custom}` : generated;
+      }}
       data-slot="menu-item"
       ref={ref}
     />
   );
 });
-export interface MenuSubmenuTriggerProps extends StyleXProps<BaseMenu.SubmenuTrigger.Props> {
+export interface MenuSubmenuTriggerProps extends BaseMenu.SubmenuTrigger.Props {
   icon?: React.ReactNode;
 }
 export const MenuSubmenuTrigger = React.forwardRef<HTMLElement, MenuSubmenuTriggerProps>(
-  function MenuSubmenuTrigger({ children, icon, xstyle, ...props }, ref) {
+  function MenuSubmenuTrigger({ children, className, icon, ...props }, ref) {
     const iconNode =
       icon === undefined ? <ChevronRightIcon {...stylex.props(styles.submenuIcon)} /> : icon;
     return (
       <BaseMenu.SubmenuTrigger
         {...props}
-        className={(state) =>
-          stylex.props(styles.item, state.disabled && styles.disabled, xstyle).className
-        }
+        className={itemClass(className as BaseMenu.Item.Props["className"], "default")}
         data-slot="menu-submenu-trigger"
         ref={ref}
       >
@@ -169,31 +176,41 @@ export const MenuSubmenuTrigger = React.forwardRef<HTMLElement, MenuSubmenuTrigg
   },
 );
 
-type SpanProps = StyleXProps<React.ComponentPropsWithoutRef<"span">>;
+type SpanProps = Omit<React.ComponentPropsWithoutRef<"span">, "className"> & { className?: string };
 export const MenuLeading = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuLeading(
-  { xstyle, ...props },
-  ref,
-) {
-  return (
-    <span {...props} {...stylex.props(styles.leading, xstyle)} data-slot="menu-leading" ref={ref} />
-  );
-});
-export const MenuLabel = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuLabel(
-  { xstyle, ...props },
-  ref,
-) {
-  return (
-    <span {...props} {...stylex.props(styles.label, xstyle)} data-slot="menu-label" ref={ref} />
-  );
-});
-export const MenuTrailing = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuTrailing(
-  { xstyle, ...props },
+  { className, ...props },
   ref,
 ) {
   return (
     <span
       {...props}
-      {...stylex.props(styles.trailing, xstyle)}
+      className={mergeClassName(stylex.props(styles.leading).className, className) as string}
+      data-slot="menu-leading"
+      ref={ref}
+    />
+  );
+});
+export const MenuLabel = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuLabel(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <span
+      {...props}
+      className={mergeClassName(stylex.props(styles.label).className, className) as string}
+      data-slot="menu-label"
+      ref={ref}
+    />
+  );
+});
+export const MenuTrailing = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuTrailing(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <span
+      {...props}
+      className={mergeClassName(stylex.props(styles.trailing).className, className) as string}
       data-slot="menu-trailing"
       ref={ref}
     />
@@ -201,12 +218,12 @@ export const MenuTrailing = React.forwardRef<HTMLSpanElement, SpanProps>(functio
 });
 export const MenuShortcut = React.forwardRef<
   HTMLElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"kbd">>
->(function MenuShortcut({ xstyle, ...props }, ref) {
+  Omit<React.ComponentPropsWithoutRef<"kbd">, "className"> & { className?: string }
+>(function MenuShortcut({ className, ...props }, ref) {
   return (
     <kbd
       {...props}
-      {...stylex.props(styles.shortcut, xstyle)}
+      className={mergeClassName(stylex.props(styles.shortcut).className, className) as string}
       data-slot="menu-shortcut"
       ref={ref}
     />
@@ -214,48 +231,62 @@ export const MenuShortcut = React.forwardRef<
 });
 export const MenuHint = React.forwardRef<
   HTMLParagraphElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"p">>
->(function MenuHint({ xstyle, ...props }, ref) {
-  return <p {...props} {...stylex.props(styles.hint, xstyle)} data-slot="menu-hint" ref={ref} />;
+  Omit<React.ComponentPropsWithoutRef<"p">, "className"> & { className?: string }
+>(function MenuHint({ className, ...props }, ref) {
+  return (
+    <p
+      {...props}
+      className={mergeClassName(stylex.props(styles.hint).className, className) as string}
+      data-slot="menu-hint"
+      ref={ref}
+    />
+  );
 });
 
 export const MenuSeparator = React.forwardRef<
   HTMLHRElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"hr">>
->(function MenuSeparator({ xstyle, ...props }, ref) {
+  Omit<React.ComponentPropsWithoutRef<"hr">, "className"> & { className?: string }
+>(function MenuSeparator({ className, ...props }, ref) {
   return (
     <hr
       {...props}
-      {...stylex.props(styles.separator, xstyle)}
+      className={mergeClassName(stylex.props(styles.separator).className, className) as string}
       data-slot="menu-separator"
       ref={ref}
     />
   );
 });
-export const MenuGroupLabel = React.forwardRef<
-  HTMLDivElement,
-  StyleXProps<BaseMenu.GroupLabel.Props>
->(function MenuGroupLabel({ xstyle, ...props }, ref) {
-  return (
-    <BaseMenu.GroupLabel
-      {...props}
-      className={stylex.props(styles.groupLabel, xstyle).className}
-      data-slot="menu-group-label"
-      ref={ref}
-    />
-  );
-});
+export const MenuGroupLabel = React.forwardRef<HTMLDivElement, BaseMenu.GroupLabel.Props>(
+  function MenuGroupLabel({ className, ...props }, ref) {
+    return (
+      <BaseMenu.GroupLabel
+        {...props}
+        className={
+          typeof className === "function"
+            ? (state) =>
+                mergeClassName(
+                  stylex.props(styles.groupLabel).className,
+                  className(state),
+                ) as string
+            : (mergeClassName(stylex.props(styles.groupLabel).className, className) as string)
+        }
+        data-slot="menu-group-label"
+        ref={ref}
+      />
+    );
+  },
+);
 
 export const MenuCheckboxItem = BaseMenu.CheckboxItem;
 export const MenuRadioItem = BaseMenu.RadioItem;
 export const MenuItemIndicator = React.forwardRef<
   HTMLSpanElement,
-  StyleXProps<BaseMenu.CheckboxItemIndicator.Props>
->(function MenuItemIndicator({ children, xstyle, ...props }, ref) {
+  BaseMenu.CheckboxItemIndicator.Props
+>(function MenuItemIndicator({ children, className, ...props }, ref) {
   return (
     <BaseMenu.CheckboxItemIndicator
       {...props}
-      className={stylex.props(styles.indicator, xstyle).className}
+      className={mergeClassName(stylex.props(styles.indicator).className, className)}
       ref={ref}
     >
       {children ?? <CheckIcon aria-hidden="true" {...stylex.props(styles.submenuIcon)} />}

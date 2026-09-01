@@ -14,10 +14,6 @@ export const styles = stylex.create({
   item: { overflow: "hidden", width: "100%" },
   header: { margin: 0 },
   trigger: {
-    "--disclosure-icon-rotation": {
-      default: "0deg",
-      "[data-open]": "90deg",
-    },
     alignItems: "center",
     appearance: "none",
     backgroundColor: {

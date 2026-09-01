@@ -3,8 +3,9 @@ import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
-import "@fontsource/ibm-plex-sans/400.css";
 import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -103,7 +104,7 @@ test("Settings Row matches the approved Figma control and state matrix", async (
       )}
     </div>,
   );
-  await document.fonts.load('500 13px "IBM Plex Sans"', "Setting title");
+  await document.fonts.load('500 13px "Inter"', "Setting title");
   const board = screen.getByTestId("settings-row-figma-state-board");
   const rows = board.element().querySelectorAll<HTMLElement>('[data-slot="settings-row"]');
   await expect.poll(() => getComputedStyle(rows[1]!).backgroundColor).toBe("rgba(0, 0, 0, 0)");

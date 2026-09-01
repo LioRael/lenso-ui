@@ -178,6 +178,7 @@
   "devDependencies": {
     "@base-ui/react": "catalog:",
     "@fontsource/ibm-plex-sans": "catalog:",
+    "@fontsource/inter": "catalog:",
     "@stylexjs/unplugin": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

@@ -1,20 +1,21 @@
 import * as React from "react";
-import * as stylex from "@stylexjs/stylex";
 
 import { Surface, type SurfaceProps } from "@lenso/ui/surface";
 
-import { styles } from "./settings-section.stylex";
+import styles from "./settings-section.module.css";
 
-type StyleXProps<Props> = Omit<Props, "className"> & { xstyle?: stylex.StyleXStyles };
+function mergeClassName(generated?: string, className?: string): string {
+  return [generated, className].filter(Boolean).join(" ");
+}
 
-export type SettingsSectionRootProps = StyleXProps<React.ComponentPropsWithoutRef<"section">>;
+export type SettingsSectionRootProps = React.ComponentPropsWithoutRef<"section">;
 
 export const SettingsSectionRoot = React.forwardRef<HTMLElement, SettingsSectionRootProps>(
-  function SettingsSectionRoot({ xstyle, ...props }, ref) {
+  function SettingsSectionRoot({ className, ...props }, ref) {
     return (
       <section
         {...props}
-        {...stylex.props(styles.root, xstyle)}
+        className={mergeClassName(styles.root, className)}
         data-slot="settings-section"
         ref={ref}
       />
@@ -22,14 +23,14 @@ export const SettingsSectionRoot = React.forwardRef<HTMLElement, SettingsSection
   },
 );
 
-export type SettingsSectionHeaderProps = StyleXProps<React.ComponentPropsWithoutRef<"header">>;
+export type SettingsSectionHeaderProps = React.ComponentPropsWithoutRef<"header">;
 
 export const SettingsSectionHeader = React.forwardRef<HTMLElement, SettingsSectionHeaderProps>(
-  function SettingsSectionHeader({ xstyle, ...props }, ref) {
+  function SettingsSectionHeader({ className, ...props }, ref) {
     return (
       <header
         {...props}
-        {...stylex.props(styles.header, xstyle)}
+        className={mergeClassName(styles.header, className)}
         data-slot="settings-section-header"
         ref={ref}
       />
@@ -37,14 +38,14 @@ export const SettingsSectionHeader = React.forwardRef<HTMLElement, SettingsSecti
   },
 );
 
-export type SettingsSectionTitleProps = StyleXProps<React.ComponentPropsWithoutRef<"h2">>;
+export type SettingsSectionTitleProps = React.ComponentPropsWithoutRef<"h2">;
 
 export const SettingsSectionTitle = React.forwardRef<HTMLHeadingElement, SettingsSectionTitleProps>(
-  function SettingsSectionTitle({ children, xstyle, ...props }, ref) {
+  function SettingsSectionTitle({ children, className, ...props }, ref) {
     return (
       <h2
         {...props}
-        {...stylex.props(styles.title, xstyle)}
+        className={mergeClassName(styles.title, className)}
         data-slot="settings-section-title"
         ref={ref}
       >
@@ -54,16 +55,16 @@ export const SettingsSectionTitle = React.forwardRef<HTMLHeadingElement, Setting
   },
 );
 
-export type SettingsSectionDescriptionProps = StyleXProps<React.ComponentPropsWithoutRef<"p">>;
+export type SettingsSectionDescriptionProps = React.ComponentPropsWithoutRef<"p">;
 
 export const SettingsSectionDescription = React.forwardRef<
   HTMLParagraphElement,
   SettingsSectionDescriptionProps
->(function SettingsSectionDescription({ xstyle, ...props }, ref) {
+>(function SettingsSectionDescription({ className, ...props }, ref) {
   return (
     <p
       {...props}
-      {...stylex.props(styles.description, xstyle)}
+      className={mergeClassName(styles.description, className)}
       data-slot="settings-section-description"
       ref={ref}
     />
@@ -77,24 +78,15 @@ export type SettingsGroupProps = Omit<SurfaceProps, "level">;
  * as SettingsSection.Group so both spellings share this one implementation.
  */
 export const SettingsGroup = React.forwardRef<HTMLElement, SettingsGroupProps>(
-  function SettingsGroup({ children, xstyle, ...props }, ref) {
-    const rows = React.Children.toArray(children);
+  function SettingsGroup({ className, ...props }, ref) {
     return (
       <Surface
         {...props}
-        xstyle={[styles.group, xstyle]}
+        className={mergeClassName(styles.group, className)}
         data-recipe="settings-group"
         level="panel"
         ref={ref}
-      >
-        {rows.map((row, index) =>
-          React.isValidElement<{ xstyle?: stylex.StyleXStyles }>(row) && index === rows.length - 1
-            ? React.cloneElement(row, {
-                xstyle: [styles.lastRow, row.props.xstyle],
-              })
-            : row,
-        )}
-      </Surface>
+      />
     );
   },
 );

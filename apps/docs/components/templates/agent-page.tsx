@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
-import * as stylex from "@stylexjs/stylex";
 
 import { Button } from "@lenso/ui/button";
 
 import { PromptComposer } from "../../../../registry/source/recipes/prompt-composer";
-import { styles } from "./agent-page.stylex";
+import styles from "./agent-page.module.css";
 
-export interface AgentPageProps extends Omit<
-  React.ComponentPropsWithoutRef<"main">,
-  "className" | "onSubmit"
-> {
+function mergeClassName(generated?: string, className?: string): string {
+  return [generated, className].filter(Boolean).join(" ");
+}
+
+export interface AgentPageProps extends Omit<React.ComponentPropsWithoutRef<"main">, "onSubmit"> {
   as?: "div" | "main";
   description?: string;
   draft: string;
@@ -19,20 +19,19 @@ export interface AgentPageProps extends Omit<
   onDraftChange: (value: string) => void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   title?: string;
-  xstyle?: stylex.StyleXStyles;
 }
 
 export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function AgentPage(
   {
     as = "main",
     children,
+    className,
     description = "A focused surface for one prompt-and-response workflow.",
     draft,
     idPrefix,
     onDraftChange,
     onSubmit,
     title = "Agent workspace",
-    xstyle,
     ...props
   },
   ref,
@@ -44,21 +43,19 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
 
   const content = (
     <>
-      <header {...stylex.props(styles.header)}>
+      <header className={styles.header}>
         <div>
-          <h1 id={titleId} {...stylex.props(styles.title)}>
-            {title}
-          </h1>
-          <p {...stylex.props(styles.description)}>{description}</p>
+          <h1 id={titleId}>{title}</h1>
+          <p>{description}</p>
         </div>
       </header>
 
-      <section aria-label="Conversation" {...stylex.props(styles.transcript)}>
-        <div {...stylex.props(styles.turns)}>{children}</div>
+      <section aria-label="Conversation" className={styles.transcript}>
+        <div className={styles.turns}>{children}</div>
       </section>
 
-      <div {...stylex.props(styles.composerDock)}>
-        <span id={composerLabelId} {...stylex.props(styles.visuallyHidden)}>
+      <div className={styles.composerDock}>
+        <span className={styles.visuallyHidden} id={composerLabelId}>
           Message
         </span>
         <PromptComposer.Root
@@ -73,7 +70,7 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
             placeholder="Describe what you want to work on…"
           />
           <PromptComposer.Toolbar>
-            <span {...stylex.props(styles.shortcutHint)}>Control or Command + Enter to submit</span>
+            <span className={styles.shortcutHint}>Control or Command + Enter to submit</span>
             <PromptComposer.Actions>
               <Button type="submit">Send</Button>
             </PromptComposer.Actions>
@@ -86,7 +83,7 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
   const rootProps = {
     ...props,
     "aria-labelledby": titleId,
-    className: stylex.props(styles.root, xstyle).className,
+    className: mergeClassName(styles.root, className),
     "data-slot": "agent-page-template",
   };
 
@@ -101,31 +98,25 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
   );
 });
 
-export interface AgentTurnProps extends Omit<
-  React.ComponentPropsWithoutRef<"article">,
-  "className"
-> {
+export interface AgentTurnProps extends React.ComponentPropsWithoutRef<"article"> {
   label: string;
   speaker: "assistant" | "user";
-  xstyle?: stylex.StyleXStyles;
 }
 
 export const AgentTurn = React.forwardRef<HTMLElement, AgentTurnProps>(function AgentTurn(
-  { children, label, speaker, xstyle, ...props },
+  { children, className, label, speaker, ...props },
   ref,
 ) {
   return (
     <article
       {...props}
-      className={stylex.props(styles.turn, speaker === "user" && styles.userTurn, xstyle).className}
+      className={mergeClassName(styles.turn, className)}
       data-speaker={speaker}
       data-slot="agent-turn"
       ref={ref}
     >
-      <h2 {...stylex.props(styles.turnLabel)}>{label}</h2>
-      <div {...stylex.props(styles.turnBody)}>
-        <div {...stylex.props(styles.turnContent)}>{children}</div>
-      </div>
+      <h2>{label}</h2>
+      <div className={styles.turnBody}>{children}</div>
     </article>
   );
 });

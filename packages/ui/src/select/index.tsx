@@ -6,7 +6,7 @@ import { Select as BaseSelect } from "@base-ui/react/select";
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
 
 import { boxedControlStyles } from "../shared/boxed-control.stylex.js";
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { useThemePortalContainer } from "../theme-scope/index.js";
 import { styles } from "./select.stylex.js";
 
@@ -16,37 +16,36 @@ export const SelectRoot = BaseSelect.Root;
 export const SelectLabel = BaseSelect.Label;
 export const SelectGroup = BaseSelect.Group;
 
-export const SelectTrigger = React.forwardRef<
-  HTMLButtonElement,
-  StyleXProps<BaseSelect.Trigger.Props>
->(function SelectTrigger({ children, xstyle, ...props }, ref) {
-  return (
-    <BaseSelect.Trigger
-      {...props}
-      className={(state) => {
-        const generated = stylex.props(
-          styles.trigger,
-          boxedControlStyles.edge,
-          styles.triggerSurface,
-          state.disabled && styles.triggerDisabled,
-          xstyle,
-        ).className;
-        return generated;
-      }}
-      data-slot="select-trigger"
-      ref={ref}
-    >
-      {children}
-    </BaseSelect.Trigger>
-  );
-});
+export const SelectTrigger = React.forwardRef<HTMLButtonElement, BaseSelect.Trigger.Props>(
+  function SelectTrigger({ children, className, ...props }, ref) {
+    return (
+      <BaseSelect.Trigger
+        {...props}
+        className={(state) => {
+          const generated = stylex.props(
+            styles.trigger,
+            boxedControlStyles.edge,
+            styles.triggerSurface,
+            state.disabled && styles.triggerDisabled,
+          ).className;
+          const custom = typeof className === "function" ? className(state) : className;
+          return custom ? `${generated} ${custom}` : generated;
+        }}
+        data-slot="select-trigger"
+        ref={ref}
+      >
+        {children}
+      </BaseSelect.Trigger>
+    );
+  },
+);
 
-export const SelectValue = React.forwardRef<HTMLSpanElement, StyleXProps<BaseSelect.Value.Props>>(
-  function SelectValue({ xstyle, ...props }, ref) {
+export const SelectValue = React.forwardRef<HTMLSpanElement, BaseSelect.Value.Props>(
+  function SelectValue({ className, ...props }, ref) {
     return (
       <BaseSelect.Value
         {...props}
-        className={stylex.props(styles.value, xstyle).className}
+        className={mergeClassName(stylex.props(styles.value).className, className)}
         data-slot="select-value"
         ref={ref}
       />
@@ -54,12 +53,12 @@ export const SelectValue = React.forwardRef<HTMLSpanElement, StyleXProps<BaseSel
   },
 );
 
-export const SelectIcon = React.forwardRef<HTMLSpanElement, StyleXProps<BaseSelect.Icon.Props>>(
-  function SelectIcon({ children, xstyle, ...props }, ref) {
+export const SelectIcon = React.forwardRef<HTMLSpanElement, BaseSelect.Icon.Props>(
+  function SelectIcon({ children, className, ...props }, ref) {
     return (
       <BaseSelect.Icon
         {...props}
-        className={stylex.props(styles.icon, xstyle).className}
+        className={mergeClassName(stylex.props(styles.icon).className, className)}
         data-slot="select-icon"
         ref={ref}
       >
@@ -88,7 +87,7 @@ export const SelectPortal = React.forwardRef<HTMLDivElement, BaseSelect.Portal.P
 );
 
 export interface SelectPositionerProps extends Omit<
-  StyleXProps<BaseSelect.Positioner.Props>,
+  BaseSelect.Positioner.Props,
   "alignItemWithTrigger"
 > {
   position?: SelectPosition;
@@ -96,7 +95,7 @@ export interface SelectPositionerProps extends Omit<
 
 export const SelectPositioner = React.forwardRef<HTMLDivElement, SelectPositionerProps>(
   function SelectPositioner(
-    { align = "start", alignOffset = 1, position = "popper", sideOffset, xstyle, ...props },
+    { align = "start", alignOffset = 1, className, position = "popper", sideOffset, ...props },
     ref,
   ) {
     return (
@@ -105,7 +104,7 @@ export const SelectPositioner = React.forwardRef<HTMLDivElement, SelectPositione
         align={align}
         alignItemWithTrigger={position === "item-aligned"}
         alignOffset={alignOffset}
-        className={stylex.props(styles.positioner, xstyle).className}
+        className={mergeClassName(stylex.props(styles.positioner).className, className)}
         data-position={position}
         data-slot="select-positioner"
         ref={ref}
@@ -115,12 +114,12 @@ export const SelectPositioner = React.forwardRef<HTMLDivElement, SelectPositione
   },
 );
 
-export const SelectPopup = React.forwardRef<HTMLDivElement, StyleXProps<BaseSelect.Popup.Props>>(
-  function SelectPopup({ xstyle, ...props }, ref) {
+export const SelectPopup = React.forwardRef<HTMLDivElement, BaseSelect.Popup.Props>(
+  function SelectPopup({ className, ...props }, ref) {
     return (
       <BaseSelect.Popup
         {...props}
-        className={stylex.props(styles.popup, xstyle).className}
+        className={mergeClassName(stylex.props(styles.popup).className, className)}
         data-slot="select-popup"
         ref={ref}
       />
@@ -128,12 +127,12 @@ export const SelectPopup = React.forwardRef<HTMLDivElement, StyleXProps<BaseSele
   },
 );
 
-export const SelectList = React.forwardRef<HTMLDivElement, StyleXProps<BaseSelect.List.Props>>(
-  function SelectList({ xstyle, ...props }, ref) {
+export const SelectList = React.forwardRef<HTMLDivElement, BaseSelect.List.Props>(
+  function SelectList({ className, ...props }, ref) {
     return (
       <BaseSelect.List
         {...props}
-        className={stylex.props(styles.list, xstyle).className}
+        className={mergeClassName(stylex.props(styles.list).className, className)}
         data-slot="select-list"
         ref={ref}
       />
@@ -141,47 +140,48 @@ export const SelectList = React.forwardRef<HTMLDivElement, StyleXProps<BaseSelec
   },
 );
 
-export const SelectItem = React.forwardRef<HTMLElement, StyleXProps<BaseSelect.Item.Props>>(
-  function SelectItem({ onPointerLeave, onPointerMove, xstyle, ...props }, ref) {
-    const [pointerHovered, setPointerHovered] = React.useState(false);
+export const SelectItem = React.forwardRef<HTMLElement, BaseSelect.Item.Props>(function SelectItem(
+  { className, onPointerLeave, onPointerMove, ...props },
+  ref,
+) {
+  const [pointerHovered, setPointerHovered] = React.useState(false);
 
-    return (
-      <BaseSelect.Item
-        {...props}
-        className={(state) => {
-          const generated = stylex.props(
-            styles.item,
-            state.disabled && styles.itemDisabled,
-            xstyle,
-          ).className;
-          return generated;
-        }}
-        data-pointer-hovered={pointerHovered ? "" : undefined}
-        data-slot="select-item"
-        onPointerLeave={(event) => {
-          setPointerHovered(false);
-          onPointerLeave?.(event);
-        }}
-        onPointerMove={(event) => {
-          setPointerHovered(true);
-          onPointerMove?.(event);
-        }}
-        ref={ref}
-      />
-    );
-  },
-);
+  return (
+    <BaseSelect.Item
+      {...props}
+      className={(state) => {
+        const generated = stylex.props(
+          styles.item,
+          state.disabled && styles.itemDisabled,
+        ).className;
+        const custom = typeof className === "function" ? className(state) : className;
+        return custom ? `${generated} ${custom}` : generated;
+      }}
+      data-pointer-hovered={pointerHovered ? "" : undefined}
+      data-slot="select-item"
+      onPointerLeave={(event) => {
+        setPointerHovered(false);
+        onPointerLeave?.(event);
+      }}
+      onPointerMove={(event) => {
+        setPointerHovered(true);
+        onPointerMove?.(event);
+      }}
+      ref={ref}
+    />
+  );
+});
 
 export const SelectItemText = BaseSelect.ItemText;
 
 export const SelectItemIndicator = React.forwardRef<
   HTMLSpanElement,
-  StyleXProps<BaseSelect.ItemIndicator.Props>
->(function SelectItemIndicator({ children, xstyle, ...props }, ref) {
+  BaseSelect.ItemIndicator.Props
+>(function SelectItemIndicator({ children, className, ...props }, ref) {
   return (
     <BaseSelect.ItemIndicator
       {...props}
-      className={stylex.props(styles.itemIndicator, xstyle).className}
+      className={mergeClassName(stylex.props(styles.itemIndicator).className, className)}
       data-slot="select-item-indicator"
       ref={ref}
     >
@@ -194,47 +194,46 @@ export const SelectItemIndicator = React.forwardRef<
   );
 });
 
-export const SelectGroupLabel = React.forwardRef<
-  HTMLDivElement,
-  StyleXProps<BaseSelect.GroupLabel.Props>
->(function SelectGroupLabel({ xstyle, ...props }, ref) {
-  return (
-    <BaseSelect.GroupLabel
-      {...props}
-      className={stylex.props(styles.groupLabel, xstyle).className}
-      data-slot="select-group-label"
-      ref={ref}
-    />
-  );
-});
+export const SelectGroupLabel = React.forwardRef<HTMLDivElement, BaseSelect.GroupLabel.Props>(
+  function SelectGroupLabel({ className, ...props }, ref) {
+    return (
+      <BaseSelect.GroupLabel
+        {...props}
+        className={mergeClassName(stylex.props(styles.groupLabel).className, className)}
+        data-slot="select-group-label"
+        ref={ref}
+      />
+    );
+  },
+);
 
-export const SelectSeparator = React.forwardRef<
-  HTMLDivElement,
-  StyleXProps<BaseSelect.Separator.Props>
->(function SelectSeparator({ xstyle, ...props }, ref) {
-  return (
-    <BaseSelect.Separator
-      {...props}
-      className={stylex.props(styles.separator, xstyle).className}
-      data-slot="select-separator"
-      ref={ref}
-    />
-  );
-});
+export const SelectSeparator = React.forwardRef<HTMLDivElement, BaseSelect.Separator.Props>(
+  function SelectSeparator({ className, ...props }, ref) {
+    return (
+      <BaseSelect.Separator
+        {...props}
+        className={mergeClassName(stylex.props(styles.separator).className, className)}
+        data-slot="select-separator"
+        ref={ref}
+      />
+    );
+  },
+);
 
 const makeScrollArrow = (BaseArrow: typeof BaseSelect.ScrollUpArrow, slot: string) =>
-  React.forwardRef<HTMLDivElement, StyleXProps<BaseSelect.ScrollUpArrow.Props>>(
-    function SelectScrollArrow({ xstyle, ...props }, ref) {
-      return (
-        <BaseArrow
-          {...props}
-          className={stylex.props(styles.scrollArrow, xstyle).className}
-          data-slot={slot}
-          ref={ref}
-        />
-      );
-    },
-  );
+  React.forwardRef<HTMLDivElement, BaseSelect.ScrollUpArrow.Props>(function SelectScrollArrow(
+    { className, ...props },
+    ref,
+  ) {
+    return (
+      <BaseArrow
+        {...props}
+        className={mergeClassName(stylex.props(styles.scrollArrow).className, className)}
+        data-slot={slot}
+        ref={ref}
+      />
+    );
+  });
 
 export const SelectScrollUpArrow = makeScrollArrow(
   BaseSelect.ScrollUpArrow,

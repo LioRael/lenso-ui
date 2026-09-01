@@ -1,6 +1,7 @@
 ---
 title: "Resize Handle"
 description: "A quiet, Linear-inspired splitter for resizing and collapsing adjacent panels."
+eyebrow: "Foundation component · Layout controls"
 metadata:
   - "@lenso/ui/resize-handle"
   - "Registry ready"
@@ -31,22 +32,14 @@ import { Playground } from "@/components/docs/playground";
 
   <CodeExample
     code={String.raw`import * as React from "react"
-import * as stylex from "@stylexjs/stylex"
 import { ResizeHandle } from "@lenso/ui/resize-handle"
-
-const styles = stylex.create({
-  layout: { display: "flex" },
-  inspector: { position: "relative" },
-  handle: { insetBlock: 0, position: "absolute", right: -5 },
-  workspace: { flex: 1 },
-})
 
 export function InspectorLayout() {
   const [width, setWidth] = React.useState(320)
 
   return (
-    <div {...stylex.props(styles.layout)}>
-      <aside id="inspector" {...stylex.props(styles.inspector)} style={{ width }}>
+    <div style={{ display: "flex" }}>
+      <aside id="inspector" style={{ position: "relative", width }}>
         Inspector
         <ResizeHandle
           aria-controls="inspector"
@@ -55,10 +48,10 @@ export function InspectorLayout() {
           max={560}
           value={width}
           onValueChange={setWidth}
-          xstyle={styles.handle}
+          style={{ position: "absolute", insetBlock: 0, right: -5 }}
         />
       </aside>
-      <main {...stylex.props(styles.workspace)}>Workspace</main>
+      <main style={{ flex: 1 }}>Workspace</main>
     </div>
   )
 }`}

@@ -2,6 +2,7 @@
   "id": "settings-row",
   "name": "Settings Row",
   "themeControl": "theme",
+  "stageClassName": "settings-row-rendered-stage",
   "controls": [
     {
       "id": "control",

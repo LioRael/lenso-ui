@@ -4,7 +4,6 @@ import { TextField } from "@lenso/ui/text-field";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import type { PlaygroundAdapter } from "../types";
-import { stageStyles } from "./stage.stylex";
 
 export const dialogAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const title = typeof values.title === "string" ? values.title : "Edit details";
@@ -15,7 +14,7 @@ export const dialogAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const hasFooter = values.footer === true;
 
   return (
-    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.dialog]}>
+    <ThemeScope className="stage-canvas dialog-stage" theme={theme}>
       <Dialog.Root>
         <Dialog.Trigger render={<Button variant="secondary" />}>Open dialog</Dialog.Trigger>
         <Dialog.Portal>
@@ -28,7 +27,7 @@ export const dialogAdapter: PlaygroundAdapter = ({ theme, values }) => {
               </Dialog.Header>
               <Dialog.Body>
                 <Dialog.Description>{description}</Dialog.Description>
-                <TextField.Root xstyle={stageStyles.dialogField}>
+                <TextField.Root style={{ width: 304 }}>
                   <TextField.Label>Field label</TextField.Label>
                   <TextField.Control placeholder="Enter value" />
                   <TextField.Description>Optional supporting text.</TextField.Description>

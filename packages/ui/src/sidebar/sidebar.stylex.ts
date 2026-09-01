@@ -167,7 +167,6 @@ export const styles = stylex.create({
     fontWeight: 500,
     lineHeight: "14.5px",
   },
-  sectionTrigger: { backgroundColor: "transparent" },
   sectionAction: { position: "absolute", right: "2px" },
   sectionContent: {
     margin: "-8px -12px -8px -20px",
