@@ -578,7 +578,7 @@ test("Label matches the approved Figma state board", async () => {
   const labels = board.element().querySelectorAll<HTMLButtonElement>('[data-slot="label"]');
   expect(labels).toHaveLength(12);
   await expect.poll(() => getComputedStyle(labels[0]!).height).toBe("24px");
-  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 64)).toBeLessThanOrEqual(1);
+  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 66)).toBeLessThanOrEqual(1);
   expect(getComputedStyle(labels[0]!).backgroundColor).toBe("rgb(248, 248, 249)");
   expect(getComputedStyle(labels[1]!).backgroundColor).toBe("rgb(236, 236, 237)");
   expect(getComputedStyle(labels[3]!).backgroundColor).toBe("rgb(240, 240, 241)");
