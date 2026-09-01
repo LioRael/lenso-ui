@@ -4,7 +4,7 @@ Lenso UI is an independent React design system for Lenso products and community 
 
 <!-- lenso-release-slot:start -->
 
-The public package line in this repository is `0.4.0`. The project is still experimental: the package, token, registry, and material visual contracts are public surfaces, while the component inventory and consumer certification continue to grow. Unreleased changesets may be present after the `0.4.0` snapshot.
+The public package line in this repository is `0.5.0`. The project is still experimental: the package, token, registry, and material visual contracts are public surfaces, while the component inventory and consumer certification continue to grow. Unreleased changesets may be present after the `0.5.0` snapshot.
 <!-- lenso-release-slot:end -->
 
 ## Choose a distribution channel
@@ -65,16 +65,16 @@ import "@lenso/tokens/styles.css";
 
 <!-- lenso-release-slot:start -->
 
-Stable URLs resolve the current generated registry. Immutable release snapshots use a versioned path, for example `https://ui.lenso.dev/r/v/0.4.0/button.json`. A versioned snapshot is never rewritten; the stable alias is the channel for the current registry output.
+Stable URLs resolve the current generated registry. Immutable release snapshots use a versioned path, for example `https://ui.lenso.dev/r/v/0.5.0/button.json`. A versioned snapshot is never rewritten; the stable alias is the channel for the current registry output.
 <!-- lenso-release-slot:end -->
 
 ## Public packages and current surface
 
 <!-- lenso-release-slot:start -->
 
-- `@lenso/ui@0.4.0`: styled Foundation Components, each available from an explicit family subpath.
-- `@lenso/primitives@0.4.0`: headless Product Primitives for Sidebar and Resize Handle behavior.
-- `@lenso/tokens@0.4.0`: generated semantic CSS, TypeScript, StyleX, DTCG, contract, and Figma-map artifacts.
+- `@lenso/ui@0.5.0`: styled Foundation Components, each available from an explicit family subpath.
+- `@lenso/primitives@0.5.0`: headless Product Primitives for Sidebar and Resize Handle behavior.
+- `@lenso/tokens@0.5.0`: generated semantic CSS, TypeScript, StyleX, DTCG, contract, and Figma-map artifacts.
 
 <!-- lenso-release-slot:end -->
 
