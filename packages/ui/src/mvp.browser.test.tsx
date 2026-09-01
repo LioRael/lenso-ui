@@ -484,16 +484,19 @@ test("Switch replays hover expansion before consuming it on a second toggle", as
     await expect.poll(() => getComputedStyle(thumb).width).toBe(restingWidth);
 
     animationEnds.length = 0;
+    let feedbackAnimation: Animation | undefined;
+    thumb.addEventListener(
+      "animationstart",
+      () => {
+        feedbackAnimation = thumb.getAnimations().find((animation) => "animationName" in animation);
+        feedbackAnimation?.pause();
+      },
+      { once: true },
+    );
     await control.click();
     await expect.element(control).not.toBeChecked();
-    await expect
-      .poll(() => thumb.getAnimations().some((animation) => "animationName" in animation))
-      .toBe(true);
-    const feedbackAnimation = thumb
-      .getAnimations()
-      .find((animation) => "animationName" in animation);
+    await expect.poll(() => feedbackAnimation !== undefined).toBe(true);
     if (!feedbackAnimation) throw new Error("Switch feedback animation did not start");
-    feedbackAnimation.pause();
     feedbackAnimation.currentTime = 90;
     expect(getComputedStyle(thumb).width).toBe(expandedWidth);
     expect(getComputedStyle(thumb).left).toBe(innerAnchor);

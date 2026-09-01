@@ -14,12 +14,12 @@
     "@content-collections/next": "catalog:",
     "@fontsource/ibm-plex-mono": "catalog:",
     "@fontsource/ibm-plex-sans": "catalog:",
-    "@fontsource/inter": "catalog:",
     "@lenso/primitives": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@lenso/ui": "workspace:*",
     "@mdx-js/react": "catalog:",
     "@next/mdx": "catalog:",
+    "@stylexjs/stylex": "catalog:",
     "culori": "4.0.2",
     "dialkit": "catalog:",
     "lucide-react": "catalog:",
@@ -33,11 +33,14 @@
   },
   "devDependencies": {
     "@mdx-js/loader": "catalog:",
+    "@stylexjs/babel-plugin": "catalog:",
+    "@stylexjs/postcss-plugin": "catalog:",
     "@types/culori": "4.0.1",
     "@types/mdx": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "autoprefixer": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }

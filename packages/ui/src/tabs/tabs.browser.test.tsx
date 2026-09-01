@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
-import "@fontsource/inter/500.css";
+import "@fontsource/ibm-plex-sans/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -70,7 +70,7 @@ test("Tabs match the approved Figma item states and keyboard behavior", async ()
       </Tabs.Root>
     </>,
   );
-  await document.fonts.load('500 12px "Inter"', "Tab label");
+  await document.fonts.load('500 12px "IBM Plex Sans"', "Tab label");
   const board = screen.getByTestId("tabs-figma-state-board");
   const items = board.element().querySelectorAll<HTMLElement>("[data-state-board-item]");
   await expect.poll(() => getComputedStyle(items[4]!).opacity).toBe("0.6");

@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
-import "@fontsource/inter/500.css";
+import "@fontsource/ibm-plex-sans/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -175,7 +175,7 @@ test("single Combobox uses a trailing check, metadata, and an empty input after 
 
   const trailingStyle = getComputedStyle(trailing!);
   expect(trailingStyle.color).toBe("rgb(111, 110, 119)");
-  expect(trailingStyle.fontFamily).toContain("Inter");
+  expect(trailingStyle.fontFamily).toContain("IBM Plex Sans");
   expect(trailingStyle.fontSize).toBe("13px");
   expect(trailingStyle.fontWeight).toBe("400");
   expect(trailingStyle.fontVariantNumeric).toBe("tabular-nums");

@@ -174,8 +174,8 @@
     },
     "fontFamily": {
       "$type": "fontFamily",
-      "sans": { "$value": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"] },
-      "button": { "$value": ["IBM Plex Sans", "Inter", "ui-sans-serif", "sans-serif"] }
+      "sans": { "$value": ["IBM Plex Sans", "ui-sans-serif", "system-ui", "sans-serif"] },
+      "button": { "$value": ["IBM Plex Sans", "ui-sans-serif", "system-ui", "sans-serif"] }
     }
   }
 }

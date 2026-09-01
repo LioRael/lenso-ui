@@ -4,49 +4,51 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Tabs as BaseTabs } from "@base-ui/react/tabs";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./tabs.stylex.js";
 
-export const TabsRoot = React.forwardRef<HTMLDivElement, BaseTabs.Root.Props>(function TabsRoot(
-  { className, ...props },
+export type TabsRootProps = StyleXProps<BaseTabs.Root.Props>;
+export const TabsRoot = React.forwardRef<HTMLDivElement, TabsRootProps>(function TabsRoot(
+  { xstyle, ...props },
   ref,
 ) {
   return (
     <BaseTabs.Root
       {...props}
-      className={mergeClassName(stylex.props(styles.root).className, className)}
+      className={stylex.props(styles.root, xstyle).className}
       data-slot="tabs"
       ref={ref}
     />
   );
 });
 
-export const TabsList = React.forwardRef<HTMLDivElement, BaseTabs.List.Props>(function TabsList(
-  { className, ...props },
+export type TabsListProps = StyleXProps<BaseTabs.List.Props>;
+export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
+  { xstyle, ...props },
   ref,
 ) {
   return (
     <BaseTabs.List
       {...props}
-      className={mergeClassName(stylex.props(styles.list).className, className)}
+      className={stylex.props(styles.list, xstyle).className}
       data-slot="tabs-list"
       ref={ref}
     />
   );
 });
 
-export interface TabsTabProps extends BaseTabs.Tab.Props {
+export interface TabsTabProps extends StyleXProps<BaseTabs.Tab.Props> {
   "data-visual-state"?: "focus-visible" | "hover" | "pressed" | undefined;
 }
 
 export const TabsTab = React.forwardRef<HTMLElement, TabsTabProps>(function TabsTab(
-  { className, "data-visual-state": visualState, ...props },
+  { "data-visual-state": visualState, xstyle, ...props },
   ref,
 ) {
   return (
     <BaseTabs.Tab
       {...props}
-      className={mergeClassName(stylex.props(styles.tab).className, className)}
+      className={stylex.props(styles.tab, xstyle).className}
       data-slot="tabs-tab"
       data-visual-state={visualState}
       ref={ref}
@@ -54,14 +56,15 @@ export const TabsTab = React.forwardRef<HTMLElement, TabsTabProps>(function Tabs
   );
 });
 
-export const TabsPanel = React.forwardRef<HTMLDivElement, BaseTabs.Panel.Props>(function TabsPanel(
-  { className, ...props },
+export type TabsPanelProps = StyleXProps<BaseTabs.Panel.Props>;
+export const TabsPanel = React.forwardRef<HTMLDivElement, TabsPanelProps>(function TabsPanel(
+  { xstyle, ...props },
   ref,
 ) {
   return (
     <BaseTabs.Panel
       {...props}
-      className={mergeClassName(stylex.props(styles.panel).className, className)}
+      className={stylex.props(styles.panel, xstyle).className}
       data-slot="tabs-panel"
       ref={ref}
     />

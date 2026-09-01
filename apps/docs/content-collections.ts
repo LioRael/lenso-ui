@@ -12,7 +12,6 @@ const docs = defineCollection({
   schema: z.object({
     actions: z.tuple([z.string(), z.string()]).optional(),
     description: z.string().min(1),
-    eyebrow: z.string().min(1).optional(),
     layout: z.enum(["component", "document", "overview"]).default("component"),
     metadata: z.tuple([z.string(), z.string()]).optional(),
     title: z.string().min(1),

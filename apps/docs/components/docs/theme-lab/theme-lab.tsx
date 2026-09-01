@@ -15,6 +15,7 @@ import {
   SunIcon,
 } from "lucide-react";
 import { converter, wcagContrast, type Lch } from "culori";
+import * as stylex from "@stylexjs/stylex";
 import { useMemo, useState, type ChangeEvent, type CSSProperties } from "react";
 
 import { Button } from "@lenso/ui/button";
@@ -38,7 +39,7 @@ import {
   type ThemeRecipe,
   type ThemeTokenPath,
 } from "./color-model";
-import styles from "./theme-lab.module.css";
+import { styles } from "./theme-lab.stylex";
 
 const colorPattern = /^#[0-9a-f]{6}$/i;
 const emptyAdjustment: ColorAdjustment = { chroma: 0, hue: 0, lightness: 0 };
@@ -91,15 +92,25 @@ function ColorField({
   const formattedValue = `LCH(${lch.l.toFixed(2)}% ${lch.c.toFixed(2)} ${(lch.h ?? 0).toFixed(1)})`;
 
   return (
-    <label className={styles.colorField}>
+    <label {...stylex.props(styles.colorField)}>
       <span>{label}</span>
-      <span className={styles.colorControl} style={fieldStyle}>
-        <PipetteIcon aria-hidden="true" size={13} strokeWidth={2.2} />
-        <span className={styles.colorValue}>{formattedValue}</span>
-        <ChevronsUpDownIcon aria-hidden="true" size={13} strokeWidth={2} />
+      <span {...stylex.props(styles.colorControl)} style={fieldStyle}>
+        <PipetteIcon
+          aria-hidden="true"
+          size={13}
+          strokeWidth={2.2}
+          {...stylex.props(styles.colorControlIcon)}
+        />
+        <span {...stylex.props(styles.colorValue)}>{formattedValue}</span>
+        <ChevronsUpDownIcon
+          aria-hidden="true"
+          size={13}
+          strokeWidth={2}
+          {...stylex.props(styles.colorControlIcon, styles.colorControlTrailingIcon)}
+        />
         <input
           aria-label={`${label} picker`}
-          className={styles.colorPicker}
+          {...stylex.props(styles.colorPicker)}
           onChange={(event) => onChange(event.target.value)}
           type="color"
           value={normalizedValue}
@@ -125,10 +136,10 @@ function RangeField({
   value: number;
 }) {
   return (
-    <div className={styles.rangeField}>
-      <span className={styles.rangeLabel}>
+    <div {...stylex.props(styles.rangeField)}>
+      <span {...stylex.props(styles.rangeLabel)}>
         <span>{label}</span>
-        <output>{value}</output>
+        <output {...stylex.props(styles.rangeOutput)}>{value}</output>
       </span>
       <Slider.Root
         max={maximum}
@@ -164,10 +175,10 @@ function DerivedField({
   };
 
   return (
-    <div className={styles.derivedField}>
+    <div {...stylex.props(styles.derivedField)}>
       <span>{label}</span>
-      <label>
-        <span>L</span>
+      <label {...stylex.props(styles.numericLabel)}>
+        <span {...stylex.props(styles.numericLabelCode)}>L</span>
         <input
           aria-label={`${label} lightness offset`}
           max={12}
@@ -176,10 +187,11 @@ function DerivedField({
           step={0.5}
           type="number"
           value={value.lightness}
+          {...stylex.props(styles.numericInput)}
         />
       </label>
-      <label>
-        <span>C</span>
+      <label {...stylex.props(styles.numericLabel)}>
+        <span {...stylex.props(styles.numericLabelCode)}>C</span>
         <input
           aria-label={`${label} chroma offset`}
           max={12}
@@ -188,6 +200,7 @@ function DerivedField({
           step={0.5}
           type="number"
           value={value.chroma}
+          {...stylex.props(styles.numericInput)}
         />
       </label>
     </div>
@@ -216,52 +229,67 @@ function ModeToggle({ mode, onChange }: { mode: ThemeMode; onChange: (mode: Them
 function ContrastBadge({ label, value }: { label: string; value: number }) {
   const passes = value >= 4.5;
   return (
-    <div className={styles.contrastBadge} data-passes={passes ? "" : undefined}>
+    <div {...stylex.props(styles.contrastBadge)} data-passes={passes ? "" : undefined}>
       <span>{label}</span>
-      <strong>{value.toFixed(2)}:1</strong>
-      <span>{passes ? "AA" : "Check"}</span>
+      <strong {...stylex.props(styles.contrastValue)}>{value.toFixed(2)}:1</strong>
+      <span {...stylex.props(styles.contrastStatus, passes && styles.contrastPass)}>
+        {passes ? "AA" : "Check"}
+      </span>
     </div>
   );
 }
 
 function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode: ThemeMode }) {
   return (
-    <ThemeScope className={styles.previewTheme} overrides={generated.tokens} theme={mode}>
-      <div className={styles.previewApp}>
-        <aside className={styles.previewSidebar}>
-          <div className={styles.previewWorkspaceName}>
-            <span className={styles.previewMark}>L</span>
+    <ThemeScope overrides={generated.tokens} theme={mode} xstyle={styles.previewTheme}>
+      <div {...stylex.props(styles.previewApp)}>
+        <aside {...stylex.props(styles.previewSidebar)}>
+          <div {...stylex.props(styles.previewWorkspaceName)}>
+            <span {...stylex.props(styles.previewMark)}>L</span>
             Lenso
-            <ChevronDownIcon aria-hidden="true" size={12} />
+            <ChevronDownIcon
+              aria-hidden="true"
+              size={12}
+              {...stylex.props(styles.previewWorkspaceIcon)}
+            />
           </div>
-          <nav aria-label="Theme preview navigation">
-            <button type="button">
+          <nav aria-label="Theme preview navigation" {...stylex.props(styles.previewNav)}>
+            <button type="button" {...stylex.props(styles.previewNavButton)}>
               <SearchIcon aria-hidden="true" size={13} /> Search
-              <kbd>⌘ K</kbd>
+              <kbd {...stylex.props(styles.previewNavTrailing)}>⌘ K</kbd>
             </button>
-            <button type="button">
+            <button type="button" {...stylex.props(styles.previewNavButton)}>
               <CircleIcon aria-hidden="true" size={12} /> Inbox
-              <span>4</span>
+              <span {...stylex.props(styles.previewNavTrailing)}>4</span>
             </button>
-            <button className={styles.previewSelectedNav} type="button">
+            <button
+              type="button"
+              {...stylex.props(styles.previewNavButton, styles.previewSelectedNav)}
+            >
               <CircleIcon aria-hidden="true" size={12} /> Agent tasks
             </button>
           </nav>
-          <div className={styles.previewSidebarLabel}>Workspace</div>
-          <nav aria-label="Theme preview workspace">
-            <button type="button">Active</button>
-            <button type="button">Backlog</button>
-            <button type="button">Projects</button>
+          <div {...stylex.props(styles.previewSidebarLabel)}>Workspace</div>
+          <nav aria-label="Theme preview workspace" {...stylex.props(styles.previewNav)}>
+            <button type="button" {...stylex.props(styles.previewNavButton)}>
+              Active
+            </button>
+            <button type="button" {...stylex.props(styles.previewNavButton)}>
+              Backlog
+            </button>
+            <button type="button" {...stylex.props(styles.previewNavButton)}>
+              Projects
+            </button>
           </nav>
         </aside>
 
-        <main className={styles.previewMain}>
-          <header className={styles.previewHeader}>
-            <div>
-              <span>Workspace</span>
-              <strong>Agent tasks</strong>
+        <main {...stylex.props(styles.previewMain)}>
+          <header {...stylex.props(styles.previewHeader)}>
+            <div {...stylex.props(styles.previewHeaderLead)}>
+              <span {...stylex.props(styles.previewHeaderMeta)}>Workspace</span>
+              <strong {...stylex.props(styles.previewHeaderTitle)}>Agent tasks</strong>
             </div>
-            <div className={styles.previewHeaderActions}>
+            <div {...stylex.props(styles.previewHeaderActions)}>
               <Menu.Root>
                 <Menu.ControlTrigger>View</Menu.ControlTrigger>
                 <Menu.Portal>
@@ -281,8 +309,8 @@ function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode
             </div>
           </header>
 
-          <div className={styles.previewToolbar}>
-            <TextField.Root className={styles.previewSearch} size="compact">
+          <div {...stylex.props(styles.previewToolbar)}>
+            <TextField.Root size="compact" xstyle={styles.previewSearch}>
               <TextField.Control aria-label="Filter preview issues" placeholder="Filter issues…" />
             </TextField.Root>
             <Button size="compact" variant="secondary">
@@ -290,8 +318,8 @@ function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode
             </Button>
           </div>
 
-          <section className={styles.previewList} aria-label="Preview issue list">
-            <div className={styles.previewGroupHeader}>
+          <section aria-label="Preview issue list" {...stylex.props(styles.previewList)}>
+            <div {...stylex.props(styles.previewGroupHeader)}>
               <span>In progress</span>
               <span>3</span>
             </div>
@@ -301,39 +329,43 @@ function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode
               ["LNS-127", "Sync semantic tokens", "Foundations"],
             ].map(([identifier, title, label], index) => (
               <article
-                className={index === 0 ? styles.previewSelectedRow : styles.previewRow}
+                {...stylex.props(
+                  styles.previewRow,
+                  index > 0 && styles.previewRowBorder,
+                  index === 0 && styles.previewSelectedRow,
+                )}
                 key={identifier}
               >
                 <CircleIcon aria-hidden="true" size={13} />
-                <span>{identifier}</span>
-                <strong>{title}</strong>
-                <small>{label}</small>
+                <span {...stylex.props(styles.previewRowMeta)}>{identifier}</span>
+                <strong {...stylex.props(styles.previewRowTitle)}>{title}</strong>
+                <small {...stylex.props(styles.previewRowPill)}>{label}</small>
                 <MoreHorizontalIcon aria-hidden="true" size={14} />
               </article>
             ))}
           </section>
         </main>
 
-        <aside className={styles.previewInspector}>
-          <div className={styles.previewInspectorHeader}>
+        <aside {...stylex.props(styles.previewInspector)}>
+          <div {...stylex.props(styles.previewInspectorHeader)}>
             <span>Properties</span>
             <MoreHorizontalIcon aria-hidden="true" size={14} />
           </div>
-          <div className={styles.previewInspectorBody}>
-            <p>Selected issue</p>
-            <h3>Refine theme generation</h3>
-            <dl>
-              <div>
-                <dt>Status</dt>
-                <dd>In progress</dd>
+          <div {...stylex.props(styles.previewInspectorBody)}>
+            <p {...stylex.props(styles.previewInspectorEyebrow)}>Selected issue</p>
+            <h3 {...stylex.props(styles.previewInspectorTitle)}>Refine theme generation</h3>
+            <dl {...stylex.props(styles.previewInspectorList)}>
+              <div {...stylex.props(styles.previewInspectorListRow)}>
+                <dt {...stylex.props(styles.previewInspectorTerm)}>Status</dt>
+                <dd {...stylex.props(styles.previewInspectorDefinition)}>In progress</dd>
               </div>
-              <div>
-                <dt>Priority</dt>
-                <dd>High</dd>
+              <div {...stylex.props(styles.previewInspectorListRow)}>
+                <dt {...stylex.props(styles.previewInspectorTerm)}>Priority</dt>
+                <dd {...stylex.props(styles.previewInspectorDefinition)}>High</dd>
               </div>
-              <div>
-                <dt>Live updates</dt>
-                <dd className={styles.previewSwitchValue}>
+              <div {...stylex.props(styles.previewInspectorListRow)}>
+                <dt {...stylex.props(styles.previewInspectorTerm)}>Live updates</dt>
+                <dd {...stylex.props(styles.previewInspectorDefinition, styles.previewSwitchValue)}>
                   <Switch.Root aria-label="Live preview updates" defaultChecked size="compact">
                     <Switch.Thumb />
                   </Switch.Root>
@@ -366,49 +398,50 @@ function TokenInspector({
   };
 
   return (
-    <aside className={styles.inspector} aria-label="Generated token inspector">
-      <div className={styles.panelHeading}>
-        <div>
-          <span>Resolved output</span>
-          <h2>Color tokens</h2>
-        </div>
-        <span>{themeTokenPaths.length}</span>
+    <aside aria-label="Generated token inspector" {...stylex.props(styles.inspector)}>
+      <div {...stylex.props(styles.panelHeading)}>
+        <h2 {...stylex.props(styles.headingTitle)}>Color tokens</h2>
+        <span {...stylex.props(styles.panelCount)}>{themeTokenPaths.length}</span>
       </div>
 
-      <div className={styles.tokenList}>
+      <div {...stylex.props(styles.tokenList)}>
         {themeTokenPaths.map((path) => (
           <button
             aria-pressed={selected === path}
-            className={styles.tokenRow}
+            {...stylex.props(styles.tokenRow)}
             key={path}
             onClick={() => setSelected(path)}
             type="button"
           >
-            <span className={styles.tokenSwatch} style={{ background: generated.tokens[path] }} />
-            <span>
-              <strong>{tokenLabels[path]}</strong>
-              <small>{path}</small>
+            <span
+              {...stylex.props(styles.tokenSwatch)}
+              style={{ background: generated.tokens[path] }}
+            />
+            <span {...stylex.props(styles.tokenCopy)}>
+              <strong {...stylex.props(styles.tokenName)}>{tokenLabels[path]}</strong>
+              <small {...stylex.props(styles.tokenPath)}>{path}</small>
             </span>
-            <code>{generated.tokens[path]}</code>
+            <code {...stylex.props(styles.tokenCode)}>{generated.tokens[path]}</code>
           </button>
         ))}
       </div>
 
-      <div className={styles.adjustmentPanel}>
-        <div className={styles.adjustmentHeading}>
+      <div {...stylex.props(styles.adjustmentPanel)}>
+        <div {...stylex.props(styles.adjustmentHeading)}>
           <span>Token adjustment</span>
           <button
             disabled={!recipe.adjustments[selected]}
             onClick={() => onAdjustmentChange(null)}
             type="button"
+            {...stylex.props(styles.adjustmentButton)}
           >
             Reset
           </button>
         </div>
-        <strong>{tokenLabels[selected]}</strong>
-        <div className={styles.adjustmentGrid}>
-          <label>
-            <span>L</span>
+        <strong {...stylex.props(styles.adjustmentName)}>{tokenLabels[selected]}</strong>
+        <div {...stylex.props(styles.adjustmentGrid)}>
+          <label {...stylex.props(styles.numericLabel)}>
+            <span {...stylex.props(styles.numericLabelCode)}>L</span>
             <input
               aria-label="Token lightness offset"
               max={30}
@@ -417,10 +450,11 @@ function TokenInspector({
               step={0.5}
               type="number"
               value={adjustment.lightness}
+              {...stylex.props(styles.numericInput)}
             />
           </label>
-          <label>
-            <span>C</span>
+          <label {...stylex.props(styles.numericLabel)}>
+            <span {...stylex.props(styles.numericLabelCode)}>C</span>
             <input
               aria-label="Token chroma offset"
               max={30}
@@ -429,10 +463,11 @@ function TokenInspector({
               step={0.5}
               type="number"
               value={adjustment.chroma}
+              {...stylex.props(styles.numericInput)}
             />
           </label>
-          <label>
-            <span>H</span>
+          <label {...stylex.props(styles.numericLabel)}>
+            <span {...stylex.props(styles.numericLabelCode)}>H</span>
             <input
               aria-label="Token hue offset"
               max={180}
@@ -441,6 +476,7 @@ function TokenInspector({
               step={1}
               type="number"
               value={adjustment.hue}
+              {...stylex.props(styles.numericInput)}
             />
           </label>
         </div>
@@ -488,17 +524,18 @@ export function ThemeLab() {
   };
 
   return (
-    <section className={styles.lab} aria-label="Theme Lab">
-      <header className={styles.labHeader}>
-        <div>
-          <p>FOUNDATION TOOL · GENERATED THEMES</p>
-          <h1>Theme Lab</h1>
-          <span>Derive and inspect one coherent semantic palette in the live interface.</span>
+    <section aria-label="Theme Lab" {...stylex.props(styles.lab)}>
+      <header {...stylex.props(styles.labHeader)}>
+        <div {...stylex.props(styles.labHeaderCopy)}>
+          <h1 {...stylex.props(styles.labTitle)}>Theme Lab</h1>
+          <span {...stylex.props(styles.labDescription)}>
+            Derive and inspect one coherent semantic palette in the live interface.
+          </span>
         </div>
-        <div className={styles.labActions}>
+        <div {...stylex.props(styles.labActions)}>
           <ModeToggle mode={mode} onChange={setMode} />
           <button
-            className={styles.headerButton}
+            {...stylex.props(styles.headerButton)}
             onClick={() => {
               setRecipes((current) => ({ ...current, [mode]: defaultThemeRecipes[mode] }));
               setSelectedToken("color.surface.popover");
@@ -507,7 +544,7 @@ export function ThemeLab() {
           >
             <RotateCcwIcon aria-hidden="true" size={13} /> Reset
           </button>
-          <button className={styles.headerButton} onClick={() => copy("json")} type="button">
+          <button onClick={() => copy("json")} type="button" {...stylex.props(styles.headerButton)}>
             {copied === "json" ? (
               <CheckIcon aria-hidden="true" size={13} />
             ) : (
@@ -515,7 +552,7 @@ export function ThemeLab() {
             )}
             JSON
           </button>
-          <button className={styles.headerButton} onClick={() => copy("css")} type="button">
+          <button onClick={() => copy("css")} type="button" {...stylex.props(styles.headerButton)}>
             {copied === "css" ? (
               <CheckIcon aria-hidden="true" size={13} />
             ) : (
@@ -526,17 +563,14 @@ export function ThemeLab() {
         </div>
       </header>
 
-      <div className={styles.workspace}>
-        <aside className={styles.controls} aria-label="Theme recipe inputs">
-          <div className={styles.panelHeading}>
-            <div>
-              <span>Recipe</span>
-              <h2>Base inputs</h2>
-            </div>
-            <span>{mode}</span>
+      <div {...stylex.props(styles.workspace)}>
+        <aside aria-label="Theme recipe inputs" {...stylex.props(styles.controls)}>
+          <div {...stylex.props(styles.panelHeading)}>
+            <h2 {...stylex.props(styles.headingTitle)}>Base inputs</h2>
+            <span {...stylex.props(styles.panelCount)}>{mode}</span>
           </div>
 
-          <div className={styles.controlSection}>
+          <div {...stylex.props(styles.controlSection)}>
             <ColorField
               label="Base color"
               onChange={(base) => updateRecipe((current) => ({ ...current, base }))}
@@ -556,8 +590,8 @@ export function ThemeLab() {
             />
           </div>
 
-          <div className={styles.controlSection}>
-            <div className={styles.sectionLabel}>Derived themes</div>
+          <div {...stylex.props(styles.controlSection)}>
+            <div {...stylex.props(styles.sectionLabel)}>Derived themes</div>
             <DerivedField
               label="Elevated"
               onChange={(value) => updateDerived("elevated", value)}
@@ -570,9 +604,9 @@ export function ThemeLab() {
             />
           </div>
 
-          <div className={styles.controlSection}>
-            <div className={styles.sectionLabel}>Rendered contrast</div>
-            <div className={styles.contrastGrid}>
+          <div {...stylex.props(styles.controlSection)}>
+            <div {...stylex.props(styles.sectionLabel)}>Rendered contrast</div>
+            <div {...stylex.props(styles.contrastGrid)}>
               <ContrastBadge label="Primary / canvas" value={generated.contrast.primaryOnCanvas} />
               <ContrastBadge
                 label="Secondary / canvas"
@@ -587,13 +621,10 @@ export function ThemeLab() {
           </div>
         </aside>
 
-        <div className={styles.workArea}>
-          <div className={styles.previewHeading}>
-            <div>
-              <span>Work</span>
-              <h2>Live product preview</h2>
-            </div>
-            <code>{recipe.base}</code>
+        <div {...stylex.props(styles.workArea)}>
+          <div {...stylex.props(styles.previewHeading)}>
+            <h2 {...stylex.props(styles.headingTitle)}>Live product preview</h2>
+            <code {...stylex.props(styles.previewHeadingCode)}>{recipe.base}</code>
           </div>
           <PreviewWorkspace generated={generated} mode={mode} />
         </div>

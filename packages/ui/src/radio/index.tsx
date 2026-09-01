@@ -5,21 +5,30 @@ import * as stylex from "@stylexjs/stylex";
 import { Radio as BaseRadio } from "@base-ui/react/radio";
 import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./radio.stylex.js";
 
-export const RadioGroupRoot = React.forwardRef<HTMLDivElement, BaseRadioGroup.Props>(
-  function RadioGroupRoot({ className, ...props }, ref) {
-    return <BaseRadioGroup {...props} className={className} data-slot="radio-group" ref={ref} />;
+export type RadioGroupRootProps = StyleXProps<BaseRadioGroup.Props>;
+export const RadioGroupRoot = React.forwardRef<HTMLDivElement, RadioGroupRootProps>(
+  function RadioGroupRoot({ xstyle, ...props }, ref) {
+    return (
+      <BaseRadioGroup
+        {...props}
+        className={stylex.props(xstyle).className}
+        data-slot="radio-group"
+        ref={ref}
+      />
+    );
   },
 );
 
-export const RadioGroupItem = React.forwardRef<HTMLElement, BaseRadio.Root.Props>(
-  function RadioGroupItem({ className, ...props }, ref) {
+export type RadioGroupItemProps = StyleXProps<BaseRadio.Root.Props>;
+export const RadioGroupItem = React.forwardRef<HTMLElement, RadioGroupItemProps>(
+  function RadioGroupItem({ xstyle, ...props }, ref) {
     return (
       <BaseRadio.Root
         {...props}
-        className={mergeClassName(stylex.props(styles.item).className, className)}
+        className={stylex.props(styles.item, xstyle).className}
         data-slot="radio-group-item"
         ref={ref}
       />
@@ -27,20 +36,19 @@ export const RadioGroupItem = React.forwardRef<HTMLElement, BaseRadio.Root.Props
   },
 );
 
-export type RadioGroupIndicatorProps = Omit<BaseRadio.Indicator.Props, "keepMounted">;
+export type RadioGroupIndicatorProps = StyleXProps<Omit<BaseRadio.Indicator.Props, "keepMounted">>;
 
 export const RadioGroupIndicator = React.forwardRef<HTMLSpanElement, RadioGroupIndicatorProps>(
-  function RadioGroupIndicator({ children, className, ...props }, ref) {
+  function RadioGroupIndicator({ children, xstyle, ...props }, ref) {
     return (
       <BaseRadio.Indicator
         {...props}
         className={(state) => {
-          const generated = stylex.props(
+          return stylex.props(
             styles.indicator,
             children === undefined && state.checked && styles.selected,
+            xstyle,
           ).className;
-          const custom = typeof className === "function" ? className(state) : className;
-          return custom ? `${generated} ${custom}` : generated;
         }}
         data-slot="radio-group-indicator"
         keepMounted

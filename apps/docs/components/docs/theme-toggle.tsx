@@ -17,7 +17,6 @@ export function ThemeToggle() {
   return (
     <IconButton
       aria-label={`Use ${nextTheme} theme`}
-      className="docs-theme-toggle"
       data-current-theme={currentTheme}
       onClick={() => setTheme(nextTheme)}
       size="default"

@@ -89,6 +89,7 @@ export const styles = stylex.create({
     pointerEvents: "none",
     width: tokens.sizeIconDefault,
   },
+  iconGlyph: { height: "100%", width: "100%" },
   stateLayer: {
     backgroundColor: stateLayer.background,
     borderColor: stateLayer.border,

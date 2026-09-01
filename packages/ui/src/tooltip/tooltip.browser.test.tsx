@@ -3,7 +3,7 @@ import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
-import "@fontsource/inter/400.css";
+import "@fontsource/ibm-plex-sans/400.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -74,15 +74,15 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
       </ThemeScope>
     </>,
   );
-  await document.fonts.load('400 12px "Inter"', "Help with");
+  await document.fonts.load('400 12px "IBM Plex Sans"', "Help with");
   const board = screen.getByTestId("tooltip-figma-state-board");
   const previews = board
     .element()
     .querySelectorAll<HTMLElement>('[data-slot="tooltip-popup-preview"]');
   await expect.poll(() => getComputedStyle(previews[0]!).height).toBe("29px");
   await expect.poll(() => getComputedStyle(previews[0]!).boxShadow).toContain("-2px");
-  expect(previews[0]!.getBoundingClientRect().width).toBe(70);
-  expect(previews[1]!.getBoundingClientRect().width).toBe(96);
+  expect(previews[0]!.getBoundingClientRect().width).toBe(69);
+  expect(previews[1]!.getBoundingClientRect().width).toBe(95);
 
   const shortcut = previews[1]!.querySelector<HTMLElement>('[data-slot="tooltip-shortcut"]')!;
   const shortcutStyle = getComputedStyle(shortcut);
@@ -106,8 +106,8 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
   const runtimeTooltip = screen.getByTestId("runtime-tooltip");
   await expect.element(runtimeTooltip).toBeVisible();
   await expect.poll(() => getComputedStyle(runtimeTooltip.element()).opacity).toBe("1");
-  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeGreaterThan(96);
-  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeLessThan(98);
+  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeGreaterThan(94);
+  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeLessThan(96);
   expect(trigger.element().getAttribute("aria-describedby")).toBe(runtimeTooltip.element().id);
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,

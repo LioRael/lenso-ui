@@ -4,24 +4,23 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button as BaseButton } from "@base-ui/react/button";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./quick-link.stylex.js";
 
-export interface QuickLinkProps extends Omit<BaseButton.Props, "children" | "className"> {
+export interface QuickLinkProps extends StyleXProps<Omit<BaseButton.Props, "children">> {
   children: React.ReactNode;
-  className?: BaseButton.Props["className"];
   leadingIcon: React.ReactNode;
   trailingIcon: React.ReactNode;
 }
 
 export const QuickLink = React.forwardRef<HTMLElement, QuickLinkProps>(function QuickLink(
-  { children, className, leadingIcon, trailingIcon, ...props },
+  { children, leadingIcon, trailingIcon, xstyle, ...props },
   ref,
 ) {
   return (
     <BaseButton
       {...props}
-      className={mergeClassName(stylex.props(styles.root).className, className)}
+      className={stylex.props(styles.root, xstyle).className}
       data-slot="quick-link"
       ref={ref}
     >

@@ -2,8 +2,7 @@
   "id": "command-menu",
   "name": "Command Menu",
   "themeControl": "theme",
-  "bodyClassName": "command-menu-playground-body",
-  "sectionClassName": "command-menu-playground",
+  "layout": "command-menu",
   "controls": [
     {
       "id": "state",

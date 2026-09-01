@@ -1,9 +1,8 @@
 import * as React from "react";
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
+import "@fontsource/ibm-plex-sans/400.css";
 import "@fontsource/ibm-plex-sans/500.css";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../tokens/src/styles.css";
@@ -86,13 +85,13 @@ test("Disclosure matches the approved Figma state board", async () => {
       </div>
     </div>,
   );
-  await document.fonts.load('500 12px "Inter"', "Workspace Projects Views More");
+  await document.fonts.load('500 12px "IBM Plex Sans"', "Workspace Projects Views More");
   const board = screen.getByTestId("disclosure-figma-state-board");
   const triggers = board
     .element()
     .querySelectorAll<HTMLElement>('[data-slot="disclosure-trigger"]');
   const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="disclosure-panel"]');
-  await expect.poll(() => getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
+  await expect.poll(() => getComputedStyle(triggers[0]!).fontFamily).toContain("IBM Plex Sans");
   expect(triggers[0]?.getBoundingClientRect().height).toBe(28);
   expect(triggers[0]?.getBoundingClientRect().width).toBe(220);
   expect(triggers[0]?.getAttribute("aria-expanded")).toBe("true");
@@ -192,10 +191,10 @@ test("Breadcrumb matches the approved Figma state board", async () => {
       <BreadcrumbBoardRow type="team" />
     </div>,
   );
-  await document.fonts.load('500 13px "Inter"', "Workspace Project TestABI Issues");
+  await document.fonts.load('500 13px "IBM Plex Sans"', "Workspace Project TestABI Issues");
   const board = screen.getByTestId("breadcrumb-figma-state-board");
   const links = board.element().querySelectorAll<HTMLElement>('[data-slot="breadcrumb-link"]');
-  await expect.poll(() => getComputedStyle(links[0]!).fontFamily).toContain("Inter");
+  await expect.poll(() => getComputedStyle(links[0]!).fontFamily).toContain("IBM Plex Sans");
   await expect.poll(() => getComputedStyle(links[0]!).borderWidth).toBe("0px");
   expect(links[0]?.getBoundingClientRect().height).toBe(24);
   expect(getComputedStyle(links[0]!).fontSize).toBe("13px");
@@ -335,7 +334,7 @@ test("Avatar matches the approved Figma state board", async () => {
       </ThemeScope>
     </>,
   );
-  await document.fonts.load('500 12px "Inter"', "Avatar Status Group LR");
+  await document.fonts.load('500 12px "IBM Plex Sans"', "Avatar Status Group LR");
   const board = screen.getByTestId("avatar-figma-state-board");
   const roots = board.element().querySelectorAll<HTMLElement>('[data-slot="avatar-root"]');
   const fallbacks = board.element().querySelectorAll<HTMLElement>('[data-slot="avatar-fallback"]');
@@ -344,7 +343,7 @@ test("Avatar matches the approved Figma state board", async () => {
   await expect
     .poll(() => getComputedStyle(fallbacks[1]!).backgroundColor)
     .toBe("rgb(240, 240, 241)");
-  await expect.poll(() => getComputedStyle(fallbacks[1]!).fontFamily).toContain("Inter");
+  await expect.poll(() => getComputedStyle(fallbacks[1]!).fontFamily).toContain("IBM Plex Sans");
   expect(roots[0]?.getBoundingClientRect().width).toBe(18);
   expect(roots[6]?.getBoundingClientRect().width).toBe(40);
   expect(getComputedStyle(roots[0]!).overflow).toBe("hidden");
@@ -572,14 +571,14 @@ test("Label matches the approved Figma state board", async () => {
     </div>,
   );
 
-  await document.fonts.load('400 12px "Inter"', "Label");
-  await expect.poll(() => document.fonts.check('400 12px "Inter"')).toBe(true);
+  await document.fonts.load('400 12px "IBM Plex Sans"', "Label");
+  await expect.poll(() => document.fonts.check('400 12px "IBM Plex Sans"')).toBe(true);
 
   const board = screen.getByTestId("label-state-board");
   const labels = board.element().querySelectorAll<HTMLButtonElement>('[data-slot="label"]');
   expect(labels).toHaveLength(12);
   await expect.poll(() => getComputedStyle(labels[0]!).height).toBe("24px");
-  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 64)).toBeLessThanOrEqual(1);
+  expect(Math.abs(labels[0]!.getBoundingClientRect().width - 62)).toBeLessThanOrEqual(1);
   expect(getComputedStyle(labels[0]!).backgroundColor).toBe("rgb(248, 248, 249)");
   expect(getComputedStyle(labels[1]!).backgroundColor).toBe("rgb(236, 236, 237)");
   expect(getComputedStyle(labels[3]!).backgroundColor).toBe("rgb(240, 240, 241)");
@@ -589,7 +588,7 @@ test("Label matches the approved Figma state board", async () => {
   expect(getComputedStyle(labels[0]!).getPropertyValue("--size-border-control")).toBe("0.5px");
   expect(getComputedStyle(labels[0]!).borderColor).toBe("rgb(222, 222, 222)");
   expect(getComputedStyle(labels[0]!).boxShadow).toBe("none");
-  expect(getComputedStyle(labels[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(labels[0]!).fontFamily).toContain("IBM Plex Sans");
   expect(getComputedStyle(labels[0]!).fontSize).toBe("12px");
   expect(getComputedStyle(labels[0]!).fontWeight).toBe("400");
   expect(getComputedStyle(labels[0]!).lineHeight).toBe("14.5px");
@@ -696,8 +695,8 @@ test("Text Field matches the approved Figma state board", async () => {
     </ThemeScope>,
   );
 
-  await document.fonts.load('500 13px "Inter"', "Field label");
-  await document.fonts.load('400 13px "Inter"', "Enter value");
+  await document.fonts.load('500 13px "IBM Plex Sans"', "Field label");
+  await document.fonts.load('400 13px "IBM Plex Sans"', "Enter value");
   const board = screen.getByTestId("text-field-figma-state-board");
   const fields = board.element().querySelectorAll<HTMLElement>('[data-slot="text-field"]');
   const controls = board
@@ -804,8 +803,8 @@ test("Checkbox matches the approved Figma state board", async () => {
     </div>,
   );
 
-  await document.fonts.load('400 13px "Inter"', "Checkbox label");
-  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+  await document.fonts.load('400 13px "IBM Plex Sans"', "Checkbox label");
+  await expect.poll(() => document.fonts.check('400 13px "IBM Plex Sans"')).toBe(true);
 
   const board = screen.getByTestId("checkbox-figma-state-board");
   const roots = board.element().querySelectorAll<HTMLElement>('[data-slot="checkbox"]');
@@ -822,7 +821,7 @@ test("Checkbox matches the approved Figma state board", async () => {
     height: 14,
     width: 14,
   });
-  expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(roots[0]!).fontFamily).toContain("IBM Plex Sans");
   expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
   expect(getComputedStyle(roots[0]!).fontWeight).toBe("400");
   expect(getComputedStyle(roots[0]!).color).toBe("rgb(40, 42, 48)");
@@ -1009,8 +1008,8 @@ test("Radio matches the approved Figma state board", async () => {
     </div>,
   );
 
-  await document.fonts.load('400 13px "Inter"', "Radio label");
-  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+  await document.fonts.load('400 13px "IBM Plex Sans"', "Radio label");
+  await expect.poll(() => document.fonts.check('400 13px "IBM Plex Sans"')).toBe(true);
 
   const board = screen.getByTestId("radio-figma-state-board");
   const items = board.element().querySelectorAll<HTMLElement>('[data-slot="radio-group-item"]');
@@ -1027,7 +1026,7 @@ test("Radio matches the approved Figma state board", async () => {
     height: 14,
     width: 14,
   });
-  expect(getComputedStyle(items[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(items[0]!).fontFamily).toContain("IBM Plex Sans");
   expect(getComputedStyle(items[0]!).fontSize).toBe("13px");
   expect(getComputedStyle(items[0]!).fontWeight).toBe("400");
   expect(getComputedStyle(items[0]!).gap).toBe("8px");
@@ -1147,8 +1146,8 @@ test("Switch matches the approved Figma state board", async () => {
     </div>,
   );
 
-  await document.fonts.load('400 13px "Inter"', "Switch label");
-  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+  await document.fonts.load('400 13px "IBM Plex Sans"', "Switch label");
+  await expect.poll(() => document.fonts.check('400 13px "IBM Plex Sans"')).toBe(true);
 
   const board = screen.getByTestId("switch-figma-state-board");
   const roots = board.element().querySelectorAll<HTMLElement>('[data-slot="switch"]');
@@ -1211,7 +1210,7 @@ test("Switch matches the approved Figma state board", async () => {
     thumbs[15]!.getBoundingClientRect().left - roots[15]!.getBoundingClientRect().left - 2,
     4,
   );
-  expect(getComputedStyle(roots[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(roots[0]!).fontFamily).toContain("IBM Plex Sans");
   expect(getComputedStyle(roots[0]!).fontSize).toBe("13px");
   await expect.poll(() => getComputedStyle(tracks[0]!).backgroundColor).toBe("rgb(112, 113, 114)");
   await expect.poll(() => getComputedStyle(tracks[1]!).backgroundColor).toBe("rgb(134, 135, 137)");
@@ -1329,13 +1328,13 @@ test("Combobox matches the approved Figma state board", async () => {
     );
   }
   const screen = await render(<StateBoard />);
-  await document.fonts.load('400 13px "Inter"', "Change or add labels Loading labels");
-  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+  await document.fonts.load('400 13px "IBM Plex Sans"', "Change or add labels Loading labels");
+  await expect.poll(() => document.fonts.check('400 13px "IBM Plex Sans"')).toBe(true);
   const board = screen.getByTestId("combobox-figma-state-board");
   const inputs = board.element().querySelectorAll<HTMLElement>('[data-slot="combobox-input"]');
   await expect.poll(() => inputs.length).toBe(4);
   expect(inputs[0]?.getBoundingClientRect().height).toBe(36);
-  expect(getComputedStyle(inputs[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(inputs[0]!).fontFamily).toContain("IBM Plex Sans");
   await expect
     .poll(() => board.element().querySelectorAll('[data-slot="combobox-popup"][data-open]').length)
     .toBe(3);
@@ -1420,8 +1419,8 @@ test("Command Menu matches the approved Figma state board", async () => {
       </div>
     </div>,
   );
-  await document.fonts.load('400 15px "Inter"', "Assign to Change status");
-  await expect.poll(() => document.fonts.check('400 15px "Inter"')).toBe(true);
+  await document.fonts.load('400 15px "IBM Plex Sans"', "Assign to Change status");
+  await expect.poll(() => document.fonts.check('400 15px "IBM Plex Sans"')).toBe(true);
   const board = screen.getByTestId("command-menu-figma-state-board");
   const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="command-menu-panel"]');
   expect(panels).toHaveLength(3);
@@ -1478,8 +1477,8 @@ test("Select matches the approved Figma state board", async () => {
     </div>,
   );
 
-  await document.fonts.load('400 13px "Inter"', selectValues.join(" "));
-  await expect.poll(() => document.fonts.check('400 13px "Inter"')).toBe(true);
+  await document.fonts.load('400 13px "IBM Plex Sans"', selectValues.join(" "));
+  await expect.poll(() => document.fonts.check('400 13px "IBM Plex Sans"')).toBe(true);
 
   const board = screen.getByTestId("select-figma-state-board");
   const triggers = board.element().querySelectorAll<HTMLElement>('[data-slot="select-trigger"]');
@@ -1488,7 +1487,7 @@ test("Select matches the approved Figma state board", async () => {
   expect(Math.abs((triggers[2]?.getBoundingClientRect().width ?? 0) - 85.15)).toBeLessThanOrEqual(
     1.5,
   );
-  expect(getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
+  expect(getComputedStyle(triggers[0]!).fontFamily).toContain("IBM Plex Sans");
   expect(getComputedStyle(triggers[0]!).fontSize).toBe("13px");
   await expect
     .poll(

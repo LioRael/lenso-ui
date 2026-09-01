@@ -8,6 +8,7 @@ actions:
 ---
 
 import Link from "next/link";
+import * as stylex from "@stylexjs/stylex";
 import { Button } from "@lenso/ui/button";
 import {
   SelectIcon,
@@ -24,40 +25,40 @@ import {
 } from "@lenso/ui/select";
 import { SidebarItem } from "@lenso/ui/sidebar";
 import { SwitchRoot, SwitchThumb } from "@lenso/ui/switch";
+import { styles } from "./overview.stylex";
 
-<section className="overview-section" id="overview">
-  <div className="overview-copy">
-    <p className="docs-eyebrow">LENSO UI · DESIGN SYSTEM</p>
-    <h1>Build focused tools, without rebuilding the basics.</h1>
-    <div className="overview-description">
+<section id="overview" {...stylex.props(styles.overview)}>
+  <div {...stylex.props(styles.overviewCopy)}>
+    <h1 {...stylex.props(styles.title)}>Build focused tools, without rebuilding the basics.</h1>
+    <div {...stylex.props(styles.description)}>
       A compact, token-first interface system for Lenso products. Calm hierarchy, predictable
       states, and implementation-ready components.
     </div>
-    <div className="metadata-pills">
-      <span>Light + Dark</span>
-      <span>264 tokens</span>
+    <div {...stylex.props(styles.metadata)}>
+      <span {...stylex.props(styles.metadataPill)}>Light + Dark</span>
+      <span {...stylex.props(styles.metadataPill)}>264 tokens</span>
     </div>
   </div>
 
-  <article className="live-preview">
-    <div className="preview-header">
-      <h2>Component primitives</h2>
+  <article {...stylex.props(styles.preview)}>
+    <div {...stylex.props(styles.previewHeader)}>
+      <h2 {...stylex.props(styles.previewTitle)}>Component primitives</h2>
     </div>
-    <div className="preview-controls">
+    <div {...stylex.props(styles.previewControls)}>
       <Button
-        className="preview-cta"
         children="Get started"
         nativeButton={false}
         render={<Link href="#quick-start" />}
+        xstyle={styles.previewButton}
       />
       <SelectRoot defaultValue="default">
-        <SelectTrigger aria-label="Density" className="overview-density-select">
+        <SelectTrigger aria-label="Density" xstyle={styles.densitySelect}>
           <SelectValue />
           <SelectIcon />
         </SelectTrigger>
         <SelectPortal>
           <SelectPositioner>
-            <SelectPopup className="overview-density-popup">
+            <SelectPopup xstyle={styles.densityPopup}>
               <SelectList>
                 <SelectItem value="compact">
                   <SelectItemText>Compact</SelectItemText>
@@ -80,49 +81,49 @@ import { SwitchRoot, SwitchThumb } from "@lenso/ui/switch";
         <SwitchThumb />
       </SwitchRoot>
     </div>
-    <p>Linked instances · semantic tokens · prototype states</p>
+    <p {...stylex.props(styles.previewDescription)}>Linked instances · semantic tokens · prototype states</p>
   </article>
 </section>
 
-<section className="docs-section foundations-section" id="foundations">
-  <div className="section-copy">
-    <h2>Foundations</h2>
-    <p>Shared decisions keep every component visually and behaviorally consistent.</p>
+<section id="foundations" {...stylex.props(styles.section, styles.foundations)}>
+  <div {...stylex.props(styles.sectionCopy)}>
+    <h2 {...stylex.props(styles.sectionTitle)}>Foundations</h2>
+    <p {...stylex.props(styles.sectionDescription)}>Shared decisions keep every component visually and behaviorally consistent.</p>
   </div>
-  <div className="four-column-grid">
-    <article className="index-card">
-      <h3>Colors</h3>
-      <p>160 semantic roles · Light/Dark</p>
+  <div {...stylex.props(styles.grid, styles.fourColumns)}>
+    <article {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Colors</h3>
+      <p {...stylex.props(styles.cardDescription)}>160 semantic roles · Light/Dark</p>
     </article>
-    <article className="index-card">
-      <h3>Typography</h3>
-      <p>10 shared styles · IBM Plex Sans</p>
+    <article {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Typography</h3>
+      <p {...stylex.props(styles.cardDescription)}>10 shared styles · IBM Plex Sans</p>
     </article>
-    <article className="index-card">
-      <h3>Spacing &amp; radius</h3>
-      <p>24px rhythm · pill controls</p>
+    <article {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Spacing &amp; radius</h3>
+      <p {...stylex.props(styles.cardDescription)}>24px rhythm · pill controls</p>
     </article>
-    <article className="index-card">
-      <h3>Elevation</h3>
-      <p>Panel · overlay · tooltip · dialog</p>
+    <article {...stylex.props(styles.indexCard, styles.lastCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Elevation</h3>
+      <p {...stylex.props(styles.cardDescription)}>Panel · overlay · tooltip · dialog</p>
     </article>
   </div>
 </section>
 
-<section className="docs-section components-section" id="components">
-  <div className="section-copy">
-    <h2>Components</h2>
-    <p>Live library instances—resize, override, and inspect without detaching.</p>
+<section id="components" {...stylex.props(styles.section, styles.components)}>
+  <div {...stylex.props(styles.sectionCopy)}>
+    <h2 {...stylex.props(styles.sectionTitle)}>Components</h2>
+    <p {...stylex.props(styles.sectionDescription)}>Live library instances—resize, override, and inspect without detaching.</p>
   </div>
-  <div className="four-column-grid component-grid">
-    <article className="component-card">
-      <h3>Actions</h3>
-      <div className="component-stage actions-stage">
+  <div {...stylex.props(styles.grid, styles.fourColumns)}>
+    <article {...stylex.props(styles.componentCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Actions</h3>
+      <div {...stylex.props(styles.componentStage, styles.gappedStage)}>
         <Button
-          className="primary-sample"
           children="Primary"
           nativeButton={false}
           render={<Link href="/components/button" />}
+          xstyle={styles.previewButton}
         />
         <Button
           children="Secondary"
@@ -132,17 +133,17 @@ import { SwitchRoot, SwitchThumb } from "@lenso/ui/switch";
         />
       </div>
     </article>
-    <article className="component-card">
-      <h3>Form controls</h3>
-      <div className="component-stage form-stage">
+    <article {...stylex.props(styles.componentCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Form controls</h3>
+      <div {...stylex.props(styles.componentStage, styles.gappedStage)}>
         <SelectRoot defaultValue="default">
-          <SelectTrigger aria-label="Density" className="overview-density-select">
+          <SelectTrigger aria-label="Density" xstyle={styles.densitySelect}>
             <SelectValue />
             <SelectIcon />
           </SelectTrigger>
           <SelectPortal>
             <SelectPositioner>
-              <SelectPopup className="overview-density-popup">
+              <SelectPopup xstyle={styles.densityPopup}>
                 <SelectList>
                   <SelectItem value="compact">
                     <SelectItemText>Compact</SelectItemText>
@@ -166,74 +167,74 @@ import { SwitchRoot, SwitchThumb } from "@lenso/ui/switch";
         </SwitchRoot>
       </div>
     </article>
-    <article className="component-card">
-      <h3>Navigation</h3>
-      <div className="component-stage navigation-stage">
+    <article {...stylex.props(styles.componentCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Navigation</h3>
+      <div {...stylex.props(styles.componentStage, styles.navigationStage)}>
         <SidebarItem
-          className="overview-sidebar-item"
           children="Overview"
           nativeButton={false}
           render={<Link href="/patterns/application-sidebar" />}
           selected
+          xstyle={styles.sidebarItem}
         />
       </div>
     </article>
-    <article className="component-card">
-      <h3>Compact density</h3>
-      <div className="component-stage density-stage">
+    <article {...stylex.props(styles.componentCard, styles.lastCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Compact density</h3>
+      <div {...stylex.props(styles.componentStage, styles.gappedStage)}>
         <Button
-          className="action-sample"
           children="Action"
           nativeButton={false}
           render={<Link href="/components/button" />}
+          xstyle={styles.previewButton}
         />
         <SwitchRoot aria-label="Compact preview setting" size="compact">
           <SwitchThumb />
         </SwitchRoot>
-        <span>24–28 px</span>
+        <span {...stylex.props(styles.densityLabel)}>24–28 px</span>
       </div>
     </article>
   </div>
 </section>
 
-<section className="patterns-section" id="patterns">
-  <div className="patterns-heading">
-    <h2>Patterns</h2>
-    <p>Composed recipes for application structure and data-heavy workflows.</p>
+<section id="patterns" {...stylex.props(styles.patterns)}>
+  <div {...stylex.props(styles.patternsHeading)}>
+    <h2 {...stylex.props(styles.patternsTitle)}>Patterns</h2>
+    <p {...stylex.props(styles.patternsDescription)}>Composed recipes for application structure and data-heavy workflows.</p>
   </div>
-  <div className="three-column-grid">
-    <Link className="index-card" href="/patterns/application-sidebar">
-      <h3>Application shell</h3>
-      <p>Sidebar + raised main surface</p>
+  <div {...stylex.props(styles.grid, styles.threeColumns)}>
+    <Link href="/patterns/application-sidebar" {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Application shell</h3>
+      <p {...stylex.props(styles.cardDescription)}>Sidebar + raised main surface</p>
     </Link>
-    <Link className="index-card" href="/patterns/settings-row">
-      <h3>Settings page</h3>
-      <p>Back-to-app navigation + sections</p>
+    <Link href="/patterns/settings-row" {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Settings page</h3>
+      <p {...stylex.props(styles.cardDescription)}>Back-to-app navigation + sections</p>
     </Link>
-    <Link className="index-card" href="/patterns/page-header">
-      <h3>Data views</h3>
-      <p>Table/list selection + floating actions</p>
+    <Link href="/patterns/page-header" {...stylex.props(styles.indexCard, styles.lastCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Data views</h3>
+      <p {...stylex.props(styles.cardDescription)}>Table/list selection + floating actions</p>
     </Link>
   </div>
 </section>
 
-<section aria-label="Getting started" className="docs-section start-links-section">
-  <div className="four-column-grid start-links-grid">
-    <Link className="index-card" href="/start/installation" id="installation">
-      <h3>Installation</h3>
-      <p>Add the packages and generated tokens to a new workspace.</p>
+<section aria-label="Getting started" {...stylex.props(styles.startLinks)}>
+  <div {...stylex.props(styles.grid, styles.fourColumns)}>
+    <Link href="/start/installation" id="installation" {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Installation</h3>
+      <p {...stylex.props(styles.cardDescription)}>Add the packages and generated tokens to a new workspace.</p>
     </Link>
-    <Link className="index-card" href="/start/quick-start" id="quick-start">
-      <h3>Quick start</h3>
-      <p>Compose primitives directly, then tune the shared semantic tokens.</p>
+    <Link href="/start/quick-start" id="quick-start" {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Quick start</h3>
+      <p {...stylex.props(styles.cardDescription)}>Compose primitives directly, then tune the shared semantic tokens.</p>
     </Link>
-    <Link className="index-card" href="/start/package-vs-registry" id="package-vs-registry">
-      <h3>Package vs Registry</h3>
-      <p>Use packages for source-level work and the registry for ready recipes.</p>
+    <Link href="/start/package-vs-registry" id="package-vs-registry" {...stylex.props(styles.indexCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Package vs Registry</h3>
+      <p {...stylex.props(styles.cardDescription)}>Use packages for source-level work and the registry for ready recipes.</p>
     </Link>
-    <Link className="index-card" href="/start/release-status" id="release-status">
-      <h3>Release status</h3>
-      <p>Track implementation readiness and the current package surface.</p>
+    <Link href="/start/release-status" id="release-status" {...stylex.props(styles.indexCard, styles.lastCard)}>
+      <h3 {...stylex.props(styles.cardTitle)}>Release status</h3>
+      <p {...stylex.props(styles.cardDescription)}>Track implementation readiness and the current package surface.</p>
     </Link>
   </div>
 </section>

@@ -14,7 +14,7 @@ import {
   PlusIcon,
   SearchIcon,
 } from "lucide-react";
-import "@fontsource/inter/500.css";
+import "@fontsource/ibm-plex-sans/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -178,7 +178,7 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
       <BoardSidebar theme="dark" />
     </div>,
   );
-  await document.fonts.load('500 13px "Inter"', "Inbox Workspace Projects Home");
+  await document.fonts.load('500 13px "IBM Plex Sans"', "Inbox Workspace Projects Home");
   const board = screen.getByTestId("sidebar-figma-state-board");
   const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="sidebar-panel"]');
   const items = board.element().querySelectorAll<HTMLElement>('[data-slot="sidebar-item"]');
@@ -209,7 +209,7 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
         sectionActions[0]!.getBoundingClientRect().right - panels[0]!.getBoundingClientRect().left,
     )
     .toBe(230);
-  await expect.poll(() => getComputedStyle(items[0]!).fontFamily).toContain("Inter");
+  await expect.poll(() => getComputedStyle(items[0]!).fontFamily).toContain("IBM Plex Sans");
   await expect.poll(() => getComputedStyle(panels[1]!).backgroundColor).toBe("rgb(10, 10, 10)");
   const expectedHoverBackgrounds = ["rgb(231, 231, 232)", "rgb(24, 24, 26)"];
   for (const [index, panel] of panels.entries()) {

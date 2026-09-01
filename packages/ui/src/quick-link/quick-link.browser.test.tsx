@@ -3,7 +3,7 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import { ChevronRightIcon, SettingsIcon } from "lucide-react";
-import "@fontsource/inter/500.css";
+import "@fontsource/ibm-plex-sans/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -42,7 +42,7 @@ test("Quick Link matches the approved Default and Hover Figma states", async () 
       </div>
     </div>,
   );
-  await document.fonts.load('500 13px "Inter"', "Team settings");
+  await document.fonts.load('500 13px "IBM Plex Sans"', "Team settings");
   const board = screen.getByTestId("quick-link-figma-state-board");
   const links = board.element().querySelectorAll<HTMLElement>('[data-slot="quick-link"]');
   const trailing = board
@@ -51,7 +51,7 @@ test("Quick Link matches the approved Default and Hover Figma states", async () 
   expect(links).toHaveLength(2);
   expect(links[0]?.getBoundingClientRect().height).toBe(28);
   await expect
-    .poll(() => Math.abs((links[0]?.getBoundingClientRect().width ?? 0) - 139.25))
+    .poll(() => Math.abs((links[0]?.getBoundingClientRect().width ?? 0) - 134))
     .toBeLessThanOrEqual(1.5);
   await userEvent.hover(links[1]!);
   await expect.poll(() => getComputedStyle(trailing[0]!).opacity).toBe("0");
