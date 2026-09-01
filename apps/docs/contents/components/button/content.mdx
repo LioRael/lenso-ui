@@ -1,6 +1,6 @@
 ---
 title: "Button"
-description: "Pill-shaped action control with predictable emphasis, compact density, and complete interaction states."
+description: "Trigger a clear user action with consistent emphasis, density, and interaction feedback."
 eyebrow: "Foundation component · Actions"
 metadata:
   - "@lenso/ui/button"
@@ -14,17 +14,17 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="button" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Button when">
       <ul>
         <li>Use Button for explicit, user-initiated actions.</li>
         <li>Keep one primary action per focused surface.</li>
-        <li>Use Ghost only for low-emphasis or toolbar actions.</li>
+        <li>Use Ghost only for low-emphasis actions in toolbars or compact groups.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Labels and feedback">
       <ul>
         <li>Use a clear action label; icon-only actions need an accessible name.</li>
-        <li>Preserve focus-visible and loading feedback.</li>
+        <li>Keep focus-visible and loading feedback intact.</li>
         <li>Disabled actions must not be the only explanation.</li>
       </ul>
     </GuidanceBlock>
@@ -36,5 +36,5 @@ import { Playground } from "@/components/docs/playground";
 <Button variant="primary" size="compact">
   Create issue
 </Button>`}
-    description="Use the typed variants directly; inspect the source types for inherited Base UI props."
+    description="Choose emphasis and size through typed variants; native button behavior and Base UI composition remain available."
   />

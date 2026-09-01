@@ -1,6 +1,6 @@
 ---
 title: "Radio"
-description: "Single-choice control for mutually exclusive options within a named group."
+description: "Show a small set of mutually exclusive choices and keep every option visible."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "@lenso/ui/radio"
@@ -14,15 +14,18 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="radio" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Radio when">
       <ul>
-        <li>Single-choice control for mutually exclusive options within a named group.</li>
-        <li>Selected: False, True</li>
+        <li>People must choose one option from a short, stable set.</li>
+        <li>Use Select when the list is longer or space is constrained.</li>
+        <li>Use Checkbox when more than one option can be selected.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Group behavior">
       <ul>
-        <li>State: Default, Hover, Pressed, Focus-visible, Disabled</li>
+        <li>Give the group a visible or accessible name that frames the decision.</li>
+        <li>Base UI manages single selection and arrow-key movement within the group.</li>
+        <li>Write labels as parallel choices, not as unrelated commands.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
@@ -36,5 +39,5 @@ import { Playground } from "@/components/docs/playground";
     Compact
   </RadioGroup.Item>
 </RadioGroup.Root>`}
-    description="Use the composition pattern below; inspect source types for the complete inherited API."
+    description="Root defines the named choice set; each Item composes its indicator and label."
   />

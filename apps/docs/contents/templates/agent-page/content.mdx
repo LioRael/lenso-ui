@@ -1,10 +1,10 @@
 ---
 title: "Agent Page"
-description: "A neutral prompt-and-response workspace that leaves sessions, tools, and durable state to the application."
+description: "Compose a prompt-and-response workspace without coupling the interface to session, tool, or persistence logic."
 eyebrow: "Template · Prompt workflow"
 metadata:
   - "Prompt Composer Recipe"
-  - "Consumer-owned session"
+  - "Application-owned session"
 ---
 
 import { CodeExample } from "@/components/docs/code-example";
@@ -14,18 +14,18 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="agent-page" />
 
   <Guidance>
-    <GuidanceBlock title="Prompt Composer seam">
+    <GuidanceBlock title="Compose the prompt workflow">
       <ul>
-        <li>The Consumer passes the draft, change handler, submit handler, and action controls.</li>
+        <li>Your application passes the draft, change handler, submit handler, and action controls.</li>
         <li>Plain Enter inserts a newline by default; Control or Command + Enter submits.</li>
         <li>
           Existing Enter-to-send products may choose submitShortcut=&quot;enter&quot;. Shift+Enter still
           inserts a newline and IME composition never submits.
         </li>
-        <li>Autosizing follows text reflow and stops at the Consumer-selected row limit.</li>
+        <li>Autosizing follows text reflow and stops at the row limit you choose.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Application ownership">
+    <GuidanceBlock title="Keep product behavior outside the Recipe">
       <ul>
         <li>The Recipe does not create or persist Agent sessions.</li>
         <li>Skills, attachments, tools, and their permission flows remain product-owned slots.</li>

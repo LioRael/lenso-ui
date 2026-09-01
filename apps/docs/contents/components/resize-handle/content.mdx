@@ -1,6 +1,6 @@
 ---
 title: "Resize Handle"
-description: "A quiet, Linear-inspired splitter for resizing and collapsing adjacent panels."
+description: "Resize or collapse adjacent panels with a quiet divider and a generous interaction target."
 eyebrow: "Foundation component · Layout controls"
 metadata:
   - "@lenso/ui/resize-handle"
@@ -17,7 +17,7 @@ import { Playground } from "@/components/docs/playground";
     <GuidanceBlock title="Usage guidance">
       <ul>
         <li>Overlay the handle on the shared pane edge instead of reserving a flex or grid track for its hit target.</li>
-        <li>Keep pane sizing, persistence, and collapse state in the Consumer.</li>
+        <li>Keep pane sizing, persistence, and collapse state in your application.</li>
         <li>The 7px hit target is intentionally wider than its 0.5px visual indicator.</li>
         <li>Use <code>inverted</code> when increasing the controlled value moves against the pointer direction.</li>
       </ul>
@@ -55,5 +55,5 @@ export function InspectorLayout() {
     </div>
   )
 }`}
-    description="The handle is controlled and layout-independent; the Consumer owns pane geometry."
+    description="The handle is controlled and layout-independent; your application owns pane geometry."
   />

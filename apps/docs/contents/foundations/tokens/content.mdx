@@ -1,7 +1,7 @@
 ---
 title: "Tokens"
 layout: "document"
-description: "A generated semantic contract keeps package styles, registry source, documentation, and themes on one resolved token graph."
+description: "Inspect the semantic roles shared by package styles, registry source, documentation, and complete themes."
 eyebrow: "Foundation · Semantic contract"
 metadata:
   - "DTCG source"
@@ -12,5 +12,22 @@ actions:
 ---
 
 import { TokenExplorer } from "@/components/docs/token-explorer";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+  <Guidance>
+    <GuidanceBlock title="Choose tokens by meaning">
+      <ul>
+        <li>Use semantic roles such as <code>color.surface.panel</code> instead of copying resolved colors.</li>
+        <li>Choose the role that describes the content relationship, not the shade that happens to look close.</li>
+        <li>Inspect both modes because one semantic role resolves differently in Light and Dark themes.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Treat this page as a reference">
+      <ul>
+        <li>Search by semantic path or CSS variable, then copy the public value you need.</li>
+        <li>Generated values are read-only here; edit canonical token source rather than documentation output.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
 
 <TokenExplorer />
