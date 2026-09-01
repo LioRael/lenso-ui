@@ -528,9 +528,9 @@
     "prompt-composer": {
       "files": [
         {
-          "registrySha256": "1a1d365af66d59805739016372ed068250f55e53105abf95e3096c239d83d27d",
+          "registrySha256": "2d8847981f14586504f23aa0690f1b60090f029ec138b451d03b5a50afb772d1",
           "source": "registry/source/recipes/prompt-composer/index.tsx",
-          "sourceSha256": "1a1d365af66d59805739016372ed068250f55e53105abf95e3096c239d83d27d",
+          "sourceSha256": "2d8847981f14586504f23aa0690f1b60090f029ec138b451d03b5a50afb772d1",
           "target": "components/lenso/recipes/prompt-composer/index.tsx"
         },
         {
@@ -546,10 +546,10 @@
           "target": "components/lenso/recipes/prompt-composer/keyboard.ts"
         },
         {
-          "registrySha256": "a20857fc68378b900387e3c4562b3ae73460e3cd540f5c5e68f9a38f5c847c72",
-          "source": "registry/source/recipes/prompt-composer/prompt-composer.module.css",
-          "sourceSha256": "a20857fc68378b900387e3c4562b3ae73460e3cd540f5c5e68f9a38f5c847c72",
-          "target": "components/lenso/recipes/prompt-composer/prompt-composer.module.css"
+          "registrySha256": "7d2f41fed7d0f17a7f078086b99b8bbc9f3fa01ec8968cb35dd0229a49efc1f9",
+          "source": "registry/source/recipes/prompt-composer/prompt-composer.stylex.ts",
+          "sourceSha256": "7d2f41fed7d0f17a7f078086b99b8bbc9f3fa01ec8968cb35dd0229a49efc1f9",
+          "target": "components/lenso/recipes/prompt-composer/prompt-composer.stylex.ts"
         }
       ]
     },
@@ -752,16 +752,16 @@
     "settings-section": {
       "files": [
         {
-          "registrySha256": "365c0a5d6edbeb98dd8279037a9fbc1d1e6eab7d394978541cf041265689310f",
+          "registrySha256": "56804629fe99579663276979a08a5c6c15724710c647c9cd19e11a75333883e4",
           "source": "registry/source/recipes/settings-section/index.tsx",
-          "sourceSha256": "365c0a5d6edbeb98dd8279037a9fbc1d1e6eab7d394978541cf041265689310f",
+          "sourceSha256": "56804629fe99579663276979a08a5c6c15724710c647c9cd19e11a75333883e4",
           "target": "components/lenso/recipes/settings-section/index.tsx"
         },
         {
-          "registrySha256": "2325aa4e7cb336eadcb45b43b672dad95f48fcb8440ab4f22710aaa65f08bde4",
-          "source": "registry/source/recipes/settings-section/settings-section.module.css",
-          "sourceSha256": "2325aa4e7cb336eadcb45b43b672dad95f48fcb8440ab4f22710aaa65f08bde4",
-          "target": "components/lenso/recipes/settings-section/settings-section.module.css"
+          "registrySha256": "09328ca27e60fe6bc19bb3941f72b7745df2c871120d2f4db203db1abe9404f0",
+          "source": "registry/source/recipes/settings-section/settings-section.stylex.ts",
+          "sourceSha256": "09328ca27e60fe6bc19bb3941f72b7745df2c871120d2f4db203db1abe9404f0",
+          "target": "components/lenso/recipes/settings-section/settings-section.stylex.ts"
         }
       ]
     },
@@ -918,9 +918,9 @@
     "surface": {
       "files": [
         {
-          "registrySha256": "b662832973775d0e8fa6f7e61740a85274a718aa6d8eb4010143785ae5ad2528",
+          "registrySha256": "d9ee504107ed58f47f7b2bdd8cb03fee221cecba828083c0e998f9f40db83394",
           "source": "packages/ui/src/surface/index.tsx",
-          "sourceSha256": "b662832973775d0e8fa6f7e61740a85274a718aa6d8eb4010143785ae5ad2528",
+          "sourceSha256": "d9ee504107ed58f47f7b2bdd8cb03fee221cecba828083c0e998f9f40db83394",
           "target": "components/lenso/surface/index.tsx"
         },
         {

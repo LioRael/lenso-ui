@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
+    "@stylexjs/stylex": "catalog:",
     "@stylexjs/unplugin": "catalog:",
     "@types/node": "catalog:",
     "oxfmt": "catalog:",

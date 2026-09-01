@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { SearchIcon } from "lucide-react";
 
 import { Avatar } from "@lenso/ui/avatar";
@@ -27,6 +28,7 @@ import { TextField } from "@lenso/ui/text-field";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import type { PlaygroundAdapter } from "../types";
+import { styles } from "./content.stylex";
 
 function stringValue(
   values: Readonly<Record<string, boolean | number | string>>,
@@ -312,9 +314,11 @@ export const surfaceAdapter: PlaygroundAdapter = ({ theme, values }) => {
 
   return (
     <ThemeScope className="stage-canvas surface-stage" theme={theme}>
-      <Surface className="surface-demo" level={level}>
-        <h3>Panel title</h3>
-        <p>Use this region for product content assembled from existing components.</p>
+      <Surface level={level} xstyle={styles.surfaceDemo}>
+        <h3 {...stylex.props(styles.surfaceTitle)}>Panel title</h3>
+        <p {...stylex.props(styles.surfaceDescription)}>
+          Use this region for product content assembled from existing components.
+        </p>
       </Surface>
     </ThemeScope>
   );

@@ -1541,26 +1541,6 @@ html[data-theme="dark"] .button-implementation .shiki span {
   padding-top: 0;
 }
 
-.surface-demo {
-  height: 198px;
-  width: 360px;
-}
-
-.surface-demo h3 {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.surface-demo p {
-  color: var(--color-content-secondary);
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 13px;
-  line-height: normal;
-  margin: 0;
-}
-
 @media (max-width: 1320px) {
   .document-layout {
     width: 100%;
@@ -1773,3 +1753,6 @@ html[data-theme="dark"] .button-implementation .shiki span {
     display: none;
   }
 }
+
+/* Inject docs-owned StyleX rules without outranking intentional docs overrides. */
+@stylex;
