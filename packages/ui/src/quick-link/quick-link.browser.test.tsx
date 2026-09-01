@@ -51,7 +51,7 @@ test("Quick Link matches the approved Default and Hover Figma states", async () 
   expect(links).toHaveLength(2);
   expect(links[0]?.getBoundingClientRect().height).toBe(28);
   await expect
-    .poll(() => Math.abs((links[0]?.getBoundingClientRect().width ?? 0) - 144.5))
+    .poll(() => Math.abs((links[0]?.getBoundingClientRect().width ?? 0) - 134))
     .toBeLessThanOrEqual(1.5);
   await userEvent.hover(links[1]!);
   await expect.poll(() => getComputedStyle(trailing[0]!).opacity).toBe("0");

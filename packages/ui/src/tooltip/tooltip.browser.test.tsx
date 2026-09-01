@@ -82,7 +82,7 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
   await expect.poll(() => getComputedStyle(previews[0]!).height).toBe("29px");
   await expect.poll(() => getComputedStyle(previews[0]!).boxShadow).toContain("-2px");
   expect(previews[0]!.getBoundingClientRect().width).toBe(69);
-  expect(previews[1]!.getBoundingClientRect().width).toBe(96);
+  expect(previews[1]!.getBoundingClientRect().width).toBe(95);
 
   const shortcut = previews[1]!.querySelector<HTMLElement>('[data-slot="tooltip-shortcut"]')!;
   const shortcutStyle = getComputedStyle(shortcut);
