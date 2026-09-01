@@ -1,6 +1,6 @@
 ---
 title: "Combobox"
-description: "Searchable single- or multiple-selection control with closed, open, empty, and loading states."
+description: "Search a large option set, then choose one or more matching values."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "Figma canonical"
@@ -14,16 +14,18 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="combobox" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Combobox when">
       <ul>
-        <li>Searchable selection control with closed, open, empty, and loading states.</li>
-        <li>Use multiple selection for checkbox indicators; single selection uses a trailing check and item metadata.</li>
+        <li>The option set is too large to scan comfortably in a Select.</li>
+        <li>Use multiple selection only when every chosen value remains visible and removable.</li>
+        <li>Use Text Field when people may enter a value that is not in a known option set.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Search behavior">
       <ul>
-        <li>State: Closed, Open, Empty, Loading</li>
-        <li>Selection: Single, Multiple</li>
+        <li>Describe what can be searched in the visible label or input placeholder.</li>
+        <li>Show explicit loading, empty, and no-match states inside the popup.</li>
+        <li>Base UI manages combobox semantics, active options, and keyboard navigation.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
@@ -50,5 +52,5 @@ import { Playground } from "@/components/docs/playground";
     </Combobox.Positioner>
   </Combobox.Portal>
 </Combobox.Root>`}
-    description="Use the composition API below; every visual part remains consumer replaceable."
+    description="The application supplies filtering and item content; the component provides the searchable selection structure."
   />

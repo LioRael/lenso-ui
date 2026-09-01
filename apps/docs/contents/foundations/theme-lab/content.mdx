@@ -1,7 +1,7 @@
 ---
 title: "Theme Lab"
 layout: "document"
-description: "Generate, inspect, and export a coherent semantic theme against a live product surface."
+description: "Tune a coherent surface palette from a small set of inputs, inspect both modes, and export semantic token overrides."
 eyebrow: "Foundation · Internal tool"
 metadata:
   - "LCH generated"
@@ -12,5 +12,23 @@ actions:
 ---
 
 import { ThemeLab } from "@/components/docs/theme-lab/theme-lab";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+  <Guidance>
+    <GuidanceBlock title="Use Theme Lab to shape a palette">
+      <ul>
+        <li>Choose a base color, accent, and contrast before adjusting individual token roles.</li>
+        <li>Compare canvas, panel, elevated, and overlay surfaces as one family rather than isolated swatches.</li>
+        <li>Check both Light and Dark modes before copying a recipe.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Keep the output intentional">
+      <ul>
+        <li>The preview is local and does not change the design system automatically.</li>
+        <li>Export semantic overrides only after checking text contrast, focus, selection, and disabled states.</li>
+        <li>Prefer the smallest override set that expresses the product palette.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
 
 <ThemeLab />

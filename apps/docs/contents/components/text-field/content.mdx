@@ -1,6 +1,6 @@
 ---
 title: "Text Field"
-description: "Single-line input with label, supporting text, validation, and visible keyboard focus."
+description: "Collect a short, structured value with a persistent label and inline validation."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "@lenso/ui/text-field"
@@ -14,19 +14,17 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="text-field" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Text Field when">
       <ul>
-        <li>
-          Use for short, structured values. Keep the visible label even when placeholder copy is
-          present.
-        </li>
-        <li>Size: Default, Compact</li>
-        <li>Patterns: Search, Leading icon</li>
+        <li>People enter a short value such as a name, URL, or search query.</li>
+        <li>Use Text Area for multi-line prose and Combobox for a searchable known option set.</li>
+        <li>Keep the visible label even when placeholder copy provides an example.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Validation and actions">
       <ul>
-        <li>Default, Hover, Active, Focus-visible, Error, Read-only, Disabled</li>
+        <li>Use Description for format guidance and Error for a specific correction.</li>
+        <li>Prefer read-only when the value should remain selectable; use disabled only when it is unavailable.</li>
         <li>Give Clear a task-specific accessible name and hide decorative icons.</li>
       </ul>
     </GuidanceBlock>
@@ -40,7 +38,7 @@ import { Playground } from "@/components/docs/playground";
   <TextField.Control placeholder="Untitled" />
   <TextField.Description>Visible to your team.</TextField.Description>
 </TextField.Root>`}
-    description="Use the composition pattern below; inspect source types for the complete inherited API."
+    description="Root connects the label, description, error, and control while preserving native input props."
   />
 
   <CodeExample

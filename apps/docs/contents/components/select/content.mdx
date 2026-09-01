@@ -1,6 +1,6 @@
 ---
 title: "Select"
-description: "Closed and open single-selection control for choosing from a short option list."
+description: "Choose one value from a compact list without showing every option at once."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "@lenso/ui/select"
@@ -14,18 +14,20 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="select" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Select when">
       <ul>
-        <li>Closed and open single-selection control for choosing from a short option list.</li>
-        <li>Expanded: False, True</li>
-        <li>Selected: First, Second, Third, Fourth, Fifth</li>
+        <li>People choose one value from a familiar list and do not need to compare every option.</li>
+        <li>Use Radio for a short decision whose choices should remain visible.</li>
+        <li>Use Combobox when people need to search or select more than one value.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Labels and behavior">
       <ul>
+        <li>Connect the trigger to a visible label that describes the value being chosen.</li>
         <li>
           Keyboard navigation, selection, dismissal, and focus restoration are provided by Base UI.
         </li>
+        <li>Keep option labels concise and use a placeholder only when no value has been selected.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
@@ -51,5 +53,5 @@ import { Playground } from "@/components/docs/playground";
     </Select.Positioner>
   </Select.Portal>
 </Select.Root>`}
-    description="Use the composition pattern below; inspect source types for the complete inherited API."
+    description="Compose the trigger and popup explicitly so labels, positioning, and option content remain application-owned."
   />

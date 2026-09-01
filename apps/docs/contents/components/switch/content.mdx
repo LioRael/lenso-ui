@@ -1,6 +1,6 @@
 ---
 title: "Switch"
-description: "Immediate on/off control with inline-label and control-only layouts plus stateful thumb motion."
+description: "Turn one setting on or off and apply the change immediately."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "@lenso/ui/switch"
@@ -14,21 +14,21 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="switch" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Switch when">
       <ul>
-        <li>Immediate on/off control with compact and default sizes plus stateful thumb motion.</li>
-        <li>Size: Default, Compact</li>
+        <li>The setting is binary and takes effect as soon as it changes.</li>
+        <li>Use Checkbox when the value belongs to a form that is submitted later.</li>
         <li>
           Use the control-only layout when a visible label outside the Switch names it, such as a
           Settings Row label.
         </li>
-        <li>Compact switches are always control-only.</li>
-        <li>On: False, True</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Labels and feedback">
       <ul>
-        <li>State: Default, Hover, Pressed, Focus-visible, Disabled</li>
+        <li>Use a label that describes the setting, not the action: “Notifications,” not “Enable.”</li>
+        <li>Keep compact switches control-only and connect them to a visible external label.</li>
+        <li>Announce a failure if the application cannot persist the new state.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
@@ -39,5 +39,5 @@ import { Playground } from "@/components/docs/playground";
 <Switch.Root aria-label="Notifications" defaultChecked layout="control-only">
   <Switch.Thumb />
 </Switch.Root>`}
-    description="Use the composition pattern below; inspect source types for the complete inherited API."
+    description="Root owns switch semantics; layout controls whether its visible label is internal or supplied by the surrounding pattern."
   />

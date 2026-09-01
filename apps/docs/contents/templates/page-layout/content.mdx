@@ -1,6 +1,6 @@
 ---
-title: "Page Layout"
-description: "A desktop application shell that separates persistent navigation, the primary work surface, and compact environment utilities."
+title: "Page layout"
+description: "Frame persistent navigation, the primary work surface, and low-frequency utilities in one responsive application shell."
 eyebrow: "Template · Application shell"
 metadata:
   - "Figma canonical"
@@ -14,7 +14,7 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="page-layout" />
 
   <Guidance>
-    <GuidanceBlock title="Composition">
+    <GuidanceBlock title="Structure the shell">
       <ul>
         <li>
           Keep product navigation inside Sidebar and pass product-owned content to the main landmark.
@@ -27,11 +27,11 @@ import { Playground } from "@/components/docs/playground";
         <li>Keep low-frequency environment actions in the bottom utility strip.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Responsive behavior">
+    <GuidanceBlock title="Adapt the navigation on small screens">
       <ul>
-        <li>The Figma contract is the 1280 × 720 desktop shell with a 244px sidebar.</li>
+        <li>The desktop reference uses a 244px sidebar around an inset primary surface.</li>
         <li>
-          At narrow widths, let Sidebar.Root own disclosure while the Consumer chooses overlay or
+          At narrow widths, let Sidebar.Root own disclosure while your application chooses overlay or
           compact navigation.
         </li>
         <li>
@@ -75,7 +75,7 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
 
 )
 }`}
-description="The template is an application-owned composition of stable Lenso UI parts, not a new package component."
+description="The template composes stable Lenso UI parts; routing, navigation data, and page content remain application-owned."
 />
 
   <CodeExample

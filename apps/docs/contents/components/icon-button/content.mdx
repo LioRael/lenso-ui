@@ -1,13 +1,10 @@
 ---
 title: "Icon Button"
-description: "Compact icon-only action with a stable interaction target and centered glyph."
+description: "Use a familiar icon for a compact action while preserving a reliable interaction target."
 eyebrow: "Foundation component · Actions"
 metadata:
-  - "Figma canonical"
-  - "Implementation planned"
-actions:
-  - "View source"
-  - "Planned"
+  - "@lenso/ui/icon-button"
+  - "Registry ready"
 ---
 
 import { CodeExample } from "@/components/docs/code-example";
@@ -17,16 +14,18 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="icon-button" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Icon Button when">
       <ul>
-        <li>Compact icon-only action with a stable interaction target and centered glyph.</li>
-        <li>Tone: Secondary, Ghost</li>
-        <li>Size: Compact, Default</li>
+        <li>The action is common, its icon is widely understood, and nearby text supplies context.</li>
+        <li>Use Button when the label carries meaning or the action needs stronger emphasis.</li>
+        <li>Keep the icon visually smaller than its interaction target.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Naming and feedback">
       <ul>
-        <li>State: Default, Hover, Pressed, Focus-visible, Selected, Disabled</li>
+        <li>Always provide an accessible name with <code>aria-label</code>.</li>
+        <li>Use selected state only for a persistent toggle; use pressed feedback for ordinary actions.</li>
+        <li>Add a Tooltip when the icon may be unfamiliar, but do not use it as the accessible name.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
@@ -38,5 +37,5 @@ import { PlusIcon } from "lucide-react"
 <IconButton aria-label="Create issue">
   <PlusIcon />
 </IconButton>`}
-    description="Target composition API for this component; the named subpath will ship with its implementation."
+    description="The component keeps icon alignment and target size stable across visual variants."
   />

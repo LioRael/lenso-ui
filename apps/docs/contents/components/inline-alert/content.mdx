@@ -17,7 +17,7 @@ import { Playground } from "@/components/docs/playground";
     <GuidanceBlock title="Usage guidance">
       <ul>
         <li>Use neutral or info for guidance, warning for risk, and error for a failed operation.</li>
-        <li>Keep recovery mutations and domain-specific copy in the Consumer.</li>
+        <li>Keep recovery actions and domain-specific copy in your application.</li>
         <li>
           Title is neutral by default; render the heading level required by the surrounding page.
         </li>
@@ -46,5 +46,5 @@ import { Playground } from "@/components/docs/playground";
   </InlineAlert.Content>
   <InlineAlert.Actions>{reviewButton}</InlineAlert.Actions>
 </InlineAlert.Root>`}
-  description="The Consumer opts into live-region semantics only when the update is dynamic."
+  description="Your application opts into live-region semantics only when the update is dynamic."
 />

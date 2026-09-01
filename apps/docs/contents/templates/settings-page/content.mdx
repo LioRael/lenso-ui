@@ -1,10 +1,10 @@
 ---
 title: "Settings Page"
-description: "A settings workflow with semantic sections, grouped rows, and application-owned controls and persistence."
+description: "Organize preferences into readable sections while your application owns values, validation, and persistence."
 eyebrow: "Template · Settings workflow"
 metadata:
   - "Registry Recipes"
-  - "Consumer-owned state"
+  - "Application-owned state"
 ---
 
 import { CodeExample } from "@/components/docs/code-example";
@@ -14,7 +14,7 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="settings-page" />
 
   <Guidance>
-    <GuidanceBlock title="Recipe relationship">
+    <GuidanceBlock title="Compose sections from stable parts">
       <ul>
         <li>
           SettingsSection owns the semantic section, heading, and optional description. It does not
@@ -27,7 +27,7 @@ import { Playground } from "@/components/docs/playground";
         <li>Use SettingsRow for each label, description, and control relationship.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Application ownership">
+    <GuidanceBlock title="Keep settings behavior in the application">
       <ul>
       <li>The application owns routing, validation, persistence, permission prompts, and saves.</li>
       <li>Associate every switch or unnamed control with its visible SettingsRow.Label.</li>

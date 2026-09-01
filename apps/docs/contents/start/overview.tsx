@@ -30,8 +30,8 @@ export function OverviewContent() {
             Build focused tools, without rebuilding the basics.
           </h1>
           <div {...stylex.props(styles.description)}>
-            A compact, token-first interface system for Lenso products. Calm hierarchy, predictable
-            states, and implementation-ready components.
+            Shared tokens, accessible components, and adaptable patterns for focused Lenso product
+            interfaces.
           </div>
           <div {...stylex.props(styles.metadata)}>
             <span {...stylex.props(styles.metadataPill)}>Light + Dark</span>
@@ -82,7 +82,7 @@ export function OverviewContent() {
             </SwitchRoot>
           </div>
           <p {...stylex.props(styles.previewDescription)}>
-            Linked instances · semantic tokens · prototype states
+            Semantic tokens · composable parts · predictable states
           </p>
         </article>
       </section>
@@ -91,7 +91,8 @@ export function OverviewContent() {
         <div {...stylex.props(styles.sectionCopy)}>
           <h2 {...stylex.props(styles.sectionTitle)}>Foundations</h2>
           <p {...stylex.props(styles.sectionDescription)}>
-            Shared decisions keep every component visually and behaviorally consistent.
+            Start with the shared color, type, spacing, and elevation decisions that keep products
+            coherent.
           </p>
         </div>
         <div {...stylex.props(styles.grid, styles.fourColumns)}>
@@ -118,7 +119,7 @@ export function OverviewContent() {
         <div {...stylex.props(styles.sectionCopy)}>
           <h2 {...stylex.props(styles.sectionTitle)}>Components</h2>
           <p {...stylex.props(styles.sectionDescription)}>
-            Live library instances—resize, override, and inspect without detaching.
+            Explore the behavior, composition, and usage guidance for each production component.
           </p>
         </div>
         <div {...stylex.props(styles.grid, styles.fourColumns)}>
@@ -211,7 +212,8 @@ export function OverviewContent() {
         <div {...stylex.props(styles.patternsHeading)}>
           <h2 {...stylex.props(styles.patternsTitle)}>Patterns</h2>
           <p {...stylex.props(styles.patternsDescription)}>
-            Composed recipes for application structure and data-heavy workflows.
+            Combine foundation components into recurring product workflows without moving product
+            state into the library.
           </p>
         </div>
         <div {...stylex.props(styles.grid, styles.threeColumns)}>
@@ -241,7 +243,7 @@ export function OverviewContent() {
           <Link href="/start/quick-start" id="quick-start" {...stylex.props(styles.indexCard)}>
             <h3 {...stylex.props(styles.cardTitle)}>Quick start</h3>
             <p {...stylex.props(styles.cardDescription)}>
-              Compose primitives directly, then tune the shared semantic tokens.
+              Build a small form from public component subpaths and semantic styles.
             </p>
           </Link>
           <Link
@@ -251,7 +253,7 @@ export function OverviewContent() {
           >
             <h3 {...stylex.props(styles.cardTitle)}>Package vs Registry</h3>
             <p {...stylex.props(styles.cardDescription)}>
-              Use packages for source-level work and the registry for ready recipes.
+              Choose managed package updates or editable source installed into your application.
             </p>
           </Link>
           <Link
