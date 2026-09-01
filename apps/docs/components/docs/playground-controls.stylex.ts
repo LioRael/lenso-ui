@@ -1,13 +1,13 @@
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
-  root: { width: "328px" },
+  root: { width: "100%" },
   header: {
     alignItems: "center",
     display: "flex",
     height: "32px",
     justifyContent: "space-between",
-    width: "328px",
+    width: "100%",
   },
   headerTitle: {
     color: "var(--color-content-primary)",
@@ -19,15 +19,16 @@ export const styles = stylex.create({
     backgroundColor: "var(--color-border-translucent)",
     height: "0.5px",
     marginBlock: "4px",
-    width: "328px",
+    width: "100%",
   },
-  list: { display: "flex", flexDirection: "column", gap: "4px" },
+  list: { display: "flex", flexDirection: "column", gap: "4px", width: "100%" },
   row: {
     alignItems: "center",
     display: "flex",
     height: "28px",
     justifyContent: "space-between",
-    width: "328px",
+    gap: "12px",
+    width: "100%",
   },
   label: {
     color: "var(--color-content-secondary)",
@@ -37,12 +38,19 @@ export const styles = stylex.create({
   },
   selectTrigger: {
     color: "var(--color-content-secondary)",
+    fontFamily: '"IBM Plex Sans", var(--font-sans)',
     fontSize: "11px",
     height: "28px",
     justifyContent: "space-between",
     lineHeight: "18px",
     paddingInline: "10px",
     width: "164px",
+  },
+  selectValue: {
+    fontFamily: '"IBM Plex Sans", var(--font-sans)',
+    fontSize: "11px",
+    fontWeight: 400,
+    lineHeight: "18px",
   },
   selectPopup: { height: "auto", maxHeight: "224px", minWidth: "164px", width: "164px" },
   selectItem: {

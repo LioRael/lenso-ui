@@ -104,6 +104,7 @@ export function DocumentFrame({
           )}
         >
           <div {...stylex.props(styles.documentLayout, isWorkspace && styles.workspaceLayout)}>
+            {!isWorkspace && <TableOfContents mobile page={slug} />}
             <article
               {...stylex.props(styles.documentMain, isWorkspace && styles.workspaceMain)}
               data-document-main={slug}

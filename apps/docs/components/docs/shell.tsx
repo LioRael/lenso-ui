@@ -5,10 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
+import { MenuIcon, MoreHorizontalIcon, XIcon } from "lucide-react";
 
 import { Breadcrumb } from "@lenso/ui/breadcrumb";
 import { Button } from "@lenso/ui/button";
 import { Disclosure } from "@lenso/ui/disclosure";
+import { Menu } from "@lenso/ui/menu";
 import { Sidebar } from "@lenso/ui/sidebar";
 
 import uiPackage from "../../../../packages/ui/package.json";
@@ -79,10 +81,19 @@ function NavMenu({ children }: { children: ReactNode }) {
   return <Sidebar.Menu>{children}</Sidebar.Menu>;
 }
 
-function NavItem({ item, selected }: { item: DocsNavItem; selected: boolean }) {
+function NavItem({
+  item,
+  onNavigate,
+  selected,
+}: {
+  item: DocsNavItem;
+  onNavigate: () => void;
+  selected: boolean;
+}) {
   return (
     <Sidebar.MenuItem>
       <Sidebar.Item
+        onClick={onNavigate}
         render={<Link href={item.href} />}
         nativeButton={false}
         selected={selected}
@@ -104,7 +115,13 @@ function initialOpenSections(current: DocsPage): string[] {
     .map((section) => section.id);
 }
 
-function DocumentationNavigation({ current }: { current: DocsPage }) {
+function DocumentationNavigation({
+  current,
+  onNavigate,
+}: {
+  current: DocsPage;
+  onNavigate: () => void;
+}) {
   const sections = getOrderedDocsSections();
   const [openSections, setOpenSections] = useState(() => initialOpenSections(current));
 
@@ -145,6 +162,7 @@ function DocumentationNavigation({ current }: { current: DocsPage }) {
                   <NavItem
                     item={item}
                     key={item.kind === "page" ? item.slug : item.id}
+                    onNavigate={onNavigate}
                     selected={item.kind === "page" && current === item.slug}
                   />
                 ))}
@@ -157,27 +175,47 @@ function DocumentationNavigation({ current }: { current: DocsPage }) {
   );
 }
 
-function DocumentationSidebar({ current }: { current: DocsPage }) {
+function DocumentationSidebar({
+  compact,
+  current,
+  mobileOpen,
+  onNavigate,
+}: {
+  compact: boolean;
+  current: DocsPage;
+  mobileOpen: boolean;
+  onNavigate: () => void;
+}) {
   return (
-    <Sidebar.Root defaultOpen id="documentation-sidebar" xstyle={styles.sidebarRoot}>
-      <Sidebar.Panel aria-label="Documentation navigation" xstyle={styles.sidebarPanel}>
-        <Sidebar.Header xstyle={styles.sidebarHeader}>
-          <div {...stylex.props(styles.brandRow)}>
-            <strong {...stylex.props(styles.brand)}>Lenso UI</strong>
-            <span {...stylex.props(styles.version)}>v{uiPackage.version}</span>
-          </div>
-          <button {...stylex.props(styles.searchButton)} type="button">
-            <span>Search documentation</span>
-            <kbd {...stylex.props(styles.searchHint)}>⌘ K</kbd>
-          </button>
-        </Sidebar.Header>
-        <Sidebar.Content xstyle={styles.sidebarContent}>
-          <nav aria-label="Documentation" {...stylex.props(styles.nav)}>
-            <DocumentationNavigation current={current} />
-          </nav>
-        </Sidebar.Content>
-      </Sidebar.Panel>
-    </Sidebar.Root>
+    <Sidebar.Panel
+      aria-label="Documentation navigation"
+      data-mobile-state={mobileOpen ? "open" : "closed"}
+      hidden={false}
+      inert={compact && !mobileOpen}
+      xstyle={styles.sidebarPanel}
+    >
+      <Sidebar.Header xstyle={styles.sidebarHeader}>
+        <div {...stylex.props(styles.brandRow)}>
+          <strong {...stylex.props(styles.brand)}>Lenso UI</strong>
+          <span {...stylex.props(styles.version)}>v{uiPackage.version}</span>
+          <Sidebar.Trigger
+            aria-label="Close documentation navigation"
+            render={<button {...stylex.props(styles.mobileSidebarClose)} type="button" />}
+          >
+            <XIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
+          </Sidebar.Trigger>
+        </div>
+        <button {...stylex.props(styles.searchButton)} type="button">
+          <span>Search documentation</span>
+          <kbd {...stylex.props(styles.searchHint)}>⌘ K</kbd>
+        </button>
+      </Sidebar.Header>
+      <Sidebar.Content xstyle={styles.sidebarContent}>
+        <nav aria-label="Documentation" {...stylex.props(styles.nav)}>
+          <DocumentationNavigation current={current} onNavigate={onNavigate} />
+        </nav>
+      </Sidebar.Content>
+    </Sidebar.Panel>
   );
 }
 
@@ -185,13 +223,50 @@ export function DocsFrame({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const current = docsPageFromPathname(pathname);
   const theme = useDocsPageTheme();
+  const [compact, setCompact] = useState(false);
+  const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 900px)");
+    const update = () => {
+      setCompact(query.matches);
+      if (query.matches) setMobileNavigationOpen(false);
+    };
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    setMobileNavigationOpen(false);
+  }, [pathname]);
 
   return (
     <div {...stylex.props(styles.theme, theme === "dark" && styles.darkTheme)}>
-      <div {...stylex.props(styles.shell)}>
-        <DocumentationSidebar current={current} />
+      <Sidebar.Root
+        id="documentation-sidebar"
+        onOpenChange={setMobileNavigationOpen}
+        open={compact ? mobileNavigationOpen : true}
+        xstyle={styles.shell}
+      >
+        <DocumentationSidebar
+          compact={compact}
+          current={current}
+          mobileOpen={mobileNavigationOpen}
+          onNavigate={() => setMobileNavigationOpen(false)}
+        />
+        <button
+          aria-label="Close documentation navigation"
+          onClick={() => setMobileNavigationOpen(false)}
+          {...stylex.props(
+            styles.mobileNavigationScrim,
+            !mobileNavigationOpen && styles.closedMobileNavigationScrim,
+          )}
+          tabIndex={mobileNavigationOpen ? 0 : -1}
+          type="button"
+        />
         {children}
-      </div>
+      </Sidebar.Root>
     </div>
   );
 }
@@ -209,6 +284,12 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
             (current === "tokens" || current === "theme-lab") && styles.workspaceHeader,
           )}
         >
+          <Sidebar.Trigger
+            aria-label="Open documentation navigation"
+            render={<button {...stylex.props(styles.mobileNavigationTrigger)} type="button" />}
+          >
+            <MenuIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
+          </Sidebar.Trigger>
           <Breadcrumb.Root xstyle={styles.breadcrumb}>
             <Breadcrumb.List xstyle={styles.breadcrumbList}>
               <Breadcrumb.Item>
@@ -234,6 +315,7 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
               </Breadcrumb.Item>
             </Breadcrumb.List>
           </Breadcrumb.Root>
+          <span {...stylex.props(styles.mobilePageTitle)}>{breadcrumbs[1]}</span>
           <div {...stylex.props(styles.headerActions)}>
             <ThemeToggle />
             <Button
@@ -254,9 +336,35 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
             >
               {actions[1]}
             </Button>
+            <Menu.Root>
+              <Menu.ControlTrigger
+                aria-label="Page actions"
+                icon={null}
+                xstyle={styles.mobileActionsTrigger}
+              >
+                <MoreHorizontalIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
+              </Menu.ControlTrigger>
+              <Menu.Portal>
+                <Menu.Positioner align="end">
+                  <Menu.Popup aria-label="Page actions">
+                    {firstActionHref ? (
+                      <Menu.LinkItem href={firstActionHref}>{actions[0]}</Menu.LinkItem>
+                    ) : (
+                      <Menu.Item>{actions[0]}</Menu.Item>
+                    )}
+                    {secondActionHref ? (
+                      <Menu.LinkItem href={secondActionHref}>{actions[1]}</Menu.LinkItem>
+                    ) : (
+                      <Menu.Item disabled={actions[1] === "Planned"}>{actions[1]}</Menu.Item>
+                    )}
+                  </Menu.Popup>
+                </Menu.Positioner>
+              </Menu.Portal>
+            </Menu.Root>
           </div>
         </header>
         <div
+          data-docs-scroll=""
           {...stylex.props(
             styles.scroll,
             (current === "tokens" || current === "theme-lab") && styles.workspaceScroll,

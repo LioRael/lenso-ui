@@ -8,6 +8,7 @@ export const styles = stylex.create({
     height: "28px",
     justifyContent: "space-between",
     width: "100%",
+    "@media (max-width: 560px)": { alignItems: "flex-start", height: "auto" },
   },
   title: {
     color: "var(--color-content-primary)",
@@ -25,6 +26,7 @@ export const styles = stylex.create({
     justifyContent: "flex-end",
     marginLeft: "auto",
     width: "auto",
+    "@media (max-width: 560px)": { flexWrap: "wrap", height: "auto" },
   },
   body: {
     display: "grid",
@@ -52,11 +54,13 @@ export const styles = stylex.create({
     overflow: "hidden",
     padding: "14px 16px",
     width: "100%",
+    "@media (max-width: 560px)": { padding: "12px" },
   },
   templateStage: { height: "548px", "@media (max-width: 1100px)": { height: "auto" } },
   sidebarStage: { height: "790px" },
   commandMenuStage: { height: "488px" },
   inspector: {
+    alignItems: "stretch",
     backgroundColor: "var(--color-surface-translucent)",
     border: 0,
     borderRadius: "8px",
@@ -68,8 +72,18 @@ export const styles = stylex.create({
     overflow: "hidden",
     padding: "12px 16px",
     width: "100%",
+    "@media (max-width: 1100px)": {
+      height: "fit-content",
+      minHeight: 0,
+    },
   },
   templateInspector: { height: "200px", "@media (max-width: 1100px)": { height: "auto" } },
-  sidebarInspector: { height: "790px" },
-  commandMenuInspector: { height: "488px" },
+  sidebarInspector: {
+    height: "790px",
+    "@media (max-width: 1100px)": { height: "fit-content" },
+  },
+  commandMenuInspector: {
+    height: "488px",
+    "@media (max-width: 1100px)": { height: "fit-content" },
+  },
 });

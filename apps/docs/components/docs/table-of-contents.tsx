@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import * as stylex from "@stylexjs/stylex";
+import { ChevronDownIcon } from "lucide-react";
 
 import type { DocsPage } from "../../contents/catalog";
 import { styles } from "./table-of-contents.stylex";
@@ -23,7 +24,7 @@ function findActiveHeading(headings: HTMLElement[], scrollRoot: HTMLElement): st
   return (passed.at(-1) ?? headings[0])?.id;
 }
 
-export function TableOfContents({ page }: { page: DocsPage }) {
+export function TableOfContents({ mobile = false, page }: { mobile?: boolean; page: DocsPage }) {
   const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string | undefined>();
   const [indicatorPosition, setIndicatorPosition] = useState<IndicatorPosition | undefined>();
@@ -34,7 +35,7 @@ export function TableOfContents({ page }: { page: DocsPage }) {
 
   useEffect(() => {
     const documentMain = document.querySelector<HTMLElement>(`[data-document-main="${page}"]`);
-    const scrollRoot = documentMain?.closest<HTMLElement>(".docs-scroll");
+    const scrollRoot = documentMain?.closest<HTMLElement>("[data-docs-scroll]");
 
     if (!documentMain || !scrollRoot) return;
 
@@ -96,8 +97,53 @@ export function TableOfContents({ page }: { page: DocsPage }) {
     };
   }, [activeId, items]);
 
+  const registerItem = (id: string, element: HTMLAnchorElement | null) => {
+    if (element) itemRefs.current.set(id, element);
+    else itemRefs.current.delete(id);
+  };
+
+  const selectItem = (id: string) => {
+    clickedId.current = id;
+    setActiveId(id);
+    if (unlockTimer.current) window.clearTimeout(unlockTimer.current);
+    unlockTimer.current = window.setTimeout(() => {
+      clickedId.current = undefined;
+      unlockTimer.current = undefined;
+    }, 800);
+  };
+
+  if (mobile) {
+    return (
+      <details {...stylex.props(styles.mobileRoot)}>
+        <summary {...stylex.props(styles.mobileSummary)}>
+          <span>On this page</span>
+          <ChevronDownIcon aria-hidden="true" {...stylex.props(styles.mobileChevron)} />
+        </summary>
+        <nav aria-label="Table of contents" {...stylex.props(styles.mobileNavigation)}>
+          <div {...stylex.props(styles.mobileItems)} ref={itemsRef}>
+            {items.map((item) => {
+              const active = item.id === activeId;
+              return (
+                <a
+                  aria-current={active ? "location" : undefined}
+                  {...stylex.props(styles.mobileItem, active && styles.activeMobileItem)}
+                  href={`#${item.id}`}
+                  key={item.id}
+                  onClick={() => selectItem(item.id)}
+                  ref={(element) => registerItem(item.id, element)}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </div>
+        </nav>
+      </details>
+    );
+  }
+
   return (
-    <aside aria-label="On this page" {...stylex.props(styles.root)}>
+    <aside aria-label="On this page" {...stylex.props(styles.root, styles.desktopRoot)}>
       <p {...stylex.props(styles.label)}>ON THIS PAGE</p>
       <nav aria-label="Table of contents">
         <div {...stylex.props(styles.items)} ref={itemsRef}>
@@ -121,22 +167,8 @@ export function TableOfContents({ page }: { page: DocsPage }) {
                 {...stylex.props(styles.item, active && styles.activeItem)}
                 href={`#${item.id}`}
                 key={item.id}
-                onClick={() => {
-                  clickedId.current = item.id;
-                  setActiveId(item.id);
-                  if (unlockTimer.current) window.clearTimeout(unlockTimer.current);
-                  unlockTimer.current = window.setTimeout(() => {
-                    clickedId.current = undefined;
-                    unlockTimer.current = undefined;
-                  }, 800);
-                }}
-                ref={(element) => {
-                  if (element) {
-                    itemRefs.current.set(item.id, element);
-                  } else {
-                    itemRefs.current.delete(item.id);
-                  }
-                }}
+                onClick={() => selectItem(item.id)}
+                ref={(element) => registerItem(item.id, element)}
               >
                 <span>{item.label}</span>
               </a>

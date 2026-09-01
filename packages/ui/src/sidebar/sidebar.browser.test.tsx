@@ -237,3 +237,26 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
     ).toEqual([]);
   }
 });
+
+test("Sidebar hides its styled panel when closed", async () => {
+  const screen = await render(
+    <ThemeScope theme="light">
+      <Sidebar.Root defaultOpen id="styled-sidebar-visibility">
+        <Sidebar.Trigger>Toggle navigation</Sidebar.Trigger>
+        <Sidebar.Panel aria-label="Styled navigation">Navigation</Sidebar.Panel>
+      </Sidebar.Root>
+    </ThemeScope>,
+  );
+
+  const trigger = screen.getByRole("button", { name: "Toggle navigation" });
+  const panel = document.querySelector<HTMLElement>(
+    '#styled-sidebar-visibility-panel[data-slot="sidebar-panel"]',
+  )!;
+  await expect.poll(() => getComputedStyle(panel).display).toBe("flex");
+
+  await trigger.click();
+
+  await expect.element(trigger).toHaveAttribute("aria-expanded", "false");
+  await expect.poll(() => getComputedStyle(panel).display).toBe("none");
+  expect(panel.hidden).toBe(true);
+});
