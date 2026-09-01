@@ -22,15 +22,32 @@ export const styles = stylex.create({
   workspaceContent: {
     height: "100%",
     maxWidth: "none",
-    padding: "16px 24px 24px",
+    paddingBlockEnd: "24px",
+    paddingBlockStart: "16px",
+    paddingInline: "24px",
     "@media (max-width: 900px)": {
       height: "auto",
     },
-    "@media (max-width: 720px)": { padding: "16px" },
+    "@media (max-width: 720px)": {
+      paddingBlock: "16px",
+      paddingInline: "16px",
+    },
+  },
+  tokensContent: {
+    paddingBlock: 0,
+    paddingInline: "24px",
+    "@media (max-width: 720px)": {
+      paddingBlock: 0,
+      paddingInline: "16px",
+    },
   },
   themeLabContent: {
-    padding: "12px 16px 16px",
-    "@media (max-width: 720px)": { padding: "12px" },
+    paddingBlock: 0,
+    paddingInline: "16px",
+    "@media (max-width: 720px)": {
+      paddingBlock: 0,
+      paddingInline: "12px",
+    },
   },
   documentLayout: {
     alignItems: "flex-start",

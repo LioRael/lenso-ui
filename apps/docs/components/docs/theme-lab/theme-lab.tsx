@@ -497,6 +497,7 @@ export function ThemeLab() {
   const [mode, setMode] = useState<ThemeMode>("dark");
   const [recipes, setRecipes] = useState(defaultThemeRecipes);
   const [selectedToken, setSelectedToken] = useState<ThemeTokenPath>("color.surface.popover");
+  const [advancedOpen, setAdvancedOpen] = useState(false);
   const [copied, setCopied] = useState<"css" | "json" | null>(null);
   const recipe = recipes[mode];
   const generated = useMemo(() => generateTheme(recipe), [recipe]);
@@ -533,21 +534,15 @@ export function ThemeLab() {
 
   return (
     <section aria-label="Theme Lab" {...stylex.props(styles.lab)}>
-      <header {...stylex.props(styles.labHeader)}>
-        <div {...stylex.props(styles.labHeaderCopy)}>
-          <p {...stylex.props(styles.labEyebrow)}>FOUNDATION TOOL · GENERATED THEMES</p>
-          <h1 {...stylex.props(styles.labTitle)}>Theme Lab</h1>
-          <span {...stylex.props(styles.labDescription)}>
-            Derive and inspect one coherent semantic palette in the live interface.
-          </span>
-        </div>
+      <header {...stylex.props(styles.labToolbar)}>
+        <ModeToggle mode={mode} onChange={setMode} />
         <div {...stylex.props(styles.labActions)}>
-          <ModeToggle mode={mode} onChange={setMode} />
           <button
             {...stylex.props(styles.headerButton)}
             onClick={() => {
               setRecipes((current) => ({ ...current, [mode]: defaultThemeRecipes[mode] }));
               setSelectedToken("color.surface.popover");
+              setAdvancedOpen(false);
             }}
             type="button"
           >
@@ -579,7 +574,6 @@ export function ThemeLab() {
               <span {...stylex.props(styles.sectionLabel)}>Recipe</span>
               <h2 {...stylex.props(styles.headingTitle)}>Base inputs</h2>
             </div>
-            <span {...stylex.props(styles.panelCount)}>{mode}</span>
           </div>
 
           <div {...stylex.props(styles.controlSection)}>
@@ -603,20 +597,6 @@ export function ThemeLab() {
           </div>
 
           <div {...stylex.props(styles.controlSection)}>
-            <div {...stylex.props(styles.sectionLabel)}>Derived themes</div>
-            <DerivedField
-              label="Elevated"
-              onChange={(value) => updateDerived("elevated", value)}
-              value={recipe.derived.elevated}
-            />
-            <DerivedField
-              label="Menu"
-              onChange={(value) => updateDerived("menu", value)}
-              value={recipe.derived.menu}
-            />
-          </div>
-
-          <div {...stylex.props(styles.controlSection)}>
             <div {...stylex.props(styles.sectionLabel)}>Rendered contrast</div>
             <div {...stylex.props(styles.contrastGrid)}>
               <ContrastBadge label="Primary / canvas" value={generated.contrast.primaryOnCanvas} />
@@ -630,6 +610,39 @@ export function ThemeLab() {
               />
               <ContrastBadge label="Action content" value={generated.contrast.accentContent} />
             </div>
+          </div>
+
+          <div {...stylex.props(styles.controlSection, styles.advancedSection)}>
+            <button
+              aria-expanded={advancedOpen}
+              {...stylex.props(styles.advancedTrigger)}
+              onClick={() => setAdvancedOpen((open) => !open)}
+              type="button"
+            >
+              <span>
+                <span {...stylex.props(styles.sectionLabel)}>Advanced</span>
+                <strong {...stylex.props(styles.advancedTitle)}>Derived surfaces</strong>
+              </span>
+              <ChevronDownIcon
+                aria-hidden="true"
+                size={14}
+                {...stylex.props(styles.advancedIcon, advancedOpen && styles.advancedIconOpen)}
+              />
+            </button>
+            {advancedOpen && (
+              <div {...stylex.props(styles.advancedFields)}>
+                <DerivedField
+                  label="Elevated"
+                  onChange={(value) => updateDerived("elevated", value)}
+                  value={recipe.derived.elevated}
+                />
+                <DerivedField
+                  label="Menu"
+                  onChange={(value) => updateDerived("menu", value)}
+                  value={recipe.derived.menu}
+                />
+              </div>
+            )}
           </div>
         </aside>
 
