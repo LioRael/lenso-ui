@@ -283,11 +283,17 @@ export const styles = stylex.create({
   header: {
     alignItems: "center",
     display: "flex",
-    flex: "0 0 56px",
+    flexBasis: "56px",
+    flexGrow: 0,
+    flexShrink: 0,
     height: "56px",
     justifyContent: "space-between",
     padding: "0 16px 0 24px",
     width: "100%",
+  },
+  workspaceHeader: {
+    flexBasis: "40px",
+    height: "40px",
   },
   breadcrumb: {
     alignItems: "center",

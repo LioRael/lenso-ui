@@ -99,6 +99,7 @@ export function DocumentFrame({
           {...stylex.props(
             styles.documentContent,
             isWorkspace && styles.workspaceContent,
+            slug === "tokens" && styles.tokensContent,
             slug === "theme-lab" && styles.themeLabContent,
           )}
         >

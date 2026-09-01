@@ -300,7 +300,7 @@ function TokenDetails({
   const pathParts = token.path.split(".");
 
   return (
-    <aside {...stylex.props(styles.panel, styles.details)} aria-label="Token details">
+    <aside {...stylex.props(styles.detailsPanel, styles.details)} aria-label="Token details">
       <div>
         <p {...stylex.props(styles.eyebrow)}>
           {token.kind === "semantic" ? "Semantic token" : "Primitive token"}
@@ -431,7 +431,7 @@ export function TokenExplorer() {
 
   return (
     <section {...stylex.props(styles.explorer)} aria-label="Token explorer">
-      <div {...stylex.props(styles.panel, styles.browser)}>
+      <div {...stylex.props(styles.browser)}>
         <div {...stylex.props(styles.browserHeader)}>
           <div {...stylex.props(styles.browserTitleGroup)}>
             <h2 {...stylex.props(styles.browserTitle)}>Token tree</h2>

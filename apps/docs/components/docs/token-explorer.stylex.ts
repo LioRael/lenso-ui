@@ -19,7 +19,7 @@ export const styles = stylex.create({
       height: "auto",
     },
   },
-  panel: {
+  detailsPanel: {
     backgroundColor: "var(--color-surface-translucent)",
     borderRadius: "var(--radius-panel)",
     boxShadow: "inset 0 0 0 0.5px var(--color-border-translucent)",
@@ -36,12 +36,11 @@ export const styles = stylex.create({
   },
   browserHeader: {
     alignItems: "center",
-    borderBottom: "0.5px solid var(--color-border-translucent)",
     display: "flex",
     flex: "0 0 auto",
     gap: "20px",
     justifyContent: "space-between",
-    padding: "16px",
+    padding: "8px 8px 12px",
     "@media (max-width: 560px)": {
       alignItems: "stretch",
       flexDirection: "column",
@@ -109,7 +108,7 @@ export const styles = stylex.create({
     flex: 1,
     minHeight: 0,
     overflow: "auto",
-    padding: "8px",
+    padding: "4px 8px 8px",
     scrollbarWidth: "thin",
   },
   treeList: {

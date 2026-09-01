@@ -203,7 +203,12 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
   return (
     <div {...stylex.props(styles.mainInset)} data-current-page={current} data-preview-theme={theme}>
       <main {...stylex.props(styles.mainSurface)}>
-        <header {...stylex.props(styles.header)}>
+        <header
+          {...stylex.props(
+            styles.header,
+            (current === "tokens" || current === "theme-lab") && styles.workspaceHeader,
+          )}
+        >
           <Breadcrumb.Root xstyle={styles.breadcrumb}>
             <Breadcrumb.List xstyle={styles.breadcrumbList}>
               <Breadcrumb.Item>
