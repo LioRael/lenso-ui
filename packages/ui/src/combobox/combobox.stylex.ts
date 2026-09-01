@@ -169,7 +169,13 @@ export const styles = stylex.create({
   },
   itemSingle: { paddingRight: "12px" },
   singleIndicatorSvg: { height: "16px", strokeWidth: "1.75px", width: "16px" },
-  marker: { flexShrink: 0, height: "9px", width: "9px" },
+  marker: {
+    backgroundColor: "currentColor",
+    borderRadius: "50%",
+    flexShrink: 0,
+    height: "9px",
+    width: "9px",
+  },
   itemText: { flex: 1, marginLeft: "1px", minWidth: 0 },
   trailing: {
     color: tokens.colorContentTertiary,

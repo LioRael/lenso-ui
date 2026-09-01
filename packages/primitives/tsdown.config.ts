@@ -4,7 +4,7 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   deps: {
-    neverBundle: ["@base-ui/react", "react"],
+    neverBundle: ["@base-ui/react", "@stylexjs/stylex", "react"],
   },
   dts: false,
   entry: {

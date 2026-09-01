@@ -3,13 +3,13 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./status-marker.stylex.js";
 
 export type StatusMarkerStatus = "error" | "info" | "neutral" | "success" | "warning";
 export type StatusMarkerPresentation = "dot" | "label";
 
-export interface StatusMarkerProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface StatusMarkerProps extends StyleXProps<React.HTMLAttributes<HTMLSpanElement>> {
   presentation?: StatusMarkerPresentation;
   status?: StatusMarkerStatus;
 }
@@ -24,7 +24,7 @@ const labels: Record<StatusMarkerStatus, string> = {
 
 export const StatusMarker = React.forwardRef<HTMLSpanElement, StatusMarkerProps>(
   function StatusMarker(
-    { children, className, presentation = "dot", status = "neutral", ...props },
+    { children, presentation = "dot", status = "neutral", xstyle, ...props },
     ref,
   ) {
     const isLabel = presentation === "label";
@@ -32,12 +32,7 @@ export const StatusMarker = React.forwardRef<HTMLSpanElement, StatusMarkerProps>
       <span
         {...props}
         aria-hidden={!isLabel && props["aria-label"] == null ? true : undefined}
-        className={
-          mergeClassName(
-            stylex.props(styles.root, isLabel && styles.label).className,
-            className,
-          ) as string
-        }
+        {...stylex.props(styles.root, isLabel && styles.label, xstyle)}
         data-presentation={presentation}
         data-slot="status-marker"
         data-status={status}

@@ -5,7 +5,7 @@
   ],
   "files": [
     {
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as stylex from \"@stylexjs/stylex\";\n\nimport { mergeClassName } from \"../shared/merge-class-name.js\";\nimport { styles } from \"./shimmer-text.stylex.js\";\n\nexport interface ShimmerTextProps extends React.ComponentPropsWithoutRef<\"span\"> {\n  active?: boolean;\n}\n\nexport const ShimmerText = React.forwardRef<HTMLSpanElement, ShimmerTextProps>(function ShimmerText(\n  { active = false, className, ...props },\n  ref,\n) {\n  return (\n    <span\n      {...props}\n      className={\n        mergeClassName(\n          stylex.props(styles.root, active && styles.active).className,\n          className,\n        ) as string\n      }\n      data-active={active ? \"\" : undefined}\n      data-slot=\"shimmer-text\"\n      ref={ref}\n    />\n  );\n});\n",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as stylex from \"@stylexjs/stylex\";\n\nimport type { StyleXProps } from \"../shared/stylex-props.js\";\nimport { styles } from \"./shimmer-text.stylex.js\";\n\nexport interface ShimmerTextProps extends StyleXProps<React.ComponentPropsWithoutRef<\"span\">> {\n  active?: boolean;\n}\n\nexport const ShimmerText = React.forwardRef<HTMLSpanElement, ShimmerTextProps>(function ShimmerText(\n  { active = false, xstyle, ...props },\n  ref,\n) {\n  return (\n    <span\n      {...props}\n      className={stylex.props(styles.root, active && styles.active, xstyle).className}\n      data-active={active ? \"\" : undefined}\n      data-slot=\"shimmer-text\"\n      ref={ref}\n    />\n  );\n});\n",
       "path": "components/lenso/shimmer-text/index.tsx",
       "target": "components/lenso/shimmer-text/index.tsx",
       "type": "registry:ui"
@@ -17,9 +17,9 @@
       "type": "registry:style"
     },
     {
-      "content": "export type ClassName<State> = string | ((state: State) => string | undefined);\n\nexport function mergeClassName<State>(\n  generated?: string,\n  className?: ClassName<State>,\n): ClassName<State> {\n  if (typeof className === \"function\") {\n    return (state) => [generated, className(state)].filter(Boolean).join(\" \");\n  }\n  return [generated, className].filter(Boolean).join(\" \");\n}\n",
-      "path": "components/lenso/shared/merge-class-name.ts",
-      "target": "components/lenso/shared/merge-class-name.ts",
+      "content": "import type * as React from \"react\";\nimport type * as stylex from \"@stylexjs/stylex\";\n\n/**\n * Removes arbitrary class injection from a host module and replaces it with\n * a statically compiled StyleX override. Native inline style remains available\n * for runtime geometry that cannot be known at build time.\n */\nexport type StyleXProps<Props> = Omit<Props, \"className\"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport type StyleXComponentProps<Component extends React.ElementType> = StyleXProps<\n  React.ComponentPropsWithRef<Component>\n> &\n  React.RefAttributes<React.ComponentRef<Component>>;\n",
+      "path": "components/lenso/shared/stylex-props.ts",
+      "target": "components/lenso/shared/stylex-props.ts",
       "type": "registry:lib"
     },
     {

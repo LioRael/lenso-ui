@@ -18,9 +18,9 @@
       "type": "registry:style"
     },
     {
-      "content": "export type ClassName<State> = string | ((state: State) => string | undefined);\n\nexport function mergeClassName<State>(\n  generated?: string,\n  className?: ClassName<State>,\n): ClassName<State> {\n  if (typeof className === \"function\") {\n    return (state) => [generated, className(state)].filter(Boolean).join(\" \");\n  }\n  return [generated, className].filter(Boolean).join(\" \");\n}\n",
-      "path": "components/lenso/shared/merge-class-name.ts",
-      "target": "components/lenso/shared/merge-class-name.ts",
+      "content": "import type * as React from \"react\";\nimport type * as stylex from \"@stylexjs/stylex\";\n\n/**\n * Removes arbitrary class injection from a host module and replaces it with\n * a statically compiled StyleX override. Native inline style remains available\n * for runtime geometry that cannot be known at build time.\n */\nexport type StyleXProps<Props> = Omit<Props, \"className\"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport type StyleXComponentProps<Component extends React.ElementType> = StyleXProps<\n  React.ComponentPropsWithRef<Component>\n> &\n  React.RefAttributes<React.ComponentRef<Component>>;\n",
+      "path": "components/lenso/shared/stylex-props.ts",
+      "target": "components/lenso/shared/stylex-props.ts",
       "type": "registry:lib"
     },
     {

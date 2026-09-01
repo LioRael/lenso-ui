@@ -3,11 +3,11 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
 import { createStyledPart } from "../shared/styled-part.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./settings-row.stylex.js";
 
-export interface SettingsRowRootProps extends React.ComponentPropsWithRef<"div"> {
+export interface SettingsRowRootProps extends StyleXProps<React.ComponentPropsWithRef<"div">> {
   controlId?: string;
   disabled?: boolean;
   labelId?: string;
@@ -34,11 +34,11 @@ const SettingsRowContext = React.createContext<SettingsRowContextValue>({
 
 export function SettingsRowRoot({
   children,
-  className,
   controlId: controlIdProp,
   disabled = false,
   labelId: labelIdProp,
   ref,
+  xstyle,
   ...props
 }: SettingsRowRootProps) {
   const generatedId = React.useId();
@@ -62,7 +62,7 @@ export function SettingsRowRoot({
       <div
         {...props}
         aria-disabled={disabled || undefined}
-        className={mergeClassName(stylex.props(styles.root).className, className) as string}
+        {...stylex.props(styles.root, xstyle)}
         data-disabled={disabled ? "true" : undefined}
         data-slot="settings-row"
         ref={ref}
@@ -77,14 +77,14 @@ export const SettingsRowCopy = createStyledPart("div", "settings-row-copy", styl
 
 export const SettingsRowTitle = React.forwardRef<
   HTMLHeadingElement,
-  React.ComponentPropsWithRef<"h3">
->(function SettingsRowTitle({ children, className, id, ...props }, ref) {
+  StyleXProps<React.ComponentPropsWithRef<"h3">>
+>(function SettingsRowTitle({ children, id, xstyle, ...props }, ref) {
   const { labelId } = React.useContext(SettingsRowContext);
 
   return (
     <h3
       {...props}
-      className={mergeClassName(stylex.props(styles.title).className, className) as string}
+      {...stylex.props(styles.title, xstyle)}
       data-slot="settings-row-title"
       id={id ?? labelId}
       ref={ref}
@@ -100,10 +100,10 @@ export const SettingsRowDescription = createStyledPart(
   styles.description,
 );
 
-export type SettingsRowLabelProps = Omit<React.ComponentPropsWithRef<"label">, "id">;
+export type SettingsRowLabelProps = Omit<StyleXProps<React.ComponentPropsWithRef<"label">>, "id">;
 
 export const SettingsRowLabel = React.forwardRef<HTMLLabelElement, SettingsRowLabelProps>(
-  function SettingsRowLabel({ className, htmlFor, onPointerEnter, onPointerLeave, ...props }, ref) {
+  function SettingsRowLabel({ htmlFor, onPointerEnter, onPointerLeave, xstyle, ...props }, ref) {
     const { controlId, disabled, labelId, setLabelHovered } = React.useContext(SettingsRowContext);
 
     React.useEffect(() => () => setLabelHovered(false), [setLabelHovered]);
@@ -112,12 +112,7 @@ export const SettingsRowLabel = React.forwardRef<HTMLLabelElement, SettingsRowLa
       <label
         {...props}
         aria-disabled={disabled || undefined}
-        className={
-          mergeClassName(
-            stylex.props(styles.title, styles.interactiveLabel).className,
-            className,
-          ) as string
-        }
+        {...stylex.props(styles.title, styles.interactiveLabel, xstyle)}
         data-slot="settings-row-label"
         htmlFor={htmlFor ?? controlId}
         id={labelId}
@@ -136,14 +131,14 @@ export const SettingsRowLabel = React.forwardRef<HTMLLabelElement, SettingsRowLa
 );
 
 export interface SettingsRowControlProps extends Omit<
-  React.ComponentPropsWithRef<"div">,
+  StyleXProps<React.ComponentPropsWithRef<"div">>,
   "children"
 > {
   children?: React.ReactNode | ((state: SettingsRowControlRenderState) => React.ReactNode);
 }
 
 export const SettingsRowControl = React.forwardRef<HTMLDivElement, SettingsRowControlProps>(
-  function SettingsRowControl({ children, className, ...props }, ref) {
+  function SettingsRowControl({ children, xstyle, ...props }, ref) {
     const { controlId, disabled, labelId, visualState } = React.useContext(SettingsRowContext);
     const content =
       typeof children === "function"
@@ -153,7 +148,7 @@ export const SettingsRowControl = React.forwardRef<HTMLDivElement, SettingsRowCo
     return (
       <div
         {...props}
-        className={mergeClassName(stylex.props(styles.control).className, className) as string}
+        {...stylex.props(styles.control, xstyle)}
         data-slot="settings-row-control"
         ref={ref}
       >

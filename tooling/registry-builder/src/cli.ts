@@ -40,8 +40,8 @@ const immutable = (name: string) => `https://ui.lenso.dev/r/v/${releaseVersion}/
 
 const sharedFiles = [
   {
-    source: "packages/ui/src/shared/merge-class-name.ts",
-    target: "components/lenso/shared/merge-class-name.ts",
+    source: "packages/ui/src/shared/stylex-props.ts",
+    target: "components/lenso/shared/stylex-props.ts",
     type: "registry:lib" as const,
   },
   {
@@ -618,7 +618,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:lib",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
       {
         source: "packages/primitives/src/resize-handle/index.tsx",
