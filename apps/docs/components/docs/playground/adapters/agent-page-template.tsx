@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import * as stylex from "@stylexjs/stylex";
 
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import { AgentPage, AgentTurn } from "../../../templates/agent-page";
 import type { PlaygroundAdapter } from "../types";
-import { styles } from "./template-pages.stylex";
+import styles from "./template-pages.module.css";
 
 function AgentPagePreview() {
   const [draft, setDraft] = React.useState("");
@@ -35,8 +34,8 @@ function AgentPagePreview() {
 }
 
 export const agentPageAdapter: PlaygroundAdapter = ({ theme }) => (
-  <ThemeScope theme={theme} xstyle={styles.stage}>
-    <div {...stylex.props(styles.frame)}>
+  <ThemeScope className={`stage-canvas ${styles.stage}`} theme={theme}>
+    <div className={styles.frame}>
       <AgentPagePreview />
     </div>
   </ThemeScope>

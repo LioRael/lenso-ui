@@ -3,7 +3,7 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import { LinkIcon, MoreHorizontalIcon, StarIcon, StoreIcon } from "lucide-react";
-import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -111,10 +111,7 @@ test("Page Header matches the approved Team and Simple Figma variants", async ()
       </div>
     </div>,
   );
-  await document.fonts.load(
-    '500 13px "IBM Plex Sans"',
-    "TestABl Overview Documents Members Preferences",
-  );
+  await document.fonts.load('500 13px "Inter"', "TestABl Overview Documents Members Preferences");
   const board = screen.getByTestId("page-header-figma-state-board");
   const headers = board.element().querySelectorAll<HTMLElement>('[data-slot="page-header"]');
   const tabs = board.element().querySelectorAll<HTMLElement>('[data-slot="page-header-tab"]');

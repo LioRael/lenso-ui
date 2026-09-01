@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
-import "@fontsource/ibm-plex-sans/400.css";
+import "@fontsource/inter/400.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -46,7 +46,7 @@ test("Command Menu supports keyboard filtering and Light/Dark semantic themes", 
       <RuntimeCommandMenu theme="dark" />
     </>,
   );
-  await document.fonts.load('400 15px "IBM Plex Sans"', "Assign to");
+  await document.fonts.load('400 15px "Inter"', "Assign to");
 
   const input = screen.getByRole("combobox", { name: "light command search" });
   await userEvent.click(input);

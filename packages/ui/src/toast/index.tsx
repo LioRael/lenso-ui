@@ -5,7 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Toast as BaseToast } from "@base-ui/react/toast";
 import { XIcon } from "lucide-react";
 
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { useThemePortalContainer } from "../theme-scope/index.js";
 import { styles } from "./toast.stylex.js";
 
@@ -22,26 +22,25 @@ export const ToastPortal = React.forwardRef<HTMLDivElement, BaseToast.Portal.Pro
   },
 );
 
-export const ToastViewport = React.forwardRef<
-  HTMLDivElement,
-  StyleXProps<BaseToast.Viewport.Props>
->(function ToastViewport({ xstyle, ...props }, ref) {
-  return (
-    <BaseToast.Viewport
-      {...props}
-      className={stylex.props(styles.viewport, xstyle).className}
-      data-slot="toast-viewport"
-      ref={ref}
-    />
-  );
-});
+export const ToastViewport = React.forwardRef<HTMLDivElement, BaseToast.Viewport.Props>(
+  function ToastViewport({ className, ...props }, ref) {
+    return (
+      <BaseToast.Viewport
+        {...props}
+        className={mergeClassName(stylex.props(styles.viewport).className, className)}
+        data-slot="toast-viewport"
+        ref={ref}
+      />
+    );
+  },
+);
 
-export interface ToastRootProps extends StyleXProps<BaseToast.Root.Props> {
+export interface ToastRootProps extends BaseToast.Root.Props {
   tone?: ToastTone;
 }
 
 export const ToastRoot = React.forwardRef<HTMLDivElement, ToastRootProps>(function ToastRoot(
-  { tone, toast, xstyle, ...props },
+  { className, tone, toast, ...props },
   ref,
 ) {
   const resolvedTone =
@@ -57,7 +56,7 @@ export const ToastRoot = React.forwardRef<HTMLDivElement, ToastRootProps>(functi
             ? toast.description
             : undefined)
       }
-      className={stylex.props(styles.root, xstyle).className}
+      className={mergeClassName(stylex.props(styles.root).className, className)}
       data-slot="toast-root"
       data-tone={resolvedTone}
       ref={ref}
@@ -66,12 +65,12 @@ export const ToastRoot = React.forwardRef<HTMLDivElement, ToastRootProps>(functi
   );
 });
 
-export const ToastContent = React.forwardRef<HTMLDivElement, StyleXProps<BaseToast.Content.Props>>(
-  function ToastContent({ xstyle, ...props }, ref) {
+export const ToastContent = React.forwardRef<HTMLDivElement, BaseToast.Content.Props>(
+  function ToastContent({ className, ...props }, ref) {
     return (
       <BaseToast.Content
         {...props}
-        className={stylex.props(styles.content, xstyle).className}
+        className={mergeClassName(stylex.props(styles.content).className, className)}
         data-slot="toast-content"
         ref={ref}
       />
@@ -79,12 +78,12 @@ export const ToastContent = React.forwardRef<HTMLDivElement, StyleXProps<BaseToa
   },
 );
 
-export interface ToastIconProps extends StyleXProps<React.ComponentPropsWithoutRef<"span">> {
+export interface ToastIconProps extends React.ComponentPropsWithoutRef<"span"> {
   tone?: ToastTone;
 }
 
 export const ToastIcon = React.forwardRef<HTMLSpanElement, ToastIconProps>(function ToastIcon(
-  { children, tone = "default", xstyle, ...props },
+  { children, className, tone = "default", ...props },
   ref,
 ) {
   const defaultIcon =
@@ -99,12 +98,16 @@ export const ToastIcon = React.forwardRef<HTMLSpanElement, ToastIconProps>(funct
     <span
       {...props}
       aria-hidden="true"
-      {...stylex.props(
-        styles.icon,
-        tone === "success" && styles.success,
-        tone === "error" && styles.error,
-        xstyle,
-      )}
+      className={
+        mergeClassName(
+          stylex.props(
+            styles.icon,
+            tone === "success" && styles.success,
+            tone === "error" && styles.error,
+          ).className,
+          className,
+        ) as string
+      }
       data-slot="toast-icon"
       ref={ref}
     >
@@ -113,12 +116,12 @@ export const ToastIcon = React.forwardRef<HTMLSpanElement, ToastIconProps>(funct
   );
 });
 
-export const ToastTitle = React.forwardRef<HTMLHeadingElement, StyleXProps<BaseToast.Title.Props>>(
-  function ToastTitle({ xstyle, ...props }, ref) {
+export const ToastTitle = React.forwardRef<HTMLHeadingElement, BaseToast.Title.Props>(
+  function ToastTitle({ className, ...props }, ref) {
     return (
       <BaseToast.Title
         {...props}
-        className={stylex.props(styles.text, styles.title, xstyle).className}
+        className={mergeClassName(stylex.props(styles.text, styles.title).className, className)}
         data-slot="toast-title"
         ref={ref}
       />
@@ -126,25 +129,24 @@ export const ToastTitle = React.forwardRef<HTMLHeadingElement, StyleXProps<BaseT
   },
 );
 
-export const ToastDescription = React.forwardRef<
-  HTMLParagraphElement,
-  StyleXProps<BaseToast.Description.Props>
->(function ToastDescription({ xstyle, ...props }, ref) {
-  return (
-    <BaseToast.Description
-      {...props}
-      className={stylex.props(styles.text, xstyle).className}
-      data-slot="toast-description"
-      ref={ref}
-    />
-  );
-});
+export const ToastDescription = React.forwardRef<HTMLParagraphElement, BaseToast.Description.Props>(
+  function ToastDescription({ className, ...props }, ref) {
+    return (
+      <BaseToast.Description
+        {...props}
+        className={mergeClassName(stylex.props(styles.text).className, className)}
+        data-slot="toast-description"
+        ref={ref}
+      />
+    );
+  },
+);
 
-export interface ToastCloseProps extends StyleXProps<BaseToast.Close.Props> {
+export interface ToastCloseProps extends BaseToast.Close.Props {
   icon?: React.ReactNode;
 }
 export const ToastClose = React.forwardRef<HTMLButtonElement, ToastCloseProps>(function ToastClose(
-  { children, icon, xstyle, ...props },
+  { children, className, icon, ...props },
   ref,
 ) {
   const iconNode = icon === undefined ? <XIcon size={16} strokeWidth={1.5} /> : icon;
@@ -154,7 +156,7 @@ export const ToastClose = React.forwardRef<HTMLButtonElement, ToastCloseProps>(f
       aria-label={
         children == null ? (props["aria-label"] ?? "Dismiss notification") : props["aria-label"]
       }
-      className={stylex.props(styles.close, xstyle).className}
+      className={mergeClassName(stylex.props(styles.close).className, className)}
       data-slot="toast-close"
       ref={ref}
     >
@@ -168,12 +170,12 @@ export const ToastClose = React.forwardRef<HTMLButtonElement, ToastCloseProps>(f
   );
 });
 
-export const ToastAction = React.forwardRef<HTMLButtonElement, StyleXProps<BaseToast.Action.Props>>(
-  function ToastAction({ xstyle, ...props }, ref) {
+export const ToastAction = React.forwardRef<HTMLButtonElement, BaseToast.Action.Props>(
+  function ToastAction({ className, ...props }, ref) {
     return (
       <BaseToast.Action
         {...props}
-        className={stylex.props(styles.action, xstyle).className}
+        className={mergeClassName(stylex.props(styles.action).className, className)}
         data-slot="toast-action"
         ref={ref}
       />

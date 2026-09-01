@@ -6,7 +6,9 @@ import settingsPageConfig from "../../../contents/templates/settings-page/playgr
 import { parsePlaygroundConfig } from "./config";
 
 const templateLayout = {
-  layout: "template",
+  bodyClassName: "template-playground-body",
+  sectionClassName: "template-playground",
+  stageClassName: "template-rendered-stage",
 };
 
 describe("template playground layout", () => {

@@ -1,20 +1,18 @@
 import type { ReactNode } from "react";
-import * as stylex from "@stylexjs/stylex";
 
 import { docsHeadingId } from "./heading";
-import { styles } from "./guidance.stylex";
 
 export function Guidance({ children }: { children: ReactNode }) {
-  return <section {...stylex.props(styles.root)}>{children}</section>;
+  return <section className="button-guidance mdx-guidance">{children}</section>;
 }
 
 export function GuidanceBlock({ children, title }: { children: ReactNode; title: string }) {
   return (
-    <article {...stylex.props(styles.block)}>
-      <h2 data-toc-heading id={docsHeadingId(title)} {...stylex.props(styles.title)}>
+    <article>
+      <h2 data-toc-heading id={docsHeadingId(title)}>
         {title}
       </h2>
-      <div {...stylex.props(styles.content)}>{children}</div>
+      <div className="guidance-content">{children}</div>
     </article>
   );
 }

@@ -4,7 +4,7 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Avatar as BaseAvatar } from "@base-ui/react/avatar";
 
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./avatar.stylex.js";
 
 export type AvatarSize = "compact" | "default" | "large" | "xlarge";
@@ -13,19 +13,19 @@ export type AvatarStatusSize = "default" | "small";
 
 const AvatarSizeContext = React.createContext<AvatarSize>("compact");
 
-export interface AvatarRootProps extends StyleXProps<BaseAvatar.Root.Props> {
+export interface AvatarRootProps extends BaseAvatar.Root.Props {
   size?: AvatarSize;
 }
 
 export const AvatarRoot = React.forwardRef<HTMLSpanElement, AvatarRootProps>(function AvatarRoot(
-  { size = "compact", xstyle, ...props },
+  { className, size = "compact", ...props },
   ref,
 ) {
   return (
     <AvatarSizeContext.Provider value={size}>
       <BaseAvatar.Root
         {...props}
-        className={stylex.props(styles.root, styles[size], xstyle).className}
+        className={mergeClassName(stylex.props(styles.root, styles[size]).className, className)}
         data-size={size}
         data-slot="avatar-root"
         ref={ref}
@@ -34,13 +34,12 @@ export const AvatarRoot = React.forwardRef<HTMLSpanElement, AvatarRootProps>(fun
   );
 });
 
-export type AvatarImageProps = StyleXProps<BaseAvatar.Image.Props>;
-export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
-  function AvatarImage({ xstyle, ...props }, ref) {
+export const AvatarImage = React.forwardRef<HTMLImageElement, BaseAvatar.Image.Props>(
+  function AvatarImage({ className, ...props }, ref) {
     return (
       <BaseAvatar.Image
         {...props}
-        className={stylex.props(styles.image, xstyle).className}
+        className={mergeClassName(stylex.props(styles.image).className, className)}
         data-slot="avatar-image"
         ref={ref}
       />
@@ -48,9 +47,8 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
   },
 );
 
-export type AvatarFallbackProps = StyleXProps<BaseAvatar.Fallback.Props>;
-export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackProps>(
-  function AvatarFallback({ xstyle, ...props }, ref) {
+export const AvatarFallback = React.forwardRef<HTMLSpanElement, BaseAvatar.Fallback.Props>(
+  function AvatarFallback({ className, ...props }, ref) {
     const size = React.useContext(AvatarSizeContext);
     const sizeStyle = {
       compact: styles.fallbackCompact,
@@ -61,7 +59,7 @@ export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackPr
     return (
       <BaseAvatar.Fallback
         {...props}
-        className={stylex.props(styles.fallback, sizeStyle, xstyle).className}
+        className={mergeClassName(stylex.props(styles.fallback, sizeStyle).className, className)}
         data-slot="avatar-fallback"
         ref={ref}
       />
@@ -69,9 +67,7 @@ export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackPr
   },
 );
 
-export interface AvatarStatusProps extends StyleXProps<
-  Omit<React.HTMLAttributes<HTMLSpanElement>, "children">
-> {
+export interface AvatarStatusProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, "children"> {
   attached?: boolean;
   size?: AvatarStatusSize;
   state?: AvatarStatusState;
@@ -82,9 +78,9 @@ export const AvatarStatus = React.forwardRef<HTMLSpanElement, AvatarStatusProps>
     {
       "aria-label": ariaLabel,
       attached = false,
+      className,
       size = "small",
       state = "online",
-      xstyle,
       ...props
     },
     ref,
@@ -92,15 +88,17 @@ export const AvatarStatus = React.forwardRef<HTMLSpanElement, AvatarStatusProps>
     return (
       <span
         {...props}
-        className={
+        className={[
           stylex.props(
             styles.status,
             attached && styles.statusAttached,
             size === "small" ? styles.statusSmall : styles.statusDefault,
             styles[state],
-            xstyle,
-          ).className
-        }
+          ).className,
+          className,
+        ]
+          .filter(Boolean)
+          .join(" ")}
         data-size={size}
         data-slot="avatar-status"
         data-state={state}
@@ -112,18 +110,18 @@ export const AvatarStatus = React.forwardRef<HTMLSpanElement, AvatarStatusProps>
   },
 );
 
-export interface AvatarGroupProps extends StyleXProps<React.HTMLAttributes<HTMLSpanElement>> {
+export interface AvatarGroupProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode;
 }
 
 export const AvatarGroup = React.forwardRef<HTMLSpanElement, AvatarGroupProps>(function AvatarGroup(
-  { children, xstyle, ...props },
+  { children, className, ...props },
   ref,
 ) {
   return (
     <span
       {...props}
-      className={stylex.props(styles.group, xstyle).className}
+      className={[stylex.props(styles.group).className, className].filter(Boolean).join(" ")}
       data-slot="avatar-group"
       ref={ref}
     >

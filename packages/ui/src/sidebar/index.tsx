@@ -6,19 +6,9 @@ import { Button as BaseButton } from "@base-ui/react/button";
 import { Sidebar as SidebarPrimitive } from "@lenso/primitives/sidebar";
 
 import { Disclosure, type DisclosurePanelProps } from "../disclosure/index.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { createStyledPart } from "../shared/styled-part.js";
-import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./sidebar.stylex.js";
-
-export type SidebarGroupProps = StyleXProps<React.ComponentProps<typeof SidebarPrimitive.Group>>;
-export function SidebarGroup({ xstyle, ...props }: SidebarGroupProps) {
-  return <SidebarPrimitive.Group {...props} className={stylex.props(xstyle).className} />;
-}
-
-export type SidebarRootProps = StyleXProps<React.ComponentProps<typeof SidebarPrimitive.Root>>;
-export function SidebarRoot({ xstyle, ...props }: SidebarRootProps) {
-  return <SidebarPrimitive.Root {...props} className={stylex.props(xstyle).className} />;
-}
 
 export const SidebarPanel = createStyledPart(SidebarPrimitive.Panel, "sidebar-panel", styles.panel);
 export const SidebarHeader = createStyledPart(
@@ -48,24 +38,25 @@ export const SidebarSubmenu = createStyledPart(
   styles.submenu,
 );
 
-export interface SidebarWorkspaceProps extends StyleXProps<Omit<BaseButton.Props, "children">> {
+export interface SidebarWorkspaceProps extends Omit<BaseButton.Props, "children" | "className"> {
   children: React.ReactNode;
+  className?: BaseButton.Props["className"];
   icon?: React.ReactNode;
   indicator?: React.ReactNode;
 }
 
 export function SidebarWorkspace({
   children,
+  className,
   icon,
   indicator,
   ref,
-  xstyle,
   ...props
 }: SidebarWorkspaceProps) {
   return (
     <BaseButton
       {...props}
-      className={stylex.props(styles.workspace, xstyle).className}
+      className={mergeClassName(stylex.props(styles.workspace).className, className)}
       data-slot="sidebar-workspace"
       ref={ref}
     >
@@ -90,9 +81,10 @@ export const SidebarHeaderSpacer = createStyledPart(
   styles.headerSpacer,
 );
 
-export interface SidebarItemProps extends StyleXProps<Omit<BaseButton.Props, "children">> {
+export interface SidebarItemProps extends Omit<BaseButton.Props, "children" | "className"> {
   badge?: React.ReactNode;
   children: React.ReactNode;
+  className?: BaseButton.Props["className"];
   icon?: React.ReactNode;
   nested?: boolean;
   selected?: boolean;
@@ -101,25 +93,23 @@ export interface SidebarItemProps extends StyleXProps<Omit<BaseButton.Props, "ch
 export function SidebarItem({
   badge,
   children,
+  className,
   icon,
   nested = false,
   ref,
   selected = false,
-  xstyle,
   ...props
 }: SidebarItemProps) {
+  const generated = stylex.props(
+    styles.item,
+    nested && styles.nestedItem,
+    selected && styles.selectedItem,
+  ).className;
   return (
     <BaseButton
       {...props}
       aria-current={selected ? "page" : undefined}
-      className={
-        stylex.props(
-          styles.item,
-          nested && styles.nestedItem,
-          selected && styles.selectedItem,
-          xstyle,
-        ).className
-      }
+      className={mergeClassName(generated, className)}
       data-level={nested ? "nested" : "root"}
       data-slot="sidebar-item"
       data-state={selected ? "selected" : "default"}
@@ -148,10 +138,20 @@ export const SidebarSectionLabel = createStyledPart(
   styles.sectionLabel,
 );
 export function SidebarSectionTrigger({
-  xstyle,
+  className,
+  style,
   ...props
 }: React.ComponentProps<typeof Disclosure.Trigger>) {
-  return <Disclosure.Trigger {...props} xstyle={[styles.sectionTrigger, xstyle]} />;
+  return (
+    <Disclosure.Trigger
+      {...props}
+      className={className}
+      style={(state) => ({
+        ...(typeof style === "function" ? style(state) : style),
+        backgroundColor: "transparent",
+      })}
+    />
+  );
 }
 export const SidebarSectionAction = createStyledPart(
   "div",
@@ -178,14 +178,12 @@ export const Sidebar = {
   ...SidebarPrimitive,
   Content: SidebarContent,
   Footer: SidebarFooter,
-  Group: SidebarGroup,
   Header: SidebarHeader,
   HeaderSpacer: SidebarHeaderSpacer,
   Item: SidebarItem,
   Menu: SidebarMenu,
   MenuItem: SidebarMenuItem,
   Panel: SidebarPanel,
-  Root: SidebarRoot,
   Section: SidebarSection,
   SectionAction: SidebarSectionAction,
   SectionContent: SidebarSectionContent,

@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import * as stylex from "@stylexjs/stylex";
 
 import { semanticTokenNames, type SemanticToken, type ThemeName } from "@lenso/tokens";
-import type { StyleXProps } from "../shared/stylex-props.js";
 
 interface ThemeContextValue {
   overrides: Partial<Record<SemanticToken, string>>;
@@ -14,13 +12,13 @@ interface ThemeContextValue {
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 
-export interface ThemeScopeProps extends StyleXProps<React.ComponentPropsWithoutRef<"div">> {
+export interface ThemeScopeProps extends React.ComponentPropsWithoutRef<"div"> {
   overrides?: Partial<Record<SemanticToken, string>>;
   theme?: ThemeName | "system";
 }
 
 export const ThemeScope = React.forwardRef<HTMLDivElement, ThemeScopeProps>(function ThemeScope(
-  { children, overrides, style, theme, xstyle, ...props },
+  { children, className, overrides, style, theme, ...props },
   forwardedRef,
 ) {
   const parent = React.useContext(ThemeContext);
@@ -75,7 +73,7 @@ export const ThemeScope = React.forwardRef<HTMLDivElement, ThemeScopeProps>(func
     <ThemeContext.Provider value={context}>
       <div
         {...props}
-        className={stylex.props(xstyle).className}
+        className={className}
         data-slot="theme-scope"
         data-theme={resolvedTheme}
         ref={setRef}

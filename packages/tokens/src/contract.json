@@ -2695,24 +2695,24 @@
         "type": "fontFamily",
         "value": [
           "IBM Plex Sans",
+          "Inter",
           "ui-sans-serif",
-          "system-ui",
           "sans-serif"
         ],
         "cssName": "--font-button",
-        "cssValue": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif"
+        "cssValue": "\"IBM Plex Sans\", \"Inter\", ui-sans-serif, sans-serif"
       },
       "font.sans": {
         "path": "font.sans",
         "type": "fontFamily",
         "value": [
-          "IBM Plex Sans",
+          "Inter",
           "ui-sans-serif",
           "system-ui",
           "sans-serif"
         ],
         "cssName": "--font-sans",
-        "cssValue": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif"
+        "cssValue": "\"Inter\", ui-sans-serif, system-ui, sans-serif"
       },
       "opacity.disabled": {
         "path": "opacity.disabled",
@@ -4620,24 +4620,24 @@
         "type": "fontFamily",
         "value": [
           "IBM Plex Sans",
+          "Inter",
           "ui-sans-serif",
-          "system-ui",
           "sans-serif"
         ],
         "cssName": "--font-button",
-        "cssValue": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif"
+        "cssValue": "\"IBM Plex Sans\", \"Inter\", ui-sans-serif, sans-serif"
       },
       "font.sans": {
         "path": "font.sans",
         "type": "fontFamily",
         "value": [
-          "IBM Plex Sans",
+          "Inter",
           "ui-sans-serif",
           "system-ui",
           "sans-serif"
         ],
         "cssName": "--font-sans",
-        "cssValue": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif"
+        "cssValue": "\"Inter\", ui-sans-serif, system-ui, sans-serif"
       },
       "opacity.disabled": {
         "path": "opacity.disabled",

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 import {
   ArrowUpRightIcon,
@@ -34,7 +33,6 @@ import { Tabs } from "@lenso/ui/tabs";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import type { PlaygroundAdapter } from "../types";
-import { stageStyles } from "./stage.stylex";
 
 function stringValue(
   values: Readonly<Record<string, boolean | number | string>>,
@@ -65,7 +63,7 @@ function TeamIcon() {
 
 export const breadcrumbAdapter: PlaygroundAdapter = ({ example, theme }) => {
   return (
-    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+    <ThemeScope className="stage-canvas" theme={theme}>
       <Breadcrumb.Root>
         <Breadcrumb.List>
           <Breadcrumb.Item>
@@ -125,7 +123,7 @@ function DisclosurePreview({ multiple }: { multiple: boolean }) {
           </Disclosure.Trigger>
         </Disclosure.Header>
         <Disclosure.Panel layout="list">
-          <div {...stylex.props(stageStyles.disclosureList)}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <span>Active</span>
             <span>Archived</span>
             <span>More</span>
@@ -145,7 +143,7 @@ function DisclosurePreview({ multiple }: { multiple: boolean }) {
 }
 
 export const disclosureAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+  <ThemeScope className="stage-canvas" theme={theme}>
     <DisclosurePreview multiple={values.multiple === true} />
   </ThemeScope>
 );
@@ -235,15 +233,15 @@ function HeaderDemo({ variant }: { variant: string }) {
 }
 
 export const pageHeaderAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.pageHeader]}>
-    <div {...stylex.props(stageStyles.fullWidth)}>
+  <ThemeScope className="stage-canvas page-header-stage" theme={theme}>
+    <div style={{ width: "100%" }}>
       <HeaderDemo variant={stringValue(values, "variant", "team")} />
     </div>
   </ThemeScope>
 );
 
 export const quickLinkAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+  <ThemeScope className="stage-canvas" theme={theme}>
     <QuickLink
       disabled={values.disabled === true}
       leadingIcon={<SettingsIcon size={16} />}
@@ -283,7 +281,7 @@ function SidebarPreview() {
   const [selectedItem, setSelectedItem] = React.useState("home");
 
   return (
-    <Sidebar.Group xstyle={stageStyles.sidebarPreview}>
+    <Sidebar.Group style={{ height: 720 }}>
       <Sidebar.Root defaultOpen id="docs-sidebar">
         <Sidebar.Panel>
           <Sidebar.Header>
@@ -412,7 +410,7 @@ function SidebarPreview() {
 }
 
 export const sidebarAdapter: PlaygroundAdapter = ({ theme }) => (
-  <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.sidebar]}>
+  <ThemeScope className="stage-canvas sidebar-stage-canvas" theme={theme}>
     <SidebarPreview />
   </ThemeScope>
 );
@@ -420,7 +418,7 @@ export const sidebarAdapter: PlaygroundAdapter = ({ theme }) => (
 export const tabsAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
   const selected = stringValue(values, "selected", "overview");
   return (
-    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.tabs]}>
+    <ThemeScope className="stage-canvas tabs-stage" theme={theme}>
       <Tabs.Root onValueChange={(value) => setValue("selected", value)} value={selected}>
         <Tabs.List aria-label="Project sections">
           <Tabs.Tab value="overview">Overview</Tabs.Tab>
@@ -441,7 +439,7 @@ export const segmentedControlAdapter: PlaygroundAdapter = ({ setValue, theme, va
   const selected = stringValue(values, "selected", "light");
   const width = stringValue(values, "width", "fit") as "fill" | "fit";
   return (
-    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+    <ThemeScope className="stage-canvas" theme={theme}>
       <SegmentedControl.Root
         aria-label="Theme mode"
         onValueChange={(value) => setValue("selected", value)}

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import * as stylex from "@stylexjs/stylex";
 import {
   CalendarIcon,
   ChevronDownIcon,
@@ -22,7 +21,6 @@ import { ThemeScope } from "@lenso/ui/theme-scope";
 import { Tooltip } from "@lenso/ui/tooltip";
 
 import type { PlaygroundAdapter } from "../types";
-import { stageStyles } from "./stage.stylex";
 
 function stringValue(
   values: Readonly<Record<string, boolean | number | string>>,
@@ -34,7 +32,7 @@ function stringValue(
 }
 
 const labels = ["Bug", "Feature", "Improvement"] as const;
-const markerStyles = [stageStyles.markerRed, stageStyles.markerPurple, stageStyles.markerBlue];
+const markerColors = ["#eb5757", "#bb87fc", "#4ea7fc"] as const;
 
 function ComboboxPreview({ multiple, state }: { multiple: boolean; state: string }) {
   const content = (
@@ -62,12 +60,12 @@ function ComboboxPreview({ multiple, state }: { multiple: boolean; state: string
                       {multiple ? (
                         <>
                           <Combobox.ItemIndicator />
-                          <Combobox.Marker xstyle={markerStyles[index]} />
+                          <Combobox.Marker style={{ color: markerColors[index] }} />
                           <Combobox.ItemText>{label}</Combobox.ItemText>
                         </>
                       ) : (
                         <>
-                          <Combobox.Marker xstyle={markerStyles[index]} />
+                          <Combobox.Marker style={{ color: markerColors[index] }} />
                           <Combobox.ItemText>{label}</Combobox.ItemText>
                           <Combobox.ItemIndicator />
                           <Combobox.Trailing>{index}</Combobox.Trailing>
@@ -106,7 +104,7 @@ export const comboboxAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const multiple = stringValue(values, "selection", "multiple") === "multiple";
 
   return (
-    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+    <ThemeScope className="stage-canvas" theme={theme}>
       <ComboboxPreview multiple={multiple} state={state} />
     </ThemeScope>
   );
@@ -128,9 +126,9 @@ export const commandMenuAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const items = state === "no-results" ? [] : commands;
 
   return (
-    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.commandMenu]}>
+    <ThemeScope className="stage-canvas command-menu-stage" theme={theme}>
       <CommandMenu.Root items={items} inputValue={query}>
-        <CommandMenu.Panel xstyle={stageStyles.commandMenuPanel}>
+        <CommandMenu.Panel>
           <CommandMenu.Search>
             <CommandMenu.Input
               aria-label="Command search"
@@ -186,7 +184,7 @@ function MenuItem({
 }
 
 export const menuAdapter: PlaygroundAdapter = ({ theme }) => (
-  <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.popover]}>
+  <ThemeScope className="stage-canvas popover-stage" theme={theme}>
     <Menu.Root>
       <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
       <Menu.Portal>
@@ -252,7 +250,7 @@ export const popoverAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =
     | "top";
 
   return (
-    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.popover]}>
+    <ThemeScope className="stage-canvas popover-stage" theme={theme}>
       <Popover.Root onOpenChange={(nextOpen) => setValue("open", nextOpen)} open={open}>
         <Popover.Trigger>
           Open popover
@@ -260,7 +258,10 @@ export const popoverAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =
             aria-hidden="true"
             size={10}
             strokeWidth={1.5}
-            {...stylex.props(stageStyles.popoverChevron, open && stageStyles.popoverChevronOpen)}
+            style={{
+              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+              transition: "transform 120ms ease-out",
+            }}
           />
         </Popover.Trigger>
         <Popover.Portal>
@@ -304,7 +305,7 @@ function ToastPreview({ tone }: { tone: ToastTone }) {
 }
 
 export const toastAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+  <ThemeScope className="stage-canvas" theme={theme}>
     <Toast.Provider timeout={5000}>
       <ToastPreview tone={stringValue(values, "tone", "default") as ToastTone} />
     </Toast.Provider>
@@ -312,7 +313,7 @@ export const toastAdapter: PlaygroundAdapter = ({ theme, values }) => (
 );
 
 export const tooltipAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.tooltip]}>
+  <ThemeScope className="stage-canvas tooltip-stage" theme={theme}>
     <Tooltip.Provider closeDelay={0} delay={200}>
       <Tooltip.Root defaultOpen>
         <Tooltip.Trigger render={<Button variant="secondary" />}>Hover for help</Tooltip.Trigger>

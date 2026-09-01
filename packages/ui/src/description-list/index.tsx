@@ -3,8 +3,8 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { createStyledPart } from "../shared/styled-part.js";
-import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./description-list.stylex.js";
 
 export type DescriptionListLayout = "inline" | "stacked";
@@ -17,20 +17,18 @@ const DescriptionListContext = React.createContext<DescriptionListContextValue>(
   layout: "inline",
 });
 
-export interface DescriptionListRootProps extends StyleXProps<
-  React.ComponentPropsWithoutRef<"dl">
-> {
+export interface DescriptionListRootProps extends React.ComponentPropsWithoutRef<"dl"> {
   layout?: DescriptionListLayout;
 }
 
 export const DescriptionListRoot = React.forwardRef<HTMLDListElement, DescriptionListRootProps>(
-  function DescriptionListRoot({ layout = "inline", xstyle, ...props }, ref) {
+  function DescriptionListRoot({ className, layout = "inline", ...props }, ref) {
     const value = React.useMemo(() => ({ layout }), [layout]);
     return (
       <DescriptionListContext.Provider value={value}>
         <dl
           {...props}
-          {...stylex.props(styles.root, xstyle)}
+          className={mergeClassName(stylex.props(styles.root).className, className) as string}
           data-layout={layout}
           data-slot="description-list"
           ref={ref}
@@ -42,13 +40,18 @@ export const DescriptionListRoot = React.forwardRef<HTMLDListElement, Descriptio
 
 export const DescriptionListItem = React.forwardRef<
   HTMLDivElement,
-  StyleXProps<React.ComponentPropsWithoutRef<"div">>
->(function DescriptionListItem({ xstyle, ...props }, ref) {
+  React.ComponentPropsWithoutRef<"div">
+>(function DescriptionListItem({ className, ...props }, ref) {
   const { layout } = React.useContext(DescriptionListContext);
   return (
     <div
       {...props}
-      {...stylex.props(styles.item, layout === "stacked" && styles.stackedItem, xstyle)}
+      className={
+        mergeClassName(
+          stylex.props(styles.item, layout === "stacked" && styles.stackedItem).className,
+          className,
+        ) as string
+      }
       data-layout={layout}
       data-slot="description-list-item"
       ref={ref}

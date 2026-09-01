@@ -1,58 +1,39 @@
 import type { ReactNode } from "react";
-import * as stylex from "@stylexjs/stylex";
-
-import { styles } from "./live-playground.stylex";
-
-export type PlaygroundLayout = "command-menu" | "default" | "sidebar" | "template";
 
 interface LivePlaygroundProps {
   actions?: ReactNode;
+  bodyClassName?: string;
   controls: ReactNode;
-  layout?: PlaygroundLayout;
   preview: ReactNode;
+  sectionClassName?: string;
+  stageClassName?: string;
   title?: string;
 }
 
 export function LivePlayground({
   actions,
+  bodyClassName,
   controls,
-  layout = "default",
   preview,
+  sectionClassName,
+  stageClassName,
   title = "Live playground",
 }: LivePlaygroundProps) {
   return (
-    <section {...stylex.props(styles.root)}>
-      <div {...stylex.props(styles.heading)}>
-        <h2 {...stylex.props(styles.title)}>{title}</h2>
-        {actions && <div {...stylex.props(styles.actions)}>{actions}</div>}
+    <section
+      className={`button-playground mdx-live-playground${sectionClassName ? ` ${sectionClassName}` : ""}`}
+    >
+      <div className="playground-heading">
+        <h2>{title}</h2>
+        {actions && <div className="playground-actions">{actions}</div>}
       </div>
-      <div
-        {...stylex.props(
-          styles.body,
-          layout === "template" && styles.templateBody,
-          layout === "sidebar" && styles.sidebarBody,
-          layout === "command-menu" && styles.commandMenuBody,
-        )}
-      >
+      <div className={`playground-body${bodyClassName ? ` ${bodyClassName}` : ""}`}>
         <article
-          {...stylex.props(
-            styles.stage,
-            layout === "template" && styles.templateStage,
-            layout === "sidebar" && styles.sidebarStage,
-            layout === "command-menu" && styles.commandMenuStage,
-          )}
+          className={`rendered-stage mdx-rendered-stage${stageClassName ? ` ${stageClassName}` : ""}`}
         >
           {preview}
         </article>
-        <aside
-          aria-label="Playground controls"
-          {...stylex.props(
-            styles.inspector,
-            layout === "template" && styles.templateInspector,
-            layout === "sidebar" && styles.sidebarInspector,
-            layout === "command-menu" && styles.commandMenuInspector,
-          )}
-        >
+        <aside aria-label="Playground controls" className="playground-inspector">
           {controls}
         </aside>
       </div>

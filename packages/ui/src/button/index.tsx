@@ -4,7 +4,7 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button as BaseButton } from "@base-ui/react/button";
 
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./button.stylex.js";
 
 const loadingIndicatorPath =
@@ -37,8 +37,9 @@ function DefaultLoadingIndicator() {
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 export type ButtonSize = "compact" | "default";
 
-export interface ButtonProps extends StyleXProps<Omit<BaseButton.Props, "children" | "disabled">> {
+export interface ButtonProps extends Omit<BaseButton.Props, "children" | "className" | "disabled"> {
   children?: React.ReactNode;
+  className?: BaseButton.Props["className"];
   disabled?: boolean;
   loading?: boolean;
   loadingIndicator?: React.ReactNode;
@@ -49,23 +50,28 @@ export interface ButtonProps extends StyleXProps<Omit<BaseButton.Props, "childre
 export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button(
   {
     children,
+    className,
     disabled,
     loading = false,
     loadingIndicator,
     size = "compact",
     variant = "primary",
-    xstyle,
     ...props
   },
   ref,
 ) {
+  const generated = stylex.props(
+    styles.root,
+    styles.rounded,
+    styles[size],
+    styles[variant],
+  ).className;
+
   return (
     <BaseButton
       {...props}
       aria-busy={loading || undefined}
-      className={
-        stylex.props(styles.root, styles.rounded, styles[size], styles[variant], xstyle).className
-      }
+      className={mergeClassName(generated, className)}
       data-loading={loading ? "" : undefined}
       data-size={size}
       data-slot="button"

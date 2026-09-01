@@ -5,16 +5,15 @@ import * as stylex from "@stylexjs/stylex";
 import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
 import { ChevronRightIcon } from "lucide-react";
 
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./disclosure.stylex.js";
 
-export type DisclosureRootProps = StyleXProps<BaseAccordion.Root.Props>;
-export const DisclosureRoot = React.forwardRef<HTMLDivElement, DisclosureRootProps>(
-  function DisclosureRoot({ xstyle, ...props }, ref) {
+export const DisclosureRoot = React.forwardRef<HTMLDivElement, BaseAccordion.Root.Props>(
+  function DisclosureRoot({ className, ...props }, ref) {
     return (
       <BaseAccordion.Root
         {...props}
-        className={stylex.props(styles.root, xstyle).className}
+        className={mergeClassName(stylex.props(styles.root).className, className)}
         data-slot="disclosure-root"
         ref={ref}
       />
@@ -22,13 +21,12 @@ export const DisclosureRoot = React.forwardRef<HTMLDivElement, DisclosureRootPro
   },
 );
 
-export type DisclosureItemProps = StyleXProps<BaseAccordion.Item.Props>;
-export const DisclosureItem = React.forwardRef<HTMLDivElement, DisclosureItemProps>(
-  function DisclosureItem({ xstyle, ...props }, ref) {
+export const DisclosureItem = React.forwardRef<HTMLDivElement, BaseAccordion.Item.Props>(
+  function DisclosureItem({ className, ...props }, ref) {
     return (
       <BaseAccordion.Item
         {...props}
-        className={stylex.props(styles.item, xstyle).className}
+        className={mergeClassName(stylex.props(styles.item).className, className)}
         data-slot="disclosure-item"
         ref={ref}
       />
@@ -36,13 +34,12 @@ export const DisclosureItem = React.forwardRef<HTMLDivElement, DisclosureItemPro
   },
 );
 
-export type DisclosureHeaderProps = StyleXProps<BaseAccordion.Header.Props>;
-export const DisclosureHeader = React.forwardRef<HTMLHeadingElement, DisclosureHeaderProps>(
-  function DisclosureHeader({ xstyle, ...props }, ref) {
+export const DisclosureHeader = React.forwardRef<HTMLHeadingElement, BaseAccordion.Header.Props>(
+  function DisclosureHeader({ className, ...props }, ref) {
     return (
       <BaseAccordion.Header
         {...props}
-        className={stylex.props(styles.header, xstyle).className}
+        className={mergeClassName(stylex.props(styles.header).className, className)}
         data-slot="disclosure-header"
         ref={ref}
       />
@@ -50,47 +47,50 @@ export const DisclosureHeader = React.forwardRef<HTMLHeadingElement, DisclosureH
   },
 );
 
-export type DisclosureTriggerProps = StyleXProps<BaseAccordion.Trigger.Props>;
-export const DisclosureTrigger = React.forwardRef<HTMLElement, DisclosureTriggerProps>(
-  function DisclosureTrigger({ xstyle, ...props }, ref) {
+export const DisclosureTrigger = React.forwardRef<HTMLElement, BaseAccordion.Trigger.Props>(
+  function DisclosureTrigger({ className, style, ...props }, ref) {
     return (
       <BaseAccordion.Trigger
         {...props}
-        className={stylex.props(styles.trigger, xstyle).className}
+        className={mergeClassName(stylex.props(styles.trigger).className, className)}
         data-slot="disclosure-trigger"
         ref={ref}
+        style={(state) => ({
+          ...(typeof style === "function" ? style(state) : style),
+          "--disclosure-icon-rotation": state.open ? "90deg" : "0deg",
+        })}
       />
     );
   },
 );
 
-export type DisclosureIconProps = StyleXProps<React.ComponentPropsWithoutRef<"span">>;
-export const DisclosureIcon = React.forwardRef<HTMLSpanElement, DisclosureIconProps>(
-  function DisclosureIcon({ children, xstyle, ...props }, ref) {
-    return (
-      <span
-        {...props}
-        aria-hidden="true"
-        className={stylex.props(styles.icon, xstyle).className}
-        data-slot="disclosure-icon"
-        ref={ref}
-      >
-        {children ?? <ChevronRightIcon size={12} strokeWidth={1.5} />}
-      </span>
-    );
-  },
-);
+export const DisclosureIcon = React.forwardRef<
+  HTMLSpanElement,
+  React.ComponentPropsWithoutRef<"span">
+>(function DisclosureIcon({ children, className, ...props }, ref) {
+  return (
+    <span
+      {...props}
+      aria-hidden="true"
+      className={[stylex.props(styles.icon).className, className].filter(Boolean).join(" ")}
+      data-slot="disclosure-icon"
+      ref={ref}
+    >
+      {children ?? <ChevronRightIcon size={12} strokeWidth={1.5} />}
+    </span>
+  );
+});
 
-export interface DisclosurePanelProps extends StyleXProps<BaseAccordion.Panel.Props> {
+export interface DisclosurePanelProps extends BaseAccordion.Panel.Props {
   layout?: "auto" | "list" | "text";
 }
 
 export const DisclosurePanel = React.forwardRef<HTMLDivElement, DisclosurePanelProps>(
-  function DisclosurePanel({ layout = "text", xstyle, ...props }, ref) {
+  function DisclosurePanel({ className, layout = "text", ...props }, ref) {
     return (
       <BaseAccordion.Panel
         {...props}
-        className={stylex.props(styles.panel, xstyle).className}
+        className={mergeClassName(stylex.props(styles.panel).className, className)}
         data-layout={layout}
         data-slot="disclosure-panel"
         ref={ref}

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import * as stylex from "@stylexjs/stylex";
 
 import { Button } from "@lenso/ui/button";
 import { SettingsRow } from "@lenso/ui/settings-row";
@@ -11,26 +10,26 @@ import {
   SettingsGroup,
   SettingsSection,
 } from "../../../../registry/source/recipes/settings-section";
-import { styles } from "./settings-page.stylex";
+import styles from "./settings-page.module.css";
 
-export interface SettingsPageProps extends Omit<
-  React.ComponentPropsWithoutRef<"main">,
-  "className"
-> {
+function mergeClassName(generated?: string, className?: string): string {
+  return [generated, className].filter(Boolean).join(" ");
+}
+
+export interface SettingsPageProps extends React.ComponentPropsWithoutRef<"main"> {
   as?: "div" | "main";
   description?: string;
   idPrefix?: string;
   title?: string;
-  xstyle?: stylex.StyleXStyles;
 }
 
 export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(function SettingsPage(
   {
     as = "main",
+    className,
     description = "Choose how this workspace looks, notifies you, and behaves on this device.",
     idPrefix,
     title = "Preferences",
-    xstyle,
     ...props
   },
   ref,
@@ -44,12 +43,10 @@ export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(fun
 
   const content = (
     <>
-      <div {...stylex.props(styles.content)}>
-        <header {...stylex.props(styles.pageHeader)}>
-          <h1 id={titleId} {...stylex.props(styles.pageTitle)}>
-            {title}
-          </h1>
-          <p {...stylex.props(styles.pageDescription)}>{description}</p>
+      <div className={styles.content}>
+        <header className={styles.pageHeader}>
+          <h1 id={titleId}>{title}</h1>
+          <p>{description}</p>
         </header>
 
         <SettingsSection.Root aria-labelledby={appearanceTitleId}>
@@ -156,7 +153,7 @@ export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(fun
   const rootProps = {
     ...props,
     "aria-labelledby": titleId,
-    className: stylex.props(styles.root, xstyle).className,
+    className: mergeClassName(styles.root, className),
     "data-slot": "settings-page-template",
   };
 

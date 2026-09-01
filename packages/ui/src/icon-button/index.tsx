@@ -4,21 +4,23 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button as BaseButton } from "@base-ui/react/button";
 
-import type { StyleXProps } from "../shared/stylex-props.js";
+import { mergeClassName } from "../shared/merge-class-name.js";
 import { styles } from "./icon-button.stylex.js";
 
 export type IconButtonSize = "compact" | "default";
 export type IconButtonVariant = "secondary" | "ghost";
 
-export interface IconButtonProps extends StyleXProps<
-  Omit<BaseButton.Props, "aria-label" | "aria-pressed" | "children" | "disabled">
+export interface IconButtonProps extends Omit<
+  BaseButton.Props,
+  "aria-label" | "aria-pressed" | "children" | "className" | "disabled"
 > {
   "aria-label": string;
   children: React.ReactElement<{
     "aria-hidden"?: boolean;
-    className?: string;
     focusable?: string;
+    style?: React.CSSProperties;
   }>;
+  className?: BaseButton.Props["className"];
   disabled?: boolean;
   selected?: boolean;
   size?: IconButtonSize;
@@ -29,21 +31,27 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
   {
     "aria-label": ariaLabel,
     children,
+    className,
     disabled,
     nativeButton,
     render,
     selected,
     size = "compact",
     variant = "secondary",
-    xstyle,
     ...props
   },
   ref,
 ) {
+  const generated = stylex.props(
+    styles.root,
+    styles.rounded,
+    styles[size],
+    styles[variant],
+  ).className;
   const icon = React.cloneElement(children, {
     "aria-hidden": true,
-    ...stylex.props(styles.iconGlyph),
     focusable: "false",
+    style: { ...children.props.style, height: "100%", width: "100%" },
   });
 
   return (
@@ -51,9 +59,7 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
       {...props}
       aria-label={ariaLabel}
       aria-pressed={selected === undefined ? undefined : selected}
-      className={
-        stylex.props(styles.root, styles.rounded, styles[size], styles[variant], xstyle).className
-      }
+      className={mergeClassName(generated, className)}
       data-selected={selected ? "true" : undefined}
       data-size={size}
       data-slot="icon-button"

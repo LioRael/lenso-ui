@@ -4,8 +4,8 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import { SearchIcon } from "lucide-react";
-import "@fontsource/ibm-plex-sans/400.css";
-import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";

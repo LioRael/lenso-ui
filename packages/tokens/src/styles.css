@@ -173,8 +173,8 @@
   --elevation-toast-key-blur: 9px;
   --elevation-toast-key-y: 3px;
   --elevation-toast-ring: #00000016;
-  --font-button: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-button: "IBM Plex Sans", "Inter", ui-sans-serif, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --opacity-disabled: 0.5;
   --opacity-enabled: 1;
   --radius-control: 8px;
@@ -322,8 +322,8 @@
   --elevation-toast-key-blur: 9px;
   --elevation-toast-key-y: 3px;
   --elevation-toast-ring: #00000016;
-  --font-button: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-button: "IBM Plex Sans", "Inter", ui-sans-serif, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --opacity-disabled: 0.5;
   --opacity-enabled: 1;
   --radius-control: 8px;
