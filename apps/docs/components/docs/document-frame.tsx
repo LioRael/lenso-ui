@@ -1,11 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
+import * as stylex from "@stylexjs/stylex";
 
 import { DocsShell, type DocsPage } from "./shell";
 import { TableOfContents } from "./table-of-contents";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 import type { DocsSectionId } from "../../contents/catalog";
+import { styles } from "./document-frame.stylex";
 
 const defaultComponentActions = ["View source", "Install"] as const;
 const defaultDocumentActions = ["Edit page", "Copy link"] as const;
@@ -37,23 +39,21 @@ function ComponentOverview({
   description,
   eyebrow,
   metadata,
-  slug,
   title,
 }: {
   description: string;
   eyebrow: string;
   metadata: readonly [string, string];
-  slug: DocsPage;
   title: string;
 }) {
   return (
-    <section className={["button-overview", `${slug}-overview`].join(" ")}>
-      <p className="button-eyebrow">{eyebrow.toUpperCase()}</p>
-      <h1>{title}</h1>
-      <p className="button-description">{description}</p>
-      <div className="metadata-pills button-metadata">
-        <span>{metadata[0]}</span>
-        <span>{metadata[1]}</span>
+    <section {...stylex.props(styles.componentOverview)}>
+      <p {...stylex.props(styles.componentEyebrow)}>{eyebrow.toUpperCase()}</p>
+      <h1 {...stylex.props(styles.componentTitle)}>{title}</h1>
+      <p {...stylex.props(styles.componentDescription)}>{description}</p>
+      <div {...stylex.props(styles.componentMetadata)}>
+        <span {...stylex.props(styles.metadataPill)}>{metadata[0]}</span>
+        <span {...stylex.props(styles.metadataPill)}>{metadata[1]}</span>
       </div>
     </section>
   );
@@ -73,8 +73,6 @@ export function DocumentFrame({
   const theme = useDocsPageTheme();
   const isOverview = layout === "overview";
   const isWorkspace = slug === "theme-lab" || slug === "tokens";
-  const contentClassName =
-    slug === "application-sidebar" ? "sidebar-docs-content" : `${slug}-docs-content`;
 
   if (!isOverview && (!eyebrow || !metadata)) {
     throw new Error(`Component document ${slug} must define eyebrow and metadata frontmatter`);
@@ -95,23 +93,26 @@ export function DocumentFrame({
       theme={theme}
     >
       {isOverview ? (
-        <div className="docs-content">{children}</div>
+        <div {...stylex.props(styles.standardContent)}>{children}</div>
       ) : layout === "document" ? (
         <div
-          className={[
-            "document-docs-content",
-            "mdx-document-content",
-            `${slug}-document-content`,
-          ].join(" ")}
+          {...stylex.props(
+            styles.documentContent,
+            isWorkspace && styles.workspaceContent,
+            slug === "theme-lab" && styles.themeLabContent,
+          )}
         >
-          <div className={["document-layout", `${slug}-document-layout`].join(" ")}>
-            <article className="document-main" data-document-main={slug}>
+          <div {...stylex.props(styles.documentLayout, isWorkspace && styles.workspaceLayout)}>
+            <article
+              {...stylex.props(styles.documentMain, isWorkspace && styles.workspaceMain)}
+              data-document-main={slug}
+            >
               {!isWorkspace && (
-                <section className="document-hero">
-                  <p className="document-eyebrow">{eyebrow?.toUpperCase()}</p>
-                  <h1>{title}</h1>
-                  <p className="document-description">{description}</p>
-                  {metadata && <p className="document-metadata">{metadata.join(" · ")}</p>}
+                <section {...stylex.props(styles.hero)}>
+                  <p {...stylex.props(styles.heroEyebrow)}>{eyebrow?.toUpperCase()}</p>
+                  <h1 {...stylex.props(styles.heroTitle)}>{title}</h1>
+                  <p {...stylex.props(styles.heroDescription)}>{description}</p>
+                  {metadata && <p {...stylex.props(styles.heroMetadata)}>{metadata.join(" · ")}</p>}
                 </section>
               )}
               {children}
@@ -120,14 +121,11 @@ export function DocumentFrame({
           </div>
         </div>
       ) : (
-        <div
-          className={["button-docs-content", "mdx-component-content", contentClassName].join(" ")}
-        >
+        <div {...stylex.props(styles.standardContent, styles.componentContent)}>
           <ComponentOverview
             description={description}
             eyebrow={eyebrow!}
             metadata={metadata!}
-            slug={slug}
             title={title}
           />
           {children}

@@ -6,7 +6,7 @@
   ],
   "files": [
     {
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as stylex from \"@stylexjs/stylex\";\nimport { useRender } from \"@base-ui/react/use-render\";\n\nimport { mergeClassName } from \"../shared/merge-class-name.js\";\nimport { styles } from \"./surface.stylex.js\";\n\nexport type SurfaceLevel = \"embedded\" | \"overlay\" | \"panel\";\n\nexport interface SurfaceProps extends useRender.ComponentProps<\"div\"> {\n  level?: SurfaceLevel;\n}\n\nexport const Surface = React.forwardRef<HTMLElement, SurfaceProps>(function Surface(\n  { className, level = \"embedded\", render, ...props },\n  ref,\n) {\n  return useRender({\n    defaultTagName: \"div\",\n    props: {\n      ...props,\n      className: mergeClassName(stylex.props(styles.root, styles[level]).className, className),\n      \"data-level\": level,\n      \"data-slot\": \"surface\",\n    },\n    ref,\n    render,\n  });\n});\n",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as stylex from \"@stylexjs/stylex\";\nimport { useRender } from \"@base-ui/react/use-render\";\n\nimport type { StyleXProps } from \"../shared/stylex-props.js\";\nimport { styles } from \"./surface.stylex.js\";\n\nexport type SurfaceLevel = \"embedded\" | \"overlay\" | \"panel\";\n\nexport interface SurfaceProps extends StyleXProps<useRender.ComponentProps<\"div\">> {\n  level?: SurfaceLevel;\n}\n\nexport const Surface = React.forwardRef<HTMLElement, SurfaceProps>(function Surface(\n  { level = \"embedded\", render, xstyle, ...props },\n  ref,\n) {\n  return useRender({\n    defaultTagName: \"div\",\n    props: {\n      ...props,\n      className: stylex.props(styles.root, styles[level], xstyle).className,\n      \"data-level\": level,\n      \"data-slot\": \"surface\",\n    },\n    ref,\n    render,\n  });\n});\n",
       "path": "components/lenso/surface/index.tsx",
       "target": "components/lenso/surface/index.tsx",
       "type": "registry:ui"
@@ -18,9 +18,9 @@
       "type": "registry:style"
     },
     {
-      "content": "export type ClassName<State> = string | ((state: State) => string | undefined);\n\nexport function mergeClassName<State>(\n  generated?: string,\n  className?: ClassName<State>,\n): ClassName<State> {\n  if (typeof className === \"function\") {\n    return (state) => [generated, className(state)].filter(Boolean).join(\" \");\n  }\n  return [generated, className].filter(Boolean).join(\" \");\n}\n",
-      "path": "components/lenso/shared/merge-class-name.ts",
-      "target": "components/lenso/shared/merge-class-name.ts",
+      "content": "import type * as React from \"react\";\nimport type * as stylex from \"@stylexjs/stylex\";\n\n/**\n * Removes arbitrary class injection from a host module and replaces it with\n * a statically compiled StyleX override. Native inline style remains available\n * for runtime geometry that cannot be known at build time.\n */\nexport type StyleXProps<Props> = Omit<Props, \"className\"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport type StyleXComponentProps<Component extends React.ElementType> = StyleXProps<\n  React.ComponentPropsWithRef<Component>\n> &\n  React.RefAttributes<React.ComponentRef<Component>>;\n",
+      "path": "components/lenso/shared/stylex-props.ts",
+      "target": "components/lenso/shared/stylex-props.ts",
       "type": "registry:lib"
     },
     {

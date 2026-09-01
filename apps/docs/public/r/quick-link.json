@@ -6,7 +6,7 @@
   ],
   "files": [
     {
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as stylex from \"@stylexjs/stylex\";\nimport { Button as BaseButton } from \"@base-ui/react/button\";\n\nimport { mergeClassName } from \"../shared/merge-class-name.js\";\nimport { styles } from \"./quick-link.stylex.js\";\n\nexport interface QuickLinkProps extends Omit<BaseButton.Props, \"children\" | \"className\"> {\n  children: React.ReactNode;\n  className?: BaseButton.Props[\"className\"];\n  leadingIcon: React.ReactNode;\n  trailingIcon: React.ReactNode;\n}\n\nexport const QuickLink = React.forwardRef<HTMLElement, QuickLinkProps>(function QuickLink(\n  { children, className, leadingIcon, trailingIcon, ...props },\n  ref,\n) {\n  return (\n    <BaseButton\n      {...props}\n      className={mergeClassName(stylex.props(styles.root).className, className)}\n      data-slot=\"quick-link\"\n      ref={ref}\n    >\n      <span aria-hidden=\"true\" data-slot=\"quick-link-leading\" {...stylex.props(styles.leading)}>\n        {leadingIcon}\n      </span>\n      <span data-slot=\"quick-link-label\" {...stylex.props(styles.label)}>\n        {children}\n      </span>\n      <span aria-hidden=\"true\" data-slot=\"quick-link-trailing\" {...stylex.props(styles.trailing)}>\n        {trailingIcon}\n      </span>\n    </BaseButton>\n  );\n});\n",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as stylex from \"@stylexjs/stylex\";\nimport { Button as BaseButton } from \"@base-ui/react/button\";\n\nimport type { StyleXProps } from \"../shared/stylex-props.js\";\nimport { styles } from \"./quick-link.stylex.js\";\n\nexport interface QuickLinkProps extends StyleXProps<Omit<BaseButton.Props, \"children\">> {\n  children: React.ReactNode;\n  leadingIcon: React.ReactNode;\n  trailingIcon: React.ReactNode;\n}\n\nexport const QuickLink = React.forwardRef<HTMLElement, QuickLinkProps>(function QuickLink(\n  { children, leadingIcon, trailingIcon, xstyle, ...props },\n  ref,\n) {\n  return (\n    <BaseButton\n      {...props}\n      className={stylex.props(styles.root, xstyle).className}\n      data-slot=\"quick-link\"\n      ref={ref}\n    >\n      <span aria-hidden=\"true\" data-slot=\"quick-link-leading\" {...stylex.props(styles.leading)}>\n        {leadingIcon}\n      </span>\n      <span data-slot=\"quick-link-label\" {...stylex.props(styles.label)}>\n        {children}\n      </span>\n      <span aria-hidden=\"true\" data-slot=\"quick-link-trailing\" {...stylex.props(styles.trailing)}>\n        {trailingIcon}\n      </span>\n    </BaseButton>\n  );\n});\n",
       "path": "components/lenso/quick-link/index.tsx",
       "target": "components/lenso/quick-link/index.tsx",
       "type": "registry:ui"
@@ -18,9 +18,9 @@
       "type": "registry:style"
     },
     {
-      "content": "export type ClassName<State> = string | ((state: State) => string | undefined);\n\nexport function mergeClassName<State>(\n  generated?: string,\n  className?: ClassName<State>,\n): ClassName<State> {\n  if (typeof className === \"function\") {\n    return (state) => [generated, className(state)].filter(Boolean).join(\" \");\n  }\n  return [generated, className].filter(Boolean).join(\" \");\n}\n",
-      "path": "components/lenso/shared/merge-class-name.ts",
-      "target": "components/lenso/shared/merge-class-name.ts",
+      "content": "import type * as React from \"react\";\nimport type * as stylex from \"@stylexjs/stylex\";\n\n/**\n * Removes arbitrary class injection from a host module and replaces it with\n * a statically compiled StyleX override. Native inline style remains available\n * for runtime geometry that cannot be known at build time.\n */\nexport type StyleXProps<Props> = Omit<Props, \"className\"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport type StyleXComponentProps<Component extends React.ElementType> = StyleXProps<\n  React.ComponentPropsWithRef<Component>\n> &\n  React.RefAttributes<React.ComponentRef<Component>>;\n",
+      "path": "components/lenso/shared/stylex-props.ts",
+      "target": "components/lenso/shared/stylex-props.ts",
       "type": "registry:lib"
     },
     {

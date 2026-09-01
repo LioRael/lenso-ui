@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 
 import { Button } from "@lenso/ui/button";
 
 import { PromptComposer } from "../../../../registry/source/recipes/prompt-composer";
-import styles from "./agent-page.module.css";
+import { styles } from "./agent-page.stylex";
 
-function mergeClassName(generated?: string, className?: string): string {
-  return [generated, className].filter(Boolean).join(" ");
-}
-
-export interface AgentPageProps extends Omit<React.ComponentPropsWithoutRef<"main">, "onSubmit"> {
+export interface AgentPageProps extends Omit<
+  React.ComponentPropsWithoutRef<"main">,
+  "className" | "onSubmit"
+> {
   as?: "div" | "main";
   description?: string;
   draft: string;
@@ -19,19 +19,20 @@ export interface AgentPageProps extends Omit<React.ComponentPropsWithoutRef<"mai
   onDraftChange: (value: string) => void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   title?: string;
+  xstyle?: stylex.StyleXStyles;
 }
 
 export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function AgentPage(
   {
     as = "main",
     children,
-    className,
     description = "A focused surface for one prompt-and-response workflow.",
     draft,
     idPrefix,
     onDraftChange,
     onSubmit,
     title = "Agent workspace",
+    xstyle,
     ...props
   },
   ref,
@@ -43,19 +44,21 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
 
   const content = (
     <>
-      <header className={styles.header}>
+      <header {...stylex.props(styles.header)}>
         <div>
-          <h1 id={titleId}>{title}</h1>
-          <p>{description}</p>
+          <h1 id={titleId} {...stylex.props(styles.title)}>
+            {title}
+          </h1>
+          <p {...stylex.props(styles.description)}>{description}</p>
         </div>
       </header>
 
-      <section aria-label="Conversation" className={styles.transcript}>
-        <div className={styles.turns}>{children}</div>
+      <section aria-label="Conversation" {...stylex.props(styles.transcript)}>
+        <div {...stylex.props(styles.turns)}>{children}</div>
       </section>
 
-      <div className={styles.composerDock}>
-        <span className={styles.visuallyHidden} id={composerLabelId}>
+      <div {...stylex.props(styles.composerDock)}>
+        <span id={composerLabelId} {...stylex.props(styles.visuallyHidden)}>
           Message
         </span>
         <PromptComposer.Root
@@ -70,7 +73,7 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
             placeholder="Describe what you want to work on…"
           />
           <PromptComposer.Toolbar>
-            <span className={styles.shortcutHint}>Control or Command + Enter to submit</span>
+            <span {...stylex.props(styles.shortcutHint)}>Control or Command + Enter to submit</span>
             <PromptComposer.Actions>
               <Button type="submit">Send</Button>
             </PromptComposer.Actions>
@@ -83,7 +86,7 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
   const rootProps = {
     ...props,
     "aria-labelledby": titleId,
-    className: mergeClassName(styles.root, className),
+    className: stylex.props(styles.root, xstyle).className,
     "data-slot": "agent-page-template",
   };
 
@@ -98,25 +101,43 @@ export const AgentPage = React.forwardRef<HTMLElement, AgentPageProps>(function 
   );
 });
 
-export interface AgentTurnProps extends React.ComponentPropsWithoutRef<"article"> {
+export interface AgentTurnProps extends Omit<
+  React.ComponentPropsWithoutRef<"article">,
+  "className"
+> {
   label: string;
   speaker: "assistant" | "user";
+  xstyle?: stylex.StyleXStyles;
 }
 
 export const AgentTurn = React.forwardRef<HTMLElement, AgentTurnProps>(function AgentTurn(
-  { children, className, label, speaker, ...props },
+  { children, label, speaker, xstyle, ...props },
   ref,
 ) {
+  let previousWasParagraph = false;
+  const content = React.Children.toArray(children).map((child) => {
+    const isParagraph = React.isValidElement(child) && child.type === "p";
+    const followingParagraph = isParagraph && previousWasParagraph;
+    previousWasParagraph = isParagraph;
+
+    if (!isParagraph) return child;
+    return React.cloneElement(child as React.ReactElement<{ className?: string }>, {
+      className:
+        stylex.props(styles.turnParagraph, followingParagraph && styles.followingTurnParagraph)
+          .className ?? "",
+    });
+  });
+
   return (
     <article
       {...props}
-      className={mergeClassName(styles.turn, className)}
+      className={stylex.props(styles.turn, speaker === "user" && styles.userTurn, xstyle).className}
       data-speaker={speaker}
       data-slot="agent-turn"
       ref={ref}
     >
-      <h2>{label}</h2>
-      <div className={styles.turnBody}>{children}</div>
+      <h2 {...stylex.props(styles.turnLabel)}>{label}</h2>
+      <div {...stylex.props(styles.turnBody)}>{content}</div>
     </article>
   );
 });

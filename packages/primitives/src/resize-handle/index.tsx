@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 
@@ -42,7 +43,6 @@ export type ResizeHandleProps = ResizeHandleElementProps & {
   "aria-label"?: string;
   "aria-labelledby"?: string;
   "aria-controls": string;
-  className?: string | ((state: ResizeHandleState) => string | undefined);
   disabled?: boolean;
   inverted?: boolean;
   max: number;
@@ -56,6 +56,7 @@ export type ResizeHandleProps = ResizeHandleElementProps & {
   ref?: React.Ref<HTMLElement>;
   step?: number;
   value: number;
+  xstyle?: stylex.StyleXStyles;
 };
 
 interface PointerDragState {
@@ -82,7 +83,6 @@ function coordinate(event: React.PointerEvent<HTMLElement>, orientation: ResizeH
  * keyboard adjustment, bounded values, and WAI-ARIA separator semantics.
  */
 export function ResizeHandle({
-  className,
   disabled = false,
   inverted = false,
   max,
@@ -95,6 +95,7 @@ export function ResizeHandle({
   render,
   step = 16,
   value,
+  xstyle,
   ...props
 }: ResizeHandleProps) {
   const elementRef = React.useRef<HTMLElement>(null);
@@ -266,7 +267,7 @@ export function ResizeHandle({
     defaultTagName: "div",
     props: {
       ...mergeProps<"div">(internalProps, props, protectedProps),
-      className: typeof className === "function" ? className(state) : className,
+      className: stylex.props(xstyle).className,
       "data-slot": "resize-handle",
     },
     ref: ref ? [elementRef, ref] : elementRef,

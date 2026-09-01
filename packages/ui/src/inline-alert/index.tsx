@@ -4,8 +4,8 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { CircleAlertIcon, CircleCheckIcon, InfoIcon, TriangleAlertIcon } from "lucide-react";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
 import { createStyledPart } from "../shared/styled-part.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./inline-alert.stylex.js";
 
 export type InlineAlertTone = "error" | "info" | "neutral" | "success" | "warning";
@@ -16,20 +16,18 @@ interface InlineAlertContextValue {
 
 const InlineAlertContext = React.createContext<InlineAlertContextValue>({ tone: "info" });
 
-export interface InlineAlertRootProps extends React.ComponentPropsWithoutRef<"div"> {
+export interface InlineAlertRootProps extends StyleXProps<React.ComponentPropsWithoutRef<"div">> {
   tone?: InlineAlertTone;
 }
 
 export const InlineAlertRoot = React.forwardRef<HTMLDivElement, InlineAlertRootProps>(
-  function InlineAlertRoot({ className, tone = "info", ...props }, ref) {
+  function InlineAlertRoot({ tone = "info", xstyle, ...props }, ref) {
     const value = React.useMemo(() => ({ tone }), [tone]);
     return (
       <InlineAlertContext.Provider value={value}>
         <div
           {...props}
-          className={
-            mergeClassName(stylex.props(styles.root, styles[tone]).className, className) as string
-          }
+          className={stylex.props(styles.root, styles[tone], xstyle).className}
           data-slot="inline-alert"
           data-tone={tone}
           ref={ref}
@@ -51,38 +49,38 @@ function DefaultIcon({ tone }: { tone: InlineAlertTone }) {
   return <Icon size={14} strokeWidth={1.5} />;
 }
 
-export const InlineAlertIcon = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentPropsWithoutRef<"span">
->(function InlineAlertIcon({ children, className, ...props }, ref) {
-  const { tone } = React.useContext(InlineAlertContext);
-  return (
-    <span
-      {...props}
-      aria-hidden="true"
-      className={mergeClassName(stylex.props(styles.icon).className, className) as string}
-      data-slot="inline-alert-icon"
-      ref={ref}
-    >
-      {children ?? <DefaultIcon tone={tone} />}
-    </span>
-  );
-});
+export type InlineAlertIconProps = StyleXProps<React.ComponentPropsWithoutRef<"span">>;
+export const InlineAlertIcon = React.forwardRef<HTMLSpanElement, InlineAlertIconProps>(
+  function InlineAlertIcon({ children, xstyle, ...props }, ref) {
+    const { tone } = React.useContext(InlineAlertContext);
+    return (
+      <span
+        {...props}
+        aria-hidden="true"
+        className={stylex.props(styles.icon, xstyle).className}
+        data-slot="inline-alert-icon"
+        ref={ref}
+      >
+        {children ?? <DefaultIcon tone={tone} />}
+      </span>
+    );
+  },
+);
 
 export const InlineAlertContent = createStyledPart("div", "inline-alert-content", styles.content);
 
 export type InlineAlertTitleElement = "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-export interface InlineAlertTitleProps extends React.ComponentPropsWithoutRef<"div"> {
+export interface InlineAlertTitleProps extends StyleXProps<React.ComponentPropsWithoutRef<"div">> {
   as?: InlineAlertTitleElement;
 }
 
 export const InlineAlertTitle = React.forwardRef<HTMLElement, InlineAlertTitleProps>(
-  function InlineAlertTitle({ as = "div", className, ...props }, ref) {
+  function InlineAlertTitle({ as = "div", xstyle, ...props }, ref) {
     const Component: React.ElementType = as;
     return React.createElement(Component, {
       ...props,
-      className: mergeClassName(stylex.props(styles.title).className, className),
+      className: stylex.props(styles.title, xstyle).className,
       "data-slot": "inline-alert-title",
       ref,
     });

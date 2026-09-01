@@ -2,9 +2,7 @@
   "id": "agent-page",
   "name": "Agent Page",
   "themeControl": "theme",
-  "bodyClassName": "template-playground-body",
-  "sectionClassName": "template-playground",
-  "stageClassName": "template-rendered-stage",
+  "layout": "template",
   "controls": [
     {
       "id": "theme",
