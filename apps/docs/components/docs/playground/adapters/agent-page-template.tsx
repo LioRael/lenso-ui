@@ -35,7 +35,7 @@ function AgentPagePreview() {
 }
 
 export const agentPageAdapter: PlaygroundAdapter = ({ theme }) => (
-  <ThemeScope className={stylex.props(styles.stage).className} theme={theme}>
+  <ThemeScope theme={theme} xstyle={styles.stage}>
     <div {...stylex.props(styles.frame)}>
       <AgentPagePreview />
     </div>

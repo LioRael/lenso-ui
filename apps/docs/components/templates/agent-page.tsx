@@ -122,10 +122,9 @@ export const AgentTurn = React.forwardRef<HTMLElement, AgentTurnProps>(function 
 
     if (!isParagraph) return child;
     return React.cloneElement(child as React.ReactElement<{ className?: string }>, {
-      className: stylex.props(
-        styles.turnParagraph,
-        followingParagraph && styles.followingTurnParagraph,
-      ).className ?? "",
+      className:
+        stylex.props(styles.turnParagraph, followingParagraph && styles.followingTurnParagraph)
+          .className ?? "",
     });
   });
 

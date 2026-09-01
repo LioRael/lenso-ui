@@ -23,6 +23,7 @@ module.exports = {
       include: [
         "app/**/*.{js,jsx,ts,tsx}",
         "components/**/*.{js,jsx,ts,tsx}",
+        "contents/**/*.{js,jsx,ts,tsx}",
         "../../registry/source/**/*.{js,jsx,ts,tsx}",
       ],
       useCSSLayers: true,

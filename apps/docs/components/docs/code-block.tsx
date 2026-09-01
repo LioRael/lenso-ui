@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { codeToHtml, type BundledLanguage } from "shiki/bundle/web";
+import { styles } from "./code-block.stylex";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 const themes = {
   dark: "github-dark-default",
@@ -40,6 +43,7 @@ export function CodeBlock({
   language?: BundledLanguage;
 }) {
   const source = formatCode(code);
+  const pageTheme = useDocsPageTheme();
   const [highlighted, setHighlighted] = useState<string | null>(null);
 
   useEffect(() => {
@@ -47,9 +51,8 @@ export function CodeBlock({
 
     setHighlighted(null);
     void codeToHtml(source, {
-      defaultColor: false,
       lang: language,
-      themes,
+      theme: themes[pageTheme],
     })
       .then((html) => {
         if (!cancelled) setHighlighted(getCodeMarkup(html));
@@ -61,11 +64,11 @@ export function CodeBlock({
     return () => {
       cancelled = true;
     };
-  }, [language, source]);
+  }, [language, pageTheme, source]);
 
   if (!highlighted) {
     return (
-      <pre data-language={language}>
+      <pre data-language={language} {...stylex.props(styles.root)}>
         <code>{source}</code>
       </pre>
     );
@@ -73,9 +76,9 @@ export function CodeBlock({
 
   return (
     <pre
-      className="shiki shiki-themes github-light-default github-dark-default"
       data-language={language}
       dangerouslySetInnerHTML={{ __html: `<code>${highlighted}</code>` }}
+      {...stylex.props(styles.root)}
     />
   );
 }

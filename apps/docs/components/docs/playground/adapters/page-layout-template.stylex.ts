@@ -25,19 +25,6 @@ export const styles = stylex.create({
     "--page-layout-glyph-strong": "#333",
     "--page-layout-workspace-chevron": "#64666a",
   },
-  systemStage: {
-    "@media (prefers-color-scheme: light)": {
-      "--color-content-primary": "#000",
-      "--color-content-secondary": "#333",
-      "--color-content-tertiary": "#707070",
-      "--color-sidebar-item-active": "#e1e1e2",
-      "--color-sidebar-item-hover": "#e7e7e8",
-      "--color-surface-sidebar": "#ececed",
-      "--page-layout-glyph-muted": "#707070",
-      "--page-layout-glyph-strong": "#333",
-      "--page-layout-workspace-chevron": "#64666a",
-    },
-  },
   previewViewport: {
     aspectRatio: "16 / 9",
     overflow: "hidden",

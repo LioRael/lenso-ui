@@ -242,11 +242,7 @@ function ContrastBadge({ label, value }: { label: string; value: number }) {
 
 function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode: ThemeMode }) {
   return (
-    <ThemeScope
-      className={stylex.props(styles.previewTheme).className}
-      overrides={generated.tokens}
-      theme={mode}
-    >
+    <ThemeScope overrides={generated.tokens} theme={mode} xstyle={styles.previewTheme}>
       <div {...stylex.props(styles.previewApp)}>
         <aside {...stylex.props(styles.previewSidebar)}>
           <div {...stylex.props(styles.previewWorkspaceName)}>
@@ -296,11 +292,7 @@ function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode
             </div>
             <div {...stylex.props(styles.previewHeaderActions)}>
               <Menu.Root>
-                <Menu.ControlTrigger
-                  className={stylex.props(styles.previewHeaderButton).className}
-                >
-                  View
-                </Menu.ControlTrigger>
+                <Menu.ControlTrigger xstyle={styles.previewHeaderButton}>View</Menu.ControlTrigger>
                 <Menu.Portal>
                   <Menu.Positioner align="end">
                     <Menu.Popup>
@@ -312,20 +304,14 @@ function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode
                   </Menu.Positioner>
                 </Menu.Portal>
               </Menu.Root>
-              <Button
-                className={stylex.props(styles.previewHeaderButton).className}
-                size="compact"
-              >
+              <Button size="compact" xstyle={styles.previewHeaderButton}>
                 <PlusIcon aria-hidden="true" size={13} /> New issue
               </Button>
             </div>
           </header>
 
           <div {...stylex.props(styles.previewToolbar)}>
-            <TextField.Root
-              className={stylex.props(styles.previewSearch).className}
-              size="compact"
-            >
+            <TextField.Root size="compact" xstyle={styles.previewSearch}>
               <TextField.Control aria-label="Filter preview issues" placeholder="Filter issues…" />
             </TextField.Root>
             <Button size="compact" variant="secondary">
@@ -344,11 +330,13 @@ function PreviewWorkspace({ generated, mode }: { generated: GeneratedTheme; mode
               ["LNS-127", "Sync semantic tokens", "Foundations"],
             ].map(([identifier, title, label], index) => (
               <article
-                className={stylex.props(
-                  styles.previewRow,
-                  index > 0 && styles.previewRowBorder,
-                  index === 0 && styles.previewSelectedRow,
-                ).className}
+                className={
+                  stylex.props(
+                    styles.previewRow,
+                    index > 0 && styles.previewRowBorder,
+                    index === 0 && styles.previewSelectedRow,
+                  ).className
+                }
                 key={identifier}
               >
                 <CircleIcon aria-hidden="true" size={13} />
@@ -426,10 +414,9 @@ function TokenInspector({
         {themeTokenPaths.map((path) => (
           <button
             aria-pressed={selected === path}
-            className={stylex.props(
-              styles.tokenRow,
-              selected === path && styles.selectedTokenRow,
-            ).className}
+            className={
+              stylex.props(styles.tokenRow, selected === path && styles.selectedTokenRow).className
+            }
             key={path}
             onClick={() => setSelected(path)}
             type="button"

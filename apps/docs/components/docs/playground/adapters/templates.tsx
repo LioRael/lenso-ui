@@ -213,11 +213,7 @@ function ApplicationSidebar({ context }: { context: Exclude<PageLayoutContext, "
   const [selectedItem, setSelectedItem] = React.useState(initialSelection);
 
   return (
-    <Sidebar.Root
-      className={stylex.props(styles.sidebarRoot).className}
-      defaultOpen
-      id="page-layout-sidebar"
-    >
+    <Sidebar.Root defaultOpen id="page-layout-sidebar" xstyle={styles.sidebarRoot}>
       <Sidebar.Panel aria-label="Workspace navigation">
         <Sidebar.Header>
           <Sidebar.Workspace icon="TE" indicator={<SidebarGlyph name="workspace-chevron" />}>
@@ -254,7 +250,7 @@ function ApplicationSidebar({ context }: { context: Exclude<PageLayoutContext, "
               <Sidebar.MenuItem>
                 <Sidebar.Item icon={<SidebarGlyph name="views" />}>Views</Sidebar.Item>
               </Sidebar.MenuItem>
-              <Sidebar.MenuItem className={stylex.props(styles.onePixelRowOffset).className}>
+              <Sidebar.MenuItem xstyle={styles.onePixelRowOffset}>
                 <Sidebar.Item icon={<SidebarGlyph name="more" />}>More</Sidebar.Item>
               </Sidebar.MenuItem>
             </Sidebar.Menu>
@@ -262,7 +258,7 @@ function ApplicationSidebar({ context }: { context: Exclude<PageLayoutContext, "
 
           <SidebarDisclosureSection action="Create new folder for favorites" label="Favorites">
             <Sidebar.Menu>
-              <Sidebar.MenuItem className={stylex.props(styles.onePixelRowOffset).className}>
+              <Sidebar.MenuItem xstyle={styles.onePixelRowOffset}>
                 <Sidebar.Item icon={<SidebarGlyph name="inbox" xstyle={styles.favoriteGlyph} />}>
                   Active issues
                 </Sidebar.Item>
@@ -299,10 +295,10 @@ function ApplicationSidebar({ context }: { context: Exclude<PageLayoutContext, "
               <Sidebar.MenuItem>
                 <Sidebar.Item icon={<SidebarGlyph name="project" />}>Import issues</Sidebar.Item>
               </Sidebar.MenuItem>
-              <Sidebar.MenuItem className={stylex.props(styles.onePixelRowOffset).className}>
+              <Sidebar.MenuItem xstyle={styles.onePixelRowOffset}>
                 <Sidebar.Item icon={<SidebarGlyph name="agent" />}>Invite people</Sidebar.Item>
               </Sidebar.MenuItem>
-              <Sidebar.MenuItem className={stylex.props(styles.onePixelRowOffset).className}>
+              <Sidebar.MenuItem xstyle={styles.onePixelRowOffset}>
                 <Sidebar.Item icon={<SidebarGlyph name="views" />}>Connect GitHub</Sidebar.Item>
               </Sidebar.MenuItem>
             </Sidebar.Menu>
@@ -330,16 +326,9 @@ function SettingsSidebar() {
     .filter((group) => group.items.length > 0);
 
   return (
-    <Sidebar.Root
-      className={stylex.props(styles.sidebarRoot).className}
-      defaultOpen
-      id="page-layout-sidebar"
-    >
-      <Sidebar.Panel
-        aria-label="Settings navigation"
-        className={stylex.props(styles.settingsSidebarPanel).className}
-      >
-        <Button className={stylex.props(styles.backButton).className} variant="ghost">
+    <Sidebar.Root defaultOpen id="page-layout-sidebar" xstyle={styles.sidebarRoot}>
+      <Sidebar.Panel aria-label="Settings navigation" xstyle={styles.settingsSidebarPanel}>
+        <Button variant="ghost" xstyle={styles.backButton}>
           <SidebarGlyph name="back" xstyle={styles.backGlyph} />
           Back to app
         </Button>
@@ -360,10 +349,10 @@ function SettingsSidebar() {
               {...stylex.props(styles.settingsGroup, index === 0 && styles.firstSettingsGroup)}
               key={group.label}
             >
-              <Sidebar.SectionLabel className={stylex.props(styles.settingsGroupLabel).className}>
+              <Sidebar.SectionLabel xstyle={styles.settingsGroupLabel}>
                 {group.label}
               </Sidebar.SectionLabel>
-              <Sidebar.Menu className={stylex.props(styles.settingsMenu).className}>
+              <Sidebar.Menu xstyle={styles.settingsMenu}>
                 {group.items.map(([id, label, glyph]) => (
                   <Sidebar.MenuItem key={id}>
                     <Sidebar.Item
@@ -384,12 +373,7 @@ function SettingsSidebar() {
             </p>
           )}
         </nav>
-        <IconButton
-          aria-label="Help"
-          className={stylex.props(styles.settingsHelp).className}
-          size="compact"
-          variant="ghost"
-        >
+        <IconButton aria-label="Help" size="compact" variant="ghost" xstyle={styles.settingsHelp}>
           <SidebarGlyph name="help" />
         </IconButton>
       </Sidebar.Panel>
@@ -422,10 +406,7 @@ function PageLayoutPreview({ context }: { context: PageLayoutContext }) {
         data-page-layout-scale-layer=""
         style={{ transform: `scale(${scale})` }}
       >
-        <Sidebar.Group
-          className={stylex.props(styles.shell).className}
-          data-page-layout-shell=""
-        >
+        <Sidebar.Group data-page-layout-shell="" xstyle={styles.shell}>
           {context === "settings" ? (
             <SettingsSidebar />
           ) : (
@@ -437,15 +418,15 @@ function PageLayoutPreview({ context }: { context: PageLayoutContext }) {
             <main aria-label="Application content" {...stylex.props(styles.main)} />
           )}
           <footer aria-label="Application utilities" {...stylex.props(styles.utilityBar)}>
-            <Button className={stylex.props(styles.utilityButton).className} variant="ghost">
+            <Button variant="ghost" xstyle={styles.utilityButton}>
               <SidebarGlyph name="agent" nested />
               Agent
             </Button>
             <IconButton
               aria-label="Open chat history"
+              xstyle={styles.chatHistoryButton}
               size="default"
               variant="ghost"
-              className={stylex.props(styles.chatHistoryButton).className}
             >
               <SidebarGlyph name="chat-history" />
             </IconButton>
@@ -460,12 +441,10 @@ export const pageLayoutAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const context = pageLayoutContext(values);
   return (
     <ThemeScope
-      className={stylex.props(
-        styles.stage,
-        theme === "light" && styles.lightStage,
-        theme === "system" && styles.systemStage,
-      ).className}
       theme={theme}
+      xstyle={
+        [styles.stage, theme === "light" && styles.lightStage] as unknown as stylex.StyleXStyles
+      }
     >
       <PageLayoutPreview context={context} />
     </ThemeScope>
