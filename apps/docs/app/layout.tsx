@@ -8,6 +8,7 @@ import "@fontsource/ibm-plex-sans/600.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@lenso/tokens/styles.css";
+import "./layers.css";
 import "@lenso/ui/styles.css";
 import "dialkit/styles.css";
 import "./styles.css";
