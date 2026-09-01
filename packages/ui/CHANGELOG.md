@@ -1,5 +1,20 @@
 # @lenso/ui
 
+## 0.5.0
+
+### Minor Changes
+
+- 77f2ddc: Add Text Area, Description List, Content State, Inline Alert, and Shimmer Text foundation components; deepen Text Field and Settings Row composition; and publish Settings Section and Prompt Composer registry recipes with complete Settings and Agent page templates.
+- 36fcd8f: Keep Settings Row surfaces stable on hover and let consumers choose between non-activating titles and control-activating labels.
+- f818d9f: Add Slider and Segmented Control components, refine Disclosure and Inline Alert defaults, and document coherent theme surface generation in Theme Lab.
+- 5590fb9: Add a control-only Switch layout and use it for externally labelled Settings Rows so switch tracks align to the logical trailing edge.
+
+### Patch Changes
+
+- 784e1be: Add restrained, consistent interaction transitions across controls, overlays, disclosures, and status components.
+- @lenso/primitives@0.5.0
+  - @lenso/tokens@0.5.0
+
 ## 0.4.0
 
 ### Minor Changes
