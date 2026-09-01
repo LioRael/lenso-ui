@@ -40,8 +40,8 @@ const immutable = (name: string) => `https://ui.lenso.dev/r/v/${releaseVersion}/
 
 const sharedFiles = [
   {
-    source: "packages/ui/src/shared/merge-class-name.ts",
-    target: "components/lenso/shared/merge-class-name.ts",
+    source: "packages/ui/src/shared/stylex-props.ts",
+    target: "components/lenso/shared/stylex-props.ts",
     type: "registry:lib" as const,
   },
   {
@@ -618,7 +618,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:lib",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
       {
         source: "packages/primitives/src/resize-handle/index.tsx",
@@ -771,15 +771,15 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
-    dependencies: [`@lenso/ui@${releaseVersion}`],
+    dependencies: [`@lenso/ui@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
     files: [
       {
         source: "registry/source/recipes/settings-section/index.tsx",
         target: "components/lenso/recipes/settings-section/index.tsx",
       },
       {
-        source: "registry/source/recipes/settings-section/settings-section.module.css",
-        target: "components/lenso/recipes/settings-section/settings-section.module.css",
+        source: "registry/source/recipes/settings-section/settings-section.stylex.ts",
+        target: "components/lenso/recipes/settings-section/settings-section.stylex.ts",
         type: "registry:style",
       },
     ],
@@ -788,7 +788,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:component",
   },
   {
-    dependencies: [`@lenso/ui@${releaseVersion}`],
+    dependencies: [`@lenso/ui@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
     files: [
       {
         source: "registry/source/recipes/prompt-composer/index.tsx",
@@ -805,8 +805,8 @@ const specs: RegistryItemSpec[] = [
         type: "registry:lib",
       },
       {
-        source: "registry/source/recipes/prompt-composer/prompt-composer.module.css",
-        target: "components/lenso/recipes/prompt-composer/prompt-composer.module.css",
+        source: "registry/source/recipes/prompt-composer/prompt-composer.stylex.ts",
+        target: "components/lenso/recipes/prompt-composer/prompt-composer.stylex.ts",
         type: "registry:style",
       },
     ],

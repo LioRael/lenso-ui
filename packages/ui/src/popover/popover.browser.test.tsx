@@ -3,7 +3,7 @@ import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
-import "@fontsource/inter/400.css";
+import "@fontsource/ibm-plex-sans/400.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -107,7 +107,7 @@ test("Popover matches Figma and supports composed interaction", async () => {
     </>,
   );
 
-  await document.fonts.load('400 13px "Inter"', "Open popover");
+  await document.fonts.load('400 13px "IBM Plex Sans"', "Open popover");
   await document.fonts.ready;
   const board = screen.getByTestId("popover-figma-state-board");
   const previews = board

@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
+import * as stylex from "@stylexjs/stylex";
 
 import type { DocsPage } from "../../contents/catalog";
+import { styles } from "./table-of-contents.stylex";
 
 interface TocItem {
   id: string;
@@ -95,15 +97,13 @@ export function TableOfContents({ page }: { page: DocsPage }) {
   }, [activeId, items]);
 
   return (
-    <aside aria-label="On this page" className="document-toc">
-      <p className="document-toc-label">ON THIS PAGE</p>
+    <aside aria-label="On this page" {...stylex.props(styles.root)}>
+      <p {...stylex.props(styles.label)}>ON THIS PAGE</p>
       <nav aria-label="Table of contents">
-        <div className="document-toc-items" ref={itemsRef}>
+        <div {...stylex.props(styles.items)} ref={itemsRef}>
           <span
             aria-hidden="true"
-            className={["document-toc-indicator", indicatorPosition ? "is-ready" : ""]
-              .filter(Boolean)
-              .join(" ")}
+            {...stylex.props(styles.indicator, indicatorPosition && styles.readyIndicator)}
             style={
               indicatorPosition
                 ? ({
@@ -118,9 +118,7 @@ export function TableOfContents({ page }: { page: DocsPage }) {
             return (
               <a
                 aria-current={active ? "location" : undefined}
-                className={["document-toc-item", active ? "is-active" : ""]
-                  .filter(Boolean)
-                  .join(" ")}
+                {...stylex.props(styles.item, active && styles.activeItem)}
                 href={`#${item.id}`}
                 key={item.id}
                 onClick={() => {

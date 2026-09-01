@@ -3,7 +3,7 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import { ChevronRightIcon, SettingsIcon } from "lucide-react";
-import "@fontsource/inter/500.css";
+import "@fontsource/ibm-plex-sans/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -42,7 +42,7 @@ test("Quick Link matches the approved Default and Hover Figma states", async () 
       </div>
     </div>,
   );
-  await document.fonts.load('500 13px "Inter"', "Team settings");
+  await document.fonts.load('500 13px "IBM Plex Sans"', "Team settings");
   const board = screen.getByTestId("quick-link-figma-state-board");
   const links = board.element().querySelectorAll<HTMLElement>('[data-slot="quick-link"]');
   const trailing = board

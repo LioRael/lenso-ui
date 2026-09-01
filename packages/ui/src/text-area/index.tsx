@@ -4,15 +4,16 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Field as BaseField } from "@base-ui/react/field";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./text-area.stylex.js";
 
-export const TextAreaRoot = React.forwardRef<HTMLDivElement, BaseField.Root.Props>(
-  function TextAreaRoot({ className, ...props }, ref) {
+export type TextAreaRootProps = StyleXProps<BaseField.Root.Props>;
+export const TextAreaRoot = React.forwardRef<HTMLDivElement, TextAreaRootProps>(
+  function TextAreaRoot({ xstyle, ...props }, ref) {
     return (
       <BaseField.Root
         {...props}
-        className={mergeClassName(stylex.props(styles.root).className, className)}
+        className={stylex.props(styles.root, xstyle).className}
         data-slot="text-area"
         ref={ref}
       />
@@ -20,12 +21,13 @@ export const TextAreaRoot = React.forwardRef<HTMLDivElement, BaseField.Root.Prop
   },
 );
 
-export const TextAreaLabel = React.forwardRef<HTMLLabelElement, BaseField.Label.Props>(
-  function TextAreaLabel({ className, ...props }, ref) {
+export type TextAreaLabelProps = StyleXProps<BaseField.Label.Props>;
+export const TextAreaLabel = React.forwardRef<HTMLLabelElement, TextAreaLabelProps>(
+  function TextAreaLabel({ xstyle, ...props }, ref) {
     return (
       <BaseField.Label
         {...props}
-        className={mergeClassName(stylex.props(styles.label).className, className)}
+        className={stylex.props(styles.label, xstyle).className}
         data-slot="text-area-label"
         ref={ref}
       />
@@ -33,23 +35,21 @@ export const TextAreaLabel = React.forwardRef<HTMLLabelElement, BaseField.Label.
   },
 );
 
-export interface TextAreaControlProps extends Omit<
-  React.ComponentPropsWithoutRef<"textarea">,
-  "className"
+export interface TextAreaControlProps extends StyleXProps<
+  React.ComponentPropsWithoutRef<"textarea">
 > {
-  className?: BaseField.Control.Props["className"];
   onValueChange?: BaseField.Control.Props["onValueChange"];
 }
 
 export const TextAreaControl = React.forwardRef<HTMLTextAreaElement, TextAreaControlProps>(
-  function TextAreaControl({ className, readOnly, ...props }, ref) {
+  function TextAreaControl({ readOnly, xstyle, ...props }, ref) {
     // Base UI renders an input by default, so its event generics stay input-shaped even when
     // `render` supplies the supported textarea element. Keep the public API textarea-native.
     const fieldControlProps = props as unknown as BaseField.Control.Props;
     return (
       <BaseField.Control
         {...fieldControlProps}
-        className={mergeClassName(stylex.props(styles.control).className, className)}
+        className={stylex.props(styles.control, xstyle).className}
         data-read-only={readOnly ? "" : undefined}
         data-slot="text-area-control"
         readOnly={readOnly}
@@ -60,26 +60,27 @@ export const TextAreaControl = React.forwardRef<HTMLTextAreaElement, TextAreaCon
   },
 );
 
-export const TextAreaDescription = React.forwardRef<
-  HTMLParagraphElement,
-  BaseField.Description.Props
->(function TextAreaDescription({ className, ...props }, ref) {
-  return (
-    <BaseField.Description
-      {...props}
-      className={mergeClassName(stylex.props(styles.description).className, className)}
-      data-slot="text-area-description"
-      ref={ref}
-    />
-  );
-});
+export type TextAreaDescriptionProps = StyleXProps<BaseField.Description.Props>;
+export const TextAreaDescription = React.forwardRef<HTMLParagraphElement, TextAreaDescriptionProps>(
+  function TextAreaDescription({ xstyle, ...props }, ref) {
+    return (
+      <BaseField.Description
+        {...props}
+        className={stylex.props(styles.description, xstyle).className}
+        data-slot="text-area-description"
+        ref={ref}
+      />
+    );
+  },
+);
 
-export const TextAreaError = React.forwardRef<HTMLDivElement, BaseField.Error.Props>(
-  function TextAreaError({ className, ...props }, ref) {
+export type TextAreaErrorProps = StyleXProps<BaseField.Error.Props>;
+export const TextAreaError = React.forwardRef<HTMLDivElement, TextAreaErrorProps>(
+  function TextAreaError({ xstyle, ...props }, ref) {
     return (
       <BaseField.Error
         {...props}
-        className={mergeClassName(stylex.props(styles.error).className, className)}
+        className={stylex.props(styles.error, xstyle).className}
         data-slot="text-area-error"
         ref={ref}
       />

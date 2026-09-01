@@ -4,7 +4,7 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import { XIcon } from "lucide-react";
-import "@fontsource/inter/500.css";
+import "@fontsource/ibm-plex-sans/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -93,7 +93,7 @@ test("Toast matches Figma and preserves Base UI behavior", async () => {
       </ThemeScope>
     </>,
   );
-  await document.fonts.load('500 13px "Inter"', "copied to clipboard");
+  await document.fonts.load('500 13px "IBM Plex Sans"', "copied to clipboard");
   const board = screen.getByTestId("toast-figma-state-board");
   await expect
     .poll(() => getComputedStyle(board.element().querySelector('[data-tone="default"]')!).width)

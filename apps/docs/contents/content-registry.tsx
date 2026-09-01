@@ -13,7 +13,6 @@ type GeneratedDocsDocument = (typeof allDocs)[number];
 export interface DocsDocument {
   actions?: readonly [string, string];
   description: string;
-  eyebrow?: string;
   layout: "component" | "document" | "overview";
   mdxContent: MDXContent;
   metadata?: readonly [string, string];
@@ -39,7 +38,6 @@ function normalizeDocument(document: GeneratedDocsDocument): DocsDocument {
     slug: document.slug as DocsPage,
     title: document.title,
     ...(actions ? { actions } : {}),
-    ...(document.eyebrow ? { eyebrow: document.eyebrow } : {}),
     ...(metadata ? { metadata } : {}),
   };
 }

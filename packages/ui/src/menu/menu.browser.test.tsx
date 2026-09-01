@@ -4,8 +4,8 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
 import { CalendarIcon, FileIcon, FlagIcon, LinkIcon, StarIcon, Trash2Icon } from "lucide-react";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
+import "@fontsource/ibm-plex-sans/400.css";
+import "@fontsource/ibm-plex-sans/500.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -127,7 +127,7 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
       </ThemeScope>
     </>,
   );
-  await document.fonts.load('400 13px "Inter"', "Due date");
+  await document.fonts.load('400 13px "IBM Plex Sans"', "Due date");
   const preview = screen.getByTestId("menu-light-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
   expect(getComputedStyle(preview.element()).borderColor).toBe("rgb(216, 216, 216)");

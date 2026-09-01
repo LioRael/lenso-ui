@@ -2,9 +2,7 @@
   "id": "page-layout",
   "name": "Page Layout",
   "themeControl": "theme",
-  "bodyClassName": "template-playground-body",
-  "sectionClassName": "template-playground",
-  "stageClassName": "template-rendered-stage",
+  "layout": "template",
   "controls": [
     {
       "id": "context",

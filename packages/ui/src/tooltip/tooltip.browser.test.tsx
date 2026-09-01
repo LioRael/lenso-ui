@@ -3,7 +3,7 @@ import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
-import "@fontsource/inter/400.css";
+import "@fontsource/ibm-plex-sans/400.css";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
@@ -74,7 +74,7 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
       </ThemeScope>
     </>,
   );
-  await document.fonts.load('400 12px "Inter"', "Help with");
+  await document.fonts.load('400 12px "IBM Plex Sans"', "Help with");
   const board = screen.getByTestId("tooltip-figma-state-board");
   const previews = board
     .element()

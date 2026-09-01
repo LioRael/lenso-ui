@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { SearchIcon } from "lucide-react";
 
 import { Avatar } from "@lenso/ui/avatar";
@@ -27,6 +28,8 @@ import { TextField } from "@lenso/ui/text-field";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import type { PlaygroundAdapter } from "../types";
+import { stageStyles } from "./stage.stylex";
+import { styles } from "./content.stylex";
 
 function stringValue(
   values: Readonly<Record<string, boolean | number | string>>,
@@ -42,7 +45,7 @@ export const avatarAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const status = stringValue(values, "status", "online") as "away" | "busy" | "offline" | "online";
 
   return (
-    <ThemeScope className="stage-canvas avatar-stage" theme={theme}>
+    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.avatar]}>
       <Avatar.Root size={size}>
         <Avatar.Fallback>LR</Avatar.Fallback>
         <Avatar.Status
@@ -73,7 +76,7 @@ export const checkboxAdapter: PlaygroundAdapter = ({ setValue, theme, values }) 
     state === "hover" || state === "pressed" || state === "focus-visible" ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <Checkbox.Root
         checked={checkboxValue === "on"}
         data-visual-state={visualState}
@@ -92,8 +95,8 @@ export const contentStateAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const align = stringValue(values, "align", "center") as ContentStateAlign;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
-      <ContentState.Root align={align} style={{ maxWidth: 520 }}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+      <ContentState.Root align={align} xstyle={styles.contentState}>
         <ContentState.Visual aria-hidden="true">⌕</ContentState.Visual>
         <ContentState.Title as="h2">No matching results</ContentState.Title>
         <ContentState.Description>
@@ -111,8 +114,8 @@ export const descriptionListAdapter: PlaygroundAdapter = ({ theme, values }) => 
   const layout = stringValue(values, "layout", "inline") as DescriptionListLayout;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
-      <DescriptionList.Root layout={layout} style={{ maxWidth: 520 }}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+      <DescriptionList.Root layout={layout} xstyle={styles.descriptionList}>
         <DescriptionList.Item>
           <DescriptionList.Term>Status</DescriptionList.Term>
           <DescriptionList.Description>Ready</DescriptionList.Description>
@@ -134,8 +137,8 @@ export const inlineAlertAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const tone = stringValue(values, "tone", "info") as InlineAlertTone;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
-      <InlineAlert.Root style={{ maxWidth: 560 }} tone={tone}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+      <InlineAlert.Root tone={tone} xstyle={styles.inlineAlert}>
         <InlineAlert.Icon />
         <InlineAlert.Content>
           <InlineAlert.Title as="h2">Settings changed elsewhere</InlineAlert.Title>
@@ -152,7 +155,7 @@ export const inlineAlertAdapter: PlaygroundAdapter = ({ theme, values }) => {
 };
 
 export const shimmerTextAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope className="stage-canvas" theme={theme}>
+  <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
     <ShimmerText active={values.active === true}>Preparing response…</ShimmerText>
   </ThemeScope>
 );
@@ -163,7 +166,7 @@ export const textAreaAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const invalid = state === "error";
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <TextArea.Root disabled={state === "disabled"} invalid={invalid}>
         <TextArea.Label>Workspace guidance</TextArea.Label>
         <TextArea.Control
@@ -191,7 +194,7 @@ export const labelAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const visualState = state === "hover" ? "hover" : state === "active" ? "active" : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <Label color={labelColor(marker)} data-visual-state={visualState} open={state === "open"}>
         Label
       </Label>
@@ -205,7 +208,7 @@ export const radioAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => 
   const visualState = ["hover", "pressed", "focus-visible"].includes(state) ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <RadioGroup.Root value={selected ? "example" : "other"}>
         <RadioGroup.Item
           data-visual-state={visualState}
@@ -234,7 +237,7 @@ export const selectAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =>
   const position = stringValue(values, "position", "Popper");
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <Select.Root
         onOpenChange={(nextOpen) => setValue("open", nextOpen)}
         onValueChange={(value) => {
@@ -272,7 +275,7 @@ export const statusMarkerAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const status = stringValue(values, "status", "neutral") as StatusMarkerStatus;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <StatusMarker presentation={presentation} status={status} />
     </ThemeScope>
   );
@@ -285,8 +288,8 @@ export const sliderAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =>
     state === "hover" || state === "pressed" || state === "focus-visible" ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
-      <div style={{ width: 240 }}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+      <div {...stylex.props(styles.slider)}>
         <Slider.Root
           data-visual-state={visualState}
           disabled={state === "disabled"}
@@ -311,10 +314,12 @@ export const surfaceAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const level = stringValue(values, "level", "embedded") as SurfaceLevel;
 
   return (
-    <ThemeScope className="stage-canvas surface-stage" theme={theme}>
-      <Surface className="surface-demo" level={level}>
-        <h3>Panel title</h3>
-        <p>Use this region for product content assembled from existing components.</p>
+    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.surface]}>
+      <Surface level={level} xstyle={styles.surfaceDemo}>
+        <h3 {...stylex.props(styles.surfaceTitle)}>Panel title</h3>
+        <p {...stylex.props(styles.surfaceDescription)}>
+          Use this region for product content assembled from existing components.
+        </p>
       </Surface>
     </ThemeScope>
   );
@@ -328,7 +333,7 @@ export const switchAdapter: PlaygroundAdapter = ({ setValue, theme, values }) =>
     state === "hover" || state === "pressed" || state === "focus-visible" ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <Switch.Root
         aria-label="Switch label"
         checked={checked}
@@ -362,15 +367,20 @@ function ResizeHandlePreview({
     state === "hover" || state === "focus-visible" || state === "dragging" ? state : undefined;
 
   return (
-    <div className={`resize-handle-demo resize-handle-demo-${orientation}`}>
+    <div
+      {...stylex.props(
+        stageStyles.resizeDemo,
+        orientation === "horizontal" && stageStyles.resizeDemoHorizontal,
+      )}
+    >
       <section
         aria-label="Resizable inspector"
-        className="resize-handle-demo-pane"
+        {...stylex.props(stageStyles.resizePane)}
         id="resize-handle-inspector"
         style={orientation === "vertical" ? { width: value } : { height: value }}
       >
-        <strong>Inspector</strong>
-        <span>{Math.round(value)} px</span>
+        <strong {...stylex.props(stageStyles.resizeTitle)}>Inspector</strong>
+        <span {...stylex.props(stageStyles.resizeDescription)}>{Math.round(value)} px</span>
       </section>
       <ResizeHandle
         aria-controls="resize-handle-inspector"
@@ -409,9 +419,11 @@ function ResizeHandlePreview({
         }
         value={value}
       />
-      <div aria-hidden="true" className="resize-handle-demo-content">
-        <span>Workspace</span>
-        <span>Drag the edge or use arrow keys</span>
+      <div aria-hidden="true" {...stylex.props(stageStyles.resizeContent)}>
+        <span {...stylex.props(stageStyles.resizeTitle)}>Workspace</span>
+        <span {...stylex.props(stageStyles.resizeDescription)}>
+          Drag the edge or use arrow keys
+        </span>
       </div>
     </div>
   );
@@ -422,7 +434,7 @@ export const resizeHandleAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const state = stringValue(values, "state", "hover");
 
   return (
-    <ThemeScope className="stage-canvas resize-handle-stage" theme={theme}>
+    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.resizeHandle]}>
       <ResizeHandlePreview key={orientation} orientation={orientation} state={state} />
     </ThemeScope>
   );
@@ -437,7 +449,7 @@ export const textFieldAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const invalid = state === "error";
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <TextField.Root disabled={state === "disabled"} invalid={invalid} size={size}>
         <TextField.Label>
           {pattern === "search" ? "Search components" : "Repository"}

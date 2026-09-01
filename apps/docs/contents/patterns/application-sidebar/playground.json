@@ -2,9 +2,7 @@
   "id": "application-sidebar",
   "name": "Sidebar",
   "themeControl": "theme",
-  "bodyClassName": "sidebar-playground-body",
-  "sectionClassName": "sidebar-playground",
-  "stageClassName": "sidebar-rendered-stage",
+  "layout": "sidebar",
   "controls": [
     {
       "id": "theme",

@@ -15,13 +15,14 @@ import {
   SunIcon,
   TypeIcon,
 } from "lucide-react";
+import * as stylex from "@stylexjs/stylex";
 import { useEffect, useMemo, useState, type ComponentType, type CSSProperties } from "react";
 
 import { SegmentedControl } from "@lenso/ui/segmented-control";
 
 import tokenContract from "../../../../packages/tokens/src/contract.json";
 
-import styles from "./token-explorer.module.css";
+import { styles } from "./token-explorer.stylex";
 
 type ThemeMode = "dark" | "light";
 type TokenKind = "primitive" | "semantic";
@@ -129,7 +130,7 @@ function tokenValue(token: TokenItem, mode: ThemeMode): ContractToken {
 }
 
 function TokenSwatch({ value }: { value: string }) {
-  return <span className={styles.swatch} style={{ backgroundColor: value }} />;
+  return <span {...stylex.props(styles.swatch)} style={{ backgroundColor: value }} />;
 }
 
 function TreeBranch({
@@ -160,14 +161,18 @@ function TreeBranch({
         : FolderIcon;
 
   return (
-    <li className={styles.treeItem} role="treeitem" aria-expanded={isLeaf ? undefined : isOpen}>
+    <li
+      {...stylex.props(styles.treeItem)}
+      role="treeitem"
+      aria-expanded={isLeaf ? undefined : isOpen}
+    >
       <button
-        className={[styles.treeRow, selected ? styles.selected : ""].filter(Boolean).join(" ")}
+        {...stylex.props(styles.treeRow, selected && styles.selectedRow)}
         onClick={() => (node.token ? onSelect(node.token) : onToggle(node.key))}
         style={{ "--tree-depth": depth } as CSSProperties}
         type="button"
       >
-        <span className={styles.chevron}>
+        <span {...stylex.props(styles.chevron)}>
           {isLeaf ? null : isOpen ? (
             <ChevronDownIcon size={13} strokeWidth={1.75} />
           ) : (
@@ -179,16 +184,21 @@ function TreeBranch({
         ) : (
           <Icon size={13} strokeWidth={1.6} />
         )}
-        <span className={isLeaf ? styles.tokenLabel : styles.groupLabel}>
+        <span {...stylex.props(styles.treeLabel, isLeaf ? styles.tokenLabel : styles.groupLabel)}>
           {toTitle(node.label)}
         </span>
-        {!isLeaf && <span className={styles.count}>{leafCount(node)}</span>}
+        {!isLeaf && <span {...stylex.props(styles.treeMetadata)}>{leafCount(node)}</span>}
         {isLeaf && (
-          <span className={styles.inlineValue}>{tokenValue(node.token!, mode).cssValue}</span>
+          <span {...stylex.props(styles.treeMetadata, styles.inlineValue)}>
+            {tokenValue(node.token!, mode).cssValue}
+          </span>
         )}
       </button>
       {!isLeaf && isOpen && (
-        <ul className={styles.treeGroup}>
+        <ul
+          {...stylex.props(styles.treeGroup)}
+          style={{ "--tree-parent-depth": depth } as CSSProperties}
+        >
           {node.children.map((child) => (
             <TreeBranch
               depth={depth + 1}
@@ -210,16 +220,16 @@ function TreeBranch({
 function TokenPreview({ token, value }: { token: TokenItem; value: ContractToken }) {
   if (token.type === "color") {
     return (
-      <div className={styles.previewCanvas}>
-        <div className={styles.colorPreview} style={{ backgroundColor: value.cssValue }} />
+      <div {...stylex.props(styles.previewCanvas)}>
+        <div {...stylex.props(styles.colorPreview)} style={{ backgroundColor: value.cssValue }} />
       </div>
     );
   }
 
   if (token.type === "fontFamily") {
     return (
-      <div className={styles.previewCanvas}>
-        <span className={styles.typePreview} style={{ fontFamily: value.cssValue }}>
+      <div {...stylex.props(styles.previewCanvas)}>
+        <span {...stylex.props(styles.typePreview)} style={{ fontFamily: value.cssValue }}>
           Ag
         </span>
       </div>
@@ -228,25 +238,31 @@ function TokenPreview({ token, value }: { token: TokenItem; value: ContractToken
 
   if (token.type === "number") {
     return (
-      <div className={styles.previewCanvas}>
-        <div className={styles.opacityPreview} style={{ opacity: Number(value.cssValue) }} />
+      <div {...stylex.props(styles.previewCanvas)}>
+        <div {...stylex.props(styles.blockPreview)} style={{ opacity: Number(value.cssValue) }} />
       </div>
     );
   }
 
   if (token.path.startsWith("radius.")) {
     return (
-      <div className={styles.previewCanvas}>
-        <div className={styles.radiusPreview} style={{ borderRadius: value.cssValue }} />
+      <div {...stylex.props(styles.previewCanvas)}>
+        <div
+          {...stylex.props(styles.blockPreview, styles.radiusPreview)}
+          style={{ borderRadius: value.cssValue }}
+        />
       </div>
     );
   }
 
   return (
-    <div className={styles.previewCanvas}>
-      <div className={styles.measurePreview}>
-        <span style={{ width: `min(160px, calc(${value.cssValue} * 4))` }} />
-        <code>{value.cssValue}</code>
+    <div {...stylex.props(styles.previewCanvas)}>
+      <div {...stylex.props(styles.measurePreview)}>
+        <span
+          {...stylex.props(styles.measureBar)}
+          style={{ width: `min(160px, calc(${value.cssValue} * 4))` }}
+        />
+        <code {...stylex.props(styles.measureCode)}>{value.cssValue}</code>
       </div>
     </div>
   );
@@ -262,8 +278,13 @@ function CopyValue({ children, value }: { children: string; value: string }) {
   };
 
   return (
-    <button className={styles.copyValue} onClick={copy} title={`Copy ${children}`} type="button">
-      <code>{value}</code>
+    <button
+      {...stylex.props(styles.copyValue)}
+      onClick={copy}
+      title={`Copy ${children}`}
+      type="button"
+    >
+      <code {...stylex.props(styles.copyCode)}>{value}</code>
       {copied ? <CheckIcon size={13} /> : <CopyIcon size={13} />}
     </button>
   );
@@ -282,58 +303,64 @@ function TokenDetails({
   const pathParts = token.path.split(".");
 
   return (
-    <aside className={styles.details} aria-label="Token details">
-      <div className={styles.detailsHeading}>
-        <p>{token.kind === "semantic" ? "Semantic token" : "Primitive token"}</p>
-        <h2>{toTitle(pathParts.at(-1) ?? token.path)}</h2>
-        <div className={styles.pathCrumbs}>
+    <aside {...stylex.props(styles.panel, styles.details)} aria-label="Token details">
+      <div>
+        <p {...stylex.props(styles.eyebrow)}>
+          {token.kind === "semantic" ? "Semantic token" : "Primitive token"}
+        </p>
+        <h2 {...stylex.props(styles.detailsTitle)}>{toTitle(pathParts.at(-1) ?? token.path)}</h2>
+        <div {...stylex.props(styles.pathCrumbs)}>
           {pathParts.slice(0, -1).map((part) => (
-            <span key={part}>{part}</span>
+            <span {...stylex.props(styles.pathCrumb)} key={part}>
+              {part}
+            </span>
           ))}
         </div>
       </div>
 
       <TokenPreview token={token} value={value} />
 
-      <div className={styles.modeSection}>
-        <span className={styles.fieldLabel}>MODE</span>
-        <SegmentedControl.Root
-          aria-label="Token theme mode"
-          onValueChange={(value) => onModeChange(value as ThemeMode)}
-          value={mode}
-          width="fill"
-        >
-          <SegmentedControl.Item value="light">
-            <SunIcon aria-hidden="true" size={13} />
-            Light
-          </SegmentedControl.Item>
-          <SegmentedControl.Item value="dark">
-            <MoonIcon aria-hidden="true" size={13} />
-            Dark
-          </SegmentedControl.Item>
-        </SegmentedControl.Root>
+      <div {...stylex.props(styles.modeSection)}>
+        <span {...stylex.props(styles.fieldLabel)}>MODE</span>
+        <div {...stylex.props(styles.modeControl)}>
+          <SegmentedControl.Root
+            aria-label="Token theme mode"
+            onValueChange={(value) => onModeChange(value as ThemeMode)}
+            value={mode}
+            width="fill"
+          >
+            <SegmentedControl.Item value="light">
+              <SunIcon aria-hidden="true" size={13} />
+              Light
+            </SegmentedControl.Item>
+            <SegmentedControl.Item value="dark">
+              <MoonIcon aria-hidden="true" size={13} />
+              Dark
+            </SegmentedControl.Item>
+          </SegmentedControl.Root>
+        </div>
       </div>
 
-      <dl className={styles.detailsList}>
-        <div>
-          <dt>VALUE</dt>
-          <dd>
+      <dl {...stylex.props(styles.detailsList)}>
+        <div {...stylex.props(styles.detailsEntry)}>
+          <dt {...stylex.props(styles.detailsTerm)}>VALUE</dt>
+          <dd {...stylex.props(styles.detailsDefinition)}>
             <CopyValue value={value.cssValue}>resolved value</CopyValue>
           </dd>
         </div>
-        <div>
-          <dt>CSS VARIABLE</dt>
-          <dd>
+        <div {...stylex.props(styles.detailsEntry)}>
+          <dt {...stylex.props(styles.detailsTerm)}>CSS VARIABLE</dt>
+          <dd {...stylex.props(styles.detailsDefinition)}>
             <CopyValue value={`var(${value.cssName})`}>CSS variable</CopyValue>
           </dd>
         </div>
-        <div>
-          <dt>TYPE</dt>
-          <dd className={styles.plainValue}>{value.type}</dd>
+        <div {...stylex.props(styles.detailsEntry)}>
+          <dt {...stylex.props(styles.detailsTerm)}>TYPE</dt>
+          <dd {...stylex.props(styles.detailsDefinition, styles.plainValue)}>{value.type}</dd>
         </div>
-        <div>
-          <dt>PATH</dt>
-          <dd>
+        <div {...stylex.props(styles.detailsEntry)}>
+          <dt {...stylex.props(styles.detailsTerm)}>PATH</dt>
+          <dd {...stylex.props(styles.detailsDefinition)}>
             <CopyValue value={token.path}>token path</CopyValue>
           </dd>
         </div>
@@ -406,31 +433,32 @@ export function TokenExplorer() {
   };
 
   return (
-    <section className={styles.explorer} aria-label="Token explorer">
-      <div className={styles.browser}>
-        <div className={styles.browserHeader}>
-          <div>
-            <h2>Token tree</h2>
-            <span>
+    <section {...stylex.props(styles.explorer)} aria-label="Token explorer">
+      <div {...stylex.props(styles.panel, styles.browser)}>
+        <div {...stylex.props(styles.browserHeader)}>
+          <div {...stylex.props(styles.browserTitleGroup)}>
+            <h2 {...stylex.props(styles.browserTitle)}>Token tree</h2>
+            <span {...stylex.props(styles.browserCount)}>
               {filteredTokens.length} of {allTokens.length}
             </span>
           </div>
-          <label className={styles.search}>
+          <label {...stylex.props(styles.search)}>
             <SearchIcon aria-hidden="true" size={14} />
-            <span className={styles.visuallyHidden}>Search tokens</span>
+            <span {...stylex.props(styles.visuallyHidden)}>Search tokens</span>
             <input
+              {...stylex.props(styles.searchInput)}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search path or CSS variable"
               type="search"
               value={query}
             />
-            <kbd>⌘ K</kbd>
+            <kbd {...stylex.props(styles.searchHint)}>⌘ K</kbd>
           </label>
         </div>
 
-        <div className={styles.treeScroller}>
+        <div {...stylex.props(styles.treeScroller)}>
           {trees.length > 0 ? (
-            <ul className={styles.tree} role="tree" aria-label="Design tokens">
+            <ul {...stylex.props(styles.treeList)} role="tree" aria-label="Design tokens">
               {trees.map((tree) => (
                 <TreeBranch
                   depth={0}
@@ -445,10 +473,14 @@ export function TokenExplorer() {
               ))}
             </ul>
           ) : (
-            <div className={styles.emptyState}>
+            <div {...stylex.props(styles.emptyState)}>
               <SearchIcon size={18} />
-              <p>No tokens match “{query}”.</p>
-              <button onClick={() => setQuery("")} type="button">
+              <p {...stylex.props(styles.emptyMessage)}>No tokens match “{query}”.</p>
+              <button
+                {...stylex.props(styles.clearSearch)}
+                onClick={() => setQuery("")}
+                type="button"
+              >
                 Clear search
               </button>
             </div>

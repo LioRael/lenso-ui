@@ -2,7 +2,6 @@
   "id": "page-header",
   "name": "Page Header",
   "themeControl": "theme",
-  "stageClassName": "page-header-rendered-stage",
   "controls": [
     {
       "id": "variant",

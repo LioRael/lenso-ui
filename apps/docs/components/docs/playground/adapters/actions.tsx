@@ -10,6 +10,7 @@ import { Switch } from "@lenso/ui/switch";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import type { PlaygroundAdapter } from "../types";
+import { stageStyles } from "./stage.stylex";
 
 function stringValue(
   values: Readonly<Record<string, boolean | number | string>>,
@@ -28,7 +29,7 @@ export const buttonAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const visualState = ["hover", "pressed", "focus-visible"].includes(state) ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <Button
         data-visual-state={visualState}
         disabled={state === "disabled"}
@@ -49,7 +50,7 @@ export const iconButtonAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const visualState = ["hover", "pressed", "focus-visible"].includes(state) ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <IconButton
         aria-label="Create issue"
         data-visual-state={visualState}
@@ -113,7 +114,7 @@ export const settingsRowAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const disabled = values.disabled === true;
 
   return (
-    <ThemeScope className="stage-canvas settings-row-stage" theme={theme}>
+    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.settingsRow]}>
       <SettingsRow.Root disabled={disabled}>
         <SettingsRow.Copy>
           {control === "toggle" ? (
