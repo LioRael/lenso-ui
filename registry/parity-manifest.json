@@ -812,9 +812,9 @@
           "target": "components/lenso/sidebar/index.tsx"
         },
         {
-          "registrySha256": "f3922cba9fb43483eaf55d71b1349adc069a0e16eadd430942792cfe37306876",
+          "registrySha256": "c672732b3ceced76d812617a6323acd3d514b39c08fa7bdb21ead63ddb6e8216",
           "source": "packages/ui/src/sidebar/sidebar.stylex.ts",
-          "sourceSha256": "f3922cba9fb43483eaf55d71b1349adc069a0e16eadd430942792cfe37306876",
+          "sourceSha256": "c672732b3ceced76d812617a6323acd3d514b39c08fa7bdb21ead63ddb6e8216",
           "target": "components/lenso/sidebar/sidebar.stylex.ts"
         },
         {

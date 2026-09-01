@@ -8,7 +8,7 @@ export const styles = stylex.create({
     backgroundColor: tokens.colorSurfaceSidebar,
     boxSizing: "border-box",
     color: tokens.colorContentSecondary,
-    display: "flex",
+    display: { default: "flex", "[hidden]": "none" },
     flexDirection: "column",
     fontFamily: tokens.fontSans,
     height: "100%",

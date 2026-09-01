@@ -59,7 +59,6 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
           <Sidebar.Panel aria-label="Workspace navigation">
             <Sidebar.Header>{/* workspace and actions */}</Sidebar.Header>
             <Sidebar.Content>{/* product navigation */}</Sidebar.Content>
-            <Sidebar.Footer>{/* help */}</Sidebar.Footer>
           </Sidebar.Panel>
         </Sidebar.Root>
 
@@ -73,10 +72,11 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
         </footer>
       </Sidebar.Group>
     </ThemeScope>
-  )
+
+)
 }`}
-    description="The template is an application-owned composition of stable Lenso UI parts, not a new package component."
-  />
+description="The template is an application-owned composition of stable Lenso UI parts, not a new package component."
+/>
 
   <CodeExample
     title="Layout styles"
@@ -107,7 +107,7 @@ export const styles = stylex.create({
     borderWidth: 0.5,
     borderStyle: "solid",
     borderColor: "var(--color-border-tertiary)",
-    borderRadius: 12,
+    borderRadius: 10,
     backgroundColor: "var(--color-surface-canvas)",
   },
   utilities: {
@@ -120,5 +120,5 @@ export const styles = stylex.create({
     paddingInline: 10,
   },
 })`}
-    description="The 244px / 8px / 12px / 36px shell measurements come from the canonical Page Layout component set."
+    description="The shell keeps a compact 244px navigation environment around an inset 10px work surface, with low-frequency utilities in a stable bottom strip."
   />

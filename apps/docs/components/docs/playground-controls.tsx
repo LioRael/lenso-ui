@@ -72,7 +72,7 @@ export function PlaygroundSelectControl({
         value={value}
       >
         <Select.Trigger aria-label={label} xstyle={styles.selectTrigger}>
-          <Select.Value>{selectedLabel}</Select.Value>
+          <Select.Value xstyle={styles.selectValue}>{selectedLabel}</Select.Value>
           <Select.Icon />
         </Select.Trigger>
         <Select.Portal>
