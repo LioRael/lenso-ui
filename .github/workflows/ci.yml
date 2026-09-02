@@ -21,6 +21,14 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @lenso/ui exec playwright install --with-deps chromium
       - run: pnpm check
+      - name: Preserve verified documentation output
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: docs-${{ github.sha }}
+          path: apps/docs/out
+          if-no-files-found: error
+          retention-days: 1
 
   deploy-docs:
     if: github.event_name == 'push'
@@ -33,15 +41,15 @@ jobs:
       deployments: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Download verified documentation output
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: docs-${{ github.sha }}
+          path: apps/docs/out
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 24.18.0
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build:packages
-      - run: pnpm --filter @lenso/docs build
       - name: Deploy docs to Cloudflare Pages
         run: pnpm dlx wrangler@4.124.0 pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
         env:
