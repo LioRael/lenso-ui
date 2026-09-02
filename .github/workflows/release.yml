@@ -1,11 +1,12 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_sha }}
   cancel-in-progress: false
 
 permissions:
@@ -15,10 +16,18 @@ permissions:
 
 jobs:
   release:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     environment: npm
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
@@ -26,12 +35,11 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @lenso/ui exec playwright install --with-deps chromium
-      - run: pnpm check
       - uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2
         with:
           publish-script: pnpm changeset publish
           version-script: pnpm run version
+          pr-base-branch: main
           push-git-tags: true
           create-github-releases: true
         env:
