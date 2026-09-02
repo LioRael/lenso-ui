@@ -17,6 +17,7 @@ import uiPackage from "../../../../packages/ui/package.json";
 import {
   getDocsPageForPath,
   getDocsSectionForPage,
+  getVisibleDocsItems,
   getOrderedDocsSections,
   type DocsNavItem,
   type DocsPage,
@@ -156,9 +157,9 @@ function DocumentationNavigation({
             open={openSections.includes(section.id)}
             value={section.id}
           >
-            {section.items.length > 0 && (
+            {getVisibleDocsItems(section).length > 0 && (
               <NavMenu>
-                {section.items.map((item) => (
+                {getVisibleDocsItems(section).map((item) => (
                   <NavItem
                     item={item}
                     key={item.kind === "page" ? item.slug : item.id}

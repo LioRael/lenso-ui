@@ -65,6 +65,7 @@ export interface DocsNavLink {
 export interface DocsNavPage {
   readonly aliases?: readonly string[];
   readonly href: string;
+  readonly hidden?: boolean;
   readonly kind: "page";
   readonly label: string;
   readonly slug: DocsPage;
@@ -105,8 +106,9 @@ export const docsRegistry = [
       },
       {
         href: "/start/release-status",
+        hidden: true,
         kind: "page",
-        label: "Release status",
+        label: "Package compatibility",
         slug: "release-status",
       },
     ],
@@ -308,6 +310,10 @@ export function getDocsSectionForPage(slug: DocsPage): DocsSectionId | undefined
   return getOrderedDocsSections().find((section) =>
     section.items.some((item) => item.kind === "page" && item.slug === slug),
   )?.id;
+}
+
+export function getVisibleDocsItems(section: DocsSection): readonly DocsNavItem[] {
+  return section.items.filter((item) => item.kind !== "page" || !item.hidden);
 }
 
 export function getDocsRouteParams(): Array<{ section: string; slug: string }> {

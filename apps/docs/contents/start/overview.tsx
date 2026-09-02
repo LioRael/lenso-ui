@@ -233,7 +233,7 @@ export function OverviewContent() {
       </section>
 
       <section aria-label="Getting started" {...stylex.props(styles.startLinks)}>
-        <div {...stylex.props(styles.grid, styles.fourColumns)}>
+        <div {...stylex.props(styles.grid, styles.threeColumns)}>
           <Link href="/start/installation" id="installation" {...stylex.props(styles.indexCard)}>
             <h3 {...stylex.props(styles.cardTitle)}>Installation</h3>
             <p {...stylex.props(styles.cardDescription)}>
@@ -254,16 +254,6 @@ export function OverviewContent() {
             <h3 {...stylex.props(styles.cardTitle)}>Package vs Registry</h3>
             <p {...stylex.props(styles.cardDescription)}>
               Choose managed package updates or editable source installed into your application.
-            </p>
-          </Link>
-          <Link
-            href="/start/release-status"
-            id="release-status"
-            {...stylex.props(styles.indexCard, styles.lastCard)}
-          >
-            <h3 {...stylex.props(styles.cardTitle)}>Release status</h3>
-            <p {...stylex.props(styles.cardDescription)}>
-              Track implementation readiness and the current package surface.
             </p>
           </Link>
         </div>
