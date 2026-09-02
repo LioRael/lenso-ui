@@ -55,9 +55,6 @@ async function fixture({ version, versions } = {}) {
   await mkdir(join(root, "packages/tokens"), { recursive: true });
   await mkdir(join(root, "packages/ui"), { recursive: true });
   await mkdir(join(root, "docs"), { recursive: true });
-  await mkdir(join(root, "apps/docs/contents/start/release-status"), {
-    recursive: true,
-  });
   await writeJson(join(root, ".changeset/config.json"), {
     fixed: [["@lenso/ui", "@lenso/primitives", "@lenso/tokens"]],
   });
@@ -81,11 +78,7 @@ async function fixture({ version, versions } = {}) {
     "",
   ].join("\n");
   await Promise.all(
-    [
-      "README.md",
-      "docs/architecture.md",
-      "apps/docs/contents/start/release-status/content.mdx",
-    ].map((path) => writeFile(join(root, path), stale)),
+    ["README.md", "docs/architecture.md"].map((path) => writeFile(join(root, path), stale)),
   );
   return root;
 }

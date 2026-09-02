@@ -8,11 +8,7 @@ const fixedPackages = [
   ["@lenso/ui", "packages/ui/package.json"],
 ];
 
-const releaseStatusFiles = [
-  "README.md",
-  "docs/architecture.md",
-  "apps/docs/contents/start/release-status/content.mdx",
-];
+const releaseStatusFiles = ["README.md", "docs/architecture.md"];
 
 const slotStart = "lenso-release-slot:start";
 const slotEnd = "lenso-release-slot:end";
