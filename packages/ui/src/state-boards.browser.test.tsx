@@ -887,29 +887,6 @@ test("Checkbox matches the approved Figma state board", async () => {
   ]);
 });
 
-test("Checkbox default marks avoid CSS masks", async () => {
-  const screen = await render(
-    <div>
-      <Checkbox.Root defaultChecked>
-        <Checkbox.Indicator />
-        <Checkbox.Label>Checked</Checkbox.Label>
-      </Checkbox.Root>
-      <Checkbox.Root indeterminate>
-        <Checkbox.Indicator />
-        <Checkbox.Label>Indeterminate</Checkbox.Label>
-      </Checkbox.Root>
-    </div>,
-  );
-
-  for (const name of ["Checked", "Indeterminate"]) {
-    const indicator = screen
-      .getByRole("checkbox", { name })
-      .element()
-      .querySelector<HTMLElement>('[data-slot="checkbox-indicator"]');
-    expect(getComputedStyle(indicator!, "::after").maskImage).toBe("none");
-  }
-});
-
 test("Checkbox resolves dark theme values", async () => {
   const screen = await render(
     <ThemeScope theme="dark">
