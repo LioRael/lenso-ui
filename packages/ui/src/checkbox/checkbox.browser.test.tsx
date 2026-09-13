@@ -6,7 +6,7 @@ import "virtual:stylex:runtime";
 import "../../../tokens/src/styles.css";
 import { Checkbox } from "./index.js";
 
-test("Checkbox keeps the checkmark anchored while activation settles", async () => {
+test("keeps the checkmark anchored while activation settles", async () => {
   const screen = await render(
     <Checkbox.Root aria-label="Toggle checkbox">
       <Checkbox.Indicator />
@@ -32,4 +32,33 @@ test("Checkbox keeps the checkmark anchored while activation settles", async () 
   const afterActivation = readMarkPosition();
 
   expect(duringActivation).toEqual(afterActivation);
+});
+
+// Safari/WebKit previously rendered the SVG data-URL checkbox masks as a mosaic.
+// Keep this focused compatibility regression while the mark uses portable CSS geometry.
+test("renders checkbox marks without WebKit CSS masks", async () => {
+  const screen = await render(
+    <div>
+      <Checkbox.Root defaultChecked>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Checked</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root indeterminate>
+        <Checkbox.Indicator />
+        <Checkbox.Label>Indeterminate</Checkbox.Label>
+      </Checkbox.Root>
+    </div>,
+  );
+
+  for (const name of ["Checked", "Indeterminate"]) {
+    const indicator = screen
+      .getByRole("checkbox", { name })
+      .element()
+      .querySelector<HTMLElement>('[data-slot="checkbox-indicator"]');
+    const mark = getComputedStyle(indicator!, "::after");
+    expect(mark.maskImage).toBe("none");
+    expect(mark.content).not.toBe("none");
+    expect(Number.parseFloat(mark.width)).toBeGreaterThan(0);
+    expect(Number.parseFloat(mark.height)).toBeGreaterThan(0);
+  }
 });
