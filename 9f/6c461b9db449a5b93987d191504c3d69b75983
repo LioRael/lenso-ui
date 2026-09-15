@@ -1,0 +1,19 @@
+.github/workflows/ci.yml
+  s_b4ef4420977247::t_76361a296b892b 50-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9f6c461b9db449a5b93987d191504c3d69b75983",
+  "prompts": {},
+  "sessions": {
+    "s_b4ef4420977247": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a46d-f66f-7aa2-a04d-613964d63efb",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
