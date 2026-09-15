@@ -1,14 +1,13 @@
 {
   "id": "text-field",
   "name": "Text Field",
-  "description": "Try supported interaction and validation states on the real text field.",
   "themeControl": "theme",
   "controls": [
     {
       "id": "size",
       "label": "Size",
       "type": "select",
-      "options": ["default"],
+      "options": ["default", "compact"],
       "default": "default"
     },
     {

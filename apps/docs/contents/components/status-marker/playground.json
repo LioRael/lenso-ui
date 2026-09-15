@@ -1,7 +1,6 @@
 {
   "id": "status-marker",
   "name": "Status Marker",
-  "description": "Change semantic status and presentation on the real marker.",
   "themeControl": "theme",
   "controls": [
     {

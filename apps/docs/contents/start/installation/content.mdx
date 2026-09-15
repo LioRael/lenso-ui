@@ -1,8 +1,8 @@
 ---
 title: "Installation"
 layout: "document"
-description: "Choose the managed package or editable registry channel for a new Consumer application."
-eyebrow: "Start · Consumer setup"
+description: "Install managed packages for routine upgrades, or copy registry source when your application needs structural control."
+eyebrow: "Start · Application setup"
 metadata:
   - "Package line 0.2.0"
   - "React 19"
@@ -15,14 +15,14 @@ import { CodeExample } from "@/components/docs/code-example";
 import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 
   <Guidance>
-    <GuidanceBlock title="Managed package channel">
-      Install <code>@lenso/ui</code> for precompiled StyleX output and managed component upgrades.
-      <code>@lenso/tokens/styles.css</code> and <code>@lenso/ui/styles.css</code> are explicit
-      application-shell imports.
+    <GuidanceBlock title="Use the package by default">
+      Install <code>@lenso/ui</code> when you want versioned upgrades and precompiled StyleX output.
+      Import <code>@lenso/tokens/styles.css</code> and <code>@lenso/ui/styles.css</code> once from the
+      application shell.
     </GuidanceBlock>
-    <GuidanceBlock title="Editable registry channel">
-      Install a registry item when the Consumer must own and structurally change the source. A
-      registry installation is a copy; it does not receive managed package updates.
+    <GuidanceBlock title="Copy source only when you need it">
+      Install a registry item when your application must change component structure or own a Recipe.
+      Registry files become application code and do not receive package updates automatically.
     </GuidanceBlock>
   </Guidance>
 
@@ -32,28 +32,28 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 // application entry or root layout
 import "@lenso/tokens/styles.css"
 import "@lenso/ui/styles.css"`}
-  description="The package channel requires React and Base UI peers and one explicit import for each generated stylesheet."
+  description="Install the React and Base UI peers, then load each generated stylesheet once at the application boundary."
   title="Install the package channel"
 />
 
 <CodeExample
   code={String.raw`pnpm dlx shadcn@latest add https://ui.lenso.dev/r/setup.json
 pnpm dlx shadcn@latest add https://ui.lenso.dev/r/button.json`}
-  description="The setup item adds the shared token bridge; each component item remains editable Consumer-owned source."
+  description="The setup item adds the shared token bridge. Every component item is copied into your application as editable source."
   title="Install registry source"
 />
 
   <Guidance>
-    <GuidanceBlock title="Before using registry source">
+    <GuidanceBlock title="Before copying registry source">
       <ul>
-        <li>Configure a compatible StyleX compiler in the Consumer application.</li>
+        <li>Configure a compatible StyleX compiler in your application.</li>
         <li>Keep the generated token CSS import in the application shell.</li>
-        <li>Use a versioned <code>/r/v/0.2.0/</code> URL when reproducible release input matters.</li>
+        <li>Use a versioned registry URL when a build must resolve the same source later.</li>
       </ul>
     </GuidanceBlock>
     <GuidanceBlock title="Optional packages">
       <ul>
-        <li>Install <code>@lenso/primitives</code> directly for the headless Sidebar primitive.</li>
+        <li>Install <code>@lenso/primitives</code> directly only when you need the headless Sidebar primitive.</li>
         <li><code>@lenso/ui/preflight.css</code> is optional and is not a reset or font package.</li>
       </ul>
     </GuidanceBlock>

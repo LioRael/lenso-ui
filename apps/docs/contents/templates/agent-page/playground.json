@@ -1,0 +1,21 @@
+{
+  "id": "agent-page",
+  "name": "Agent Page",
+  "themeControl": "theme",
+  "layout": "template",
+  "controls": [
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [
+    {
+      "id": "conversation",
+      "label": "Example · Conversation"
+    }
+  ]
+}

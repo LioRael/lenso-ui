@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   root: {
@@ -43,7 +44,9 @@ export const styles = stylex.create({
     paddingBlock: 0,
     paddingInline: "8px",
     textAlign: "left",
-    transitionDuration: "0s",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motion.easeHover,
     whiteSpace: "nowrap",
   },
   open: {

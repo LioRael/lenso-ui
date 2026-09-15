@@ -4,10 +4,11 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Switch as BaseSwitch } from "@base-ui/react/switch";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./switch.stylex.js";
 
 export type SwitchSize = "compact" | "default";
+export type SwitchLayout = "control-only" | "inline-label";
 type SwitchFeedbackDirection = "from-checked" | "from-unchecked";
 
 const SwitchFeedbackContext = React.createContext<{
@@ -18,21 +19,23 @@ const SwitchFeedbackContext = React.createContext<{
   size: "default",
 });
 
-export interface SwitchRootProps extends BaseSwitch.Root.Props {
+export interface SwitchRootProps extends StyleXProps<BaseSwitch.Root.Props> {
   "data-visual-state"?: "focus-visible" | "hover" | "pressed" | undefined;
+  layout?: SwitchLayout;
   size?: SwitchSize;
 }
 
 export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(function SwitchRoot(
   {
-    className,
     children,
     "data-visual-state": visualState,
+    layout: layoutProp = "inline-label",
     onCheckedChange,
     onPointerEnter,
     onPointerLeave,
     onAnimationEnd,
     size = "default",
+    xstyle,
     ...props
   },
   ref,
@@ -40,6 +43,7 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
   const [hovered, setHovered] = React.useState(false);
   const [hoverConsumed, setHoverConsumed] = React.useState(false);
   const [switchFeedback, setSwitchFeedback] = React.useState<SwitchFeedbackDirection | null>(null);
+  const layout = size === "compact" ? "control-only" : layoutProp;
   const interactive =
     !hoverConsumed && (hovered || visualState === "hover" || visualState === "pressed");
   return (
@@ -75,10 +79,11 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
         }
         onAnimationEnd?.(event);
       }}
-      className={(state) => {
-        const generated = stylex.props(
+      className={(state) =>
+        stylex.props(
           styles.root,
           size === "compact" ? styles.compact : styles.defaultSize,
+          size === "default" && layout === "control-only" && styles.defaultControlOnly,
           state.checked && styles.checked,
           interactive &&
             (size === "compact" ? styles.compactInteractive : styles.defaultInteractive),
@@ -86,10 +91,10 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
           visualState === "pressed" && styles.pressed,
           visualState === "focus-visible" && styles.focusVisible,
           state.disabled && styles.disabled,
-        ).className;
-        const custom = typeof className === "function" ? className(state) : className;
-        return custom ? `${generated} ${custom}` : generated;
-      }}
+          xstyle,
+        ).className
+      }
+      data-layout={layout}
       data-size={size}
       data-slot="switch"
       data-visual-state={visualState}
@@ -113,13 +118,13 @@ export const SwitchRoot = React.forwardRef<HTMLElement, SwitchRootProps>(functio
   );
 });
 
-export const SwitchThumb = React.forwardRef<HTMLSpanElement, BaseSwitch.Thumb.Props>(
-  function SwitchThumb({ className, ...props }, ref) {
+export const SwitchThumb = React.forwardRef<HTMLSpanElement, StyleXProps<BaseSwitch.Thumb.Props>>(
+  function SwitchThumb({ xstyle, ...props }, ref) {
     const feedback = React.useContext(SwitchFeedbackContext);
     return (
       <BaseSwitch.Thumb
         {...props}
-        className={mergeClassName(
+        className={
           stylex.props(
             styles.thumb,
             feedback.direction === "from-checked" &&
@@ -130,9 +135,9 @@ export const SwitchThumb = React.forwardRef<HTMLSpanElement, BaseSwitch.Thumb.Pr
               (feedback.size === "compact"
                 ? styles.compactFeedbackFromUnchecked
                 : styles.defaultFeedbackFromUnchecked),
-          ).className,
-          className,
-        )}
+            xstyle,
+          ).className
+        }
         data-slot="switch-thumb"
         ref={ref}
       />

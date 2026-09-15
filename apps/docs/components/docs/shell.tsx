@@ -4,21 +4,27 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { MenuIcon, MoreHorizontalIcon, XIcon } from "lucide-react";
 
 import { Breadcrumb } from "@lenso/ui/breadcrumb";
 import { Button } from "@lenso/ui/button";
 import { Disclosure } from "@lenso/ui/disclosure";
+import { Menu } from "@lenso/ui/menu";
 import { Sidebar } from "@lenso/ui/sidebar";
 
 import uiPackage from "../../../../packages/ui/package.json";
 import {
   getDocsPageForPath,
   getDocsSectionForPage,
+  getVisibleDocsItems,
   getOrderedDocsSections,
   type DocsNavItem,
   type DocsPage,
 } from "../../contents/catalog";
 import { ThemeToggle } from "./theme-toggle";
+import { styles } from "./shell.stylex";
+import { useDocsPageTheme } from "./use-docs-page-theme";
 
 interface DocsShellProps {
   actions: readonly [string, string];
@@ -34,14 +40,12 @@ function docsPageFromPathname(pathname: string): DocsPage {
 
 function NavDisclosure({
   children,
-  className,
   label,
   onOpenChange,
   open,
   value,
 }: {
   children?: ReactNode;
-  className?: string;
   label: string;
   onOpenChange: (open: boolean) => void;
   open: boolean;
@@ -49,21 +53,23 @@ function NavDisclosure({
 }) {
   return (
     <Disclosure.Root
-      className={["nav-disclosure-root", className].filter(Boolean).join(" ")}
+      xstyle={styles.disclosureRoot}
       onValueChange={(nextValue) => onOpenChange(nextValue.includes(value))}
       value={open ? [value] : []}
     >
-      <Disclosure.Item className="nav-disclosure-item" value={value}>
-        <Sidebar.Section className="nav-section">
-          <Sidebar.SectionHeader className="nav-section-header">
-            <Disclosure.Header>
-              <Disclosure.Trigger className="nav-heading">
-                {label}
-                <Disclosure.Icon />
-              </Disclosure.Trigger>
-            </Disclosure.Header>
-          </Sidebar.SectionHeader>
-          <Sidebar.SectionContent className="nav-section-content" layout="auto">
+      <Disclosure.Item value={value} xstyle={styles.disclosureItem}>
+        <Sidebar.Section xstyle={styles.navSection}>
+          <Disclosure.Header xstyle={styles.navSectionHeader}>
+            <Disclosure.Trigger xstyle={styles.navHeading}>
+              {label}
+              <Disclosure.Icon />
+            </Disclosure.Trigger>
+          </Disclosure.Header>
+          <Sidebar.SectionContent
+            contentXstyle={styles.navSectionContentInner}
+            layout="auto"
+            xstyle={[styles.navSectionContent, value === "start" && styles.navSectionContentStart]}
+          >
             {children}
           </Sidebar.SectionContent>
         </Sidebar.Section>
@@ -76,14 +82,23 @@ function NavMenu({ children }: { children: ReactNode }) {
   return <Sidebar.Menu>{children}</Sidebar.Menu>;
 }
 
-function NavItem({ item, selected }: { item: DocsNavItem; selected: boolean }) {
+function NavItem({
+  item,
+  onNavigate,
+  selected,
+}: {
+  item: DocsNavItem;
+  onNavigate: () => void;
+  selected: boolean;
+}) {
   return (
     <Sidebar.MenuItem>
       <Sidebar.Item
-        className="nav-item"
+        onClick={onNavigate}
         render={<Link href={item.href} />}
         nativeButton={false}
         selected={selected}
+        xstyle={[styles.navItem, selected && styles.selectedNavItem]}
       >
         {item.label}
       </Sidebar.Item>
@@ -101,7 +116,13 @@ function initialOpenSections(current: DocsPage): string[] {
     .map((section) => section.id);
 }
 
-function DocumentationNavigation({ current }: { current: DocsPage }) {
+function DocumentationNavigation({
+  current,
+  onNavigate,
+}: {
+  current: DocsPage;
+  onNavigate: () => void;
+}) {
   const sections = getOrderedDocsSections();
   const [openSections, setOpenSections] = useState(() => initialOpenSections(current));
 
@@ -123,65 +144,130 @@ function DocumentationNavigation({ current }: { current: DocsPage }) {
   return (
     <>
       {sections.map((section) => (
-        <NavDisclosure
-          className={["nav-group", `nav-group-${section.id}`].join(" ")}
-          key={section.id}
-          label={section.label}
-          onOpenChange={(open) => toggleSection(section.id, open)}
-          open={openSections.includes(section.id)}
-          value={section.id}
-        >
-          {section.items.length > 0 && (
-            <NavMenu>
-              {section.items.map((item) => (
-                <NavItem
-                  item={item}
-                  key={item.kind === "page" ? item.slug : item.id}
-                  selected={item.kind === "page" && current === item.slug}
-                />
-              ))}
-            </NavMenu>
+        <div
+          {...stylex.props(
+            styles.navGroup,
+            (section.id === "start" || section.id === "components") && styles.navGroupCompact,
           )}
-        </NavDisclosure>
+          key={section.id}
+        >
+          <NavDisclosure
+            label={section.label}
+            onOpenChange={(open) => toggleSection(section.id, open)}
+            open={openSections.includes(section.id)}
+            value={section.id}
+          >
+            {getVisibleDocsItems(section).length > 0 && (
+              <NavMenu>
+                {getVisibleDocsItems(section).map((item) => (
+                  <NavItem
+                    item={item}
+                    key={item.kind === "page" ? item.slug : item.id}
+                    onNavigate={onNavigate}
+                    selected={item.kind === "page" && current === item.slug}
+                  />
+                ))}
+              </NavMenu>
+            )}
+          </NavDisclosure>
+        </div>
       ))}
     </>
   );
 }
 
-function DocumentationSidebar({ current }: { current: DocsPage }) {
+function DocumentationSidebar({
+  compact,
+  current,
+  mobileOpen,
+  onNavigate,
+}: {
+  compact: boolean;
+  current: DocsPage;
+  mobileOpen: boolean;
+  onNavigate: () => void;
+}) {
   return (
-    <Sidebar.Root className="docs-sidebar" defaultOpen id="documentation-sidebar">
-      <Sidebar.Panel aria-label="Documentation navigation" className="docs-sidebar-panel">
-        <Sidebar.Header className="docs-sidebar-header">
-          <div className="brand-row">
-            <strong>Lenso UI</strong>
-            <span className="version">v{uiPackage.version}</span>
-          </div>
-          <button className="search-button" type="button">
-            <span>Search documentation</span>
-            <kbd>⌘ K</kbd>
-          </button>
-        </Sidebar.Header>
-        <Sidebar.Content className="docs-sidebar-content">
-          <nav aria-label="Documentation" className="docs-nav">
-            <DocumentationNavigation current={current} />
-          </nav>
-        </Sidebar.Content>
-      </Sidebar.Panel>
-    </Sidebar.Root>
+    <Sidebar.Panel
+      aria-label="Documentation navigation"
+      data-mobile-state={mobileOpen ? "open" : "closed"}
+      hidden={false}
+      inert={compact && !mobileOpen}
+      xstyle={styles.sidebarPanel}
+    >
+      <Sidebar.Header xstyle={styles.sidebarHeader}>
+        <div {...stylex.props(styles.brandRow)}>
+          <strong {...stylex.props(styles.brand)}>Lenso UI</strong>
+          <span {...stylex.props(styles.version)}>v{uiPackage.version}</span>
+          <Sidebar.Trigger
+            aria-label="Close documentation navigation"
+            render={<button {...stylex.props(styles.mobileSidebarClose)} type="button" />}
+          >
+            <XIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
+          </Sidebar.Trigger>
+        </div>
+        <button {...stylex.props(styles.searchButton)} type="button">
+          <span>Search documentation</span>
+          <kbd {...stylex.props(styles.searchHint)}>⌘ K</kbd>
+        </button>
+      </Sidebar.Header>
+      <Sidebar.Content xstyle={styles.sidebarContent}>
+        <nav aria-label="Documentation" {...stylex.props(styles.nav)}>
+          <DocumentationNavigation current={current} onNavigate={onNavigate} />
+        </nav>
+      </Sidebar.Content>
+    </Sidebar.Panel>
   );
 }
 
 export function DocsFrame({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const current = docsPageFromPathname(pathname);
+  const theme = useDocsPageTheme();
+  const [compact, setCompact] = useState(false);
+  const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 900px)");
+    const update = () => {
+      setCompact(query.matches);
+      if (query.matches) setMobileNavigationOpen(false);
+    };
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    setMobileNavigationOpen(false);
+  }, [pathname]);
 
   return (
-    <div className="docs-theme">
-      <div className="docs-shell">
-        <DocumentationSidebar current={current} />
+    <div {...stylex.props(styles.theme, theme === "dark" && styles.darkTheme)}>
+      <Sidebar.Root
+        id="documentation-sidebar"
+        onOpenChange={setMobileNavigationOpen}
+        open={compact ? mobileNavigationOpen : true}
+        xstyle={styles.shell}
+      >
+        <DocumentationSidebar
+          compact={compact}
+          current={current}
+          mobileOpen={mobileNavigationOpen}
+          onNavigate={() => setMobileNavigationOpen(false)}
+        />
+        <button
+          aria-label="Close documentation navigation"
+          onClick={() => setMobileNavigationOpen(false)}
+          {...stylex.props(
+            styles.mobileNavigationScrim,
+            !mobileNavigationOpen && styles.closedMobileNavigationScrim,
+          )}
+          tabIndex={mobileNavigationOpen ? 0 : -1}
+          type="button"
+        />
         {children}
-      </div>
+      </Sidebar.Root>
     </div>
   );
 }
@@ -191,53 +277,102 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
   const secondActionHref = current === "overview" ? "#quick-start" : undefined;
 
   return (
-    <div className="main-inset" data-current-page={current} data-preview-theme={theme}>
-      <main className="main-surface">
-        <header className="docs-header">
-          <Breadcrumb.Root className="breadcrumb">
-            <Breadcrumb.List className="breadcrumb-list">
+    <div {...stylex.props(styles.mainInset)} data-current-page={current} data-preview-theme={theme}>
+      <main {...stylex.props(styles.mainSurface)}>
+        <header
+          {...stylex.props(
+            styles.header,
+            (current === "tokens" || current === "theme-lab") && styles.workspaceHeader,
+          )}
+        >
+          <Sidebar.Trigger
+            aria-label="Open documentation navigation"
+            render={<button {...stylex.props(styles.mobileNavigationTrigger)} type="button" />}
+          >
+            <MenuIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
+          </Sidebar.Trigger>
+          <Breadcrumb.Root xstyle={styles.breadcrumb}>
+            <Breadcrumb.List xstyle={styles.breadcrumbList}>
               <Breadcrumb.Item>
                 <Breadcrumb.Link
-                  className="breadcrumb-link"
                   nativeButton={false}
                   render={<Link href="/" />}
+                  xstyle={[styles.breadcrumbPart, styles.breadcrumbLink]}
                 >
                   Lenso UI
                 </Breadcrumb.Link>
               </Breadcrumb.Item>
               <Breadcrumb.Separator />
               <Breadcrumb.Item>
-                <span className="breadcrumb-label">{breadcrumbs[0]}</span>
+                <span {...stylex.props(styles.breadcrumbPart, styles.breadcrumbLabel)}>
+                  {breadcrumbs[0]}
+                </span>
               </Breadcrumb.Item>
               <Breadcrumb.Separator />
               <Breadcrumb.Item>
-                <Breadcrumb.Page className="breadcrumb-page">{breadcrumbs[1]}</Breadcrumb.Page>
+                <Breadcrumb.Page xstyle={[styles.breadcrumbPart, styles.breadcrumbPage]}>
+                  {breadcrumbs[1]}
+                </Breadcrumb.Page>
               </Breadcrumb.Item>
             </Breadcrumb.List>
           </Breadcrumb.Root>
-          <div className="header-actions">
+          <span {...stylex.props(styles.mobilePageTitle)}>{breadcrumbs[1]}</span>
+          <div {...stylex.props(styles.headerActions)}>
             <ThemeToggle />
             <Button
-              className="header-button"
               {...(firstActionHref
                 ? { nativeButton: false, render: <Link href={firstActionHref} /> }
                 : {})}
               variant="secondary"
+              xstyle={styles.headerButton}
             >
               {actions[0]}
             </Button>
             <Button
-              className="header-button"
               {...(secondActionHref
                 ? { nativeButton: false, render: <Link href={secondActionHref} /> }
                 : {})}
               disabled={actions[1] === "Planned"}
+              xstyle={styles.headerButton}
             >
               {actions[1]}
             </Button>
+            <Menu.Root>
+              <Menu.ControlTrigger
+                aria-label="Page actions"
+                icon={null}
+                xstyle={styles.mobileActionsTrigger}
+              >
+                <MoreHorizontalIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
+              </Menu.ControlTrigger>
+              <Menu.Portal>
+                <Menu.Positioner align="end">
+                  <Menu.Popup aria-label="Page actions">
+                    {firstActionHref ? (
+                      <Menu.LinkItem href={firstActionHref}>{actions[0]}</Menu.LinkItem>
+                    ) : (
+                      <Menu.Item>{actions[0]}</Menu.Item>
+                    )}
+                    {secondActionHref ? (
+                      <Menu.LinkItem href={secondActionHref}>{actions[1]}</Menu.LinkItem>
+                    ) : (
+                      <Menu.Item disabled={actions[1] === "Planned"}>{actions[1]}</Menu.Item>
+                    )}
+                  </Menu.Popup>
+                </Menu.Positioner>
+              </Menu.Portal>
+            </Menu.Root>
           </div>
         </header>
-        <div className="docs-scroll">{children}</div>
+        <div
+          data-docs-scroll=""
+          {...stylex.props(
+            styles.scroll,
+            (current === "tokens" || current === "theme-lab") && styles.workspaceScroll,
+          )}
+        >
+          {children}
+        </div>
       </main>
     </div>
   );

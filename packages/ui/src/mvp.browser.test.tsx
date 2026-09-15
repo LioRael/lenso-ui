@@ -175,6 +175,8 @@ test("Label preserves Base UI render composition and marker customization", asyn
 
   await expect.element(link).toHaveAttribute("href", "/issues");
   await expect.poll(() => getComputedStyle(link.element()).height).toBe("24px");
+  expect(getComputedStyle(link.element()).transitionDuration).toBe("0.12s");
+  expect(getComputedStyle(link.element()).transitionProperty).toContain("background-color");
   expect(link.element().querySelector('[data-slot="label-marker"]')).not.toBeNull();
   await expect.element(screen.getByTestId("custom-marker")).toBeVisible();
 });
@@ -374,6 +376,21 @@ test("Switch checked hover keeps the thumb's right edge anchored", async () => {
   }
 });
 
+test("Switch removes the inline-label footprint in control-only layout", async () => {
+  const screen = await render(
+    <Switch.Root aria-label="Control-only switch" layout="control-only">
+      <Switch.Thumb />
+    </Switch.Root>,
+  );
+  const control = screen.getByRole("switch", { name: "Control-only switch" }).element();
+  const track = control.querySelector<HTMLElement>('[data-slot="switch-track"]');
+
+  expect(control.dataset.layout).toBe("control-only");
+  expect(control.getBoundingClientRect().width).toBe(42);
+  expect(track).not.toBeNull();
+  expect(control.getBoundingClientRect().right - track!.getBoundingClientRect().right).toBe(6);
+});
+
 test("Switch consumes hover expansion after a toggle until the pointer leaves", async () => {
   const screen = await render(
     <div>
@@ -467,16 +484,19 @@ test("Switch replays hover expansion before consuming it on a second toggle", as
     await expect.poll(() => getComputedStyle(thumb).width).toBe(restingWidth);
 
     animationEnds.length = 0;
+    let feedbackAnimation: Animation | undefined;
+    thumb.addEventListener(
+      "animationstart",
+      () => {
+        feedbackAnimation = thumb.getAnimations().find((animation) => "animationName" in animation);
+        feedbackAnimation?.pause();
+      },
+      { once: true },
+    );
     await control.click();
     await expect.element(control).not.toBeChecked();
-    await expect
-      .poll(() => thumb.getAnimations().some((animation) => "animationName" in animation))
-      .toBe(true);
-    const feedbackAnimation = thumb
-      .getAnimations()
-      .find((animation) => "animationName" in animation);
+    await expect.poll(() => feedbackAnimation !== undefined).toBe(true);
     if (!feedbackAnimation) throw new Error("Switch feedback animation did not start");
-    feedbackAnimation.pause();
     feedbackAnimation.currentTime = 90;
     expect(getComputedStyle(thumb).width).toBe(expandedWidth);
     expect(getComputedStyle(thumb).left).toBe(innerAnchor);
@@ -567,9 +587,11 @@ test("Select supports keyboard selection, form semantics, and focus restoration"
     </form>,
   );
   const trigger = screen.getByRole("combobox");
+  expect(getComputedStyle(trigger.element()).transitionProperty).toContain("background-color");
   trigger.element().focus();
   await userEvent.keyboard("{ArrowDown}");
-  await expect.element(screen.getByRole("listbox")).toBeVisible();
+  const listbox = screen.getByRole("listbox");
+  await expect.element(listbox).toBeVisible();
   await userEvent.keyboard("{ArrowDown}{Enter}");
   await expect.element(trigger).toHaveTextContent("default");
   expect(onValueChange).toHaveBeenCalledWith("default", expect.anything());
@@ -739,6 +761,12 @@ test("Dialog portals into the nearest theme scope and closes with Escape", async
   expect(portalHost?.querySelector('[role="dialog"]')).not.toBeNull();
   const popup = screen.getByRole("dialog", { name: "Settings" });
   expect(getComputedStyle(popup.element()).position).toBe("relative");
+  expect(getComputedStyle(popup.element()).transitionDuration).toBe("0.2s");
+  expect(getComputedStyle(popup.element()).transitionProperty).toContain("transform");
+  const backdrop = portalHost?.querySelector<HTMLElement>('[data-slot="dialog-backdrop"]');
+  expect(getComputedStyle(backdrop!).transitionProperty).toContain("opacity");
+  await expect.poll(() => getComputedStyle(popup.element()).opacity).toBe("1");
+  await expect.poll(() => getComputedStyle(backdrop!).opacity).toBe("1");
   const popupRect = popup.element().getBoundingClientRect();
   const closeRect = screen
     .getByRole("button", { name: "Close settings" })

@@ -1,30 +1,30 @@
 ---
-title: "Package vs Registry"
+title: "Package vs registry"
 layout: "document"
-description: "The two delivery channels share canonical source but give the Consumer different ownership and upgrade behavior."
+description: "Choose between managed upgrades and editable source. Both channels come from the same canonical implementation."
 eyebrow: "Start · Distribution"
 metadata:
   - "Two channels"
   - "One source"
 actions:
   - "Installation"
-  - "Release status"
+  - "Versioned releases"
 ---
 
 import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 
   <Guidance>
-    <GuidanceBlock title="Choose the package channel">
+    <GuidanceBlock title="Choose packages for managed upgrades">
       <ul>
         <li>Use <code>@lenso/ui</code> for managed JavaScript, declarations, and precompiled CSS.</li>
         <li>Import components from named subpaths such as <code>@lenso/ui/dialog</code>.</li>
         <li>Upgrade through package versions and Changesets.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Choose the registry channel">
+    <GuidanceBlock title="Choose registry source for structural changes">
       <ul>
         <li>Use the shadcn-compatible registry when structural ownership matters more than managed updates.</li>
-        <li>Install TypeScript and StyleX source into the Consumer application.</li>
+        <li>Install TypeScript and styling source directly into your application.</li>
         <li>Review future upgrades as source diffs; local edits are not overwritten automatically.</li>
       </ul>
     </GuidanceBlock>
@@ -32,10 +32,11 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 
 | Concern | Package channel | Registry channel |
 | --- | --- | --- |
-| Source ownership | Lenso UI package | Consumer-owned copy |
-| Styling | Precompiled `@lenso/ui/styles.css` | Consumer compiles StyleX source |
-| Upgrade model | Managed package version | Consumer applies source changes |
+| Source ownership | Lenso UI | Your application |
+| Styling | Precompiled `@lenso/ui/styles.css` | Your application compiles StyleX source |
+| Upgrade model | Upgrade the package version | Review and apply source changes |
 | Best for | Stable component composition | Structural customization and Recipes |
 | Address | npm package subpath | `/r/{name}.json` or immutable `/r/v/{version}/{name}.json` |
 
-The channels are not separate implementations. The registry builder reads canonical component and primitive source and records parity hashes in `registry/parity-manifest.json`.
+The channels are not separate implementations. Registry items are built from the canonical
+component, primitive, and Recipe source, with parity recorded in `registry/parity-manifest.json`.

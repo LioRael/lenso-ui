@@ -48,16 +48,13 @@ const exampleSchema = z.object({
 });
 
 const configSchema = z.object({
-  bodyClassName: z.string().optional(),
   codeTemplate: z.string().optional(),
   controls: z.array(controlSchema).min(1),
   defaultExample: z.string().optional(),
-  description: z.string().min(1),
   examples: z.array(exampleSchema).min(1),
   id: z.string().min(1),
+  layout: z.enum(["command-menu", "default", "sidebar", "template"]).optional(),
   name: z.string().min(1),
-  sectionClassName: z.string().optional(),
-  stageClassName: z.string().optional(),
   themeControl: z.string().optional(),
   title: z.string().optional(),
 });
@@ -89,14 +86,11 @@ export function parsePlaygroundConfig(value: unknown): PlaygroundConfig {
   return {
     defaultExample,
     controls: config.controls as PlaygroundControl[],
-    description: config.description,
     examples: config.examples as PlaygroundExample[],
     id: config.id,
+    ...(config.layout ? { layout: config.layout } : {}),
     name: config.name,
-    ...(config.bodyClassName ? { bodyClassName: config.bodyClassName } : {}),
     ...(config.codeTemplate ? { codeTemplate: config.codeTemplate } : {}),
-    ...(config.sectionClassName ? { sectionClassName: config.sectionClassName } : {}),
-    ...(config.stageClassName ? { stageClassName: config.stageClassName } : {}),
     ...(config.themeControl ? { themeControl: config.themeControl } : {}),
     ...(config.title ? { title: config.title } : {}),
   };

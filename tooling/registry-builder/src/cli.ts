@@ -40,8 +40,8 @@ const immutable = (name: string) => `https://ui.lenso.dev/r/v/${releaseVersion}/
 
 const sharedFiles = [
   {
-    source: "packages/ui/src/shared/merge-class-name.ts",
-    target: "components/lenso/shared/merge-class-name.ts",
+    source: "packages/ui/src/shared/stylex-props.ts",
+    target: "components/lenso/shared/stylex-props.ts",
     type: "registry:lib" as const,
   },
   {
@@ -51,6 +51,18 @@ const sharedFiles = [
   },
 ];
 
+const motionFile = {
+  source: "packages/ui/src/shared/motion.stylex.ts",
+  target: "components/lenso/shared/motion.stylex.ts",
+  type: "registry:style" as const,
+};
+
+const boxedControlFile = {
+  source: "packages/ui/src/shared/boxed-control.stylex.ts",
+  target: "components/lenso/shared/boxed-control.stylex.ts",
+  type: "registry:style" as const,
+};
+
 const styledPartFile = {
   source: "packages/ui/src/shared/styled-part.ts",
   target: "components/lenso/shared/styled-part.ts",
@@ -58,6 +70,104 @@ const styledPartFile = {
 };
 
 const specs: RegistryItemSpec[] = [
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/content-state/index.tsx",
+        target: "components/lenso/content-state/index.tsx",
+      },
+      {
+        source: "packages/ui/src/content-state/content-state.stylex.ts",
+        target: "components/lenso/content-state/content-state.stylex.ts",
+        type: "registry:style",
+      },
+      styledPartFile,
+      ...sharedFiles,
+    ],
+    name: "content-state",
+    registryDependencies: [stable("setup")],
+    title: "Content State",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/description-list/index.tsx",
+        target: "components/lenso/description-list/index.tsx",
+      },
+      {
+        source: "packages/ui/src/description-list/description-list.stylex.ts",
+        target: "components/lenso/description-list/description-list.stylex.ts",
+        type: "registry:style",
+      },
+      styledPartFile,
+      ...sharedFiles,
+    ],
+    name: "description-list",
+    registryDependencies: [stable("setup")],
+    title: "Description List",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      {
+        source: "packages/ui/src/inline-alert/index.tsx",
+        target: "components/lenso/inline-alert/index.tsx",
+      },
+      {
+        source: "packages/ui/src/inline-alert/inline-alert.stylex.ts",
+        target: "components/lenso/inline-alert/inline-alert.stylex.ts",
+        type: "registry:style",
+      },
+      styledPartFile,
+      ...sharedFiles,
+    ],
+    name: "inline-alert",
+    registryDependencies: [stable("setup")],
+    title: "Inline Alert",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/shimmer-text/index.tsx",
+        target: "components/lenso/shimmer-text/index.tsx",
+      },
+      {
+        source: "packages/ui/src/shimmer-text/shimmer-text.stylex.ts",
+        target: "components/lenso/shimmer-text/shimmer-text.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "shimmer-text",
+    registryDependencies: [stable("setup")],
+    title: "Shimmer Text",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/text-area/index.tsx",
+        target: "components/lenso/text-area/index.tsx",
+      },
+      {
+        source: "packages/ui/src/text-area/text-area.stylex.ts",
+        target: "components/lenso/text-area/text-area.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "text-area",
+    registryDependencies: [stable("setup")],
+    title: "Text Area",
+    type: "registry:ui",
+  },
   {
     dependencies: ["@stylexjs/stylex@0.19.0"],
     files: [
@@ -70,6 +180,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/status-marker/status-marker.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "status-marker",
@@ -86,6 +197,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/toast/toast.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "toast",
@@ -102,6 +214,8 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/menu/menu.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
+      boxedControlFile,
       ...sharedFiles,
     ],
     name: "menu",
@@ -121,6 +235,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/popover/popover.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "popover",
@@ -137,6 +252,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/avatar/avatar.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "avatar",
@@ -267,6 +383,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/label/label.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "label",
@@ -275,7 +392,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
         source: "packages/ui/src/text-field/index.tsx",
@@ -286,6 +403,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/text-field/text-field.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "text-field",
@@ -351,6 +469,44 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/segmented-control/index.tsx",
+        target: "components/lenso/segmented-control/index.tsx",
+      },
+      {
+        source: "packages/ui/src/segmented-control/segmented-control.stylex.ts",
+        target: "components/lenso/segmented-control/segmented-control.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "segmented-control",
+    registryDependencies: [stable("setup")],
+    title: "Segmented Control",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/slider/index.tsx",
+        target: "components/lenso/slider/index.tsx",
+      },
+      {
+        source: "packages/ui/src/slider/slider.stylex.ts",
+        target: "components/lenso/slider/slider.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "slider",
+    registryDependencies: [stable("setup")],
+    title: "Slider",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
@@ -362,6 +518,8 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/select/select.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
+      boxedControlFile,
       ...sharedFiles,
     ],
     name: "select",
@@ -381,6 +539,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/combobox/combobox.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "combobox",
@@ -419,6 +578,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/dialog/dialog.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "dialog",
@@ -427,7 +587,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
         source: "packages/ui/src/disclosure/index.tsx",
@@ -438,10 +598,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/disclosure/disclosure.stylex.ts",
         type: "registry:style",
       },
-      {
-        source: "packages/ui/src/disclosure/disclosure-chevron.svg",
-        target: "components/lenso/disclosure/disclosure-chevron.svg",
-      },
+      motionFile,
       ...sharedFiles,
     ],
     name: "disclosure",
@@ -461,7 +618,7 @@ const specs: RegistryItemSpec[] = [
     type: "registry:lib",
   },
   {
-    dependencies: ["@base-ui/react@1.7.0"],
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0"],
     files: [
       {
         source: "packages/primitives/src/resize-handle/index.tsx",
@@ -507,6 +664,7 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/sidebar/sidebar.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
       styledPartFile,
     ],
@@ -604,12 +762,57 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/tooltip/tooltip.stylex.ts",
         type: "registry:style",
       },
+      motionFile,
       ...sharedFiles,
     ],
     name: "tooltip",
     registryDependencies: [stable("setup")],
     title: "Tooltip",
     type: "registry:ui",
+  },
+  {
+    dependencies: [`@lenso/ui@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "registry/source/recipes/settings-section/index.tsx",
+        target: "components/lenso/recipes/settings-section/index.tsx",
+      },
+      {
+        source: "registry/source/recipes/settings-section/settings-section.stylex.ts",
+        target: "components/lenso/recipes/settings-section/settings-section.stylex.ts",
+        type: "registry:style",
+      },
+    ],
+    name: "settings-section",
+    title: "Settings Section",
+    type: "registry:component",
+  },
+  {
+    dependencies: [`@lenso/ui@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "registry/source/recipes/prompt-composer/index.tsx",
+        target: "components/lenso/recipes/prompt-composer/index.tsx",
+      },
+      {
+        source: "registry/source/recipes/prompt-composer/autosize.ts",
+        target: "components/lenso/recipes/prompt-composer/autosize.ts",
+        type: "registry:lib",
+      },
+      {
+        source: "registry/source/recipes/prompt-composer/keyboard.ts",
+        target: "components/lenso/recipes/prompt-composer/keyboard.ts",
+        type: "registry:lib",
+      },
+      {
+        source: "registry/source/recipes/prompt-composer/prompt-composer.stylex.ts",
+        target: "components/lenso/recipes/prompt-composer/prompt-composer.stylex.ts",
+        type: "registry:style",
+      },
+    ],
+    name: "prompt-composer",
+    title: "Prompt Composer",
+    type: "registry:component",
   },
 ];
 
@@ -646,6 +849,7 @@ for (const item of [...items, ...versionedItems])
 
 await Promise.all([
   mkdir(path.join(registryRoot, "components"), { recursive: true }),
+  mkdir(path.join(registryRoot, "recipes"), { recursive: true }),
   mkdir(publicRoot, { recursive: true }),
   ...(snapshotMode ? [mkdir(versionedPublicRoot, { recursive: true })] : []),
 ]);

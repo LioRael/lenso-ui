@@ -1,0 +1,44 @@
+---
+title: "Segmented Control"
+description: "A compact single-choice control for switching one property without introducing tab panels."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/segmented-control"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="segmented-control" />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Segmented Control when">
+      <ul>
+        <li>
+          Use Segmented Control for mutually exclusive values that update the current view in place.
+        </li>
+        <li>Use Tabs when each choice owns a corresponding content panel.</li>
+        <li>
+          Use <code>width="fit"</code> in toolbars and <code>width="fill"</code> in property panels.
+        </li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Give the root an accessible label describing the property being changed.</li>
+        <li>Base UI owns radio semantics, arrow-key navigation, and single-selection behavior.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { SegmentedControl } from "@lenso/ui/segmented-control"
+
+<SegmentedControl.Root aria-label="Theme mode" defaultValue="light">
+  <SegmentedControl.Item value="light">Light</SegmentedControl.Item>
+  <SegmentedControl.Item value="dark">Dark</SegmentedControl.Item>
+</SegmentedControl.Root>`}
+  description="A single-choice radio group with compact fit and full-width layout variants."
+/>

@@ -1,7 +1,6 @@
 {
   "id": "switch",
   "name": "Switch",
-  "description": "Try supported sizes, checked state, interaction states, and theme parity.",
   "themeControl": "theme",
   "controls": [
     {

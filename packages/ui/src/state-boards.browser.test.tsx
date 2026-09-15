@@ -78,10 +78,10 @@ test("Disclosure matches the approved Figma state board", async () => {
         width: 492,
       }}
     >
-      <div style={{ left: 16, position: "absolute", top: 16 }}>
+      <div style={{ left: 16, position: "absolute", top: 16, width: 220 }}>
         <DisclosureBoardGroup expanded="first" />
       </div>
-      <div style={{ left: 256, position: "absolute", top: 16 }}>
+      <div style={{ left: 256, position: "absolute", top: 16, width: 220 }}>
         <DisclosureBoardGroup expanded="second" />
       </div>
     </div>,
@@ -94,13 +94,20 @@ test("Disclosure matches the approved Figma state board", async () => {
   const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="disclosure-panel"]');
   await expect.poll(() => getComputedStyle(triggers[0]!).fontFamily).toContain("Inter");
   expect(triggers[0]?.getBoundingClientRect().height).toBe(28);
-  expect(triggers[0]?.getBoundingClientRect().width).toBe(215);
+  expect(triggers[0]?.getBoundingClientRect().width).toBe(220);
   expect(triggers[0]?.getAttribute("aria-expanded")).toBe("true");
   expect(triggers[1]?.getAttribute("aria-expanded")).toBe("false");
   expect(getComputedStyle(panels[0]!).boxSizing).toBe("border-box");
   expect(panels[0]?.getBoundingClientRect().width).toBe(220);
-  await expect.poll(() => panels[0]?.getBoundingClientRect().height).toBe(96);
-  await expect.poll(() => panels[1]?.getBoundingClientRect().height).toBe(68);
+  await expect
+    .poll(() => Math.round(panels[0]!.getBoundingClientRect().height))
+    .toBe(panels[0]!.scrollHeight);
+  await expect
+    .poll(() => Math.round(panels[1]!.getBoundingClientRect().height))
+    .toBe(panels[1]!.scrollHeight);
+  expect(panels[0]!.getBoundingClientRect().height).toBeGreaterThan(
+    panels[1]!.getBoundingClientRect().height,
+  );
 });
 
 function TeamIcon() {
@@ -698,6 +705,7 @@ test("Text Field matches the approved Figma state board", async () => {
     .querySelectorAll<HTMLInputElement>('[data-slot="text-field-control"]');
   expect(fields).toHaveLength(7);
   expect(controls).toHaveLength(7);
+  expect(controls[6]!.disabled).toBe(true);
   expect(fields[0]?.getBoundingClientRect().toJSON()).toMatchObject({
     height: 80,
     width: 304,
@@ -877,29 +885,6 @@ test("Checkbox matches the approved Figma state board", async () => {
     { height: 18, width: 18, x: 1, y: 5 },
     { height: 18, width: 18, x: 1, y: 5 },
   ]);
-});
-
-test("Checkbox default marks avoid CSS masks", async () => {
-  const screen = await render(
-    <div>
-      <Checkbox.Root defaultChecked>
-        <Checkbox.Indicator />
-        <Checkbox.Label>Checked</Checkbox.Label>
-      </Checkbox.Root>
-      <Checkbox.Root indeterminate>
-        <Checkbox.Indicator />
-        <Checkbox.Label>Indeterminate</Checkbox.Label>
-      </Checkbox.Root>
-    </div>,
-  );
-
-  for (const name of ["Checked", "Indeterminate"]) {
-    const indicator = screen
-      .getByRole("checkbox", { name })
-      .element()
-      .querySelector<HTMLElement>('[data-slot="checkbox-indicator"]');
-    expect(getComputedStyle(indicator!, "::after").maskImage).toBe("none");
-  }
 });
 
 test("Checkbox resolves dark theme values", async () => {

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 import {
   ArrowUpRightIcon,
@@ -12,12 +13,14 @@ import {
   InboxIcon,
   LayersIcon,
   LinkIcon,
+  MoonIcon,
   MoreHorizontalIcon,
   PlusIcon,
   SearchIcon,
   SettingsIcon,
   StarIcon,
   StoreIcon,
+  SunIcon,
 } from "lucide-react";
 
 import { Breadcrumb } from "@lenso/ui/breadcrumb";
@@ -25,11 +28,13 @@ import { Disclosure } from "@lenso/ui/disclosure";
 import { IconButton } from "@lenso/ui/icon-button";
 import { PageHeader } from "@lenso/ui/page-header";
 import { QuickLink } from "@lenso/ui/quick-link";
+import { SegmentedControl } from "@lenso/ui/segmented-control";
 import { Sidebar } from "@lenso/ui/sidebar";
 import { Tabs } from "@lenso/ui/tabs";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import type { PlaygroundAdapter } from "../types";
+import { stageStyles } from "./stage.stylex";
 
 function stringValue(
   values: Readonly<Record<string, boolean | number | string>>,
@@ -60,7 +65,7 @@ function TeamIcon() {
 
 export const breadcrumbAdapter: PlaygroundAdapter = ({ example, theme }) => {
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <Breadcrumb.Root>
         <Breadcrumb.List>
           <Breadcrumb.Item>
@@ -120,7 +125,7 @@ function DisclosurePreview({ multiple }: { multiple: boolean }) {
           </Disclosure.Trigger>
         </Disclosure.Header>
         <Disclosure.Panel layout="list">
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div {...stylex.props(stageStyles.disclosureList)}>
             <span>Active</span>
             <span>Archived</span>
             <span>More</span>
@@ -140,7 +145,7 @@ function DisclosurePreview({ multiple }: { multiple: boolean }) {
 }
 
 export const disclosureAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope className="stage-canvas" theme={theme}>
+  <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
     <DisclosurePreview multiple={values.multiple === true} />
   </ThemeScope>
 );
@@ -230,15 +235,15 @@ function HeaderDemo({ variant }: { variant: string }) {
 }
 
 export const pageHeaderAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope className="stage-canvas page-header-stage" theme={theme}>
-    <div style={{ width: "100%" }}>
+  <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.pageHeader]}>
+    <div {...stylex.props(stageStyles.fullWidth)}>
       <HeaderDemo variant={stringValue(values, "variant", "team")} />
     </div>
   </ThemeScope>
 );
 
 export const quickLinkAdapter: PlaygroundAdapter = ({ theme, values }) => (
-  <ThemeScope className="stage-canvas" theme={theme}>
+  <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
     <QuickLink
       disabled={values.disabled === true}
       leadingIcon={<SettingsIcon size={16} />}
@@ -278,7 +283,7 @@ function SidebarPreview() {
   const [selectedItem, setSelectedItem] = React.useState("home");
 
   return (
-    <Sidebar.Group style={{ height: 720 }}>
+    <Sidebar.Group xstyle={stageStyles.sidebarPreview}>
       <Sidebar.Root defaultOpen id="docs-sidebar">
         <Sidebar.Panel>
           <Sidebar.Header>
@@ -407,7 +412,7 @@ function SidebarPreview() {
 }
 
 export const sidebarAdapter: PlaygroundAdapter = ({ theme }) => (
-  <ThemeScope className="stage-canvas sidebar-stage-canvas" theme={theme}>
+  <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.sidebar]}>
     <SidebarPreview />
   </ThemeScope>
 );
@@ -415,7 +420,7 @@ export const sidebarAdapter: PlaygroundAdapter = ({ theme }) => (
 export const tabsAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
   const selected = stringValue(values, "selected", "overview");
   return (
-    <ThemeScope className="stage-canvas tabs-stage" theme={theme}>
+    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.tabs]}>
       <Tabs.Root onValueChange={(value) => setValue("selected", value)} value={selected}>
         <Tabs.List aria-label="Project sections">
           <Tabs.Tab value="overview">Overview</Tabs.Tab>
@@ -428,6 +433,30 @@ export const tabsAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
           </Tabs.Panel>
         ))}
       </Tabs.Root>
+    </ThemeScope>
+  );
+};
+
+export const segmentedControlAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
+  const selected = stringValue(values, "selected", "light");
+  const width = stringValue(values, "width", "fit") as "fill" | "fit";
+  return (
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
+      <SegmentedControl.Root
+        aria-label="Theme mode"
+        onValueChange={(value) => setValue("selected", value)}
+        value={selected}
+        width={width}
+      >
+        <SegmentedControl.Item value="light">
+          <SunIcon aria-hidden="true" size={13} />
+          Light
+        </SegmentedControl.Item>
+        <SegmentedControl.Item value="dark">
+          <MoonIcon aria-hidden="true" size={13} />
+          Dark
+        </SegmentedControl.Item>
+      </SegmentedControl.Root>
     </ThemeScope>
   );
 };

@@ -19,6 +19,7 @@ import type {
   PlaygroundControl,
   PlaygroundValue,
 } from "./types";
+import { styles } from "./component-playground.stylex";
 
 function dialConfigForControl(
   control: PlaygroundControl,
@@ -177,13 +178,13 @@ export function ComponentPlayground({
           </Button>
           {currentCode && (
             <Button
-              className="copy-button"
               onClick={async () => {
                 await navigator.clipboard.writeText(currentCode);
                 setCopied(true);
                 window.setTimeout(() => setCopied(false), 1200);
               }}
               variant="secondary"
+              xstyle={styles.copyButton}
             >
               {copied ? "Copied" : "Copy JSX"}
             </Button>
@@ -213,7 +214,6 @@ export function ComponentPlayground({
           ))}
         </PlaygroundControls>
       }
-      description={config.description}
       preview={adapter({
         example,
         pageTheme,
@@ -221,9 +221,7 @@ export function ComponentPlayground({
         theme,
         values,
       })}
-      {...(config.bodyClassName ? { bodyClassName: config.bodyClassName } : {})}
-      {...(config.sectionClassName ? { sectionClassName: config.sectionClassName } : {})}
-      {...(config.stageClassName ? { stageClassName: config.stageClassName } : {})}
+      layout={config.layout ?? "default"}
       {...(config.title ? { title: config.title } : {})}
     />
   );

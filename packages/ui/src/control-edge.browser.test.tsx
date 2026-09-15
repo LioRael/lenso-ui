@@ -73,12 +73,14 @@ for (const [theme, expectedHoverBorder, expectedFocusRing] of [
 
     const input = screen.getByTestId("text-input");
     await input.hover();
-    expect(getComputedStyle(input.element()).borderColor).toBe(expectedHoverBorder);
+    await expect
+      .poll(() => getComputedStyle(input.element()).borderColor)
+      .toBe(expectedHoverBorder);
 
     await input.click();
-    expect(getComputedStyle(input.element()).outlineColor).toBe(expectedFocusRing);
+    await expect.poll(() => getComputedStyle(input.element()).outlineColor).toBe(expectedFocusRing);
     expect(getComputedStyle(input.element()).outlineOffset).toBe("-1px");
-    expect(getComputedStyle(input.element()).outlineWidth).toBe("1px");
+    expect(getComputedStyle(input.element()).outlineWidth).toBe("2px");
   });
 }
 

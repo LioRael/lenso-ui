@@ -1,7 +1,6 @@
 {
   "id": "select",
   "name": "Select",
-  "description": "Try expanded, selected, positioned, and theme-aware states on the real select.",
   "themeControl": "theme",
   "controls": [
     { "id": "open", "label": "Expanded", "type": "boolean", "default": false },

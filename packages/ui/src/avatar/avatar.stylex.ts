@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   root: {
@@ -46,6 +47,9 @@ export const styles = stylex.create({
     boxSizing: "border-box",
     display: "inline-flex",
     flexShrink: 0,
+    transitionDuration: motion.durationBase,
+    transitionProperty: "background-color",
+    transitionTimingFunction: motion.easeHover,
   },
   statusAttached: {
     bottom: "-4px",

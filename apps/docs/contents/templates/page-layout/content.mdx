@@ -1,6 +1,6 @@
 ---
-title: "Page Layout"
-description: "A desktop application shell that separates persistent navigation, the primary work surface, and compact environment utilities."
+title: "Page layout"
+description: "Frame persistent navigation, the primary work surface, and low-frequency utilities in one responsive application shell."
 eyebrow: "Template · Application shell"
 metadata:
   - "Figma canonical"
@@ -14,20 +14,24 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="page-layout" />
 
   <Guidance>
-    <GuidanceBlock title="Composition">
+    <GuidanceBlock title="Structure the shell">
       <ul>
         <li>
           Keep product navigation inside Sidebar and pass product-owned content to the main landmark.
         </li>
         <li>Use the same shell geometry for dashboard, table, list, and settings workflows.</li>
+        <li>
+          In the settings context, render the Settings Page template as the main landmark instead of
+          leaving the work surface empty.
+        </li>
         <li>Keep low-frequency environment actions in the bottom utility strip.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Responsive behavior">
+    <GuidanceBlock title="Adapt the navigation on small screens">
       <ul>
-        <li>The Figma contract is the 1280 × 720 desktop shell with a 244px sidebar.</li>
+        <li>The desktop reference uses a 244px sidebar around an inset primary surface.</li>
         <li>
-          At narrow widths, let Sidebar.Root own disclosure while the Consumer chooses overlay or
+          At narrow widths, let Sidebar.Root own disclosure while your application chooses overlay or
           compact navigation.
         </li>
         <li>
@@ -39,28 +43,28 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { BotIcon, HistoryIcon } from "lucide-react"
+    code={String.raw`import * as stylex from "@stylexjs/stylex"
+import { BotIcon, HistoryIcon } from "lucide-react"
 import { Button } from "@lenso/ui/button"
 import { IconButton } from "@lenso/ui/icon-button"
 import { Sidebar } from "@lenso/ui/sidebar"
 import { ThemeScope } from "@lenso/ui/theme-scope"
-import styles from "./page-layout.module.css"
+import { styles } from "./page-layout.stylex"
 
 export function PageLayout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeScope theme="system">
-      <Sidebar.Group className={styles.shell}>
-        <Sidebar.Root className={styles.sidebar} defaultOpen id="app-sidebar">
+      <Sidebar.Group xstyle={styles.shell}>
+        <Sidebar.Root defaultOpen id="app-sidebar" xstyle={styles.sidebar}>
           <Sidebar.Panel aria-label="Workspace navigation">
             <Sidebar.Header>{/* workspace and actions */}</Sidebar.Header>
             <Sidebar.Content>{/* product navigation */}</Sidebar.Content>
-            <Sidebar.Footer>{/* help */}</Sidebar.Footer>
           </Sidebar.Panel>
         </Sidebar.Root>
 
-        <main className={styles.main}>{children}</main>
+        <main {...stylex.props(styles.main)}>{children}</main>
 
-        <footer aria-label="Application utilities" className={styles.utilities}>
+        <footer aria-label="Application utilities" {...stylex.props(styles.utilities)}>
           <Button variant="ghost"><BotIcon aria-hidden />Agent</Button>
           <IconButton aria-label="Open chat history" variant="ghost">
             <HistoryIcon />
@@ -68,47 +72,53 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
         </footer>
       </Sidebar.Group>
     </ThemeScope>
-  )
+
+)
 }`}
-    description="The template is an application-owned composition of stable Lenso UI parts, not a new package component."
-  />
+description="The template composes stable Lenso UI parts; routing, navigation data, and page content remain application-owned."
+/>
 
   <CodeExample
-    title="Layout CSS"
-    code={String.raw`.shell {
-  display: grid;
-  grid-template-columns: 244px minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) 36px;
-  width: 100%;
-  min-height: 100dvh;
-  background: var(--color-surface-sidebar);
-}
+    title="Layout styles"
+    code={String.raw`import * as stylex from "@stylexjs/stylex"
 
-.sidebar {
-  --size-sidebar: 100%;
-  grid-row: 1 / -1;
-  min-height: 0;
-}
-
-.main {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-  min-height: 0;
-  margin: 8px 8px 0 0;
-  overflow: auto;
-  border: 0.5px solid var(--color-border-tertiary);
-  border-radius: 12px;
-  background: var(--color-surface-canvas);
-}
-
-.utilities {
-  display: flex;
-  grid-column: 2;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 2px;
-  padding: 4px 10px;
-}`}
-    description="The 244px / 8px / 12px / 36px shell measurements come from the canonical Page Layout component set."
+export const styles = stylex.create({
+  shell: {
+    display: "grid",
+    gridTemplateColumns: "244px minmax(0, 1fr)",
+    gridTemplateRows: "minmax(0, 1fr) 36px",
+    width: "100%",
+    minHeight: "100dvh",
+    backgroundColor: "var(--color-surface-sidebar)",
+  },
+  sidebar: {
+    "--size-sidebar": "100%",
+    gridRow: "1 / -1",
+    minHeight: 0,
+  },
+  main: {
+    gridColumn: 2,
+    gridRow: 1,
+    minWidth: 0,
+    minHeight: 0,
+    marginBlockStart: 8,
+    marginInlineEnd: 8,
+    overflow: "auto",
+    borderWidth: 0.5,
+    borderStyle: "solid",
+    borderColor: "var(--color-border-tertiary)",
+    borderRadius: 10,
+    backgroundColor: "var(--color-surface-canvas)",
+  },
+  utilities: {
+    display: "flex",
+    gridColumn: 2,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 2,
+    paddingBlock: 4,
+    paddingInline: 10,
+  },
+})`}
+    description="The shell keeps a compact 244px navigation environment around an inset 10px work surface, with low-frequency utilities in a stable bottom strip."
   />

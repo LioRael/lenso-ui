@@ -14,6 +14,7 @@ export type DocsPage =
   | "quick-start"
   | "package-vs-registry"
   | "release-status"
+  | "theme-lab"
   | "tokens"
   | "themes"
   | "strict-csp"
@@ -23,9 +24,12 @@ export type DocsPage =
   | "checkbox"
   | "combobox"
   | "command-menu"
+  | "content-state"
+  | "description-list"
   | "dialog"
   | "disclosure"
   | "icon-button"
+  | "inline-alert"
   | "label"
   | "menu"
   | "page-header"
@@ -33,17 +37,23 @@ export type DocsPage =
   | "quick-link"
   | "radio"
   | "resize-handle"
+  | "segmented-control"
   | "select"
+  | "slider"
+  | "shimmer-text"
   | "settings-row"
   | "application-sidebar"
   | "status-marker"
   | "surface"
   | "switch"
   | "tabs"
+  | "text-area"
   | "text-field"
   | "tooltip"
   | "toast"
-  | "page-layout";
+  | "agent-page"
+  | "page-layout"
+  | "settings-page";
 
 export interface DocsNavLink {
   readonly href: string;
@@ -55,6 +65,7 @@ export interface DocsNavLink {
 export interface DocsNavPage {
   readonly aliases?: readonly string[];
   readonly href: string;
+  readonly hidden?: boolean;
   readonly kind: "page";
   readonly label: string;
   readonly slug: DocsPage;
@@ -95,8 +106,9 @@ export const docsRegistry = [
       },
       {
         href: "/start/release-status",
+        hidden: true,
         kind: "page",
-        label: "Release status",
+        label: "Package compatibility",
         slug: "release-status",
       },
     ],
@@ -108,6 +120,12 @@ export const docsRegistry = [
     items: [
       { href: "/foundations/tokens", kind: "page", label: "Tokens", slug: "tokens" },
       { href: "/foundations/themes", kind: "page", label: "Themes", slug: "themes" },
+      {
+        href: "/foundations/theme-lab",
+        kind: "page",
+        label: "Theme Lab",
+        slug: "theme-lab",
+      },
     ],
     label: "Foundations",
     order: 20,
@@ -126,6 +144,18 @@ export const docsRegistry = [
         label: "Command Menu",
         slug: "command-menu",
       },
+      {
+        href: "/components/content-state",
+        kind: "page",
+        label: "Content State",
+        slug: "content-state",
+      },
+      {
+        href: "/components/description-list",
+        kind: "page",
+        label: "Description List",
+        slug: "description-list",
+      },
       { href: "/components/dialog", kind: "page", label: "Dialog", slug: "dialog" },
       { href: "/components/disclosure", kind: "page", label: "Disclosure", slug: "disclosure" },
       {
@@ -133,6 +163,12 @@ export const docsRegistry = [
         kind: "page",
         label: "Icon Button",
         slug: "icon-button",
+      },
+      {
+        href: "/components/inline-alert",
+        kind: "page",
+        label: "Inline Alert",
+        slug: "inline-alert",
       },
       { href: "/components/label", kind: "page", label: "Label", slug: "label" },
       { href: "/components/menu", kind: "page", label: "Menu", slug: "menu" },
@@ -144,7 +180,20 @@ export const docsRegistry = [
         label: "Resize Handle",
         slug: "resize-handle",
       },
+      {
+        href: "/components/segmented-control",
+        kind: "page",
+        label: "Segmented Control",
+        slug: "segmented-control",
+      },
       { href: "/components/select", kind: "page", label: "Select", slug: "select" },
+      { href: "/components/slider", kind: "page", label: "Slider", slug: "slider" },
+      {
+        href: "/components/shimmer-text",
+        kind: "page",
+        label: "Shimmer Text",
+        slug: "shimmer-text",
+      },
       {
         href: "/components/status-marker",
         kind: "page",
@@ -153,6 +202,7 @@ export const docsRegistry = [
       },
       { href: "/components/switch", kind: "page", label: "Switch", slug: "switch" },
       { href: "/components/tabs", kind: "page", label: "Tabs", slug: "tabs" },
+      { href: "/components/text-area", kind: "page", label: "Text Area", slug: "text-area" },
       { href: "/components/text-field", kind: "page", label: "Text Field", slug: "text-field" },
       { href: "/components/toast", kind: "page", label: "Toast", slug: "toast" },
       { href: "/components/tooltip", kind: "page", label: "Tooltip", slug: "tooltip" },
@@ -205,10 +255,22 @@ export const docsRegistry = [
     id: "templates",
     items: [
       {
+        href: "/templates/agent-page",
+        kind: "page",
+        label: "Agent Page",
+        slug: "agent-page",
+      },
+      {
         href: "/templates/page-layout",
         kind: "page",
         label: "Page Layout",
         slug: "page-layout",
+      },
+      {
+        href: "/templates/settings-page",
+        kind: "page",
+        label: "Settings Page",
+        slug: "settings-page",
       },
     ],
     label: "Templates",
@@ -248,6 +310,10 @@ export function getDocsSectionForPage(slug: DocsPage): DocsSectionId | undefined
   return getOrderedDocsSections().find((section) =>
     section.items.some((item) => item.kind === "page" && item.slug === slug),
   )?.id;
+}
+
+export function getVisibleDocsItems(section: DocsSection): readonly DocsNavItem[] {
+  return section.items.filter((item) => item.kind !== "page" || !item.hidden);
 }
 
 export function getDocsRouteParams(): Array<{ section: string; slug: string }> {

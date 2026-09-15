@@ -10,6 +10,7 @@ import { Switch } from "@lenso/ui/switch";
 import { ThemeScope } from "@lenso/ui/theme-scope";
 
 import type { PlaygroundAdapter } from "../types";
+import { stageStyles } from "./stage.stylex";
 
 function stringValue(
   values: Readonly<Record<string, boolean | number | string>>,
@@ -28,7 +29,7 @@ export const buttonAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const visualState = ["hover", "pressed", "focus-visible"].includes(state) ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <Button
         data-visual-state={visualState}
         disabled={state === "disabled"}
@@ -49,7 +50,7 @@ export const iconButtonAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const visualState = ["hover", "pressed", "focus-visible"].includes(state) ? state : undefined;
 
   return (
-    <ThemeScope className="stage-canvas" theme={theme}>
+    <ThemeScope theme={theme} xstyle={stageStyles.canvas}>
       <IconButton
         aria-label="Create issue"
         data-visual-state={visualState}
@@ -66,28 +67,41 @@ export const iconButtonAdapter: PlaygroundAdapter = ({ theme, values }) => {
 
 function ControlExample({
   control,
+  controlId,
   disabled,
+  labelId,
+  visualState,
 }: {
   control: "action" | "select" | "toggle";
+  controlId: string;
   disabled: boolean;
+  labelId: string;
+  visualState: "hover" | undefined;
 }) {
   if (control === "toggle") {
     return (
-      <Switch.Root aria-labelledby="settings-row-example-title" checked disabled={disabled}>
+      <Switch.Root
+        aria-labelledby={labelId}
+        defaultChecked
+        data-visual-state={visualState}
+        disabled={disabled}
+        id={controlId}
+        layout="control-only"
+      >
         <Switch.Thumb />
       </Switch.Root>
     );
   }
   if (control === "action") {
     return (
-      <Button disabled={disabled} variant="secondary">
+      <Button data-visual-state={visualState} disabled={disabled} variant="secondary">
         Customize
       </Button>
     );
   }
   return (
     <Select.Root defaultValue="default" disabled={disabled}>
-      <Select.Trigger aria-labelledby="settings-row-example-title">
+      <Select.Trigger aria-labelledby={labelId} data-visual-state={visualState} id={controlId}>
         <Select.Value>Default</Select.Value>
         <Select.Icon />
       </Select.Trigger>
@@ -100,16 +114,28 @@ export const settingsRowAdapter: PlaygroundAdapter = ({ theme, values }) => {
   const disabled = values.disabled === true;
 
   return (
-    <ThemeScope className="stage-canvas settings-row-stage" theme={theme}>
+    <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.settingsRow]}>
       <SettingsRow.Root disabled={disabled}>
         <SettingsRow.Copy>
-          <SettingsRow.Title id="settings-row-example-title">Setting title</SettingsRow.Title>
+          {control === "toggle" ? (
+            <SettingsRow.Label>Setting title</SettingsRow.Label>
+          ) : (
+            <SettingsRow.Title>Setting title</SettingsRow.Title>
+          )}
           <SettingsRow.Description>
             Supporting description for this preference.
           </SettingsRow.Description>
         </SettingsRow.Copy>
         <SettingsRow.Control>
-          <ControlExample control={control} disabled={disabled} />
+          {({ controlId, disabled: rowDisabled, labelId, visualState }) => (
+            <ControlExample
+              control={control}
+              controlId={controlId}
+              disabled={rowDisabled}
+              labelId={labelId}
+              visualState={visualState}
+            />
+          )}
         </SettingsRow.Control>
       </SettingsRow.Root>
     </ThemeScope>

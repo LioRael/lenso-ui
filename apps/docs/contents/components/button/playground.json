@@ -1,7 +1,6 @@
 {
   "id": "button",
   "name": "Button",
-  "description": "Try every supported variant on the real component while the inspector keeps controls and values in sync.",
   "themeControl": "theme",
   "codeTemplate": "<Button variant=\"{{variant}}\" size=\"{{size}}\">{{label}}</Button>",
   "controls": [

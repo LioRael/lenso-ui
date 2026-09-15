@@ -1,6 +1,6 @@
 {
   "name": "@lenso/ui",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Styled React foundation components for Lenso UI.",
   "license": "MIT",
   "repository": {
@@ -34,6 +34,10 @@
       "types": "./dist/combobox/index.d.ts",
       "import": "./dist/combobox/index.js"
     },
+    "./content-state": {
+      "types": "./dist/content-state/index.d.ts",
+      "import": "./dist/content-state/index.js"
+    },
     "./command-menu": {
       "types": "./dist/command-menu/index.d.ts",
       "import": "./dist/command-menu/index.js"
@@ -50,6 +54,10 @@
       "types": "./dist/dialog/index.d.ts",
       "import": "./dist/dialog/index.js"
     },
+    "./description-list": {
+      "types": "./dist/description-list/index.d.ts",
+      "import": "./dist/description-list/index.js"
+    },
     "./disclosure": {
       "types": "./dist/disclosure/index.d.ts",
       "import": "./dist/disclosure/index.js"
@@ -57,6 +65,10 @@
     "./icon-button": {
       "types": "./dist/icon-button/index.d.ts",
       "import": "./dist/icon-button/index.js"
+    },
+    "./inline-alert": {
+      "types": "./dist/inline-alert/index.d.ts",
+      "import": "./dist/inline-alert/index.js"
     },
     "./label": {
       "types": "./dist/label/index.d.ts",
@@ -90,13 +102,25 @@
       "types": "./dist/select/index.d.ts",
       "import": "./dist/select/index.js"
     },
+    "./segmented-control": {
+      "types": "./dist/segmented-control/index.d.ts",
+      "import": "./dist/segmented-control/index.js"
+    },
     "./sidebar": {
       "types": "./dist/sidebar/index.d.ts",
       "import": "./dist/sidebar/index.js"
     },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "import": "./dist/slider/index.js"
+    },
     "./settings-row": {
       "types": "./dist/settings-row/index.d.ts",
       "import": "./dist/settings-row/index.js"
+    },
+    "./shimmer-text": {
+      "types": "./dist/shimmer-text/index.d.ts",
+      "import": "./dist/shimmer-text/index.js"
     },
     "./status-marker": {
       "types": "./dist/status-marker/index.d.ts",
@@ -113,6 +137,10 @@
     "./tabs": {
       "types": "./dist/tabs/index.d.ts",
       "import": "./dist/tabs/index.js"
+    },
+    "./text-area": {
+      "types": "./dist/text-area/index.d.ts",
+      "import": "./dist/text-area/index.js"
     },
     "./text-field": {
       "types": "./dist/text-field/index.d.ts",

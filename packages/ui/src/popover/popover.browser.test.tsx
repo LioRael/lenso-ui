@@ -122,8 +122,12 @@ test("Popover matches Figma and supports composed interaction", async () => {
   const highlightedItem = previews[0]!.querySelector<HTMLElement>(
     '[data-visual-state="highlighted"]',
   );
-  expect(getComputedStyle(openPreview!).backgroundColor).toBe("rgb(240, 240, 241)");
-  expect(getComputedStyle(highlightedItem!).backgroundColor).toBe("rgb(240, 240, 241)");
+  await expect
+    .poll(() => getComputedStyle(openPreview!).backgroundColor)
+    .toBe("rgb(240, 240, 241)");
+  await expect
+    .poll(() => getComputedStyle(highlightedItem!).backgroundColor)
+    .toBe("rgb(240, 240, 241)");
 
   const trigger = screen.getByRole("button", { name: "Open details" });
   await userEvent.click(trigger);

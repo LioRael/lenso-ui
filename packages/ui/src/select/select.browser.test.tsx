@@ -73,6 +73,7 @@ test("item-aligned mode anchors the selected option to the trigger", async () =>
   const selectedItem = popup.element().querySelector<HTMLElement>("[data-selected]");
   expect(positioner.dataset.position).toBe("item-aligned");
   expect(selectedItem).not.toBeNull();
+  await expect.poll(() => popup.element().getBoundingClientRect().width).toBeCloseTo(180, 0);
 
   const triggerRect = trigger.element().getBoundingClientRect();
   const popupRect = popup.element().getBoundingClientRect();
@@ -193,11 +194,13 @@ test("item-aligned mode moves the popup with the current selection", async () =>
   const popup = screen.getByTestId("item-aligned-popup");
   await trigger.click();
   await expect.element(popup).toBeVisible();
+  await expect.poll(() => popup.element().getBoundingClientRect().width).toBeCloseTo(180, 0);
   const initialPopupTop = popup.element().getBoundingClientRect().top;
 
   await screen.getByText("Thursday", { exact: true }).click();
   await trigger.click();
   await expect.element(popup).toBeVisible();
+  await expect.poll(() => popup.element().getBoundingClientRect().width).toBeCloseTo(180, 0);
 
   await expect
     .poll(() => initialPopupTop - popup.element().getBoundingClientRect().top)

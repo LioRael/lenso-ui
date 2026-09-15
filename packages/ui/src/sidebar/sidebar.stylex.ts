@@ -1,13 +1,14 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   panel: {
     backgroundColor: tokens.colorSurfaceSidebar,
     boxSizing: "border-box",
     color: tokens.colorContentSecondary,
-    display: "flex",
+    display: { default: "flex", "[hidden]": "none" },
     flexDirection: "column",
     fontFamily: tokens.fontSans,
     height: "100%",
@@ -43,6 +44,9 @@ export const styles = stylex.create({
     outline: { default: "none", ":focus-visible": `1px solid ${tokens.colorFocusRing}` },
     outlineOffset: "-1px",
     paddingInline: "5px 9px",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motion.easeHover,
   },
   workspaceMark: {
     alignItems: "center",
@@ -106,6 +110,9 @@ export const styles = stylex.create({
     paddingInline: "10px 9px",
     textAlign: "left",
     textDecoration: "none",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motion.easeHover,
     width: "100%",
   },
   nestedItem: { paddingInline: "6px 9px" },
@@ -150,6 +157,9 @@ export const styles = stylex.create({
     height: "28px",
     paddingInline: "5px 2px",
     position: "relative",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color",
+    transitionTimingFunction: motion.easeHover,
   },
   sectionLabel: {
     color: tokens.colorContentSecondary,
@@ -157,6 +167,7 @@ export const styles = stylex.create({
     fontWeight: 500,
     lineHeight: "14.5px",
   },
+  sectionTrigger: { backgroundColor: "transparent" },
   sectionAction: { position: "absolute", right: "2px" },
   sectionContent: {
     margin: "-8px -12px -8px -20px",

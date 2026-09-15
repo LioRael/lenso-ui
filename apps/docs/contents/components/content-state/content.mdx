@@ -1,0 +1,42 @@
+---
+title: "Content State"
+description: "A composable empty, loading, or error state without imposing application status semantics."
+eyebrow: "Foundation component · Feedback"
+metadata:
+  - "@lenso/ui/content-state"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="content-state" />
+
+  <Guidance>
+    <GuidanceBlock title="Composition">
+      <ul>
+        <li>Compose Visual, Title, Description, and Actions only when each part adds meaning.</li>
+        <li>Use start alignment inside work regions and centered alignment for isolated empty views.</li>
+        <li>Title is neutral by default; render the heading level required by the surrounding page.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Announcements">
+      <ul>
+        <li>Static empty states need no live region.</li>
+        <li>For dynamic loading or results, your application supplies role, aria-live, and aria-busy.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { ContentState } from "@lenso/ui/content-state"
+
+<ContentState.Root>
+  <ContentState.Visual aria-hidden>○</ContentState.Visual>
+  <ContentState.Title as="h2">No results</ContentState.Title>
+  <ContentState.Description>Try changing the current filters.</ContentState.Description>
+  <ContentState.Actions>{clearFiltersButton}</ContentState.Actions>
+</ContentState.Root>`}
+  description="Announcement urgency and recovery actions stay application-owned."
+/>

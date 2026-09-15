@@ -3,6 +3,31 @@
   "homepage": "https://ui.lenso.dev",
   "items": [
     {
+      "name": "content-state",
+      "title": "Content State",
+      "type": "registry:ui"
+    },
+    {
+      "name": "description-list",
+      "title": "Description List",
+      "type": "registry:ui"
+    },
+    {
+      "name": "inline-alert",
+      "title": "Inline Alert",
+      "type": "registry:ui"
+    },
+    {
+      "name": "shimmer-text",
+      "title": "Shimmer Text",
+      "type": "registry:ui"
+    },
+    {
+      "name": "text-area",
+      "title": "Text Area",
+      "type": "registry:ui"
+    },
+    {
       "name": "status-marker",
       "title": "Status Marker",
       "type": "registry:ui"
@@ -88,6 +113,16 @@
       "type": "registry:ui"
     },
     {
+      "name": "segmented-control",
+      "title": "Segmented Control",
+      "type": "registry:ui"
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "type": "registry:ui"
+    },
+    {
       "name": "select",
       "title": "Select",
       "type": "registry:ui"
@@ -156,6 +191,16 @@
       "name": "tooltip",
       "title": "Tooltip",
       "type": "registry:ui"
+    },
+    {
+      "name": "settings-section",
+      "title": "Settings Section",
+      "type": "registry:component"
+    },
+    {
+      "name": "prompt-composer",
+      "title": "Prompt Composer",
+      "type": "registry:component"
     }
   ],
   "name": "lenso"

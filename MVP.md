@@ -1,14 +1,17 @@
-# Lenso UI MVP Contract
-
-Status: implementation baseline delivered; the current package line is `0.2.0`; downstream Console adoption and the 1.0 gate remain pending
+# Lenso UI Package Contract
 
 ## Outcome
 
 Build an independent, public React design system for Lenso products and community applications. Lenso Console becomes a real downstream Consumer but does not define the library's product boundary.
 
-The MVP proves one canonical source can produce both a managed npm package and editable shadcn-compatible registry source while preserving the same component API, visual contract, semantic themes, and Release Snapshot.
+The contract keeps one canonical source for both a managed npm package and
+editable shadcn-compatible registry source while preserving the same component
+API, visual contract, semantic themes, and Release Snapshot.
 
-The original MVP contract was written for the `0.1.0` gate. The repository now contains the `0.2.0` public package manifests and immutable registry snapshot, plus subsequent unreleased Changesets. Use the package manifests, generated release artifacts, and current tests as the implementation evidence; use this document for the durable product and release constraints.
+Package manifests, generated release artifacts, and release notes identify what
+is published. This document defines the durable product and distribution
+constraints without duplicating a current version or an internal completion
+checklist.
 
 ## Public surfaces
 
@@ -75,7 +78,7 @@ Public CSS custom properties are unbranded complete semantic paths such as `--co
 - Console retains ownership of appearance persistence, system-mode resolution, assets, and product Theme Bundles.
 - An optional narrow preflight stylesheet contains only documented overlay and platform host rules; no reset or font assets enter `@lenso/ui/styles.css`.
 
-## First vertical slice
+## Baseline product surface
 
 1. Token generator, default themes, manifests, and StyleX/CSS output.
 2. Button.
@@ -86,7 +89,8 @@ Public CSS custom properties are unbranded complete semantic paths such as `--co
 7. Next App Router documentation and Component Lab consumption.
 8. Package export validation and shadcn Registry schema validation.
 
-Remaining Foundation Components expand only after this slice proves packed and installed artifacts.
+New Foundation Components must preserve the same package, Registry, theme, and
+composition contracts.
 
 ## Styling, motion, and documentation
 
@@ -117,34 +121,9 @@ Remaining Foundation Components expand only after this slice proves packed and i
 
 ## Distribution and releases
 
-- `0.1.0` is the first public release; the current package line is `0.2.0`.
 - Changesets releases all public packages as one fixed group and generates the matching Registry Snapshot.
 - npm publication runs only through GitHub Actions Trusted Publishing with OIDC and provenance.
 - `https://ui.lenso.dev/r/{name}.json` resolves current stable registry items.
 - `https://ui.lenso.dev/r/v/{version}/{name}.json` is immutable.
 - Public code, examples, and registry source use MIT; brands and third-party assets retain separate rights and notices.
 - Public APIs, semantic tokens, registry item names, and material visual contracts follow SemVer.
-
-## Historical 0.1 completion gate
-
-- The full first vertical slice works from packed npm and built registry artifacts.
-- Both certified installation paths pass from temporary clean projects.
-- Token generation is deterministic and schema-validated.
-- Package and Registry outputs have a recorded parity manifest.
-- Button, Text Field, Dialog, and Sidebar meet their canonical Figma state boards and automated accessibility contracts.
-- Documentation explains installation, theming, icon replacement, package versus registry ownership, and current experimental status.
-
-## Explicitly outside the historical 0.1 scope
-
-- All twenty-one Foundation Component families.
-- Figma Code Connect.
-- A Lenso icon library.
-- Storybook or Ladle.
-- A custom installation CLI.
-- A global reset or mandatory font package.
-- Full Lenso Console migration.
-- Certification of every package/framework combination.
-
-## 1.0 gate
-
-Version 1.0 requires all twenty-one initial Foundation Component families, stable Sidebar Primitive and Recipe, stable theme and portal contracts, the defined accessibility evidence, durable package and registry upgrades, and one real Lenso Console integration. Console provides consumer evidence without becoming the library's domain owner.

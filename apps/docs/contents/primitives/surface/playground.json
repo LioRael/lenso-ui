@@ -1,7 +1,6 @@
 {
   "id": "surface",
   "name": "Surface",
-  "description": "Inspect hierarchy, elevation, theme parity, and custom rendering.",
   "themeControl": "theme",
   "controls": [
     {

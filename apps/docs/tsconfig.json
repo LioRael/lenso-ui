@@ -9,7 +9,9 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./*"],
-      "content-collections": ["./.content-collections/generated"]
+      "@lenso/ui/*": ["./node_modules/@lenso/ui/dist/*/index"],
+      "content-collections": ["./.content-collections/generated"],
+      "react": ["./node_modules/@types/react/index.d.ts"]
     },
     "plugins": [{ "name": "next" }],
     "skipLibCheck": true,

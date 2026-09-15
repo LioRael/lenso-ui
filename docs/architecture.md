@@ -101,7 +101,7 @@ The repository verifies the public seam through:
 
 <!-- lenso-release-slot:start -->
 
-The current public package line is `0.4.0`. `@lenso/ui`, `@lenso/primitives`, and `@lenso/tokens` are a Changesets fixed group; `@lenso/fonts` remains private until its font asset provenance is complete.
+The current public package line is `0.5.0`. `@lenso/ui`, `@lenso/primitives`, and `@lenso/tokens` are a Changesets fixed group; `@lenso/fonts` remains private until its font asset provenance is complete.
 <!-- lenso-release-slot:end -->
 
 ## Decision history note

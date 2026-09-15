@@ -1,6 +1,6 @@
 ---
 title: "Checkbox"
-description: "Binary or indeterminate form control with a visible label and keyboard focus."
+description: "Let people select any number of independent options, including an optional mixed state."
 eyebrow: "Foundation component · Forms"
 metadata:
   - "@lenso/ui/checkbox"
@@ -14,15 +14,18 @@ import { Playground } from "@/components/docs/playground";
 <Playground id="checkbox" />
 
   <Guidance>
-    <GuidanceBlock title="Usage guidance">
+    <GuidanceBlock title="Choose Checkbox when">
       <ul>
-        <li>Binary or indeterminate form control with a visible label and keyboard focus.</li>
-        <li>Value: Off, On, Indeterminate</li>
+        <li>Each option can be selected independently of the others.</li>
+        <li>Use the indeterminate state only to summarize a partially selected child group.</li>
+        <li>Use Switch instead when changing the value should take effect immediately.</li>
       </ul>
     </GuidanceBlock>
-    <GuidanceBlock title="Accessibility">
+    <GuidanceBlock title="Labels and state">
       <ul>
-        <li>State: Default, Hover, Pressed, Focus-visible, Disabled</li>
+        <li>Keep a visible label beside the control; do not rely on surrounding copy.</li>
+        <li>Base UI exposes checked, mixed, disabled, and keyboard-focus states.</li>
+        <li>Explain why an option is unavailable instead of leaving a disabled control unexplained.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
@@ -34,5 +37,5 @@ import { Playground } from "@/components/docs/playground";
   <Checkbox.Indicator />
   <Checkbox.Label>Include completed issues</Checkbox.Label>
 </Checkbox.Root>`}
-    description="Use the composition pattern below; inspect source types for the complete inherited API."
+    description="Root owns checkbox behavior while Indicator and Label keep the visible treatment composable."
   />

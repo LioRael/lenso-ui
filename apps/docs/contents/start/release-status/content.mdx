@@ -1,41 +1,21 @@
 ---
-title: "Release status"
+title: "Package compatibility"
 layout: "document"
-description: "The current package, registry, and documentation surfaces in this repository."
-eyebrow: "Start · Release status"
+description: "Find package versions, release history, and the supported installation paths."
+eyebrow: "Start · Package compatibility"
 metadata:
-  # lenso-release-slot:start
-  - "Current line 0.4.0"
-  # lenso-release-slot:end
-  - "Experimental"
+  - "Moved"
+  - "Compatibility"
 actions:
-  - "Architecture"
-  - "Planned"
+  - "Install"
+  - "Release history"
 ---
 
-import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+This address is no longer maintained as a product page. Start with
+[Installation](/start/installation) to add the managed packages, or choose
+[Package vs Registry](/start/package-vs-registry) when you need editable source.
 
-  <Guidance>
-    <GuidanceBlock title="Current public line">
-      <ul>
-        {/* lenso-release-slot:start */}
-        <li><code>@lenso/ui</code>, <code>@lenso/primitives</code>, and <code>@lenso/tokens</code> are currently at <code>0.4.0</code>.</li>
-        {/* lenso-release-slot:end */}
-        <li>The current package set is released as a Changesets fixed group.</li>
-        {/* lenso-release-slot:start */}
-        <li>The immutable registry snapshot is available under <code>/r/v/0.4.0/</code>.</li>
-        {/* lenso-release-slot:end */}
-      </ul>
-    </GuidanceBlock>
-    <GuidanceBlock title="What remains experimental">
-      <ul>
-        <li>The public component inventory and certified Consumer paths continue to expand.</li>
-        <li><code>@lenso/fonts</code> remains private until its asset provenance bundle is complete.</li>
-        <li>Downstream Console adoption and the full 1.0 contract remain future gates.</li>
-      </ul>
-    </GuidanceBlock>
-  </Guidance>
-
-The stable registry alias at `/r/{name}.json` is regenerated from the current repository source. A versioned snapshot is immutable and is generated during the release versioning workflow. The stable alias and the immutable snapshot therefore represent different responsibilities: current development output versus reproducible release input.
-
-Public changes to component APIs, semantic token names, registry item names, or material visual contracts require a Changeset. See the repository [MVP contract](https://github.com/LioRael/lenso-ui/blob/main/MVP.md) and [architecture guide](https://github.com/LioRael/lenso-ui/blob/main/docs/architecture.md) for the durable constraints.
+Package metadata is the source of truth for compatible versions. Published
+changes and migration notes live in the repository
+[release history](https://github.com/LioRael/lenso-ui/releases). Versioned registry
+snapshots remain available at `/r/v/{version}/{name}.json` for reproducible installs.

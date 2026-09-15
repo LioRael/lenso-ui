@@ -4,38 +4,40 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
 
-import { mergeClassName } from "../shared/merge-class-name.js";
+import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./checkbox.stylex.js";
 
-export const CheckboxRoot = React.forwardRef<HTMLElement, BaseCheckbox.Root.Props>(
-  function CheckboxRoot({ children, className, ...props }, ref) {
-    return (
-      <BaseCheckbox.Root
-        {...props}
-        className={mergeClassName(stylex.props(styles.root).className, className)}
-        data-slot="checkbox"
-        ref={ref}
-      >
-        {children}
-        <span
-          aria-hidden="true"
-          data-slot="checkbox-focus-layer"
-          {...stylex.props(styles.focusLayer)}
-        />
-      </BaseCheckbox.Root>
-    );
-  },
-);
+export type CheckboxRootProps = StyleXProps<BaseCheckbox.Root.Props>;
+export const CheckboxRoot = React.forwardRef<HTMLElement, CheckboxRootProps>(function CheckboxRoot(
+  { children, xstyle, ...props },
+  ref,
+) {
+  return (
+    <BaseCheckbox.Root
+      {...props}
+      className={stylex.props(styles.root, xstyle).className}
+      data-slot="checkbox"
+      ref={ref}
+    >
+      {children}
+      <span
+        aria-hidden="true"
+        data-slot="checkbox-focus-layer"
+        {...stylex.props(styles.focusLayer)}
+      />
+    </BaseCheckbox.Root>
+  );
+});
 
-export type CheckboxIndicatorProps = Omit<BaseCheckbox.Indicator.Props, "keepMounted">;
+export type CheckboxIndicatorProps = StyleXProps<Omit<BaseCheckbox.Indicator.Props, "keepMounted">>;
 
 export const CheckboxIndicator = React.forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
-  function CheckboxIndicator({ children, className, ...props }, ref) {
+  function CheckboxIndicator({ children, xstyle, ...props }, ref) {
     return (
       <BaseCheckbox.Indicator
         {...props}
         className={(state) => {
-          const generated = stylex.props(
+          return stylex.props(
             styles.indicator,
             children === undefined &&
               (state.indeterminate
@@ -44,9 +46,8 @@ export const CheckboxIndicator = React.forwardRef<HTMLSpanElement, CheckboxIndic
                   ? styles.checkedMark
                   : null),
             children === undefined && state.disabled && styles.disabledMark,
+            xstyle,
           ).className;
-          const custom = typeof className === "function" ? className(state) : className;
-          return [generated, custom].filter(Boolean).join(" ");
         }}
         data-slot="checkbox-indicator"
         keepMounted
@@ -58,19 +59,19 @@ export const CheckboxIndicator = React.forwardRef<HTMLSpanElement, CheckboxIndic
   },
 );
 
-export const CheckboxLabel = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentPropsWithoutRef<"span">
->(function CheckboxLabel({ className, ...props }, ref) {
-  return (
-    <span
-      {...props}
-      className={[stylex.props(styles.label).className, className].filter(Boolean).join(" ")}
-      data-slot="checkbox-label"
-      ref={ref}
-    />
-  );
-});
+export type CheckboxLabelProps = StyleXProps<React.ComponentPropsWithoutRef<"span">>;
+export const CheckboxLabel = React.forwardRef<HTMLSpanElement, CheckboxLabelProps>(
+  function CheckboxLabel({ xstyle, ...props }, ref) {
+    return (
+      <span
+        {...props}
+        className={stylex.props(styles.label, xstyle).className}
+        data-slot="checkbox-label"
+        ref={ref}
+      />
+    );
+  },
+);
 
 export const Checkbox = {
   Indicator: CheckboxIndicator,

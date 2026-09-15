@@ -1,5 +1,8 @@
+import * as stylex from "@stylexjs/stylex";
+
 import { CodeBlock } from "./code-block";
 import { docsHeadingId } from "./heading";
+import { styles } from "./code-example.stylex";
 
 export function CodeExample({
   code,
@@ -11,12 +14,12 @@ export function CodeExample({
   title?: string;
 }) {
   return (
-    <section className="button-implementation mdx-code-example">
-      <div>
-        <h2 data-toc-heading id={docsHeadingId(title)}>
+    <section {...stylex.props(styles.root)}>
+      <div {...stylex.props(styles.heading)}>
+        <h2 data-toc-heading id={docsHeadingId(title)} {...stylex.props(styles.title)}>
           {title}
         </h2>
-        <p>{description}</p>
+        <p {...stylex.props(styles.description)}>{description}</p>
       </div>
       <CodeBlock code={code} />
     </section>

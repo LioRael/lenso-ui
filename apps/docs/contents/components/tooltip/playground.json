@@ -1,7 +1,6 @@
 {
   "id": "tooltip",
   "name": "Tooltip",
-  "description": "Check hover, keyboard focus, Escape dismissal, shortcut, and theme parity.",
   "themeControl": "theme",
   "controls": [
     { "id": "shortcut", "label": "Shortcut", "type": "boolean", "default": true },
