@@ -60,6 +60,7 @@
   --color-primitive-neutral-gray-800: #303030;
   --color-primitive-neutral-gray-825: #2c2c2c;
   --color-primitive-neutral-gray-850: #292929;
+  --color-primitive-neutral-gray-865: #262626;
   --color-primitive-neutral-gray-875: #242424;
   --color-primitive-neutral-gray-900: #222222;
   --color-primitive-neutral-gray-905: #212121;
@@ -129,6 +130,8 @@
   --color-label-surface-default: #f0f0f0;
   --color-label-surface-hover: #e8e8e8;
   --color-label-surface-open: #ffffff;
+  --color-menu-item-hover: #f0f0f0;
+  --color-menu-item-selected: #e8e8e8;
   --color-navigation-tab-bg: #fafafa;
   --color-navigation-tab-bg-hover: #f0f0f0;
   --color-navigation-tab-bg-selected: #e8e8e8;
@@ -232,6 +235,7 @@
   --opacity-enabled: 1;
   --radius-control: 6px;
   --radius-media: 16px;
+  --radius-menu-item: 7px;
   --radius-navigation: 10px;
   --radius-overlay: 12px;
   --radius-panel: 8px;
@@ -331,6 +335,8 @@
   --color-label-surface-default: #222222;
   --color-label-surface-hover: #292929;
   --color-label-surface-open: #1d1d1d;
+  --color-menu-item-hover: #262626;
+  --color-menu-item-selected: #262626;
   --color-navigation-tab-bg: #1a1a1a;
   --color-navigation-tab-bg-hover: #212121;
   --color-navigation-tab-bg-selected: #242424;
@@ -434,6 +440,7 @@
   --opacity-enabled: 1;
   --radius-control: 6px;
   --radius-media: 16px;
+  --radius-menu-item: 7px;
   --radius-navigation: 10px;
   --radius-overlay: 12px;
   --radius-panel: 8px;

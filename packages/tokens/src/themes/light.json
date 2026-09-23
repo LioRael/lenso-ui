@@ -65,6 +65,14 @@
         }
       }
     },
+    "menu": {
+      "itemHover": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "itemSelected": {
+        "$value": "{primitive.color.lightSelected}"
+      }
+    },
     "content": {
       "primary": {
         "$value": "{primitive.color.lightText}"

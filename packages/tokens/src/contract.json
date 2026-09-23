@@ -71,6 +71,7 @@
     "primitive.color.neutralGray800",
     "primitive.color.neutralGray825",
     "primitive.color.neutralGray850",
+    "primitive.color.neutralGray865",
     "primitive.color.neutralGray875",
     "primitive.color.neutralGray900",
     "primitive.color.neutralGray905",
@@ -1135,6 +1136,21 @@
       "cssName": "--color-primitive-neutral-gray-850",
       "cssValue": "#292929"
     },
+    "primitive.color.neutralGray865": {
+      "path": "primitive.color.neutralGray865",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.14901960784313725,
+          0.14901960784313725,
+          0.14901960784313725
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-865",
+      "cssValue": "#262626"
+    },
     "primitive.color.neutralGray875": {
       "path": "primitive.color.neutralGray875",
       "type": "color",
@@ -1576,6 +1592,8 @@
     "color.label.surfaceDefault",
     "color.label.surfaceHover",
     "color.label.surfaceOpen",
+    "color.menu.itemHover",
+    "color.menu.itemSelected",
     "color.navigation.tabBg",
     "color.navigation.tabBgHover",
     "color.navigation.tabBgSelected",
@@ -1679,6 +1697,7 @@
     "opacity.enabled",
     "radius.control",
     "radius.media",
+    "radius.menuItem",
     "radius.navigation",
     "radius.overlay",
     "radius.panel",
@@ -2253,6 +2272,36 @@
         },
         "cssName": "--color-label-surface-open",
         "cssValue": "#1d1d1d"
+      },
+      "color.menu.itemHover": {
+        "path": "color.menu.itemHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.14901960784313725,
+            0.14901960784313725,
+            0.14901960784313725
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-menu-item-hover",
+        "cssValue": "#262626"
+      },
+      "color.menu.itemSelected": {
+        "path": "color.menu.itemSelected",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.14901960784313725,
+            0.14901960784313725,
+            0.14901960784313725
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-menu-item-selected",
+        "cssValue": "#262626"
       },
       "color.navigation.tabBg": {
         "path": "color.navigation.tabBg",
@@ -3622,6 +3671,16 @@
         },
         "cssName": "--radius-media",
         "cssValue": "16px"
+      },
+      "radius.menuItem": {
+        "path": "radius.menuItem",
+        "type": "dimension",
+        "value": {
+          "value": 7,
+          "unit": "px"
+        },
+        "cssName": "--radius-menu-item",
+        "cssValue": "7px"
       },
       "radius.navigation": {
         "path": "radius.navigation",
@@ -4731,6 +4790,36 @@
         "cssName": "--color-label-surface-open",
         "cssValue": "#ffffff"
       },
+      "color.menu.itemHover": {
+        "path": "color.menu.itemHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-menu-item-hover",
+        "cssValue": "#f0f0f0"
+      },
+      "color.menu.itemSelected": {
+        "path": "color.menu.itemSelected",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9098039215686274,
+            0.9098039215686274,
+            0.9098039215686274
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-menu-item-selected",
+        "cssValue": "#e8e8e8"
+      },
       "color.navigation.tabBg": {
         "path": "color.navigation.tabBg",
         "type": "color",
@@ -6099,6 +6188,16 @@
         },
         "cssName": "--radius-media",
         "cssValue": "16px"
+      },
+      "radius.menuItem": {
+        "path": "radius.menuItem",
+        "type": "dimension",
+        "value": {
+          "value": 7,
+          "unit": "px"
+        },
+        "cssName": "--radius-menu-item",
+        "cssValue": "7px"
       },
       "radius.navigation": {
         "path": "radius.navigation",

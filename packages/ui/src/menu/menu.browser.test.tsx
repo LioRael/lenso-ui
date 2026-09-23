@@ -243,11 +243,15 @@ test("stacked radio menu rows keep context readable and selection keyboard-opera
     .getByRole("menuitemradio", { name: /Projects Boards and schedules/ })
     .element();
   await expect.poll(() => agent.getBoundingClientRect().height).toBeGreaterThanOrEqual(52);
+  expect(getComputedStyle(agent).borderRadius).toBe("7px");
   expect(agent.getAttribute("aria-checked")).toBe("true");
   expect(getComputedStyle(agent).backgroundColor).toBe(
-    themeColor("dark", "color.surface.selected"),
+    themeColor("dark", "color.menu.itemSelected"),
   );
   projects.focus();
+  await expect
+    .poll(() => getComputedStyle(projects).backgroundColor)
+    .toBe(themeColor("dark", "color.menu.itemHover"));
   await userEvent.keyboard("{Enter}");
   expect(selection).toBe("projects");
 });

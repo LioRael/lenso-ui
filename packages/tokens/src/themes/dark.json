@@ -65,6 +65,14 @@
         }
       }
     },
+    "menu": {
+      "itemHover": {
+        "$value": "{primitive.color.neutralGray865}"
+      },
+      "itemSelected": {
+        "$value": "{primitive.color.neutralGray865}"
+      }
+    },
     "content": {
       "primary": {
         "$value": "{primitive.color.neutralGray100}"

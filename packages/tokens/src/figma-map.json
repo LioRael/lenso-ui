@@ -176,6 +176,16 @@
       "type": "color"
     },
     {
+      "path": "color.menu.itemHover",
+      "cssName": "--color-menu-item-hover",
+      "type": "color"
+    },
+    {
+      "path": "color.menu.itemSelected",
+      "cssName": "--color-menu-item-selected",
+      "type": "color"
+    },
+    {
       "path": "color.navigation.tabBg",
       "cssName": "--color-navigation-tab-bg",
       "type": "color"
@@ -688,6 +698,11 @@
     {
       "path": "radius.media",
       "cssName": "--radius-media",
+      "type": "dimension"
+    },
+    {
+      "path": "radius.menuItem",
+      "cssName": "--radius-menu-item",
       "type": "dimension"
     },
     {
@@ -1757,6 +1772,17 @@
       "figmaName": "neutral/gray/850",
       "cssName": "--color-primitive-neutral-gray-850",
       "cssValue": "#292929",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray865",
+      "figmaName": "neutral/gray/865",
+      "cssName": "--color-primitive-neutral-gray-865",
+      "cssValue": "#262626",
       "scopes": [
         "ALL_FILLS",
         "STROKE_COLOR"

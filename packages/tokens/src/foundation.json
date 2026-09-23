@@ -485,6 +485,13 @@
           "alpha": 1
         }
       },
+      "neutralGray865": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.14901960784313725, 0.14901960784313725, 0.14901960784313725],
+          "alpha": 1
+        }
+      },
       "neutralGray850": {
         "$value": {
           "colorSpace": "srgb",

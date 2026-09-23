@@ -96,6 +96,12 @@ export const styles = stylex.create({
     userSelect: "none",
   },
   stackedItem: {
+    backgroundColor: {
+      default: "transparent",
+      "[data-highlighted]": tokens.colorMenuItemHover,
+      "[data-checked]": tokens.colorMenuItemSelected,
+    },
+    borderRadius: tokens.radiusMenuItem,
     gap: tokens.spaceInlineIconGap,
     height: "auto",
     minHeight: "52px",

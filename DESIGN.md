@@ -24,18 +24,18 @@ Console v1 is a dark, near-neutral example of this grammar. Its accepted header 
 
 ## Token selection by intent
 
-| Intent                | Semantic family                                                                         | Use                                                                                |
-| --------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| App/page canvas       | `color.surface.canvas`                                                                  | The base plane behind content.                                                     |
-| Navigation background | `color.surface.sidebar`                                                                 | Sidebar or local navigation plane.                                                 |
-| Content grouping      | `color.surface.panel` / `.surface`                                                      | A meaningful group, not every row.                                                 |
-| Input/control         | `color.surface.control`, `color.border.control`                                         | Editable or operable field.                                                        |
-| Floating menu/dialog  | `color.surface.popover` / `.dialog`, matching border and elevation                      | Only for an overlay.                                                               |
-| Hover/selected        | `color.surface.interactiveHover` / `.selected`, `color.sidebar.*`, `color.navigation.*` | Component-specific state role where it exists; selection persists.                 |
-| Hierarchy             | `color.content.primary` / `.secondary` / `.tertiary`                                    | Title/value, supporting text, metadata. Do not dim a whole container with opacity. |
-| Structure             | `color.border.tertiary` / `.secondary`                                                  | Thin quiet separators; stronger boundaries only when needed.                       |
-| Focus, status, danger | `color.focus.ring`, `color.status.*`, `color.action.danger`                             | Keyboard focus and truthful state, never decoration.                               |
-| Geometry              | `radius.*`, `size.*`, `space.*`, `font.*`                                               | Choose by control/group role. Icon-only width must equal height.                   |
+| Intent                | Semantic family                                                                         | Use                                                                                                                |
+| --------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| App/page canvas       | `color.surface.canvas`                                                                  | The base plane behind content.                                                                                     |
+| Navigation background | `color.surface.sidebar`                                                                 | Sidebar or local navigation plane.                                                                                 |
+| Content grouping      | `color.surface.panel` / `.surface`                                                      | A meaningful group, not every row.                                                                                 |
+| Input/control         | `color.surface.control`, `color.border.control`                                         | Editable or operable field.                                                                                        |
+| Floating menu/dialog  | `color.surface.popover` / `.dialog`, matching border and elevation                      | Only for an overlay. Compact stacked menu rows use `color.menu.itemHover` / `.itemSelected` and `radius.menuItem`. |
+| Hover/selected        | `color.surface.interactiveHover` / `.selected`, `color.sidebar.*`, `color.navigation.*` | Component-specific state role where it exists; selection persists.                                                 |
+| Hierarchy             | `color.content.primary` / `.secondary` / `.tertiary`                                    | Title/value, supporting text, metadata. Do not dim a whole container with opacity.                                 |
+| Structure             | `color.border.tertiary` / `.secondary`                                                  | Thin quiet separators; stronger boundaries only when needed.                                                       |
+| Focus, status, danger | `color.focus.ring`, `color.status.*`, `color.action.danger`                             | Keyboard focus and truthful state, never decoration.                                                               |
+| Geometry              | `radius.*`, `size.*`, `space.*`, `font.*`                                               | Choose by control/group role. Icon-only width must equal height.                                                   |
 
 If a semantic family cannot express a new reusable role, add it to DTCG source and regenerate. Keep raw sampled hex and CSS-only prototype variables out of component source. Do not make a Console accent the default primary action color in every product.
 
