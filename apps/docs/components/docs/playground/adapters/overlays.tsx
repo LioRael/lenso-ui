@@ -185,8 +185,8 @@ function MenuItem({
   );
 }
 
-export const menuAdapter: PlaygroundAdapter = ({ theme }) => (
-  <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.popover]}>
+function NestedMenuPreview() {
+  return (
     <Menu.Root>
       <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
       <Menu.Portal>
@@ -239,6 +239,65 @@ export const menuAdapter: PlaygroundAdapter = ({ theme }) => (
         </Menu.Positioner>
       </Menu.Portal>
     </Menu.Root>
+  );
+}
+
+function WorkspaceMenuPreview() {
+  return (
+    <Menu.Root>
+      <Menu.ControlTrigger>Choose workspace</Menu.ControlTrigger>
+      <Menu.Portal>
+        <Menu.Positioner>
+          <Menu.Popup aria-label="Workspaces">
+            <Menu.RadioGroup defaultValue="agent">
+              <Menu.RadioItem layout="stacked" value="agent">
+                <Menu.Leading>
+                  <StarIcon size={16} />
+                </Menu.Leading>
+                <Menu.Copy>
+                  <Menu.Label>Agent</Menu.Label>
+                  <Menu.Description>Conversation and tools</Menu.Description>
+                </Menu.Copy>
+                <Menu.RadioItemIndicator />
+              </Menu.RadioItem>
+              <Menu.RadioItem layout="stacked" value="app">
+                <Menu.Leading>
+                  <FileIcon size={16} />
+                </Menu.Leading>
+                <Menu.Copy>
+                  <Menu.Label>App</Menu.Label>
+                  <Menu.Description>Pages and members</Menu.Description>
+                </Menu.Copy>
+                <Menu.RadioItemIndicator />
+              </Menu.RadioItem>
+              <Menu.RadioItem layout="stacked" value="projects">
+                <Menu.Leading>
+                  <CircleIcon size={16} />
+                </Menu.Leading>
+                <Menu.Copy>
+                  <Menu.Label>Projects</Menu.Label>
+                  <Menu.Description>Boards and schedules</Menu.Description>
+                </Menu.Copy>
+                <Menu.RadioItemIndicator />
+              </Menu.RadioItem>
+            </Menu.RadioGroup>
+          </Menu.Popup>
+        </Menu.Positioner>
+      </Menu.Portal>
+    </Menu.Root>
+  );
+}
+
+export const menuAdapter: PlaygroundAdapter = ({ example, theme }) => (
+  <ThemeScope
+    theme={theme}
+    xstyle={[
+      stageStyles.canvas,
+      stageStyles.popover,
+      example === "workspace" && stageStyles.workspaceMenu,
+    ]}
+  >
+    {example === "workspace" ? <WorkspaceMenuPreview /> : <NestedMenuPreview />}
   </ThemeScope>
 );
 

@@ -27,6 +27,7 @@ export const stageStyles = stylex.create({
   resizeHandle: { padding: "20px" },
   tooltip: { minHeight: "208px" },
   popover: { minHeight: "208px" },
+  workspaceMenu: { alignItems: "flex-start", paddingTop: "16px" },
   sidebar: { height: "744px", paddingTop: "12px" },
   dialog: { paddingTop: 0 },
   commandMenu: { height: "420px", overflow: "hidden", paddingTop: 0 },

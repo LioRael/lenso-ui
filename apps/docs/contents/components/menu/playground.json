@@ -11,5 +11,8 @@
       "default": "system"
     }
   ],
-  "examples": [{ "id": "default", "label": "Example · Nested" }]
+  "examples": [
+    { "id": "default", "label": "Example · Nested" },
+    { "id": "workspace", "label": "Example · Workspace choice" }
+  ]
 }
