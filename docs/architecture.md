@@ -51,6 +51,12 @@ The generator produces CSS custom properties, TypeScript names and theme values,
 
 Public CSS names are complete, unbranded semantic paths such as `--color-surface-canvas` and `--color-content-primary`. Primitive values and component-to-token mappings are implementation details.
 
+### `@lenso/design-lint`
+
+`@lenso/design-lint` is maintained in this repository as an independently publishable npm package. Its first adapter analyzes React + StyleX source and owns organization-specific design contracts, not StyleX correctness. Consumers should run it alongside `@stylexjs/eslint-plugin`, which remains responsible for valid StyleX properties and values, shorthand rules, ordering, and compiler-specific syntax.
+
+The linter reads the generated token contract after `pnpm generate`; the DTCG sources under `packages/tokens/src` remain authoritative. The v1 implementation only enforces statically provable local `stylex.create` definitions and local JSX `xstyle` references. Dynamic or cross-file compositions are reported as skipped in results rather than treated as proven.
+
 ### Registry distribution
 
 The registry is the editable source channel. `tooling/registry-builder/src/cli.ts` describes each item and reads canonical package or primitive sources to create shadcn-compatible JSON. `registry/parity-manifest.json` records the source file, target file, and SHA-256 hashes.

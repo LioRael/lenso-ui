@@ -141,10 +141,11 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
+pnpm design-lint
 pnpm check
 ```
 
-`pnpm check` runs formatting, linting, generation, generated-artifact freshness, package typechecks, browser tests, and builds through Turbo. Browser tests may need the local Chromium installation used by the CI workflow:
+`pnpm design-lint` builds `@lenso/design-lint` and checks the Lenso fixture against the generated token contract and Button ownership contract. `pnpm check` runs formatting, linting, generation, generated-artifact freshness, package typechecks, browser tests, builds through Turbo, and that design-contract check. Browser tests may need the local Chromium installation used by the CI workflow:
 
 ```bash
 pnpm --filter @lenso/ui exec playwright install chromium

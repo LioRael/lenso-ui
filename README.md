@@ -79,6 +79,7 @@ Stable URLs resolve the current generated registry. Immutable release snapshots 
 <!-- lenso-release-slot:end -->
 
 - `@lenso/fonts`: private optional font boundary; it is not part of the public fixed release group yet because its redistributable asset provenance is incomplete.
+- `@lenso/design-lint`: an independently publishable, StyleX-only design-contract linter for Consumers and package authors. It is maintained in this repository but is not part of the fixed component release group.
 
 The current `@lenso/ui` subpaths are:
 

@@ -1,0 +1,96 @@
+{
+  "adapter": "stylex",
+  "files": ["packages/design-lint/fixtures/lenso-ui/**/*.tsx"],
+  "stylex": {
+    "validImports": ["@stylexjs/stylex", "stylex"]
+  },
+  "tokens": {
+    "source": "packages/tokens/src/contract.json",
+    "imports": ["@lenso/tokens/tokens.stylex"],
+    "families": {
+      "color": {
+        "tokenPrefixes": ["color."],
+        "properties": [
+          "backgroundColor",
+          "borderColor",
+          "color",
+          "fill",
+          "outlineColor",
+          "stroke",
+          "textDecorationColor"
+        ],
+        "allowLiterals": ["currentColor", "transparent"]
+      },
+      "spacing": {
+        "tokenPrefixes": ["space."],
+        "properties": [
+          "columnGap",
+          "gap",
+          "margin",
+          "marginBlock",
+          "marginBlockEnd",
+          "marginBlockStart",
+          "marginInline",
+          "marginInlineEnd",
+          "marginInlineStart",
+          "padding",
+          "paddingBlock",
+          "paddingBlockEnd",
+          "paddingBlockStart",
+          "paddingInline",
+          "paddingInlineEnd",
+          "paddingInlineStart",
+          "rowGap"
+        ],
+        "allowLiterals": [0, "0", "0px", "auto"]
+      },
+      "radius": {
+        "tokenPrefixes": ["radius."],
+        "properties": [
+          "borderBottomLeftRadius",
+          "borderBottomRightRadius",
+          "borderEndEndRadius",
+          "borderEndStartRadius",
+          "borderRadius",
+          "borderStartEndRadius",
+          "borderStartStartRadius",
+          "borderTopLeftRadius",
+          "borderTopRightRadius"
+        ],
+        "allowLiterals": [0, "0", "0px", "inherit"]
+      }
+    }
+  },
+  "components": [
+    {
+      "source": "@lenso/ui/button",
+      "export": "Button",
+      "ownedXstyleProperties": [
+        "backgroundColor",
+        "borderColor",
+        "borderRadius",
+        "boxShadow",
+        "color",
+        "cursor",
+        "fontFamily",
+        "fontSize",
+        "fontWeight",
+        "gap",
+        "height",
+        "opacity",
+        "paddingInline"
+      ],
+      "allowedXstyleProperties": [
+        "alignSelf",
+        "flex",
+        "gridArea",
+        "marginBlock",
+        "marginInline",
+        "maxWidth",
+        "minWidth",
+        "width"
+      ],
+      "guidance": "Use Button's declared `variant` or `size` props for visual changes; keep xstyle overrides to layout properties."
+    }
+  ]
+}

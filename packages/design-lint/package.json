@@ -1,0 +1,46 @@
+{
+  "name": "@lenso/design-lint",
+  "version": "0.1.0",
+  "description": "Conservative StyleX design-token and component contract linter.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/design-lint"
+  },
+  "bin": {
+    "design-lint": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts src/cli.ts --format esm --dts --platform node",
+    "prepublishOnly": "pnpm build",
+    "test": "vitest run --passWithNoTests",
+    "test:consumer": "pnpm build && node --input-type=module -e \"import('@lenso/design-lint').then(({ defineConfig }) => { if (typeof defineConfig !== 'function') throw new Error('missing @lenso/design-lint export'); })\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsdown": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
