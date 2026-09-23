@@ -1,6 +1,7 @@
 import { themeColor } from "./shared/test-theme.js";
 import * as React from "react";
 import { expect, test } from "vitest";
+import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
@@ -799,13 +800,16 @@ test("Text Field resolves dark theme values", async () => {
   const label = screen.getByText("Field label").element();
   const control = screen.getByPlaceholder("Enter value").element();
   const focusedControl = screen.getByPlaceholder("Focused value").element();
+  await userEvent.unhover(control);
   await expect
     .poll(() => getComputedStyle(label).color)
     .toBe(themeColor("dark", "color.content.primary"));
   await expect
     .poll(() => getComputedStyle(control).backgroundColor)
     .toBe(themeColor("dark", "color.surface.control"));
-  expect(getComputedStyle(control).borderColor).toBe(themeColor("dark", "color.border.control"));
+  await expect
+    .poll(() => getComputedStyle(control).borderColor)
+    .toBe(themeColor("dark", "color.border.control"));
   expect(getComputedStyle(focusedControl).borderColor).toBe(
     themeColor("dark", "color.border.control"),
   );
