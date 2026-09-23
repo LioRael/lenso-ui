@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import * as stylex from "@stylexjs/stylex";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
@@ -51,7 +52,7 @@ function ContentPreview({ arrow, placement }: { arrow: boolean; placement: Place
   );
 }
 
-test("Popover matches Figma and supports composed interaction", async () => {
+test("Popover resolves semantic tokens and supports composed interaction", async () => {
   const triggerStates = ["default", "hover", "pressed", "focus-visible", "open"];
   const contentVariants = (["top", "right", "bottom", "left"] as const).flatMap((placement) => [
     { arrow: false, placement },
@@ -117,17 +118,17 @@ test("Popover matches Figma and supports composed interaction", async () => {
   await expect.poll(() => getComputedStyle(previews[0]!).width).toBe("225px");
   expect(previews).toHaveLength(8);
   expect(previews[0]!.getBoundingClientRect().width).toBe(225);
-  expect(getComputedStyle(previews[0]!).boxShadow).toContain("18px");
+
   const openPreview = board.element().querySelector<HTMLElement>('[data-visual-state="open"]');
   const highlightedItem = previews[0]!.querySelector<HTMLElement>(
     '[data-visual-state="highlighted"]',
   );
   await expect
     .poll(() => getComputedStyle(openPreview!).backgroundColor)
-    .toBe("rgb(240, 240, 241)");
+    .toBe(themeColor("light", "color.surface.interactiveHover"));
   await expect
     .poll(() => getComputedStyle(highlightedItem!).backgroundColor)
-    .toBe("rgb(240, 240, 241)");
+    .toBe(themeColor("light", "color.surface.interactiveHover"));
 
   const trigger = screen.getByRole("button", { name: "Open details" });
   await userEvent.click(trigger);

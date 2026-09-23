@@ -20,6 +20,7 @@ import { Playground } from "@/components/docs/playground";
           Use Root and Panel for behavior, then compose sections and navigation at product level.
         </li>
         <li>Item supports Base UI render composition for Next.js Link or any custom element.</li>
+        <li>Use <code>density="compact"</code> for a dense application rail: 32px rows, one-line labels, a 14px icon slot, and a persistent quiet selected fill. Keep the default density for roomier navigation.</li>
       </ul>
     </GuidanceBlock>
     <GuidanceBlock title="Accessibility">
@@ -31,15 +32,19 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { Sidebar } from "@lenso/ui/sidebar"
+    code={String.raw`import Link from "next/link"
+import { InboxIcon } from "lucide-react"
+import { Sidebar } from "@lenso/ui/sidebar"
 
 <Sidebar.Root defaultOpen>
   <Sidebar.Panel>
     <Sidebar.Header>...</Sidebar.Header>
     <Sidebar.Content>
-      <Sidebar.Item render={<Link href="/inbox" />}>Inbox</Sidebar.Item>
+      <Sidebar.Item density="compact" icon={<InboxIcon size={14} />} selected render={<Link href="/inbox" />}>
+        Inbox
+      </Sidebar.Item>
     </Sidebar.Content>
   </Sidebar.Panel>
 </Sidebar.Root>`}
-    description="Headless state stays in @lenso/primitives; the Figma-matched visual layer is exported from @lenso/ui."
+    description="The product owns destinations and layout; Sidebar.Item owns row geometry, truncation, focus, and selection."
   />

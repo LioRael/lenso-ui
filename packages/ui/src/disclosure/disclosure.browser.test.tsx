@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -88,7 +89,7 @@ test("Disclosure preserves Base UI state, keyboard semantics, theming, and compo
   expect(getComputedStyle(disabled.element()).opacity).toBe("0.5");
   expect(disabled.element().getAttribute("aria-expanded")).toBe("false");
   expect(getComputedStyle(screen.getByTestId("dark-trigger").element()).color).toBe(
-    "rgb(212, 212, 212)",
+    themeColor("dark", "color.content.secondary"),
   );
   expect(screen.getByTestId("custom-icon").element().textContent).toBe("+");
   expect(screen.getByTestId("auto-panel").element().getAttribute("data-layout")).toBe("auto");

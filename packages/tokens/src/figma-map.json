@@ -11,6 +11,11 @@
       "type": "color"
     },
     {
+      "path": "color.action.dangerContent",
+      "cssName": "--color-action-danger-content",
+      "type": "color"
+    },
+    {
       "path": "color.action.dangerHover",
       "cssName": "--color-action-danger-hover",
       "type": "color"
@@ -41,8 +46,18 @@
       "type": "color"
     },
     {
+      "path": "color.border.decorative",
+      "cssName": "--color-border-decorative",
+      "type": "color"
+    },
+    {
       "path": "color.border.dialog",
       "cssName": "--color-border-dialog",
+      "type": "color"
+    },
+    {
+      "path": "color.border.essential",
+      "cssName": "--color-border-essential",
       "type": "color"
     },
     {
@@ -78,6 +93,11 @@
     {
       "path": "color.border.transparent",
       "cssName": "--color-border-transparent",
+      "type": "color"
+    },
+    {
+      "path": "color.content.disabled",
+      "cssName": "--color-content-disabled",
       "type": "color"
     },
     {
@@ -206,6 +226,11 @@
       "type": "color"
     },
     {
+      "path": "color.sidebar.itemText",
+      "cssName": "--color-sidebar-item-text",
+      "type": "color"
+    },
+    {
       "path": "color.status.errorBorder",
       "cssName": "--color-status-error-border",
       "type": "color"
@@ -321,6 +346,11 @@
       "type": "color"
     },
     {
+      "path": "color.surface.recessed",
+      "cssName": "--color-surface-recessed",
+      "type": "color"
+    },
+    {
       "path": "color.surface.scrim",
       "cssName": "--color-surface-scrim",
       "type": "color"
@@ -353,6 +383,11 @@
     {
       "path": "color.switch.thumb",
       "cssName": "--color-switch-thumb",
+      "type": "color"
+    },
+    {
+      "path": "color.switch.thumbOn",
+      "cssName": "--color-switch-thumb-on",
       "type": "color"
     },
     {
@@ -606,9 +641,34 @@
       "type": "fontFamily"
     },
     {
+      "path": "font.code",
+      "cssName": "--font-code",
+      "type": "fontFamily"
+    },
+    {
       "path": "font.sans",
       "cssName": "--font-sans",
       "type": "fontFamily"
+    },
+    {
+      "path": "motion.feedback",
+      "cssName": "--motion-feedback",
+      "type": "duration"
+    },
+    {
+      "path": "motion.overlay",
+      "cssName": "--motion-overlay",
+      "type": "duration"
+    },
+    {
+      "path": "motion.reduced",
+      "cssName": "--motion-reduced",
+      "type": "duration"
+    },
+    {
+      "path": "motion.state",
+      "cssName": "--motion-state",
+      "type": "duration"
     },
     {
       "path": "opacity.disabled",
@@ -623,6 +683,11 @@
     {
       "path": "radius.control",
       "cssName": "--radius-control",
+      "type": "dimension"
+    },
+    {
+      "path": "radius.media",
+      "cssName": "--radius-media",
       "type": "dimension"
     },
     {
@@ -646,6 +711,11 @@
       "type": "dimension"
     },
     {
+      "path": "radius.row",
+      "cssName": "--radius-row",
+      "type": "dimension"
+    },
+    {
       "path": "size.borderControl",
       "cssName": "--size-border-control",
       "type": "dimension"
@@ -656,6 +726,11 @@
       "type": "dimension"
     },
     {
+      "path": "size.catalogRow",
+      "cssName": "--size-catalog-row",
+      "type": "dimension"
+    },
+    {
       "path": "size.controlCompact",
       "cssName": "--size-control-compact",
       "type": "dimension"
@@ -663,6 +738,11 @@
     {
       "path": "size.controlDefault",
       "cssName": "--size-control-default",
+      "type": "dimension"
+    },
+    {
+      "path": "size.controlTouch",
+      "cssName": "--size-control-touch",
       "type": "dimension"
     },
     {
@@ -701,13 +781,33 @@
       "type": "dimension"
     },
     {
+      "path": "size.navigationRow",
+      "cssName": "--size-navigation-row",
+      "type": "dimension"
+    },
+    {
       "path": "size.sidebar",
       "cssName": "--size-sidebar",
       "type": "dimension"
     },
     {
+      "path": "size.topbar",
+      "cssName": "--size-topbar",
+      "type": "dimension"
+    },
+    {
+      "path": "space.0",
+      "cssName": "--space-0",
+      "type": "dimension"
+    },
+    {
       "path": "space.1",
       "cssName": "--space-1",
+      "type": "dimension"
+    },
+    {
+      "path": "space.12",
+      "cssName": "--space-12",
       "type": "dimension"
     },
     {
@@ -731,9 +831,169 @@
       "type": "dimension"
     },
     {
+      "path": "space.8",
+      "cssName": "--space-8",
+      "type": "dimension"
+    },
+    {
+      "path": "space.controlInlinePadding",
+      "cssName": "--space-control-inline-padding",
+      "type": "dimension"
+    },
+    {
+      "path": "space.fieldLabelGap",
+      "cssName": "--space-field-label-gap",
+      "type": "dimension"
+    },
+    {
+      "path": "space.groupItemGap",
+      "cssName": "--space-group-item-gap",
+      "type": "dimension"
+    },
+    {
+      "path": "space.groupSectionGap",
+      "cssName": "--space-group-section-gap",
+      "type": "dimension"
+    },
+    {
+      "path": "space.half",
+      "cssName": "--space-half",
+      "type": "dimension"
+    },
+    {
+      "path": "space.inlineIconGap",
+      "cssName": "--space-inline-icon-gap",
+      "type": "dimension"
+    },
+    {
       "path": "space.labelGap",
       "cssName": "--space-label-gap",
       "type": "dimension"
+    },
+    {
+      "path": "space.pageGutter",
+      "cssName": "--space-page-gutter",
+      "type": "dimension"
+    },
+    {
+      "path": "type.body.lineHeight",
+      "cssName": "--type-body-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.body.size",
+      "cssName": "--type-body-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.body.weight",
+      "cssName": "--type-body-weight",
+      "type": "fontWeight"
+    },
+    {
+      "path": "type.code.lineHeight",
+      "cssName": "--type-code-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.code.size",
+      "cssName": "--type-code-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.code.weight",
+      "cssName": "--type-code-weight",
+      "type": "fontWeight"
+    },
+    {
+      "path": "type.docsBody.lineHeight",
+      "cssName": "--type-docs-body-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.docsBody.size",
+      "cssName": "--type-docs-body-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.docsBody.weight",
+      "cssName": "--type-docs-body-weight",
+      "type": "fontWeight"
+    },
+    {
+      "path": "type.label.lineHeight",
+      "cssName": "--type-label-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.label.size",
+      "cssName": "--type-label-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.label.weight",
+      "cssName": "--type-label-weight",
+      "type": "fontWeight"
+    },
+    {
+      "path": "type.metadata.lineHeight",
+      "cssName": "--type-metadata-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.metadata.size",
+      "cssName": "--type-metadata-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.metadata.weight",
+      "cssName": "--type-metadata-weight",
+      "type": "fontWeight"
+    },
+    {
+      "path": "type.navigation.lineHeight",
+      "cssName": "--type-navigation-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.navigation.size",
+      "cssName": "--type-navigation-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.navigation.weight",
+      "cssName": "--type-navigation-weight",
+      "type": "fontWeight"
+    },
+    {
+      "path": "type.pageTitle.lineHeight",
+      "cssName": "--type-page-title-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.pageTitle.size",
+      "cssName": "--type-page-title-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.pageTitle.weight",
+      "cssName": "--type-page-title-weight",
+      "type": "fontWeight"
+    },
+    {
+      "path": "type.sectionTitle.lineHeight",
+      "cssName": "--type-section-title-line-height",
+      "type": "dimension"
+    },
+    {
+      "path": "type.sectionTitle.size",
+      "cssName": "--type-section-title-size",
+      "type": "dimension"
+    },
+    {
+      "path": "type.sectionTitle.weight",
+      "cssName": "--type-section-title-weight",
+      "type": "fontWeight"
     }
   ],
   "primitiveCollection": "Color Primitives",
@@ -854,6 +1114,50 @@
       "figmaName": "blue/550",
       "cssName": "--color-primitive-blue-550",
       "cssValue": "#6975e2",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.darkActionHover",
+      "figmaName": "dark/action/hover",
+      "cssName": "--color-primitive-dark-action-hover",
+      "cssValue": "#dadada",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.darkDangerAction",
+      "figmaName": "dark/danger/action",
+      "cssName": "--color-primitive-dark-danger-action",
+      "cssValue": "#eb9898",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.darkDangerHover",
+      "figmaName": "dark/danger/hover",
+      "cssName": "--color-primitive-dark-danger-hover",
+      "cssValue": "#f0adad",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.darkPurple",
+      "figmaName": "dark/purple",
+      "cssName": "--color-primitive-dark-purple",
+      "cssValue": "#c5afe6",
       "scopes": [
         "ALL_FILLS",
         "STROKE_COLOR"
@@ -1129,6 +1433,413 @@
       "figmaName": "label/surface/open",
       "cssName": "--color-primitive-label-surface-open",
       "cssValue": "#f0f0f1",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightActionHover",
+      "figmaName": "light/action/hover",
+      "cssName": "--color-primitive-light-action-hover",
+      "cssValue": "#333333",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightBorder",
+      "figmaName": "light/border",
+      "cssName": "--color-primitive-light-border",
+      "cssValue": "#dddddd",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightCanvas",
+      "figmaName": "light/canvas",
+      "cssName": "--color-primitive-light-canvas",
+      "cssValue": "#fafafa",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightDanger",
+      "figmaName": "light/danger",
+      "cssName": "--color-primitive-light-danger",
+      "cssValue": "#a33030",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightDangerHover",
+      "figmaName": "light/danger/hover",
+      "cssName": "--color-primitive-light-danger-hover",
+      "cssValue": "#842323",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightDisabled",
+      "figmaName": "light/disabled",
+      "cssName": "--color-primitive-light-disabled",
+      "cssValue": "#858585",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightEssential",
+      "figmaName": "light/essential",
+      "cssName": "--color-primitive-light-essential",
+      "cssValue": "#777777",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightFocus",
+      "figmaName": "light/focus",
+      "cssName": "--color-primitive-light-focus",
+      "cssValue": "#4a4a4a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightHover",
+      "figmaName": "light/hover",
+      "cssName": "--color-primitive-light-hover",
+      "cssValue": "#f0f0f0",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightInfo",
+      "figmaName": "light/info",
+      "cssName": "--color-primitive-light-info",
+      "cssValue": "#315d96",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightMuted",
+      "figmaName": "light/muted",
+      "cssName": "--color-primitive-light-muted",
+      "cssValue": "#636363",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightOverlay",
+      "figmaName": "light/overlay",
+      "cssName": "--color-primitive-light-overlay",
+      "cssValue": "#ffffff",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightPurple",
+      "figmaName": "light/purple",
+      "cssName": "--color-primitive-light-purple",
+      "cssValue": "#7049a3",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightRecessed",
+      "figmaName": "light/recessed",
+      "cssName": "--color-primitive-light-recessed",
+      "cssValue": "#f2f2f2",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightSecondary",
+      "figmaName": "light/secondary",
+      "cssName": "--color-primitive-light-secondary",
+      "cssValue": "#4a4a4a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightSelected",
+      "figmaName": "light/selected",
+      "cssName": "--color-primitive-light-selected",
+      "cssValue": "#e8e8e8",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightSuccess",
+      "figmaName": "light/success",
+      "cssName": "--color-primitive-light-success",
+      "cssValue": "#246b3c",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightText",
+      "figmaName": "light/text",
+      "cssName": "--color-primitive-light-text",
+      "cssValue": "#1a1a1a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.lightWarning",
+      "figmaName": "light/warning",
+      "cssName": "--color-primitive-light-warning",
+      "cssValue": "#78570f",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralAmberReadable",
+      "figmaName": "neutral/amber/readable",
+      "cssName": "--color-primitive-neutral-amber-readable",
+      "cssValue": "#dabb7b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralBlueReadable",
+      "figmaName": "neutral/blue/readable",
+      "cssName": "--color-primitive-neutral-blue-readable",
+      "cssValue": "#9cbbe6",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray100",
+      "figmaName": "neutral/gray/100",
+      "cssName": "--color-primitive-neutral-gray-100",
+      "cssValue": "#eeeeee",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray150",
+      "figmaName": "neutral/gray/150",
+      "cssName": "--color-primitive-neutral-gray-150",
+      "cssValue": "#dadada",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray300",
+      "figmaName": "neutral/gray/300",
+      "cssName": "--color-primitive-neutral-gray-300",
+      "cssValue": "#b8b8b8",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray500",
+      "figmaName": "neutral/gray/500",
+      "cssName": "--color-primitive-neutral-gray-500",
+      "cssValue": "#979797",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray600",
+      "figmaName": "neutral/gray/600",
+      "cssName": "--color-primitive-neutral-gray-600",
+      "cssValue": "#777777",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray800",
+      "figmaName": "neutral/gray/800",
+      "cssName": "--color-primitive-neutral-gray-800",
+      "cssValue": "#303030",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray825",
+      "figmaName": "neutral/gray/825",
+      "cssName": "--color-primitive-neutral-gray-825",
+      "cssValue": "#2c2c2c",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray850",
+      "figmaName": "neutral/gray/850",
+      "cssName": "--color-primitive-neutral-gray-850",
+      "cssValue": "#292929",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray875",
+      "figmaName": "neutral/gray/875",
+      "cssName": "--color-primitive-neutral-gray-875",
+      "cssValue": "#242424",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray900",
+      "figmaName": "neutral/gray/900",
+      "cssName": "--color-primitive-neutral-gray-900",
+      "cssValue": "#222222",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray905",
+      "figmaName": "neutral/gray/905",
+      "cssName": "--color-primitive-neutral-gray-905",
+      "cssValue": "#212121",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray915",
+      "figmaName": "neutral/gray/915",
+      "cssName": "--color-primitive-neutral-gray-915",
+      "cssValue": "#1d1d1d",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray925",
+      "figmaName": "neutral/gray/925",
+      "cssName": "--color-primitive-neutral-gray-925",
+      "cssValue": "#1a1a1a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGray950",
+      "figmaName": "neutral/gray/950",
+      "cssName": "--color-primitive-neutral-gray-950",
+      "cssValue": "#141414",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralGreenReadable",
+      "figmaName": "neutral/green/readable",
+      "cssName": "--color-primitive-neutral-green-readable",
+      "cssValue": "#86c99a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "type": "color"
+    },
+    {
+      "path": "primitive.color.neutralRedReadable",
+      "figmaName": "neutral/red/readable",
+      "cssName": "--color-primitive-neutral-red-readable",
+      "cssValue": "#eb9898",
       "scopes": [
         "ALL_FILLS",
         "STROKE_COLOR"

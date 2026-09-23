@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -56,7 +57,9 @@ test("Quick Link matches the approved Default and Hover Figma states", async () 
   await userEvent.hover(links[1]!);
   await expect.poll(() => getComputedStyle(trailing[0]!).opacity).toBe("0");
   await expect.poll(() => getComputedStyle(trailing[1]!).opacity).toBe("1");
-  await expect.poll(() => getComputedStyle(links[1]!).backgroundColor).toBe("rgb(240, 240, 241)");
+  await expect
+    .poll(() => getComputedStyle(links[1]!).backgroundColor)
+    .toBe(themeColor("light", "color.surface.interactiveHover"));
   expect((await axe.run(board.element())).violations).toEqual([]);
 });
 
@@ -86,7 +89,7 @@ test("Quick Link preserves dark hover tokens, disabled state, and render composi
   await userEvent.hover(darkLink);
   await expect
     .poll(() => getComputedStyle(darkLink.element()).backgroundColor)
-    .toBe("rgb(57, 58, 61)");
+    .toBe(themeColor("dark", "color.surface.overlayHover"));
   expect(darkLink.element().tagName).toBe("A");
   expect(darkLink.element().getAttribute("href")).toBe("/settings");
   const disabled = screen.getByTestId("disabled-link");

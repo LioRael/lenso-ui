@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import * as React from "react";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
@@ -44,14 +45,16 @@ test("Text Field composes an accessible compact search input", async () => {
 
   expect((input.element() as HTMLInputElement).value).toBe("runtime");
   await expect.poll(() => group.element().getBoundingClientRect().height).toBe(28);
-  await expect.poll(() => clear.element().getBoundingClientRect().height).toBe(24);
-  await expect.poll(() => clear.element().getBoundingClientRect().width).toBe(24);
+  await expect.poll(() => clear.element().getBoundingClientRect().height).toBe(28);
+  await expect.poll(() => clear.element().getBoundingClientRect().width).toBe(28);
   expect(leading?.hasAttribute("aria-hidden")).toBe(false);
   expect(leading?.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
   expect(getComputedStyle(input.element()).borderStyle).toBe("none");
 
   await userEvent.click(input);
-  await expect.poll(() => getComputedStyle(group.element()).outlineColor).toBe("rgb(94, 106, 210)");
+  await expect
+    .poll(() => getComputedStyle(group.element()).outlineColor)
+    .toBe(themeColor("light", "color.focus.ring"));
 
   await userEvent.click(clear);
   expect((input.element() as HTMLInputElement).value).toBe("");

@@ -14,9 +14,9 @@ export const styles = stylex.create({
   label: {
     color: tokens.colorContentPrimary,
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
+    fontSize: tokens.typeLabelSize,
     fontWeight: 500,
-    lineHeight: "16px",
+    lineHeight: tokens.typeLabelLineHeight,
   },
   control: {
     backgroundColor: {
@@ -38,8 +38,8 @@ export const styles = stylex.create({
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
-    lineHeight: "16px",
+    fontSize: tokens.typeLabelSize,
+    lineHeight: tokens.typeLabelLineHeight,
     minWidth: 0,
     width: "100%",
     "::placeholder": { color: tokens.colorContentTertiary },
@@ -156,8 +156,8 @@ export const styles = stylex.create({
     display: "inline-flex",
     flexShrink: 0,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
-    lineHeight: "16px",
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeLabelLineHeight,
   },
   clear: {
     alignItems: "center",
@@ -192,15 +192,15 @@ export const styles = stylex.create({
   description: {
     color: tokens.colorContentTertiary,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
-    lineHeight: "16px",
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeLabelLineHeight,
     margin: 0,
   },
   error: {
     color: tokens.colorStatusErrorContent,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
-    lineHeight: "16px",
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeLabelLineHeight,
     margin: 0,
   },
 });

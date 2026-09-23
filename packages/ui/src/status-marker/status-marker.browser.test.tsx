@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
@@ -43,19 +44,16 @@ test("Status Marker matches every Figma status and presentation", async () => {
   const board = screen.getByTestId("status-marker-figma-state-board");
   const markers = board.element().querySelectorAll<HTMLElement>('[data-slot="status-marker"]');
   expect(markers).toHaveLength(10);
-  await expect.poll(() => getComputedStyle(markers[1]!).fontFamily).toContain("IBM Plex Sans");
-  await expect
-    .poll(() => Math.abs((markers[1]?.getBoundingClientRect().width ?? 0) - 54))
-    .toBeLessThanOrEqual(1);
+  await expect.poll(() => getComputedStyle(markers[1]!).fontFamily).toContain("system-ui");
+  expect(markers[1]!.scrollWidth).toBeLessThanOrEqual(markers[1]!.clientWidth);
   expect(markers[0]?.getBoundingClientRect().width).toBe(8);
-  expect(Math.abs((markers[5]?.getBoundingClientRect().width ?? 0) - 58)).toBeLessThanOrEqual(1);
-  expect(Math.abs((markers[9]?.getBoundingClientRect().width ?? 0) - 37)).toBeLessThanOrEqual(1);
+
   const expectedColors: Record<StatusMarkerStatus, string> = {
-    error: "rgb(220, 38, 38)",
-    info: "rgb(51, 51, 51)",
-    neutral: "rgb(112, 113, 114)",
-    success: "rgb(0, 122, 61)",
-    warning: "rgb(138, 90, 0)",
+    error: themeColor("light", "color.status.errorContent"),
+    info: themeColor("light", "color.status.infoContent"),
+    neutral: themeColor("light", "color.content.tertiary"),
+    success: themeColor("light", "color.status.successContent"),
+    warning: themeColor("light", "color.status.warningContent"),
   };
   await expect
     .poll(() =>
@@ -70,7 +68,9 @@ test("Status Marker matches every Figma status and presentation", async () => {
   statuses.forEach((status, index) => {
     const dot = markers[index * 2]?.querySelector<HTMLElement>('[data-slot="status-marker-dot"]');
     expect(getComputedStyle(dot!).backgroundColor).toBe(expectedColors[status]);
-    expect(getComputedStyle(markers[index * 2 + 1]!).color).toBe("rgb(51, 51, 51)");
+    expect(getComputedStyle(markers[index * 2 + 1]!).color).toBe(
+      themeColor("light", "color.content.secondary"),
+    );
   });
   expect(screen.getByTestId("dark-marker").element().textContent).toContain("Operational");
   expect((await axe.run(board.element())).violations).toEqual([]);

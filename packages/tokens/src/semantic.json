@@ -3,215 +3,987 @@
   "color": {
     "$type": "color",
     "surface": {
-      "canvas": { "$value": "{primitive.color.gray50}" },
-      "sidebar": { "$value": "{primitive.color.slate75}" },
-      "surface": { "$value": "{primitive.color.gray0}" },
-      "panel": { "$value": "{primitive.color.gray0}" },
-      "control": { "$value": "{primitive.color.gray0}" },
-      "dialog": { "$value": "{primitive.color.gray0}" },
-      "elevated": { "$value": "{primitive.color.gray0}" },
-      "popover": { "$value": "{primitive.color.gray0}" },
-      "subtle": { "$value": "{primitive.color.gray50}" },
-      "interactive": { "$value": "{primitive.color.gray0}" },
-      "interactiveHover": { "$value": "{primitive.color.gray100}" },
-      "overlayHover": { "$value": "{primitive.color.labelSurfaceOpen}" },
-      "selected": { "$value": "{primitive.color.gray100}" },
-      "quaternary": { "$value": "{primitive.color.slate75}" },
-      "translucent": { "$value": "{primitive.color.gray0}" },
-      "level3": { "$value": "{primitive.color.slate50}" },
-      "readOnly": { "$value": "{primitive.color.gray50}" },
-      "scrim": { "$value": "{primitive.color.black32}" }
-    },
-    "content": {
-      "primary": { "$value": "{primitive.color.slate850}" },
-      "secondary": { "$value": "{primitive.color.gray700}" },
-      "tertiary": { "$value": "{primitive.color.slate500}" },
-      "inverse": { "$value": "{primitive.color.gray0}" }
-    },
-    "border": {
-      "transparent": { "$value": "{primitive.color.transparent}" },
-      "translucent": { "$value": "{primitive.color.black8}" },
-      "control": { "$value": "{primitive.color.gray350}" },
-      "controlFocus": { "$value": "{primitive.color.gray400}" },
-      "tertiary": { "$value": "{primitive.color.gray200}" },
-      "menuSeparator": { "$value": "{primitive.color.gray200}" },
-      "secondary": { "$value": "{primitive.color.gray300}" },
-      "primary": { "$value": "{primitive.color.gray500}" },
-      "dialog": { "$value": "{primitive.color.gray300}" },
+      "canvas": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "sidebar": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "surface": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "panel": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "control": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "dialog": {
+        "$value": "{primitive.color.lightOverlay}"
+      },
+      "elevated": {
+        "$value": "{primitive.color.lightOverlay}"
+      },
       "popover": {
+        "$value": "{primitive.color.lightOverlay}"
+      },
+      "subtle": {
+        "$value": "{primitive.color.lightRecessed}"
+      },
+      "interactive": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "interactiveHover": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "overlayHover": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "selected": {
+        "$value": "{primitive.color.lightSelected}"
+      },
+      "quaternary": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "translucent": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "level3": {
+        "$value": "{primitive.color.lightSelected}"
+      },
+      "readOnly": {
+        "$value": "{primitive.color.lightRecessed}"
+      },
+      "recessed": {
+        "$value": "{primitive.color.lightRecessed}"
+      },
+      "scrim": {
         "$value": {
           "colorSpace": "srgb",
-          "components": [0.847059, 0.847059, 0.847059],
-          "alpha": 1
+          "components": [0, 0, 0],
+          "alpha": 0.4
+        }
+      }
+    },
+    "content": {
+      "primary": {
+        "$value": "{primitive.color.lightText}"
+      },
+      "secondary": {
+        "$value": "{primitive.color.lightSecondary}"
+      },
+      "tertiary": {
+        "$value": "{primitive.color.lightMuted}"
+      },
+      "inverse": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "disabled": {
+        "$value": "{primitive.color.lightDisabled}"
+      }
+    },
+    "border": {
+      "translucent": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "control": {
+        "$value": "{primitive.color.lightEssential}"
+      },
+      "controlFocus": {
+        "$value": "{primitive.color.lightFocus}"
+      },
+      "tertiary": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "menuSeparator": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "secondary": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "primary": {
+        "$value": "{primitive.color.lightEssential}"
+      },
+      "dialog": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "popover": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "decorative": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "essential": {
+        "$value": "{primitive.color.lightEssential}"
+      },
+      "transparent": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0
         }
       }
     },
     "action": {
-      "primary": { "$value": "{primitive.color.slate850}" },
-      "primaryHover": { "$value": "{primitive.color.slate900}" },
-      "primaryContent": { "$value": "{primitive.color.gray50}" },
-      "danger": { "$value": "{primitive.color.red700}" },
-      "dangerHover": { "$value": "{primitive.color.red500}" }
+      "primary": {
+        "$value": "{primitive.color.lightText}"
+      },
+      "primaryHover": {
+        "$value": "{primitive.color.lightActionHover}"
+      },
+      "primaryContent": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "danger": {
+        "$value": "{primitive.color.lightDanger}"
+      },
+      "dangerHover": {
+        "$value": "{primitive.color.lightDangerHover}"
+      },
+      "dangerContent": {
+        "$value": "{primitive.color.lightCanvas}"
+      }
     },
-    "focus": { "ring": { "$value": "{primitive.color.blue500}" } },
+    "focus": {
+      "ring": {
+        "$value": "{primitive.color.lightFocus}"
+      }
+    },
     "status": {
-      "errorBorder": { "$value": "{primitive.color.red700}" },
-      "errorContent": { "$value": "{primitive.color.red700}" },
-      "errorSurface": { "$value": "{primitive.color.gray50}" },
-      "infoContent": { "$value": "{primitive.color.gray700}" },
-      "neutralContent": { "$value": "{primitive.color.gray500}" },
-      "successContent": { "$value": "{primitive.color.presenceOnline}" },
-      "warningContent": { "$value": "{primitive.color.presenceAway}" },
-      "presenceOnline": { "$value": "{primitive.color.presenceOnline}" },
-      "presenceAway": { "$value": "{primitive.color.presenceAway}" },
-      "presenceBusy": { "$value": "{primitive.color.red700}" },
-      "presenceOffline": { "$value": "{primitive.color.gray500}" }
+      "errorBorder": {
+        "$value": "{primitive.color.lightDanger}"
+      },
+      "errorContent": {
+        "$value": "{primitive.color.lightDanger}"
+      },
+      "errorSurface": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "infoContent": {
+        "$value": "{primitive.color.lightInfo}"
+      },
+      "neutralContent": {
+        "$value": "{primitive.color.lightMuted}"
+      },
+      "successContent": {
+        "$value": "{primitive.color.lightSuccess}"
+      },
+      "warningContent": {
+        "$value": "{primitive.color.lightWarning}"
+      },
+      "presenceOnline": {
+        "$value": "{primitive.color.lightSuccess}"
+      },
+      "presenceAway": {
+        "$value": "{primitive.color.lightWarning}"
+      },
+      "presenceBusy": {
+        "$value": "{primitive.color.lightDanger}"
+      },
+      "presenceOffline": {
+        "$value": "{primitive.color.lightMuted}"
+      }
     },
     "interaction": {
-      "pressedOverlay": { "$value": "{primitive.color.black8}" }
-    },
-    "switch": {
-      "trackOff": { "$value": "{primitive.color.gray500}" },
-      "trackOffCompact": { "$value": "{primitive.color.gray300}" },
-      "trackOffHover": { "$value": "{primitive.color.gray550}" },
-      "trackOn": { "$value": "{primitive.color.blue500}" },
-      "trackOnHover": { "$value": "{primitive.color.blue550}" },
-      "thumb": { "$value": "{primitive.color.gray0}" }
-    },
-    "sidebar": {
-      "itemHover": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [0.905882, 0.905882, 0.909804],
-          "alpha": 1
-        }
-      },
-      "itemActive": { "$value": "{primitive.color.gray200}" }
-    },
-    "navigation": {
-      "tabBg": { "$value": "{primitive.color.gray50}" },
-      "tabBgHover": { "$value": "{primitive.color.gray100}" },
-      "tabBgSelected": { "$value": "{primitive.color.gray200}" },
-      "tabEdge": { "$value": "{primitive.color.black8}" },
-      "tabEdgeHover": {
+      "pressedOverlay": {
         "$value": {
           "colorSpace": "srgb",
           "components": [0, 0, 0],
-          "alpha": 0.15
+          "alpha": 0.05
         }
+      }
+    },
+    "switch": {
+      "trackOff": {
+        "$value": "{primitive.color.lightEssential}"
       },
-      "tabFg": { "$value": "{primitive.color.slate500}" },
-      "tabFgHover": { "$value": "{primitive.color.gray800}" },
-      "tabFgSelected": { "$value": "{primitive.color.gray950}" }
+      "trackOffCompact": {
+        "$value": "{primitive.color.lightEssential}"
+      },
+      "trackOffHover": {
+        "$value": "{primitive.color.lightMuted}"
+      },
+      "trackOn": {
+        "$value": "{primitive.color.lightText}"
+      },
+      "trackOnHover": {
+        "$value": "{primitive.color.lightActionHover}"
+      },
+      "thumb": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "thumbOn": {
+        "$value": "{primitive.color.lightCanvas}"
+      }
+    },
+    "sidebar": {
+      "itemText": {
+        "$value": "{primitive.color.lightText}"
+      },
+      "itemHover": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "itemActive": {
+        "$value": "{primitive.color.lightSelected}"
+      }
+    },
+    "navigation": {
+      "tabBg": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "tabBgHover": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "tabBgSelected": {
+        "$value": "{primitive.color.lightSelected}"
+      },
+      "tabEdge": {
+        "$value": "{primitive.color.lightCanvas}"
+      },
+      "tabEdgeHover": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "tabFg": {
+        "$value": "{primitive.color.lightSecondary}"
+      },
+      "tabFgHover": {
+        "$value": "{primitive.color.lightText}"
+      },
+      "tabFgSelected": {
+        "$value": "{primitive.color.lightText}"
+      }
     },
     "label": {
-      "surfaceDefault": { "$value": "{primitive.color.labelSurfaceDefault}" },
-      "surfaceHover": { "$value": "{primitive.color.labelSurfaceHover}" },
-      "surfaceOpen": { "$value": "{primitive.color.labelSurfaceOpen}" },
-      "border": { "$value": "{primitive.color.labelBorder}" },
-      "contentDefault": { "$value": "{primitive.color.labelContentDefault}" },
-      "contentHover": { "$value": "{primitive.color.labelContentHover}" },
-      "markerRed": { "$value": "{primitive.color.labelMarkerRed}" },
-      "markerPurple": { "$value": "{primitive.color.labelMarkerPurple}" },
-      "markerBlue": { "$value": "{primitive.color.labelMarkerBlue}" }
+      "surfaceDefault": {
+        "$value": "{primitive.color.lightHover}"
+      },
+      "surfaceHover": {
+        "$value": "{primitive.color.lightSelected}"
+      },
+      "surfaceOpen": {
+        "$value": "{primitive.color.lightOverlay}"
+      },
+      "border": {
+        "$value": "{primitive.color.lightBorder}"
+      },
+      "contentDefault": {
+        "$value": "{primitive.color.lightSecondary}"
+      },
+      "contentHover": {
+        "$value": "{primitive.color.lightText}"
+      },
+      "markerRed": {
+        "$value": "{primitive.color.lightDanger}"
+      },
+      "markerPurple": {
+        "$value": "{primitive.color.lightPurple}"
+      },
+      "markerBlue": {
+        "$value": "{primitive.color.lightInfo}"
+      }
     }
   },
   "radius": {
     "$type": "dimension",
-    "control": { "$value": "{primitive.dimension.px8}" },
-    "panel": { "$value": "{primitive.dimension.px10}" },
-    "popover": { "$value": "{primitive.dimension.px12}" },
-    "overlay": { "$value": "{primitive.dimension.px8}" },
-    "rounded": { "$value": "{primitive.dimension.rounded}" }
+    "control": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      }
+    },
+    "panel": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "popover": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "overlay": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "rounded": {
+      "$value": "{primitive.dimension.rounded}"
+    },
+    "row": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "media": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    }
   },
   "size": {
     "$type": "dimension",
-    "controlCompact": { "$value": "{primitive.dimension.px28}" },
-    "controlDefault": { "$value": "{primitive.dimension.px32}" },
-    "inputDefault": { "$value": "{primitive.dimension.px32}" },
-    "iconDefault": { "$value": "{primitive.dimension.px14}" },
-    "iconButtonCompact": { "$value": "{primitive.dimension.px24}" },
-    "iconButtonDefault": { "$value": "{primitive.dimension.px28}" },
-    "label": { "$value": "{primitive.dimension.px24}" },
-    "labelMarker": { "$value": "{primitive.dimension.px9}" },
-    "sidebar": { "$value": "{primitive.dimension.px244}" },
-    "dialog": { "$value": "{primitive.dimension.px480}" },
-    "borderControl": { "$value": "{primitive.dimension.px0_5}" },
-    "borderDialog": { "$value": "{primitive.dimension.px0_5}" }
+    "controlCompact": {
+      "$value": "{primitive.dimension.px28}"
+    },
+    "controlDefault": {
+      "$value": "{primitive.dimension.px32}"
+    },
+    "inputDefault": {
+      "$value": "{primitive.dimension.px32}"
+    },
+    "iconDefault": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "iconButtonCompact": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      }
+    },
+    "iconButtonDefault": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "label": {
+      "$value": "{primitive.dimension.px24}"
+    },
+    "labelMarker": {
+      "$value": "{primitive.dimension.px9}"
+    },
+    "sidebar": {
+      "$type": "dimension",
+      "$value": {
+        "value": 248,
+        "unit": "px"
+      }
+    },
+    "dialog": {
+      "$value": "{primitive.dimension.px480}"
+    },
+    "borderControl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      }
+    },
+    "borderDialog": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      }
+    },
+    "navigationRow": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      }
+    },
+    "catalogRow": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      }
+    },
+    "controlTouch": {
+      "$type": "dimension",
+      "$value": {
+        "value": 44,
+        "unit": "px"
+      }
+    },
+    "topbar": {
+      "$type": "dimension",
+      "$value": {
+        "value": 56,
+        "unit": "px"
+      }
+    }
   },
   "space": {
     "$type": "dimension",
-    "1": { "$value": "{primitive.dimension.px4}" },
-    "2": { "$value": "{primitive.dimension.px8}" },
-    "3": { "$value": "{primitive.dimension.px12}" },
-    "4": { "$value": "{primitive.dimension.px16}" },
-    "6": { "$value": "{primitive.dimension.px24}" },
-    "labelGap": { "$value": "{primitive.dimension.px6}" }
+    "1": {
+      "$value": "{primitive.dimension.px4}"
+    },
+    "2": {
+      "$value": "{primitive.dimension.px8}"
+    },
+    "3": {
+      "$value": "{primitive.dimension.px12}"
+    },
+    "4": {
+      "$value": "{primitive.dimension.px16}"
+    },
+    "6": {
+      "$value": "{primitive.dimension.px24}"
+    },
+    "labelGap": {
+      "$value": "{primitive.dimension.px6}"
+    },
+    "0": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "half": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "inlineIconGap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "controlInlinePadding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "fieldLabelGap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "groupItemGap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "groupSectionGap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
+    "pageGutter": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    }
   },
   "opacity": {
     "$type": "number",
-    "enabled": { "$value": "{primitive.number.enabled}" },
-    "disabled": { "$value": "{primitive.number.disabled}" }
+    "enabled": {
+      "$value": "{primitive.number.enabled}"
+    },
+    "disabled": {
+      "$value": "{primitive.number.disabled}"
+    }
   },
   "font": {
     "$type": "fontFamily",
-    "sans": { "$value": "{primitive.fontFamily.sans}" },
-    "button": { "$value": "{primitive.fontFamily.button}" }
+    "sans": {
+      "$value": "{primitive.fontFamily.sans}"
+    },
+    "button": {
+      "$value": "{primitive.fontFamily.button}"
+    },
+    "code": {
+      "$value": ["ui-monospace", "SFMono-Regular", "Consolas", "Liberation Mono", "monospace"]
+    }
   },
   "elevation": {
     "dialog": {
-      "ambient": { "$type": "color", "$value": "{primitive.color.black8}" },
-      "ambientBlur": { "$type": "dimension", "$value": "{primitive.dimension.px48}" },
-      "ambientY": { "$type": "dimension", "$value": "{primitive.dimension.px9}" },
-      "key": { "$type": "color", "$value": "{primitive.color.black10}" },
-      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px24}" },
-      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
-      "mid": { "$type": "color", "$value": "{primitive.color.black4}" },
-      "midBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
-      "midY": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
-      "soft": { "$type": "color", "$value": "{primitive.color.transparent}" },
-      "softBlur": { "$type": "dimension", "$value": "{primitive.dimension.px8}" },
-      "softY": { "$type": "dimension", "$value": "{primitive.dimension.px2}" },
-      "detail": { "$type": "color", "$value": "{primitive.color.transparent}" },
-      "detailBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
-      "detailY": { "$type": "dimension", "$value": "{primitive.dimension.px1}" }
+      "ambient": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "ambientBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px48}"
+      },
+      "ambientY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px9}"
+      },
+      "key": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "keyBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px24}"
+      },
+      "keyY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px6}"
+      },
+      "mid": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "midBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px1}"
+      },
+      "midY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px1}"
+      },
+      "soft": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "softBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px8}"
+      },
+      "softY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px2}"
+      },
+      "detail": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "detailBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px1}"
+      },
+      "detailY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px1}"
+      }
     },
     "control": {
-      "ambient": { "$type": "color", "$value": "{primitive.color.black9}" },
-      "key": { "$type": "color", "$value": "{primitive.color.black2}" },
-      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
-      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px3}" },
-      "keySpread": { "$type": "dimension", "$value": "{primitive.dimension.negativePx2}" },
-      "detail": { "$type": "color", "$value": "{primitive.color.black4}" },
-      "detailBlur": { "$type": "dimension", "$value": "{primitive.dimension.px1}" },
-      "detailY": { "$type": "dimension", "$value": "{primitive.dimension.px1}" }
+      "ambient": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0
+        }
+      },
+      "key": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0
+        }
+      },
+      "keyBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px6}"
+      },
+      "keyY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px3}"
+      },
+      "keySpread": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.negativePx2}"
+      },
+      "detail": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0
+        }
+      },
+      "detailBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px1}"
+      },
+      "detailY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px1}"
+      }
     },
     "panel": {
-      "ambient": { "$type": "color", "$value": "{primitive.color.black9}" },
-      "key": { "$type": "color", "$value": "{primitive.color.black2}" },
-      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
-      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px3}" },
-      "keySpread": { "$type": "dimension", "$value": "{primitive.dimension.negativePx2}" },
-      "detail": { "$type": "color", "$value": "{primitive.color.black4}" }
+      "ambient": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0
+        }
+      },
+      "key": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0
+        }
+      },
+      "keyBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px6}"
+      },
+      "keyY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px3}"
+      },
+      "keySpread": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.negativePx2}"
+      },
+      "detail": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0
+        }
+      }
     },
     "overlay": {
-      "ambient": { "$type": "color", "$value": "{primitive.color.black2}" },
-      "ambientBlur": { "$type": "dimension", "$value": "{primitive.dimension.px18}" },
-      "ambientY": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
-      "key": { "$type": "color", "$value": "{primitive.color.black4}" },
-      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px9}" },
-      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px3}" },
-      "detail": { "$type": "color", "$value": "{primitive.color.black4}" }
+      "ambient": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "ambientBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px18}"
+      },
+      "ambientY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px6}"
+      },
+      "key": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "keyBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px9}"
+      },
+      "keyY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px3}"
+      },
+      "detail": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      }
     },
     "toast": {
-      "ring": { "$type": "color", "$value": "{primitive.color.black9}" },
-      "ambient": { "$type": "color", "$value": "{primitive.color.black2}" },
-      "ambientBlur": { "$type": "dimension", "$value": "{primitive.dimension.px18}" },
-      "ambientY": { "$type": "dimension", "$value": "{primitive.dimension.px6}" },
-      "key": { "$type": "color", "$value": "{primitive.color.black4}" },
-      "keyBlur": { "$type": "dimension", "$value": "{primitive.dimension.px9}" },
-      "keyY": { "$type": "dimension", "$value": "{primitive.dimension.px3}" },
-      "detail": { "$type": "color", "$value": "{primitive.color.black4}" }
+      "ring": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "ambient": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "ambientBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px18}"
+      },
+      "ambientY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px6}"
+      },
+      "key": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      },
+      "keyBlur": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px9}"
+      },
+      "keyY": {
+        "$type": "dimension",
+        "$value": "{primitive.dimension.px3}"
+      },
+      "detail": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0, 0, 0],
+          "alpha": 0.08
+        }
+      }
+    }
+  },
+  "type": {
+    "pageTitle": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
+      }
+    },
+    "sectionTitle": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
+      }
+    },
+    "body": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 22,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      }
+    },
+    "label": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 13,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 500
+      }
+    },
+    "navigation": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 13.5,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      }
+    },
+    "metadata": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      }
+    },
+    "code": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      }
+    },
+    "docsBody": {
+      "size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        }
+      },
+      "lineHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      }
+    }
+  },
+  "motion": {
+    "feedback": {
+      "$type": "duration",
+      "$value": {
+        "value": 120,
+        "unit": "ms"
+      }
+    },
+    "state": {
+      "$type": "duration",
+      "$value": {
+        "value": 160,
+        "unit": "ms"
+      }
+    },
+    "overlay": {
+      "$type": "duration",
+      "$value": {
+        "value": 200,
+        "unit": "ms"
+      }
+    },
+    "reduced": {
+      "$type": "duration",
+      "$value": {
+        "value": 0,
+        "unit": "ms"
+      }
     }
   }
 }

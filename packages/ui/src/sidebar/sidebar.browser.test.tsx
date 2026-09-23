@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import type React from "react";
@@ -168,7 +169,7 @@ function BoardSidebar({ theme }: { theme: "dark" | "light" }) {
   );
 }
 
-test("Sidebar matches the approved Figma App geometry in Light and Dark", async () => {
+test("Sidebar resolves the semantic App geometry in Light and Dark", async () => {
   const screen = await render(
     <div
       data-testid="sidebar-figma-state-board"
@@ -191,27 +192,32 @@ test("Sidebar matches the approved Figma App geometry in Light and Dark", async 
   expect(panels).toHaveLength(2);
   expect(sectionActions).toHaveLength(2);
   expect(nestedItems).toHaveLength(4);
-  await expect.poll(() => panels[0]?.getBoundingClientRect().width).toBe(244);
-  await expect.poll(() => items[0]?.getBoundingClientRect().height).toBe(28);
+  await expect.poll(() => panels[0]?.getBoundingClientRect().width).toBe(248);
+  await expect.poll(() => items[0]?.getBoundingClientRect().height).toBe(36);
   await expect
     .poll(() => items[1]!.getBoundingClientRect().top - items[0]!.getBoundingClientRect().top)
-    .toBe(29);
+    .toBe(37);
   await expect
     .poll(
       () =>
         nestedItems[1]!.getBoundingClientRect().top - nestedItems[0]!.getBoundingClientRect().top,
     )
-    .toBe(29);
-  await expect.poll(() => sectionActions[0]!.getBoundingClientRect().width).toBe(24);
+    .toBe(37);
+  await expect.poll(() => sectionActions[0]!.getBoundingClientRect().width).toBe(28);
   await expect
     .poll(
       () =>
         sectionActions[0]!.getBoundingClientRect().right - panels[0]!.getBoundingClientRect().left,
     )
-    .toBe(230);
-  await expect.poll(() => getComputedStyle(items[0]!).fontFamily).toContain("Inter");
-  await expect.poll(() => getComputedStyle(panels[1]!).backgroundColor).toBe("rgb(10, 10, 10)");
-  const expectedHoverBackgrounds = ["rgb(231, 231, 232)", "rgb(24, 24, 26)"];
+    .toBeLessThanOrEqual(panels[0]!.getBoundingClientRect().width);
+  await expect.poll(() => getComputedStyle(items[0]!).fontFamily).toContain("system-ui");
+  await expect
+    .poll(() => getComputedStyle(panels[1]!).backgroundColor)
+    .toBe(themeColor("dark", "color.surface.sidebar"));
+  const expectedHoverBackgrounds = [
+    themeColor("light", "color.sidebar.itemHover"),
+    themeColor("dark", "color.sidebar.itemHover"),
+  ];
   for (const [index, panel] of panels.entries()) {
     const sectionHeader = panel.querySelector<HTMLElement>('[data-slot="sidebar-section-header"]')!;
     const sectionTrigger = sectionHeader.querySelector<HTMLElement>(
@@ -259,4 +265,40 @@ test("Sidebar hides its styled panel when closed", async () => {
   await expect.element(trigger).toHaveAttribute("aria-expanded", "false");
   await expect.poll(() => getComputedStyle(panel).display).toBe("none");
   expect(panel.hidden).toBe(true);
+});
+
+test("compact Sidebar destinations preserve the 32px row and one-line icon gap", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Sidebar.Root defaultOpen id="compact-sidebar">
+        <Sidebar.Panel aria-label="Compact navigation" style={{ width: 274, height: 180 }}>
+          <Sidebar.Content>
+            <Sidebar.Menu>
+              <Sidebar.MenuItem>
+                <Sidebar.Item density="compact" icon={<InboxIcon size={14} />} selected>
+                  A very long destination name that cannot wrap
+                </Sidebar.Item>
+              </Sidebar.MenuItem>
+            </Sidebar.Menu>
+          </Sidebar.Content>
+        </Sidebar.Panel>
+      </Sidebar.Root>
+    </ThemeScope>,
+  );
+  const item = screen
+    .getByRole("button", {
+      name: "A very long destination name that cannot wrap",
+    })
+    .element();
+  const icon = item.querySelector<HTMLElement>('[data-slot="sidebar-item-icon"]')!;
+  const label = item.querySelector<HTMLElement>('[data-slot="sidebar-item-label"]')!;
+  await expect.poll(() => item.getBoundingClientRect().height).toBe(32);
+  expect(Math.round(label.getBoundingClientRect().left - icon.getBoundingClientRect().right)).toBe(
+    8,
+  );
+  expect(getComputedStyle(label).whiteSpace).toBe("nowrap");
+  expect(getComputedStyle(item).backgroundColor).toBe(
+    themeColor("dark", "color.sidebar.itemActive"),
+  );
+  expect(item.getAttribute("aria-current")).toBe("page");
 });

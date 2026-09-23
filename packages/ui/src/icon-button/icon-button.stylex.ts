@@ -37,9 +37,10 @@ export const styles = stylex.create({
       ":disabled": tokens.opacityDisabled,
       '[data-visual-state="disabled"]': tokens.opacityDisabled,
     },
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: tokens.motionReduced },
     padding: 0,
     position: "relative",
-    transitionDuration: "120ms",
+    transitionDuration: tokens.motionFeedback,
     transitionProperty: "background-color, color, opacity",
     transitionTimingFunction: "ease-out",
   },
@@ -52,7 +53,7 @@ export const styles = stylex.create({
     width: tokens.sizeIconButtonDefault,
   },
   rounded: {
-    borderRadius: tokens.radiusRounded,
+    borderRadius: tokens.radiusControl,
   },
   secondary: {
     backgroundColor: {
@@ -64,7 +65,7 @@ export const styles = stylex.create({
       '[data-visual-state="hover"]': tokens.colorSurfaceLevel3,
       '[data-visual-state="pressed"]': tokens.colorSurfaceLevel3,
     },
-    boxShadow: "inset 0 0 0 0.5px var(--color-border-translucent, rgba(0, 0, 0, 0.08))",
+    boxShadow: `inset 0 0 0 1px ${tokens.colorBorderDecorative}`,
     color: tokens.colorContentPrimary,
   },
   ghost: {

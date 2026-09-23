@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -41,10 +42,18 @@ function ItemBoard({ theme }: { theme: "dark" | "light" }) {
 }
 
 for (const [theme, hoverSurface, indicatorBorder] of [
-  ["light", "rgb(240, 240, 241)", "rgb(216, 216, 216)"],
-  ["dark", "rgb(57, 58, 61)", "rgb(63, 64, 68)"],
+  [
+    "light",
+    themeColor("light", "color.surface.interactiveHover"),
+    themeColor("light", "color.border.decorative"),
+  ],
+  [
+    "dark",
+    themeColor("dark", "color.surface.overlayHover"),
+    themeColor("dark", "color.border.popover"),
+  ],
 ] as const) {
-  test(`Combobox items match Figma anatomy and states in ${theme} mode`, async () => {
+  test(`Combobox items resolve semantic tokens anatomy and states in ${theme} mode`, async () => {
     const screen = await render(<ItemBoard theme={theme} />);
     await expect.poll(() => document.querySelectorAll('[role="option"]').length).toBe(4);
 
@@ -75,13 +84,19 @@ for (const [theme, hoverSurface, indicatorBorder] of [
     const selectedIndicator = selectedItem.querySelector<HTMLElement>(
       '[data-slot="combobox-item-indicator"]',
     );
-    expect(getComputedStyle(selectedIndicator!).backgroundColor).toBe("rgb(94, 106, 210)");
-    expect(getComputedStyle(selectedIndicator!).borderColor).toBe("rgb(94, 106, 210)");
-    expect(getComputedStyle(selectedIndicator!).color).toBe("rgb(255, 255, 255)");
+    expect(getComputedStyle(selectedIndicator!).backgroundColor).toBe(
+      themeColor(theme, "color.action.primary"),
+    );
+    expect(getComputedStyle(selectedIndicator!).borderColor).toBe(
+      themeColor(theme, "color.action.primary"),
+    );
+    expect(getComputedStyle(selectedIndicator!).color).toBe(
+      themeColor(theme, "color.action.primaryContent"),
+    );
 
     const hoverLayer = getComputedStyle(hoverItem, "::before");
     expect(hoverLayer.backgroundColor).toBe(hoverSurface);
-    expect(hoverLayer.borderRadius).toBe("8px");
+    expect(hoverLayer.borderRadius).toBe("6px");
     expect(hoverLayer.left).toBe("6px");
     expect(hoverLayer.right).toBe("6px");
     expect(getComputedStyle(disabledItem).opacity).toBe("0.45");
@@ -174,8 +189,8 @@ test("single Combobox uses a trailing check, metadata, and an empty input after 
   expect(trailing?.textContent).toBe("2");
 
   const trailingStyle = getComputedStyle(trailing!);
-  expect(trailingStyle.color).toBe("rgb(111, 110, 119)");
-  expect(trailingStyle.fontFamily).toContain("Inter");
+  expect(trailingStyle.color).toBe(themeColor("light", "color.content.tertiary"));
+  expect(trailingStyle.fontFamily).toContain("system-ui");
   expect(trailingStyle.fontSize).toBe("13px");
   expect(trailingStyle.fontWeight).toBe("400");
   expect(trailingStyle.fontVariantNumeric).toBe("tabular-nums");

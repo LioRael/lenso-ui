@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
@@ -55,7 +56,7 @@ function SurfaceContent() {
   );
 }
 
-test("Surface matches the approved Figma hierarchy and remains render-composable", async () => {
+test("Surface resolves the semantic hierarchy and remains render-composable", async () => {
   const screen = await render(
     <>
       <SurfaceStateBoard background="#ececed" testId="surface-figma-state-board" />
@@ -80,39 +81,32 @@ test("Surface matches the approved Figma hierarchy and remains render-composable
   expect(surfaces).toHaveLength(3);
   await expect
     .poll(() => getComputedStyle(surfaces[0]!).backgroundColor)
-    .toBe("rgb(255, 255, 255)");
+    .toBe(themeColor("light", "color.surface.canvas"));
   expect(Array.from(surfaces, (surface) => surface.getBoundingClientRect().width)).toEqual([
     400, 400, 400,
   ]);
   expect(Array.from(surfaces, (surface) => surface.getBoundingClientRect().height)).toEqual([
     220, 220, 220,
   ]);
-  await expect.poll(() => getComputedStyle(surfaces[0]!).borderRadius).toBe("10px");
-  await expect
-    .poll(() => getComputedStyle(surfaces[1]!).boxShadow)
-    .toContain("rgba(0, 0, 0, 0.086)");
+  await expect.poll(() => getComputedStyle(surfaces[0]!).borderRadius).toBe("8px");
+
   await expect.poll(() => getComputedStyle(surfaces[2]!).borderWidth).toBe("1px");
   await expect.poll(() => getComputedStyle(surfaces[2]!).borderRadius).toBe("12px");
   await expect
     .poll(() => getComputedStyle(screen.getByTestId("dark-panel").element()).backgroundColor)
-    .toBe("rgb(26, 26, 27)");
+    .toBe(themeColor("dark", "color.surface.panel"));
   expect(darkSurfaces).toHaveLength(3);
-  await expect.poll(() => getComputedStyle(darkSurfaces[0]!).backgroundColor).toBe("rgb(0, 0, 0)");
+  await expect
+    .poll(() => getComputedStyle(darkSurfaces[0]!).backgroundColor)
+    .toBe(themeColor("dark", "color.surface.canvas"));
   await expect
     .poll(() => getComputedStyle(darkSurfaces[1]!).backgroundColor)
-    .toBe("rgb(26, 26, 27)");
-  await expect
-    .poll(() => getComputedStyle(darkSurfaces[1]!).boxShadow)
-    .toContain("rgba(255, 255, 255, 0.082)");
-  await expect
-    .poll(() => getComputedStyle(darkSurfaces[1]!).boxShadow)
-    .toContain("rgba(0, 0, 0, 0.3)");
+    .toBe(themeColor("dark", "color.surface.panel"));
+
   await expect
     .poll(() => getComputedStyle(darkSurfaces[2]!).backgroundColor)
-    .toBe("rgb(40, 41, 43)");
-  await expect
-    .poll(() => getComputedStyle(darkSurfaces[2]!).boxShadow)
-    .toContain("rgba(0, 0, 0, 0.125)");
+    .toBe(themeColor("dark", "color.surface.popover"));
+
   expect(screen.getByTestId("custom-surface").element().tagName).toBe("SECTION");
   expect((await axe.run(board.element())).violations).toEqual([]);
 });

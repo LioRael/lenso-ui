@@ -82,7 +82,7 @@ export const styles = stylex.create({
   title: {
     color: tokens.colorContentPrimary,
     fontFamily: tokens.fontSans,
-    fontSize: "15px",
+    fontSize: tokens.typeSectionTitleSize,
     fontWeight: 600,
     lineHeight: "23px",
     margin: 0,
@@ -90,8 +90,8 @@ export const styles = stylex.create({
   description: {
     color: tokens.colorContentSecondary,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
-    lineHeight: "18px",
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeMetadataLineHeight,
     margin: 0,
   },
   close: {

@@ -22,15 +22,20 @@ export const TabsRoot = React.forwardRef<HTMLDivElement, TabsRootProps>(function
   );
 });
 
-export type TabsListProps = StyleXProps<BaseTabs.List.Props>;
+export interface TabsListProps extends StyleXProps<BaseTabs.List.Props> {
+  density?: "default" | "compact";
+}
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
-  { xstyle, ...props },
+  { density = "default", xstyle, ...props },
   ref,
 ) {
   return (
     <BaseTabs.List
       {...props}
-      className={stylex.props(styles.list, xstyle).className}
+      className={
+        stylex.props(styles.list, density === "compact" && styles.compactList, xstyle).className
+      }
+      data-density={density}
       data-slot="tabs-list"
       ref={ref}
     />
@@ -39,16 +44,20 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(function
 
 export interface TabsTabProps extends StyleXProps<BaseTabs.Tab.Props> {
   "data-visual-state"?: "focus-visible" | "hover" | "pressed" | undefined;
+  density?: "default" | "compact";
 }
 
 export const TabsTab = React.forwardRef<HTMLElement, TabsTabProps>(function TabsTab(
-  { "data-visual-state": visualState, xstyle, ...props },
+  { "data-visual-state": visualState, density = "default", xstyle, ...props },
   ref,
 ) {
   return (
     <BaseTabs.Tab
       {...props}
-      className={stylex.props(styles.tab, xstyle).className}
+      className={
+        stylex.props(styles.tab, density === "compact" && styles.compactTab, xstyle).className
+      }
+      data-density={density}
       data-slot="tabs-tab"
       data-visual-state={visualState}
       ref={ref}

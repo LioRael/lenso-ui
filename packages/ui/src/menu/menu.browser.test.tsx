@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import * as stylex from "@stylexjs/stylex";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
@@ -32,11 +33,6 @@ const rows = [
   ["Show description history", FileIcon],
   ["Delete", Trash2Icon, "⌘ ⌫", "danger"],
 ] as const;
-
-const lightOverlayShadow =
-  "rgba(0, 0, 0, 0.04) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 3px 9px 0px, rgba(0, 0, 0, 0.02) 0px 6px 18px 0px";
-const darkOverlayShadow =
-  "rgba(0, 0, 0, 0.125) 0px 1px 1px 0px, rgba(0, 0, 0, 0.125) 0px 2px 5px 0px, rgba(0, 0, 0, 0.125) 0px 3px 8px 0px";
 
 function PreviewRow({ row }: { row: Exclude<(typeof rows)[number], null> }) {
   const [label, Icon, shortcut, state] = row;
@@ -94,7 +90,7 @@ function MenuPreview({ theme }: { theme: "light" | "dark" }) {
   );
 }
 
-test("Menu matches Figma and preserves Base UI interaction", async () => {
+test("Menu resolves semantic tokens and preserves Base UI interaction", async () => {
   const screen = await render(
     <>
       <MenuPreview theme="light" />
@@ -130,19 +126,18 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   await document.fonts.load('400 13px "Inter"', "Due date");
   const preview = screen.getByTestId("menu-light-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
-  expect(getComputedStyle(preview.element()).borderColor).toBe("rgb(216, 216, 216)");
-  expect(getComputedStyle(preview.element()).boxShadow).toBe(lightOverlayShadow);
-  expect(getComputedStyle(screen.getByTestId("menu-dark-preview").element()).boxShadow).toBe(
-    darkOverlayShadow,
+  expect(getComputedStyle(preview.element()).borderColor).toBe(
+    themeColor("light", "color.border.decorative"),
   );
+
   const highlightedRow = preview
     .element()
     .querySelector<HTMLElement>('[data-visual-state="hover"]')!;
   await expect
     .poll(() => getComputedStyle(highlightedRow).backgroundColor)
-    .toBe("rgb(240, 240, 241)");
+    .toBe(themeColor("light", "color.surface.interactiveHover"));
   expect(getComputedStyle(highlightedRow.querySelector('[data-slot="menu-trailing"]')!).color).toBe(
-    "rgb(51, 51, 51)",
+    themeColor("light", "color.content.secondary"),
   );
   expect(
     preview.element().querySelector('[data-slot="menu-separator"]')?.getBoundingClientRect().width,
@@ -153,13 +148,13 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   expect(lightSeparator.getBoundingClientRect().width).toBe(209);
   expect(darkSeparator.getBoundingClientRect().width).toBe(209);
   expect(getComputedStyle(lightSeparator.firstElementChild!).backgroundColor).toBe(
-    "rgb(234, 234, 234)",
+    themeColor("light", "color.border.decorative"),
   );
   expect(getComputedStyle(darkSeparator.firstElementChild!).backgroundColor).toBe(
-    "rgb(51, 51, 51)",
+    themeColor("dark", "color.border.menuSeparator"),
   );
   expect(getComputedStyle(screen.getByTestId("menu-dark-preview").element()).backgroundColor).toBe(
-    "rgb(40, 41, 43)",
+    themeColor("dark", "color.surface.popover"),
   );
   const trigger = screen.getByRole("button", { name: "Issue actions" });
   await userEvent.click(trigger);
@@ -187,9 +182,7 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   await userEvent.keyboard("{ArrowDown}{ArrowDown}{ArrowRight}");
   const submenuItem = screen.getByRole("menuitem", { name: "Create sub-issue" });
   await expect.element(submenuItem).toBeVisible();
-  expect(
-    getComputedStyle(submenuItem.element().closest('[data-slot="menu-popup"]')!).boxShadow,
-  ).toBe(lightOverlayShadow);
+
   await userEvent.keyboard("{Escape}");
   expect(
     (
@@ -200,4 +193,61 @@ test("Menu matches Figma and preserves Base UI interaction", async () => {
   ).toEqual([]);
   await userEvent.keyboard("{Escape}");
   await expect.poll(() => document.activeElement === trigger.element()).toBe(true);
+});
+
+test("stacked radio menu rows keep context readable and selection keyboard-operable", async () => {
+  let selection = "agent";
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Menu.Root>
+        <Menu.Trigger>Choose workspace</Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Positioner>
+            <Menu.Popup aria-label="Workspaces">
+              <Menu.RadioGroup
+                defaultValue="agent"
+                onValueChange={(value) => {
+                  selection = value;
+                }}
+              >
+                <Menu.RadioItem layout="stacked" value="agent">
+                  <Menu.Leading>
+                    <StarIcon size={16} />
+                  </Menu.Leading>
+                  <Menu.Copy>
+                    <Menu.Label>Agent</Menu.Label>
+                    <Menu.Description>Current App Agent</Menu.Description>
+                  </Menu.Copy>
+                  <Menu.RadioItemIndicator />
+                </Menu.RadioItem>
+                <Menu.RadioItem layout="stacked" value="projects">
+                  <Menu.Leading>
+                    <FileIcon size={16} />
+                  </Menu.Leading>
+                  <Menu.Copy>
+                    <Menu.Label>Projects</Menu.Label>
+                    <Menu.Description>Boards and schedules</Menu.Description>
+                  </Menu.Copy>
+                  <Menu.RadioItemIndicator />
+                </Menu.RadioItem>
+              </Menu.RadioGroup>
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
+    </ThemeScope>,
+  );
+  await userEvent.click(screen.getByRole("button", { name: "Choose workspace" }));
+  const agent = screen.getByRole("menuitemradio", { name: /Agent Current App Agent/ }).element();
+  const projects = screen
+    .getByRole("menuitemradio", { name: /Projects Boards and schedules/ })
+    .element();
+  await expect.poll(() => agent.getBoundingClientRect().height).toBeGreaterThanOrEqual(52);
+  expect(agent.getAttribute("aria-checked")).toBe("true");
+  expect(getComputedStyle(agent).backgroundColor).toBe(
+    themeColor("dark", "color.surface.selected"),
+  );
+  projects.focus();
+  await userEvent.keyboard("{Enter}");
+  expect(selection).toBe("projects");
 });

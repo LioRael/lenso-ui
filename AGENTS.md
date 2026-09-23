@@ -1,5 +1,7 @@
 ## Agent skills
 
+Before UI or token work, read [DESIGN.md](DESIGN.md). It explains semantic-token selection, component choice, theme obligations, and the boundary between shared UI and product composition.
+
 ### Issue tracker
 
 Issues and specs are tracked as GitHub issues using the `gh` CLI. See `docs/agents/issue-tracker.md`.

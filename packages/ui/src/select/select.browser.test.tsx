@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -123,7 +124,7 @@ test("the selected item gains its hover background after pointer movement", asyn
 
   await expect
     .poll(() => getComputedStyle(selectedItem).backgroundColor)
-    .toBe("rgb(240, 240, 241)");
+    .toBe(themeColor("light", "color.surface.interactiveHover"));
 
   await userEvent.unhover(selectedItem);
 
@@ -165,7 +166,11 @@ for (const theme of ["light", "dark"] as const) {
         () =>
           getComputedStyle(item.element().closest('[data-slot="select-item"]')!).backgroundColor,
       )
-      .toBe(theme === "light" ? "rgb(240, 240, 241)" : "rgb(57, 58, 61)");
+      .toBe(
+        theme === "light"
+          ? themeColor("light", "color.surface.interactiveHover")
+          : themeColor("dark", "color.surface.overlayHover"),
+      );
   });
 }
 

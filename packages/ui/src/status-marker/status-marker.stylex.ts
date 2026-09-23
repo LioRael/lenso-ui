@@ -9,7 +9,7 @@ export const styles = stylex.create({
     color: tokens.colorContentSecondary,
     display: "inline-flex",
     fontFamily: tokens.fontButton,
-    fontSize: "11px",
+    fontSize: tokens.typeMetadataSize,
     fontWeight: 500,
     height: "20px",
     lineHeight: "normal",

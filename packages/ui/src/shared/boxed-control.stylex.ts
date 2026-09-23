@@ -10,8 +10,8 @@ export const boxedControlStyles = stylex.create({
       "[data-disabled]": tokens.colorSurfaceInteractive,
     },
     borderColor: {
-      default: "transparent",
-      ":hover": "transparent",
+      default: tokens.colorBorderControl,
+      ":hover": tokens.colorBorderControlFocus,
       ":focus-visible": "transparent",
       "[data-popup-open]": "transparent",
       "[data-disabled]": "transparent",
@@ -19,7 +19,7 @@ export const boxedControlStyles = stylex.create({
     borderRadius: tokens.radiusControl,
     borderStyle: "solid",
     borderWidth: tokens.sizeBorderControl,
-    boxShadow: `0 0 0 ${tokens.sizeBorderControl} ${tokens.elevationControlAmbient}, 0 ${tokens.elevationControlDetailY} ${tokens.elevationControlDetailBlur} ${tokens.elevationControlDetail}, 0 ${tokens.elevationControlKeyY} ${tokens.elevationControlKeyBlur} ${tokens.elevationControlKeySpread} ${tokens.elevationControlKey}`,
+    boxShadow: "none",
     boxSizing: "border-box",
     outlineColor: {
       default: "transparent",
@@ -27,7 +27,7 @@ export const boxedControlStyles = stylex.create({
     },
     outlineOffset: "0px",
     outlineStyle: "solid",
-    outlineWidth: { default: 0, ":focus-visible": "1px" },
+    outlineWidth: { default: 0, ":focus-visible": "2px" },
     transitionDuration: motion.durationFast,
     transitionProperty: "background-color, border-color, box-shadow, outline-color",
     transitionTimingFunction: motion.easeHover,

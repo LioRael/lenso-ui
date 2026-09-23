@@ -13,6 +13,10 @@
     "primitive.color.blue475",
     "primitive.color.blue500",
     "primitive.color.blue550",
+    "primitive.color.darkActionHover",
+    "primitive.color.darkDangerAction",
+    "primitive.color.darkDangerHover",
+    "primitive.color.darkPurple",
     "primitive.color.gray0",
     "primitive.color.gray100",
     "primitive.color.gray200",
@@ -38,6 +42,43 @@
     "primitive.color.labelSurfaceDefault",
     "primitive.color.labelSurfaceHover",
     "primitive.color.labelSurfaceOpen",
+    "primitive.color.lightActionHover",
+    "primitive.color.lightBorder",
+    "primitive.color.lightCanvas",
+    "primitive.color.lightDanger",
+    "primitive.color.lightDangerHover",
+    "primitive.color.lightDisabled",
+    "primitive.color.lightEssential",
+    "primitive.color.lightFocus",
+    "primitive.color.lightHover",
+    "primitive.color.lightInfo",
+    "primitive.color.lightMuted",
+    "primitive.color.lightOverlay",
+    "primitive.color.lightPurple",
+    "primitive.color.lightRecessed",
+    "primitive.color.lightSecondary",
+    "primitive.color.lightSelected",
+    "primitive.color.lightSuccess",
+    "primitive.color.lightText",
+    "primitive.color.lightWarning",
+    "primitive.color.neutralAmberReadable",
+    "primitive.color.neutralBlueReadable",
+    "primitive.color.neutralGray100",
+    "primitive.color.neutralGray150",
+    "primitive.color.neutralGray300",
+    "primitive.color.neutralGray500",
+    "primitive.color.neutralGray600",
+    "primitive.color.neutralGray800",
+    "primitive.color.neutralGray825",
+    "primitive.color.neutralGray850",
+    "primitive.color.neutralGray875",
+    "primitive.color.neutralGray900",
+    "primitive.color.neutralGray905",
+    "primitive.color.neutralGray915",
+    "primitive.color.neutralGray925",
+    "primitive.color.neutralGray950",
+    "primitive.color.neutralGreenReadable",
+    "primitive.color.neutralRedReadable",
     "primitive.color.presenceAway",
     "primitive.color.presenceOnline",
     "primitive.color.red500",
@@ -223,6 +264,66 @@
       },
       "cssName": "--color-primitive-blue-550",
       "cssValue": "#6975e2"
+    },
+    "primitive.color.darkActionHover": {
+      "path": "primitive.color.darkActionHover",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8549019607843137,
+          0.8549019607843137,
+          0.8549019607843137
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-dark-action-hover",
+      "cssValue": "#dadada"
+    },
+    "primitive.color.darkDangerAction": {
+      "path": "primitive.color.darkDangerAction",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9215686274509803,
+          0.596078431372549,
+          0.596078431372549
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-dark-danger-action",
+      "cssValue": "#eb9898"
+    },
+    "primitive.color.darkDangerHover": {
+      "path": "primitive.color.darkDangerHover",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9411764705882353,
+          0.6784313725490196,
+          0.6784313725490196
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-dark-danger-hover",
+      "cssValue": "#f0adad"
+    },
+    "primitive.color.darkPurple": {
+      "path": "primitive.color.darkPurple",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7725490196078432,
+          0.6862745098039216,
+          0.9019607843137255
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-dark-purple",
+      "cssValue": "#c5afe6"
     },
     "primitive.color.gray0": {
       "path": "primitive.color.gray0",
@@ -599,6 +700,561 @@
       "cssName": "--color-primitive-label-surface-open",
       "cssValue": "#f0f0f1"
     },
+    "primitive.color.lightActionHover": {
+      "path": "primitive.color.lightActionHover",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2,
+          0.2,
+          0.2
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-action-hover",
+      "cssValue": "#333333"
+    },
+    "primitive.color.lightBorder": {
+      "path": "primitive.color.lightBorder",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8666666666666667,
+          0.8666666666666667,
+          0.8666666666666667
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-border",
+      "cssValue": "#dddddd"
+    },
+    "primitive.color.lightCanvas": {
+      "path": "primitive.color.lightCanvas",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9803921568627451,
+          0.9803921568627451,
+          0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-canvas",
+      "cssValue": "#fafafa"
+    },
+    "primitive.color.lightDanger": {
+      "path": "primitive.color.lightDanger",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6392156862745098,
+          0.18823529411764706,
+          0.18823529411764706
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-danger",
+      "cssValue": "#a33030"
+    },
+    "primitive.color.lightDangerHover": {
+      "path": "primitive.color.lightDangerHover",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5176470588235295,
+          0.13725490196078433,
+          0.13725490196078433
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-danger-hover",
+      "cssValue": "#842323"
+    },
+    "primitive.color.lightDisabled": {
+      "path": "primitive.color.lightDisabled",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5215686274509804,
+          0.5215686274509804,
+          0.5215686274509804
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-disabled",
+      "cssValue": "#858585"
+    },
+    "primitive.color.lightEssential": {
+      "path": "primitive.color.lightEssential",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4666666666666667,
+          0.4666666666666667,
+          0.4666666666666667
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-essential",
+      "cssValue": "#777777"
+    },
+    "primitive.color.lightFocus": {
+      "path": "primitive.color.lightFocus",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2901960784313726,
+          0.2901960784313726,
+          0.2901960784313726
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-focus",
+      "cssValue": "#4a4a4a"
+    },
+    "primitive.color.lightHover": {
+      "path": "primitive.color.lightHover",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9411764705882353,
+          0.9411764705882353,
+          0.9411764705882353
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-hover",
+      "cssValue": "#f0f0f0"
+    },
+    "primitive.color.lightInfo": {
+      "path": "primitive.color.lightInfo",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.19215686274509805,
+          0.36470588235294116,
+          0.5882352941176471
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-info",
+      "cssValue": "#315d96"
+    },
+    "primitive.color.lightMuted": {
+      "path": "primitive.color.lightMuted",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.38823529411764707,
+          0.38823529411764707,
+          0.38823529411764707
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-muted",
+      "cssValue": "#636363"
+    },
+    "primitive.color.lightOverlay": {
+      "path": "primitive.color.lightOverlay",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-overlay",
+      "cssValue": "#ffffff"
+    },
+    "primitive.color.lightPurple": {
+      "path": "primitive.color.lightPurple",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4392156862745098,
+          0.28627450980392155,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-purple",
+      "cssValue": "#7049a3"
+    },
+    "primitive.color.lightRecessed": {
+      "path": "primitive.color.lightRecessed",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9490196078431372,
+          0.9490196078431372,
+          0.9490196078431372
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-recessed",
+      "cssValue": "#f2f2f2"
+    },
+    "primitive.color.lightSecondary": {
+      "path": "primitive.color.lightSecondary",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2901960784313726,
+          0.2901960784313726,
+          0.2901960784313726
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-secondary",
+      "cssValue": "#4a4a4a"
+    },
+    "primitive.color.lightSelected": {
+      "path": "primitive.color.lightSelected",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9098039215686274,
+          0.9098039215686274,
+          0.9098039215686274
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-selected",
+      "cssValue": "#e8e8e8"
+    },
+    "primitive.color.lightSuccess": {
+      "path": "primitive.color.lightSuccess",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1411764705882353,
+          0.4196078431372549,
+          0.23529411764705882
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-success",
+      "cssValue": "#246b3c"
+    },
+    "primitive.color.lightText": {
+      "path": "primitive.color.lightText",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.10196078431372549,
+          0.10196078431372549,
+          0.10196078431372549
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-text",
+      "cssValue": "#1a1a1a"
+    },
+    "primitive.color.lightWarning": {
+      "path": "primitive.color.lightWarning",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.47058823529411764,
+          0.3411764705882353,
+          0.058823529411764705
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-light-warning",
+      "cssValue": "#78570f"
+    },
+    "primitive.color.neutralAmberReadable": {
+      "path": "primitive.color.neutralAmberReadable",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8549019607843137,
+          0.7333333333333333,
+          0.4823529411764706
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-amber-readable",
+      "cssValue": "#dabb7b"
+    },
+    "primitive.color.neutralBlueReadable": {
+      "path": "primitive.color.neutralBlueReadable",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.611764705882353,
+          0.7333333333333333,
+          0.9019607843137255
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-blue-readable",
+      "cssValue": "#9cbbe6"
+    },
+    "primitive.color.neutralGray100": {
+      "path": "primitive.color.neutralGray100",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9333333333333333,
+          0.9333333333333333,
+          0.9333333333333333
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-100",
+      "cssValue": "#eeeeee"
+    },
+    "primitive.color.neutralGray150": {
+      "path": "primitive.color.neutralGray150",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8549019607843137,
+          0.8549019607843137,
+          0.8549019607843137
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-150",
+      "cssValue": "#dadada"
+    },
+    "primitive.color.neutralGray300": {
+      "path": "primitive.color.neutralGray300",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7215686274509804,
+          0.7215686274509804,
+          0.7215686274509804
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-300",
+      "cssValue": "#b8b8b8"
+    },
+    "primitive.color.neutralGray500": {
+      "path": "primitive.color.neutralGray500",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.592156862745098,
+          0.592156862745098,
+          0.592156862745098
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-500",
+      "cssValue": "#979797"
+    },
+    "primitive.color.neutralGray600": {
+      "path": "primitive.color.neutralGray600",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4666666666666667,
+          0.4666666666666667,
+          0.4666666666666667
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-600",
+      "cssValue": "#777777"
+    },
+    "primitive.color.neutralGray800": {
+      "path": "primitive.color.neutralGray800",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.18823529411764706,
+          0.18823529411764706,
+          0.18823529411764706
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-800",
+      "cssValue": "#303030"
+    },
+    "primitive.color.neutralGray825": {
+      "path": "primitive.color.neutralGray825",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.17254901960784313,
+          0.17254901960784313,
+          0.17254901960784313
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-825",
+      "cssValue": "#2c2c2c"
+    },
+    "primitive.color.neutralGray850": {
+      "path": "primitive.color.neutralGray850",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1607843137254902,
+          0.1607843137254902,
+          0.1607843137254902
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-850",
+      "cssValue": "#292929"
+    },
+    "primitive.color.neutralGray875": {
+      "path": "primitive.color.neutralGray875",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1411764705882353,
+          0.1411764705882353,
+          0.1411764705882353
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-875",
+      "cssValue": "#242424"
+    },
+    "primitive.color.neutralGray900": {
+      "path": "primitive.color.neutralGray900",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.13333333333333333,
+          0.13333333333333333,
+          0.13333333333333333
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-900",
+      "cssValue": "#222222"
+    },
+    "primitive.color.neutralGray905": {
+      "path": "primitive.color.neutralGray905",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12941176470588237,
+          0.12941176470588237,
+          0.12941176470588237
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-905",
+      "cssValue": "#212121"
+    },
+    "primitive.color.neutralGray915": {
+      "path": "primitive.color.neutralGray915",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.11372549019607843,
+          0.11372549019607843,
+          0.11372549019607843
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-915",
+      "cssValue": "#1d1d1d"
+    },
+    "primitive.color.neutralGray925": {
+      "path": "primitive.color.neutralGray925",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.10196078431372549,
+          0.10196078431372549,
+          0.10196078431372549
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-925",
+      "cssValue": "#1a1a1a"
+    },
+    "primitive.color.neutralGray950": {
+      "path": "primitive.color.neutralGray950",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0784313725490196,
+          0.0784313725490196,
+          0.0784313725490196
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-gray-950",
+      "cssValue": "#141414"
+    },
+    "primitive.color.neutralGreenReadable": {
+      "path": "primitive.color.neutralGreenReadable",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5254901960784314,
+          0.788235294117647,
+          0.6039215686274509
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-green-readable",
+      "cssValue": "#86c99a"
+    },
+    "primitive.color.neutralRedReadable": {
+      "path": "primitive.color.neutralRedReadable",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9215686274509803,
+          0.596078431372549,
+          0.596078431372549
+        ],
+        "alpha": 1
+      },
+      "cssName": "--color-primitive-neutral-red-readable",
+      "cssValue": "#eb9898"
+    },
     "primitive.color.presenceAway": {
       "path": "primitive.color.presenceAway",
       "type": "color",
@@ -887,13 +1543,16 @@
   },
   "semanticPaths": [
     "color.action.danger",
+    "color.action.dangerContent",
     "color.action.dangerHover",
     "color.action.primary",
     "color.action.primaryContent",
     "color.action.primaryHover",
     "color.border.control",
     "color.border.controlFocus",
+    "color.border.decorative",
     "color.border.dialog",
+    "color.border.essential",
     "color.border.menuSeparator",
     "color.border.popover",
     "color.border.primary",
@@ -901,6 +1560,7 @@
     "color.border.tertiary",
     "color.border.translucent",
     "color.border.transparent",
+    "color.content.disabled",
     "color.content.inverse",
     "color.content.primary",
     "color.content.secondary",
@@ -926,6 +1586,7 @@
     "color.navigation.tabFgSelected",
     "color.sidebar.itemActive",
     "color.sidebar.itemHover",
+    "color.sidebar.itemText",
     "color.status.errorBorder",
     "color.status.errorContent",
     "color.status.errorSurface",
@@ -949,6 +1610,7 @@
     "color.surface.popover",
     "color.surface.quaternary",
     "color.surface.readOnly",
+    "color.surface.recessed",
     "color.surface.scrim",
     "color.surface.selected",
     "color.surface.sidebar",
@@ -956,6 +1618,7 @@
     "color.surface.surface",
     "color.surface.translucent",
     "color.switch.thumb",
+    "color.switch.thumbOn",
     "color.switch.trackOff",
     "color.switch.trackOffCompact",
     "color.switch.trackOffHover",
@@ -1006,18 +1669,27 @@
     "elevation.toast.keyY",
     "elevation.toast.ring",
     "font.button",
+    "font.code",
     "font.sans",
+    "motion.feedback",
+    "motion.overlay",
+    "motion.reduced",
+    "motion.state",
     "opacity.disabled",
     "opacity.enabled",
     "radius.control",
+    "radius.media",
     "radius.overlay",
     "radius.panel",
     "radius.popover",
     "radius.rounded",
+    "radius.row",
     "size.borderControl",
     "size.borderDialog",
+    "size.catalogRow",
     "size.controlCompact",
     "size.controlDefault",
+    "size.controlTouch",
     "size.dialog",
     "size.iconButtonCompact",
     "size.iconButtonDefault",
@@ -1025,13 +1697,49 @@
     "size.inputDefault",
     "size.label",
     "size.labelMarker",
+    "size.navigationRow",
     "size.sidebar",
+    "size.topbar",
+    "space.0",
     "space.1",
+    "space.12",
     "space.2",
     "space.3",
     "space.4",
     "space.6",
-    "space.labelGap"
+    "space.8",
+    "space.controlInlinePadding",
+    "space.fieldLabelGap",
+    "space.groupItemGap",
+    "space.groupSectionGap",
+    "space.half",
+    "space.inlineIconGap",
+    "space.labelGap",
+    "space.pageGutter",
+    "type.body.lineHeight",
+    "type.body.size",
+    "type.body.weight",
+    "type.code.lineHeight",
+    "type.code.size",
+    "type.code.weight",
+    "type.docsBody.lineHeight",
+    "type.docsBody.size",
+    "type.docsBody.weight",
+    "type.label.lineHeight",
+    "type.label.size",
+    "type.label.weight",
+    "type.metadata.lineHeight",
+    "type.metadata.size",
+    "type.metadata.weight",
+    "type.navigation.lineHeight",
+    "type.navigation.size",
+    "type.navigation.weight",
+    "type.pageTitle.lineHeight",
+    "type.pageTitle.size",
+    "type.pageTitle.weight",
+    "type.sectionTitle.lineHeight",
+    "type.sectionTitle.size",
+    "type.sectionTitle.weight"
   ],
   "contexts": {
     "dark": {
@@ -1041,14 +1749,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.898039,
-            0.282353,
-            0.301961
+            0.9215686274509803,
+            0.596078431372549,
+            0.596078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-action-danger",
-        "cssValue": "#e5484d"
+        "cssValue": "#eb9898"
+      },
+      "color.action.dangerContent": {
+        "path": "color.action.dangerContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-danger-content",
+        "cssValue": "#1a1a1a"
       },
       "color.action.dangerHover": {
         "path": "color.action.dangerHover",
@@ -1056,14 +1779,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.862745,
-            0.14902,
-            0.14902
+            0.9411764705882353,
+            0.6784313725490196,
+            0.6784313725490196
           ],
           "alpha": 1
         },
         "cssName": "--color-action-danger-hover",
-        "cssValue": "#dc2626"
+        "cssValue": "#f0adad"
       },
       "color.action.primary": {
         "path": "color.action.primary",
@@ -1071,14 +1794,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.898039,
-            0.898039,
-            0.901961
+            0.9333333333333333,
+            0.9333333333333333,
+            0.9333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-action-primary",
-        "cssValue": "#e5e5e6"
+        "cssValue": "#eeeeee"
       },
       "color.action.primaryContent": {
         "path": "color.action.primaryContent",
@@ -1086,14 +1809,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.098039,
-            0.101961,
-            0.105882
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-action-primary-content",
-        "cssValue": "#191a1b"
+        "cssValue": "#1a1a1a"
       },
       "color.action.primaryHover": {
         "path": "color.action.primaryHover",
@@ -1101,14 +1824,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.8549019607843137,
+            0.8549019607843137,
+            0.8549019607843137
           ],
           "alpha": 1
         },
         "cssName": "--color-action-primary-hover",
-        "cssValue": "#ffffff"
+        "cssValue": "#dadada"
       },
       "color.border.control": {
         "path": "color.border.control",
@@ -1116,14 +1839,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.282353,
-            0.286275,
-            0.298039
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-control",
-        "cssValue": "#48494c"
+        "cssValue": "#777777"
       },
       "color.border.controlFocus": {
         "path": "color.border.controlFocus",
@@ -1131,14 +1854,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.243137,
-            0.258824,
-            0.301961
+            0.8549019607843137,
+            0.8549019607843137,
+            0.8549019607843137
           ],
           "alpha": 1
         },
         "cssName": "--color-border-control-focus",
-        "cssValue": "#3e424d"
+        "cssValue": "#dadada"
+      },
+      "color.border.decorative": {
+        "path": "color.border.decorative",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.17254901960784313,
+            0.17254901960784313,
+            0.17254901960784313
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-decorative",
+        "cssValue": "#2c2c2c"
       },
       "color.border.dialog": {
         "path": "color.border.dialog",
@@ -1146,14 +1884,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.121569,
-            0.121569
+            0.17254901960784313,
+            0.17254901960784313,
+            0.17254901960784313
           ],
           "alpha": 1
         },
         "cssName": "--color-border-dialog",
-        "cssValue": "#1f1f1f"
+        "cssValue": "#2c2c2c"
+      },
+      "color.border.essential": {
+        "path": "color.border.essential",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-essential",
+        "cssValue": "#777777"
       },
       "color.border.menuSeparator": {
         "path": "color.border.menuSeparator",
@@ -1161,14 +1914,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.2,
-            0.2,
-            0.2
+            0.17254901960784313,
+            0.17254901960784313,
+            0.17254901960784313
           ],
           "alpha": 1
         },
         "cssName": "--color-border-menu-separator",
-        "cssValue": "#333333"
+        "cssValue": "#2c2c2c"
       },
       "color.border.popover": {
         "path": "color.border.popover",
@@ -1176,14 +1929,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.247059,
-            0.25098,
-            0.266667
+            0.18823529411764706,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-border-popover",
-        "cssValue": "#3f4044"
+        "cssValue": "#303030"
       },
       "color.border.primary": {
         "path": "color.border.primary",
@@ -1191,14 +1944,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.439216,
-            0.443137,
-            0.447059
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-primary",
-        "cssValue": "#707172"
+        "cssValue": "#777777"
       },
       "color.border.secondary": {
         "path": "color.border.secondary",
@@ -1206,14 +1959,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.2,
-            0.2,
-            0.2
+            0.17254901960784313,
+            0.17254901960784313,
+            0.17254901960784313
           ],
           "alpha": 1
         },
         "cssName": "--color-border-secondary",
-        "cssValue": "#333333"
+        "cssValue": "#2c2c2c"
       },
       "color.border.tertiary": {
         "path": "color.border.tertiary",
@@ -1221,14 +1974,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.121569,
-            0.121569
+            0.12941176470588237,
+            0.12941176470588237,
+            0.12941176470588237
           ],
           "alpha": 1
         },
         "cssName": "--color-border-tertiary",
-        "cssValue": "#1f1f1f"
+        "cssValue": "#212121"
       },
       "color.border.translucent": {
         "path": "color.border.translucent",
@@ -1236,14 +1989,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.17254901960784313,
+            0.17254901960784313,
+            0.17254901960784313
           ],
-          "alpha": 0.03
+          "alpha": 1
         },
         "cssName": "--color-border-translucent",
-        "cssValue": "#ffffff08"
+        "cssValue": "#2c2c2c"
       },
       "color.border.transparent": {
         "path": "color.border.transparent",
@@ -1260,20 +2013,35 @@
         "cssName": "--color-border-transparent",
         "cssValue": "#00000000"
       },
+      "color.content.disabled": {
+        "path": "color.content.disabled",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-disabled",
+        "cssValue": "#777777"
+      },
       "color.content.inverse": {
         "path": "color.content.inverse",
         "type": "color",
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-content-inverse",
-        "cssValue": "#000000"
+        "cssValue": "#1a1a1a"
       },
       "color.content.primary": {
         "path": "color.content.primary",
@@ -1281,14 +2049,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.968627,
-            0.972549,
-            0.972549
+            0.9333333333333333,
+            0.9333333333333333,
+            0.9333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-content-primary",
-        "cssValue": "#f7f8f8"
+        "cssValue": "#eeeeee"
       },
       "color.content.secondary": {
         "path": "color.content.secondary",
@@ -1296,14 +2064,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.831373,
-            0.831373,
-            0.831373
+            0.7215686274509804,
+            0.7215686274509804,
+            0.7215686274509804
           ],
           "alpha": 1
         },
         "cssName": "--color-content-secondary",
-        "cssValue": "#d4d4d4"
+        "cssValue": "#b8b8b8"
       },
       "color.content.tertiary": {
         "path": "color.content.tertiary",
@@ -1311,14 +2079,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.541176,
-            0.560784,
-            0.596078
+            0.592156862745098,
+            0.592156862745098,
+            0.592156862745098
           ],
           "alpha": 1
         },
         "cssName": "--color-content-tertiary",
-        "cssValue": "#8a8f98"
+        "cssValue": "#979797"
       },
       "color.focus.ring": {
         "path": "color.focus.ring",
@@ -1326,14 +2094,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.368627,
-            0.415686,
-            0.823529
+            0.8549019607843137,
+            0.8549019607843137,
+            0.8549019607843137
           ],
           "alpha": 1
         },
         "cssName": "--color-focus-ring",
-        "cssValue": "#5e6ad2"
+        "cssValue": "#dadada"
       },
       "color.interaction.pressedOverlay": {
         "path": "color.interaction.pressedOverlay",
@@ -1356,14 +2124,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.247059,
-            0.25098,
-            0.266667
+            0.18823529411764706,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-label-border",
-        "cssValue": "#3f4044"
+        "cssValue": "#303030"
       },
       "color.label.contentDefault": {
         "path": "color.label.contentDefault",
@@ -1371,14 +2139,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.831373,
-            0.831373,
-            0.831373
+            0.7215686274509804,
+            0.7215686274509804,
+            0.7215686274509804
           ],
           "alpha": 1
         },
         "cssName": "--color-label-content-default",
-        "cssValue": "#d4d4d4"
+        "cssValue": "#b8b8b8"
       },
       "color.label.contentHover": {
         "path": "color.label.contentHover",
@@ -1386,14 +2154,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9333333333333333,
+            0.9333333333333333,
+            0.9333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-label-content-hover",
-        "cssValue": "#ffffff"
+        "cssValue": "#eeeeee"
       },
       "color.label.markerBlue": {
         "path": "color.label.markerBlue",
@@ -1401,14 +2169,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.305882,
-            0.654902,
-            0.988235
+            0.611764705882353,
+            0.7333333333333333,
+            0.9019607843137255
           ],
           "alpha": 1
         },
         "cssName": "--color-label-marker-blue",
-        "cssValue": "#4ea7fc"
+        "cssValue": "#9cbbe6"
       },
       "color.label.markerPurple": {
         "path": "color.label.markerPurple",
@@ -1416,14 +2184,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.733333,
-            0.529412,
-            0.988235
+            0.7725490196078432,
+            0.6862745098039216,
+            0.9019607843137255
           ],
           "alpha": 1
         },
         "cssName": "--color-label-marker-purple",
-        "cssValue": "#bb87fc"
+        "cssValue": "#c5afe6"
       },
       "color.label.markerRed": {
         "path": "color.label.markerRed",
@@ -1431,14 +2199,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.921569,
-            0.341176,
-            0.341176
+            0.9215686274509803,
+            0.596078431372549,
+            0.596078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-label-marker-red",
-        "cssValue": "#eb5757"
+        "cssValue": "#eb9898"
       },
       "color.label.surfaceDefault": {
         "path": "color.label.surfaceDefault",
@@ -1446,14 +2214,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.156863,
-            0.172549
+            0.13333333333333333,
+            0.13333333333333333,
+            0.13333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-label-surface-default",
-        "cssValue": "#28282c"
+        "cssValue": "#222222"
       },
       "color.label.surfaceHover": {
         "path": "color.label.surfaceHover",
@@ -1461,14 +2229,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.164706,
-            0.188235
+            0.1607843137254902,
+            0.1607843137254902,
+            0.1607843137254902
           ],
           "alpha": 1
         },
         "cssName": "--color-label-surface-hover",
-        "cssValue": "#282a30"
+        "cssValue": "#292929"
       },
       "color.label.surfaceOpen": {
         "path": "color.label.surfaceOpen",
@@ -1476,14 +2244,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.160784,
-            0.168627
+            0.11372549019607843,
+            0.11372549019607843,
+            0.11372549019607843
           ],
           "alpha": 1
         },
         "cssName": "--color-label-surface-open",
-        "cssValue": "#28292b"
+        "cssValue": "#1d1d1d"
       },
       "color.navigation.tabBg": {
         "path": "color.navigation.tabBg",
@@ -1491,14 +2259,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-bg",
-        "cssValue": "#000000"
+        "cssValue": "#1a1a1a"
       },
       "color.navigation.tabBgHover": {
         "path": "color.navigation.tabBgHover",
@@ -1506,14 +2274,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.121569,
-            0.121569
+            0.12941176470588237,
+            0.12941176470588237,
+            0.12941176470588237
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-bg-hover",
-        "cssValue": "#1f1f1f"
+        "cssValue": "#212121"
       },
       "color.navigation.tabBgSelected": {
         "path": "color.navigation.tabBgSelected",
@@ -1521,14 +2289,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.156863,
-            0.172549
+            0.1411764705882353,
+            0.1411764705882353,
+            0.1411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-bg-selected",
-        "cssValue": "#28282c"
+        "cssValue": "#242424"
       },
       "color.navigation.tabEdge": {
         "path": "color.navigation.tabEdge",
@@ -1536,14 +2304,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
-          "alpha": 0.03
+          "alpha": 1
         },
         "cssName": "--color-navigation-tab-edge",
-        "cssValue": "#ffffff08"
+        "cssValue": "#1a1a1a"
       },
       "color.navigation.tabEdgeHover": {
         "path": "color.navigation.tabEdgeHover",
@@ -1551,14 +2319,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.2,
-            0.2,
-            0.2
+            0.13333333333333333,
+            0.13333333333333333,
+            0.13333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-edge-hover",
-        "cssValue": "#333333"
+        "cssValue": "#222222"
       },
       "color.navigation.tabFg": {
         "path": "color.navigation.tabFg",
@@ -1566,14 +2334,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.541176,
-            0.560784,
-            0.596078
+            0.8549019607843137,
+            0.8549019607843137,
+            0.8549019607843137
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-fg",
-        "cssValue": "#8a8f98"
+        "cssValue": "#dadada"
       },
       "color.navigation.tabFgHover": {
         "path": "color.navigation.tabFgHover",
@@ -1581,14 +2349,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9333333333333333,
+            0.9333333333333333,
+            0.9333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-fg-hover",
-        "cssValue": "#ffffff"
+        "cssValue": "#eeeeee"
       },
       "color.navigation.tabFgSelected": {
         "path": "color.navigation.tabFgSelected",
@@ -1596,14 +2364,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.968627,
-            0.972549,
-            0.972549
+            0.9333333333333333,
+            0.9333333333333333,
+            0.9333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-fg-selected",
-        "cssValue": "#f7f8f8"
+        "cssValue": "#eeeeee"
       },
       "color.sidebar.itemActive": {
         "path": "color.sidebar.itemActive",
@@ -1611,14 +2379,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.156863,
-            0.172549
+            0.12941176470588237,
+            0.12941176470588237,
+            0.12941176470588237
           ],
           "alpha": 1
         },
         "cssName": "--color-sidebar-item-active",
-        "cssValue": "#28282c"
+        "cssValue": "#212121"
       },
       "color.sidebar.itemHover": {
         "path": "color.sidebar.itemHover",
@@ -1626,14 +2394,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.094118,
-            0.094118,
-            0.101961
+            0.12941176470588237,
+            0.12941176470588237,
+            0.12941176470588237
           ],
           "alpha": 1
         },
         "cssName": "--color-sidebar-item-hover",
-        "cssValue": "#18181a"
+        "cssValue": "#212121"
+      },
+      "color.sidebar.itemText": {
+        "path": "color.sidebar.itemText",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8549019607843137,
+            0.8549019607843137,
+            0.8549019607843137
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-sidebar-item-text",
+        "cssValue": "#dadada"
       },
       "color.status.errorBorder": {
         "path": "color.status.errorBorder",
@@ -1641,14 +2424,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.898039,
-            0.282353,
-            0.301961
+            0.9215686274509803,
+            0.596078431372549,
+            0.596078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-status-error-border",
-        "cssValue": "#e5484d"
+        "cssValue": "#eb9898"
       },
       "color.status.errorContent": {
         "path": "color.status.errorContent",
@@ -1656,14 +2439,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.898039,
-            0.282353,
-            0.301961
+            0.9215686274509803,
+            0.596078431372549,
+            0.596078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-status-error-content",
-        "cssValue": "#e5484d"
+        "cssValue": "#eb9898"
       },
       "color.status.errorSurface": {
         "path": "color.status.errorSurface",
@@ -1671,14 +2454,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.039216,
-            0.039216,
-            0.039216
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-status-error-surface",
-        "cssValue": "#0a0a0a"
+        "cssValue": "#1a1a1a"
       },
       "color.status.infoContent": {
         "path": "color.status.infoContent",
@@ -1686,14 +2469,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.2,
-            0.2,
-            0.2
+            0.611764705882353,
+            0.7333333333333333,
+            0.9019607843137255
           ],
           "alpha": 1
         },
         "cssName": "--color-status-info-content",
-        "cssValue": "#333333"
+        "cssValue": "#9cbbe6"
       },
       "color.status.neutralContent": {
         "path": "color.status.neutralContent",
@@ -1701,14 +2484,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.439216,
-            0.443137,
-            0.447059
+            0.592156862745098,
+            0.592156862745098,
+            0.592156862745098
           ],
           "alpha": 1
         },
         "cssName": "--color-status-neutral-content",
-        "cssValue": "#707172"
+        "cssValue": "#979797"
       },
       "color.status.presenceAway": {
         "path": "color.status.presenceAway",
@@ -1716,14 +2499,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.541176,
-            0.352941,
-            0
+            0.8549019607843137,
+            0.7333333333333333,
+            0.4823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-away",
-        "cssValue": "#8a5a00"
+        "cssValue": "#dabb7b"
       },
       "color.status.presenceBusy": {
         "path": "color.status.presenceBusy",
@@ -1731,14 +2514,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.862745,
-            0.14902,
-            0.14902
+            0.9215686274509803,
+            0.596078431372549,
+            0.596078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-busy",
-        "cssValue": "#dc2626"
+        "cssValue": "#eb9898"
       },
       "color.status.presenceOffline": {
         "path": "color.status.presenceOffline",
@@ -1746,14 +2529,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.439216,
-            0.443137,
-            0.447059
+            0.592156862745098,
+            0.592156862745098,
+            0.592156862745098
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-offline",
-        "cssValue": "#707172"
+        "cssValue": "#979797"
       },
       "color.status.presenceOnline": {
         "path": "color.status.presenceOnline",
@@ -1761,14 +2544,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0.478431,
-            0.239216
+            0.5254901960784314,
+            0.788235294117647,
+            0.6039215686274509
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-online",
-        "cssValue": "#007a3d"
+        "cssValue": "#86c99a"
       },
       "color.status.successContent": {
         "path": "color.status.successContent",
@@ -1776,14 +2559,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0.478431,
-            0.239216
+            0.5254901960784314,
+            0.788235294117647,
+            0.6039215686274509
           ],
           "alpha": 1
         },
         "cssName": "--color-status-success-content",
-        "cssValue": "#007a3d"
+        "cssValue": "#86c99a"
       },
       "color.status.warningContent": {
         "path": "color.status.warningContent",
@@ -1791,14 +2574,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.541176,
-            0.352941,
-            0
+            0.8549019607843137,
+            0.7333333333333333,
+            0.4823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-status-warning-content",
-        "cssValue": "#8a5a00"
+        "cssValue": "#dabb7b"
       },
       "color.surface.canvas": {
         "path": "color.surface.canvas",
@@ -1806,14 +2589,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-canvas",
-        "cssValue": "#000000"
+        "cssValue": "#1a1a1a"
       },
       "color.surface.control": {
         "path": "color.surface.control",
@@ -1821,14 +2604,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.098039,
-            0.101961,
-            0.105882
+            0.13333333333333333,
+            0.13333333333333333,
+            0.13333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-control",
-        "cssValue": "#191a1b"
+        "cssValue": "#222222"
       },
       "color.surface.dialog": {
         "path": "color.surface.dialog",
@@ -1836,14 +2619,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.098039,
-            0.101961,
-            0.105882
+            0.1411764705882353,
+            0.1411764705882353,
+            0.1411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-dialog",
-        "cssValue": "#191a1b"
+        "cssValue": "#242424"
       },
       "color.surface.elevated": {
         "path": "color.surface.elevated",
@@ -1851,14 +2634,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.039216,
-            0.039216,
-            0.039216
+            0.1411764705882353,
+            0.1411764705882353,
+            0.1411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-elevated",
-        "cssValue": "#0a0a0a"
+        "cssValue": "#242424"
       },
       "color.surface.interactive": {
         "path": "color.surface.interactive",
@@ -1866,14 +2649,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-interactive",
-        "cssValue": "#000000"
+        "cssValue": "#1a1a1a"
       },
       "color.surface.interactiveHover": {
         "path": "color.surface.interactiveHover",
@@ -1881,14 +2664,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.121569,
-            0.121569
+            0.12941176470588237,
+            0.12941176470588237,
+            0.12941176470588237
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-interactive-hover",
-        "cssValue": "#1f1f1f"
+        "cssValue": "#212121"
       },
       "color.surface.level3": {
         "path": "color.surface.level3",
@@ -1896,14 +2679,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.098039,
-            0.101961,
-            0.105882
+            0.1607843137254902,
+            0.1607843137254902,
+            0.1607843137254902
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-level3",
-        "cssValue": "#191a1b"
+        "cssValue": "#292929"
       },
       "color.surface.overlayHover": {
         "path": "color.surface.overlayHover",
@@ -1911,14 +2694,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.223529,
-            0.227451,
-            0.239216
+            0.1411764705882353,
+            0.1411764705882353,
+            0.1411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-overlay-hover",
-        "cssValue": "#393a3d"
+        "cssValue": "#242424"
       },
       "color.surface.panel": {
         "path": "color.surface.panel",
@@ -1926,14 +2709,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.101961,
-            0.101961,
-            0.105882
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-panel",
-        "cssValue": "#1a1a1b"
+        "cssValue": "#1a1a1a"
       },
       "color.surface.popover": {
         "path": "color.surface.popover",
@@ -1941,14 +2724,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.160784,
-            0.168627
+            0.11372549019607843,
+            0.11372549019607843,
+            0.11372549019607843
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-popover",
-        "cssValue": "#28292b"
+        "cssValue": "#1d1d1d"
       },
       "color.surface.quaternary": {
         "path": "color.surface.quaternary",
@@ -1956,14 +2739,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.156863,
-            0.172549
+            0.13333333333333333,
+            0.13333333333333333,
+            0.13333333333333333
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-quaternary",
-        "cssValue": "#28282c"
+        "cssValue": "#222222"
       },
       "color.surface.readOnly": {
         "path": "color.surface.readOnly",
@@ -1971,14 +2754,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.039216,
-            0.039216,
-            0.039216
+            0.0784313725490196,
+            0.0784313725490196,
+            0.0784313725490196
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-read-only",
-        "cssValue": "#0a0a0a"
+        "cssValue": "#141414"
+      },
+      "color.surface.recessed": {
+        "path": "color.surface.recessed",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0784313725490196,
+            0.0784313725490196,
+            0.0784313725490196
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-recessed",
+        "cssValue": "#141414"
       },
       "color.surface.scrim": {
         "path": "color.surface.scrim",
@@ -1990,10 +2788,10 @@
             0,
             0
           ],
-          "alpha": 0.32
+          "alpha": 0.4
         },
         "cssName": "--color-surface-scrim",
-        "cssValue": "#00000052"
+        "cssValue": "#00000066"
       },
       "color.surface.selected": {
         "path": "color.surface.selected",
@@ -2001,14 +2799,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.121569,
-            0.121569
+            0.1607843137254902,
+            0.1607843137254902,
+            0.1607843137254902
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-selected",
-        "cssValue": "#1f1f1f"
+        "cssValue": "#292929"
       },
       "color.surface.sidebar": {
         "path": "color.surface.sidebar",
@@ -2016,14 +2814,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.039216,
-            0.039216,
-            0.039216
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-sidebar",
-        "cssValue": "#0a0a0a"
+        "cssValue": "#1a1a1a"
       },
       "color.surface.subtle": {
         "path": "color.surface.subtle",
@@ -2031,17 +2829,152 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.039216,
-            0.039216,
-            0.039216
+            0.0784313725490196,
+            0.0784313725490196,
+            0.0784313725490196
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-subtle",
-        "cssValue": "#0a0a0a"
+        "cssValue": "#141414"
       },
       "color.surface.surface": {
         "path": "color.surface.surface",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-surface",
+        "cssValue": "#1a1a1a"
+      },
+      "color.surface.translucent": {
+        "path": "color.surface.translucent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.13333333333333333,
+            0.13333333333333333,
+            0.13333333333333333
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-translucent",
+        "cssValue": "#222222"
+      },
+      "color.switch.thumb": {
+        "path": "color.switch.thumb",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-thumb",
+        "cssValue": "#1a1a1a"
+      },
+      "color.switch.thumbOn": {
+        "path": "color.switch.thumbOn",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-thumb-on",
+        "cssValue": "#1a1a1a"
+      },
+      "color.switch.trackOff": {
+        "path": "color.switch.trackOff",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off",
+        "cssValue": "#777777"
+      },
+      "color.switch.trackOffCompact": {
+        "path": "color.switch.trackOffCompact",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off-compact",
+        "cssValue": "#777777"
+      },
+      "color.switch.trackOffHover": {
+        "path": "color.switch.trackOffHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.592156862745098,
+            0.592156862745098,
+            0.592156862745098
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-off-hover",
+        "cssValue": "#979797"
+      },
+      "color.switch.trackOn": {
+        "path": "color.switch.trackOn",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9333333333333333,
+            0.9333333333333333,
+            0.9333333333333333
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-on",
+        "cssValue": "#eeeeee"
+      },
+      "color.switch.trackOnHover": {
+        "path": "color.switch.trackOnHover",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8549019607843137,
+            0.8549019607843137,
+            0.8549019607843137
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-track-on-hover",
+        "cssValue": "#dadada"
+      },
+      "elevation.control.ambient": {
+        "path": "elevation.control.ambient",
         "type": "color",
         "value": {
           "colorSpace": "srgb",
@@ -2050,130 +2983,10 @@
             0,
             0
           ],
-          "alpha": 1
-        },
-        "cssName": "--color-surface-surface",
-        "cssValue": "#000000"
-      },
-      "color.surface.translucent": {
-        "path": "color.surface.translucent",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            1,
-            1,
-            1
-          ],
-          "alpha": 0.05
-        },
-        "cssName": "--color-surface-translucent",
-        "cssValue": "#ffffff0d"
-      },
-      "color.switch.thumb": {
-        "path": "color.switch.thumb",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            1,
-            1,
-            1
-          ],
-          "alpha": 1
-        },
-        "cssName": "--color-switch-thumb",
-        "cssValue": "#ffffff"
-      },
-      "color.switch.trackOff": {
-        "path": "color.switch.trackOff",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.439216,
-            0.443137,
-            0.447059
-          ],
-          "alpha": 1
-        },
-        "cssName": "--color-switch-track-off",
-        "cssValue": "#707172"
-      },
-      "color.switch.trackOffCompact": {
-        "path": "color.switch.trackOffCompact",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.831373,
-            0.831373,
-            0.831373
-          ],
-          "alpha": 1
-        },
-        "cssName": "--color-switch-track-off-compact",
-        "cssValue": "#d4d4d4"
-      },
-      "color.switch.trackOffHover": {
-        "path": "color.switch.trackOffHover",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.52549,
-            0.529412,
-            0.537255
-          ],
-          "alpha": 1
-        },
-        "cssName": "--color-switch-track-off-hover",
-        "cssValue": "#868789"
-      },
-      "color.switch.trackOn": {
-        "path": "color.switch.trackOn",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.368627,
-            0.415686,
-            0.823529
-          ],
-          "alpha": 1
-        },
-        "cssName": "--color-switch-track-on",
-        "cssValue": "#5e6ad2"
-      },
-      "color.switch.trackOnHover": {
-        "path": "color.switch.trackOnHover",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.411765,
-            0.458824,
-            0.886275
-          ],
-          "alpha": 1
-        },
-        "cssName": "--color-switch-track-on-hover",
-        "cssValue": "#6975e2"
-      },
-      "elevation.control.ambient": {
-        "path": "elevation.control.ambient",
-        "type": "color",
-        "value": {
-          "colorSpace": "srgb",
-          "components": [
-            1,
-            1,
-            1
-          ],
-          "alpha": 0.143
+          "alpha": 0
         },
         "cssName": "--elevation-control-ambient",
-        "cssValue": "#ffffff24"
+        "cssValue": "#00000000"
       },
       "elevation.control.detail": {
         "path": "elevation.control.detail",
@@ -2220,40 +3033,40 @@
             0,
             0
           ],
-          "alpha": 0.3
+          "alpha": 0
         },
         "cssName": "--elevation-control-key",
-        "cssValue": "#0000004d"
+        "cssValue": "#00000000"
       },
       "elevation.control.keyBlur": {
         "path": "elevation.control.keyBlur",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": 6,
           "unit": "px"
         },
         "cssName": "--elevation-control-key-blur",
-        "cssValue": "1px"
+        "cssValue": "6px"
       },
       "elevation.control.keySpread": {
         "path": "elevation.control.keySpread",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": -2,
           "unit": "px"
         },
         "cssName": "--elevation-control-key-spread",
-        "cssValue": "1px"
+        "cssValue": "-2px"
       },
       "elevation.control.keyY": {
         "path": "elevation.control.keyY",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 3,
           "unit": "px"
         },
         "cssName": "--elevation-control-key-y",
-        "cssValue": "0.5px"
+        "cssValue": "3px"
       },
       "elevation.dialog.ambient": {
         "path": "elevation.dialog.ambient",
@@ -2265,10 +3078,10 @@
             0,
             0
           ],
-          "alpha": 0.08
+          "alpha": 0.24
         },
         "cssName": "--elevation-dialog-ambient",
-        "cssValue": "#00000014"
+        "cssValue": "#0000003d"
       },
       "elevation.dialog.ambientBlur": {
         "path": "elevation.dialog.ambientBlur",
@@ -2300,10 +3113,10 @@
             0,
             0
           ],
-          "alpha": 0
+          "alpha": 0.24
         },
         "cssName": "--elevation-dialog-detail",
-        "cssValue": "#00000000"
+        "cssValue": "#0000003d"
       },
       "elevation.dialog.detailBlur": {
         "path": "elevation.dialog.detailBlur",
@@ -2335,10 +3148,10 @@
             0,
             0
           ],
-          "alpha": 0.1
+          "alpha": 0.24
         },
         "cssName": "--elevation-dialog-key",
-        "cssValue": "#0000001a"
+        "cssValue": "#0000003d"
       },
       "elevation.dialog.keyBlur": {
         "path": "elevation.dialog.keyBlur",
@@ -2370,10 +3183,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.24
         },
         "cssName": "--elevation-dialog-mid",
-        "cssValue": "#0000000a"
+        "cssValue": "#0000003d"
       },
       "elevation.dialog.midBlur": {
         "path": "elevation.dialog.midBlur",
@@ -2405,10 +3218,10 @@
             0,
             0
           ],
-          "alpha": 0
+          "alpha": 0.24
         },
         "cssName": "--elevation-dialog-soft",
-        "cssValue": "#00000000"
+        "cssValue": "#0000003d"
       },
       "elevation.dialog.softBlur": {
         "path": "elevation.dialog.softBlur",
@@ -2440,30 +3253,30 @@
             0,
             0
           ],
-          "alpha": 0.125
+          "alpha": 0.24
         },
         "cssName": "--elevation-overlay-ambient",
-        "cssValue": "#00000020"
+        "cssValue": "#0000003d"
       },
       "elevation.overlay.ambientBlur": {
         "path": "elevation.overlay.ambientBlur",
         "type": "dimension",
         "value": {
-          "value": 8,
+          "value": 18,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-ambient-blur",
-        "cssValue": "8px"
+        "cssValue": "18px"
       },
       "elevation.overlay.ambientY": {
         "path": "elevation.overlay.ambientY",
         "type": "dimension",
         "value": {
-          "value": 3,
+          "value": 6,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-ambient-y",
-        "cssValue": "3px"
+        "cssValue": "6px"
       },
       "elevation.overlay.detail": {
         "path": "elevation.overlay.detail",
@@ -2475,10 +3288,10 @@
             0,
             0
           ],
-          "alpha": 0.125
+          "alpha": 0.24
         },
         "cssName": "--elevation-overlay-detail",
-        "cssValue": "#00000020"
+        "cssValue": "#0000003d"
       },
       "elevation.overlay.key": {
         "path": "elevation.overlay.key",
@@ -2490,30 +3303,30 @@
             0,
             0
           ],
-          "alpha": 0.125
+          "alpha": 0.24
         },
         "cssName": "--elevation-overlay-key",
-        "cssValue": "#00000020"
+        "cssValue": "#0000003d"
       },
       "elevation.overlay.keyBlur": {
         "path": "elevation.overlay.keyBlur",
         "type": "dimension",
         "value": {
-          "value": 5,
+          "value": 9,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-key-blur",
-        "cssValue": "5px"
+        "cssValue": "9px"
       },
       "elevation.overlay.keyY": {
         "path": "elevation.overlay.keyY",
         "type": "dimension",
         "value": {
-          "value": 2,
+          "value": 3,
           "unit": "px"
         },
         "cssName": "--elevation-overlay-key-y",
-        "cssValue": "2px"
+        "cssValue": "3px"
       },
       "elevation.panel.ambient": {
         "path": "elevation.panel.ambient",
@@ -2521,14 +3334,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0,
+            0,
+            0
           ],
-          "alpha": 0.083
+          "alpha": 0
         },
         "cssName": "--elevation-panel-ambient",
-        "cssValue": "#ffffff15"
+        "cssValue": "#00000000"
       },
       "elevation.panel.detail": {
         "path": "elevation.panel.detail",
@@ -2555,40 +3368,40 @@
             0,
             0
           ],
-          "alpha": 0.3
+          "alpha": 0
         },
         "cssName": "--elevation-panel-key",
-        "cssValue": "#0000004d"
+        "cssValue": "#00000000"
       },
       "elevation.panel.keyBlur": {
         "path": "elevation.panel.keyBlur",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": 6,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-blur",
-        "cssValue": "1px"
+        "cssValue": "6px"
       },
       "elevation.panel.keySpread": {
         "path": "elevation.panel.keySpread",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": -2,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-spread",
-        "cssValue": "1px"
+        "cssValue": "-2px"
       },
       "elevation.panel.keyY": {
         "path": "elevation.panel.keyY",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 3,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-y",
-        "cssValue": "0.5px"
+        "cssValue": "3px"
       },
       "elevation.toast.ambient": {
         "path": "elevation.toast.ambient",
@@ -2600,10 +3413,10 @@
             0,
             0
           ],
-          "alpha": 0.02
+          "alpha": 0.24
         },
         "cssName": "--elevation-toast-ambient",
-        "cssValue": "#00000005"
+        "cssValue": "#0000003d"
       },
       "elevation.toast.ambientBlur": {
         "path": "elevation.toast.ambientBlur",
@@ -2635,10 +3448,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.24
         },
         "cssName": "--elevation-toast-detail",
-        "cssValue": "#0000000a"
+        "cssValue": "#0000003d"
       },
       "elevation.toast.key": {
         "path": "elevation.toast.key",
@@ -2650,10 +3463,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.24
         },
         "cssName": "--elevation-toast-key",
-        "cssValue": "#0000000a"
+        "cssValue": "#0000003d"
       },
       "elevation.toast.keyBlur": {
         "path": "elevation.toast.keyBlur",
@@ -2685,34 +3498,95 @@
             0,
             0
           ],
-          "alpha": 0.086275
+          "alpha": 0.24
         },
         "cssName": "--elevation-toast-ring",
-        "cssValue": "#00000016"
+        "cssValue": "#0000003d"
       },
       "font.button": {
         "path": "font.button",
         "type": "fontFamily",
         "value": [
-          "IBM Plex Sans",
-          "Inter",
-          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "PingFang SC",
+          "Hiragino Sans GB",
+          "Microsoft YaHei",
           "sans-serif"
         ],
         "cssName": "--font-button",
-        "cssValue": "\"IBM Plex Sans\", \"Inter\", ui-sans-serif, sans-serif"
+        "cssValue": "system-ui, \"-apple-system\", \"BlinkMacSystemFont\", \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif"
+      },
+      "font.code": {
+        "path": "font.code",
+        "type": "fontFamily",
+        "value": [
+          "ui-monospace",
+          "SFMono-Regular",
+          "Consolas",
+          "Liberation Mono",
+          "monospace"
+        ],
+        "cssName": "--font-code",
+        "cssValue": "ui-monospace, \"SFMono-Regular\", \"Consolas\", \"Liberation Mono\", monospace"
       },
       "font.sans": {
         "path": "font.sans",
         "type": "fontFamily",
         "value": [
-          "Inter",
-          "ui-sans-serif",
           "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "PingFang SC",
+          "Hiragino Sans GB",
+          "Microsoft YaHei",
           "sans-serif"
         ],
         "cssName": "--font-sans",
-        "cssValue": "\"Inter\", ui-sans-serif, system-ui, sans-serif"
+        "cssValue": "system-ui, \"-apple-system\", \"BlinkMacSystemFont\", \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif"
+      },
+      "motion.feedback": {
+        "path": "motion.feedback",
+        "type": "duration",
+        "value": {
+          "value": 120,
+          "unit": "ms"
+        },
+        "cssName": "--motion-feedback",
+        "cssValue": "120ms"
+      },
+      "motion.overlay": {
+        "path": "motion.overlay",
+        "type": "duration",
+        "value": {
+          "value": 200,
+          "unit": "ms"
+        },
+        "cssName": "--motion-overlay",
+        "cssValue": "200ms"
+      },
+      "motion.reduced": {
+        "path": "motion.reduced",
+        "type": "duration",
+        "value": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "cssName": "--motion-reduced",
+        "cssValue": "0ms"
+      },
+      "motion.state": {
+        "path": "motion.state",
+        "type": "duration",
+        "value": {
+          "value": 160,
+          "unit": "ms"
+        },
+        "cssName": "--motion-state",
+        "cssValue": "160ms"
       },
       "opacity.disabled": {
         "path": "opacity.disabled",
@@ -2732,31 +3606,41 @@
         "path": "radius.control",
         "type": "dimension",
         "value": {
-          "value": 8,
+          "value": 6,
           "unit": "px"
         },
         "cssName": "--radius-control",
-        "cssValue": "8px"
+        "cssValue": "6px"
+      },
+      "radius.media": {
+        "path": "radius.media",
+        "type": "dimension",
+        "value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "cssName": "--radius-media",
+        "cssValue": "16px"
       },
       "radius.overlay": {
         "path": "radius.overlay",
         "type": "dimension",
         "value": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "cssName": "--radius-overlay",
-        "cssValue": "8px"
+        "cssValue": "12px"
       },
       "radius.panel": {
         "path": "radius.panel",
         "type": "dimension",
         "value": {
-          "value": 10,
+          "value": 8,
           "unit": "px"
         },
         "cssName": "--radius-panel",
-        "cssValue": "10px"
+        "cssValue": "8px"
       },
       "radius.popover": {
         "path": "radius.popover",
@@ -2778,25 +3662,45 @@
         "cssName": "--radius-rounded",
         "cssValue": "999px"
       },
+      "radius.row": {
+        "path": "radius.row",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--radius-row",
+        "cssValue": "8px"
+      },
       "size.borderControl": {
         "path": "size.borderControl",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 1,
           "unit": "px"
         },
         "cssName": "--size-border-control",
-        "cssValue": "0.5px"
+        "cssValue": "1px"
       },
       "size.borderDialog": {
         "path": "size.borderDialog",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 1,
           "unit": "px"
         },
         "cssName": "--size-border-dialog",
-        "cssValue": "0.5px"
+        "cssValue": "1px"
+      },
+      "size.catalogRow": {
+        "path": "size.catalogRow",
+        "type": "dimension",
+        "value": {
+          "value": 64,
+          "unit": "px"
+        },
+        "cssName": "--size-catalog-row",
+        "cssValue": "64px"
       },
       "size.controlCompact": {
         "path": "size.controlCompact",
@@ -2818,6 +3722,16 @@
         "cssName": "--size-control-default",
         "cssValue": "32px"
       },
+      "size.controlTouch": {
+        "path": "size.controlTouch",
+        "type": "dimension",
+        "value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "cssName": "--size-control-touch",
+        "cssValue": "44px"
+      },
       "size.dialog": {
         "path": "size.dialog",
         "type": "dimension",
@@ -2832,31 +3746,31 @@
         "path": "size.iconButtonCompact",
         "type": "dimension",
         "value": {
-          "value": 24,
+          "value": 28,
           "unit": "px"
         },
         "cssName": "--size-icon-button-compact",
-        "cssValue": "24px"
+        "cssValue": "28px"
       },
       "size.iconButtonDefault": {
         "path": "size.iconButtonDefault",
         "type": "dimension",
         "value": {
-          "value": 28,
+          "value": 32,
           "unit": "px"
         },
         "cssName": "--size-icon-button-default",
-        "cssValue": "28px"
+        "cssValue": "32px"
       },
       "size.iconDefault": {
         "path": "size.iconDefault",
         "type": "dimension",
         "value": {
-          "value": 14,
+          "value": 16,
           "unit": "px"
         },
         "cssName": "--size-icon-default",
-        "cssValue": "14px"
+        "cssValue": "16px"
       },
       "size.inputDefault": {
         "path": "size.inputDefault",
@@ -2888,15 +3802,45 @@
         "cssName": "--size-label-marker",
         "cssValue": "9px"
       },
+      "size.navigationRow": {
+        "path": "size.navigationRow",
+        "type": "dimension",
+        "value": {
+          "value": 36,
+          "unit": "px"
+        },
+        "cssName": "--size-navigation-row",
+        "cssValue": "36px"
+      },
       "size.sidebar": {
         "path": "size.sidebar",
         "type": "dimension",
         "value": {
-          "value": 244,
+          "value": 248,
           "unit": "px"
         },
         "cssName": "--size-sidebar",
-        "cssValue": "244px"
+        "cssValue": "248px"
+      },
+      "size.topbar": {
+        "path": "size.topbar",
+        "type": "dimension",
+        "value": {
+          "value": 56,
+          "unit": "px"
+        },
+        "cssName": "--size-topbar",
+        "cssValue": "56px"
+      },
+      "space.0": {
+        "path": "space.0",
+        "type": "dimension",
+        "value": {
+          "value": 0,
+          "unit": "px"
+        },
+        "cssName": "--space-0",
+        "cssValue": "0px"
       },
       "space.1": {
         "path": "space.1",
@@ -2907,6 +3851,16 @@
         },
         "cssName": "--space-1",
         "cssValue": "4px"
+      },
+      "space.12": {
+        "path": "space.12",
+        "type": "dimension",
+        "value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "cssName": "--space-12",
+        "cssValue": "48px"
       },
       "space.2": {
         "path": "space.2",
@@ -2948,6 +3902,76 @@
         "cssName": "--space-6",
         "cssValue": "24px"
       },
+      "space.8": {
+        "path": "space.8",
+        "type": "dimension",
+        "value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "cssName": "--space-8",
+        "cssValue": "32px"
+      },
+      "space.controlInlinePadding": {
+        "path": "space.controlInlinePadding",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--space-control-inline-padding",
+        "cssValue": "12px"
+      },
+      "space.fieldLabelGap": {
+        "path": "space.fieldLabelGap",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--space-field-label-gap",
+        "cssValue": "8px"
+      },
+      "space.groupItemGap": {
+        "path": "space.groupItemGap",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--space-group-item-gap",
+        "cssValue": "12px"
+      },
+      "space.groupSectionGap": {
+        "path": "space.groupSectionGap",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--space-group-section-gap",
+        "cssValue": "24px"
+      },
+      "space.half": {
+        "path": "space.half",
+        "type": "dimension",
+        "value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "cssName": "--space-half",
+        "cssValue": "2px"
+      },
+      "space.inlineIconGap": {
+        "path": "space.inlineIconGap",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--space-inline-icon-gap",
+        "cssValue": "8px"
+      },
       "space.labelGap": {
         "path": "space.labelGap",
         "type": "dimension",
@@ -2957,6 +3981,232 @@
         },
         "cssName": "--space-label-gap",
         "cssValue": "6px"
+      },
+      "space.pageGutter": {
+        "path": "space.pageGutter",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--space-page-gutter",
+        "cssValue": "24px"
+      },
+      "type.body.lineHeight": {
+        "path": "type.body.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 22,
+          "unit": "px"
+        },
+        "cssName": "--type-body-line-height",
+        "cssValue": "22px"
+      },
+      "type.body.size": {
+        "path": "type.body.size",
+        "type": "dimension",
+        "value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "cssName": "--type-body-size",
+        "cssValue": "14px"
+      },
+      "type.body.weight": {
+        "path": "type.body.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-body-weight",
+        "cssValue": "400"
+      },
+      "type.code.lineHeight": {
+        "path": "type.code.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-code-line-height",
+        "cssValue": "20px"
+      },
+      "type.code.size": {
+        "path": "type.code.size",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--type-code-size",
+        "cssValue": "12px"
+      },
+      "type.code.weight": {
+        "path": "type.code.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-code-weight",
+        "cssValue": "400"
+      },
+      "type.docsBody.lineHeight": {
+        "path": "type.docsBody.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--type-docs-body-line-height",
+        "cssValue": "28px"
+      },
+      "type.docsBody.size": {
+        "path": "type.docsBody.size",
+        "type": "dimension",
+        "value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "cssName": "--type-docs-body-size",
+        "cssValue": "16px"
+      },
+      "type.docsBody.weight": {
+        "path": "type.docsBody.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-docs-body-weight",
+        "cssValue": "400"
+      },
+      "type.label.lineHeight": {
+        "path": "type.label.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-label-line-height",
+        "cssValue": "20px"
+      },
+      "type.label.size": {
+        "path": "type.label.size",
+        "type": "dimension",
+        "value": {
+          "value": 13,
+          "unit": "px"
+        },
+        "cssName": "--type-label-size",
+        "cssValue": "13px"
+      },
+      "type.label.weight": {
+        "path": "type.label.weight",
+        "type": "fontWeight",
+        "value": 500,
+        "cssName": "--type-label-weight",
+        "cssValue": "500"
+      },
+      "type.metadata.lineHeight": {
+        "path": "type.metadata.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "cssName": "--type-metadata-line-height",
+        "cssValue": "18px"
+      },
+      "type.metadata.size": {
+        "path": "type.metadata.size",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--type-metadata-size",
+        "cssValue": "12px"
+      },
+      "type.metadata.weight": {
+        "path": "type.metadata.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-metadata-weight",
+        "cssValue": "400"
+      },
+      "type.navigation.lineHeight": {
+        "path": "type.navigation.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-navigation-line-height",
+        "cssValue": "20px"
+      },
+      "type.navigation.size": {
+        "path": "type.navigation.size",
+        "type": "dimension",
+        "value": {
+          "value": 13.5,
+          "unit": "px"
+        },
+        "cssName": "--type-navigation-size",
+        "cssValue": "13.5px"
+      },
+      "type.navigation.weight": {
+        "path": "type.navigation.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-navigation-weight",
+        "cssValue": "400"
+      },
+      "type.pageTitle.lineHeight": {
+        "path": "type.pageTitle.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--type-page-title-line-height",
+        "cssValue": "28px"
+      },
+      "type.pageTitle.size": {
+        "path": "type.pageTitle.size",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-page-title-size",
+        "cssValue": "20px"
+      },
+      "type.pageTitle.weight": {
+        "path": "type.pageTitle.weight",
+        "type": "fontWeight",
+        "value": 600,
+        "cssName": "--type-page-title-weight",
+        "cssValue": "600"
+      },
+      "type.sectionTitle.lineHeight": {
+        "path": "type.sectionTitle.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-section-title-line-height",
+        "cssValue": "20px"
+      },
+      "type.sectionTitle.size": {
+        "path": "type.sectionTitle.size",
+        "type": "dimension",
+        "value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "cssName": "--type-section-title-size",
+        "cssValue": "14px"
+      },
+      "type.sectionTitle.weight": {
+        "path": "type.sectionTitle.weight",
+        "type": "fontWeight",
+        "value": 600,
+        "cssName": "--type-section-title-weight",
+        "cssValue": "600"
       }
     },
     "light": {
@@ -2966,14 +4216,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.862745,
-            0.14902,
-            0.14902
+            0.6392156862745098,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-action-danger",
-        "cssValue": "#dc2626"
+        "cssValue": "#a33030"
+      },
+      "color.action.dangerContent": {
+        "path": "color.action.dangerContent",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-action-danger-content",
+        "cssValue": "#fafafa"
       },
       "color.action.dangerHover": {
         "path": "color.action.dangerHover",
@@ -2981,14 +4246,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.898039,
-            0.282353,
-            0.301961
+            0.5176470588235295,
+            0.13725490196078433,
+            0.13725490196078433
           ],
           "alpha": 1
         },
         "cssName": "--color-action-danger-hover",
-        "cssValue": "#e5484d"
+        "cssValue": "#842323"
       },
       "color.action.primary": {
         "path": "color.action.primary",
@@ -2996,14 +4261,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.164706,
-            0.188235
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-action-primary",
-        "cssValue": "#282a30"
+        "cssValue": "#1a1a1a"
       },
       "color.action.primaryContent": {
         "path": "color.action.primaryContent",
@@ -3011,9 +4276,9 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.980392,
-            0.980392,
-            0.980392
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
@@ -3026,14 +4291,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.12549,
-            0.141176
+            0.2,
+            0.2,
+            0.2
           ],
           "alpha": 1
         },
         "cssName": "--color-action-primary-hover",
-        "cssValue": "#1f2024"
+        "cssValue": "#333333"
       },
       "color.border.control": {
         "path": "color.border.control",
@@ -3041,14 +4306,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.847059,
-            0.847059,
-            0.847059
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-control",
-        "cssValue": "#d8d8d8"
+        "cssValue": "#777777"
       },
       "color.border.controlFocus": {
         "path": "color.border.controlFocus",
@@ -3056,14 +4321,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.760784,
-            0.760784,
-            0.760784
+            0.2901960784313726,
+            0.2901960784313726,
+            0.2901960784313726
           ],
           "alpha": 1
         },
         "cssName": "--color-border-control-focus",
-        "cssValue": "#c2c2c2"
+        "cssValue": "#4a4a4a"
+      },
+      "color.border.decorative": {
+        "path": "color.border.decorative",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-decorative",
+        "cssValue": "#dddddd"
       },
       "color.border.dialog": {
         "path": "color.border.dialog",
@@ -3071,14 +4351,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.831373,
-            0.831373,
-            0.831373
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-dialog",
-        "cssValue": "#d4d4d4"
+        "cssValue": "#dddddd"
+      },
+      "color.border.essential": {
+        "path": "color.border.essential",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-border-essential",
+        "cssValue": "#777777"
       },
       "color.border.menuSeparator": {
         "path": "color.border.menuSeparator",
@@ -3086,14 +4381,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.917647,
-            0.917647,
-            0.917647
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-menu-separator",
-        "cssValue": "#eaeaea"
+        "cssValue": "#dddddd"
       },
       "color.border.popover": {
         "path": "color.border.popover",
@@ -3101,14 +4396,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.847059,
-            0.847059,
-            0.847059
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-popover",
-        "cssValue": "#d8d8d8"
+        "cssValue": "#dddddd"
       },
       "color.border.primary": {
         "path": "color.border.primary",
@@ -3116,14 +4411,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.439216,
-            0.443137,
-            0.447059
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-primary",
-        "cssValue": "#707172"
+        "cssValue": "#777777"
       },
       "color.border.secondary": {
         "path": "color.border.secondary",
@@ -3131,14 +4426,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.831373,
-            0.831373,
-            0.831373
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-secondary",
-        "cssValue": "#d4d4d4"
+        "cssValue": "#dddddd"
       },
       "color.border.tertiary": {
         "path": "color.border.tertiary",
@@ -3146,14 +4441,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.917647,
-            0.917647,
-            0.917647
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-tertiary",
-        "cssValue": "#eaeaea"
+        "cssValue": "#dddddd"
       },
       "color.border.translucent": {
         "path": "color.border.translucent",
@@ -3161,14 +4456,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
-          "alpha": 0.08
+          "alpha": 1
         },
         "cssName": "--color-border-translucent",
-        "cssValue": "#00000014"
+        "cssValue": "#dddddd"
       },
       "color.border.transparent": {
         "path": "color.border.transparent",
@@ -3185,20 +4480,35 @@
         "cssName": "--color-border-transparent",
         "cssValue": "#00000000"
       },
+      "color.content.disabled": {
+        "path": "color.content.disabled",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5215686274509804,
+            0.5215686274509804,
+            0.5215686274509804
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-content-disabled",
+        "cssValue": "#858585"
+      },
       "color.content.inverse": {
         "path": "color.content.inverse",
         "type": "color",
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
         "cssName": "--color-content-inverse",
-        "cssValue": "#ffffff"
+        "cssValue": "#fafafa"
       },
       "color.content.primary": {
         "path": "color.content.primary",
@@ -3206,14 +4516,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.156863,
-            0.164706,
-            0.188235
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-content-primary",
-        "cssValue": "#282a30"
+        "cssValue": "#1a1a1a"
       },
       "color.content.secondary": {
         "path": "color.content.secondary",
@@ -3221,14 +4531,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.2,
-            0.2,
-            0.2
+            0.2901960784313726,
+            0.2901960784313726,
+            0.2901960784313726
           ],
           "alpha": 1
         },
         "cssName": "--color-content-secondary",
-        "cssValue": "#333333"
+        "cssValue": "#4a4a4a"
       },
       "color.content.tertiary": {
         "path": "color.content.tertiary",
@@ -3236,14 +4546,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.435294,
-            0.431373,
-            0.466667
+            0.38823529411764707,
+            0.38823529411764707,
+            0.38823529411764707
           ],
           "alpha": 1
         },
         "cssName": "--color-content-tertiary",
-        "cssValue": "#6f6e77"
+        "cssValue": "#636363"
       },
       "color.focus.ring": {
         "path": "color.focus.ring",
@@ -3251,14 +4561,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.368627,
-            0.415686,
-            0.823529
+            0.2901960784313726,
+            0.2901960784313726,
+            0.2901960784313726
           ],
           "alpha": 1
         },
         "cssName": "--color-focus-ring",
-        "cssValue": "#5e6ad2"
+        "cssValue": "#4a4a4a"
       },
       "color.interaction.pressedOverlay": {
         "path": "color.interaction.pressedOverlay",
@@ -3270,10 +4580,10 @@
             0,
             0
           ],
-          "alpha": 0.08
+          "alpha": 0.05
         },
         "cssName": "--color-interaction-pressed-overlay",
-        "cssValue": "#00000014"
+        "cssValue": "#0000000d"
       },
       "color.label.border": {
         "path": "color.label.border",
@@ -3281,14 +4591,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.870588,
-            0.870588,
-            0.870588
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-label-border",
-        "cssValue": "#dedede"
+        "cssValue": "#dddddd"
       },
       "color.label.contentDefault": {
         "path": "color.label.contentDefault",
@@ -3296,14 +4606,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.184314,
-            0.184314,
-            0.192157
+            0.2901960784313726,
+            0.2901960784313726,
+            0.2901960784313726
           ],
           "alpha": 1
         },
         "cssName": "--color-label-content-default",
-        "cssValue": "#2f2f31"
+        "cssValue": "#4a4a4a"
       },
       "color.label.contentHover": {
         "path": "color.label.contentHover",
@@ -3311,14 +4621,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.105882,
-            0.105882,
-            0.105882
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-label-content-hover",
-        "cssValue": "#1b1b1b"
+        "cssValue": "#1a1a1a"
       },
       "color.label.markerBlue": {
         "path": "color.label.markerBlue",
@@ -3326,14 +4636,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.305882,
-            0.654902,
-            0.988235
+            0.19215686274509805,
+            0.36470588235294116,
+            0.5882352941176471
           ],
           "alpha": 1
         },
         "cssName": "--color-label-marker-blue",
-        "cssValue": "#4ea7fc"
+        "cssValue": "#315d96"
       },
       "color.label.markerPurple": {
         "path": "color.label.markerPurple",
@@ -3341,14 +4651,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.733333,
-            0.529412,
-            0.988235
+            0.4392156862745098,
+            0.28627450980392155,
+            0.6392156862745098
           ],
           "alpha": 1
         },
         "cssName": "--color-label-marker-purple",
-        "cssValue": "#bb87fc"
+        "cssValue": "#7049a3"
       },
       "color.label.markerRed": {
         "path": "color.label.markerRed",
@@ -3356,14 +4666,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.921569,
-            0.341176,
-            0.341176
+            0.6392156862745098,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-label-marker-red",
-        "cssValue": "#eb5757"
+        "cssValue": "#a33030"
       },
       "color.label.surfaceDefault": {
         "path": "color.label.surfaceDefault",
@@ -3371,14 +4681,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.972549,
-            0.972549,
-            0.976471
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-label-surface-default",
-        "cssValue": "#f8f8f9"
+        "cssValue": "#f0f0f0"
       },
       "color.label.surfaceHover": {
         "path": "color.label.surfaceHover",
@@ -3386,14 +4696,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.92549,
-            0.92549,
-            0.929412
+            0.9098039215686274,
+            0.9098039215686274,
+            0.9098039215686274
           ],
           "alpha": 1
         },
         "cssName": "--color-label-surface-hover",
-        "cssValue": "#ececed"
+        "cssValue": "#e8e8e8"
       },
       "color.label.surfaceOpen": {
         "path": "color.label.surfaceOpen",
@@ -3401,14 +4711,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.941176,
-            0.941176,
-            0.945098
+            1,
+            1,
+            1
           ],
           "alpha": 1
         },
         "cssName": "--color-label-surface-open",
-        "cssValue": "#f0f0f1"
+        "cssValue": "#ffffff"
       },
       "color.navigation.tabBg": {
         "path": "color.navigation.tabBg",
@@ -3416,9 +4726,9 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.980392,
-            0.980392,
-            0.980392
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
@@ -3431,14 +4741,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.960784,
-            0.960784,
-            0.960784
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-bg-hover",
-        "cssValue": "#f5f5f5"
+        "cssValue": "#f0f0f0"
       },
       "color.navigation.tabBgSelected": {
         "path": "color.navigation.tabBgSelected",
@@ -3446,14 +4756,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.917647,
-            0.917647,
-            0.917647
+            0.9098039215686274,
+            0.9098039215686274,
+            0.9098039215686274
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-bg-selected",
-        "cssValue": "#eaeaea"
+        "cssValue": "#e8e8e8"
       },
       "color.navigation.tabEdge": {
         "path": "color.navigation.tabEdge",
@@ -3461,14 +4771,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
-          "alpha": 0.08
+          "alpha": 1
         },
         "cssName": "--color-navigation-tab-edge",
-        "cssValue": "#00000014"
+        "cssValue": "#fafafa"
       },
       "color.navigation.tabEdgeHover": {
         "path": "color.navigation.tabEdgeHover",
@@ -3476,14 +4786,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
-          "alpha": 0.15
+          "alpha": 1
         },
         "cssName": "--color-navigation-tab-edge-hover",
-        "cssValue": "#00000026"
+        "cssValue": "#f0f0f0"
       },
       "color.navigation.tabFg": {
         "path": "color.navigation.tabFg",
@@ -3491,14 +4801,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.435294,
-            0.431373,
-            0.466667
+            0.2901960784313726,
+            0.2901960784313726,
+            0.2901960784313726
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-fg",
-        "cssValue": "#6f6e77"
+        "cssValue": "#4a4a4a"
       },
       "color.navigation.tabFgHover": {
         "path": "color.navigation.tabFgHover",
@@ -3506,14 +4816,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.121569,
-            0.121569,
-            0.121569
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-fg-hover",
-        "cssValue": "#1f1f1f"
+        "cssValue": "#1a1a1a"
       },
       "color.navigation.tabFgSelected": {
         "path": "color.navigation.tabFgSelected",
@@ -3521,14 +4831,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-fg-selected",
-        "cssValue": "#000000"
+        "cssValue": "#1a1a1a"
       },
       "color.sidebar.itemActive": {
         "path": "color.sidebar.itemActive",
@@ -3536,14 +4846,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.917647,
-            0.917647,
-            0.917647
+            0.9098039215686274,
+            0.9098039215686274,
+            0.9098039215686274
           ],
           "alpha": 1
         },
         "cssName": "--color-sidebar-item-active",
-        "cssValue": "#eaeaea"
+        "cssValue": "#e8e8e8"
       },
       "color.sidebar.itemHover": {
         "path": "color.sidebar.itemHover",
@@ -3551,14 +4861,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.905882,
-            0.905882,
-            0.909804
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-sidebar-item-hover",
-        "cssValue": "#e7e7e8"
+        "cssValue": "#f0f0f0"
+      },
+      "color.sidebar.itemText": {
+        "path": "color.sidebar.itemText",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-sidebar-item-text",
+        "cssValue": "#1a1a1a"
       },
       "color.status.errorBorder": {
         "path": "color.status.errorBorder",
@@ -3566,14 +4891,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.862745,
-            0.14902,
-            0.14902
+            0.6392156862745098,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-status-error-border",
-        "cssValue": "#dc2626"
+        "cssValue": "#a33030"
       },
       "color.status.errorContent": {
         "path": "color.status.errorContent",
@@ -3581,14 +4906,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.862745,
-            0.14902,
-            0.14902
+            0.6392156862745098,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-status-error-content",
-        "cssValue": "#dc2626"
+        "cssValue": "#a33030"
       },
       "color.status.errorSurface": {
         "path": "color.status.errorSurface",
@@ -3596,9 +4921,9 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.980392,
-            0.980392,
-            0.980392
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
@@ -3611,14 +4936,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.2,
-            0.2,
-            0.2
+            0.19215686274509805,
+            0.36470588235294116,
+            0.5882352941176471
           ],
           "alpha": 1
         },
         "cssName": "--color-status-info-content",
-        "cssValue": "#333333"
+        "cssValue": "#315d96"
       },
       "color.status.neutralContent": {
         "path": "color.status.neutralContent",
@@ -3626,14 +4951,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.439216,
-            0.443137,
-            0.447059
+            0.38823529411764707,
+            0.38823529411764707,
+            0.38823529411764707
           ],
           "alpha": 1
         },
         "cssName": "--color-status-neutral-content",
-        "cssValue": "#707172"
+        "cssValue": "#636363"
       },
       "color.status.presenceAway": {
         "path": "color.status.presenceAway",
@@ -3641,14 +4966,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.541176,
-            0.352941,
-            0
+            0.47058823529411764,
+            0.3411764705882353,
+            0.058823529411764705
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-away",
-        "cssValue": "#8a5a00"
+        "cssValue": "#78570f"
       },
       "color.status.presenceBusy": {
         "path": "color.status.presenceBusy",
@@ -3656,14 +4981,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.862745,
-            0.14902,
-            0.14902
+            0.6392156862745098,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-busy",
-        "cssValue": "#dc2626"
+        "cssValue": "#a33030"
       },
       "color.status.presenceOffline": {
         "path": "color.status.presenceOffline",
@@ -3671,14 +4996,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.439216,
-            0.443137,
-            0.447059
+            0.38823529411764707,
+            0.38823529411764707,
+            0.38823529411764707
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-offline",
-        "cssValue": "#707172"
+        "cssValue": "#636363"
       },
       "color.status.presenceOnline": {
         "path": "color.status.presenceOnline",
@@ -3686,14 +5011,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0.478431,
-            0.239216
+            0.1411764705882353,
+            0.4196078431372549,
+            0.23529411764705882
           ],
           "alpha": 1
         },
         "cssName": "--color-status-presence-online",
-        "cssValue": "#007a3d"
+        "cssValue": "#246b3c"
       },
       "color.status.successContent": {
         "path": "color.status.successContent",
@@ -3701,14 +5026,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0.478431,
-            0.239216
+            0.1411764705882353,
+            0.4196078431372549,
+            0.23529411764705882
           ],
           "alpha": 1
         },
         "cssName": "--color-status-success-content",
-        "cssValue": "#007a3d"
+        "cssValue": "#246b3c"
       },
       "color.status.warningContent": {
         "path": "color.status.warningContent",
@@ -3716,14 +5041,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.541176,
-            0.352941,
-            0
+            0.47058823529411764,
+            0.3411764705882353,
+            0.058823529411764705
           ],
           "alpha": 1
         },
         "cssName": "--color-status-warning-content",
-        "cssValue": "#8a5a00"
+        "cssValue": "#78570f"
       },
       "color.surface.canvas": {
         "path": "color.surface.canvas",
@@ -3731,9 +5056,9 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.980392,
-            0.980392,
-            0.980392
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
@@ -3746,14 +5071,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-control",
-        "cssValue": "#ffffff"
+        "cssValue": "#f0f0f0"
       },
       "color.surface.dialog": {
         "path": "color.surface.dialog",
@@ -3791,14 +5116,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-interactive",
-        "cssValue": "#ffffff"
+        "cssValue": "#fafafa"
       },
       "color.surface.interactiveHover": {
         "path": "color.surface.interactiveHover",
@@ -3806,14 +5131,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.960784,
-            0.960784,
-            0.960784
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-interactive-hover",
-        "cssValue": "#f5f5f5"
+        "cssValue": "#f0f0f0"
       },
       "color.surface.level3": {
         "path": "color.surface.level3",
@@ -3821,14 +5146,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.941176,
-            0.941176,
-            0.941176
+            0.9098039215686274,
+            0.9098039215686274,
+            0.9098039215686274
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-level3",
-        "cssValue": "#f0f0f0"
+        "cssValue": "#e8e8e8"
       },
       "color.surface.overlayHover": {
         "path": "color.surface.overlayHover",
@@ -3836,14 +5161,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.941176,
-            0.941176,
-            0.945098
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-overlay-hover",
-        "cssValue": "#f0f0f1"
+        "cssValue": "#f0f0f0"
       },
       "color.surface.panel": {
         "path": "color.surface.panel",
@@ -3851,14 +5176,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-panel",
-        "cssValue": "#ffffff"
+        "cssValue": "#fafafa"
       },
       "color.surface.popover": {
         "path": "color.surface.popover",
@@ -3881,14 +5206,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.933333,
-            0.929412,
-            0.941176
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-quaternary",
-        "cssValue": "#eeedf0"
+        "cssValue": "#f0f0f0"
       },
       "color.surface.readOnly": {
         "path": "color.surface.readOnly",
@@ -3896,14 +5221,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.980392,
-            0.980392,
-            0.980392
+            0.9490196078431372,
+            0.9490196078431372,
+            0.9490196078431372
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-read-only",
-        "cssValue": "#fafafa"
+        "cssValue": "#f2f2f2"
+      },
+      "color.surface.recessed": {
+        "path": "color.surface.recessed",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9490196078431372,
+            0.9490196078431372,
+            0.9490196078431372
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-surface-recessed",
+        "cssValue": "#f2f2f2"
       },
       "color.surface.scrim": {
         "path": "color.surface.scrim",
@@ -3915,10 +5255,10 @@
             0,
             0
           ],
-          "alpha": 0.32
+          "alpha": 0.4
         },
         "cssName": "--color-surface-scrim",
-        "cssValue": "#00000052"
+        "cssValue": "#00000066"
       },
       "color.surface.selected": {
         "path": "color.surface.selected",
@@ -3926,14 +5266,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.960784,
-            0.960784,
-            0.960784
+            0.9098039215686274,
+            0.9098039215686274,
+            0.9098039215686274
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-selected",
-        "cssValue": "#f5f5f5"
+        "cssValue": "#e8e8e8"
       },
       "color.surface.sidebar": {
         "path": "color.surface.sidebar",
@@ -3941,14 +5281,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.933333,
-            0.929412,
-            0.941176
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-sidebar",
-        "cssValue": "#eeedf0"
+        "cssValue": "#fafafa"
       },
       "color.surface.subtle": {
         "path": "color.surface.subtle",
@@ -3956,14 +5296,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.980392,
-            0.980392,
-            0.980392
+            0.9490196078431372,
+            0.9490196078431372,
+            0.9490196078431372
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-subtle",
-        "cssValue": "#fafafa"
+        "cssValue": "#f2f2f2"
       },
       "color.surface.surface": {
         "path": "color.surface.surface",
@@ -3971,14 +5311,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-surface",
-        "cssValue": "#ffffff"
+        "cssValue": "#fafafa"
       },
       "color.surface.translucent": {
         "path": "color.surface.translucent",
@@ -3986,14 +5326,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9411764705882353,
+            0.9411764705882353,
+            0.9411764705882353
           ],
           "alpha": 1
         },
         "cssName": "--color-surface-translucent",
-        "cssValue": "#ffffff"
+        "cssValue": "#f0f0f0"
       },
       "color.switch.thumb": {
         "path": "color.switch.thumb",
@@ -4001,14 +5341,29 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            1,
-            1,
-            1
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
           ],
           "alpha": 1
         },
         "cssName": "--color-switch-thumb",
-        "cssValue": "#ffffff"
+        "cssValue": "#fafafa"
+      },
+      "color.switch.thumbOn": {
+        "path": "color.switch.thumbOn",
+        "type": "color",
+        "value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451
+          ],
+          "alpha": 1
+        },
+        "cssName": "--color-switch-thumb-on",
+        "cssValue": "#fafafa"
       },
       "color.switch.trackOff": {
         "path": "color.switch.trackOff",
@@ -4016,14 +5371,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.439216,
-            0.443137,
-            0.447059
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-switch-track-off",
-        "cssValue": "#707172"
+        "cssValue": "#777777"
       },
       "color.switch.trackOffCompact": {
         "path": "color.switch.trackOffCompact",
@@ -4031,14 +5386,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.831373,
-            0.831373,
-            0.831373
+            0.4666666666666667,
+            0.4666666666666667,
+            0.4666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-switch-track-off-compact",
-        "cssValue": "#d4d4d4"
+        "cssValue": "#777777"
       },
       "color.switch.trackOffHover": {
         "path": "color.switch.trackOffHover",
@@ -4046,14 +5401,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.52549,
-            0.529412,
-            0.537255
+            0.38823529411764707,
+            0.38823529411764707,
+            0.38823529411764707
           ],
           "alpha": 1
         },
         "cssName": "--color-switch-track-off-hover",
-        "cssValue": "#868789"
+        "cssValue": "#636363"
       },
       "color.switch.trackOn": {
         "path": "color.switch.trackOn",
@@ -4061,14 +5416,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.368627,
-            0.415686,
-            0.823529
+            0.10196078431372549,
+            0.10196078431372549,
+            0.10196078431372549
           ],
           "alpha": 1
         },
         "cssName": "--color-switch-track-on",
-        "cssValue": "#5e6ad2"
+        "cssValue": "#1a1a1a"
       },
       "color.switch.trackOnHover": {
         "path": "color.switch.trackOnHover",
@@ -4076,14 +5431,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.411765,
-            0.458824,
-            0.886275
+            0.2,
+            0.2,
+            0.2
           ],
           "alpha": 1
         },
         "cssName": "--color-switch-track-on-hover",
-        "cssValue": "#6975e2"
+        "cssValue": "#333333"
       },
       "elevation.control.ambient": {
         "path": "elevation.control.ambient",
@@ -4095,10 +5450,10 @@
             0,
             0
           ],
-          "alpha": 0.086275
+          "alpha": 0
         },
         "cssName": "--elevation-control-ambient",
-        "cssValue": "#00000016"
+        "cssValue": "#00000000"
       },
       "elevation.control.detail": {
         "path": "elevation.control.detail",
@@ -4110,10 +5465,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0
         },
         "cssName": "--elevation-control-detail",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000000"
       },
       "elevation.control.detailBlur": {
         "path": "elevation.control.detailBlur",
@@ -4145,10 +5500,10 @@
             0,
             0
           ],
-          "alpha": 0.02
+          "alpha": 0
         },
         "cssName": "--elevation-control-key",
-        "cssValue": "#00000005"
+        "cssValue": "#00000000"
       },
       "elevation.control.keyBlur": {
         "path": "elevation.control.keyBlur",
@@ -4225,10 +5580,10 @@
             0,
             0
           ],
-          "alpha": 0
+          "alpha": 0.08
         },
         "cssName": "--elevation-dialog-detail",
-        "cssValue": "#00000000"
+        "cssValue": "#00000014"
       },
       "elevation.dialog.detailBlur": {
         "path": "elevation.dialog.detailBlur",
@@ -4260,10 +5615,10 @@
             0,
             0
           ],
-          "alpha": 0.1
+          "alpha": 0.08
         },
         "cssName": "--elevation-dialog-key",
-        "cssValue": "#0000001a"
+        "cssValue": "#00000014"
       },
       "elevation.dialog.keyBlur": {
         "path": "elevation.dialog.keyBlur",
@@ -4295,10 +5650,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.08
         },
         "cssName": "--elevation-dialog-mid",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000014"
       },
       "elevation.dialog.midBlur": {
         "path": "elevation.dialog.midBlur",
@@ -4330,10 +5685,10 @@
             0,
             0
           ],
-          "alpha": 0
+          "alpha": 0.08
         },
         "cssName": "--elevation-dialog-soft",
-        "cssValue": "#00000000"
+        "cssValue": "#00000014"
       },
       "elevation.dialog.softBlur": {
         "path": "elevation.dialog.softBlur",
@@ -4365,10 +5720,10 @@
             0,
             0
           ],
-          "alpha": 0.02
+          "alpha": 0.08
         },
         "cssName": "--elevation-overlay-ambient",
-        "cssValue": "#00000005"
+        "cssValue": "#00000014"
       },
       "elevation.overlay.ambientBlur": {
         "path": "elevation.overlay.ambientBlur",
@@ -4400,10 +5755,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.08
         },
         "cssName": "--elevation-overlay-detail",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000014"
       },
       "elevation.overlay.key": {
         "path": "elevation.overlay.key",
@@ -4415,10 +5770,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.08
         },
         "cssName": "--elevation-overlay-key",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000014"
       },
       "elevation.overlay.keyBlur": {
         "path": "elevation.overlay.keyBlur",
@@ -4450,10 +5805,10 @@
             0,
             0
           ],
-          "alpha": 0.086275
+          "alpha": 0
         },
         "cssName": "--elevation-panel-ambient",
-        "cssValue": "#00000016"
+        "cssValue": "#00000000"
       },
       "elevation.panel.detail": {
         "path": "elevation.panel.detail",
@@ -4465,10 +5820,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0
         },
         "cssName": "--elevation-panel-detail",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000000"
       },
       "elevation.panel.key": {
         "path": "elevation.panel.key",
@@ -4480,10 +5835,10 @@
             0,
             0
           ],
-          "alpha": 0.02
+          "alpha": 0
         },
         "cssName": "--elevation-panel-key",
-        "cssValue": "#00000005"
+        "cssValue": "#00000000"
       },
       "elevation.panel.keyBlur": {
         "path": "elevation.panel.keyBlur",
@@ -4525,10 +5880,10 @@
             0,
             0
           ],
-          "alpha": 0.02
+          "alpha": 0.08
         },
         "cssName": "--elevation-toast-ambient",
-        "cssValue": "#00000005"
+        "cssValue": "#00000014"
       },
       "elevation.toast.ambientBlur": {
         "path": "elevation.toast.ambientBlur",
@@ -4560,10 +5915,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.08
         },
         "cssName": "--elevation-toast-detail",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000014"
       },
       "elevation.toast.key": {
         "path": "elevation.toast.key",
@@ -4575,10 +5930,10 @@
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.08
         },
         "cssName": "--elevation-toast-key",
-        "cssValue": "#0000000a"
+        "cssValue": "#00000014"
       },
       "elevation.toast.keyBlur": {
         "path": "elevation.toast.keyBlur",
@@ -4610,34 +5965,95 @@
             0,
             0
           ],
-          "alpha": 0.086275
+          "alpha": 0.08
         },
         "cssName": "--elevation-toast-ring",
-        "cssValue": "#00000016"
+        "cssValue": "#00000014"
       },
       "font.button": {
         "path": "font.button",
         "type": "fontFamily",
         "value": [
-          "IBM Plex Sans",
-          "Inter",
-          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "PingFang SC",
+          "Hiragino Sans GB",
+          "Microsoft YaHei",
           "sans-serif"
         ],
         "cssName": "--font-button",
-        "cssValue": "\"IBM Plex Sans\", \"Inter\", ui-sans-serif, sans-serif"
+        "cssValue": "system-ui, \"-apple-system\", \"BlinkMacSystemFont\", \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif"
+      },
+      "font.code": {
+        "path": "font.code",
+        "type": "fontFamily",
+        "value": [
+          "ui-monospace",
+          "SFMono-Regular",
+          "Consolas",
+          "Liberation Mono",
+          "monospace"
+        ],
+        "cssName": "--font-code",
+        "cssValue": "ui-monospace, \"SFMono-Regular\", \"Consolas\", \"Liberation Mono\", monospace"
       },
       "font.sans": {
         "path": "font.sans",
         "type": "fontFamily",
         "value": [
-          "Inter",
-          "ui-sans-serif",
           "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "PingFang SC",
+          "Hiragino Sans GB",
+          "Microsoft YaHei",
           "sans-serif"
         ],
         "cssName": "--font-sans",
-        "cssValue": "\"Inter\", ui-sans-serif, system-ui, sans-serif"
+        "cssValue": "system-ui, \"-apple-system\", \"BlinkMacSystemFont\", \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif"
+      },
+      "motion.feedback": {
+        "path": "motion.feedback",
+        "type": "duration",
+        "value": {
+          "value": 120,
+          "unit": "ms"
+        },
+        "cssName": "--motion-feedback",
+        "cssValue": "120ms"
+      },
+      "motion.overlay": {
+        "path": "motion.overlay",
+        "type": "duration",
+        "value": {
+          "value": 200,
+          "unit": "ms"
+        },
+        "cssName": "--motion-overlay",
+        "cssValue": "200ms"
+      },
+      "motion.reduced": {
+        "path": "motion.reduced",
+        "type": "duration",
+        "value": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "cssName": "--motion-reduced",
+        "cssValue": "0ms"
+      },
+      "motion.state": {
+        "path": "motion.state",
+        "type": "duration",
+        "value": {
+          "value": 160,
+          "unit": "ms"
+        },
+        "cssName": "--motion-state",
+        "cssValue": "160ms"
       },
       "opacity.disabled": {
         "path": "opacity.disabled",
@@ -4657,31 +6073,41 @@
         "path": "radius.control",
         "type": "dimension",
         "value": {
-          "value": 8,
+          "value": 6,
           "unit": "px"
         },
         "cssName": "--radius-control",
-        "cssValue": "8px"
+        "cssValue": "6px"
+      },
+      "radius.media": {
+        "path": "radius.media",
+        "type": "dimension",
+        "value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "cssName": "--radius-media",
+        "cssValue": "16px"
       },
       "radius.overlay": {
         "path": "radius.overlay",
         "type": "dimension",
         "value": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "cssName": "--radius-overlay",
-        "cssValue": "8px"
+        "cssValue": "12px"
       },
       "radius.panel": {
         "path": "radius.panel",
         "type": "dimension",
         "value": {
-          "value": 10,
+          "value": 8,
           "unit": "px"
         },
         "cssName": "--radius-panel",
-        "cssValue": "10px"
+        "cssValue": "8px"
       },
       "radius.popover": {
         "path": "radius.popover",
@@ -4703,25 +6129,45 @@
         "cssName": "--radius-rounded",
         "cssValue": "999px"
       },
+      "radius.row": {
+        "path": "radius.row",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--radius-row",
+        "cssValue": "8px"
+      },
       "size.borderControl": {
         "path": "size.borderControl",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 1,
           "unit": "px"
         },
         "cssName": "--size-border-control",
-        "cssValue": "0.5px"
+        "cssValue": "1px"
       },
       "size.borderDialog": {
         "path": "size.borderDialog",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 1,
           "unit": "px"
         },
         "cssName": "--size-border-dialog",
-        "cssValue": "0.5px"
+        "cssValue": "1px"
+      },
+      "size.catalogRow": {
+        "path": "size.catalogRow",
+        "type": "dimension",
+        "value": {
+          "value": 64,
+          "unit": "px"
+        },
+        "cssName": "--size-catalog-row",
+        "cssValue": "64px"
       },
       "size.controlCompact": {
         "path": "size.controlCompact",
@@ -4743,6 +6189,16 @@
         "cssName": "--size-control-default",
         "cssValue": "32px"
       },
+      "size.controlTouch": {
+        "path": "size.controlTouch",
+        "type": "dimension",
+        "value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "cssName": "--size-control-touch",
+        "cssValue": "44px"
+      },
       "size.dialog": {
         "path": "size.dialog",
         "type": "dimension",
@@ -4757,31 +6213,31 @@
         "path": "size.iconButtonCompact",
         "type": "dimension",
         "value": {
-          "value": 24,
+          "value": 28,
           "unit": "px"
         },
         "cssName": "--size-icon-button-compact",
-        "cssValue": "24px"
+        "cssValue": "28px"
       },
       "size.iconButtonDefault": {
         "path": "size.iconButtonDefault",
         "type": "dimension",
         "value": {
-          "value": 28,
+          "value": 32,
           "unit": "px"
         },
         "cssName": "--size-icon-button-default",
-        "cssValue": "28px"
+        "cssValue": "32px"
       },
       "size.iconDefault": {
         "path": "size.iconDefault",
         "type": "dimension",
         "value": {
-          "value": 14,
+          "value": 16,
           "unit": "px"
         },
         "cssName": "--size-icon-default",
-        "cssValue": "14px"
+        "cssValue": "16px"
       },
       "size.inputDefault": {
         "path": "size.inputDefault",
@@ -4813,15 +6269,45 @@
         "cssName": "--size-label-marker",
         "cssValue": "9px"
       },
+      "size.navigationRow": {
+        "path": "size.navigationRow",
+        "type": "dimension",
+        "value": {
+          "value": 36,
+          "unit": "px"
+        },
+        "cssName": "--size-navigation-row",
+        "cssValue": "36px"
+      },
       "size.sidebar": {
         "path": "size.sidebar",
         "type": "dimension",
         "value": {
-          "value": 244,
+          "value": 248,
           "unit": "px"
         },
         "cssName": "--size-sidebar",
-        "cssValue": "244px"
+        "cssValue": "248px"
+      },
+      "size.topbar": {
+        "path": "size.topbar",
+        "type": "dimension",
+        "value": {
+          "value": 56,
+          "unit": "px"
+        },
+        "cssName": "--size-topbar",
+        "cssValue": "56px"
+      },
+      "space.0": {
+        "path": "space.0",
+        "type": "dimension",
+        "value": {
+          "value": 0,
+          "unit": "px"
+        },
+        "cssName": "--space-0",
+        "cssValue": "0px"
       },
       "space.1": {
         "path": "space.1",
@@ -4832,6 +6318,16 @@
         },
         "cssName": "--space-1",
         "cssValue": "4px"
+      },
+      "space.12": {
+        "path": "space.12",
+        "type": "dimension",
+        "value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "cssName": "--space-12",
+        "cssValue": "48px"
       },
       "space.2": {
         "path": "space.2",
@@ -4873,6 +6369,76 @@
         "cssName": "--space-6",
         "cssValue": "24px"
       },
+      "space.8": {
+        "path": "space.8",
+        "type": "dimension",
+        "value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "cssName": "--space-8",
+        "cssValue": "32px"
+      },
+      "space.controlInlinePadding": {
+        "path": "space.controlInlinePadding",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--space-control-inline-padding",
+        "cssValue": "12px"
+      },
+      "space.fieldLabelGap": {
+        "path": "space.fieldLabelGap",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--space-field-label-gap",
+        "cssValue": "8px"
+      },
+      "space.groupItemGap": {
+        "path": "space.groupItemGap",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--space-group-item-gap",
+        "cssValue": "12px"
+      },
+      "space.groupSectionGap": {
+        "path": "space.groupSectionGap",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--space-group-section-gap",
+        "cssValue": "24px"
+      },
+      "space.half": {
+        "path": "space.half",
+        "type": "dimension",
+        "value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "cssName": "--space-half",
+        "cssValue": "2px"
+      },
+      "space.inlineIconGap": {
+        "path": "space.inlineIconGap",
+        "type": "dimension",
+        "value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "cssName": "--space-inline-icon-gap",
+        "cssValue": "8px"
+      },
       "space.labelGap": {
         "path": "space.labelGap",
         "type": "dimension",
@@ -4882,6 +6448,232 @@
         },
         "cssName": "--space-label-gap",
         "cssValue": "6px"
+      },
+      "space.pageGutter": {
+        "path": "space.pageGutter",
+        "type": "dimension",
+        "value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "cssName": "--space-page-gutter",
+        "cssValue": "24px"
+      },
+      "type.body.lineHeight": {
+        "path": "type.body.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 22,
+          "unit": "px"
+        },
+        "cssName": "--type-body-line-height",
+        "cssValue": "22px"
+      },
+      "type.body.size": {
+        "path": "type.body.size",
+        "type": "dimension",
+        "value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "cssName": "--type-body-size",
+        "cssValue": "14px"
+      },
+      "type.body.weight": {
+        "path": "type.body.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-body-weight",
+        "cssValue": "400"
+      },
+      "type.code.lineHeight": {
+        "path": "type.code.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-code-line-height",
+        "cssValue": "20px"
+      },
+      "type.code.size": {
+        "path": "type.code.size",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--type-code-size",
+        "cssValue": "12px"
+      },
+      "type.code.weight": {
+        "path": "type.code.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-code-weight",
+        "cssValue": "400"
+      },
+      "type.docsBody.lineHeight": {
+        "path": "type.docsBody.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--type-docs-body-line-height",
+        "cssValue": "28px"
+      },
+      "type.docsBody.size": {
+        "path": "type.docsBody.size",
+        "type": "dimension",
+        "value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "cssName": "--type-docs-body-size",
+        "cssValue": "16px"
+      },
+      "type.docsBody.weight": {
+        "path": "type.docsBody.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-docs-body-weight",
+        "cssValue": "400"
+      },
+      "type.label.lineHeight": {
+        "path": "type.label.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-label-line-height",
+        "cssValue": "20px"
+      },
+      "type.label.size": {
+        "path": "type.label.size",
+        "type": "dimension",
+        "value": {
+          "value": 13,
+          "unit": "px"
+        },
+        "cssName": "--type-label-size",
+        "cssValue": "13px"
+      },
+      "type.label.weight": {
+        "path": "type.label.weight",
+        "type": "fontWeight",
+        "value": 500,
+        "cssName": "--type-label-weight",
+        "cssValue": "500"
+      },
+      "type.metadata.lineHeight": {
+        "path": "type.metadata.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "cssName": "--type-metadata-line-height",
+        "cssValue": "18px"
+      },
+      "type.metadata.size": {
+        "path": "type.metadata.size",
+        "type": "dimension",
+        "value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "cssName": "--type-metadata-size",
+        "cssValue": "12px"
+      },
+      "type.metadata.weight": {
+        "path": "type.metadata.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-metadata-weight",
+        "cssValue": "400"
+      },
+      "type.navigation.lineHeight": {
+        "path": "type.navigation.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-navigation-line-height",
+        "cssValue": "20px"
+      },
+      "type.navigation.size": {
+        "path": "type.navigation.size",
+        "type": "dimension",
+        "value": {
+          "value": 13.5,
+          "unit": "px"
+        },
+        "cssName": "--type-navigation-size",
+        "cssValue": "13.5px"
+      },
+      "type.navigation.weight": {
+        "path": "type.navigation.weight",
+        "type": "fontWeight",
+        "value": 400,
+        "cssName": "--type-navigation-weight",
+        "cssValue": "400"
+      },
+      "type.pageTitle.lineHeight": {
+        "path": "type.pageTitle.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "cssName": "--type-page-title-line-height",
+        "cssValue": "28px"
+      },
+      "type.pageTitle.size": {
+        "path": "type.pageTitle.size",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-page-title-size",
+        "cssValue": "20px"
+      },
+      "type.pageTitle.weight": {
+        "path": "type.pageTitle.weight",
+        "type": "fontWeight",
+        "value": 600,
+        "cssName": "--type-page-title-weight",
+        "cssValue": "600"
+      },
+      "type.sectionTitle.lineHeight": {
+        "path": "type.sectionTitle.lineHeight",
+        "type": "dimension",
+        "value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "cssName": "--type-section-title-line-height",
+        "cssValue": "20px"
+      },
+      "type.sectionTitle.size": {
+        "path": "type.sectionTitle.size",
+        "type": "dimension",
+        "value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "cssName": "--type-section-title-size",
+        "cssValue": "14px"
+      },
+      "type.sectionTitle.weight": {
+        "path": "type.sectionTitle.weight",
+        "type": "fontWeight",
+        "value": 600,
+        "cssName": "--type-section-title-weight",
+        "cssValue": "600"
       }
     }
   }

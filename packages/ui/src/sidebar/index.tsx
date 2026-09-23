@@ -93,6 +93,7 @@ export const SidebarHeaderSpacer = createStyledPart(
 export interface SidebarItemProps extends StyleXProps<Omit<BaseButton.Props, "children">> {
   badge?: React.ReactNode;
   children: React.ReactNode;
+  density?: "default" | "compact";
   icon?: React.ReactNode;
   nested?: boolean;
   selected?: boolean;
@@ -101,6 +102,7 @@ export interface SidebarItemProps extends StyleXProps<Omit<BaseButton.Props, "ch
 export function SidebarItem({
   badge,
   children,
+  density = "default",
   icon,
   nested = false,
   ref,
@@ -115,22 +117,34 @@ export function SidebarItem({
       className={
         stylex.props(
           styles.item,
+          density === "compact" && styles.compactItem,
           nested && styles.nestedItem,
           selected && styles.selectedItem,
           xstyle,
         ).className
       }
       data-level={nested ? "nested" : "root"}
+      data-density={density}
       data-slot="sidebar-item"
       data-state={selected ? "selected" : "default"}
       ref={ref}
     >
       {icon && (
-        <span aria-hidden="true" {...stylex.props(styles.icon, nested && styles.nestedIcon)}>
+        <span
+          aria-hidden="true"
+          data-slot="sidebar-item-icon"
+          {...stylex.props(
+            styles.icon,
+            nested && styles.nestedIcon,
+            density === "compact" && styles.compactIcon,
+          )}
+        >
           {icon}
         </span>
       )}
-      <span {...stylex.props(styles.label)}>{children}</span>
+      <span {...stylex.props(styles.label)} data-slot="sidebar-item-label">
+        {children}
+      </span>
       {badge !== undefined && <span {...stylex.props(styles.badge)}>{badge}</span>}
     </BaseButton>
   );

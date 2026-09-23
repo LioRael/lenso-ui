@@ -20,7 +20,9 @@ export const styles = stylex.create({
   panel: {
     backgroundColor: tokens.colorSurfacePanel,
     borderRadius: tokens.radiusPanel,
-    boxShadow: `0 0 0 0.5px ${tokens.elevationPanelAmbient}, 0 ${tokens.elevationPanelKeyY} ${tokens.elevationPanelKeyBlur} ${tokens.elevationPanelKeySpread} ${tokens.elevationPanelKey}, 0 1px 1px ${tokens.elevationPanelDetail}`,
+    borderColor: tokens.colorBorderDecorative,
+    borderStyle: "solid",
+    borderWidth: "1px",
   },
   overlay: {
     backgroundColor: tokens.colorSurfacePopover,

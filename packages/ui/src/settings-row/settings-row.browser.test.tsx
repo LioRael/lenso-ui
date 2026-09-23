@@ -80,7 +80,7 @@ function Example({ control, state }: { control: Control; state: State }) {
   );
 }
 
-test("Settings Row matches the approved Figma control and state matrix", async () => {
+test("Settings Row resolves the semantic control and state matrix", async () => {
   const screen = await render(
     <div
       data-testid="settings-row-figma-state-board"

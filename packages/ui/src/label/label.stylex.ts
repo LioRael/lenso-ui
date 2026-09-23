@@ -29,7 +29,7 @@ export const styles = stylex.create({
     display: "inline-flex",
     flexShrink: 0,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
+    fontSize: tokens.typeMetadataSize,
     fontWeight: 400,
     gap: tokens.spaceLabelGap,
     height: tokens.sizeLabel,

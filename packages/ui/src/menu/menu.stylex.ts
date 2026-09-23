@@ -17,7 +17,7 @@ export const styles = stylex.create({
     cursor: "pointer",
     display: "inline-flex",
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
+    fontSize: tokens.typeLabelSize,
     gap: "8px",
     height: "32px",
     outline: "none",
@@ -29,7 +29,7 @@ export const styles = stylex.create({
   controlTrigger: {
     gap: "8px",
     justifyContent: "space-between",
-    lineHeight: "16px",
+    lineHeight: tokens.typeLabelLineHeight,
     paddingInline: "10.5px",
     position: "relative",
     whiteSpace: "nowrap",
@@ -83,7 +83,7 @@ export const styles = stylex.create({
     cursor: "default",
     display: "flex",
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
+    fontSize: tokens.typeLabelSize,
     fontWeight: 400,
     gap: "8px",
     height: "32px",
@@ -94,6 +94,19 @@ export const styles = stylex.create({
     paddingRight: "12px",
     textDecoration: "none",
     userSelect: "none",
+  },
+  stackedItem: {
+    gap: tokens.spaceInlineIconGap,
+    height: "auto",
+    minHeight: "52px",
+    paddingBlock: tokens.space2,
+  },
+  radioItem: {
+    backgroundColor: {
+      default: "transparent",
+      "[data-checked]": tokens.colorSurfaceSelected,
+      "[data-highlighted]": tokens.colorSurfaceOverlayHover,
+    },
   },
   danger: {
     backgroundColor: {
@@ -121,6 +134,23 @@ export const styles = stylex.create({
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
+  copy: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    gap: tokens.spaceHalf,
+    minWidth: 0,
+  },
+  description: {
+    color: tokens.colorContentTertiary,
+    display: "block",
+    fontFamily: tokens.fontSans,
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeMetadataLineHeight,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  },
   trailing: {
     alignItems: "center",
     color: tokens.colorContentSecondary,
@@ -128,7 +158,12 @@ export const styles = stylex.create({
     flexShrink: 0,
     gap: "6px",
   },
-  shortcut: { fontFamily: tokens.fontSans, fontSize: "11px", fontWeight: 500, lineHeight: "16px" },
+  shortcut: {
+    fontFamily: tokens.fontSans,
+    fontSize: tokens.typeMetadataSize,
+    fontWeight: 500,
+    lineHeight: tokens.typeLabelLineHeight,
+  },
   submenuIcon: { height: "16px", strokeWidth: "1.5px", width: "16px" },
   submenuIconSlot: {
     alignItems: "center",
@@ -154,14 +189,14 @@ export const styles = stylex.create({
   groupLabel: {
     color: tokens.colorContentTertiary,
     fontFamily: tokens.fontSans,
-    fontSize: "11px",
-    lineHeight: "16px",
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeLabelLineHeight,
     padding: "6px 14px 2px",
   },
   hint: {
     color: tokens.colorContentTertiary,
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
+    fontSize: tokens.typeLabelSize,
     lineHeight: "19.5px",
     margin: 0,
     padding: "3px 14px 7px",

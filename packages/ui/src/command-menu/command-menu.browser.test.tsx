@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -79,7 +80,7 @@ test("Command Menu supports keyboard filtering and Light/Dark semantic themes", 
     .toBe("rgb(255, 255, 255)");
   await expect
     .poll(() => getComputedStyle(screen.getByTestId("dark-command-menu").element()).backgroundColor)
-    .toBe("rgb(40, 41, 43)");
+    .toBe(themeColor("dark", "color.surface.popover"));
   expect(
     (
       await axe.run(screen.getByTestId("light-command-menu").element(), {

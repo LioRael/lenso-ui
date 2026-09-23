@@ -47,23 +47,24 @@ export const styles = stylex.create({
       '[data-visual-state="disabled"]': tokens.opacityDisabled,
     },
     position: "relative",
-    transitionDuration: "120ms",
+    transitionDuration: tokens.motionFeedback,
     transitionProperty: "background-color, border-color, color, opacity",
     transitionTimingFunction: "ease-out",
     userSelect: "none",
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: tokens.motionReduced },
     whiteSpace: "nowrap",
   },
   compact: {
-    fontSize: "11px",
-    height: tokens.sizeControlCompact,
+    fontSize: tokens.typeLabelSize,
+    minHeight: tokens.sizeControlCompact,
     paddingInline: tokens.space3,
   },
   default: {
-    fontSize: "12px",
-    height: tokens.sizeControlDefault,
+    fontSize: tokens.typeLabelSize,
+    minHeight: tokens.sizeControlDefault,
     paddingInline: tokens.space3,
   },
-  rounded: { borderRadius: tokens.radiusRounded },
+  rounded: { borderRadius: tokens.radiusControl },
   primary: {
     backgroundColor: {
       default: tokens.colorActionPrimary,
@@ -87,7 +88,7 @@ export const styles = stylex.create({
       '[data-visual-state="hover"]': tokens.colorSurfaceLevel3,
       '[data-visual-state="pressed"]': tokens.colorSurfaceLevel3,
     },
-    boxShadow: "inset 0 0 0 0.5px var(--color-border-translucent, rgba(0, 0, 0, 0.08))",
+    boxShadow: `inset 0 0 0 1px ${tokens.colorBorderDecorative}`,
     color: tokens.colorContentPrimary,
   },
   ghost: {
@@ -114,7 +115,7 @@ export const styles = stylex.create({
       '[data-visual-state="pressed"]': tokens.colorActionDangerHover,
     },
     boxShadow: "inset 0 0 0 0.5px var(--color-border-transparent, transparent)",
-    color: tokens.colorContentInverse,
+    color: tokens.colorActionDangerContent,
   },
   spinner: {
     animationDuration: "650ms",

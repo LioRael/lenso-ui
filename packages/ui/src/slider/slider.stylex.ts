@@ -74,7 +74,7 @@ export const styles = stylex.create({
       content: "''",
       height: "14px",
       pointerEvents: "none",
-      transitionDuration: "80ms",
+      transitionDuration: tokens.motionFeedback,
       transitionProperty: "background-color",
       transitionTimingFunction: "ease-out",
       width: "14px",

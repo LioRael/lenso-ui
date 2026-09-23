@@ -2,6 +2,8 @@ import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
+import { ThemeScope } from "../theme-scope/index.js";
+import { themeColor } from "../shared/test-theme.js";
 import "@fontsource/inter/500.css";
 import "virtual:stylex:runtime";
 
@@ -93,4 +95,35 @@ test("Tabs match the approved Figma item states and keyboard behavior", async ()
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
   ).toEqual([]);
+});
+
+test("compact tabs use quiet selected geometry without an outline edge", async () => {
+  const screen = await render(
+    <ThemeScope theme="dark">
+      <Tabs.Root defaultValue="chat">
+        <Tabs.List aria-label="Agent profiles" density="compact">
+          <Tabs.Tab density="compact" value="chat">
+            Chat
+          </Tabs.Tab>
+          <Tabs.Tab density="compact" value="code">
+            Code
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="chat">Conversation</Tabs.Panel>
+        <Tabs.Panel value="code">Code work</Tabs.Panel>
+      </Tabs.Root>
+    </ThemeScope>,
+  );
+  const chat = screen.getByRole("tab", { name: "Chat" }).element();
+  const code = screen.getByRole("tab", { name: "Code" }).element();
+  await expect.poll(() => chat.getBoundingClientRect().height).toBe(32);
+  expect(getComputedStyle(chat).backgroundColor).toBe(
+    themeColor("dark", "color.navigation.tabBgSelected"),
+  );
+  expect(getComputedStyle(chat, "::after").borderWidth).toBe("0px");
+  expect(Math.round(code.getBoundingClientRect().left - chat.getBoundingClientRect().right)).toBe(
+    2,
+  );
+  await userEvent.click(code);
+  await expect.element(code).toHaveAttribute("data-active");
 });

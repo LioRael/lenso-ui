@@ -52,7 +52,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
     disabled,
     loading = false,
     loadingIndicator,
-    size = "compact",
+    size = "default",
     variant = "primary",
     xstyle,
     ...props

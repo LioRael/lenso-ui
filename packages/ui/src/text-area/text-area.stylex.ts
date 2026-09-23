@@ -12,9 +12,9 @@ export const styles = stylex.create({
   label: {
     color: tokens.colorContentPrimary,
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
+    fontSize: tokens.typeLabelSize,
     fontWeight: 500,
-    lineHeight: "16px",
+    lineHeight: tokens.typeLabelLineHeight,
   },
   control: {
     backgroundColor: {
@@ -36,8 +36,8 @@ export const styles = stylex.create({
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
-    lineHeight: "20px",
+    fontSize: tokens.typeLabelSize,
+    lineHeight: tokens.typeLabelLineHeight,
     minHeight: "96px",
     outlineColor: {
       default: "transparent",
@@ -62,15 +62,15 @@ export const styles = stylex.create({
   description: {
     color: tokens.colorContentTertiary,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
-    lineHeight: "16px",
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeLabelLineHeight,
     margin: 0,
   },
   error: {
     color: tokens.colorStatusErrorContent,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
-    lineHeight: "16px",
+    fontSize: tokens.typeMetadataSize,
+    lineHeight: tokens.typeLabelLineHeight,
     margin: 0,
   },
 });

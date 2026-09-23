@@ -106,35 +106,46 @@ export const MenuPopup = React.forwardRef<
 });
 
 type Tone = "danger" | "default";
+type ItemLayout = "single" | "stacked";
 
 export const MenuItem = React.forwardRef<
   HTMLElement,
-  StyleXProps<BaseMenu.Item.Props> & { tone?: Tone }
->(function MenuItem({ tone = "default", xstyle, ...props }, ref) {
+  StyleXProps<BaseMenu.Item.Props> & { layout?: ItemLayout; tone?: Tone }
+>(function MenuItem({ layout = "single", tone = "default", xstyle, ...props }, ref) {
   return (
     <BaseMenu.Item
       {...props}
       className={(state) =>
         stylex.props(
           styles.item,
+          layout === "stacked" && styles.stackedItem,
           tone === "danger" && styles.danger,
           state.disabled && styles.disabled,
           xstyle,
         ).className
       }
       data-slot="menu-item"
+      data-layout={layout}
       ref={ref}
     />
   );
 });
 export const MenuLinkItem = React.forwardRef<
   HTMLAnchorElement,
-  StyleXProps<BaseMenu.LinkItem.Props> & { tone?: Tone }
->(function MenuLinkItem({ tone = "default", xstyle, ...props }, ref) {
+  StyleXProps<BaseMenu.LinkItem.Props> & { layout?: ItemLayout; tone?: Tone }
+>(function MenuLinkItem({ layout = "single", tone = "default", xstyle, ...props }, ref) {
   return (
     <BaseMenu.LinkItem
       {...props}
-      className={stylex.props(styles.item, tone === "danger" && styles.danger, xstyle).className}
+      className={
+        stylex.props(
+          styles.item,
+          layout === "stacked" && styles.stackedItem,
+          tone === "danger" && styles.danger,
+          xstyle,
+        ).className
+      }
+      data-layout={layout}
       data-slot="menu-item"
       ref={ref}
     />
@@ -186,6 +197,24 @@ export const MenuLabel = React.forwardRef<HTMLSpanElement, SpanProps>(function M
     <span {...props} {...stylex.props(styles.label, xstyle)} data-slot="menu-label" ref={ref} />
   );
 });
+export const MenuCopy = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuCopy(
+  { xstyle, ...props },
+  ref,
+) {
+  return <span {...props} {...stylex.props(styles.copy, xstyle)} data-slot="menu-copy" ref={ref} />;
+});
+export const MenuDescription = React.forwardRef<HTMLSpanElement, SpanProps>(
+  function MenuDescription({ xstyle, ...props }, ref) {
+    return (
+      <span
+        {...props}
+        {...stylex.props(styles.description, xstyle)}
+        data-slot="menu-description"
+        ref={ref}
+      />
+    );
+  },
+);
 export const MenuTrailing = React.forwardRef<HTMLSpanElement, SpanProps>(function MenuTrailing(
   { xstyle, ...props },
   ref,
@@ -247,7 +276,28 @@ export const MenuGroupLabel = React.forwardRef<
 });
 
 export const MenuCheckboxItem = BaseMenu.CheckboxItem;
-export const MenuRadioItem = BaseMenu.RadioItem;
+export const MenuRadioItem = React.forwardRef<
+  HTMLElement,
+  StyleXProps<BaseMenu.RadioItem.Props> & { layout?: ItemLayout }
+>(function MenuRadioItem({ layout = "single", xstyle, ...props }, ref) {
+  return (
+    <BaseMenu.RadioItem
+      {...props}
+      className={(state) =>
+        stylex.props(
+          styles.item,
+          styles.radioItem,
+          layout === "stacked" && styles.stackedItem,
+          state.disabled && styles.disabled,
+          xstyle,
+        ).className
+      }
+      data-layout={layout}
+      data-slot="menu-radio-item"
+      ref={ref}
+    />
+  );
+});
 export const MenuItemIndicator = React.forwardRef<
   HTMLSpanElement,
   StyleXProps<BaseMenu.CheckboxItemIndicator.Props>
@@ -262,10 +312,26 @@ export const MenuItemIndicator = React.forwardRef<
     </BaseMenu.CheckboxItemIndicator>
   );
 });
+export const MenuRadioItemIndicator = React.forwardRef<
+  HTMLSpanElement,
+  StyleXProps<BaseMenu.RadioItemIndicator.Props>
+>(function MenuRadioItemIndicator({ children, xstyle, ...props }, ref) {
+  return (
+    <BaseMenu.RadioItemIndicator
+      {...props}
+      className={stylex.props(styles.indicator, xstyle).className}
+      ref={ref}
+    >
+      {children ?? <CheckIcon aria-hidden="true" {...stylex.props(styles.submenuIcon)} />}
+    </BaseMenu.RadioItemIndicator>
+  );
+});
 
 export const Menu = {
   CheckboxItem: MenuCheckboxItem,
   ControlTrigger: MenuControlTrigger,
+  Copy: MenuCopy,
+  Description: MenuDescription,
   Group: MenuGroup,
   GroupLabel: MenuGroupLabel,
   Hint: MenuHint,
@@ -279,6 +345,7 @@ export const Menu = {
   Positioner: MenuPositioner,
   RadioGroup: MenuRadioGroup,
   RadioItem: MenuRadioItem,
+  RadioItemIndicator: MenuRadioItemIndicator,
   Root: MenuRoot,
   Separator: MenuSeparator,
   Shortcut: MenuShortcut,

@@ -4,8 +4,14 @@ import path from "node:path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  resolve: { dedupe: ["react", "react-dom"] },
   optimizeDeps: {
     include: [
+      "react",
+      "react-dom/client",
+      "react/jsx-runtime",
+      "@base-ui/react/merge-props",
+      "@base-ui/react/use-render",
       "@base-ui/react/combobox",
       "@base-ui/react/select",
       "@base-ui/react/slider",
@@ -41,6 +47,13 @@ export default defineConfig({
       provider: playwright(),
       viewport: { height: 900, width: 1280 },
     },
-    include: ["src/**/*.browser.test.tsx"],
+    include: [
+      "react",
+      "react-dom/client",
+      "react/jsx-runtime",
+      "@base-ui/react/merge-props",
+      "@base-ui/react/use-render",
+      "src/**/*.browser.test.tsx",
+    ],
   },
 });

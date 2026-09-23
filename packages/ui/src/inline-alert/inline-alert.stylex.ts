@@ -50,15 +50,15 @@ export const styles = stylex.create({
   title: {
     color: tokens.colorContentPrimary,
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
+    fontSize: tokens.typeLabelSize,
     fontWeight: 500,
-    lineHeight: "18px",
+    lineHeight: tokens.typeMetadataLineHeight,
     margin: 0,
   },
   description: {
     color: tokens.colorContentSecondary,
     fontFamily: tokens.fontSans,
-    fontSize: "12px",
+    fontSize: tokens.typeMetadataSize,
     lineHeight: "17px",
     margin: 0,
   },

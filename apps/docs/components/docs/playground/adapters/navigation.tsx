@@ -254,8 +254,6 @@ export const quickLinkAdapter: PlaygroundAdapter = ({ theme, values }) => (
   </ThemeScope>
 );
 
-const sidebarIconProps = { size: 16, strokeWidth: 1.5 };
-
 function SidebarSection({ children, label }: { children: React.ReactNode; label: string }) {
   return (
     <Disclosure.Root defaultValue={[label]}>
@@ -279,8 +277,9 @@ function SidebarSection({ children, label }: { children: React.ReactNode; label:
   );
 }
 
-function SidebarPreview() {
+function SidebarPreview({ density }: { density: "compact" | "default" }) {
   const [selectedItem, setSelectedItem] = React.useState("home");
+  const sidebarIconProps = { size: density === "compact" ? 14 : 16, strokeWidth: 1.5 };
 
   return (
     <Sidebar.Group xstyle={stageStyles.sidebarPreview}>
@@ -303,6 +302,7 @@ function SidebarPreview() {
               <Sidebar.Menu>
                 <Sidebar.MenuItem>
                   <Sidebar.Item
+                    density={density}
                     icon={<InboxIcon {...sidebarIconProps} />}
                     onClick={() => setSelectedItem("inbox")}
                     selected={selectedItem === "inbox"}
@@ -312,6 +312,7 @@ function SidebarPreview() {
                 </Sidebar.MenuItem>
                 <Sidebar.MenuItem>
                   <Sidebar.Item
+                    density={density}
                     icon={<LayersIcon {...sidebarIconProps} />}
                     onClick={() => setSelectedItem("my-issues")}
                     selected={selectedItem === "my-issues"}
@@ -321,6 +322,7 @@ function SidebarPreview() {
                 </Sidebar.MenuItem>
                 <Sidebar.MenuItem>
                   <Sidebar.Item
+                    density={density}
                     icon={<BotIcon {...sidebarIconProps} />}
                     onClick={() => setSelectedItem("agent")}
                     selected={selectedItem === "agent"}
@@ -334,6 +336,7 @@ function SidebarPreview() {
               <Sidebar.Menu>
                 <Sidebar.MenuItem>
                   <Sidebar.Item
+                    density={density}
                     icon={<BoxIcon {...sidebarIconProps} />}
                     onClick={() => setSelectedItem("workspace-projects")}
                     selected={selectedItem === "workspace-projects"}
@@ -343,6 +346,7 @@ function SidebarPreview() {
                 </Sidebar.MenuItem>
                 <Sidebar.MenuItem>
                   <Sidebar.Item
+                    density={density}
                     icon={<LayersIcon {...sidebarIconProps} />}
                     onClick={() => setSelectedItem("workspace-views")}
                     selected={selectedItem === "workspace-views"}
@@ -356,6 +360,7 @@ function SidebarPreview() {
               <Sidebar.Menu>
                 <Sidebar.MenuItem>
                   <Sidebar.Item
+                    density={density}
                     icon={<BoxIcon {...sidebarIconProps} />}
                     onClick={() => setSelectedItem("team")}
                     selected={selectedItem === "team"}
@@ -367,6 +372,7 @@ function SidebarPreview() {
                   <Sidebar.Submenu>
                     <Sidebar.MenuItem>
                       <Sidebar.Item
+                        density={density}
                         icon={<BoxIcon size={14} />}
                         nested
                         onClick={() => setSelectedItem("home")}
@@ -377,6 +383,7 @@ function SidebarPreview() {
                     </Sidebar.MenuItem>
                     <Sidebar.MenuItem>
                       <Sidebar.Item
+                        density={density}
                         icon={<LayersIcon size={14} />}
                         nested
                         onClick={() => setSelectedItem("issues")}
@@ -387,6 +394,7 @@ function SidebarPreview() {
                     </Sidebar.MenuItem>
                     <Sidebar.MenuItem>
                       <Sidebar.Item
+                        density={density}
                         icon={<BoxIcon size={14} />}
                         nested
                         onClick={() => setSelectedItem("team-projects")}
@@ -411,21 +419,28 @@ function SidebarPreview() {
   );
 }
 
-export const sidebarAdapter: PlaygroundAdapter = ({ theme }) => (
+export const sidebarAdapter: PlaygroundAdapter = ({ theme, values }) => (
   <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.sidebar]}>
-    <SidebarPreview />
+    <SidebarPreview density={stringValue(values, "density", "default") as "compact" | "default"} />
   </ThemeScope>
 );
 
 export const tabsAdapter: PlaygroundAdapter = ({ setValue, theme, values }) => {
   const selected = stringValue(values, "selected", "overview");
+  const density = stringValue(values, "density", "default") as "compact" | "default";
   return (
     <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.tabs]}>
       <Tabs.Root onValueChange={(value) => setValue("selected", value)} value={selected}>
-        <Tabs.List aria-label="Project sections">
-          <Tabs.Tab value="overview">Overview</Tabs.Tab>
-          <Tabs.Tab value="documents">Documents</Tabs.Tab>
-          <Tabs.Tab value="members">Members</Tabs.Tab>
+        <Tabs.List aria-label="Project sections" density={density}>
+          <Tabs.Tab density={density} value="overview">
+            Overview
+          </Tabs.Tab>
+          <Tabs.Tab density={density} value="documents">
+            Documents
+          </Tabs.Tab>
+          <Tabs.Tab density={density} value="members">
+            Members
+          </Tabs.Tab>
         </Tabs.List>
         {(["overview", "documents", "members"] as const).map((value) => (
           <Tabs.Panel key={value} value={value}>

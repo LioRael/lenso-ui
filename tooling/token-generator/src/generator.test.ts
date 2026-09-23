@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -186,4 +188,61 @@ describe("compileResolver", () => {
 
     expect(publicTokenPaths(document, ["__proto__"])).toEqual(["__proto__"]);
   });
+});
+
+it("keeps essential text, status, and control contrast readable in every product theme", () => {
+  const root = path.resolve(import.meta.dirname, "../../../packages/tokens/src");
+  const read = (name: string) => JSON.parse(readFileSync(path.join(root, name), "utf8"));
+  const sourceFiles = Object.fromEntries(
+    ["foundation.json", "semantic.json", "themes/light.json", "themes/dark.json"].map((name) => [
+      name,
+      read(name),
+    ]),
+  );
+  const roots = [
+    "color",
+    "font",
+    "motion",
+    "type",
+    "radius",
+    "size",
+    "space",
+    "opacity",
+    "elevation",
+  ];
+  const ir = compileResolver(read("lenso.resolver.json"), sourceFiles, {
+    publicRoots: roots,
+    requiredSemanticPaths: publicTokenPaths(sourceFiles["semantic.json"], roots),
+  });
+  const luminance = (hex: string) => {
+    expect(hex).toMatch(/^#[0-9a-f]{6}$/i);
+    return [1, 3, 5]
+      .map((offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255)
+      .map((channel) => (channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4))
+      .reduce((sum, channel, index) => sum + channel * [0.2126, 0.7152, 0.0722][index]!, 0);
+  };
+  for (const [theme, values] of Object.entries(ir.contexts)) {
+    const contrast = (foreground: string, background: string, minimum: number) => {
+      const [a, b] = [foreground, background]
+        .map((name) => luminance(values[name]!.cssValue))
+        .sort((a, b) => b - a);
+      expect(
+        (a! + 0.05) / (b! + 0.05),
+        `${theme}: ${foreground} on ${background}`,
+      ).toBeGreaterThanOrEqual(minimum);
+    };
+    for (const background of ["canvas", "control", "popover", "selected", "recessed"]) {
+      const bg = `color.surface.${background}`;
+      for (const foreground of ["primary", "secondary", "tertiary"])
+        contrast(`color.content.${foreground}`, bg, 4.5);
+      for (const status of ["error", "success", "warning", "info", "neutral"])
+        contrast(`color.status.${status}Content`, bg, 4.5);
+      contrast("color.border.essential", bg, 3);
+      contrast("color.focus.ring", bg, 3);
+    }
+    contrast("color.action.primaryContent", "color.action.primary", 4.5);
+    contrast("color.action.primaryContent", "color.action.primaryHover", 4.5);
+    contrast("color.action.dangerContent", "color.action.danger", 4.5);
+    contrast("color.action.dangerContent", "color.action.dangerHover", 4.5);
+  }
 });

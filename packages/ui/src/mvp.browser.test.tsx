@@ -1,3 +1,4 @@
+import { themeColor } from "./shared/test-theme.js";
 import { expect, test, vi } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -49,7 +50,7 @@ test("Avatar falls back after an image error and exposes presence semantics", as
   expect(root.getBoundingClientRect().width).toBe(32);
   expect(
     getComputedStyle(screen.getByText("away status").element().parentElement!).backgroundColor,
-  ).toBe("rgb(138, 90, 0)");
+  ).toBe(themeColor("light", "color.status.warningContent"));
   const accessibility = await axe.run(document.body);
   expect(accessibility.violations).toEqual([]);
 });
@@ -63,7 +64,7 @@ test("Button preserves native behavior while exposing Lenso variants", async () 
   );
   const button = screen.getByRole("button", { name: "Continue" });
 
-  await expect.poll(() => getComputedStyle(button.element()).borderRadius).toBe("999px");
+  await expect.poll(() => getComputedStyle(button.element()).borderRadius).toBe("6px");
 
   await button.click();
 
@@ -97,10 +98,12 @@ test("Button hover and keyboard focus use the approved state layers", async () =
   await button.hover();
   await expect
     .poll(() => getComputedStyle(button.element()).backgroundColor)
-    .toBe("rgb(31, 32, 36)");
+    .toBe(themeColor("light", "color.action.primaryHover"));
   await button.unhover();
   await userEvent.tab();
-  await expect.poll(() => getComputedStyle(stateLayer!).borderColor).toBe("rgb(94, 106, 210)");
+  await expect
+    .poll(() => getComputedStyle(stateLayer!).borderColor)
+    .toBe(themeColor("light", "color.focus.ring"));
 });
 
 test("Button state layers resolve through a dark ThemeScope", async () => {
@@ -119,8 +122,12 @@ test("Button state layers resolve through a dark ThemeScope", async () => {
   const pressed = screen.getByRole("button", { name: "Pressed" }).element();
   const disabled = screen.getByRole("button", { name: "Disabled" }).element();
 
-  await expect.poll(() => getComputedStyle(hover).backgroundColor).toBe("rgb(255, 255, 255)");
-  expect(getComputedStyle(pressed).backgroundColor).toBe("rgb(25, 26, 27)");
+  await expect
+    .poll(() => getComputedStyle(hover).backgroundColor)
+    .toBe(themeColor("dark", "color.action.primaryHover"));
+  expect(getComputedStyle(pressed).backgroundColor).toBe(
+    themeColor("dark", "color.surface.selected"),
+  );
   expect(
     getComputedStyle(pressed.querySelector<HTMLElement>('[data-slot="button-state-layer"]')!)
       .backgroundColor,
@@ -137,11 +144,11 @@ test("Icon Button preserves Base UI render composition and an accessible name", 
   const link = screen.getByRole("button", { name: "Create issue" });
 
   await expect.element(link).toHaveAttribute("href", "/create");
-  await expect.poll(() => getComputedStyle(link.element()).width).toBe("24px");
+  await expect.poll(() => getComputedStyle(link.element()).width).toBe("32px");
   const icon = link.element().querySelector<HTMLElement>('[data-slot="icon-button-icon"]');
   expect(icon?.getBoundingClientRect().toJSON()).toMatchObject({
-    height: 14,
-    width: 14,
+    height: 16,
+    width: 16,
   });
   expect(icon?.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
 });
@@ -158,7 +165,7 @@ test("Icon Button exposes selected toggle semantics", async () => {
   await expect.element(button).toHaveAttribute("data-selected", "true");
   await expect
     .poll(() => getComputedStyle(button.element()).backgroundColor)
-    .toBe("rgb(255, 255, 255)");
+    .toBe(themeColor("light", "color.surface.translucent"));
 });
 
 test("Label preserves Base UI render composition and marker customization", async () => {
@@ -195,9 +202,11 @@ test("Label resolves open and dark theme states through semantic tokens", async 
   await expect.element(label).toHaveAttribute("aria-expanded", "true");
   await expect
     .poll(() => getComputedStyle(label.element()).backgroundColor)
-    .toBe("rgb(40, 41, 43)");
-  expect(getComputedStyle(label.element()).color).toBe("rgb(255, 255, 255)");
-  expect(getComputedStyle(marker!).backgroundColor).toBe("rgb(78, 167, 252)");
+    .toBe(themeColor("dark", "color.surface.popover"));
+  expect(getComputedStyle(label.element()).color).toBe(themeColor("dark", "color.content.primary"));
+  expect(getComputedStyle(marker!).backgroundColor).toBe(
+    themeColor("dark", "color.label.markerBlue"),
+  );
 });
 
 test("TextField wires its compound label, control, description, and error", async () => {

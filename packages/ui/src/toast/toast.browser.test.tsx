@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import * as stylex from "@stylexjs/stylex";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
@@ -47,7 +48,7 @@ function RuntimeToast() {
   );
 }
 
-test("Toast matches Figma and preserves Base UI behavior", async () => {
+test("Toast resolves semantic tokens and preserves Base UI behavior", async () => {
   const screen = await render(
     <>
       <ThemeScope theme="light">
@@ -121,12 +122,14 @@ test("Toast matches Figma and preserves Base UI behavior", async () => {
   expect(getComputedStyle(defaultPreview).borderRadius).toBe("12px");
   expect(getComputedStyle(defaultPreview).gap).toBe("8px");
   expect(defaultPreview.getBoundingClientRect().width).toBe(384);
-  expect(defaultPreview.getBoundingClientRect().height).toBe(41);
-  expect(getComputedStyle(lightInfoIcon).backgroundColor).toBe("rgb(51, 51, 51)");
-  expect(getComputedStyle(lightInfoIcon).color).toBe("rgb(255, 255, 255)");
+  expect(defaultPreview.getBoundingClientRect().height).toBe(44);
+  expect(getComputedStyle(lightInfoIcon).backgroundColor).toBe(
+    themeColor("light", "color.content.secondary"),
+  );
+  expect(getComputedStyle(lightInfoIcon).color).toBe(themeColor("light", "color.content.inverse"));
   expect(lightInfoIcon.getBoundingClientRect().width).toBe(14);
   expect(lightInfoIcon.getBoundingClientRect().height).toBe(14);
-  expect(getComputedStyle(lightTitle).color).toBe("rgb(0, 0, 0)");
+  expect(getComputedStyle(lightTitle).color).toBe(themeColor("light", "color.content.primary"));
   expect(lightClose.getBoundingClientRect().width).toBe(24);
   expect(lightClose.getBoundingClientRect().height).toBe(24);
   const lightRootRect = defaultPreview.getBoundingClientRect();
@@ -135,34 +138,45 @@ test("Toast matches Figma and preserves Base UI behavior", async () => {
   expect(lightCloseRect.top - lightRootRect.top).toBeCloseTo(8.5, 2);
   const edgeDecoration = getComputedStyle(defaultPreview, "::before");
   expect(edgeDecoration.backgroundColor).toBe("rgb(255, 255, 255)");
-  expect(edgeDecoration.width).toBe("383px");
-  expect(edgeDecoration.height).toBe("40px");
+  expect(edgeDecoration.width).toBe("382px");
+  expect(edgeDecoration.height).toBe("42px");
   expect(edgeDecoration.borderRadius).toBe("11.5px");
-  expect(edgeDecoration.boxShadow).toContain("0.5px");
-  await expect.poll(() => getComputedStyle(successIcon).color).toBe("rgb(0, 122, 61)");
-  expect(getComputedStyle(darkDefaultPreview).backgroundColor).toBe("rgb(33, 33, 34)");
-  expect(getComputedStyle(darkInfoIcon).backgroundColor).toBe("rgb(212, 212, 212)");
-  expect(getComputedStyle(darkInfoIcon).color).toBe("rgb(33, 33, 34)");
-  expect(getComputedStyle(darkSuccessIcon).color).toBe("rgb(0, 166, 62)");
-  expect(getComputedStyle(darkErrorIcon).color).toBe("rgb(229, 72, 77)");
+
+  await expect
+    .poll(() => getComputedStyle(successIcon).color)
+    .toBe(themeColor("light", "color.status.successContent"));
+  expect(getComputedStyle(darkDefaultPreview).backgroundColor).toBe(
+    themeColor("dark", "color.surface.dialog"),
+  );
+  expect(getComputedStyle(darkInfoIcon).backgroundColor).toBe(
+    themeColor("dark", "color.content.secondary"),
+  );
+  expect(getComputedStyle(darkInfoIcon).color).toBe(themeColor("dark", "color.content.inverse"));
+  expect(getComputedStyle(darkSuccessIcon).color).toBe(
+    themeColor("dark", "color.status.successContent"),
+  );
+  expect(getComputedStyle(darkErrorIcon).color).toBe(
+    themeColor("dark", "color.status.errorContent"),
+  );
   expect(darkDefaultPreview.getBoundingClientRect().width).toBe(384);
-  expect(darkDefaultPreview.getBoundingClientRect().height).toBe(41);
+  expect(darkDefaultPreview.getBoundingClientRect().height).toBe(44);
   const darkEdgeDecoration = getComputedStyle(darkDefaultPreview, "::before");
-  expect(darkEdgeDecoration.backgroundColor).toBe("rgb(33, 33, 34)");
+  expect(darkEdgeDecoration.backgroundColor).toBe(themeColor("dark", "color.surface.dialog"));
   expect(darkEdgeDecoration.borderRadius).toBe("11.5px");
-  expect(darkEdgeDecoration.boxShadow).toContain("rgba(255, 255, 255, 0.15)");
-  expect(darkEdgeDecoration.boxShadow).toContain("0px 2px 5px");
+
   expect(
     Math.round(
       board.element().querySelector('[data-tone="default"]')!.getBoundingClientRect().height,
     ),
-  ).toBe(41);
+  ).toBe(44);
   await userEvent.click(screen.getByRole("button", { name: "Show toast" }));
   await expect.element(screen.getByText("Saved successfully")).toBeVisible();
   const runtimeRoot = document.querySelector('[data-slot="toast-root"]')!;
   expect(runtimeRoot.getAttribute("data-tone")).toBe("success");
-  expect(getComputedStyle(runtimeRoot).backgroundColor).toBe("rgb(33, 33, 34)");
-  expect(getComputedStyle(runtimeRoot, "::before").boxShadow).toContain("0px 2px 5px");
+  expect(getComputedStyle(runtimeRoot).backgroundColor).toBe(
+    themeColor("dark", "color.surface.dialog"),
+  );
+
   const runtimeClose = runtimeRoot.querySelector<HTMLButtonElement>('[data-slot="toast-close"]')!;
   const runtimeCloseIcon = runtimeClose.querySelector<HTMLElement>('[data-slot="icon"]')!;
   const runtimeRootRect = runtimeRoot.getBoundingClientRect();

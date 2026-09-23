@@ -33,7 +33,7 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
     nativeButton,
     render,
     selected,
-    size = "compact",
+    size = "default",
     variant = "secondary",
     xstyle,
     ...props

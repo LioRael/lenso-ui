@@ -3,17 +3,8 @@ import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../tokens.stylex.js";
 import { motion } from "../shared/motion.stylex.js";
 
-const darkTheme = ':where([data-theme="dark"] *)';
-
-// Figma Toast 256:11 Dark mode values resolved from its Color and Elevation modes.
-const darkToastSurface = "#212122";
-const darkToastContentPrimary = "#ffffff";
-const darkToastContentSecondary = "#d4d4d4";
-const darkToastSuccess = "#00a63e";
-const darkToastError = "#e5484d";
 const toastInnerRadius = `calc(${tokens.radiusPopover} - 0.5px)`;
 const lightToastShadow = `0 0 0 0.5px ${tokens.elevationToastRing}, 0 1px 1px ${tokens.elevationToastDetail}, 0 ${tokens.elevationToastKeyY} ${tokens.elevationToastKeyBlur} ${tokens.elevationToastKey}, 0 ${tokens.elevationToastAmbientY} ${tokens.elevationToastAmbientBlur} ${tokens.elevationToastAmbient}`;
-const darkToastShadow = `0 0 0 0.5px #ffffff26, 0 1px 1px #00000020, 0 2px 5px #00000020, 0 3px 8px #00000020`;
 
 export const styles = stylex.create({
   viewport: {
@@ -25,7 +16,7 @@ export const styles = stylex.create({
     outline: "none",
     position: "fixed",
     right: "24px",
-    width: "384px",
+    width: "min(384px, calc(100vw - 48px))",
     zIndex: 100,
   },
   root: {
@@ -40,7 +31,7 @@ export const styles = stylex.create({
     display: "flex",
     fontFamily: tokens.fontSans,
     gap: "8px",
-    height: "41px",
+    minHeight: "44px",
     opacity: 1,
     outline: {
       default: "none",
@@ -55,26 +46,18 @@ export const styles = stylex.create({
     transitionDuration: motion.durationOverlay,
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motion.easeOut,
-    width: "384px",
-    [darkTheme]: {
-      backgroundColor: darkToastSurface,
-      color: darkToastContentSecondary,
-    },
+    width: "min(384px, calc(100vw - 48px))",
     "::before": {
       backgroundColor: tokens.colorSurfaceDialog,
       borderRadius: toastInnerRadius,
       boxShadow: lightToastShadow,
       content: "''",
-      height: "40px",
+      height: "100%",
       left: 0,
       pointerEvents: "none",
       position: "absolute",
       top: 0,
-      width: "383px",
-      [darkTheme]: {
-        backgroundColor: darkToastSurface,
-        boxShadow: darkToastShadow,
-      },
+      width: "100%",
     },
     "[data-starting-style]": { opacity: 0, transform: "translateY(8px)" },
     "[data-ending-style]": { opacity: 0, transform: "translateY(8px)" },
@@ -113,31 +96,27 @@ export const styles = stylex.create({
     justifyContent: "center",
     lineHeight: "10px",
     width: "14px",
-    [darkTheme]: {
-      backgroundColor: darkToastContentSecondary,
-      color: darkToastSurface,
-    },
   },
-  success: { color: tokens.colorStatusSuccessContent, [darkTheme]: { color: darkToastSuccess } },
-  error: { color: tokens.colorStatusErrorContent, [darkTheme]: { color: darkToastError } },
+  success: { color: tokens.colorStatusSuccessContent },
+  error: { color: tokens.colorStatusErrorContent },
   statusGlyph: {
     fontFamily: tokens.fontSans,
-    fontSize: "14px",
+    fontSize: tokens.typeBodySize,
     fontWeight: 500,
-    lineHeight: "16px",
+    lineHeight: tokens.typeLabelLineHeight,
   },
   text: {
     color: tokens.colorContentSecondary,
     flex: 1,
     fontFamily: tokens.fontSans,
-    fontSize: "13px",
+    fontSize: tokens.typeLabelSize,
     fontWeight: 500,
-    lineHeight: "15px",
+    lineHeight: tokens.typeLabelLineHeight,
     margin: 0,
     minWidth: 0,
     overflow: "hidden",
     textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
+    whiteSpace: "normal",
   },
   textStack: {
     display: "flex",
@@ -145,7 +124,7 @@ export const styles = stylex.create({
     flexDirection: "column",
     minWidth: 0,
   },
-  title: { color: "#000000", [darkTheme]: { color: darkToastContentPrimary } },
+  title: { color: tokens.colorContentPrimary },
   close: {
     alignItems: "center",
     backgroundColor: { default: "transparent", ":hover": tokens.colorSurfaceQuaternary },
@@ -167,7 +146,6 @@ export const styles = stylex.create({
     transitionProperty: "background-color, color, opacity",
     transitionTimingFunction: motion.easeHover,
     width: "24px",
-    [darkTheme]: { color: darkToastContentSecondary },
   },
   closeIcon: {
     alignItems: "center",
@@ -179,7 +157,7 @@ export const styles = stylex.create({
   action: {
     background: "transparent",
     border: 0,
-    color: "#000000",
+    color: tokens.colorContentPrimary,
     cursor: "pointer",
     font: "inherit",
     outline: { default: "none", ":focus-visible": `1px solid ${tokens.colorFocusRing}` },
@@ -188,6 +166,5 @@ export const styles = stylex.create({
     transitionDuration: motion.durationFast,
     transitionProperty: "color, opacity",
     transitionTimingFunction: motion.easeHover,
-    [darkTheme]: { color: darkToastContentPrimary },
   },
 });

@@ -7,6 +7,13 @@
   "stageClassName": "sidebar-rendered-stage",
   "controls": [
     {
+      "id": "density",
+      "label": "Density",
+      "type": "select",
+      "options": ["default", "compact"],
+      "default": "default"
+    },
+    {
       "id": "theme",
       "label": "Theme",
       "type": "select",

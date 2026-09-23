@@ -1,3 +1,4 @@
+import { themeColor } from "./shared/test-theme.js";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -9,9 +10,9 @@ import { Select } from "./select/index.js";
 import { TextField } from "./text-field/index.js";
 import { ThemeScope } from "./theme-scope/index.js";
 
-for (const [theme, expectedTextBorder] of [
-  ["light", "rgb(216, 216, 216)"],
-  ["dark", "rgb(72, 73, 76)"],
+for (const [theme] of [
+  ["light", themeColor("light", "color.border.decorative")],
+  ["dark", themeColor("dark", "color.border.control")],
 ] as const) {
   test(`boxed control edges match in ${theme} mode`, async () => {
     const screen = await render(
@@ -42,25 +43,30 @@ for (const [theme, expectedTextBorder] of [
     );
     const textInputStyle = getComputedStyle(controls[0]!);
 
-    for (const [index, control] of controls.entries()) {
+    for (const control of controls) {
       const computed = getComputedStyle(control);
-      expect(computed.backgroundColor).toBe(
-        theme === "light" ? "rgb(255, 255, 255)" : "rgb(25, 26, 27)",
-      );
-      expect(computed.borderColor).toBe(index === 0 ? expectedTextBorder : "rgba(0, 0, 0, 0)");
-      expect(computed.borderRadius).toBe("8px");
+      expect(computed.backgroundColor).toBe(themeColor(theme, "color.surface.control"));
+      expect(computed.borderColor).toBe(themeColor(theme, "color.border.control"));
+      expect(computed.borderRadius).toBe("6px");
       expect(computed.borderStyle).toBe("solid");
       expect(computed.borderWidth).toBe(textInputStyle.borderWidth);
-      expect(computed.boxShadow === "none").toBe(index === 0);
-      if (index > 0) expect(computed.boxShadow).toContain("0.5px");
+      expect(computed.boxShadow).toBe("none");
       expect(control.getBoundingClientRect().height).toBe(32);
     }
   });
 }
 
-for (const [theme, expectedHoverBorder, expectedFocusRing] of [
-  ["light", "rgb(194, 194, 194)", "rgb(94, 106, 210)"],
-  ["dark", "rgb(62, 66, 77)", "rgb(94, 106, 210)"],
+for (const [theme] of [
+  [
+    "light",
+    themeColor("light", "color.border.controlFocus"),
+    themeColor("light", "color.focus.ring"),
+  ],
+  [
+    "dark",
+    themeColor("dark", "color.border.controlFocus"),
+    themeColor("light", "color.focus.ring"),
+  ],
 ] as const) {
   test(`text field interaction edges match Linear in ${theme} mode`, async () => {
     const screen = await render(
@@ -75,20 +81,22 @@ for (const [theme, expectedHoverBorder, expectedFocusRing] of [
     await input.hover();
     await expect
       .poll(() => getComputedStyle(input.element()).borderColor)
-      .toBe(expectedHoverBorder);
+      .toBe(themeColor(theme, "color.border.controlFocus"));
 
     await input.click();
-    await expect.poll(() => getComputedStyle(input.element()).outlineColor).toBe(expectedFocusRing);
+    await expect
+      .poll(() => getComputedStyle(input.element()).outlineColor)
+      .toBe(themeColor(theme, "color.focus.ring"));
     expect(getComputedStyle(input.element()).outlineOffset).toBe("-1px");
     expect(getComputedStyle(input.element()).outlineWidth).toBe("2px");
   });
 }
 
 for (const [theme, expectedBackground] of [
-  ["light", "rgb(240, 240, 241)"],
-  ["dark", "rgb(57, 58, 61)"],
+  ["light", themeColor("light", "color.surface.interactiveHover")],
+  ["dark", themeColor("dark", "color.surface.overlayHover")],
 ] as const) {
-  test(`select trigger resolves its Figma hover surface in ${theme} mode`, async () => {
+  test(`select trigger resolves its semantic hover surface in ${theme} mode`, async () => {
     const screen = await render(
       <ThemeScope theme={theme}>
         <Select.Root defaultValue="active" items={[{ label: "Active", value: "active" }]}>

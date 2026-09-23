@@ -4,6 +4,13 @@
   "themeControl": "theme",
   "controls": [
     {
+      "id": "density",
+      "label": "Density",
+      "type": "select",
+      "options": ["default", "compact"],
+      "default": "default"
+    },
+    {
       "id": "selected",
       "label": "Selected",
       "type": "select",

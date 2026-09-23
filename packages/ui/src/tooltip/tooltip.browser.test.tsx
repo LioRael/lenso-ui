@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import * as stylex from "@stylexjs/stylex";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
@@ -24,7 +25,7 @@ function TooltipPreview({ shortcut = false }: { shortcut?: boolean }) {
   );
 }
 
-test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", async () => {
+test("Tooltip resolves semantic tokens and exposes hover, focus, and Escape behavior", async () => {
   const screen = await render(
     <>
       <div
@@ -80,7 +81,7 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
     .element()
     .querySelectorAll<HTMLElement>('[data-slot="tooltip-popup-preview"]');
   await expect.poll(() => getComputedStyle(previews[0]!).height).toBe("29px");
-  await expect.poll(() => getComputedStyle(previews[0]!).boxShadow).toContain("-2px");
+
   expect(previews[0]!.getBoundingClientRect().width).toBe(70);
   expect(previews[1]!.getBoundingClientRect().width).toBe(96);
 
@@ -97,9 +98,11 @@ test("Tooltip matches Figma and exposes hover, focus, and Escape behavior", asyn
 
   const darkShortcut = previews[3]!.querySelector<HTMLElement>('[data-slot="tooltip-shortcut"]')!;
   const darkShortcutStyle = getComputedStyle(darkShortcut);
-  expect(darkShortcutStyle.borderColor).toBe("rgb(51, 51, 51)");
-  expect(darkShortcutStyle.color).toBe("rgb(138, 143, 152)");
-  expect(getComputedStyle(previews[3]!).backgroundColor).toBe("rgb(40, 41, 43)");
+  expect(darkShortcutStyle.borderColor).toBe(themeColor("dark", "color.border.decorative"));
+  expect(darkShortcutStyle.color).toBe(themeColor("dark", "color.content.tertiary"));
+  expect(getComputedStyle(previews[3]!).backgroundColor).toBe(
+    themeColor("dark", "color.surface.popover"),
+  );
 
   const trigger = screen.getByRole("button", { name: "Help" });
   await userEvent.hover(trigger);

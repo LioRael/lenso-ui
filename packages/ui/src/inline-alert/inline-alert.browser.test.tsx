@@ -1,3 +1,4 @@
+import { themeColor } from "../shared/test-theme.js";
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
@@ -43,9 +44,9 @@ test("Inline Alert communicates tone without assuming announcement urgency", asy
   const icon = notice.element().querySelector<HTMLElement>('[data-slot="inline-alert-icon"]')!;
   await expect
     .poll(() => getComputedStyle(notice.element()).borderLeftColor)
-    .toBe("rgb(234, 234, 234)");
+    .toBe(themeColor("light", "color.border.decorative"));
   expect(getComputedStyle(notice.element()).borderLeftWidth).toBe("1px");
-  expect(getComputedStyle(icon).color).toBe("rgb(138, 90, 0)");
+  expect(getComputedStyle(icon).color).toBe(themeColor("light", "color.status.warningContent"));
   expect(screen.getByRole("alert").element().getAttribute("data-tone")).toBe("error");
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
