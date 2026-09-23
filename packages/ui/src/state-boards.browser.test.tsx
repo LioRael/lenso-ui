@@ -801,6 +801,7 @@ test("Text Field resolves dark theme values", async () => {
   const control = screen.getByPlaceholder("Enter value").element();
   const focusedControl = screen.getByPlaceholder("Focused value").element();
   await userEvent.unhover(control);
+  await userEvent.unhover(focusedControl);
   await expect
     .poll(() => getComputedStyle(label).color)
     .toBe(themeColor("dark", "color.content.primary"));
@@ -810,9 +811,9 @@ test("Text Field resolves dark theme values", async () => {
   await expect
     .poll(() => getComputedStyle(control).borderColor)
     .toBe(themeColor("dark", "color.border.control"));
-  expect(getComputedStyle(focusedControl).borderColor).toBe(
-    themeColor("dark", "color.border.control"),
-  );
+  await expect
+    .poll(() => getComputedStyle(focusedControl).borderColor)
+    .toBe(themeColor("dark", "color.border.control"));
   expect(getComputedStyle(focusedControl).outlineColor).toBe(
     themeColor("dark", "color.focus.ring"),
   );

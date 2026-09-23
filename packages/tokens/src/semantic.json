@@ -323,6 +323,13 @@
         "unit": "px"
       }
     },
+    "navigation": {
+      "$type": "dimension",
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
     "media": {
       "$type": "dimension",
       "$value": {

@@ -84,7 +84,7 @@ export const styles = stylex.create({
     "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
   compactTab: {
-    borderRadius: tokens.radiusPanel,
+    borderRadius: tokens.radiusNavigation,
     fontSize: tokens.typeNavigationSize,
     fontWeight: tokens.typeNavigationWeight,
     gap: tokens.spaceInlineIconGap,

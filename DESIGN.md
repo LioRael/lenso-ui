@@ -20,7 +20,7 @@ Before adding a token, find the nearest semantic role and check both themes. Bef
 
 Use typography, alignment and modest value contrast before decoration. Navigation has compact rows and a quiet persistent selected fill; text stays on one line where an item is a destination. A hover color is transient and never substitutes for selection. Controls should use consistent icon slots, pointer geometry and focus-visible states. Overlay surfaces can be slightly raised with a subtle edge/shadow; ordinary content groups use spacing and separators rather than card nesting.
 
-Console v1 is a dark, near-neutral example of this grammar. Its accepted header tabs are 32px high with about 13.5px text and 14px glyphs; sidebar rows are 32px high with 13px text, about 14px glyphs and an 8px icon/text gap; selected surfaces are subdued charcoal. Those are pilot comparison values, **not** new global defaults. Build a Light counterpart and verify a non-Console scenario before altering shared defaults.
+Console v1 is a dark, near-neutral example of this grammar. Its accepted header tabs are 32px high with about 13.5px text and 14px glyphs; sidebar rows are 32px high with 13px text, about 14px glyphs and an 8px icon/text gap; both compact navigation controls use `radius.navigation` (10px), while selected surfaces are subdued charcoal. Those are pilot comparison values, **not** new global defaults. Build a Light counterpart and verify a non-Console scenario before altering shared defaults.
 
 ## Token selection by intent
 

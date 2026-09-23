@@ -1679,6 +1679,7 @@
     "opacity.enabled",
     "radius.control",
     "radius.media",
+    "radius.navigation",
     "radius.overlay",
     "radius.panel",
     "radius.popover",
@@ -3621,6 +3622,16 @@
         },
         "cssName": "--radius-media",
         "cssValue": "16px"
+      },
+      "radius.navigation": {
+        "path": "radius.navigation",
+        "type": "dimension",
+        "value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "cssName": "--radius-navigation",
+        "cssValue": "10px"
       },
       "radius.overlay": {
         "path": "radius.overlay",
@@ -6088,6 +6099,16 @@
         },
         "cssName": "--radius-media",
         "cssValue": "16px"
+      },
+      "radius.navigation": {
+        "path": "radius.navigation",
+        "type": "dimension",
+        "value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "cssName": "--radius-navigation",
+        "cssValue": "10px"
       },
       "radius.overlay": {
         "path": "radius.overlay",

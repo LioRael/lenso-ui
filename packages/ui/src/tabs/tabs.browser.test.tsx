@@ -117,6 +117,7 @@ test("compact tabs use quiet selected geometry without an outline edge", async (
   const chat = screen.getByRole("tab", { name: "Chat" }).element();
   const code = screen.getByRole("tab", { name: "Code" }).element();
   await expect.poll(() => chat.getBoundingClientRect().height).toBe(32);
+  expect(getComputedStyle(chat).borderRadius).toBe("10px");
   expect(getComputedStyle(chat).backgroundColor).toBe(
     themeColor("dark", "color.navigation.tabBgSelected"),
   );

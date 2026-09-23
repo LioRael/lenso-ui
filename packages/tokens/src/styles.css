@@ -232,6 +232,7 @@
   --opacity-enabled: 1;
   --radius-control: 6px;
   --radius-media: 16px;
+  --radius-navigation: 10px;
   --radius-overlay: 12px;
   --radius-panel: 8px;
   --radius-popover: 12px;
@@ -433,6 +434,7 @@
   --opacity-enabled: 1;
   --radius-control: 6px;
   --radius-media: 16px;
+  --radius-navigation: 10px;
   --radius-overlay: 12px;
   --radius-panel: 8px;
   --radius-popover: 12px;

@@ -116,7 +116,7 @@ export const styles = stylex.create({
     width: "100%",
   },
   compactItem: {
-    borderRadius: tokens.radiusPanel,
+    borderRadius: tokens.radiusNavigation,
     color: tokens.colorSidebarItemText,
     flex: "0 0 32px",
     fontSize: tokens.typeLabelSize,

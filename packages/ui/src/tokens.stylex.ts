@@ -237,6 +237,7 @@ export const tokens = stylex.defineConsts({
   opacityEnabled: "var(--opacity-enabled, 1)",
   radiusControl: "var(--radius-control, 6px)",
   radiusMedia: "var(--radius-media, 16px)",
+  radiusNavigation: "var(--radius-navigation, 10px)",
   radiusOverlay: "var(--radius-overlay, 12px)",
   radiusPanel: "var(--radius-panel, 8px)",
   radiusPopover: "var(--radius-popover, 12px)",

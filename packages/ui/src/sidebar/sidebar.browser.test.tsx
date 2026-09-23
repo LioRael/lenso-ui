@@ -293,6 +293,7 @@ test("compact Sidebar destinations preserve the 32px row and one-line icon gap",
   const icon = item.querySelector<HTMLElement>('[data-slot="sidebar-item-icon"]')!;
   const label = item.querySelector<HTMLElement>('[data-slot="sidebar-item-label"]')!;
   await expect.poll(() => item.getBoundingClientRect().height).toBe(32);
+  expect(getComputedStyle(item).borderRadius).toBe("10px");
   expect(Math.round(label.getBoundingClientRect().left - icon.getBoundingClientRect().right)).toBe(
     8,
   );

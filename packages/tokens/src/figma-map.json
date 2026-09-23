@@ -691,6 +691,11 @@
       "type": "dimension"
     },
     {
+      "path": "radius.navigation",
+      "cssName": "--radius-navigation",
+      "type": "dimension"
+    },
+    {
       "path": "radius.overlay",
       "cssName": "--radius-overlay",
       "type": "dimension"
