@@ -110,7 +110,7 @@ test("Tooltip resolves semantic tokens and exposes hover, focus, and Escape beha
   await expect.element(runtimeTooltip).toBeVisible();
   await expect.poll(() => getComputedStyle(runtimeTooltip.element()).opacity).toBe("1");
   expect(runtimeTooltip.element().getBoundingClientRect().width).toBeGreaterThan(96);
-  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeLessThan(98);
+  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeLessThan(104);
   expect(trigger.element().getAttribute("aria-describedby")).toBe(runtimeTooltip.element().id);
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,

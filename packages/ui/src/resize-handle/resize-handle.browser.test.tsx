@@ -58,7 +58,9 @@ test("keeps Linear-inspired geometry and reveals the indicator on interaction", 
     .element()
     .querySelector<HTMLElement>('[data-slot="resize-handle-indicator"]')!;
 
-  await expect.poll(() => getComputedStyle(lightHandle.element()).width).toBe("7px");
+  await expect
+    .poll(() => getComputedStyle(lightHandle.element()).width, { timeout: 5000 })
+    .toBe("7px");
   expect(getComputedStyle(lightHandle.element()).cursor).toBe("col-resize");
   expect(getComputedStyle(lightIndicator).width).toBe("0.5px");
   expect(getComputedStyle(lightIndicator).top).toBe("12px");

@@ -115,12 +115,17 @@ test("Settings Row resolves the semantic control and state matrix", async () => 
   const toggleTrack = rows[3]!.querySelector<HTMLElement>('[data-slot="switch-track"]');
   expect(toggle).not.toBeNull();
   expect(toggleTrack).not.toBeNull();
-  expect(
-    (rows[3]!.getBoundingClientRect().right - toggle!.getBoundingClientRect().right) / 0.6,
-  ).toBeCloseTo(16, 1);
-  expect(
-    (rows[3]!.getBoundingClientRect().right - toggleTrack!.getBoundingClientRect().right) / 0.6,
-  ).toBeCloseTo(22, 1);
+  await expect
+    .poll(
+      () => (rows[3]!.getBoundingClientRect().right - toggle!.getBoundingClientRect().right) / 0.6,
+    )
+    .toBeCloseTo(16, 1);
+  await expect
+    .poll(
+      () =>
+        (rows[3]!.getBoundingClientRect().right - toggleTrack!.getBoundingClientRect().right) / 0.6,
+    )
+    .toBeCloseTo(22, 1);
   await expect.poll(() => getComputedStyle(rows[2]!).opacity).toBe("0.4");
   await userEvent.hover(rows[2]!);
   await expect.poll(() => getComputedStyle(rows[2]!).backgroundColor).toBe("rgba(0, 0, 0, 0)");

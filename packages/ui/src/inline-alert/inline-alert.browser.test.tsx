@@ -46,7 +46,9 @@ test("Inline Alert communicates tone without assuming announcement urgency", asy
     .poll(() => getComputedStyle(notice.element()).borderLeftColor)
     .toBe(themeColor("light", "color.border.decorative"));
   expect(getComputedStyle(notice.element()).borderLeftWidth).toBe("1px");
-  expect(getComputedStyle(icon).color).toBe(themeColor("light", "color.status.warningContent"));
+  await expect
+    .poll(() => getComputedStyle(icon).color)
+    .toBe(themeColor("light", "color.status.warningContent"));
   expect(screen.getByRole("alert").element().getAttribute("data-tone")).toBe("error");
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,

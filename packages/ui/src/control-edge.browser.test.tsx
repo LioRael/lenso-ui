@@ -46,7 +46,9 @@ for (const [theme] of [
     for (const control of controls) {
       const computed = getComputedStyle(control);
       expect(computed.backgroundColor).toBe(themeColor(theme, "color.surface.control"));
-      expect(computed.borderColor).toBe(themeColor(theme, "color.border.control"));
+      await expect
+        .poll(() => getComputedStyle(control).borderColor)
+        .toBe(themeColor(theme, "color.border.control"));
       expect(computed.borderRadius).toBe("6px");
       expect(computed.borderStyle).toBe("solid");
       expect(computed.borderWidth).toBe(textInputStyle.borderWidth);
