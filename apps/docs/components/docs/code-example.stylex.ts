@@ -8,10 +8,10 @@ export const styles = stylex.create({
     height: "auto",
     marginTop: "24px",
     minHeight: 0,
-    width: "1080px",
-    "@media (max-width: 1320px)": { width: "100%" },
+    minWidth: 0,
+    width: "100%",
   },
-  heading: { width: "1080px", "@media (max-width: 1320px)": { width: "100%" } },
+  heading: { minWidth: 0, width: "100%" },
   title: {
     color: "var(--color-content-primary)",
     fontSize: "16px",

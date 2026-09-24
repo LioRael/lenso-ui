@@ -38,7 +38,9 @@ export function DocumentFrame({
     const article = document.querySelector<HTMLElement>(`[data-document-main="${slug}"]`);
     if (!article) return;
     const found = Array.from(
-      article.querySelectorAll<HTMLElement>(".docs-prose > h2, .docs-prose > h3"),
+      article.querySelectorAll<HTMLElement>(
+        ".docs-prose > h2, .docs-prose > h3, .docs-prose [data-toc-heading]",
+      ),
     );
     const used = new Set<string>();
     const next = found
@@ -63,16 +65,6 @@ export function DocumentFrame({
     <div
       className={`docs-content-layout${showToc ? " has-toc" : ""}${workspace ? " is-workspace" : ""}`}
     >
-      <article className="docs-article" data-document-main={slug}>
-        <div className="docs-article-heading">
-          <p className="docs-article-eyebrow">{eyebrow ?? sectionLabel}</p>
-          <h1>{title}</h1>
-          <p className="docs-article-description">{description}</p>
-        </div>
-        <div className="docs-prose" data-layout={layout}>
-          {children}
-        </div>
-      </article>
       {showToc && (
         <aside aria-label="On this page" className="docs-toc">
           <p>On this page</p>
@@ -89,6 +81,18 @@ export function DocumentFrame({
           </nav>
         </aside>
       )}
+      <article className="docs-article" data-document-main={slug}>
+        {!workspace && (
+          <div className="docs-article-heading">
+            <p className="docs-article-eyebrow">{eyebrow ?? sectionLabel}</p>
+            <h1>{title}</h1>
+            <p className="docs-article-description">{description}</p>
+          </div>
+        )}
+        <div className="docs-prose" data-layout={layout}>
+          {children}
+        </div>
+      </article>
     </div>
   );
 }

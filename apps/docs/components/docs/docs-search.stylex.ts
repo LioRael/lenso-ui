@@ -22,7 +22,7 @@ export const styles = stylex.create({
     width: "min(350px, calc(100% - 560px))",
     "::after": { content: '""', inset: "-6px", position: "absolute" },
     ":hover": {
-      borderColor: "var(--docs-neutral-300)",
+      borderColor: "var(--color-border-control)",
       color: "var(--color-content-secondary)",
     },
     ":focus-visible": { outline: "2px solid var(--color-focus-ring)", outlineOffset: "2px" },

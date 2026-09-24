@@ -7,13 +7,13 @@ export const styles = stylex.create({
     gap: "24px",
     height: "auto",
     marginTop: "24px",
-    width: "1080px",
-    "@media (max-width: 1320px)": { width: "100%" },
+    minWidth: 0,
+    width: "100%",
   },
   block: {
     height: "auto",
-    width: "1080px",
-    "@media (max-width: 1320px)": { width: "100%" },
+    minWidth: 0,
+    width: "100%",
   },
   title: {
     color: "var(--color-content-primary)",

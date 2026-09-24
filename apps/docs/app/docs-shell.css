@@ -35,10 +35,18 @@ a {
 }
 
 .docs-shell {
+  --docs-shell-divider: color-mix(
+    in srgb,
+    var(--color-border-tertiary) 55%,
+    var(--color-surface-canvas)
+  );
   min-height: 100dvh;
   display: grid;
   grid-template-columns: 244px minmax(0, 1fr);
   grid-template-rows: 64px minmax(0, 1fr);
+}
+html[data-theme="dark"] .docs-shell {
+  --docs-shell-divider: var(--color-border-tertiary);
 }
 .docs-header {
   grid-column: 1 / -1;
@@ -49,7 +57,7 @@ a {
   min-width: 0;
   padding: 0 23px;
   gap: 14px;
-  border-bottom: 1px solid var(--color-border-tertiary);
+  border-bottom: 1px solid var(--docs-shell-divider);
   background: var(--color-surface-canvas);
 }
 .docs-header-leading {
@@ -70,7 +78,7 @@ a {
   width: 1px;
   height: 21px;
   flex: none;
-  background: var(--color-border-secondary);
+  background: var(--docs-shell-divider);
 }
 .docs-tabs {
   display: flex;
@@ -167,7 +175,7 @@ a {
   grid-column: 1;
   grid-row: 2;
   min-height: 0;
-  border-right: 1px solid var(--color-border-tertiary);
+  border-right: 1px solid var(--docs-shell-divider);
   background: var(--color-surface-sidebar);
   overflow-y: auto;
 }
@@ -230,7 +238,26 @@ a {
   padding: 56px clamp(30px, 5vw, 78px) 110px;
 }
 .docs-content-layout.has-toc {
-  grid-template-columns: minmax(0, 760px) minmax(140px, 190px);
+  grid-template-columns: minmax(0, 960px) minmax(140px, 190px);
+  gap: 36px;
+  padding-inline: 30px;
+}
+.docs-content-layout.has-toc .docs-article {
+  grid-column: 1;
+  grid-row: 1;
+}
+.docs-content-layout.is-workspace {
+  display: block;
+  min-height: calc(100dvh - 64px);
+  padding: 0 24px 24px;
+}
+.docs-content-layout.is-workspace .docs-article,
+.docs-content-layout.is-workspace .docs-prose {
+  height: 100%;
+  width: 100%;
+}
+.docs-content-layout.is-workspace:has([data-document-main="theme-lab"]) {
+  padding-inline: 16px;
 }
 .docs-article {
   min-width: 0;
@@ -393,6 +420,8 @@ html[data-theme="dark"] .astro-code span {
   min-width: 155px;
 }
 .docs-toc {
+  grid-column: 2;
+  grid-row: 1;
   position: sticky;
   top: 57px;
   align-self: start;
@@ -555,12 +584,49 @@ html[data-theme="dark"] .astro-code span {
     margin-left: 0;
   }
 }
-@media (max-width: 1080px) {
+@media (max-width: 1500px) {
   .docs-content-layout.has-toc {
-    grid-template-columns: minmax(0, 760px);
+    grid-template-columns: minmax(0, 960px);
+    position: relative;
+    padding-inline: clamp(30px, 5vw, 78px);
   }
   .docs-toc {
-    display: none;
+    position: absolute;
+    top: 0;
+    right: 30px;
+    width: 190px;
+    max-height: 112px;
+    overflow-y: auto;
+  }
+  .docs-content-layout.has-toc .docs-article-heading {
+    padding-right: 210px;
+  }
+}
+@media (max-width: 1180px) {
+  .docs-toc {
+    position: static;
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+    max-height: none;
+    margin-bottom: 26px;
+    overflow: visible;
+  }
+  .docs-toc nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 10px;
+    border-left: 0;
+  }
+  .docs-toc-link,
+  .docs-toc-link.is-nested {
+    padding: 4px 0;
+  }
+  .docs-content-layout.has-toc .docs-article {
+    grid-row: 2;
+  }
+  .docs-content-layout.has-toc .docs-article-heading {
+    padding-right: 0;
   }
 }
 @media (max-width: 900px) {
@@ -569,6 +635,12 @@ html[data-theme="dark"] .astro-code span {
   }
   .docs-content-layout {
     padding: 43px 32px 90px;
+  }
+  .docs-content-layout.has-toc {
+    padding: 43px 32px 90px;
+  }
+  .docs-content-layout.is-workspace {
+    padding: 0 16px 24px;
   }
 }
 @media (max-width: 600px) {
@@ -621,6 +693,13 @@ html[data-theme="dark"] .astro-code span {
   .docs-content-layout {
     padding: 34px 22px 72px;
   }
+  .docs-content-layout.has-toc {
+    padding: 34px 22px 72px;
+  }
+  .docs-content-layout.is-workspace {
+    min-height: calc(100dvh - 92px);
+    padding-inline: 12px;
+  }
   .docs-article h1 {
     font-size: 26px;
     line-height: 34px;
@@ -633,6 +712,9 @@ html[data-theme="dark"] .astro-code span {
     text-overflow: ellipsis;
   }
   .docs-content-layout {
+    padding-inline: 17px;
+  }
+  .docs-content-layout.has-toc {
     padding-inline: 17px;
   }
 }
