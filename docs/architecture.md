@@ -17,7 +17,8 @@ flowchart LR
   uiSource --> registryBuilder["registry builder"]
   primitiveSource --> registryBuilder
   registryBuilder --> registryOutput["registry/ and /r/ output"]
-  docsSource["apps/docs/contents + demos"] --> docsApp["Next documentation + component lab"]
+  docsFramework["@lenso/docs routes + shell"] --> docsApp["Astro documentation + component lab"]
+  docsSource["apps/docs-site/content/docs + demos"] --> docsApp
   uiPackage --> docsApp
   tokenArtifacts --> docsApp
 ```
@@ -81,7 +82,7 @@ pnpm generate
 pnpm --filter @lenso/token-generator check-generated
 ```
 
-Review and commit the resulting generated changes together with their source change. Important generated locations include `packages/tokens/src`, `packages/ui/src/tokens.stylex.ts`, `registry/components`, `registry/setup/setup.json`, `registry/registry.json`, `registry/parity-manifest.json`, `registry/tokens.stylex.ts`, and `apps/docs/public/r`.
+Review and commit the resulting generated changes together with their source change. Important generated locations include `packages/tokens/src`, `packages/ui/src/tokens.stylex.ts`, `registry/components`, `registry/setup/setup.json`, `registry/registry.json`, `registry/parity-manifest.json`, `registry/tokens.stylex.ts`, and `apps/docs-site/public/r`.
 
 ## Theme and portal model
 
@@ -93,7 +94,7 @@ Consumers resolve system preference and persistence outside Lenso UI, then pass 
 
 ## Documentation and verification
 
-`apps/docs` is both the public Next App Router documentation site and the component lab. MDX content, playground JSON, demo modules, package examples, and documentation navigation are part of the product surface.
+`@lenso/docs` supplies file-based routes, navigation, search, agent-readable indexes, and the reading shell. `apps/docs-site` is its public Astro consumer and component lab. MDX content, playground JSON, demo modules, and package examples are part of the product surface. The old Next app under `apps/docs` is retained temporarily for migration comparison.
 
 The repository verifies the public seam through:
 

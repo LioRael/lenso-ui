@@ -1,0 +1,72 @@
+---
+title: "Menu"
+description: "Composable application menu with shortcuts, links, nested surfaces, and complete keyboard navigation."
+eyebrow: "Foundation component · Overlays"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="menu"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Menu when">
+      <ul>
+        <li>Use Item for actions and LinkItem for navigation.</li>
+        <li>Keep labels concise and group destructive actions last.</li>
+        <li>Use <code>layout="stacked"</code> only when one short context line distinguishes choices, such as workspaces with similar names. Omit repeated tags and capability lists.</li>
+        <li>Use RadioItem for the selected workspace and keep icon, copy, and check aligned on one row.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Base UI owns roles, roving focus, typeahead, and nested keyboard navigation.</li>
+        <li>Escape closes the active surface and restores focus.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Menu } from "@lenso/ui/menu";
+
+<Menu.Root>
+    <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
+    <Menu.Portal>
+      <Menu.Positioner>
+        <Menu.Popup>
+          <Menu.LinkItem href="/issue/14">Open issue</Menu.LinkItem>
+          <Menu.SubmenuRoot>
+            <Menu.SubmenuTrigger>Create related</Menu.SubmenuTrigger>
+            <Menu.Portal>
+              <Menu.Positioner side="right">
+                <Menu.Popup submenu>...</Menu.Popup>
+              </Menu.Positioner>
+            </Menu.Portal>
+          </Menu.SubmenuRoot>
+        </Menu.Popup>
+      </Menu.Positioner>
+    </Menu.Portal>
+</Menu.Root>;`}
+    description="Actions, navigation, and selection share the same overlay surface; product context belongs in concise labels and descriptions."
+  />
+
+  <CodeExample
+    code={String.raw`import { FolderIcon } from "lucide-react";
+import { Menu } from "@lenso/ui/menu";
+
+<Menu.RadioGroup defaultValue="projects" onValueChange={setWorkspace}>
+    <Menu.RadioItem layout="stacked" value="projects">
+      <Menu.Leading>
+        <FolderIcon size={16} />
+      </Menu.Leading>
+      <Menu.Copy>
+        <Menu.Label>Projects</Menu.Label>
+        <Menu.Description>Boards and schedules</Menu.Description>
+      </Menu.Copy>
+      <Menu.RadioItemIndicator />
+    </Menu.RadioItem>
+</Menu.RadioGroup>;`}
+    description="Place the RadioGroup inside Menu.Popup. Use the description only when it helps distinguish a choice; the selected check and concise label carry the main decision."
+  />

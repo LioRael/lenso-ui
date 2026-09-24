@@ -1,0 +1,48 @@
+---
+title: "Tabs"
+description: "A quiet local-view switcher with a compact variant for workspace navigation."
+eyebrow: "Foundation component · Navigation"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="tabs"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Tabs when">
+      <ul>
+        <li>Use tabs for peer views within one context, not for primary navigation.</li>
+        <li>Use the default underline treatment for local content views. Apply <code>density="compact"</code> to both List and Tab for a 32px workspace/header switcher with a quiet filled selection.</li>
+        <li>Keep labels short; the product shell handles horizontal overflow rather than shrinking tabs until they are unreadable.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Give every tab list an accessible name that describes the switched views.</li>
+        <li>Base UI owns roles, roving focus, arrow keys, selection, and panel linkage.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Tabs } from "@lenso/ui/tabs";
+
+<Tabs.Root defaultValue="overview">
+    <Tabs.List aria-label="Project sections" density="compact">
+      <Tabs.Tab density="compact" value="overview">
+        Overview
+      </Tabs.Tab>
+      <Tabs.Tab density="compact" value="documents">
+        Documents
+      </Tabs.Tab>
+      <Tabs.Tab density="compact" value="members">
+        Members
+      </Tabs.Tab>
+    </Tabs.List>
+    <Tabs.Panel value="overview">Overview content</Tabs.Panel>
+</Tabs.Root>;`}
+    description="Compact is an explicit workspace variant. The default uses a text label and selected rule for local content."
+  />

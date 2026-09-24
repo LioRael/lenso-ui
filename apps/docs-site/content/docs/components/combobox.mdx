@@ -1,0 +1,54 @@
+---
+title: "Combobox"
+description: "Search a large option set, then choose one or more matching values."
+eyebrow: "Foundation component · Forms"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="combobox"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Combobox when">
+      <ul>
+        <li>The option set is too large to scan comfortably in a Select.</li>
+        <li>Use multiple selection only when every chosen value remains visible and removable.</li>
+        <li>Use Text Field when people may enter a value that is not in a known option set.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Search behavior">
+      <ul>
+        <li>Describe what can be searched in the visible label or input placeholder.</li>
+        <li>Show explicit loading, empty, and no-match states inside the popup.</li>
+        <li>Base UI manages combobox semantics, active options, and keyboard navigation.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Combobox } from "@lenso/ui/combobox";
+
+<Combobox.Root items={labels} multiple>
+    <Combobox.InputGroup>
+      <Combobox.Input placeholder="Search labels…" />
+    </Combobox.InputGroup>
+    <Combobox.Portal>
+      <Combobox.Positioner>
+        <Combobox.Popup>
+          <Combobox.List>
+            {(label) => (
+              <Combobox.Item value={label}>
+                <Combobox.ItemIndicator />
+                <Combobox.ItemText>{label}</Combobox.ItemText>
+              </Combobox.Item>
+            )}
+          </Combobox.List>
+        </Combobox.Popup>
+      </Combobox.Positioner>
+    </Combobox.Portal>
+</Combobox.Root>;`}
+    description="The application supplies filtering and item content; the component provides the searchable selection structure."
+  />

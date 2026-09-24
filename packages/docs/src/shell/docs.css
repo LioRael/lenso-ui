@@ -223,11 +223,14 @@ a {
 }
 .docs-content-layout {
   display: grid;
-  grid-template-columns: minmax(0, 760px) minmax(140px, 190px);
+  grid-template-columns: minmax(0, 960px);
   justify-content: center;
   gap: clamp(36px, 5vw, 84px);
   min-height: 100%;
   padding: 56px clamp(30px, 5vw, 78px) 110px;
+}
+.docs-content-layout.has-toc {
+  grid-template-columns: minmax(0, 760px) minmax(140px, 190px);
 }
 .docs-article {
   min-width: 0;
@@ -262,6 +265,34 @@ a {
 }
 .docs-prose > :first-child {
   margin-top: 0;
+}
+.docs-prose > p,
+.docs-prose > ul,
+.docs-prose > ol,
+.docs-prose > blockquote {
+  max-width: 72ch;
+}
+.docs-guidance {
+  display: grid;
+  gap: 26px;
+  margin: 30px 0;
+}
+.docs-guidance-block h2,
+.docs-code-example h2 {
+  margin: 0 0 10px;
+}
+.docs-guidance-content > :last-child {
+  margin-bottom: 0;
+}
+.docs-code-example {
+  margin: 34px 0;
+}
+.docs-code-example > p {
+  margin: 0 0 16px;
+  max-width: 72ch;
+}
+.docs-code-example-source .astro-code {
+  margin: 0;
 }
 .docs-prose h2 {
   margin: 34px 0 11px;
@@ -336,22 +367,30 @@ html[data-theme="dark"] .astro-code span {
   border-top: 1px solid var(--color-border-tertiary);
   margin: 31px 0;
 }
-.docs-example-stage {
-  display: flex;
-  align-items: center;
-  min-height: 125px;
-  margin: 16px 0 24px;
-  padding: 24px;
-  border: 1px solid var(--color-border-tertiary);
-  border-radius: 11px;
-}
-.button-demo {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  color: var(--color-content-secondary);
+.docs-prose table {
+  display: block;
+  width: 100%;
+  margin: 21px 0 29px;
+  overflow-x: auto;
+  border-collapse: collapse;
   font-size: 13px;
+  line-height: 20px;
+}
+.docs-prose th,
+.docs-prose td {
+  min-width: 125px;
+  padding: 10px 16px 10px 0;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  text-align: left;
+  vertical-align: top;
+}
+.docs-prose th {
+  color: var(--color-content-primary);
+  font-weight: 600;
+}
+.docs-prose td:first-child,
+.docs-prose th:first-child {
+  min-width: 155px;
 }
 .docs-toc {
   position: sticky;
@@ -517,7 +556,7 @@ html[data-theme="dark"] .astro-code span {
   }
 }
 @media (max-width: 1080px) {
-  .docs-content-layout {
+  .docs-content-layout.has-toc {
     grid-template-columns: minmax(0, 760px);
   }
   .docs-toc {

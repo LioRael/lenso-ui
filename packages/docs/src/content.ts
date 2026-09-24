@@ -7,6 +7,7 @@ export const collections: { docs: ReturnType<typeof defineCollection> } = {
     schema: z.object({
       title: z.string().min(1),
       description: z.string().optional(),
+      eyebrow: z.string().optional(),
       draft: z.boolean().default(false),
     }),
   }),

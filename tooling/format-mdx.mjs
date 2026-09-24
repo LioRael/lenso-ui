@@ -2,7 +2,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { spawnSync } from "node:child_process";
 
-const root = join(process.cwd(), "apps/docs/contents");
+const root = join(process.cwd(), "apps/docs-site/content/docs");
 const checkOnly = process.argv.includes("--check");
 
 async function findMdxFiles(directory) {

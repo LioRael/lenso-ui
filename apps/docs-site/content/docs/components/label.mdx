@@ -1,0 +1,38 @@
+---
+title: "Label"
+description: "Identify a category with a compact text label and an optional semantic color marker."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/label"
+  - "Registry ready"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="label"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Label when">
+      <ul>
+        <li>You need to show a category such as issue type, topic, or ownership class.</li>
+        <li>Use Status Marker for health, progress, or lifecycle state.</li>
+        <li>Keep names short and stable so labels remain easy to scan.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Color and interaction">
+      <ul>
+        <li>Do not rely on marker color alone; the text must name the category.</li>
+        <li>Render an interactive label as a button or link rather than adding a click handler to static text.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Label } from "@lenso/ui/label";
+
+<Label color="violet">Feature</Label>;`}
+    description="Color supports recognition while the visible text carries the category meaning."
+  />

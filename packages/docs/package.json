@@ -11,6 +11,7 @@
   "files": [
     "dist",
     "src/config.ts",
+    "src/components",
     "src/content.ts",
     "src/navigation.ts",
     "src/routes",
@@ -29,7 +30,11 @@
       "import": "./src/content.ts"
     },
     "./DocLink.astro": "./src/shell/DocLink.astro",
+    "./CodeExample.astro": "./src/components/CodeExample.astro",
+    "./Guidance.astro": "./src/components/Guidance.astro",
+    "./GuidanceBlock.astro": "./src/components/GuidanceBlock.astro",
     "./routes/document.astro": "./src/routes/document.astro",
+    "./routes/landing.astro": "./src/routes/landing.astro",
     "./routes/search.json.ts": "./src/routes/search.json.ts",
     "./routes/sitemap.xml.ts": "./src/routes/sitemap.xml.ts",
     "./routes/llms.txt.ts": "./src/routes/llms.txt.ts"
@@ -43,7 +48,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lenso/tokens": "workspace:*"
+    "@lenso/tokens": "workspace:*",
+    "@lenso/ui": "workspace:*",
+    "shiki": "4.4.3"
   },
   "devDependencies": {
     "@astrojs/mdx": "^8.0.2",

@@ -28,7 +28,9 @@ if (versions.size !== 1) {
   throw new Error("the public fixed-group package versions disagree");
 }
 const version = manifests[0].version;
-const snapshot = JSON.parse(readFileSync(`apps/docs/public/r/v/${version}/release.json`, "utf8"));
+const snapshot = JSON.parse(
+  readFileSync(`apps/docs-site/public/r/v/${version}/release.json`, "utf8"),
+);
 if (snapshot.version !== version) {
   throw new Error(`registry snapshot does not match ${version}`);
 }

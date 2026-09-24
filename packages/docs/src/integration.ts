@@ -76,6 +76,10 @@ export function lensoDocs(input: DocsConfig): AstroIntegration[] {
           entrypoint: "@lenso/docs/routes/document.astro",
         });
         injectRoute({
+          pattern: prefix || "/",
+          entrypoint: "@lenso/docs/routes/landing.astro",
+        });
+        injectRoute({
           pattern: `${prefix}/search.json`,
           entrypoint: "@lenso/docs/routes/search.json.ts",
         });

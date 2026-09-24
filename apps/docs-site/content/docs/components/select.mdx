@@ -1,0 +1,58 @@
+---
+title: "Select"
+description: "Choose one value from a compact list without showing every option at once."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/select"
+  - "Registry ready"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="select"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Select when">
+      <ul>
+        <li>People choose one value from a familiar list and do not need to compare every option.</li>
+        <li>Use Radio for a short decision whose choices should remain visible.</li>
+        <li>Use Combobox when people need to search or select more than one value.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Labels and behavior">
+      <ul>
+        <li>Connect the trigger to a visible label that describes the value being chosen.</li>
+        <li>
+          Keyboard navigation, selection, dismissal, and focus restoration are provided by Base UI.
+        </li>
+        <li>Keep option labels concise and use a placeholder only when no value has been selected.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Select } from "@lenso/ui/select";
+
+<Select.Root defaultValue="default">
+    <Select.Trigger>
+      <Select.Value />
+      <Select.Icon />
+    </Select.Trigger>
+    <Select.Portal>
+      <Select.Positioner>
+        <Select.Popup>
+          <Select.List>
+            <Select.Item value="default">
+              <Select.ItemText>Default</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          </Select.List>
+        </Select.Popup>
+      </Select.Positioner>
+    </Select.Portal>
+</Select.Root>;`}
+    description="Compose the trigger and popup explicitly so labels, positioning, and option content remain application-owned."
+  />

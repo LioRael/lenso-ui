@@ -1,0 +1,36 @@
+---
+title: "Surface"
+description: "A semantic hierarchy for embedded, grouped, and temporary product content."
+eyebrow: "Foundation component · Content"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="surface"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose the surface by relationship">
+      <ul>
+        <li>Use Embedded for in-flow content and Panel for related settings or content.</li>
+        <li>Reserve Overlay for temporary floating UI such as menus and popovers.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Choose the rendered element and accessible name for the content it groups.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { Surface } from "@lenso/ui/surface";
+
+<Surface level="panel">
+    <h2>Panel title</h2>
+    <p>Compose product content from existing components.</p>
+</Surface>;`}
+    description="Surface owns visual hierarchy only and accepts a custom element through render."
+  />

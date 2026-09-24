@@ -1,0 +1,22 @@
+{
+  "id": "toast",
+  "name": "Toast",
+  "themeControl": "theme",
+  "controls": [
+    {
+      "id": "tone",
+      "label": "Tone",
+      "type": "select",
+      "options": ["default", "success", "error"],
+      "default": "default"
+    },
+    {
+      "id": "theme",
+      "label": "Theme",
+      "type": "select",
+      "options": ["system", "light", "dark"],
+      "default": "system"
+    }
+  ],
+  "examples": [{ "id": "default", "label": "Example · Clipboard" }]
+}

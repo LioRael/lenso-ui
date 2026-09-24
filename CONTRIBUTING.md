@@ -16,28 +16,29 @@ pnpm check
 pnpm dev
 ```
 
-`pnpm dev` starts the Next documentation site and component lab. To work only on the docs app:
+`pnpm dev` starts the documentation applications. To work only on the public Astro docs site:
 
 ```bash
 pnpm --filter @lenso/ui-docs dev
 ```
 
-The component lab is the same Next application that publishes the documentation pages. Do not add Storybook or Ladle as a second component catalog.
+The component lab is part of the Astro docs site. The former Next app remains under `apps/docs` during migration comparison.
 
 ## Repository map
 
-| Path                                      | Responsibility                                        | Edit directly?                             |
-| ----------------------------------------- | ----------------------------------------------------- | ------------------------------------------ |
-| `packages/ui/src`                         | Styled Foundation Components and visual adapters      | Yes                                        |
-| `packages/primitives/src`                 | Headless Product Primitives                           | Yes                                        |
-| `packages/tokens/src/foundation.json`     | Primitive token values                                | Yes                                        |
-| `packages/tokens/src/semantic.json`       | Public semantic token roles                           | Yes                                        |
-| `packages/tokens/src/themes/*.json`       | Complete Light and Dark theme values                  | Yes                                        |
-| `packages/tokens/src/lenso.resolver.json` | DTCG resolution order and theme contexts              | Yes                                        |
-| `registry/`                               | Generated shadcn-compatible distribution source       | Only the builder inputs and source recipes |
-| `apps/docs/contents`                      | Public MDX documentation and playground configuration | Yes                                        |
-| `apps/docs/components/docs`               | Shared docs shell, demos, and playground runtime      | Yes                                        |
-| `docs/adr`                                | Durable architecture decisions                        | Yes, when a decision changes               |
+| Path                                      | Responsibility                                   | Edit directly?                             |
+| ----------------------------------------- | ------------------------------------------------ | ------------------------------------------ |
+| `packages/ui/src`                         | Styled Foundation Components and visual adapters | Yes                                        |
+| `packages/primitives/src`                 | Headless Product Primitives                      | Yes                                        |
+| `packages/tokens/src/foundation.json`     | Primitive token values                           | Yes                                        |
+| `packages/tokens/src/semantic.json`       | Public semantic token roles                      | Yes                                        |
+| `packages/tokens/src/themes/*.json`       | Complete Light and Dark theme values             | Yes                                        |
+| `packages/tokens/src/lenso.resolver.json` | DTCG resolution order and theme contexts         | Yes                                        |
+| `registry/`                               | Generated shadcn-compatible distribution source  | Only the builder inputs and source recipes |
+| `packages/docs/src`                       | Shared docs framework, routes, and shell         | Yes                                        |
+| `apps/docs-site/content/docs`             | Public MDX documentation                         | Yes                                        |
+| `apps/docs-site/src`                      | Interactive demos and playground configuration   | Yes                                        |
+| `docs/adr`                                | Durable architecture decisions                   | Yes, when a decision changes               |
 
 The token and registry outputs are checked-in artifacts. Do not edit generated files to make a source change appear complete.
 
@@ -49,7 +50,7 @@ For a new or changed styled component:
 2. Preserve the explicit subpath export in `packages/ui/package.json`; the package has no root component barrel.
 3. Add or update source-local browser tests. Interactive components use Vitest Browser Mode with the Playwright provider; accessibility checks use `axe-core` where the component has a meaningful tree to audit.
 4. Add or update the canonical registry specification in `tooling/registry-builder/src/cli.ts`. The builder reads the package source and emits the package-to-registry parity files.
-5. Add the matching docs page under `apps/docs/contents/components`, `patterns`, or `primitives`. Register the page in `apps/docs/contents/catalog.ts` and add a playground configuration or demo when the page needs interactive controls.
+5. Add the matching MDX page under `apps/docs-site/content/docs/components`, `patterns`, or `primitives`. Its file path supplies the route. Add a playground configuration or demo when the page needs interactive controls.
 6. Regenerate the token and registry outputs:
 
    ```bash
@@ -83,7 +84,7 @@ Review every generated representation together. Complete Light and Dark theme va
 
 ## Documentation workflow
 
-Each public docs page is an MDX content file with frontmatter. The page slug must be present in `apps/docs/contents/catalog.ts`; the content-collection transform rejects unregistered pages.
+Each public docs page is an MDX content file with a title in frontmatter. The path under `apps/docs-site/content/docs` determines its URL; optional `meta.ts` orders sibling pages. The framework rejects route collisions and pages outside configured tabs.
 
 Use the existing component pages as the writing and composition model:
 
@@ -101,7 +102,7 @@ pnpm format:mdx:check
 pnpm --filter @lenso/ui-docs typecheck
 ```
 
-The docs application imports `@lenso/tokens/styles.css` and `@lenso/ui/styles.css` once in its root layout. Demos should consume the public package subpaths, not private source files, so the component lab exercises the same API that Consumers install.
+The framework shell imports `@lenso/tokens/styles.css` and `@lenso/ui/styles.css` once. Demos should consume the public package subpaths so the component lab exercises the API that Consumers install.
 
 ## Generated artifacts and freshness
 
@@ -109,7 +110,7 @@ The following are generated from source and must stay synchronized:
 
 - `packages/tokens/src/index.ts`, `styles.css`, `tokens.json`, `contract.json`, `figma-map.json`, and the StyleX bridge.
 - `registry/components`, `registry/setup/setup.json`, `registry/registry.json`, `registry/parity-manifest.json`, and `registry/tokens.stylex.ts`.
-- `apps/docs/public/r`, including the stable registry output.
+- `apps/docs-site/public/r`, including the stable registry output.
 
 Run the freshness check after generation:
 

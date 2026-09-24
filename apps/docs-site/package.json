@@ -1,0 +1,35 @@
+{
+  "name": "@lenso/ui-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4321",
+    "build": "astro build",
+    "typecheck": "astro sync && tsc --noEmit",
+    "test": "node scripts/check-output.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.2",
+    "@astrojs/react": "^7.0.0",
+    "@lenso/docs": "workspace:*",
+    "@lenso/primitives": "workspace:*",
+    "@lenso/tokens": "workspace:*",
+    "@lenso/ui": "workspace:*",
+    "@stylexjs/stylex": "catalog:",
+    "@stylexjs/unplugin": "catalog:",
+    "astro": "^7.3.5",
+    "culori": "4.0.2",
+    "dialkit": "catalog:",
+    "lucide-react": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/culori": "4.0.1",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:"
+  }
+}

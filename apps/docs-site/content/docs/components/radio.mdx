@@ -1,0 +1,44 @@
+---
+title: "Radio"
+description: "Show a small set of mutually exclusive choices and keep every option visible."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/radio"
+  - "Registry ready"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="radio"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Radio when">
+      <ul>
+        <li>People must choose one option from a short, stable set.</li>
+        <li>Use Select when the list is longer or space is constrained.</li>
+        <li>Use Checkbox when more than one option can be selected.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Group behavior">
+      <ul>
+        <li>Give the group a visible or accessible name that frames the decision.</li>
+        <li>Base UI manages single selection and arrow-key movement within the group.</li>
+        <li>Write labels as parallel choices, not as unrelated commands.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+  <CodeExample
+    code={String.raw`import { RadioGroup } from "@lenso/ui/radio";
+
+<RadioGroup.Root defaultValue="compact">
+    <RadioGroup.Item value="compact">
+      <RadioGroup.Indicator />
+      Compact
+    </RadioGroup.Item>
+</RadioGroup.Root>;`}
+    description="Root defines the named choice set; each Item composes its indicator and label."
+  />

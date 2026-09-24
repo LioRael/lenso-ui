@@ -1,0 +1,41 @@
+---
+title: "Text Area"
+description: "A multiline field with label, supporting text, validation, and native resizing."
+eyebrow: "Foundation component · Forms"
+metadata:
+  - "@lenso/ui/text-area"
+  - "Registry ready"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="text-area"  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="Choose Text Area when">
+      <ul>
+        <li>Use for free-form notes and guidance; use Text Field for short structured values.</li>
+        <li>Editors, prompt composers, and code validation remain separate application patterns.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Accessibility">
+      <ul>
+        <li>Keep a visible label; a placeholder is only an example.</li>
+        <li>Error and description parts are wired through the underlying Base Field semantics.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { TextArea } from "@lenso/ui/text-area";
+
+<TextArea.Root>
+    <TextArea.Label>Workspace guidance</TextArea.Label>
+    <TextArea.Control placeholder="Add optional context…" rows={5} />
+    <TextArea.Description>Used when preparing new responses.</TextArea.Description>
+</TextArea.Root>;`}
+  description="Textarea-native props stay available on Control."
+/>

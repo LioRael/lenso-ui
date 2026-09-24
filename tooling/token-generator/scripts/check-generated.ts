@@ -3,7 +3,7 @@ import path from "node:path";
 
 const repositoryRoot = path.resolve(import.meta.dirname, "../../..");
 const generatedPaths = [
-  "apps/docs/public/r",
+  "apps/docs-site/public/r",
   "packages/tokens/src/consumer-theme.ts.txt",
   "packages/tokens/src/contract.json",
   "packages/tokens/src/figma-map.json",

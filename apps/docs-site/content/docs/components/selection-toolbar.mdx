@@ -1,0 +1,54 @@
+---
+title: "Selection Toolbar"
+description: "A floating action surface for an active selection."
+eyebrow: "Foundation component · Collection actions"
+metadata:
+  - "@lenso/ui/selection-toolbar"
+  - "Registry ready"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+import { SelectionToolbarDemo } from "@/components/docs/selection-toolbar-demo";
+
+<SelectionToolbarDemo  client:load />
+
+  <Guidance>
+    <GuidanceBlock title="When to use it">
+      <ul>
+        <li>Use a Selection Toolbar when selecting records reveals batch actions. Keep it anchored to the collection rather than the viewport.</li>
+        <li>Pass the selection count and clear callback from the owning table, grid, or list. The toolbar does not own selection state.</li>
+        <li>Keep actions specific to the selected records. If several actions are available, put them in a Menu behind one Actions trigger.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Interaction and accessibility">
+      <ul>
+        <li>The toolbar disappears when <code>count</code> reaches zero. The clear button has a name and stays square.</li>
+        <li>Use <code>countLabel</code> and <code>clearLabel</code> to localize visible and accessible copy.</li>
+        <li>Keep keyboard focus in the normal tab order; do not move focus merely because selection changed.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { SelectionToolbar } from "@lenso/ui/selection-toolbar";
+import { Menu } from "@lenso/ui/menu";
+
+<div style={{ position: "relative" }}>
+    {/* Your selectable collection */}
+    <SelectionToolbar.Root count={selectedIds.size} onClear={clearSelection}>
+      <Menu.Root>
+        <Menu.Trigger render={<SelectionToolbar.Action />}>Actions</Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Positioner side="top">
+            <Menu.Popup>
+              <Menu.Item onClick={copySelected}>Copy selected</Menu.Item>
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
+    </SelectionToolbar.Root>
+</div>;`}
+  description="The collection owns selection and actions. The toolbar provides one consistent floating surface."
+/>

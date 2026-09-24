@@ -1,4 +1,4 @@
-apps/docs/public/r/**
+apps/docs-site/public/r/**
 docs/agents/**
 packages/tokens/src/contract.json
 packages/tokens/src/figma-map.json
@@ -10,5 +10,6 @@ packages/ui/src/tokens.stylex.ts
 registry/**/*.json
 registry/tokens.stylex.ts
 tooling/token-generator/schemas/**
+apps/docs-site/content/**/*.mdx
+apps/docs-site/.astro/**
 apps/docs/contents/**/*.mdx
-apps/docs-example/.astro/**

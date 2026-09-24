@@ -6,6 +6,7 @@ import type { DocsConfig } from "../config";
 import { docsHref, routeSlug } from "../config";
 import type { DocsNavTab } from "../navigation";
 import "@lenso/tokens/styles.css";
+import "@lenso/ui/styles.css";
 import "./docs.css";
 
 interface Props {
@@ -88,10 +89,10 @@ const visibleHeadings = headings.filter((heading) => heading.depth === 2 || head
       </aside>
 
       <main class="docs-main" id="main-content">
-        <div class="docs-content-layout">
+        <div class:list={["docs-content-layout", { "has-toc": visibleHeadings.length > 0 }]}>
           <article class="docs-article">
             <div class="docs-article-heading">
-              <p class="docs-article-eyebrow">{activeTab?.label}</p>
+              <p class="docs-article-eyebrow">{entry.data.eyebrow ?? activeTab?.label}</p>
               <h1>{entry.data.title}</h1>
               {entry.data.description && <p class="docs-article-description">{entry.data.description}</p>}
             </div>
@@ -198,6 +199,11 @@ const visibleHeadings = headings.filter((heading) => heading.depth === 2 || head
       document.querySelectorAll("[data-open-search]").forEach((button) => button.addEventListener("click", openSearch));
       document.querySelector("[data-close-search]")?.addEventListener("click", () => searchDialog?.close());
       searchDialog?.addEventListener("click", (event) => { if (event.target === searchDialog) searchDialog.close(); });
+      searchDialog?.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        event.preventDefault();
+        searchDialog.close();
+      });
       searchInput?.addEventListener("input", updateResults);
       searchInput?.addEventListener("keydown", (event) => {
         const first = results?.querySelector<HTMLAnchorElement>("a");

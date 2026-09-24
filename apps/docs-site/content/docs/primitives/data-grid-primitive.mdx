@@ -1,0 +1,52 @@
+---
+title: "Data Grid primitive"
+description: "Headless selection, sorting, sizing, and edit transactions for an application-owned grid."
+eyebrow: "Product primitive · Data editing"
+metadata:
+  - "@lenso/primitives/data-grid"
+  - "React · TanStack Table"
+---
+
+import CodeExample from "@lenso/docs/CodeExample.astro";
+import Guidance from "@lenso/docs/Guidance.astro";
+import GuidanceBlock from "@lenso/docs/GuidanceBlock.astro";
+
+  <Guidance>
+    <GuidanceBlock title="Choose the right layer">
+      <ul>
+        <li>Use <code>useDataGrid</code> if your product owns its grid markup and appearance. It returns the TanStack table instance plus <code>commitCells</code>.</li>
+        <li>Use <code>@lenso/ui/data-grid</code> for the ready-made Lenso appearance and interaction surface. Ordinary read-only records still belong in Data Table.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Commit contract">
+      <ul>
+        <li>Provide stable row IDs and immutable <code>rows</code>. Without <code>onRowsChange</code>, edits are rejected. Set <code>readOnly</code> to make that intent explicit.</li>
+        <li><code>commitCells</code> constructs the complete candidate rows, then checks every edit before calling <code>onRowsChange</code>. A failed validation rejects the batch without applying a partial update. The validation context includes <code>rows</code>, <code>originalRows</code>, <code>table</code>, and typed <code>validationData</code>.</li>
+        <li>Use <code>onCellEditComplete</code> for every cell, a column's callback for that column, <code>cellEvents</code> for exact row-and-column targets, and <code>onRowEditComplete</code> once per affected row in a transaction.</li>
+        <li>Cell selection follows TanStack Table's range model. Bind a cell's start handler to mouse down and its extend handler to mouse enter if you build custom markup.</li>
+        <li>Pass advanced TanStack options through <code>tableOptions</code> and individual column options through <code>tableColumn</code>. The returned <code>table</code> is the live TanStack instance for the registered features, including selection atoms, sorting, sizing, and row-model APIs.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { useDataGrid } from "@lenso/primitives/data-grid";
+
+const { table, commitCells } = useDataGrid({
+    rows,
+    columns,
+    getRowId: (row) => row.id,
+    onRowsChange: (nextRows) => setRows([...nextRows]),
+    onCellEditComplete: (change) => auditCell(change),
+    cellEvents: [
+      {
+        rowId: "company-42",
+        columnId: "status",
+        onEditComplete: (change) => notifyStatusChange(change),
+      },
+    ],
+});
+
+commitCells([{ rowId: "company-42", columnId: "status", value: "Active" }]);`}
+  description="Use the primitive when the application needs a custom rendering layer."
+/>
