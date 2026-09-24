@@ -24,19 +24,24 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
   </Guidance>
 
 <CodeExample
-  code={String.raw`pnpm add @lenso/ui @lenso/tokens @base-ui/react react react-dom
-
-// application entry or root layout
-import "@lenso/tokens/styles.css"
-import "@lenso/ui/styles.css"`}
-  description="Install the React and Base UI peers, then load each generated stylesheet once at the application boundary."
+  code={String.raw`pnpm add @lenso/ui @lenso/tokens @base-ui/react react react-dom`}
+  description="Install the React and Base UI peers."
+  language="bash"
   title="Install the package channel"
+/>
+
+<CodeExample
+  code={String.raw`import "@lenso/tokens/styles.css";
+import "@lenso/ui/styles.css";`}
+  description="Load each generated stylesheet once at the application entry or root layout."
+  title="Load the styles"
 />
 
 <CodeExample
   code={String.raw`pnpm dlx shadcn@latest add https://ui.lenso.dev/r/setup.json
 pnpm dlx shadcn@latest add https://ui.lenso.dev/r/button.json`}
   description="The setup item adds the shared token bridge. Every component item is copied into your application as editable source."
+  language="bash"
   title="Install registry source"
 />
 

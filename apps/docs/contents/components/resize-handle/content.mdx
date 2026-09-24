@@ -31,11 +31,11 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import * as React from "react"
-import { ResizeHandle } from "@lenso/ui/resize-handle"
+    code={String.raw`import * as React from "react";
+import { ResizeHandle } from "@lenso/ui/resize-handle";
 
 export function InspectorLayout() {
-  const [width, setWidth] = React.useState(320)
+  const [width, setWidth] = React.useState(320);
 
   return (
     <div style={{ display: "flex" }}>
@@ -53,7 +53,7 @@ export function InspectorLayout() {
       </aside>
       <main style={{ flex: 1 }}>Workspace</main>
     </div>
-  )
+  );
 }`}
     description="The handle is controlled and layout-independent; your application owns pane geometry."
   />

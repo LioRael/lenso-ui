@@ -33,8 +33,8 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { Select } from "@lenso/ui/select"
-import { SettingsRow } from "@lenso/ui/settings-row"
+    code={String.raw`import { Select } from "@lenso/ui/select";
+import { SettingsRow } from "@lenso/ui/settings-row";
 
 <SettingsRow.Root>
   <SettingsRow.Copy>
@@ -51,20 +51,18 @@ import { SettingsRow } from "@lenso/ui/settings-row"
       </Select.Root>
     )}
   </SettingsRow.Control>
-</SettingsRow.Root>`}
+</SettingsRow.Root>;`}
     description="Title names the Select through generated IDs without opening it when the title is clicked."
   />
 
   <CodeExample
-    code={String.raw`import { SettingsRow } from "@lenso/ui/settings-row"
-import { Switch } from "@lenso/ui/switch"
+    code={String.raw`import { SettingsRow } from "@lenso/ui/settings-row";
+import { Switch } from "@lenso/ui/switch";
 
 <SettingsRow.Root>
   <SettingsRow.Copy>
     <SettingsRow.Label>Allow background tasks</SettingsRow.Label>
-    <SettingsRow.Description>
-      Continue work after closing this view.
-    </SettingsRow.Description>
+    <SettingsRow.Description>Continue work after closing this view.</SettingsRow.Description>
   </SettingsRow.Copy>
   <SettingsRow.Control>
     {({ controlId, disabled, labelId, visualState }) => (
@@ -79,6 +77,6 @@ import { Switch } from "@lenso/ui/switch"
       </Switch.Root>
     )}
   </SettingsRow.Control>
-</SettingsRow.Root>`}
+</SettingsRow.Root>;`}
     description="Label uses native label activation for Switch. Control exposes generated IDs and coordinated hover state without DOM lookup or dataset mutation."
   />

@@ -27,15 +27,21 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { Tabs } from "@lenso/ui/tabs"
+    code={String.raw`import { Tabs } from "@lenso/ui/tabs";
 
 <Tabs.Root defaultValue="overview">
   <Tabs.List aria-label="Project sections" density="compact">
-    <Tabs.Tab density="compact" value="overview">Overview</Tabs.Tab>
-    <Tabs.Tab density="compact" value="documents">Documents</Tabs.Tab>
-    <Tabs.Tab density="compact" value="members">Members</Tabs.Tab>
+    <Tabs.Tab density="compact" value="overview">
+      Overview
+    </Tabs.Tab>
+    <Tabs.Tab density="compact" value="documents">
+      Documents
+    </Tabs.Tab>
+    <Tabs.Tab density="compact" value="members">
+      Members
+    </Tabs.Tab>
   </Tabs.List>
   <Tabs.Panel value="overview">Overview content</Tabs.Panel>
-</Tabs.Root>`}
+</Tabs.Root>;`}
     description="Compact is an explicit navigation variant; the default remains suitable for local content tabs."
   />

@@ -27,7 +27,7 @@ The playground previews search and selection. Choosing a sample command fills th
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { CommandMenu } from "@lenso/ui/command-menu"
+    code={String.raw`import { CommandMenu } from "@lenso/ui/command-menu";
 
 <CommandMenu.Root items={commands}>
   <CommandMenu.Panel>
@@ -35,11 +35,9 @@ The playground previews search and selection. Choosing a sample command fills th
       <CommandMenu.Input placeholder="Type a command or search…" />
     </CommandMenu.Search>
     <CommandMenu.List>
-      {(command) => (
-        <CommandMenu.Item value={command}>{command}</CommandMenu.Item>
-      )}
+      {(command) => <CommandMenu.Item value={command}>{command}</CommandMenu.Item>}
     </CommandMenu.List>
   </CommandMenu.Panel>
-</CommandMenu.Root>`}
+</CommandMenu.Root>;`}
     description="Every visual part remains replaceable through the composition API."
   />

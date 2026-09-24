@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { tokens } from "../tokens.stylex.js";
+import { motion } from "../shared/motion.stylex.js";
 
 export const styles = stylex.create({
   root: {
@@ -24,7 +25,10 @@ export const styles = stylex.create({
     },
     borderColor: {
       default: tokens.colorBorderControl,
-      ":hover": tokens.colorBorderControlFocus,
+      ":hover": {
+        default: null,
+        "@media (hover: hover) and (pointer: fine)": tokens.colorBorderControlFocus,
+      },
       "[data-invalid]": tokens.colorStatusErrorBorder,
       '[data-visual-state="hover"]': tokens.colorBorderControlFocus,
       ":disabled": tokens.colorBorderTertiary,
@@ -45,7 +49,7 @@ export const styles = stylex.create({
       '[data-visual-state="active"]': tokens.colorFocusRing,
       '[data-visual-state="focus-visible"]': tokens.colorFocusRing,
     },
-    outlineOffset: "2px",
+    outlineOffset: "-1px",
     outlineStyle: "solid",
     outlineWidth: {
       default: 0,
@@ -56,6 +60,9 @@ export const styles = stylex.create({
     paddingBlock: tokens.space2,
     paddingInline: tokens.space3,
     resize: "vertical",
+    transitionDuration: motion.durationFast,
+    transitionProperty: "background-color, border-color, outline-color",
+    transitionTimingFunction: motion.easeHover,
     width: "100%",
     "::placeholder": { color: tokens.colorContentTertiary },
   },

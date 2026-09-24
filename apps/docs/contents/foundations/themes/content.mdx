@@ -12,14 +12,11 @@ import { CodeExample } from "@/components/docs/code-example";
 import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 
 <CodeExample
-  code={String.raw`import { ThemeScope } from "@lenso/ui/theme-scope"
+  code={String.raw`import { ThemeScope } from "@lenso/ui/theme-scope";
 
-<ThemeScope
-  theme="dark"
-  overrides={{ "color.content.primary": "#f4f4f5" }}
->
+<ThemeScope theme="dark" overrides={{ "color.content.primary": "#f4f4f5" }}>
   <Workspace />
-</ThemeScope>`}
+</ThemeScope>;`}
   description="Nested scopes inherit from their nearest parent. Portalled overlays can resolve the same scoped theme."
   title="Create a scoped theme"
 />

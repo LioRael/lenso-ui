@@ -434,27 +434,27 @@
         "$value": {
           "colorSpace": "srgb",
           "components": [0, 0, 0],
-          "alpha": 0
+          "alpha": 0.1
         }
       },
       "keyBlur": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px6}"
+        "$value": "{primitive.dimension.px1}"
       },
       "keyY": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px3}"
+        "$value": "{primitive.dimension.px0_5}"
       },
       "keySpread": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.negativePx2}"
+        "$value": "{primitive.dimension.px1}"
       },
       "detail": {
         "$type": "color",
         "$value": {
           "colorSpace": "srgb",
           "components": [0, 0, 0],
-          "alpha": 0
+          "alpha": 0.04
         }
       }
     },
@@ -469,11 +469,11 @@
       },
       "ambientBlur": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px18}"
+        "$value": "{primitive.dimension.px8}"
       },
       "ambientY": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px6}"
+        "$value": "{primitive.dimension.px3}"
       },
       "key": {
         "$type": "color",
@@ -485,11 +485,11 @@
       },
       "keyBlur": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px9}"
+        "$value": "{primitive.dimension.px5}"
       },
       "keyY": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px3}"
+        "$value": "{primitive.dimension.px2}"
       },
       "detail": {
         "$type": "color",

@@ -12,10 +12,10 @@ import { CodeExample } from "@/components/docs/code-example";
 import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 
 <CodeExample
-  code={String.raw`import "@lenso/tokens/styles.css"
-import "@lenso/ui/styles.css"
-import { Button } from "@lenso/ui/button"
-import { TextField } from "@lenso/ui/text-field"
+  code={String.raw`import "@lenso/tokens/styles.css";
+import "@lenso/ui/styles.css";
+import { Button } from "@lenso/ui/button";
+import { TextField } from "@lenso/ui/text-field";
 
 export function ProjectForm() {
   return (
@@ -26,7 +26,7 @@ export function ProjectForm() {
       </TextField.Root>
       <Button type="submit">Create project</Button>
     </form>
-  )
+  );
 }`}
   description="Import each component from its public subpath. Your application still owns copy, layout, validation, and submission."
   title="Compose the first form"

@@ -40,12 +40,9 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
 <CodeExample
-  code={String.raw`import { SettingsRow } from "@lenso/ui/settings-row"
-import { Switch } from "@lenso/ui/switch"
-import {
-  SettingsGroup,
-  SettingsSection,
-} from "@/components/lenso/recipes/settings-section"
+  code={String.raw`import { SettingsRow } from "@lenso/ui/settings-row";
+import { Switch } from "@lenso/ui/switch";
+import { SettingsGroup, SettingsSection } from "@/components/lenso/recipes/settings-section";
 
 export function AppearanceSettings() {
   return (
@@ -61,7 +58,9 @@ export function AppearanceSettings() {
         <SettingsRow.Root>
           <SettingsRow.Copy>
             <SettingsRow.Label>Follow system theme</SettingsRow.Label>
-            <SettingsRow.Description>Match the operating system appearance.</SettingsRow.Description>
+            <SettingsRow.Description>
+              Match the operating system appearance.
+            </SettingsRow.Description>
           </SettingsRow.Copy>
           <SettingsRow.Control>
             {({ controlId, disabled, labelId, visualState }) => (
@@ -79,7 +78,7 @@ export function AppearanceSettings() {
         </SettingsRow.Root>
       </SettingsGroup>
     </SettingsSection.Root>
-  )
+  );
 }`}
   description="Install the Recipe as editable source, then connect each control to application-owned values and persistence."
 />

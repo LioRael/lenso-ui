@@ -12,11 +12,11 @@ import { CodeExample } from "@/components/docs/code-example";
 import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
 
 <CodeExample
-  code={String.raw`import { CSPProvider } from "@lenso/ui/csp-provider"
+  code={String.raw`import { CSPProvider } from "@lenso/ui/csp-provider";
 
 <CSPProvider nonce={requestNonce}>
   <App />
-</CSPProvider>`}
+</CSPProvider>;`}
   description="Generate a nonce for each server response, include it in the policy header, and pass the same value to the provider."
   title="Wire the provider"
 />

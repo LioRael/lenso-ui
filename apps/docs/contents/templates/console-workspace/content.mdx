@@ -32,20 +32,22 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
 <CodeExample
-  code={String.raw`import { useState } from "react"
-import { FolderIcon } from "lucide-react"
+  code={String.raw`import { useState } from "react";
+import { FolderIcon } from "lucide-react";
 import {
   ConsoleSidebarItem,
   ConsoleWorkspace,
   type ConsoleTabId,
   type ConsoleWorkspaceId,
-} from "@/components/templates/console-workspace"
+} from "@/components/templates/console-workspace";
 
 export function AppConsole() {
-  const [workspace, setWorkspace] = useState<ConsoleWorkspaceId>("agent")
+  const [workspace, setWorkspace] = useState<ConsoleWorkspaceId>("agent");
   const [tabs, setTabs] = useState<Record<ConsoleWorkspaceId, ConsoleTabId>>({
-    agent: "chat", app: "overview", projects: "project",
-  })
+    agent: "chat",
+    app: "overview",
+    projects: "project",
+  });
 
   return (
     <ConsoleWorkspace
@@ -59,7 +61,7 @@ export function AppConsole() {
     >
       <div>Render the selected Agent profile or Plugin page here.</div>
     </ConsoleWorkspace>
-  )
+  );
 }`}
   description="The shell takes controlled workspace and tab state. The application supplies page content, Plugin navigation, search data, and assistant behavior."
 />

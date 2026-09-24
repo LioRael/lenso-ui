@@ -29,7 +29,7 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { Disclosure } from "@lenso/ui/disclosure"
+    code={String.raw`import { Disclosure } from "@lenso/ui/disclosure";
 
 <Disclosure.Root defaultValue={["workspace"]}>
   <Disclosure.Item value="workspace">
@@ -40,6 +40,6 @@ import { Playground } from "@/components/docs/playground";
     </Disclosure.Header>
     <Disclosure.Panel>Projects and workspace views.</Disclosure.Panel>
   </Disclosure.Item>
-</Disclosure.Root>`}
+</Disclosure.Root>;`}
     description="Base UI owns accordion state and semantics; every visible part remains composable and replaceable."
   />

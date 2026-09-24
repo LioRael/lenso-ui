@@ -28,7 +28,7 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
   <CodeExample
-    code={String.raw`import { Menu } from "@lenso/ui/menu"
+    code={String.raw`import { Menu } from "@lenso/ui/menu";
 
 <Menu.Root>
   <Menu.ControlTrigger>Open menu</Menu.ControlTrigger>
@@ -47,23 +47,25 @@ import { Playground } from "@/components/docs/playground";
       </Menu.Popup>
     </Menu.Positioner>
   </Menu.Portal>
-</Menu.Root>`}
+</Menu.Root>;`}
     description="Actions, navigation, and selection share the same overlay surface; product context belongs in concise labels and descriptions."
   />
 
   <CodeExample
-    code={String.raw`import { FolderIcon } from "lucide-react"
-import { Menu } from "@lenso/ui/menu"
+    code={String.raw`import { FolderIcon } from "lucide-react";
+import { Menu } from "@lenso/ui/menu";
 
 <Menu.RadioGroup defaultValue="projects" onValueChange={setWorkspace}>
   <Menu.RadioItem layout="stacked" value="projects">
-    <Menu.Leading><FolderIcon size={16} /></Menu.Leading>
+    <Menu.Leading>
+      <FolderIcon size={16} />
+    </Menu.Leading>
     <Menu.Copy>
       <Menu.Label>Projects</Menu.Label>
       <Menu.Description>Boards and schedules</Menu.Description>
     </Menu.Copy>
     <Menu.RadioItemIndicator />
   </Menu.RadioItem>
-</Menu.RadioGroup>`}
+</Menu.RadioGroup>;`}
     description="Place the RadioGroup inside Menu.Popup. Use the description only when it helps distinguish a choice; the selected check and concise label carry the main decision."
   />

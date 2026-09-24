@@ -36,7 +36,7 @@ test("Text Area keeps native textarea and Base Field semantics", async () => {
       const computed = getComputedStyle(control.element());
       return [computed.outlineWidth, computed.outlineOffset];
     })
-    .toEqual(["2px", "2px"]);
+    .toEqual(["2px", "-1px"]);
   await userEvent.fill(control, "Updated note");
   expect(onValueChange).toHaveBeenLastCalledWith("Updated note", expect.anything());
   expect(

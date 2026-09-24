@@ -1,5 +1,6 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative } from "node:path";
+import { spawnSync } from "node:child_process";
 
 const root = join(process.cwd(), "apps/docs/contents");
 const checkOnly = process.argv.includes("--check");
@@ -91,7 +92,22 @@ function formatMdx(source) {
   indentGuidance(lines);
   indentOverviewSections(lines);
 
-  return `${wrapSingleLineDemo(lines).join("\n")}\n`;
+  return `${wrapSingleLineDemo(lines).join("\n")}\n`.replace(
+    /(<CodeExample\b[\s\S]*?code=\{String\.raw`)([\s\S]*?)(`\}[\s\S]*?\/>)/g,
+    (match, prefix, code, suffix) => {
+      if (/\blanguage="(?:bash|shell|sh)"/.test(suffix)) return match;
+
+      const result = spawnSync(
+        join(process.cwd(), "node_modules/.bin/oxfmt"),
+        ["--stdin-filepath", "example.tsx"],
+        { input: code, encoding: "utf8" },
+      );
+      if (result.status !== 0) {
+        throw new Error(`Cannot format CodeExample: ${result.stderr || result.error}`);
+      }
+      return `${prefix}${result.stdout.trimEnd()}${suffix}`;
+    },
+  );
 }
 
 const files = (await findMdxFiles(root)).sort();

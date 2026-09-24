@@ -30,13 +30,13 @@ import { Playground } from "@/components/docs/playground";
   </Guidance>
 
 <CodeExample
-  code={String.raw`import { ContentState } from "@lenso/ui/content-state"
+  code={String.raw`import { ContentState } from "@lenso/ui/content-state";
 
 <ContentState.Root>
   <ContentState.Visual aria-hidden>○</ContentState.Visual>
   <ContentState.Title as="h2">No results</ContentState.Title>
   <ContentState.Description>Try changing the current filters.</ContentState.Description>
   <ContentState.Actions>{clearFiltersButton}</ContentState.Actions>
-</ContentState.Root>`}
+</ContentState.Root>;`}
   description="Announcement urgency and recovery actions stay application-owned."
 />
