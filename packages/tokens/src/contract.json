@@ -3418,40 +3418,40 @@
             0,
             0
           ],
-          "alpha": 0.3
+          "alpha": 0.12
         },
         "cssName": "--elevation-panel-key",
-        "cssValue": "#0000004d"
+        "cssValue": "#0000001f"
       },
       "elevation.panel.keyBlur": {
         "path": "elevation.panel.keyBlur",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": 6,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-blur",
-        "cssValue": "1px"
+        "cssValue": "6px"
       },
       "elevation.panel.keySpread": {
         "path": "elevation.panel.keySpread",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": -2,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-spread",
-        "cssValue": "1px"
+        "cssValue": "-2px"
       },
       "elevation.panel.keyY": {
         "path": "elevation.panel.keyY",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 3,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-y",
-        "cssValue": "0.5px"
+        "cssValue": "3px"
       },
       "elevation.toast.ambient": {
         "path": "elevation.toast.ambient",
@@ -5935,40 +5935,40 @@
             0,
             0
           ],
-          "alpha": 0.1
+          "alpha": 0.04
         },
         "cssName": "--elevation-panel-key",
-        "cssValue": "#0000001a"
+        "cssValue": "#0000000a"
       },
       "elevation.panel.keyBlur": {
         "path": "elevation.panel.keyBlur",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": 6,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-blur",
-        "cssValue": "1px"
+        "cssValue": "6px"
       },
       "elevation.panel.keySpread": {
         "path": "elevation.panel.keySpread",
         "type": "dimension",
         "value": {
-          "value": 1,
+          "value": -2,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-spread",
-        "cssValue": "1px"
+        "cssValue": "-2px"
       },
       "elevation.panel.keyY": {
         "path": "elevation.panel.keyY",
         "type": "dimension",
         "value": {
-          "value": 0.5,
+          "value": 3,
           "unit": "px"
         },
         "cssName": "--elevation-panel-key-y",
-        "cssValue": "0.5px"
+        "cssValue": "3px"
       },
       "elevation.toast.ambient": {
         "path": "elevation.toast.ambient",

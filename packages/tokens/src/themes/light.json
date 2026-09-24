@@ -434,20 +434,20 @@
         "$value": {
           "colorSpace": "srgb",
           "components": [0, 0, 0],
-          "alpha": 0.1
+          "alpha": 0.04
         }
       },
       "keyBlur": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px1}"
+        "$value": "{primitive.dimension.px6}"
       },
       "keyY": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px0_5}"
+        "$value": "{primitive.dimension.px3}"
       },
       "keySpread": {
         "$type": "dimension",
-        "$value": "{primitive.dimension.px1}"
+        "$value": "{primitive.dimension.negativePx2}"
       },
       "detail": {
         "$type": "color",
