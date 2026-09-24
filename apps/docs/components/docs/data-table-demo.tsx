@@ -3,11 +3,11 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Avatar } from "@lenso/ui/avatar";
-import { Button } from "@lenso/ui/button";
 import { Checkbox } from "@lenso/ui/checkbox";
 import { DataTable, type DataTableColumn } from "@lenso/ui/data-table";
 import { Menu } from "@lenso/ui/menu";
-import { MoreHorizontal } from "lucide-react";
+import { SelectionToolbar } from "@lenso/ui/selection-toolbar";
+import { Command, MoreHorizontal } from "lucide-react";
 import { DataPlayground } from "./data-playground";
 import { PlaygroundControls, PlaygroundSwitchControl } from "./playground-controls";
 import { styles } from "./data-table-demo.stylex";
@@ -112,6 +112,19 @@ export function DataTableDemo() {
       setCopyStatus("Emails copied");
     } catch {
       setCopyStatus("Could not copy emails");
+    }
+  };
+  const copyNames = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        members
+          .filter((member) => selected.has(member.id))
+          .map((member) => member.name)
+          .join(", "),
+      );
+      setCopyStatus("Names copied");
+    } catch {
+      setCopyStatus("Could not copy names");
     }
   };
   const copyEmail = async (email: string) => {
@@ -301,17 +314,26 @@ export function DataTableDemo() {
             );
           })}
         </DataTable.Root>
-        {showRowSelection && selected.size > 0 && (
-          <div {...stylex.props(styles.selectionBar)} role="toolbar" aria-label="Selected members">
-            <span>{selected.size} selected</span>
-            <span {...stylex.props(styles.toolbarRule)} />
-            <Button size="compact" variant="ghost" onClick={copyEmails}>
-              Copy emails
-            </Button>
-            <Button size="compact" variant="ghost" onClick={() => setSelected(new Set())}>
-              Clear
-            </Button>
-          </div>
+        {showRowSelection && (
+          <SelectionToolbar.Root
+            aria-label="Selected members"
+            count={selected.size}
+            onClear={() => setSelected(new Set())}
+          >
+            <Menu.Root>
+              <Menu.Trigger render={<SelectionToolbar.Action icon={<Command size={15} />} />}>
+                Actions
+              </Menu.Trigger>
+              <Menu.Portal>
+                <Menu.Positioner align="center" side="top" sideOffset={8}>
+                  <Menu.Popup aria-label="Selected member actions">
+                    <Menu.Item onClick={copyEmails}>Copy emails</Menu.Item>
+                    <Menu.Item onClick={copyNames}>Copy names</Menu.Item>
+                  </Menu.Popup>
+                </Menu.Positioner>
+              </Menu.Portal>
+            </Menu.Root>
+          </SelectionToolbar.Root>
         )}
         <output {...stylex.props(styles.status)}>{copyStatus}</output>
       </div>

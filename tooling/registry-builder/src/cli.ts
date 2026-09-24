@@ -122,11 +122,35 @@ const specs: RegistryItemSpec[] = [
         target: "components/lenso/data-table/data-table.stylex.ts",
         type: "registry:style",
       },
+      {
+        source: "packages/ui/src/shared/use-resize-guide-height.ts",
+        target: "components/lenso/shared/use-resize-guide-height.ts",
+        type: "registry:lib",
+      },
       ...sharedFiles,
     ],
     name: "data-table",
-    registryDependencies: [stable("setup")],
+    registryDependencies: [stable("setup"), stable("resize-handle")],
     title: "Data Table",
+    type: "registry:ui",
+  },
+  {
+    dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
+    files: [
+      {
+        source: "packages/ui/src/selection-toolbar/index.tsx",
+        target: "components/lenso/selection-toolbar/index.tsx",
+      },
+      {
+        source: "packages/ui/src/selection-toolbar/selection-toolbar.stylex.ts",
+        target: "components/lenso/selection-toolbar/selection-toolbar.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "selection-toolbar",
+    registryDependencies: [stable("setup"), stable("button"), stable("icon-button")],
+    title: "Selection Toolbar",
     type: "registry:ui",
   },
   {

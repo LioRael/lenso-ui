@@ -39,6 +39,7 @@ export type DocsPage =
   | "quick-link"
   | "radio"
   | "resize-handle"
+  | "selection-toolbar"
   | "segmented-control"
   | "sidebar"
   | "select"
@@ -182,6 +183,12 @@ export const docsRegistry = [
         kind: "page",
         label: "Resize Handle",
         slug: "resize-handle",
+      },
+      {
+        href: "/components/selection-toolbar",
+        kind: "page",
+        label: "Selection Toolbar",
+        slug: "selection-toolbar",
       },
       {
         href: "/components/segmented-control",

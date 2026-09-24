@@ -98,6 +98,10 @@
       "types": "./dist/resize-handle/index.d.ts",
       "import": "./dist/resize-handle/index.js"
     },
+    "./selection-toolbar": {
+      "types": "./dist/selection-toolbar/index.d.ts",
+      "import": "./dist/selection-toolbar/index.js"
+    },
     "./radio": {
       "types": "./dist/radio/index.d.ts",
       "import": "./dist/radio/index.js"

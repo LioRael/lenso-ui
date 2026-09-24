@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
-  demo: { display: "grid", gap: "var(--space-3)", minWidth: 0 },
+  demo: { display: "grid", gap: "var(--space-3)", minWidth: 0, position: "relative" },
   event: {
     color: "var(--color-content-tertiary)",
     fontSize: "var(--type-body-size)",

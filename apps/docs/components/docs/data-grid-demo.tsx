@@ -2,8 +2,11 @@
 
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Building2, Globe2, MapPin, UsersRound } from "lucide-react";
+import { Building2, Command, Globe2, MapPin, UsersRound } from "lucide-react";
 import { DataGrid, type DataGridColumn } from "@lenso/ui/data-grid";
+import { Menu } from "@lenso/ui/menu";
+import { SelectionToolbar } from "@lenso/ui/selection-toolbar";
+import type { DataGridTable } from "@lenso/primitives/data-grid";
 import { DataPlayground } from "./data-playground";
 import { PlaygroundControls, PlaygroundSwitchControl } from "./playground-controls";
 import { styles } from "./data-grid-demo.stylex";
@@ -247,7 +250,9 @@ const columns: readonly DataGridColumn<Company, CompanyValidation>[] = [
 ];
 
 export function DataGridDemo() {
+  const tableRef = React.useRef<DataGridTable<Company>>(null);
   const [rows, setRows] = React.useState(initialRows);
+  const [selectedIds, setSelectedIds] = React.useState<ReadonlySet<string>>(() => new Set());
   const [readOnly, setReadOnly] = React.useState(false);
   const [showRowSelection, setShowRowSelection] = React.useState(true);
   const [showRowNumbers, setShowRowNumbers] = React.useState(true);
@@ -256,14 +261,39 @@ export function DataGridDemo() {
   const [lastEvent, setLastEvent] = React.useState(
     "Double-click a cell to edit. Drag across cells to select a range.",
   );
+  const copySelected = async (field: "name" | "website") => {
+    try {
+      await navigator.clipboard.writeText(
+        rows
+          .filter((row) => selectedIds.has(row.id))
+          .map((row) => row[field])
+          .join(", "),
+      );
+      setLastEvent(field === "name" ? "Company names copied" : "Websites copied");
+    } catch {
+      setLastEvent("Could not copy selection");
+    }
+  };
+  const clearSelection = () => tableRef.current?.toggleAllRowsSelected(false);
   return (
     <DataPlayground
       controls={
         <PlaygroundControls name="Data Grid">
+          <PlaygroundSwitchControl
+            checked={readOnly}
+            label="Read only"
+            onCheckedChange={setReadOnly}
+          />
+          <PlaygroundSwitchControl
+            checked={showRowSelection}
+            label="Row selection"
+            onCheckedChange={(checked) => {
+              if (!checked) clearSelection();
+              setShowRowSelection(checked);
+            }}
+          />
           {(
             [
-              ["Read only", readOnly, setReadOnly],
-              ["Row selection", showRowSelection, setShowRowSelection],
               ["Row numbers", showRowNumbers, setShowRowNumbers],
               ["Sorting", sortable, setSortable],
               ["Cell selection", cellSelection, setCellSelection],
@@ -293,10 +323,33 @@ export function DataGridDemo() {
           cellSelection={cellSelection}
           validationData={validationData}
           onRowsChange={setRows}
+          onRowSelectionChange={setSelectedIds}
+          tableRef={tableRef}
           onCellEditComplete={(change) =>
             setLastEvent(`${change.columnId} in ${change.rowId} saved`)
           }
         />
+        {showRowSelection && (
+          <SelectionToolbar.Root
+            aria-label="Selected companies"
+            count={selectedIds.size}
+            onClear={clearSelection}
+          >
+            <Menu.Root>
+              <Menu.Trigger render={<SelectionToolbar.Action icon={<Command size={15} />} />}>
+                Actions
+              </Menu.Trigger>
+              <Menu.Portal>
+                <Menu.Positioner align="center" side="top" sideOffset={8}>
+                  <Menu.Popup aria-label="Selected company actions">
+                    <Menu.Item onClick={() => copySelected("name")}>Copy company names</Menu.Item>
+                    <Menu.Item onClick={() => copySelected("website")}>Copy websites</Menu.Item>
+                  </Menu.Popup>
+                </Menu.Positioner>
+              </Menu.Portal>
+            </Menu.Root>
+          </SelectionToolbar.Root>
+        )}
         <div aria-live="polite" {...stylex.props(styles.event)}>
           {lastEvent}
         </div>

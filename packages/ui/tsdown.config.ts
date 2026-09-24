@@ -32,6 +32,7 @@ export default defineConfig({
     "quick-link/index": source("quick-link"),
     "radio/index": source("radio"),
     "resize-handle/index": source("resize-handle"),
+    "selection-toolbar/index": source("selection-toolbar"),
     "select/index": source("select"),
     "segmented-control/index": source("segmented-control"),
     "settings-row/index": source("settings-row"),

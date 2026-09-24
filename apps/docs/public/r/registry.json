@@ -18,6 +18,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "selection-toolbar",
+      "title": "Selection Toolbar",
+      "type": "registry:ui"
+    },
+    {
       "name": "inline-alert",
       "title": "Inline Alert",
       "type": "registry:ui"
