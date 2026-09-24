@@ -1589,7 +1589,8 @@ test("Select resolves the semantic state board", async () => {
     width: 180,
   });
   expect(getComputedStyle(popup).backgroundColor).toBe("rgb(255, 255, 255)");
-  expect(getComputedStyle(popup).borderColor).toBe(themeColor("light", "color.border.decorative"));
+  expect(getComputedStyle(popup).borderWidth).toBe("0px");
+  expect(getComputedStyle(popup).boxShadow).not.toBe("none");
   expect(getComputedStyle(popup).borderRadius).toBe("12px");
 });
 
@@ -1606,7 +1607,8 @@ test("Select resolves dark popup tokens", async () => {
   await expect
     .poll(() => getComputedStyle(popup).backgroundColor)
     .toBe(themeColor("dark", "color.surface.popover"));
-  expect(getComputedStyle(popup).borderColor).toBe(themeColor("dark", "color.border.popover"));
+  expect(getComputedStyle(popup).borderWidth).toBe("0px");
+  expect(getComputedStyle(popup).boxShadow).not.toBe("none");
   const trigger = screen.getByRole("combobox").element();
   const icon = screen
     .getByRole("combobox")

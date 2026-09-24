@@ -57,11 +57,8 @@ export const styles = stylex.create({
   positioner: { outline: 0, zIndex: 50 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
     borderRadius: tokens.radiusPopover,
-    borderStyle: "solid",
-    borderWidth: "0.5px",
-    boxShadow: `0 1px 0.5px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} calc(${tokens.elevationOverlayKeyBlur} / 2) ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} calc(${tokens.elevationOverlayAmbientBlur} / 2) ${tokens.elevationOverlayAmbient}`,
+    boxShadow: `0 1px 2px ${tokens.elevationPanelDetail}, 0 6px 20px ${tokens.elevationOverlayAmbient}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     height: "168px",

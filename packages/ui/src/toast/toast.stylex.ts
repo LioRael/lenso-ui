@@ -4,7 +4,7 @@ import { tokens } from "../tokens.stylex.js";
 import { motion } from "../shared/motion.stylex.js";
 
 const toastInnerRadius = `calc(${tokens.radiusPopover} - 0.5px)`;
-const lightToastShadow = `0 0 0 0.5px ${tokens.elevationToastRing}, 0 1px 1px ${tokens.elevationToastDetail}, 0 ${tokens.elevationToastKeyY} ${tokens.elevationToastKeyBlur} ${tokens.elevationToastKey}, 0 ${tokens.elevationToastAmbientY} ${tokens.elevationToastAmbientBlur} ${tokens.elevationToastAmbient}`;
+const toastShadow = `0 ${tokens.elevationToastKeyY} ${tokens.elevationToastKeyBlur} ${tokens.elevationToastKey}, 0 ${tokens.elevationToastAmbientY} ${tokens.elevationToastAmbientBlur} ${tokens.elevationToastAmbient}`;
 
 export const styles = stylex.create({
   viewport: {
@@ -50,7 +50,7 @@ export const styles = stylex.create({
     "::before": {
       backgroundColor: tokens.colorSurfaceDialog,
       borderRadius: toastInnerRadius,
-      boxShadow: lightToastShadow,
+      boxShadow: toastShadow,
       content: "''",
       height: "100%",
       left: 0,

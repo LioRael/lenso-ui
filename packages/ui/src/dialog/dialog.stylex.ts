@@ -28,11 +28,8 @@ export const styles = stylex.create({
   },
   popup: {
     backgroundColor: tokens.colorSurfaceDialog,
-    borderColor: tokens.colorBorderDialog,
     borderRadius: tokens.radiusPopover,
-    borderStyle: "solid",
-    borderWidth: tokens.sizeBorderDialog,
-    boxShadow: `0 ${tokens.elevationDialogDetailY} ${tokens.elevationDialogDetailBlur} ${tokens.elevationDialogDetail}, 0 ${tokens.elevationDialogSoftY} ${tokens.elevationDialogSoftBlur} ${tokens.elevationDialogSoft}, 0 ${tokens.elevationDialogMidY} ${tokens.elevationDialogMidBlur} ${tokens.elevationDialogMid}, 0 ${tokens.elevationDialogKeyY} ${tokens.elevationDialogKeyBlur} ${tokens.elevationDialogKey}, 0 ${tokens.elevationDialogAmbientY} ${tokens.elevationDialogAmbientBlur} ${tokens.elevationDialogAmbient}`,
+    boxShadow: `0 ${tokens.elevationDialogSoftY} ${tokens.elevationDialogSoftBlur} ${tokens.elevationDialogSoft}, 0 ${tokens.elevationDialogAmbientY} ${tokens.elevationDialogAmbientBlur} ${tokens.elevationDialogAmbient}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     maxHeight: "calc(100vh - 32px)",

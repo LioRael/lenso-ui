@@ -47,11 +47,8 @@ export const styles = stylex.create({
   positioner: { outline: 0, zIndex: 50 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
     borderRadius: tokens.radiusPopover,
-    borderStyle: "solid",
-    borderWidth: "0.5px",
-    boxShadow: `0 1px 1px ${tokens.elevationOverlayDetail}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, 0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`,
+    boxShadow: `0 1px 2px ${tokens.elevationPanelDetail}, 0 6px 20px ${tokens.elevationOverlayAmbient}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     minHeight: "108px",
@@ -77,9 +74,6 @@ export const styles = stylex.create({
   },
   arrowShape: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
-    borderStyle: "solid",
-    borderWidth: "0.5px 0 0 0.5px",
     boxSizing: "border-box",
     height: "8px",
     transform: "rotate(45deg)",
@@ -87,9 +81,6 @@ export const styles = stylex.create({
   },
   arrowPreview: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
-    borderStyle: "solid",
-    borderWidth: "0.5px",
     boxSizing: "border-box",
     height: "8px",
     position: "absolute",

@@ -82,8 +82,11 @@ test("Tooltip resolves semantic tokens and exposes hover, focus, and Escape beha
     .querySelectorAll<HTMLElement>('[data-slot="tooltip-popup-preview"]');
   await expect.poll(() => getComputedStyle(previews[0]!).height).toBe("29px");
 
-  expect(previews[0]!.getBoundingClientRect().width).toBe(70);
-  expect(previews[1]!.getBoundingClientRect().width).toBe(96);
+  expect(previews[0]!.getBoundingClientRect().width).toBeGreaterThan(69);
+  expect(previews[0]!.getBoundingClientRect().width).toBeLessThanOrEqual(70);
+  expect(previews[1]!.getBoundingClientRect().width).toBeGreaterThan(95);
+  expect(previews[1]!.getBoundingClientRect().width).toBeLessThanOrEqual(96);
+  expect(getComputedStyle(previews[0]!).borderWidth).toBe("0px");
 
   const shortcut = previews[1]!.querySelector<HTMLElement>('[data-slot="tooltip-shortcut"]')!;
   const shortcutStyle = getComputedStyle(shortcut);
@@ -109,8 +112,8 @@ test("Tooltip resolves semantic tokens and exposes hover, focus, and Escape beha
   const runtimeTooltip = screen.getByTestId("runtime-tooltip");
   await expect.element(runtimeTooltip).toBeVisible();
   await expect.poll(() => getComputedStyle(runtimeTooltip.element()).opacity).toBe("1");
-  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeGreaterThan(96);
-  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeLessThan(104);
+  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeGreaterThan(95);
+  expect(runtimeTooltip.element().getBoundingClientRect().width).toBeLessThan(103);
   expect(trigger.element().getAttribute("aria-describedby")).toBe(runtimeTooltip.element().id);
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,

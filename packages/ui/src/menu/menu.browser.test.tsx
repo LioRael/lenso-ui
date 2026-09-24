@@ -126,9 +126,8 @@ test("Menu resolves semantic tokens and preserves Base UI interaction", async ()
   await document.fonts.load('400 13px "Inter"', "Due date");
   const preview = screen.getByTestId("menu-light-preview");
   await expect.poll(() => getComputedStyle(preview.element()).width).toBe("210px");
-  expect(getComputedStyle(preview.element()).borderColor).toBe(
-    themeColor("light", "color.border.decorative"),
-  );
+  expect(getComputedStyle(preview.element()).borderWidth).toBe("0px");
+  expect(getComputedStyle(preview.element()).boxShadow).not.toBe("none");
 
   const highlightedRow = preview
     .element()
@@ -141,12 +140,12 @@ test("Menu resolves semantic tokens and preserves Base UI interaction", async ()
   );
   expect(
     preview.element().querySelector('[data-slot="menu-separator"]')?.getBoundingClientRect().width,
-  ).toBe(209);
-  expect(Math.round(preview.element().getBoundingClientRect().height)).toBe(457);
+  ).toBe(210);
+  expect(Math.round(preview.element().getBoundingClientRect().height)).toBe(455);
   const lightSeparator = screen.getByTestId("menu-light-separator-3").element();
   const darkSeparator = screen.getByTestId("menu-dark-separator-3").element();
-  expect(lightSeparator.getBoundingClientRect().width).toBe(209);
-  expect(darkSeparator.getBoundingClientRect().width).toBe(209);
+  expect(lightSeparator.getBoundingClientRect().width).toBe(210);
+  expect(darkSeparator.getBoundingClientRect().width).toBe(210);
   expect(getComputedStyle(lightSeparator.firstElementChild!).backgroundColor).toBe(
     themeColor("light", "color.border.decorative"),
   );
@@ -164,7 +163,7 @@ test("Menu resolves semantic tokens and preserves Base UI interaction", async ()
   const createRelated = screen.getByRole("menuitem", { name: "Create related" }).element();
   expect(openIssue.tagName).toBe("A");
   expect(runtimeSeparator.tagName).toBe("HR");
-  await expect.poll(() => Math.round(runtimeSeparator.getBoundingClientRect().width)).toBe(209);
+  await expect.poll(() => Math.round(runtimeSeparator.getBoundingClientRect().width)).toBe(210);
   expect(Math.round(runtimeSeparator.getBoundingClientRect().height)).toBe(12);
   expect(getComputedStyle(runtimeSeparator).marginBlockStart).toBe("0px");
   expect(getComputedStyle(runtimeSeparator).marginBlockEnd).toBe("0px");

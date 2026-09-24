@@ -8,10 +8,7 @@ export const styles = stylex.create({
   popup: {
     alignItems: "center",
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
     borderRadius: tokens.radiusControl,
-    borderStyle: "solid",
-    borderWidth: "0.5px",
     boxShadow: `0 1px 1px ${tokens.elevationPanelDetail}, 0 ${tokens.elevationPanelKeyY} ${tokens.elevationPanelKeyBlur} ${tokens.elevationPanelKeySpread} ${tokens.elevationPanelKey}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,

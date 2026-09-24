@@ -26,10 +26,7 @@ export const styles = stylex.create({
   },
   overlay: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
     borderRadius: tokens.radiusPopover,
-    borderStyle: "solid",
-    borderWidth: "0.5px",
-    boxShadow: `0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, 0 1px 1px ${tokens.elevationOverlayDetail}`,
+    boxShadow: `0 1px 2px ${tokens.elevationPanelDetail}, 0 6px 20px ${tokens.elevationOverlayAmbient}`,
   },
 });

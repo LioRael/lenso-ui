@@ -90,7 +90,8 @@ test("Surface resolves the semantic hierarchy and remains render-composable", as
   ]);
   await expect.poll(() => getComputedStyle(surfaces[0]!).borderRadius).toBe("8px");
 
-  await expect.poll(() => getComputedStyle(surfaces[2]!).borderWidth).toBe("1px");
+  await expect.poll(() => getComputedStyle(surfaces[2]!).borderWidth).toBe("0px");
+  expect(getComputedStyle(surfaces[2]!).boxShadow).not.toBe("none");
   await expect.poll(() => getComputedStyle(surfaces[2]!).borderRadius).toBe("12px");
   await expect
     .poll(() => getComputedStyle(screen.getByTestId("dark-panel").element()).backgroundColor)

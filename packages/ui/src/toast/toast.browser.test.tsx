@@ -118,6 +118,7 @@ test("Toast resolves semantic tokens and preserves Base UI behavior", async () =
     .querySelector<HTMLElement>('[data-tone="error"] [data-slot="toast-icon"]')!;
   const lightClose = board.element().querySelector<HTMLElement>('[data-tone="default"] button')!;
   await expect.poll(() => getComputedStyle(defaultPreview).borderColor).toBe("rgba(0, 0, 0, 0)");
+  expect(getComputedStyle(defaultPreview, "::before").boxShadow).not.toBe("none");
   expect(getComputedStyle(defaultPreview).backgroundColor).toBe("rgb(255, 255, 255)");
   expect(getComputedStyle(defaultPreview).borderRadius).toBe("12px");
   expect(getComputedStyle(defaultPreview).gap).toBe("8px");

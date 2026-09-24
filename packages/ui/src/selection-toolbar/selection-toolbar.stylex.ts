@@ -6,12 +6,9 @@ export const styles = stylex.create({
   root: {
     alignItems: "center",
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderTertiary,
     borderRadius: tokens.radiusRounded,
-    borderStyle: "solid",
-    borderWidth: "1px",
     bottom: "12px",
-    boxShadow: `0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}, 0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}`,
+    boxShadow: `0 1px 2px ${tokens.elevationPanelDetail}, 0 ${tokens.elevationPanelKeyY} ${tokens.elevationPanelKeyBlur} ${tokens.elevationPanelKeySpread} ${tokens.elevationPanelKey}`,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
     display: "inline-flex",
@@ -32,7 +29,7 @@ export const styles = stylex.create({
   action: {
     backgroundColor: tokens.colorSurfacePopover,
     borderRadius: tokens.radiusRounded,
-    boxShadow: `inset 0 0 0 1px ${tokens.colorBorderDecorative}, 0 1px 2px ${tokens.elevationOverlayDetail}`,
+    boxShadow: `inset 0 0 0 1px ${tokens.colorBorderDecorative}`,
     color: tokens.colorContentPrimary,
     height: "32px",
     minHeight: "32px",

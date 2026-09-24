@@ -4,9 +4,7 @@ import { tokens } from "../tokens.stylex.js";
 import { motion } from "../shared/motion.stylex.js";
 
 const menuPopupShadow =
-  `0 1px 1px ${tokens.elevationOverlayDetail}, ` +
-  `0 ${tokens.elevationOverlayKeyY} ${tokens.elevationOverlayKeyBlur} ${tokens.elevationOverlayKey}, ` +
-  `0 ${tokens.elevationOverlayAmbientY} ${tokens.elevationOverlayAmbientBlur} ${tokens.elevationOverlayAmbient}`;
+  `0 1px 2px ${tokens.elevationPanelDetail}, ` + `0 6px 20px ${tokens.elevationOverlayAmbient}`;
 
 export const styles = stylex.create({
   trigger: {
@@ -44,10 +42,7 @@ export const styles = stylex.create({
   positioner: { outline: 0, zIndex: 60 },
   popup: {
     backgroundColor: tokens.colorSurfacePopover,
-    borderColor: tokens.colorBorderPopover,
     borderRadius: "12px",
-    borderStyle: "solid",
-    borderWidth: "0.5px",
     boxShadow: menuPopupShadow,
     boxSizing: "border-box",
     color: tokens.colorContentPrimary,
@@ -184,8 +179,8 @@ export const styles = stylex.create({
     borderWidth: 0,
     height: "12px",
     marginBlock: 0,
-    marginInline: "-0.5px",
-    width: "calc(100% + 1px)",
+    marginInline: 0,
+    width: "100%",
   },
   separatorLine: {
     backgroundColor: tokens.colorBorderMenuSeparator,
