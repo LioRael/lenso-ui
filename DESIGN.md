@@ -91,7 +91,7 @@ Reject a generic KPI/card dashboard for a collection, settings, trace or Agent t
 
 The documentation shell borrows Console v1's restrained visual grammar without presenting Console product navigation. It fills the viewport instead of nesting the whole site in a rounded card. The desktop sidebar and header use quiet adjacent planes with one-pixel boundaries; active destinations use a low-contrast neutral fill. Search is centered when space permits, becomes a square icon button on narrow screens, and opens real page results with `⌘K` or `Ctrl+K`. The mobile sidebar is an edge-aligned drawer, while page content keeps a readable measure.
 
-In the docs sidebar, disclosure triggers and destination rows share the same text size, row height and corner radius. Distinguish a group with weight, a chevron and child indentation; keep its hit area equal to its sibling destinations at each breakpoint.
+In the docs sidebar, disclosure triggers and destination rows share the same text size, row height and corner radius. Keep both visually 32px high in the mobile drawer as well as on desktop; a narrow viewport is not a reason to enlarge every row to 44px. Distinguish a group with weight, a chevron and child indentation; keep its hit area equal to its sibling destinations at each breakpoint.
 
 The docs homepage is a directory of actual guidance, organized by the reader's next task. Keep examples and interactive controls on their dedicated pages. A playground may frame a component because it is a separate preview context; ordinary documentation sections use whitespace and separators. Light remains a first-class reading theme. Keep the site styles local to `apps/docs`; they are not new shared token defaults.
 

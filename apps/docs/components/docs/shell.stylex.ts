@@ -1,7 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 
 const navigationRowHeight = "32px";
-const mobileNavigationRowHeight = "44px";
 const navigationTextSize = "13px";
 
 export const styles = stylex.create({
@@ -191,6 +190,7 @@ export const styles = stylex.create({
     paddingBlock: 0,
     paddingInline: 0,
     width: "100%",
+    "@media (max-width: 900px)": { height: "48px", marginBottom: 0 },
   },
   brandRow: {
     alignItems: "center",
@@ -243,7 +243,6 @@ export const styles = stylex.create({
     margin: 0,
     padding: 0,
     width: "220px",
-    "@media (max-width: 900px)": { height: mobileNavigationRowHeight },
   },
   navSectionContent: {
     marginBlock: 0,
@@ -283,7 +282,6 @@ export const styles = stylex.create({
       position: "relative",
       zIndex: 1,
     },
-    "@media (max-width: 900px)": { height: mobileNavigationRowHeight },
   },
   navHeadingLabel: {
     flex: 1,
@@ -312,10 +310,6 @@ export const styles = stylex.create({
       outline: "none",
       position: "relative",
       zIndex: 1,
-    },
-    "@media (max-width: 900px)": {
-      height: mobileNavigationRowHeight,
-      minHeight: mobileNavigationRowHeight,
     },
   },
   selectedNavItem: {
