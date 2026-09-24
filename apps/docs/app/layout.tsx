@@ -15,6 +15,7 @@ import "./styles.css";
 
 import { DocsFrame } from "../components/docs/shell";
 import { DocsThemeProvider } from "../components/docs/theme-provider";
+import { DevAgentation } from "../components/docs/dev-agentation";
 
 export const metadata: Metadata = {
   description: "An independent React design system built with Base UI and StyleX.",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <DocsThemeProvider>
           <DocsFrame>{children}</DocsFrame>
+          <DevAgentation />
         </DocsThemeProvider>
       </body>
     </html>

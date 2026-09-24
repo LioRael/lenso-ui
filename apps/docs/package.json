@@ -41,6 +41,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "agentation": "^3.1.2",
     "autoprefixer": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
