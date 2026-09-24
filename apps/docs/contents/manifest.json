@@ -34,8 +34,7 @@
           "href": "/start/release-status",
           "kind": "page",
           "label": "Package compatibility",
-          "slug": "release-status",
-          "hidden": true
+          "slug": "release-status"
         }
       ]
     },

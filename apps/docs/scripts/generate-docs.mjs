@@ -20,7 +20,6 @@ await generateDocsManifest({
   site: process.env.LENSO_DOCS_SITE ?? "https://ui.lenso.dev",
   tabs,
   overrides: {
-    "start/release-status": { hidden: true },
     "patterns/quick-link": { aliases: ["/components/quick-link"] },
     "patterns/settings-row": { aliases: ["/components/settings-row"] },
   },

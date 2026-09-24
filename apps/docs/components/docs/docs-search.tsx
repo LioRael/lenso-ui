@@ -15,6 +15,9 @@ const suggestedPages = ["overview", "quick-start", "tokens", "themes", "console-
 type SearchEntry = { href: string; title: string; description: string; body: string };
 
 export function DocsSearch() {
+  const triggerProps = stylex.props(styles.trigger);
+  const labelProps = stylex.props(styles.triggerLabel);
+  const shortcutProps = stylex.props(styles.shortcut);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
@@ -66,12 +69,17 @@ export function DocsSearch() {
       <button
         aria-label="Search documentation"
         onClick={() => setOpen(true)}
-        {...stylex.props(styles.trigger)}
+        {...triggerProps}
+        className={`${triggerProps.className} docs-search-trigger`}
         type="button"
       >
         <SearchIcon aria-hidden="true" {...stylex.props(styles.searchIcon)} />
-        <span {...stylex.props(styles.triggerLabel)}>Search documentation</span>
-        <kbd {...stylex.props(styles.shortcut)}>⌘ K</kbd>
+        <span {...labelProps} className={`${labelProps.className} docs-search-label`}>
+          Search documentation
+        </span>
+        <kbd {...shortcutProps} className={`${shortcutProps.className} docs-search-shortcut`}>
+          ⌘ K
+        </kbd>
       </button>
       <Dialog.Root
         onOpenChange={(nextOpen) => {

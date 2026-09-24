@@ -1,24 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
-import * as stylex from "@stylexjs/stylex";
+import { useEffect, useState } from "react";
 
-import { DocsShell, type DocsPage } from "./shell";
-import { TableOfContents } from "./table-of-contents";
-import { useDocsPageTheme } from "./use-docs-page-theme";
-import type { DocsSectionId } from "../../contents/catalog";
-import { styles } from "./document-frame.stylex";
-
-const sectionLabels: Record<string, string> = {
-  components: "Components",
-  foundations: "Foundations",
-  guides: "Guides",
-  patterns: "Patterns",
-  primitives: "Primitives",
-  reference: "Reference",
-  start: "Start",
-  templates: "Templates",
-};
+import type { DocsPage, DocsSectionId } from "../../contents/catalog";
+import { docsHeadingId } from "./heading";
 
 interface DocumentFrameProps {
   children: ReactNode;
@@ -31,30 +17,10 @@ interface DocumentFrameProps {
   title: string;
 }
 
-function ComponentOverview({
-  description,
-  eyebrow,
-  metadata,
-  title,
-}: {
-  description: string;
-  eyebrow: string;
-  metadata?: readonly [string, string] | undefined;
-  title: string;
-}) {
-  return (
-    <section {...stylex.props(styles.componentOverview)}>
-      <p {...stylex.props(styles.componentEyebrow)}>{eyebrow.toUpperCase()}</p>
-      <h1 {...stylex.props(styles.componentTitle)}>{title}</h1>
-      <p {...stylex.props(styles.componentDescription)}>{description}</p>
-      {metadata && (
-        <div {...stylex.props(styles.componentMetadata)}>
-          <span {...stylex.props(styles.metadataPill)}>{metadata[0]}</span>
-          <span {...stylex.props(styles.metadataPill)}>{metadata[1]}</span>
-        </div>
-      )}
-    </section>
-  );
+interface Heading {
+  id: string;
+  label: string;
+  depth: number;
 }
 
 export function DocumentFrame({
@@ -62,66 +28,67 @@ export function DocumentFrame({
   description,
   eyebrow,
   layout,
-  metadata,
   section,
   slug,
   title,
 }: DocumentFrameProps) {
-  const theme = useDocsPageTheme();
-  const isOverview = layout === "overview";
-  const isWorkspace = slug === "theme-lab" || slug === "tokens";
+  const [headings, setHeadings] = useState<Heading[]>([]);
 
-  if (!isOverview && !eyebrow) {
-    throw new Error(`Component document ${slug} must define eyebrow frontmatter`);
-  }
+  useEffect(() => {
+    const article = document.querySelector<HTMLElement>(`[data-document-main="${slug}"]`);
+    if (!article) return;
+    const found = Array.from(
+      article.querySelectorAll<HTMLElement>(".docs-prose > h2, .docs-prose > h3"),
+    );
+    const used = new Set<string>();
+    const next = found
+      .map((heading) => {
+        const label = heading.textContent?.trim() ?? "";
+        const base = heading.id || docsHeadingId(label);
+        let id = base;
+        for (let suffix = 2; used.has(id); suffix += 1) id = `${base}-${suffix}`;
+        used.add(id);
+        heading.id = id;
+        return { id, label, depth: Number(heading.tagName.slice(1)) };
+      })
+      .filter((heading) => heading.label);
+    setHeadings(next);
+  }, [slug]);
+
+  const workspace = slug === "tokens" || slug === "theme-lab";
+  const showToc = !workspace && headings.length > 0;
+  const sectionLabel = section.charAt(0).toUpperCase() + section.slice(1);
 
   return (
-    <DocsShell
-      breadcrumbs={[isOverview ? "Documentation" : (sectionLabels[section] ?? section), title]}
-      current={slug}
-      theme={theme}
+    <div
+      className={`docs-content-layout${showToc ? " has-toc" : ""}${workspace ? " is-workspace" : ""}`}
     >
-      {isOverview ? (
-        <div {...stylex.props(styles.standardContent)}>{children}</div>
-      ) : layout === "document" ? (
-        <div
-          {...stylex.props(
-            styles.documentContent,
-            isWorkspace && styles.workspaceContent,
-            slug === "tokens" && styles.tokensContent,
-            slug === "theme-lab" && styles.themeLabContent,
-          )}
-        >
-          <div {...stylex.props(styles.documentLayout, isWorkspace && styles.workspaceLayout)}>
-            {!isWorkspace && <TableOfContents mobile page={slug} />}
-            <article
-              {...stylex.props(styles.documentMain, isWorkspace && styles.workspaceMain)}
-              data-document-main={slug}
-            >
-              {!isWorkspace && (
-                <section {...stylex.props(styles.hero)}>
-                  <p {...stylex.props(styles.heroEyebrow)}>{eyebrow?.toUpperCase()}</p>
-                  <h1 {...stylex.props(styles.heroTitle)}>{title}</h1>
-                  <p {...stylex.props(styles.heroDescription)}>{description}</p>
-                  {metadata && <p {...stylex.props(styles.heroMetadata)}>{metadata.join(" · ")}</p>}
-                </section>
-              )}
-              {children}
-            </article>
-            {!isWorkspace && <TableOfContents page={slug} />}
-          </div>
+      <article className="docs-article" data-document-main={slug}>
+        <div className="docs-article-heading">
+          <p className="docs-article-eyebrow">{eyebrow ?? sectionLabel}</p>
+          <h1>{title}</h1>
+          <p className="docs-article-description">{description}</p>
         </div>
-      ) : (
-        <div {...stylex.props(styles.standardContent, styles.componentContent)}>
-          <ComponentOverview
-            description={description}
-            eyebrow={eyebrow!}
-            metadata={metadata}
-            title={title}
-          />
+        <div className="docs-prose" data-layout={layout}>
           {children}
         </div>
+      </article>
+      {showToc && (
+        <aside aria-label="On this page" className="docs-toc">
+          <p>On this page</p>
+          <nav>
+            {headings.map((heading) => (
+              <a
+                className={`docs-toc-link${heading.depth === 3 ? " is-nested" : ""}`}
+                href={`#${heading.id}`}
+                key={heading.id}
+              >
+                {heading.label}
+              </a>
+            ))}
+          </nav>
+        </aside>
       )}
-    </DocsShell>
+    </div>
   );
 }

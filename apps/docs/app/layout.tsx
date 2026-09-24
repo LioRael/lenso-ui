@@ -12,6 +12,7 @@ import "./layers.css";
 import "@lenso/ui/styles.css";
 import "dialkit/styles.css";
 import "./styles.css";
+import "./docs-shell.css";
 
 import { DocsFrame } from "../components/docs/shell";
 import { DocsThemeProvider } from "../components/docs/theme-provider";
