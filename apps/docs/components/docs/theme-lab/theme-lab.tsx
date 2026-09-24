@@ -404,7 +404,6 @@ function TokenInspector({
     <aside aria-label="Generated token inspector" {...stylex.props(styles.inspector)}>
       <div {...stylex.props(styles.panelHeading)}>
         <div {...stylex.props(styles.headingCopy)}>
-          <span {...stylex.props(styles.sectionLabel)}>Resolved output</span>
           <h2 {...stylex.props(styles.headingTitle)}>Color tokens</h2>
         </div>
         <span {...stylex.props(styles.panelCount)}>{themeTokenPaths.length}</span>
@@ -571,7 +570,6 @@ export function ThemeLab() {
         <aside aria-label="Theme recipe inputs" {...stylex.props(styles.controls)}>
           <div {...stylex.props(styles.panelHeading)}>
             <div {...stylex.props(styles.headingCopy)}>
-              <span {...stylex.props(styles.sectionLabel)}>Recipe</span>
               <h2 {...stylex.props(styles.headingTitle)}>Base inputs</h2>
             </div>
           </div>

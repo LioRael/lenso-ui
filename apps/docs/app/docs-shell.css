@@ -40,14 +40,11 @@ a {
     var(--color-border-tertiary) 55%,
     var(--color-surface-canvas)
   );
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 244px minmax(0, 1fr);
   grid-template-rows: 64px minmax(0, 1fr);
-}
-.docs-shell:has(.docs-content-layout.is-workspace) {
-  height: 100dvh;
-  overflow: hidden;
 }
 html[data-theme="dark"] .docs-shell {
   --docs-shell-divider: var(--color-border-tertiary);
@@ -259,6 +256,9 @@ html[data-theme="dark"] .docs-shell {
   min-height: 0;
   padding: 0 24px 24px;
 }
+.docs-content-layout.is-workspace:has([data-document-main="tokens"]) {
+  padding-block: 24px;
+}
 .docs-content-layout.is-workspace .docs-article,
 .docs-content-layout.is-workspace .docs-prose {
   height: 100%;
@@ -329,7 +329,7 @@ html[data-theme="dark"] .docs-shell {
 .docs-code-example-source .astro-code {
   margin: 0;
 }
-.docs-prose h2 {
+.docs-prose > h2 {
   margin: 34px 0 11px;
   color: var(--color-content-primary);
   font-size: 16px;
@@ -337,7 +337,7 @@ html[data-theme="dark"] .docs-shell {
   line-height: 24px;
   scroll-margin-top: 24px;
 }
-.docs-prose h3 {
+.docs-prose > h3 {
   margin: 27px 0 9px;
   color: var(--color-content-primary);
   font-size: 14px;
@@ -641,12 +641,8 @@ html[data-theme="dark"] .astro-code span {
   .docs-shell {
     grid-template-columns: 220px minmax(0, 1fr);
   }
-  .docs-shell:has(.docs-content-layout.is-workspace) {
-    height: auto;
-    overflow: visible;
-  }
   .docs-main:has(.docs-content-layout.is-workspace) {
-    overflow: visible;
+    overflow-y: auto;
   }
   .docs-content-layout {
     padding: 43px 32px 90px;
@@ -658,6 +654,9 @@ html[data-theme="dark"] .astro-code span {
     height: auto;
     padding: 0 16px 24px;
   }
+  .docs-content-layout.is-workspace:has([data-document-main="tokens"]) {
+    padding-block: 16px;
+  }
   .docs-content-layout.is-workspace .docs-article,
   .docs-content-layout.is-workspace .docs-prose {
     height: auto;
@@ -666,6 +665,8 @@ html[data-theme="dark"] .astro-code span {
 @media (max-width: 600px) {
   .docs-shell {
     display: block;
+    height: auto;
+    overflow: visible;
   }
   .docs-header {
     height: 92px;
@@ -718,6 +719,9 @@ html[data-theme="dark"] .astro-code span {
   }
   .docs-content-layout.is-workspace {
     padding-inline: 12px;
+  }
+  .docs-content-layout.is-workspace:has([data-document-main="tokens"]) {
+    padding-block: 12px;
   }
   .docs-article h1 {
     font-size: 26px;
