@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as stylex from "@stylexjs/stylex";
 import { SearchIcon } from "lucide-react";
 
 import { Dialog } from "@lenso/ui/dialog";
+import { CommandMenu } from "@lenso/ui/command-menu";
 import { getDocsPageItems, getDocsSectionForPage } from "../../contents/catalog";
 import { styles } from "./docs-search.stylex";
 
@@ -71,46 +71,46 @@ export function DocsSearch() {
           <Dialog.Backdrop xstyle={styles.backdrop} />
           <Dialog.Viewport xstyle={styles.viewport}>
             <Dialog.Popup xstyle={styles.popup}>
-              <Dialog.Title xstyle={styles.title}>Search documentation</Dialog.Title>
-              <div {...stylex.props(styles.inputRow)}>
-                <SearchIcon aria-hidden="true" {...stylex.props(styles.searchIcon)} />
-                <input
-                  aria-label="Search pages"
-                  onChange={(event) => setQuery(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" && matches[0]) {
-                      router.push(matches[0].href);
-                      setOpen(false);
-                    }
-                  }}
-                  placeholder="Search pages…"
-                  ref={inputRef}
-                  type="search"
-                  value={query}
-                  {...stylex.props(styles.input)}
-                />
-                <Dialog.Close aria-label="Close search" xstyle={styles.close} />
-              </div>
-              <div {...stylex.props(styles.results)}>
-                {matches.length === 0 ? (
-                  <p {...stylex.props(styles.empty)}>No matching pages.</p>
-                ) : (
-                  matches.map((page) => (
-                    <Link
-                      href={page.href}
-                      key={page.slug}
-                      onClick={() => setOpen(false)}
-                      {...stylex.props(styles.result)}
-                    >
-                      <span>{page.label}</span>
-                      <span {...stylex.props(styles.resultSection)}>
-                        {getDocsSectionForPage(page.slug)}
-                      </span>
-                    </Link>
-                  ))
-                )}
-              </div>
-              <p {...stylex.props(styles.footer)}>Esc to close · Select a page to open</p>
+              <CommandMenu.Root<(typeof pages)[number]>
+                autoHighlight
+                filter={() => true}
+                inputValue={query}
+                items={matches}
+                onInputValueChange={setQuery}
+                onValueChange={(page) => {
+                  if (!page) return;
+                  router.push(page.href);
+                  setOpen(false);
+                }}
+              >
+                <CommandMenu.Panel xstyle={styles.commandPanel}>
+                  <Dialog.Title xstyle={styles.title}>Search documentation</Dialog.Title>
+                  <CommandMenu.Search xstyle={styles.commandSearch}>
+                    <SearchIcon aria-hidden="true" {...stylex.props(styles.searchIcon)} />
+                    <CommandMenu.Input
+                      aria-label="Search pages"
+                      placeholder="Search pages…"
+                      ref={inputRef}
+                    />
+                    <Dialog.Close aria-label="Close search" xstyle={styles.close} />
+                  </CommandMenu.Search>
+                  <CommandMenu.GroupLabel>
+                    {normalizedQuery ? "Pages" : "Suggested pages"}
+                  </CommandMenu.GroupLabel>
+                  <CommandMenu.List xstyle={styles.results}>
+                    {(page: (typeof pages)[number]) => (
+                      <CommandMenu.Item key={page.slug} value={page}>
+                        <CommandMenu.ItemText>{page.label}</CommandMenu.ItemText>
+                        <span {...stylex.props(styles.resultSection)}>
+                          {getDocsSectionForPage(page.slug)}
+                        </span>
+                      </CommandMenu.Item>
+                    )}
+                  </CommandMenu.List>
+                  <CommandMenu.Empty>No matching pages.</CommandMenu.Empty>
+                  <p {...stylex.props(styles.footer)}>Esc to close · Select a page to open</p>
+                </CommandMenu.Panel>
+              </CommandMenu.Root>
             </Dialog.Popup>
           </Dialog.Viewport>
         </Dialog.Portal>
