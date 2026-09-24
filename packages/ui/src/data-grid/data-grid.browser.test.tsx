@@ -135,8 +135,13 @@ test("preserves native and convenience sorting callbacks together", async () => 
 
 test("keeps selected rows and cell ranges visually distinct", async () => {
   const screen = await render(<Fixture />);
+  const grid = screen.getByRole("grid").element();
+  const header = grid.querySelector("thead th")!;
   const firstRow = screen.getByRole("gridcell", { name: "Atlas" }).element().parentElement!;
   const firstCell = screen.getByRole("gridcell", { name: "Atlas" }).element();
+  expect(header.getBoundingClientRect().height).toBe(32);
+  expect(firstCell.getBoundingClientRect().height).toBe(48);
+  expect(getComputedStyle(grid.parentElement!).borderTopWidth).toBe("0px");
   const canvasColor = getComputedStyle(firstRow).backgroundColor;
   await userEvent.click(screen.getByRole("checkbox", { name: "Select row 1" }));
   expect(firstRow).toHaveAttribute("data-selected", "");

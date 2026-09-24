@@ -19,7 +19,7 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
         <li>Use Data Grid when records are edited in place or users need to select a two-dimensional range.</li>
         <li>Use Data Table for read-only comparison and summaries. Its native table structure needs less interaction machinery.</li>
         <li>The headless <code>useDataGrid</code> primitive owns selection, sorting, sizing, and atomic edit transactions. The styled component supplies Lenso cell geometry and interaction surfaces.</li>
-        <li>Keep the cell boundaries for editing and range selection. Row selection uses a quiet full-row fill, while the active cell and edit boundary stay legible.</li>
+        <li>Use the same quiet header, row height, typography, and selection surface as Data Table. Cell boundaries are faint guides for editing and range selection; the active cell and edit boundary carry the strongest emphasis.</li>
       </ul>
     </GuidanceBlock>
     <GuidanceBlock title="Editing and configuration">

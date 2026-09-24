@@ -165,9 +165,11 @@ export const DataTableGroupRow = React.forwardRef<HTMLTableRowElement, DataTable
         ref={ref}
       >
         <th colSpan={columns.length} scope="rowgroup" {...stylex.props(styles.groupCell)}>
-          <span {...stylex.props(styles.groupContent)}>
-            <span>{label}</span>
-            {count !== undefined && <span {...stylex.props(styles.groupCount)}>{count}</span>}
+          <span {...stylex.props(styles.groupSurface)}>
+            <span {...stylex.props(styles.groupContent)}>
+              <span>{label}</span>
+              {count !== undefined && <span {...stylex.props(styles.groupCount)}>{count}</span>}
+            </span>
           </span>
         </th>
       </tr>

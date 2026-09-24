@@ -60,7 +60,17 @@ test("keeps semantic table cells and pinned offsets aligned during resizing", as
   expect(table.element().querySelector('[scope="rowgroup"]')?.textContent).toBe("Active1");
   const scrollArea = table.element().parentElement!;
   scrollArea.scrollLeft = 100;
-  const groupLabel = table.element().querySelector('[scope="rowgroup"] span')!;
+  const groupCell = table.element().querySelector('[scope="rowgroup"]')!;
+  const groupSurface = groupCell.firstElementChild!;
+  const groupLabel = groupSurface.firstElementChild!;
+  await vi.waitFor(() => {
+    expect(groupSurface.getBoundingClientRect().top - groupCell.getBoundingClientRect().top).toBe(
+      2,
+    );
+    expect(
+      groupCell.getBoundingClientRect().bottom - groupSurface.getBoundingClientRect().bottom,
+    ).toBe(2);
+  });
   await vi.waitFor(() =>
     expect(groupLabel.getBoundingClientRect().left).toBeGreaterThanOrEqual(
       scrollArea.getBoundingClientRect().left,
@@ -105,7 +115,7 @@ test("joins adjacent selected rows without gaps or inner corners", async () => {
   if (!first || !second || !third) throw new Error("Expected three data cells");
   expect(getComputedStyle(table).borderSpacing).toMatch(/^0px(?: 0px)?$/);
   expect(second.getBoundingClientRect().top).toBeCloseTo(first.getBoundingClientRect().bottom, 0);
-  expect(getComputedStyle(first).borderTopLeftRadius).not.toBe("0px");
+  await vi.waitFor(() => expect(getComputedStyle(first).borderTopLeftRadius).not.toBe("0px"));
   expect(getComputedStyle(first).borderBottomLeftRadius).toBe("0px");
   expect(getComputedStyle(second).borderTopLeftRadius).toBe("0px");
   expect(getComputedStyle(second).borderBottomLeftRadius).not.toBe("0px");
