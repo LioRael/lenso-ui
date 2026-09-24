@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { MenuIcon, XIcon } from "lucide-react";
 
@@ -180,27 +180,6 @@ function DocumentationSidebar({
   mobileOpen: boolean;
   onNavigate: () => void;
 }) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [canScrollDown, setCanScrollDown] = useState(false);
-
-  const updateScrollEdges = () => {
-    const content = contentRef.current;
-    if (!content) return;
-    const bottom = content.scrollTop + content.clientHeight < content.scrollHeight - 1;
-    setCanScrollDown(bottom);
-  };
-
-  useEffect(() => {
-    const content = contentRef.current;
-    if (!content) return;
-    const observer = new ResizeObserver(updateScrollEdges);
-    observer.observe(content);
-    const navigation = content.firstElementChild;
-    if (navigation) observer.observe(navigation);
-    updateScrollEdges();
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <Sidebar.Panel
       aria-label="Documentation navigation"
@@ -220,12 +199,11 @@ function DocumentationSidebar({
           </Sidebar.Trigger>
         </div>
       </Sidebar.Header>
-      <Sidebar.Content onScroll={updateScrollEdges} ref={contentRef} xstyle={styles.sidebarContent}>
+      <Sidebar.Content xstyle={styles.sidebarContent}>
         <nav aria-label="Documentation" {...stylex.props(styles.nav)}>
           <DocumentationNavigation current={current} onNavigate={onNavigate} />
         </nav>
       </Sidebar.Content>
-      {canScrollDown && <div aria-hidden="true" {...stylex.props(styles.scrollFadeBottom)} />}
     </Sidebar.Panel>
   );
 }
