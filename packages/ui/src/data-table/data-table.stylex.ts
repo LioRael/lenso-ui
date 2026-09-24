@@ -12,7 +12,7 @@ export const styles = stylex.create({
   },
   table: {
     borderCollapse: "separate",
-    borderSpacing: "0 2px",
+    borderSpacing: 0,
     color: tokens.colorContentPrimary,
     fontSize: tokens.typeLabelSize,
     lineHeight: tokens.typeBodyLineHeight,
@@ -75,6 +75,14 @@ export const styles = stylex.create({
       borderBottomRightRadius: tokens.radiusRow,
       borderTopRightRadius: tokens.radiusRow,
     },
+  },
+  joinsPrevious: {
+    ":first-child": { borderTopLeftRadius: 0 },
+    ":last-child": { borderTopRightRadius: 0 },
+  },
+  joinsNext: {
+    ":first-child": { borderBottomLeftRadius: 0 },
+    ":last-child": { borderBottomRightRadius: 0 },
   },
   pinnedCell: { position: "sticky", zIndex: 10 },
   footCell: {

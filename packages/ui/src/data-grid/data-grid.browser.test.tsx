@@ -133,6 +133,19 @@ test("preserves native and convenience sorting callbacks together", async () => 
   expect(onSortingChange).toHaveBeenCalledWith([{ id: "amount", desc: true }]);
 });
 
+test("keeps selected rows and cell ranges visually distinct", async () => {
+  const screen = await render(<Fixture />);
+  const firstRow = screen.getByRole("gridcell", { name: "Atlas" }).element().parentElement!;
+  const firstCell = screen.getByRole("gridcell", { name: "Atlas" }).element();
+  const canvasColor = getComputedStyle(firstRow).backgroundColor;
+  await userEvent.click(screen.getByRole("checkbox", { name: "Select row 1" }));
+  expect(firstRow).toHaveAttribute("data-selected", "");
+  expect(getComputedStyle(firstRow).backgroundColor).not.toBe(canvasColor);
+  expect(firstCell).not.toHaveAttribute("data-selected");
+  await userEvent.click(screen.getByRole("checkbox", { name: "Select row 1" }));
+  expect(firstRow).not.toHaveAttribute("data-selected");
+});
+
 test("read-only and display switches remove edit, selection, number, and sort affordances", async () => {
   const screen = await render(
     <Fixture readOnly showRowSelection={false} showRowNumbers={false} sortable={false} />,

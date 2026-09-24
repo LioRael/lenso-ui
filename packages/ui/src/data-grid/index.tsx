@@ -338,11 +338,6 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
                   }}
                 >
                   <span {...stylex.props(styles.headContent)}>
-                    {config.icon && (
-                      <span aria-hidden="true" {...stylex.props(styles.icon)}>
-                        {config.icon}
-                      </span>
-                    )}
                     {sortable && header.column.getCanSort() ? (
                       <button
                         type="button"
@@ -350,13 +345,25 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
                         onClick={header.column.getToggleSortingHandler()}
                         aria-label={`Sort by ${config.header}`}
                       >
+                        {config.icon && (
+                          <span aria-hidden="true" {...stylex.props(styles.icon)}>
+                            {config.icon}
+                          </span>
+                        )}
                         <span {...stylex.props(styles.ellipsis)}>{config.header}</span>
                         {isSorted && (
                           <span aria-hidden="true">{isSorted === "asc" ? "↑" : "↓"}</span>
                         )}
                       </button>
                     ) : (
-                      <span {...stylex.props(styles.ellipsis)}>{config.header}</span>
+                      <>
+                        {config.icon && (
+                          <span aria-hidden="true" {...stylex.props(styles.icon)}>
+                            {config.icon}
+                          </span>
+                        )}
+                        <span {...stylex.props(styles.ellipsis)}>{config.header}</span>
+                      </>
                     )}
                   </span>
                   {resizable && header.column.getCanResize() && (
@@ -399,7 +406,7 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
               key={row.id}
               data-grid-row={row.id}
               data-selected={row.getIsSelected() ? "" : undefined}
-              {...stylex.props(styles.row)}
+              {...stylex.props(styles.row, row.getIsSelected() && styles.selectedRow)}
             >
               {showRowSelection && (
                 <td

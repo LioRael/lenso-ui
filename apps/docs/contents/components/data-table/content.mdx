@@ -18,6 +18,7 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
       <ul>
         <li>Use Data Table for records with stable column headings and several comparable rows.</li>
         <li>Keep row selection optional. When enabled, a quiet full-row fill and a contextual batch toolbar make the selected set clear without turning each cell into a separate tile.</li>
+        <li>Rows have no inter-row gap. Adjacent selected rows form one surface with rounded corners only at the outer boundary.</li>
         <li>Render each data group in its own <code>DataTable.Body</code> with a <code>DataTable.GroupRow</code>. The Consumer decides group membership and counts.</li>
         <li>
           Keep row data, optional selection, sorting, filtering, and summaries in the Consumer. The

@@ -61,8 +61,10 @@ test("keeps semantic table cells and pinned offsets aligned during resizing", as
   const scrollArea = table.element().parentElement!;
   scrollArea.scrollLeft = 100;
   const groupLabel = table.element().querySelector('[scope="rowgroup"] span')!;
-  expect(groupLabel.getBoundingClientRect().left).toBeGreaterThanOrEqual(
-    scrollArea.getBoundingClientRect().left,
+  await vi.waitFor(() =>
+    expect(groupLabel.getBoundingClientRect().left).toBeGreaterThanOrEqual(
+      scrollArea.getBoundingClientRect().left,
+    ),
   );
   await userEvent.click(screen.getByRole("button", { name: "Order by name" }));
   expect(onSort).toHaveBeenCalledOnce();
@@ -78,4 +80,34 @@ test("keeps semantic table cells and pinned offsets aligned during resizing", as
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
   ).toEqual([]);
+});
+
+test("joins adjacent selected rows without gaps or inner corners", async () => {
+  const screen = await render(
+    <DataTable.Root columns={[{ id: "name", width: 200 }]} label="Selection geometry">
+      <DataTable.Body>
+        <DataTable.Row selected>
+          <DataTable.Cell columnId="name">First</DataTable.Cell>
+        </DataTable.Row>
+        <DataTable.Row selected>
+          <DataTable.Cell columnId="name">Second</DataTable.Cell>
+        </DataTable.Row>
+        <DataTable.Row>
+          <DataTable.Cell columnId="name">Third</DataTable.Cell>
+        </DataTable.Row>
+      </DataTable.Body>
+    </DataTable.Root>,
+  );
+
+  const table = screen.getByRole("table", { name: "Selection geometry" }).element();
+  const cells = [...table.querySelectorAll("tbody td")];
+  const [first, second, third] = cells;
+  if (!first || !second || !third) throw new Error("Expected three data cells");
+  expect(getComputedStyle(table).borderSpacing).toMatch(/^0px(?: 0px)?$/);
+  expect(second.getBoundingClientRect().top).toBeCloseTo(first.getBoundingClientRect().bottom, 0);
+  expect(getComputedStyle(first).borderTopLeftRadius).not.toBe("0px");
+  expect(getComputedStyle(first).borderBottomLeftRadius).toBe("0px");
+  expect(getComputedStyle(second).borderTopLeftRadius).toBe("0px");
+  expect(getComputedStyle(second).borderBottomLeftRadius).not.toBe("0px");
+  expect(getComputedStyle(third).borderTopLeftRadius).not.toBe("0px");
 });

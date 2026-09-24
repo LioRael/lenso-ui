@@ -25,6 +25,10 @@ export const styles = stylex.create({
     backgroundColor: tokens.colorSurfaceCanvas,
     ":hover": { backgroundColor: tokens.colorSurfaceInteractiveHover },
   },
+  selectedRow: {
+    backgroundColor: tokens.colorSurfaceSelected,
+    ":hover": { backgroundColor: tokens.colorSurfaceSelected },
+  },
   cell: {
     backgroundColor: "inherit",
     borderBottomColor: tokens.colorBorderTertiary,
@@ -95,16 +99,25 @@ export const styles = stylex.create({
   },
   sortButton: {
     alignItems: "center",
-    backgroundColor: "transparent",
+    backgroundColor: { default: "transparent", ":hover": tokens.colorSurfaceInteractiveHover },
+    borderRadius: tokens.radiusRounded,
     borderWidth: 0,
     color: "inherit",
     cursor: "pointer",
     display: "inline-flex",
     font: "inherit",
     gap: tokens.space2,
+    height: "28px",
+    marginLeft: `calc(-1 * ${tokens.space2})`,
     minWidth: 0,
-    padding: 0,
+    paddingInline: tokens.space2,
     textAlign: "left",
+    ":focus-visible": {
+      backgroundColor: tokens.colorSurfaceInteractiveHover,
+      outlineColor: tokens.colorFocusRing,
+      outlineStyle: "solid",
+      outlineWidth: "2px",
+    },
   },
   ellipsis: {
     display: "block",

@@ -25,6 +25,7 @@ interface DataTableContextValue {
 
 const DataTableContext = React.createContext<DataTableContextValue | null>(null);
 const SectionContext = React.createContext<"body" | "head" | "foot">("body");
+const RowJoinContext = React.createContext({ previous: false, next: false });
 
 function useDataTable() {
   const context = React.useContext(DataTableContext);
@@ -125,9 +126,23 @@ export const DataTableBody = React.forwardRef<
   HTMLTableSectionElement,
   StyleXProps<React.ComponentPropsWithoutRef<"tbody">>
 >(function DataTableBody({ xstyle, ...props }, ref) {
+  const children = React.Children.toArray(props.children);
+  const isSelectedRow = (child: React.ReactNode) =>
+    React.isValidElement<DataTableRowProps>(child) &&
+    child.type === DataTableRow &&
+    child.props.selected === true;
   return (
     <SectionContext.Provider value="body">
-      <tbody {...props} {...stylex.props(styles.body, xstyle)} ref={ref} />
+      <tbody {...props} {...stylex.props(styles.body, xstyle)} ref={ref}>
+        {children.map((child, index) =>
+          isSelectedRow(child)
+            ? React.cloneElement(child as React.ReactElement<DataTableRowProps>, {
+                joinsPrevious: isSelectedRow(children[index - 1]),
+                joinsNext: isSelectedRow(children[index + 1]),
+              })
+            : child,
+        )}
+      </tbody>
     </SectionContext.Provider>
   );
 });
@@ -175,25 +190,37 @@ export const DataTableFooter = React.forwardRef<
 
 export interface DataTableRowProps extends StyleXProps<React.ComponentPropsWithoutRef<"tr">> {
   selected?: boolean;
+  /** Set automatically for adjacent selected rows rendered directly inside DataTable.Body. */
+  joinsPrevious?: boolean;
+  joinsNext?: boolean;
 }
 
 export const DataTableRow = React.forwardRef<HTMLTableRowElement, DataTableRowProps>(
-  function DataTableRow({ selected = false, xstyle, ...props }, ref) {
+  function DataTableRow(
+    { selected = false, joinsPrevious = false, joinsNext = false, xstyle, ...props },
+    ref,
+  ) {
     const section = React.useContext(SectionContext);
+    const rowJoin = React.useMemo(
+      () => ({ previous: joinsPrevious, next: joinsNext }),
+      [joinsPrevious, joinsNext],
+    );
     return (
-      <tr
-        {...props}
-        aria-selected={selected || undefined}
-        {...stylex.props(
-          styles.row,
-          section === "body" && styles.bodyRow,
-          selected && styles.selectedRow,
-          xstyle,
-        )}
-        data-selected={selected ? "" : undefined}
-        data-slot="data-table-row"
-        ref={ref}
-      />
+      <RowJoinContext.Provider value={rowJoin}>
+        <tr
+          {...props}
+          aria-selected={selected || undefined}
+          {...stylex.props(
+            styles.row,
+            section === "body" && styles.bodyRow,
+            selected && styles.selectedRow,
+            xstyle,
+          )}
+          data-selected={selected ? "" : undefined}
+          data-slot="data-table-row"
+          ref={ref}
+        />
+      </RowJoinContext.Provider>
     );
   },
 );
@@ -290,6 +317,7 @@ export const DataTableCell = React.forwardRef<HTMLTableCellElement, DataTableCel
   function DataTableCell({ columnId, muted = false, style, xstyle, ...props }, ref) {
     const context = useDataTable();
     const section = React.useContext(SectionContext);
+    const rowJoin = React.useContext(RowJoinContext);
     const pinned = context.columns.find((column) => column.id === columnId)?.pinned;
     return (
       <td
@@ -297,6 +325,8 @@ export const DataTableCell = React.forwardRef<HTMLTableCellElement, DataTableCel
         {...stylex.props(
           styles.cell,
           styles.bodyCell,
+          rowJoin.previous && styles.joinsPrevious,
+          rowJoin.next && styles.joinsNext,
           section === "foot" && styles.footCell,
           pinned && styles.pinnedCell,
           section === "foot" && pinned && styles.pinnedFootCell,
