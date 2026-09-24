@@ -46,7 +46,7 @@ export const styles = stylex.create({
   sidebarBody: { height: "790px" },
   commandMenuBody: { height: "420px" },
   stage: {
-    backgroundColor: "var(--color-surface-translucent)",
+    backgroundColor: "var(--color-surface-canvas)",
     border: 0,
     borderRadius: "8px",
     boxShadow: "inset 0 0 0 0.5px var(--color-border-translucent)",
