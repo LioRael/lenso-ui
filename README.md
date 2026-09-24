@@ -87,13 +87,13 @@ The current `@lenso/ui` subpaths are:
 avatar           breadcrumb       button           checkbox      combobox
 command-menu     content-state    csp-provider     description-list dialog
 disclosure       icon-button      inline-alert     label         menu
-page-header      popover          quick-link       radio         resize-handle
+popover          quick-link       radio            resize-handle
 select           shimmer-text     sidebar          settings-row  status-marker
 surface          switch           tabs             text-area     text-field
 theme-scope      toast            tooltip
 ```
 
-The documentation site covers the component pages plus the current Surface, Sidebar, Page Header, Quick Link, and Settings Row patterns, along with the Page Layout, Agent Page, and Settings Page templates. The registry also exposes setup, Theme Scope, CSP Provider, Sidebar and Resize Handle primitives, plus editable Settings Section and Prompt Composer Recipes.
+The documentation site covers the component pages plus the current Surface, Quick Link, and Settings Row patterns, along with the Console Workspace and Settings Page templates. The registry also exposes setup, Theme Scope, CSP Provider, Sidebar and Resize Handle primitives, plus editable Settings Section and Prompt Composer Recipes.
 
 ## Themes and semantic tokens
 

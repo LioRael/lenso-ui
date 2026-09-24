@@ -45,15 +45,9 @@ const groups = [
     description: "Combine parts for a workflow while the application owns its data and behavior.",
     links: [
       {
-        href: "/patterns/application-sidebar",
-        label: "Application Sidebar",
-        detail: "Compact destinations",
-      },
-      { href: "/templates/agent-page", label: "Agent Page", detail: "Prompt and response layout" },
-      {
         href: "/templates/console-workspace",
         label: "Console Workspace",
-        detail: "Extensible App shell",
+        detail: "Agent and App navigation",
       },
       { href: "/templates/settings-page", label: "Settings Page", detail: "Grouped preferences" },
     ],

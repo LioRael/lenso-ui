@@ -24,7 +24,9 @@ export const styles = stylex.create({
   pageHeader: {
     display: "grid",
     gap: "var(--space-2, 8px)",
+    paddingInline: "16px",
   },
+  sectionHeader: { paddingInline: "16px" },
   pageTitle: {
     fontSize: "24px",
     fontWeight: 600,

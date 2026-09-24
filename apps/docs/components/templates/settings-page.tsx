@@ -53,7 +53,7 @@ export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(fun
         </header>
 
         <SettingsSection.Root aria-labelledby={appearanceTitleId}>
-          <SettingsSection.Header>
+          <SettingsSection.Header xstyle={styles.sectionHeader}>
             <SettingsSection.Title id={appearanceTitleId}>Appearance</SettingsSection.Title>
             <SettingsSection.Description>
               Keep display preferences local to the person and device that chose them.
@@ -107,7 +107,7 @@ export const SettingsPage = React.forwardRef<HTMLElement, SettingsPageProps>(fun
         </SettingsSection.Root>
 
         <SettingsSection.Root aria-labelledby={notificationsTitleId}>
-          <SettingsSection.Header>
+          <SettingsSection.Header xstyle={styles.sectionHeader}>
             <SettingsSection.Title id={notificationsTitleId}>Notifications</SettingsSection.Title>
             <SettingsSection.Description>
               Product code owns delivery channels, persistence, and permission prompts.

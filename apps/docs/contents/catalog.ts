@@ -32,7 +32,6 @@ export type DocsPage =
   | "inline-alert"
   | "label"
   | "menu"
-  | "page-header"
   | "popover"
   | "quick-link"
   | "radio"
@@ -42,7 +41,6 @@ export type DocsPage =
   | "slider"
   | "shimmer-text"
   | "settings-row"
-  | "application-sidebar"
   | "status-marker"
   | "surface"
   | "switch"
@@ -51,9 +49,7 @@ export type DocsPage =
   | "text-field"
   | "tooltip"
   | "toast"
-  | "agent-page"
   | "console-workspace"
-  | "page-layout"
   | "settings-page";
 
 export interface DocsNavLink {
@@ -221,20 +217,6 @@ export const docsRegistry = [
     id: "patterns",
     items: [
       {
-        aliases: ["/components/sidebar"],
-        href: "/patterns/application-sidebar",
-        kind: "page",
-        label: "Application Sidebar",
-        slug: "application-sidebar",
-      },
-      {
-        aliases: ["/components/page-header"],
-        href: "/patterns/page-header",
-        kind: "page",
-        label: "Page Header",
-        slug: "page-header",
-      },
-      {
         aliases: ["/components/quick-link"],
         href: "/patterns/quick-link",
         kind: "page",
@@ -256,22 +238,10 @@ export const docsRegistry = [
     id: "templates",
     items: [
       {
-        href: "/templates/agent-page",
-        kind: "page",
-        label: "Agent Page",
-        slug: "agent-page",
-      },
-      {
         href: "/templates/console-workspace",
         kind: "page",
         label: "Console Workspace",
         slug: "console-workspace",
-      },
-      {
-        href: "/templates/page-layout",
-        kind: "page",
-        label: "Page Layout",
-        slug: "page-layout",
       },
       {
         href: "/templates/settings-page",

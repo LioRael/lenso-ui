@@ -11,14 +11,7 @@ import { getDocsPageItems, getDocsSectionForPage } from "../../contents/catalog"
 import { styles } from "./docs-search.stylex";
 
 const pages = getDocsPageItems().filter((page) => !page.hidden);
-const suggestedPages = [
-  "overview",
-  "quick-start",
-  "tokens",
-  "themes",
-  "application-sidebar",
-  "agent-page",
-];
+const suggestedPages = ["overview", "quick-start", "tokens", "themes", "console-workspace"];
 
 export function DocsSearch() {
   const router = useRouter();

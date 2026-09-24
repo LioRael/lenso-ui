@@ -168,11 +168,6 @@
       "type": "registry:ui"
     },
     {
-      "name": "page-header",
-      "title": "Page Header",
-      "type": "registry:ui"
-    },
-    {
       "name": "quick-link",
       "title": "Quick Link",
       "type": "registry:ui"
