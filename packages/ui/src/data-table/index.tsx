@@ -125,7 +125,11 @@ export const DataTableBody = React.forwardRef<
   HTMLTableSectionElement,
   StyleXProps<React.ComponentPropsWithoutRef<"tbody">>
 >(function DataTableBody({ xstyle, ...props }, ref) {
-  return <tbody {...props} {...stylex.props(styles.body, xstyle)} ref={ref} />;
+  return (
+    <SectionContext.Provider value="body">
+      <tbody {...props} {...stylex.props(styles.body, xstyle)} ref={ref} />
+    </SectionContext.Provider>
+  );
 });
 
 export const DataTableFooter = React.forwardRef<
@@ -147,10 +151,17 @@ export interface DataTableRowProps extends StyleXProps<React.ComponentPropsWitho
 
 export const DataTableRow = React.forwardRef<HTMLTableRowElement, DataTableRowProps>(
   function DataTableRow({ selected = false, xstyle, ...props }, ref) {
+    const section = React.useContext(SectionContext);
     return (
       <tr
         {...props}
-        {...stylex.props(styles.row, selected && styles.selectedRow, xstyle)}
+        aria-selected={selected || undefined}
+        {...stylex.props(
+          styles.row,
+          section === "body" && styles.bodyRow,
+          selected && styles.selectedRow,
+          xstyle,
+        )}
         data-selected={selected ? "" : undefined}
         data-slot="data-table-row"
         ref={ref}

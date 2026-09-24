@@ -1,0 +1,45 @@
+import * as stylex from "@stylexjs/stylex";
+
+export const styles = stylex.create({
+  demo: { minWidth: 0, position: "relative" },
+  selectCell: { paddingInline: "8px" },
+  identity: { alignItems: "center", display: "flex", gap: "10px", minWidth: 0 },
+  identityCopy: { display: "flex", flexDirection: "column", gap: "1px", minWidth: 0 },
+  name: {
+    color: "var(--color-content-primary)",
+    lineHeight: "17px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  handle: { color: "var(--color-content-tertiary)", fontSize: "11px", lineHeight: "13px" },
+  selectionBar: {
+    alignItems: "center",
+    backgroundColor: "var(--color-surface-popover)",
+    borderColor: "var(--color-border-tertiary)",
+    borderRadius: "var(--radius-rounded)",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    bottom: "12px",
+    boxShadow:
+      "0 3px 12px var(--elevation-overlay-ambient), 0 1px 3px var(--elevation-overlay-key)",
+    color: "var(--color-content-primary)",
+    display: "flex",
+    fontSize: "12px",
+    gap: "6px",
+    left: "50%",
+    paddingBlock: "4px",
+    paddingInline: "12px",
+    position: "absolute",
+    transform: "translateX(-50%)",
+    whiteSpace: "nowrap",
+    zIndex: 30,
+  },
+  toolbarRule: { backgroundColor: "var(--color-border-tertiary)", height: "16px", width: "1px" },
+  status: {
+    color: "var(--color-content-secondary)",
+    display: "block",
+    fontSize: "12px",
+    minHeight: "18px",
+    paddingTop: "6px",
+  },
+});

@@ -62,6 +62,8 @@ The package intentionally has no all-components root barrel. Import the exact fa
 
 Data Grid editing keeps the cell footprint and content alignment stable. The input fills the active cell, one focus boundary marks the edit, and validation feedback stays anchored to that cell. Range dragging selects cells without selecting page text; text remains selectable inside the active editor. Use the primitive's TanStack table instance and option pass-through for product-specific behavior rather than adding one-off convenience props to the styled component.
 
+Data Table is a scan-oriented collection, not a spreadsheet. Keep horizontal rules quiet or absent, use compact type with enough row height for an optional second line, and treat the selected row as one continuous surface. Selection controls and batch actions belong to the Consumer; the shared row exposes only its selected visual state. Data Grid retains cell boundaries because editing and range selection depend on them, but shares the same quiet type hierarchy.
+
 For a compact navigation item and a two-line workspace choice, compose the public parts rather than recreating their geometry:
 
 ```tsx
