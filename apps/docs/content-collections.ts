@@ -10,7 +10,6 @@ const docs = defineCollection({
   include: "**/content.mdx",
   parser: "frontmatter-only",
   schema: z.object({
-    actions: z.tuple([z.string(), z.string()]).optional(),
     description: z.string().min(1),
     eyebrow: z.string().min(1).optional(),
     layout: z.enum(["component", "document", "overview"]).default("component"),

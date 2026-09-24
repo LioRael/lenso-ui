@@ -5,12 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { MenuIcon, MoreHorizontalIcon, XIcon } from "lucide-react";
+import { MenuIcon, XIcon } from "lucide-react";
 
 import { Breadcrumb } from "@lenso/ui/breadcrumb";
-import { Button } from "@lenso/ui/button";
 import { Disclosure } from "@lenso/ui/disclosure";
-import { Menu } from "@lenso/ui/menu";
 import { Sidebar } from "@lenso/ui/sidebar";
 
 import uiPackage from "../../../../packages/ui/package.json";
@@ -23,11 +21,11 @@ import {
   type DocsPage,
 } from "../../contents/catalog";
 import { ThemeToggle } from "./theme-toggle";
+import { DocsSearch } from "./docs-search";
 import { styles } from "./shell.stylex";
 import { useDocsPageTheme } from "./use-docs-page-theme";
 
 interface DocsShellProps {
-  actions: readonly [string, string];
   breadcrumbs: readonly [string, string];
   children: ReactNode;
   current: DocsPage;
@@ -123,7 +121,9 @@ function DocumentationNavigation({
   current: DocsPage;
   onNavigate: () => void;
 }) {
-  const sections = getOrderedDocsSections();
+  const sections = getOrderedDocsSections().filter(
+    (section) => getVisibleDocsItems(section).length > 0,
+  );
   const [openSections, setOpenSections] = useState(() => initialOpenSections(current));
 
   useEffect(() => {
@@ -206,10 +206,6 @@ function DocumentationSidebar({
             <XIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
           </Sidebar.Trigger>
         </div>
-        <button {...stylex.props(styles.searchButton)} type="button">
-          <span>Search documentation</span>
-          <kbd {...stylex.props(styles.searchHint)}>⌘ K</kbd>
-        </button>
       </Sidebar.Header>
       <Sidebar.Content xstyle={styles.sidebarContent}>
         <nav aria-label="Documentation" {...stylex.props(styles.nav)}>
@@ -243,7 +239,7 @@ export function DocsFrame({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   return (
-    <div {...stylex.props(styles.theme, theme === "dark" && styles.darkTheme)}>
+    <div id="docs-theme-root" {...stylex.props(styles.theme, theme === "dark" && styles.darkTheme)}>
       <Sidebar.Root
         id="documentation-sidebar"
         onOpenChange={setMobileNavigationOpen}
@@ -272,10 +268,7 @@ export function DocsFrame({ children }: { children: ReactNode }) {
   );
 }
 
-export function DocsShell({ actions, breadcrumbs, children, current, theme }: DocsShellProps) {
-  const firstActionHref = current === "overview" ? "#components" : undefined;
-  const secondActionHref = current === "overview" ? "#quick-start" : undefined;
-
+export function DocsShell({ breadcrumbs, children, current, theme }: DocsShellProps) {
   return (
     <div {...stylex.props(styles.mainInset)} data-current-page={current} data-preview-theme={theme}>
       <main {...stylex.props(styles.mainSurface)}>
@@ -317,51 +310,12 @@ export function DocsShell({ actions, breadcrumbs, children, current, theme }: Do
             </Breadcrumb.List>
           </Breadcrumb.Root>
           <span {...stylex.props(styles.mobilePageTitle)}>{breadcrumbs[1]}</span>
+          <DocsSearch />
           <div {...stylex.props(styles.headerActions)}>
             <ThemeToggle />
-            <Button
-              {...(firstActionHref
-                ? { nativeButton: false, render: <Link href={firstActionHref} /> }
-                : {})}
-              variant="secondary"
-              xstyle={styles.headerButton}
-            >
-              {actions[0]}
-            </Button>
-            <Button
-              {...(secondActionHref
-                ? { nativeButton: false, render: <Link href={secondActionHref} /> }
-                : {})}
-              disabled={actions[1] === "Planned"}
-              xstyle={styles.headerButton}
-            >
-              {actions[1]}
-            </Button>
-            <Menu.Root>
-              <Menu.ControlTrigger
-                aria-label="Page actions"
-                icon={null}
-                xstyle={styles.mobileActionsTrigger}
-              >
-                <MoreHorizontalIcon aria-hidden="true" {...stylex.props(styles.mobileHeaderIcon)} />
-              </Menu.ControlTrigger>
-              <Menu.Portal>
-                <Menu.Positioner align="end">
-                  <Menu.Popup aria-label="Page actions">
-                    {firstActionHref ? (
-                      <Menu.LinkItem href={firstActionHref}>{actions[0]}</Menu.LinkItem>
-                    ) : (
-                      <Menu.Item>{actions[0]}</Menu.Item>
-                    )}
-                    {secondActionHref ? (
-                      <Menu.LinkItem href={secondActionHref}>{actions[1]}</Menu.LinkItem>
-                    ) : (
-                      <Menu.Item disabled={actions[1] === "Planned"}>{actions[1]}</Menu.Item>
-                    )}
-                  </Menu.Popup>
-                </Menu.Positioner>
-              </Menu.Portal>
-            </Menu.Root>
+            <Link href="/start/installation" {...stylex.props(styles.installLink)}>
+              Install
+            </Link>
           </div>
         </header>
         <div

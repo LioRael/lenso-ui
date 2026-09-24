@@ -9,9 +9,6 @@ import { useDocsPageTheme } from "./use-docs-page-theme";
 import type { DocsSectionId } from "../../contents/catalog";
 import { styles } from "./document-frame.stylex";
 
-const defaultComponentActions = ["View source", "Install"] as const;
-const defaultDocumentActions = ["Edit page", "Copy link"] as const;
-const defaultOverviewActions = ["Components", "Get started"] as const;
 const sectionLabels: Record<DocsSectionId, string> = {
   components: "Components",
   foundations: "Foundations",
@@ -24,7 +21,6 @@ const sectionLabels: Record<DocsSectionId, string> = {
 };
 
 interface DocumentFrameProps {
-  actions?: readonly [string, string] | undefined;
   children: ReactNode;
   description: string;
   eyebrow?: string | undefined;
@@ -60,7 +56,6 @@ function ComponentOverview({
 }
 
 export function DocumentFrame({
-  actions,
   children,
   description,
   eyebrow,
@@ -80,14 +75,6 @@ export function DocumentFrame({
 
   return (
     <DocsShell
-      actions={
-        actions ??
-        (isOverview
-          ? defaultOverviewActions
-          : layout === "document"
-            ? defaultDocumentActions
-            : defaultComponentActions)
-      }
       breadcrumbs={[isOverview ? "Documentation" : sectionLabels[section], title]}
       current={slug}
       theme={theme}

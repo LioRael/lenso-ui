@@ -12,7 +12,6 @@ export default function HomePage() {
 
   return (
     <DocumentFrame
-      actions={document.actions}
       description={document.description}
       eyebrow={document.eyebrow}
       layout={document.layout}

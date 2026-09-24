@@ -86,3 +86,9 @@ At narrow widths, keep navigation and search reachable, truncate long labels, an
 ## Generated-UI review
 
 Reject a generic KPI/card dashboard for a collection, settings, trace or Agent task. Reject oversized controls, blue/purple selected pills used indiscriminately, repeated context labels, invented data, decorative copy, nested panels without meaning, and icon-only controls without names. A passing build is not visual approval: run the relevant component/Recipe in a browser and compare it with an accepted product direction. If a recurring mistake is mechanical, enforce it in component code or a focused check; if it is a composition judgment, improve this guide or the relevant product `DESIGN.md`.
+
+## Documentation site
+
+The documentation shell borrows Console v1's restrained visual grammar without presenting Console product navigation. It fills the viewport instead of nesting the whole site in a rounded card. The desktop sidebar and header use quiet adjacent planes with one-pixel boundaries; active destinations use a low-contrast neutral fill. Search is centered when space permits, becomes a square icon button on narrow screens, and opens real page results with `⌘K` or `Ctrl+K`. The mobile sidebar is an edge-aligned drawer, while page content keeps a readable measure.
+
+The docs homepage is a directory of actual guidance, organized by the reader's next task. Keep examples and interactive controls on their dedicated pages. A playground may frame a component because it is a separate preview context; ordinary documentation sections use whitespace and separators. Light remains a first-class reading theme. Keep the site styles local to `apps/docs`; they are not new shared token defaults.

@@ -11,7 +11,6 @@ import {
 type GeneratedDocsDocument = (typeof allDocs)[number];
 
 export interface DocsDocument {
-  actions?: readonly [string, string];
   description: string;
   eyebrow?: string;
   layout: "component" | "document" | "overview";
@@ -28,7 +27,6 @@ function pair(value: string[] | undefined): readonly [string, string] | undefine
 }
 
 function normalizeDocument(document: GeneratedDocsDocument): DocsDocument {
-  const actions = pair(document.actions);
   const metadata = pair(document.metadata);
 
   return {
@@ -38,7 +36,6 @@ function normalizeDocument(document: GeneratedDocsDocument): DocsDocument {
     section: document.section as DocsSectionId,
     slug: document.slug as DocsPage,
     title: document.title,
-    ...(actions ? { actions } : {}),
     ...(document.eyebrow ? { eyebrow: document.eyebrow } : {}),
     ...(metadata ? { metadata } : {}),
   };

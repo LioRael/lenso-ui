@@ -5,12 +5,17 @@
 html {
   min-height: 100%;
   margin: 0;
-  background: var(--color-surface-sidebar, #eeeeec);
+  background: var(--color-surface-canvas, #f4f4f2);
 }
 
 body {
   min-height: 100%;
   margin: 0;
-  background: var(--color-surface-sidebar, #eeeeec);
-  font-family: "IBM Plex Sans", var(--font-sans);
+  background: var(--color-surface-canvas, #f4f4f2);
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
