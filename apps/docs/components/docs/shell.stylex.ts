@@ -1,5 +1,9 @@
 import * as stylex from "@stylexjs/stylex";
 
+const navigationRowHeight = "32px";
+const mobileNavigationRowHeight = "44px";
+const navigationTextSize = "13px";
+
 export const styles = stylex.create({
   theme: {
     "--docs-neutral-0": "#fdfdfc",
@@ -234,11 +238,11 @@ export const styles = stylex.create({
   disclosureItem: { overflow: "visible", width: "220px" },
   navSection: { gap: "2px", marginTop: 0, width: "220px" },
   navSectionHeader: {
-    height: "28px",
+    height: navigationRowHeight,
     margin: 0,
     padding: 0,
     width: "220px",
-    "@media (max-width: 900px)": { height: "44px" },
+    "@media (max-width: 900px)": { height: mobileNavigationRowHeight },
   },
   navSectionContent: {
     marginBlock: 0,
@@ -259,10 +263,10 @@ export const styles = stylex.create({
     cursor: "pointer",
     display: "flex",
     fontFamily: "var(--font-sans)",
-    fontSize: "11px",
-    fontWeight: 400,
+    fontSize: navigationTextSize,
+    fontWeight: 500,
     gap: "6px",
-    height: "28px",
+    height: navigationRowHeight,
     lineHeight: "20px",
     marginLeft: 0,
     paddingBlock: 0,
@@ -278,17 +282,25 @@ export const styles = stylex.create({
       position: "relative",
       zIndex: 1,
     },
-    "@media (max-width: 900px)": { height: "44px" },
+    "@media (max-width: 900px)": { height: mobileNavigationRowHeight },
+  },
+  navHeadingLabel: {
+    flex: 1,
+    minWidth: 0,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
   },
   navItem: {
     alignItems: "center",
     borderRadius: "10px",
     color: "var(--color-content-secondary)",
     display: "flex",
-    fontSize: "13px",
+    fontSize: navigationTextSize,
     fontWeight: 400,
-    height: "32px",
+    height: navigationRowHeight,
     lineHeight: "20px",
+    minHeight: navigationRowHeight,
     paddingBlock: 0,
     paddingInlineEnd: "9px",
     paddingInlineStart: "24px",
@@ -300,7 +312,10 @@ export const styles = stylex.create({
       position: "relative",
       zIndex: 1,
     },
-    "@media (max-width: 900px)": { height: "44px" },
+    "@media (max-width: 900px)": {
+      height: mobileNavigationRowHeight,
+      minHeight: mobileNavigationRowHeight,
+    },
   },
   selectedNavItem: {
     backgroundColor: "var(--docs-sidebar-active)",

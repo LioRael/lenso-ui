@@ -59,7 +59,7 @@ function NavDisclosure({
         <Sidebar.Section xstyle={styles.navSection}>
           <Disclosure.Header xstyle={styles.navSectionHeader}>
             <Disclosure.Trigger xstyle={styles.navHeading}>
-              {label}
+              <span {...stylex.props(styles.navHeadingLabel)}>{label}</span>
               <Disclosure.Icon />
             </Disclosure.Trigger>
           </Disclosure.Header>
