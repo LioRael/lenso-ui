@@ -1,5 +1,17 @@
 # @lenso/tokens
 
+## 0.6.0
+
+### Minor Changes
+
+- 70f66f9: Add Light/Dark semantic roles and explicit compact navigation and stacked menu variants, with agent-facing guidance for choosing tokens and components. Preserve neutral defaults for non-Console products.
+
+### Patch Changes
+
+- c562f01: Give local content tabs a quieter text-and-rule style while keeping compact workspace tabs and improving their dark selected contrast.
+- 6b79df2: Restore a tighter elevation hierarchy for panels and overlays, soften dark dialog and toast shadows, and align Text Area hover and focus treatment with Text Field.
+- Lighten light-theme secondary buttons and control borders, and refine tooltip elevation in both themes.
+
 ## 0.5.0
 
 ## 0.4.0

@@ -6,21 +6,45 @@ on:
     types: [completed]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_sha }}
+  group: release-fixed-group
   cancel-in-progress: false
 
 permissions:
   contents: write
   id-token: write
-  pull-requests: write
 
 jobs:
-  release:
+  plan:
     if: >-
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.head_branch == 'main' &&
       github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    outputs:
+      pending: ${{ steps.pending.outputs.value }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - id: pending
+        run: |
+          version="$(node -p "require('./packages/ui/package.json').version")"
+          pending=false
+          for name in tokens primitives ui; do
+            tag="@lenso/$name@$version"
+            if ! npm view "$tag" version --json >/dev/null 2>&1 ||
+              ! gh release view "$tag" --json tagName >/dev/null 2>&1; then
+              pending=true
+            fi
+          done
+          echo "value=$pending" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    needs: plan
+    if: needs.plan.outputs.pending == 'true'
     environment: npm
     runs-on: ubuntu-latest
     steps:
@@ -33,15 +57,10 @@ jobs:
         with:
           node-version: 24.18.0
           cache: pnpm
-          registry-url: https://registry.npmjs.org
       - run: pnpm install --frozen-lockfile
-      - uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2
-        with:
-          publish-script: pnpm changeset publish
-          version-script: pnpm run version
-          pr-base-branch: main
-          push-git-tags: true
-          create-github-releases: true
+      - name: Publish validated fixed-group packages
+        run: node tooling/publish-fixed-group.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+          LENSO_RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUNNER_TEMP: ${{ runner.temp }}

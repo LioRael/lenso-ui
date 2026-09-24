@@ -16,6 +16,7 @@ export default defineConfig({
   test: {
     browser: {
       enabled: true,
+      fileParallelism: false,
       expect: {
         toMatchScreenshot: {
           resolveScreenshotPath: ({

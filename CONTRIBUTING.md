@@ -155,7 +155,9 @@ For a docs-only change, at minimum run `pnpm format:check`, `pnpm --filter @lens
 
 ## Release path
 
-Release automation runs from `main` in `.github/workflows/release.yml`. Changesets versions the fixed public group, runs `pnpm version`, regenerates the immutable registry snapshot, and publishes through npm Trusted Publishing with provenance. The stable registry alias is generated on normal source changes; a versioned `/r/v/{version}/` snapshot is written only during the release snapshot step and is immutable.
+Prepare a fixed-group release with `pnpm exec changeset version --ignore @lenso/design-lint`, `pnpm release-status:write`, `pnpm generate`, and `pnpm --filter @lenso/registry-builder snapshot`. Commit the resulting manifests, changelogs, and immutable registry snapshot together. The independent design-lint changeset stays pending for its own release. The stable registry alias is generated on normal source changes; a versioned `/r/v/{version}/` snapshot is written only during release preparation and is immutable.
+
+After the exact candidate SHA passes CI and lands on `main`, `.github/workflows/release.yml` publishes only the fixed public group through npm Trusted Publishing with provenance and creates package tags and GitHub releases. The `npm` environment requires owner approval.
 
 Do not publish packages manually from a feature branch or rewrite an existing immutable registry snapshot. If the release state or package versions are unclear, inspect the package manifests, Changesets, Git tags, and generated release manifest together.
 
