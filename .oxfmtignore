@@ -11,3 +11,4 @@ registry/**/*.json
 registry/tokens.stylex.ts
 tooling/token-generator/schemas/**
 apps/docs/contents/**/*.mdx
+apps/docs-example/.astro/**

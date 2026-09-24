@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from "astro:content";
+import config from "virtual:lenso-docs-config";
+import metadata from "virtual:lenso-docs-meta";
+
+import DocsLayout from "../shell/DocsLayout.astro";
+import { routeSlug } from "../config";
+import { createDocsNavigation } from "../navigation";
+
+export async function getStaticPaths() {
+  const entries = (await getCollection("docs")).filter((entry) => !entry.data.draft);
+  const navigation = createDocsNavigation(config, entries, metadata);
+  return entries.map((entry) => ({
+    params: { slug: routeSlug(entry.id) || undefined },
+    props: { entry, navigation },
+  }));
+}
+
+const { entry, navigation } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<DocsLayout config={config} entry={entry} headings={headings} navigation={navigation}>
+  <Content />
+</DocsLayout>

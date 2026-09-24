@@ -1,0 +1,64 @@
+{
+  "name": "@lenso/docs",
+  "version": "0.1.0",
+  "description": "Convention-based documentation framework with the Lenso design language.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/docs"
+  },
+  "files": [
+    "dist",
+    "src/config.ts",
+    "src/content.ts",
+    "src/navigation.ts",
+    "src/routes",
+    "src/shell",
+    "src/virtual.d.ts",
+    "README.md"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./content": {
+      "types": "./src/content.ts",
+      "import": "./src/content.ts"
+    },
+    "./DocLink.astro": "./src/shell/DocLink.astro",
+    "./routes/document.astro": "./src/routes/document.astro",
+    "./routes/search.json.ts": "./src/routes/search.json.ts",
+    "./routes/sitemap.xml.ts": "./src/routes/sitemap.xml.ts",
+    "./routes/llms.txt.ts": "./src/routes/llms.txt.ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts --dts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@lenso/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^8.0.2",
+    "@astrojs/react": "^7.0.0",
+    "@types/node": "catalog:",
+    "astro": "^7.3.5",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "@astrojs/mdx": "^8.0.0",
+    "@astrojs/react": "^7.0.0",
+    "astro": "^7.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

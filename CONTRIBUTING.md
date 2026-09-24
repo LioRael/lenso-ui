@@ -19,7 +19,7 @@ pnpm dev
 `pnpm dev` starts the Next documentation site and component lab. To work only on the docs app:
 
 ```bash
-pnpm --filter @lenso/docs dev
+pnpm --filter @lenso/ui-docs dev
 ```
 
 The component lab is the same Next application that publishes the documentation pages. Do not add Storybook or Ladle as a second component catalog.
@@ -98,7 +98,7 @@ Format MDX with the repository formatter:
 ```bash
 pnpm format:mdx
 pnpm format:mdx:check
-pnpm --filter @lenso/docs typecheck
+pnpm --filter @lenso/ui-docs typecheck
 ```
 
 The docs application imports `@lenso/tokens/styles.css` and `@lenso/ui/styles.css` once in its root layout. Demos should consume the public package subpaths, not private source files, so the component lab exercises the same API that Consumers install.
@@ -151,7 +151,7 @@ pnpm check
 pnpm --filter @lenso/ui exec playwright install chromium
 ```
 
-For a docs-only change, at minimum run `pnpm format:check`, `pnpm --filter @lenso/docs typecheck`, and `pnpm --filter @lenso/docs build`; the full `pnpm check` remains the release gate.
+For a docs-only change, at minimum run `pnpm format:check`, `pnpm --filter @lenso/ui-docs typecheck`, and `pnpm --filter @lenso/ui-docs build`; the full `pnpm check` remains the release gate.
 
 ## Release path
 

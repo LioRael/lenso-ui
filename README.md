@@ -150,7 +150,7 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
-pnpm --filter @lenso/docs dev
+pnpm --filter @lenso/ui-docs dev
 ```
 
 `pnpm generate` updates token and registry artifacts from their source inputs. Run it after changing token sources or registry generation inputs, inspect the generated diff, and commit the generated outputs with the source change. `pnpm check` also runs the generated-artifact freshness check, so it should be run after the working tree has the intended generated state.

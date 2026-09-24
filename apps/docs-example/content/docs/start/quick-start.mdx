@@ -1,0 +1,24 @@
+---
+title: Quick start
+description: Add the shared tokens and a component to a React application.
+---
+
+import DocLink from "@lenso/docs/DocLink.astro";
+
+## Install
+
+```bash
+pnpm add @lenso/ui @lenso/tokens @base-ui/react react react-dom
+```
+
+## Render a component
+
+```tsx
+import { Button } from "@lenso/ui/button";
+
+export function SaveAction() {
+  return <Button onClick={() => save()}>Save</Button>;
+}
+```
+
+The <DocLink to="components/button">Button reference</DocLink> shows a working example.
