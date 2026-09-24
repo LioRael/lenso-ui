@@ -4,7 +4,8 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Building2, Globe2, MapPin, UsersRound } from "lucide-react";
 import { DataGrid, type DataGridColumn } from "@lenso/ui/data-grid";
-import { Checkbox } from "@lenso/ui/checkbox";
+import { DataPlayground } from "./data-playground";
+import { PlaygroundControls, PlaygroundSelectControl } from "./playground-controls";
 import { styles } from "./data-grid-demo.stylex";
 
 type Company = {
@@ -19,6 +20,10 @@ type Company = {
 };
 type CompanyValidation = { reservedNames: ReadonlySet<string> };
 const validationData: CompanyValidation = { reservedNames: new Set(["lenso"]) };
+const booleanOptions = [
+  { label: "False", value: "false" },
+  { label: "True", value: "true" },
+] as const;
 
 function IdentityEditor({
   label,
@@ -256,47 +261,51 @@ export function DataGridDemo() {
     "Double-click a cell to edit. Drag across cells to select a range.",
   );
   return (
-    <div {...stylex.props(styles.demo)}>
-      <div {...stylex.props(styles.controls)}>
-        {(
-          [
-            ["Read only", readOnly, setReadOnly],
-            ["Row selection", showRowSelection, setShowRowSelection],
-            ["Row numbers", showRowNumbers, setShowRowNumbers],
-            ["Sorting", sortable, setSortable],
-            ["Cell selection", cellSelection, setCellSelection],
-          ] as const
-        ).map(([label, checked, setter]) => (
-          <label key={label} {...stylex.props(styles.control)}>
-            <Checkbox.Root
-              aria-label={label}
-              checked={checked}
-              onCheckedChange={(next) => setter(next)}
-            >
-              <Checkbox.Indicator />
-            </Checkbox.Root>
-            {label}
-          </label>
-        ))}
+    <DataPlayground
+      controls={
+        <PlaygroundControls name="Data Grid">
+          {(
+            [
+              ["Read only", readOnly, setReadOnly],
+              ["Row selection", showRowSelection, setShowRowSelection],
+              ["Row numbers", showRowNumbers, setShowRowNumbers],
+              ["Sorting", sortable, setSortable],
+              ["Cell selection", cellSelection, setCellSelection],
+            ] as const
+          ).map(([label, enabled, setter]) => (
+            <PlaygroundSelectControl
+              key={label}
+              label={label}
+              onValueChange={(value) => setter(value === "true")}
+              options={booleanOptions}
+              value={String(enabled)}
+            />
+          ))}
+        </PlaygroundControls>
+      }
+    >
+      <div {...stylex.props(styles.demo)}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          getRowId={(row) => row.id}
+          label="Companies"
+          maxHeight={420}
+          readOnly={readOnly}
+          showRowSelection={showRowSelection}
+          showRowNumbers={showRowNumbers}
+          sortable={sortable}
+          cellSelection={cellSelection}
+          validationData={validationData}
+          onRowsChange={setRows}
+          onCellEditComplete={(change) =>
+            setLastEvent(`${change.columnId} in ${change.rowId} saved`)
+          }
+        />
+        <div aria-live="polite" {...stylex.props(styles.event)}>
+          {lastEvent}
+        </div>
       </div>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        getRowId={(row) => row.id}
-        label="Companies"
-        maxHeight={420}
-        readOnly={readOnly}
-        showRowSelection={showRowSelection}
-        showRowNumbers={showRowNumbers}
-        sortable={sortable}
-        cellSelection={cellSelection}
-        validationData={validationData}
-        onRowsChange={setRows}
-        onCellEditComplete={(change) => setLastEvent(`${change.columnId} in ${change.rowId} saved`)}
-      />
-      <div aria-live="polite" {...stylex.props(styles.event)}>
-        {lastEvent}
-      </div>
-    </div>
+    </DataPlayground>
   );
 }

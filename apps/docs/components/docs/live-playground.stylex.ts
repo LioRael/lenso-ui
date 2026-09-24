@@ -38,6 +38,10 @@ export const styles = stylex.create({
     "@media (max-width: 1100px)": { gridTemplateColumns: "minmax(0, 1fr)", height: "auto" },
   },
   dataBody: { gridTemplateColumns: "minmax(0, 1fr)", height: "auto" },
+  dataBodyWithControls: {
+    gridTemplateColumns: "minmax(0, 1fr) minmax(0, 320px)",
+    "@media (max-width: 1100px)": { gridTemplateColumns: "minmax(0, 1fr)" },
+  },
   templateBody: {
     gridTemplateColumns: "minmax(0, 1fr)",
     gridTemplateRows: "548px 200px",
@@ -79,6 +83,7 @@ export const styles = stylex.create({
       minHeight: 0,
     },
   },
+  dataInspector: { height: "fit-content", minHeight: 0 },
   templateInspector: { height: "200px", "@media (max-width: 1100px)": { height: "auto" } },
   sidebarInspector: {
     height: "790px",

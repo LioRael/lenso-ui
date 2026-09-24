@@ -9,11 +9,11 @@ import { styles } from "./playground-controls.stylex";
 
 interface PlaygroundControlsProps {
   children: ReactNode;
-  example: string;
+  example?: string;
   exampleLabel?: string;
   exampleOptions?: readonly { label: string; value: string }[];
   name: string;
-  onExampleChange: (value: string) => void;
+  onExampleChange?: (value: string) => void;
 }
 
 interface PlaygroundSelectControlProps {
@@ -37,13 +37,14 @@ export function PlaygroundControls({
   name,
   onExampleChange,
 }: PlaygroundControlsProps) {
-  const availableExamples = exampleOptions ?? [{ label: exampleLabel, value: example }];
+  const availableExamples =
+    exampleOptions ?? (example ? [{ label: exampleLabel, value: example }] : []);
 
   return (
     <div {...stylex.props(styles.root)}>
       <div {...stylex.props(styles.header)}>
         <strong {...stylex.props(styles.headerTitle)}>{name}</strong>
-        {availableExamples.length > 1 && (
+        {availableExamples.length > 1 && example && onExampleChange && (
           <PlaygroundSelectControl
             label="Example"
             onValueChange={onExampleChange}

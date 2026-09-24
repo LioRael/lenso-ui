@@ -5,6 +5,30 @@ import { styles } from "./live-playground.stylex";
 
 export type PlaygroundLayout = "command-menu" | "data" | "default" | "sidebar" | "template";
 
+const bodyStyles = {
+  "command-menu": styles.commandMenuBody,
+  data: styles.dataBody,
+  default: null,
+  sidebar: styles.sidebarBody,
+  template: styles.templateBody,
+} as const;
+
+const stageStyles = {
+  "command-menu": styles.commandMenuStage,
+  data: styles.dataStage,
+  default: null,
+  sidebar: styles.sidebarStage,
+  template: styles.templateStage,
+} as const;
+
+const inspectorStyles = {
+  "command-menu": styles.commandMenuInspector,
+  data: styles.dataInspector,
+  default: null,
+  sidebar: styles.sidebarInspector,
+  template: styles.templateInspector,
+} as const;
+
 interface LivePlaygroundProps {
   actions?: ReactNode;
   controls?: ReactNode;
@@ -31,33 +55,17 @@ export function LivePlayground({
       <div
         {...stylex.props(
           styles.body,
-          layout === "data" && styles.dataBody,
-          layout === "template" && styles.templateBody,
-          layout === "sidebar" && styles.sidebarBody,
-          layout === "command-menu" && styles.commandMenuBody,
+          bodyStyles[layout],
+          layout === "data" && Boolean(controls) && styles.dataBodyWithControls,
         )}
       >
-        <article
-          data-theme={theme}
-          {...stylex.props(
-            styles.stage,
-            layout === "data" && styles.dataStage,
-            layout === "template" && styles.templateStage,
-            layout === "sidebar" && styles.sidebarStage,
-            layout === "command-menu" && styles.commandMenuStage,
-          )}
-        >
+        <article data-theme={theme} {...stylex.props(styles.stage, stageStyles[layout])}>
           {preview}
         </article>
         {controls && (
           <aside
             aria-label="Playground controls"
-            {...stylex.props(
-              styles.inspector,
-              layout === "template" && styles.templateInspector,
-              layout === "sidebar" && styles.sidebarInspector,
-              layout === "command-menu" && styles.commandMenuInspector,
-            )}
+            {...stylex.props(styles.inspector, inspectorStyles[layout])}
           >
             {controls}
           </aside>
