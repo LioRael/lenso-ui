@@ -18,7 +18,7 @@ export const styles = stylex.create({
       '[data-visual-state="open"]': tokens.colorSurfaceOverlayHover,
     },
     borderColor: tokens.colorBorderPopover,
-    borderRadius: tokens.radiusRounded,
+    borderRadius: tokens.radiusControl,
     borderStyle: "solid",
     borderWidth: "0.5px",
     boxSizing: "border-box",

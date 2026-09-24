@@ -15,8 +15,7 @@ export const styles = stylex.create({
   header: { margin: 0 },
   trigger: {
     "--disclosure-icon-rotation": {
-      default: "0deg",
-      "[data-open]": "90deg",
+      '[aria-expanded="true"]': "90deg",
     },
     alignItems: "center",
     appearance: "none",

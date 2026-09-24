@@ -69,10 +69,17 @@ test("Disclosure preserves Base UI state, keyboard semantics, theming, and compo
   const second = singleRoot.getByRole("button", { name: "Second" });
   const disabled = singleRoot.getByRole("button", { name: "Disabled" });
   expect(first.element().getAttribute("aria-expanded")).toBe("true");
+  const firstIcon = first.element().querySelector<HTMLElement>('[data-slot="disclosure-icon"]');
+  const secondIcon = second.element().querySelector<HTMLElement>('[data-slot="disclosure-icon"]');
+  expect(getComputedStyle(firstIcon!).transform).toBe("matrix(0, 1, -1, 0, 0, 0)");
+  expect(getComputedStyle(secondIcon!).transform).toBe("matrix(1, 0, 0, 1, 0, 0)");
   second.element().focus();
   await userEvent.keyboard(" ");
   expect(first.element().getAttribute("aria-expanded")).toBe("false");
   expect(second.element().getAttribute("aria-expanded")).toBe("true");
+  await expect
+    .poll(() => getComputedStyle(secondIcon!).transform)
+    .toBe("matrix(0, 1, -1, 0, 0, 0)");
 
   const multipleRoot = screen.getByTestId("multiple-root");
   const multipleSecond = multipleRoot.getByRole("button", { name: "Multiple second" });

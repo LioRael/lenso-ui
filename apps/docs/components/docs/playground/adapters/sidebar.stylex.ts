@@ -34,6 +34,7 @@ export const styles = stylex.create({
   content: { flex: 1 },
   menu: { listStyle: "none", margin: 0, padding: 0 },
   item: {
+    alignItems: "center",
     backgroundColor: "transparent",
     borderRadius: "var(--radius-navigation)",
     borderStyle: "none",
@@ -43,9 +44,12 @@ export const styles = stylex.create({
     fontFamily: "var(--font-sans)",
     fontSize: "13px",
     height: "32px",
+    lineHeight: "20px",
     paddingInline: "8px",
     textAlign: "left",
     width: "100%",
+    ":hover": { backgroundColor: "var(--color-surface-interactive-hover)" },
+    ":focus-visible": { outline: "1px solid var(--color-focus-ring)", outlineOffset: "-1px" },
   },
   selectedItem: {
     backgroundColor: "var(--color-surface-selected)",
