@@ -25,6 +25,7 @@ export type DocsPage =
   | "combobox"
   | "command-menu"
   | "content-state"
+  | "data-table"
   | "description-list"
   | "dialog"
   | "disclosure"
@@ -148,6 +149,7 @@ export const docsRegistry = [
         label: "Content State",
         slug: "content-state",
       },
+      { href: "/components/data-table", kind: "page", label: "Data Table", slug: "data-table" },
       {
         href: "/components/description-list",
         kind: "page",

@@ -111,6 +111,25 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: [`@lenso/primitives@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/data-table/index.tsx",
+        target: "components/lenso/data-table/index.tsx",
+      },
+      {
+        source: "packages/ui/src/data-table/data-table.stylex.ts",
+        target: "components/lenso/data-table/data-table.stylex.ts",
+        type: "registry:style",
+      },
+      ...sharedFiles,
+    ],
+    name: "data-table",
+    registryDependencies: [stable("setup")],
+    title: "Data Table",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {

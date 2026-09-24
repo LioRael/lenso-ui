@@ -50,6 +50,10 @@
       "types": "./dist/csp-provider/index.d.ts",
       "import": "./dist/csp-provider/index.js"
     },
+    "./data-table": {
+      "types": "./dist/data-table/index.d.ts",
+      "import": "./dist/data-table/index.js"
+    },
     "./dialog": {
       "types": "./dist/dialog/index.d.ts",
       "import": "./dist/dialog/index.js"

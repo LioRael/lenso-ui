@@ -1,0 +1,74 @@
+---
+title: "Data Table"
+description: "A compact, scrollable table for headed collections, row selection, and summaries."
+eyebrow: "Foundation component · Data display"
+metadata:
+  - "@lenso/ui/data-table"
+  - "Registry ready"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { DataTableDemo } from "@/components/docs/data-table-demo";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+<DataTableDemo />
+
+  <Guidance>
+    <GuidanceBlock title="When to use it">
+      <ul>
+        <li>Use Data Table for records with stable column headings and several comparable rows.</li>
+        <li>
+          Keep row data, selection, sorting, filtering, and summary calculations in the Consumer. The
+          shared component owns table semantics, compact cell geometry, pinned columns, and column
+          resizing.
+        </li>
+        <li>
+          Use Description List for facts about a single object. Reserve an ARIA grid primitive for
+          cell editing or full two-dimensional keyboard navigation.
+        </li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Interaction and layout">
+      <ul>
+        <li>
+          Pin only a leading set of columns. At narrow widths, the remaining columns scroll
+          horizontally.
+        </li>
+        <li>
+          Resizable column separators support pointer drag and Left/Right arrow keys. Give each
+          separator a meaningful label.
+        </li>
+        <li>
+          Header and footer remain visible within a height-constrained table. Put calculated values or
+          actions in footer cells only when they help compare the collection.
+        </li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { DataTable } from "@lenso/ui/data-table";
+
+const columns = [
+    { id: "name", width: 240, minWidth: 160, pinned: true },
+    { id: "status", width: 160 },
+];
+
+<DataTable.Root columns={columns} label="Projects" maxHeight={480}>
+    <DataTable.Header>
+      <DataTable.Row>
+        <DataTable.Head columnId="name" resizable resizeLabel="Resize Name column">
+          Name
+        </DataTable.Head>
+        <DataTable.Head columnId="status">Status</DataTable.Head>
+      </DataTable.Row>
+    </DataTable.Header>
+    <DataTable.Body>
+      <DataTable.Row>
+        <DataTable.Cell columnId="name">Atlas</DataTable.Cell>
+        <DataTable.Cell columnId="status">Active</DataTable.Cell>
+      </DataTable.Row>
+    </DataTable.Body>
+</DataTable.Root>;`}
+  description="The Consumer supplies data and controls selection. Column widths and pinned offsets stay aligned as a user resizes."
+/>

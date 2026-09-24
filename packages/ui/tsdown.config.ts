@@ -19,6 +19,7 @@ export default defineConfig({
     "command-menu/index": source("command-menu"),
     "content-state/index": source("content-state"),
     "csp-provider/index": source("csp-provider"),
+    "data-table/index": source("data-table"),
     "description-list/index": source("description-list"),
     "dialog/index": source("dialog"),
     "disclosure/index": source("disclosure"),

@@ -13,6 +13,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "data-table",
+      "title": "Data Table",
+      "type": "registry:ui"
+    },
+    {
       "name": "inline-alert",
       "title": "Inline Alert",
       "type": "registry:ui"
