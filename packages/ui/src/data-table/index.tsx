@@ -94,7 +94,7 @@ export const DataTableRoot = React.forwardRef<HTMLDivElement, DataTableRootProps
             {...stylex.props(styles.table)}
             data-slot="data-table-table"
             id={tableId}
-            style={{ width: tableWidth }}
+            style={{ minWidth: tableWidth, width: "100%" }}
           >
             <colgroup>
               {columns.map((column) => (

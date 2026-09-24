@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 import { Select } from "@lenso/ui/select";
+import { Switch } from "@lenso/ui/switch";
 import { TextField } from "@lenso/ui/text-field";
 import { styles } from "./playground-controls.stylex";
 
@@ -27,6 +28,12 @@ interface PlaygroundTextControlProps {
   label: string;
   onValueChange: (value: string) => void;
   value: string;
+}
+
+interface PlaygroundSwitchControlProps {
+  checked: boolean;
+  label: string;
+  onCheckedChange: (checked: boolean) => void;
 }
 
 export function PlaygroundControls({
@@ -95,6 +102,26 @@ export function PlaygroundSelectControl({
           </Select.Positioner>
         </Select.Portal>
       </Select.Root>
+    </div>
+  );
+}
+
+export function PlaygroundSwitchControl({
+  checked,
+  label,
+  onCheckedChange,
+}: PlaygroundSwitchControlProps) {
+  return (
+    <div {...stylex.props(styles.row)}>
+      <span {...stylex.props(styles.label)}>{label}</span>
+      <Switch.Root
+        aria-label={label}
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+        size="compact"
+      >
+        <Switch.Thumb />
+      </Switch.Root>
     </div>
   );
 }

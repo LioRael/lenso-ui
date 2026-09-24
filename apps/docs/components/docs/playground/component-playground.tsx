@@ -9,6 +9,7 @@ import { LivePlayground } from "../live-playground";
 import {
   PlaygroundControls,
   PlaygroundSelectControl,
+  PlaygroundSwitchControl,
   PlaygroundTextControl,
 } from "../playground-controls";
 import { useDocsPageTheme } from "../use-docs-page-theme";
@@ -91,28 +92,23 @@ function PlaygroundControlField({
     );
   }
 
-  const options =
-    control.type === "boolean"
-      ? [
-          { label: "False", value: "false" },
-          { label: "True", value: "true" },
-        ]
-      : control.options.map(optionToPlaygroundOption);
-  const selectedValue =
-    control.type === "boolean"
-      ? value === true
-        ? "true"
-        : "false"
-      : typeof value === "string"
-        ? value
-        : control.default;
+  if (control.type === "boolean") {
+    return (
+      <PlaygroundSwitchControl
+        checked={value === true}
+        label={control.label}
+        onCheckedChange={onValueChange}
+      />
+    );
+  }
+
+  const options = control.options.map(optionToPlaygroundOption);
+  const selectedValue = typeof value === "string" ? value : control.default;
 
   return (
     <PlaygroundSelectControl
       label={control.label}
-      onValueChange={(nextValue) =>
-        onValueChange(control.type === "boolean" ? nextValue === "true" : nextValue)
-      }
+      onValueChange={onValueChange}
       options={options}
       value={selectedValue}
     />

@@ -8,14 +8,16 @@ import { Checkbox } from "@lenso/ui/checkbox";
 import { DataTable, type DataTableColumn } from "@lenso/ui/data-table";
 import { Menu } from "@lenso/ui/menu";
 import { MoreHorizontal } from "lucide-react";
+import { DataPlayground } from "./data-playground";
+import { PlaygroundControls, PlaygroundSwitchControl } from "./playground-controls";
 import { styles } from "./data-table-demo.stylex";
 
 const columns: readonly DataTableColumn[] = [
-  { id: "select", width: 42, pinned: true },
-  { id: "name", width: 292, minWidth: 220, pinned: true },
-  { id: "email", width: 230 },
-  { id: "role", width: 160 },
-  { id: "actions", width: 76 },
+  { id: "select", width: 36, pinned: true },
+  { id: "name", width: 240, minWidth: 180, pinned: true },
+  { id: "email", width: 210 },
+  { id: "role", width: 135 },
+  { id: "actions", width: 59 },
 ];
 
 const members = [
@@ -72,6 +74,9 @@ const teams = ["Platform", "Research"] as const;
 type SortKey = "name" | "email" | "role";
 
 export function DataTableDemo() {
+  const [grouped, setGrouped] = React.useState(true);
+  const [showRowSelection, setShowRowSelection] = React.useState(true);
+  const [sortable, setSortable] = React.useState(true);
   const [selected, setSelected] = React.useState<ReadonlySet<string>>(() => new Set());
   const [copyStatus, setCopyStatus] = React.useState("");
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
@@ -116,151 +121,194 @@ export function DataTableDemo() {
       setCopyStatus("Could not copy email");
     }
   };
+  const visibleColumns = showRowSelection
+    ? columns
+    : columns.filter((column) => column.id !== "select");
+  const sections = grouped
+    ? teams.map((team) => ({
+        key: team,
+        label: team,
+        rows: members.filter((member) => member.team === team),
+      }))
+    : [{ key: "all", label: null, rows: [...members] }];
 
   return (
-    <div {...stylex.props(styles.demo)}>
-      <DataTable.Root columns={columns} label="Workspace members" maxHeight={520}>
-        <DataTable.Header>
-          <DataTable.Row
-            onPointerEnter={() => setHeaderHovered(true)}
-            onPointerLeave={() => setHeaderHovered(false)}
-            onFocusCapture={() => setHeaderHovered(true)}
-            onBlurCapture={() => setHeaderHovered(false)}
-          >
-            <DataTable.Head columnId="select" xstyle={styles.selectCell}>
-              <Checkbox.Root
-                aria-label="Select all members"
-                checked={allSelected}
-                indeterminate={selected.size > 0 && !allSelected}
-                xstyle={
-                  headerHovered || selected.size > 0 ? styles.revealVisible : styles.revealControl
-                }
-                onCheckedChange={(checked) =>
-                  setSelected(checked ? new Set(members.map((member) => member.id)) : new Set())
-                }
-              >
-                <Checkbox.Indicator />
-              </Checkbox.Root>
-            </DataTable.Head>
-            <DataTable.Head
-              columnId="name"
-              resizable
-              resizeLabel="Resize Name column"
-              onSort={() => sortBy("name")}
-              sortDirection={sort.key === "name" ? sort.direction : null}
-              sortLabel="Order by name"
+    <DataPlayground
+      controls={
+        <PlaygroundControls name="Data Table">
+          <PlaygroundSwitchControl
+            checked={grouped}
+            label="Group rows"
+            onCheckedChange={setGrouped}
+          />
+          <PlaygroundSwitchControl
+            checked={showRowSelection}
+            label="Row selection"
+            onCheckedChange={(checked) => {
+              setShowRowSelection(checked);
+              if (!checked) setSelected(new Set());
+            }}
+          />
+          <PlaygroundSwitchControl
+            checked={sortable}
+            label="Sorting"
+            onCheckedChange={setSortable}
+          />
+        </PlaygroundControls>
+      }
+    >
+      <div {...stylex.props(styles.demo)}>
+        <DataTable.Root columns={visibleColumns} label="Workspace members" maxHeight={520}>
+          <DataTable.Header>
+            <DataTable.Row
+              onPointerEnter={() => setHeaderHovered(true)}
+              onPointerLeave={() => setHeaderHovered(false)}
+              onFocusCapture={() => setHeaderHovered(true)}
+              onBlurCapture={() => setHeaderHovered(false)}
             >
-              Name
-            </DataTable.Head>
-            <DataTable.Head
-              columnId="email"
-              onSort={() => sortBy("email")}
-              sortDirection={sort.key === "email" ? sort.direction : null}
-              sortLabel="Order by email"
-            >
-              Email
-            </DataTable.Head>
-            <DataTable.Head
-              columnId="role"
-              onSort={() => sortBy("role")}
-              sortDirection={sort.key === "role" ? sort.direction : null}
-              sortLabel="Order by role"
-            >
-              Role
-            </DataTable.Head>
-            <DataTable.Head columnId="actions" xstyle={styles.actionCell}>
-              Actions
-            </DataTable.Head>
-          </DataTable.Row>
-        </DataTable.Header>
-        {teams.map((team) => {
-          const group = members
-            .filter((member) => member.team === team)
-            .sort(
-              (a, b) =>
-                a[sort.key].localeCompare(b[sort.key]) * (sort.direction === "asc" ? 1 : -1),
-            );
-          return (
-            <DataTable.Body key={team}>
-              <DataTable.GroupRow label={team} count={group.length} />
-              {group.map((member) => {
-                const revealed = hoveredId === member.id || selected.has(member.id);
-                return (
-                  <DataTable.Row
-                    key={member.id}
-                    selected={selected.has(member.id)}
-                    onPointerEnter={() => setHoveredId(member.id)}
-                    onPointerLeave={() => setHoveredId(null)}
-                    onFocusCapture={() => setHoveredId(member.id)}
-                    onBlurCapture={() => setHoveredId(null)}
+              {showRowSelection && (
+                <DataTable.Head columnId="select" xstyle={styles.selectCell}>
+                  <Checkbox.Root
+                    aria-label="Select all members"
+                    checked={allSelected}
+                    indeterminate={selected.size > 0 && !allSelected}
+                    xstyle={
+                      headerHovered || selected.size > 0
+                        ? styles.revealVisible
+                        : styles.revealControl
+                    }
+                    onCheckedChange={(checked) =>
+                      setSelected(checked ? new Set(members.map((member) => member.id)) : new Set())
+                    }
                   >
-                    <DataTable.Cell columnId="select" xstyle={styles.selectCell}>
-                      <Checkbox.Root
-                        aria-label={`Select ${member.name}`}
-                        checked={selected.has(member.id)}
-                        xstyle={revealed ? styles.revealVisible : styles.revealControl}
-                        onCheckedChange={(checked) => toggle(member.id, checked)}
-                      >
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                    </DataTable.Cell>
-                    <DataTable.Cell columnId="name">
-                      <span {...stylex.props(styles.identity)}>
-                        <Avatar.Root size="default">
-                          <Avatar.Fallback>{member.name[0]}</Avatar.Fallback>
-                        </Avatar.Root>
-                        <span {...stylex.props(styles.identityCopy)}>
-                          <span {...stylex.props(styles.name)}>{member.name}</span>
-                          <span {...stylex.props(styles.handle)}>{member.handle}</span>
+                    <Checkbox.Indicator />
+                  </Checkbox.Root>
+                </DataTable.Head>
+              )}
+              <DataTable.Head
+                columnId="name"
+                resizable
+                resizeLabel="Resize Name column"
+                {...(sortable ? { onSort: () => sortBy("name") } : {})}
+                sortDirection={sortable && sort.key === "name" ? sort.direction : null}
+                sortLabel="Order by name"
+              >
+                Name
+              </DataTable.Head>
+              <DataTable.Head
+                columnId="email"
+                {...(sortable ? { onSort: () => sortBy("email") } : {})}
+                sortDirection={sortable && sort.key === "email" ? sort.direction : null}
+                sortLabel="Order by email"
+              >
+                Email
+              </DataTable.Head>
+              <DataTable.Head
+                columnId="role"
+                {...(sortable ? { onSort: () => sortBy("role") } : {})}
+                sortDirection={sortable && sort.key === "role" ? sort.direction : null}
+                sortLabel="Order by role"
+              >
+                Role
+              </DataTable.Head>
+              <DataTable.Head columnId="actions" xstyle={styles.actionCell}>
+                Actions
+              </DataTable.Head>
+            </DataTable.Row>
+          </DataTable.Header>
+          {sections.map((section) => {
+            const group = sortable
+              ? [...section.rows].sort(
+                  (a, b) =>
+                    a[sort.key].localeCompare(b[sort.key]) * (sort.direction === "asc" ? 1 : -1),
+                )
+              : section.rows;
+            return (
+              <DataTable.Body key={section.key}>
+                {section.label && <DataTable.GroupRow label={section.label} count={group.length} />}
+                {group.map((member) => {
+                  const revealed = hoveredId === member.id || selected.has(member.id);
+                  return (
+                    <DataTable.Row
+                      key={member.id}
+                      selected={selected.has(member.id)}
+                      onPointerEnter={() => setHoveredId(member.id)}
+                      onPointerLeave={() => setHoveredId(null)}
+                      onFocusCapture={() => setHoveredId(member.id)}
+                      onBlurCapture={() => setHoveredId(null)}
+                    >
+                      {showRowSelection && (
+                        <DataTable.Cell columnId="select" xstyle={styles.selectCell}>
+                          <Checkbox.Root
+                            aria-label={`Select ${member.name}`}
+                            checked={selected.has(member.id)}
+                            xstyle={revealed ? styles.revealVisible : styles.revealControl}
+                            onCheckedChange={(checked) => toggle(member.id, checked)}
+                          >
+                            <Checkbox.Indicator />
+                          </Checkbox.Root>
+                        </DataTable.Cell>
+                      )}
+                      <DataTable.Cell columnId="name">
+                        <span {...stylex.props(styles.identity)}>
+                          <Avatar.Root size="default">
+                            <Avatar.Fallback>{member.name[0]}</Avatar.Fallback>
+                          </Avatar.Root>
+                          <span {...stylex.props(styles.identityCopy)}>
+                            <span {...stylex.props(styles.name)}>{member.name}</span>
+                            <span {...stylex.props(styles.handle)}>{member.handle}</span>
+                          </span>
                         </span>
-                      </span>
-                    </DataTable.Cell>
-                    <DataTable.Cell columnId="email">{member.email}</DataTable.Cell>
-                    <DataTable.Cell columnId="role">{member.role}</DataTable.Cell>
-                    <DataTable.Cell columnId="actions" xstyle={styles.actionCell}>
-                      <Menu.Root>
-                        <Menu.Trigger
-                          aria-label={`Actions for ${member.name}`}
-                          xstyle={revealed ? styles.actionVisible : styles.actionConcealed}
-                        >
-                          <MoreHorizontal aria-hidden="true" size={16} />
-                        </Menu.Trigger>
-                        <Menu.Portal>
-                          <Menu.Positioner align="end">
-                            <Menu.Popup aria-label={`${member.name} actions`}>
-                              <Menu.Item
-                                onClick={() => toggle(member.id, !selected.has(member.id))}
-                              >
-                                {selected.has(member.id) ? "Deselect" : "Select"}
-                              </Menu.Item>
-                              <Menu.Item onClick={() => copyEmail(member.email)}>
-                                Copy email
-                              </Menu.Item>
-                            </Menu.Popup>
-                          </Menu.Positioner>
-                        </Menu.Portal>
-                      </Menu.Root>
-                    </DataTable.Cell>
-                  </DataTable.Row>
-                );
-              })}
-            </DataTable.Body>
-          );
-        })}
-      </DataTable.Root>
-      {selected.size > 0 && (
-        <div {...stylex.props(styles.selectionBar)} role="toolbar" aria-label="Selected members">
-          <span>{selected.size} selected</span>
-          <span {...stylex.props(styles.toolbarRule)} />
-          <Button size="compact" variant="ghost" onClick={copyEmails}>
-            Copy emails
-          </Button>
-          <Button size="compact" variant="ghost" onClick={() => setSelected(new Set())}>
-            Clear
-          </Button>
-        </div>
-      )}
-      <output {...stylex.props(styles.status)}>{copyStatus}</output>
-    </div>
+                      </DataTable.Cell>
+                      <DataTable.Cell columnId="email">{member.email}</DataTable.Cell>
+                      <DataTable.Cell columnId="role">{member.role}</DataTable.Cell>
+                      <DataTable.Cell columnId="actions" xstyle={styles.actionCell}>
+                        <Menu.Root>
+                          <Menu.Trigger
+                            aria-label={`Actions for ${member.name}`}
+                            xstyle={revealed ? styles.actionVisible : styles.actionConcealed}
+                          >
+                            <MoreHorizontal aria-hidden="true" size={16} />
+                          </Menu.Trigger>
+                          <Menu.Portal>
+                            <Menu.Positioner align="end">
+                              <Menu.Popup aria-label={`${member.name} actions`}>
+                                {showRowSelection && (
+                                  <Menu.Item
+                                    onClick={() => toggle(member.id, !selected.has(member.id))}
+                                  >
+                                    {selected.has(member.id) ? "Deselect" : "Select"}
+                                  </Menu.Item>
+                                )}
+                                <Menu.Item onClick={() => copyEmail(member.email)}>
+                                  Copy email
+                                </Menu.Item>
+                              </Menu.Popup>
+                            </Menu.Positioner>
+                          </Menu.Portal>
+                        </Menu.Root>
+                      </DataTable.Cell>
+                    </DataTable.Row>
+                  );
+                })}
+              </DataTable.Body>
+            );
+          })}
+        </DataTable.Root>
+        {showRowSelection && selected.size > 0 && (
+          <div {...stylex.props(styles.selectionBar)} role="toolbar" aria-label="Selected members">
+            <span>{selected.size} selected</span>
+            <span {...stylex.props(styles.toolbarRule)} />
+            <Button size="compact" variant="ghost" onClick={copyEmails}>
+              Copy emails
+            </Button>
+            <Button size="compact" variant="ghost" onClick={() => setSelected(new Set())}>
+              Clear
+            </Button>
+          </div>
+        )}
+        <output {...stylex.props(styles.status)}>{copyStatus}</output>
+      </div>
+    </DataPlayground>
   );
 }

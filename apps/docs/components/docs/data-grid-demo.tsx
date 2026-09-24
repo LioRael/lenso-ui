@@ -5,7 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Building2, Globe2, MapPin, UsersRound } from "lucide-react";
 import { DataGrid, type DataGridColumn } from "@lenso/ui/data-grid";
 import { DataPlayground } from "./data-playground";
-import { PlaygroundControls, PlaygroundSelectControl } from "./playground-controls";
+import { PlaygroundControls, PlaygroundSwitchControl } from "./playground-controls";
 import { styles } from "./data-grid-demo.stylex";
 
 type Company = {
@@ -20,10 +20,6 @@ type Company = {
 };
 type CompanyValidation = { reservedNames: ReadonlySet<string> };
 const validationData: CompanyValidation = { reservedNames: new Set(["lenso"]) };
-const booleanOptions = [
-  { label: "False", value: "false" },
-  { label: "True", value: "true" },
-] as const;
 
 function IdentityEditor({
   label,
@@ -273,12 +269,11 @@ export function DataGridDemo() {
               ["Cell selection", cellSelection, setCellSelection],
             ] as const
           ).map(([label, enabled, setter]) => (
-            <PlaygroundSelectControl
+            <PlaygroundSwitchControl
               key={label}
+              checked={enabled}
               label={label}
-              onValueChange={(value) => setter(value === "true")}
-              options={booleanOptions}
-              value={String(enabled)}
+              onCheckedChange={setter}
             />
           ))}
         </PlaygroundControls>
