@@ -1504,7 +1504,13 @@ test("Command Menu resolves the semantic state board", async () => {
   const panels = board.element().querySelectorAll<HTMLElement>('[data-slot="command-menu-panel"]');
   expect(panels).toHaveLength(3);
   await expect.poll(() => getComputedStyle(panels[0]!).width).toBe("720px");
-  expect(getComputedStyle(panels[0]!).height).toBe("450px");
+  const panel = panels[0]!;
+  const items = panel.querySelectorAll<HTMLElement>('[data-slot="command-menu-item"]');
+  expect(panel.getBoundingClientRect().height).toBeLessThan(450);
+  expect(items.length).toBeGreaterThan(0);
+  expect(items[items.length - 1]!.getBoundingClientRect().bottom).toBeLessThanOrEqual(
+    panel.getBoundingClientRect().bottom,
+  );
   expect(getComputedStyle(panels[0]!).borderRadius).toBe("12px");
 });
 
