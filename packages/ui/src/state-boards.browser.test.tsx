@@ -432,7 +432,7 @@ test("Button resolves the semantic state board", async () => {
     themeColor("light", "color.action.primaryHover"),
   );
   expect(getComputedStyle(buttons[10]!).backgroundColor).toBe(
-    themeColor("light", "color.surface.translucent"),
+    themeColor("light", "color.surface.control"),
   );
   expect(getComputedStyle(buttons[11]!).backgroundColor).toBe(
     themeColor("light", "color.surface.selected"),

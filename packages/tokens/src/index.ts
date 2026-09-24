@@ -573,7 +573,7 @@ export const themes = {
     "color.status.successContent": "#246b3c",
     "color.status.warningContent": "#78570f",
     "color.surface.canvas": "#fafafa",
-    "color.surface.control": "#f0f0f0",
+    "color.surface.control": "#ffffff",
     "color.surface.dialog": "#ffffff",
     "color.surface.elevated": "#ffffff",
     "color.surface.interactive": "#fafafa",

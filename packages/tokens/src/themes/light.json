@@ -16,7 +16,7 @@
         "$value": "{primitive.color.lightCanvas}"
       },
       "control": {
-        "$value": "{primitive.color.lightHover}"
+        "$value": "{primitive.color.lightOverlay}"
       },
       "dialog": {
         "$value": "{primitive.color.lightOverlay}"

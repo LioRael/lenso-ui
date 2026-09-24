@@ -160,7 +160,7 @@ export const tokens = stylex.defineConsts({
   colorStatusSuccessContent: "var(--color-status-success-content, #246b3c)",
   colorStatusWarningContent: "var(--color-status-warning-content, #78570f)",
   colorSurfaceCanvas: "var(--color-surface-canvas, #fafafa)",
-  colorSurfaceControl: "var(--color-surface-control, #f0f0f0)",
+  colorSurfaceControl: "var(--color-surface-control, #ffffff)",
   colorSurfaceDialog: "var(--color-surface-dialog, #ffffff)",
   colorSurfaceElevated: "var(--color-surface-elevated, #ffffff)",
   colorSurfaceInteractive: "var(--color-surface-interactive, #fafafa)",

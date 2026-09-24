@@ -80,11 +80,11 @@ export const styles = stylex.create({
   },
   secondary: {
     backgroundColor: {
-      default: tokens.colorSurfaceTranslucent,
+      default: tokens.colorSurfaceControl,
       ":hover": tokens.colorSurfaceLevel3,
       ":active": tokens.colorSurfaceLevel3,
-      ":disabled": tokens.colorSurfaceTranslucent,
-      "[data-loading]": tokens.colorSurfaceTranslucent,
+      ":disabled": tokens.colorSurfaceControl,
+      "[data-loading]": tokens.colorSurfaceControl,
       '[data-visual-state="hover"]': tokens.colorSurfaceLevel3,
       '[data-visual-state="pressed"]': tokens.colorSurfaceLevel3,
     },
