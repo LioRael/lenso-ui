@@ -126,7 +126,6 @@ export const styles = stylex.create({
   },
   componentOverview: {
     height: "auto",
-    minHeight: "168px",
     width: "100%",
   },
   componentTitle: {

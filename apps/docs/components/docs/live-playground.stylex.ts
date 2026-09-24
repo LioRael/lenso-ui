@@ -44,7 +44,7 @@ export const styles = stylex.create({
     "@media (max-width: 1100px)": { gridTemplateRows: "auto", height: "auto" },
   },
   sidebarBody: { height: "790px" },
-  commandMenuBody: { height: "488px" },
+  commandMenuBody: { height: "420px" },
   stage: {
     backgroundColor: "var(--color-surface-translucent)",
     border: 0,
@@ -58,7 +58,7 @@ export const styles = stylex.create({
   },
   templateStage: { height: "548px", "@media (max-width: 1100px)": { height: "auto" } },
   sidebarStage: { height: "790px" },
-  commandMenuStage: { height: "488px" },
+  commandMenuStage: { height: "420px" },
   inspector: {
     alignItems: "stretch",
     backgroundColor: "var(--color-surface-translucent)",
@@ -82,8 +82,5 @@ export const styles = stylex.create({
     height: "790px",
     "@media (max-width: 1100px)": { height: "fit-content" },
   },
-  commandMenuInspector: {
-    height: "488px",
-    "@media (max-width: 1100px)": { height: "fit-content" },
-  },
+  commandMenuInspector: { height: "fit-content", minHeight: 0 },
 });

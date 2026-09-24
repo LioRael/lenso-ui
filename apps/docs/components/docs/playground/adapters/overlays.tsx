@@ -113,52 +113,55 @@ export const comboboxAdapter: PlaygroundAdapter = ({ theme, values }) => {
 };
 
 const commands = [
-  "Assign to…",
-  "Un-assign from me",
-  "Change status…",
-  "Set priority…",
-  "Add to project…",
-  "Change or add labels…",
-  "Set due date…",
+  "Assign owner",
+  "Change status",
+  "Set priority",
+  "Add to project",
+  "Add labels",
+  "Set due date",
 ] as const;
 
-export const commandMenuAdapter: PlaygroundAdapter = ({ theme, values }) => {
-  const state = stringValue(values, "state", "default");
-  const query = state === "query" ? "status" : state === "no-results" ? "zzzzzz" : "";
-  const items = state === "no-results" ? [] : commands;
+function CommandMenuPreview({
+  state,
+  theme,
+}: {
+  state: string;
+  theme: "dark" | "light" | "system";
+}) {
+  const [query, setQuery] = React.useState(
+    state === "query" ? "status" : state === "no-results" ? "zzzzzz" : "",
+  );
 
   return (
     <ThemeScope theme={theme} xstyle={[stageStyles.canvas, stageStyles.commandMenu]}>
-      <CommandMenu.Root items={items} inputValue={query}>
+      <CommandMenu.Root inputValue={query} items={commands} onInputValueChange={setQuery}>
         <CommandMenu.Panel xstyle={stageStyles.commandMenuPanel}>
           <CommandMenu.Search>
             <CommandMenu.Input
               aria-label="Command search"
               placeholder="Type a command or search…"
             />
-            <CommandMenu.SearchHint>Ask Lenso　 Tab</CommandMenu.SearchHint>
           </CommandMenu.Search>
-          {state !== "no-results" && (
-            <CommandMenu.GroupLabel>
-              {state === "query" ? "Commands" : "TES-14　·　kkk"}
-            </CommandMenu.GroupLabel>
-          )}
+          <CommandMenu.GroupLabel aria-live="polite">
+            Sample commands · selection preview
+          </CommandMenu.GroupLabel>
           <CommandMenu.List>
             {(command: string) => (
               <CommandMenu.Item key={command} value={command}>
-                <CommandMenu.ItemIcon>
-                  <CircleIcon aria-hidden="true" size={10} />
-                </CommandMenu.ItemIcon>
                 <CommandMenu.ItemText>{command}</CommandMenu.ItemText>
-                <CommandMenu.Shortcut>S</CommandMenu.Shortcut>
               </CommandMenu.Item>
             )}
           </CommandMenu.List>
-          <CommandMenu.Empty>No commands found</CommandMenu.Empty>
+          <CommandMenu.Empty>No matching commands. Edit the search to try again.</CommandMenu.Empty>
         </CommandMenu.Panel>
       </CommandMenu.Root>
     </ThemeScope>
   );
+}
+
+export const commandMenuAdapter: PlaygroundAdapter = ({ theme, values }) => {
+  const state = stringValue(values, "state", "default");
+  return <CommandMenuPreview key={state} state={state} theme={theme} />;
 };
 
 function MenuItem({

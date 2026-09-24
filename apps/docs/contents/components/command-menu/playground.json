@@ -1,6 +1,7 @@
 {
   "id": "command-menu",
   "name": "Command Menu",
+  "layout": "command-menu",
   "themeControl": "theme",
   "bodyClassName": "command-menu-playground-body",
   "sectionClassName": "command-menu-playground",

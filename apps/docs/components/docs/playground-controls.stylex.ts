@@ -8,6 +8,7 @@ export const styles = stylex.create({
     height: "32px",
     justifyContent: "space-between",
     width: "100%",
+    "@media (max-width: 900px)": { height: "44px" },
   },
   headerTitle: {
     color: "var(--color-content-primary)",
@@ -29,6 +30,7 @@ export const styles = stylex.create({
     justifyContent: "space-between",
     gap: "12px",
     width: "100%",
+    "@media (max-width: 900px)": { height: "44px" },
   },
   label: {
     color: "var(--color-content-secondary)",
@@ -45,6 +47,7 @@ export const styles = stylex.create({
     lineHeight: "18px",
     paddingInline: "10px",
     width: "164px",
+    "@media (max-width: 900px)": { height: "44px" },
   },
   selectValue: {
     fontFamily: '"IBM Plex Sans", var(--font-sans)',
@@ -60,6 +63,7 @@ export const styles = stylex.create({
     fontWeight: 400,
     height: "28px",
     lineHeight: "18px",
+    "@media (max-width: 900px)": { height: "44px" },
   },
   textField: { display: "block", maxWidth: "none", width: "164px" },
   textControl: {
@@ -68,5 +72,6 @@ export const styles = stylex.create({
     height: "28px",
     lineHeight: "18px",
     padding: "5px 10px",
+    "@media (max-width: 900px)": { height: "44px" },
   },
 });

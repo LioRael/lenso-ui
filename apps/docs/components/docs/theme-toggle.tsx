@@ -1,10 +1,19 @@
 "use client";
 
 import { MoonIcon, SunIcon } from "lucide-react";
+import * as stylex from "@stylexjs/stylex";
 import { useTheme } from "next-themes";
 import { IconButton } from "@lenso/ui/icon-button";
 
 import { useIsClient } from "./use-is-client";
+
+const styles = stylex.create({
+  mobileTouchTarget: {
+    height: "32px",
+    width: "32px",
+    "@media (max-width: 900px)": { height: "44px", width: "44px" },
+  },
+});
 
 export function ThemeToggle() {
   const isClient = useIsClient();
@@ -22,6 +31,7 @@ export function ThemeToggle() {
       size="default"
       title={`Theme: ${currentTheme}. Use ${nextTheme}.`}
       variant="ghost"
+      xstyle={styles.mobileTouchTarget}
     >
       {dark ? <SunIcon aria-hidden="true" /> : <MoonIcon aria-hidden="true" />}
     </IconButton>

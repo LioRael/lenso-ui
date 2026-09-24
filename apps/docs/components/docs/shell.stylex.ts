@@ -210,7 +210,7 @@ export const styles = stylex.create({
     width: "28px",
     ":hover": { backgroundColor: "var(--docs-sidebar-hover)" },
     ":focus-visible": { outline: "1px solid var(--color-focus-ring)", outlineOffset: "-1px" },
-    "@media (max-width: 900px)": { display: "inline-flex" },
+    "@media (max-width: 900px)": { display: "inline-flex", height: "44px", width: "44px" },
   },
   brand: { color: "var(--docs-fg-primary)", fontSize: "15px", fontWeight: 600, lineHeight: "20px" },
   version: {
@@ -233,7 +233,13 @@ export const styles = stylex.create({
   disclosureRoot: { width: "220px" },
   disclosureItem: { overflow: "visible", width: "220px" },
   navSection: { gap: "2px", marginTop: 0, width: "220px" },
-  navSectionHeader: { height: "28px", margin: 0, padding: 0, width: "220px" },
+  navSectionHeader: {
+    height: "28px",
+    margin: 0,
+    padding: 0,
+    width: "220px",
+    "@media (max-width: 900px)": { height: "44px" },
+  },
   navSectionContent: {
     marginBlock: 0,
     marginInline: 0,
@@ -272,6 +278,7 @@ export const styles = stylex.create({
       position: "relative",
       zIndex: 1,
     },
+    "@media (max-width: 900px)": { height: "44px" },
   },
   navItem: {
     alignItems: "center",
@@ -293,6 +300,7 @@ export const styles = stylex.create({
       position: "relative",
       zIndex: 1,
     },
+    "@media (max-width: 900px)": { height: "44px" },
   },
   selectedNavItem: {
     backgroundColor: "var(--docs-sidebar-active)",
@@ -361,7 +369,12 @@ export const styles = stylex.create({
     width: "28px",
     ":hover": { backgroundColor: "var(--color-surface-interactive-hover)" },
     ":focus-visible": { outline: "1px solid var(--color-focus-ring)", outlineOffset: "-1px" },
-    "@media (max-width: 900px)": { display: "inline-flex" },
+    "@media (max-width: 900px)": {
+      display: "inline-flex",
+      flexBasis: "44px",
+      height: "44px",
+      width: "44px",
+    },
   },
   mobilePageTitle: {
     color: "var(--color-content-primary)",

@@ -39,7 +39,7 @@ function ComponentOverview({
 }: {
   description: string;
   eyebrow: string;
-  metadata: readonly [string, string];
+  metadata?: readonly [string, string] | undefined;
   title: string;
 }) {
   return (
@@ -47,10 +47,12 @@ function ComponentOverview({
       <p {...stylex.props(styles.componentEyebrow)}>{eyebrow.toUpperCase()}</p>
       <h1 {...stylex.props(styles.componentTitle)}>{title}</h1>
       <p {...stylex.props(styles.componentDescription)}>{description}</p>
-      <div {...stylex.props(styles.componentMetadata)}>
-        <span {...stylex.props(styles.metadataPill)}>{metadata[0]}</span>
-        <span {...stylex.props(styles.metadataPill)}>{metadata[1]}</span>
-      </div>
+      {metadata && (
+        <div {...stylex.props(styles.componentMetadata)}>
+          <span {...stylex.props(styles.metadataPill)}>{metadata[0]}</span>
+          <span {...stylex.props(styles.metadataPill)}>{metadata[1]}</span>
+        </div>
+      )}
     </section>
   );
 }
@@ -69,8 +71,8 @@ export function DocumentFrame({
   const isOverview = layout === "overview";
   const isWorkspace = slug === "theme-lab" || slug === "tokens";
 
-  if (!isOverview && (!eyebrow || !metadata)) {
-    throw new Error(`Component document ${slug} must define eyebrow and metadata frontmatter`);
+  if (!isOverview && !eyebrow) {
+    throw new Error(`Component document ${slug} must define eyebrow frontmatter`);
   }
 
   return (
@@ -114,7 +116,7 @@ export function DocumentFrame({
           <ComponentOverview
             description={description}
             eyebrow={eyebrow!}
-            metadata={metadata!}
+            metadata={metadata}
             title={title}
           />
           {children}

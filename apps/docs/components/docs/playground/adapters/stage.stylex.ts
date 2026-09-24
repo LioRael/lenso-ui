@@ -30,7 +30,7 @@ export const stageStyles = stylex.create({
   workspaceMenu: { alignItems: "flex-start", paddingTop: "16px" },
   sidebar: { height: "744px", paddingTop: "12px" },
   dialog: { paddingTop: 0 },
-  commandMenu: { height: "420px", overflow: "hidden", paddingTop: 0 },
+  commandMenu: { height: "100%", paddingTop: 0 },
   avatar: { alignItems: "center", gap: "64px", paddingTop: 0 },
   surface: { alignItems: "center", paddingTop: 0 },
   demoButton: { zIndex: 1 },
@@ -75,5 +75,11 @@ export const stageStyles = stylex.create({
     fontSize: "11px",
     lineHeight: "16px",
   },
-  commandMenuPanel: { transform: "scale(0.78)", transformOrigin: "center" },
+  commandMenuPanel: {
+    height: "auto",
+    maxHeight: "382px",
+    maxWidth: "440px",
+    minHeight: "126px",
+    width: "100%",
+  },
 });

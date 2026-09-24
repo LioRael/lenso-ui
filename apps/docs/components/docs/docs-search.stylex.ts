@@ -26,6 +26,7 @@ export const styles = stylex.create({
     },
     ":focus-visible": { outline: "2px solid var(--color-focus-ring)", outlineOffset: "2px" },
     "@media (max-width: 1180px)": {
+      height: "44px",
       left: "auto",
       marginInlineStart: "auto",
       position: "relative",
@@ -33,11 +34,11 @@ export const styles = stylex.create({
       width: "min(290px, 40%)",
     },
     "@media (max-width: 640px)": {
-      flex: "0 0 32px",
-      height: "32px",
+      flex: "0 0 44px",
+      height: "44px",
       justifyContent: "center",
       padding: 0,
-      width: "32px",
+      width: "44px",
     },
   },
   searchIcon: { flex: "none", height: "15px", strokeWidth: 1.8, width: "15px" },
@@ -108,6 +109,7 @@ export const styles = stylex.create({
       color: "var(--color-content-primary)",
     },
     ":focus-visible": { outline: "2px solid var(--color-focus-ring)", outlineOffset: "1px" },
+    "@media (max-width: 900px)": { flexBasis: "44px", height: "44px", width: "44px" },
   },
   results: { maxHeight: "min(52vh, 420px)", overflowY: "auto", padding: "7px" },
   result: {
@@ -123,6 +125,7 @@ export const styles = stylex.create({
     textDecoration: "none",
     ":hover": { backgroundColor: "var(--color-surface-interactive-hover)" },
     ":focus-visible": { backgroundColor: "var(--color-surface-selected)", outline: "none" },
+    "@media (max-width: 900px)": { minHeight: "44px" },
   },
   resultSection: {
     color: "var(--color-content-tertiary)",

@@ -173,7 +173,7 @@ export function ComponentPlayground({
     <LivePlayground
       actions={
         <>
-          <Button onClick={reset} variant="secondary">
+          <Button onClick={reset} variant="secondary" xstyle={styles.resetButton}>
             Reset
           </Button>
           {currentCode && (

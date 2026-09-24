@@ -37,16 +37,20 @@ export function PlaygroundControls({
   name,
   onExampleChange,
 }: PlaygroundControlsProps) {
+  const availableExamples = exampleOptions ?? [{ label: exampleLabel, value: example }];
+
   return (
     <div {...stylex.props(styles.root)}>
       <div {...stylex.props(styles.header)}>
         <strong {...stylex.props(styles.headerTitle)}>{name}</strong>
-        <PlaygroundSelectControl
-          label="Example"
-          onValueChange={onExampleChange}
-          options={exampleOptions ?? [{ label: exampleLabel, value: example }]}
-          value={example}
-        />
+        {availableExamples.length > 1 && (
+          <PlaygroundSelectControl
+            label="Example"
+            onValueChange={onExampleChange}
+            options={availableExamples}
+            value={example}
+          />
+        )}
       </div>
       <div {...stylex.props(styles.divider)} />
       <div {...stylex.props(styles.list)}>{children}</div>
