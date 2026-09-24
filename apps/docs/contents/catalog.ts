@@ -52,6 +52,7 @@ export type DocsPage =
   | "tooltip"
   | "toast"
   | "agent-page"
+  | "console-workspace"
   | "page-layout"
   | "settings-page";
 
@@ -259,6 +260,12 @@ export const docsRegistry = [
         kind: "page",
         label: "Agent Page",
         slug: "agent-page",
+      },
+      {
+        href: "/templates/console-workspace",
+        kind: "page",
+        label: "Console Workspace",
+        slug: "console-workspace",
       },
       {
         href: "/templates/page-layout",

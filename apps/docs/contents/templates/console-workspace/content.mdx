@@ -1,0 +1,65 @@
+---
+title: "Console Workspace"
+description: "A full-width Console shell with workspace switching, Agent profiles, local navigation, Plugin pages, and a persistent assistant entry."
+eyebrow: "Template · Console shell"
+metadata:
+  - "Interactive layout"
+  - "Application-owned state"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="console-workspace" />
+
+  <Guidance>
+    <GuidanceBlock title="Keep the shell and the page separate">
+      <ul>
+        <li>The top-left control switches workspaces; the tabs after the divider belong to the selected workspace.</li>
+        <li>The assistant entry stays in the same place across workspaces. Its conversation and action approval flow belong to the Console application.</li>
+        <li>Render Agent Chat, Agent, Code, and Design as profiles of the selected App Agent; each profile owns its own session.</li>
+        <li>Use the sidebar for the current workspace’s destinations. A Plugin may register pages and local navigation without transferring its business data or authorization to the shell.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Compose with Lenso UI">
+      <ul>
+        <li>Use compact navigation geometry: 32px rows, quiet neutral selected fills, one-line ellipsis, and 14px icons with an 8px text gap.</li>
+        <li>Use PromptComposer for Agent input and CommandMenu for production search; this preview shows their placement, while the owning product supplies real actions and results.</li>
+        <li>The preview data is illustrative. The Console must resolve App identity, Plugin contribution lifecycle, permissions, and live state before rendering production pages.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { useState } from "react"
+import { FolderIcon } from "lucide-react"
+import {
+  ConsoleSidebarItem,
+  ConsoleWorkspace,
+  type ConsoleTabId,
+  type ConsoleWorkspaceId,
+} from "@/components/templates/console-workspace"
+
+export function AppConsole() {
+  const [workspace, setWorkspace] = useState<ConsoleWorkspaceId>("agent")
+  const [tabs, setTabs] = useState<Record<ConsoleWorkspaceId, ConsoleTabId>>({
+    agent: "chat", app: "overview", projects: "project",
+  })
+
+  return (
+    <ConsoleWorkspace
+      workspace={workspace}
+      activeTab={tabs[workspace]}
+      onWorkspaceChange={setWorkspace}
+      onTabChange={(tab, target = workspace) =>
+        setTabs((current) => ({ ...current, [target]: tab }))
+      }
+      sidebar={<ConsoleSidebarItem icon={FolderIcon}>Projects</ConsoleSidebarItem>}
+    >
+      <div>Render the selected Agent profile or Plugin page here.</div>
+    </ConsoleWorkspace>
+  )
+}`}
+  description="The shell takes controlled workspace and tab state. The application supplies page content, Plugin navigation, search data, and assistant behavior."
+/>

@@ -11,7 +11,6 @@ import { Breadcrumb } from "@lenso/ui/breadcrumb";
 import { Disclosure } from "@lenso/ui/disclosure";
 import { Sidebar } from "@lenso/ui/sidebar";
 
-import uiPackage from "../../../../packages/ui/package.json";
 import {
   getDocsPageForPath,
   getDocsSectionForPage,
@@ -192,7 +191,6 @@ function DocumentationSidebar({
       <Sidebar.Header xstyle={styles.sidebarHeader}>
         <div {...stylex.props(styles.brandRow)}>
           <strong {...stylex.props(styles.brand)}>Lenso UI</strong>
-          <span {...stylex.props(styles.version)}>v{uiPackage.version}</span>
           <Sidebar.Trigger
             aria-label="Close documentation navigation"
             render={<button {...stylex.props(styles.mobileSidebarClose)} type="button" />}

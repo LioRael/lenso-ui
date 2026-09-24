@@ -34,6 +34,7 @@ import quickLinkConfig from "@/contents/patterns/quick-link/playground.json";
 import settingsRowConfig from "@/contents/patterns/settings-row/playground.json";
 import surfaceConfig from "@/contents/primitives/surface/playground.json";
 import agentPageConfig from "@/contents/templates/agent-page/playground.json";
+import consoleWorkspaceConfig from "@/contents/templates/console-workspace/playground.json";
 import pageLayoutConfig from "@/contents/templates/page-layout/playground.json";
 import settingsPageConfig from "@/contents/templates/settings-page/playground.json";
 
@@ -81,6 +82,7 @@ import {
   tooltipAdapter,
 } from "./playground/adapters/overlays";
 import { agentPageAdapter } from "./playground/adapters/agent-page-template";
+import { consoleWorkspaceAdapter } from "./playground/adapters/console-workspace-template";
 import { settingsPageAdapter } from "./playground/adapters/settings-page-template";
 import { pageLayoutAdapter } from "./playground/adapters/templates";
 import type { PlaygroundDefinition } from "./playground/types";
@@ -126,6 +128,7 @@ const definitions: readonly PlaygroundDefinition[] = [
   { adapter: pageHeaderAdapter, config: parsePlaygroundConfig(pageHeaderConfig) },
   { adapter: quickLinkAdapter, config: parsePlaygroundConfig(quickLinkConfig) },
   { adapter: agentPageAdapter, config: parsePlaygroundConfig(agentPageConfig) },
+  { adapter: consoleWorkspaceAdapter, config: parsePlaygroundConfig(consoleWorkspaceConfig) },
   { adapter: pageLayoutAdapter, config: parsePlaygroundConfig(pageLayoutConfig) },
   { adapter: settingsPageAdapter, config: parsePlaygroundConfig(settingsPageConfig) },
 ];

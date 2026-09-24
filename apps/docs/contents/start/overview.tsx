@@ -50,6 +50,11 @@ const groups = [
         detail: "Compact destinations",
       },
       { href: "/templates/agent-page", label: "Agent Page", detail: "Prompt and response layout" },
+      {
+        href: "/templates/console-workspace",
+        label: "Console Workspace",
+        detail: "Extensible App shell",
+      },
       { href: "/templates/settings-page", label: "Settings Page", detail: "Grouped preferences" },
     ],
   },
