@@ -278,6 +278,7 @@ export const styles = stylex.create({
     gap: "2px",
     marginBlockStart: "25px",
   },
+  firstSidebarSection: { marginBlockStart: "4px" },
   sidebarSectionTitle: {
     color: "var(--console-muted)",
     fontSize: "11px",
@@ -350,13 +351,6 @@ export const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   optionCheck: { color: "var(--console-accent)" },
-  menuRule: { backgroundColor: "var(--console-line)", height: "1px", margin: "5px 4px" },
-  menuFootnote: {
-    color: "var(--console-muted)",
-    display: "block",
-    fontSize: "11px",
-    padding: "7px 9px",
-  },
   assistantDrawer: {
     backgroundColor: "var(--console-bg)",
     borderInlineStartColor: "var(--console-line)",

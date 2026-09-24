@@ -67,15 +67,6 @@ export const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   rowArrow: { color: "var(--console-accent)", fontSize: "15px" },
-  sidebarIdentity: {
-    alignItems: "center",
-    display: "flex",
-    gap: "10px",
-    padding: "4px 8px 12px",
-  },
-  sidebarIdentityCopy: { display: "grid", gap: "2px" },
-  sidebarIdentityTitle: { fontSize: "13px", fontWeight: 600 },
-  sidebarIdentityDetail: { color: "var(--console-muted)", fontSize: "11px" },
   sidebarFooter: {
     borderTopColor: "var(--console-line)",
     borderTopStyle: "solid",

@@ -144,14 +144,7 @@ function ConsoleTemplatePreview({
       </>
     ) : workspace === "app" ? (
       <>
-        <div {...stylex.props(styles.sidebarIdentity)}>
-          <span aria-hidden="true">◇</span>
-          <span {...stylex.props(styles.sidebarIdentityCopy)}>
-            <strong {...stylex.props(styles.sidebarIdentityTitle)}>应用管理</strong>
-            <small {...stylex.props(styles.sidebarIdentityDetail)}>Acme App</small>
-          </span>
-        </div>
-        <ConsoleSidebarSection title="页面">
+        <ConsoleSidebarSection first title="页面">
           <ConsoleSidebarItem
             active={activeTab === "overview"}
             icon={LayoutGridIcon}

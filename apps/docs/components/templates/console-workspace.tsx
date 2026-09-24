@@ -182,8 +182,6 @@ export function ConsoleWorkspace({
                     )}
                   </button>
                 ))}
-                <div {...stylex.props(styles.menuRule)} />
-                <span {...stylex.props(styles.menuFootnote)}>助手在所有工作区常驻</span>
               </div>
             )}
           </div>
@@ -355,13 +353,15 @@ export function ConsoleSidebarItem({
 
 export function ConsoleSidebarSection({
   children,
+  first = false,
   title,
 }: {
   children: React.ReactNode;
+  first?: boolean;
   title: string;
 }) {
   return (
-    <section {...stylex.props(styles.sidebarSection)}>
+    <section {...stylex.props(styles.sidebarSection, first && styles.firstSidebarSection)}>
       <h2 {...stylex.props(styles.sidebarSectionTitle)}>{title}</h2>
       {children}
     </section>
