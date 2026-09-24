@@ -21,7 +21,7 @@ export const styles = stylex.create({
     transform: "translateX(-50%)",
     width: "min(350px, calc(100% - 560px))",
     ":hover": {
-      borderColor: "var(--color-border-secondary)",
+      borderColor: "var(--docs-neutral-300)",
       color: "var(--color-content-secondary)",
     },
     ":focus-visible": { outline: "2px solid var(--color-focus-ring)", outlineOffset: "2px" },

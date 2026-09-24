@@ -35,7 +35,7 @@ export const styles = stylex.create({
     "--color-action-primary": "var(--docs-neutral-850)",
     "--color-action-primary-content": "#fafbf8",
     "--color-action-primary-hover": "var(--docs-neutral-700)",
-    "--color-border-control": "var(--docs-neutral-400)",
+    "--color-border-control": "var(--docs-neutral-250)",
     "--color-border-control-focus": "#bdbdb7",
     "--color-border-dialog": "var(--docs-neutral-300)",
     "--color-border-menu-separator": "var(--docs-neutral-250)",

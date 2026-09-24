@@ -7,9 +7,14 @@ import {
   ChevronDownIcon,
   CircleIcon,
   FileIcon,
+  FlagIcon,
+  FolderInputIcon,
   LinkIcon,
+  SearchIcon,
   StarIcon,
+  TagIcon,
   Trash2Icon,
+  UserRoundIcon,
 } from "lucide-react";
 
 import { Button } from "@lenso/ui/button";
@@ -116,10 +121,19 @@ const commands = [
   "Assign owner",
   "Change status",
   "Set priority",
-  "Add to project",
-  "Add labels",
+  "Move to project",
+  "Add label",
   "Set due date",
 ] as const;
+
+const commandIcons = {
+  "Assign owner": UserRoundIcon,
+  "Change status": CircleIcon,
+  "Set priority": FlagIcon,
+  "Move to project": FolderInputIcon,
+  "Add label": TagIcon,
+  "Set due date": CalendarIcon,
+};
 
 function CommandMenuPreview({
   state,
@@ -137,20 +151,26 @@ function CommandMenuPreview({
       <CommandMenu.Root inputValue={query} items={commands} onInputValueChange={setQuery}>
         <CommandMenu.Panel xstyle={stageStyles.commandMenuPanel}>
           <CommandMenu.Search>
-            <CommandMenu.Input
-              aria-label="Command search"
-              placeholder="Type a command or search…"
+            <SearchIcon
+              aria-hidden="true"
+              size={15}
+              {...stylex.props(stageStyles.commandMenuSearchIcon)}
             />
+            <CommandMenu.Input aria-label="Command search" placeholder="Search actions…" />
           </CommandMenu.Search>
-          <CommandMenu.GroupLabel aria-live="polite">
-            Sample commands · selection preview
-          </CommandMenu.GroupLabel>
+          <CommandMenu.GroupLabel aria-live="polite">Issue actions</CommandMenu.GroupLabel>
           <CommandMenu.List>
-            {(command: string) => (
-              <CommandMenu.Item key={command} value={command}>
-                <CommandMenu.ItemText>{command}</CommandMenu.ItemText>
-              </CommandMenu.Item>
-            )}
+            {(command: (typeof commands)[number]) => {
+              const Icon = commandIcons[command];
+              return (
+                <CommandMenu.Item key={command} value={command}>
+                  <CommandMenu.ItemIcon>
+                    <Icon aria-hidden="true" size={15} />
+                  </CommandMenu.ItemIcon>
+                  <CommandMenu.ItemText>{command}</CommandMenu.ItemText>
+                </CommandMenu.Item>
+              );
+            }}
           </CommandMenu.List>
           <CommandMenu.Empty>No matching commands. Edit the search to try again.</CommandMenu.Empty>
         </CommandMenu.Panel>

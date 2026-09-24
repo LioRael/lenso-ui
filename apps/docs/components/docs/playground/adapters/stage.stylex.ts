@@ -76,10 +76,9 @@ export const stageStyles = stylex.create({
     lineHeight: "16px",
   },
   commandMenuPanel: {
-    height: "auto",
-    maxHeight: "382px",
-    maxWidth: "440px",
-    minHeight: "126px",
+    maxHeight: "340px",
+    maxWidth: "400px",
     width: "100%",
   },
+  commandMenuSearchIcon: { color: "var(--color-content-tertiary)", flexShrink: 0 },
 });

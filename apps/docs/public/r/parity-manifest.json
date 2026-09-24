@@ -162,9 +162,9 @@
           "target": "components/lenso/command-menu/index.tsx"
         },
         {
-          "registrySha256": "1c623c4ccf50a4c6b269481763938df4e92ee3891458a1cd47509aeea5fb7cae",
+          "registrySha256": "5b20444b227a3bade45f72f21a33eadff78261cd901c5eb830dd772d100c255b",
           "source": "packages/ui/src/command-menu/command-menu.stylex.ts",
-          "sourceSha256": "1c623c4ccf50a4c6b269481763938df4e92ee3891458a1cd47509aeea5fb7cae",
+          "sourceSha256": "5b20444b227a3bade45f72f21a33eadff78261cd901c5eb830dd772d100c255b",
           "target": "components/lenso/command-menu/command-menu.stylex.ts"
         },
         {
