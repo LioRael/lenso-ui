@@ -18,6 +18,7 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
       <ul>
         <li>Use Data Table for records with stable column headings and several comparable rows.</li>
         <li>Keep row selection optional. When enabled, a quiet full-row fill and a contextual batch toolbar make the selected set clear without turning each cell into a separate tile.</li>
+        <li>Render each data group in its own <code>DataTable.Body</code> with a <code>DataTable.GroupRow</code>. The Consumer decides group membership and counts.</li>
         <li>
           Keep row data, optional selection, sorting, filtering, and summaries in the Consumer. The
           shared component owns table semantics, compact cell geometry, pinned columns, and column
@@ -39,6 +40,8 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
           Resizable column separators support pointer drag and Left/Right arrow keys. Give each
           separator a meaningful label.
         </li>
+        <li>A sortable <code>DataTable.Head</code> shows a compact hover/focus surface. Pass <code>onSort</code>, <code>sortDirection</code>, and <code>sortLabel</code>; the Consumer owns the ordering.</li>
+        <li>Reveal row selection and row actions on hover or keyboard focus, and keep them visible for selected rows. On touch, keep these controls visible.</li>
         <li>
           Header and footer remain visible within a height-constrained table. Put calculated values or
           actions in footer cells only when they help compare the collection.
@@ -65,6 +68,7 @@ const columns = [
       </DataTable.Row>
     </DataTable.Header>
     <DataTable.Body>
+      <DataTable.GroupRow label="Active" count={1} />
       <DataTable.Row>
         <DataTable.Cell columnId="name">Atlas</DataTable.Cell>
         <DataTable.Cell columnId="status">Active</DataTable.Cell>

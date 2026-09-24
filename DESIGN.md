@@ -64,6 +64,8 @@ Data Grid editing keeps the cell footprint and content alignment stable. The inp
 
 Data Table is a scan-oriented collection, not a spreadsheet. Keep horizontal rules quiet or absent, use compact type with enough row height for an optional second line, and treat the selected row as one continuous surface. Selection controls and batch actions belong to the Consumer; the shared row exposes only its selected visual state. Data Grid retains cell boundaries because editing and range selection depend on them, but shares the same quiet type hierarchy.
 
+For grouped Data Tables, use one body per data group and a subdued group row before its records. Do not turn the group into a separate card. Keep data-row hover distinct from persistent selection, reveal optional row controls on hover and keyboard focus (and by default on touch), and give sortable headers a compact hover/focus target with truthful sort direction. The Consumer owns grouping, sorting, and actions; the component owns their geometry and semantics.
+
 For a compact navigation item and a two-line workspace choice, compose the public parts rather than recreating their geometry:
 
 ```tsx

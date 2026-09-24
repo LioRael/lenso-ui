@@ -132,6 +132,34 @@ export const DataTableBody = React.forwardRef<
   );
 });
 
+export interface DataTableGroupRowProps extends StyleXProps<
+  Omit<React.ComponentPropsWithoutRef<"tr">, "children">
+> {
+  label: string;
+  count?: number;
+}
+
+export const DataTableGroupRow = React.forwardRef<HTMLTableRowElement, DataTableGroupRowProps>(
+  function DataTableGroupRow({ label, count, xstyle, ...props }, ref) {
+    const { columns } = useDataTable();
+    return (
+      <tr
+        {...props}
+        {...stylex.props(styles.groupRow, xstyle)}
+        data-slot="data-table-group-row"
+        ref={ref}
+      >
+        <th colSpan={columns.length} scope="rowgroup" {...stylex.props(styles.groupCell)}>
+          <span {...stylex.props(styles.groupContent)}>
+            <span>{label}</span>
+            {count !== undefined && <span {...stylex.props(styles.groupCount)}>{count}</span>}
+          </span>
+        </th>
+      </tr>
+    );
+  },
+);
+
 export const DataTableFooter = React.forwardRef<
   HTMLTableSectionElement,
   StyleXProps<React.ComponentPropsWithoutRef<"tfoot">>
@@ -185,6 +213,9 @@ export interface DataTableHeadProps
   icon?: React.ReactNode;
   resizable?: boolean;
   resizeLabel?: string;
+  onSort?: () => void;
+  sortDirection?: "asc" | "desc" | null;
+  sortLabel?: string;
 }
 
 export const DataTableHead = React.forwardRef<HTMLTableCellElement, DataTableHeadProps>(
@@ -195,6 +226,9 @@ export const DataTableHead = React.forwardRef<HTMLTableCellElement, DataTableHea
       icon,
       resizable = false,
       resizeLabel,
+      onSort,
+      sortDirection,
+      sortLabel,
       scope = "col",
       style,
       xstyle,
@@ -207,6 +241,13 @@ export const DataTableHead = React.forwardRef<HTMLTableCellElement, DataTableHea
     return (
       <th
         {...props}
+        aria-sort={
+          sortDirection === "asc"
+            ? "ascending"
+            : sortDirection === "desc"
+              ? "descending"
+              : undefined
+        }
         {...stylex.props(styles.cell, styles.head, pinned && styles.pinnedHead, xstyle)}
         data-column-id={columnId}
         data-slot="data-table-head"
@@ -214,10 +255,24 @@ export const DataTableHead = React.forwardRef<HTMLTableCellElement, DataTableHea
         scope={scope}
         style={{ ...style, ...columnStyles(columnId, context) }}
       >
-        <span {...stylex.props(styles.headContent)}>
-          {icon && <span {...stylex.props(styles.headIcon)}>{icon}</span>}
-          <span {...stylex.props(styles.ellipsis)}>{children}</span>
-        </span>
+        {onSort ? (
+          <button
+            type="button"
+            aria-label={sortLabel}
+            title={sortLabel}
+            onClick={onSort}
+            {...stylex.props(styles.headContent, styles.sortButton)}
+          >
+            {icon && <span {...stylex.props(styles.headIcon)}>{icon}</span>}
+            <span {...stylex.props(styles.ellipsis)}>{children}</span>
+            {sortDirection && <span aria-hidden="true">{sortDirection === "asc" ? "↑" : "↓"}</span>}
+          </button>
+        ) : (
+          <span {...stylex.props(styles.headContent)}>
+            {icon && <span {...stylex.props(styles.headIcon)}>{icon}</span>}
+            <span {...stylex.props(styles.ellipsis)}>{children}</span>
+          </span>
+        )}
         {resizable && (
           <DataTableResizeHandle columnId={columnId} label={resizeLabel ?? "Resize column"} />
         )}
@@ -289,6 +344,7 @@ export const DataTable = {
   Body: DataTableBody,
   Cell: DataTableCell,
   Footer: DataTableFooter,
+  GroupRow: DataTableGroupRow,
   Head: DataTableHead,
   Header: DataTableHeader,
   ResizeHandle: DataTableResizeHandle,

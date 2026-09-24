@@ -1,5 +1,5 @@
 import * as React from "react";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import axe from "axe-core";
@@ -15,11 +15,19 @@ const columns = [
 ] as const;
 
 test("keeps semantic table cells and pinned offsets aligned during resizing", async () => {
+  const onSort = vi.fn();
   const screen = await render(
-    <DataTable.Root columns={columns} label="Projects" maxHeight={240}>
+    <DataTable.Root columns={columns} label="Projects" maxHeight={240} style={{ width: 300 }}>
       <DataTable.Header>
         <DataTable.Row>
-          <DataTable.Head columnId="name" resizable resizeLabel="Resize Name column">
+          <DataTable.Head
+            columnId="name"
+            resizable
+            resizeLabel="Resize Name column"
+            onSort={onSort}
+            sortDirection="asc"
+            sortLabel="Order by name"
+          >
             Name
           </DataTable.Head>
           <DataTable.Head columnId="status">Status</DataTable.Head>
@@ -27,6 +35,7 @@ test("keeps semantic table cells and pinned offsets aligned during resizing", as
         </DataTable.Row>
       </DataTable.Header>
       <DataTable.Body>
+        <DataTable.GroupRow label="Active" count={1} />
         <DataTable.Row>
           <DataTable.Cell columnId="name">Atlas</DataTable.Cell>
           <DataTable.Cell columnId="status">Active</DataTable.Cell>
@@ -45,9 +54,21 @@ test("keeps semantic table cells and pinned offsets aligned during resizing", as
 
   const table = screen.getByRole("table", { name: "Projects" });
   const handle = screen.getByRole("separator", { name: "Resize Name column" });
-  const statusCell = screen.getByRole("cell", { name: "Active" });
+  const statusCell = screen.getByRole("cell", { name: "Active", exact: true });
 
   expect(table.element().querySelectorAll("thead th")).toHaveLength(3);
+  expect(table.element().querySelector('[scope="rowgroup"]')?.textContent).toBe("Active1");
+  const scrollArea = table.element().parentElement!;
+  scrollArea.scrollLeft = 100;
+  const groupLabel = table.element().querySelector('[scope="rowgroup"] span')!;
+  expect(groupLabel.getBoundingClientRect().left).toBeGreaterThanOrEqual(
+    scrollArea.getBoundingClientRect().left,
+  );
+  await userEvent.click(screen.getByRole("button", { name: "Order by name" }));
+  expect(onSort).toHaveBeenCalledOnce();
+  expect(table.element().querySelector('[data-column-id="name"]')?.getAttribute("aria-sort")).toBe(
+    "ascending",
+  );
   expect(getComputedStyle(statusCell.element()).left).toBe("180px");
   handle.element().focus();
   await userEvent.keyboard("{ArrowRight}");

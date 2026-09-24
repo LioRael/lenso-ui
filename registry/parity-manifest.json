@@ -228,15 +228,15 @@
     "data-table": {
       "files": [
         {
-          "registrySha256": "9f81ea0e86a836a33e5142318a4ed29e6a562b81715dcc74cfdc08cd45c0e399",
+          "registrySha256": "7595d209af50eede3c9895dac6d1e3bef002593ddf3acb2ac9be0e6135a13fc4",
           "source": "packages/ui/src/data-table/index.tsx",
-          "sourceSha256": "9f81ea0e86a836a33e5142318a4ed29e6a562b81715dcc74cfdc08cd45c0e399",
+          "sourceSha256": "7595d209af50eede3c9895dac6d1e3bef002593ddf3acb2ac9be0e6135a13fc4",
           "target": "components/lenso/data-table/index.tsx"
         },
         {
-          "registrySha256": "c1ee464ca808a970ea2a0465eee5708a482e06afa155a1b455c355c81e17de9d",
+          "registrySha256": "ae7b91395851fa490a7638a9fa2f8a0c165d1a0b8d743765576e0c8f3deca3f7",
           "source": "packages/ui/src/data-table/data-table.stylex.ts",
-          "sourceSha256": "c1ee464ca808a970ea2a0465eee5708a482e06afa155a1b455c355c81e17de9d",
+          "sourceSha256": "ae7b91395851fa490a7638a9fa2f8a0c165d1a0b8d743765576e0c8f3deca3f7",
           "target": "components/lenso/data-table/data-table.stylex.ts"
         },
         {
