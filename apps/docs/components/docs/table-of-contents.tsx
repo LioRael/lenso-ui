@@ -11,6 +11,7 @@ import { styles } from "./table-of-contents.stylex";
 interface TocItem {
   id: string;
   label: string;
+  depth: number;
 }
 
 interface IndicatorPosition {
@@ -18,14 +19,25 @@ interface IndicatorPosition {
   y: number;
 }
 
-function findActiveHeading(headings: HTMLElement[], scrollRoot: HTMLElement): string | undefined {
-  const threshold = scrollRoot.getBoundingClientRect().top + 72;
+function findActiveHeading(
+  headings: HTMLElement[],
+  scrollRoot: HTMLElement,
+  scrollTarget: HTMLElement | Window,
+): string | undefined {
+  const threshold = scrollTarget === window ? 72 : scrollRoot.getBoundingClientRect().top + 72;
   const passed = headings.filter((heading) => heading.getBoundingClientRect().top <= threshold);
   return (passed.at(-1) ?? headings[0])?.id;
 }
 
-export function TableOfContents({ mobile = false, page }: { mobile?: boolean; page: DocsPage }) {
-  const [items, setItems] = useState<TocItem[]>([]);
+export function TableOfContents({
+  items,
+  mobile = false,
+  page,
+}: {
+  items: TocItem[];
+  mobile?: boolean;
+  page: DocsPage;
+}) {
   const [activeId, setActiveId] = useState<string | undefined>();
   const [indicatorPosition, setIndicatorPosition] = useState<IndicatorPosition | undefined>();
   const clickedId = useRef<string | undefined>(undefined);
@@ -39,30 +51,28 @@ export function TableOfContents({ mobile = false, page }: { mobile?: boolean; pa
 
     if (!documentMain || !scrollRoot) return;
 
-    const headings = Array.from(documentMain.querySelectorAll<HTMLElement>("[data-toc-heading]"));
-    const nextItems = headings.flatMap((heading) => {
-      const label = heading.textContent?.trim();
-      if (!label || !heading.id) return [];
-      return [{ id: heading.id, label }];
+    const headings = items.flatMap((item) => {
+      const heading = document.getElementById(item.id);
+      return heading instanceof HTMLElement ? [heading] : [];
     });
+    const scrollTarget = getComputedStyle(scrollRoot).overflowY === "visible" ? window : scrollRoot;
 
-    setItems(nextItems);
-    setActiveId(findActiveHeading(headings, scrollRoot));
+    setActiveId(findActiveHeading(headings, scrollRoot, scrollTarget));
 
     const updateActiveHeading = () => {
       if (clickedId.current) return;
-      setActiveId(findActiveHeading(headings, scrollRoot));
+      setActiveId(findActiveHeading(headings, scrollRoot, scrollTarget));
     };
 
-    scrollRoot.addEventListener("scroll", updateActiveHeading, { passive: true });
+    scrollTarget.addEventListener("scroll", updateActiveHeading, { passive: true });
     window.addEventListener("resize", updateActiveHeading);
 
     return () => {
-      scrollRoot.removeEventListener("scroll", updateActiveHeading);
+      scrollTarget.removeEventListener("scroll", updateActiveHeading);
       window.removeEventListener("resize", updateActiveHeading);
       if (unlockTimer.current) window.clearTimeout(unlockTimer.current);
     };
-  }, [page]);
+  }, [items, page]);
 
   useEffect(() => {
     const itemsElement = itemsRef.current;
@@ -126,7 +136,11 @@ export function TableOfContents({ mobile = false, page }: { mobile?: boolean; pa
               return (
                 <a
                   aria-current={active ? "location" : undefined}
-                  {...stylex.props(styles.mobileItem, active && styles.activeMobileItem)}
+                  {...stylex.props(
+                    styles.mobileItem,
+                    item.depth === 3 && styles.nestedMobileItem,
+                    active && styles.activeMobileItem,
+                  )}
                   href={`#${item.id}`}
                   key={item.id}
                   onClick={() => selectItem(item.id)}
@@ -164,7 +178,11 @@ export function TableOfContents({ mobile = false, page }: { mobile?: boolean; pa
             return (
               <a
                 aria-current={active ? "location" : undefined}
-                {...stylex.props(styles.item, active && styles.activeItem)}
+                {...stylex.props(
+                  styles.item,
+                  item.depth === 3 && styles.nestedItem,
+                  active && styles.activeItem,
+                )}
                 href={`#${item.id}`}
                 key={item.id}
                 onClick={() => selectItem(item.id)}

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import type { DocsPage, DocsSectionId } from "../../contents/catalog";
 import { docsHeadingId } from "./heading";
+import { TableOfContents } from "./table-of-contents";
 
 interface DocumentFrameProps {
   children: ReactNode;
@@ -66,20 +67,10 @@ export function DocumentFrame({
       className={`docs-content-layout${showToc ? " has-toc" : ""}${workspace ? " is-workspace" : ""}`}
     >
       {showToc && (
-        <aside aria-label="On this page" className="docs-toc">
-          <p>On this page</p>
-          <nav>
-            {headings.map((heading) => (
-              <a
-                className={`docs-toc-link${heading.depth === 3 ? " is-nested" : ""}`}
-                href={`#${heading.id}`}
-                key={heading.id}
-              >
-                {heading.label}
-              </a>
-            ))}
-          </nav>
-        </aside>
+        <div className="docs-toc">
+          <TableOfContents items={headings} page={slug} />
+          <TableOfContents items={headings} mobile page={slug} />
+        </div>
       )}
       <article className="docs-article" data-document-main={slug}>
         {!workspace && (

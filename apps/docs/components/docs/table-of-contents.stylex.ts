@@ -6,17 +6,14 @@ export const styles = stylex.create({
     flex: "none",
     flexDirection: "column",
     gap: "8px",
-    position: "sticky",
-    top: "40px",
     width: "220px",
   },
   desktopRoot: { "@media (max-width: 1240px)": { display: "none" } },
   mobileRoot: {
-    backgroundColor: "var(--color-surface-translucent)",
+    backgroundColor: "var(--color-surface-subtle)",
     borderRadius: "8px",
-    boxShadow: "inset 0 0 0 0.5px var(--color-border-translucent)",
+    boxShadow: "inset 0 0 0 0.5px var(--color-border-tertiary)",
     display: "none",
-    marginBlockEnd: "24px",
     overflow: "hidden",
     width: "100%",
     "@media (min-width: 901px) and (max-width: 1240px)": { width: "220px" },
@@ -49,15 +46,16 @@ export const styles = stylex.create({
     lineHeight: "18px",
     padding: "7px 8px",
     textDecoration: "none",
-    ":hover": { backgroundColor: "var(--docs-sidebar-hover)" },
+    ":hover": { backgroundColor: "var(--color-surface-interactive-hover)" },
     ":focus-visible": {
       boxShadow: "inset 0 0 0 1px var(--color-focus-ring)",
       outline: "none",
     },
   },
+  nestedMobileItem: { paddingLeft: "18px" },
   activeMobileItem: {
-    backgroundColor: "var(--docs-sidebar-active)",
-    color: "var(--docs-fg-primary)",
+    backgroundColor: "var(--color-surface-selected)",
+    color: "var(--color-content-primary)",
   },
   label: {
     color: "var(--color-content-tertiary)",
@@ -87,7 +85,7 @@ export const styles = stylex.create({
     transition: "background-color 120ms ease-out, color 120ms ease-out",
     width: "220px",
     ":hover": {
-      backgroundColor: "var(--docs-sidebar-hover)",
+      backgroundColor: "var(--color-surface-interactive-hover)",
     },
     ":focus-visible": {
       boxShadow: "inset 0 0 0 1px var(--color-focus-ring)",
@@ -97,11 +95,12 @@ export const styles = stylex.create({
       transitionDuration: "0ms",
     },
   },
+  nestedItem: { paddingLeft: "28px" },
   activeItem: {
-    color: "var(--docs-fg-primary)",
+    color: "var(--color-content-primary)",
   },
   indicator: {
-    backgroundColor: "var(--docs-fg-primary)",
+    backgroundColor: "var(--color-content-primary)",
     borderRadius: "1px",
     height: "16px",
     left: "8px",

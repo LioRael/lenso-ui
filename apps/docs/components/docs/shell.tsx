@@ -107,7 +107,7 @@ export function DocsFrame({ children }: { children: ReactNode }) {
           <SectionLinks currentPage={page} section={section} />
         </div>
       </aside>
-      <main className="docs-main" id="main-content">
+      <main className="docs-main" data-docs-scroll id="main-content">
         {children}
       </main>
       <dialog aria-label="Navigation" className="docs-mobile-nav" ref={navDialog}>
