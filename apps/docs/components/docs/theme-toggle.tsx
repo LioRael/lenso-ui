@@ -11,7 +11,7 @@ const styles = stylex.create({
   mobileTouchTarget: {
     height: "32px",
     width: "32px",
-    "@media (max-width: 900px)": { height: "44px", width: "44px" },
+    "::after": { content: '""', inset: "-6px", position: "absolute" },
   },
 });
 
