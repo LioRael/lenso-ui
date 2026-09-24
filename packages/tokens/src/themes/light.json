@@ -95,7 +95,7 @@
         "$value": "{primitive.color.lightBorder}"
       },
       "control": {
-        "$value": "{primitive.color.lightEssential}"
+        "$value": "{primitive.color.lightBorder}"
       },
       "controlFocus": {
         "$value": "{primitive.color.lightFocus}"

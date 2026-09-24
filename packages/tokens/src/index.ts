@@ -520,7 +520,7 @@ export const themes = {
     "color.action.primary": "#1a1a1a",
     "color.action.primaryContent": "#fafafa",
     "color.action.primaryHover": "#333333",
-    "color.border.control": "#777777",
+    "color.border.control": "#dddddd",
     "color.border.controlFocus": "#4a4a4a",
     "color.border.decorative": "#dddddd",
     "color.border.dialog": "#dddddd",

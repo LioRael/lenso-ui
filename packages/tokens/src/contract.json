@@ -4376,14 +4376,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.4666666666666667,
-            0.4666666666666667,
-            0.4666666666666667
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667
           ],
           "alpha": 1
         },
         "cssName": "--color-border-control",
-        "cssValue": "#777777"
+        "cssValue": "#dddddd"
       },
       "color.border.controlFocus": {
         "path": "color.border.controlFocus",

@@ -107,7 +107,7 @@ export const tokens = stylex.defineConsts({
   colorActionPrimary: "var(--color-action-primary, #1a1a1a)",
   colorActionPrimaryContent: "var(--color-action-primary-content, #fafafa)",
   colorActionPrimaryHover: "var(--color-action-primary-hover, #333333)",
-  colorBorderControl: "var(--color-border-control, #777777)",
+  colorBorderControl: "var(--color-border-control, #dddddd)",
   colorBorderControlFocus: "var(--color-border-control-focus, #4a4a4a)",
   colorBorderDecorative: "var(--color-border-decorative, #dddddd)",
   colorBorderDialog: "var(--color-border-dialog, #dddddd)",
