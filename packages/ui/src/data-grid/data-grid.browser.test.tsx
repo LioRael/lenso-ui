@@ -6,7 +6,11 @@ import axe from "axe-core";
 import "virtual:stylex:runtime";
 
 import "../../../tokens/src/styles.css";
-import type { DataGridCellChange, DataGridRowChange } from "@lenso/primitives/data-grid";
+import type {
+  DataGridCellChange,
+  DataGridRowChange,
+  DataGridTable,
+} from "@lenso/primitives/data-grid";
 import { DataGrid, type DataGridColumn } from "./index.js";
 
 type Row = { id: string; name: string; amount: number };
@@ -81,6 +85,9 @@ test("commits a validated cell once and reports global, row, and exact-cell even
   await userEvent.clear(screen.getByRole("textbox", { name: "Edit Name, row 1" }));
   await userEvent.keyboard("{Enter}");
   await expect.element(screen.getByRole("alert")).toHaveTextContent("Name is required");
+  await expect
+    .element(screen.getByRole("textbox", { name: "Edit Name, row 1" }))
+    .toHaveAttribute("aria-invalid", "true");
   expect(onCell).not.toHaveBeenCalled();
   await userEvent.fill(screen.getByRole("textbox", { name: "Edit Name, row 1" }), "Atlas Labs");
   await userEvent.keyboard("{Enter}");
@@ -88,6 +95,42 @@ test("commits a validated cell once and reports global, row, and exact-cell even
   expect(onCell).toHaveBeenCalledTimes(1);
   expect(onRow).toHaveBeenCalledTimes(1);
   expect(onExact).toHaveBeenCalledTimes(1);
+});
+
+test("forwards TanStack options and exposes the live table instance", async () => {
+  const tableRef = React.createRef<DataGridTable<Row>>();
+  await render(
+    <DataGrid
+      label="Projects"
+      rows={initialRows}
+      columns={columns}
+      getRowId={(row) => row.id}
+      tableRef={tableRef}
+      tableOptions={{ initialState: { sorting: [{ id: "amount", desc: false }] } }}
+      readOnly
+    />,
+  );
+  expect(tableRef.current?.getRowModel().rows[0]?.original.id).toBe("b");
+  expect(tableRef.current?.getColumn("amount")?.getIsSorted()).toBe("asc");
+});
+
+test("preserves native and convenience sorting callbacks together", async () => {
+  const onNative = vi.fn();
+  const onSortingChange = vi.fn();
+  const screen = await render(
+    <DataGrid
+      label="Projects"
+      rows={initialRows}
+      columns={columns}
+      getRowId={(row) => row.id}
+      tableOptions={{ onSortingChange: onNative }}
+      onSortingChange={onSortingChange}
+      readOnly
+    />,
+  );
+  await userEvent.click(screen.getByRole("button", { name: "Sort by Amount" }));
+  expect(onNative).toHaveBeenCalledOnce();
+  expect(onSortingChange).toHaveBeenCalledWith([{ id: "amount", desc: true }]);
 });
 
 test("read-only and display switches remove edit, selection, number, and sort affordances", async () => {

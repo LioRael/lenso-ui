@@ -60,6 +60,8 @@ If a semantic family cannot express a new reusable role, add it to DTCG source a
 
 The package intentionally has no all-components root barrel. Import the exact family subpath. Treat `xstyle` as a bounded integration seam; if Consumers repeatedly recreate the same state or geometry, make an explicit neutral variant rather than proliferating page-local CSS.
 
+Data Grid editing keeps the cell footprint and content alignment stable. The input fills the active cell, one focus boundary marks the edit, and validation feedback stays anchored to that cell. Range dragging selects cells without selecting page text; text remains selectable inside the active editor. Use the primitive's TanStack table instance and option pass-through for product-specific behavior rather than adding one-off convenience props to the styled component.
+
 For a compact navigation item and a two-line workspace choice, compose the public parts rather than recreating their geometry:
 
 ```tsx

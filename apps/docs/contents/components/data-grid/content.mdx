@@ -25,22 +25,37 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
       <ul>
         <li>Double-click or press Enter to edit. Enter commits; Escape cancels. Drag to select a range, use arrow keys to move, or copy and paste tab-separated cells.</li>
         <li>Set <code>readOnly</code>, <code>showRowSelection</code>, <code>showRowNumbers</code>, <code>sortable</code>, <code>cellSelection</code>, or <code>resizable</code> independently.</li>
-        <li>Each column can define parsing, validation, editable rules, rendering, and a cell-specific completion callback. Grid-level callbacks report cell commits, grouped row commits, selections, and sorting. Changes are applied only through <code>onRowsChange</code>.</li>
+        <li>Each column can define parsing, validation, editable rules, rendering, and a cell-specific completion callback. Validation receives the final proposed rows, the original rows, the TanStack table, and optional external data, so linked rules can be checked before any change is applied.</li>
+        <li>Use <code>tableOptions</code> for TanStack Table options, <code>tableColumn</code> for per-column options, and <code>tableRef</code> to access the live API for the registered features. Grid-level callbacks remain convenient for cell commits, grouped row commits, selections, and sorting.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
 
 <CodeExample
-  code={String.raw`import { DataGrid } from "@lenso/ui/data-grid";
-import { useDataGrid } from "@lenso/primitives/data-grid";
+  code={String.raw`import { useRef } from "react";
+import { DataGrid, type DataGridColumn } from "@lenso/ui/data-grid";
+import type { DataGridTable } from "@lenso/primitives/data-grid";
 
-const columns = [
+type Company = { id: string; name: string };
+type Rules = { reservedNames: ReadonlySet<string> };
+const tableRef = useRef<DataGridTable<Company>>(null);
+const rules: Rules = { reservedNames: new Set(["lenso"]) };
+
+const columns: DataGridColumn<Company, Rules>[] = [
     {
       id: "name",
       header: "Company",
       getValue: (row) => row.name,
       setValue: (row, value) => ({ ...row, name: String(value) }),
-      validate: (value) => (String(value).trim() ? null : "Name is required"),
+      tableColumn: { sortingFn: "alphanumeric" },
+      validate: (value, row, { rows, data }) => {
+        const name = String(value).trim();
+        if (!name) return "Name is required";
+        if (data?.reservedNames.has(name.toLowerCase())) return "Name is reserved";
+        return rows.some((other) => other.id !== row.id && other.name === name)
+          ? "Name already exists"
+          : null;
+      },
     },
 ];
 
@@ -50,8 +65,11 @@ const columns = [
     columns={columns}
     getRowId={(row) => row.id}
     onRowsChange={setRows}
+    validationData={rules}
+    tableOptions={{ enableMultiCellRangeSelection: false }}
+    tableRef={tableRef}
     onCellEditComplete={(change) => saveCell(change)}
     onRowEditComplete={(change) => auditRow(change)}
 />;`}
-  description="Keep rows in application state. Column and grid callbacks receive committed changes after validation."
+  description="Validation sees the candidate transaction. The ref exposes TanStack's full table instance."
 />

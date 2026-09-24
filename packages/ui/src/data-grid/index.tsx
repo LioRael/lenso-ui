@@ -8,6 +8,7 @@ import {
   useDataGrid,
   type DataGridColumn as PrimitiveColumn,
   type DataGridValue,
+  type DataGridTable,
   type UseDataGridOptions,
 } from "@lenso/primitives/data-grid";
 import { ResizeHandle as ResizeHandlePrimitive } from "@lenso/primitives/resize-handle";
@@ -15,7 +16,10 @@ import { Checkbox } from "../checkbox/index.js";
 import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./data-grid.stylex.js";
 
-export interface DataGridColumn<TRow> extends PrimitiveColumn<TRow> {
+export interface DataGridColumn<
+  TRow extends object,
+  TValidationData = unknown,
+> extends PrimitiveColumn<TRow, TValidationData> {
   icon?: React.ReactNode;
   renderCell?: (value: DataGridValue, row: TRow) => React.ReactNode;
   renderEditor?: (props: {
@@ -24,14 +28,16 @@ export interface DataGridColumn<TRow> extends PrimitiveColumn<TRow> {
     onCommit: () => void;
     onCancel: () => void;
     inputRef: React.Ref<HTMLInputElement>;
+    row: TRow;
+    error: string | null;
   }) => React.ReactNode;
 }
 
-export interface DataGridProps<TRow extends object>
+export interface DataGridProps<TRow extends object, TValidationData = unknown>
   extends
-    Omit<UseDataGridOptions<TRow>, "columns" | "rowSelection" | "sorting">,
+    Omit<UseDataGridOptions<TRow, TValidationData>, "columns" | "rowSelection" | "sorting">,
     Omit<StyleXProps<React.ComponentPropsWithoutRef<"div">>, "children" | "onChange"> {
-  columns: readonly DataGridColumn<TRow>[];
+  columns: readonly DataGridColumn<TRow, TValidationData>[];
   label: string;
   showRowSelection?: boolean;
   showRowNumbers?: boolean;
@@ -44,6 +50,7 @@ export interface DataGridProps<TRow extends object>
   onColumnWidthChange?: (columnId: string, width: number) => void;
   onCellEditStart?: (rowId: string, columnId: string) => void;
   onCellEditCancel?: (rowId: string, columnId: string) => void;
+  tableRef?: React.Ref<DataGridTable<TRow>>;
 }
 
 interface EditingCell {
@@ -52,7 +59,13 @@ interface EditingCell {
   value: string;
 }
 
-export function DataGrid<TRow extends object>({
+interface GridError {
+  message: string;
+  rowId?: string;
+  columnId?: string;
+}
+
+export function DataGrid<TRow extends object, TValidationData = unknown>({
   rows,
   columns,
   getRowId,
@@ -77,11 +90,14 @@ export function DataGrid<TRow extends object>({
   onColumnWidthChange,
   onCellEditStart,
   onCellEditCancel,
+  validationData,
+  tableOptions,
+  tableRef,
   xstyle,
   style,
   ...props
-}: DataGridProps<TRow>) {
-  const { table, commitCells } = useDataGrid({
+}: DataGridProps<TRow, TValidationData>) {
+  const { table, commitCells } = useDataGrid<TRow, TValidationData>({
     rows,
     columns,
     getRowId,
@@ -96,23 +112,15 @@ export function DataGrid<TRow extends object>({
     ...(onRowSelectionChange && { onRowSelectionChange }),
     ...(onCellSelectionChange && { onCellSelectionChange }),
     ...(onSortingChange && { onSortingChange }),
+    ...(validationData !== undefined && { validationData }),
+    ...(tableOptions && { tableOptions }),
   });
+  React.useImperativeHandle(tableRef, () => table, [table]);
   const [editing, setEditing] = React.useState<EditingCell | null>(null);
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<GridError | null>(null);
   const tableId = React.useId();
-  const previousWidths = React.useRef<Record<string, number> | null>(null);
-  React.useEffect(() => {
-    const current = table.state.columnSizing;
-    if (previousWidths.current) {
-      for (const [id, width] of Object.entries(current)) {
-        if (previousWidths.current[id] !== width) onColumnWidthChange?.(id, width);
-      }
-    }
-    previousWidths.current = current;
-  }, [onColumnWidthChange, table.state.columnSizing]);
+  const errorId = React.useId();
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const editRef = React.useRef<EditingCell | null>(null);
-  editRef.current = editing;
   React.useEffect(() => {
     if (editing) inputRef.current?.focus();
   }, [editing]);
@@ -130,6 +138,8 @@ export function DataGrid<TRow extends object>({
     }
   }
   const columnById = new Map(columns.map((column) => [column.id, column]));
+  const isCellError = (rowId: string, columnId: string) =>
+    error?.rowId === rowId && error.columnId === columnId;
   const beginEdit = (rowId: string, columnId: string, initial?: string) => {
     const column = columnById.get(columnId);
     const row = rows.find((item) => getRowId(item) === rowId);
@@ -147,7 +157,7 @@ export function DataGrid<TRow extends object>({
     onCellEditStart?.(rowId, columnId);
   };
   const commitEdit = () => {
-    const current = editRef.current;
+    const current = editing;
     if (!current) return;
     const row = rows.find((item) => getRowId(item) === current.rowId);
     const column = columnById.get(current.columnId);
@@ -156,14 +166,18 @@ export function DataGrid<TRow extends object>({
     try {
       value = column.parse ? column.parse(current.value, row) : current.value;
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Invalid value");
+      setError({
+        message: cause instanceof Error ? cause.message : "Invalid value",
+        rowId: current.rowId,
+        columnId: current.columnId,
+      });
       return;
     }
     const result = commitCells([{ rowId: current.rowId, columnId: current.columnId, value }]);
     if (result.ok) {
       setEditing(null);
       setError(null);
-    } else setError(result.error);
+    } else setError({ message: result.error, rowId: current.rowId, columnId: current.columnId });
   };
   const cancelEdit = () => {
     if (editing) onCellEditCancel?.(editing.rowId, editing.columnId);
@@ -249,13 +263,13 @@ export function DataGrid<TRow extends object>({
         );
     } catch (cause) {
       event.preventDefault();
-      setError(cause instanceof Error ? cause.message : "Invalid value");
+      setError({ message: cause instanceof Error ? cause.message : "Invalid value" });
       return;
     }
     if (edits.length === 0) return;
     event.preventDefault();
     const result = commitCells(edits, "paste");
-    setError(result.ok ? null : result.error);
+    setError(result.ok ? null : { message: result.error });
   };
   return (
     <div
@@ -353,12 +367,13 @@ export function DataGrid<TRow extends object>({
                       max={config.maxWidth ?? 1200}
                       step={8}
                       value={header.column.getSize()}
-                      onValueChange={(width) =>
+                      onValueChange={(width) => {
                         table.setColumnSizing((current) => ({
                           ...current,
                           [header.column.id]: width,
-                        }))
-                      }
+                        }));
+                        onColumnWidthChange?.(header.column.id, width);
+                      }}
                       xstyle={styles.resizeHandle}
                     />
                   )}
@@ -426,21 +441,43 @@ export function DataGrid<TRow extends object>({
                       pinned && styles.lead,
                       cell.getIsSelected() && styles.selectedCell,
                       cell.getIsFocused() && styles.focusedCell,
+                      isEditing && styles.editingCell,
                     )}
                     style={{
                       height: rowHeight,
                       ...(pinned ? { left: pinnedOffsets.get(cell.column.id) } : {}),
                     }}
                     onMouseDown={
-                      cellSelection && !isEditing ? cell.getSelectionStartHandler() : undefined
+                      cellSelection && !isEditing
+                        ? (event) => {
+                            if (event.button !== 0) return;
+                            if (
+                              (event.target as HTMLElement).closest(
+                                "a, button, input, textarea, select",
+                              )
+                            )
+                              return;
+                            event.preventDefault();
+                            cell.getSelectionStartHandler()(event);
+                          }
+                        : undefined
                     }
                     onMouseEnter={cellSelection ? cell.getSelectionExtendHandler() : undefined}
-                    onClick={(event) => event.currentTarget.focus()}
-                    onDoubleClick={() => beginEdit(row.id, cell.column.id)}
+                    onClick={(event) => {
+                      if (!isEditing) event.currentTarget.focus();
+                    }}
+                    onDoubleClick={() => {
+                      if (!isEditing) beginEdit(row.id, cell.column.id);
+                    }}
                     onKeyDown={(event) => onCellKeyDown(event, row.id, cell.column.id)}
                   >
                     {isEditing ? (
-                      <div {...stylex.props(styles.editorWrap)}>
+                      <div
+                        {...stylex.props(
+                          styles.editorWrap,
+                          isCellError(row.id, cell.column.id) && styles.editorWrapInvalid,
+                        )}
+                      >
                         {config.renderEditor ? (
                           config.renderEditor({
                             value: editing.value,
@@ -448,11 +485,19 @@ export function DataGrid<TRow extends object>({
                             onCommit: commitEdit,
                             onCancel: cancelEdit,
                             inputRef,
+                            row: row.original,
+                            error: isCellError(row.id, cell.column.id)
+                              ? (error?.message ?? null)
+                              : null,
                           })
                         ) : (
                           <input
                             ref={inputRef}
                             aria-label={`Edit ${config.header}, row ${index + 1}`}
+                            aria-invalid={isCellError(row.id, cell.column.id)}
+                            aria-describedby={
+                              isCellError(row.id, cell.column.id) ? errorId : undefined
+                            }
                             value={editing.value}
                             onChange={(event) =>
                               setEditing({ ...editing, value: event.target.value })
@@ -472,6 +517,11 @@ export function DataGrid<TRow extends object>({
                             {...stylex.props(styles.editor)}
                           />
                         )}
+                        {isCellError(row.id, cell.column.id) && (
+                          <span id={errorId} role="alert" {...stylex.props(styles.editorError)}>
+                            {error?.message}
+                          </span>
+                        )}
                       </div>
                     ) : (
                       <span {...stylex.props(styles.ellipsis)}>
@@ -489,9 +539,9 @@ export function DataGrid<TRow extends object>({
           ))}
         </tbody>
       </table>
-      {error && (
+      {error && !error.rowId && (
         <div role="alert" {...stylex.props(styles.error)}>
-          {error}
+          {error.message}
         </div>
       )}
     </div>

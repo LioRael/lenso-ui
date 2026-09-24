@@ -17,6 +17,53 @@ type Company = {
   employees: number;
   website: string;
 };
+type CompanyValidation = { reservedNames: ReadonlySet<string> };
+const validationData: CompanyValidation = { reservedNames: new Set(["lenso"]) };
+
+function IdentityEditor({
+  label,
+  marker,
+  value,
+  onChange,
+  onCommit,
+  onCancel,
+  inputRef,
+  error,
+}: {
+  label: string;
+  marker: React.ReactNode;
+  value: string;
+  onChange: (value: string) => void;
+  onCommit: () => void;
+  onCancel: () => void;
+  inputRef: React.Ref<HTMLInputElement>;
+  error: string | null;
+}) {
+  return (
+    <span {...stylex.props(styles.identityEditor)}>
+      {marker}
+      <input
+        ref={inputRef}
+        aria-label={`Edit ${label}`}
+        aria-invalid={Boolean(error)}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        onBlur={onCommit}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            onCommit();
+          }
+          if (event.key === "Escape") {
+            event.preventDefault();
+            onCancel();
+          }
+        }}
+        {...stylex.props(styles.identityInput)}
+      />
+    </span>
+  );
+}
 const initialRows: Company[] = [
   {
     id: "quantum",
@@ -100,7 +147,7 @@ const initialRows: Company[] = [
   },
 ];
 
-const columns: readonly DataGridColumn<Company>[] = [
+const columns: readonly DataGridColumn<Company, CompanyValidation>[] = [
   {
     id: "name",
     header: "Company",
@@ -110,7 +157,31 @@ const columns: readonly DataGridColumn<Company>[] = [
     pinned: true,
     getValue: (row) => row.name,
     setValue: (row, value) => ({ ...row, name: String(value) }),
-    validate: (value) => (String(value).trim() ? null : "Company name is required"),
+    validate: (value, row, context) => {
+      const name = String(value).trim();
+      if (!name) return "Company name is required";
+      if (context.data?.reservedNames.has(name.toLowerCase())) return "This name is reserved";
+      if (
+        context.rows.some(
+          (other) => other.id !== row.id && other.name.toLowerCase() === name.toLowerCase(),
+        )
+      )
+        return "Company name already exists";
+      return null;
+    },
+    renderEditor: ({ row, ...editor }) => (
+      <IdentityEditor
+        {...editor}
+        label="Company"
+        marker={
+          <span
+            aria-hidden="true"
+            {...stylex.props(styles.swatch)}
+            style={{ backgroundColor: row.color }}
+          />
+        }
+      />
+    ),
     renderCell: (value, row) => (
       <span {...stylex.props(styles.identity)}>
         <span
@@ -134,6 +205,13 @@ const columns: readonly DataGridColumn<Company>[] = [
         <span aria-hidden="true">{row.flag}</span>
         {value}
       </span>
+    ),
+    renderEditor: ({ row, ...editor }) => (
+      <IdentityEditor
+        {...editor}
+        label="Location"
+        marker={<span aria-hidden="true">{row.flag}</span>}
+      />
     ),
   },
   {
@@ -212,6 +290,7 @@ export function DataGridDemo() {
         showRowNumbers={showRowNumbers}
         sortable={sortable}
         cellSelection={cellSelection}
+        validationData={validationData}
         onRowsChange={setRows}
         onCellEditComplete={(change) => setLastEvent(`${change.columnId} in ${change.rowId} saved`)}
       />

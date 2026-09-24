@@ -6,6 +6,8 @@ import {
   columnResizingFeature,
   columnSizingFeature,
   createSortedRowModel,
+  functionalUpdate,
+  makeStateUpdater,
   rowSelectionFeature,
   rowSortingFeature,
   sortFn_alphanumeric,
@@ -17,7 +19,9 @@ import {
   type ColumnDef,
   type CellSelectionState,
   type RowData,
+  type ReactTable,
   type SortingState,
+  type TableOptions,
 } from "@tanstack/react-table";
 
 export type DataGridValue = string | number | boolean | null;
@@ -43,13 +47,17 @@ export interface DataGridRowChange<TRow> {
   reason: DataGridEditReason;
 }
 
-export interface DataGridColumn<TRow> {
+export interface DataGridColumn<TRow extends RowData, TValidationData = unknown> {
   id: string;
   header: string;
   getValue: (row: TRow) => DataGridValue;
   setValue?: (row: TRow, value: DataGridValue) => TRow;
   parse?: (input: string, row: TRow) => DataGridValue;
-  validate?: (value: DataGridValue, row: TRow) => string | null;
+  validate?: (
+    value: DataGridValue,
+    row: TRow,
+    context: DataGridValidationContext<TRow, TValidationData>,
+  ) => string | null;
   editable?: boolean | ((row: TRow) => boolean);
   sortable?: boolean;
   width?: number;
@@ -57,6 +65,10 @@ export interface DataGridColumn<TRow> {
   maxWidth?: number;
   pinned?: boolean;
   onCellEditComplete?: (change: DataGridCellChange<TRow>) => void;
+  tableColumn?: Omit<
+    Partial<ColumnDef<typeof dataGridFeatures, TRow, unknown>>,
+    "id" | "header" | "accessorFn"
+  >;
 }
 
 export interface DataGridEdit {
@@ -75,9 +87,9 @@ export type DataGridCommitResult<TRow> =
   | { ok: true; changes: readonly DataGridCellChange<TRow>[] }
   | { ok: false; error: string; edit: DataGridEdit };
 
-export interface UseDataGridOptions<TRow extends RowData> {
+export interface UseDataGridOptions<TRow extends RowData, TValidationData = unknown> {
   rows: readonly TRow[];
-  columns: readonly DataGridColumn<TRow>[];
+  columns: readonly DataGridColumn<TRow, TValidationData>[];
   getRowId: (row: TRow) => string;
   readOnly?: boolean;
   rowSelection?: boolean;
@@ -90,9 +102,11 @@ export interface UseDataGridOptions<TRow extends RowData> {
   onRowSelectionChange?: (rowIds: ReadonlySet<string>) => void;
   onCellSelectionChange?: (ranges: CellSelectionState) => void;
   onSortingChange?: (sorting: SortingState) => void;
+  validationData?: TValidationData;
+  tableOptions?: DataGridTableOptions<TRow>;
 }
 
-const features = tableFeatures({
+export const dataGridFeatures = tableFeatures({
   cellSelectionFeature,
   columnSizingFeature,
   columnResizingFeature,
@@ -107,7 +121,24 @@ const features = tableFeatures({
   },
 });
 
-export function useDataGrid<TRow extends RowData>({
+export type DataGridTable<TRow extends RowData> = ReactTable<typeof dataGridFeatures, TRow>;
+export type DataGridTableOptions<TRow extends RowData> = Partial<
+  Omit<TableOptions<typeof dataGridFeatures, TRow>, "features" | "columns" | "data" | "getRowId">
+>;
+
+export interface DataGridValidationContext<TRow extends RowData, TValidationData = unknown> {
+  rowId: string;
+  rowIndex: number;
+  columnId: string;
+  rows: readonly TRow[];
+  originalRows: readonly TRow[];
+  changes: readonly DataGridCellChange<TRow>[];
+  reason: DataGridEditReason;
+  data: TValidationData | undefined;
+  table: DataGridTable<TRow>;
+}
+
+export function useDataGrid<TRow extends RowData, TValidationData = unknown>({
   rows,
   columns,
   getRowId,
@@ -122,8 +153,10 @@ export function useDataGrid<TRow extends RowData>({
   onRowSelectionChange,
   onCellSelectionChange,
   onSortingChange,
-}: UseDataGridOptions<TRow>) {
-  const tableColumns = React.useMemo<ColumnDef<typeof features, TRow, unknown>[]>(
+  validationData,
+  tableOptions,
+}: UseDataGridOptions<TRow, TValidationData>) {
+  const tableColumns = React.useMemo<ColumnDef<typeof dataGridFeatures, TRow, unknown>[]>(
     () =>
       columns.map((column) => ({
         id: column.id,
@@ -134,12 +167,13 @@ export function useDataGrid<TRow extends RowData>({
         size: column.width ?? 180,
         minSize: column.minWidth ?? 80,
         maxSize: column.maxWidth ?? 1200,
+        ...column.tableColumn,
       })),
     [cellSelection, columns, sorting],
   );
 
   const table = useTable({
-    features,
+    features: dataGridFeatures,
     columns: tableColumns,
     data: rows,
     getRowId,
@@ -148,6 +182,22 @@ export function useDataGrid<TRow extends RowData>({
     enableCellSelectionDrag: cellSelection,
     autoResetCellSelection: false,
     enableSorting: sorting,
+    ...tableOptions,
+    onRowSelectionChange: (updater) => {
+      const next = functionalUpdate(updater, table.state.rowSelection);
+      (tableOptions?.onRowSelectionChange ?? makeStateUpdater("rowSelection", table))(updater);
+      onRowSelectionChange?.(new Set(Object.keys(next).filter((id) => next[id])));
+    },
+    onCellSelectionChange: (updater) => {
+      const next = functionalUpdate(updater, table.state.cellSelection);
+      (tableOptions?.onCellSelectionChange ?? makeStateUpdater("cellSelection", table))(updater);
+      onCellSelectionChange?.(next);
+    },
+    onSortingChange: (updater) => {
+      const next = functionalUpdate(updater, table.state.sorting);
+      (tableOptions?.onSortingChange ?? makeStateUpdater("sorting", table))(updater);
+      onSortingChange?.(next);
+    },
   });
 
   const commitCells = React.useCallback(
@@ -164,8 +214,10 @@ export function useDataGrid<TRow extends RowData>({
       const rowIndexById = new Map(rows.map((row, index) => [getRowId(row), index]));
       const columnById = new Map(columns.map((column) => [column.id, column]));
       const changes: DataGridCellChange<TRow>[] = [];
+      const uniqueEdits = new Map<string, DataGridEdit>();
+      for (const edit of edits) uniqueEdits.set(JSON.stringify([edit.rowId, edit.columnId]), edit);
 
-      for (const edit of edits) {
+      for (const edit of uniqueEdits.values()) {
         const rowIndex = rowIndexById.get(edit.rowId);
         const column = columnById.get(edit.columnId);
         if (rowIndex === undefined || !column) {
@@ -181,8 +233,6 @@ export function useDataGrid<TRow extends RowData>({
 
         const previousValue = column.getValue(row);
         const value = edit.value;
-        const validationError = column.validate?.(value, row);
-        if (validationError) return { ok: false, error: validationError, edit };
         if (Object.is(previousValue, value)) continue;
 
         const updatedRow = column.setValue!(row, value);
@@ -200,6 +250,27 @@ export function useDataGrid<TRow extends RowData>({
       }
 
       if (changes.length === 0) return { ok: true, changes };
+      for (const change of changes) {
+        const column = columnById.get(change.columnId)!;
+        const validationError = column.validate?.(change.value, nextRows[change.rowIndex]!, {
+          rowId: change.rowId,
+          rowIndex: change.rowIndex,
+          columnId: change.columnId,
+          rows: nextRows,
+          originalRows: rows,
+          changes,
+          reason,
+          data: validationData,
+          table,
+        });
+        if (validationError) {
+          return {
+            ok: false,
+            error: validationError,
+            edit: { rowId: change.rowId, columnId: change.columnId, value: change.value },
+          };
+        }
+      }
       onRowsChange(nextRows, changes);
       for (const change of changes) {
         onCellEditComplete?.(change);
@@ -239,51 +310,10 @@ export function useDataGrid<TRow extends RowData>({
       onRowsChange,
       readOnly,
       rows,
+      table,
+      validationData,
     ],
   );
-
-  const previousState = React.useRef<{
-    rowSelection?: string;
-    cellSelection?: string;
-    sorting?: string;
-  }>({});
-  React.useEffect(() => {
-    const rowSelectionState = JSON.stringify(table.state.rowSelection);
-    const cellSelectionState = JSON.stringify(table.state.cellSelection);
-    const sortingState = JSON.stringify(table.state.sorting);
-    if (
-      previousState.current.rowSelection !== undefined &&
-      previousState.current.rowSelection !== rowSelectionState
-    ) {
-      onRowSelectionChange?.(
-        new Set(Object.keys(table.state.rowSelection).filter((id) => table.state.rowSelection[id])),
-      );
-    }
-    if (
-      previousState.current.cellSelection !== undefined &&
-      previousState.current.cellSelection !== cellSelectionState
-    ) {
-      onCellSelectionChange?.(table.state.cellSelection);
-    }
-    if (
-      previousState.current.sorting !== undefined &&
-      previousState.current.sorting !== sortingState
-    ) {
-      onSortingChange?.(table.state.sorting);
-    }
-    previousState.current = {
-      rowSelection: rowSelectionState,
-      cellSelection: cellSelectionState,
-      sorting: sortingState,
-    };
-  }, [
-    table.state.cellSelection,
-    table.state.rowSelection,
-    table.state.sorting,
-    onCellSelectionChange,
-    onRowSelectionChange,
-    onSortingChange,
-  ]);
 
   return { table, commitCells };
 }

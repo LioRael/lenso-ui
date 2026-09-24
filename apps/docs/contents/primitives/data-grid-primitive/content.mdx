@@ -20,9 +20,10 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
     <GuidanceBlock title="Commit contract">
       <ul>
         <li>Provide stable row IDs and immutable <code>rows</code>. Without <code>onRowsChange</code>, edits are rejected. Set <code>readOnly</code> to make that intent explicit.</li>
-        <li><code>commitCells</code> checks all edits before calling <code>onRowsChange</code>. A failed validation rejects the batch without applying a partial update.</li>
+        <li><code>commitCells</code> constructs the complete candidate rows, then checks every edit before calling <code>onRowsChange</code>. A failed validation rejects the batch without applying a partial update. The validation context includes <code>rows</code>, <code>originalRows</code>, <code>table</code>, and typed <code>validationData</code>.</li>
         <li>Use <code>onCellEditComplete</code> for every cell, a column's callback for that column, <code>cellEvents</code> for exact row-and-column targets, and <code>onRowEditComplete</code> once per affected row in a transaction.</li>
         <li>Cell selection follows TanStack Table's range model. Bind a cell's start handler to mouse down and its extend handler to mouse enter if you build custom markup.</li>
+        <li>Pass advanced TanStack options through <code>tableOptions</code> and individual column options through <code>tableColumn</code>. The returned <code>table</code> is the live TanStack instance for the registered features, including selection atoms, sorting, sizing, and row-model APIs.</li>
       </ul>
     </GuidanceBlock>
   </Guidance>
