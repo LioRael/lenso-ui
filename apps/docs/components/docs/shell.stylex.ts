@@ -222,16 +222,6 @@ export const styles = stylex.create({
   },
   brand: { color: "var(--docs-fg-primary)", fontSize: "15px", fontWeight: 600, lineHeight: "20px" },
   sidebarContent: { minHeight: 0, paddingInline: 0 },
-  scrollFadeTop: {
-    backgroundImage: "linear-gradient(var(--docs-sidebar), transparent)",
-    height: "24px",
-    insetInline: 0,
-    pointerEvents: "none",
-    position: "absolute",
-    top: "70px",
-    zIndex: 1,
-    "@media (max-width: 900px)": { top: "62px" },
-  },
   scrollFadeBottom: {
     backgroundImage: "linear-gradient(transparent, var(--docs-sidebar))",
     bottom: "14px",

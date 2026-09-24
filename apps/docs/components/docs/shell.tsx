@@ -181,16 +181,13 @@ function DocumentationSidebar({
   onNavigate: () => void;
 }) {
   const contentRef = useRef<HTMLDivElement>(null);
-  const [scrollEdges, setScrollEdges] = useState({ top: false, bottom: false });
+  const [canScrollDown, setCanScrollDown] = useState(false);
 
   const updateScrollEdges = () => {
     const content = contentRef.current;
     if (!content) return;
-    const top = content.scrollTop > 1;
     const bottom = content.scrollTop + content.clientHeight < content.scrollHeight - 1;
-    setScrollEdges((previous) =>
-      previous.top === top && previous.bottom === bottom ? previous : { top, bottom },
-    );
+    setCanScrollDown(bottom);
   };
 
   useEffect(() => {
@@ -228,8 +225,7 @@ function DocumentationSidebar({
           <DocumentationNavigation current={current} onNavigate={onNavigate} />
         </nav>
       </Sidebar.Content>
-      {scrollEdges.top && <div aria-hidden="true" {...stylex.props(styles.scrollFadeTop)} />}
-      {scrollEdges.bottom && <div aria-hidden="true" {...stylex.props(styles.scrollFadeBottom)} />}
+      {canScrollDown && <div aria-hidden="true" {...stylex.props(styles.scrollFadeBottom)} />}
     </Sidebar.Panel>
   );
 }
