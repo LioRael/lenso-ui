@@ -4,15 +4,29 @@ layout: "document"
 description: "Find package versions, release history, and the supported installation paths."
 eyebrow: "Start · Package compatibility"
 metadata:
-  - "Moved"
-  - "Compatibility"
+  - "Package versions"
+  - "Release history"
 ---
 
-This address is no longer maintained as a product page. Start with
-[Installation](/start/installation) to add the managed packages, or choose
-[Package vs Registry](/start/package-vs-registry) when you need editable source.
+Use this page to check the source of a version before changing an application.
+Documentation examples show an installation path; they do not report the latest
+published version.
 
-Package metadata is the source of truth for compatible versions. Published
-changes and migration notes live in the repository
-[release history](https://github.com/LioRael/lenso-ui/releases). Versioned registry
-snapshots remain available at `/r/v/{version}/{name}.json` for reproducible installs.
+## Check package versions
+
+The installed and published metadata for `@lenso/ui`, `@lenso/primitives`, and
+`@lenso/tokens` is the source of truth for package versions. Check those versions
+before upgrading; do not infer them from a documentation example.
+
+## Choose an installation path
+
+Use [Installation](/start/installation) for managed packages. If you need editable
+component source, use [Package vs Registry](/start/package-vs-registry) to choose
+the registry channel. A versioned registry snapshot at
+`/r/v/{version}/{name}.json` keeps a copied source install reproducible.
+
+## Read release history
+
+Published changes and migration notes live in the repository
+[release history](https://github.com/LioRael/lenso-ui/releases). Review them
+alongside package metadata before updating an existing application.

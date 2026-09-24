@@ -2,9 +2,8 @@ import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
   root: {
-    backgroundColor: "var(--color-surface-translucent)",
+    backgroundColor: "var(--color-surface-control)",
     borderRadius: "10px",
-    boxShadow: "inset 0 0 0 0.5px var(--color-border-translucent)",
     color: "var(--color-content-primary)",
     fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
     fontSize: "12px",

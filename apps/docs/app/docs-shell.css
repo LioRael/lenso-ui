@@ -366,9 +366,10 @@ html[data-theme="dark"] .docs-shell {
   margin: 17px 0 25px;
   padding: 17px 19px;
   overflow-x: auto;
-  border: 1px solid var(--color-border-tertiary);
+  border: 0;
   border-radius: 10px;
-  background: var(--color-surface-subtle);
+  background: var(--color-surface-control);
+  box-shadow: none;
   color: var(--color-content-primary);
   font:
     12px/18px ui-monospace,
