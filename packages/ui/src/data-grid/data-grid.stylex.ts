@@ -1,5 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../tokens.stylex.js";
+import { resizeHandleState } from "../resize-handle/resize-handle.stylex.js";
 
 export const styles = stylex.create({
   root: {
@@ -66,10 +67,10 @@ export const styles = stylex.create({
     top: 0,
     verticalAlign: "middle",
     whiteSpace: "nowrap",
-    zIndex: 20,
+    zIndex: 40,
   },
   lead: { position: "sticky", zIndex: 10 },
-  pinnedHead: { position: "sticky", zIndex: 30 },
+  pinnedHead: { position: "sticky", zIndex: 60 },
   center: { paddingInline: 0, textAlign: "center" },
   muted: { color: tokens.colorContentTertiary },
   selectedCell: { backgroundColor: tokens.colorSurfaceSelected },
@@ -119,6 +120,14 @@ export const styles = stylex.create({
   resizeHandle: {
     position: "absolute",
     right: 0,
+    top: 0,
+    zIndex: 100,
+  },
+  resizeGuide: {
+    backgroundColor: resizeHandleState.color,
+    backgroundImage: "none",
+    bottom: "auto",
+    height: "var(--lenso-resize-guide-height)",
     top: 0,
   },
   editorWrap: {

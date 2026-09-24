@@ -12,6 +12,7 @@ import {
   type UseDataGridOptions,
 } from "@lenso/primitives/data-grid";
 import { ResizeHandle } from "../resize-handle/index.js";
+import { useResizeGuideHeight } from "../shared/use-resize-guide-height.js";
 import { Checkbox } from "../checkbox/index.js";
 import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./data-grid.stylex.js";
@@ -271,11 +272,13 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
     const result = commitCells(edits, "paste");
     setError(result.ok ? null : { message: result.error });
   };
+  const rootRef = useResizeGuideHeight<HTMLDivElement>();
   return (
     <div
       {...props}
       {...stylex.props(styles.root, xstyle)}
       data-slot="data-grid"
+      ref={rootRef}
       style={{ ...style, maxHeight }}
       onCopy={copySelection}
       onPaste={pasteSelection}
@@ -374,6 +377,7 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
                       max={config.maxWidth ?? 1200}
                       step={8}
                       value={header.column.getSize()}
+                      indicatorXstyle={styles.resizeGuide}
                       onValueChange={(width) => {
                         table.setColumnSizing((current) => ({
                           ...current,

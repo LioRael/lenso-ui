@@ -17,6 +17,7 @@ export interface ResizeHandleProps extends Omit<
   "children"
 > {
   "data-visual-state"?: ResizeHandleVisualState;
+  indicatorXstyle?: stylex.StyleXStyles;
 }
 
 /**
@@ -24,7 +25,7 @@ export interface ResizeHandleProps extends Omit<
  * The seven-pixel hit target stays stable while the half-pixel indicator fades in.
  */
 export const ResizeHandle = React.forwardRef<HTMLElement, ResizeHandleProps>(function ResizeHandle(
-  { "data-visual-state": visualState, orientation = "vertical", xstyle, ...props },
+  { "data-visual-state": visualState, indicatorXstyle, orientation = "vertical", xstyle, ...props },
   ref,
 ) {
   return (
@@ -50,6 +51,7 @@ export const ResizeHandle = React.forwardRef<HTMLElement, ResizeHandleProps>(fun
         {...stylex.props(
           styles.indicator,
           orientation === "vertical" ? styles.verticalIndicator : styles.horizontalIndicator,
+          indicatorXstyle,
         )}
       />
     </ResizeHandlePrimitive>

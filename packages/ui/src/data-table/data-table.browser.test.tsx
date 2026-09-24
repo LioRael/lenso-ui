@@ -60,6 +60,12 @@ test("keeps semantic table cells and pinned offsets aligned during resizing", as
   expect(table.element().querySelectorAll("thead th")).toHaveLength(3);
   expect(table.element().querySelector('[scope="rowgroup"]')?.textContent).toBe("Active1");
   const scrollArea = table.element().parentElement!;
+  const guide = handle
+    .element()
+    .querySelector<HTMLElement>('[data-slot="resize-handle-indicator"]')!;
+  await vi.waitFor(() =>
+    expect(guide.getBoundingClientRect().height).toBe(scrollArea.clientHeight),
+  );
   scrollArea.scrollLeft = 100;
   const groupCell = table.element().querySelector('[scope="rowgroup"]')!;
   const groupSurface = groupCell.firstElementChild!;

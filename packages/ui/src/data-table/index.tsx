@@ -5,6 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { ResizeHandle } from "../resize-handle/index.js";
 
 import type { StyleXProps } from "../shared/stylex-props.js";
+import { useResizeGuideHeight } from "../shared/use-resize-guide-height.js";
 import { styles } from "./data-table.stylex.js";
 
 export interface DataTableColumn {
@@ -46,6 +47,7 @@ export const DataTableRoot = React.forwardRef<HTMLDivElement, DataTableRootProps
     ref,
   ) {
     const tableId = React.useId();
+    const rootRef = useResizeGuideHeight<HTMLDivElement>(ref);
     const [widths, setWidths] = React.useState<Record<string, number>>(() =>
       Object.fromEntries(columns.map((column) => [column.id, column.width])),
     );
@@ -86,7 +88,7 @@ export const DataTableRoot = React.forwardRef<HTMLDivElement, DataTableRootProps
           {...props}
           {...stylex.props(styles.root, xstyle)}
           data-slot="data-table"
-          ref={ref}
+          ref={rootRef}
           style={{ ...style, ...(maxHeight === undefined ? {} : { maxHeight }) }}
         >
           <table
@@ -367,6 +369,7 @@ export function DataTableResizeHandle({
       onValueChange={(next) => context.resize(columnId, next)}
       step={8}
       value={width}
+      indicatorXstyle={styles.resizeGuide}
       xstyle={styles.resizeHandle}
     />
   );

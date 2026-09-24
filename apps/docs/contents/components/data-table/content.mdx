@@ -42,6 +42,7 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
           separator a meaningful label.
         </li>
         <li>A sortable <code>DataTable.Head</code> shows a compact hover/focus surface. Pass <code>onSort</code>, <code>sortDirection</code>, and <code>sortLabel</code>; the Consumer owns the ordering.</li>
+        <li>For a row-actions column, keep the header cell and give it an accessible name with <code>aria-label</code>. Leave its visible content empty by default; render a label when the product needs one.</li>
         <li>Reveal row selection and row actions on hover or keyboard focus, and keep them visible for selected rows. On touch, keep these controls visible.</li>
         <li>
           Header and footer remain visible within a height-constrained table. Put calculated values or

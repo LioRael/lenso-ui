@@ -76,6 +76,7 @@ type SortKey = "name" | "email" | "role";
 export function DataTableDemo() {
   const [grouped, setGrouped] = React.useState(true);
   const [showRowSelection, setShowRowSelection] = React.useState(true);
+  const [showActionsHeader, setShowActionsHeader] = React.useState(false);
   const [sortable, setSortable] = React.useState(true);
   const [selected, setSelected] = React.useState<ReadonlySet<string>>(() => new Set());
   const [copyStatus, setCopyStatus] = React.useState("");
@@ -154,6 +155,11 @@ export function DataTableDemo() {
             label="Sorting"
             onCheckedChange={setSortable}
           />
+          <PlaygroundSwitchControl
+            checked={showActionsHeader}
+            label="Actions header"
+            onCheckedChange={setShowActionsHeader}
+          />
         </PlaygroundControls>
       }
     >
@@ -211,8 +217,8 @@ export function DataTableDemo() {
               >
                 Role
               </DataTable.Head>
-              <DataTable.Head columnId="actions" xstyle={styles.actionCell}>
-                Actions
+              <DataTable.Head aria-label="Actions" columnId="actions" xstyle={styles.actionCell}>
+                {showActionsHeader ? "Actions" : null}
               </DataTable.Head>
             </DataTable.Row>
           </DataTable.Header>
