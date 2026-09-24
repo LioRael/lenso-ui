@@ -3,11 +3,14 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import {
+  ActivityIcon,
+  ArrowUpRightIcon,
   FolderIcon,
   LayoutGridIcon,
   MessageCircleIcon,
   PanelLeftIcon,
   PlusIcon,
+  PuzzleIcon,
   SearchIcon,
   SparklesIcon,
 } from "lucide-react";
@@ -71,6 +74,118 @@ function PageRows({ entries }: { entries: readonly { title: string; detail: stri
         </div>
       ))}
     </div>
+  );
+}
+
+const featuredApps = [
+  {
+    id: "profiles",
+    title: "Agent profiles",
+    detail: "Add focused chat, code and design profiles",
+    icon: SparklesIcon,
+  },
+  {
+    id: "plugins",
+    title: "App plugins",
+    detail: "Discover pages contributed by your plugins",
+    icon: PuzzleIcon,
+  },
+  {
+    id: "projects",
+    title: "Projects",
+    detail: "Organize work around your Lenso App",
+    icon: FolderIcon,
+  },
+  {
+    id: "observe",
+    title: "Observe",
+    detail: "Trace requests and inspect runtime activity",
+    icon: ActivityIcon,
+  },
+] as const;
+
+function AppsPage({ onOpen }: { onOpen: (id: (typeof featuredApps)[number]["id"]) => void }) {
+  const [query, setQuery] = React.useState("");
+  const matches = featuredApps.filter((item) =>
+    `${item.title} ${item.detail}`.toLowerCase().includes(query.trim().toLowerCase()),
+  );
+
+  return (
+    <section {...stylex.props(styles.marketplace)}>
+      <div {...stylex.props(styles.marketplaceContent)}>
+        <h1 {...stylex.props(styles.marketplaceTitle)}>Extend your App with Plugins</h1>
+        <label {...stylex.props(styles.marketSearch)}>
+          <SearchIcon size={17} aria-hidden="true" />
+          <input
+            aria-label="Search plugins and capabilities"
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search plugins and capabilities..."
+            type="search"
+            value={query}
+            {...stylex.props(styles.marketSearchInput)}
+          />
+        </label>
+        <div {...stylex.props(styles.marketHero)}>
+          <div {...stylex.props(styles.heroChips)}>
+            <div {...stylex.props(styles.heroChip)}>
+              <span {...stylex.props(styles.chipBrand, styles.profilesBrand)}>
+                <SparklesIcon size={16} aria-hidden="true" /> Profiles
+              </span>
+              <span {...stylex.props(styles.chipDescription)}>
+                Give every Agent a focused way to work
+              </span>
+            </div>
+            <div {...stylex.props(styles.heroChip, styles.secondHeroChip)}>
+              <span {...stylex.props(styles.chipBrand)}>
+                <PuzzleIcon size={16} aria-hidden="true" /> Plugins
+              </span>
+              <span {...stylex.props(styles.chipDescription)}>
+                Bring your App pages into the Console
+              </span>
+            </div>
+            <div {...stylex.props(styles.heroChip, styles.thirdHeroChip)}>
+              <span {...stylex.props(styles.chipBrand, styles.observeBrand)}>
+                <ActivityIcon size={16} aria-hidden="true" /> Observe
+              </span>
+              <span {...stylex.props(styles.chipDescription)}>
+                Understand what your App is doing
+              </span>
+            </div>
+          </div>
+        </div>
+        <h2 {...stylex.props(styles.marketFeaturedTitle)}>Featured</h2>
+        {matches.length ? (
+          <div {...stylex.props(styles.marketFeaturedList)}>
+            {matches.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onOpen(item.id)}
+                  type="button"
+                  {...stylex.props(styles.marketFeaturedItem)}
+                >
+                  <span {...stylex.props(styles.marketFeaturedIcon)}>
+                    <Icon size={24} strokeWidth={1.5} aria-hidden="true" />
+                  </span>
+                  <span {...stylex.props(styles.marketFeaturedCopy)}>
+                    <strong {...stylex.props(styles.marketFeaturedName)}>{item.title}</strong>
+                    <small {...stylex.props(styles.marketFeaturedDetail)}>{item.detail}</small>
+                  </span>
+                  <ArrowUpRightIcon
+                    size={15}
+                    aria-hidden="true"
+                    {...stylex.props(styles.marketFeaturedArrow)}
+                  />
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <p {...stylex.props(styles.marketEmpty)}>No matching plugins or capabilities.</p>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -232,25 +347,21 @@ function ConsoleTemplatePreview({
       );
     } else if (agentSide === "apps")
       page = (
-        <ExamplePage
-          path="Agent / Apps"
-          title="Apps"
-          description="发现可以为 App 增加能力的 Plugin。"
-        >
-          <div {...stylex.props(styles.featured)}>
-            <div {...stylex.props(styles.featuredArt)}>
-              <SparklesIcon size={20} />
-              <span {...stylex.props(styles.featuredArtLabel)}>Profiles · Plugins · Observe</span>
-            </div>
-            <h2 {...stylex.props(styles.featuredTitle)}>Featured</h2>
-            <PageRows
-              entries={[
-                { title: "Profiles", detail: "Give every Agent a focused way to work" },
-                { title: "Plugin pages", detail: "Bring App pages into the Console" },
-              ]}
-            />
-          </div>
-        </ExamplePage>
+        <AppsPage
+          onOpen={(id) => {
+            if (id === "profiles") {
+              changeTab("chat", "agent");
+            } else if (id === "plugins") {
+              setWorkspace("app");
+              changeTab("overview", "app");
+            } else if (id === "projects") {
+              setWorkspace("projects");
+            } else {
+              setWorkspace("app");
+              changeTab("observe", "app");
+            }
+          }}
+        />
       );
     else
       page = (

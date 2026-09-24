@@ -244,6 +244,15 @@ export function ConsoleWorkspace({
         )}
         <aside
           aria-label={`${workspaceLabel} 侧栏`}
+          onClickCapture={(event) => {
+            if (
+              mobileNavOpen &&
+              event.target instanceof Element &&
+              event.target.closest("button")
+            ) {
+              setMobileNavOpen(false);
+            }
+          }}
           {...stylex.props(styles.sidebar, mobileNavOpen && styles.openMobileSidebar)}
         >
           {sidebar}

@@ -10,6 +10,7 @@ export const styles = stylex.create({
     "--console-secondary": "#b8b8b8",
     "--console-muted": "#898989",
     "--console-accent": "#b9b5ff",
+    "--console-market-search-line": "#353535",
     backgroundColor: "var(--console-bg)",
     color: "var(--console-text)",
     display: "flex",
@@ -32,6 +33,7 @@ export const styles = stylex.create({
     "--console-secondary": "#525252",
     "--console-muted": "#777",
     "--console-accent": "#5952ae",
+    "--console-market-search-line": "#d9d9d9",
   },
   header: {
     alignItems: "center",
