@@ -12,9 +12,9 @@ export const styles = stylex.create({
   },
   title: {
     color: "var(--color-content-primary)",
-    fontSize: "14px",
-    fontWeight: 500,
-    lineHeight: "20px",
+    fontSize: "16px",
+    fontWeight: 600,
+    lineHeight: "24px",
     margin: 0,
   },
   actions: {

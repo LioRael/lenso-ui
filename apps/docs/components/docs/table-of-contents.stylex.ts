@@ -10,7 +10,7 @@ export const styles = stylex.create({
     top: "40px",
     width: "220px",
   },
-  desktopRoot: { "@media (max-width: 900px)": { display: "none" } },
+  desktopRoot: { "@media (max-width: 1240px)": { display: "none" } },
   mobileRoot: {
     backgroundColor: "var(--color-surface-translucent)",
     borderRadius: "8px",
@@ -19,7 +19,8 @@ export const styles = stylex.create({
     marginBlockEnd: "24px",
     overflow: "hidden",
     width: "100%",
-    "@media (max-width: 900px)": { display: "block" },
+    "@media (min-width: 901px) and (max-width: 1240px)": { width: "220px" },
+    "@media (max-width: 1240px)": { display: "block" },
   },
   mobileSummary: {
     alignItems: "center",
