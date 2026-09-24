@@ -26,6 +26,8 @@ export type DocsPage =
   | "command-menu"
   | "content-state"
   | "data-table"
+  | "data-grid"
+  | "data-grid-primitive"
   | "description-list"
   | "dialog"
   | "disclosure"
@@ -150,6 +152,7 @@ export const docsRegistry = [
         slug: "content-state",
       },
       { href: "/components/data-table", kind: "page", label: "Data Table", slug: "data-table" },
+      { href: "/components/data-grid", kind: "page", label: "Data Grid", slug: "data-grid" },
       {
         href: "/components/description-list",
         kind: "page",
@@ -213,6 +216,12 @@ export const docsRegistry = [
   {
     id: "primitives",
     items: [
+      {
+        href: "/primitives/data-grid-primitive",
+        kind: "page",
+        label: "Data Grid",
+        slug: "data-grid-primitive",
+      },
       { href: "/primitives/sidebar", kind: "page", label: "Sidebar", slug: "sidebar" },
       { href: "/primitives/surface", kind: "page", label: "Surface", slug: "surface" },
     ],

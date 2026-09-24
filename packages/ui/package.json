@@ -54,6 +54,10 @@
       "types": "./dist/data-table/index.d.ts",
       "import": "./dist/data-table/index.js"
     },
+    "./data-grid": {
+      "types": "./dist/data-grid/index.d.ts",
+      "import": "./dist/data-grid/index.js"
+    },
     "./dialog": {
       "types": "./dist/dialog/index.d.ts",
       "import": "./dist/dialog/index.js"

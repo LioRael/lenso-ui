@@ -1,0 +1,57 @@
+---
+title: "Data Grid"
+description: "An editable grid for records, cell ranges, and keyboard-driven work."
+eyebrow: "Foundation component · Data editing"
+metadata:
+  - "@lenso/ui/data-grid"
+  - "@lenso/primitives/data-grid"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { DataGridDemo } from "@/components/docs/data-grid-demo";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+
+<DataGridDemo />
+
+  <Guidance>
+    <GuidanceBlock title="When to use it">
+      <ul>
+        <li>Use Data Grid when records are edited in place or users need to select a two-dimensional range.</li>
+        <li>Use Data Table for read-only comparison and summaries. Its native table structure needs less interaction machinery.</li>
+        <li>The headless <code>useDataGrid</code> primitive owns selection, sorting, sizing, and atomic edit transactions. The styled component supplies Lenso cell geometry and interaction surfaces.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Editing and configuration">
+      <ul>
+        <li>Double-click or press Enter to edit. Enter commits; Escape cancels. Drag to select a range, use arrow keys to move, or copy and paste tab-separated cells.</li>
+        <li>Set <code>readOnly</code>, <code>showRowSelection</code>, <code>showRowNumbers</code>, <code>sortable</code>, <code>cellSelection</code>, or <code>resizable</code> independently.</li>
+        <li>Each column can define parsing, validation, editable rules, rendering, and a cell-specific completion callback. Grid-level callbacks report cell commits, grouped row commits, selections, and sorting. Changes are applied only through <code>onRowsChange</code>.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { DataGrid } from "@lenso/ui/data-grid";
+import { useDataGrid } from "@lenso/primitives/data-grid";
+
+const columns = [
+    {
+      id: "name",
+      header: "Company",
+      getValue: (row) => row.name,
+      setValue: (row, value) => ({ ...row, name: String(value) }),
+      validate: (value) => (String(value).trim() ? null : "Name is required"),
+    },
+];
+
+<DataGrid
+    label="Companies"
+    rows={rows}
+    columns={columns}
+    getRowId={(row) => row.id}
+    onRowsChange={setRows}
+    onCellEditComplete={(change) => saveCell(change)}
+    onRowEditComplete={(change) => auditRow(change)}
+/>;`}
+  description="Keep rows in application state. Column and grid callbacks receive committed changes after validation."
+/>

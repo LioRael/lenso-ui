@@ -1,6 +1,6 @@
 ---
 title: "Data Table"
-description: "A compact, scrollable table for headed collections, row selection, and summaries."
+description: "A compact, read-only table for comparing records and scanning summaries."
 eyebrow: "Foundation component · Data display"
 metadata:
   - "@lenso/ui/data-table"
@@ -18,13 +18,13 @@ import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
       <ul>
         <li>Use Data Table for records with stable column headings and several comparable rows.</li>
         <li>
-          Keep row data, selection, sorting, filtering, and summary calculations in the Consumer. The
+          Keep row data, optional selection, sorting, filtering, and summaries in the Consumer. The
           shared component owns table semantics, compact cell geometry, pinned columns, and column
           resizing.
         </li>
         <li>
-          Use Description List for facts about a single object. Reserve an ARIA grid primitive for
-          cell editing or full two-dimensional keyboard navigation.
+          Use Description List for facts about a single object. Use Data Grid when cells need editing
+          or two-dimensional keyboard navigation.
         </li>
       </ul>
     </GuidanceBlock>
