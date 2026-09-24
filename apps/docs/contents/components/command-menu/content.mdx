@@ -30,14 +30,14 @@ The playground previews search and selection. Choosing a sample command fills th
     code={String.raw`import { CommandMenu } from "@lenso/ui/command-menu";
 
 <CommandMenu.Root items={commands}>
-  <CommandMenu.Panel>
-    <CommandMenu.Search>
-      <CommandMenu.Input placeholder="Type a command or search…" />
-    </CommandMenu.Search>
-    <CommandMenu.List>
-      {(command) => <CommandMenu.Item value={command}>{command}</CommandMenu.Item>}
-    </CommandMenu.List>
-  </CommandMenu.Panel>
+    <CommandMenu.Panel>
+      <CommandMenu.Search>
+        <CommandMenu.Input placeholder="Type a command or search…" />
+      </CommandMenu.Search>
+      <CommandMenu.List>
+        {(command) => <CommandMenu.Item value={command}>{command}</CommandMenu.Item>}
+      </CommandMenu.List>
+    </CommandMenu.Panel>
 </CommandMenu.Root>;`}
     description="Every visual part remains replaceable through the composition API."
   />

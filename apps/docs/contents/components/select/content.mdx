@@ -36,22 +36,22 @@ import { Playground } from "@/components/docs/playground";
     code={String.raw`import { Select } from "@lenso/ui/select";
 
 <Select.Root defaultValue="default">
-  <Select.Trigger>
-    <Select.Value />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.List>
-          <Select.Item value="default">
-            <Select.ItemText>Default</Select.ItemText>
-            <Select.ItemIndicator />
-          </Select.Item>
-        </Select.List>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
+    <Select.Trigger>
+      <Select.Value />
+      <Select.Icon />
+    </Select.Trigger>
+    <Select.Portal>
+      <Select.Positioner>
+        <Select.Popup>
+          <Select.List>
+            <Select.Item value="default">
+              <Select.ItemText>Default</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          </Select.List>
+        </Select.Popup>
+      </Select.Positioner>
+    </Select.Portal>
 </Select.Root>;`}
     description="Compose the trigger and popup explicitly so labels, positioning, and option content remain application-owned."
   />

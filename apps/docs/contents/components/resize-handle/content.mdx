@@ -35,25 +35,25 @@ import { Playground } from "@/components/docs/playground";
 import { ResizeHandle } from "@lenso/ui/resize-handle";
 
 export function InspectorLayout() {
-  const [width, setWidth] = React.useState(320);
+    const [width, setWidth] = React.useState(320);
 
-  return (
-    <div style={{ display: "flex" }}>
-      <aside id="inspector" style={{ position: "relative", width }}>
-        Inspector
-        <ResizeHandle
-          aria-controls="inspector"
-          aria-label="Resize inspector"
-          min={240}
-          max={560}
-          value={width}
-          onValueChange={setWidth}
-          style={{ position: "absolute", insetBlock: 0, right: -5 }}
-        />
-      </aside>
-      <main style={{ flex: 1 }}>Workspace</main>
-    </div>
-  );
+    return (
+      <div style={{ display: "flex" }}>
+        <aside id="inspector" style={{ position: "relative", width }}>
+          Inspector
+          <ResizeHandle
+            aria-controls="inspector"
+            aria-label="Resize inspector"
+            min={240}
+            max={560}
+            value={width}
+            onValueChange={setWidth}
+            style={{ position: "absolute", insetBlock: 0, right: -5 }}
+          />
+        </aside>
+        <main style={{ flex: 1 }}>Workspace</main>
+      </div>
+    );
 }`}
     description="The handle is controlled and layout-independent; your application owns pane geometry."
   />

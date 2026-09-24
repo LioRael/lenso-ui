@@ -31,23 +31,23 @@ import { Playground } from "@/components/docs/playground";
     code={String.raw`import { Combobox } from "@lenso/ui/combobox";
 
 <Combobox.Root items={labels} multiple>
-  <Combobox.InputGroup>
-    <Combobox.Input placeholder="Search labels…" />
-  </Combobox.InputGroup>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {(label) => (
-            <Combobox.Item value={label}>
-              <Combobox.ItemIndicator />
-              <Combobox.ItemText>{label}</Combobox.ItemText>
-            </Combobox.Item>
-          )}
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
+    <Combobox.InputGroup>
+      <Combobox.Input placeholder="Search labels…" />
+    </Combobox.InputGroup>
+    <Combobox.Portal>
+      <Combobox.Positioner>
+        <Combobox.Popup>
+          <Combobox.List>
+            {(label) => (
+              <Combobox.Item value={label}>
+                <Combobox.ItemIndicator />
+                <Combobox.ItemText>{label}</Combobox.ItemText>
+              </Combobox.Item>
+            )}
+          </Combobox.List>
+        </Combobox.Popup>
+      </Combobox.Positioner>
+    </Combobox.Portal>
 </Combobox.Root>;`}
     description="The application supplies filtering and item content; the component provides the searchable selection structure."
   />

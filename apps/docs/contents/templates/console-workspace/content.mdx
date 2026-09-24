@@ -35,33 +35,33 @@ import { Playground } from "@/components/docs/playground";
   code={String.raw`import { useState } from "react";
 import { FolderIcon } from "lucide-react";
 import {
-  ConsoleSidebarItem,
-  ConsoleWorkspace,
-  type ConsoleTabId,
-  type ConsoleWorkspaceId,
+    ConsoleSidebarItem,
+    ConsoleWorkspace,
+    type ConsoleTabId,
+    type ConsoleWorkspaceId,
 } from "@/components/templates/console-workspace";
 
 export function AppConsole() {
-  const [workspace, setWorkspace] = useState<ConsoleWorkspaceId>("agent");
-  const [tabs, setTabs] = useState<Record<ConsoleWorkspaceId, ConsoleTabId>>({
-    agent: "chat",
-    app: "overview",
-    projects: "project",
-  });
+    const [workspace, setWorkspace] = useState<ConsoleWorkspaceId>("agent");
+    const [tabs, setTabs] = useState<Record<ConsoleWorkspaceId, ConsoleTabId>>({
+      agent: "chat",
+      app: "overview",
+      projects: "project",
+    });
 
-  return (
-    <ConsoleWorkspace
-      workspace={workspace}
-      activeTab={tabs[workspace]}
-      onWorkspaceChange={setWorkspace}
-      onTabChange={(tab, target = workspace) =>
-        setTabs((current) => ({ ...current, [target]: tab }))
-      }
-      sidebar={<ConsoleSidebarItem icon={FolderIcon}>Projects</ConsoleSidebarItem>}
-    >
-      <div>Render the selected Agent profile or Plugin page here.</div>
-    </ConsoleWorkspace>
-  );
+    return (
+      <ConsoleWorkspace
+        workspace={workspace}
+        activeTab={tabs[workspace]}
+        onWorkspaceChange={setWorkspace}
+        onTabChange={(tab, target = workspace) =>
+          setTabs((current) => ({ ...current, [target]: tab }))
+        }
+        sidebar={<ConsoleSidebarItem icon={FolderIcon}>Projects</ConsoleSidebarItem>}
+      >
+        <div>Render the selected Agent profile or Plugin page here.</div>
+      </ConsoleWorkspace>
+    );
 }`}
   description="The shell takes controlled workspace and tab state. The application supplies page content, Plugin navigation, search data, and assistant behavior."
 />

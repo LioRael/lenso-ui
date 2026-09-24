@@ -37,20 +37,20 @@ import { Playground } from "@/components/docs/playground";
 import { SettingsRow } from "@lenso/ui/settings-row";
 
 <SettingsRow.Root>
-  <SettingsRow.Copy>
-    <SettingsRow.Title>Region</SettingsRow.Title>
-    <SettingsRow.Description>Choose where project data is stored.</SettingsRow.Description>
-  </SettingsRow.Copy>
-  <SettingsRow.Control>
-    {({ controlId, disabled, labelId }) => (
-      <Select.Root defaultValue="us" disabled={disabled}>
-        <Select.Trigger aria-labelledby={labelId} id={controlId}>
-          <Select.Value />
-          <Select.Icon />
-        </Select.Trigger>
-      </Select.Root>
-    )}
-  </SettingsRow.Control>
+    <SettingsRow.Copy>
+      <SettingsRow.Title>Region</SettingsRow.Title>
+      <SettingsRow.Description>Choose where project data is stored.</SettingsRow.Description>
+    </SettingsRow.Copy>
+    <SettingsRow.Control>
+      {({ controlId, disabled, labelId }) => (
+        <Select.Root defaultValue="us" disabled={disabled}>
+          <Select.Trigger aria-labelledby={labelId} id={controlId}>
+            <Select.Value />
+            <Select.Icon />
+          </Select.Trigger>
+        </Select.Root>
+      )}
+    </SettingsRow.Control>
 </SettingsRow.Root>;`}
     description="Title names the Select through generated IDs without opening it when the title is clicked."
   />
@@ -60,23 +60,23 @@ import { SettingsRow } from "@lenso/ui/settings-row";
 import { Switch } from "@lenso/ui/switch";
 
 <SettingsRow.Root>
-  <SettingsRow.Copy>
-    <SettingsRow.Label>Allow background tasks</SettingsRow.Label>
-    <SettingsRow.Description>Continue work after closing this view.</SettingsRow.Description>
-  </SettingsRow.Copy>
-  <SettingsRow.Control>
-    {({ controlId, disabled, labelId, visualState }) => (
-      <Switch.Root
-        aria-labelledby={labelId}
-        data-visual-state={visualState}
-        disabled={disabled}
-        id={controlId}
-        layout="control-only"
-      >
-        <Switch.Thumb />
-      </Switch.Root>
-    )}
-  </SettingsRow.Control>
+    <SettingsRow.Copy>
+      <SettingsRow.Label>Allow background tasks</SettingsRow.Label>
+      <SettingsRow.Description>Continue work after closing this view.</SettingsRow.Description>
+    </SettingsRow.Copy>
+    <SettingsRow.Control>
+      {({ controlId, disabled, labelId, visualState }) => (
+        <Switch.Root
+          aria-labelledby={labelId}
+          data-visual-state={visualState}
+          disabled={disabled}
+          id={controlId}
+          layout="control-only"
+        >
+          <Switch.Thumb />
+        </Switch.Root>
+      )}
+    </SettingsRow.Control>
 </SettingsRow.Root>;`}
     description="Label uses native label activation for Switch. Control exposes generated IDs and coordinated hover state without DOM lookup or dataset mutation."
   />

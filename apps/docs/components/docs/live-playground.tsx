@@ -10,6 +10,7 @@ interface LivePlaygroundProps {
   controls: ReactNode;
   layout?: PlaygroundLayout;
   preview: ReactNode;
+  theme: "dark" | "light";
   title?: string;
 }
 
@@ -18,6 +19,7 @@ export function LivePlayground({
   controls,
   layout = "default",
   preview,
+  theme,
   title = "Live playground",
 }: LivePlaygroundProps) {
   return (
@@ -35,6 +37,7 @@ export function LivePlayground({
         )}
       >
         <article
+          data-theme={theme}
           {...stylex.props(
             styles.stage,
             layout === "template" && styles.templateStage,

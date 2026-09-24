@@ -37,6 +37,7 @@ export type DocsPage =
   | "radio"
   | "resize-handle"
   | "segmented-control"
+  | "sidebar"
   | "select"
   | "slider"
   | "shimmer-text"
@@ -209,7 +210,10 @@ export const docsRegistry = [
   },
   {
     id: "primitives",
-    items: [{ href: "/primitives/surface", kind: "page", label: "Surface", slug: "surface" }],
+    items: [
+      { href: "/primitives/sidebar", kind: "page", label: "Sidebar", slug: "sidebar" },
+      { href: "/primitives/surface", kind: "page", label: "Surface", slug: "surface" },
+    ],
     label: "Primitives",
     order: 40,
   },

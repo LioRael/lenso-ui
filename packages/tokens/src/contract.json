@@ -2339,14 +2339,14 @@
         "value": {
           "colorSpace": "srgb",
           "components": [
-            0.1411764705882353,
-            0.1411764705882353,
-            0.1411764705882353
+            0.18823529411764706,
+            0.18823529411764706,
+            0.18823529411764706
           ],
           "alpha": 1
         },
         "cssName": "--color-navigation-tab-bg-selected",
-        "cssValue": "#242424"
+        "cssValue": "#303030"
       },
       "color.navigation.tabEdge": {
         "path": "color.navigation.tabEdge",

@@ -1,0 +1,51 @@
+---
+title: "Sidebar"
+description: "A headless navigation boundary with controllable panels, targeting, dismissal, and focus restoration."
+eyebrow: "Product primitive · Navigation"
+---
+
+import { CodeExample } from "@/components/docs/code-example";
+import { Guidance, GuidanceBlock } from "@/components/docs/guidance";
+import { Playground } from "@/components/docs/playground";
+
+<Playground id="sidebar" />
+
+  <Guidance>
+    <GuidanceBlock title="Choose the right layer">
+      <ul>
+        <li>Use <code>@lenso/primitives/sidebar</code> when the product owns all layout and visual styling.</li>
+        <li>Use <code>@lenso/ui/sidebar</code> for the token-styled Lenso navigation treatment.</li>
+        <li>The primitive supplies state and semantic parts; your application supplies destinations, spacing, persistence, and responsive behavior.</li>
+      </ul>
+    </GuidanceBlock>
+    <GuidanceBlock title="Behavior">
+      <ul>
+        <li>Use <code>open</code> and <code>onOpenChange</code> for controlled state, or <code>defaultOpen</code> for local state.</li>
+        <li>Wrap independent panels in <code>Sidebar.Group</code> when a trigger needs to target a Root by ID.</li>
+        <li>Escape closes the panel and returns focus to its trigger. <code>Sidebar.Item</code> supports a rendered router link and exposes selection through <code>aria-current</code>.</li>
+      </ul>
+    </GuidanceBlock>
+  </Guidance>
+
+<CodeExample
+  code={String.raw`import { Sidebar } from "@lenso/primitives/sidebar";
+
+export function WorkspaceShell() {
+    return (
+      <Sidebar.Root defaultOpen>
+        <Sidebar.Trigger>Toggle navigation</Sidebar.Trigger>
+        <Sidebar.Panel aria-label="Workspace navigation">
+          <Sidebar.Header>Workspace</Sidebar.Header>
+          <Sidebar.Content>
+            <Sidebar.Menu>
+              <Sidebar.MenuItem>
+                <Sidebar.Item selected>Overview</Sidebar.Item>
+              </Sidebar.MenuItem>
+            </Sidebar.Menu>
+          </Sidebar.Content>
+        </Sidebar.Panel>
+      </Sidebar.Root>
+    );
+}`}
+  description="This example uses the headless API. Add your own layout and styles around the parts."
+/>

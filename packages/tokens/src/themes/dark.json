@@ -243,7 +243,7 @@
         "$value": "{primitive.color.neutralGray905}"
       },
       "tabBgSelected": {
-        "$value": "{primitive.color.neutralGray875}"
+        "$value": "{primitive.color.neutralGray800}"
       },
       "tabEdge": {
         "$value": "{primitive.color.neutralGray925}"

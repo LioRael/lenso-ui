@@ -97,5 +97,6 @@ export function parsePlaygroundConfig(value: unknown): PlaygroundConfig {
 }
 
 export function optionToPlaygroundOption(option: PlaygroundOption | string): PlaygroundOption {
+  if (option === "system") return { label: "Follow page", value: option };
   return typeof option === "string" ? { label: option, value: option } : option;
 }

@@ -348,7 +348,7 @@ export const themes = {
     "color.menu.itemSelected": "#262626",
     "color.navigation.tabBg": "#1a1a1a",
     "color.navigation.tabBgHover": "#212121",
-    "color.navigation.tabBgSelected": "#242424",
+    "color.navigation.tabBgSelected": "#303030",
     "color.navigation.tabEdge": "#1a1a1a",
     "color.navigation.tabEdgeHover": "#222222",
     "color.navigation.tabFg": "#dadada",

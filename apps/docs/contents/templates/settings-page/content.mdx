@@ -45,40 +45,40 @@ import { Switch } from "@lenso/ui/switch";
 import { SettingsGroup, SettingsSection } from "@/components/lenso/recipes/settings-section";
 
 export function AppearanceSettings() {
-  return (
-    <SettingsSection.Root aria-labelledby="appearance-title">
-      <SettingsSection.Header>
-        <SettingsSection.Title id="appearance-title">Appearance</SettingsSection.Title>
-        <SettingsSection.Description>
-          Choose how the application looks on this device.
-        </SettingsSection.Description>
-      </SettingsSection.Header>
+    return (
+      <SettingsSection.Root aria-labelledby="appearance-title">
+        <SettingsSection.Header>
+          <SettingsSection.Title id="appearance-title">Appearance</SettingsSection.Title>
+          <SettingsSection.Description>
+            Choose how the application looks on this device.
+          </SettingsSection.Description>
+        </SettingsSection.Header>
 
-      <SettingsGroup>
-        <SettingsRow.Root>
-          <SettingsRow.Copy>
-            <SettingsRow.Label>Follow system theme</SettingsRow.Label>
-            <SettingsRow.Description>
-              Match the operating system appearance.
-            </SettingsRow.Description>
-          </SettingsRow.Copy>
-          <SettingsRow.Control>
-            {({ controlId, disabled, labelId, visualState }) => (
-              <Switch.Root
-                aria-labelledby={labelId}
-                data-visual-state={visualState}
-                disabled={disabled}
-                id={controlId}
-                layout="control-only"
-              >
-                <Switch.Thumb />
-              </Switch.Root>
-            )}
-          </SettingsRow.Control>
-        </SettingsRow.Root>
-      </SettingsGroup>
-    </SettingsSection.Root>
-  );
+        <SettingsGroup>
+          <SettingsRow.Root>
+            <SettingsRow.Copy>
+              <SettingsRow.Label>Follow system theme</SettingsRow.Label>
+              <SettingsRow.Description>
+                Match the operating system appearance.
+              </SettingsRow.Description>
+            </SettingsRow.Copy>
+            <SettingsRow.Control>
+              {({ controlId, disabled, labelId, visualState }) => (
+                <Switch.Root
+                  aria-labelledby={labelId}
+                  data-visual-state={visualState}
+                  disabled={disabled}
+                  id={controlId}
+                  layout="control-only"
+                >
+                  <Switch.Thumb />
+                </Switch.Root>
+              )}
+            </SettingsRow.Control>
+          </SettingsRow.Root>
+        </SettingsGroup>
+      </SettingsSection.Root>
+    );
 }`}
   description="Install the Recipe as editable source, then connect each control to application-owned values and persistence."
 />

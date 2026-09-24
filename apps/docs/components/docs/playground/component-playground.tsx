@@ -144,7 +144,7 @@ export function ComponentPlayground({
   const theme = config.themeControl
     ? themeValue === "dark" || themeValue === "light"
       ? themeValue
-      : "system"
+      : pageTheme
     : pageTheme;
 
   const setValue = (id: string, value: PlaygroundValue) => {
@@ -221,6 +221,7 @@ export function ComponentPlayground({
         theme,
         values,
       })}
+      theme={theme}
       layout={config.layout ?? "default"}
       {...(config.title ? { title: config.title } : {})}
     />

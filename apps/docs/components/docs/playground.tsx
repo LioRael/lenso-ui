@@ -31,6 +31,7 @@ import tooltipConfig from "@/contents/components/tooltip/playground.json";
 import quickLinkConfig from "@/contents/patterns/quick-link/playground.json";
 import settingsRowConfig from "@/contents/patterns/settings-row/playground.json";
 import surfaceConfig from "@/contents/primitives/surface/playground.json";
+import sidebarConfig from "@/contents/primitives/sidebar/playground.json";
 import consoleWorkspaceConfig from "@/contents/templates/console-workspace/playground.json";
 import settingsPageConfig from "@/contents/templates/settings-page/playground.json";
 
@@ -77,6 +78,7 @@ import {
 } from "./playground/adapters/overlays";
 import { consoleWorkspaceAdapter } from "./playground/adapters/console-workspace-template";
 import { settingsPageAdapter } from "./playground/adapters/settings-page-template";
+import { sidebarAdapter } from "./playground/adapters/sidebar";
 import type { PlaygroundDefinition } from "./playground/types";
 
 const definitions: readonly PlaygroundDefinition[] = [
@@ -110,6 +112,7 @@ const definitions: readonly PlaygroundDefinition[] = [
   { adapter: settingsRowAdapter, config: parsePlaygroundConfig(settingsRowConfig) },
   { adapter: statusMarkerAdapter, config: parsePlaygroundConfig(statusMarkerConfig) },
   { adapter: surfaceAdapter, config: parsePlaygroundConfig(surfaceConfig) },
+  { adapter: sidebarAdapter, config: parsePlaygroundConfig(sidebarConfig) },
   { adapter: switchAdapter, config: parsePlaygroundConfig(switchConfig) },
   { adapter: tabsAdapter, config: parsePlaygroundConfig(tabsConfig) },
   { adapter: textAreaAdapter, config: parsePlaygroundConfig(textAreaConfig) },

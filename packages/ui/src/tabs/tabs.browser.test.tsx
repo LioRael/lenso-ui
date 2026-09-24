@@ -35,7 +35,7 @@ function TabState({ selected, state }: { selected: boolean; state: VisualState }
   );
 }
 
-test("Tabs match the approved Figma item states and keyboard behavior", async () => {
+test("Tabs use a quiet content indicator and preserve keyboard behavior", async () => {
   const states = ["default", "hover", "pressed", "focus-visible", "disabled"] as const;
   const screen = await render(
     <>
@@ -78,9 +78,9 @@ test("Tabs match the approved Figma item states and keyboard behavior", async ()
   await expect.poll(() => getComputedStyle(items[4]!).opacity).toBe("0.6");
   expect(items).toHaveLength(10);
   expect(items[0]!.getBoundingClientRect().width).toBe(72);
-  expect(getComputedStyle(items[0]!).borderColor).toBe("rgba(0, 0, 0, 0)");
-  expect(getComputedStyle(items[0]!, "::after").borderWidth).toBe("1px");
-  expect(getComputedStyle(items[0]!, "::after").inset).toBe("0.5px");
+  expect(getComputedStyle(items[0]!).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+  expect(getComputedStyle(items[0]!).borderBottomColor).toBe("rgba(0, 0, 0, 0)");
+  expect(getComputedStyle(items[5]!).borderBottomColor).not.toBe("rgba(0, 0, 0, 0)");
   expect(items[3]!.getAttribute("data-visual-state")).toBe("focus-visible");
   expect(items[5]!.getAttribute("data-active")).not.toBeNull();
 
@@ -97,7 +97,7 @@ test("Tabs match the approved Figma item states and keyboard behavior", async ()
   ).toEqual([]);
 });
 
-test("compact tabs use quiet selected geometry without an outline edge", async () => {
+test("compact tabs retain the workspace selected fill", async () => {
   const screen = await render(
     <ThemeScope theme="dark">
       <Tabs.Root defaultValue="chat">
@@ -121,7 +121,7 @@ test("compact tabs use quiet selected geometry without an outline edge", async (
   expect(getComputedStyle(chat).backgroundColor).toBe(
     themeColor("dark", "color.navigation.tabBgSelected"),
   );
-  expect(getComputedStyle(chat, "::after").borderWidth).toBe("0px");
+  expect(getComputedStyle(chat).borderBottomWidth).toBe("0px");
   expect(Math.round(code.getBoundingClientRect().left - chat.getBoundingClientRect().right)).toBe(
     2,
   );

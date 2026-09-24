@@ -105,7 +105,13 @@ function formatMdx(source) {
       if (result.status !== 0) {
         throw new Error(`Cannot format CodeExample: ${result.stderr || result.error}`);
       }
-      return `${prefix}${result.stdout.trimEnd()}${suffix}`;
+      // MDX removes one JSX indentation level from lines inside a template attribute.
+      const codeForMdx = result.stdout
+        .trimEnd()
+        .split("\n")
+        .map((line) => (line.startsWith(" ") ? `  ${line}` : line))
+        .join("\n");
+      return `${prefix}${codeForMdx}${suffix}`;
     },
   );
 }

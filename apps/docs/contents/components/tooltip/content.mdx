@@ -29,16 +29,16 @@ import { Playground } from "@/components/docs/playground";
     code={String.raw`import { Tooltip } from "@lenso/ui/tooltip";
 
 <Tooltip.Provider>
-  <Tooltip.Root>
-    <Tooltip.Trigger render={<button type="button" />}>Help</Tooltip.Trigger>
-    <Tooltip.Portal>
-      <Tooltip.Positioner>
-        <Tooltip.Popup>
-          Help with <Tooltip.Shortcut>?</Tooltip.Shortcut>
-        </Tooltip.Popup>
-      </Tooltip.Positioner>
-    </Tooltip.Portal>
-  </Tooltip.Root>
+    <Tooltip.Root>
+      <Tooltip.Trigger render={<button type="button" />}>Help</Tooltip.Trigger>
+      <Tooltip.Portal>
+        <Tooltip.Positioner>
+          <Tooltip.Popup>
+            Help with <Tooltip.Shortcut>?</Tooltip.Shortcut>
+          </Tooltip.Popup>
+        </Tooltip.Positioner>
+      </Tooltip.Portal>
+    </Tooltip.Root>
 </Tooltip.Provider>;`}
     description="A themed portal with collision-aware positioning and an 8px target offset."
   />
