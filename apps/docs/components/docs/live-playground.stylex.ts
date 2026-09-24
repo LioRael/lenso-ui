@@ -37,6 +37,7 @@ export const styles = stylex.create({
     width: "100%",
     "@media (max-width: 1100px)": { gridTemplateColumns: "minmax(0, 1fr)", height: "auto" },
   },
+  dataBody: { gridTemplateColumns: "minmax(0, 1fr)", height: "auto" },
   templateBody: {
     gridTemplateColumns: "minmax(0, 1fr)",
     gridTemplateRows: "548px 200px",
@@ -56,6 +57,7 @@ export const styles = stylex.create({
     width: "100%",
     "@media (max-width: 560px)": { padding: "12px" },
   },
+  dataStage: { height: "auto", minWidth: 0, paddingBlock: "18px 20px" },
   templateStage: { height: "548px", "@media (max-width: 1100px)": { height: "auto" } },
   sidebarStage: { height: "790px" },
   commandMenuStage: { height: "420px" },

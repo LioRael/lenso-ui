@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { ResizeHandle as ResizeHandlePrimitive } from "@lenso/primitives/resize-handle";
+import { ResizeHandle } from "../resize-handle/index.js";
 
 import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./data-table.stylex.js";
@@ -358,7 +358,7 @@ export function DataTableResizeHandle({
   if (!column) throw new Error(`Unknown DataTable column: ${columnId}`);
   const width = context.widths[columnId] ?? column.width;
   return (
-    <ResizeHandlePrimitive
+    <ResizeHandle
       aria-controls={context.tableId}
       aria-label={label}
       aria-valuetext={`${width} pixels`}

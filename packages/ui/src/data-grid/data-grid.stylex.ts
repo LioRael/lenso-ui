@@ -117,16 +117,9 @@ export const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   resizeHandle: {
-    borderWidth: 0,
-    bottom: 0,
-    cursor: "col-resize",
-    margin: 0,
     position: "absolute",
     right: 0,
     top: 0,
-    width: "6px",
-    ":hover": { backgroundColor: tokens.colorFocusRing },
-    ":focus-visible": { backgroundColor: tokens.colorFocusRing, outline: "none" },
   },
   editorWrap: {
     alignItems: "center",

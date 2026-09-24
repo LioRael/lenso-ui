@@ -11,7 +11,7 @@ import {
   type DataGridTable,
   type UseDataGridOptions,
 } from "@lenso/primitives/data-grid";
-import { ResizeHandle as ResizeHandlePrimitive } from "@lenso/primitives/resize-handle";
+import { ResizeHandle } from "../resize-handle/index.js";
 import { Checkbox } from "../checkbox/index.js";
 import type { StyleXProps } from "../shared/stylex-props.js";
 import { styles } from "./data-grid.stylex.js";
@@ -367,7 +367,7 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
                     )}
                   </span>
                   {resizable && header.column.getCanResize() && (
-                    <ResizeHandlePrimitive
+                    <ResizeHandle
                       aria-controls={tableId}
                       aria-label={`Resize ${config.header} column`}
                       min={config.minWidth ?? 80}

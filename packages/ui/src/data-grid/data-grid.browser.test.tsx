@@ -135,6 +135,12 @@ test("preserves native and convenience sorting callbacks together", async () => 
 
 test("keeps selected rows and cell ranges visually distinct", async () => {
   const screen = await render(<Fixture />);
+  expect(
+    screen
+      .getByRole("separator", { name: "Resize Name column" })
+      .element()
+      .querySelector('[data-slot="resize-handle-indicator"]'),
+  ).not.toBeNull();
   const grid = screen.getByRole("grid").element();
   const header = grid.querySelector("thead th")!;
   const firstRow = screen.getByRole("gridcell", { name: "Atlas" }).element().parentElement!;

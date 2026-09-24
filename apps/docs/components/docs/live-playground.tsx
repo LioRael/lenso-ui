@@ -3,11 +3,11 @@ import * as stylex from "@stylexjs/stylex";
 
 import { styles } from "./live-playground.stylex";
 
-export type PlaygroundLayout = "command-menu" | "default" | "sidebar" | "template";
+export type PlaygroundLayout = "command-menu" | "data" | "default" | "sidebar" | "template";
 
 interface LivePlaygroundProps {
   actions?: ReactNode;
-  controls: ReactNode;
+  controls?: ReactNode;
   layout?: PlaygroundLayout;
   preview: ReactNode;
   theme: "dark" | "light";
@@ -31,6 +31,7 @@ export function LivePlayground({
       <div
         {...stylex.props(
           styles.body,
+          layout === "data" && styles.dataBody,
           layout === "template" && styles.templateBody,
           layout === "sidebar" && styles.sidebarBody,
           layout === "command-menu" && styles.commandMenuBody,
@@ -40,6 +41,7 @@ export function LivePlayground({
           data-theme={theme}
           {...stylex.props(
             styles.stage,
+            layout === "data" && styles.dataStage,
             layout === "template" && styles.templateStage,
             layout === "sidebar" && styles.sidebarStage,
             layout === "command-menu" && styles.commandMenuStage,
@@ -47,17 +49,19 @@ export function LivePlayground({
         >
           {preview}
         </article>
-        <aside
-          aria-label="Playground controls"
-          {...stylex.props(
-            styles.inspector,
-            layout === "template" && styles.templateInspector,
-            layout === "sidebar" && styles.sidebarInspector,
-            layout === "command-menu" && styles.commandMenuInspector,
-          )}
-        >
-          {controls}
-        </aside>
+        {controls && (
+          <aside
+            aria-label="Playground controls"
+            {...stylex.props(
+              styles.inspector,
+              layout === "template" && styles.templateInspector,
+              layout === "sidebar" && styles.sidebarInspector,
+              layout === "command-menu" && styles.commandMenuInspector,
+            )}
+          >
+            {controls}
+          </aside>
+        )}
       </div>
     </section>
   );

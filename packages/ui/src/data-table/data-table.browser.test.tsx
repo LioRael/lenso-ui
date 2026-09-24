@@ -54,6 +54,7 @@ test("keeps semantic table cells and pinned offsets aligned during resizing", as
 
   const table = screen.getByRole("table", { name: "Projects" });
   const handle = screen.getByRole("separator", { name: "Resize Name column" });
+  expect(handle.element().querySelector('[data-slot="resize-handle-indicator"]')).not.toBeNull();
   const statusCell = screen.getByRole("cell", { name: "Active", exact: true });
 
   expect(table.element().querySelectorAll("thead th")).toHaveLength(3);
