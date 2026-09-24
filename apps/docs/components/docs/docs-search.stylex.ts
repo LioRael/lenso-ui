@@ -103,7 +103,10 @@ export const styles = stylex.create({
     height: "28px",
     padding: 0,
     width: "28px",
-    ":hover": { backgroundColor: "var(--color-surface-interactive-hover)", color: "var(--color-content-primary)" },
+    ":hover": {
+      backgroundColor: "var(--color-surface-interactive-hover)",
+      color: "var(--color-content-primary)",
+    },
     ":focus-visible": { outline: "2px solid var(--color-focus-ring)", outlineOffset: "1px" },
   },
   results: { maxHeight: "min(52vh, 420px)", overflowY: "auto", padding: "7px" },
