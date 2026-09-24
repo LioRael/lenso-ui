@@ -198,6 +198,7 @@ export const styles = stylex.create({
     gap: "8px",
     height: "28px",
     justifyContent: "flex-start",
+    paddingInlineStart: "10px",
   },
   mobileSidebarClose: {
     alignItems: "center",
