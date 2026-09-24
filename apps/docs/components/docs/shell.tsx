@@ -144,13 +144,7 @@ function DocumentationNavigation({
   return (
     <>
       {sections.map((section) => (
-        <div
-          {...stylex.props(
-            styles.navGroup,
-            (section.id === "start" || section.id === "components") && styles.navGroupCompact,
-          )}
-          key={section.id}
-        >
+        <div {...stylex.props(styles.navGroup)} key={section.id}>
           <NavDisclosure
             label={section.label}
             onOpenChange={(open) => toggleSection(section.id, open)}
