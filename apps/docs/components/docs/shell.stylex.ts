@@ -222,6 +222,7 @@ export const styles = stylex.create({
   },
   brand: { color: "var(--docs-fg-primary)", fontSize: "15px", fontWeight: 600, lineHeight: "20px" },
   sidebarContent: {
+    maskImage: "linear-gradient(to bottom, transparent, #000 18px)",
     minHeight: 0,
     paddingInline: 0,
     paddingTop: "41px",
