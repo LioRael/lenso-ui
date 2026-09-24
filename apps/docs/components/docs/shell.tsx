@@ -155,7 +155,7 @@ function DocumentationNavigation({
                 {getVisibleDocsItems(section).map((item) => (
                   <NavItem
                     item={item}
-                    key={item.kind === "page" ? item.slug : item.id}
+                    key={item.slug}
                     onNavigate={onNavigate}
                     selected={item.kind === "page" && current === item.slug}
                   />

@@ -9,7 +9,7 @@ import { useDocsPageTheme } from "./use-docs-page-theme";
 import type { DocsSectionId } from "../../contents/catalog";
 import { styles } from "./document-frame.stylex";
 
-const sectionLabels: Record<DocsSectionId, string> = {
+const sectionLabels: Record<string, string> = {
   components: "Components",
   foundations: "Foundations",
   guides: "Guides",
@@ -77,7 +77,7 @@ export function DocumentFrame({
 
   return (
     <DocsShell
-      breadcrumbs={[isOverview ? "Documentation" : sectionLabels[section], title]}
+      breadcrumbs={[isOverview ? "Documentation" : (sectionLabels[section] ?? section), title]}
       current={slug}
       theme={theme}
     >

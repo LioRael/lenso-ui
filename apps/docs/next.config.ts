@@ -4,6 +4,7 @@ import { withContentCollections } from "@content-collections/next";
 
 const config: NextConfig = {
   output: "export",
+  trailingSlash: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactStrictMode: true,
   experimental: {

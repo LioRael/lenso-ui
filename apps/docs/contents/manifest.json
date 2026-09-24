@@ -1,0 +1,349 @@
+{
+  "sections": [
+    {
+      "id": "start",
+      "label": "Start",
+      "order": 10,
+      "defaultOpen": true,
+      "items": [
+        {
+          "href": "/",
+          "kind": "page",
+          "label": "Overview",
+          "slug": "overview"
+        },
+        {
+          "href": "/start/installation",
+          "kind": "page",
+          "label": "Installation",
+          "slug": "installation"
+        },
+        {
+          "href": "/start/quick-start",
+          "kind": "page",
+          "label": "Quick start",
+          "slug": "quick-start"
+        },
+        {
+          "href": "/start/package-vs-registry",
+          "kind": "page",
+          "label": "Package vs registry",
+          "slug": "package-vs-registry"
+        },
+        {
+          "href": "/start/release-status",
+          "kind": "page",
+          "label": "Package compatibility",
+          "slug": "release-status",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "foundations",
+      "label": "Foundations",
+      "order": 20,
+      "defaultOpen": false,
+      "items": [
+        {
+          "href": "/foundations/tokens",
+          "kind": "page",
+          "label": "Tokens",
+          "slug": "tokens"
+        },
+        {
+          "href": "/foundations/themes",
+          "kind": "page",
+          "label": "Themes",
+          "slug": "themes"
+        },
+        {
+          "href": "/foundations/theme-lab",
+          "kind": "page",
+          "label": "Theme Lab",
+          "slug": "theme-lab"
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "label": "Components",
+      "order": 30,
+      "defaultOpen": false,
+      "items": [
+        {
+          "href": "/components/button",
+          "kind": "page",
+          "label": "Button",
+          "slug": "button"
+        },
+        {
+          "href": "/components/icon-button",
+          "kind": "page",
+          "label": "Icon Button",
+          "slug": "icon-button"
+        },
+        {
+          "href": "/components/text-field",
+          "kind": "page",
+          "label": "Text Field",
+          "slug": "text-field"
+        },
+        {
+          "href": "/components/text-area",
+          "kind": "page",
+          "label": "Text Area",
+          "slug": "text-area"
+        },
+        {
+          "href": "/components/select",
+          "kind": "page",
+          "label": "Select",
+          "slug": "select"
+        },
+        {
+          "href": "/components/combobox",
+          "kind": "page",
+          "label": "Combobox",
+          "slug": "combobox"
+        },
+        {
+          "href": "/components/checkbox",
+          "kind": "page",
+          "label": "Checkbox",
+          "slug": "checkbox"
+        },
+        {
+          "href": "/components/radio",
+          "kind": "page",
+          "label": "Radio",
+          "slug": "radio"
+        },
+        {
+          "href": "/components/switch",
+          "kind": "page",
+          "label": "Switch",
+          "slug": "switch"
+        },
+        {
+          "href": "/components/slider",
+          "kind": "page",
+          "label": "Slider",
+          "slug": "slider"
+        },
+        {
+          "href": "/components/segmented-control",
+          "kind": "page",
+          "label": "Segmented Control",
+          "slug": "segmented-control"
+        },
+        {
+          "href": "/components/tabs",
+          "kind": "page",
+          "label": "Tabs",
+          "slug": "tabs"
+        },
+        {
+          "href": "/components/menu",
+          "kind": "page",
+          "label": "Menu",
+          "slug": "menu"
+        },
+        {
+          "href": "/components/command-menu",
+          "kind": "page",
+          "label": "Command Menu",
+          "slug": "command-menu"
+        },
+        {
+          "href": "/components/popover",
+          "kind": "page",
+          "label": "Popover",
+          "slug": "popover"
+        },
+        {
+          "href": "/components/dialog",
+          "kind": "page",
+          "label": "Dialog",
+          "slug": "dialog"
+        },
+        {
+          "href": "/components/toast",
+          "kind": "page",
+          "label": "Toast",
+          "slug": "toast"
+        },
+        {
+          "href": "/components/tooltip",
+          "kind": "page",
+          "label": "Tooltip",
+          "slug": "tooltip"
+        },
+        {
+          "href": "/components/breadcrumb",
+          "kind": "page",
+          "label": "Breadcrumb",
+          "slug": "breadcrumb"
+        },
+        {
+          "href": "/components/disclosure",
+          "kind": "page",
+          "label": "Disclosure",
+          "slug": "disclosure"
+        },
+        {
+          "href": "/components/avatar",
+          "kind": "page",
+          "label": "Avatar",
+          "slug": "avatar"
+        },
+        {
+          "href": "/components/label",
+          "kind": "page",
+          "label": "Label",
+          "slug": "label"
+        },
+        {
+          "href": "/components/inline-alert",
+          "kind": "page",
+          "label": "Inline Alert",
+          "slug": "inline-alert"
+        },
+        {
+          "href": "/components/content-state",
+          "kind": "page",
+          "label": "Content State",
+          "slug": "content-state"
+        },
+        {
+          "href": "/components/description-list",
+          "kind": "page",
+          "label": "Description List",
+          "slug": "description-list"
+        },
+        {
+          "href": "/components/status-marker",
+          "kind": "page",
+          "label": "Status Marker",
+          "slug": "status-marker"
+        },
+        {
+          "href": "/components/shimmer-text",
+          "kind": "page",
+          "label": "Shimmer Text",
+          "slug": "shimmer-text"
+        },
+        {
+          "href": "/components/data-table",
+          "kind": "page",
+          "label": "Data Table",
+          "slug": "data-table"
+        },
+        {
+          "href": "/components/data-grid",
+          "kind": "page",
+          "label": "Data Grid",
+          "slug": "data-grid"
+        },
+        {
+          "href": "/components/selection-toolbar",
+          "kind": "page",
+          "label": "Selection Toolbar",
+          "slug": "selection-toolbar"
+        },
+        {
+          "href": "/components/resize-handle",
+          "kind": "page",
+          "label": "Resize Handle",
+          "slug": "resize-handle"
+        }
+      ]
+    },
+    {
+      "id": "primitives",
+      "label": "Primitives",
+      "order": 40,
+      "defaultOpen": false,
+      "items": [
+        {
+          "href": "/primitives/surface",
+          "kind": "page",
+          "label": "Surface",
+          "slug": "surface"
+        },
+        {
+          "href": "/primitives/sidebar",
+          "kind": "page",
+          "label": "Sidebar",
+          "slug": "sidebar"
+        },
+        {
+          "href": "/primitives/data-grid-primitive",
+          "kind": "page",
+          "label": "Data Grid primitive",
+          "slug": "data-grid-primitive"
+        }
+      ]
+    },
+    {
+      "id": "patterns",
+      "label": "Patterns",
+      "order": 50,
+      "defaultOpen": false,
+      "items": [
+        {
+          "href": "/patterns/quick-link",
+          "kind": "page",
+          "label": "Quick Link",
+          "slug": "quick-link",
+          "aliases": [
+            "/components/quick-link"
+          ]
+        },
+        {
+          "href": "/patterns/settings-row",
+          "kind": "page",
+          "label": "Settings Row",
+          "slug": "settings-row",
+          "aliases": [
+            "/components/settings-row"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "templates",
+      "label": "Templates",
+      "order": 60,
+      "defaultOpen": false,
+      "items": [
+        {
+          "href": "/templates/console-workspace",
+          "kind": "page",
+          "label": "Console Workspace",
+          "slug": "console-workspace"
+        },
+        {
+          "href": "/templates/settings-page",
+          "kind": "page",
+          "label": "Settings Page",
+          "slug": "settings-page"
+        }
+      ]
+    },
+    {
+      "id": "guides",
+      "label": "Guides",
+      "order": 70,
+      "defaultOpen": false,
+      "items": [
+        {
+          "href": "/guides/strict-csp",
+          "kind": "page",
+          "label": "Strict CSP",
+          "slug": "strict-csp"
+        }
+      ]
+    }
+  ]
+}

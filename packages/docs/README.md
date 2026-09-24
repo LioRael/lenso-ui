@@ -1,58 +1,13 @@
 # @lenso/docs
 
-`@lenso/docs` is Lenso's convention-based documentation framework. It owns the documentation route, content index, navigation, search, and Console-inspired reading shell. Astro supplies the static build and MDX compiler; the framework does not depend on Blume.
+`@lenso/docs` supplies convention-based content indexing and navigation for Lenso documentation sites. It does not require Astro or Blume. The first consumer is the Next.js site in `apps/docs`; a future site can use the same conventions without copying its routes or product-specific demos.
 
-The package is under development in this worktree and is not published. `apps/docs-site` is its public consumer. The former Next site remains in `apps/docs` temporarily for comparison; all 47 content pages and interactive examples have moved to the Astro site.
+A page lives at `contents/<tab>/<slug>/content.mdx`. `contents/<tab>/content.mdx` is that tab's overview. Each page has a `title` in frontmatter. An optional `contents/<tab>/meta.json` defines the sibling order and tab label:
 
-## Site contract
-
-Create `astro.config.mjs`:
-
-```js
-import { defineConfig } from "astro/config";
-import { defineDocsConfig, lensoDocs } from "@lenso/docs";
-
-export default defineConfig({
-  site: "https://example.com",
-  integrations: lensoDocs(
-    defineDocsConfig({
-      title: "Example docs",
-      basePath: "/docs",
-      tabs: [
-        { label: "Start", path: "start" },
-        { label: "Reference", path: "reference" },
-      ],
-    }),
-  ),
-});
+```json
+{ "title": "Components", "pages": ["button", "checkbox", "dialog"] }
 ```
 
-Create `src/content.config.ts`:
+`index` in `pages` refers to the tab overview. Pages omitted from `pages` sort by filename after the named pages. The generator rejects unknown metadata entries, duplicate routes, missing titles, and overrides for missing pages. Define tabs and the overview route in a small consumer script, then call `generateDocsManifest` from `@lenso/docs/generate` before the build. The resulting JSON is safe to import from client-side navigation and search code. It remains a generated artifact that is committed alongside content changes.
 
-```ts
-export { collections } from "@lenso/docs/content";
-```
-
-Put Markdown or MDX at `content/docs/<tab>/<page>.mdx`. `index.mdx` is the tab landing page. Its frontmatter requires `title`; `description` is recommended for search and SEO. `draft: true` removes a page from routes and search.
-
-The file path determines the URL. For example, `content/docs/start/quick-start.mdx` becomes `/docs/start/quick-start`. A folder such as `(guides)` groups pages in the sidebar without entering the URL. Two files that produce the same URL fail the build.
-
-An optional `meta.ts` controls sibling order and a group heading:
-
-```ts
-import { defineDocsMeta } from "@lenso/docs";
-
-export default defineDocsMeta({ title: "First steps", pages: ["index", "quick-start"] });
-```
-
-Use `<DocLink to="start/quick-start">Quick start</DocLink>` from `@lenso/docs/DocLink.astro` for internal links that must respect `basePath`. `CodeExample`, `Guidance`, and `GuidanceBlock` are available from their matching `@lenso/docs/*.astro` subpaths. MDX can import React examples and hydrate them with `client:load`. The consuming site installs `@astrojs/mdx`, `@astrojs/react`, `astro`, `react`, and `react-dom` alongside this package. The shell imports Lenso's token and UI stylesheets once.
-
-The same content collection generates the static routes, contextual sidebar, `/docs/search.json`, `/docs/sitemap.xml`, and `/docs/llms.txt`. Search matches title, description, and document body. The header exposes it through a dialog and `⌘K` / `Ctrl+K`. Configure Astro's `site` URL for absolute sitemap links.
-
-## Visual contract
-
-The shell uses the Lenso semantic tokens in both themes. It borrows the Console's compact top navigation, quiet selected states, full-viewport layout, centered search at wide widths, and mobile navigation drawer. Console-specific assistant and workspace actions are not part of documentation navigation.
-
-## Current scope
-
-The public UI docs now exercise 47 pages, React component demos, navigation ordering, body search, base paths, static output, keyboard search, a mobile drawer, and Light/Dark styles. Later lenso-site adoption and multilingual routing remain separate work. The framework package has not been released.
+`defineDocsConfig`, `docsHref`, and `createDocsNavigation` are exported for sites that need tab and group navigation. If the generator receives `publicDir`, it also emits a search index and `llms.txt`; passing `site` adds an absolute sitemap. The Next.js consumer uses `@content-collections/next` to compile MDX and `output: "export"` to produce `apps/docs/out`. It owns the React shell, command-menu search, and demos; `@lenso/docs` deliberately does not own a rendering runtime.

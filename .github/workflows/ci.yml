@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: docs-${{ github.sha }}
-          path: apps/docs-site/dist
+          path: apps/docs/out
           if-no-files-found: error
           retention-days: 1
 
@@ -47,7 +47,7 @@ jobs:
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: docs-${{ github.sha }}
-          path: apps/docs-site/dist
+          path: apps/docs/out
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         with:
           version: 11.5.0
@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: 24.18.0
       - name: Deploy docs to Cloudflare Pages
-        run: pnpm dlx wrangler@4.124.0 pages deploy apps/docs-site/dist --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
+        run: pnpm dlx wrangler@4.124.0 pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

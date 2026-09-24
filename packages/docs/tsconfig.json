@@ -6,5 +6,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src/config.ts", "src/integration.ts", "src/navigation.ts", "src/index.ts"]
+  "include": ["src/**/*.ts"]
 }

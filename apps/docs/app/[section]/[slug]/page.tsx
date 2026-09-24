@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 import { DocumentFrame } from "../../../components/docs/document-frame";
 import { getDocsDocument, getDocsRouteParams } from "../../../contents/content-registry";
@@ -7,6 +8,17 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getDocsRouteParams();
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ section: string; slug: string }>;
+}): Promise<Metadata> {
+  const { section, slug } = await params;
+  const document = getDocsDocument(section, slug);
+  if (!document) return {};
+  return { title: `${document.title} · Lenso UI`, description: document.description };
 }
 
 export default async function DocumentationPage({

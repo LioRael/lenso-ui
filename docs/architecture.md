@@ -17,8 +17,8 @@ flowchart LR
   uiSource --> registryBuilder["registry builder"]
   primitiveSource --> registryBuilder
   registryBuilder --> registryOutput["registry/ and /r/ output"]
-  docsFramework["@lenso/docs routes + shell"] --> docsApp["Astro documentation + component lab"]
-  docsSource["apps/docs-site/content/docs + demos"] --> docsApp
+  docsFramework["@lenso/docs content + navigation"] --> docsApp["Next.js documentation + component lab"]
+  docsSource["apps/docs/contents + demos"] --> docsApp
   uiPackage --> docsApp
   tokenArtifacts --> docsApp
 ```
@@ -82,7 +82,7 @@ pnpm generate
 pnpm --filter @lenso/token-generator check-generated
 ```
 
-Review and commit the resulting generated changes together with their source change. Important generated locations include `packages/tokens/src`, `packages/ui/src/tokens.stylex.ts`, `registry/components`, `registry/setup/setup.json`, `registry/registry.json`, `registry/parity-manifest.json`, `registry/tokens.stylex.ts`, and `apps/docs-site/public/r`.
+Review and commit the resulting generated changes together with their source change. Important generated locations include `packages/tokens/src`, `packages/ui/src/tokens.stylex.ts`, `registry/components`, `registry/setup/setup.json`, `registry/registry.json`, `registry/parity-manifest.json`, `registry/tokens.stylex.ts`, and `apps/docs/public/r`.
 
 ## Theme and portal model
 
@@ -94,7 +94,7 @@ Consumers resolve system preference and persistence outside Lenso UI, then pass 
 
 ## Documentation and verification
 
-`@lenso/docs` supplies file-based routes, navigation, search, agent-readable indexes, and the reading shell. `apps/docs-site` is its public Astro consumer and component lab. MDX content, playground JSON, demo modules, and package examples are part of the product surface. The old Next app under `apps/docs` is retained temporarily for migration comparison.
+`@lenso/docs` supplies content conventions, validation, and navigation manifest generation. `apps/docs` is its public Next.js consumer and component lab. The site owns its React reading shell, search UI, MDX content, and interactive demos.
 
 The repository verifies the public seam through:
 

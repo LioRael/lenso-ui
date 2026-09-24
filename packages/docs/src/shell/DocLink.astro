@@ -1,9 +1,0 @@
----
-import config from "virtual:lenso-docs-config";
-import { docsHref } from "../config";
-
-interface Props { to: string; }
-const { to } = Astro.props;
----
-
-<a href={docsHref(config, to)}><slot /></a>

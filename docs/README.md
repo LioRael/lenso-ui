@@ -12,4 +12,4 @@ Use the document that matches the work you are doing:
 | Use the repository vocabulary and domain wayfinding       | [`../CONTEXT.md`](../CONTEXT.md) and [`agents/domain.md`](agents/domain.md)                                   |
 | Work with GitHub issues and triage labels                 | [`agents/issue-tracker.md`](agents/issue-tracker.md) and [`agents/triage-labels.md`](agents/triage-labels.md) |
 
-The public component documentation and interactive component lab live in `apps/docs-site`. Its content is under `apps/docs-site/content/docs`; its generated registry endpoint is under `apps/docs-site/public/r`. The shared framework is `packages/docs`.
+The public component documentation and interactive component lab live in `apps/docs`. Its content is under `apps/docs/contents`; its generated registry endpoint is under `apps/docs/public/r`. The shared framework is `packages/docs`.

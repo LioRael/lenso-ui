@@ -12,17 +12,21 @@ import { styles } from "./docs-search.stylex";
 
 const pages = getDocsPageItems().filter((page) => !page.hidden);
 const suggestedPages = ["overview", "quick-start", "tokens", "themes", "console-workspace"];
+type SearchEntry = { href: string; title: string; description: string; body: string };
 
 export function DocsSearch() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [searchText, setSearchText] = useState<Record<string, string>>({});
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const matches = normalizedQuery
     ? pages.filter((page) => {
         const section = getDocsSectionForPage(page.slug) ?? "";
-        return `${page.label} ${section}`.toLocaleLowerCase().includes(normalizedQuery);
+        return `${page.label} ${section} ${searchText[page.href] ?? ""}`
+          .toLocaleLowerCase()
+          .includes(normalizedQuery);
       })
     : suggestedPages.flatMap((slug) => pages.filter((page) => page.slug === slug));
 
@@ -40,6 +44,22 @@ export function DocsSearch() {
   useEffect(() => {
     if (open) inputRef.current?.focus();
   }, [open]);
+
+  useEffect(() => {
+    if (!open || Object.keys(searchText).length > 0) return;
+    const controller = new AbortController();
+    fetch("/search.json", { signal: controller.signal })
+      .then((response) => (response.ok ? (response.json() as Promise<SearchEntry[]>) : []))
+      .then((entries) =>
+        setSearchText(
+          Object.fromEntries(
+            entries.map((entry) => [entry.href, `${entry.description} ${entry.body}`]),
+          ),
+        ),
+      )
+      .catch(() => {});
+    return () => controller.abort();
+  }, [open, searchText]);
 
   return (
     <>

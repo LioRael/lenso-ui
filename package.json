@@ -6,7 +6,7 @@
   "scripts": {
     "actions:check": "node tooling/check-action-pins.mjs",
     "build": "pnpm generate && turbo run build",
-    "build:packages": "pnpm generate && turbo run build --filter='!@lenso/ui-docs' --filter='!@lenso/ui-docs-legacy'",
+    "build:packages": "pnpm generate && turbo run build --filter='!@lenso/ui-docs'",
     "changeset": "changeset",
     "check": "pnpm format:check && pnpm lint && pnpm actions:check && pnpm release-status:check && pnpm test:tooling && pnpm generate && pnpm --filter @lenso/token-generator check-generated && turbo run typecheck test build && pnpm design-lint",
     "design-lint": "pnpm --filter @lenso/token-generator check-generated && pnpm --filter @lenso/design-lint build && node packages/design-lint/dist/cli.mjs --config design-lint.config.json",

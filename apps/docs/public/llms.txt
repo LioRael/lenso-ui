@@ -1,0 +1,49 @@
+# Documentation
+
+- [Overview](/): Build focused Lenso product interfaces from shared tokens, accessible components, and adaptable application patterns.
+- [Installation](/start/installation): Install managed packages for routine upgrades, or copy registry source when your application needs structural control.
+- [Package vs registry](/start/package-vs-registry): Choose between managed upgrades and editable source. Both channels come from the same canonical implementation.
+- [Quick start](/start/quick-start): Build a small form from public component subpaths while keeping product behavior in your application.
+- [Package compatibility](/start/release-status): Find package versions, release history, and the supported installation paths.
+- [Theme Lab](/foundations/theme-lab): Tune a coherent surface palette from a small set of inputs, inspect both modes, and export semantic token overrides.
+- [Themes](/foundations/themes): Apply a complete Light or Dark theme to a subtree, then override only the semantic roles your product owns.
+- [Tokens](/foundations/tokens): Inspect the semantic roles shared by package styles, registry source, documentation, and complete themes.
+- [Avatar](/components/avatar): Image and fallback avatars, status, sizes, and avatar groups.
+- [Breadcrumb](/components/breadcrumb): A compact location trail with composable links, separators, overflow, and icons.
+- [Button](/components/button): Trigger a clear user action with consistent emphasis, density, and interaction feedback.
+- [Checkbox](/components/checkbox): Let people select any number of independent options, including an optional mixed state.
+- [Combobox](/components/combobox): Search a large option set, then choose one or more matching values.
+- [Command Menu](/components/command-menu): Search, filter, and select a command with keyboard navigation.
+- [Content State](/components/content-state): A composable empty, loading, or error state without imposing application status semantics.
+- [Data Grid](/components/data-grid): An editable grid for records, cell ranges, and keyboard-driven work.
+- [Data Table](/components/data-table): A compact, read-only table for comparing records and scanning summaries.
+- [Description List](/components/description-list): Semantic term-and-description rows for compact facts and technical metadata.
+- [Dialog](/components/dialog): Accessible modal surface with composed content regions, reliable focus management, and theme-aware portals.
+- [Disclosure](/components/disclosure): Compact expandable sections for progressive navigation and supporting content.
+- [Icon Button](/components/icon-button): Use a familiar icon for a compact action while preserving a reliable interaction target.
+- [Inline Alert](/components/inline-alert): An inline notice with semantic tone, replaceable icon, supporting copy, and actions.
+- [Label](/components/label): Identify a category with a compact text label and an optional semantic color marker.
+- [Menu](/components/menu): Composable application menu with shortcuts, links, nested surfaces, and complete keyboard navigation.
+- [Popover](/components/popover): Anchored non-modal surface for focused contextual content or controls.
+- [Radio](/components/radio): Show a small set of mutually exclusive choices and keep every option visible.
+- [Resize Handle](/components/resize-handle): Resize or collapse adjacent panels with a quiet divider and a generous interaction target.
+- [Segmented Control](/components/segmented-control): A compact single-choice control for switching one property without introducing tab panels.
+- [Select](/components/select): Choose one value from a compact list without showing every option at once.
+- [Selection Toolbar](/components/selection-toolbar): A floating action surface for an active selection.
+- [Shimmer Text](/components/shimmer-text): A restrained progress treatment that preserves one readable text node.
+- [Slider](/components/slider): A cross-browser scalar or range control with a stable circular thumb and compact track.
+- [Status Marker](/components/status-marker): Compact status signal available as a dot or labeled presentation.
+- [Switch](/components/switch): Turn one setting on or off and apply the change immediately.
+- [Tabs](/components/tabs): A quiet local-view switcher with a compact variant for workspace navigation.
+- [Text Area](/components/text-area): A multiline field with label, supporting text, validation, and native resizing.
+- [Text Field](/components/text-field): Collect a short, structured value with a persistent label and inline validation.
+- [Toast](/components/toast): Brief, non-blocking feedback with accessible announcements, timed dismissal, and swipe gestures.
+- [Tooltip](/components/tooltip): Compact contextual help for controls, with optional shortcut guidance.
+- [Data Grid primitive](/primitives/data-grid-primitive): Headless selection, sorting, sizing, and edit transactions for an application-owned grid.
+- [Sidebar](/primitives/sidebar): A headless navigation boundary with controllable panels, targeting, dismissal, and focus restoration.
+- [Surface](/primitives/surface): A semantic hierarchy for embedded, grouped, and temporary product content.
+- [Quick Link](/patterns/quick-link): A compact contextual link with stable icon geometry and progressive hover affordance.
+- [Settings Row](/patterns/settings-row): A consistent preference row that composes Select, Switch, Button, or consumer-owned controls.
+- [Console Workspace](/templates/console-workspace): A full-width Console shell with workspace switching, Agent profiles, local navigation, Plugin pages, and a persistent assistant entry.
+- [Settings Page](/templates/settings-page): Organize preferences into readable sections while your application owns values, validation, and persistence.
+- [Strict CSP](/guides/strict-csp): Pass a request-scoped nonce to Base UI while keeping security policy separate from theme and component state.

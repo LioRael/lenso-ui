@@ -12,7 +12,7 @@ import {
 
 const repositoryRoot = path.resolve(import.meta.dirname, "../../..");
 const registryRoot = path.join(repositoryRoot, "registry");
-const publicRoot = path.join(repositoryRoot, "apps/docs-site/public/r");
+const publicRoot = path.join(repositoryRoot, "apps/docs/public/r");
 const publicPackagePaths = [
   "packages/ui/package.json",
   "packages/primitives/package.json",

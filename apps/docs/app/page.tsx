@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 import { DocumentFrame } from "../components/docs/document-frame";
 import { getDocsDocument } from "../contents/content-registry";
+
+export const metadata: Metadata = { title: "Overview · Lenso UI" };
 
 export default function HomePage() {
   const document = getDocsDocument("start", "overview");
