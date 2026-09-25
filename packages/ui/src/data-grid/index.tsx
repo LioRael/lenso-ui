@@ -122,6 +122,7 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
   const tableId = React.useId();
   const errorId = React.useId();
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const gridRootRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     if (editing) inputRef.current?.focus();
   }, [editing]);
@@ -157,7 +158,16 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
     setEditing({ rowId, columnId, value: initial ?? (value == null ? "" : String(value)) });
     onCellEditStart?.(rowId, columnId);
   };
-  const commitEdit = () => {
+  const restoreCellFocus = (rowId: string, columnId: string) => {
+    requestAnimationFrame(() => {
+      gridRootRef.current
+        ?.querySelector<HTMLElement>(
+          `[data-grid-row="${CSS.escape(rowId)}"] [data-grid-column="${CSS.escape(columnId)}"]`,
+        )
+        ?.focus();
+    });
+  };
+  const commitEdit = (restoreFocus = false) => {
     const current = editing;
     if (!current) return;
     const row = rows.find((item) => getRowId(item) === current.rowId);
@@ -178,19 +188,22 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
     if (result.ok) {
       setEditing(null);
       setError(null);
+      if (restoreFocus) restoreCellFocus(current.rowId, current.columnId);
     } else setError({ message: result.error, rowId: current.rowId, columnId: current.columnId });
   };
-  const cancelEdit = () => {
-    if (editing) onCellEditCancel?.(editing.rowId, editing.columnId);
+  const cancelEdit = (restoreFocus = false) => {
+    const current = editing;
+    if (current) onCellEditCancel?.(current.rowId, current.columnId);
     setEditing(null);
     setError(null);
+    if (restoreFocus && current) restoreCellFocus(current.rowId, current.columnId);
   };
   const focusActiveCell = () => {
     requestAnimationFrame(() => {
       const focused = table.getFocusedCell();
       if (!focused) return;
-      document
-        .querySelector<HTMLElement>(
+      gridRootRef.current
+        ?.querySelector<HTMLElement>(
           `[data-grid-row="${CSS.escape(focused.row.id)}"] [data-grid-column="${CSS.escape(focused.column.id)}"]`,
         )
         ?.focus();
@@ -278,7 +291,10 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
       {...props}
       {...stylex.props(styles.root, xstyle)}
       data-slot="data-grid"
-      ref={rootRef}
+      ref={(node) => {
+        gridRootRef.current = node;
+        rootRef(node);
+      }}
       style={{ ...style, maxHeight }}
       onCopy={copySelection}
       onPaste={pasteSelection}
@@ -513,16 +529,16 @@ export function DataGrid<TRow extends object, TValidationData = unknown>({
                             onChange={(event) =>
                               setEditing({ ...editing, value: event.target.value })
                             }
-                            onBlur={commitEdit}
+                            onBlur={() => commitEdit()}
                             onKeyDown={(event) => {
                               if (event.key === "Enter") {
                                 event.preventDefault();
                                 event.stopPropagation();
-                                commitEdit();
+                                commitEdit(true);
                               } else if (event.key === "Escape") {
                                 event.preventDefault();
                                 event.stopPropagation();
-                                cancelEdit();
+                                cancelEdit(true);
                               }
                             }}
                             {...stylex.props(styles.editor)}

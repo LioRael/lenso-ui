@@ -97,6 +97,64 @@ test("commits a validated cell once and reports global, row, and exact-cell even
   expect(onExact).toHaveBeenCalledTimes(1);
 });
 
+test.each(["Enter", "Escape"] as const)(
+  "returns focus to the edited cell after %s",
+  async (key) => {
+    const screen = await render(<Fixture />);
+    const row = screen.getByRole("grid", { name: "Projects" }).getByRole("row", { name: /Atlas/ });
+    const cell = row.getByRole("gridcell", { name: "Atlas" });
+    const nextCell = row.getByRole("gridcell", { exact: true, name: "2" });
+    await userEvent.click(cell);
+    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard(key === "Enter" ? "Atlas edited{Enter}" : "{Escape}");
+    await vi.waitFor(() => expect(document.activeElement).toBe(cell.element()));
+    await userEvent.keyboard("{ArrowRight}");
+    await vi.waitFor(() => expect(document.activeElement).toBe(nextCell.element()));
+  },
+);
+
+test("blur commit preserves focus on the destination control", async () => {
+  const screen = await render(
+    <>
+      <Fixture />
+      <button type="button">Destination</button>
+    </>,
+  );
+  await userEvent.dblClick(screen.getByRole("gridcell", { name: "Atlas" }));
+  const destination = screen.getByRole("button", { name: "Destination" }).element();
+  await userEvent.click(destination);
+  await expect.element(screen.getByRole("gridcell", { name: "Atlas" })).toBeVisible();
+  expect(document.activeElement).toBe(destination);
+});
+
+test("arrow navigation stays within its own grid when cell IDs overlap", async () => {
+  const grid = (label: string) => (
+    <DataGrid
+      label={label}
+      rows={initialRows}
+      columns={columns}
+      getRowId={(row) => row.id}
+      readOnly
+      showRowSelection={false}
+      showRowNumbers={false}
+      sortable={false}
+    />
+  );
+  const screen = await render(
+    <>
+      {grid("First grid")}
+      {grid("Second grid")}
+    </>,
+  );
+  const secondGrid = screen.getByRole("grid", { name: "Second grid" });
+  const row = secondGrid.getByRole("row", { name: /Atlas/ });
+  const nameCell = row.getByRole("gridcell", { name: "Atlas" });
+  const amountCell = row.getByRole("gridcell", { exact: true, name: "2" }).element();
+  await userEvent.click(nameCell);
+  await userEvent.keyboard("{ArrowRight}");
+  await vi.waitFor(() => expect(document.activeElement).toBe(amountCell));
+});
+
 test("forwards TanStack options and exposes the live table instance", async () => {
   const tableRef = React.createRef<DataGridTable<Row>>();
   await render(

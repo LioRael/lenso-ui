@@ -249,18 +249,30 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.2.4(@types/react@19.2.18)
+      '@vitest/browser-playwright':
+        specifier: 'catalog:'
+        version: 4.1.10(playwright@1.62.1)(vite@8.3.0(@types/node@26.2.0)(esbuild@0.28.2)(tsx@4.23.10)(yaml@2.9.0))(vitest@4.1.10)
       agentation:
         specifier: ^3.1.2
         version: 3.1.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       autoprefixer:
         specifier: 'catalog:'
         version: 10.4.21(postcss@8.5.28)
+      axe-core:
+        specifier: 'catalog:'
+        version: 4.13.0
+      playwright:
+        specifier: 'catalog:'
+        version: 1.62.1
       typescript:
         specifier: 'catalog:'
         version: 7.0.2
       vitest:
         specifier: 'catalog:'
         version: 4.1.10(@types/node@26.2.0)(@vitest/browser-playwright@4.1.10)(vite@8.3.0(@types/node@26.2.0)(esbuild@0.28.2)(tsx@4.23.10)(yaml@2.9.0))
+      vitest-browser-react:
+        specifier: 'catalog:'
+        version: 2.2.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vitest@4.1.10)
 
   packages/design-lint:
     dependencies:

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node scripts/generate-docs.mjs && next build",
     "dev": "node scripts/generate-docs.mjs && next dev",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run --passWithNoTests && vitest run --config vitest.browser.config.ts --passWithNoTests",
     "typecheck": "node scripts/generate-docs.mjs && next typegen && tsc --noEmit"
   },
   "dependencies": {
@@ -42,9 +42,13 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
     "agentation": "^3.1.2",
     "autoprefixer": "catalog:",
+    "axe-core": "catalog:",
+    "playwright": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "vitest-browser-react": "catalog:"
   }
 }
