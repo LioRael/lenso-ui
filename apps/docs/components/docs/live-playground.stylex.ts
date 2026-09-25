@@ -67,10 +67,9 @@ export const styles = stylex.create({
   commandMenuStage: { height: "420px" },
   inspector: {
     alignItems: "stretch",
-    backgroundColor: "var(--color-surface-translucent)",
+    backgroundColor: "var(--color-surface-control)",
     border: 0,
     borderRadius: "8px",
-    boxShadow: "inset 0 0 0 0.5px var(--color-border-translucent)",
     display: "flex",
     flexDirection: "column",
     gap: "4px",
