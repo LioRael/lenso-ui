@@ -228,9 +228,9 @@
     "data-grid": {
       "files": [
         {
-          "registrySha256": "c22001cab82fe8881340ab5ecc95de0a60bf4af132d83ea4a3ba676fdbd6c3d6",
+          "registrySha256": "339e7cbf73c26dd9b581882699c5b6b391213b64eaf92f951ae14646b80ceef1",
           "source": "packages/ui/src/data-grid/index.tsx",
-          "sourceSha256": "c22001cab82fe8881340ab5ecc95de0a60bf4af132d83ea4a3ba676fdbd6c3d6",
+          "sourceSha256": "339e7cbf73c26dd9b581882699c5b6b391213b64eaf92f951ae14646b80ceef1",
           "target": "components/lenso/data-grid/index.tsx"
         },
         {
