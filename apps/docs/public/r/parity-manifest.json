@@ -225,6 +225,40 @@
         }
       ]
     },
+    "data-grid": {
+      "files": [
+        {
+          "registrySha256": "c22001cab82fe8881340ab5ecc95de0a60bf4af132d83ea4a3ba676fdbd6c3d6",
+          "source": "packages/ui/src/data-grid/index.tsx",
+          "sourceSha256": "c22001cab82fe8881340ab5ecc95de0a60bf4af132d83ea4a3ba676fdbd6c3d6",
+          "target": "components/lenso/data-grid/index.tsx"
+        },
+        {
+          "registrySha256": "d7343431af33f5dc05edb5a1695301fca93bd59a5f6aaa8c783ac5cb267f1ef3",
+          "source": "packages/ui/src/data-grid/data-grid.stylex.ts",
+          "sourceSha256": "d7343431af33f5dc05edb5a1695301fca93bd59a5f6aaa8c783ac5cb267f1ef3",
+          "target": "components/lenso/data-grid/data-grid.stylex.ts"
+        },
+        {
+          "registrySha256": "ec58f105b52f639fabd8c25dee703f8b5eed8191e898499f5cede339c29abd8d",
+          "source": "packages/ui/src/shared/use-resize-guide-height.ts",
+          "sourceSha256": "ec58f105b52f639fabd8c25dee703f8b5eed8191e898499f5cede339c29abd8d",
+          "target": "components/lenso/shared/use-resize-guide-height.ts"
+        },
+        {
+          "registrySha256": "c2d1536b90227bead37b5597f00a282e185f71111d77298763627e8f464661b2",
+          "source": "packages/ui/src/shared/stylex-props.ts",
+          "sourceSha256": "c2d1536b90227bead37b5597f00a282e185f71111d77298763627e8f464661b2",
+          "target": "components/lenso/shared/stylex-props.ts"
+        },
+        {
+          "registrySha256": "9ea23ecffb4f2add8be91effdaa1f244bb137caca42e291f8c2f9ec7e4a02531",
+          "source": "packages/ui/src/tokens.stylex.ts",
+          "sourceSha256": "9ea23ecffb4f2add8be91effdaa1f244bb137caca42e291f8c2f9ec7e4a02531",
+          "target": "components/lenso/tokens.stylex.ts"
+        }
+      ]
+    },
     "data-table": {
       "files": [
         {

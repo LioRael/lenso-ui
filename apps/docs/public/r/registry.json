@@ -18,6 +18,11 @@
       "type": "registry:ui"
     },
     {
+      "name": "data-grid",
+      "title": "Data Grid",
+      "type": "registry:ui"
+    },
+    {
       "name": "selection-toolbar",
       "title": "Selection Toolbar",
       "type": "registry:ui"

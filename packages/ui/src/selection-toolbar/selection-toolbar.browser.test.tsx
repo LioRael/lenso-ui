@@ -24,11 +24,17 @@ test("shows selection actions and clears the owning selection", async () => {
   const toolbar = screen.getByRole("toolbar", { name: "Selection actions" });
   await expect.element(toolbar).toBeVisible();
   await expect.element(screen.getByText("2 selected")).toBeVisible();
-  await userEvent.click(screen.getByRole("button", { name: "Copy names" }));
-  expect(action).toHaveBeenCalledOnce();
-  await userEvent.click(screen.getByRole("button", { name: "Clear selection" }));
-  await expect.element(toolbar).not.toBeInTheDocument();
+  const actionButton = screen.getByRole("button", { name: "Copy names" });
+  const clearButton = screen.getByRole("button", { name: "Clear selection" });
   expect(
     (await axe.run(document.body, { rules: { region: { enabled: false } } })).violations,
   ).toEqual([]);
+  await userEvent.tab();
+  await expect.element(actionButton).toHaveFocus();
+  await userEvent.keyboard("{Enter}");
+  expect(action).toHaveBeenCalledOnce();
+  await userEvent.tab();
+  await expect.element(clearButton).toHaveFocus();
+  await userEvent.keyboard("{Enter}");
+  await expect.element(toolbar).not.toBeInTheDocument();
 });

@@ -135,6 +135,30 @@ const specs: RegistryItemSpec[] = [
     type: "registry:ui",
   },
   {
+    dependencies: [`@lenso/primitives@${releaseVersion}`, "@stylexjs/stylex@0.19.0"],
+    files: [
+      {
+        source: "packages/ui/src/data-grid/index.tsx",
+        target: "components/lenso/data-grid/index.tsx",
+      },
+      {
+        source: "packages/ui/src/data-grid/data-grid.stylex.ts",
+        target: "components/lenso/data-grid/data-grid.stylex.ts",
+        type: "registry:style",
+      },
+      {
+        source: "packages/ui/src/shared/use-resize-guide-height.ts",
+        target: "components/lenso/shared/use-resize-guide-height.ts",
+        type: "registry:lib",
+      },
+      ...sharedFiles,
+    ],
+    name: "data-grid",
+    registryDependencies: [stable("setup"), stable("checkbox"), stable("resize-handle")],
+    title: "Data Grid",
+    type: "registry:ui",
+  },
+  {
     dependencies: ["@base-ui/react@1.7.0", "@stylexjs/stylex@0.19.0", "lucide-react@1.31.0"],
     files: [
       {
