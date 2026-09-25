@@ -551,7 +551,8 @@ html[data-theme="dark"] .astro-code span {
     max-width: calc(100% - 92px);
   }
   .docs-search-trigger {
-    position: static;
+    position: relative;
+    left: auto;
     transform: none;
     width: 34px;
     height: 34px;
