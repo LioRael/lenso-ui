@@ -1,5 +1,20 @@
 # @lenso/ui
 
+## 0.7.0
+
+### Minor Changes
+
+- c6ae39f: Add a semantic Data Table component with pinned columns, resizable widths, compact rows, and a sticky summary footer for dense collections.
+- fd07759: Add a TanStack Table-based Data Grid primitive for cell ranges, sorting, selection, and atomic edit events, plus a styled editable grid component.
+- 25b1dde: Add a reusable floating Selection Toolbar for row collections, with a selected count, composable batch actions, and a clear-selection control.
+
+### Patch Changes
+
+- c86bce5: Use borderless, quieter elevation for floating overlays and the Selection Toolbar while keeping bordered controls and static panels flat.
+- Updated dependencies [fd07759]
+  - @lenso/primitives@0.7.0
+  - @lenso/tokens@0.7.0
+
 ## 0.6.0
 
 ### Minor Changes
