@@ -1,0 +1,155 @@
+README.md
+  s_5858929d54403d::t_1e6b114f585d33 7,68,75-77
+apps/docs/public/r/data-grid.json
+  s_5858929d54403d::t_0d34bae229ea11 4
+apps/docs/public/r/data-table.json
+  s_5858929d54403d::t_9028ac32c57408 4
+apps/docs/public/r/prompt-composer.json
+  s_5858929d54403d::t_1de78dfa4e911a 4
+apps/docs/public/r/resize-handle.json
+  s_5858929d54403d::t_4b1efd4922b28c 4
+apps/docs/public/r/settings-section.json
+  s_5858929d54403d::t_cc7a820efa351b 4
+apps/docs/public/r/setup.json
+  s_5858929d54403d::t_20c1cbf5d453c4 4
+apps/docs/public/r/sidebar.json
+  s_5858929d54403d::t_1daaf612c46c36 5
+apps/docs/public/r/theme-scope.json
+  s_5858929d54403d::t_95b1d21fbfea4c 4
+apps/docs/public/r/v/0.7.0/avatar.json
+  s_5858929d54403d::t_66101e73eb3543 1-45
+apps/docs/public/r/v/0.7.0/breadcrumb.json
+  s_5858929d54403d::t_68f543a9e20113 1-39
+apps/docs/public/r/v/0.7.0/button.json
+  s_5858929d54403d::t_9e28124a3274e6 1-39
+apps/docs/public/r/v/0.7.0/checkbox.json
+  s_5858929d54403d::t_e3057f5e75583e 1-39
+apps/docs/public/r/v/0.7.0/combobox.json
+  s_5858929d54403d::t_c4649b599713c0 1-47
+apps/docs/public/r/v/0.7.0/command-menu.json
+  s_5858929d54403d::t_e9977d472a3019 1-39
+apps/docs/public/r/v/0.7.0/content-state.json
+  s_5858929d54403d::t_3a017e8590c1d8 1-45
+apps/docs/public/r/v/0.7.0/csp-provider.json
+  s_5858929d54403d::t_87abc3e6ac7c55 1-17
+apps/docs/public/r/v/0.7.0/data-grid.json
+  s_5858929d54403d::t_4600da03688e59 1-47
+apps/docs/public/r/v/0.7.0/data-table.json
+  s_5858929d54403d::t_73561a53cedf18 1-46
+apps/docs/public/r/v/0.7.0/description-list.json
+  s_5858929d54403d::t_1ea6b38abfe1f4 1-44
+apps/docs/public/r/v/0.7.0/dialog.json
+  s_5858929d54403d::t_77ebbf3dfac88f 1-47
+apps/docs/public/r/v/0.7.0/disclosure.json
+  s_5858929d54403d::t_601f63a1b50920 1-46
+apps/docs/public/r/v/0.7.0/icon-button.json
+  s_5858929d54403d::t_16e570a80fab91 1-39
+apps/docs/public/r/v/0.7.0/inline-alert.json
+  s_5858929d54403d::t_36f66b9c53c4a4 1-45
+apps/docs/public/r/v/0.7.0/label.json
+  s_5858929d54403d::t_00353abddd881d 1-45
+apps/docs/public/r/v/0.7.0/menu.json
+  s_5858929d54403d::t_834088a0a81444 1-52
+apps/docs/public/r/v/0.7.0/parity-manifest.json
+  s_5858929d54403d::t_1bd3e647260067 1-1211
+apps/docs/public/r/v/0.7.0/popover.json
+  s_5858929d54403d::t_a91e9fb634ac40 1-45
+apps/docs/public/r/v/0.7.0/prompt-composer.json
+  s_5858929d54403d::t_e19f99d9b94453 1-36
+apps/docs/public/r/v/0.7.0/quick-link.json
+  s_5858929d54403d::t_68bb87b776dc64 1-39
+apps/docs/public/r/v/0.7.0/radio.json
+  s_5858929d54403d::t_bdef627c09775a 1-39
+apps/docs/public/r/v/0.7.0/registry.json
+  s_5858929d54403d::t_758476ac832a57 1-217
+apps/docs/public/r/v/0.7.0/release.json
+  s_5858929d54403d::t_7b83cbcd98ad2c 1-5
+apps/docs/public/r/v/0.7.0/resize-handle-primitive.json
+  s_5858929d54403d::t_65f106f3f5d2b2 1-18
+apps/docs/public/r/v/0.7.0/resize-handle.json
+  s_5858929d54403d::t_f144eef42bfaf0 1-39
+apps/docs/public/r/v/0.7.0/segmented-control.json
+  s_5858929d54403d::t_d97a6f736a95a5 1-39
+apps/docs/public/r/v/0.7.0/select.json
+  s_5858929d54403d::t_3112c42f53b914 1-53
+apps/docs/public/r/v/0.7.0/selection-toolbar.json
+  s_5858929d54403d::t_a00f866dd672f8 1-42
+apps/docs/public/r/v/0.7.0/settings-row.json
+  s_5858929d54403d::t_59dd803791c0cd 1-44
+apps/docs/public/r/v/0.7.0/settings-section.json
+  s_5858929d54403d::t_b90a73a5644af6 1-24
+apps/docs/public/r/v/0.7.0/setup.json
+  s_5858929d54403d::t_8dbd2b596a9241 1-18
+apps/docs/public/r/v/0.7.0/shimmer-text.json
+  s_5858929d54403d::t_c2c2ad68083790 1-38
+apps/docs/public/r/v/0.7.0/sidebar-primitive.json
+  s_5858929d54403d::t_38a8b6121930fb 1-14
+apps/docs/public/r/v/0.7.0/sidebar.json
+  s_5858929d54403d::t_ec9a121052794e 1-53
+apps/docs/public/r/v/0.7.0/slider.json
+  s_5858929d54403d::t_764928a7da978f 1-39
+apps/docs/public/r/v/0.7.0/status-marker.json
+  s_5858929d54403d::t_f3a1e3b731c612 1-44
+apps/docs/public/r/v/0.7.0/surface.json
+  s_5858929d54403d::t_11306faf2571bc 1-39
+apps/docs/public/r/v/0.7.0/switch.json
+  s_5858929d54403d::t_8bd76158b38f4a 1-39
+apps/docs/public/r/v/0.7.0/tabs.json
+  s_5858929d54403d::t_54cd7dabf11d0c 1-39
+apps/docs/public/r/v/0.7.0/text-area.json
+  s_5858929d54403d::t_0649ad3f4b1bcd 1-39
+apps/docs/public/r/v/0.7.0/text-field.json
+  s_5858929d54403d::t_bc0f05042297ad 1-46
+apps/docs/public/r/v/0.7.0/theme-scope.json
+  s_5858929d54403d::t_bf529c01806cfa 1-20
+apps/docs/public/r/v/0.7.0/toast.json
+  s_5858929d54403d::t_236cc49a553627 1-47
+apps/docs/public/r/v/0.7.0/tooltip.json
+  s_5858929d54403d::t_cb0c78be2d1989 1-45
+docs/architecture.md
+  s_5858929d54403d::t_b683f3f7afcbc3 111
+packages/primitives/CHANGELOG.md
+  s_5858929d54403d::t_67cc1691754993 3-8
+packages/primitives/package.json
+  s_5858929d54403d::t_c2624e31139b12 3
+packages/tokens/CHANGELOG.md
+  s_5858929d54403d::t_7f8e11af174035 3-4
+packages/tokens/package.json
+  s_5858929d54403d::t_c794b947ea03ef 3
+packages/ui/CHANGELOG.md
+  s_5858929d54403d::t_46951095b22fc6 3-17
+packages/ui/package.json
+  s_5858929d54403d::t_83712453b93c81 3
+registry/components/data-grid.json
+  s_5858929d54403d::t_2ac9d10194f749 4
+registry/components/data-table.json
+  s_5858929d54403d::t_83ab545dfea73e 4
+registry/components/resize-handle.json
+  s_5858929d54403d::t_407b6ca81869e2 4
+registry/components/sidebar.json
+  s_5858929d54403d::t_29bbeb8446a78d 5
+registry/components/theme-scope.json
+  s_5858929d54403d::t_d6070795522567 4
+registry/recipes/prompt-composer.json
+  s_5858929d54403d::t_7f1ded5b81f6bb 4
+registry/recipes/settings-section.json
+  s_5858929d54403d::t_1f30bd3d91c588 4
+registry/setup/setup.json
+  s_5858929d54403d::t_e6752448369ba4 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0c487013abf259469c41137d8520fe8f3c7ea7e0",
+  "prompts": {},
+  "sessions": {
+    "s_5858929d54403d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c54d-2b89-77c1-80a6-820d459160ce",
+        "model": "gpt-6-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
