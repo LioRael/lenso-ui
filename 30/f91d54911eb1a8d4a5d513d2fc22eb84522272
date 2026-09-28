@@ -1,0 +1,19 @@
+apps/docs/components/docs/playground/adapters/console-workspace-template.tsx
+  s_7d146975368699::t_d45fe66d5f6509 262,268,275,282,293,303,310,312,314,317,320,326,373-374,379-380,388,391,393,395,400-401,406,409,415,421-423,427-428,440-447,450,453-454
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "30f91d54911eb1a8d4a5d513d2fc22eb84522272",
+  "prompts": {},
+  "sessions": {
+    "s_7d146975368699": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c54a-381f-7362-9b4d-95aea89e2437",
+        "model": "gpt-6-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
