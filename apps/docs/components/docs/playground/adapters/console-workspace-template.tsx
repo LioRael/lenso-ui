@@ -259,27 +259,27 @@ function ConsoleTemplatePreview({
       </>
     ) : workspace === "app" ? (
       <>
-        <ConsoleSidebarSection first title="页面">
+        <ConsoleSidebarSection first title="Pages">
           <ConsoleSidebarItem
             active={activeTab === "overview"}
             icon={LayoutGridIcon}
             onClick={() => changeTab("overview")}
           >
-            运行概览
+            Overview
           </ConsoleSidebarItem>
           <ConsoleSidebarItem
             active={activeTab === "members"}
             icon={MessageCircleIcon}
             onClick={() => changeTab("members")}
           >
-            成员管理
+            Members
           </ConsoleSidebarItem>
           <ConsoleSidebarItem
             active={activeTab === "content"}
             icon={PanelLeftIcon}
             onClick={() => changeTab("content")}
           >
-            内容管理
+            Content
           </ConsoleSidebarItem>
           <ConsoleSidebarItem
             active={activeTab === "observe"}
@@ -290,7 +290,7 @@ function ConsoleTemplatePreview({
           </ConsoleSidebarItem>
         </ConsoleSidebarSection>
         <div {...stylex.props(styles.sidebarFooter)}>
-          Development <span {...stylex.props(styles.sidebarFooterDetail)}>Acme App · 本地运行</span>
+          Development <span {...stylex.props(styles.sidebarFooterDetail)}>Acme App · Local</span>
         </div>
       </>
     ) : (
@@ -300,30 +300,30 @@ function ConsoleTemplatePreview({
           icon={FolderIcon}
           onClick={() => changeTab("project")}
         >
-          项目总览
+          Project overview
         </ConsoleSidebarItem>
         <ConsoleSidebarItem
           active={activeTab === "board"}
           icon={LayoutGridIcon}
           onClick={() => changeTab("board")}
         >
-          我的任务
+          My tasks
         </ConsoleSidebarItem>
-        <ConsoleSidebarSection title="进行中的项目">
+        <ConsoleSidebarSection title="Active projects">
           <ConsoleSidebarItem icon={FolderIcon} onClick={() => changeTab("project")}>
-            Console 重构
+            Console redesign
           </ConsoleSidebarItem>
           <ConsoleSidebarItem icon={FolderIcon} onClick={() => changeTab("project")}>
-            插件作者体验
+            Plugin authoring
           </ConsoleSidebarItem>
         </ConsoleSidebarSection>
-        <ConsoleSidebarSection title="视图">
+        <ConsoleSidebarSection title="Views">
           <ConsoleSidebarItem
             active={activeTab === "calendar"}
             icon={PanelLeftIcon}
             onClick={() => changeTab("calendar")}
           >
-            日程
+            Calendar
           </ConsoleSidebarItem>
         </ConsoleSidebarSection>
       </>
@@ -370,14 +370,14 @@ function ConsoleTemplatePreview({
           title={agentSide === "welcome" ? "Welcome" : "Artifacts"}
           description={
             agentSide === "welcome"
-              ? "选择一个 Profile，开始与 Acme Agent 工作。"
-              : "Agent 生成的成果会显示在这里。"
+              ? "Choose a profile to start working with Acme Agent."
+              : "Agent outputs will appear here."
           }
         >
           <PageRows
             entries={[
-              { title: "Chat", detail: "分析、写作和讨论" },
-              { title: "Code", detail: "实现与审查" },
+              { title: "Chat", detail: "Analysis, writing, and discussion" },
+              { title: "Code", detail: "Implementation and review" },
             ]}
           />
         </ExamplePage>
@@ -385,47 +385,47 @@ function ConsoleTemplatePreview({
   } else if (workspace === "app") {
     page = (
       <ExamplePage
-        path={`应用管理 / Acme App`}
+        path={`App management / Acme App`}
         title={
           activeTab === "overview"
-            ? "应用概览"
+            ? "App overview"
             : activeTab === "members"
-              ? "成员管理"
+              ? "Members"
               : activeTab === "content"
-                ? "内容管理"
+                ? "Content"
                 : "Observe"
         }
         description={
           activeTab === "overview"
-            ? "App 上下文与 Plugin 注册页面 · 演示视图"
-            : "这个页面由对应的 App Plugin 注册并提供。"
+            ? "App context and Plugin-registered pages · Demo view"
+            : "This page is registered and provided by the corresponding App Plugin."
         }
       >
         {activeTab === "overview" && (
           <div {...stylex.props(styles.focus)}>
-            <span {...stylex.props(styles.focusLabel)}>当前 App</span>
+            <span {...stylex.props(styles.focusLabel)}>Current App</span>
             <h2 {...stylex.props(styles.focusTitle)}>Acme App · Development</h2>
             <p {...stylex.props(styles.focusDescription)}>
-              Console 提供导航与上下文；运行事实由 App 和对应 Plugin 提供。
+              Console provides navigation and context; the App and its Plugins provide runtime data.
             </p>
           </div>
         )}
         <section {...stylex.props(styles.pageSection)}>
           <h2 {...stylex.props(styles.sectionTitle)}>
-            {activeTab === "overview" ? "已注册页面" : "页面内容"}
+            {activeTab === "overview" ? "Registered pages" : "Page content"}
           </h2>
           <PageRows
             entries={
               activeTab === "overview"
                 ? [
-                    { title: "成员管理", detail: "用户、角色与邀请 · App Plugin" },
-                    { title: "内容管理", detail: "文章与媒体 · App Plugin" },
-                    { title: "Observe", detail: "请求与追踪 · App Plugin" },
+                    { title: "Members", detail: "Users, roles, and invitations · App Plugin" },
+                    { title: "Content", detail: "Articles and media · App Plugin" },
+                    { title: "Observe", detail: "Requests and traces · App Plugin" },
                   ]
                 : [
                     {
-                      title: "由 Plugin 提供的数据与操作",
-                      detail: "Console Shell 不复制业务规则或权限",
+                      title: "Data and actions provided by Plugins",
+                      detail: "The Console Shell does not duplicate business rules or permissions",
                     },
                   ]
             }
@@ -437,15 +437,21 @@ function ConsoleTemplatePreview({
     page = (
       <ExamplePage
         path="Projects / Console"
-        title={activeTab === "project" ? "项目总览" : activeTab === "board" ? "我的任务" : "日程"}
-        description="一个独立的 Console 工作区，拥有自己的页面和侧栏。"
+        title={
+          activeTab === "project"
+            ? "Project overview"
+            : activeTab === "board"
+              ? "My tasks"
+              : "Calendar"
+        }
+        description="A standalone Console workspace with its own pages and sidebar."
       >
         <section {...stylex.props(styles.pageSection)}>
-          <h2 {...stylex.props(styles.sectionTitle)}>进行中的项目</h2>
+          <h2 {...stylex.props(styles.sectionTitle)}>Active projects</h2>
           <PageRows
             entries={[
-              { title: "Console 重构", detail: "导航、Profile 与 Plugin 页面" },
-              { title: "插件作者体验", detail: "注册页面和入口" },
+              { title: "Console redesign", detail: "Navigation, profiles, and Plugin pages" },
+              { title: "Plugin authoring", detail: "Page and entry registration" },
             ]}
           />
         </section>
