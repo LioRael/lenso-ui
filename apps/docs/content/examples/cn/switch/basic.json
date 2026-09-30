@@ -1,0 +1,6 @@
+{
+  "name": "switch-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/switch/basic.tsx",
+  "code": "import {Switch} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <Switch>\n      <Switch.Content>\n        <Switch.Control>\n          <Switch.Thumb />\n        </Switch.Control>\n        启用通知\n      </Switch.Content>\n    </Switch>\n  );\n}\n"
+}

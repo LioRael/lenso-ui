@@ -1,0 +1,6 @@
+{
+  "name": "search-field-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/en/search-field/disabled.tsx",
+  "code": "import {Description, Label, SearchField} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField isDisabled name=\"search\" value=\"Disabled search\">\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>This search field is disabled</Description>\n      </SearchField>\n      <SearchField isDisabled name=\"search-empty\">\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>This search field is disabled</Description>\n      </SearchField>\n    </div>\n  );\n}\n"
+}

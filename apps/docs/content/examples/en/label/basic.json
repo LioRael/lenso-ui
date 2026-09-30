@@ -1,0 +1,6 @@
+{
+  "name": "label-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/label/basic.tsx",
+  "code": "import {Input, Label} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <div className=\"flex flex-col gap-1\">\n      <Label htmlFor=\"name\">Name</Label>\n      <Input className=\"w-64\" id=\"name\" placeholder=\"Enter your name\" type=\"text\" />\n    </div>\n  );\n}\n"
+}

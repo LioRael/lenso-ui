@@ -1,0 +1,6 @@
+{
+  "name": "button-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/en/button/variants.tsx",
+  "code": "import {Button} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-wrap gap-3\">\n      <Button>Primary</Button>\n      <Button variant=\"secondary\">Secondary</Button>\n      <Button variant=\"tertiary\">Tertiary</Button>\n      <Button variant=\"outline\">Outline</Button>\n      <Button variant=\"ghost\">Ghost</Button>\n      <Button variant=\"danger\">Danger</Button>\n      <Button variant=\"danger-soft\">Danger Soft</Button>\n    </div>\n  );\n}\n"
+}

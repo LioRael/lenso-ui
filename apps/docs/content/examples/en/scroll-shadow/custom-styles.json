@@ -1,0 +1,6 @@
+{
+  "name": "scroll-shadow-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/scroll-shadow/custom-styles.tsx",
+  "code": "import {ScrollShadow} from \"@lenso/ui\";\n\nconst entries = [\n  \"Reviewed quarterly goals with the design team.\",\n  \"Shipped dark mode tokens to production.\",\n  \"Merged accessibility fixes for form fields.\",\n  \"Published updated component documentation.\",\n  \"Scheduled performance audit for next sprint.\",\n  \"Added scroll shadow demos to the docs site.\",\n];\n\nexport function CustomStyles() {\n  return (\n    <div className=\"w-full sm:max-w-sm\">\n      <ScrollShadow\n        hideScrollBar\n        className=\"max-h-48 rounded-xl border border-border/80 bg-linear-to-b from-neutral-50/90 to-white p-4 ring-1 ring-black/5 dark:from-neutral-900/80 dark:to-neutral-900 dark:ring-white/10\"\n        size={48}\n        variant=\"fade\"\n      >\n        <div className=\"space-y-3\">\n          {entries.map((entry) => (\n            <p\n              key={entry}\n              className=\"text-sm leading-relaxed text-neutral-600 dark:text-neutral-400\"\n            >\n              {entry}\n            </p>\n          ))}\n        </div>\n      </ScrollShadow>\n    </div>\n  );\n}\n"
+}

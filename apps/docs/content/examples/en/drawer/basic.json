@@ -1,0 +1,6 @@
+{
+  "name": "drawer-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/drawer/basic.tsx",
+  "code": "import {Button, Drawer} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <Drawer>\n      <Button variant=\"secondary\">Open Drawer</Button>\n      <Drawer.Backdrop>\n        <Drawer.Content placement=\"right\">\n          <Drawer.Dialog>\n            <Drawer.Header>\n              <Drawer.Heading>Drawer Title</Drawer.Heading>\n            </Drawer.Header>\n            <Drawer.Body>\n              <p>\n                This is a bottom drawer built with React Aria's Modal component. It slides up from\n                the bottom of the screen with a smooth CSS transition.\n              </p>\n            </Drawer.Body>\n            <Drawer.Footer>\n              <Button slot=\"close\" variant=\"secondary\">\n                Cancel\n              </Button>\n              <Button slot=\"close\">Confirm</Button>\n            </Drawer.Footer>\n          </Drawer.Dialog>\n        </Drawer.Content>\n      </Drawer.Backdrop>\n    </Drawer>\n  );\n}\n"
+}

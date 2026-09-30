@@ -1,0 +1,6 @@
+{
+  "name": "switch-with-description",
+  "exported": "WithDescription",
+  "source": "apps/docs/src/demos/cn/switch/with-description.tsx",
+  "code": "import {Description, Switch} from \"@lenso/ui\";\n\nexport function WithDescription() {\n  return (\n    <div className=\"max-w-sm\">\n      <Switch>\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          公开资料\n        </Switch.Content>\n        <Description>允许他人查看你的资料信息</Description>\n      </Switch>\n    </div>\n  );\n}\n"
+}

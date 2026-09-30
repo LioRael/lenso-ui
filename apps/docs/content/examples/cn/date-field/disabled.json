@@ -1,0 +1,6 @@
+{
+  "name": "date-field-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/date-field/disabled.tsx",
+  "code": "\"use client\";\n\nimport {DateField, Description, Label} from \"@lenso/ui\";\nimport {getLocalTimeZone, today} from \"@internationalized/date\";\n\nexport function Disabled() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <DateField isDisabled className=\"w-[256px]\" name=\"date\" value={today(getLocalTimeZone())}>\n        <Label>日期</Label>\n        <DateField.Group>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n        <Description>该日期字段已禁用</Description>\n      </DateField>\n      <DateField isDisabled className=\"w-[256px]\" name=\"date-empty\">\n        <Label>日期</Label>\n        <DateField.Group>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n        <Description>该日期字段已禁用</Description>\n      </DateField>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "button-with-icons",
+  "exported": "WithIcons",
+  "source": "apps/docs/src/demos/en/button/with-icons.tsx",
+  "code": "import {Envelope, Globe, Plus, TrashBin} from \"@gravity-ui/icons\";\nimport {Button} from \"@lenso/ui\";\n\nexport function WithIcons() {\n  return (\n    <div className=\"flex flex-wrap gap-3\">\n      <Button>\n        <Globe />\n        Search\n      </Button>\n      <Button variant=\"secondary\">\n        <Plus />\n        Add Member\n      </Button>\n      <Button variant=\"tertiary\">\n        <Envelope />\n        Email\n      </Button>\n      <Button variant=\"danger\">\n        <TrashBin />\n        Delete\n      </Button>\n    </div>\n  );\n}\n"
+}

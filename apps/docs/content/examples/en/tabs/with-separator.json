@@ -1,0 +1,6 @@
+{
+  "name": "tabs-with-separator",
+  "exported": "WithSeparator",
+  "source": "apps/docs/src/demos/en/tabs/with-separator.tsx",
+  "code": "import {Tabs} from \"@lenso/ui\";\n\nexport function WithSeparator() {\n  return (\n    <Tabs className=\"w-full max-w-md\">\n      <Tabs.ListContainer>\n        <Tabs.List aria-label=\"Options\">\n          <Tabs.Tab id=\"overview\">\n            Overview\n            <Tabs.Indicator />\n          </Tabs.Tab>\n          <Tabs.Tab id=\"analytics\">\n            <Tabs.Separator />\n            Analytics\n            <Tabs.Indicator />\n          </Tabs.Tab>\n          <Tabs.Tab id=\"reports\">\n            <Tabs.Separator />\n            Reports\n            <Tabs.Indicator />\n          </Tabs.Tab>\n        </Tabs.List>\n      </Tabs.ListContainer>\n      <Tabs.Panel className=\"pt-4\" id=\"overview\">\n        <p>View your project overview and recent activity.</p>\n      </Tabs.Panel>\n      <Tabs.Panel className=\"pt-4\" id=\"analytics\">\n        <p>Track your metrics and analyze performance data.</p>\n      </Tabs.Panel>\n      <Tabs.Panel className=\"pt-4\" id=\"reports\">\n        <p>Generate and download detailed reports.</p>\n      </Tabs.Panel>\n    </Tabs>\n  );\n}\n"
+}

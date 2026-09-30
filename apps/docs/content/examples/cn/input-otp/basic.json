@@ -1,0 +1,6 @@
+{
+  "name": "input-otp-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/input-otp/basic.tsx",
+  "code": "import {InputOTP, Label, Link} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <div className=\"flex w-[280px] flex-col gap-2\">\n      <div className=\"flex flex-col gap-1\">\n        <Label>验证账户</Label>\n        <p className=\"text-sm text-muted\">我们已向 a****@gmail.com 发送验证码</p>\n      </div>\n      <InputOTP maxLength={6}>\n        <InputOTP.Group>\n          <InputOTP.Slot index={0} />\n          <InputOTP.Slot index={1} />\n          <InputOTP.Slot index={2} />\n        </InputOTP.Group>\n        <InputOTP.Separator />\n        <InputOTP.Group>\n          <InputOTP.Slot index={3} />\n          <InputOTP.Slot index={4} />\n          <InputOTP.Slot index={5} />\n        </InputOTP.Group>\n      </InputOTP>\n      <div className=\"flex items-center gap-[5px] px-1 pt-1\">\n        <p className=\"text-sm text-muted\">没有收到验证码？</p>\n        <Link className=\"text-foreground underline\" href=\"#\">\n          重新发送\n        </Link>\n      </div>\n    </div>\n  );\n}\n"
+}

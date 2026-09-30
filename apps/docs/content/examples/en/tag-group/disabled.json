@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-disabled",
+  "exported": "TagGroupDisabled",
+  "source": "apps/docs/src/demos/en/tag-group/disabled.tsx",
+  "code": "\"use client\";\n\nimport {Description, Label, Tag, TagGroup} from \"@lenso/ui\";\n\nexport function TagGroupDisabled() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TagGroup selectionMode=\"single\">\n        <Label>Disabled Tags</Label>\n        <TagGroup.List>\n          <Tag isDisabled>News</Tag>\n          <Tag>Travel</Tag>\n          <Tag isDisabled>Gaming</Tag>\n        </TagGroup.List>\n        <Description>Some tags are disabled</Description>\n      </TagGroup>\n\n      <TagGroup disabledKeys={[\"travel\"]} selectionMode=\"single\">\n        <Label>Disabled Keys</Label>\n        <TagGroup.List>\n          <Tag id=\"news\">News</Tag>\n          <Tag id=\"travel\">Travel</Tag>\n          <Tag id=\"gaming\">Gaming</Tag>\n        </TagGroup.List>\n        <Description>Tags disabled via disabledKeys prop</Description>\n      </TagGroup>\n    </div>\n  );\n}\n"
+}

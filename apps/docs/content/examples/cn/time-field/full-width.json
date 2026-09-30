@@ -1,0 +1,6 @@
+{
+  "name": "time-field-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/cn/time-field/full-width.tsx",
+  "code": "\"use client\";\n\nimport {ChevronDown, Clock} from \"@gravity-ui/icons\";\nimport {Label, TimeField} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-4\">\n      <TimeField fullWidth name=\"time\">\n        <Label>时间</Label>\n        <TimeField.Group fullWidth>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n      </TimeField>\n      <TimeField fullWidth name=\"time-icons\">\n        <Label>时间</Label>\n        <TimeField.Group fullWidth>\n          <TimeField.Prefix>\n            <Clock className=\"size-4 text-muted\" />\n          </TimeField.Prefix>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n          <TimeField.Suffix>\n            <ChevronDown className=\"size-4 text-muted\" />\n          </TimeField.Suffix>\n        </TimeField.Group>\n      </TimeField>\n    </div>\n  );\n}\n"
+}

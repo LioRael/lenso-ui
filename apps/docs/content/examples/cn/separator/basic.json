@@ -1,0 +1,6 @@
+{
+  "name": "separator-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/separator/basic.tsx",
+  "code": "import {Separator} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <div className=\"max-w-md\">\n      <div className=\"space-y-1\">\n        <h4 className=\"text-medium font-medium\">HeroUI v3 组件</h4>\n        <p className=\"text-small text-default-400\">美观、快速、现代的 React UI 库。</p>\n      </div>\n      <Separator className=\"my-4\" />\n      <div className=\"text-small flex h-5 items-center space-x-4\">\n        <div>博客</div>\n        <Separator orientation=\"vertical\" />\n        <div>文档</div>\n        <Separator orientation=\"vertical\" />\n        <div>源码</div>\n      </div>\n    </div>\n  );\n}\n"
+}

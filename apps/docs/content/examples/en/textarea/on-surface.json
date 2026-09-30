@@ -1,0 +1,6 @@
+{
+  "name": "textarea-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/en/textarea/on-surface.tsx",
+  "code": "import {Surface, TextArea} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"w-full rounded-3xl p-6\">\n      <TextArea\n        className=\"w-full min-w-[280px]\"\n        placeholder=\"Describe your product\"\n        variant=\"secondary\"\n      />\n    </Surface>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/cn/toggle-button/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Heart, HeartFill} from \"@gravity-ui/icons\";\nimport {ToggleButton} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function Controlled() {\n  const [isSelected, setIsSelected] = useState(false);\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ToggleButton isSelected={isSelected} onChange={setIsSelected}>\n        {({isSelected: selected}) => (\n          <>\n            {selected ? <HeartFill /> : <Heart />}\n            {selected ? \"已点赞\" : \"点赞\"}\n          </>\n        )}\n      </ToggleButton>\n      <p className=\"text-sm text-muted\">\n        状态：<span className=\"font-medium\">{isSelected ? \"已选\" : \"未选\"}</span>\n      </p>\n    </div>\n  );\n}\n"
+}

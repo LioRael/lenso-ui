@@ -1,0 +1,6 @@
+{
+  "name": "kbd-special-keys",
+  "exported": "SpecialKeys",
+  "source": "apps/docs/src/demos/cn/kbd/special.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function SpecialKeys() {\n  return (\n    <div className=\"space-y-3\">\n      <p className=\"text-sm\">\n        按{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"enter\" />\n        </Kbd>{\" \"}\n        确认，或按{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"escape\" />\n        </Kbd>{\" \"}\n        取消。\n      </p>\n      <p className=\"text-sm\">\n        使用{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"tab\" />\n        </Kbd>{\" \"}\n        在表单字段间切换，使用{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"shift\" />\n          <Kbd.Abbr keyValue=\"tab\" />\n        </Kbd>{\" \"}\n        返回上一项。\n      </p>\n      <p className=\"text-sm\">\n        按住{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"space\" />\n        </Kbd>{\" \"}\n        可临时启用平移模式。\n      </p>\n    </div>\n  );\n}\n"
+}

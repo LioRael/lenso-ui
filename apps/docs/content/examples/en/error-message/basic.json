@@ -1,0 +1,6 @@
+{
+  "name": "error-message-basic",
+  "exported": "ErrorMessageBasic",
+  "source": "apps/docs/src/demos/en/error-message/basic.tsx",
+  "code": "\"use client\";\n\nimport type {Key} from \"@lenso/ui\";\n\nimport {Description, ErrorMessage, Label, Tag, TagGroup} from \"@lenso/ui\";\nimport {useMemo, useState} from \"react\";\n\nexport function ErrorMessageBasic() {\n  const [selected, setSelected] = useState<Iterable<Key>>(new Set());\n  const isInvalid = useMemo(() => Array.from(selected).length === 0, [selected]);\n\n  return (\n    <TagGroup\n      selectedKeys={selected}\n      selectionMode=\"multiple\"\n      onSelectionChange={(keys) => setSelected(keys)}\n    >\n      <Label>Required Categories</Label>\n      <TagGroup.List>\n        <Tag id=\"news\">News</Tag>\n        <Tag id=\"travel\">Travel</Tag>\n        <Tag id=\"gaming\">Gaming</Tag>\n        <Tag id=\"shopping\">Shopping</Tag>\n      </TagGroup.List>\n      <Description>Select at least one category</Description>\n      <ErrorMessage>{!!isInvalid && <>Please select at least one category</>}</ErrorMessage>\n    </TagGroup>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "date-field-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/en/date-field/variants.tsx",
+  "code": "\"use client\";\n\nimport {DateField, Label} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <DateField className=\"w-[256px]\" name=\"primary-date\">\n        <Label>Primary variant</Label>\n        <DateField.Group variant=\"primary\">\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n      </DateField>\n      <DateField className=\"w-[256px]\" name=\"secondary-date\">\n        <Label>Secondary variant</Label>\n        <DateField.Group variant=\"secondary\">\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n      </DateField>\n    </div>\n  );\n}\n"
+}

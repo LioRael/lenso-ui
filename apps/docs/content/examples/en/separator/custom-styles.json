@@ -1,0 +1,6 @@
+{
+  "name": "separator-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/separator/custom-styles.tsx",
+  "code": "import {Separator} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"max-w-xs space-y-4\">\n      <p className=\"text-sm font-medium text-foreground\">Account settings</p>\n      <Separator className=\"bg-separator-secondary\" />\n      <div className=\"flex items-center gap-3 text-sm text-muted\">\n        <span>Profile</span>\n        <Separator className=\"h-4 bg-separator\" orientation=\"vertical\" />\n        <span>Billing</span>\n        <Separator className=\"h-4 bg-separator\" orientation=\"vertical\" />\n        <span>Security</span>\n      </div>\n    </div>\n  );\n}\n"
+}

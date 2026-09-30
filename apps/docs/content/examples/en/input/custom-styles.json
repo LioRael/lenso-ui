@@ -1,0 +1,6 @@
+{
+  "name": "input-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/input/custom-styles.tsx",
+  "code": "import {Input} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Input\n      aria-label=\"Search projects\"\n      className=\"w-64 rounded-xl border border-border/80 bg-default text-foreground placeholder:text-muted\"\n      placeholder=\"Search projects...\"\n    />\n  );\n}\n"
+}

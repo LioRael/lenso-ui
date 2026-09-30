@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/en/toggle-button/sizes.tsx",
+  "code": "import {Heart} from \"@gravity-ui/icons\";\nimport {ToggleButton} from \"@lenso/ui\";\n\nexport function Sizes() {\n  return (\n    <div className=\"flex flex-col gap-6\">\n      <div className=\"flex items-center gap-3\">\n        <ToggleButton size=\"sm\">\n          <Heart />\n          Small\n        </ToggleButton>\n        <ToggleButton size=\"md\">\n          <Heart />\n          Medium\n        </ToggleButton>\n        <ToggleButton size=\"lg\">\n          <Heart />\n          Large\n        </ToggleButton>\n      </div>\n      <div className=\"flex items-center gap-3\">\n        <ToggleButton isIconOnly aria-label=\"Like\" size=\"sm\">\n          <Heart />\n        </ToggleButton>\n        <ToggleButton isIconOnly aria-label=\"Like\" size=\"md\">\n          <Heart />\n        </ToggleButton>\n        <ToggleButton isIconOnly aria-label=\"Like\" size=\"lg\">\n          <Heart />\n        </ToggleButton>\n      </div>\n    </div>\n  );\n}\n"
+}

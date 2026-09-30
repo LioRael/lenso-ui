@@ -1,0 +1,21 @@
+// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
+"use client";
+
+import { TextArea } from "@lenso/ui";
+import * as stylex from "@stylexjs/stylex";
+const styles = stylex.create({
+  field: {
+    width: 384,
+    maxWidth: "100%",
+    height: 128,
+  },
+});
+export function Basic() {
+  return (
+    <TextArea
+      aria-label="快速项目更新"
+      xstyle={styles.field}
+      placeholder="分享一条简短的项目更新…"
+    />
+  );
+}

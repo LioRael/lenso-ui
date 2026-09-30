@@ -1,0 +1,6 @@
+{
+  "name": "textarea-rows",
+  "exported": "Rows",
+  "source": "apps/docs/src/demos/en/textarea/rows.tsx",
+  "code": "import {Label, TextArea} from \"@lenso/ui\";\n\nexport function Rows() {\n  return (\n    <div className=\"flex w-96 flex-col gap-4\">\n      <div className=\"flex flex-col gap-2\">\n        <Label htmlFor=\"textarea-rows-3\">Short feedback</Label>\n        <TextArea\n          aria-label=\"Short feedback\"\n          id=\"textarea-rows-3\"\n          placeholder=\"This week's highlights...\"\n          rows={3}\n        />\n      </div>\n      <div className=\"flex flex-col gap-2\">\n        <Label htmlFor=\"textarea-rows-6\">Detailed notes</Label>\n        <TextArea\n          aria-label=\"Detailed notes\"\n          id=\"textarea-rows-6\"\n          placeholder=\"Write out the full meeting notes...\"\n          rows={6}\n          style={{resize: \"vertical\"}}\n        />\n      </div>\n    </div>\n  );\n}\n"
+}

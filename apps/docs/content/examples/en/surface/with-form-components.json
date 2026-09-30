@@ -1,0 +1,6 @@
+{
+  "name": "surface-with-form-components",
+  "exported": "WithFormComponents",
+  "source": "apps/docs/src/demos/en/surface/with-form-components.tsx",
+  "code": "\"use client\";\n\nimport {Input, Surface, TextArea} from \"@lenso/ui\";\n\nexport function WithFormComponents() {\n  return (\n    <Surface className=\"flex min-w-[320px] flex-col gap-4 rounded-3xl p-6\" variant=\"default\">\n      <Input placeholder=\"Input with secondary variant\" variant=\"secondary\" />\n      <TextArea placeholder=\"TextArea with secondary variant\" variant=\"secondary\" />\n    </Surface>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "date-field-with-validation",
+  "exported": "WithValidation",
+  "source": "apps/docs/src/demos/cn/date-field/with-validation.tsx",
+  "code": "\"use client\";\n\nimport type {DateValue} from \"@internationalized/date\";\n\nimport {DateField, Description, FieldError, Label} from \"@lenso/ui\";\nimport {getLocalTimeZone, today} from \"@internationalized/date\";\nimport {useState} from \"react\";\n\nexport function WithValidation() {\n  const [value, setValue] = useState<DateValue | null>(null);\n  const todayDate = today(getLocalTimeZone());\n  const isInvalid = value !== null && value.compare(todayDate) < 0;\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <DateField\n        isRequired\n        className=\"w-[256px]\"\n        isInvalid={isInvalid}\n        minValue={todayDate}\n        name=\"date\"\n        value={value}\n        onChange={setValue}\n      >\n        <Label>日期</Label>\n        <DateField.Group>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n        {isInvalid ? (\n          <FieldError>日期须为今天或将来</FieldError>\n        ) : (\n          <Description>输入日期 from today onwards</Description>\n        )}\n      </DateField>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "switch-label-position",
+  "exported": "LabelPosition",
+  "source": "apps/docs/src/demos/cn/switch/label-position.tsx",
+  "code": "import {Switch} from \"@lenso/ui\";\n\nexport function LabelPosition() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <Switch>\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          标签在后\n        </Switch.Content>\n      </Switch>\n      <Switch>\n        <Switch.Content>\n          标签在前\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n        </Switch.Content>\n      </Switch>\n    </div>\n  );\n}\n"
+}

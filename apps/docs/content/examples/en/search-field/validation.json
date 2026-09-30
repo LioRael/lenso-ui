@@ -1,0 +1,6 @@
+{
+  "name": "search-field-validation",
+  "exported": "Validation",
+  "source": "apps/docs/src/demos/en/search-field/validation.tsx",
+  "code": "import {FieldError, Label, SearchField} from \"@lenso/ui\";\n\nexport function Validation() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField isInvalid isRequired name=\"search\" value=\"ab\">\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <FieldError>Search query must be at least 3 characters</FieldError>\n      </SearchField>\n      <SearchField isInvalid name=\"search-invalid\">\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" value=\"invalid@query\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <FieldError>Invalid characters in search query</FieldError>\n      </SearchField>\n    </div>\n  );\n}\n"
+}

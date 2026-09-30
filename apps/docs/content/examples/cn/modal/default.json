@@ -1,0 +1,6 @@
+{
+  "name": "modal-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/cn/modal/default.tsx",
+  "code": "\"use client\";\n\nimport {Rocket} from \"@gravity-ui/icons\";\nimport {Button, Modal} from \"@lenso/ui\";\n\nexport function Default() {\n  return (\n    <Modal>\n      <Button variant=\"secondary\">打开模态框</Button>\n      <Modal.Backdrop>\n        <Modal.Container>\n          <Modal.Dialog className=\"sm:max-w-[360px]\">\n            <Modal.CloseTrigger />\n            <Modal.Header>\n              <Modal.Icon className=\"bg-default text-foreground\">\n                <Rocket className=\"size-5\" />\n              </Modal.Icon>\n              <Modal.Heading>欢迎使用 HeroUI</Modal.Heading>\n            </Modal.Header>\n            <Modal.Body>\n              <p>一套美观、快速、现代的 React UI 库，可轻松构建无障碍且高度可定制的 Web 应用。</p>\n            </Modal.Body>\n            <Modal.Footer>\n              <Button className=\"w-full\" slot=\"close\">\n                继续\n              </Button>\n            </Modal.Footer>\n          </Modal.Dialog>\n        </Modal.Container>\n      </Modal.Backdrop>\n    </Modal>\n  );\n}\n"
+}

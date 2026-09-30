@@ -1,0 +1,6 @@
+{
+  "name": "number-field-with-validation",
+  "exported": "WithValidation",
+  "source": "apps/docs/src/demos/cn/number-field/with-validation.tsx",
+  "code": "\"use client\";\n\nimport {Description, FieldError, Label, NumberField} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function WithValidation() {\n  const [value, setValue] = React.useState<number | undefined>(undefined);\n  const isInvalid = value !== undefined && (value < 0 || value > 100);\n\n  return (\n    <div className=\"flex w-full max-w-64 flex-col gap-4\">\n      <NumberField\n        isRequired\n        formatOptions={{style: \"percent\"}}\n        isInvalid={isInvalid}\n        maxValue={1}\n        minValue={0}\n        name=\"percentage\"\n        step={0.1}\n        value={value}\n        onChange={setValue}\n      >\n        <Label>百分比</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n        {isInvalid ? (\n          <FieldError>百分比必须在 0 到 100 之间</FieldError>\n        ) : (\n          <Description>请输入 0 到 100 之间的值</Description>\n        )}\n      </NumberField>\n    </div>\n  );\n}\n"
+}

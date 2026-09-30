@@ -1,167 +1,81 @@
-# Contributing to Lenso UI
+# Contributing to the reconstruction
 
-This repository is a design-system monorepo. A change is complete only when the implementation, its generated distribution artifacts, the documentation surface, and the relevant verification evidence agree.
+Read `AGENTS.md` and `DESIGN.md` before changing source. HeroUI v3.2.6 at
+`e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e` is the reconstruction authority.
+The former Lenso UI architecture is not a compatibility target.
+`packages/primitives` remains outside the reconstruction boundary and must
+remain byte-for-byte unchanged.
 
-## Start locally
+## Implementation and evidence
 
-Use the pinned toolchain:
+Use compiled StyleX for component styling and native Base UI contracts for
+ordinary interactions. React Aria is limited to date, time and color families
+and supporting parts that depend on those contexts. Use oxlint and oxfmt.
 
-- Node `24.18.0`.
-- pnpm `11.5.0`.
-- React `19.2.x` and Base UI `1.7.x` for the public component packages.
+Preserve HeroUI Apache-2.0 notices and identify adaptations. Preserve the MIT
+terms of the unchanged primitives. Treat imported snippets as reference
+material, not proof of a runnable local example.
 
-```bash
-pnpm install --frozen-lockfile
-pnpm check
-pnpm dev
-```
+For changed behavior, identify the concrete failure and exercise the relevant
+semantics, geometry, focus and keyboard operation. Record theme, responsive,
+RTL and reduced-motion evidence where applicable. Document incomplete behavior
+and visual coverage explicitly; neither an export nor a successful mount proves
+full source parity. Keep generated documentation and styles consistent with
+their sources by running their maintained generators.
 
-`pnpm dev` starts the documentation applications. To work only on the public Next.js docs site:
-
-```bash
-pnpm --filter @lenso/ui-docs dev
-```
-
-The component lab is part of the Next.js docs site.
-
-## Repository map
-
-| Path                                      | Responsibility                                   | Edit directly?                             |
-| ----------------------------------------- | ------------------------------------------------ | ------------------------------------------ |
-| `packages/ui/src`                         | Styled Foundation Components and visual adapters | Yes                                        |
-| `packages/primitives/src`                 | Headless Product Primitives                      | Yes                                        |
-| `packages/tokens/src/foundation.json`     | Primitive token values                           | Yes                                        |
-| `packages/tokens/src/semantic.json`       | Public semantic token roles                      | Yes                                        |
-| `packages/tokens/src/themes/*.json`       | Complete Light and Dark theme values             | Yes                                        |
-| `packages/tokens/src/lenso.resolver.json` | DTCG resolution order and theme contexts         | Yes                                        |
-| `registry/`                               | Generated shadcn-compatible distribution source  | Only the builder inputs and source recipes |
-| `packages/docs/src`                       | Shared docs conventions and navigation           | Yes                                        |
-| `apps/docs/contents`                      | Public MDX documentation                         | Yes                                        |
-| `apps/docs/components/docs`               | Interactive demos and playground configuration   | Yes                                        |
-| `docs/adr`                                | Durable architecture decisions                   | Yes, when a decision changes               |
-
-The token and registry outputs are checked-in artifacts. Do not edit generated files to make a source change appear complete.
-
-## Component workflow
-
-For a new or changed styled component:
-
-1. Update the component implementation and StyleX styles under `packages/ui/src/<family>/`.
-2. Preserve the explicit subpath export in `packages/ui/package.json`; the package has no root component barrel.
-3. Add or update source-local browser tests. Interactive components use Vitest Browser Mode with the Playwright provider; accessibility checks use `axe-core` where the component has a meaningful tree to audit.
-4. Add or update the canonical registry specification in `tooling/registry-builder/src/cli.ts`. The builder reads the package source and emits the package-to-registry parity files.
-5. Add the matching MDX page under `apps/docs/contents/components`, `patterns`, or `primitives`. Its file path supplies the route. Add a playground configuration or demo when the page needs interactive controls.
-6. Regenerate the token and registry outputs:
-
-   ```bash
-   pnpm generate
-   ```
-
-7. Inspect the generated diff, then run the focused package tests and the full verification commands.
-
-For a headless Product Primitive, keep visual styling and default CSS out of `packages/primitives`. If a styled adapter is needed, put it in `packages/ui` and document the dependency explicitly. The current Sidebar is the reference shape: `@lenso/primitives/sidebar` owns state and behavior, while `@lenso/ui/sidebar` supplies the StyleX visual layer.
-
-## Token workflow
-
-The authoritative token graph is the DTCG source in `packages/tokens/src`. The generator resolves the graph and writes these artifacts:
-
-- TypeScript semantic names and theme values.
-- StyleX variables for package and registry consumers.
-- Public semantic CSS.
-- DTCG and contract manifests.
-- The Figma mapping manifest.
-- The Consumer-owned theme adapter template.
-
-After changing a token source, run:
-
-```bash
-pnpm --filter @lenso/token-generator generate
-pnpm --filter @lenso/token-generator test
-pnpm generate
-```
-
-Review every generated representation together. Complete Light and Dark theme values are required; partial `ThemeScope` overrides are a runtime consumer feature, not a substitute for a complete default theme.
-
-## Documentation workflow
-
-Each public docs page is an MDX content file with a title in frontmatter. The path under `apps/docs/contents` determines its URL; optional `meta.json` orders sibling pages. The framework rejects route collisions and pages outside configured tabs.
-
-Use the existing component pages as the writing and composition model:
-
-- State what the component or pattern is for.
-- Explain usage boundaries and accessibility behavior.
-- Show the public subpath import and compound-part composition.
-- Keep Consumer-owned content, routing, labels, and icons in the example.
-- Describe package versus registry ownership when the page is a Recipe or adapter.
-
-Format MDX with the repository formatter:
-
-```bash
-pnpm format:mdx
-pnpm format:mdx:check
-pnpm --filter @lenso/ui-docs typecheck
-```
-
-The framework shell imports `@lenso/tokens/styles.css` and `@lenso/ui/styles.css` once. Demos should consume the public package subpaths so the component lab exercises the API that Consumers install.
-
-## Generated artifacts and freshness
-
-The following are generated from source and must stay synchronized:
-
-- `packages/tokens/src/index.ts`, `styles.css`, `tokens.json`, `contract.json`, `figma-map.json`, and the StyleX bridge.
-- `registry/components`, `registry/setup/setup.json`, `registry/registry.json`, `registry/parity-manifest.json`, and `registry/tokens.stylex.ts`.
-- `apps/docs/public/r`, including the stable registry output.
-
-Run the freshness check after generation:
-
-```bash
-pnpm --filter @lenso/token-generator check-generated
-```
-
-It compares the generated paths with Git. A dirty generated path is evidence that generation has not been committed yet; it is not a reason to hand-edit or delete the output.
-
-## Changesets and public changes
-
-Add a Changeset for every public API, semantic token, registry item, or material visual-contract change:
-
-```bash
-pnpm changeset
-```
-
-The public fixed group is `@lenso/ui`, `@lenso/primitives`, and `@lenso/tokens`. Changesets releases them together. `@lenso/fonts` remains private until its asset provenance is complete. A registry source change is a public change even when the TypeScript API is unchanged.
-
-Include a migration note when a Consumer must change imports, CSS, registry source, or behavior. For visual corrections, record the affected theme and state when that context matters.
+Public API, import, CSS or behavior changes need migration notes explaining
+what consumers must change. Material visual changes need the affected themes
+and states recorded. This wholesale reconstruction replaces the former
+packages, registry and token-generation graph; its README and family evidence
+documents must state the replacement and its remaining limitations.
 
 ## Verification
 
-Use the narrowest useful check while iterating, then run the repository gate before handoff:
+Use Node 24.18.0 and pnpm 11.5.0, as configured in `.mise.toml` and the root
+`package.json`. Install from the lockfile:
 
-```bash
-pnpm format:check
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm design-lint
+```sh
+pnpm install --frozen-lockfile
+```
+
+Run the current repository gate and production consumer builds:
+
+```sh
 pnpm check
+pnpm --filter @lenso/ui-docs build
+pnpm --filter @lenso/storybook build
 ```
 
-`pnpm design-lint` builds `@lenso/design-lint` and checks the Lenso fixture against the generated token contract and Button ownership contract. `pnpm check` runs formatting, linting, generation, generated-artifact freshness, package typechecks, browser tests, builds through Turbo, and that design-contract check. Browser tests may need the local Chromium installation used by the CI workflow:
+For changed documentation interactions, start the built docs application using
+`pnpm --filter @lenso/ui-docs start` and run
+`pnpm --filter @lenso/ui-docs test:browser` against it. Set
+`LENSO_DOCS_TEST_URL` when using a different address. Full live-example coverage
+claims additionally require `pnpm --filter @lenso/ui-docs test:examples`; scoped
+or partial runs must be reported as scoped or partial.
 
-```bash
-pnpm --filter @lenso/ui exec playwright install chromium
-```
+Use the narrowest useful checks while iterating, but require all applicable
+checks to pass for the final candidate. Do not substitute a previous revision's
+proof, a source-only snippet or a partial run for the requested acceptance
+scope.
 
-For a docs-only change, at minimum run `pnpm format:check`, `pnpm --filter @lenso/ui-docs typecheck`, and `pnpm --filter @lenso/ui-docs build`; the full `pnpm check` remains the release gate.
+## Landing and release policy
 
-## Release path
+The owner-approved reconstruction policy replaces the former Changesets
+fixed-group release process. The removed registry, release-status tooling and
+automatic publication workflow are retired; a Changeset is no longer required.
+Migration notes, licenses and verification remain required.
 
-Prepare a fixed-group release with `pnpm exec changeset version --ignore @lenso/design-lint`, `pnpm release-status:write`, `pnpm generate`, and `pnpm --filter @lenso/registry-builder snapshot`. Commit the resulting manifests, changelogs, and immutable registry snapshot together. The independent design-lint changeset stays pending for its own release. The stable registry alias is generated on normal source changes; a versioned `/r/v/{version}/` snapshot is written only during release preparation and is immutable.
+For this reconstruction landing, the owner waived Delta Review approval.
+This does not waive verification or any future hosting-required review.
 
-After the exact candidate SHA passes CI and lands on `main`, `.github/workflows/release.yml` publishes only the fixed public group through npm Trusted Publishing with provenance and creates package tags and GitHub releases. The `npm` environment requires owner approval.
+Publish a signed candidate to `delta/verify/<short-sha>`. The
+`Verify reconstruction` workflow must pass its `verify` job for that exact
+push SHA before a non-force fast-forward to `origin/main`. Verify the landed
+SHA and its main CI result. Preserve unrelated work and never bypass failed or
+missing required checks.
 
-Do not publish packages manually from a feature branch or rewrite an existing immutable registry snapshot. If the release state or package versions are unclear, inspect the package manifests, Changesets, Git tags, and generated release manifest together.
-
-## Worktree hygiene
-
-Read `AGENTS.md` before repository operations. Preserve unrelated dirty files, use a focused Worktrunk worktree for isolated work under the framework workspace, and never force-remove a dirty or active worktree. Keep implementation, generated output, docs, and changeset changes scoped to the task.
+This landing delivers source only. Do not publish npm packages, create release
+tags or invoke deployment as part of it. Package versions in the source tree
+are not authorization to publish. Any future release or restored automation
+requires a separate explicit owner decision, including versioning, publication
+and migration requirements.

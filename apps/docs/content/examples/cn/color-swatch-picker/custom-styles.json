@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-picker-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/color-swatch-picker/custom-styles.tsx",
+  "code": "import {ColorSwatchPicker} from \"@lenso/ui\";\n\nconst colors = [\"#F43F5E\", \"#D946EF\", \"#8B5CF6\", \"#3B82F6\", \"#06B6D4\", \"#10B981\", \"#84CC16\"];\n\nexport function CustomStyles() {\n  return (\n    <ColorSwatchPicker\n      className=\"rounded-2xl border border-border/80 bg-surface p-4 shadow-sm ring-1 ring-accent/5\"\n      defaultValue=\"#8B5CF6\"\n      variant=\"square\"\n    >\n      {colors.map((color) => (\n        <ColorSwatchPicker.Item key={`custom-styles-${color}`} color={color}>\n          <ColorSwatchPicker.Swatch />\n          <ColorSwatchPicker.Indicator />\n        </ColorSwatchPicker.Item>\n      ))}\n    </ColorSwatchPicker>\n  );\n}\n"
+}

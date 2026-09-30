@@ -1,0 +1,6 @@
+{
+  "name": "date-field-with-prefix-icon",
+  "exported": "WithPrefixIcon",
+  "source": "apps/docs/src/demos/en/date-field/with-prefix-icon.tsx",
+  "code": "\"use client\";\n\nimport {Calendar} from \"@gravity-ui/icons\";\nimport {DateField, Label} from \"@lenso/ui\";\n\nexport function WithPrefixIcon() {\n  return (\n    <DateField className=\"w-[256px]\" name=\"date\">\n      <Label>Date</Label>\n      <DateField.Group>\n        <DateField.Prefix>\n          <Calendar className=\"size-4 text-muted\" />\n        </DateField.Prefix>\n        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n      </DateField.Group>\n    </DateField>\n  );\n}\n"
+}

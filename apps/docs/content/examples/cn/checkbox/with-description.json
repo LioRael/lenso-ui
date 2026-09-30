@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-with-description",
+  "exported": "WithDescription",
+  "source": "apps/docs/src/demos/cn/checkbox/with-description.tsx",
+  "code": "import {Checkbox, Description} from \"@lenso/ui\";\n\nexport function WithDescription() {\n  return (\n    <Checkbox name=\"description-notifications\">\n      <Checkbox.Content>\n        <Checkbox.Control>\n          <Checkbox.Indicator />\n        </Checkbox.Control>\n        邮件通知\n      </Checkbox.Content>\n      <Description>当有人在评论中提及您时收到通知</Description>\n    </Checkbox>\n  );\n}\n"
+}

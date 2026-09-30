@@ -1,0 +1,6 @@
+{
+  "name": "meter-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/meter/custom-styles.tsx",
+  "code": "import {Label, Meter} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Meter aria-label=\"已用存储空间\" className=\"w-64\" value={68}>\n      <Label className=\"font-medium text-foreground\">已用存储空间</Label>\n      <Meter.Output className=\"text-muted tabular-nums\" />\n      <Meter.Track className=\"rounded-full bg-default\">\n        <Meter.Fill className=\"rounded-full bg-warning\" />\n      </Meter.Track>\n    </Meter>\n  );\n}\n"
+}

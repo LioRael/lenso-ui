@@ -1,0 +1,6 @@
+{
+  "name": "search-field-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/search-field/basic.tsx",
+  "code": "import {Label, SearchField} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <SearchField name=\"search\">\n      <Label>Search</Label>\n      <SearchField.Group>\n        <SearchField.SearchIcon />\n        <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n        <SearchField.ClearButton />\n      </SearchField.Group>\n    </SearchField>\n  );\n}\n"
+}

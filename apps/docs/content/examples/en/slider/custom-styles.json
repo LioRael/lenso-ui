@@ -1,0 +1,6 @@
+{
+  "name": "slider-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/slider/custom-styles.tsx",
+  "code": "import {Label, Slider} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Slider className=\"w-full max-w-xs\" defaultValue={40}>\n      <Label className=\"font-medium text-foreground\">Brightness</Label>\n      <Slider.Output className=\"text-xs text-muted tabular-nums\" />\n      <Slider.Track className=\"bg-default\">\n        <Slider.Fill className=\"bg-accent\" />\n        <Slider.Thumb className=\"bg-accent after:bg-accent-foreground\" />\n      </Slider.Track>\n    </Slider>\n  );\n}\n"
+}

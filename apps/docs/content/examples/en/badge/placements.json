@@ -1,0 +1,6 @@
+{
+  "name": "badge-placements",
+  "exported": "BadgePlacements",
+  "source": "apps/docs/src/demos/en/badge/placements.tsx",
+  "code": "import {Avatar, Badge} from \"@lenso/ui\";\n\nconst AVATAR_URL = \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg\";\n\nexport function BadgePlacements() {\n  const placements = [\"top-right\", \"top-left\", \"bottom-right\", \"bottom-left\"] as const;\n\n  return (\n    <div className=\"flex items-center gap-8\">\n      {placements.map((placement) => (\n        <div key={placement} className=\"flex flex-col items-center gap-2\">\n          <Badge.Anchor>\n            <Avatar>\n              <Avatar.Image src={AVATAR_URL} />\n              <Avatar.Fallback>JD</Avatar.Fallback>\n            </Avatar>\n            <Badge color=\"accent\" placement={placement} size=\"sm\" />\n          </Badge.Anchor>\n          <span className=\"text-xs text-muted\">{placement}</span>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+}

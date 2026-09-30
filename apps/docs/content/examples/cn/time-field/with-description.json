@@ -1,0 +1,6 @@
+{
+  "name": "time-field-with-description",
+  "exported": "WithDescription",
+  "source": "apps/docs/src/demos/cn/time-field/with-description.tsx",
+  "code": "\"use client\";\n\nimport {Description, Label, TimeField} from \"@lenso/ui\";\n\nexport function WithDescription() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TimeField className=\"w-[256px]\" name=\"time\">\n        <Label>开始时间</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n        <Description>输入开始时间</Description>\n      </TimeField>\n      <TimeField className=\"w-[256px]\" name=\"end-time\">\n        <Label>结束时间</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n        <Description>输入结束时间</Description>\n      </TimeField>\n    </div>\n  );\n}\n"
+}

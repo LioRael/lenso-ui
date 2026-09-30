@@ -1,0 +1,6 @@
+{
+  "name": "input-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/cn/input/variants.tsx",
+  "code": "import {Input} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex w-[240px] flex-col gap-2\">\n      <Input fullWidth placeholder=\"主要输入框\" variant=\"primary\" />\n      <Input fullWidth placeholder=\"次要输入框\" variant=\"secondary\" />\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "textfield-input-types",
+  "exported": "InputTypes",
+  "source": "apps/docs/src/demos/cn/textfield/input-types.tsx",
+  "code": "import {Input, Label, TextField} from \"@lenso/ui\";\n\nexport function InputTypes() {\n  return (\n    <div className=\"flex w-full max-w-64 flex-col gap-4\">\n      <TextField name=\"password\" type=\"password\">\n        <Label>密码</Label>\n        <Input placeholder=\"••••••••\" />\n      </TextField>\n\n      <TextField name=\"age\" type=\"number\">\n        <Label>年龄</Label>\n        <Input max=\"150\" min=\"0\" placeholder=\"21\" />\n      </TextField>\n\n      <TextField name=\"email\" type=\"email\">\n        <Label>邮箱</Label>\n        <Input placeholder=\"user@example.com\" />\n      </TextField>\n\n      <TextField name=\"website\" type=\"url\">\n        <Label>网站</Label>\n        <Input placeholder=\"https://example.com\" />\n      </TextField>\n\n      <TextField name=\"phone\" type=\"tel\">\n        <Label>电话</Label>\n        <Input placeholder=\"+1 (555) 000-0000\" />\n      </TextField>\n    </div>\n  );\n}\n"
+}

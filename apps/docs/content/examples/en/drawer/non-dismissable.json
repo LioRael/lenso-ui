@@ -1,0 +1,6 @@
+{
+  "name": "drawer-non-dismissable",
+  "exported": "NonDismissable",
+  "source": "apps/docs/src/demos/en/drawer/non-dismissable.tsx",
+  "code": "import {Button, Drawer} from \"@lenso/ui\";\n\nexport function NonDismissable() {\n  return (\n    <Drawer>\n      <Button variant=\"secondary\">Important Action</Button>\n      <Drawer.Backdrop isDismissable={false}>\n        <Drawer.Content>\n          <Drawer.Dialog>\n            <Drawer.Header>\n              <Drawer.Heading>Confirm Action</Drawer.Heading>\n            </Drawer.Header>\n            <Drawer.Body>\n              <p>\n                This drawer cannot be dismissed by clicking outside or dragging. You must use one of\n                the buttons below.\n              </p>\n            </Drawer.Body>\n            <Drawer.Footer>\n              <Button slot=\"close\" variant=\"secondary\">\n                Cancel\n              </Button>\n              <Button slot=\"close\">Confirm</Button>\n            </Drawer.Footer>\n          </Drawer.Dialog>\n        </Drawer.Content>\n      </Drawer.Backdrop>\n    </Drawer>\n  );\n}\n"
+}

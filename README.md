@@ -1,158 +1,115 @@
 # Lenso UI
 
-Lenso UI is an independent React design system for Lenso products and community applications. It combines Base UI behavior, StyleX styling, DTCG design tokens, managed npm packages, and editable shadcn-compatible registry source.
+A source reconstruction of HeroUI v3.2.6 using **StyleX**, **Base UI** and a
+bounded **React Aria** implementation for date, time and color controls.
+Linting and formatting use **oxlint + oxfmt**.
 
-<!-- lenso-release-slot:start -->
+The previous Lenso UI implementation is replaced. Only the existing
+`packages/primitives` package is preserved.
 
-The public package line in this repository is `0.7.0`. The project is still experimental: the package, token, registry, and material visual contracts are public surfaces, while the component inventory and consumer certification continue to grow. Unreleased changesets may be present after the `0.7.0` snapshot.
-<!-- lenso-release-slot:end -->
-
-## Choose a distribution channel
-
-| Channel                              | Use it when                                                   | Ownership after installation           |
-| ------------------------------------ | ------------------------------------------------------------- | -------------------------------------- |
-| `@lenso/ui` and `@lenso/primitives`  | You want managed upgrades and the published component API     | Lenso UI manages the package source    |
-| `https://ui.lenso.dev/r/{name}.json` | You need to edit a component or start from an editable Recipe | The Consumer owns the installed source |
-
-Both channels are generated from the repository sources. The registry parity manifest records the source-to-registry file mapping and hashes.
-
-## Install the managed packages
-
-Use the package channel when you want managed component upgrades and the precompiled StyleX output:
-
-```bash
-pnpm add @lenso/ui @lenso/tokens @base-ui/react react react-dom
-```
-
-Import the token contract and component CSS once in the application shell. Components are exposed from named subpaths; there is no all-components root barrel:
-
-```tsx
-import "@lenso/tokens/styles.css";
-import "@lenso/ui/styles.css";
-import { Button } from "@lenso/ui/button";
-
-export function SaveButton() {
-  return <Button>Save</Button>;
-}
-```
-
-`@lenso/ui/preflight.css` is optional. It contains narrowly scoped platform and overlay-host rules, not a reset and not font assets.
-
-Use `@lenso/primitives/sidebar` directly when you need the headless Sidebar state model without Lenso UI's visual layer:
-
-```bash
-pnpm add @lenso/primitives @base-ui/react react
-```
-
-The styled `@lenso/ui/sidebar` adapter uses that primitive internally and adds the Lenso UI StyleX contract.
-
-Use `@lenso/primitives/resize-handle` for layout-independent splitter behavior, or `@lenso/ui/resize-handle` for the Linear-inspired visual adapter. Pane layout and persistence remain Consumer-owned.
-
-## Install editable registry source
-
-Use the registry channel when the Consumer needs to own and structurally change the installed source:
-
-```bash
-pnpm dlx shadcn@latest add https://ui.lenso.dev/r/setup.json
-pnpm dlx shadcn@latest add https://ui.lenso.dev/r/button.json
-```
-
-The setup item installs the shared token bridge and its dependencies. The Consumer must configure a compatible StyleX compiler for the application and import the generated token CSS once:
-
-```tsx
-import "@lenso/tokens/styles.css";
-```
-
-<!-- lenso-release-slot:start -->
-
-Stable URLs resolve the current generated registry. Immutable release snapshots use a versioned path, for example `https://ui.lenso.dev/r/v/0.7.0/button.json`. A versioned snapshot is never rewritten; the stable alias is the channel for the current registry output.
-<!-- lenso-release-slot:end -->
-
-## Public packages and current surface
-
-<!-- lenso-release-slot:start -->
-
-- `@lenso/ui@0.7.0`: styled Foundation Components, each available from an explicit family subpath.
-- `@lenso/primitives@0.7.0`: headless Product Primitives for Sidebar and Resize Handle behavior.
-- `@lenso/tokens@0.7.0`: generated semantic CSS, TypeScript, StyleX, DTCG, contract, and Figma-map artifacts.
-
-<!-- lenso-release-slot:end -->
-
-- `@lenso/fonts`: private optional font boundary; it is not part of the public fixed release group yet because its redistributable asset provenance is incomplete.
-- `@lenso/design-lint`: an independently publishable, StyleX-only design-contract linter for Consumers and package authors. It is maintained in this repository but is not part of the fixed component release group.
-
-The current `@lenso/ui` subpaths are:
+## Repository
 
 ```text
-avatar           breadcrumb       button           checkbox      combobox
-command-menu     content-state    csp-provider     description-list dialog
-disclosure       icon-button      inline-alert     label         menu
-popover          quick-link       radio            resize-handle
-select           shimmer-text     sidebar          settings-row  status-marker
-surface          switch           tabs             text-area     text-field
-theme-scope      toast            tooltip
+apps/
+  docs/                 documentation content and application
+packages/
+  primitives/           preserved headless package
+  react/                @lenso/ui React component families
+  styles/               @lenso/tokens themes and StyleX component styles
+  standard/             shared quality-tool conventions
+  testing/              browser test infrastructure
+  storybook/            component development
+third-party/
+  heroui/               source license and attribution
 ```
 
-The documentation site covers the component pages plus the current Surface, Quick Link, and Settings Row patterns, along with the Console Workspace and Settings Page templates. The registry also exposes setup, Theme Scope, CSP Provider, Sidebar and Resize Handle primitives, plus editable Settings Section and Prompt Composer Recipes.
-
-## Themes and semantic tokens
-
-Light and dark themes are complete defaults. `ThemeScope` applies a theme and optional partial semantic-token overrides to a subtree, including the body-level host used by portalled overlays:
-
-```tsx
-import { ThemeScope } from "@lenso/ui/theme-scope";
-
-<ThemeScope theme="dark" overrides={{ "color.surface.canvas": "#101114" }}>
-  <App />
-</ThemeScope>;
-```
-
-Public CSS properties use complete, unbranded semantic names such as `--color-surface-canvas`. Consumers retain ownership of preference persistence, system-mode resolution, product assets, and product-specific theme composition. The token source and generated-artifact rules are documented in [`docs/architecture.md`](docs/architecture.md).
-
-## Strict CSP
-
-`CSPProvider` forwards Base UI's strict-CSP contract. Generate a unique nonce per server request, include it in `script-src` and `style-src-elem`, and pass the same value to the provider:
-
-```tsx
-import { CSPProvider } from "@lenso/ui/csp-provider";
-
-<CSPProvider nonce={requestNonce}>
-  <App />
-</CSPProvider>;
-```
-
-If the application supplies the required external component styles itself, `disableStyleElements` prevents Base UI from creating inline style elements. It does not remove inline `style` attributes; those are governed separately by `style-src-attr`.
-
-## Replace built-in icons
-
-Built-in Lucide icons are defaults rather than product identity. Controls that provide one expose a `ReactNode` slot:
-
-```tsx
-<Dialog.Close icon={<MyCloseIcon aria-hidden />} />
-<Button loadingIndicator={<MySpinner aria-hidden />}>Save</Button>
-```
+The reference source is
+[`heroui-inc/heroui@e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e`](https://github.com/heroui-inc/heroui/tree/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e).
+The adaptation is independent, not an official HeroUI release.
 
 ## Development
 
-The repository pins Node `24.18.0` through the workspace toolchain and pnpm `11.5.0` through `package.json`.
-
-```bash
-pnpm install --frozen-lockfile
-pnpm dev
+```sh
+pnpm install
+pnpm build:packages
+pnpm dev:docs
+pnpm dev:storybook
 pnpm check
 ```
 
-Useful focused commands:
+Theme CSS keeps source OKLCH and dynamic color relationships. The styles package
+owns component StyleX maps; the React package owns interaction and composition.
+There is no old DTCG token graph, registry or compatibility API.
 
-```bash
-pnpm format:check
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm --filter @lenso/ui-docs dev
+## Status
+
+The replacement package graph and documentation application build and run.
+`pnpm check` passes, including 193 UI Chromium tests and the 11 unchanged
+primitive tests. The documentation production build generates all 352
+English/Chinese pages. Its separate browser proof checks native demos,
+focus restoration, theme paint, search, locale navigation and mobile drawers.
+
+All 72 component pages have local adaptations: 682 English references resolve
+to 681 local demo modules. Interactive previews mount on the client, avoiding
+hydration of time-dependent example state from a static documentation build.
+Chinese pages currently reuse English previews and label that reuse explicitly;
+the source-backed localization generator and its artifacts are not yet wired
+into the runtime registry. Generated localization files are not counted as
+live Chinese coverage.
+
+Storybook records 126 source-adapted scenarios out of 583 pinned scenarios;
+the remaining scope is listed in its coverage report. These counts do not
+certify exhaustive behavior, upstream pixel parity, RTL or reduced-motion
+coverage.
+Some visible MDX API tables still preserve the upstream contract; replacing
+them with the generated native reference remains incomplete. Treat those tables
+as historical reference, not local API compatibility guarantees.
+Known remaining component gaps include mobile Drawer body/footer scrolling,
+noninteractive InputGroup prefix/suffix click-to-focus, and the ComboBox shell
+and secondary appearance. Registration and passing tests do not mark those
+contracts complete.
+
+## Migrating from the previous architecture
+
+This is not a drop-in upgrade. The old registry distribution, DTCG token graph,
+compatibility adapters and Console templates are removed. Styled components
+now live in `packages/react`, with their StyleX maps in `packages/styles`.
+The public package names remain `@lenso/ui` and `@lenso/tokens`.
+
+Use the current public exports and native interaction contracts rather than
+assuming old prop aliases still work. Ordinary controls use Base UI contracts
+such as `onClick`, `disabled` and `render`; date, time and color controls use
+their React Aria contracts. The generated API reference describes the actual
+local signatures. Import `@lenso/tokens/styles.css` for the source theme and
+base styles; the former `@lenso/ui/styles.css` distribution is not retained.
+The existing primitives package and its public contracts are unchanged.
+
+The reconstruction lands source only. The old Changesets publication workflow
+is retired; package publication and version tags require a separate owner
+decision. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Run the production documentation proof in two terminals:
+
+```sh
+pnpm --filter @lenso/ui-docs build
+pnpm --filter @lenso/ui-docs start
 ```
 
-`pnpm generate` updates token and registry artifacts from their source inputs. Run it after changing token sources or registry generation inputs, inspect the generated diff, and commit the generated outputs with the source change. `pnpm check` also runs the generated-artifact freshness check, so it should be run after the working tree has the intended generated state.
+```sh
+pnpm --filter @lenso/ui-docs test:browser
+```
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the change workflow, [`docs/architecture.md`](docs/architecture.md) for the repository model, [`MVP.md`](MVP.md) for the delivery contract, and [`docs/adr/`](docs/adr/) for accepted architecture decisions. The Next.js application under `apps/docs` is the public documentation site and component lab. `@lenso/docs` supplies its convention-based content and navigation framework.
+For another port, set `LENSO_DOCS_TEST_URL` for the browser command.
+Remaining differences are recorded in the
+[documentation shell adaptation](apps/docs/src/components/fumadocs/SOURCE.md),
+[collection contracts](packages/react/src/components/list-box/COLLECTIONS.md),
+[overlay evidence](packages/react/src/components/modal/RECOVERY.md), and
+[Storybook coverage](packages/storybook/COVERAGE.md).
+
+Source-exact action colors can fall below WCAG AA normal-text contrast.
+The source appearance is retained rather than silently altered.
+
+## License
+
+HeroUI-derived work is Apache-2.0 with its [source attribution](third-party/heroui/NOTICE.md).
+The preserved Lenso primitives retain their MIT license.

@@ -1,0 +1,6 @@
+{
+  "name": "tabs-overflow",
+  "exported": "Overflow",
+  "source": "apps/docs/src/demos/cn/tabs/overflow.tsx",
+  "code": "import {Tabs} from \"@lenso/ui\";\n\nconst items = [\n  {id: \"overview\", label: \"概览\"},\n  {id: \"analytics\", label: \"分析\"},\n  {id: \"reports\", label: \"报告\"},\n  {id: \"performance\", label: \"性能\"},\n  {id: \"engagement\", label: \"互动\"},\n  {id: \"audience\", label: \"受众\"},\n  {id: \"acquisition\", label: \"获取\"},\n  {id: \"retention\", label: \"留存\"},\n  {id: \"settings\", label: \"设置\"},\n];\n\nexport function Overflow() {\n  return (\n    <div className=\"w-[400px]\">\n      <Tabs>\n        <Tabs.ListContainer>\n          <Tabs.List aria-label=\"溢出选项\">\n            {items.map((item) => (\n              <Tabs.Tab key={item.id} id={item.id}>\n                {item.label}\n                <Tabs.Indicator />\n              </Tabs.Tab>\n            ))}\n          </Tabs.List>\n        </Tabs.ListContainer>\n        {items.map((item) => (\n          <Tabs.Panel key={item.id} className=\"pt-4\" id={item.id}>\n            <p>{item.label} 面板内容。</p>\n          </Tabs.Panel>\n        ))}\n      </Tabs>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-group-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/checkbox-group/disabled.tsx",
+  "code": "import {Checkbox, CheckboxGroup, Description, Label} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <CheckboxGroup isDisabled name=\"disabled-features\">\n      <Label>功能</Label>\n      <Description>功能选择暂时不可用</Description>\n      <Checkbox value=\"feature1\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          功能一\n        </Checkbox.Content>\n        <Description>该功能即将推出</Description>\n      </Checkbox>\n      <Checkbox value=\"feature2\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          功能二\n        </Checkbox.Content>\n        <Description>该功能即将推出</Description>\n      </Checkbox>\n    </CheckboxGroup>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "link-custom-icon",
+  "exported": "LinkCustomIcon",
+  "source": "apps/docs/src/demos/cn/link/custom-icon.tsx",
+  "code": "import {ArrowUpRightFromSquare, Link as LinkIcon} from \"@gravity-ui/icons\";\nimport {Link} from \"@lenso/ui\";\n\nexport function LinkCustomIcon() {\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <Link href=\"#\">\n        外部链接\n        <Link.Icon className=\"ms-1.5 size-3\">\n          <ArrowUpRightFromSquare />\n        </Link.Icon>\n      </Link>\n      <Link className=\"gap-1\" href=\"#\">\n        前往页面\n        <Link.Icon className=\"size-3\">\n          <LinkIcon />\n        </Link.Icon>\n      </Link>\n    </div>\n  );\n}\n"
+}

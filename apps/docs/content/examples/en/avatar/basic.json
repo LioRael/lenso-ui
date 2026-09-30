@@ -1,0 +1,6 @@
+{
+  "name": "avatar-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/avatar/basic.tsx",
+  "code": "import {Avatar} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Avatar>\n        <Avatar.Image alt=\"John Doe\" src=\"https://img.heroui.chat/image/avatar?w=400&h=400&u=3\" />\n        <Avatar.Fallback>JD</Avatar.Fallback>\n      </Avatar>\n      <Avatar>\n        <Avatar.Image\n          alt=\"Blue\"\n          src=\"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg\"\n        />\n        <Avatar.Fallback>B</Avatar.Fallback>\n      </Avatar>\n      <Avatar>\n        <Avatar.Fallback>JR</Avatar.Fallback>\n      </Avatar>\n    </div>\n  );\n}\n"
+}

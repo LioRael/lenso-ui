@@ -1,0 +1,6 @@
+{
+  "name": "spinner-basic",
+  "exported": "SpinnerBasic",
+  "source": "apps/docs/src/demos/en/spinner/basic.tsx",
+  "code": "import {Spinner} from \"@lenso/ui\";\n\nexport function SpinnerBasic() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Spinner />\n    </div>\n  );\n}\n"
+}

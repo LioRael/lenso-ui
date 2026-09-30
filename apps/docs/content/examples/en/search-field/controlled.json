@@ -1,0 +1,6 @@
+{
+  "name": "search-field-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/en/search-field/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Button, Description, Label, SearchField} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Controlled() {\n  const [value, setValue] = React.useState(\"\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField name=\"search\" value={value} onChange={setValue}>\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>Current value: {value || \"(empty)\"}</Description>\n      </SearchField>\n      <div className=\"flex gap-2\">\n        <Button variant=\"tertiary\" onPress={() => setValue(\"\")}>\n          Clear\n        </Button>\n        <Button variant=\"tertiary\" onPress={() => setValue(\"example query\")}>\n          Set example\n        </Button>\n      </div>\n    </div>\n  );\n}\n"
+}

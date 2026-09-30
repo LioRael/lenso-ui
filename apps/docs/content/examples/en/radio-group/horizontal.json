@@ -1,0 +1,6 @@
+{
+  "name": "radio-group-horizontal",
+  "exported": "Horizontal",
+  "source": "apps/docs/src/demos/en/radio-group/horizontal.tsx",
+  "code": "import {Description, Label, Radio, RadioGroup} from \"@lenso/ui\";\n\nexport function Horizontal() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <Label>Subscription plan</Label>\n      <RadioGroup defaultValue=\"pro\" name=\"plan-orientation\" orientation=\"horizontal\">\n        <Radio value=\"starter\">\n          <Radio.Content>\n            <Radio.Control>\n              <Radio.Indicator />\n            </Radio.Control>\n            Starter\n          </Radio.Content>\n          <Description>For side projects</Description>\n        </Radio>\n        <Radio value=\"pro\">\n          <Radio.Content>\n            <Radio.Control>\n              <Radio.Indicator />\n            </Radio.Control>\n            Pro\n          </Radio.Content>\n          <Description>Advanced reporting</Description>\n        </Radio>\n        <Radio value=\"teams\">\n          <Radio.Content>\n            <Radio.Control>\n              <Radio.Indicator />\n            </Radio.Control>\n            Teams\n          </Radio.Content>\n          <Description>Up to 10 teammates</Description>\n        </Radio>\n      </RadioGroup>\n    </div>\n  );\n}\n"
+}

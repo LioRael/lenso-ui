@@ -1,0 +1,6 @@
+{
+  "name": "input-types",
+  "exported": "Types",
+  "source": "apps/docs/src/demos/en/input/types.tsx",
+  "code": "import {Input, Label} from \"@lenso/ui\";\n\nexport function Types() {\n  return (\n    <div className=\"flex w-80 flex-col gap-4\">\n      <div className=\"flex flex-col gap-1\">\n        <Label htmlFor=\"input-type-email\">Email</Label>\n        <Input id=\"input-type-email\" placeholder=\"jane@example.com\" type=\"email\" />\n      </div>\n      <div className=\"flex flex-col gap-1\">\n        <Label htmlFor=\"input-type-number\">Age</Label>\n        <Input id=\"input-type-number\" min={0} placeholder=\"30\" type=\"number\" />\n      </div>\n      <div className=\"flex flex-col gap-1\">\n        <Label htmlFor=\"input-type-password\">Password</Label>\n        <Input id=\"input-type-password\" placeholder=\"••••••••\" type=\"password\" />\n      </div>\n    </div>\n  );\n}\n"
+}

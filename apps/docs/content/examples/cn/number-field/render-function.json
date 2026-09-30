@@ -1,0 +1,6 @@
+{
+  "name": "number-field-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/number-field/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Label, NumberField} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <NumberField\n      className=\"w-full max-w-64\"\n      defaultValue={1024}\n      minValue={0}\n      name=\"width\"\n      render={(props) => <div {...props} data-custom=\"foo\" />}\n    >\n      <Label>宽度</Label>\n      <NumberField.Group>\n        <NumberField.DecrementButton />\n        <NumberField.Input className=\"w-[120px]\" />\n        <NumberField.IncrementButton />\n      </NumberField.Group>\n    </NumberField>\n  );\n}\n"
+}

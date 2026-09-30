@@ -1,0 +1,6 @@
+{
+  "name": "toast-expanded",
+  "exported": "Expanded",
+  "source": "apps/docs/src/demos/en/toast/expanded.tsx",
+  "code": "\"use client\";\n\nimport {Button, Toast, ToastQueue} from \"@lenso/ui\";\n\nconst queue = new ToastQueue();\n\nexport function Expanded() {\n  return (\n    <div className=\"flex h-full max-w-xl flex-col items-center justify-center\">\n      <Toast.Provider\n        isExpanded\n        aria-label=\"Expanded notifications\"\n        placement=\"bottom\"\n        queue={queue}\n      />\n      <Button\n        size=\"sm\"\n        variant=\"secondary\"\n        onPress={() => {\n          queue.add({\n            title: \"Simple message\",\n            variant: \"default\",\n          });\n          setTimeout(() => {\n            queue.add({\n              title: \"Operation completed\",\n              variant: \"success\",\n            });\n          }, 400);\n          setTimeout(() => {\n            queue.add({\n              title: \"New update available\",\n              variant: \"accent\",\n            });\n          }, 800);\n        }}\n      >\n        Show 3 toasts\n      </Button>\n    </div>\n  );\n}\n"
+}

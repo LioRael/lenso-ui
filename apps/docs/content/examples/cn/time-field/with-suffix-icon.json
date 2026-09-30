@@ -1,0 +1,6 @@
+{
+  "name": "time-field-with-suffix-icon",
+  "exported": "WithSuffixIcon",
+  "source": "apps/docs/src/demos/cn/time-field/with-suffix-icon.tsx",
+  "code": "\"use client\";\n\nimport {Clock} from \"@gravity-ui/icons\";\nimport {Label, TimeField} from \"@lenso/ui\";\n\nexport function WithSuffixIcon() {\n  return (\n    <TimeField className=\"w-[256px]\" name=\"time\">\n      <Label>时间</Label>\n      <TimeField.Group>\n        <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        <TimeField.Suffix>\n          <Clock className=\"size-4 text-muted\" />\n        </TimeField.Suffix>\n      </TimeField.Group>\n    </TimeField>\n  );\n}\n"
+}

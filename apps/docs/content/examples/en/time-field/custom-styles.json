@@ -1,0 +1,6 @@
+{
+  "name": "time-field-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/time-field/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport {Description, Label, TimeField} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <TimeField className=\"w-full max-w-48 gap-1.5\" name=\"reminder\">\n      <Label className=\"font-medium text-foreground\">Reminder time</Label>\n      <Description>Daily check-in notification.</Description>\n      <TimeField.Group className=\"rounded-xl border border-border/80 bg-surface px-2 py-1 shadow-sm ring-1 ring-accent/5 focus-within:border-accent/25 focus-within:ring-2 focus-within:ring-accent/15\">\n        <TimeField.Input>\n          {(segment) => <TimeField.Segment className=\"text-foreground\" segment={segment} />}\n        </TimeField.Input>\n      </TimeField.Group>\n    </TimeField>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "breadcrumbs-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/breadcrumbs/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport {Breadcrumbs} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Breadcrumbs className=\"rounded-lg bg-default-soft px-3 py-2\">\n      <Breadcrumbs.Item className=\"text-muted hover:text-accent\" href=\"#\">\n        首页\n      </Breadcrumbs.Item>\n      <Breadcrumbs.Item className=\"text-muted hover:text-accent\" href=\"#\">\n        产品\n      </Breadcrumbs.Item>\n      <Breadcrumbs.Item className=\"font-medium text-foreground\">笔记本电脑</Breadcrumbs.Item>\n    </Breadcrumbs>\n  );\n}\n"
+}

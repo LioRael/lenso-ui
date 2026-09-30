@@ -1,0 +1,6 @@
+{
+  "name": "calendar-year-picker",
+  "exported": "YearPicker",
+  "source": "apps/docs/src/demos/cn/calendar/year-picker.tsx",
+  "code": "\"use client\";\n\nimport {Calendar} from \"@lenso/ui\";\n\nexport function YearPicker() {\n  return (\n    <Calendar aria-label=\"活动日期\">\n      <Calendar.Header>\n        <Calendar.YearPickerTrigger>\n          <Calendar.YearPickerTriggerHeading />\n          <Calendar.YearPickerTriggerIndicator />\n        </Calendar.YearPickerTrigger>\n        <Calendar.NavButton slot=\"previous\" />\n        <Calendar.NavButton slot=\"next\" />\n      </Calendar.Header>\n      <Calendar.Grid>\n        <Calendar.GridHeader>\n          {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}\n        </Calendar.GridHeader>\n        <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>\n      </Calendar.Grid>\n      <Calendar.YearPickerGrid>\n        <Calendar.YearPickerGridBody>\n          {({year}) => <Calendar.YearPickerCell year={year} />}\n        </Calendar.YearPickerGridBody>\n      </Calendar.YearPickerGrid>\n    </Calendar>\n  );\n}\n"
+}

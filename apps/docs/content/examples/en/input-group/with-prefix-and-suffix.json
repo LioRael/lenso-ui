@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-prefix-and-suffix",
+  "exported": "WithPrefixAndSuffix",
+  "source": "apps/docs/src/demos/en/input-group/with-prefix-and-suffix.tsx",
+  "code": "\"use client\";\n\nimport {Description, InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function WithPrefixAndSuffix() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" defaultValue=\"10\" name=\"price\">\n      <Label>Set a price</Label>\n      <InputGroup>\n        <InputGroup.Prefix>$</InputGroup.Prefix>\n        <InputGroup.Input className=\"w-full max-w-[200px]\" type=\"number\" />\n        <InputGroup.Suffix>USD</InputGroup.Suffix>\n      </InputGroup>\n      <Description>What customers would pay</Description>\n    </TextField>\n  );\n}\n"
+}

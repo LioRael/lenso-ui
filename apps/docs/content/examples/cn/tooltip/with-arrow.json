@@ -1,0 +1,6 @@
+{
+  "name": "tooltip-with-arrow",
+  "exported": "TooltipWithArrow",
+  "source": "apps/docs/src/demos/cn/tooltip/with-arrow.tsx",
+  "code": "import {Button, Tooltip} from \"@lenso/ui\";\n\nexport function TooltipWithArrow() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Tooltip delay={0}>\n        <Button variant=\"secondary\">带箭头</Button>\n        <Tooltip.Content showArrow>\n          <Tooltip.Arrow />\n          <p>带箭头指示器的工具提示</p>\n        </Tooltip.Content>\n      </Tooltip>\n\n      <Tooltip delay={0}>\n        <Button variant=\"primary\">自定义偏移</Button>\n        <Tooltip.Content showArrow offset={12}>\n          <Tooltip.Arrow />\n          <p>与触发器的自定义偏移</p>\n        </Tooltip.Content>\n      </Tooltip>\n    </div>\n  );\n}\n"
+}

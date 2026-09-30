@@ -1,0 +1,6 @@
+{
+  "name": "toolbar-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/toolbar/basic.tsx",
+  "code": "import {Bold, Copy, Italic, Scissors, Underline} from \"@gravity-ui/icons\";\nimport {\n  Button,\n  ButtonGroup,\n  Separator,\n  ToggleButton,\n  ToggleButtonGroup,\n  Toolbar,\n} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <Toolbar aria-label=\"Text formatting\">\n      <ToggleButtonGroup aria-label=\"Text style\" selectionMode=\"multiple\">\n        <ToggleButton isIconOnly aria-label=\"Bold\" id=\"bold\">\n          <Bold />\n        </ToggleButton>\n        <ToggleButton isIconOnly aria-label=\"Italic\" id=\"italic\">\n          <ToggleButtonGroup.Separator />\n          <Italic />\n        </ToggleButton>\n        <ToggleButton isIconOnly aria-label=\"Underline\" id=\"underline\">\n          <ToggleButtonGroup.Separator />\n          <Underline />\n        </ToggleButton>\n      </ToggleButtonGroup>\n      <Separator />\n      <ButtonGroup variant=\"tertiary\">\n        <Button isIconOnly aria-label=\"Copy\">\n          <Copy />\n        </Button>\n        <Button isIconOnly aria-label=\"Cut\">\n          <ButtonGroup.Separator />\n          <Scissors />\n        </Button>\n      </ButtonGroup>\n    </Toolbar>\n  );\n}\n"
+}

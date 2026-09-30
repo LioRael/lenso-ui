@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-picker-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/cn/color-swatch-picker/sizes.tsx",
+  "code": "import {ColorSwatchPicker} from \"@lenso/ui\";\n\nconst colors = [\"#F43F5E\", \"#D946EF\", \"#8B5CF6\", \"#3B82F6\", \"#06B6D4\", \"#10B981\", \"#84CC16\"];\n\nconst sizes = [\"xs\", \"sm\", \"md\", \"lg\", \"xl\"] as const;\n\nconst SIZE_LABELS: Record<(typeof sizes)[number], string> = {\n  lg: \"大\",\n  md: \"中\",\n  sm: \"小\",\n  xl: \"特大\",\n  xs: \"特小\",\n};\n\nexport function Sizes() {\n  return (\n    <div className=\"flex flex-col gap-6\">\n      {sizes.map((size) => (\n        <div key={size} className=\"flex items-center gap-4\">\n          <span className=\"w-8 text-sm text-muted\">{SIZE_LABELS[size]}</span>\n          <ColorSwatchPicker size={size}>\n            {colors.map((color) => (\n              <ColorSwatchPicker.Item key={color} color={color}>\n                <ColorSwatchPicker.Swatch />\n                <ColorSwatchPicker.Indicator />\n              </ColorSwatchPicker.Item>\n            ))}\n          </ColorSwatchPicker>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+}

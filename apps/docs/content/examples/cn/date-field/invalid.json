@@ -1,0 +1,6 @@
+{
+  "name": "date-field-invalid",
+  "exported": "Invalid",
+  "source": "apps/docs/src/demos/cn/date-field/invalid.tsx",
+  "code": "\"use client\";\n\nimport {DateField, FieldError, Label} from \"@lenso/ui\";\n\nexport function Invalid() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <DateField isInvalid isRequired className=\"w-[256px]\" name=\"date\">\n        <Label>日期</Label>\n        <DateField.Group>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n        <FieldError>请输入有效日期</FieldError>\n      </DateField>\n      <DateField isInvalid className=\"w-[256px]\" name=\"invalid-date\">\n        <Label>日期</Label>\n        <DateField.Group>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n        <FieldError>日期须为将来</FieldError>\n      </DateField>\n    </div>\n  );\n}\n"
+}

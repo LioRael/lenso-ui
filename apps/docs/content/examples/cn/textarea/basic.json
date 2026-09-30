@@ -1,0 +1,6 @@
+{
+  "name": "textarea-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/textarea/basic.tsx",
+  "code": "import {TextArea} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <TextArea\n      aria-label=\"快速项目更新\"\n      className=\"h-32 w-96\"\n      placeholder=\"分享一条简短的项目更新…\"\n    />\n  );\n}\n"
+}

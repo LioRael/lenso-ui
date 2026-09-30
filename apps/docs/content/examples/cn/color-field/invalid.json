@@ -1,0 +1,6 @@
+{
+  "name": "color-field-invalid",
+  "exported": "Invalid",
+  "source": "apps/docs/src/demos/cn/color-field/invalid.tsx",
+  "code": "import {ColorField, FieldError, Label} from \"@lenso/ui\";\n\nexport function Invalid() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorField isInvalid isRequired className=\"w-[280px]\" name=\"color\">\n        <Label>颜色</Label>\n        <ColorField.Group>\n          <ColorField.Input placeholder=\"#000000\" />\n        </ColorField.Group>\n        <FieldError>请输入有效的十六进制颜色</FieldError>\n      </ColorField>\n      <ColorField isInvalid className=\"w-[280px]\" name=\"invalid-color\">\n        <Label>背景色</Label>\n        <ColorField.Group>\n          <ColorField.Input defaultValue=\"not-a-color\" />\n        </ColorField.Group>\n        <FieldError>颜色格式无效，请使用十六进制（例如 #FF5733）</FieldError>\n      </ColorField>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "progress-circle-with-label",
+  "exported": "WithLabel",
+  "source": "apps/docs/src/demos/cn/progress-circle/with-label.tsx",
+  "code": "import {Label, ProgressCircle} from \"@lenso/ui\";\n\nexport function WithLabel() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <ProgressCircle aria-label=\"加载中\" value={75}>\n        <ProgressCircle.Track>\n          <ProgressCircle.TrackCircle />\n          <ProgressCircle.FillCircle />\n        </ProgressCircle.Track>\n      </ProgressCircle>\n      <Label>已完成 75%</Label>\n    </div>\n  );\n}\n"
+}

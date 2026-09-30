@@ -1,0 +1,6 @@
+{
+  "name": "color-area-controlled",
+  "exported": "ColorAreaControlled",
+  "source": "apps/docs/src/demos/en/color-area/controlled.tsx",
+  "code": "\"use client\";\n\nimport type {Color} from \"@lenso/ui\";\n\nimport {ColorArea, ColorSwatch, parseColor} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function ColorAreaControlled() {\n  const [color, setColor] = useState<Color>(parseColor(\"#9B80FF\"));\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorArea colorSpace=\"rgb\" value={color} xChannel=\"red\" yChannel=\"green\" onChange={setColor}>\n        <ColorArea.Thumb />\n      </ColorArea>\n      <div className=\"flex w-[300px] items-center gap-3\">\n        <ColorSwatch color={color} size=\"md\" />\n        <p className=\"text-sm text-muted\">\n          Current color:{\" \"}\n          <span className=\"font-medium\">{color ? color.toString(\"hex\") : \"(empty)\"}</span>\n        </p>\n      </div>\n    </div>\n  );\n}\n"
+}

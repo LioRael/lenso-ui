@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/checkbox/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Checkbox} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <Checkbox render={(props) => <div {...props} data-custom=\"bar\" />}>\n      <Checkbox.Content>\n        <Checkbox.Control>\n          <Checkbox.Indicator />\n        </Checkbox.Control>\n        接受条款与条件\n      </Checkbox.Content>\n    </Checkbox>\n  );\n}\n"
+}

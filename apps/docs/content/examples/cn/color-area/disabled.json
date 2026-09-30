@@ -1,0 +1,6 @@
+{
+  "name": "color-area-disabled",
+  "exported": "ColorAreaDisabled",
+  "source": "apps/docs/src/demos/cn/color-area/disabled.tsx",
+  "code": "import {ColorArea} from \"@lenso/ui\";\n\nexport function ColorAreaDisabled() {\n  return (\n    <ColorArea isDisabled defaultValue=\"hsl(200, 100%, 50%)\">\n      <ColorArea.Thumb />\n    </ColorArea>\n  );\n}\n"
+}

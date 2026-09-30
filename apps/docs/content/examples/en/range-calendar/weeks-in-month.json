@@ -1,0 +1,6 @@
+{
+  "name": "range-calendar-weeks-in-month",
+  "exported": "WeeksInMonth",
+  "source": "apps/docs/src/demos/en/range-calendar/weeks-in-month.tsx",
+  "code": "\"use client\";\n\nimport {Description, RangeCalendar} from \"@lenso/ui\";\n\nexport function WeeksInMonth() {\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <RangeCalendar aria-label=\"Trip dates\" weeksInMonth={6}>\n        <RangeCalendar.Header>\n          <RangeCalendar.Heading />\n          <RangeCalendar.NavButton slot=\"previous\" />\n          <RangeCalendar.NavButton slot=\"next\" />\n        </RangeCalendar.Header>\n        <RangeCalendar.Grid>\n          <RangeCalendar.GridHeader>\n            {(day) => <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>}\n          </RangeCalendar.GridHeader>\n          <RangeCalendar.GridBody>\n            {(date) => <RangeCalendar.Cell date={date} />}\n          </RangeCalendar.GridBody>\n        </RangeCalendar.Grid>\n      </RangeCalendar>\n      <Description className=\"text-center\">\n        Always shows 6 weeks per month to avoid layout shift when navigating\n      </Description>\n    </div>\n  );\n}\n"
+}

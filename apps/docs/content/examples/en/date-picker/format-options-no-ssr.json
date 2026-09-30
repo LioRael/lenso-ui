@@ -1,0 +1,4 @@
+{
+  "source": "apps/docs/src/demos/en/date-picker/format-options-no-ssr.tsx",
+  "code": "\"use client\";\n\nimport dynamic from \"next/dynamic\";\n\nexport const FormatOptions = dynamic(\n  () => import(\"./format-options\").then((mod) => mod.FormatOptions),\n  {\n    ssr: false,\n  },\n);\n"
+}

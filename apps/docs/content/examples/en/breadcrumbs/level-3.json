@@ -1,0 +1,6 @@
+{
+  "name": "breadcrumbs-level-3",
+  "exported": "default",
+  "source": "apps/docs/src/demos/en/breadcrumbs/level-3.tsx",
+  "code": "\"use client\";\n\nimport {Breadcrumbs} from \"@lenso/ui\";\n\nexport default function BreadcrumbsLevel3() {\n  return (\n    <Breadcrumbs>\n      <Breadcrumbs.Item href=\"#\">Home</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"#\">Category</Breadcrumbs.Item>\n      <Breadcrumbs.Item>Current Page</Breadcrumbs.Item>\n    </Breadcrumbs>\n  );\n}\n"
+}

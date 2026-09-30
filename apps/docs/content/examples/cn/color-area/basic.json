@@ -1,0 +1,6 @@
+{
+  "name": "color-area-basic",
+  "exported": "ColorAreaBasic",
+  "source": "apps/docs/src/demos/cn/color-area/basic.tsx",
+  "code": "import {ColorArea} from \"@lenso/ui\";\n\nexport function ColorAreaBasic() {\n  return (\n    <ColorArea defaultValue=\"rgb(116, 52, 255)\">\n      <ColorArea.Thumb />\n    </ColorArea>\n  );\n}\n"
+}

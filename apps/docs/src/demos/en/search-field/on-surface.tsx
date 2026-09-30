@@ -1,0 +1,40 @@
+"use client";
+// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
+import { Description, Label, SearchField, Surface } from "@lenso/ui";
+import * as stylex from "@stylexjs/stylex";
+const styles = stylex.create({
+  root: {
+    display: "flex",
+    width: "100%",
+    maxWidth: 384,
+    flexDirection: "column",
+    gap: 16,
+    borderRadius: 24,
+    padding: 24,
+  },
+  input: { width: "100%" },
+});
+export function OnSurface() {
+  return (
+    <Surface xstyle={styles.root}>
+      <SearchField name="search" variant="secondary">
+        <Label>Search</Label>
+        <SearchField.Group>
+          <SearchField.SearchIcon />
+          <SearchField.Input xstyle={styles.input} placeholder="Search..." />
+          <SearchField.ClearButton />
+        </SearchField.Group>
+        <Description>Enter keywords to search</Description>
+      </SearchField>
+      <SearchField name="search-2" variant="secondary">
+        <Label>Advanced search</Label>
+        <SearchField.Group>
+          <SearchField.SearchIcon />
+          <SearchField.Input xstyle={styles.input} placeholder="Advanced search..." />
+          <SearchField.ClearButton />
+        </SearchField.Group>
+        <Description>Use filters to refine your search</Description>
+      </SearchField>
+    </Surface>
+  );
+}

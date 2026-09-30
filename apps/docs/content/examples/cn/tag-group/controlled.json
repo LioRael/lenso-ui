@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-controlled",
+  "exported": "TagGroupControlled",
+  "source": "apps/docs/src/demos/cn/tag-group/controlled.tsx",
+  "code": "\"use client\";\n\nimport type {Key} from \"@lenso/ui\";\n\nimport {Description, Label, Tag, TagGroup} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function TagGroupControlled() {\n  const [selected, setSelected] = useState<Iterable<Key>>(new Set([\"news\", \"travel\"]));\n\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <TagGroup\n        selectedKeys={selected}\n        selectionMode=\"multiple\"\n        onSelectionChange={(keys) => setSelected(keys)}\n      >\n        <Label>分类（受控）</Label>\n        <TagGroup.List>\n          <Tag id=\"news\">资讯</Tag>\n          <Tag id=\"travel\">旅行</Tag>\n          <Tag id=\"gaming\">游戏</Tag>\n          <Tag id=\"shopping\">购物</Tag>\n        </TagGroup.List>\n        <Description>\n          已选：{Array.from(selected).length > 0 ? Array.from(selected).join(\", \") : \"无\"}\n        </Description>\n      </TagGroup>\n    </div>\n  );\n}\n"
+}

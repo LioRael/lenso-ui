@@ -1,0 +1,6 @@
+{
+  "name": "release-button-outline-variant",
+  "exported": "OutlineVariant",
+  "source": "apps/docs/src/demos/cn/button/release-outline-variant.tsx",
+  "code": "import {Button, ButtonGroup} from \"@lenso/ui\";\n\nexport function OutlineVariant() {\n  return (\n    <div className=\"flex flex-col gap-6\">\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"text-sm text-muted\">按钮</p>\n        <div className=\"flex flex-wrap gap-3\">\n          <Button variant=\"outline\">线框</Button>\n        </div>\n      </div>\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"text-sm text-muted\">按钮组</p>\n        <ButtonGroup variant=\"outline\">\n          <Button>第一项</Button>\n          <Button>第二项</Button>\n          <Button>第三项</Button>\n        </ButtonGroup>\n      </div>\n    </div>\n  );\n}\n"
+}

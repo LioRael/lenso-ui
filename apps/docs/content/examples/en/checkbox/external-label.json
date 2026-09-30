@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-external-label",
+  "exported": "ExternalLabel",
+  "source": "apps/docs/src/demos/en/checkbox/external-label.tsx",
+  "code": "import {Checkbox, Label} from \"@lenso/ui\";\n\nexport function ExternalLabel() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <Checkbox id=\"label-marketing\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n        </Checkbox.Content>\n      </Checkbox>\n      <Label htmlFor=\"label-marketing\">Send me marketing emails</Label>\n    </div>\n  );\n}\n"
+}

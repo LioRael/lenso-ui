@@ -1,0 +1,6 @@
+{
+  "name": "input-group-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/input-group/disabled.tsx",
+  "code": "\"use client\";\n\nimport {Envelope} from \"@gravity-ui/icons\";\nimport {InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TextField\n        isDisabled\n        className=\"w-full max-w-[280px]\"\n        defaultValue=\"name@email.com\"\n        name=\"email\"\n      >\n        <Label>邮箱地址</Label>\n        <InputGroup>\n          <InputGroup.Prefix>\n            <Envelope className=\"size-4 text-muted\" />\n          </InputGroup.Prefix>\n          <InputGroup.Input className=\"w-full max-w-[280px]\" />\n        </InputGroup>\n      </TextField>\n      <TextField isDisabled className=\"w-full max-w-[280px]\" defaultValue=\"10\" name=\"price\">\n        <Label>设置价格</Label>\n        <InputGroup>\n          <InputGroup.Prefix>$</InputGroup.Prefix>\n          <InputGroup.Input className=\"w-full max-w-[200px]\" type=\"number\" />\n          <InputGroup.Suffix>USD</InputGroup.Suffix>\n        </InputGroup>\n      </TextField>\n    </div>\n  );\n}\n"
+}

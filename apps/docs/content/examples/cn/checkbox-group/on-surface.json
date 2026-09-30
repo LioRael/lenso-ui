@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-group-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/cn/checkbox-group/on-surface.tsx",
+  "code": "import {Checkbox, CheckboxGroup, Description, Label, Surface} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"w-full rounded-3xl p-6\">\n      <CheckboxGroup name=\"interests\" variant=\"secondary\">\n        <Label>选择你的兴趣</Label>\n        <Description>可多选</Description>\n        <Checkbox value=\"coding\">\n          <Checkbox.Content>\n            <Checkbox.Control>\n              <Checkbox.Indicator />\n            </Checkbox.Control>\n            编程\n          </Checkbox.Content>\n          <Description>热爱构建软件</Description>\n        </Checkbox>\n        <Checkbox value=\"design\">\n          <Checkbox.Content>\n            <Checkbox.Control>\n              <Checkbox.Indicator />\n            </Checkbox.Control>\n            设计\n          </Checkbox.Content>\n          <Description>喜欢打造精美界面</Description>\n        </Checkbox>\n        <Checkbox value=\"writing\">\n          <Checkbox.Content>\n            <Checkbox.Control>\n              <Checkbox.Indicator />\n            </Checkbox.Control>\n            写作\n          </Checkbox.Content>\n          <Description>热衷于内容创作</Description>\n        </Checkbox>\n      </CheckboxGroup>\n    </Surface>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "textfield-with-description",
+  "exported": "WithDescription",
+  "source": "apps/docs/src/demos/en/textfield/with-description.tsx",
+  "code": "import {Description, Input, Label, TextField} from \"@lenso/ui\";\n\nexport function WithDescription() {\n  return (\n    <TextField className=\"w-full max-w-64\" name=\"username\">\n      <Label>Username</Label>\n      <Input placeholder=\"Enter username\" />\n      <Description>Choose a unique username for your account</Description>\n    </TextField>\n  );\n}\n"
+}

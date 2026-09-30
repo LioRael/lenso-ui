@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/checkbox/basic.tsx",
+  "code": "import {Checkbox} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <Checkbox name=\"basic-terms\">\n      <Checkbox.Content>\n        <Checkbox.Control>\n          <Checkbox.Indicator />\n        </Checkbox.Control>\n        接受条款与条件\n      </Checkbox.Content>\n    </Checkbox>\n  );\n}\n"
+}

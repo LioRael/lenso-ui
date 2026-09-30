@@ -1,0 +1,6 @@
+{
+  "name": "radio-group-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/radio-group/basic.tsx",
+  "code": "import {Description, Label, Radio, RadioGroup} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <RadioGroup defaultValue=\"premium\" name=\"plan\">\n      <Label>选择套餐</Label>\n      <Description>选择最适合你的套餐</Description>\n      <Radio value=\"basic\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          基础版\n        </Radio.Content>\n        <Description>每月包含 100 条消息</Description>\n      </Radio>\n      <Radio value=\"premium\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          高级版\n        </Radio.Content>\n        <Description>每月包含 200 条消息</Description>\n      </Radio>\n      <Radio value=\"business\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          商业版\n        </Radio.Content>\n        <Description>无限消息</Description>\n      </Radio>\n    </RadioGroup>\n  );\n}\n"
+}

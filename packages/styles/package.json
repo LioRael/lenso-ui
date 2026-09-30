@@ -1,0 +1,49 @@
+{
+  "name": "@lenso/tokens",
+  "version": "0.7.0",
+  "description": "HeroUI default theme and StyleX constants for Lenso UI.",
+  "license": "Apache-2.0",
+  "files": [
+    "dist",
+    "src/tokens.stylex.const.ts",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tokens.stylex.const": {
+      "types": "./dist/tokens.stylex.const.d.ts",
+      "source": "./src/tokens.stylex.const.ts",
+      "import": "./src/tokens.stylex.const.ts"
+    },
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node src/components/typography/generate-prose.mjs && tsdown --config tsdown.config.ts && tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --noEmit false --outDir dist && node scripts/copy-css.mjs",
+    "test": "node src/components/typography/generate-prose.mjs --check && node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stylexjs/stylex": "catalog:"
+  },
+  "devDependencies": {
+    "@stylexjs/unplugin": "catalog:",
+    "@types/node": "catalog:",
+    "playwright": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}

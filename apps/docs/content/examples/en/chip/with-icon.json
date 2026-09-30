@@ -1,0 +1,6 @@
+{
+  "name": "chip-with-icon",
+  "exported": "ChipWithIcon",
+  "source": "apps/docs/src/demos/en/chip/with-icon.tsx",
+  "code": "import {ChevronDown, CircleCheckFill, CircleFill, Clock, Xmark} from \"@gravity-ui/icons\";\nimport {Chip} from \"@lenso/ui\";\n\nexport function ChipWithIcon() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-3\">\n      <Chip>\n        <CircleFill width={6} />\n        <Chip.Label>Information</Chip.Label>\n      </Chip>\n      <Chip color=\"success\">\n        <CircleCheckFill width={12} />\n        <Chip.Label>Completed</Chip.Label>\n      </Chip>\n      <Chip color=\"warning\">\n        <Clock width={12} />\n        <Chip.Label>Pending</Chip.Label>\n      </Chip>\n      <Chip color=\"danger\">\n        <Xmark width={12} />\n        <Chip.Label>Failed</Chip.Label>\n      </Chip>\n      <Chip color=\"accent\">\n        <Chip.Label>Label</Chip.Label>\n        <ChevronDown width={12} />\n      </Chip>\n    </div>\n  );\n}\n"
+}

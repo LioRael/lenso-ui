@@ -1,0 +1,6 @@
+{
+  "name": "toast-custom-indicator",
+  "exported": "CustomIndicator",
+  "source": "apps/docs/src/demos/en/toast/custom-indicator.tsx",
+  "code": "\"use client\";\n\nimport {Star} from \"@gravity-ui/icons\";\nimport {Button, toast} from \"@lenso/ui\";\n\nexport function CustomIndicator() {\n  return (\n    <div className=\"flex h-full max-w-xl flex-col items-center justify-center\">\n      <Button\n        size=\"sm\"\n        variant=\"secondary\"\n        onPress={() =>\n          toast(\"Custom icon indicator\", {\n            indicator: <Star />,\n          })\n        }\n      >\n        Custom indicator\n      </Button>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "textarea-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/en/textarea/full-width.tsx",
+  "code": "import {TextArea} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-3\">\n      <TextArea fullWidth placeholder=\"Full width textarea\" />\n    </div>\n  );\n}\n"
+}

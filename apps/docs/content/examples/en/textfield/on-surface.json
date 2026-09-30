@@ -1,0 +1,6 @@
+{
+  "name": "textfield-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/en/textfield/on-surface.tsx",
+  "code": "import {Description, Input, Label, Surface, TextArea, TextField} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"flex w-full min-w-[340px] flex-col gap-4 rounded-3xl p-6\">\n      <TextField name=\"name\" variant=\"secondary\">\n        <Label>Your name</Label>\n        <Input className=\"w-full\" placeholder=\"John\" />\n        <Description>We'll never share this with anyone else</Description>\n      </TextField>\n      <TextField name=\"email\" type=\"email\" variant=\"secondary\">\n        <Label>Email</Label>\n        <Input className=\"w-full\" placeholder=\"john@example.com\" />\n      </TextField>\n      <TextField name=\"bio\" variant=\"secondary\">\n        <Label>Bio</Label>\n        <TextArea className=\"w-full\" placeholder=\"Tell us about yourself...\" rows={4} />\n        <Description>Minimum 4 rows</Description>\n      </TextField>\n    </Surface>\n  );\n}\n"
+}

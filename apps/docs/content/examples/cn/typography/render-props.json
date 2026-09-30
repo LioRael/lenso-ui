@@ -1,0 +1,6 @@
+{
+  "name": "typography-render-props",
+  "exported": "RenderProps",
+  "source": "apps/docs/src/demos/cn/typography/render-props.tsx",
+  "code": "\"use client\";\n\nimport {Typography} from \"@lenso/ui\";\n\nexport const RenderProps = () => {\n  return (\n    <div className=\"flex max-w-xl flex-col gap-4\">\n      <Typography render={({children, ...domProps}) => <h2 {...domProps}>{children}</h2>} type=\"h1\">\n        H1 视觉样式，h2 语义元素\n      </Typography>\n      <Typography render={({children, ...domProps}) => <span {...domProps}>{children}</span>}>\n        render prop 可更换底层元素，同时保留 HeroUI 的 props 与样式。\n      </Typography>\n    </div>\n  );\n};\n"
+}

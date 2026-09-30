@@ -1,0 +1,6 @@
+{
+  "name": "skeleton-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/skeleton/custom-styles.tsx",
+  "code": "import {Skeleton} from \"@lenso/ui\";\n\nconst bone = \"animate-shine rounded-lg bg-neutral-200/90 dark:bg-neutral-800/90\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"w-[250px] space-y-5 rounded-xl border border-border/80 bg-surface p-4 shadow-sm ring-1 ring-black/5 dark:ring-white/10\">\n      <Skeleton className={`h-32 ${bone}`} />\n      <div className=\"space-y-3\">\n        <Skeleton className={`h-3 w-3/5 ${bone}`} />\n        <Skeleton className={`h-3 w-4/5 ${bone}`} />\n        <Skeleton className={`h-3 w-2/5 ${bone}`} />\n      </div>\n    </div>\n  );\n}\n"
+}

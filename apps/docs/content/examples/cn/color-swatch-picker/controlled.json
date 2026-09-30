@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-picker-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/cn/color-swatch-picker/controlled.tsx",
+  "code": "\"use client\";\n\nimport {ColorSwatchPicker, parseColor} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nconst colors = [\"#F43F5E\", \"#D946EF\", \"#8B5CF6\", \"#3B82F6\", \"#06B6D4\", \"#10B981\", \"#84CC16\"];\n\nexport function Controlled() {\n  const [value, setValue] = useState(parseColor(\"#F43F5E\"));\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorSwatchPicker value={value} onChange={setValue}>\n        {colors.map((color) => (\n          <ColorSwatchPicker.Item key={color} color={color}>\n            <ColorSwatchPicker.Swatch />\n            <ColorSwatchPicker.Indicator />\n          </ColorSwatchPicker.Item>\n        ))}\n      </ColorSwatchPicker>\n      <p className=\"text-sm text-muted\">\n        已选：<span className=\"font-medium\">{value.toString(\"hex\")}</span>\n      </p>\n    </div>\n  );\n}\n"
+}

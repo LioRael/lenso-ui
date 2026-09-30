@@ -1,0 +1,6 @@
+{
+  "name": "skeleton-single-shimmer",
+  "exported": "SingleShimmer",
+  "source": "apps/docs/src/demos/en/skeleton/single-shimmer.tsx",
+  "code": "import {Skeleton} from \"@lenso/ui\";\n\nexport function SingleShimmer() {\n  return (\n    <div className=\"skeleton--shimmer relative grid w-full max-w-xl grid-cols-3 gap-4 overflow-hidden rounded-xl\">\n      <Skeleton animationType=\"none\" className=\"h-24 rounded-xl\" />\n      <Skeleton animationType=\"none\" className=\"h-24 rounded-xl\" />\n      <Skeleton animationType=\"none\" className=\"h-24 rounded-xl\" />\n    </div>\n  );\n}\n"
+}

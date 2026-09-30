@@ -1,0 +1,6 @@
+{
+  "name": "progress-circle-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/progress-circle/basic.tsx",
+  "code": "import {ProgressCircle} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <ProgressCircle aria-label=\"加载中\" value={60}>\n      <ProgressCircle.Track>\n        <ProgressCircle.TrackCircle />\n        <ProgressCircle.FillCircle />\n      </ProgressCircle.Track>\n    </ProgressCircle>\n  );\n}\n"
+}

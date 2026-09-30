@@ -1,0 +1,6 @@
+{
+  "name": "slider-range",
+  "exported": "Range",
+  "source": "apps/docs/src/demos/cn/slider/range.tsx",
+  "code": "\"use client\";\n\nimport {Label, Slider} from \"@lenso/ui\";\n\nexport function Range() {\n  return (\n    <Slider\n      className=\"w-full max-w-xs\"\n      defaultValue={[100, 500]}\n      formatOptions={{currency: \"USD\", style: \"currency\"}}\n      maxValue={1000}\n      minValue={0}\n      step={50}\n    >\n      <Label>价格区间</Label>\n      <Slider.Output />\n      <Slider.Track>\n        {({state}) => (\n          <>\n            <Slider.Fill />\n            {state.values.map((_, i) => (\n              <Slider.Thumb key={i} index={i} />\n            ))}\n          </>\n        )}\n      </Slider.Track>\n    </Slider>\n  );\n}\n"
+}

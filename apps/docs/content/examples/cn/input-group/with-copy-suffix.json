@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-copy-suffix",
+  "exported": "WithCopySuffix",
+  "source": "apps/docs/src/demos/cn/input-group/with-copy-suffix.tsx",
+  "code": "\"use client\";\n\nimport {Copy} from \"@gravity-ui/icons\";\nimport {Button, InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function WithCopySuffix() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" defaultValue=\"heroui.com\" name=\"website\">\n      <Label>网站</Label>\n      <InputGroup>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" />\n        <InputGroup.Suffix className=\"pe-0\">\n          <Button isIconOnly aria-label=\"复制\" size=\"sm\" variant=\"ghost\">\n            <Copy className=\"size-4\" />\n          </Button>\n        </InputGroup.Suffix>\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

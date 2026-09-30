@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-suffix-icon",
+  "exported": "WithSuffixIcon",
+  "source": "apps/docs/src/demos/en/input-group/with-suffix-icon.tsx",
+  "code": "\"use client\";\n\nimport {Envelope} from \"@gravity-ui/icons\";\nimport {Description, InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function WithSuffixIcon() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" name=\"email\">\n      <Label>Email address</Label>\n      <InputGroup>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" placeholder=\"name@email.com\" />\n        <InputGroup.Suffix>\n          <Envelope className=\"size-4 text-muted\" />\n        </InputGroup.Suffix>\n      </InputGroup>\n      <Description>We don't send spam</Description>\n    </TextField>\n  );\n}\n"
+}

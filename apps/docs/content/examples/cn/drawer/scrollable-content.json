@@ -1,0 +1,6 @@
+{
+  "name": "drawer-scrollable-content",
+  "exported": "ScrollableContent",
+  "source": "apps/docs/src/demos/cn/drawer/scrollable-content.tsx",
+  "code": "import {Button, Drawer} from \"@lenso/ui\";\n\nexport function ScrollableContent() {\n  return (\n    <Drawer>\n      <Button variant=\"secondary\">条款与条件</Button>\n      <Drawer.Backdrop>\n        <Drawer.Content>\n          <Drawer.Dialog>\n            <Drawer.Handle />\n            <Drawer.CloseTrigger />\n            <Drawer.Header>\n              <Drawer.Heading>条款与条件</Drawer.Heading>\n            </Drawer.Header>\n            <Drawer.Body>\n              {Array.from({length: 20}).map((_, i) => (\n                <p key={i} className=\"mb-3\">\n                  段落 {i + 1}：Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam\n                  pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet hendrerit\n                  risus, sed porttitor quam.\n                </p>\n              ))}\n            </Drawer.Body>\n            <Drawer.Footer>\n              <Button slot=\"close\" variant=\"secondary\">\n                拒绝\n              </Button>\n              <Button slot=\"close\">接受</Button>\n            </Drawer.Footer>\n          </Drawer.Dialog>\n        </Drawer.Content>\n      </Drawer.Backdrop>\n    </Drawer>\n  );\n}\n"
+}

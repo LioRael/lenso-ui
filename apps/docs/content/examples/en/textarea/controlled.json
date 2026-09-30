@@ -1,0 +1,6 @@
+{
+  "name": "textarea-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/en/textarea/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Description, TextArea} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Controlled() {\n  const [value, setValue] = React.useState(\"\");\n\n  return (\n    <div className=\"flex w-96 flex-col gap-2\">\n      <TextArea\n        aria-describedby=\"textarea-controlled-description\"\n        aria-label=\"Announcement\"\n        placeholder=\"Compose an announcement...\"\n        value={value}\n        onChange={(event) => setValue(event.target.value)}\n      />\n      <Description id=\"textarea-controlled-description\">\n        Characters: {value.length} / 280\n      </Description>\n    </div>\n  );\n}\n"
+}

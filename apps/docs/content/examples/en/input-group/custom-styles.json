@@ -1,0 +1,6 @@
+{
+  "name": "input-group-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/input-group/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport {Envelope} from \"@gravity-ui/icons\";\nimport {InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <TextField className=\"w-full max-w-xs\" name=\"email\">\n      <Label>Work email</Label>\n      <InputGroup className=\"rounded-xl border border-border/80 bg-default shadow-sm\">\n        <InputGroup.Prefix>\n          <Envelope className=\"size-4 text-muted\" />\n        </InputGroup.Prefix>\n        <InputGroup.Input placeholder=\"you@company.com\" />\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

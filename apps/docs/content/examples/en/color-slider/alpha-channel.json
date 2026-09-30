@@ -1,0 +1,6 @@
+{
+  "name": "color-slider-alpha-channel",
+  "exported": "AlphaChannel",
+  "source": "apps/docs/src/demos/en/color-slider/alpha-channel.tsx",
+  "code": "import {ColorSlider, Label} from \"@lenso/ui\";\n\nexport function AlphaChannel() {\n  return (\n    <ColorSlider channel=\"alpha\" className=\"w-full max-w-xs\" defaultValue=\"hsla(0, 100%, 50%, 0.5)\">\n      <Label>Alpha</Label>\n      <ColorSlider.Output />\n      <ColorSlider.Track>\n        <ColorSlider.Thumb />\n      </ColorSlider.Track>\n    </ColorSlider>\n  );\n}\n"
+}

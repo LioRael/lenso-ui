@@ -1,0 +1,6 @@
+{
+  "name": "typography-primitives",
+  "exported": "Primitives",
+  "source": "apps/docs/src/demos/cn/typography/primitives.tsx",
+  "code": "import {Typography} from \"@lenso/ui\";\n\nexport const Primitives = () => {\n  return (\n    <div className=\"flex max-w-xl flex-col gap-4\">\n      <Typography.Heading level={1}>仪表盘</Typography.Heading>\n      <Typography.Paragraph>\n        便捷原语是 Typography 的薄封装，可在不学习第二套样式系统的情况下选择显式组合。\n      </Typography.Paragraph>\n      <Typography.Paragraph color=\"muted\" size=\"sm\">\n        Paragraph 支持 base、sm 和 xs 尺寸。\n      </Typography.Paragraph>\n      <Typography.Code>Typography.Code</Typography.Code>\n    </div>\n  );\n};\n"
+}

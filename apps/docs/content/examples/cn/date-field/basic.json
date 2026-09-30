@@ -1,0 +1,6 @@
+{
+  "name": "date-field-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/date-field/basic.tsx",
+  "code": "\"use client\";\n\nimport {DateField, Label} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <DateField className=\"w-[256px]\" name=\"date\">\n      <Label>日期</Label>\n      <DateField.Group>\n        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n      </DateField.Group>\n    </DateField>\n  );\n}\n"
+}

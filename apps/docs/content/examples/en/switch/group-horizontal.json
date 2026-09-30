@@ -1,0 +1,6 @@
+{
+  "name": "switch-group-horizontal",
+  "exported": "GroupHorizontal",
+  "source": "apps/docs/src/demos/en/switch/group-horizontal.tsx",
+  "code": "import {Switch, SwitchGroup} from \"@lenso/ui\";\n\nexport function GroupHorizontal() {\n  return (\n    <SwitchGroup className=\"overflow-x-auto\" orientation=\"horizontal\">\n      <Switch name=\"notifications\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Notifications\n        </Switch.Content>\n      </Switch>\n      <Switch name=\"marketing\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Marketing\n        </Switch.Content>\n      </Switch>\n      <Switch name=\"social\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Social\n        </Switch.Content>\n      </Switch>\n    </SwitchGroup>\n  );\n}\n"
+}

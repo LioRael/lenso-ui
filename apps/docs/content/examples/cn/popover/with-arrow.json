@@ -1,0 +1,6 @@
+{
+  "name": "popover-with-arrow",
+  "exported": "PopoverWithArrow",
+  "source": "apps/docs/src/demos/cn/popover/with-arrow.tsx",
+  "code": "import {Ellipsis} from \"@gravity-ui/icons\";\nimport {Button, Popover} from \"@lenso/ui\";\n\nexport function PopoverWithArrow() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Popover>\n        <Button variant=\"secondary\">带箭头</Button>\n        <Popover.Content className=\"max-w-64\">\n          <Popover.Dialog>\n            <Popover.Arrow />\n            <Popover.Heading>带箭头的弹出层</Popover.Heading>\n            <p className=\"mt-2 text-sm text-muted\">箭头指向触发弹出层的元素。</p>\n          </Popover.Dialog>\n        </Popover.Content>\n      </Popover>\n\n      <Popover>\n        <Button isIconOnly aria-label=\"更多选项\" variant=\"tertiary\">\n          <Ellipsis />\n        </Button>\n        <Popover.Content className=\"max-w-64\" offset={10}>\n          <Popover.Dialog>\n            <Popover.Arrow />\n            <Popover.Heading>带箭头的弹出层</Popover.Heading>\n            <p className=\"mt-2 text-sm text-muted\">箭头指向触发弹出层的元素。</p>\n          </Popover.Dialog>\n        </Popover.Content>\n      </Popover>\n    </div>\n  );\n}\n"
+}

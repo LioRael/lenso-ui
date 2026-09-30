@@ -1,0 +1,6 @@
+{
+  "name": "chip-basic",
+  "exported": "ChipBasic",
+  "source": "apps/docs/src/demos/en/chip/basic.tsx",
+  "code": "import {Chip} from \"@lenso/ui\";\n\nexport function ChipBasic() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-3\">\n      <Chip>Default</Chip>\n      <Chip color=\"accent\">Accent</Chip>\n      <Chip color=\"success\">Success</Chip>\n      <Chip color=\"warning\">Warning</Chip>\n      <Chip color=\"danger\">Danger</Chip>\n    </div>\n  );\n}\n"
+}

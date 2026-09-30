@@ -1,0 +1,6 @@
+{
+  "name": "switch-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/switch/disabled.tsx",
+  "code": "import {Switch} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <Switch isDisabled>\n      <Switch.Content>\n        <Switch.Control>\n          <Switch.Thumb />\n        </Switch.Control>\n        启用通知\n      </Switch.Content>\n    </Switch>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "dropdown-long-press-trigger",
+  "exported": "LongPressTrigger",
+  "source": "apps/docs/src/demos/cn/dropdown/long-press-trigger.tsx",
+  "code": "import {Button, Dropdown, Label} from \"@lenso/ui\";\n\nexport function LongPressTrigger() {\n  return (\n    <Dropdown trigger=\"longPress\">\n      <Button aria-label=\"菜单\" variant=\"secondary\">\n        长按\n      </Button>\n      <Dropdown.Popover>\n        <Dropdown.Menu>\n          <Dropdown.Item id=\"new-file\" textValue=\"新建文件\">\n            <Label>新建文件</Label>\n          </Dropdown.Item>\n          <Dropdown.Item id=\"open-file\" textValue=\"打开文件\">\n            <Label>打开文件</Label>\n          </Dropdown.Item>\n          <Dropdown.Item id=\"save-file\" textValue=\"保存文件\">\n            <Label>保存文件</Label>\n          </Dropdown.Item>\n          <Dropdown.Item id=\"delete-file\" textValue=\"删除文件\" variant=\"danger\">\n            <Label>删除文件</Label>\n          </Dropdown.Item>\n        </Dropdown.Menu>\n      </Dropdown.Popover>\n    </Dropdown>\n  );\n}\n"
+}

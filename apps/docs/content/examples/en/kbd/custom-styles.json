@@ -1,0 +1,6 @@
+{
+  "name": "kbd-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/kbd/custom-styles.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <Kbd className=\"rounded-lg bg-accent-soft px-2.5 text-accent-soft-foreground\">\n        <Kbd.Abbr keyValue=\"command\" />\n        <Kbd.Content>K</Kbd.Content>\n      </Kbd>\n      <Kbd className=\"rounded-lg bg-default px-2.5 text-muted\">\n        <Kbd.Abbr keyValue=\"shift\" />\n        <Kbd.Content>P</Kbd.Content>\n      </Kbd>\n    </div>\n  );\n}\n"
+}

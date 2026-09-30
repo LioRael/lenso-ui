@@ -1,0 +1,6 @@
+{
+  "name": "search-field-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/cn/search-field/variants.tsx",
+  "code": "import {Label, SearchField} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField name=\"primary-search\" variant=\"primary\">\n        <Label>主要变体</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"搜索…\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n      </SearchField>\n      <SearchField name=\"secondary-search\" variant=\"secondary\">\n        <Label>次要变体</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"搜索…\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n      </SearchField>\n    </div>\n  );\n}\n"
+}

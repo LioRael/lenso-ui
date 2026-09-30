@@ -1,0 +1,6 @@
+{
+  "name": "typography-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/typography/custom-styles.tsx",
+  "code": "import {Typography} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex max-w-md flex-col gap-2 rounded-xl border border-border/80 bg-surface-secondary p-4\">\n      <Typography\n        className=\"text-xs font-medium tracking-wide text-accent uppercase\"\n        type=\"body-xs\"\n      >\n        Changelog\n      </Typography>\n      <Typography className=\"font-semibold tracking-tight text-foreground\" type=\"h4\">\n        Faster search results\n      </Typography>\n      <Typography className=\"text-sm leading-relaxed text-muted\" type=\"body-sm\">\n        Queries now return in under 200ms thanks to an improved index.\n      </Typography>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "kbd-special-keys",
+  "exported": "SpecialKeys",
+  "source": "apps/docs/src/demos/en/kbd/special.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function SpecialKeys() {\n  return (\n    <div className=\"space-y-3\">\n      <p className=\"text-sm\">\n        Press{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"enter\" />\n        </Kbd>{\" \"}\n        to confirm or{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"escape\" />\n        </Kbd>{\" \"}\n        to cancel.\n      </p>\n      <p className=\"text-sm\">\n        Use{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"tab\" />\n        </Kbd>{\" \"}\n        to navigate between form fields and{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"shift\" />\n          <Kbd.Abbr keyValue=\"tab\" />\n        </Kbd>{\" \"}\n        to go back.\n      </p>\n      <p className=\"text-sm\">\n        Hold{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"space\" />\n        </Kbd>{\" \"}\n        to temporarily enable panning mode.\n      </p>\n    </div>\n  );\n}\n"
+}

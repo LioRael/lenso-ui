@@ -1,0 +1,6 @@
+{
+  "name": "color-field-with-description",
+  "exported": "WithDescription",
+  "source": "apps/docs/src/demos/en/color-field/with-description.tsx",
+  "code": "import {ColorField, Description, Label} from \"@lenso/ui\";\n\nexport function WithDescription() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorField className=\"w-[280px]\" defaultValue=\"#3B82F6\" name=\"color\">\n        <Label>Primary Color</Label>\n        <ColorField.Group>\n          <ColorField.Input />\n        </ColorField.Group>\n        <Description>Enter your brand's primary color</Description>\n      </ColorField>\n      <ColorField className=\"w-[280px]\" defaultValue=\"#F59E0B\" name=\"accent-color\">\n        <Label>Accent Color</Label>\n        <ColorField.Group>\n          <ColorField.Input />\n        </ColorField.Group>\n        <Description>Used for highlights and CTAs</Description>\n      </ColorField>\n    </div>\n  );\n}\n"
+}

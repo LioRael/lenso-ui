@@ -1,0 +1,6 @@
+{
+  "name": "date-field-with-prefix-and-suffix",
+  "exported": "WithPrefixAndSuffix",
+  "source": "apps/docs/src/demos/cn/date-field/with-prefix-and-suffix.tsx",
+  "code": "\"use client\";\n\nimport {Calendar, ChevronDown} from \"@gravity-ui/icons\";\nimport {DateField, Description, Label} from \"@lenso/ui\";\n\nexport function WithPrefixAndSuffix() {\n  return (\n    <DateField className=\"w-[256px]\" name=\"date\">\n      <Label>日期</Label>\n      <DateField.Group>\n        <DateField.Prefix>\n          <Calendar className=\"size-4 text-muted\" />\n        </DateField.Prefix>\n        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        <DateField.Suffix>\n          <ChevronDown className=\"size-4 text-muted\" />\n        </DateField.Suffix>\n      </DateField.Group>\n      <Description>输入日期</Description>\n    </DateField>\n  );\n}\n"
+}

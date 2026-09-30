@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-text-suffix",
+  "exported": "WithTextSuffix",
+  "source": "apps/docs/src/demos/cn/input-group/with-text-suffix.tsx",
+  "code": "\"use client\";\n\nimport {InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function WithTextSuffix() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" defaultValue=\"heroui\" name=\"website\">\n      <Label>网站</Label>\n      <InputGroup>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" />\n        <InputGroup.Suffix>.com</InputGroup.Suffix>\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "textfield-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/cn/textfield/full-width.tsx",
+  "code": "import {FieldError, Input, Label, TextField} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-4\">\n      <TextField fullWidth name=\"name\">\n        <Label>你的姓名</Label>\n        <Input placeholder=\"John\" />\n      </TextField>\n      <TextField fullWidth isInvalid isRequired name=\"password\" type=\"password\">\n        <Label>密码</Label>\n        <Input />\n        <FieldError>密码长度必须超过 8 个字符</FieldError>\n      </TextField>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "slider-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/en/slider/disabled.tsx",
+  "code": "import {Label, Slider} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <Slider isDisabled className=\"w-full max-w-xs\" defaultValue={30}>\n      <Label>Volume</Label>\n      <Slider.Output />\n      <Slider.Track>\n        <Slider.Fill />\n        <Slider.Thumb />\n      </Slider.Track>\n    </Slider>\n  );\n}\n"
+}

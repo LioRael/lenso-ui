@@ -1,0 +1,6 @@
+{
+  "name": "button-loading",
+  "exported": "Loading",
+  "source": "apps/docs/src/demos/cn/button/loading.tsx",
+  "code": "\"use client\";\n\nimport {Button, Spinner} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Loading() {\n  return (\n    <Button isPending>\n      {({isPending}) => (\n        <>\n          {isPending ? <Spinner color=\"current\" size=\"sm\" /> : null}\n          上传中…\n        </>\n      )}\n    </Button>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "number-field-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/number-field/basic.tsx",
+  "code": "import {Label, NumberField} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <NumberField className=\"w-full max-w-64\" defaultValue={1024} minValue={0} name=\"width\">\n      <Label>Width</Label>\n      <NumberField.Group>\n        <NumberField.DecrementButton />\n        <NumberField.Input className=\"w-[120px]\" />\n        <NumberField.IncrementButton />\n      </NumberField.Group>\n    </NumberField>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "link-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/link/custom-styles.tsx",
+  "code": "import {Link} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Link\n      className=\"font-medium text-neutral-700 underline decoration-neutral-300/80 underline-offset-4 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:decoration-neutral-600/80 dark:hover:text-neutral-100\"\n      href=\"#\"\n    >\n      立即行动\n      <Link.Icon />\n    </Link>\n  );\n}\n"
+}

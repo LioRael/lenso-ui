@@ -1,0 +1,6 @@
+{
+  "name": "time-field-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/time-field/disabled.tsx",
+  "code": "\"use client\";\n\nimport {Description, Label, TimeField} from \"@lenso/ui\";\nimport {Time, getLocalTimeZone, now} from \"@internationalized/date\";\n\nexport function Disabled() {\n  const currentTime = now(getLocalTimeZone());\n  const timeValue = new Time(currentTime.hour, currentTime.minute, currentTime.second);\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TimeField isDisabled className=\"w-[256px]\" name=\"time\" value={timeValue}>\n        <Label>时间</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n        <Description>此时间字段已禁用</Description>\n      </TimeField>\n      <TimeField isDisabled className=\"w-[256px]\" name=\"time-empty\">\n        <Label>时间</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n        <Description>此时间字段已禁用</Description>\n      </TimeField>\n    </div>\n  );\n}\n"
+}

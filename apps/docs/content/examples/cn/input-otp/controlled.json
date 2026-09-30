@@ -1,0 +1,6 @@
+{
+  "name": "input-otp-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/cn/input-otp/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Description, InputOTP, Label} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Controlled() {\n  const [value, setValue] = React.useState(\"\");\n\n  return (\n    <div className=\"flex w-[280px] flex-col gap-2\">\n      <Label>验证账户</Label>\n      <InputOTP maxLength={6} value={value} onChange={setValue}>\n        <InputOTP.Group>\n          <InputOTP.Slot index={0} />\n          <InputOTP.Slot index={1} />\n          <InputOTP.Slot index={2} />\n        </InputOTP.Group>\n        <InputOTP.Separator />\n        <InputOTP.Group>\n          <InputOTP.Slot index={3} />\n          <InputOTP.Slot index={4} />\n          <InputOTP.Slot index={5} />\n        </InputOTP.Group>\n      </InputOTP>\n      <Description>\n        {value.length > 0 ? (\n          <>\n            值：{value} ({value.length}/6) •{\" \"}\n            <button className=\"font-medium text-foreground underline\" onClick={() => setValue(\"\")}>\n              Clear\n            </button>\n          </>\n        ) : (\n          \"请输入 6 位验证码\"\n        )}\n      </Description>\n    </div>\n  );\n}\n"
+}

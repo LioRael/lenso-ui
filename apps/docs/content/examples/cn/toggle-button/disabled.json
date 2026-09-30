@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/toggle-button/disabled.tsx",
+  "code": "import {Heart, HeartFill} from \"@gravity-ui/icons\";\nimport {ToggleButton} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <ToggleButton isDisabled>\n        <Heart />\n        点赞\n      </ToggleButton>\n      <ToggleButton defaultSelected isDisabled>\n        <HeartFill />\n        点赞\n      </ToggleButton>\n    </div>\n  );\n}\n"
+}

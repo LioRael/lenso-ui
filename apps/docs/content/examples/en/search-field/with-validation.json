@@ -1,0 +1,6 @@
+{
+  "name": "search-field-with-validation",
+  "exported": "WithValidation",
+  "source": "apps/docs/src/demos/en/search-field/with-validation.tsx",
+  "code": "\"use client\";\n\nimport {Description, FieldError, Label, SearchField} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function WithValidation() {\n  const [value, setValue] = React.useState(\"\");\n  const isInvalid = value.length > 0 && value.length < 3;\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField isRequired isInvalid={isInvalid} name=\"search\" value={value} onChange={setValue}>\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        {isInvalid ? (\n          <FieldError>Search query must be at least 3 characters</FieldError>\n        ) : (\n          <Description>Enter at least 3 characters to search</Description>\n        )}\n      </SearchField>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "description-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/description/basic.tsx",
+  "code": "import {Description, Input, Label} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <div className=\"flex flex-col gap-1\">\n      <Label htmlFor=\"email\">邮箱</Label>\n      <Input\n        aria-describedby=\"email-description\"\n        className=\"w-64\"\n        id=\"email\"\n        placeholder=\"you@example.com\"\n        type=\"email\"\n      />\n      <Description id=\"email-description\">我们不会将你的邮箱分享给任何人。</Description>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "avatar-custom-image-component",
+  "exported": "CustomImageComponent",
+  "source": "apps/docs/src/demos/cn/avatar/custom-image-component.tsx",
+  "code": "import {Avatar} from \"@lenso/ui\";\nimport Image from \"next/image\";\n\nconst SRC = \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg\";\n\nexport function CustomImageComponent() {\n  return (\n    <Avatar>\n      <Avatar.Image asChild height={40} src={SRC} width={40}>\n        <Image alt=\"约翰·多伊\" src={SRC} />\n      </Avatar.Image>\n      <Avatar.Fallback>JD</Avatar.Fallback>\n    </Avatar>\n  );\n}\n"
+}

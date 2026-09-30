@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-invalid",
+  "exported": "Invalid",
+  "source": "apps/docs/src/demos/cn/checkbox/invalid.tsx",
+  "code": "import {Checkbox, FieldError} from \"@lenso/ui\";\n\nexport function Invalid() {\n  return (\n    <Checkbox isInvalid isRequired name=\"agreement\">\n      <Checkbox.Content>\n        <Checkbox.Control>\n          <Checkbox.Indicator />\n        </Checkbox.Control>\n        我同意条款\n      </Checkbox.Content>\n      <FieldError>您必须接受条款才能继续</FieldError>\n    </Checkbox>\n  );\n}\n"
+}

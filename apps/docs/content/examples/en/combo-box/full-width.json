@@ -1,0 +1,6 @@
+{
+  "name": "combo-box-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/en/combo-box/full-width.tsx",
+  "code": "import {ComboBox, Input, Label, ListBox} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-4\">\n      <ComboBox fullWidth>\n        <Label>Favorite Animal</Label>\n        <ComboBox.InputGroup>\n          <Input placeholder=\"Search animals...\" />\n          <ComboBox.Trigger />\n        </ComboBox.InputGroup>\n        <ComboBox.Popover>\n          <ListBox>\n            <ListBox.Item id=\"aardvark\" textValue=\"Aardvark\">\n              Aardvark\n              <ListBox.ItemIndicator />\n            </ListBox.Item>\n            <ListBox.Item id=\"cat\" textValue=\"Cat\">\n              Cat\n              <ListBox.ItemIndicator />\n            </ListBox.Item>\n            <ListBox.Item id=\"dog\" textValue=\"Dog\">\n              Dog\n              <ListBox.ItemIndicator />\n            </ListBox.Item>\n          </ListBox>\n        </ComboBox.Popover>\n      </ComboBox>\n    </div>\n  );\n}\n"
+}

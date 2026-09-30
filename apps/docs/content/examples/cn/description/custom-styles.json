@@ -1,0 +1,6 @@
+{
+  "name": "description-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/description/custom-styles.tsx",
+  "code": "import {Description, Input, Label} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex w-64 flex-col gap-1\">\n      <Label htmlFor=\"workspace-slug\">工作区 URL</Label>\n      <Input id=\"workspace-slug\" placeholder=\"acme\" type=\"text\" />\n      <Description className=\"leading-relaxed tracking-wide\" id=\"workspace-slug-hint\">\n        仅支持小写字母和连字符。将用于 app.heroui.com/acme\n      </Description>\n    </div>\n  );\n}\n"
+}

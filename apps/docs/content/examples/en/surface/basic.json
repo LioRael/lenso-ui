@@ -1,0 +1,6 @@
+{
+  "name": "surface-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/surface/basic.tsx",
+  "code": "import {Surface} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <Surface className=\"flex min-w-[320px] flex-col gap-3 rounded-3xl p-6\" variant=\"default\">\n      <h3 className=\"text-base font-semibold text-foreground\">Surface Content</h3>\n      <p className=\"text-sm text-muted\">\n        This is a default surface variant. It uses bg-surface styling.\n      </p>\n    </Surface>\n  );\n}\n"
+}

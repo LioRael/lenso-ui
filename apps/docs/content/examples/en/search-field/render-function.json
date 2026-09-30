@@ -1,0 +1,6 @@
+{
+  "name": "search-field-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/search-field/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Label, SearchField} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <SearchField name=\"search\" render={(props) => <div {...props} data-custom=\"foo\" />}>\n      <Label>Search</Label>\n      <SearchField.Group>\n        <SearchField.SearchIcon />\n        <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n        <SearchField.ClearButton />\n      </SearchField.Group>\n    </SearchField>\n  );\n}\n"
+}

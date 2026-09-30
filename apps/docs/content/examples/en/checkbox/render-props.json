@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-render-props",
+  "exported": "RenderProps",
+  "source": "apps/docs/src/demos/en/checkbox/render-props.tsx",
+  "code": "\"use client\";\n\nimport {Checkbox, Description} from \"@lenso/ui\";\n\nexport function RenderProps() {\n  return (\n    <Checkbox id=\"render-props-terms\">\n      {({isSelected}) => (\n        <>\n          <Checkbox.Content>\n            <Checkbox.Control>\n              <Checkbox.Indicator />\n            </Checkbox.Control>\n            {isSelected ? \"Terms accepted\" : \"Accept terms\"}\n          </Checkbox.Content>\n          <Description>\n            {isSelected ? \"Thank you for accepting\" : \"Please read and accept the terms\"}\n          </Description>\n        </>\n      )}\n    </Checkbox>\n  );\n}\n"
+}

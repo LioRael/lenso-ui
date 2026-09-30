@@ -1,0 +1,6 @@
+{
+  "name": "color-area-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/color-area/render-function.tsx",
+  "code": "\"use client\";\n\nimport {ColorArea} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <ColorArea\n      defaultValue=\"rgb(116, 52, 255)\"\n      render={(props) => <div {...props} data-custom=\"slider\" />}\n    >\n      <ColorArea.Thumb render={(props) => <div {...props} data-custom=\"thumb\" />} />\n    </ColorArea>\n  );\n}\n"
+}

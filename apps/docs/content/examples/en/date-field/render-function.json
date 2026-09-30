@@ -1,0 +1,6 @@
+{
+  "name": "date-field-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/date-field/render-function.tsx",
+  "code": "\"use client\";\n\nimport {DateField, Label} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <DateField\n      className=\"w-[256px]\"\n      name=\"date\"\n      render={(props) => <div {...props} data-custom=\"date-field\" />}\n    >\n      <Label render={(props) => <span {...props} data-custom=\"date-field-label\" />}>Date</Label>\n      <DateField.Group render={(props) => <div {...props} data-custom=\"date-field-group\" />}>\n        <DateField.Input render={(props) => <div {...props} data-custom=\"date-field-input\" />}>\n          {(segment) => <DateField.Segment segment={segment} />}\n        </DateField.Input>\n      </DateField.Group>\n    </DateField>\n  );\n}\n"
+}

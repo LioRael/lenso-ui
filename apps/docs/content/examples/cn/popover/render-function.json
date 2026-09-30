@@ -1,0 +1,6 @@
+{
+  "name": "popover-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/popover/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Button, Popover} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Popover>\n        <Button>点击我</Button>\n        <Popover.Content\n          className=\"max-w-64\"\n          render={(props) => <div {...props} data-custom=\"foo\" />}\n        >\n          <Popover.Dialog>\n            <Popover.Heading>弹出层标题</Popover.Heading>\n            <p className=\"mt-2 text-sm text-muted\">这是弹出层内容，你可以在这里放置任何内容。</p>\n          </Popover.Dialog>\n        </Popover.Content>\n      </Popover>\n    </div>\n  );\n}\n"
+}

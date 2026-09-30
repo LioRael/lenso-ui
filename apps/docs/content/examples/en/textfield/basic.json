@@ -1,0 +1,6 @@
+{
+  "name": "textfield-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/textfield/basic.tsx",
+  "code": "import {Input, Label, TextField} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <TextField className=\"w-full max-w-64\" name=\"email\" type=\"email\">\n      <Label>Email</Label>\n      <Input placeholder=\"Enter your email\" />\n    </TextField>\n  );\n}\n"
+}

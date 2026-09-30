@@ -1,0 +1,6 @@
+{
+  "name": "field-error-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/field-error/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport {FieldError, Input, Label, TextField} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function CustomStyles() {\n  const [value, setValue] = useState(\"jr\");\n  const isInvalid = value.length > 0 && value.length < 3;\n\n  return (\n    <TextField className=\"w-64\" isInvalid={isInvalid}>\n      <Label htmlFor=\"handle\">Handle</Label>\n      <Input\n        className=\"bg-field font-mono\"\n        id=\"handle\"\n        placeholder=\"min. 3 characters\"\n        value={value}\n        onChange={(e) => setValue(e.target.value)}\n      />\n      <FieldError className=\"font-medium\">Handle must be at least 3 characters</FieldError>\n    </TextField>\n  );\n}\n"
+}

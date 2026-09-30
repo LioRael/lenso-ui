@@ -1,22 +1,28 @@
 import type { NextConfig } from "next";
-import createMDX from "@next/mdx";
-import { withContentCollections } from "@content-collections/next";
+import stylex from "@stylexjs/unplugin";
 
 const config: NextConfig = {
-  output: "export",
-  trailingSlash: true,
-  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactStrictMode: true,
-  experimental: {
-    turbopackFileSystemCacheForBuild: false,
+  transpilePackages: ["@lenso/ui", "@lenso/tokens"],
+  webpack(config) {
+    // Unplugin keeps extracted StyleX rules in memory, not Webpack's cached-module metadata.
+    // Reusing transformed modules can emit class names without their CSS on a later build.
+    config.cache = false;
+    config.plugins.push(
+      stylex.webpack({
+        // Match precompiled package property keys so xstyle overrides work in development too.
+        dev: false,
+        useCSSLayers: false,
+        // Keep :dir(rtl) native; language inference breaks English-language RTL scopes.
+        lightningcssOptions: { exclude: 4 },
+        unstable_moduleResolution: {
+          type: "commonJS",
+          rootDir: import.meta.dirname,
+        },
+      }),
+    );
+    return config;
   },
-  transpilePackages: ["@lenso/primitives", "@lenso/tokens", "@lenso/ui"],
 };
 
-const withMDX = createMDX({
-  options: {
-    remarkPlugins: ["remark-frontmatter"],
-  },
-});
-
-export default withContentCollections(withMDX(config));
+export default config;

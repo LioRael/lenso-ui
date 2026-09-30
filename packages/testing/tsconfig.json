@@ -1,0 +1,7 @@
+{
+  "extends": "../standard/tsconfig/react.json",
+  "compilerOptions": {
+    "types": ["node", "react", "vitest/globals", "vite/client"]
+  },
+  "include": ["src/**/*.ts", "helpers/**/*.ts", "setup/**/*.ts", "configs/**/*.ts"]
+}

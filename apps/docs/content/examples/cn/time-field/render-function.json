@@ -1,0 +1,6 @@
+{
+  "name": "time-field-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/time-field/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Label, TimeField} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <TimeField\n      className=\"w-[256px]\"\n      name=\"time\"\n      render={(props) => <div {...props} data-custom=\"foo\" />}\n    >\n      <Label>时间</Label>\n      <TimeField.Group>\n        <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n      </TimeField.Group>\n    </TimeField>\n  );\n}\n"
+}

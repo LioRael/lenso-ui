@@ -1,0 +1,6 @@
+{
+  "name": "color-area-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/color-area/custom-styles.tsx",
+  "code": "import {ColorArea} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <ColorArea className=\"size-44 rounded-3xl\" defaultValue=\"rgb(116, 52, 255)\">\n      <ColorArea.Thumb className=\"size-5 rounded-full border-4 border-white\" />\n    </ColorArea>\n  );\n}\n"
+}

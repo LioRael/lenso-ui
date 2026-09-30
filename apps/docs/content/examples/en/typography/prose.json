@@ -1,0 +1,6 @@
+{
+  "name": "typography-prose",
+  "exported": "Prose",
+  "source": "apps/docs/src/demos/en/typography/prose.tsx",
+  "code": "import {Typography} from \"@lenso/ui\";\n\nexport const Prose = () => {\n  return (\n    <Typography.Prose className=\"flex max-w-xl flex-col gap-3\">\n      <h1>Prose title</h1>\n      <p>\n        Prose is for authored content where the markup is already semantic and HeroUI applies the\n        default typography rhythm.\n      </p>\n      <h2>Section title</h2>\n      <p>\n        Inline code like <code>render</code> receives the same code treatment as the Typography\n        primitive.\n      </p>\n    </Typography.Prose>\n  );\n};\n"
+}

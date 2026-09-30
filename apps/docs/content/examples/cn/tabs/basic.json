@@ -1,0 +1,6 @@
+{
+  "name": "tabs-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/tabs/basic.tsx",
+  "code": "import {Tabs} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <Tabs className=\"w-full max-w-md\">\n      <Tabs.ListContainer>\n        <Tabs.List aria-label=\"选项\">\n          <Tabs.Tab id=\"overview\">\n            概览\n            <Tabs.Indicator />\n          </Tabs.Tab>\n          <Tabs.Tab id=\"analytics\">\n            分析\n            <Tabs.Indicator />\n          </Tabs.Tab>\n          <Tabs.Tab id=\"reports\">\n            报告\n            <Tabs.Indicator />\n          </Tabs.Tab>\n        </Tabs.List>\n      </Tabs.ListContainer>\n      <Tabs.Panel className=\"pt-4\" id=\"overview\">\n        <p>查看项目概览与近期活动。</p>\n      </Tabs.Panel>\n      <Tabs.Panel className=\"pt-4\" id=\"analytics\">\n        <p>跟踪指标并分析性能数据。</p>\n      </Tabs.Panel>\n      <Tabs.Panel className=\"pt-4\" id=\"reports\">\n        <p>生成并下载详细报告。</p>\n      </Tabs.Panel>\n    </Tabs>\n  );\n}\n"
+}

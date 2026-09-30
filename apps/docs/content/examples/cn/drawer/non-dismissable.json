@@ -1,0 +1,6 @@
+{
+  "name": "drawer-non-dismissable",
+  "exported": "NonDismissable",
+  "source": "apps/docs/src/demos/cn/drawer/non-dismissable.tsx",
+  "code": "import {Button, Drawer} from \"@lenso/ui\";\n\nexport function NonDismissable() {\n  return (\n    <Drawer>\n      <Button variant=\"secondary\">重要操作</Button>\n      <Drawer.Backdrop isDismissable={false}>\n        <Drawer.Content>\n          <Drawer.Dialog>\n            <Drawer.Header>\n              <Drawer.Heading>确认操作</Drawer.Heading>\n            </Drawer.Header>\n            <Drawer.Body>\n              <p>此抽屉无法通过点击外部或拖拽关闭。你必须使用下方按钮之一来完成操作。</p>\n            </Drawer.Body>\n            <Drawer.Footer>\n              <Button slot=\"close\" variant=\"secondary\">\n                取消\n              </Button>\n              <Button slot=\"close\">确认</Button>\n            </Drawer.Footer>\n          </Drawer.Dialog>\n        </Drawer.Content>\n      </Drawer.Backdrop>\n    </Drawer>\n  );\n}\n"
+}

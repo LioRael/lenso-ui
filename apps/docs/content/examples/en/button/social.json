@@ -1,0 +1,6 @@
+{
+  "name": "button-social",
+  "exported": "Social",
+  "source": "apps/docs/src/demos/en/button/social.tsx",
+  "code": "import {Button} from \"@lenso/ui\";\nimport {Icon} from \"@iconify/react\";\n\nexport function Social() {\n  return (\n    <div className=\"flex w-full max-w-xs flex-col gap-3\">\n      <Button className=\"w-full\" variant=\"tertiary\">\n        <Icon icon=\"devicon:google\" />\n        Sign in with Google\n      </Button>\n      <Button className=\"w-full\" variant=\"tertiary\">\n        <Icon icon=\"mdi:github\" />\n        Sign in with GitHub\n      </Button>\n      <Button className=\"w-full\" variant=\"tertiary\">\n        <Icon icon=\"ion:logo-apple\" />\n        Sign in with Apple\n      </Button>\n    </div>\n  );\n}\n"
+}

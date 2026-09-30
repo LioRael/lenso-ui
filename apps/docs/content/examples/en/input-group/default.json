@@ -1,0 +1,6 @@
+{
+  "name": "input-group-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/en/input-group/default.tsx",
+  "code": "\"use client\";\n\nimport {Envelope} from \"@gravity-ui/icons\";\nimport {InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function Default() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" name=\"email\">\n      <Label>Email address</Label>\n      <InputGroup>\n        <InputGroup.Prefix>\n          <Envelope className=\"size-4 text-muted\" />\n        </InputGroup.Prefix>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" placeholder=\"name@email.com\" />\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-with-error-message",
+  "exported": "TagGroupWithErrorMessage",
+  "source": "apps/docs/src/demos/en/tag-group/with-error-message.tsx",
+  "code": "\"use client\";\n\nimport type {Key} from \"@lenso/ui\";\n\nimport {Description, ErrorMessage, Label, Tag, TagGroup} from \"@lenso/ui\";\nimport {useMemo, useState} from \"react\";\n\nexport function TagGroupWithErrorMessage() {\n  const [selected, setSelected] = useState<Iterable<Key>>(new Set());\n\n  const isInvalid = useMemo(() => Array.from(selected).length === 0, [selected]);\n\n  return (\n    <TagGroup\n      selectedKeys={selected}\n      selectionMode=\"multiple\"\n      onSelectionChange={(keys) => setSelected(keys)}\n    >\n      <Label>Amenities</Label>\n      <TagGroup.List>\n        <Tag id=\"laundry\">Laundry</Tag>\n        <Tag id=\"fitness\">Fitness center</Tag>\n        <Tag id=\"parking\">Parking</Tag>\n        <Tag id=\"pool\">Swimming pool</Tag>\n        <Tag id=\"breakfast\">Breakfast</Tag>\n      </TagGroup.List>\n      <Description>\n        {isInvalid\n          ? \"Select at least one category\"\n          : \"Selected: \" + Array.from(selected).join(\", \")}\n      </Description>\n      <ErrorMessage>{!!isInvalid && <>Please select at least one category</>}</ErrorMessage>\n    </TagGroup>\n  );\n}\n"
+}

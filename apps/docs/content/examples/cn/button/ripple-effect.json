@@ -1,0 +1,6 @@
+{
+  "name": "button-ripple-effect",
+  "exported": "RippleEffect",
+  "source": "apps/docs/src/demos/cn/button/ripple-effect.tsx",
+  "code": "\"use client\";\n\nimport {Button} from \"@lenso/ui\";\nimport {Ripple} from \"m3-ripple\";\n\nimport \"m3-ripple/ripple.css\";\n\nexport function RippleEffect() {\n  return (\n    <Button variant=\"secondary\">\n      <Ripple />\n      点我\n    </Button>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "switch-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/cn/switch/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Switch} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Controlled() {\n  const [isSelected, setIsSelected] = React.useState(false);\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <Switch isSelected={isSelected} onChange={setIsSelected}>\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          启用通知\n        </Switch.Content>\n      </Switch>\n      <p className=\"text-sm text-muted\">开关{isSelected ? \"已打开\" : \"已关闭\"}</p>\n    </div>\n  );\n}\n"
+}

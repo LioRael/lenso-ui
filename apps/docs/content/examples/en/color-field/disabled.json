@@ -1,0 +1,6 @@
+{
+  "name": "color-field-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/en/color-field/disabled.tsx",
+  "code": "\"use client\";\n\nimport {ColorField, Description, Label} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorField isDisabled className=\"w-[280px]\" defaultValue=\"#0485F7\" name=\"color\">\n        <Label>Color</Label>\n        <ColorField.Group>\n          <ColorField.Input />\n        </ColorField.Group>\n        <Description>This color field is disabled</Description>\n      </ColorField>\n      <ColorField isDisabled className=\"w-[280px]\" name=\"color-empty\">\n        <Label>Color</Label>\n        <ColorField.Group>\n          <ColorField.Input placeholder=\"#000000\" />\n        </ColorField.Group>\n        <Description>This color field is disabled</Description>\n      </ColorField>\n    </div>\n  );\n}\n"
+}

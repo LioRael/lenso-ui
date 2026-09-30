@@ -1,0 +1,6 @@
+{
+  "name": "color-field-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/color-field/render-function.tsx",
+  "code": "\"use client\";\n\nimport type {Color} from \"@lenso/ui\";\n\nimport {ColorField, ColorSwatch, Label, parseColor} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function RenderFunction() {\n  const [color, setColor] = useState<Color | null>(parseColor(\"#0485F7\"));\n\n  return (\n    <ColorField\n      className=\"w-[280px]\"\n      name=\"color\"\n      render={(props) => <div {...props} data-custom=\"foo\" />}\n      value={color}\n      onChange={setColor}\n    >\n      <Label>Color</Label>\n      <ColorField.Group render={(props) => <div {...props} data-custom=\"foo\" />}>\n        <ColorField.Prefix>\n          <ColorSwatch color={color ?? undefined} size=\"xs\" />\n        </ColorField.Prefix>\n        <ColorField.Input />\n      </ColorField.Group>\n    </ColorField>\n  );\n}\n"
+}

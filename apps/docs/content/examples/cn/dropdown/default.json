@@ -1,0 +1,6 @@
+{
+  "name": "dropdown-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/cn/dropdown/default.tsx",
+  "code": "\"use client\";\n\nimport {Button, Dropdown, Label} from \"@lenso/ui\";\n\nexport function Default() {\n  return (\n    <Dropdown>\n      <Button aria-label=\"菜单\" variant=\"secondary\">\n        操作\n      </Button>\n      <Dropdown.Popover>\n        <Dropdown.Menu onAction={(key) => console.log(`Selected: ${key}`)}>\n          <Dropdown.Item id=\"new-file\" textValue=\"新建文件\">\n            <Label>新建文件</Label>\n          </Dropdown.Item>\n          <Dropdown.Item id=\"copy-link\" textValue=\"复制链接\">\n            <Label>复制链接</Label>\n          </Dropdown.Item>\n          <Dropdown.Item id=\"edit-file\" textValue=\"编辑文件\">\n            <Label>编辑文件</Label>\n          </Dropdown.Item>\n          <Dropdown.Item id=\"delete-file\" textValue=\"删除文件\" variant=\"danger\">\n            <Label>删除文件</Label>\n          </Dropdown.Item>\n        </Dropdown.Menu>\n      </Dropdown.Popover>\n    </Dropdown>\n  );\n}\n"
+}

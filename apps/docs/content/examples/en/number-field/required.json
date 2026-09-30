@@ -1,0 +1,6 @@
+{
+  "name": "number-field-required",
+  "exported": "Required",
+  "source": "apps/docs/src/demos/en/number-field/required.tsx",
+  "code": "import {Description, Label, NumberField} from \"@lenso/ui\";\n\nexport function Required() {\n  return (\n    <div className=\"flex w-full max-w-64 flex-col gap-4\">\n      <NumberField isRequired minValue={0} name=\"quantity\">\n        <Label>Quantity</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n      </NumberField>\n      <NumberField isRequired defaultValue={1} maxValue={10} minValue={1} name=\"rating\">\n        <Label>Rating</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n        <Description>Rate from 1 to 10</Description>\n      </NumberField>\n    </div>\n  );\n}\n"
+}

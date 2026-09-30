@@ -1,0 +1,6 @@
+{
+  "name": "tabs-overflow",
+  "exported": "Overflow",
+  "source": "apps/docs/src/demos/en/tabs/overflow.tsx",
+  "code": "import {Tabs} from \"@lenso/ui\";\n\nconst items = [\n  {id: \"overview\", label: \"Overview\"},\n  {id: \"analytics\", label: \"Analytics\"},\n  {id: \"reports\", label: \"Reports\"},\n  {id: \"performance\", label: \"Performance\"},\n  {id: \"engagement\", label: \"Engagement\"},\n  {id: \"audience\", label: \"Audience\"},\n  {id: \"acquisition\", label: \"Acquisition\"},\n  {id: \"retention\", label: \"Retention\"},\n  {id: \"settings\", label: \"Settings\"},\n];\n\nexport function Overflow() {\n  return (\n    <div className=\"w-[400px]\">\n      <Tabs>\n        <Tabs.ListContainer>\n          <Tabs.List aria-label=\"Overflow options\">\n            {items.map((item) => (\n              <Tabs.Tab key={item.id} id={item.id}>\n                {item.label}\n                <Tabs.Indicator />\n              </Tabs.Tab>\n            ))}\n          </Tabs.List>\n        </Tabs.ListContainer>\n        {items.map((item) => (\n          <Tabs.Panel key={item.id} className=\"pt-4\" id={item.id}>\n            <p>{item.label} panel content.</p>\n          </Tabs.Panel>\n        ))}\n      </Tabs>\n    </div>\n  );\n}\n"
+}

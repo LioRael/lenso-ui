@@ -1,0 +1,6 @@
+{
+  "name": "number-field-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/en/number-field/full-width.tsx",
+  "code": "import {Label, NumberField} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-4\">\n      <NumberField fullWidth defaultValue={1024} minValue={0} name=\"width\">\n        <Label>Width</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n      </NumberField>\n    </div>\n  );\n}\n"
+}

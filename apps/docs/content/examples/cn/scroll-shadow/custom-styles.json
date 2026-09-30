@@ -1,0 +1,6 @@
+{
+  "name": "scroll-shadow-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/scroll-shadow/custom-styles.tsx",
+  "code": "import {ScrollShadow} from \"@lenso/ui\";\n\nconst entries = [\n  \"与设计团队一起回顾季度目标。\",\n  \"将深色模式设计令牌发布到生产环境。\",\n  \"合并表单字段的无障碍修复。\",\n  \"发布更新后的组件文档。\",\n  \"安排下一冲刺的性能审计。\",\n  \"在文档站点中添加滚动阴影示例。\",\n];\n\nexport function CustomStyles() {\n  return (\n    <div className=\"w-full sm:max-w-sm\">\n      <ScrollShadow\n        hideScrollBar\n        className=\"max-h-48 rounded-xl border border-border/80 bg-linear-to-b from-neutral-50/90 to-white p-4 ring-1 ring-black/5 dark:from-neutral-900/80 dark:to-neutral-900 dark:ring-white/10\"\n        size={48}\n        variant=\"fade\"\n      >\n        <div className=\"space-y-3\">\n          {entries.map((entry) => (\n            <p\n              key={entry}\n              className=\"text-sm leading-relaxed text-neutral-600 dark:text-neutral-400\"\n            >\n              {entry}\n            </p>\n          ))}\n        </div>\n      </ScrollShadow>\n    </div>\n  );\n}\n"
+}

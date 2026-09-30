@@ -1,0 +1,6 @@
+{
+  "name": "time-field-required",
+  "exported": "Required",
+  "source": "apps/docs/src/demos/cn/time-field/required.tsx",
+  "code": "\"use client\";\n\nimport {Description, Label, TimeField} from \"@lenso/ui\";\n\nexport function Required() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TimeField isRequired className=\"w-[256px]\" name=\"time\">\n        <Label>时间</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n      </TimeField>\n      <TimeField isRequired className=\"w-[256px]\" name=\"appointment-time\">\n        <Label>预约时间</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n        <Description>必填项</Description>\n      </TimeField>\n    </div>\n  );\n}\n"
+}

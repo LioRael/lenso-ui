@@ -1,0 +1,6 @@
+{
+  "name": "progress-bar-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/progress-bar/basic.tsx",
+  "code": "import {Label, ProgressBar} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <ProgressBar aria-label=\"Loading\" className=\"w-64\" value={60}>\n      <Label>Loading</Label>\n      <ProgressBar.Output />\n      <ProgressBar.Track>\n        <ProgressBar.Fill />\n      </ProgressBar.Track>\n    </ProgressBar>\n  );\n}\n"
+}

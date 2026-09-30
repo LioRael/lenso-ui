@@ -1,0 +1,6 @@
+{
+  "name": "button-group-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/en/button-group/full-width.tsx",
+  "code": "import {TextAlignCenter, TextAlignLeft, TextAlignRight} from \"@gravity-ui/icons\";\nimport {Button, ButtonGroup} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-3\">\n      <ButtonGroup fullWidth>\n        <Button>First</Button>\n        <Button>\n          <ButtonGroup.Separator />\n          Second\n        </Button>\n        <Button>\n          <ButtonGroup.Separator />\n          Third\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup fullWidth>\n        <Button isIconOnly aria-label=\"Align left\">\n          <TextAlignLeft />\n        </Button>\n        <Button isIconOnly aria-label=\"Align center\">\n          <ButtonGroup.Separator />\n          <TextAlignCenter />\n        </Button>\n        <Button isIconOnly aria-label=\"Align right\">\n          <ButtonGroup.Separator />\n          <TextAlignRight />\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n}\n"
+}

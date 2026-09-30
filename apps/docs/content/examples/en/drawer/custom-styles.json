@@ -1,0 +1,6 @@
+{
+  "name": "drawer-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/drawer/custom-styles.tsx",
+  "code": "import {Button, Drawer} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Drawer>\n      <Button variant=\"secondary\">Open filters</Button>\n      <Drawer.Backdrop variant=\"blur\">\n        <Drawer.Content placement=\"right\">\n          <Drawer.Dialog className=\"border-l border-border/80 bg-surface\">\n            <Drawer.Header>\n              <Drawer.Heading className=\"text-foreground\">Filters</Drawer.Heading>\n            </Drawer.Header>\n            <Drawer.Body>\n              <p className=\"text-sm text-muted\">Narrow results by status, owner, or date.</p>\n            </Drawer.Body>\n            <Drawer.Footer>\n              <Button slot=\"close\" variant=\"secondary\">\n                Cancel\n              </Button>\n              <Button slot=\"close\">Apply</Button>\n            </Drawer.Footer>\n          </Drawer.Dialog>\n        </Drawer.Content>\n      </Drawer.Backdrop>\n    </Drawer>\n  );\n}\n"
+}

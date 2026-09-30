@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-group-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/cn/checkbox-group/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Checkbox, CheckboxGroup, Label} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function Controlled() {\n  const [selected, setSelected] = useState([\"coding\", \"design\"]);\n\n  return (\n    <CheckboxGroup className=\"min-w-[320px]\" name=\"skills\" value={selected} onChange={setSelected}>\n      <Label>你的技能</Label>\n      <Checkbox value=\"coding\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          编程\n        </Checkbox.Content>\n      </Checkbox>\n      <Checkbox value=\"design\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          设计\n        </Checkbox.Content>\n      </Checkbox>\n      <Checkbox value=\"writing\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          写作\n        </Checkbox.Content>\n      </Checkbox>\n      <Label className=\"my-4 text-sm text-muted\">已选：{selected.join(\", \") || \"无\"}</Label>\n    </CheckboxGroup>\n  );\n}\n"
+}

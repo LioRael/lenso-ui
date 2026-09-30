@@ -1,0 +1,6 @@
+{
+  "name": "radio-group-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/en/radio-group/disabled.tsx",
+  "code": "import {Description, Label, Radio, RadioGroup} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <RadioGroup isDisabled defaultValue=\"pro\" name=\"plan-disabled\">\n      <Label>Subscription plan</Label>\n      <Description>Plan changes are temporarily paused while we roll out updates.</Description>\n      <Radio value=\"starter\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          Starter\n        </Radio.Content>\n        <Description>For side projects and small teams</Description>\n      </Radio>\n      <Radio value=\"pro\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          Pro\n        </Radio.Content>\n        <Description>Advanced reporting and analytics</Description>\n      </Radio>\n      <Radio value=\"teams\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          Teams\n        </Radio.Content>\n        <Description>Share access with up to 10 teammates</Description>\n      </Radio>\n    </RadioGroup>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "color-field-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/color-field/basic.tsx",
+  "code": "\"use client\";\n\nimport type {Color} from \"@lenso/ui\";\n\nimport {ColorField, ColorSwatch, Label, parseColor} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function Basic() {\n  const [color, setColor] = useState<Color | null>(parseColor(\"#0485F7\"));\n\n  return (\n    <ColorField className=\"w-[280px]\" name=\"color\" value={color} onChange={setColor}>\n      <Label>Color</Label>\n      <ColorField.Group>\n        <ColorField.Prefix>\n          <ColorSwatch color={color ?? undefined} size=\"xs\" />\n        </ColorField.Prefix>\n        <ColorField.Input />\n      </ColorField.Group>\n    </ColorField>\n  );\n}\n"
+}

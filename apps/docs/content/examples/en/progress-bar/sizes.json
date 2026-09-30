@@ -1,0 +1,6 @@
+{
+  "name": "progress-bar-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/en/progress-bar/sizes.tsx",
+  "code": "import {Label, ProgressBar} from \"@lenso/ui\";\n\nexport function Sizes() {\n  return (\n    <div className=\"flex w-64 flex-col gap-6\">\n      <ProgressBar aria-label=\"Small\" size=\"sm\" value={40}>\n        <Label>Small</Label>\n        <ProgressBar.Output />\n        <ProgressBar.Track>\n          <ProgressBar.Fill />\n        </ProgressBar.Track>\n      </ProgressBar>\n      <ProgressBar aria-label=\"Medium\" size=\"md\" value={60}>\n        <Label>Medium</Label>\n        <ProgressBar.Output />\n        <ProgressBar.Track>\n          <ProgressBar.Fill />\n        </ProgressBar.Track>\n      </ProgressBar>\n      <ProgressBar aria-label=\"Large\" size=\"lg\" value={80}>\n        <Label>Large</Label>\n        <ProgressBar.Output />\n        <ProgressBar.Track>\n          <ProgressBar.Fill />\n        </ProgressBar.Track>\n      </ProgressBar>\n    </div>\n  );\n}\n"
+}

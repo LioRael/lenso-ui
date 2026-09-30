@@ -1,0 +1,6 @@
+{
+  "name": "color-field-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/cn/color-field/on-surface.tsx",
+  "code": "import {ColorField, Description, Label, Surface} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"w-[320px] p-4\">\n      <ColorField defaultValue=\"#3B82F6\" name=\"color\">\n        <Label>主题色</Label>\n        <ColorField.Group variant=\"secondary\">\n          <ColorField.Input />\n        </ColorField.Group>\n        <Description>选择你的主题色</Description>\n      </ColorField>\n    </Surface>\n  );\n}\n"
+}

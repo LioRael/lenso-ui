@@ -1,0 +1,6 @@
+{
+  "name": "calendar-default-value",
+  "exported": "DefaultValue",
+  "source": "apps/docs/src/demos/cn/calendar/default-value.tsx",
+  "code": "\"use client\";\n\nimport {Calendar} from \"@lenso/ui\";\nimport {parseDate} from \"@internationalized/date\";\n\nexport function DefaultValue() {\n  return (\n    <Calendar aria-label=\"活动日期\" defaultValue={parseDate(\"2025-02-14\")}>\n      <Calendar.Header>\n        <Calendar.Heading />\n        <Calendar.NavButton slot=\"previous\" />\n        <Calendar.NavButton slot=\"next\" />\n      </Calendar.Header>\n      <Calendar.Grid>\n        <Calendar.GridHeader>\n          {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}\n        </Calendar.GridHeader>\n        <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>\n      </Calendar.Grid>\n    </Calendar>\n  );\n}\n"
+}

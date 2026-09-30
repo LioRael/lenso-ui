@@ -1,0 +1,6 @@
+{
+  "name": "avatar-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/en/avatar/sizes.tsx",
+  "code": "import {Avatar} from \"@lenso/ui\";\n\nexport function Sizes() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Avatar size=\"sm\">\n        <Avatar.Image\n          alt=\"Small Avatar\"\n          src=\"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg\"\n        />\n        <Avatar.Fallback>SM</Avatar.Fallback>\n      </Avatar>\n      <Avatar size=\"md\">\n        <Avatar.Image\n          alt=\"Medium Avatar\"\n          src=\"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg\"\n        />\n        <Avatar.Fallback>MD</Avatar.Fallback>\n      </Avatar>\n      <Avatar size=\"lg\">\n        <Avatar.Image\n          alt=\"Large Avatar\"\n          src=\"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg\"\n        />\n        <Avatar.Fallback>LG</Avatar.Fallback>\n      </Avatar>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "label-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/label/custom-styles.tsx",
+  "code": "import {Input, Label} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex flex-col gap-1.5\">\n      <Label className=\"text-xs font-semibold tracking-wide text-accent uppercase\" htmlFor=\"repo\">\n        Repository\n      </Label>\n      <Input className=\"w-64 bg-field\" id=\"repo\" placeholder=\"heroui/react\" />\n    </div>\n  );\n}\n"
+}

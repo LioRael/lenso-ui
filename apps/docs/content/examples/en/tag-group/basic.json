@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-basic",
+  "exported": "TagGroupBasic",
+  "source": "apps/docs/src/demos/en/tag-group/basic.tsx",
+  "code": "\"use client\";\n\nimport {PlanetEarth, Rocket, ShoppingBag, SquareArticle} from \"@gravity-ui/icons\";\nimport {Tag, TagGroup} from \"@lenso/ui\";\n\nexport function TagGroupBasic() {\n  return (\n    <TagGroup aria-label=\"Tags\" selectionMode=\"single\">\n      <TagGroup.List>\n        <Tag id=\"default-news\">\n          <SquareArticle />\n          News\n        </Tag>\n        <Tag id=\"default-travel\">\n          <PlanetEarth />\n          Travel\n        </Tag>\n        <Tag id=\"default-gaming\">\n          <Rocket />\n          Gaming\n        </Tag>\n        <Tag id=\"default-shopping\">\n          <ShoppingBag />\n          Shopping\n        </Tag>\n      </TagGroup.List>\n    </TagGroup>\n  );\n}\n"
+}

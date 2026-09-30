@@ -1,0 +1,6 @@
+{
+  "name": "progress-circle-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/progress-circle/custom-styles.tsx",
+  "code": "import {ProgressCircle} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <ProgressCircle\n      aria-label=\"Sync progress\"\n      className=\"size-14 text-neutral-700 dark:text-neutral-300\"\n      value={68}\n    >\n      <ProgressCircle.Track>\n        <ProgressCircle.TrackCircle className=\"stroke-neutral-200 dark:stroke-neutral-800\" />\n        <ProgressCircle.FillCircle\n          className=\"stroke-neutral-700 dark:stroke-neutral-300\"\n          strokeLinecap=\"round\"\n        />\n      </ProgressCircle.Track>\n    </ProgressCircle>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "scroll-shadow-hide-scroll-bar",
+  "exported": "default",
+  "source": "apps/docs/src/demos/cn/scroll-shadow/hide-scroll-bar.tsx",
+  "code": "import {ScrollShadow} from \"@lenso/ui\";\n\nexport default function HideScrollBar() {\n  return (\n    <div className=\"w-full p-0 sm:max-w-sm\">\n      <ScrollShadow hideScrollBar className=\"max-h-[240px] p-4\">\n        <div className=\"space-y-4\">\n          {Array.from({length: 10}).map((_, idx) => (\n            <p key={`scroll-shadow-lorem-content-${idx}`}>\n              段落 {idx + 1}：Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam\n              pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet hendrerit risus,\n              sed porttitor quam. Morbi accumsan cursus enim, sed ultricies sapien.\n            </p>\n          ))}\n        </div>\n      </ScrollShadow>\n    </div>\n  );\n}\n"
+}

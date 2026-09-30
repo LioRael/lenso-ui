@@ -1,0 +1,6 @@
+{
+  "name": "typography-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/en/typography/default.tsx",
+  "code": "import {Typography} from \"@lenso/ui\";\n\nexport const Default = () => {\n  return (\n    <div className=\"flex max-w-xl flex-col gap-4\">\n      <Typography type=\"h1\">Build better interfaces</Typography>\n      <Typography type=\"h2\">Typography that stays semantic</Typography>\n      <Typography type=\"h3\">Composable by default</Typography>\n      <Typography type=\"h4\">Small heading</Typography>\n      <Typography>\n        HeroUI Typography uses React Aria Components Text as the primitive, with semantic typography\n        types and render-prop polymorphism.\n      </Typography>\n      <Typography color=\"muted\" type=\"body-sm\">\n        Smaller muted body copy for secondary descriptions.\n      </Typography>\n      <Typography type=\"code\">pnpm add @lenso/ui</Typography>\n    </div>\n  );\n};\n"
+}

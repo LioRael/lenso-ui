@@ -1,0 +1,6 @@
+{
+  "name": "button-group-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/en/button-group/disabled.tsx",
+  "code": "import {Button, ButtonGroup} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <div className=\"flex flex-col gap-6\">\n      <div className=\"flex flex-col items-start gap-2\">\n        <p className=\"text-sm text-muted\">All buttons disabled</p>\n        <ButtonGroup isDisabled>\n          <Button>First</Button>\n          <Button>\n            <ButtonGroup.Separator />\n            Second\n          </Button>\n          <Button>\n            <ButtonGroup.Separator />\n            Third\n          </Button>\n        </ButtonGroup>\n      </div>\n      <div className=\"flex flex-col items-start gap-2\">\n        <p className=\"text-sm text-muted\">Group disabled, but one button overrides</p>\n        <ButtonGroup isDisabled>\n          <Button>First</Button>\n          <Button>\n            <ButtonGroup.Separator />\n            Second\n          </Button>\n          <Button isDisabled={false}>\n            <ButtonGroup.Separator />\n            Third (enabled)\n          </Button>\n        </ButtonGroup>\n      </div>\n    </div>\n  );\n}\n"
+}

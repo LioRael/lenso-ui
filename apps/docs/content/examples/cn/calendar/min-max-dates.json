@@ -1,0 +1,6 @@
+{
+  "name": "calendar-min-max-dates",
+  "exported": "MinMaxDates",
+  "source": "apps/docs/src/demos/cn/calendar/min-max-dates.tsx",
+  "code": "\"use client\";\n\nimport {Calendar, Description} from \"@lenso/ui\";\nimport {getLocalTimeZone, today} from \"@internationalized/date\";\n\nexport function MinMaxDates() {\n  const now = today(getLocalTimeZone());\n  const minDate = now;\n  const maxDate = now.add({months: 3});\n\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <Calendar aria-label=\"预约日期\" maxValue={maxDate} minValue={minDate}>\n        <Calendar.Header>\n          <Calendar.Heading />\n          <Calendar.NavButton slot=\"previous\" />\n          <Calendar.NavButton slot=\"next\" />\n        </Calendar.Header>\n        <Calendar.Grid>\n          <Calendar.GridHeader>\n            {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}\n          </Calendar.GridHeader>\n          <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>\n        </Calendar.Grid>\n      </Calendar>\n      <Description className=\"text-center\">\n        请在今天与 {maxDate.toString()} 之间选择日期。\n      </Description>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "breadcrumbs-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/breadcrumbs/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Breadcrumbs} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <Breadcrumbs render={(props) => <ol {...props} data-custom=\"foo\" />}>\n      <Breadcrumbs.Item render={(props) => <li {...(props as any)} data-custom=\"bar\" />}>\n        Home\n      </Breadcrumbs.Item>\n      <Breadcrumbs.Item render={(props) => <li {...(props as any)} data-custom=\"bar\" />}>\n        Products\n      </Breadcrumbs.Item>\n      <Breadcrumbs.Item render={(props) => <li {...(props as any)} data-custom=\"bar\" />}>\n        Electronics\n      </Breadcrumbs.Item>\n      <Breadcrumbs.Item render={(props) => <li {...(props as any)} data-custom=\"bar\" />}>\n        Laptop\n      </Breadcrumbs.Item>\n    </Breadcrumbs>\n  );\n}\n"
+}

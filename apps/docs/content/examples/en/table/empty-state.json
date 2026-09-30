@@ -1,0 +1,6 @@
+{
+  "name": "table-empty-state",
+  "exported": "EmptyStateDemo",
+  "source": "apps/docs/src/demos/en/table/empty-state.tsx",
+  "code": "\"use client\";\n\nimport {EmptyState, Table} from \"@lenso/ui\";\nimport {Icon} from \"@iconify/react\";\n\nexport function EmptyStateDemo() {\n  return (\n    <Table className=\"min-h-[200px]\">\n      <Table.ScrollContainer>\n        <Table.Content aria-label=\"Empty table\" className=\"h-full min-w-[600px]\">\n          <Table.Header>\n            <Table.Column isRowHeader>Name</Table.Column>\n            <Table.Column>Role</Table.Column>\n            <Table.Column>Status</Table.Column>\n            <Table.Column>Email</Table.Column>\n          </Table.Header>\n          <Table.Body\n            renderEmptyState={() => (\n              <EmptyState className=\"flex h-full w-full flex-col items-center justify-center gap-4 text-center\">\n                <Icon className=\"size-6 text-muted\" icon=\"gravity-ui:tray\" />\n                <span className=\"text-sm text-muted\">No results found</span>\n              </EmptyState>\n            )}\n          >\n            {[]}\n          </Table.Body>\n        </Table.Content>\n      </Table.ScrollContainer>\n    </Table>\n  );\n}\n"
+}

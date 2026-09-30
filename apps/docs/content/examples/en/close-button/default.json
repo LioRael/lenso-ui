@@ -1,0 +1,6 @@
+{
+  "name": "close-button-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/en/close-button/default.tsx",
+  "code": "import {CloseButton} from \"@lenso/ui\";\n\nexport function Default() {\n  return <CloseButton />;\n}\n"
+}

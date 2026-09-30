@@ -1,0 +1,6 @@
+{
+  "name": "spinner-speed",
+  "exported": "SpinnerSpeed",
+  "source": "apps/docs/src/demos/en/spinner/speed.tsx",
+  "code": "import {Spinner} from \"@lenso/ui\";\n\nexport function SpinnerSpeed() {\n  return (\n    <div className=\"flex items-center gap-8\">\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner className=\"animate-[spin_1.5s_linear_infinite] motion-reduce:animate-none\" />\n        <span className=\"text-xs text-muted\">Slow</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner />\n        <span className=\"text-xs text-muted\">Default</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner className=\"animate-[spin_0.4s_linear_infinite] motion-reduce:animate-none\" />\n        <span className=\"text-xs text-muted\">Fast</span>\n      </div>\n    </div>\n  );\n}\n"
+}

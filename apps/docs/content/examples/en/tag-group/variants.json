@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-variants",
+  "exported": "TagGroupVariants",
+  "source": "apps/docs/src/demos/en/tag-group/variants.tsx",
+  "code": "\"use client\";\n\nimport {Label, Tag, TagGroup} from \"@lenso/ui\";\n\nexport function TagGroupVariants() {\n  return (\n    <div className=\"flex flex-col gap-8\">\n      <TagGroup selectionMode=\"single\" variant=\"default\">\n        <Label>Default</Label>\n        <TagGroup.List>\n          <Tag>News</Tag>\n          <Tag>Travel</Tag>\n          <Tag>Gaming</Tag>\n        </TagGroup.List>\n      </TagGroup>\n\n      <TagGroup selectionMode=\"single\" variant=\"surface\">\n        <Label>Surface</Label>\n        <TagGroup.List>\n          <Tag>News</Tag>\n          <Tag>Travel</Tag>\n          <Tag>Gaming</Tag>\n        </TagGroup.List>\n      </TagGroup>\n    </div>\n  );\n}\n"
+}

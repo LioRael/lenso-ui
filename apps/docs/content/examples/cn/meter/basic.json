@@ -1,0 +1,6 @@
+{
+  "name": "meter-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/meter/basic.tsx",
+  "code": "import {Label, Meter} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <Meter aria-label=\"存储空间\" className=\"w-64\" value={60}>\n      <Label>存储空间</Label>\n      <Meter.Output />\n      <Meter.Track>\n        <Meter.Fill />\n      </Meter.Track>\n    </Meter>\n  );\n}\n"
+}

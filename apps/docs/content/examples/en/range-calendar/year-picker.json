@@ -1,0 +1,6 @@
+{
+  "name": "range-calendar-year-picker",
+  "exported": "YearPicker",
+  "source": "apps/docs/src/demos/en/range-calendar/year-picker.tsx",
+  "code": "\"use client\";\n\nimport {RangeCalendar} from \"@lenso/ui\";\n\nexport function YearPicker() {\n  return (\n    <RangeCalendar aria-label=\"Trip dates\">\n      <RangeCalendar.Header>\n        <RangeCalendar.YearPickerTrigger>\n          <RangeCalendar.YearPickerTriggerHeading />\n          <RangeCalendar.YearPickerTriggerIndicator />\n        </RangeCalendar.YearPickerTrigger>\n        <RangeCalendar.NavButton slot=\"previous\" />\n        <RangeCalendar.NavButton slot=\"next\" />\n      </RangeCalendar.Header>\n      <RangeCalendar.Grid>\n        <RangeCalendar.GridHeader>\n          {(day) => <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>}\n        </RangeCalendar.GridHeader>\n        <RangeCalendar.GridBody>\n          {(date) => <RangeCalendar.Cell date={date} />}\n        </RangeCalendar.GridBody>\n      </RangeCalendar.Grid>\n      <RangeCalendar.YearPickerGrid>\n        <RangeCalendar.YearPickerGridBody>\n          {({year}) => <RangeCalendar.YearPickerCell year={year} />}\n        </RangeCalendar.YearPickerGridBody>\n      </RangeCalendar.YearPickerGrid>\n    </RangeCalendar>\n  );\n}\n"
+}

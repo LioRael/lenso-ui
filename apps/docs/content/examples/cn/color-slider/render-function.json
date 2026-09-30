@@ -1,0 +1,6 @@
+{
+  "name": "color-slider-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/color-slider/render-function.tsx",
+  "code": "\"use client\";\n\nimport {ColorSlider, Label} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <ColorSlider\n      channel=\"hue\"\n      className=\"w-full max-w-xs\"\n      defaultValue=\"hsl(0, 100%, 50%)\"\n      render={(props) => <div {...props} data-custom=\"foo\" />}\n    >\n      <Label>色相</Label>\n      <ColorSlider.Output />\n      <ColorSlider.Track>\n        <ColorSlider.Thumb />\n      </ColorSlider.Track>\n    </ColorSlider>\n  );\n}\n"
+}

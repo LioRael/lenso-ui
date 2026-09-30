@@ -1,0 +1,6 @@
+{
+  "name": "breadcrumbs-basic",
+  "exported": "default",
+  "source": "apps/docs/src/demos/en/breadcrumbs/basic.tsx",
+  "code": "\"use client\";\n\nimport {Breadcrumbs} from \"@lenso/ui\";\n\nexport default function BreadcrumbsBasic() {\n  return (\n    <Breadcrumbs>\n      <Breadcrumbs.Item href=\"#\">Home</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"#\">Products</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"#\">Electronics</Breadcrumbs.Item>\n      <Breadcrumbs.Item>Laptop</Breadcrumbs.Item>\n    </Breadcrumbs>\n  );\n}\n"
+}

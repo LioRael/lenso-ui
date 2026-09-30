@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-sizes",
+  "exported": "TagGroupSizes",
+  "source": "apps/docs/src/demos/en/tag-group/sizes.tsx",
+  "code": "\"use client\";\n\nimport {Label, Tag, TagGroup} from \"@lenso/ui\";\n\nexport function TagGroupSizes() {\n  return (\n    <div className=\"flex flex-col gap-6\">\n      <TagGroup selectionMode=\"single\" size=\"sm\">\n        <Label>Small</Label>\n        <TagGroup.List>\n          <Tag>News</Tag>\n          <Tag>Travel</Tag>\n          <Tag>Gaming</Tag>\n        </TagGroup.List>\n      </TagGroup>\n      <TagGroup selectionMode=\"single\" size=\"md\">\n        <Label>Medium</Label>\n        <TagGroup.List>\n          <Tag>News</Tag>\n          <Tag>Travel</Tag>\n          <Tag>Gaming</Tag>\n        </TagGroup.List>\n      </TagGroup>\n      <TagGroup selectionMode=\"single\" size=\"lg\">\n        <Label>Large</Label>\n        <TagGroup.List>\n          <Tag>News</Tag>\n          <Tag>Travel</Tag>\n          <Tag>Gaming</Tag>\n        </TagGroup.List>\n      </TagGroup>\n    </div>\n  );\n}\n"
+}

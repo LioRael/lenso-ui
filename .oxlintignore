@@ -1,0 +1,5 @@
+apps/docs/public/source-snippets/**
+apps/docs/src/generated/**
+apps/docs/.content-collections/**
+**/dist/**
+**/.next/**

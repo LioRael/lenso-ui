@@ -1,0 +1,6 @@
+{
+  "name": "button-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/cn/button/full-width.tsx",
+  "code": "import {Plus} from \"@gravity-ui/icons\";\nimport {Button} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-3\">\n      <Button fullWidth>主要按钮</Button>\n      <Button fullWidth>\n        <Plus />\n        带图标\n      </Button>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "switch-group",
+  "exported": "Group",
+  "source": "apps/docs/src/demos/en/switch/group.tsx",
+  "code": "import {Switch, SwitchGroup} from \"@lenso/ui\";\n\nexport function Group() {\n  return (\n    <SwitchGroup>\n      <Switch name=\"notifications\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Allow Notifications\n        </Switch.Content>\n      </Switch>\n      <Switch name=\"marketing\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Marketing emails\n        </Switch.Content>\n      </Switch>\n      <Switch name=\"social\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Social media updates\n        </Switch.Content>\n      </Switch>\n    </SwitchGroup>\n  );\n}\n"
+}

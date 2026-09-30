@@ -1,0 +1,6 @@
+{
+  "name": "link-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/link/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Link} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <Link href=\"#\" render={(props) => <span {...props} data-custom=\"foo\" />}>\n      Call to action\n      <Link.Icon />\n    </Link>\n  );\n}\n"
+}

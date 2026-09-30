@@ -1,0 +1,6 @@
+{
+  "name": "number-field-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/en/number-field/variants.tsx",
+  "code": "import {Label, NumberField} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <NumberField defaultValue={100} minValue={0} name=\"primary-width\" variant=\"primary\">\n        <Label>Primary variant</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n      </NumberField>\n      <NumberField defaultValue={100} minValue={0} name=\"secondary-width\" variant=\"secondary\">\n        <Label>Secondary variant</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n      </NumberField>\n    </div>\n  );\n}\n"
+}

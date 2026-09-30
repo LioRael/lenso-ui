@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-picker-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/color-swatch-picker/basic.tsx",
+  "code": "import {ColorSwatchPicker} from \"@lenso/ui\";\n\nconst colors = [\"#F43F5E\", \"#D946EF\", \"#8B5CF6\", \"#3B82F6\", \"#06B6D4\", \"#10B981\", \"#84CC16\"];\n\nexport function Basic() {\n  return (\n    <ColorSwatchPicker>\n      {colors.map((color) => (\n        <ColorSwatchPicker.Item key={color} color={color}>\n          <ColorSwatchPicker.Swatch />\n          <ColorSwatchPicker.Indicator />\n        </ColorSwatchPicker.Item>\n      ))}\n    </ColorSwatchPicker>\n  );\n}\n"
+}

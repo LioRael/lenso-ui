@@ -1,0 +1,6 @@
+{
+  "name": "textfield-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/en/textfield/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Description, Input, Label, TextArea, TextField} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Controlled() {\n  const [name, setName] = React.useState(\"\");\n  const [bio, setBio] = React.useState(\"\");\n\n  return (\n    <div className=\"flex w-full max-w-64 flex-col gap-4\">\n      <TextField name=\"name\" value={name} onChange={setName}>\n        <Label>Display name</Label>\n        <Input placeholder=\"Jane\" />\n        <Description>Characters: {name.length}</Description>\n      </TextField>\n      <TextField name=\"bio\" value={bio} onChange={setBio}>\n        <Label>Bio</Label>\n        <TextArea placeholder=\"Tell us about yourself...\" />\n        <Description>Characters: {bio.length} / 200</Description>\n      </TextField>\n    </div>\n  );\n}\n"
+}

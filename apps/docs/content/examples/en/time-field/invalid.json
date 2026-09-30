@@ -1,0 +1,6 @@
+{
+  "name": "time-field-invalid",
+  "exported": "Invalid",
+  "source": "apps/docs/src/demos/en/time-field/invalid.tsx",
+  "code": "\"use client\";\n\nimport {FieldError, Label, TimeField} from \"@lenso/ui\";\n\nexport function Invalid() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TimeField isInvalid isRequired className=\"w-[256px]\" name=\"time\">\n        <Label>Time</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n        <FieldError>Please enter a valid time</FieldError>\n      </TimeField>\n      <TimeField isInvalid className=\"w-[256px]\" name=\"invalid-time\">\n        <Label>Time</Label>\n        <TimeField.Group>\n          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        </TimeField.Group>\n        <FieldError>Time must be within business hours</FieldError>\n      </TimeField>\n    </div>\n  );\n}\n"
+}

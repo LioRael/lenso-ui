@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-default-selected",
+  "exported": "DefaultSelected",
+  "source": "apps/docs/src/demos/cn/checkbox/default-selected.tsx",
+  "code": "import {Checkbox} from \"@lenso/ui\";\n\nexport function DefaultSelected() {\n  return (\n    <Checkbox defaultSelected id=\"default-notifications\">\n      <Checkbox.Content>\n        <Checkbox.Control>\n          <Checkbox.Indicator />\n        </Checkbox.Control>\n        启用邮件通知\n      </Checkbox.Content>\n    </Checkbox>\n  );\n}\n"
+}

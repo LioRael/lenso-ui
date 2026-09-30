@@ -1,0 +1,6 @@
+{
+  "name": "avatar-colors",
+  "exported": "Colors",
+  "source": "apps/docs/src/demos/cn/avatar/colors.tsx",
+  "code": "import {Avatar} from \"@lenso/ui\";\n\nexport function Colors() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Avatar color=\"default\">\n        <Avatar.Fallback>DF</Avatar.Fallback>\n      </Avatar>\n      <Avatar color=\"accent\">\n        <Avatar.Fallback>AC</Avatar.Fallback>\n      </Avatar>\n      <Avatar color=\"success\">\n        <Avatar.Fallback>SC</Avatar.Fallback>\n      </Avatar>\n      <Avatar color=\"warning\">\n        <Avatar.Fallback>WR</Avatar.Fallback>\n      </Avatar>\n      <Avatar color=\"danger\">\n        <Avatar.Fallback>DG</Avatar.Fallback>\n      </Avatar>\n    </div>\n  );\n}\n"
+}

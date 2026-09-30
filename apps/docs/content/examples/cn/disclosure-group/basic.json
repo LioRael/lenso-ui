@@ -1,0 +1,6 @@
+{
+  "name": "disclosure-group-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/disclosure-group/basic.tsx",
+  "excludedReason": "Native product example intentionally excluded; its composition is adapted independently for React documentation."
+}

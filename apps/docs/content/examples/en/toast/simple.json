@@ -1,0 +1,6 @@
+{
+  "name": "toast-simple",
+  "exported": "Simple",
+  "source": "apps/docs/src/demos/en/toast/simple.tsx",
+  "code": "\"use client\";\n\nimport {Button, toast} from \"@lenso/ui\";\n\nexport function Simple() {\n  return (\n    <div className=\"flex h-full max-w-xl flex-col items-center justify-center\">\n      <div className=\"flex w-full flex-wrap items-center justify-center gap-4\">\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast(\"Simple message\")}>\n          Default\n        </Button>\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast.success(\"Operation completed\")}>\n          Success\n        </Button>\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast.info(\"New update available\")}>\n          Info\n        </Button>\n        <Button\n          size=\"sm\"\n          variant=\"secondary\"\n          onPress={() => toast.warning(\"Please check your settings\")}\n        >\n          Warning\n        </Button>\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast.danger(\"Something went wrong\")}>\n          Error\n        </Button>\n      </div>\n    </div>\n  );\n}\n"
+}

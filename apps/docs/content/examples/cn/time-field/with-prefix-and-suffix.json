@@ -1,0 +1,6 @@
+{
+  "name": "time-field-with-prefix-and-suffix",
+  "exported": "WithPrefixAndSuffix",
+  "source": "apps/docs/src/demos/cn/time-field/with-prefix-and-suffix.tsx",
+  "code": "\"use client\";\n\nimport {ChevronDown, Clock} from \"@gravity-ui/icons\";\nimport {Description, Label, TimeField} from \"@lenso/ui\";\n\nexport function WithPrefixAndSuffix() {\n  return (\n    <TimeField className=\"w-[256px]\" name=\"time\">\n      <Label>时间</Label>\n      <TimeField.Group>\n        <TimeField.Prefix>\n          <Clock className=\"size-4 text-muted\" />\n        </TimeField.Prefix>\n        <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n        <TimeField.Suffix>\n          <ChevronDown className=\"size-4 text-muted\" />\n        </TimeField.Suffix>\n      </TimeField.Group>\n      <Description>输入时间</Description>\n    </TimeField>\n  );\n}\n"
+}

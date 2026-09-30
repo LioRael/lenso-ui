@@ -1,0 +1,6 @@
+{
+  "name": "input-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/input/basic.tsx",
+  "code": "import {Input} from \"@lenso/ui\";\n\nexport function Basic() {\n  return <Input aria-label=\"姓名\" className=\"w-64\" placeholder=\"输入你的姓名\" />;\n}\n"
+}

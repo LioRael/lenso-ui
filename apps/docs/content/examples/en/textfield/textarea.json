@@ -1,0 +1,6 @@
+{
+  "name": "textfield-textarea",
+  "exported": "TextAreaExample",
+  "source": "apps/docs/src/demos/en/textfield/textarea.tsx",
+  "code": "import {Description, Label, TextArea, TextField} from \"@lenso/ui\";\n\nexport function TextAreaExample() {\n  return (\n    <TextField className=\"w-full max-w-64\" name=\"message\">\n      <Label>Message</Label>\n      <TextArea placeholder=\"Write your message here...\" rows={4} />\n      <Description>Maximum 500 characters</Description>\n    </TextField>\n  );\n}\n"
+}

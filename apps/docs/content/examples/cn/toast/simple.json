@@ -1,0 +1,6 @@
+{
+  "name": "toast-simple",
+  "exported": "Simple",
+  "source": "apps/docs/src/demos/cn/toast/simple.tsx",
+  "code": "\"use client\";\n\nimport {Button, toast} from \"@lenso/ui\";\n\nexport function Simple() {\n  return (\n    <div className=\"flex h-full max-w-xl flex-col items-center justify-center\">\n      <div className=\"flex w-full flex-wrap items-center justify-center gap-4\">\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast(\"简单消息\")}>\n          默认\n        </Button>\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast.success(\"操作已完成\")}>\n          成功\n        </Button>\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast.info(\"有新更新可用\")}>\n          信息\n        </Button>\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast.warning(\"请检查您的设置\")}>\n          警告\n        </Button>\n        <Button size=\"sm\" variant=\"secondary\" onPress={() => toast.danger(\"出了点问题\")}>\n          错误\n        </Button>\n      </div>\n    </div>\n  );\n}\n"
+}

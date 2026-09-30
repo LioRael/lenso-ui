@@ -1,0 +1,6 @@
+{
+  "name": "search-field-with-description",
+  "exported": "WithDescription",
+  "source": "apps/docs/src/demos/cn/search-field/with-description.tsx",
+  "code": "import {Description, Label, SearchField} from \"@lenso/ui\";\n\nexport function WithDescription() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField name=\"search\">\n        <Label>搜索产品</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"搜索产品…\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>输入关键词进行搜索 for products</Description>\n      </SearchField>\n      <SearchField name=\"search-users\">\n        <Label>搜索用户</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"搜索用户…\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>按姓名、邮箱或用户名搜索</Description>\n      </SearchField>\n    </div>\n  );\n}\n"
+}

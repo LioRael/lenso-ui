@@ -1,0 +1,6 @@
+{
+  "name": "search-field-required",
+  "exported": "Required",
+  "source": "apps/docs/src/demos/cn/search-field/required.tsx",
+  "code": "import {Description, Label, SearchField} from \"@lenso/ui\";\n\nexport function Required() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField isRequired name=\"search\">\n        <Label>搜索</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"搜索…\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n      </SearchField>\n      <SearchField isRequired name=\"search-query\">\n        <Label>搜索内容</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"输入搜索内容…\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>至少需要 3 个字符</Description>\n      </SearchField>\n    </div>\n  );\n}\n"
+}

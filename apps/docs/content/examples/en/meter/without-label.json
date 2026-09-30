@@ -1,0 +1,6 @@
+{
+  "name": "meter-without-label",
+  "exported": "WithoutLabel",
+  "source": "apps/docs/src/demos/en/meter/without-label.tsx",
+  "code": "import {Meter} from \"@lenso/ui\";\n\nexport function WithoutLabel() {\n  return (\n    <Meter aria-label=\"Storage usage\" className=\"w-64\" value={45}>\n      <Meter.Track>\n        <Meter.Fill />\n      </Meter.Track>\n    </Meter>\n  );\n}\n"
+}

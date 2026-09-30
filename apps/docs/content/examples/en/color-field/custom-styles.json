@@ -1,0 +1,6 @@
+{
+  "name": "color-field-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/color-field/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport type {Color} from \"@lenso/ui\";\n\nimport {ColorField, ColorSwatch, Description, Label, parseColor} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function CustomStyles() {\n  const [color, setColor] = useState<Color | null>(parseColor(\"#6366F1\"));\n\n  return (\n    <ColorField\n      className=\"w-full max-w-xs gap-1.5\"\n      name=\"accent-color\"\n      value={color}\n      onChange={setColor}\n    >\n      <Label className=\"font-medium text-foreground\">Accent color</Label>\n      <Description>Applied to buttons, links, and focus rings.</Description>\n      <ColorField.Group\n        className=\"rounded-xl bg-default shadow-none focus-within:ring-2 focus-within:ring-accent/15\"\n        variant=\"secondary\"\n      >\n        <ColorField.Prefix>\n          <ColorSwatch className=\"rounded-md\" color={color ?? undefined} size=\"xs\" />\n        </ColorField.Prefix>\n        <ColorField.Input className=\"font-mono text-sm text-foreground placeholder:text-muted\" />\n      </ColorField.Group>\n    </ColorField>\n  );\n}\n"
+}

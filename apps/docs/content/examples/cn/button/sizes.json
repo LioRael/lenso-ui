@@ -1,0 +1,6 @@
+{
+  "name": "button-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/cn/button/sizes.tsx",
+  "code": "import {Button} from \"@lenso/ui\";\n\nexport function Sizes() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <Button size=\"sm\">小</Button>\n      <Button size=\"md\">中</Button>\n      <Button size=\"lg\">大</Button>\n    </div>\n  );\n}\n"
+}

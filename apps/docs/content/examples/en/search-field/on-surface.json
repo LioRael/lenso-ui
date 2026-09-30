@@ -1,0 +1,6 @@
+{
+  "name": "search-field-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/en/search-field/on-surface.tsx",
+  "code": "import {Description, Label, SearchField, Surface} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"flex w-full max-w-sm flex-col gap-4 rounded-3xl p-6\">\n      <SearchField name=\"search\" variant=\"secondary\">\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-full\" placeholder=\"Search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>Enter keywords to search</Description>\n      </SearchField>\n      <SearchField name=\"search-2\" variant=\"secondary\">\n        <Label>Advanced search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-full\" placeholder=\"Advanced search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>Use filters to refine your search</Description>\n      </SearchField>\n    </Surface>\n  );\n}\n"
+}

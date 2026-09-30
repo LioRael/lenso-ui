@@ -1,0 +1,6 @@
+{
+  "name": "close-button-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/close-button/custom-styles.tsx",
+  "code": "import {CloseButton} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <CloseButton\n      aria-label=\"Close\"\n      className=\"size-8 rounded-full bg-default text-muted hover:bg-default-hover hover:text-foreground active:scale-95\"\n    />\n  );\n}\n"
+}

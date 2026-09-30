@@ -1,0 +1,6 @@
+{
+  "name": "time-field-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/time-field/basic.tsx",
+  "code": "\"use client\";\n\nimport {Label, TimeField} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <TimeField className=\"w-[256px]\" name=\"time\">\n      <Label>Time</Label>\n      <TimeField.Group>\n        <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>\n      </TimeField.Group>\n    </TimeField>\n  );\n}\n"
+}

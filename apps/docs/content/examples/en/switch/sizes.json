@@ -1,0 +1,6 @@
+{
+  "name": "switch-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/en/switch/sizes.tsx",
+  "code": "import {Switch} from \"@lenso/ui\";\n\nexport function Sizes() {\n  return (\n    <div className=\"flex gap-6\">\n      <Switch size=\"sm\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Small\n        </Switch.Content>\n      </Switch>\n      <Switch size=\"md\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Medium\n        </Switch.Content>\n      </Switch>\n      <Switch size=\"lg\">\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          Large\n        </Switch.Content>\n      </Switch>\n    </div>\n  );\n}\n"
+}

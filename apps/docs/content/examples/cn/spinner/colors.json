@@ -1,0 +1,6 @@
+{
+  "name": "spinner-colors",
+  "exported": "SpinnerColors",
+  "source": "apps/docs/src/demos/cn/spinner/colors.tsx",
+  "code": "import {Spinner} from \"@lenso/ui\";\n\nconst COLOR_LABELS = {\n  accent: \"强调\",\n  current: \"当前\",\n  danger: \"危险\",\n  success: \"成功\",\n  warning: \"警告\",\n} as const;\n\nconst colors = [\"current\", \"accent\", \"success\", \"warning\", \"danger\"] as const;\n\nexport function SpinnerColors() {\n  return (\n    <div className=\"flex items-center gap-8\">\n      {colors.map((color) => (\n        <div key={color} className=\"flex flex-col items-center gap-2\">\n          <Spinner color={color} />\n          <span className=\"text-xs text-muted\">{COLOR_LABELS[color]}</span>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+}

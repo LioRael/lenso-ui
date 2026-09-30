@@ -1,0 +1,6 @@
+{
+  "name": "switch-without-label",
+  "exported": "WithoutLabel",
+  "source": "apps/docs/src/demos/en/switch/without-label.tsx",
+  "code": "import {Switch} from \"@lenso/ui\";\n\nexport function WithoutLabel() {\n  return (\n    <Switch aria-label=\"Enable notifications\">\n      <Switch.Content>\n        <Switch.Control>\n          <Switch.Thumb />\n        </Switch.Control>\n      </Switch.Content>\n    </Switch>\n  );\n}\n"
+}

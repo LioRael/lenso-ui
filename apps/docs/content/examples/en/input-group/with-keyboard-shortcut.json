@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-keyboard-shortcut",
+  "exported": "WithKeyboardShortcut",
+  "source": "apps/docs/src/demos/en/input-group/with-keyboard-shortcut.tsx",
+  "code": "\"use client\";\n\nimport {InputGroup, Kbd, TextField} from \"@lenso/ui\";\n\nexport function WithKeyboardShortcut() {\n  return (\n    <TextField aria-label=\"Command\" className=\"w-full max-w-[280px]\" name=\"command\">\n      <InputGroup>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" placeholder=\"Command\" />\n        <InputGroup.Suffix className=\"pe-2\">\n          <Kbd>\n            <Kbd.Abbr keyValue=\"command\" />\n            <Kbd.Content>K</Kbd.Content>\n          </Kbd>\n        </InputGroup.Suffix>\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

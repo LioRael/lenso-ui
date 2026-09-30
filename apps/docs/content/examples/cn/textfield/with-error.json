@@ -1,0 +1,6 @@
+{
+  "name": "textfield-with-error",
+  "exported": "WithError",
+  "source": "apps/docs/src/demos/cn/textfield/with-error.tsx",
+  "code": "import {FieldError, Input, Label, TextField} from \"@lenso/ui\";\n\nexport function WithError() {\n  return (\n    <TextField isInvalid className=\"w-full max-w-64\" name=\"email\" type=\"email\">\n      <Label>邮箱</Label>\n      <Input placeholder=\"user@example.com\" />\n      <FieldError>请输入有效的邮箱地址</FieldError>\n    </TextField>\n  );\n}\n"
+}

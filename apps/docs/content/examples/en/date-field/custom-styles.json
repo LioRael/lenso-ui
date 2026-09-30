@@ -1,0 +1,6 @@
+{
+  "name": "date-field-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/date-field/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport {DateField, Label} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <DateField className=\"w-64\" name=\"due-date\">\n      <Label>Due date</Label>\n      <DateField.Group\n        className=\"rounded-xl border border-border/80 bg-default shadow-sm\"\n        variant=\"secondary\"\n      >\n        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n      </DateField.Group>\n    </DateField>\n  );\n}\n"
+}

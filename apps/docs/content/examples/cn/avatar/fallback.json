@@ -1,0 +1,6 @@
+{
+  "name": "avatar-fallback",
+  "exported": "Fallback",
+  "source": "apps/docs/src/demos/cn/avatar/fallback.tsx",
+  "code": "import {Person} from \"@gravity-ui/icons\";\nimport {Avatar} from \"@lenso/ui\";\n\nexport function Fallback() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      {/* 文字回退 */}\n      <Avatar>\n        <Avatar.Fallback>JD</Avatar.Fallback>\n      </Avatar>\n\n      {/* 图标回退 */}\n      <Avatar>\n        <Avatar.Fallback>\n          <Person />\n        </Avatar.Fallback>\n      </Avatar>\n\n      {/* 延迟显示回退 */}\n      <Avatar>\n        <Avatar.Image alt=\"延迟加载头像\" src=\"https://invalid-url-to-show-fallback.com/image.jpg\" />\n        <Avatar.Fallback delayMs={600}>NA</Avatar.Fallback>\n      </Avatar>\n\n      {/* 自定义样式回退 */}\n      <Avatar>\n        <Avatar.Fallback className=\"border-none bg-gradient-to-br from-pink-500 to-purple-500 text-white\">\n          GB\n        </Avatar.Fallback>\n      </Avatar>\n    </div>\n  );\n}\n"
+}

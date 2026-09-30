@@ -1,0 +1,6 @@
+{
+  "name": "meter-colors",
+  "exported": "Colors",
+  "source": "apps/docs/src/demos/cn/meter/colors.tsx",
+  "code": "import {Label, Meter} from \"@lenso/ui\";\n\nconst colors = [\"default\", \"accent\", \"success\", \"warning\", \"danger\"] as const;\n\nconst COLOR_LABELS: Record<(typeof colors)[number], string> = {\n  accent: \"强调\",\n  danger: \"危险\",\n  default: \"默认\",\n  success: \"成功\",\n  warning: \"警告\",\n};\n\nexport function Colors() {\n  return (\n    <div className=\"flex w-64 flex-col gap-6\">\n      {colors.map((color) => (\n        <Meter key={color} color={color} value={50}>\n          <Label>{COLOR_LABELS[color]}</Label>\n          <Meter.Output />\n          <Meter.Track>\n            <Meter.Fill />\n          </Meter.Track>\n        </Meter>\n      ))}\n    </div>\n  );\n}\n"
+}

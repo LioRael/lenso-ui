@@ -1,0 +1,6 @@
+{
+  "name": "input-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/cn/input/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Input} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Controlled() {\n  const [value, setValue] = React.useState(\"heroui.com\");\n\n  return (\n    <div className=\"flex w-80 flex-col gap-2\">\n      <Input\n        aria-label=\"域名\"\n        placeholder=\"域名\"\n        value={value}\n        onChange={(event) => setValue(event.target.value)}\n      />\n      <span className=\"px-1 text-sm text-muted\">https://{value || \"你的域名\"}</span>\n    </div>\n  );\n}\n"
+}

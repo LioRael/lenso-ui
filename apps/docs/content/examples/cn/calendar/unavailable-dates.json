@@ -1,0 +1,6 @@
+{
+  "name": "calendar-unavailable-dates",
+  "exported": "UnavailableDates",
+  "source": "apps/docs/src/demos/cn/calendar/unavailable-dates.tsx",
+  "code": "\"use client\";\n\nimport type {DateValue} from \"@internationalized/date\";\n\nimport {Calendar, Description} from \"@lenso/ui\";\nimport {isWeekend} from \"@internationalized/date\";\nimport {useLocale} from \"react-aria-components\";\n\nexport function UnavailableDates() {\n  const {locale} = useLocale();\n  const isDateUnavailable = (date: DateValue) => isWeekend(date, locale);\n\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <Calendar aria-label=\"预约日期\" isDateUnavailable={isDateUnavailable}>\n        <Calendar.Header>\n          <Calendar.Heading />\n          <Calendar.NavButton slot=\"previous\" />\n          <Calendar.NavButton slot=\"next\" />\n        </Calendar.Header>\n        <Calendar.Grid>\n          <Calendar.GridHeader>\n            {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}\n          </Calendar.GridHeader>\n          <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>\n        </Calendar.Grid>\n      </Calendar>\n      <Description className=\"text-center\">周末不可选</Description>\n    </div>\n  );\n}\n"
+}

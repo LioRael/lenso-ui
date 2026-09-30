@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-icon-prefix-and-text-suffix",
+  "exported": "WithIconPrefixAndTextSuffix",
+  "source": "apps/docs/src/demos/en/input-group/with-icon-prefix-and-text-suffix.tsx",
+  "code": "\"use client\";\n\nimport {Globe} from \"@gravity-ui/icons\";\nimport {InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function WithIconPrefixAndTextSuffix() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" defaultValue=\"heroui\" name=\"website\">\n      <Label>Website</Label>\n      <InputGroup>\n        <InputGroup.Prefix>\n          <Globe className=\"size-4 text-muted\" />\n        </InputGroup.Prefix>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" />\n        <InputGroup.Suffix>.com</InputGroup.Suffix>\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

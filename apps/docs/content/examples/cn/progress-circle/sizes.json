@@ -1,0 +1,6 @@
+{
+  "name": "progress-circle-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/cn/progress-circle/sizes.tsx",
+  "code": "import {ProgressCircle} from \"@lenso/ui\";\n\nconst SIZE_LABELS = {\n  lg: \"大\",\n  md: \"中\",\n  sm: \"小\",\n} as const;\n\nexport function Sizes() {\n  return (\n    <div className=\"flex items-center gap-6\">\n      <ProgressCircle aria-label={SIZE_LABELS.sm} size=\"sm\" value={40}>\n        <ProgressCircle.Track>\n          <ProgressCircle.TrackCircle />\n          <ProgressCircle.FillCircle />\n        </ProgressCircle.Track>\n      </ProgressCircle>\n      <ProgressCircle aria-label={SIZE_LABELS.md} size=\"md\" value={60}>\n        <ProgressCircle.Track>\n          <ProgressCircle.TrackCircle />\n          <ProgressCircle.FillCircle />\n        </ProgressCircle.Track>\n      </ProgressCircle>\n      <ProgressCircle aria-label={SIZE_LABELS.lg} size=\"lg\" value={80}>\n        <ProgressCircle.Track>\n          <ProgressCircle.TrackCircle />\n          <ProgressCircle.FillCircle />\n        </ProgressCircle.Track>\n      </ProgressCircle>\n    </div>\n  );\n}\n"
+}

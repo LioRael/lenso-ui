@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-group-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/toggle-button-group/custom-styles.tsx",
+  "code": "import {Bold, Italic, Underline} from \"@gravity-ui/icons\";\nimport {ToggleButton, ToggleButtonGroup} from \"@lenso/ui\";\n\nconst toggleClass =\n  \"rounded-lg text-muted data-[selected=true]:bg-accent-soft data-[selected=true]:text-accent-soft-foreground\";\n\nexport function CustomStyles() {\n  return (\n    <ToggleButtonGroup\n      aria-label=\"文本格式\"\n      className=\"gap-1 rounded-xl border border-border/80 bg-surface p-1 shadow-sm\"\n      selectionMode=\"multiple\"\n    >\n      <ToggleButton isIconOnly aria-label=\"粗体\" className={toggleClass} id=\"bold\">\n        <Bold />\n      </ToggleButton>\n      <ToggleButton isIconOnly aria-label=\"斜体\" className={toggleClass} id=\"italic\">\n        <Italic />\n      </ToggleButton>\n      <ToggleButton isIconOnly aria-label=\"下划线\" className={toggleClass} id=\"underline\">\n        <Underline />\n      </ToggleButton>\n    </ToggleButtonGroup>\n  );\n}\n"
+}

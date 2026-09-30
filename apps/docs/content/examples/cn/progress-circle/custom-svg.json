@@ -1,0 +1,6 @@
+{
+  "name": "progress-circle-custom-svg",
+  "exported": "CustomSvg",
+  "source": "apps/docs/src/demos/cn/progress-circle/custom-svg.tsx",
+  "code": "import {ProgressCircle} from \"@lenso/ui\";\n\nexport function CustomSvg() {\n  return (\n    <div className=\"flex items-end gap-6\">\n      <ProgressCircle aria-label=\"细圆环\" value={60}>\n        <ProgressCircle.Track strokeWidth={2} viewBox=\"0 0 36 36\">\n          <ProgressCircle.TrackCircle cx={18} cy={18} r={17} strokeWidth={2} />\n          <ProgressCircle.FillCircle cx={18} cy={18} r={17} strokeWidth={2} />\n        </ProgressCircle.Track>\n      </ProgressCircle>\n\n      <ProgressCircle aria-label=\"默认圆环\" value={60}>\n        <ProgressCircle.Track>\n          <ProgressCircle.TrackCircle />\n          <ProgressCircle.FillCircle />\n        </ProgressCircle.Track>\n      </ProgressCircle>\n\n      <ProgressCircle aria-label=\"粗圆环\" value={60}>\n        <ProgressCircle.Track strokeWidth={6} viewBox=\"0 0 36 36\">\n          <ProgressCircle.TrackCircle cx={18} cy={18} r={15} strokeWidth={6} />\n          <ProgressCircle.FillCircle cx={18} cy={18} r={15} strokeWidth={6} />\n        </ProgressCircle.Track>\n      </ProgressCircle>\n    </div>\n  );\n}\n"
+}

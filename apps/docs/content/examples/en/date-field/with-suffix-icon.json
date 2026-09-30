@@ -1,0 +1,6 @@
+{
+  "name": "date-field-with-suffix-icon",
+  "exported": "WithSuffixIcon",
+  "source": "apps/docs/src/demos/en/date-field/with-suffix-icon.tsx",
+  "code": "\"use client\";\n\nimport {Calendar} from \"@gravity-ui/icons\";\nimport {DateField, Label} from \"@lenso/ui\";\n\nexport function WithSuffixIcon() {\n  return (\n    <DateField className=\"w-[256px]\" name=\"date\">\n      <Label>Date</Label>\n      <DateField.Group>\n        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        <DateField.Suffix>\n          <Calendar className=\"size-4 text-muted\" />\n        </DateField.Suffix>\n      </DateField.Group>\n    </DateField>\n  );\n}\n"
+}

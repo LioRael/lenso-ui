@@ -1,0 +1,6 @@
+{
+  "name": "progress-bar-indeterminate",
+  "exported": "Indeterminate",
+  "source": "apps/docs/src/demos/cn/progress-bar/indeterminate.tsx",
+  "code": "import {Label, ProgressBar} from \"@lenso/ui\";\n\nexport function Indeterminate() {\n  return (\n    <ProgressBar isIndeterminate aria-label=\"加载中\" className=\"w-64\">\n      <Label>加载中…</Label>\n      <ProgressBar.Track>\n        <ProgressBar.Fill />\n      </ProgressBar.Track>\n    </ProgressBar>\n  );\n}\n"
+}

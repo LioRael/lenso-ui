@@ -1,0 +1,6 @@
+{
+  "name": "toast-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/cn/toast/default.tsx",
+  "code": "\"use client\";\n\nimport {Persons} from \"@gravity-ui/icons\";\nimport {Button, toast} from \"@lenso/ui\";\n\nexport function Default() {\n  return (\n    <div className=\"flex h-full max-w-xl flex-col items-center justify-center\">\n      <Button\n        size=\"sm\"\n        variant=\"secondary\"\n        onPress={() => {\n          const id = toast(\"您已被邀请加入团队\", {\n            actionProps: {\n              children: \"忽略\",\n              onPress: () => toast.close(id),\n              variant: \"tertiary\",\n            },\n            description: \"Bob 邀请您加入 HeroUI 团队\",\n            indicator: <Persons />,\n            variant: \"default\",\n          });\n        }}\n      >\n        显示 Toast\n      </Button>\n    </div>\n  );\n}\n"
+}

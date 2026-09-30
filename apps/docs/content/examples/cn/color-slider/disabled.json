@@ -1,0 +1,6 @@
+{
+  "name": "color-slider-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/color-slider/disabled.tsx",
+  "code": "import {ColorSlider, Label} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <ColorSlider\n      isDisabled\n      channel=\"hue\"\n      className=\"w-full max-w-xs\"\n      defaultValue=\"hsl(200, 100%, 50%)\"\n    >\n      <Label>色相</Label>\n      <ColorSlider.Output />\n      <ColorSlider.Track>\n        <ColorSlider.Thumb />\n      </ColorSlider.Track>\n    </ColorSlider>\n  );\n}\n"
+}

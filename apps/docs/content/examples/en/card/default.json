@@ -1,0 +1,6 @@
+{
+  "name": "card-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/en/card/default.tsx",
+  "code": "import {CircleDollar} from \"@gravity-ui/icons\";\nimport {Card, Link} from \"@lenso/ui\";\n\nexport function Default() {\n  return (\n    <Card className=\"w-[400px]\">\n      <CircleDollar aria-label=\"Dollar sign icon\" className=\"text-primary size-6\" role=\"img\" />\n      <Card.Header>\n        <Card.Title>Become an Acme Creator!</Card.Title>\n        <Card.Description>\n          Visit the Acme Creator Hub to sign up today and start earning credits from your fans and\n          followers.\n        </Card.Description>\n      </Card.Header>\n      <Card.Footer>\n        <Link\n          aria-label=\"Go to Acme Creator Hub (opens in new tab)\"\n          href=\"https://heroui.com\"\n          rel=\"noopener noreferrer\"\n          target=\"_blank\"\n        >\n          Creator Hub\n          <Link.Icon aria-hidden=\"true\" />\n        </Link>\n      </Card.Footer>\n    </Card>\n  );\n}\n"
+}

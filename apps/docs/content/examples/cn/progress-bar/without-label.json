@@ -1,0 +1,6 @@
+{
+  "name": "progress-bar-without-label",
+  "exported": "WithoutLabel",
+  "source": "apps/docs/src/demos/cn/progress-bar/without-label.tsx",
+  "code": "import {ProgressBar} from \"@lenso/ui\";\n\nexport function WithoutLabel() {\n  return (\n    <ProgressBar aria-label=\"加载进度\" className=\"w-64\" value={45}>\n      <ProgressBar.Track>\n        <ProgressBar.Fill />\n      </ProgressBar.Track>\n    </ProgressBar>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "select-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/en/select/full-width.tsx",
+  "code": "import {Label, ListBox, Select} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-4\">\n      <Select fullWidth placeholder=\"Select one\">\n        <Label>Favorite Animal</Label>\n        <Select.Trigger>\n          <Select.Value />\n          <Select.Indicator />\n        </Select.Trigger>\n        <Select.Popover>\n          <ListBox>\n            <ListBox.Item id=\"cat\" textValue=\"Cat\">\n              Cat\n              <ListBox.ItemIndicator />\n            </ListBox.Item>\n            <ListBox.Item id=\"dog\" textValue=\"Dog\">\n              Dog\n              <ListBox.ItemIndicator />\n            </ListBox.Item>\n            <ListBox.Item id=\"bird\" textValue=\"Bird\">\n              Bird\n              <ListBox.ItemIndicator />\n            </ListBox.Item>\n          </ListBox>\n        </Select.Popover>\n      </Select>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-text-prefix",
+  "exported": "WithTextPrefix",
+  "source": "apps/docs/src/demos/en/input-group/with-text-prefix.tsx",
+  "code": "\"use client\";\n\nimport {InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function WithTextPrefix() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" defaultValue=\"heroui.com\" name=\"website\">\n      <Label>Website</Label>\n      <InputGroup>\n        <InputGroup.Prefix>https://</InputGroup.Prefix>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" />\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

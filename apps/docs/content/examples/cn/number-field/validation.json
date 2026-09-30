@@ -1,0 +1,6 @@
+{
+  "name": "number-field-validation",
+  "exported": "Validation",
+  "source": "apps/docs/src/demos/cn/number-field/validation.tsx",
+  "code": "import {FieldError, Label, NumberField} from \"@lenso/ui\";\n\nexport function Validation() {\n  return (\n    <div className=\"flex w-full max-w-64 flex-col gap-4\">\n      <NumberField isInvalid isRequired minValue={0} name=\"quantity\" value={-5}>\n        <Label>数量</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n        <FieldError>数量必须大于或等于 0</FieldError>\n      </NumberField>\n      <NumberField\n        isInvalid\n        formatOptions={{style: \"percent\"}}\n        maxValue={1}\n        minValue={0}\n        name=\"percentage\"\n        step={0.1}\n        value={1.5}\n      >\n        <Label>百分比</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n        <FieldError>百分比必须在 0 到 100 之间</FieldError>\n      </NumberField>\n    </div>\n  );\n}\n"
+}

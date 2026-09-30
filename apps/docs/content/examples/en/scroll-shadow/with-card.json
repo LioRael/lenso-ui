@@ -1,0 +1,6 @@
+{
+  "name": "scroll-shadow-with-card",
+  "exported": "default",
+  "source": "apps/docs/src/demos/en/scroll-shadow/with-card.tsx",
+  "code": "import {Button, Card, ScrollShadow} from \"@lenso/ui\";\n\nexport default function WithCard() {\n  return (\n    <Card className=\"max-w-[400px]\">\n      <Card.Header>\n        <Card.Title>Terms and Conditions</Card.Title>\n        <Card.Description>Please review before proceeding</Card.Description>\n      </Card.Header>\n      <Card.Content className=\"p-0\">\n        <ScrollShadow className=\"h-[300px] px-4\" size={80}>\n          <div className=\"space-y-4\">\n            {Array.from({length: 10}).map((_, idx) => (\n              <p key={`scroll-shadow-lorem-content-${idx}`}>\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non\n                risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor\n                quam. Morbi accumsan cursus enim, sed ultricies sapien.\n              </p>\n            ))}\n          </div>\n        </ScrollShadow>\n      </Card.Content>\n      <Card.Footer className=\"mt-4 flex flex-row gap-2\">\n        <Button className=\"w-full\" variant=\"secondary\">\n          Cancel\n        </Button>\n        <Button className=\"w-full\">Accept</Button>\n      </Card.Footer>\n    </Card>\n  );\n}\n"
+}

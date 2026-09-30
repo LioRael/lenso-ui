@@ -1,0 +1,6 @@
+{
+  "name": "progress-circle-indeterminate",
+  "exported": "Indeterminate",
+  "source": "apps/docs/src/demos/cn/progress-circle/indeterminate.tsx",
+  "code": "import {ProgressCircle} from \"@lenso/ui\";\n\nexport function Indeterminate() {\n  return (\n    <ProgressCircle isIndeterminate aria-label=\"加载中\">\n      <ProgressCircle.Track>\n        <ProgressCircle.TrackCircle />\n        <ProgressCircle.FillCircle />\n      </ProgressCircle.Track>\n    </ProgressCircle>\n  );\n}\n"
+}

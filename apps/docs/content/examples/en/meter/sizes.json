@@ -1,0 +1,6 @@
+{
+  "name": "meter-sizes",
+  "exported": "Sizes",
+  "source": "apps/docs/src/demos/en/meter/sizes.tsx",
+  "code": "import {Label, Meter} from \"@lenso/ui\";\n\nexport function Sizes() {\n  return (\n    <div className=\"flex w-64 flex-col gap-6\">\n      <Meter color=\"success\" size=\"sm\" value={40}>\n        <Label>Small</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n      <Meter color=\"accent\" size=\"md\" value={60}>\n        <Label>Medium</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n      <Meter color=\"warning\" size=\"lg\" value={80}>\n        <Label>Large</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n    </div>\n  );\n}\n"
+}

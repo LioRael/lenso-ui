@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-picker-custom-indicator",
+  "exported": "CustomIndicator",
+  "source": "apps/docs/src/demos/cn/color-swatch-picker/custom-indicator.tsx",
+  "code": "import {HeartFill} from \"@gravity-ui/icons\";\nimport {ColorSwatchPicker} from \"@lenso/ui\";\n\nexport function CustomIndicator() {\n  const colors = [\"#F43F5E\", \"#D946EF\", \"#8B5CF6\", \"#3B82F6\", \"#06B6D4\", \"#10B981\", \"#84CC16\"];\n\n  return (\n    <ColorSwatchPicker>\n      {colors.map((color) => (\n        <ColorSwatchPicker.Item key={color} color={color}>\n          <ColorSwatchPicker.Swatch />\n          <ColorSwatchPicker.Indicator>\n            <HeartFill />\n          </ColorSwatchPicker.Indicator>\n        </ColorSwatchPicker.Item>\n      ))}\n    </ColorSwatchPicker>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "color-slider-vertical",
+  "exported": "Vertical",
+  "source": "apps/docs/src/demos/en/color-slider/vertical.tsx",
+  "code": "import {ColorSlider} from \"@lenso/ui\";\n\nexport function Vertical() {\n  return (\n    <div className=\"flex h-48 gap-4\">\n      <ColorSlider\n        aria-label=\"Hue\"\n        channel=\"hue\"\n        defaultValue=\"hsl(0, 100%, 50%)\"\n        orientation=\"vertical\"\n      >\n        <ColorSlider.Track>\n          <ColorSlider.Thumb />\n        </ColorSlider.Track>\n      </ColorSlider>\n      <ColorSlider\n        aria-label=\"Saturation\"\n        channel=\"saturation\"\n        defaultValue=\"hsl(0, 100%, 50%)\"\n        orientation=\"vertical\"\n      >\n        <ColorSlider.Track>\n          <ColorSlider.Thumb />\n        </ColorSlider.Track>\n      </ColorSlider>\n      <ColorSlider\n        aria-label=\"Lightness\"\n        channel=\"lightness\"\n        defaultValue=\"hsl(0, 100%, 50%)\"\n        orientation=\"vertical\"\n      >\n        <ColorSlider.Track>\n          <ColorSlider.Thumb />\n        </ColorSlider.Track>\n      </ColorSlider>\n    </div>\n  );\n}\n"
+}

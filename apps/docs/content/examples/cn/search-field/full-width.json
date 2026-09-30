@@ -1,0 +1,6 @@
+{
+  "name": "search-field-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/cn/search-field/full-width.tsx",
+  "code": "import {Label, SearchField} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-4\">\n      <SearchField fullWidth name=\"search\">\n        <Label>搜索</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input placeholder=\"搜索…\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n      </SearchField>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "progress-bar-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/progress-bar/custom-styles.tsx",
+  "code": "import {Label, ProgressBar} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <ProgressBar aria-label=\"上传进度\" className=\"w-64\" value={45}>\n      <Label className=\"font-medium text-foreground\">正在上传 resume.pdf</Label>\n      <ProgressBar.Output className=\"text-xs text-muted tabular-nums\" />\n      <ProgressBar.Track className=\"rounded-full bg-default\">\n        <ProgressBar.Fill className=\"rounded-full bg-accent\" />\n      </ProgressBar.Track>\n    </ProgressBar>\n  );\n}\n"
+}

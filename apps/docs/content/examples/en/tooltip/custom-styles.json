@@ -1,0 +1,6 @@
+{
+  "name": "tooltip-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/tooltip/custom-styles.tsx",
+  "code": "import {Button, Tooltip} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Tooltip delay={0}>\n      <Button variant=\"secondary\">Share link</Button>\n      <Tooltip.Content className=\"rounded-lg border border-border/80 bg-surface px-2.5 py-1 text-xs text-foreground shadow-sm\">\n        <p>Copied to clipboard</p>\n      </Tooltip.Content>\n    </Tooltip>\n  );\n}\n"
+}

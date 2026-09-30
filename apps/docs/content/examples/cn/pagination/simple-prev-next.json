@@ -1,0 +1,6 @@
+{
+  "name": "pagination-simple-prev-next",
+  "exported": "PaginationSimplePrevNext",
+  "source": "apps/docs/src/demos/cn/pagination/simple-prev-next.tsx",
+  "code": "\"use client\";\n\nimport {Pagination} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function PaginationSimplePrevNext() {\n  const [page, setPage] = useState(1);\n  const totalPages = 10;\n  const itemsPerPage = 5;\n  const totalItems = 50;\n\n  const startItem = (page - 1) * itemsPerPage + 1;\n  const endItem = Math.min(page * itemsPerPage, totalItems);\n\n  return (\n    <Pagination className=\"w-full\">\n      <Pagination.Summary>\n        第 {startItem}–{endItem} 条，共 {totalItems} 张发票\n      </Pagination.Summary>\n      <Pagination.Content>\n        <Pagination.Item>\n          <Pagination.Previous isDisabled={page === 1} onPress={() => setPage((p) => p - 1)}>\n            <Pagination.PreviousIcon />\n            <span>上一页</span>\n          </Pagination.Previous>\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Next isDisabled={page === totalPages} onPress={() => setPage((p) => p + 1)}>\n            <span>下一页</span>\n            <Pagination.NextIcon />\n          </Pagination.Next>\n        </Pagination.Item>\n      </Pagination.Content>\n    </Pagination>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "meter-colors",
+  "exported": "Colors",
+  "source": "apps/docs/src/demos/en/meter/colors.tsx",
+  "code": "import {Label, Meter} from \"@lenso/ui\";\n\nexport function Colors() {\n  return (\n    <div className=\"flex w-64 flex-col gap-6\">\n      <Meter color=\"default\" value={50}>\n        <Label>Default</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n      <Meter color=\"accent\" value={50}>\n        <Label>Accent</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n      <Meter color=\"success\" value={50}>\n        <Label>Success</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n      <Meter color=\"warning\" value={50}>\n        <Label>Warning</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n      <Meter color=\"danger\" value={50}>\n        <Label>Danger</Label>\n        <Meter.Output />\n        <Meter.Track>\n          <Meter.Fill />\n        </Meter.Track>\n      </Meter>\n    </div>\n  );\n}\n"
+}

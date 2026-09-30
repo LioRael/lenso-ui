@@ -1,0 +1,25 @@
+import * as stylex from "@stylexjs/stylex";
+export const styles = stylex.create({
+  column: { display: "flex", flexDirection: "column", gap: 12 },
+  sections: { display: "flex", flexDirection: "column", gap: 24 },
+  section: { display: "flex", flexDirection: "column", gap: 8 },
+  caption: { fontSize: 14, fontWeight: 500, color: "var(--muted)" },
+  gap: { gap: 4 },
+  icon: { width: 12, height: 12 },
+  marginIcon: { width: 12, height: 12, marginInlineStart: 6 },
+  underline: { textDecorationLine: "underline" },
+  noUnderline: { textDecorationLine: { default: "none", ":hover": "none" } },
+  offset1: { textUnderlineOffset: 1 },
+  offset2: { textUnderlineOffset: 2 },
+  offset3: { textUnderlineOffset: 3 },
+  offset4: { textUnderlineOffset: 4 },
+  custom: {
+    fontWeight: 500,
+    color: { default: "light-dark(#404040,#d4d4d4)", ":hover": "light-dark(#171717,#f5f5f5)" },
+    textDecorationLine: "underline",
+    textDecorationColor: "light-dark(#d4d4d4cc,#525252cc)",
+    textUnderlineOffset: 4,
+    transitionProperty: "color",
+    transitionDuration: "150ms",
+  },
+});

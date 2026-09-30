@@ -1,0 +1,6 @@
+{
+  "name": "typography-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/typography/custom-styles.tsx",
+  "code": "import {Typography} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex max-w-md flex-col gap-2 rounded-xl border border-border/80 bg-surface-secondary p-4\">\n      <Typography\n        className=\"text-xs font-medium tracking-wide text-accent uppercase\"\n        type=\"body-xs\"\n      >\n        更新日志\n      </Typography>\n      <Typography className=\"font-semibold tracking-tight text-foreground\" type=\"h4\">\n        更快的搜索结果\n      </Typography>\n      <Typography className=\"text-sm leading-relaxed text-muted\" type=\"body-sm\">\n        得益于改进的索引，查询现在在 200 毫秒内返回。\n      </Typography>\n    </div>\n  );\n}\n"
+}

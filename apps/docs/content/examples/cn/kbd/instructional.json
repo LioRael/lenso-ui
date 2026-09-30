@@ -1,0 +1,6 @@
+{
+  "name": "kbd-instructional-text",
+  "exported": "InstructionalText",
+  "source": "apps/docs/src/demos/cn/kbd/instructional.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function InstructionalText() {\n  return (\n    <div className=\"space-y-3\">\n      <div className=\"rounded-lg bg-surface p-4\">\n        <h4 className=\"mb-2 text-sm font-semibold\">快捷操作</h4>\n        <ul className=\"space-y-2 text-sm\">\n          <li>\n            • 打开搜索：{\" \"}\n            <Kbd>\n              <Kbd.Abbr keyValue=\"command\" />\n              <Kbd.Content>K</Kbd.Content>\n            </Kbd>\n          </li>\n          <li>\n            • 切换侧边栏：{\" \"}\n            <Kbd>\n              <Kbd.Abbr keyValue=\"command\" />\n              <Kbd.Content>B</Kbd.Content>\n            </Kbd>\n          </li>\n          <li>\n            • 新建文件：{\" \"}\n            <Kbd>\n              <Kbd.Abbr keyValue=\"command\" />\n              <Kbd.Content>N</Kbd.Content>\n            </Kbd>\n          </li>\n          <li>\n            • 快速保存：{\" \"}\n            <Kbd>\n              <Kbd.Abbr keyValue=\"command\" />\n              <Kbd.Content>S</Kbd.Content>\n            </Kbd>\n          </li>\n        </ul>\n      </div>\n    </div>\n  );\n}\n"
+}

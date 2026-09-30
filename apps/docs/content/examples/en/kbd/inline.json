@@ -1,0 +1,6 @@
+{
+  "name": "kbd-inline-usage",
+  "exported": "InlineUsage",
+  "source": "apps/docs/src/demos/en/kbd/inline.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function InlineUsage() {\n  return (\n    <div className=\"space-y-4\">\n      <p className=\"text-sm\">\n        Press{\" \"}\n        <Kbd>\n          <Kbd.Content>Esc</Kbd.Content>\n        </Kbd>{\" \"}\n        to close the dialog.\n      </p>\n      <p className=\"text-sm\">\n        Use{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"command\" />\n          <Kbd.Content>K</Kbd.Content>\n        </Kbd>{\" \"}\n        to open the command palette.\n      </p>\n      <p className=\"text-sm\">\n        Navigate with{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"up\" />\n        </Kbd>{\" \"}\n        and{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"down\" />\n        </Kbd>{\" \"}\n        arrow keys.\n      </p>\n      <p className=\"text-sm\">\n        Save your work with{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"command\" />\n          <Kbd.Content>S</Kbd.Content>\n        </Kbd>{\" \"}\n        regularly.\n      </p>\n    </div>\n  );\n}\n"
+}

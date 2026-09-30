@@ -1,0 +1,6 @@
+{
+  "name": "textfield-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/textfield/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Input, Label, TextField} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <TextField\n      className=\"w-full max-w-64\"\n      name=\"email\"\n      render={(props) => <div {...props} data-custom=\"foo\" />}\n      type=\"email\"\n    >\n      <Label>Email</Label>\n      <Input placeholder=\"Enter your email\" />\n    </TextField>\n  );\n}\n"
+}

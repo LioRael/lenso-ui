@@ -1,0 +1,6 @@
+{
+  "name": "dropdown-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/dropdown/custom-styles.tsx",
+  "code": "import {Button, Dropdown, Label} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Dropdown>\n      <Button variant=\"secondary\">操作</Button>\n      <Dropdown.Popover className=\"rounded-xl border border-border/80 bg-surface p-1 shadow-sm\">\n        <Dropdown.Menu>\n          <Dropdown.Item\n            className=\"rounded-lg data-[focused=true]:bg-default\"\n            id=\"rename\"\n            textValue=\"重命名\"\n          >\n            <Label>重命名</Label>\n          </Dropdown.Item>\n          <Dropdown.Item\n            className=\"rounded-lg data-[focused=true]:bg-default\"\n            id=\"duplicate\"\n            textValue=\"复制\"\n          >\n            <Label>复制</Label>\n          </Dropdown.Item>\n          <Dropdown.Item\n            className=\"rounded-lg data-[focused=true]:bg-danger-soft\"\n            id=\"delete\"\n            textValue=\"删除\"\n            variant=\"danger\"\n          >\n            <Label>删除</Label>\n          </Dropdown.Item>\n        </Dropdown.Menu>\n      </Dropdown.Popover>\n    </Dropdown>\n  );\n}\n"
+}

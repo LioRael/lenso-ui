@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-badge-suffix",
+  "exported": "WithBadgeSuffix",
+  "source": "apps/docs/src/demos/en/input-group/with-badge-suffix.tsx",
+  "code": "\"use client\";\n\nimport {Chip, InputGroup, TextField} from \"@lenso/ui\";\n\nexport function WithBadgeSuffix() {\n  return (\n    <TextField aria-label=\"Email address\" className=\"w-full max-w-[280px]\" name=\"email\">\n      <InputGroup>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" placeholder=\"Email address\" />\n        <InputGroup.Suffix className=\"pe-2\">\n          <Chip color=\"accent\" size=\"md\" variant=\"soft\">\n            Pro\n          </Chip>\n        </InputGroup.Suffix>\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

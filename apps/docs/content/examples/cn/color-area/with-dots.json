@@ -1,0 +1,6 @@
+{
+  "name": "color-area-with-dots",
+  "exported": "ColorAreaWithDots",
+  "source": "apps/docs/src/demos/cn/color-area/with-dots.tsx",
+  "code": "import {ColorArea} from \"@lenso/ui\";\n\nexport function ColorAreaWithDots() {\n  return (\n    <ColorArea showDots defaultValue=\"hsl(200, 100%, 50%)\">\n      <ColorArea.Thumb />\n    </ColorArea>\n  );\n}\n"
+}

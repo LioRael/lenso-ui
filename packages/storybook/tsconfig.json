@@ -1,0 +1,6 @@
+{
+  "extends": "../standard/tsconfig/react.json",
+  "compilerOptions": { "types": ["node", "vite/client"] },
+  "include": [".storybook/**/*.ts", "stories/**/*.tsx"],
+  "exclude": ["node_modules", "storybook-static"]
+}

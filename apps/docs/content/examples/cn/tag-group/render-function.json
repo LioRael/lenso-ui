@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/tag-group/render-function.tsx",
+  "code": "\"use client\";\n\nimport {PlanetEarth, Rocket, ShoppingBag, SquareArticle} from \"@gravity-ui/icons\";\nimport {Tag, TagGroup} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <TagGroup\n      aria-label=\"标签\"\n      render={(props) => <div {...props} data-custom=\"foo\" />}\n      selectionMode=\"single\"\n    >\n      <TagGroup.List>\n        <Tag id=\"default-news\">\n          <SquareArticle />\n          资讯\n        </Tag>\n        <Tag id=\"default-travel\">\n          <PlanetEarth />\n          旅行\n        </Tag>\n        <Tag id=\"default-gaming\">\n          <Rocket />\n          游戏\n        </Tag>\n        <Tag id=\"default-shopping\">\n          <ShoppingBag />\n          购物\n        </Tag>\n      </TagGroup.List>\n    </TagGroup>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "close-button-with-custom-icon",
+  "exported": "WithCustomIcon",
+  "source": "apps/docs/src/demos/cn/close-button/with-custom-icon.tsx",
+  "code": "import {CircleXmark, Xmark} from \"@gravity-ui/icons\";\nimport {CloseButton} from \"@lenso/ui\";\n\nexport function WithCustomIcon() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <div className=\"flex flex-col items-center gap-2\">\n        <CloseButton>\n          <CircleXmark />\n        </CloseButton>\n        <span className=\"text-xs text-muted\">自定义图标</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <CloseButton>\n          <Xmark />\n        </CloseButton>\n        <span className=\"text-xs text-muted\">备选图标</span>\n      </div>\n    </div>\n  );\n}\n"
+}

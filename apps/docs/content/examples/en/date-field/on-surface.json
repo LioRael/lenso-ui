@@ -1,0 +1,6 @@
+{
+  "name": "date-field-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/en/date-field/on-surface.tsx",
+  "code": "\"use client\";\n\nimport {Calendar} from \"@gravity-ui/icons\";\nimport {DateField, Description, Label, Surface} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"flex w-full max-w-sm flex-col gap-4 rounded-3xl p-6\">\n      <DateField className=\"w-full\" name=\"date\">\n        <Label>Date</Label>\n        <DateField.Group variant=\"secondary\">\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n        <Description>Enter a date</Description>\n      </DateField>\n      <DateField className=\"w-full\" name=\"date-2\">\n        <Label>Appointment date</Label>\n        <DateField.Group variant=\"secondary\">\n          <DateField.Prefix>\n            <Calendar className=\"size-4 text-muted\" />\n          </DateField.Prefix>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n        <Description>Enter a date for your appointment</Description>\n      </DateField>\n    </Surface>\n  );\n}\n"
+}

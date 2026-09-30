@@ -1,0 +1,6 @@
+{
+  "name": "textfield-required",
+  "exported": "Required",
+  "source": "apps/docs/src/demos/en/textfield/required.tsx",
+  "code": "import {Description, Input, Label, TextField} from \"@lenso/ui\";\n\nexport function Required() {\n  return (\n    <TextField isRequired className=\"w-full max-w-64\" name=\"fullName\">\n      <Label>Full Name</Label>\n      <Input placeholder=\"John Doe\" />\n      <Description>This field is required</Description>\n    </TextField>\n  );\n}\n"
+}

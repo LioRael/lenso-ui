@@ -1,0 +1,6 @@
+{
+  "name": "button-icon-only",
+  "exported": "IconOnly",
+  "source": "apps/docs/src/demos/cn/button/icon-only.tsx",
+  "code": "import {Ellipsis, Gear, TrashBin} from \"@gravity-ui/icons\";\nimport {Button} from \"@lenso/ui\";\n\nexport function IconOnly() {\n  return (\n    <div className=\"flex gap-3\">\n      <Button isIconOnly aria-label=\"更多选项\" variant=\"tertiary\">\n        <Ellipsis />\n      </Button>\n      <Button isIconOnly aria-label=\"设置\" variant=\"secondary\">\n        <Gear />\n      </Button>\n      <Button isIconOnly aria-label=\"删除\" variant=\"danger\">\n        <TrashBin />\n      </Button>\n    </div>\n  );\n}\n"
+}

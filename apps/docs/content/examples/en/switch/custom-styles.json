@@ -1,0 +1,6 @@
+{
+  "name": "switch-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/switch/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport {Description, Label, Switch} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Switch id=\"autosave\">\n      <Switch.Content>\n        <Switch.Control className=\"[--switch-control-bg-checked-hover:var(--success)] [--switch-control-bg-checked:var(--success)]\">\n          <Switch.Thumb />\n        </Switch.Control>\n        <div className=\"flex flex-col gap-0.5\">\n          <Label>Auto-save drafts</Label>\n          <Description>Changes are saved as you type.</Description>\n        </div>\n      </Switch.Content>\n    </Switch>\n  );\n}\n"
+}

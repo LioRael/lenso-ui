@@ -1,0 +1,6 @@
+{
+  "name": "avatar-group-max",
+  "exported": "Max",
+  "source": "apps/docs/src/demos/en/avatar-group/max.tsx",
+  "code": "import {Avatar, AvatarGroup} from \"@lenso/ui\";\n\nconst users = [\n  {\n    id: 1,\n    image: \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg\",\n    name: \"John Doe\",\n  },\n  {\n    id: 2,\n    image: \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg\",\n    name: \"Kate Wilson\",\n  },\n  {\n    id: 3,\n    image: \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg\",\n    name: \"Emily Chen\",\n  },\n  {\n    id: 4,\n    image: \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg\",\n    name: \"Michael Brown\",\n  },\n  {\n    id: 5,\n    image: \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg\",\n    name: \"Olivia Davis\",\n  },\n];\n\nexport function Max() {\n  return (\n    <AvatarGroup max={3}>\n      {users.map((user) => (\n        <Avatar key={user.id}>\n          <Avatar.Image alt={user.name} src={user.image} />\n          <Avatar.Fallback>\n            {user.name\n              .split(\" \")\n              .map((n) => n[0])\n              .join(\"\")}\n          </Avatar.Fallback>\n        </Avatar>\n      ))}\n    </AvatarGroup>\n  );\n}\n"
+}

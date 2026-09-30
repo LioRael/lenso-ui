@@ -1,0 +1,6 @@
+{
+  "name": "date-field-full-width",
+  "exported": "FullWidth",
+  "source": "apps/docs/src/demos/cn/date-field/full-width.tsx",
+  "code": "\"use client\";\n\nimport {Calendar, ChevronDown} from \"@gravity-ui/icons\";\nimport {DateField, Label} from \"@lenso/ui\";\n\nexport function FullWidth() {\n  return (\n    <div className=\"w-[400px] space-y-4\">\n      <DateField fullWidth name=\"date\">\n        <Label>日期</Label>\n        <DateField.Group>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n        </DateField.Group>\n      </DateField>\n      <DateField fullWidth name=\"date-icons\">\n        <Label>日期</Label>\n        <DateField.Group>\n          <DateField.Prefix>\n            <Calendar className=\"size-4 text-muted\" />\n          </DateField.Prefix>\n          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>\n          <DateField.Suffix>\n            <ChevronDown className=\"size-4 text-muted\" />\n          </DateField.Suffix>\n        </DateField.Group>\n      </DateField>\n    </div>\n  );\n}\n"
+}

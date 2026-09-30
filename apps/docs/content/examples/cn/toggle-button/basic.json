@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/toggle-button/basic.tsx",
+  "code": "import {Heart} from \"@gravity-ui/icons\";\nimport {ToggleButton} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <ToggleButton>\n      <Heart />\n      点赞\n    </ToggleButton>\n  );\n}\n"
+}

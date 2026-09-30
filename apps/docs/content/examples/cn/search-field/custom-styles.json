@@ -1,0 +1,6 @@
+{
+  "name": "search-field-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/search-field/custom-styles.tsx",
+  "code": "import {Label, SearchField} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <SearchField className=\"w-full max-w-64\" name=\"docs\" variant=\"secondary\">\n      <Label className=\"font-medium text-foreground\">搜索文档</Label>\n      <SearchField.Group className=\"rounded-xl bg-default\">\n        <SearchField.SearchIcon className=\"text-muted\" />\n        <SearchField.Input className=\"placeholder:text-muted\" placeholder=\"组件、指南...\" />\n        <SearchField.ClearButton className=\"text-muted\" />\n      </SearchField.Group>\n    </SearchField>\n  );\n}\n"
+}

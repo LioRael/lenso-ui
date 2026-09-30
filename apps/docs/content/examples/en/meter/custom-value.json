@@ -1,0 +1,6 @@
+{
+  "name": "meter-custom-value",
+  "exported": "CustomValue",
+  "source": "apps/docs/src/demos/en/meter/custom-value.tsx",
+  "code": "import {Label, Meter} from \"@lenso/ui\";\n\nexport function CustomValue() {\n  return (\n    <Meter\n      className=\"w-64\"\n      formatOptions={{currency: \"USD\", style: \"currency\"}}\n      maxValue={1000}\n      minValue={0}\n      value={750}\n    >\n      <Label>Revenue</Label>\n      <Meter.Output />\n      <Meter.Track>\n        <Meter.Fill />\n      </Meter.Track>\n    </Meter>\n  );\n}\n"
+}

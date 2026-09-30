@@ -1,0 +1,6 @@
+{
+  "name": "switch-default-selected",
+  "exported": "DefaultSelected",
+  "source": "apps/docs/src/demos/en/switch/default-selected.tsx",
+  "code": "import {Switch} from \"@lenso/ui\";\n\nexport function DefaultSelected() {\n  return (\n    <Switch defaultSelected>\n      <Switch.Content>\n        <Switch.Control>\n          <Switch.Thumb />\n        </Switch.Control>\n        Enable notifications\n      </Switch.Content>\n    </Switch>\n  );\n}\n"
+}

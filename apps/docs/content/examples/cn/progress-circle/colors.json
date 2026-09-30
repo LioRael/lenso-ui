@@ -1,0 +1,6 @@
+{
+  "name": "progress-circle-colors",
+  "exported": "Colors",
+  "source": "apps/docs/src/demos/cn/progress-circle/colors.tsx",
+  "code": "import {ProgressCircle} from \"@lenso/ui\";\n\nconst colors = [\"default\", \"accent\", \"success\", \"warning\", \"danger\"] as const;\n\nconst COLOR_LABELS: Record<(typeof colors)[number], string> = {\n  accent: \"强调\",\n  danger: \"危险\",\n  default: \"默认\",\n  success: \"成功\",\n  warning: \"警告\",\n};\n\nexport function Colors() {\n  return (\n    <div className=\"flex items-center gap-6\">\n      {colors.map((color) => (\n        <ProgressCircle key={color} aria-label={COLOR_LABELS[color]} color={color} value={60}>\n          <ProgressCircle.Track>\n            <ProgressCircle.TrackCircle />\n            <ProgressCircle.FillCircle />\n          </ProgressCircle.Track>\n        </ProgressCircle>\n      ))}\n    </div>\n  );\n}\n"
+}

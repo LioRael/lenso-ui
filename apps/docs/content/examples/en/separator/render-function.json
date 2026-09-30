@@ -1,0 +1,6 @@
+{
+  "name": "separator-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/separator/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Separator} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <div className=\"max-w-md\">\n      <div className=\"space-y-1\">\n        <h4 className=\"text-medium font-medium\">HeroUI v3 Components</h4>\n        <p className=\"text-small text-default-400\">Beautiful, fast and modern React UI library.</p>\n      </div>\n      <Separator className=\"my-4\" render={(props) => <div {...props} data-custom=\"foo\" />} />\n      <div className=\"text-small flex h-5 items-center space-x-4\">\n        <div>Blog</div>\n        <Separator\n          orientation=\"vertical\"\n          render={(props) => <div {...props} data-custom=\"foo\" />}\n        />\n        <div>Docs</div>\n        <Separator\n          orientation=\"vertical\"\n          render={(props) => <div {...props} data-custom=\"foo\" />}\n        />\n        <div>Source</div>\n      </div>\n    </div>\n  );\n}\n"
+}

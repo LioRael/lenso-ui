@@ -1,0 +1,6 @@
+{
+  "name": "kbd-inline-usage",
+  "exported": "InlineUsage",
+  "source": "apps/docs/src/demos/cn/kbd/inline.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function InlineUsage() {\n  return (\n    <div className=\"space-y-4\">\n      <p className=\"text-sm\">\n        按{\" \"}\n        <Kbd>\n          <Kbd.Content>Esc</Kbd.Content>\n        </Kbd>{\" \"}\n        关闭对话框。\n      </p>\n      <p className=\"text-sm\">\n        使用{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"command\" />\n          <Kbd.Content>K</Kbd.Content>\n        </Kbd>{\" \"}\n        打开命令面板。\n      </p>\n      <p className=\"text-sm\">\n        使用{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"up\" />\n        </Kbd>{\" \"}\n        和{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"down\" />\n        </Kbd>{\" \"}\n        方向键进行导航。\n      </p>\n      <p className=\"text-sm\">\n        使用{\" \"}\n        <Kbd>\n          <Kbd.Abbr keyValue=\"command\" />\n          <Kbd.Content>S</Kbd.Content>\n        </Kbd>{\" \"}\n        定期保存你的工作。\n      </p>\n    </div>\n  );\n}\n"
+}

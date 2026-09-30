@@ -1,0 +1,6 @@
+{
+  "name": "radio-group-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/radio-group/disabled.tsx",
+  "code": "import {Description, Label, Radio, RadioGroup} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <RadioGroup isDisabled defaultValue=\"pro\" name=\"plan-disabled\">\n      <Label>订阅套餐</Label>\n      <Description>我们正在发布更新，暂时无法更改套餐。</Description>\n      <Radio value=\"starter\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          入门版\n        </Radio.Content>\n        <Description>适合副项目和小型团队</Description>\n      </Radio>\n      <Radio value=\"pro\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          专业版\n        </Radio.Content>\n        <Description>高级报表与分析</Description>\n      </Radio>\n      <Radio value=\"teams\">\n        <Radio.Content>\n          <Radio.Control>\n            <Radio.Indicator />\n          </Radio.Control>\n          团队版\n        </Radio.Content>\n        <Description>最多可与 10 名队友共享访问权限</Description>\n      </Radio>\n    </RadioGroup>\n  );\n}\n"
+}

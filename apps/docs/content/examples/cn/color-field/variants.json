@@ -1,0 +1,6 @@
+{
+  "name": "color-field-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/cn/color-field/variants.tsx",
+  "code": "import {ColorField, Label} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorField className=\"w-[280px]\" defaultValue=\"#0485F7\" name=\"primary-color\">\n        <Label>主要变体</Label>\n        <ColorField.Group variant=\"primary\">\n          <ColorField.Input />\n        </ColorField.Group>\n      </ColorField>\n      <ColorField className=\"w-[280px]\" defaultValue=\"#F43F5E\" name=\"secondary-color\">\n        <Label>次要变体</Label>\n        <ColorField.Group variant=\"secondary\">\n          <ColorField.Input />\n        </ColorField.Group>\n      </ColorField>\n    </div>\n  );\n}\n"
+}

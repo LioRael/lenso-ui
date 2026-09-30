@@ -1,0 +1,6 @@
+{
+  "name": "color-field-required",
+  "exported": "Required",
+  "source": "apps/docs/src/demos/cn/color-field/required.tsx",
+  "code": "import {ColorField, Description, Label} from \"@lenso/ui\";\n\nexport function Required() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorField isRequired className=\"w-[280px]\" name=\"color\">\n        <Label>品牌色</Label>\n        <ColorField.Group>\n          <ColorField.Input placeholder=\"#000000\" />\n        </ColorField.Group>\n      </ColorField>\n      <ColorField isRequired className=\"w-[280px]\" name=\"theme-color\">\n        <Label>主题色</Label>\n        <ColorField.Group>\n          <ColorField.Input placeholder=\"#000000\" />\n        </ColorField.Group>\n        <Description>必填项</Description>\n      </ColorField>\n    </div>\n  );\n}\n"
+}

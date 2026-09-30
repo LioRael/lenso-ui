@@ -1,0 +1,6 @@
+{
+  "name": "color-picker-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/color-picker/basic.tsx",
+  "code": "import {ColorArea, ColorPicker, ColorSlider, ColorSwatch, Label} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <ColorPicker defaultValue=\"#0485F7\">\n      <ColorPicker.Trigger>\n        <ColorSwatch size=\"lg\" />\n        <Label>选择颜色</Label>\n      </ColorPicker.Trigger>\n      <ColorPicker.Popover>\n        <ColorArea\n          aria-label=\"取色区域\"\n          className=\"max-w-full\"\n          colorSpace=\"hsb\"\n          xChannel=\"saturation\"\n          yChannel=\"brightness\"\n        >\n          <ColorArea.Thumb />\n        </ColorArea>\n        <ColorSlider channel=\"hue\" className=\"gap-1 px-1\" colorSpace=\"hsb\">\n          <Label>色相</Label>\n          <ColorSlider.Output className=\"text-muted\" />\n          <ColorSlider.Track>\n            <ColorSlider.Thumb />\n          </ColorSlider.Track>\n        </ColorSlider>\n      </ColorPicker.Popover>\n    </ColorPicker>\n  );\n}\n"
+}

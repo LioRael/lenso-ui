@@ -1,0 +1,6 @@
+{
+  "name": "disclosure-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/disclosure/render-function.tsx",
+  "excludedReason": "Native product example intentionally excluded; its composition is adapted independently for React documentation."
+}

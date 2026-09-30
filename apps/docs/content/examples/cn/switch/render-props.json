@@ -1,0 +1,6 @@
+{
+  "name": "switch-render-props",
+  "exported": "RenderProps",
+  "source": "apps/docs/src/demos/cn/switch/render-props.tsx",
+  "code": "\"use client\";\n\nimport {Switch} from \"@lenso/ui\";\n\nexport function RenderProps() {\n  return (\n    <Switch>\n      {({isSelected}) => (\n        <Switch.Content>\n          <Switch.Control>\n            <Switch.Thumb />\n          </Switch.Control>\n          {isSelected ? \"已开启\" : \"已关闭\"}\n        </Switch.Content>\n      )}\n    </Switch>\n  );\n}\n"
+}

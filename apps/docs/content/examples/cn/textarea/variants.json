@@ -1,0 +1,6 @@
+{
+  "name": "textarea-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/cn/textarea/variants.tsx",
+  "code": "import {TextArea} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex w-[280px] flex-col gap-2\">\n      <TextArea fullWidth placeholder=\"主要文本域\" variant=\"primary\" />\n      <TextArea fullWidth placeholder=\"次要文本域\" variant=\"secondary\" />\n    </div>\n  );\n}\n"
+}

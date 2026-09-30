@@ -1,0 +1,6 @@
+{
+  "name": "spinner-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/spinner/custom-styles.tsx",
+  "code": "import {Spinner} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex items-center gap-4 rounded-xl border border-border bg-surface px-5 py-4\">\n      <Spinner className=\"text-accent\" size=\"sm\" />\n      <Spinner className=\"text-muted\" size=\"md\" />\n      <Spinner className=\"text-success\" size=\"lg\" />\n    </div>\n  );\n}\n"
+}

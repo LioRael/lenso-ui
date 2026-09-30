@@ -1,0 +1,6 @@
+{
+  "name": "popover-basic",
+  "exported": "PopoverBasic",
+  "source": "apps/docs/src/demos/en/popover/basic.tsx",
+  "code": "import {Button, Popover} from \"@lenso/ui\";\n\nexport function PopoverBasic() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Popover>\n        <Button>Click me</Button>\n        <Popover.Content className=\"max-w-64\">\n          <Popover.Dialog>\n            <Popover.Heading>Popover Title</Popover.Heading>\n            <p className=\"mt-2 text-sm text-muted\">\n              This is the popover content. You can put any content here.\n            </p>\n          </Popover.Dialog>\n        </Popover.Content>\n      </Popover>\n    </div>\n  );\n}\n"
+}

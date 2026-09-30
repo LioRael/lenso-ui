@@ -1,0 +1,6 @@
+{
+  "name": "textfield-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/textfield/disabled.tsx",
+  "code": "import {Description, Input, Label, TextField} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <TextField isDisabled className=\"w-full max-w-64\" name=\"accountId\" value=\"USR-12345\">\n      <Label>账户 ID</Label>\n      <Input placeholder=\"自动生成\" />\n      <Description>此字段不可编辑</Description>\n    </TextField>\n  );\n}\n"
+}

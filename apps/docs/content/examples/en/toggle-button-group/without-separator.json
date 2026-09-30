@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-group-without-separator",
+  "exported": "WithoutSeparator",
+  "source": "apps/docs/src/demos/en/toggle-button-group/without-separator.tsx",
+  "code": "import {Bold, Italic, Strikethrough, Underline} from \"@gravity-ui/icons\";\nimport {ToggleButton, ToggleButtonGroup} from \"@lenso/ui\";\n\nexport function WithoutSeparator() {\n  return (\n    <ToggleButtonGroup selectionMode=\"multiple\">\n      <ToggleButton isIconOnly aria-label=\"Bold\" id=\"bold\">\n        <Bold />\n      </ToggleButton>\n      <ToggleButton isIconOnly aria-label=\"Italic\" id=\"italic\">\n        <Italic />\n      </ToggleButton>\n      <ToggleButton isIconOnly aria-label=\"Underline\" id=\"underline\">\n        <Underline />\n      </ToggleButton>\n      <ToggleButton isIconOnly aria-label=\"Strikethrough\" id=\"strikethrough\">\n        <Strikethrough />\n      </ToggleButton>\n    </ToggleButtonGroup>\n  );\n}\n"
+}

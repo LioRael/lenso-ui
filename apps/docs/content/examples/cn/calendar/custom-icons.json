@@ -1,0 +1,6 @@
+{
+  "name": "calendar-custom-icons",
+  "exported": "CustomIcons",
+  "source": "apps/docs/src/demos/cn/calendar/custom-icons.tsx",
+  "code": "\"use client\";\n\nimport {Calendar} from \"@lenso/ui\";\n\nexport function CustomIcons() {\n  return (\n    <Calendar aria-label=\"活动日期\">\n      <Calendar.Header>\n        <Calendar.Heading />\n        <Calendar.NavButton slot=\"previous\">\n          <svg height={24} viewBox=\"0 0 24 24\" width={24} xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6l6 6z\" fill=\"currentColor\" />\n          </svg>\n        </Calendar.NavButton>\n        <Calendar.NavButton slot=\"next\">\n          <svg height={24} viewBox=\"0 0 24 24\" width={24} xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6z\" fill=\"currentColor\" />\n          </svg>\n        </Calendar.NavButton>\n      </Calendar.Header>\n      <Calendar.Grid>\n        <Calendar.GridHeader>\n          {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}\n        </Calendar.GridHeader>\n        <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>\n      </Calendar.Grid>\n    </Calendar>\n  );\n}\n"
+}

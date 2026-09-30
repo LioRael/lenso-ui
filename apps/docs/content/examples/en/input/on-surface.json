@@ -1,0 +1,6 @@
+{
+  "name": "input-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/en/input/on-surface.tsx",
+  "code": "import {Input, Surface} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"flex h-[180px] w-[280px] items-center justify-center rounded-3xl bg-surface p-4\">\n      <Input className=\"w-full\" placeholder=\"Your name\" variant=\"secondary\" />\n    </Surface>\n  );\n}\n"
+}

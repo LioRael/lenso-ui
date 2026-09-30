@@ -1,0 +1,6 @@
+{
+  "name": "chip-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/chip/custom-styles.tsx",
+  "code": "import {Chip} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-2\">\n      <Chip className=\"rounded-full bg-default-soft px-3 text-default-soft-foreground\">Draft</Chip>\n      <Chip className=\"rounded-full bg-warning-soft px-3 text-warning-soft-foreground\">\n        In review\n      </Chip>\n      <Chip className=\"rounded-full bg-success-soft px-3 text-success-soft-foreground\">\n        Published\n      </Chip>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "button-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/en/button/disabled.tsx",
+  "code": "import {Button} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <div className=\"flex flex-wrap gap-3\">\n      <Button isDisabled>Primary</Button>\n      <Button isDisabled variant=\"secondary\">\n        Secondary\n      </Button>\n      <Button isDisabled variant=\"tertiary\">\n        Tertiary\n      </Button>\n      <Button isDisabled variant=\"outline\">\n        Outline\n      </Button>\n      <Button isDisabled variant=\"ghost\">\n        Ghost\n      </Button>\n      <Button isDisabled variant=\"danger\">\n        Danger\n      </Button>\n    </div>\n  );\n}\n"
+}

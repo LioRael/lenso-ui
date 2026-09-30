@@ -1,0 +1,6 @@
+{
+  "name": "input-otp-with-pattern",
+  "exported": "WithPattern",
+  "source": "apps/docs/src/demos/cn/input-otp/with-pattern.tsx",
+  "code": "import {Description, InputOTP, Label, REGEXP_ONLY_CHARS} from \"@lenso/ui\";\n\nexport function WithPattern() {\n  return (\n    <div className=\"flex w-[280px] flex-col gap-2\">\n      <Label>输入验证码（仅字母）</Label>\n      <Description>仅允许输入字母</Description>\n      <InputOTP maxLength={6} pattern={REGEXP_ONLY_CHARS}>\n        <InputOTP.Group>\n          <InputOTP.Slot index={0} />\n          <InputOTP.Slot index={1} />\n          <InputOTP.Slot index={2} />\n        </InputOTP.Group>\n        <InputOTP.Separator />\n        <InputOTP.Group>\n          <InputOTP.Slot index={3} />\n          <InputOTP.Slot index={4} />\n          <InputOTP.Slot index={5} />\n        </InputOTP.Group>\n      </InputOTP>\n    </div>\n  );\n}\n"
+}

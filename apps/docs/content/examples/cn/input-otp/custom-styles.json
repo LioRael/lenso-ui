@@ -1,0 +1,6 @@
+{
+  "name": "input-otp-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/input-otp/custom-styles.tsx",
+  "code": "import {InputOTP, Label, Link} from \"@lenso/ui\";\n\nconst slotClass =\n  \"rounded-lg border-border/80 bg-default data-[active=true]:border-accent/40 data-[active=true]:bg-accent-soft\";\n\nexport function CustomStyles() {\n  return (\n    <div className=\"flex w-72 flex-col gap-2\">\n      <Label>验证账户</Label>\n      <InputOTP maxLength={6}>\n        <InputOTP.Group>\n          <InputOTP.Slot className={slotClass} index={0} />\n          <InputOTP.Slot className={slotClass} index={1} />\n          <InputOTP.Slot className={slotClass} index={2} />\n        </InputOTP.Group>\n        <InputOTP.Separator className=\"bg-border\" />\n        <InputOTP.Group>\n          <InputOTP.Slot className={slotClass} index={3} />\n          <InputOTP.Slot className={slotClass} index={4} />\n          <InputOTP.Slot className={slotClass} index={5} />\n        </InputOTP.Group>\n      </InputOTP>\n      <Link className=\"text-sm text-link\" href=\"#\">\n        重新发送\n      </Link>\n    </div>\n  );\n}\n"
+}

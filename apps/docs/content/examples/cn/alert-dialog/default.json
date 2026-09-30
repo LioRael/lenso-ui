@@ -1,0 +1,6 @@
+{
+  "name": "alert-dialog-default",
+  "exported": "Default",
+  "source": "apps/docs/src/demos/cn/alert-dialog/default.tsx",
+  "code": "\"use client\";\n\nimport {AlertDialog, Button} from \"@lenso/ui\";\n\nexport function Default() {\n  return (\n    <AlertDialog>\n      <Button variant=\"danger\">删除项目</Button>\n      <AlertDialog.Backdrop>\n        <AlertDialog.Container>\n          <AlertDialog.Dialog className=\"sm:max-w-[400px]\">\n            <AlertDialog.CloseTrigger />\n            <AlertDialog.Header>\n              <AlertDialog.Icon status=\"danger\" />\n              <AlertDialog.Heading>要永久删除项目吗？</AlertDialog.Heading>\n            </AlertDialog.Header>\n            <AlertDialog.Body>\n              <p>\n                此操作将永久删除 <strong>我的精彩项目</strong> 及其全部数据，且无法撤销。\n              </p>\n            </AlertDialog.Body>\n            <AlertDialog.Footer>\n              <Button slot=\"close\" variant=\"tertiary\">\n                取消\n              </Button>\n              <Button slot=\"close\" variant=\"danger\">\n                删除项目\n              </Button>\n            </AlertDialog.Footer>\n          </AlertDialog.Dialog>\n        </AlertDialog.Container>\n      </AlertDialog.Backdrop>\n    </AlertDialog>\n  );\n}\n"
+}

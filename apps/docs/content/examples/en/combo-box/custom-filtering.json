@@ -1,0 +1,6 @@
+{
+  "name": "combo-box-custom-filtering",
+  "exported": "CustomFiltering",
+  "source": "apps/docs/src/demos/en/combo-box/custom-filtering.tsx",
+  "code": "\"use client\";\n\nimport {ComboBox, Input, Label, ListBox} from \"@lenso/ui\";\n\nexport function CustomFiltering() {\n  const animals = [\n    {id: \"cat\", name: \"Cat\"},\n    {id: \"dog\", name: \"Dog\"},\n    {id: \"bird\", name: \"Bird\"},\n    {id: \"fish\", name: \"Fish\"},\n    {id: \"hamster\", name: \"Hamster\"},\n  ];\n\n  return (\n    <ComboBox\n      className=\"w-[256px]\"\n      defaultFilter={(text, inputValue) => {\n        if (!inputValue) return true;\n\n        return text.toLowerCase().includes(inputValue.toLowerCase());\n      }}\n    >\n      <Label>Animal (custom filter)</Label>\n      <ComboBox.InputGroup>\n        <Input placeholder=\"Search animals...\" />\n        <ComboBox.Trigger />\n      </ComboBox.InputGroup>\n      <ComboBox.Popover>\n        <ListBox>\n          {animals.map((animal) => (\n            <ListBox.Item key={animal.id} id={animal.id} textValue={animal.name}>\n              {animal.name}\n              <ListBox.ItemIndicator />\n            </ListBox.Item>\n          ))}\n        </ListBox>\n      </ComboBox.Popover>\n    </ComboBox>\n  );\n}\n"
+}

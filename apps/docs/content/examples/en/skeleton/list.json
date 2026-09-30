@@ -1,0 +1,6 @@
+{
+  "name": "skeleton-list",
+  "exported": "List",
+  "source": "apps/docs/src/demos/en/skeleton/list.tsx",
+  "code": "import {Skeleton} from \"@lenso/ui\";\n\nexport function List() {\n  return (\n    <div className=\"w-full max-w-sm space-y-4\">\n      {Array.from({length: 3}).map((_, index) => (\n        <div key={index} className=\"flex items-center gap-3\">\n          <Skeleton className=\"h-10 w-10 shrink-0 rounded-lg\" />\n          <div className=\"flex-1 space-y-2\">\n            <Skeleton className=\"h-3 w-full rounded\" />\n            <Skeleton className=\"h-3 w-4/5 rounded\" />\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+}

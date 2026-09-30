@@ -1,0 +1,6 @@
+{
+  "name": "typography-primitives",
+  "exported": "Primitives",
+  "source": "apps/docs/src/demos/en/typography/primitives.tsx",
+  "code": "import {Typography} from \"@lenso/ui\";\n\nexport const Primitives = () => {\n  return (\n    <div className=\"flex max-w-xl flex-col gap-4\">\n      <Typography.Heading level={1}>Dashboard</Typography.Heading>\n      <Typography.Paragraph>\n        Convenience primitives are thin wrappers over Typography, so you can choose explicit\n        composition without learning a second styling system.\n      </Typography.Paragraph>\n      <Typography.Paragraph color=\"muted\" size=\"sm\">\n        Paragraph supports base, sm, and xs sizes.\n      </Typography.Paragraph>\n      <Typography.Code>Typography.Code</Typography.Code>\n    </div>\n  );\n};\n"
+}

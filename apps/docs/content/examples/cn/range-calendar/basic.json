@@ -1,0 +1,6 @@
+{
+  "name": "range-calendar-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/range-calendar/basic.tsx",
+  "code": "\"use client\";\n\nimport {RangeCalendar} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <RangeCalendar aria-label=\"行程日期\" firstDayOfWeek=\"mon\">\n      <RangeCalendar.Header>\n        <RangeCalendar.Heading />\n        <RangeCalendar.NavButton slot=\"previous\" />\n        <RangeCalendar.NavButton slot=\"next\" />\n      </RangeCalendar.Header>\n      <RangeCalendar.Grid>\n        <RangeCalendar.GridHeader>\n          {(day) => <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>}\n        </RangeCalendar.GridHeader>\n        <RangeCalendar.GridBody>\n          {(date) => <RangeCalendar.Cell date={date} />}\n        </RangeCalendar.GridBody>\n      </RangeCalendar.Grid>\n    </RangeCalendar>\n  );\n}\n"
+}

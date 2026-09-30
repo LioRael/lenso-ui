@@ -1,0 +1,6 @@
+{
+  "name": "separator-with-content",
+  "exported": "WithContent",
+  "source": "apps/docs/src/demos/cn/separator/with-content.tsx",
+  "code": "import {Separator} from \"@lenso/ui\";\n\nconst items = [\n  {\n    iconUrl: \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/bell-small.png\",\n    subtitle: \"接收账户活动更新\",\n    title: \"设置通知\",\n  },\n  {\n    iconUrl: \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/compass-small.png\",\n    subtitle: \"将浏览器连接到你的账户\",\n    title: \"设置浏览器扩展\",\n  },\n  {\n    iconUrl:\n      \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/mint-collective-small.png\",\n    subtitle: \"创建你的第一件收藏品\",\n    title: \"铸造收藏品\",\n  },\n];\n\nexport function WithContent() {\n  return (\n    <div className=\"max-w-md space-y-4\">\n      {items.map((item, index) => (\n        <div key={index}>\n          <div className=\"flex items-center gap-3\">\n            <img alt={item.title} className=\"size-12\" src={item.iconUrl} />\n            <div className=\"flex-1 space-y-0\">\n              <h4 className=\"text-small font-medium\">{item.title}</h4>\n              <p className=\"text-sm text-muted\">{item.subtitle}</p>\n            </div>\n          </div>\n          {index < items.length - 1 && <Separator className=\"my-4\" />}\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,102 @@
+/*
+ * HeroUI v3.2.6 base/base.css, Apache-2.0.
+ * Modified with native CSS normalization instead of a Tailwind runtime.
+ */
+@layer base {
+  *,
+  ::before,
+  ::after,
+  ::backdrop,
+  ::file-selector-button {
+    box-sizing: border-box;
+    border-color: var(--border, currentColor);
+    border-style: solid;
+    border-width: 0;
+  }
+
+  html,
+  :host {
+    line-height: 1.5;
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea,
+  ::file-selector-button {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
+
+  button,
+  input[type="button"],
+  input[type="reset"],
+  input[type="submit"] {
+    appearance: button;
+  }
+
+  button {
+    background: transparent;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  svg,
+  img,
+  video,
+  canvas {
+    vertical-align: middle;
+  }
+
+  [hidden]:not([hidden="until-found"]) {
+    display: none !important;
+  }
+
+  :root {
+    view-transition-name: none;
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --z-index-overlay: 100000;
+    --z-index-toast: calc(var(--z-index-overlay) + 1);
+  }
+
+  ::view-transition {
+    pointer-events: none;
+  }
+}

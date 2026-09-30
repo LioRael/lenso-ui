@@ -1,0 +1,6 @@
+{
+  "name": "autocomplete-allows-empty-collection",
+  "exported": "AllowsEmptyCollection",
+  "source": "apps/docs/src/demos/en/autocomplete/allows-empty-collection.tsx",
+  "code": "\"use client\";\n\nimport {Autocomplete, EmptyState, Label, ListBox, SearchField, useFilter} from \"@lenso/ui\";\n\nexport function AllowsEmptyCollection() {\n  const {contains} = useFilter({sensitivity: \"base\"});\n\n  return (\n    <Autocomplete\n      allowsEmptyCollection\n      className=\"w-[256px]\"\n      placeholder=\"Select one\"\n      selectionMode=\"single\"\n    >\n      <Label>State</Label>\n      <Autocomplete.Trigger>\n        <Autocomplete.Value />\n        <Autocomplete.ClearButton />\n        <Autocomplete.Indicator />\n      </Autocomplete.Trigger>\n      <Autocomplete.Popover>\n        <Autocomplete.Filter filter={contains}>\n          <SearchField autoFocus aria-label=\"Search states\" name=\"search\" variant=\"secondary\">\n            <SearchField.Group>\n              <SearchField.SearchIcon />\n              <SearchField.Input placeholder=\"Search states...\" />\n              <SearchField.ClearButton />\n            </SearchField.Group>\n          </SearchField>\n          <ListBox renderEmptyState={() => <EmptyState>No results found</EmptyState>} />\n        </Autocomplete.Filter>\n      </Autocomplete.Popover>\n    </Autocomplete>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-transparency",
+  "exported": "ColorSwatchTransparency",
+  "source": "apps/docs/src/demos/cn/color-swatch/transparency.tsx",
+  "code": "import {ColorSwatch} from \"@lenso/ui\";\n\nexport function ColorSwatchTransparency() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <ColorSwatch aria-label=\"100% 不透明度\" color=\"rgba(4, 133, 247, 1)\" />\n      <ColorSwatch aria-label=\"75% 不透明度\" color=\"rgba(4, 133, 247, 0.75)\" />\n      <ColorSwatch aria-label=\"50% 不透明度\" color=\"rgba(4, 133, 247, 0.5)\" />\n      <ColorSwatch aria-label=\"25% 不透明度\" color=\"rgba(4, 133, 247, 0.25)\" />\n      <ColorSwatch aria-label=\"0% 不透明度\" color=\"rgba(4, 133, 247, 0)\" />\n    </div>\n  );\n}\n"
+}

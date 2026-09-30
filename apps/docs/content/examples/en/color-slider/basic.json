@@ -1,0 +1,6 @@
+{
+  "name": "color-slider-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/color-slider/basic.tsx",
+  "code": "import {ColorSlider, Label} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <ColorSlider channel=\"hue\" className=\"w-full max-w-xs\" defaultValue=\"hsl(0, 100%, 50%)\">\n      <Label>Hue</Label>\n      <ColorSlider.Output />\n      <ColorSlider.Track>\n        <ColorSlider.Thumb />\n      </ColorSlider.Track>\n    </ColorSlider>\n  );\n}\n"
+}

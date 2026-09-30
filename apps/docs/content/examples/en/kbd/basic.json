@@ -1,0 +1,6 @@
+{
+  "name": "kbd-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/en/kbd/basic.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Kbd>\n        <Kbd.Abbr keyValue=\"command\" />\n        <Kbd.Content>K</Kbd.Content>\n      </Kbd>\n      <Kbd>\n        <Kbd.Abbr keyValue=\"shift\" />\n        <Kbd.Content>P</Kbd.Content>\n      </Kbd>\n      <Kbd>\n        <Kbd.Abbr keyValue=\"ctrl\" />\n        <Kbd.Content>C</Kbd.Content>\n      </Kbd>\n      <Kbd>\n        <Kbd.Abbr keyValue=\"option\" />\n        <Kbd.Content>D</Kbd.Content>\n      </Kbd>\n    </div>\n  );\n}\n"
+}

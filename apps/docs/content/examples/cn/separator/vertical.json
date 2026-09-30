@@ -1,0 +1,6 @@
+{
+  "name": "separator-vertical",
+  "exported": "Vertical",
+  "source": "apps/docs/src/demos/cn/separator/vertical.tsx",
+  "code": "import {Separator} from \"@lenso/ui\";\n\nexport function Vertical() {\n  return (\n    <div className=\"text-small flex h-5 items-center space-x-4\">\n      <div>博客</div>\n      <Separator orientation=\"vertical\" />\n      <div>文档</div>\n      <Separator orientation=\"vertical\" />\n      <div>源码</div>\n    </div>\n  );\n}\n"
+}

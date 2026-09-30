@@ -1,0 +1,6 @@
+{
+  "name": "tabs-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/tabs/disabled.tsx",
+  "code": "import {Tabs} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <Tabs className=\"w-full max-w-md\">\n      <Tabs.ListContainer>\n        <Tabs.List aria-label=\"含禁用项的标签页\">\n          <Tabs.Tab id=\"active\">\n            启用\n            <Tabs.Indicator />\n          </Tabs.Tab>\n          <Tabs.Tab isDisabled id=\"disabled\">\n            已禁用\n            <Tabs.Indicator />\n          </Tabs.Tab>\n          <Tabs.Tab id=\"available\">\n            可用\n            <Tabs.Indicator />\n          </Tabs.Tab>\n        </Tabs.List>\n      </Tabs.ListContainer>\n      <Tabs.Panel className=\"pt-4\" id=\"active\">\n        <p>此标签页已启用，可以选择。</p>\n      </Tabs.Panel>\n      <Tabs.Panel className=\"pt-4\" id=\"disabled\">\n        <p>无法访问此内容。</p>\n      </Tabs.Panel>\n      <Tabs.Panel className=\"pt-4\" id=\"available\">\n        <p>此标签页也可以选择。</p>\n      </Tabs.Panel>\n    </Tabs>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "color-field-invalid",
+  "exported": "Invalid",
+  "source": "apps/docs/src/demos/en/color-field/invalid.tsx",
+  "code": "import {ColorField, FieldError, Label} from \"@lenso/ui\";\n\nexport function Invalid() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ColorField isInvalid isRequired className=\"w-[280px]\" name=\"color\">\n        <Label>Color</Label>\n        <ColorField.Group>\n          <ColorField.Input placeholder=\"#000000\" />\n        </ColorField.Group>\n        <FieldError>Please enter a valid hex color</FieldError>\n      </ColorField>\n      <ColorField isInvalid className=\"w-[280px]\" name=\"invalid-color\">\n        <Label>Background Color</Label>\n        <ColorField.Group>\n          <ColorField.Input defaultValue=\"not-a-color\" />\n        </ColorField.Group>\n        <FieldError>Invalid color format. Use hex (e.g., #FF5733)</FieldError>\n      </ColorField>\n    </div>\n  );\n}\n"
+}

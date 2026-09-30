@@ -1,0 +1,6 @@
+{
+  "name": "typography-prose",
+  "exported": "Prose",
+  "source": "apps/docs/src/demos/cn/typography/prose.tsx",
+  "code": "import {Typography} from \"@lenso/ui\";\n\nexport const Prose = () => {\n  return (\n    <Typography.Prose className=\"flex max-w-xl flex-col gap-3\">\n      <h1>正文标题</h1>\n      <p>Prose 适用于标记已是语义化、由 HeroUI 应用默认排版节奏的写作型内容。</p>\n      <h2>章节标题</h2>\n      <p>\n        行内代码如 <code>render</code> 与 Typography 原语获得相同的代码样式处理。\n      </p>\n    </Typography.Prose>\n  );\n};\n"
+}

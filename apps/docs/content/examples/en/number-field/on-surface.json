@@ -1,0 +1,6 @@
+{
+  "name": "number-field-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/en/number-field/on-surface.tsx",
+  "code": "import {Description, Label, NumberField, Surface} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"flex w-full max-w-[280px] flex-col gap-4 rounded-3xl p-6\">\n      <NumberField defaultValue={1024} minValue={0} name=\"width\" variant=\"secondary\">\n        <Label>Width</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-full\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n        <Description>Enter the width in pixels</Description>\n      </NumberField>\n      <NumberField\n        defaultValue={0.5}\n        formatOptions={{style: \"percent\"}}\n        maxValue={1}\n        minValue={0}\n        name=\"percentage\"\n        step={0.1}\n        variant=\"secondary\"\n      >\n        <Label>Percentage</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-full\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n        <Description>Value must be between 0 and 100</Description>\n      </NumberField>\n    </Surface>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "button-loading-state",
+  "exported": "LoadingState",
+  "source": "apps/docs/src/demos/cn/button/loading-state.tsx",
+  "code": "\"use client\";\n\nimport {Paperclip} from \"@gravity-ui/icons\";\nimport {Button, Spinner} from \"@lenso/ui\";\nimport React, {useState} from \"react\";\n\nexport function LoadingState() {\n  const [isLoading, setLoading] = useState(false);\n\n  const handlePress = () => {\n    setLoading(true);\n    setTimeout(() => setLoading(false), 2000);\n  };\n\n  return (\n    <Button isPending={isLoading} onPress={handlePress}>\n      {({isPending}) => (\n        <>\n          {isPending ? <Spinner color=\"current\" size=\"sm\" /> : <Paperclip />}\n          {isPending ? \"上传中…\" : \"上传文件\"}\n        </>\n      )}\n    </Button>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "range-calendar-min-max-dates",
+  "exported": "MinMaxDates",
+  "source": "apps/docs/src/demos/en/range-calendar/min-max-dates.tsx",
+  "code": "\"use client\";\n\nimport {Description, RangeCalendar} from \"@lenso/ui\";\nimport {getLocalTimeZone, today} from \"@internationalized/date\";\n\nexport function MinMaxDates() {\n  const now = today(getLocalTimeZone());\n  const minDate = now;\n  const maxDate = now.add({months: 3});\n\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <RangeCalendar aria-label=\"Trip dates\" maxValue={maxDate} minValue={minDate}>\n        <RangeCalendar.Header>\n          <RangeCalendar.Heading />\n          <RangeCalendar.NavButton slot=\"previous\" />\n          <RangeCalendar.NavButton slot=\"next\" />\n        </RangeCalendar.Header>\n        <RangeCalendar.Grid>\n          <RangeCalendar.GridHeader>\n            {(day) => <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>}\n          </RangeCalendar.GridHeader>\n          <RangeCalendar.GridBody>\n            {(date) => <RangeCalendar.Cell date={date} />}\n          </RangeCalendar.GridBody>\n        </RangeCalendar.Grid>\n      </RangeCalendar>\n      <Description className=\"text-center\">\n        Select dates between today and {maxDate.toString()}\n      </Description>\n    </div>\n  );\n}\n"
+}

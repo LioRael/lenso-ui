@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/checkbox/custom-styles.tsx",
+  "code": "import {Checkbox} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Checkbox id=\"custom\">\n      <Checkbox.Content>\n        <Checkbox.Control className=\"bg-success-soft before:bg-success\">\n          <Checkbox.Indicator className=\"**:data-[slot=checkbox-default-indicator--checkmark]:text-success-foreground\" />\n        </Checkbox.Control>\n        Custom styled checkbox\n      </Checkbox.Content>\n    </Checkbox>\n  );\n}\n"
+}

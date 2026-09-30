@@ -1,0 +1,6 @@
+{
+  "name": "field-error-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/field-error/basic.tsx",
+  "code": "\"use client\";\n\nimport {FieldError, Input, Label, TextField} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function Basic() {\n  const [value, setValue] = useState(\"jr\");\n  const isInvalid = value.length > 0 && value.length < 3;\n\n  return (\n    <TextField className=\"w-64\" isInvalid={isInvalid}>\n      <Label htmlFor=\"username\">用户名</Label>\n      <Input\n        id=\"username\"\n        placeholder=\"输入用户名\"\n        value={value}\n        onChange={(e) => setValue(e.target.value)}\n      />\n      <FieldError>用户名至少需要 3 个字符</FieldError>\n    </TextField>\n  );\n}\n"
+}

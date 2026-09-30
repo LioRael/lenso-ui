@@ -1,0 +1,6 @@
+{
+  "name": "select-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/select/custom-styles.tsx",
+  "code": "import {Label, ListBox, Select} from \"@lenso/ui\";\n\nconst itemClass =\n  \"rounded-lg data-[focused=true]:bg-accent/10 data-[selected=true]:text-foreground\";\n\nexport function CustomStyles() {\n  return (\n    <Select className=\"w-56\" placeholder=\"Pick a plan\" variant=\"secondary\">\n      <Label className=\"font-medium text-foreground\">Plan</Label>\n      <Select.Trigger className=\"rounded-xl bg-default\">\n        <Select.Value />\n        <Select.Indicator />\n      </Select.Trigger>\n      <Select.Popover className=\"rounded-xl border border-border bg-surface p-1 shadow-lg\">\n        <ListBox>\n          <ListBox.Item className={itemClass} id=\"free\" textValue=\"Free\">\n            Free\n            <ListBox.ItemIndicator />\n          </ListBox.Item>\n          <ListBox.Item className={itemClass} id=\"pro\" textValue=\"Pro\">\n            Pro\n            <ListBox.ItemIndicator />\n          </ListBox.Item>\n        </ListBox>\n      </Select.Popover>\n    </Select>\n  );\n}\n"
+}

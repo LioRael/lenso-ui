@@ -1,0 +1,6 @@
+{
+  "name": "input-group-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/en/input-group/variants.tsx",
+  "code": "import {Envelope} from \"@gravity-ui/icons\";\nimport {InputGroup, Label, TextField} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TextField className=\"w-[280px]\" name=\"primary\">\n        <Label>Primary variant</Label>\n        <InputGroup variant=\"primary\">\n          <InputGroup.Prefix>\n            <Envelope className=\"size-4 text-muted\" />\n          </InputGroup.Prefix>\n          <InputGroup.Input placeholder=\"name@email.com\" />\n        </InputGroup>\n      </TextField>\n      <TextField className=\"w-[280px]\" name=\"secondary\">\n        <Label>Secondary variant</Label>\n        <InputGroup variant=\"secondary\">\n          <InputGroup.Prefix>\n            <Envelope className=\"size-4 text-muted\" />\n          </InputGroup.Prefix>\n          <InputGroup.Input placeholder=\"name@email.com\" />\n        </InputGroup>\n      </TextField>\n    </div>\n  );\n}\n"
+}

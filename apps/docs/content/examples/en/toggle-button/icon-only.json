@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-icon-only",
+  "exported": "IconOnly",
+  "source": "apps/docs/src/demos/en/toggle-button/icon-only.tsx",
+  "code": "import {Bookmark, Heart} from \"@gravity-ui/icons\";\nimport {ToggleButton} from \"@lenso/ui\";\n\nexport function IconOnly() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <ToggleButton isIconOnly aria-label=\"Like\">\n        <Heart />\n      </ToggleButton>\n      <ToggleButton isIconOnly aria-label=\"Bookmark\" variant=\"ghost\">\n        <Bookmark />\n      </ToggleButton>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "spinner-sizes",
+  "exported": "SpinnerSizes",
+  "source": "apps/docs/src/demos/cn/spinner/sizes.tsx",
+  "code": "import {Spinner} from \"@lenso/ui\";\n\nconst SIZE_LABELS = {\n  lg: \"大\",\n  md: \"中\",\n  sm: \"小\",\n  xl: \"特大\",\n} as const;\n\nconst sizes = [\"sm\", \"md\", \"lg\", \"xl\"] as const;\n\nexport function SpinnerSizes() {\n  return (\n    <div className=\"flex items-center gap-8\">\n      {sizes.map((size) => (\n        <div key={size} className=\"flex flex-col items-center gap-2\">\n          <Spinner size={size} />\n          <span className=\"text-xs text-muted\">{SIZE_LABELS[size]}</span>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+}

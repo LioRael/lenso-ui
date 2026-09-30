@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-group-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/checkbox-group/custom-styles.tsx",
+  "code": "import {Checkbox, CheckboxGroup, Description, Label} from \"@lenso/ui\";\n\nconst controlClassName = \"bg-success-soft before:bg-success\";\nconst indicatorClassName =\n  \"**:data-[slot=checkbox-default-indicator--checkmark]:text-success-foreground\";\n\nconst channels = [\n  {label: \"电子邮件\", value: \"email\"},\n  {label: \"短信\", value: \"sms\"},\n  {label: \"推送\", value: \"push\"},\n] as const;\n\nexport function CustomStyles() {\n  return (\n    <CheckboxGroup\n      className=\"gap-3 **:data-[slot=checkbox]:mt-0\"\n      defaultValue={[\"email\"]}\n      name=\"notification-channels\"\n    >\n      <Label>通知渠道</Label>\n      <Description>选择我们通过何种方式向您发送账户更新。</Description>\n      {channels.map(({label, value}) => (\n        <Checkbox key={value} value={value}>\n          <Checkbox.Content>\n            <Checkbox.Control className={controlClassName}>\n              <Checkbox.Indicator className={indicatorClassName} />\n            </Checkbox.Control>\n            {label}\n          </Checkbox.Content>\n        </Checkbox>\n      ))}\n    </CheckboxGroup>\n  );\n}\n"
+}

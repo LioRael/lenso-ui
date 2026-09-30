@@ -1,0 +1,6 @@
+{
+  "name": "number-field-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/en/number-field/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Button, Description, Label, NumberField} from \"@lenso/ui\";\nimport React from \"react\";\n\nexport function Controlled() {\n  const [value, setValue] = React.useState(1024);\n\n  return (\n    <div className=\"flex w-full max-w-64 flex-col gap-4\">\n      <NumberField minValue={0} name=\"width\" value={value} onChange={setValue}>\n        <Label>Width</Label>\n        <NumberField.Group>\n          <NumberField.DecrementButton />\n          <NumberField.Input className=\"w-[120px]\" />\n          <NumberField.IncrementButton />\n        </NumberField.Group>\n        <Description>Current value: {value}</Description>\n      </NumberField>\n      <div className=\"flex gap-2\">\n        <Button variant=\"tertiary\" onPress={() => setValue(0)}>\n          Reset to 0\n        </Button>\n        <Button variant=\"tertiary\" onPress={() => setValue(2048)}>\n          Set to 2048\n        </Button>\n      </div>\n    </div>\n  );\n}\n"
+}

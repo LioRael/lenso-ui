@@ -1,0 +1,6 @@
+{
+  "name": "avatar-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/avatar/custom-styles.tsx",
+  "code": "import {Avatar} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Avatar className=\"rounded-lg\">\n      <Avatar.Image alt=\"张三\" src=\"https://img.heroui.chat/image/avatar?w=400&h=400&u=3\" />\n      <Avatar.Fallback className=\"rounded-lg\">张三</Avatar.Fallback>\n    </Avatar>\n  );\n}\n"
+}

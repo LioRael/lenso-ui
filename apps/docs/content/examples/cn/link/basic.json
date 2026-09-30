@@ -1,0 +1,6 @@
+{
+  "name": "link-basic",
+  "exported": "LinkBasic",
+  "source": "apps/docs/src/demos/cn/link/basic.tsx",
+  "code": "import {Link} from \"@lenso/ui\";\n\nexport function LinkBasic() {\n  return (\n    <Link href=\"#\">\n      立即行动\n      <Link.Icon />\n    </Link>\n  );\n}\n"
+}

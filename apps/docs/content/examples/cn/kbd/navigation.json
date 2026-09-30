@@ -1,0 +1,6 @@
+{
+  "name": "kbd-navigation-keys",
+  "exported": "NavigationKeys",
+  "source": "apps/docs/src/demos/cn/kbd/navigation.tsx",
+  "code": "import {Kbd} from \"@lenso/ui\";\n\nexport function NavigationKeys() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"flex items-center gap-2\">\n        <span className=\"text-sm text-muted\">方向键：</span>\n        <div className=\"flex items-center gap-2\">\n          <Kbd>\n            <Kbd.Abbr keyValue=\"up\" />\n          </Kbd>\n          <Kbd>\n            <Kbd.Abbr keyValue=\"down\" />\n          </Kbd>\n          <Kbd>\n            <Kbd.Abbr keyValue=\"left\" />\n          </Kbd>\n          <Kbd>\n            <Kbd.Abbr keyValue=\"right\" />\n          </Kbd>\n        </div>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <span className=\"text-sm text-muted\">页面导航：</span>\n        <div className=\"flex items-center gap-2\">\n          <Kbd>\n            <Kbd.Abbr keyValue=\"pageup\" />\n          </Kbd>\n          <Kbd>\n            <Kbd.Abbr keyValue=\"pagedown\" />\n          </Kbd>\n          <Kbd>\n            <Kbd.Abbr keyValue=\"home\" />\n          </Kbd>\n          <Kbd>\n            <Kbd.Abbr keyValue=\"end\" />\n          </Kbd>\n        </div>\n      </div>\n    </div>\n  );\n}\n"
+}

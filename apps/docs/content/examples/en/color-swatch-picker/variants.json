@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-picker-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/en/color-swatch-picker/variants.tsx",
+  "code": "import {ColorSwatchPicker} from \"@lenso/ui\";\n\nconst colors = [\"#F43F5E\", \"#D946EF\", \"#8B5CF6\", \"#3B82F6\", \"#06B6D4\", \"#10B981\", \"#84CC16\"];\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-col gap-6\">\n      <div className=\"flex flex-col gap-2\">\n        <span className=\"text-sm text-muted\">Circle (default)</span>\n        <ColorSwatchPicker variant=\"circle\">\n          {colors.map((color) => (\n            <ColorSwatchPicker.Item key={color} color={color}>\n              <ColorSwatchPicker.Swatch />\n              <ColorSwatchPicker.Indicator />\n            </ColorSwatchPicker.Item>\n          ))}\n        </ColorSwatchPicker>\n      </div>\n      <div className=\"flex flex-col gap-2\">\n        <span className=\"text-sm text-muted\">Square</span>\n        <ColorSwatchPicker variant=\"square\">\n          {colors.map((color) => (\n            <ColorSwatchPicker.Item key={color} color={color}>\n              <ColorSwatchPicker.Swatch />\n              <ColorSwatchPicker.Indicator />\n            </ColorSwatchPicker.Item>\n          ))}\n        </ColorSwatchPicker>\n      </div>\n    </div>\n  );\n}\n"
+}

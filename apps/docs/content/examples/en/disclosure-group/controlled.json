@@ -1,0 +1,6 @@
+{
+  "name": "disclosure-group-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/en/disclosure-group/controlled.tsx",
+  "excludedReason": "Native product example intentionally excluded; its composition is adapted independently for React documentation."
+}

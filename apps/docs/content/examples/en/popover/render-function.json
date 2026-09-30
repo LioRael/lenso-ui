@@ -1,0 +1,6 @@
+{
+  "name": "popover-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/popover/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Button, Popover} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Popover>\n        <Button>Click me</Button>\n        <Popover.Content\n          className=\"max-w-64\"\n          render={(props) => <div {...props} data-custom=\"foo\" />}\n        >\n          <Popover.Dialog>\n            <Popover.Heading>Popover Title</Popover.Heading>\n            <p className=\"mt-2 text-sm text-muted\">\n              This is the popover content. You can put any content here.\n            </p>\n          </Popover.Dialog>\n        </Popover.Content>\n      </Popover>\n    </div>\n  );\n}\n"
+}

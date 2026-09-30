@@ -1,0 +1,6 @@
+{
+  "name": "search-field-required",
+  "exported": "Required",
+  "source": "apps/docs/src/demos/en/search-field/required.tsx",
+  "code": "import {Description, Label, SearchField} from \"@lenso/ui\";\n\nexport function Required() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <SearchField isRequired name=\"search\">\n        <Label>Search</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Search...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n      </SearchField>\n      <SearchField isRequired name=\"search-query\">\n        <Label>Search query</Label>\n        <SearchField.Group>\n          <SearchField.SearchIcon />\n          <SearchField.Input className=\"w-[280px]\" placeholder=\"Enter search query...\" />\n          <SearchField.ClearButton />\n        </SearchField.Group>\n        <Description>Minimum 3 characters required</Description>\n      </SearchField>\n    </div>\n  );\n}\n"
+}

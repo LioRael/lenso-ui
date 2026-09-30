@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-picker-stack-layout",
+  "exported": "StackLayout",
+  "source": "apps/docs/src/demos/cn/color-swatch-picker/stack-layout.tsx",
+  "code": "import {ColorSwatchPicker} from \"@lenso/ui\";\n\nconst colors = [\"#F43F5E\", \"#D946EF\", \"#8B5CF6\", \"#3B82F6\", \"#06B6D4\", \"#10B981\", \"#84CC16\"];\n\nexport function StackLayout() {\n  return (\n    <ColorSwatchPicker layout=\"stack\">\n      {colors.map((color) => (\n        <ColorSwatchPicker.Item key={color} color={color}>\n          <ColorSwatchPicker.Swatch />\n          <ColorSwatchPicker.Indicator />\n        </ColorSwatchPicker.Item>\n      ))}\n    </ColorSwatchPicker>\n  );\n}\n"
+}

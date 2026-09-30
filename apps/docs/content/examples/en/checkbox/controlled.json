@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-controlled",
+  "exported": "Controlled",
+  "source": "apps/docs/src/demos/en/checkbox/controlled.tsx",
+  "code": "\"use client\";\n\nimport {Checkbox} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function Controlled() {\n  const [isSelected, setIsSelected] = useState(true);\n\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <Checkbox id=\"email-notifications\" isSelected={isSelected} onChange={setIsSelected}>\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          Email notifications\n        </Checkbox.Content>\n      </Checkbox>\n      <p className=\"text-sm text-muted\">\n        Status: <span className=\"font-medium\">{isSelected ? \"Enabled\" : \"Disabled\"}</span>\n      </p>\n    </div>\n  );\n}\n"
+}

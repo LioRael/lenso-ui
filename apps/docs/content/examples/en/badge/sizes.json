@@ -1,0 +1,6 @@
+{
+  "name": "badge-sizes",
+  "exported": "BadgeSizes",
+  "source": "apps/docs/src/demos/en/badge/sizes.tsx",
+  "code": "import {Avatar, Badge} from \"@lenso/ui\";\n\nconst AVATAR_URL = \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg\";\n\nexport function BadgeSizes() {\n  const sizes = [\"sm\", \"md\", \"lg\"] as const;\n\n  return (\n    <div className=\"flex items-center gap-6\">\n      {sizes.map((size) => (\n        <Badge.Anchor key={size}>\n          <Avatar size={size}>\n            <Avatar.Image src={AVATAR_URL} />\n            <Avatar.Fallback>JD</Avatar.Fallback>\n          </Avatar>\n          <Badge color=\"danger\" size={size}>\n            5\n          </Badge>\n        </Badge.Anchor>\n      ))}\n    </div>\n  );\n}\n"
+}

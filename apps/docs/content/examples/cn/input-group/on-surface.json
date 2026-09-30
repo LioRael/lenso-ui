@@ -1,0 +1,6 @@
+{
+  "name": "input-group-on-surface",
+  "exported": "OnSurface",
+  "source": "apps/docs/src/demos/cn/input-group/on-surface.tsx",
+  "code": "\"use client\";\n\nimport {Envelope} from \"@gravity-ui/icons\";\nimport {Description, InputGroup, Label, Surface, TextField} from \"@lenso/ui\";\n\nexport function OnSurface() {\n  return (\n    <Surface className=\"rounded-2xl p-6\">\n      <TextField className=\"w-full max-w-[280px]\" name=\"email\">\n        <Label>邮箱地址</Label>\n        <InputGroup variant=\"secondary\">\n          <InputGroup.Prefix>\n            <Envelope className=\"size-4 text-muted\" />\n          </InputGroup.Prefix>\n          <InputGroup.Input className=\"w-full max-w-[280px]\" placeholder=\"name@email.com\" />\n        </InputGroup>\n        <Description>我们不会将此邮箱分享给任何人</Description>\n      </TextField>\n    </Surface>\n  );\n}\n"
+}

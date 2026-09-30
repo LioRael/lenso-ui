@@ -1,0 +1,6 @@
+{
+  "name": "spinner-colors",
+  "exported": "SpinnerColors",
+  "source": "apps/docs/src/demos/en/spinner/colors.tsx",
+  "code": "import {Spinner} from \"@lenso/ui\";\n\nexport function SpinnerColors() {\n  return (\n    <div className=\"flex items-center gap-8\">\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner color=\"current\" />\n        <span className=\"text-xs text-muted\">Current</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner color=\"accent\" />\n        <span className=\"text-xs text-muted\">Accent</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner color=\"success\" />\n        <span className=\"text-xs text-muted\">Success</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner color=\"warning\" />\n        <span className=\"text-xs text-muted\">Warning</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner color=\"danger\" />\n        <span className=\"text-xs text-muted\">Danger</span>\n      </div>\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "close-button-interactive",
+  "exported": "Interactive",
+  "source": "apps/docs/src/demos/cn/close-button/interactive.tsx",
+  "code": "\"use client\";\n\nimport {CloseButton} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function Interactive() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"flex flex-col items-center justify-center gap-4\">\n      <CloseButton aria-label={`关闭（已点击 ${count} 次）`} onPress={() => setCount(count + 1)} />\n      <span className=\"text-sm text-muted\">已点击：{count} 次</span>\n    </div>\n  );\n}\n"
+}

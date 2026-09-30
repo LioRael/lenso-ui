@@ -1,0 +1,4 @@
+{
+  "source": "apps/docs/src/demos/cn/link/underline-offset.tsx",
+  "code": "import {Link} from \"@lenso/ui\";\n\nexport function LinkUnderlineOffset() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <Link className=\"underline-offset-1\" href=\"#\">\n        偏移 1\n        <Link.Icon />\n      </Link>\n      <Link className=\"underline-offset-2\" href=\"#\">\n        偏移 2\n        <Link.Icon />\n      </Link>\n      <Link className=\"underline-offset-3\" href=\"#\">\n        偏移 3\n        <Link.Icon />\n      </Link>\n    </div>\n  );\n}\n"
+}

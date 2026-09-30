@@ -1,0 +1,6 @@
+{
+  "name": "number-field-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/number-field/custom-styles.tsx",
+  "code": "import {Label, NumberField} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <NumberField\n      className=\"w-full max-w-48\"\n      defaultValue={2}\n      minValue={1}\n      name=\"guests\"\n      variant=\"secondary\"\n    >\n      <Label className=\"font-medium text-foreground\">宾客</Label>\n      <NumberField.Group className=\"rounded-xl bg-default\">\n        <NumberField.DecrementButton className=\"text-muted hover:text-foreground\" />\n        <NumberField.Input className=\"text-center tabular-nums\" />\n        <NumberField.IncrementButton className=\"text-muted hover:text-foreground\" />\n      </NumberField.Group>\n    </NumberField>\n  );\n}\n"
+}

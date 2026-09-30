@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-indeterminate",
+  "exported": "Indeterminate",
+  "source": "apps/docs/src/demos/cn/checkbox/indeterminate.tsx",
+  "code": "\"use client\";\n\nimport {Checkbox, Description} from \"@lenso/ui\";\nimport {useState} from \"react\";\n\nexport function Indeterminate() {\n  const [isIndeterminate, setIsIndeterminate] = useState(true);\n  const [isSelected, setIsSelected] = useState(false);\n\n  return (\n    <Checkbox\n      id=\"select-all\"\n      isIndeterminate={isIndeterminate}\n      isSelected={isSelected}\n      onChange={(selected: boolean) => {\n        setIsSelected(selected);\n        setIsIndeterminate(false);\n      }}\n    >\n      <Checkbox.Content>\n        <Checkbox.Control>\n          <Checkbox.Indicator />\n        </Checkbox.Control>\n        全选\n      </Checkbox.Content>\n      <Description>展示部分选中状态（短横线图标）</Description>\n    </Checkbox>\n  );\n}\n"
+}

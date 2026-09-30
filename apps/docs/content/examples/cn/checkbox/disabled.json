@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-disabled",
+  "exported": "Disabled",
+  "source": "apps/docs/src/demos/cn/checkbox/disabled.tsx",
+  "code": "import {Checkbox, Description} from \"@lenso/ui\";\n\nexport function Disabled() {\n  return (\n    <Checkbox isDisabled id=\"feature\">\n      <Checkbox.Content>\n        <Checkbox.Control>\n          <Checkbox.Indicator />\n        </Checkbox.Control>\n        高级功能\n      </Checkbox.Content>\n      <Description>该功能即将推出</Description>\n    </Checkbox>\n  );\n}\n"
+}

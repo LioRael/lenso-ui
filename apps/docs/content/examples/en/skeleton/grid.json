@@ -1,0 +1,6 @@
+{
+  "name": "skeleton-grid",
+  "exported": "Grid",
+  "source": "apps/docs/src/demos/en/skeleton/grid.tsx",
+  "code": "import {Skeleton} from \"@lenso/ui\";\n\nexport function Grid() {\n  return (\n    <div className=\"grid w-full max-w-xl grid-cols-3 gap-4\">\n      <Skeleton className=\"h-24 rounded-xl\" />\n      <Skeleton className=\"h-24 rounded-xl\" />\n      <Skeleton className=\"h-24 rounded-xl\" />\n    </div>\n  );\n}\n"
+}

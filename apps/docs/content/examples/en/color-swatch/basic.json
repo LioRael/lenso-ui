@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-basic",
+  "exported": "ColorSwatchBasic",
+  "source": "apps/docs/src/demos/en/color-swatch/basic.tsx",
+  "code": "import {ColorSwatch} from \"@lenso/ui\";\n\nexport function ColorSwatchBasic() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <ColorSwatch aria-label=\"Blue\" color=\"#0485F7\" />\n      <ColorSwatch aria-label=\"Red\" color=\"#EF4444\" />\n      <ColorSwatch aria-label=\"Amber\" color=\"#F59E0B\" />\n      <ColorSwatch aria-label=\"Green\" color=\"#10B981\" />\n      <ColorSwatch aria-label=\"Fuchsia\" color=\"#D946EF\" />\n    </div>\n  );\n}\n"
+}

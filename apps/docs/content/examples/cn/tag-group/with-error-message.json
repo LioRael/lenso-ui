@@ -1,0 +1,6 @@
+{
+  "name": "tag-group-with-error-message",
+  "exported": "TagGroupWithErrorMessage",
+  "source": "apps/docs/src/demos/cn/tag-group/with-error-message.tsx",
+  "code": "\"use client\";\n\nimport type {Key} from \"@lenso/ui\";\n\nimport {Description, ErrorMessage, Label, Tag, TagGroup} from \"@lenso/ui\";\nimport {useMemo, useState} from \"react\";\n\nexport function TagGroupWithErrorMessage() {\n  const [selected, setSelected] = useState<Iterable<Key>>(new Set());\n\n  const isInvalid = useMemo(() => Array.from(selected).length === 0, [selected]);\n\n  return (\n    <TagGroup\n      selectedKeys={selected}\n      selectionMode=\"multiple\"\n      onSelectionChange={(keys) => setSelected(keys)}\n    >\n      <Label>设施</Label>\n      <TagGroup.List>\n        <Tag id=\"laundry\">洗衣</Tag>\n        <Tag id=\"fitness\">健身中心</Tag>\n        <Tag id=\"parking\">停车</Tag>\n        <Tag id=\"pool\">游泳池</Tag>\n        <Tag id=\"breakfast\">早餐</Tag>\n      </TagGroup.List>\n      <Description>\n        {isInvalid ? \"请至少选择一个分类\" : \"已选：\" + Array.from(selected).join(\", \")}\n      </Description>\n      <ErrorMessage>{!!isInvalid && <>请至少选择一个分类</>}</ErrorMessage>\n    </TagGroup>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "toggle-button-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/cn/toggle-button/variants.tsx",
+  "code": "import {Heart} from \"@gravity-ui/icons\";\nimport {ToggleButton} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <ToggleButton>\n        <Heart />\n        默认\n      </ToggleButton>\n      <ToggleButton variant=\"ghost\">\n        <Heart />\n        幽灵\n      </ToggleButton>\n    </div>\n  );\n}\n"
+}

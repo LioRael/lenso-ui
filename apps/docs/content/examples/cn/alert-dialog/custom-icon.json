@@ -1,0 +1,6 @@
+{
+  "name": "alert-dialog-custom-icon",
+  "exported": "CustomIcon",
+  "source": "apps/docs/src/demos/cn/alert-dialog/custom-icon.tsx",
+  "code": "\"use client\";\n\nimport {LockOpen} from \"@gravity-ui/icons\";\nimport {AlertDialog, Button} from \"@lenso/ui\";\n\nexport function CustomIcon() {\n  return (\n    <AlertDialog>\n      <Button variant=\"secondary\">重置密码</Button>\n      <AlertDialog.Backdrop>\n        <AlertDialog.Container>\n          <AlertDialog.Dialog className=\"sm:max-w-[400px]\">\n            <AlertDialog.CloseTrigger />\n            <AlertDialog.Header>\n              <AlertDialog.Icon status=\"warning\">\n                <LockOpen className=\"size-5\" />\n              </AlertDialog.Icon>\n              <AlertDialog.Heading>要重置密码吗？</AlertDialog.Heading>\n            </AlertDialog.Header>\n            <AlertDialog.Body>\n              <p>我们会向你的邮箱发送重置链接。你需要设置新密码以恢复账户访问。</p>\n            </AlertDialog.Body>\n            <AlertDialog.Footer>\n              <Button slot=\"close\" variant=\"tertiary\">\n                取消\n              </Button>\n              <Button slot=\"close\">发送重置链接</Button>\n            </AlertDialog.Footer>\n          </AlertDialog.Dialog>\n        </AlertDialog.Container>\n      </AlertDialog.Backdrop>\n    </AlertDialog>\n  );\n}\n"
+}

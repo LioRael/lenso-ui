@@ -1,0 +1,6 @@
+{
+  "name": "color-swatch-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/color-swatch/render-function.tsx",
+  "code": "\"use client\";\n\nimport {ColorSwatch} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <ColorSwatch\n        aria-label=\"蓝色\"\n        color=\"#0485F7\"\n        render={(props) => <div {...props} data-custom=\"blue\" />}\n      />\n      <ColorSwatch\n        aria-label=\"红色\"\n        color=\"#EF4444\"\n        render={(props) => <div {...props} data-custom=\"red\" />}\n      />\n      <ColorSwatch\n        aria-label=\"琥珀色\"\n        color=\"#F59E0B\"\n        render={(props) => <div {...props} data-custom=\"amber\" />}\n      />\n      <ColorSwatch\n        aria-label=\"绿色\"\n        color=\"#10B981\"\n        render={(props) => <div {...props} data-custom=\"green\" />}\n      />\n      <ColorSwatch\n        aria-label=\"品红\"\n        color=\"#D946EF\"\n        render={(props) => <div {...props} data-custom=\"fuchsia\" />}\n      />\n    </div>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "form-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/form/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport {Button, Form, Input, Label, TextField} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Form\n      className=\"flex w-80 flex-col gap-3 rounded-xl border border-border/80 bg-surface p-4 shadow-sm\"\n      onSubmit={(e) => e.preventDefault()}\n    >\n      <TextField isRequired name=\"email\" type=\"email\">\n        <Label>工作邮箱</Label>\n        <Input className=\"bg-field\" placeholder=\"you@company.com\" />\n      </TextField>\n      <Button className=\"w-full\" type=\"submit\">\n        继续\n      </Button>\n    </Form>\n  );\n}\n"
+}

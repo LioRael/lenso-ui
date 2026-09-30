@@ -1,0 +1,6 @@
+{
+  "name": "badge-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/cn/badge/custom-styles.tsx",
+  "code": "import {Avatar, Badge} from \"@lenso/ui\";\n\nexport function CustomStyles() {\n  return (\n    <Badge.Anchor>\n      <Avatar>\n        <Avatar.Image\n          alt=\"凯特·威尔逊\"\n          src=\"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg\"\n        />\n        <Avatar.Fallback>KW</Avatar.Fallback>\n      </Avatar>\n      <Badge className=\"min-w-5 font-semibold tabular-nums\" color=\"accent\" size=\"sm\" variant=\"soft\">\n        5\n      </Badge>\n    </Badge.Anchor>\n  );\n}\n"
+}

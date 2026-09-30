@@ -1,0 +1,6 @@
+{
+  "name": "toolbar-vertical",
+  "exported": "Vertical",
+  "source": "apps/docs/src/demos/cn/toolbar/vertical.tsx",
+  "code": "import {ArrowUturnCcwLeft, ArrowUturnCwRight, Bold, Italic, Underline} from \"@gravity-ui/icons\";\nimport {\n  Button,\n  ButtonGroup,\n  Separator,\n  ToggleButton,\n  ToggleButtonGroup,\n  Toolbar,\n} from \"@lenso/ui\";\n\nexport function Vertical() {\n  return (\n    <Toolbar aria-label=\"工具\" orientation=\"vertical\">\n      <ToggleButtonGroup aria-label=\"文本样式\" selectionMode=\"multiple\">\n        <ToggleButton isIconOnly aria-label=\"粗体\" id=\"bold\">\n          <Bold />\n        </ToggleButton>\n        <ToggleButton isIconOnly aria-label=\"斜体\" id=\"italic\">\n          <ToggleButtonGroup.Separator />\n          <Italic />\n        </ToggleButton>\n        <ToggleButton isIconOnly aria-label=\"下划线\" id=\"underline\">\n          <ToggleButtonGroup.Separator />\n          <Underline />\n        </ToggleButton>\n      </ToggleButtonGroup>\n      <Separator />\n      <ButtonGroup variant=\"tertiary\">\n        <Button isIconOnly aria-label=\"撤销\">\n          <ArrowUturnCcwLeft />\n        </Button>\n        <Button isIconOnly aria-label=\"重做\">\n          <ButtonGroup.Separator />\n          <ArrowUturnCwRight />\n        </Button>\n      </ButtonGroup>\n    </Toolbar>\n  );\n}\n"
+}

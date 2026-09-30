@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-group-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/cn/checkbox-group/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Checkbox, CheckboxGroup, Description, Label} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <CheckboxGroup name=\"interests\" render={(props) => <div {...props} data-custom=\"foo\" />}>\n      <Label>选择你的兴趣</Label>\n      <Description>可多选</Description>\n      <Checkbox value=\"coding\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          编程\n        </Checkbox.Content>\n        <Description>热爱构建软件</Description>\n      </Checkbox>\n      <Checkbox value=\"design\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          设计\n        </Checkbox.Content>\n        <Description>喜欢打造精美界面</Description>\n      </Checkbox>\n      <Checkbox value=\"writing\">\n        <Checkbox.Content>\n          <Checkbox.Control>\n            <Checkbox.Indicator />\n          </Checkbox.Control>\n          写作\n        </Checkbox.Content>\n        <Description>热衷于内容创作</Description>\n      </Checkbox>\n    </CheckboxGroup>\n  );\n}\n"
+}

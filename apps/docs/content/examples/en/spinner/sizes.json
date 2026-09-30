@@ -1,0 +1,6 @@
+{
+  "name": "spinner-sizes",
+  "exported": "SpinnerSizes",
+  "source": "apps/docs/src/demos/en/spinner/sizes.tsx",
+  "code": "import {Spinner} from \"@lenso/ui\";\n\nexport function SpinnerSizes() {\n  return (\n    <div className=\"flex items-center gap-8\">\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner size=\"sm\" />\n        <span className=\"text-xs text-muted\">Small</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner size=\"md\" />\n        <span className=\"text-xs text-muted\">Medium</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner size=\"lg\" />\n        <span className=\"text-xs text-muted\">Large</span>\n      </div>\n      <div className=\"flex flex-col items-center gap-2\">\n        <Spinner size=\"xl\" />\n        <span className=\"text-xs text-muted\">Extra Large</span>\n      </div>\n    </div>\n  );\n}\n"
+}

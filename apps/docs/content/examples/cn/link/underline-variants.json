@@ -1,0 +1,4 @@
+{
+  "source": "apps/docs/src/demos/cn/link/underline-variants.tsx",
+  "code": "import {Link} from \"@lenso/ui\";\n\nexport function LinkUnderlineVariants() {\n  return (\n    <div className=\"flex flex-col gap-6\">\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"text-sm font-medium text-muted\">默认悬浮下划线</p>\n        <Link href=\"#\">\n          悬浮以查看下划线\n          <Link.Icon />\n        </Link>\n      </div>\n\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"text-sm font-medium text-muted\">始终显示下划线</p>\n        <Link className=\"underline\" href=\"#\">\n          下划线始终可见\n          <Link.Icon />\n        </Link>\n      </div>\n\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"text-sm font-medium text-muted\">无下划线</p>\n        <Link className=\"no-underline\" href=\"#\">\n          无下划线的链接\n          <Link.Icon />\n        </Link>\n      </div>\n    </div>\n  );\n}\n"
+}

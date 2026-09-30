@@ -1,0 +1,6 @@
+{
+  "name": "tooltip-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/tooltip/render-function.tsx",
+  "code": "\"use client\";\n\nimport {CircleInfo} from \"@gravity-ui/icons\";\nimport {Button, Tooltip} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Tooltip delay={0}>\n        <Button variant=\"secondary\">Hover me</Button>\n        <Tooltip.Content render={(props) => <div {...props} data-custom=\"foo\" />}>\n          <p>This is a tooltip</p>\n        </Tooltip.Content>\n      </Tooltip>\n\n      <Tooltip delay={0}>\n        <Button isIconOnly aria-label=\"More information\" variant=\"tertiary\">\n          <CircleInfo />\n        </Button>\n        <Tooltip.Content render={(props) => <div {...props} data-custom=\"foo\" />}>\n          <p>More information</p>\n        </Tooltip.Content>\n      </Tooltip>\n    </div>\n  );\n}\n"
+}

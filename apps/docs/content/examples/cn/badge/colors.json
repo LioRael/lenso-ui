@@ -1,0 +1,6 @@
+{
+  "name": "badge-colors",
+  "exported": "BadgeColors",
+  "source": "apps/docs/src/demos/cn/badge/colors.tsx",
+  "code": "import {Avatar, Badge} from \"@lenso/ui\";\n\nconst AVATAR_URL = \"https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg\";\n\nexport function BadgeColors() {\n  const colors = [\"default\", \"accent\", \"success\", \"warning\", \"danger\"] as const;\n\n  return (\n    <div className=\"flex items-center gap-6\">\n      {colors.map((color) => (\n        <Badge.Anchor key={color}>\n          <Avatar>\n            <Avatar.Image alt=\"头像\" src={AVATAR_URL} />\n            <Avatar.Fallback>JD</Avatar.Fallback>\n          </Avatar>\n          <Badge color={color} size=\"sm\" />\n        </Badge.Anchor>\n      ))}\n    </div>\n  );\n}\n"
+}

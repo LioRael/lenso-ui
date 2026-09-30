@@ -1,0 +1,6 @@
+{
+  "name": "link-icon-placement",
+  "exported": "LinkIconPlacement",
+  "source": "apps/docs/src/demos/en/link/icon-placement.tsx",
+  "code": "import {Link} from \"@lenso/ui\";\n\nexport function LinkIconPlacement() {\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <Link href=\"#\">\n        Icon at end (default)\n        <Link.Icon />\n      </Link>\n      <Link className=\"gap-1\" href=\"#\">\n        <Link.Icon />\n        Icon at start\n      </Link>\n    </div>\n  );\n}\n"
+}

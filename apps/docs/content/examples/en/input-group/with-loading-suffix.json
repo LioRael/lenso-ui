@@ -1,0 +1,6 @@
+{
+  "name": "input-group-with-loading-suffix",
+  "exported": "WithLoadingSuffix",
+  "source": "apps/docs/src/demos/en/input-group/with-loading-suffix.tsx",
+  "code": "\"use client\";\n\nimport {InputGroup, Spinner, TextField} from \"@lenso/ui\";\n\nexport function WithLoadingSuffix() {\n  return (\n    <TextField className=\"w-full max-w-[280px]\" defaultValue=\"Sending...\" name=\"status\">\n      <InputGroup>\n        <InputGroup.Input className=\"w-full max-w-[280px]\" />\n        <InputGroup.Suffix>\n          <Spinner className=\"size-4\" />\n        </InputGroup.Suffix>\n      </InputGroup>\n    </TextField>\n  );\n}\n"
+}

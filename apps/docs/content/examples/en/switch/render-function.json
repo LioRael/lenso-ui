@@ -1,0 +1,6 @@
+{
+  "name": "switch-render-function",
+  "exported": "RenderFunction",
+  "source": "apps/docs/src/demos/en/switch/render-function.tsx",
+  "code": "\"use client\";\n\nimport {Switch} from \"@lenso/ui\";\n\nexport function RenderFunction() {\n  return (\n    <Switch render={(props) => <div {...props} data-custom=\"foo\" />}>\n      <Switch.Content>\n        <Switch.Control>\n          <Switch.Thumb />\n        </Switch.Control>\n        Enable notifications\n      </Switch.Content>\n    </Switch>\n  );\n}\n"
+}

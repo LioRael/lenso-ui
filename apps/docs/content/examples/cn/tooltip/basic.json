@@ -1,0 +1,6 @@
+{
+  "name": "tooltip-basic",
+  "exported": "TooltipBasic",
+  "source": "apps/docs/src/demos/cn/tooltip/basic.tsx",
+  "code": "import {CircleInfo} from \"@gravity-ui/icons\";\nimport {Button, Tooltip} from \"@lenso/ui\";\n\nexport function TooltipBasic() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Tooltip delay={0}>\n        <Button variant=\"secondary\">悬停查看</Button>\n        <Tooltip.Content>\n          <p>这是一个工具提示</p>\n        </Tooltip.Content>\n      </Tooltip>\n\n      <Tooltip delay={0}>\n        <Button isIconOnly aria-label=\"更多信息\" variant=\"tertiary\">\n          <CircleInfo />\n        </Button>\n        <Tooltip.Content>\n          <p>更多信息</p>\n        </Tooltip.Content>\n      </Tooltip>\n    </div>\n  );\n}\n"
+}

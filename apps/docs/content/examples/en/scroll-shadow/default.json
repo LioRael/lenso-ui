@@ -1,0 +1,6 @@
+{
+  "name": "scroll-shadow-default",
+  "exported": "default",
+  "source": "apps/docs/src/demos/en/scroll-shadow/default.tsx",
+  "code": "import {ScrollShadow} from \"@lenso/ui\";\n\nexport default function Default() {\n  return (\n    <div className=\"w-full p-0 sm:max-w-sm\">\n      <ScrollShadow className=\"max-h-[240px] p-4\">\n        <div className=\"space-y-4\">\n          {Array.from({length: 10}).map((_, idx) => (\n            <p key={`scroll-shadow-lorem-content-${idx}`}>\n              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non\n              risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.\n              Morbi accumsan cursus enim, sed ultricies sapien.\n            </p>\n          ))}\n        </div>\n      </ScrollShadow>\n    </div>\n  );\n}\n"
+}

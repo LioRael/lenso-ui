@@ -1,0 +1,6 @@
+{
+  "name": "checkbox-variants",
+  "exported": "Variants",
+  "source": "apps/docs/src/demos/en/checkbox/variants.tsx",
+  "code": "import {Checkbox, Description} from \"@lenso/ui\";\n\nexport function Variants() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"text-sm font-medium text-muted\">Primary variant</p>\n        <Checkbox id=\"primary\" name=\"primary\" variant=\"primary\">\n          <Checkbox.Content>\n            <Checkbox.Control>\n              <Checkbox.Indicator />\n            </Checkbox.Control>\n            Primary checkbox\n          </Checkbox.Content>\n          <Description>Standard styling with default background</Description>\n        </Checkbox>\n      </div>\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"text-sm font-medium text-muted\">Secondary variant</p>\n        <Checkbox id=\"secondary\" name=\"secondary\" variant=\"secondary\">\n          <Checkbox.Content>\n            <Checkbox.Control>\n              <Checkbox.Indicator />\n            </Checkbox.Control>\n            Secondary checkbox\n          </Checkbox.Content>\n          <Description>Lower emphasis variant for use in surfaces</Description>\n        </Checkbox>\n      </div>\n    </div>\n  );\n}\n"
+}

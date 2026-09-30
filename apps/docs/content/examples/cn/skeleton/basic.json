@@ -1,0 +1,6 @@
+{
+  "name": "skeleton-basic",
+  "exported": "Basic",
+  "source": "apps/docs/src/demos/cn/skeleton/basic.tsx",
+  "code": "import {Skeleton} from \"@lenso/ui\";\n\nexport function Basic() {\n  return (\n    <div className=\"shadow-panel w-[250px] space-y-5 rounded-lg bg-transparent p-4\">\n      <Skeleton className=\"h-32 rounded-lg\" />\n      <div className=\"space-y-3\">\n        <Skeleton className=\"h-3 w-3/5 rounded-lg\" />\n        <Skeleton className=\"h-3 w-4/5 rounded-lg\" />\n        <Skeleton className=\"h-3 w-2/5 rounded-lg\" />\n      </div>\n    </div>\n  );\n}\n"
+}

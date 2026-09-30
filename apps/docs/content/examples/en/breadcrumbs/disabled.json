@@ -1,0 +1,6 @@
+{
+  "name": "breadcrumbs-disabled",
+  "exported": "default",
+  "source": "apps/docs/src/demos/en/breadcrumbs/disabled.tsx",
+  "code": "\"use client\";\n\nimport {Breadcrumbs} from \"@lenso/ui\";\n\nexport default function BreadcrumbsDisabled() {\n  return (\n    <Breadcrumbs isDisabled>\n      <Breadcrumbs.Item href=\"#\">Home</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"#\">Products</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"#\">Electronics</Breadcrumbs.Item>\n      <Breadcrumbs.Item>Laptop</Breadcrumbs.Item>\n    </Breadcrumbs>\n  );\n}\n"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "error-message-custom-styles",
+  "exported": "CustomStyles",
+  "source": "apps/docs/src/demos/en/error-message/custom-styles.tsx",
+  "code": "\"use client\";\n\nimport type {Key} from \"@lenso/ui\";\n\nimport {Description, ErrorMessage, Label, Tag, TagGroup} from \"@lenso/ui\";\nimport {useMemo, useState} from \"react\";\n\nexport function CustomStyles() {\n  const [selected, setSelected] = useState<Iterable<Key>>(new Set());\n  const isInvalid = useMemo(() => Array.from(selected).length === 0, [selected]);\n\n  return (\n    <TagGroup\n      className=\"w-full max-w-xs gap-1.5\"\n      selectedKeys={selected}\n      selectionMode=\"multiple\"\n      onSelectionChange={setSelected}\n    >\n      <Label>Topics</Label>\n      <TagGroup.List>\n        <Tag id=\"api\">API</Tag>\n        <Tag id=\"design\">Design</Tag>\n        <Tag id=\"docs\">Docs</Tag>\n      </TagGroup.List>\n      <Description>Pick at least one topic</Description>\n      <ErrorMessage className=\"font-medium text-danger\">\n        {!!isInvalid && <>Choose at least one topic</>}\n      </ErrorMessage>\n    </TagGroup>\n  );\n}\n"
+}
