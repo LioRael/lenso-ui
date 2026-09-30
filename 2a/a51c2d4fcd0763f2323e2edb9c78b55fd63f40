@@ -1,0 +1,19 @@
+.agents/skills/land/SKILL.md
+  s_f4202e28c6b5b1::t_647ed451c08958 4-7,14-114,118-123,125,129-131,133,137-147,150-155,157-158,161-166,168-169,172-337
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2aa51c2d4fcd0763f2323e2edb9c78b55fd63f40",
+  "prompts": {},
+  "sessions": {
+    "s_f4202e28c6b5b1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0ee9e-623b-7d12-a648-d8b462390eec",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
