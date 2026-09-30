@@ -128,6 +128,7 @@ that push and report the conflict. Do not approve the release environment.
 
    Source: the base `.github/workflows/ci.yml` install step; revalidate the
    successor's install mode and lockfile before execution.
+
 3. Run the current repository gate:
 
    ```sh
@@ -139,6 +140,7 @@ that push and report the conflict. Do not approve the release environment.
    and the testing package's browser tests. It no longer runs the deleted
    DTCG, registry, release-status or design-lint graph. Do not invent those
    removed invocations.
+
 4. For reconstructed components, themes, docs, dependencies or their integration,
    also exercise the production consumers:
 
@@ -150,6 +152,7 @@ that push and report the conflict. Do not approve the release environment.
    Sources: `apps/docs/package.json`, `scripts.build` (prepare, then Next
    webpack build); `packages/storybook/package.json`, `scripts.build`.
    These are not implied by the root `check` script.
+
 5. For docs integration, start the just-built docs using
    `pnpm --filter @lenso/ui-docs start` in a managed process, wait for readiness,
    then run:
@@ -163,6 +166,7 @@ that push and report the conflict. Do not approve the release environment.
    defaulting to `http://127.0.0.1:3000`. Preserve existing servers; stop only
    the process you started. Do not run an unbounded terminal server command
    that prevents executing the proof.
+
 6. When the requested scope includes complete live-example coverage, run:
 
    ```sh
@@ -175,6 +179,7 @@ that push and report the conflict. Do not approve the release environment.
    `--partial` or a family filter for a complete-scope claim. For a genuinely
    narrower task, use only the documented `--locale`, `--families`, `--base`
    options appropriate to that task, and explicitly report the reduced scope.
+
 7. Run relevant maintained behavior/geometry/keyboard proofs for changed families.
    Inspect each proof's actual entrypoint and supported arguments before use.
    A successful Storybook build, imported snippet, mounted default, or upstream
