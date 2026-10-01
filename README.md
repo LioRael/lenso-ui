@@ -113,3 +113,18 @@ The source appearance is retained rather than silently altered.
 
 HeroUI-derived work is Apache-2.0 with its [source attribution](third-party/heroui/NOTICE.md).
 The preserved Lenso primitives retain their MIT license.
+
+## Documentation deployment
+
+Docs build as a static export in `apps/docs/out`. `pnpm --filter @lenso/ui-docs
+start` previews that export locally, including the production redirect rules.
+
+Every push to `main` runs `Verify reconstruction`. After verification and both
+consumer builds pass, the workflow uploads the exact commit's docs artifact
+and deploys it to the existing Cloudflare Pages project `lenso-ui`, serving
+https://ui.lenso.dev. Candidate branches and pull requests never deploy. The
+`docs-production` environment uses the existing `CLOUDFLARE_ACCOUNT_ID` and
+`CLOUDFLARE_API_TOKEN` secrets; the token must have Pages deployment access.
+The build sets `LENSO_DOCS_SITE=https://ui.lenso.dev` for canonical metadata,
+robots and sitemap URLs. Re-run the failed deployment job to retry the same
+verified artifact. This workflow does not publish npm packages.

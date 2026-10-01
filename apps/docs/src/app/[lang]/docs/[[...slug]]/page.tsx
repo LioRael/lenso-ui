@@ -19,8 +19,14 @@ interface Props {
   params: Promise<{ lang: string; slug?: string[] }>;
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return source.pages.map((page) => ({ lang: page.locale, slug: page.slug.split("/") }));
+  return [
+    { lang: "en", slug: [] },
+    { lang: "cn", slug: [] },
+    ...source.pages.map((page) => ({ lang: page.locale, slug: page.slug.split("/") })),
+  ];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

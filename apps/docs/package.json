@@ -7,7 +7,7 @@
     "import:upstream": "node scripts/import-upstream.mjs",
     "build": "node scripts/prepare-docs.mjs && next build --webpack",
     "dev": "node scripts/prepare-docs.mjs && next dev --webpack",
-    "start": "next start",
+    "start": "node scripts/serve-docs.mjs",
     "typecheck": "node scripts/prepare-docs.mjs && next typegen && tsc --noEmit",
     "test": "node --test scripts/*.test.mjs",
     "test:browser": "node scripts/browser-check.mjs",

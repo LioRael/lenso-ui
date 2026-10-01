@@ -1,0 +1,5 @@
+/ /en/docs/react/getting-started 302
+/docs /en/docs/react/getting-started 302
+/docs/* /en/docs/:splat 302
+/en/docs /en/docs/react/getting-started 302
+/cn/docs /cn/docs/react/getting-started 302

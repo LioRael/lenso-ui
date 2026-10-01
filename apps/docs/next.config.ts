@@ -3,6 +3,8 @@ import stylex from "@stylexjs/unplugin";
 
 const config: NextConfig = {
   reactStrictMode: true,
+  output: "export",
+  images: { unoptimized: true },
   transpilePackages: ["@lenso/ui", "@lenso/tokens"],
   webpack(config) {
     // Unplugin keeps extracted StyleX rules in memory, not Webpack's cached-module metadata.

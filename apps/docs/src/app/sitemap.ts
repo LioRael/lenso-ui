@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { source, pageUrl } from "@/lib/source";
 import { env } from "../../env";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return source.pages.map((page) => ({
     url: new URL(pageUrl(page), env.siteUrl).href,
