@@ -1,5 +1,7 @@
 import { afterEach, expect, test } from "vitest";
 import { cleanup, render } from "vitest-browser-react";
+import { createRef } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Card } from "./card.js";
 import { Surface } from "../surface/surface.js";
 import { Alert } from "../alert/alert.js";
@@ -20,6 +22,79 @@ import { Typography } from "../typography/typography.js";
 import { Header } from "../header/header.js";
 
 afterEach(cleanup);
+
+const compositionStyles = stylex.create({
+  height: (height: number) => ({ height }),
+});
+
+// Geometry coverage did not exercise native state callbacks, undefined styles or composed refs.
+test("progress native state callbacks retain dynamic xstyle and composed refs", async () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const fillRef = createRef<HTMLDivElement>();
+  const example = (value: number) => (
+    <ProgressBar
+      ref={rootRef}
+      value={value}
+      aria-label="Composed progress"
+      data-slot={undefined}
+      render={<div data-testid="composed-progress" />}
+      xstyle={compositionStyles.height(73)}
+      style={(state) => (state.status === "complete" ? undefined : { opacity: 0.5 })}
+    >
+      <ProgressBar.Track>
+        <ProgressBar.Fill
+          ref={fillRef}
+          data-slot="custom-fill"
+          render={(props, state) => (
+            <div {...props} data-testid="composed-fill" data-native-status={state.status} />
+          )}
+          style={(state) => (state.status === "complete" ? { opacity: 1 } : undefined)}
+        />
+      </ProgressBar.Track>
+    </ProgressBar>
+  );
+  const view = await render(example(25));
+  expect(rootRef.current).toBe(view.getByTestId("composed-progress").element());
+  expect(fillRef.current).toBe(view.getByTestId("composed-fill").element());
+  await expect
+    .element(view.getByTestId("composed-progress"))
+    .toHaveAttribute("data-slot", "progress-bar");
+  await expect
+    .element(view.getByTestId("composed-fill"))
+    .toHaveAttribute("data-slot", "custom-fill");
+  expect(getComputedStyle(rootRef.current!).height).toBe("73px");
+  expect(getComputedStyle(rootRef.current!).opacity).toBe("0.5");
+  await view.rerender(example(100));
+  await expect
+    .element(view.getByTestId("composed-fill"))
+    .toHaveAttribute("data-native-status", "complete");
+  expect(getComputedStyle(rootRef.current!).height).toBe("73px");
+  expect(getComputedStyle(rootRef.current!).opacity).toBe("1");
+  expect(getComputedStyle(fillRef.current!).opacity).toBe("1");
+});
+
+// The display fixtures only rendered default semantic tags, not public render composition.
+test("typography render composition forwards its ref, styles and semantic attributes", async () => {
+  const ref = createRef<HTMLParagraphElement>();
+  const view = await render(
+    <Typography
+      ref={ref}
+      type="body"
+      data-slot="custom-text"
+      render={<p data-testid="composed-text" />}
+      xstyle={compositionStyles.height(47)}
+      style={{ opacity: 0.7 }}
+    >
+      Composed text
+    </Typography>,
+  );
+  const element = view.getByTestId("composed-text");
+  expect(ref.current).toBe(element.element());
+  await expect.element(element).toHaveAttribute("data-slot", "custom-text");
+  await expect.element(element).toHaveAttribute("data-type", "body");
+  expect(getComputedStyle(element.element()).height).toBe("47px");
+  expect(getComputedStyle(element.element()).opacity).toBe("0.7");
+});
 
 test("source surface color, radius and elevation resolve in independent light and dark scopes", async () => {
   const view = await render(

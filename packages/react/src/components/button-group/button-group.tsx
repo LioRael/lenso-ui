@@ -2,7 +2,9 @@
 
 import { Children, createContext, isValidElement, useContext, type ComponentProps } from "react";
 import { buttonGroupStyles } from "@lenso/tokens/button-group";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { ButtonRoot, type ButtonSize, type ButtonVariant } from "../button/button.js";
 type GroupOptions = {
   disabled?: boolean;
@@ -12,9 +14,23 @@ type GroupOptions = {
   orientation?: "horizontal" | "vertical";
 };
 export const ButtonGroupContext = createContext<GroupOptions>({});
-const Root = styledPart("fieldset", "button-group", buttonGroupStyles.root);
-const Separator = styledPart("span", "button-group-separator", buttonGroupStyles.separator);
-export type ButtonGroupRootProps = ComponentProps<typeof Root> & GroupOptions;
+function Separator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(buttonGroupStyles.separator, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "button-group-separator"}
+    />
+  );
+}
+export type ButtonGroupRootProps = StyleXProps<React.ComponentPropsWithRef<"fieldset">> &
+  GroupOptions & { "data-slot"?: unknown };
 export function ButtonGroupRoot({
   children,
   disabled = false,
@@ -23,14 +39,23 @@ export function ButtonGroupRoot({
   fullWidth = false,
   orientation = "horizontal",
   xstyle,
+  style,
   ...props
 }: ButtonGroupRootProps) {
   const options = { size, variant, fullWidth, orientation, disabled };
+  const compiled = stylex.props(
+    buttonGroupStyles.root,
+    buttonGroupStyles[orientation],
+    fullWidth && buttonGroupStyles.fullWidth,
+    xstyle,
+  );
   return (
-    <Root
+    <fieldset
       {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "button-group"}
       aria-disabled={disabled || undefined}
-      xstyle={[buttonGroupStyles[orientation], fullWidth && buttonGroupStyles.fullWidth, xstyle]}
     >
       {Children.map(children, (child) => (
         <ButtonGroupContext
@@ -44,7 +69,7 @@ export function ButtonGroupRoot({
           {child}
         </ButtonGroupContext>
       ))}
-    </Root>
+    </fieldset>
   );
 }
 export function ButtonGroupSeparator({ xstyle, ...props }: ComponentProps<typeof Separator>) {

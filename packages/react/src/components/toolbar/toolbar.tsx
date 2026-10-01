@@ -9,34 +9,113 @@ import {
   buttonIconOnlySizes,
 } from "@lenso/tokens/button";
 import { linkStyles } from "@lenso/tokens/link";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { createContext, useContext, type ComponentProps } from "react";
 import { ButtonSizeContext, type ButtonSize, type ButtonVariant } from "../button/button.js";
-const Root = styledPart(BaseToolbar.Root, "toolbar", toolbarStyles.root);
 const Context = createContext<"horizontal" | "vertical">("horizontal");
-const Button = styledPart(BaseToolbar.Button, "toolbar-button", buttonStyles.root);
-const Separator = styledPart(BaseToolbar.Separator, "toolbar-separator", toolbarStyles.separator);
-export const ToolbarLink = styledPart(BaseToolbar.Link, "toolbar-link", linkStyles.root);
-export const ToolbarGroup = styledPart(BaseToolbar.Group, "toolbar-group", toolbarStyles.group);
+function Button({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseToolbar.Button.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Button>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(buttonStyles.root, xstyle);
+  return (
+    <BaseToolbar.Button
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "toolbar-button"}
+    />
+  );
+}
+function Separator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseToolbar.Separator.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Separator>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(toolbarStyles.separator, xstyle);
+  return (
+    <BaseToolbar.Separator
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "toolbar-separator"}
+    />
+  );
+}
+export function ToolbarLink({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseToolbar.Link.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Link>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(linkStyles.root, xstyle);
+  return (
+    <BaseToolbar.Link
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "toolbar-link"}
+    />
+  );
+}
+export function ToolbarGroup({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseToolbar.Group.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Group>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(toolbarStyles.group, xstyle);
+  return (
+    <BaseToolbar.Group
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "toolbar-group"}
+    />
+  );
+}
 export type ToolbarRootProps = StyleXProps<ComponentProps<typeof BaseToolbar.Root>> & {
+  "data-slot"?: unknown;
   isAttached?: boolean;
 };
 export function ToolbarRoot({
   isAttached = false,
   orientation = "horizontal",
   xstyle,
+  style,
   ...props
 }: ToolbarRootProps) {
+  const compiled = stylex.props(
+    toolbarStyles.root,
+    orientation === "vertical" && toolbarStyles.vertical,
+    isAttached && toolbarStyles.attached,
+    xstyle,
+  );
   return (
     <Context value={orientation}>
-      <Root
+      <BaseToolbar.Root
         {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "toolbar"}
         orientation={orientation}
-        xstyle={[
-          orientation === "vertical" && toolbarStyles.vertical,
-          isAttached && toolbarStyles.attached,
-          xstyle,
-        ]}
       />
     </Context>
   );

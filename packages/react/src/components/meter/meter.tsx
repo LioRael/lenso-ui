@@ -3,32 +3,78 @@
 import { Meter as Primitive } from "@base-ui/react/meter";
 import { createContext, useContext, type ComponentProps } from "react";
 import { meterStyles, meterColors, meterTrackSizes, meterFillSizes } from "@lenso/tokens/meter";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 const SizeContext = createContext<keyof typeof meterTrackSizes>("md");
-const Root = styledPart(Primitive.Root, "meter", meterStyles.root);
-const Track = styledPart(Primitive.Track, "meter-track", meterStyles.track);
-const Fill = styledPart(Primitive.Indicator, "meter-fill", meterStyles.fill);
-export type MeterRootProps = StyleXProps<ComponentProps<typeof Primitive.Root>> & {
+export type MeterRootProps = StyleXProps<Primitive.Root.Props> & {
   size?: keyof typeof meterTrackSizes;
   color?: keyof typeof meterColors;
 };
-export function MeterRoot({ size = "md", color = "accent", xstyle, ...props }: MeterRootProps) {
+export function MeterRoot({
+  size = "md",
+  color = "accent",
+  xstyle,
+  style,
+  ...props
+}: MeterRootProps) {
+  const compiled = stylex.props(meterStyles.root, meterColors[color], xstyle);
   return (
     <SizeContext.Provider value={size}>
-      <Root {...props} xstyle={[meterColors[color], xstyle]} />
+      <Primitive.Root
+        {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter"}
+        {...compiled}
+        style={mergeStyle<Primitive.Root.State>(compiled.style, style)}
+      />
     </SizeContext.Provider>
   );
 }
-export function MeterTrack({ xstyle, ...props }: ComponentProps<typeof Track>) {
+export function MeterTrack({ xstyle, style, ...props }: StyleXProps<Primitive.Track.Props>) {
   const size = useContext(SizeContext);
-  return <Track {...props} xstyle={[meterTrackSizes[size], xstyle]} />;
+  const compiled = stylex.props(meterStyles.track, meterTrackSizes[size], xstyle);
+  return (
+    <Primitive.Track
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter-track"}
+      {...compiled}
+      style={mergeStyle<Primitive.Track.State>(compiled.style, style)}
+    />
+  );
 }
-export function MeterFill({ xstyle, ...props }: ComponentProps<typeof Fill>) {
+export function MeterFill({ xstyle, style, ...props }: StyleXProps<Primitive.Indicator.Props>) {
   const size = useContext(SizeContext);
-  return <Fill {...props} xstyle={[meterFillSizes[size], xstyle]} />;
+  const compiled = stylex.props(meterStyles.fill, meterFillSizes[size], xstyle);
+  return (
+    <Primitive.Indicator
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter-fill"}
+      {...compiled}
+      style={mergeStyle<Primitive.Indicator.State>(compiled.style, style)}
+    />
+  );
 }
-export const MeterLabel = styledPart(Primitive.Label, "label", meterStyles.label);
-export const MeterOutput = styledPart(Primitive.Value, "meter-output", meterStyles.output);
+export function MeterLabel({ xstyle, style, ...props }: StyleXProps<Primitive.Label.Props>) {
+  const compiled = stylex.props(meterStyles.label, xstyle);
+  return (
+    <Primitive.Label
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
+      {...compiled}
+      style={mergeStyle<Primitive.Label.State>(compiled.style, style)}
+    />
+  );
+}
+export function MeterOutput({ xstyle, style, ...props }: StyleXProps<Primitive.Value.Props>) {
+  const compiled = stylex.props(meterStyles.output, xstyle);
+  return (
+    <Primitive.Value
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter-output"}
+      {...compiled}
+      style={mergeStyle<Primitive.Value.State>(compiled.style, style)}
+    />
+  );
+}
 export const Meter = Object.assign(MeterRoot, {
   Root: MeterRoot,
   Label: MeterLabel,

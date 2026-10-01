@@ -7,23 +7,61 @@
 import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
 import { checkboxStyles } from "@lenso/tokens/checkbox";
 import { createContext, useContext, type ComponentPropsWithRef } from "react";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 
 export type CheckboxVariant = "primary" | "secondary";
 export const CheckboxVariantContext = createContext<CheckboxVariant>("primary");
-const Root = styledPart(BaseCheckbox.Root, "checkbox", checkboxStyles.root);
-export type CheckboxRootProps = ComponentPropsWithRef<typeof Root> & { variant?: CheckboxVariant };
-export function CheckboxRoot({ variant, ...props }: CheckboxRootProps) {
+export type CheckboxRootProps = StyleXProps<
+  Omit<BaseCheckbox.Root.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCheckbox.Root>["ref"];
+  }
+> & { "data-slot"?: unknown; variant?: CheckboxVariant };
+export function CheckboxRoot({ variant, xstyle, style, ...props }: CheckboxRootProps) {
+  const compiled = stylex.props(checkboxStyles.root, xstyle);
   const inherited = useContext(CheckboxVariantContext);
   return (
     <CheckboxVariantContext value={variant ?? inherited}>
-      <Root {...props} />
+      <BaseCheckbox.Root
+        {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "checkbox"}
+      />
     </CheckboxVariantContext>
   );
 }
-export const CheckboxContent = styledPart("span", "checkbox-content", checkboxStyles.content);
-const Control = styledPart("span", "checkbox-control", checkboxStyles.control);
+export function CheckboxContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(checkboxStyles.content, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "checkbox-content"}
+    />
+  );
+}
+function Control({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(checkboxStyles.control, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "checkbox-control"}
+    />
+  );
+}
 export type CheckboxControlProps = StyleXProps<ComponentPropsWithRef<"span">> & {
   variant?: CheckboxVariant;
 };
@@ -36,11 +74,25 @@ export function CheckboxControl({ variant, xstyle, ...props }: CheckboxControlPr
     />
   );
 }
-const Indicator = styledPart(
-  BaseCheckbox.Indicator,
-  "checkbox-indicator",
-  checkboxStyles.indicator,
-);
+function Indicator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseCheckbox.Indicator.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCheckbox.Indicator>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(checkboxStyles.indicator, xstyle);
+  return (
+    <BaseCheckbox.Indicator
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "checkbox-indicator"}
+    />
+  );
+}
 export type CheckboxIndicatorProps = ComponentPropsWithRef<typeof Indicator>;
 export function CheckboxIndicator({ children, ...props }: CheckboxIndicatorProps) {
   return (

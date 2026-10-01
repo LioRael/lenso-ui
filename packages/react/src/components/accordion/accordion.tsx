@@ -3,28 +3,122 @@
 import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
 import { createContext, useContext, type ComponentProps } from "react";
 import { accordionStyles } from "@lenso/tokens/accordion";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { navigateDisclosureGroup } from "./keyboard.js";
 const Context = createContext({
   variant: "default" as "default" | "surface",
   hideSeparator: false,
 });
-const Root = styledPart(BaseAccordion.Root, "accordion", accordionStyles.root);
-const Item = styledPart(BaseAccordion.Item, "accordion-item", accordionStyles.item);
-const Trigger = styledPart(BaseAccordion.Trigger, "accordion-trigger", accordionStyles.trigger);
-export const AccordionHeading = styledPart(
-  BaseAccordion.Header,
-  "accordion-heading",
-  accordionStyles.heading,
-);
-export const AccordionPanel = styledPart(
-  BaseAccordion.Panel,
-  "accordion-panel",
-  accordionStyles.panel,
-);
-export const AccordionBody = styledPart("div", "accordion-body", accordionStyles.body);
-const Indicator = styledPart("svg", "accordion-indicator", accordionStyles.indicator);
+function Item({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseAccordion.Item.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Item>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(accordionStyles.item, xstyle);
+  return (
+    <BaseAccordion.Item
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "accordion-item"}
+    />
+  );
+}
+function Trigger({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseAccordion.Trigger.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Trigger>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(accordionStyles.trigger, xstyle);
+  return (
+    <BaseAccordion.Trigger
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "accordion-trigger"}
+    />
+  );
+}
+export function AccordionHeading({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseAccordion.Header.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Header>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(accordionStyles.heading, xstyle);
+  return (
+    <BaseAccordion.Header
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "accordion-heading"}
+    />
+  );
+}
+export function AccordionPanel({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseAccordion.Panel.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Panel>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(accordionStyles.panel, xstyle);
+  return (
+    <BaseAccordion.Panel
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "accordion-panel"}
+    />
+  );
+}
+export function AccordionBody({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(accordionStyles.body, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "accordion-body"}
+    />
+  );
+}
+function Indicator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"svg">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(accordionStyles.indicator, xstyle);
+  return (
+    <svg
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "accordion-indicator"}
+    />
+  );
+}
 export type AccordionRootProps = StyleXProps<ComponentProps<typeof BaseAccordion.Root>> & {
+  "data-slot"?: unknown;
   variant?: "default" | "surface";
   hideSeparator?: boolean;
 };
@@ -35,19 +129,27 @@ export function AccordionRoot({
   loopFocus = true,
   onKeyDown,
   xstyle,
+  style,
   ...props
 }: AccordionRootProps) {
+  const compiled = stylex.props(
+    accordionStyles.root,
+    variant === "surface" && accordionStyles.surface,
+    xstyle,
+  );
   return (
     <Context value={{ variant, hideSeparator }}>
-      <Root
+      <BaseAccordion.Root
         {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "accordion"}
         orientation={orientation}
         loopFocus={loopFocus}
         onKeyDown={(event) => {
           onKeyDown?.(event);
           navigateDisclosureGroup(event, orientation, loopFocus);
         }}
-        xstyle={[variant === "surface" && accordionStyles.surface, xstyle]}
       />
     </Context>
   );

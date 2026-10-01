@@ -18,7 +18,9 @@ import {
   buttonVariants,
   buttonIconOnlySizes,
 } from "@lenso/tokens/button";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { ButtonGroupContext } from "../button-group/button-group.js";
 
 export type ButtonSize = "sm" | "md" | "lg";
@@ -31,6 +33,7 @@ export type ButtonVariant =
   | "danger"
   | "danger-soft";
 export type ButtonRootProps = StyleXProps<ComponentProps<typeof BaseButton>> & {
+  "data-slot"?: unknown;
   size?: ButtonSize;
   variant?: ButtonVariant;
   isIconOnly?: boolean;
@@ -38,8 +41,21 @@ export type ButtonRootProps = StyleXProps<ComponentProps<typeof BaseButton>> & {
   isLoading?: boolean;
 };
 export const ButtonSizeContext = createContext<ButtonSize>("md");
-const Root = styledPart(BaseButton, "button", buttonStyles.root);
-const Icon = styledPart("span", "button-icon", buttonStyles.icon);
+function Icon({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(buttonStyles.icon, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "button-icon"}
+    />
+  );
+}
 
 function blockActivation(event: SyntheticEvent) {
   event.preventDefault();
@@ -74,6 +90,8 @@ export function ButtonRoot({
   isIconOnly = false,
   isLoading = false,
   xstyle,
+  style,
+  "data-slot": dataSlot,
   render,
   onClickCapture,
   onDoubleClickCapture,
@@ -94,10 +112,27 @@ export function ButtonRoot({
       : typeof render === "function"
         ? (((renderProps, state) => protectRender(render(renderProps, state))) as typeof render)
         : protectRender(render);
+  const compiled = stylex.props(
+    buttonStyles.root,
+    buttonSizes[size],
+    buttonVariants[variant],
+    isIconOnly && buttonIconOnlySizes[size],
+    fullWidth && buttonStyles.fullWidth,
+    isLoading && buttonStyles.pending,
+    group.orientation &&
+      buttonStyles[group.orientation === "horizontal" ? "groupedHorizontal" : "groupedVertical"],
+    group.orientation &&
+      variant === "outline" &&
+      buttonStyles[group.orientation === "horizontal" ? "outlineHorizontal" : "outlineVertical"],
+    xstyle,
+  );
   return (
     <ButtonSizeContext value={size}>
-      <Root
+      <BaseButton
         {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={dataSlot ?? "button"}
         disabled={ownDisabled ?? group.disabled}
         render={protectedRender}
         aria-busy={isLoading || undefined}
@@ -108,26 +143,9 @@ export function ButtonRoot({
         onKeyUpCapture={isLoading ? guard(onKeyUpCapture, true) : onKeyUpCapture}
         onPointerDownCapture={isLoading ? guard(onPointerDownCapture) : onPointerDownCapture}
         onPointerUpCapture={isLoading ? guard(onPointerUpCapture) : onPointerUpCapture}
-        xstyle={[
-          buttonSizes[size],
-          buttonVariants[variant],
-          isIconOnly && buttonIconOnlySizes[size],
-          fullWidth && buttonStyles.fullWidth,
-          isLoading && buttonStyles.pending,
-          group.orientation &&
-            buttonStyles[
-              group.orientation === "horizontal" ? "groupedHorizontal" : "groupedVertical"
-            ],
-          group.orientation &&
-            variant === "outline" &&
-            buttonStyles[
-              group.orientation === "horizontal" ? "outlineHorizontal" : "outlineVertical"
-            ],
-          xstyle,
-        ]}
       >
         {children}
-      </Root>
+      </BaseButton>
     </ButtonSizeContext>
   );
 }

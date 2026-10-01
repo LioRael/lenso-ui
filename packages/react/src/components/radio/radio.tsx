@@ -7,13 +7,61 @@
 import { Radio as BaseRadio } from "@base-ui/react/radio";
 import { radioStyles } from "@lenso/tokens/radio";
 import { createContext, useContext, type ComponentPropsWithRef } from "react";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 
-export const RadioRoot = styledPart(BaseRadio.Root, "radio", radioStyles.root);
+export function RadioRoot({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseRadio.Root.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseRadio.Root>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(radioStyles.root, xstyle);
+  return (
+    <BaseRadio.Root
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "radio"}
+    />
+  );
+}
 export type RadioVariant = "primary" | "secondary";
 export const RadioVariantContext = createContext<RadioVariant>("primary");
-export const RadioContent = styledPart("span", "radio-content", radioStyles.content);
-const Control = styledPart("span", "radio-control", radioStyles.control);
+export function RadioContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(radioStyles.content, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "radio-content"}
+    />
+  );
+}
+function Control({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(radioStyles.control, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "radio-control"}
+    />
+  );
+}
 export type RadioControlProps = StyleXProps<ComponentPropsWithRef<"span">> & {
   variant?: RadioVariant;
 };
@@ -26,7 +74,25 @@ export function RadioControl({ variant, xstyle, ...props }: RadioControlProps) {
     />
   );
 }
-const Indicator = styledPart(BaseRadio.Indicator, "radio-indicator", radioStyles.indicator);
+function Indicator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseRadio.Indicator.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseRadio.Indicator>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(radioStyles.indicator, xstyle);
+  return (
+    <BaseRadio.Indicator
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "radio-indicator"}
+    />
+  );
+}
 export type RadioIndicatorProps = ComponentPropsWithRef<typeof Indicator>;
 export function RadioIndicator(props: RadioIndicatorProps) {
   return <Indicator keepMounted {...props} />;

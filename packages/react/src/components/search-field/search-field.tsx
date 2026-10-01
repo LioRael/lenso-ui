@@ -5,7 +5,8 @@ import { Field } from "@base-ui/react/field";
 import { Input as BaseInput } from "@base-ui/react/input";
 import { Button as BaseButton } from "@base-ui/react/button";
 import { searchFieldStyles, searchFieldGroupStyles } from "@lenso/tokens/search-field";
-import { styledPart } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { FieldScope } from "../textfield/field-scope.js";
 
 type SearchContextValue = {
@@ -22,15 +23,17 @@ function useSearch() {
   if (!context) throw new Error("SearchField parts must be inside SearchField.Root");
   return context;
 }
-const Root = styledPart(Field.Root, "search-field", searchFieldStyles.root);
-export type SearchFieldRootProps = React.ComponentProps<typeof Root> & {
+export type SearchFieldRootProps = StyleXProps<Field.Root.Props> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
+  "data-slot"?: unknown;
 };
 export function SearchFieldRoot({
   variant = "primary",
   fullWidth = false,
   xstyle,
+  style,
+  "data-slot": slot,
   ...props
 }: SearchFieldRootProps) {
   const input = React.useRef<HTMLInputElement>(null);
@@ -42,46 +45,72 @@ export function SearchFieldRoot({
     () => ({ input, registerInput, empty, setEmpty, variant, fullWidth }),
     [empty, variant, fullWidth, registerInput],
   );
+  const compiled = stylex.props(
+    searchFieldStyles.root,
+    fullWidth && searchFieldGroupStyles.fullWidth,
+    xstyle,
+  );
   return (
     <SearchContext value={context}>
       <FieldScope value={true}>
-        <Root {...props} xstyle={[fullWidth && searchFieldGroupStyles.fullWidth, xstyle]} />
+        <Field.Root
+          {...props}
+          {...compiled}
+          style={mergeStyle<Field.Root.State>(compiled.style, style)}
+          data-slot={slot ?? "search-field"}
+        />
       </FieldScope>
     </SearchContext>
   );
 }
-const Group = styledPart("div", "search-field-group", searchFieldGroupStyles.root);
-export function SearchFieldGroup({ xstyle, ...props }: React.ComponentProps<typeof Group>) {
+export function SearchFieldGroup({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
   const { variant, fullWidth } = useSearch();
+  const compiled = stylex.props(
+    searchFieldGroupStyles.root,
+    variant === "secondary" && searchFieldGroupStyles.secondary,
+    fullWidth && searchFieldGroupStyles.fullWidth,
+    xstyle,
+  );
   return (
-    <Group
+    <div
       {...props}
-      xstyle={[
-        variant === "secondary" && searchFieldGroupStyles.secondary,
-        fullWidth && searchFieldGroupStyles.fullWidth,
-        xstyle,
-      ]}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={slot ?? "search-field-group"}
     />
   );
 }
-const Input = styledPart(BaseInput, "search-field-input", searchFieldGroupStyles.input);
-export type SearchFieldInputProps = React.ComponentProps<typeof Input>;
+export type SearchFieldInputProps = StyleXProps<
+  Omit<BaseInput.Props, "ref"> & React.RefAttributes<HTMLElement>
+> & { "data-slot"?: unknown };
 export function SearchFieldInput({
   ref,
   value,
   defaultValue,
   onValueChange,
   onKeyDown,
+  xstyle,
+  style,
+  "data-slot": slot,
   ...props
 }: SearchFieldInputProps) {
   const context = useSearch();
   React.useEffect(() => {
     context.setEmpty(String(value ?? context.input.current?.value ?? defaultValue ?? "") === "");
   }, [value, defaultValue, context]);
+  const compiled = stylex.props(searchFieldGroupStyles.input, xstyle);
   return (
-    <Input
+    <BaseInput
       type="search"
       {...props}
+      {...compiled}
+      style={mergeStyle<BaseInput.State>(compiled.style, style)}
+      data-slot={slot ?? "search-field-input"}
       value={value}
       defaultValue={defaultValue}
       ref={(node) => {
@@ -118,20 +147,28 @@ function clearSearch(input: HTMLInputElement) {
   input.dispatchEvent(new view.Event("input", { bubbles: true }));
   input.focus();
 }
-const Clear = styledPart(BaseButton, "search-field-clear-button", searchFieldStyles.clear);
-export type SearchFieldClearButtonProps = React.ComponentProps<typeof Clear>;
+export type SearchFieldClearButtonProps = StyleXProps<
+  Omit<BaseButton.Props, "ref"> & React.RefAttributes<HTMLElement>
+> & { "data-slot"?: unknown };
 export function SearchFieldClearButton({
   children = "×",
   onClick,
   disabled,
+  xstyle,
+  style,
+  "data-slot": slot,
   ...props
 }: SearchFieldClearButtonProps) {
   const { input, empty } = useSearch();
+  const compiled = stylex.props(searchFieldStyles.clear, xstyle);
   return (
-    <Clear
+    <BaseButton
       type="button"
       aria-label="Clear search"
       {...props}
+      {...compiled}
+      style={mergeStyle<BaseButton.State>(compiled.style, style)}
+      data-slot={slot ?? "search-field-clear-button"}
       disabled={disabled || empty}
       onClick={(event) => {
         onClick?.(event);
@@ -145,20 +182,31 @@ export function SearchFieldClearButton({
       }}
     >
       {children}
-    </Clear>
+    </BaseButton>
   );
 }
-const Icon = styledPart("svg", "search-field-search-icon", searchFieldStyles.icon);
-export type SearchFieldSearchIconProps = React.ComponentProps<typeof Icon>;
-export function SearchFieldSearchIcon({ children, ...props }: SearchFieldSearchIconProps) {
+export type SearchFieldSearchIconProps = StyleXProps<React.ComponentPropsWithRef<"svg">> & {
+  "data-slot"?: unknown;
+};
+export function SearchFieldSearchIcon({
+  children,
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: SearchFieldSearchIconProps) {
+  const compiled = stylex.props(searchFieldStyles.icon, xstyle);
   return (
-    <Icon
+    <svg
       aria-hidden="true"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       strokeWidth={2}
       {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={slot ?? "search-field-search-icon"}
     >
       {children ?? (
         <>
@@ -166,7 +214,7 @@ export function SearchFieldSearchIcon({ children, ...props }: SearchFieldSearchI
           <path d="m16 16 4 4" />
         </>
       )}
-    </Icon>
+    </svg>
   );
 }
 export const SearchField = Object.assign(SearchFieldRoot, {

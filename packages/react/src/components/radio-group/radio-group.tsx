@@ -5,16 +5,31 @@
  */
 import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group";
 import { radioGroupStyles } from "@lenso/tokens/radio-group";
-import type { ComponentPropsWithRef } from "react";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { RadioVariantContext, type RadioVariant } from "../radio/radio.js";
 
-const Root = styledPart(BaseRadioGroup, "radio-group", radioGroupStyles.root);
-export type RadioGroupRootProps = ComponentPropsWithRef<typeof Root> & { variant?: RadioVariant };
-export function RadioGroupRoot({ variant = "primary", ...props }: RadioGroupRootProps) {
+export type RadioGroupRootProps = StyleXProps<
+  Omit<BaseRadioGroup.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseRadioGroup>["ref"];
+  }
+> & { "data-slot"?: unknown; variant?: RadioVariant };
+export function RadioGroupRoot({
+  variant = "primary",
+  xstyle,
+  style,
+  ...props
+}: RadioGroupRootProps) {
+  const compiled = stylex.props(radioGroupStyles.root, xstyle);
   return (
     <RadioVariantContext value={variant}>
-      <Root {...props} />
+      <BaseRadioGroup
+        {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "radio-group"}
+      />
     </RadioVariantContext>
   );
 }

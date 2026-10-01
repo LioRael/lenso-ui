@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
@@ -8,6 +9,7 @@ import { Disclosure } from "../disclosure/disclosure.js";
 import { DisclosureGroup } from "../disclosure-group/disclosure-group.js";
 
 test("accordion arrows skip disabled and nested items while expansion reveals measured content", async () => {
+  const ref = createRef<HTMLElement>();
   const screen = await render(
     <Accordion
       aria-label="Questions"
@@ -17,7 +19,7 @@ test("accordion arrows skip disabled and nested items while expansion reveals me
     >
       <Accordion.Item value="one">
         <Accordion.Heading>
-          <Accordion.Trigger>
+          <Accordion.Trigger ref={ref}>
             One
             <Accordion.Indicator />
           </Accordion.Trigger>
@@ -59,6 +61,7 @@ test("accordion arrows skip disabled and nested items while expansion reveals me
     </Accordion>,
   );
   const first = screen.getByRole("button", { name: "One" });
+  expect(ref.current).toBe(first.element());
   await userEvent.tab();
   await userEvent.keyboard("{Enter}");
   await expect.element(first).toHaveAttribute("aria-expanded", "true");

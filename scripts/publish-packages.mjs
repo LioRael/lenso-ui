@@ -1,0 +1,203 @@
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const registry = "https://registry.npmjs.org/";
+export const packages = [
+  { dir: "packages/styles", name: "@lenso/tokens", kind: "tokens" },
+  { dir: "packages/react", name: "@lenso/ui", kind: "ui" },
+];
+
+export function validateContext(env, head, remoteHead, manifests) {
+  if (env.GITHUB_ACTIONS !== "true") throw new Error("must run in GitHub Actions");
+  if (env.GITHUB_REF !== "refs/heads/main") throw new Error("must run on refs/heads/main");
+  if (!env.GITHUB_SHA || head !== env.GITHUB_SHA || remoteHead !== env.GITHUB_SHA) {
+    throw new Error("checkout HEAD and origin/main must equal GITHUB_SHA");
+  }
+  if (!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(env.LENSO_RELEASE_VERSION ?? "")) {
+    throw new Error("LENSO_RELEASE_VERSION must be canonical stable semver");
+  }
+  for (const [i, item] of packages.entries()) {
+    if (
+      manifests[i].name !== item.name ||
+      manifests[i].private === true ||
+      manifests[i].version !== env.LENSO_RELEASE_VERSION
+    ) {
+      throw new Error(`unexpected package identity or version in ${item.dir}`);
+    }
+  }
+  return env.LENSO_RELEASE_VERSION;
+}
+
+export function validatePackage(manifest, files, contents, item, version) {
+  if (manifest.name !== item.name || manifest.private === true || manifest.version !== version) {
+    throw new Error(`unexpected package identity for ${item.name}`);
+  }
+  const names = new Set(files);
+  const requireFile = (path) => {
+    if (!names.has(path)) throw new Error(`${item.name} tarball missing ${path}`);
+  };
+  const resolveExport = (target) => {
+    const path = `package/${target.replace(/^\.\//, "")}`;
+    if (path.includes("*")) {
+      const prefix = path.slice(0, path.indexOf("*"));
+      const suffix = path.slice(path.indexOf("*") + 1);
+      if (![...names].some((name) => name.startsWith(prefix) && name.endsWith(suffix))) {
+        throw new Error(`${item.name} export does not resolve: ${target}`);
+      }
+    } else requireFile(path);
+  };
+  const walk = (value) => {
+    if (typeof value === "string" && value.startsWith("./")) resolveExport(value);
+    else if (value && typeof value === "object") Object.values(value).forEach(walk);
+  };
+  walk(manifest.exports);
+  for (const dependencies of [
+    manifest.dependencies,
+    manifest.optionalDependencies,
+    manifest.peerDependencies,
+  ]) {
+    for (const value of Object.values(dependencies ?? {})) {
+      if (/^(workspace:|catalog:)/.test(value))
+        throw new Error(`${item.name} has unresolved dependency protocol: ${value}`);
+    }
+  }
+  if (
+    [...names].some(
+      (name) =>
+        /(?:credential|secret|screenshot|\.npmrc)/i.test(name) ||
+        /(?:^|[./_-])(?:test|tests|spec|specs)(?:[./_-]|$)/i.test(name),
+    )
+  ) {
+    throw new Error(`${item.name} tarball contains credential, test, or screenshot files`);
+  }
+  if (item.kind === "tokens") {
+    requireFile("package/dist/styles.css");
+    requireFile("package/dist/assets/stylex.css");
+    requireFile("package/dist/third-party/heroui/LICENSE.txt");
+    requireFile("package/src/tokens.stylex.const.ts");
+    if (!contents["package/src/tokens.stylex.const.ts"])
+      throw new Error("tokens source const is empty");
+  } else {
+    requireFile("package/dist/index.js");
+    requireFile("package/dist/index.d.ts");
+    requireFile("package/dist/HEROUI-LICENSE.txt");
+    requireFile("package/dist/HEROUI-NOTICE.md");
+    if (manifest.dependencies?.["@lenso/tokens"] !== version) {
+      throw new Error("@lenso/ui must depend on the released @lenso/tokens version");
+    }
+  }
+}
+
+export function shouldSkipExisting(metadata, version, integrity, item) {
+  const published = metadata?.versions?.[version];
+  if (!published) return false;
+  if (published.dist?.integrity !== integrity)
+    throw new Error(`immutable version collision for ${item.name}@${version}`);
+  if (item.kind === "ui" && published.dependencies?.["@lenso/tokens"] !== version) {
+    throw new Error(`registry dependency mismatch for ${item.name}@${version}`);
+  }
+  return true;
+}
+
+function run(command, args, options = {}) {
+  return execFileSync(command, args, {
+    cwd: root,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "inherit"],
+    ...options,
+  }).trim();
+}
+
+async function metadata(name) {
+  const response = await fetch(new URL(encodeURIComponent(name), registry), {
+    headers: { "cache-control": "no-cache" },
+  });
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`registry metadata request failed: HTTP ${response.status}`);
+  return response.json();
+}
+
+async function publish() {
+  const env = process.env;
+  const head = run("git", ["rev-parse", "HEAD"]);
+  const remoteHead = run("git", ["ls-remote", "origin", "refs/heads/main"]).split(/\s/)[0];
+  const manifests = await Promise.all(
+    packages.map(async (item) =>
+      JSON.parse(await readFile(join(root, item.dir, "package.json"), "utf8")),
+    ),
+  );
+  const version = validateContext(env, head, remoteHead, manifests);
+  const temp = await mkdtemp(join(env.RUNNER_TEMP ?? tmpdir(), "lenso-release-"));
+  try {
+    const tarballs = [];
+    for (const [i, item] of packages.entries()) {
+      run("pnpm", ["--dir", item.dir, "build"]);
+      run("pnpm", ["--dir", item.dir, "pack", "--out", join(temp, `${i}.tgz`)]);
+      const tarball = join(temp, `${i}.tgz`);
+      const listing = run("tar", ["-tzf", tarball]).split("\n");
+      const manifest = JSON.parse(run("tar", ["-xOf", tarball, "package/package.json"]));
+      const contents = Object.fromEntries(
+        ["package/src/tokens.stylex.const.ts"]
+          .filter((path) => listing.includes(path))
+          .map((path) => [path, run("tar", ["-xOf", tarball, path])]),
+      );
+      validatePackage(manifest, listing, contents, item, version);
+      tarballs.push({
+        item,
+        tarball,
+        integrity: `sha512-${createHash("sha512")
+          .update(await readFile(tarball))
+          .digest("base64")}`,
+      });
+    }
+    for (const entry of tarballs) {
+      const existing = await metadata(entry.item.name);
+      if (existing && shouldSkipExisting(existing, version, entry.integrity, entry.item)) continue;
+      run("npm", [
+        "publish",
+        entry.tarball,
+        "--access",
+        "public",
+        "--tag",
+        "latest",
+        "--provenance",
+        "--ignore-scripts",
+        `--registry=${registry}`,
+      ]);
+      const published = await metadata(entry.item.name);
+      const result = published?.versions?.[version];
+      if (
+        result?.dist?.integrity !== entry.integrity ||
+        result?.version !== version ||
+        (entry.item.kind === "ui" && result.dependencies?.["@lenso/tokens"] !== version)
+      ) {
+        throw new Error(`published metadata did not verify for ${entry.item.name}@${version}`);
+      }
+    }
+    for (const entry of tarballs) {
+      const published = await metadata(entry.item.name);
+      if (
+        published?.["dist-tags"]?.latest !== version ||
+        published.versions?.[version]?.dist?.integrity !== entry.integrity
+      ) {
+        throw new Error(
+          `latest tag or integrity verification failed for ${entry.item.name}@${version}`,
+        );
+      }
+    }
+  } finally {
+    await rm(temp, { recursive: true, force: true });
+  }
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  publish().catch((error) => {
+    console.error(error.message);
+    process.exitCode = 1;
+  });
+}

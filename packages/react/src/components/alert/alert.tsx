@@ -2,12 +2,9 @@
 // Derived from HeroUI v3.2.6 (Apache-2.0); modified for native HTML and StyleX.
 import { createContext, useContext, type ComponentProps } from "react";
 import { alertStyles, alertColors } from "@lenso/tokens/alert";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { type StyleXProps } from "../../utils/styled.js";
 const ColorContext = createContext<keyof typeof alertColors>("default");
-const Root = styledPart("div", "alert-root", alertStyles.root);
-const Title = styledPart("div", "alert-title", alertStyles.title);
-const Indicator = styledPart("div", "alert-indicator", alertStyles.indicator);
-const Icon = styledPart("svg", "alert-default-icon", alertStyles.icon);
 const iconPaths = {
   default:
     "M8 13.5a5.5 5.5 0 1 0 0-11a5.5 5.5 0 0 0 0 11M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14m1-9.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-.25 3a.75.75 0 0 0-1.5 0V11a.75.75 0 0 0 1.5 0z",
@@ -21,36 +18,87 @@ const iconPaths = {
 export type AlertRootProps = StyleXProps<ComponentProps<"div">> & {
   status?: keyof typeof alertColors;
 };
-export function AlertRoot({ status = "default", ...props }: AlertRootProps) {
+export function AlertRoot({ status = "default", xstyle, style, ...props }: AlertRootProps) {
+  const compiled = stylex.props(alertStyles.root, xstyle);
   return (
     <ColorContext.Provider value={status}>
-      <Root {...props} />
+      <div
+        {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-root"}
+        {...compiled}
+        style={{ ...compiled.style, ...style }}
+      />
     </ColorContext.Provider>
   );
 }
-export function AlertTitle({ xstyle, ...props }: ComponentProps<typeof Title>) {
+export function AlertTitle({ xstyle, style, ...props }: StyleXProps<ComponentProps<"div">>) {
   const color = useContext(ColorContext);
-  return <Title {...props} xstyle={[alertColors[color], xstyle]} />;
-}
-export function AlertIndicator({ xstyle, children, ...props }: ComponentProps<typeof Indicator>) {
-  const color = useContext(ColorContext);
+  const compiled = stylex.props(alertStyles.title, alertColors[color], xstyle);
   return (
-    <Indicator {...props} xstyle={[alertColors[color], xstyle]}>
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-title"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
+export function AlertIndicator({
+  xstyle,
+  style,
+  children,
+  ...props
+}: StyleXProps<ComponentProps<"div">>) {
+  const color = useContext(ColorContext);
+  const compiled = stylex.props(alertStyles.indicator, alertColors[color], xstyle);
+  return (
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-indicator"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    >
       {children ?? (
-        <Icon viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <svg
+          data-slot="alert-default-icon"
+          {...stylex.props(alertStyles.icon)}
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
           <path
             d={iconPaths[color === "accent" ? "default" : color]}
             fill="currentColor"
             fillRule="evenodd"
             clipRule="evenodd"
           />
-        </Icon>
+        </svg>
       )}
-    </Indicator>
+    </div>
   );
 }
-export const AlertContent = styledPart("div", "alert-content", alertStyles.content);
-export const AlertDescription = styledPart("div", "alert-description", alertStyles.description);
+export function AlertContent({ xstyle, style, ...props }: StyleXProps<ComponentProps<"div">>) {
+  const compiled = stylex.props(alertStyles.content, xstyle);
+  return (
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-content"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
+export function AlertDescription({ xstyle, style, ...props }: StyleXProps<ComponentProps<"div">>) {
+  const compiled = stylex.props(alertStyles.description, xstyle);
+  return (
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-description"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
 export const Alert = Object.assign(AlertRoot, {
   Root: AlertRoot,
   Content: AlertContent,

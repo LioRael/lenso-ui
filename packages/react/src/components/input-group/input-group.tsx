@@ -2,31 +2,55 @@
 // HeroUI v3.2.6, Apache-2.0.
 import { Input as BaseInput } from "@base-ui/react/input";
 import { inputGroupStyles } from "@lenso/tokens/input-group";
-import { styledPart } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { TextArea } from "../textarea/textarea.js";
-const Root = styledPart("div", "input-group", inputGroupStyles.root);
-export type InputGroupRootProps = React.ComponentProps<typeof Root> & {
+export type InputGroupRootProps = StyleXProps<React.ComponentPropsWithRef<"div">> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
+  "data-slot"?: unknown;
 };
 export function InputGroupRoot({
   variant = "primary",
   fullWidth = false,
   xstyle,
+  style,
+  "data-slot": slot,
   ...props
 }: InputGroupRootProps) {
+  const compiled = stylex.props(
+    inputGroupStyles.root,
+    variant === "secondary" && inputGroupStyles.secondary,
+    fullWidth && inputGroupStyles.fullWidth,
+    xstyle,
+  );
   return (
-    <Root
+    <div
       {...props}
-      xstyle={[
-        variant === "secondary" && inputGroupStyles.secondary,
-        fullWidth && inputGroupStyles.fullWidth,
-        xstyle,
-      ]}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={slot ?? "input-group"}
     />
   );
 }
-export const InputGroupInput = styledPart(BaseInput, "input-group-input", inputGroupStyles.input);
+export function InputGroupInput({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<Omit<BaseInput.Props, "ref"> & React.RefAttributes<HTMLElement>> & {
+  "data-slot"?: unknown;
+}) {
+  const compiled = stylex.props(inputGroupStyles.input, xstyle);
+  return (
+    <BaseInput
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseInput.State>(compiled.style, style)}
+      data-slot={slot ?? "input-group-input"}
+    />
+  );
+}
 export function InputGroupTextArea({ xstyle, ...props }: React.ComponentProps<typeof TextArea>) {
   return (
     <TextArea
@@ -36,8 +60,38 @@ export function InputGroupTextArea({ xstyle, ...props }: React.ComponentProps<ty
     />
   );
 }
-export const InputGroupPrefix = styledPart("div", "input-group-prefix", inputGroupStyles.prefix);
-export const InputGroupSuffix = styledPart("div", "input-group-suffix", inputGroupStyles.suffix);
+export function InputGroupPrefix({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(inputGroupStyles.prefix, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={slot ?? "input-group-prefix"}
+    />
+  );
+}
+export function InputGroupSuffix({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(inputGroupStyles.suffix, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={slot ?? "input-group-suffix"}
+    />
+  );
+}
 export const InputGroup = Object.assign(InputGroupRoot, {
   Root: InputGroupRoot,
   Input: InputGroupInput,

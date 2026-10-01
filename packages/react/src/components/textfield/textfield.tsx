@@ -2,14 +2,33 @@
 // HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Field } from "@base-ui/react/field";
 import { textFieldStyles } from "@lenso/tokens/textfield";
-import { styledPart } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { FieldScope } from "./field-scope.js";
-const Root = styledPart(Field.Root, "text-field", textFieldStyles.root);
-export type TextFieldRootProps = React.ComponentProps<typeof Root> & { fullWidth?: boolean };
-export function TextFieldRoot({ fullWidth = false, xstyle, ...props }: TextFieldRootProps) {
+export type TextFieldRootProps = StyleXProps<Field.Root.Props> & {
+  fullWidth?: boolean;
+  "data-slot"?: unknown;
+};
+export function TextFieldRoot({
+  fullWidth = false,
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: TextFieldRootProps) {
+  const compiled = stylex.props(
+    textFieldStyles.root,
+    fullWidth && textFieldStyles.fullWidth,
+    xstyle,
+  );
   return (
     <FieldScope value={true}>
-      <Root {...props} xstyle={[fullWidth && textFieldStyles.fullWidth, xstyle]} />
+      <Field.Root
+        {...props}
+        {...compiled}
+        style={mergeStyle<Field.Root.State>(compiled.style, style)}
+        data-slot={slot ?? "text-field"}
+      />
     </FieldScope>
   );
 }

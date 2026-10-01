@@ -9,8 +9,8 @@ import {
   badgePrimary,
   badgeSoft,
 } from "@lenso/tokens/badge";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
-const Root = styledPart("span", "badge", badgeStyles.root);
+import * as stylex from "@stylexjs/stylex";
+import { type StyleXProps } from "../../utils/styled.js";
 export type BadgeRootProps = StyleXProps<ComponentProps<"span">> & {
   size?: keyof typeof badgeSizes;
   color?: keyof typeof badgeColors;
@@ -23,24 +23,49 @@ export function BadgeRoot({
   variant = "primary",
   placement = "top-right",
   xstyle,
+  style,
   ...props
 }: BadgeRootProps) {
+  const compiled = stylex.props(
+    badgeStyles.root,
+    badgeSizes[size],
+    badgeColors[color],
+    variant === "primary" && badgePrimary[color],
+    variant === "soft" && badgeSoft[color],
+    placement && badgePlacements[placement],
+    xstyle,
+  );
   return (
-    <Root
+    <span
       {...props}
-      xstyle={[
-        badgeSizes[size],
-        badgeColors[color],
-        variant === "primary" && badgePrimary[color],
-        variant === "soft" && badgeSoft[color],
-        placement && badgePlacements[placement],
-        xstyle,
-      ]}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "badge"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
     />
   );
 }
-export const BadgeLabel = styledPart("span", "badge-label", badgeStyles.label);
-export const BadgeAnchor = styledPart("span", "badge-anchor", badgeStyles.anchor);
+export function BadgeLabel({ xstyle, style, ...props }: StyleXProps<ComponentProps<"span">>) {
+  const compiled = stylex.props(badgeStyles.label, xstyle);
+  return (
+    <span
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "badge-label"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
+export function BadgeAnchor({ xstyle, style, ...props }: StyleXProps<ComponentProps<"span">>) {
+  const compiled = stylex.props(badgeStyles.anchor, xstyle);
+  return (
+    <span
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "badge-anchor"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
 export const Badge = Object.assign(BadgeRoot, {
   Root: BadgeRoot,
   Label: BadgeLabel,

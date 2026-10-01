@@ -8,10 +8,10 @@ import {
   type ReactElement,
 } from "react";
 import { avatarGroupStyles } from "@lenso/tokens/avatar-group";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { type StyleXProps } from "../../utils/styled.js";
 import { Avatar, type AvatarRootProps } from "../avatar/avatar.js";
 import { AvatarGroupContext, type AvatarGroupAppearance } from "./avatar-group-context.js";
-const Root = styledPart("div", "avatar-group", avatarGroupStyles.root);
 export type AvatarGroupRootProps = StyleXProps<ComponentProps<"div">> &
   AvatarGroupAppearance & { isGrid?: boolean; max?: number; overlap?: "clip" | "ring" };
 export type AvatarGroupCountProps = AvatarRootProps;
@@ -31,8 +31,10 @@ export function AvatarGroupRoot({
   max,
   overlap = "clip",
   xstyle,
+  style,
   ...props
 }: AvatarGroupRootProps) {
+  const compiled = stylex.props(avatarGroupStyles.root, isGrid && avatarGroupStyles.grid, xstyle);
   const elements = Children.toArray(children).filter(
     isValidElement,
   ) as ReactElement<AvatarRootProps>[];
@@ -55,7 +57,12 @@ export function AvatarGroupRoot({
   };
   return (
     <AvatarGroupContext.Provider value={appearance}>
-      <Root {...props} xstyle={[isGrid && avatarGroupStyles.grid, xstyle]}>
+      <div
+        {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-group"}
+        {...compiled}
+        style={{ ...compiled.style, ...style }}
+      >
         {all.map((child, index) => {
           const clipped =
             !isGrid &&
@@ -75,7 +82,7 @@ export function AvatarGroupRoot({
             </AvatarGroupContext.Provider>
           );
         })}
-      </Root>
+      </div>
     </AvatarGroupContext.Provider>
   );
 }

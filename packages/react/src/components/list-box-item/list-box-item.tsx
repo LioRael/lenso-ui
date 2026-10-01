@@ -4,7 +4,7 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { listBoxItemStyles } from "@lenso/tokens/list-box-item";
 import { CollectionContext, type CollectionKey } from "../list-box/list-box.js";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { type StyleXProps } from "../../utils/styled.js";
 import { CollectionElement, type CollectionRender } from "../list-box/element.js";
 
 export interface ListBoxItemRootProps extends StyleXProps<
@@ -126,21 +126,28 @@ export function ListBoxItemRoot({
   );
   // oxlint-enable jsx-a11y/prefer-tag-over-role
 }
-const IndicatorPart = styledPart("span", "list-box-item-indicator", listBoxItemStyles.indicator);
 export function ListBoxItemIndicator({
   children,
   xstyle,
+  style,
   ...props
-}: Omit<React.ComponentProps<typeof IndicatorPart>, "children"> & {
+}: StyleXProps<Omit<React.ComponentProps<"span">, "children">> & {
   children?: React.ReactNode | ((state: { isSelected: boolean }) => React.ReactNode);
 }) {
   const { selected, danger } = React.useContext(ItemContext);
+  const compiled = stylex.props(
+    listBoxItemStyles.indicator,
+    danger && listBoxItemStyles.indicatorDanger,
+    xstyle,
+  );
   return (
-    <IndicatorPart
+    <span
       {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "list-box-item-indicator"}
       data-collection-indicator=""
       data-visible={selected || undefined}
-      xstyle={[danger && listBoxItemStyles.indicatorDanger, xstyle]}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
       aria-hidden="true"
     >
       {typeof children === "function"
@@ -162,7 +169,7 @@ export function ListBoxItemIndicator({
               <polyline points="1 9 7 14 15 4" />
             </svg>
           ))}
-    </IndicatorPart>
+    </span>
   );
 }
 export const ListBoxItem = Object.assign(ListBoxItemRoot, {

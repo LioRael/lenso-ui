@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact version declared by both public packages
+        required: true
+        default: "0.8.0"
+        type: string
+
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    environment: npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Require successful verification of this exact main commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from "node:child_process";
+          import assert from "node:assert/strict";
+          const runs = JSON.parse(execFileSync("gh", [
+            "run", "list", "--repo", process.env.GITHUB_REPOSITORY,
+            "--workflow", "verify.yml", "--commit", process.env.GITHUB_SHA,
+            "--branch", "main", "--event", "push", "--status", "success",
+            "--limit", "20", "--json", "headSha,conclusion",
+          ], { encoding: "utf8" }));
+          assert.ok(
+            runs.some((run) => run.headSha === process.env.GITHUB_SHA && run.conclusion === "success"),
+            "The exact main commit must pass Verify reconstruction before publication.",
+          );
+          NODE
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.18.0
+          cache: pnpm
+      - name: Install npm with Trusted Publishing support
+        run: npm install --global npm@12.0.1 --ignore-scripts
+      - run: pnpm install --frozen-lockfile
+      - name: Publish styles then UI with npm OIDC provenance
+        env:
+          LENSO_RELEASE_VERSION: ${{ inputs.version }}
+        run: node scripts/publish-packages.mjs

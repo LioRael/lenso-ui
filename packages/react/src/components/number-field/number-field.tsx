@@ -3,86 +3,118 @@
 import * as React from "react";
 import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
 import { numberFieldStyles, numberFieldGroupStyles } from "@lenso/tokens/number-field";
-import { styledPart } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 const Appearance = React.createContext({
   variant: "primary" as "primary" | "secondary",
   fullWidth: false,
 });
-const Root = styledPart(BaseNumberField.Root, "number-field", numberFieldStyles.root);
-export type NumberFieldRootProps = React.ComponentProps<typeof Root> & {
+export type NumberFieldRootProps = StyleXProps<BaseNumberField.Root.Props> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
+  "data-slot"?: unknown;
 };
 export function NumberFieldRoot({
   variant = "primary",
   fullWidth = false,
   xstyle,
+  style,
+  "data-slot": slot,
   ...props
 }: NumberFieldRootProps) {
   const appearance = React.useMemo(() => ({ variant, fullWidth }), [variant, fullWidth]);
+  const compiled = stylex.props(
+    numberFieldStyles.root,
+    fullWidth && numberFieldGroupStyles.fullWidth,
+    xstyle,
+  );
   return (
     <Appearance value={appearance}>
-      <Root {...props} xstyle={[fullWidth && numberFieldGroupStyles.fullWidth, xstyle]} />
+      <BaseNumberField.Root
+        {...props}
+        {...compiled}
+        style={mergeStyle<BaseNumberField.Root.State>(compiled.style, style)}
+        data-slot={slot ?? "number-field"}
+      />
     </Appearance>
   );
 }
-const Group = styledPart(BaseNumberField.Group, "number-field-group", numberFieldGroupStyles.root);
-export function NumberFieldGroup({ xstyle, ...props }: React.ComponentProps<typeof Group>) {
+export function NumberFieldGroup({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseNumberField.Group.Props> & { "data-slot"?: unknown }) {
   const { variant, fullWidth } = React.useContext(Appearance);
+  const compiled = stylex.props(
+    numberFieldGroupStyles.root,
+    variant === "secondary" && numberFieldGroupStyles.secondary,
+    fullWidth && numberFieldGroupStyles.fullWidth,
+    xstyle,
+  );
   return (
-    <Group
+    <BaseNumberField.Group
       {...props}
-      xstyle={[
-        variant === "secondary" && numberFieldGroupStyles.secondary,
-        fullWidth && numberFieldGroupStyles.fullWidth,
-        xstyle,
-      ]}
+      {...compiled}
+      style={mergeStyle<BaseNumberField.Group.State>(compiled.style, style)}
+      data-slot={slot ?? "number-field-group"}
     />
   );
 }
-export const NumberFieldInput = styledPart(
-  BaseNumberField.Input,
-  "number-field-input",
-  numberFieldStyles.input,
-);
-const Increment = styledPart(
-  BaseNumberField.Increment,
-  "number-field-increment-button",
-  numberFieldStyles.button,
-);
-const Decrement = styledPart(
-  BaseNumberField.Decrement,
-  "number-field-decrement-button",
-  numberFieldStyles.button,
-);
+export function NumberFieldInput({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseNumberField.Input.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(numberFieldStyles.input, xstyle);
+  return (
+    <BaseNumberField.Input
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseNumberField.Input.State>(compiled.style, style)}
+      data-slot={slot ?? "number-field-input"}
+    />
+  );
+}
 export function NumberFieldIncrementButton({
   children = "+",
   xstyle,
+  style,
+  "data-slot": slot,
   ...props
-}: React.ComponentProps<typeof Increment>) {
+}: StyleXProps<BaseNumberField.Increment.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(numberFieldStyles.button, numberFieldStyles.increment, xstyle);
   return (
-    <Increment
+    <BaseNumberField.Increment
       aria-label="Increase value"
       {...props}
-      xstyle={[numberFieldStyles.increment, xstyle]}
+      {...compiled}
+      style={mergeStyle<BaseNumberField.Increment.State>(compiled.style, style)}
+      data-slot={slot ?? "number-field-increment-button"}
     >
       {children}
-    </Increment>
+    </BaseNumberField.Increment>
   );
 }
 export function NumberFieldDecrementButton({
   children = "−",
   xstyle,
+  style,
+  "data-slot": slot,
   ...props
-}: React.ComponentProps<typeof Decrement>) {
+}: StyleXProps<BaseNumberField.Decrement.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(numberFieldStyles.button, numberFieldStyles.decrement, xstyle);
   return (
-    <Decrement
+    <BaseNumberField.Decrement
       aria-label="Decrease value"
       {...props}
-      xstyle={[numberFieldStyles.decrement, xstyle]}
+      {...compiled}
+      style={mergeStyle<BaseNumberField.Decrement.State>(compiled.style, style)}
+      data-slot={slot ?? "number-field-decrement-button"}
     >
       {children}
-    </Decrement>
+    </BaseNumberField.Decrement>
   );
 }
 export const NumberField = Object.assign(NumberFieldRoot, {

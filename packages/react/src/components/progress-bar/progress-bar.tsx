@@ -8,14 +8,12 @@ import {
   progressBarTrackSizes,
   progressBarFillSizes,
 } from "@lenso/tokens/progress-bar";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 const Context = createContext<{ size: keyof typeof progressBarTrackSizes; indeterminate: boolean }>(
   { size: "md", indeterminate: false },
 );
-const Root = styledPart(Primitive.Root, "progress-bar", progressBarStyles.root);
-const Track = styledPart(Primitive.Track, "progress-bar-track", progressBarStyles.track);
-const Fill = styledPart(Primitive.Indicator, "progress-bar-fill", progressBarStyles.fill);
-export type ProgressBarRootProps = StyleXProps<ComponentProps<typeof Primitive.Root>> & {
+export type ProgressBarRootProps = StyleXProps<Primitive.Root.Props> & {
   size?: keyof typeof progressBarTrackSizes;
   color?: keyof typeof progressBarColors;
 };
@@ -23,37 +21,76 @@ export function ProgressBarRoot({
   size = "md",
   color = "accent",
   xstyle,
+  style,
   ...props
 }: ProgressBarRootProps) {
+  const compiled = stylex.props(progressBarStyles.root, progressBarColors[color], xstyle);
   return (
     <Context.Provider value={{ size, indeterminate: props.value === null }}>
-      <Root {...props} xstyle={[progressBarColors[color], xstyle]} />
+      <Primitive.Root
+        {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar"}
+        {...compiled}
+        style={mergeStyle<Primitive.Root.State>(compiled.style, style)}
+      />
     </Context.Provider>
   );
 }
-export function ProgressBarTrack({ xstyle, ...props }: ComponentProps<typeof Track>) {
+export function ProgressBarTrack({ xstyle, style, ...props }: StyleXProps<Primitive.Track.Props>) {
   const { size } = useContext(Context);
-  return <Track {...props} xstyle={[progressBarTrackSizes[size], xstyle]} />;
-}
-export function ProgressBarFill({ xstyle, ...props }: ComponentProps<typeof Fill>) {
-  const { size, indeterminate } = useContext(Context);
+  const compiled = stylex.props(progressBarStyles.track, progressBarTrackSizes[size], xstyle);
   return (
-    <Fill
+    <Primitive.Track
       {...props}
-      xstyle={[
-        progressBarFillSizes[size],
-        indeterminate && progressBarStyles.indeterminate,
-        xstyle,
-      ]}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar-track"}
+      {...compiled}
+      style={mergeStyle<Primitive.Track.State>(compiled.style, style)}
     />
   );
 }
-export const ProgressBarLabel = styledPart(Primitive.Label, "label", progressBarStyles.label);
-export const ProgressBarOutput = styledPart(
-  Primitive.Value,
-  "progress-bar-output",
-  progressBarStyles.output,
-);
+export function ProgressBarFill({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Primitive.Indicator.Props>) {
+  const { size, indeterminate } = useContext(Context);
+  const compiled = stylex.props(
+    progressBarStyles.fill,
+    progressBarFillSizes[size],
+    indeterminate && progressBarStyles.indeterminate,
+    xstyle,
+  );
+  return (
+    <Primitive.Indicator
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar-fill"}
+      {...compiled}
+      style={mergeStyle<Primitive.Indicator.State>(compiled.style, style)}
+    />
+  );
+}
+export function ProgressBarLabel({ xstyle, style, ...props }: StyleXProps<Primitive.Label.Props>) {
+  const compiled = stylex.props(progressBarStyles.label, xstyle);
+  return (
+    <Primitive.Label
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
+      {...compiled}
+      style={mergeStyle<Primitive.Label.State>(compiled.style, style)}
+    />
+  );
+}
+export function ProgressBarOutput({ xstyle, style, ...props }: StyleXProps<Primitive.Value.Props>) {
+  const compiled = stylex.props(progressBarStyles.output, xstyle);
+  return (
+    <Primitive.Value
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar-output"}
+      {...compiled}
+      style={mergeStyle<Primitive.Value.State>(compiled.style, style)}
+    />
+  );
+}
 export const ProgressBar = Object.assign(ProgressBarRoot, {
   Root: ProgressBarRoot,
   Label: ProgressBarLabel,

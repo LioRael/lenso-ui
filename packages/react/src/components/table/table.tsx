@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { tableStyles } from "@lenso/tokens/table";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { type StyleXProps } from "../../utils/styled.js";
 import { useCollectionWindow, type WindowOptions } from "../list-box/windowed.js";
 import { resolveColumnWidths, type ColumnSize, type ColumnWidth } from "./column-layout.js";
 import { ButtonRoot } from "../button/button.js";
@@ -49,29 +49,69 @@ const RowContext = React.createContext<{
   hasChildItems: boolean;
 } | null>(null);
 
-const RootPart = styledPart("div", "table", tableStyles.root);
 export function TableRoot({
   variant = "primary",
   xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof RootPart> & { variant?: "primary" | "secondary" }) {
+}: StyleXProps<React.ComponentProps<"div">> & { variant?: "primary" | "secondary" }) {
+  const compiled = stylex.props(
+    tableStyles.root,
+    variant === "primary" && tableStyles.primary,
+    xstyle,
+  );
   return (
     <VariantContext.Provider value={variant}>
-      <RootPart {...props} xstyle={[variant === "primary" && tableStyles.primary, xstyle]} />
+      <div
+        {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table"}
+        {...compiled}
+        style={{ ...compiled.style, ...style }}
+      />
     </VariantContext.Provider>
   );
 }
-export const TableScrollContainer = styledPart(
-  "div",
-  "table-scroll-container",
-  tableStyles.scrollContainer,
-);
-export const TableResizableContainer = styledPart(
-  "div",
-  "table-resizable-container",
-  tableStyles.scrollContainer,
-);
-export const TableFooter = styledPart("div", "table-footer", tableStyles.footer);
+export function TableScrollContainer({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentProps<"div">>) {
+  const compiled = stylex.props(tableStyles.scrollContainer, xstyle);
+  return (
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-scroll-container"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
+export function TableResizableContainer({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentProps<"div">>) {
+  const compiled = stylex.props(tableStyles.scrollContainer, xstyle);
+  return (
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-resizable-container"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
+export function TableFooter({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<"div">>) {
+  const compiled = stylex.props(tableStyles.footer, xstyle);
+  return (
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-footer"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
 export interface TableContentProps
   extends StyleXProps<React.ComponentPropsWithRef<"table">>, SelectionProps, CollectionDragProps {
   sortDescriptor?: SortDescriptor;
@@ -312,17 +352,24 @@ export function TableContent({
   );
   // oxlint-enable jsx-a11y/no-noninteractive-element-interactions
 }
-const HeaderPart = styledPart("thead", "table-header", tableStyles.header);
 export function TableHeader<T extends { key: CollectionKey }>({
   children,
   columns,
+  xstyle,
+  style,
   ...props
-}: Omit<React.ComponentProps<typeof HeaderPart>, "children"> & {
+}: StyleXProps<Omit<React.ComponentProps<"thead">, "children">> & {
   columns?: readonly T[];
   children?: React.ReactNode | ((column: T) => React.ReactNode);
 }) {
+  const compiled = stylex.props(tableStyles.header, xstyle);
   return (
-    <HeaderPart {...props}>
+    <thead
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-header"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    >
       <tr>
         {typeof children === "function"
           ? columns?.map((column) => (
@@ -332,24 +379,29 @@ export function TableHeader<T extends { key: CollectionKey }>({
             ))
           : children}
       </tr>
-    </HeaderPart>
+    </thead>
   );
 }
-const BodyPart = styledPart("tbody", "table-body", tableStyles.body);
 export function TableBody<T extends { key: CollectionKey }>({
   xstyle,
+  style,
   children,
   items,
   virtualized,
   ref,
   ...props
-}: Omit<React.ComponentProps<typeof BodyPart>, "children"> & {
+}: StyleXProps<Omit<React.ComponentProps<"tbody">, "children">> & {
   items?: readonly T[];
   children?: React.ReactNode | ((item: T) => React.ReactNode);
   virtualized?: WindowOptions;
 }) {
   const variant = React.useContext(VariantContext);
   const table = React.useContext(TableContext);
+  const compiled = stylex.props(
+    tableStyles.body,
+    variant === "secondary" && tableStyles.secondaryBody,
+    xstyle,
+  );
   const setCollectionItems = table?.selection.setCollectionItems;
   const isVirtualized = !!virtualized;
   React.useLayoutEffect(() => {
@@ -425,8 +477,10 @@ export function TableBody<T extends { key: CollectionKey }>({
     return rows;
   };
   return (
-    <BodyPart
+    // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Table body delegates virtualized row keyboard navigation; the focus targets are its cells.
+    <tbody
       {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-body"}
       ref={(value) => {
         body.current = value;
         if (typeof ref === "function") return ref(value);
@@ -452,10 +506,11 @@ export function TableBody<T extends { key: CollectionKey }>({
           window.scrollTo(next);
         }
       }}
-      xstyle={[variant === "secondary" && tableStyles.secondaryBody, xstyle]}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
     >
       {renderItems()}
-    </BodyPart>
+    </tbody>
   );
 }
 export interface TableColumnProps extends StyleXProps<
@@ -720,23 +775,26 @@ export function TableCell({
   const variant = React.useContext(VariantContext);
   const context = React.useContext(TableContext);
   const row = React.useContext(RowContext);
-  const Part = TableCellPart;
   const isTreeColumn = columnKey !== undefined && columnKey === context?.treeColumn;
+  const compiled = stylex.props(
+    tableStyles.cell,
+    variant === "secondary" && tableStyles.secondaryCell,
+    !!row && context?.selection.selected.has(row.key) && tableStyles.selectedCell,
+    xstyle,
+  );
   return (
-    <Part
+    <td
       tabIndex={row?.disabled ? -1 : 0}
       {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-cell"}
       role={props.role ?? (context?.treeColumn !== undefined ? "gridcell" : undefined)}
       data-tree-column={isTreeColumn ? "" : undefined}
+      {...compiled}
       style={{
+        ...compiled.style,
         ...style,
         ...(isTreeColumn && { paddingInlineStart: 16 + (row?.depth ?? 0) * 20 }),
       }}
-      xstyle={[
-        variant === "secondary" && tableStyles.secondaryCell,
-        !!row && context?.selection.selected.has(row.key) && tableStyles.selectedCell,
-        xstyle,
-      ]}
     >
       {typeof children === "function"
         ? children({
@@ -746,10 +804,9 @@ export function TableCell({
             isTreeColumn,
           })
         : children}
-    </Part>
+    </td>
   );
 }
-const TableCellPart = styledPart("td", "table-cell", tableStyles.cell);
 export function TableSelectionCheckbox(props: StyleXProps<React.ComponentPropsWithRef<"input">>) {
   const context = React.useContext(TableContext);
   const row = React.useContext(RowContext);
@@ -809,24 +866,27 @@ export function TableExpandButton({
     </ButtonRoot>
   );
 }
-const SortPart = styledPart(
-  "span",
-  "table-sortable-column-header",
-  tableStyles.sortableColumnHeader,
-);
 export function TableSortableColumnHeader({
   sortDirection,
   children,
   showIndicator = true,
   indicator,
+  xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof SortPart> & {
+}: StyleXProps<React.ComponentProps<"span">> & {
   sortDirection?: SortDescriptor["direction"];
   showIndicator?: boolean;
   indicator?: React.ReactNode;
 }) {
+  const compiled = stylex.props(tableStyles.sortableColumnHeader, xstyle);
   return (
-    <SortPart {...props}>
+    <span
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-sortable-column-header"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    >
       {children}
       {sortDirection && showIndicator ? (
         <span
@@ -850,7 +910,7 @@ export function TableSortableColumnHeader({
           )}
         </span>
       ) : null}
-    </SortPart>
+    </span>
   );
 }
 export function TableColumnResizer({
@@ -932,11 +992,21 @@ export function TableColumnResizer({
   );
   // oxlint-enable jsx-a11y/prefer-tag-over-role
 }
-export const TableLoadMoreContent = styledPart(
-  "div",
-  "table-load-more-content",
-  tableStyles.loadMoreContent,
-);
+export function TableLoadMoreContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentProps<"div">>) {
+  const compiled = stylex.props(tableStyles.loadMoreContent, xstyle);
+  return (
+    <div
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-load-more-content"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
 export function TableLoadMore({
   colSpan = 1,
   children,
@@ -944,13 +1014,16 @@ export function TableLoadMore({
   loading = false,
   hasMore = true,
   ref,
+  xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof LoadMorePart> & {
+}: StyleXProps<React.ComponentProps<"tr">> & {
   colSpan?: number;
   onLoadMore?: () => void;
   loading?: boolean;
   hasMore?: boolean;
 }) {
+  const compiled = stylex.props(xstyle);
   const node = React.useRef<HTMLTableRowElement>(null);
   React.useEffect(() => {
     if (!node.current || loading || !hasMore || !onLoadMore) return;
@@ -961,8 +1034,11 @@ export function TableLoadMore({
     return () => observer.disconnect();
   }, [loading, hasMore, onLoadMore]);
   return (
-    <LoadMorePart
+    <tr
       {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-load-more"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
       ref={(value) => {
         node.current = value;
         if (typeof ref === "function") return ref(value);
@@ -971,10 +1047,9 @@ export function TableLoadMore({
       aria-busy={loading || undefined}
     >
       <td colSpan={colSpan}>{children}</td>
-    </LoadMorePart>
+    </tr>
   );
 }
-const LoadMorePart = styledPart("tr", "table-load-more");
 export function TableCollection<T extends { key: CollectionKey }>({
   items,
   children,

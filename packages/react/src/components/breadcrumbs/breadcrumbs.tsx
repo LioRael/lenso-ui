@@ -11,15 +11,75 @@ import {
 } from "react";
 import { breadcrumbsStyles } from "@lenso/tokens/breadcrumbs";
 import { useRender } from "@base-ui/react/use-render";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { LinkRoot, type LinkRootProps } from "../link/link.js";
-function NativeNav({ render, ref, ...props }: useRender.ComponentProps<"nav">) {
-  return useRender({ defaultTagName: "nav", render, ref, props });
+function Nav({
+  xstyle,
+  style,
+  render,
+  ref,
+  ...props
+}: StyleXProps<useRender.ComponentProps<"nav">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(xstyle);
+  return useRender({
+    defaultTagName: "nav",
+    render,
+    ref,
+    props: {
+      ...props,
+      ...compiled,
+      style: mergeStyle(compiled.style, style),
+      "data-slot": props["data-slot"] ?? "breadcrumbs-nav",
+    },
+  });
 }
-const Nav = styledPart(NativeNav, "breadcrumbs-nav");
-const List = styledPart("ol", "breadcrumbs", breadcrumbsStyles.root);
-const Item = styledPart("li", "breadcrumbs-item", breadcrumbsStyles.item);
-const Separator = styledPart("span", "breadcrumbs-separator", breadcrumbsStyles.separator);
+function List({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"ol">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(breadcrumbsStyles.root, xstyle);
+  return (
+    <ol
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "breadcrumbs"}
+    />
+  );
+}
+function Item({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"li">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(breadcrumbsStyles.item, xstyle);
+  return (
+    <li
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "breadcrumbs-item"}
+    />
+  );
+}
+function Separator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(breadcrumbsStyles.separator, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "breadcrumbs-separator"}
+    />
+  );
+}
 const Context = createContext<ReactNode>(undefined);
 const DisabledContext = createContext(false);
 export type BreadcrumbsRootProps = ComponentProps<typeof Nav> & {

@@ -9,7 +9,8 @@ import {
   avatarColors,
   avatarSoft,
 } from "@lenso/tokens/avatar";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { AvatarGroupContext } from "../avatar-group/avatar-group-context.js";
 type Appearance = {
   size: keyof typeof avatarSizes;
@@ -17,52 +18,68 @@ type Appearance = {
   variant: "default" | "soft";
 };
 const Context = createContext<Appearance>({ size: "md", color: "default", variant: "default" });
-const Root = styledPart(Primitive.Root, "avatar", avatarStyles.root);
-const Fallback = styledPart(Primitive.Fallback, "avatar-fallback", avatarStyles.fallback);
-export type AvatarRootProps = StyleXProps<ComponentProps<typeof Primitive.Root>> &
-  Partial<Appearance>;
-export function AvatarRoot({ size, color, variant, xstyle, ...props }: AvatarRootProps) {
+export type AvatarRootProps = StyleXProps<Primitive.Root.Props> & Partial<Appearance>;
+export function AvatarRoot({ size, color, variant, xstyle, style, ...props }: AvatarRootProps) {
   const group = useContext(AvatarGroupContext);
   const appearance: Appearance = {
     size: size ?? group.size ?? "md",
     color: color ?? group.color ?? "default",
     variant: variant ?? group.variant ?? "default",
   };
+  const compiled = stylex.props(
+    avatarStyles.root,
+    avatarSizes[appearance.size],
+    appearance.variant === "soft" && avatarStyles.soft,
+    xstyle,
+  );
   return (
     <Context.Provider value={appearance}>
-      <Root
+      <Primitive.Root
         {...props}
-        xstyle={[
-          avatarSizes[appearance.size],
-          appearance.variant === "soft" && avatarStyles.soft,
-          xstyle,
-        ]}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar"}
+        {...compiled}
+        style={mergeStyle<Primitive.Root.State>(compiled.style, style)}
       />
     </Context.Provider>
   );
 }
 export function AvatarFallback({
   xstyle,
+  style,
   color: colorProp,
   ...props
-}: ComponentProps<typeof Fallback> & { color?: keyof typeof avatarColors }) {
+}: StyleXProps<Primitive.Fallback.Props> & { color?: keyof typeof avatarColors }) {
   const { size, color: rootColor, variant } = useContext(Context);
   const color = colorProp ?? rootColor;
   const group = useContext(AvatarGroupContext);
+  const compiled = stylex.props(
+    avatarStyles.fallback,
+    avatarFallbackSizes[size],
+    avatarColors[color],
+    variant === "soft" && avatarSoft[color],
+    group.clipped && avatarStyles.clippedFallback,
+    xstyle,
+  );
   return (
-    <Fallback
+    <Primitive.Fallback
       {...props}
-      xstyle={[
-        avatarFallbackSizes[size],
-        avatarColors[color],
-        variant === "soft" && avatarSoft[color],
-        group.clipped && avatarStyles.clippedFallback,
-        xstyle,
-      ]}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-fallback"}
+      {...compiled}
+      style={mergeStyle<Primitive.Fallback.State>(compiled.style, style)}
     />
   );
 }
-export const AvatarImage = styledPart(Primitive.Image, "avatar-image", avatarStyles.image);
+export function AvatarImage({ xstyle, style, ...props }: StyleXProps<Primitive.Image.Props>) {
+  const compiled = stylex.props(avatarStyles.image, xstyle);
+  return (
+    <Primitive.Image
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-image"}
+      {...compiled}
+      style={mergeStyle<Primitive.Image.State>(compiled.style, style)}
+    />
+  );
+}
 export const Avatar = Object.assign(AvatarRoot, {
   Root: AvatarRoot,
   Image: AvatarImage,

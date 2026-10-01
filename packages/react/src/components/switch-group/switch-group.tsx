@@ -5,28 +5,53 @@
  */
 import { switchGroupStyles } from "@lenso/tokens/switch-group";
 import { createContext, useContext, type ComponentPropsWithRef } from "react";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 
 type Orientation = "horizontal" | "vertical";
 const OrientationContext = createContext<Orientation>("vertical");
-const Root = styledPart("div", "switch-group", switchGroupStyles.root);
-export type SwitchGroupRootProps = ComponentPropsWithRef<typeof Root> & {
+export type SwitchGroupRootProps = StyleXProps<React.ComponentPropsWithRef<"div">> & {
+  "data-slot"?: unknown;
   orientation?: Orientation;
 };
 export function SwitchGroupRoot({
   orientation = "vertical",
   children,
+  xstyle,
+  style,
   ...props
 }: SwitchGroupRootProps) {
+  const compiled = stylex.props(switchGroupStyles.root, xstyle);
   return (
     <OrientationContext value={orientation}>
-      <Root {...props} role={props.role ?? "group"}>
+      <div
+        {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "switch-group"}
+        role={props.role ?? "group"}
+      >
         <SwitchGroupItems>{children}</SwitchGroupItems>
-      </Root>
+      </div>
     </OrientationContext>
   );
 }
-const Items = styledPart("div", "switch-group-items", switchGroupStyles.items);
+function Items({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(switchGroupStyles.items, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "switch-group-items"}
+    />
+  );
+}
 export type SwitchGroupItemsProps = ComponentPropsWithRef<typeof Items> & {
   orientation?: Orientation;
 };

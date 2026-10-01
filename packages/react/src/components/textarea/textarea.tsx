@@ -3,10 +3,10 @@
 import * as React from "react";
 import { Field } from "@base-ui/react/field";
 import { textAreaStyles, textAreaInputStyles } from "@lenso/tokens/textarea";
-import { styledPart } from "../../utils/styled.js";
-const Control = styledPart(Field.Control, "textarea", textAreaInputStyles.input);
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 export type TextAreaProps = Omit<
-  React.ComponentProps<typeof Control>,
+  StyleXProps<Field.Control.Props>,
   "render" | "ref" | "onChange" | "onBlur" | "onFocus" | "onKeyDown"
 > &
   Pick<
@@ -26,18 +26,23 @@ export function TextAreaRoot({
   variant = "primary",
   fullWidth = false,
   xstyle,
+  style,
   "data-slot": slot = "textarea",
   ...props
 }: TextAreaProps) {
+  const compiled = stylex.props(
+    textAreaInputStyles.input,
+    textAreaStyles.textarea,
+    variant === "secondary" && textAreaInputStyles.secondary,
+    fullWidth && textAreaInputStyles.fullWidth,
+    xstyle,
+  );
   return (
-    <Control
+    <Field.Control
       {...props}
-      xstyle={[
-        textAreaStyles.textarea,
-        variant === "secondary" && textAreaInputStyles.secondary,
-        fullWidth && textAreaInputStyles.fullWidth,
-        xstyle,
-      ]}
+      {...compiled}
+      style={mergeStyle<Field.Control.State>(compiled.style, style)}
+      data-slot="textarea"
       render={
         <textarea
           ref={ref}

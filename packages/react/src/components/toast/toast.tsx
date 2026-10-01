@@ -1,10 +1,10 @@
 "use client";
 // HeroUI v3.2.6 anatomy, Apache-2.0; Base UI owns the toast queue.
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Toast as Base } from "@base-ui/react/toast";
 import { toastStyles as s } from "@lenso/tokens/toast";
-import { styledPart } from "../../utils/styled.js";
-import { mergeStyle } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from "../../icons/index.js";
 import { Spinner } from "../spinner/spinner.js";
@@ -15,15 +15,16 @@ const PlacementContext = React.createContext<Placement>("bottom");
 const ExpandedLayoutContext = React.createContext(false);
 type Variant = "default" | "accent" | "success" | "warning" | "danger";
 const IndicatorContext = React.createContext({ variant: "default" as Variant, loading: false });
-const Root = styledPart(Base.Root, "toast", s.root);
 export function ToastRoot({
   toast,
   variant,
   style,
+  xstyle,
   ...props
-}: React.ComponentProps<typeof Root> & {
-  variant?: Variant;
-}) {
+}: StyleXProps<Omit<Base.Root.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Root>, "ref"> & {
+    variant?: Variant;
+  }) {
   const { toasts } = Base.useToastManager();
   const placement = React.useContext(PlacementContext);
   const alwaysExpanded = React.useContext(ExpandedLayoutContext);
@@ -41,17 +42,23 @@ export function ToastRoot({
     () => ({ variant: tone, loading }),
     [tone, loading],
   );
+  const compiled = stylex.props(s.root, xstyle);
   return (
     <IndicatorContext.Provider value={indicator}>
-      <Root
+      <Base.Root
         {...props}
+        {...compiled}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast"}
         toast={toast}
         data-frontmost={front?.id === toast.id ? "" : undefined}
         data-layout-expanded={alwaysExpanded ? "" : undefined}
         data-placement={placement}
         data-variant={appearance}
-        style={mergeStyle(
-          { "--front-height": `${front?.height ?? toast.height ?? 0}px` } as React.CSSProperties,
+        style={mergeStyle<Base.Root.State>(
+          {
+            ...compiled.style,
+            "--front-height": `${front?.height ?? toast.height ?? 0}px`,
+          } as React.CSSProperties,
           style,
         )}
       />
@@ -70,39 +77,122 @@ export function ToastPortal({
     />
   );
 }
-const Viewport = styledPart(Base.Viewport, "toast-viewport", s.viewport);
 export function ToastViewport({
   placement = "bottom",
   alwaysExpanded = false,
   xstyle,
   children,
+  style,
   ...props
-}: React.ComponentProps<typeof Viewport> & {
-  placement?: Placement;
-  /** Keeps the layout expanded without replacing Base UI's hover/focus state. */
-  alwaysExpanded?: boolean;
-}) {
+}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref"> & {
+    placement?: Placement;
+    /** Keeps the layout expanded without replacing Base UI's hover/focus state. */
+    alwaysExpanded?: boolean;
+  }) {
+  const compiled = stylex.props(s.viewport, s[placement], xstyle);
   return (
     <PlacementContext.Provider value={placement}>
       <ExpandedLayoutContext.Provider value={alwaysExpanded}>
-        <Viewport {...props} xstyle={[s[placement], xstyle]}>
+        <Base.Viewport
+          {...props}
+          {...compiled}
+          style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
+          data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-viewport"}
+        >
           {children}
-        </Viewport>
+        </Base.Viewport>
       </ExpandedLayoutContext.Provider>
     </PlacementContext.Provider>
   );
 }
-export const ToastContent = styledPart(Base.Content, "toast-content", s.content);
-export const ToastTitle = styledPart(Base.Title, "toast-title", s.title);
-export const ToastDescription = styledPart(Base.Description, "toast-description", s.description);
-export const ToastClose = styledPart(Base.Close, "toast-close", s.close);
-export const ToastAction = styledPart(Base.Action, "toast-action", s.action);
-const Indicator = styledPart("span", "toast-indicator", s.indicator);
+export function ToastContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Content.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Content>, "ref">) {
+  const compiled = stylex.props(s.content, xstyle);
+  return (
+    <Base.Content
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Content.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-content"}
+    />
+  );
+}
+export function ToastTitle({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Title.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Title>, "ref">) {
+  const compiled = stylex.props(s.title, xstyle);
+  return (
+    <Base.Title
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Title.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-title"}
+    />
+  );
+}
+export function ToastDescription({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Description.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Description>, "ref">) {
+  const compiled = stylex.props(s.description, xstyle);
+  return (
+    <Base.Description
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Description.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-description"}
+    />
+  );
+}
+export function ToastClose({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Close.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref">) {
+  const compiled = stylex.props(s.close, xstyle);
+  return (
+    <Base.Close
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Close.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-close"}
+    />
+  );
+}
+export function ToastAction({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Action.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Action>, "ref">) {
+  const compiled = stylex.props(s.action, xstyle);
+  return (
+    <Base.Action
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Action.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-action"}
+    />
+  );
+}
 export function ToastIndicator({
   children,
   variant,
+  xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof Indicator> & { variant?: Variant }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { variant?: Variant }) {
   const inherited = React.useContext(IndicatorContext);
   const tone = variant ?? inherited.variant;
   const DefaultIcon =
@@ -129,14 +219,52 @@ export function ToastIndicator({
       setSwapped(true);
     }
   }, [kind]);
+  const compiled = stylex.props(s.indicator, xstyle);
   return (
-    <Indicator aria-hidden="true" {...props} data-swapped={swapped ? "true" : undefined}>
+    <span
+      aria-hidden="true"
+      {...props}
+      data-swapped={swapped ? "true" : undefined}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-indicator"}
+    >
       {content}
-    </Indicator>
+    </span>
   );
 }
-export const ToastPositioner = styledPart(Base.Positioner, "toast-positioner", s.positioner);
-export const ToastArrow = styledPart(Base.Arrow, "toast-arrow", s.arrow);
+export function ToastPositioner({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Positioner.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Positioner>, "ref">) {
+  const compiled = stylex.props(s.positioner, xstyle);
+  return (
+    <Base.Positioner
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-positioner"}
+    />
+  );
+}
+export function ToastArrow({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Arrow.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, "ref">) {
+  const compiled = stylex.props(s.arrow, xstyle);
+  return (
+    <Base.Arrow
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Arrow.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-arrow"}
+    />
+  );
+}
 export const useToastManager = Base.useToastManager;
 export const createToastManager = Base.createToastManager;
 export const Toast = Object.assign(ToastRoot, {

@@ -2,8 +2,8 @@
 // Derived from HeroUI v3.2.6 (Apache-2.0); modified for native HTML and StyleX.
 import { useCallback, useLayoutEffect, useRef, useState, type ComponentProps } from "react";
 import { scrollShadowStyles, scrollShadowProperties } from "@lenso/tokens/scroll-shadow";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
-const Root = styledPart("div", "scroll-shadow", scrollShadowStyles.root);
+import * as stylex from "@stylexjs/stylex";
+import { type StyleXProps } from "../../utils/styled.js";
 export type ScrollShadowVisibility = "auto" | "both" | "top" | "bottom" | "left" | "right" | "none";
 export type ScrollShadowRootProps = StyleXProps<ComponentProps<"div">> & {
   size?: number;
@@ -25,6 +25,7 @@ export function ScrollShadowRoot({
   variant: _variant,
   onVisibilityChange,
   xstyle,
+  style,
   ref,
   ...props
 }: ScrollShadowRootProps) {
@@ -132,13 +133,27 @@ export function ScrollShadowRoot({
       : visibility === "both" || visibility === (orientation === "vertical" ? "bottom" : "right");
   const vertical = orientation === "vertical";
   const automatic = isEnabled && visibility === "auto";
+  const compiled = stylex.props(
+    scrollShadowStyles.root,
+    scrollShadowStyles[orientation],
+    hideScrollBar && scrollShadowStyles.hideScrollBar,
+    (automatic || before || after) &&
+      (vertical ? scrollShadowStyles.verticalMask : scrollShadowStyles.horizontalMask),
+    scrollShadowStyles.geometry(size, offset, before, after),
+    automatic && scrollShadowStyles.automatic,
+    automatic &&
+      (vertical ? scrollShadowStyles.verticalTimeline : scrollShadowStyles.horizontalTimeline),
+    automatic && edges.overflow === false && scrollShadowStyles.inactive,
+    xstyle,
+  );
   return (
     <>
       <style href="lenso-scroll-shadow-properties" precedence="lenso-components">
         {scrollShadowProperties}
       </style>
-      <Root
+      <div
         {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "scroll-shadow"}
         ref={mergedRef}
         data-orientation={orientation}
         data-scroll-shadow-mode={isEnabled && visibility === "auto" ? "auto" : "manual"}
@@ -149,20 +164,8 @@ export function ScrollShadowRoot({
         data-left-scroll={!vertical && !after ? String(before) : undefined}
         data-right-scroll={!vertical && !before ? String(after) : undefined}
         data-left-right-scroll={!vertical && before && after ? "true" : undefined}
-        xstyle={[
-          scrollShadowStyles[orientation],
-          hideScrollBar && scrollShadowStyles.hideScrollBar,
-          (automatic || before || after) &&
-            (vertical ? scrollShadowStyles.verticalMask : scrollShadowStyles.horizontalMask),
-          scrollShadowStyles.geometry(size, offset, before, after),
-          automatic && scrollShadowStyles.automatic,
-          automatic &&
-            (vertical
-              ? scrollShadowStyles.verticalTimeline
-              : scrollShadowStyles.horizontalTimeline),
-          automatic && edges.overflow === false && scrollShadowStyles.inactive,
-          xstyle,
-        ]}
+        {...compiled}
+        style={{ ...compiled.style, ...style }}
       />
     </>
   );

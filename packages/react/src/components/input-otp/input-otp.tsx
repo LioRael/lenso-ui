@@ -3,26 +3,85 @@
 import * as React from "react";
 import { OTPField } from "@base-ui/react/otp-field";
 import { inputOTPStyles } from "@lenso/tokens/input-otp";
-import { styledPart } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 const Variant = React.createContext<"primary" | "secondary">("primary");
-const Root = styledPart(OTPField.Root, "input-otp", inputOTPStyles.root);
-export type InputOTPRootProps = React.ComponentProps<typeof Root> & {
+export type InputOTPRootProps = StyleXProps<OTPField.Root.Props> & {
   variant?: "primary" | "secondary";
+  "data-slot"?: unknown;
 };
-export function InputOTPRoot({ variant = "primary", ...props }: InputOTPRootProps) {
+export function InputOTPRoot({
+  variant = "primary",
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: InputOTPRootProps) {
+  const compiled = stylex.props(inputOTPStyles.root, xstyle);
   return (
     <Variant value={variant}>
-      <Root {...props} />
+      <OTPField.Root
+        {...props}
+        {...compiled}
+        style={mergeStyle<OTPField.Root.State>(compiled.style, style)}
+        data-slot={slot ?? "input-otp"}
+      />
     </Variant>
   );
 }
-export const InputOTPGroup = styledPart("div", "input-otp-group", inputOTPStyles.group);
-const Slot = styledPart(OTPField.Input, "input-otp-slot", inputOTPStyles.slot);
-export function InputOTPSlot({ xstyle, ...props }: React.ComponentProps<typeof Slot>) {
-  const variant = React.useContext(Variant);
-  return <Slot {...props} xstyle={[variant === "secondary" && inputOTPStyles.secondary, xstyle]} />;
+export function InputOTPGroup({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(inputOTPStyles.group, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={slot ?? "input-otp-group"}
+    />
+  );
 }
-export const InputOTPSeparator = styledPart("div", "input-otp-separator", inputOTPStyles.separator);
+export function InputOTPSlot({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<OTPField.Input.Props> & { "data-slot"?: unknown }) {
+  const variant = React.useContext(Variant);
+  const compiled = stylex.props(
+    inputOTPStyles.slot,
+    variant === "secondary" && inputOTPStyles.secondary,
+    xstyle,
+  );
+  return (
+    <OTPField.Input
+      {...props}
+      {...compiled}
+      style={mergeStyle<OTPField.Input.State>(compiled.style, style)}
+      data-slot={slot ?? "input-otp-slot"}
+    />
+  );
+}
+export function InputOTPSeparator({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(inputOTPStyles.separator, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={slot ?? "input-otp-separator"}
+    />
+  );
+}
 export const InputOTP = Object.assign(InputOTPRoot, {
   Root: InputOTPRoot,
   Group: InputOTPGroup,

@@ -2,22 +2,117 @@
 
 import { createContext, useContext, type ComponentProps } from "react";
 import { paginationStyles, paginationSizes, paginationPress } from "@lenso/tokens/pagination";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { LinkRoot, type LinkRootProps } from "../link/link.js";
 import type { ButtonSize } from "../button/button.js";
 const Context = createContext<ButtonSize>("md");
-const Root = styledPart("nav", "pagination", paginationStyles.root);
-const Summary = styledPart("div", "pagination-summary", paginationStyles.summary);
-export const PaginationContent = styledPart("ul", "pagination-content", paginationStyles.content);
-export const PaginationItem = styledPart("li", "pagination-item", paginationStyles.item);
-const Ellipsis = styledPart("span", "pagination-ellipsis", paginationStyles.ellipsis);
-const PreviousIcon = styledPart("span", "pagination-previous-icon", paginationStyles.icon);
-const NextIcon = styledPart("span", "pagination-next-icon", paginationStyles.icon);
-export type PaginationRootProps = ComponentProps<typeof Root> & { size?: ButtonSize };
-export function PaginationRoot({ size = "md", ...props }: PaginationRootProps) {
+function Summary({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(paginationStyles.summary, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "pagination-summary"}
+    />
+  );
+}
+export function PaginationContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"ul">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(paginationStyles.content, xstyle);
+  return (
+    <ul
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "pagination-content"}
+    />
+  );
+}
+export function PaginationItem({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"li">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(paginationStyles.item, xstyle);
+  return (
+    <li
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "pagination-item"}
+    />
+  );
+}
+function Ellipsis({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(paginationStyles.ellipsis, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "pagination-ellipsis"}
+    />
+  );
+}
+function PreviousIcon({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(paginationStyles.icon, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "pagination-previous-icon"}
+    />
+  );
+}
+function NextIcon({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(paginationStyles.icon, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "pagination-next-icon"}
+    />
+  );
+}
+export type PaginationRootProps = StyleXProps<React.ComponentPropsWithRef<"nav">> & {
+  "data-slot"?: unknown;
+  size?: ButtonSize;
+};
+export function PaginationRoot({ size = "md", xstyle, style, ...props }: PaginationRootProps) {
+  const compiled = stylex.props(paginationStyles.root, xstyle);
   return (
     <Context value={size}>
-      <Root aria-label="Pagination" {...props} />
+      <nav
+        aria-label="Pagination"
+        {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "pagination"}
+      />
     </Context>
   );
 }

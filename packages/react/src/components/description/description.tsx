@@ -5,17 +5,12 @@ import { Field } from "@base-ui/react/field";
 import { useRender } from "@base-ui/react/use-render";
 import { descriptionStyles } from "@lenso/tokens/description";
 import { checkboxSupportingStyles } from "@lenso/tokens/checkbox";
-import { styledPart } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { FieldScope } from "../textfield/field-scope.js";
 const supportingStyles = [descriptionStyles.description, checkboxSupportingStyles.direct];
-const Root = styledPart(Field.Description, "description", supportingStyles);
-function StandaloneElement({
-  render,
-  ref,
-  style,
-  ...props
-}: React.ComponentProps<typeof Field.Description>) {
-  const state: { [Key in keyof Field.Root.State]: Field.Root.State[Key] } = {
+function StandaloneElement({ render, ref, style, ...props }: Field.Description.Props) {
+  const state: { [Key in keyof Field.Description.State]: Field.Description.State[Key] } = {
     disabled: false,
     touched: false,
     dirty: false,
@@ -31,11 +26,27 @@ function StandaloneElement({
     props: { ...props, style: typeof style === "function" ? style(state) : style },
   });
 }
-const Standalone = styledPart(StandaloneElement, "description", supportingStyles);
-export function DescriptionRoot(props: React.ComponentProps<typeof Root>) {
+export function DescriptionRoot({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<Field.Description.Props> & { "data-slot"?: unknown }) {
   const inField = React.useContext(FieldScope);
-  if (inField) return <Root {...props} />;
-  return <Standalone {...props} />;
+  const compiled = stylex.props(supportingStyles, xstyle);
+  const merged = mergeStyle<Field.Description.State>(compiled.style, style);
+  if (inField)
+    return (
+      <Field.Description
+        {...props}
+        {...compiled}
+        style={merged}
+        data-slot={slot ?? "description"}
+      />
+    );
+  return (
+    <StandaloneElement {...props} {...compiled} style={merged} data-slot={slot ?? "description"} />
+  );
 }
 export const Description = Object.assign(DescriptionRoot, { Root: DescriptionRoot });
 export type DescriptionRootProps = React.ComponentProps<typeof DescriptionRoot>;

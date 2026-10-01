@@ -7,28 +7,65 @@
 import { Switch as BaseSwitch } from "@base-ui/react/switch";
 import { switchStyles } from "@lenso/tokens/switch";
 import { createContext, useContext, type ComponentPropsWithRef } from "react";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 
 type SwitchSize = "sm" | "md" | "lg";
 const SizeContext = createContext<SwitchSize>("md");
-const Root = styledPart(BaseSwitch.Root, "switch", switchStyles.root);
-export type SwitchRootProps = ComponentPropsWithRef<typeof Root> & { size?: SwitchSize };
-export function SwitchRoot({ size = "md", xstyle, ...props }: SwitchRootProps) {
+export type SwitchRootProps = StyleXProps<
+  Omit<BaseSwitch.Root.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseSwitch.Root>["ref"];
+  }
+> & { "data-slot"?: unknown; size?: SwitchSize };
+export function SwitchRoot({ size = "md", xstyle, style, ...props }: SwitchRootProps) {
+  const compiled = stylex.props(
+    switchStyles.root,
+    size === "sm" && switchStyles.rootSm,
+    size === "lg" && switchStyles.rootLg,
+    xstyle,
+  );
   return (
     <SizeContext value={size}>
-      <Root
+      <BaseSwitch.Root
         {...props}
-        xstyle={[
-          size === "sm" && switchStyles.rootSm,
-          size === "lg" && switchStyles.rootLg,
-          xstyle,
-        ]}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "switch"}
       />
     </SizeContext>
   );
 }
-export const SwitchContent = styledPart("span", "switch-content", switchStyles.content);
-const Control = styledPart("span", "switch-control", switchStyles.control);
+export function SwitchContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(switchStyles.content, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "switch-content"}
+    />
+  );
+}
+function Control({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(switchStyles.control, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "switch-control"}
+    />
+  );
+}
 export type SwitchControlProps = ComponentPropsWithRef<typeof Control>;
 export function SwitchControl({ xstyle, ...props }: SwitchControlProps) {
   const size = useContext(SizeContext);
@@ -43,7 +80,25 @@ export function SwitchControl({ xstyle, ...props }: SwitchControlProps) {
     />
   );
 }
-const Thumb = styledPart(BaseSwitch.Thumb, "switch-thumb", switchStyles.thumb);
+function Thumb({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseSwitch.Thumb.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseSwitch.Thumb>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(switchStyles.thumb, xstyle);
+  return (
+    <BaseSwitch.Thumb
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "switch-thumb"}
+    />
+  );
+}
 export type SwitchThumbProps = ComponentPropsWithRef<typeof Thumb>;
 export function SwitchThumb({ xstyle, ...props }: SwitchThumbProps) {
   const size = useContext(SizeContext);
@@ -58,6 +113,20 @@ export function SwitchThumb({ xstyle, ...props }: SwitchThumbProps) {
     />
   );
 }
-export const SwitchIcon = styledPart("span", "switch-icon", switchStyles.icon);
+export function SwitchIcon({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(switchStyles.icon, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "switch-icon"}
+    />
+  );
+}
 export type SwitchContentProps = ComponentPropsWithRef<typeof SwitchContent>;
 export type SwitchIconProps = ComponentPropsWithRef<typeof SwitchIcon>;

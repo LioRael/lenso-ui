@@ -7,7 +7,8 @@
 import { Select as BaseSelect } from "@base-ui/react/select";
 import { selectStyles } from "@lenso/tokens/select";
 import { createContext, useContext, useMemo, type ComponentPropsWithRef } from "react";
-import { styledPart } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
 const SelectStyleContext = createContext({
@@ -26,30 +27,67 @@ export function SelectRoot<Value, Multiple extends boolean | undefined = false>(
     </SelectStyleContext>
   );
 }
-const Trigger = styledPart(BaseSelect.Trigger, "select-trigger", selectStyles.trigger);
-export type SelectTriggerProps = ComponentPropsWithRef<typeof Trigger> & {
+export type SelectTriggerProps = StyleXProps<BaseSelect.Trigger.Props> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
+  "data-slot"?: unknown;
 };
-export function SelectTrigger({ variant, fullWidth, xstyle, ...props }: SelectTriggerProps) {
+export function SelectTrigger({
+  variant,
+  fullWidth,
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: SelectTriggerProps) {
   const inherited = useContext(SelectStyleContext);
+  const compiled = stylex.props(
+    selectStyles.trigger,
+    (variant ?? inherited.variant) === "secondary" && selectStyles.secondary,
+    (fullWidth ?? inherited.fullWidth) && selectStyles.fullWidth,
+    xstyle,
+  );
   return (
-    <Trigger
+    <BaseSelect.Trigger
       {...props}
-      xstyle={[
-        (variant ?? inherited.variant) === "secondary" && selectStyles.secondary,
-        (fullWidth ?? inherited.fullWidth) && selectStyles.fullWidth,
-        xstyle,
-      ]}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Trigger.State>(compiled.style, style)}
+      data-slot={slot ?? "select-trigger"}
     />
   );
 }
-export const SelectValue = styledPart(BaseSelect.Value, "select-value", selectStyles.value);
-const Icon = styledPart(BaseSelect.Icon, "select-indicator", selectStyles.indicator);
-export type SelectIndicatorProps = ComponentPropsWithRef<typeof Icon>;
-export function SelectIndicator({ children, ...props }: SelectIndicatorProps) {
+export function SelectValue({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.Value.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.value, xstyle);
   return (
-    <Icon {...props}>
+    <BaseSelect.Value
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Value.State>(compiled.style, style)}
+      data-slot={slot ?? "select-value"}
+    />
+  );
+}
+export type SelectIndicatorProps = StyleXProps<BaseSelect.Icon.Props> & { "data-slot"?: unknown };
+export function SelectIndicator({
+  children,
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: SelectIndicatorProps) {
+  const compiled = stylex.props(selectStyles.indicator, xstyle);
+  return (
+    <BaseSelect.Icon
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Icon.State>(compiled.style, style)}
+      data-slot={slot ?? "select-indicator"}
+    >
       {children ?? (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path
@@ -61,7 +99,7 @@ export function SelectIndicator({ children, ...props }: SelectIndicatorProps) {
           />
         </svg>
       )}
-    </Icon>
+    </BaseSelect.Icon>
   );
 }
 export type SelectPortalProps = ComponentPropsWithRef<typeof BaseSelect.Portal>;
@@ -74,28 +112,106 @@ export function SelectPortal({ container, ...props }: SelectPortalProps) {
     />
   );
 }
-export const SelectPositioner = styledPart(
-  BaseSelect.Positioner,
-  "select-positioner",
-  selectStyles.positioner,
-);
-export const SelectPopover = styledPart(BaseSelect.Popup, "select-popover", selectStyles.popover);
-export const SelectList = styledPart(BaseSelect.List, "select-list", selectStyles.list);
-export const SelectItem = styledPart(BaseSelect.Item, "select-item", selectStyles.item);
-export const SelectItemText = styledPart(
-  BaseSelect.ItemText,
-  "select-item-text",
-  selectStyles.itemText,
-);
-const ItemIndicator = styledPart(
-  BaseSelect.ItemIndicator,
-  "select-item-indicator",
-  selectStyles.itemIndicator,
-);
-export type SelectItemIndicatorProps = ComponentPropsWithRef<typeof ItemIndicator>;
-export function SelectItemIndicator({ children, ...props }: SelectItemIndicatorProps) {
+export function SelectPositioner({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.Positioner.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.positioner, xstyle);
   return (
-    <ItemIndicator {...props}>
+    <BaseSelect.Positioner
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Positioner.State>(compiled.style, style)}
+      data-slot={slot ?? "select-positioner"}
+    />
+  );
+}
+export function SelectPopover({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.Popup.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.popover, xstyle);
+  return (
+    <BaseSelect.Popup
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Popup.State>(compiled.style, style)}
+      data-slot={slot ?? "select-popover"}
+    />
+  );
+}
+export function SelectList({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.List.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.list, xstyle);
+  return (
+    <BaseSelect.List
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.List.State>(compiled.style, style)}
+      data-slot={slot ?? "select-list"}
+    />
+  );
+}
+export function SelectItem({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<Omit<BaseSelect.Item.Props, "ref"> & React.RefAttributes<HTMLElement>> & {
+  "data-slot"?: unknown;
+}) {
+  const compiled = stylex.props(selectStyles.item, xstyle);
+  return (
+    <BaseSelect.Item
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Item.State>(compiled.style, style)}
+      data-slot={slot ?? "select-item"}
+    />
+  );
+}
+export function SelectItemText({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.ItemText.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.itemText, xstyle);
+  return (
+    <BaseSelect.ItemText
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.ItemText.State>(compiled.style, style)}
+      data-slot={slot ?? "select-item-text"}
+    />
+  );
+}
+export type SelectItemIndicatorProps = StyleXProps<BaseSelect.ItemIndicator.Props> & {
+  "data-slot"?: unknown;
+};
+export function SelectItemIndicator({
+  children,
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: SelectItemIndicatorProps) {
+  const compiled = stylex.props(selectStyles.itemIndicator, xstyle);
+  return (
+    <BaseSelect.ItemIndicator
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.ItemIndicator.State>(compiled.style, style)}
+      data-slot={slot ?? "select-item-indicator"}
+    >
       {children ?? (
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <path
@@ -107,22 +223,89 @@ export function SelectItemIndicator({ children, ...props }: SelectItemIndicatorP
           />
         </svg>
       )}
-    </ItemIndicator>
+    </BaseSelect.ItemIndicator>
   );
 }
-export const SelectLabel = styledPart(BaseSelect.Label, "select-label", selectStyles.label);
-export const SelectGroup = styledPart(BaseSelect.Group, "select-group");
-export const SelectGroupLabel = styledPart(
-  BaseSelect.GroupLabel,
-  "select-group-label",
-  selectStyles.groupLabel,
-);
-export const SelectSeparator = styledPart(
-  BaseSelect.Separator,
-  "select-separator",
-  selectStyles.separator,
-);
-export const SelectArrow = styledPart(BaseSelect.Arrow, "select-arrow", selectStyles.arrow);
+export function SelectLabel({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.Label.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.label, xstyle);
+  return (
+    <BaseSelect.Label
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Label.State>(compiled.style, style)}
+      data-slot={slot ?? "select-label"}
+    />
+  );
+}
+export function SelectGroup({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.Group.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(xstyle);
+  return (
+    <BaseSelect.Group
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Group.State>(compiled.style, style)}
+      data-slot={slot ?? "select-group"}
+    />
+  );
+}
+export function SelectGroupLabel({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.GroupLabel.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.groupLabel, xstyle);
+  return (
+    <BaseSelect.GroupLabel
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.GroupLabel.State>(compiled.style, style)}
+      data-slot={slot ?? "select-group-label"}
+    />
+  );
+}
+export function SelectSeparator({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.Separator.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.separator, xstyle);
+  return (
+    <BaseSelect.Separator
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Separator.State>(compiled.style, style)}
+      data-slot={slot ?? "select-separator"}
+    />
+  );
+}
+export function SelectArrow({
+  xstyle,
+  style,
+  "data-slot": slot,
+  ...props
+}: StyleXProps<BaseSelect.Arrow.Props> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(selectStyles.arrow, xstyle);
+  return (
+    <BaseSelect.Arrow
+      {...props}
+      {...compiled}
+      style={mergeStyle<BaseSelect.Arrow.State>(compiled.style, style)}
+      data-slot={slot ?? "select-arrow"}
+    />
+  );
+}
 export const SelectScrollUpArrow = BaseSelect.ScrollUpArrow;
 export const SelectScrollDownArrow = BaseSelect.ScrollDownArrow;
 export const SelectBackdrop = BaseSelect.Backdrop;

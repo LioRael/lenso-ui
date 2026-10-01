@@ -1,10 +1,11 @@
 "use client";
 // HeroUI v3.2.6 anatomy, Apache-2.0; interactions use Base UI 1.7.
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Dialog } from "@base-ui/react/dialog";
 import { modalStyles as s } from "@lenso/tokens/modal";
 import { closeButtonStyles } from "@lenso/tokens/close-button";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
 const ScrollContext = React.createContext<"inside" | "outside">("inside");
@@ -18,7 +19,22 @@ export function ModalRoot<Payload = unknown>({
     </ScrollContext.Provider>
   );
 }
-export const ModalTrigger = styledPart(Dialog.Trigger, "modal-trigger", s.trigger);
+export function ModalTrigger({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Dialog.Trigger.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Dialog.Trigger>, "ref">) {
+  const compiled = stylex.props(s.trigger, xstyle);
+  return (
+    <Dialog.Trigger
+      {...props}
+      {...compiled}
+      style={mergeStyle<Dialog.Trigger.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-trigger"}
+    />
+  );
+}
 export function ModalPortal({
   container,
   ...props
@@ -31,77 +47,199 @@ export function ModalPortal({
     />
   );
 }
-const Backdrop = styledPart(Dialog.Backdrop, "modal-backdrop", s.backdrop);
 export function ModalBackdrop({
   variant = "opaque",
   xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof Backdrop> & { variant?: "transparent" | "opaque" | "blur" }) {
-  return <Backdrop {...props} xstyle={[s[variant], xstyle]} />;
+}: StyleXProps<Omit<Dialog.Backdrop.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Dialog.Backdrop>, "ref"> & {
+    variant?: "transparent" | "opaque" | "blur";
+  }) {
+  const compiled = stylex.props(s.backdrop, s[variant], xstyle);
+  return (
+    <Dialog.Backdrop
+      {...props}
+      {...compiled}
+      style={mergeStyle<Dialog.Backdrop.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-backdrop"}
+    />
+  );
 }
-export const ModalViewport = styledPart(Dialog.Viewport, "modal-viewport", s.viewport);
-const Popup = styledPart(Dialog.Popup, "modal-popup", s.popup);
+export function ModalViewport({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Dialog.Viewport.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Dialog.Viewport>, "ref">) {
+  const compiled = stylex.props(s.viewport, xstyle);
+  return (
+    <Dialog.Viewport
+      {...props}
+      {...compiled}
+      style={mergeStyle<Dialog.Viewport.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-viewport"}
+    />
+  );
+}
 export function ModalPopup({
   size = "md",
   placement = "auto",
   xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof Popup> & {
-  size?: "xs" | "sm" | "md" | "lg" | "cover" | "full";
-  placement?: "auto" | "top" | "center" | "bottom";
-}) {
+}: StyleXProps<Omit<Dialog.Popup.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Dialog.Popup>, "ref"> & {
+    size?: "xs" | "sm" | "md" | "lg" | "cover" | "full";
+    placement?: "auto" | "top" | "center" | "bottom";
+  }) {
   const scroll = React.useContext(ScrollContext);
+  const compiled = stylex.props(s.popup, s[size], s[scroll], xstyle);
   return (
-    <Popup
+    <Dialog.Popup
       {...props}
       data-size={size}
       data-placement={placement}
       data-scroll={scroll}
-      xstyle={[s[size], s[scroll], xstyle]}
+      {...compiled}
+      style={mergeStyle<Dialog.Popup.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-popup"}
     />
   );
 }
-export const ModalTitle = styledPart(Dialog.Title, "modal-title", s.title);
-export const ModalDescription = styledPart(Dialog.Description, "modal-description", s.description);
-const Close = styledPart(Dialog.Close, "modal-close");
-const CloseIcon = styledPart("svg", "close-button-icon", closeButtonStyles.icon);
+export function ModalTitle({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Dialog.Title.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Dialog.Title>, "ref">) {
+  const compiled = stylex.props(s.title, xstyle);
+  return (
+    <Dialog.Title
+      {...props}
+      {...compiled}
+      style={mergeStyle<Dialog.Title.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-title"}
+    />
+  );
+}
+export function ModalDescription({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Dialog.Description.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Dialog.Description>, "ref">) {
+  const compiled = stylex.props(s.description, xstyle);
+  return (
+    <Dialog.Description
+      {...props}
+      {...compiled}
+      style={mergeStyle<Dialog.Description.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-description"}
+    />
+  );
+}
 export function ModalClose({
   children,
   render,
   xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof Close>) {
+}: StyleXProps<Omit<Dialog.Close.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Dialog.Close>, "ref">) {
   const bare = children === undefined && render === undefined;
+  const compiled = stylex.props(bare && closeButtonStyles.root, bare && s.close, xstyle);
   return (
-    <Close
+    <Dialog.Close
       aria-label={bare ? "Close" : undefined}
       {...props}
       render={render}
-      xstyle={[bare && closeButtonStyles.root, bare && s.close, xstyle]}
+      {...compiled}
+      style={mergeStyle<Dialog.Close.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-close"}
     >
       {bare ? (
-        <CloseIcon viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <svg
+          {...stylex.props(closeButtonStyles.icon)}
+          data-slot="close-button-icon"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
           <path
             d="m4 4 8 8M12 4l-8 8"
             stroke="currentColor"
             strokeWidth="1.5"
             strokeLinecap="round"
           />
-        </CloseIcon>
+        </svg>
       ) : (
         children
       )}
-    </Close>
+    </Dialog.Close>
   );
 }
-export const ModalHeader = styledPart("div", "modal-header", s.header);
-const Body = styledPart("div", "modal-body", s.body);
-export function ModalBody({ xstyle, ...props }: React.ComponentProps<typeof Body>) {
-  const scroll = React.useContext(ScrollContext);
-  return <Body {...props} xstyle={[scroll === "outside" && s.bodyOutside, xstyle]} />;
+export function ModalHeader({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">>) {
+  const compiled = stylex.props(s.header, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-header"}
+    />
+  );
 }
-export const ModalFooter = styledPart("div", "modal-footer", s.footer);
-export const ModalIcon = styledPart("div", "modal-icon", s.icon);
+export function ModalBody({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">>) {
+  const scroll = React.useContext(ScrollContext);
+  const compiled = stylex.props(s.body, scroll === "outside" && s.bodyOutside, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-body"}
+    />
+  );
+}
+export function ModalFooter({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">>) {
+  const compiled = stylex.props(s.footer, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-footer"}
+    />
+  );
+}
+export function ModalIcon({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">>) {
+  const compiled = stylex.props(s.icon, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-icon"}
+    />
+  );
+}
 export const Modal = Object.assign(ModalRoot, {
   Root: ModalRoot,
   Trigger: ModalTrigger,

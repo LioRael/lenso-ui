@@ -7,7 +7,8 @@ import {
   progressCircleSizes,
   progressCircleColors,
 } from "@lenso/tokens/progress-circle";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 const CENTER = 18;
 const RADIUS = 16;
 const Context = createContext({
@@ -15,19 +16,7 @@ const Context = createContext({
   percentage: 0,
   indeterminate: false,
 });
-const Root = styledPart(Primitive.Root, "progress-circle", progressCircleStyles.root);
-const Track = styledPart("svg", "progress-circle-track", progressCircleStyles.track);
-const TrackCircle = styledPart(
-  "circle",
-  "progress-circle-track-circle",
-  progressCircleStyles.trackCircle,
-);
-const FillCircle = styledPart(
-  "circle",
-  "progress-circle-fill-circle",
-  progressCircleStyles.fillCircle,
-);
-export type ProgressCircleRootProps = StyleXProps<ComponentProps<typeof Primitive.Root>> & {
+export type ProgressCircleRootProps = StyleXProps<Primitive.Root.Props> & {
   size?: keyof typeof progressCircleSizes;
   color?: keyof typeof progressCircleColors;
 };
@@ -35,45 +24,81 @@ export function ProgressCircleRoot({
   size = "md",
   color = "accent",
   xstyle,
+  style,
   ...props
 }: ProgressCircleRootProps) {
   const min = props.min ?? 0;
   const max = props.max ?? 100;
   const percentage =
     max > min ? Math.max(0, Math.min(100, (((props.value ?? min) - min) / (max - min)) * 100)) : 0;
+  const compiled = stylex.props(progressCircleStyles.root, progressCircleColors[color], xstyle);
   return (
     <Context.Provider value={{ size, percentage, indeterminate: props.value === null }}>
-      <Root {...props} xstyle={[progressCircleColors[color], xstyle]} />
+      <Primitive.Root
+        {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle"}
+        {...compiled}
+        style={mergeStyle<Primitive.Root.State>(compiled.style, style)}
+      />
     </Context.Provider>
   );
 }
-export function ProgressCircleTrack({ xstyle, ...props }: ComponentProps<typeof Track>) {
+export function ProgressCircleTrack({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentProps<"svg">>) {
   const { size, indeterminate } = useContext(Context);
+  const compiled = stylex.props(
+    progressCircleStyles.track,
+    progressCircleSizes[size],
+    indeterminate && progressCircleStyles.indeterminate,
+    xstyle,
+  );
   return (
-    <Track
+    <svg
       viewBox="0 0 36 36"
       fill="none"
       aria-hidden="true"
       {...props}
-      xstyle={[
-        progressCircleSizes[size],
-        indeterminate && progressCircleStyles.indeterminate,
-        xstyle,
-      ]}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle-track"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
     />
   );
 }
-export function ProgressCircleTrackCircle(props: ComponentProps<typeof TrackCircle>) {
-  return <TrackCircle cx={CENTER} cy={CENTER} r={RADIUS} strokeWidth={4} {...props} />;
+export function ProgressCircleTrackCircle({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentProps<"circle">>) {
+  const compiled = stylex.props(progressCircleStyles.trackCircle, xstyle);
+  return (
+    <circle
+      cx={CENTER}
+      cy={CENTER}
+      r={RADIUS}
+      strokeWidth={4}
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle-track-circle"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
 }
-export function ProgressCircleFillCircle(props: ComponentProps<typeof FillCircle>) {
+export function ProgressCircleFillCircle({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentProps<"circle">>) {
   const { percentage, indeterminate } = useContext(Context);
   const radius = Number(props.r ?? RADIUS);
   const circumference = 2 * Math.PI * radius;
   const cx = props.cx ?? CENTER;
   const cy = props.cy ?? CENTER;
+  const compiled = stylex.props(progressCircleStyles.fillCircle, xstyle);
   return (
-    <FillCircle
+    <circle
       cx={CENTER}
       cy={CENTER}
       r={RADIUS}
@@ -83,10 +108,27 @@ export function ProgressCircleFillCircle(props: ComponentProps<typeof FillCircle
       strokeLinecap="round"
       transform={`rotate(-90 ${cx} ${cy})`}
       {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle-fill-circle"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
     />
   );
 }
-export const ProgressCircleLabel = styledPart(Primitive.Label, "label");
+export function ProgressCircleLabel({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Primitive.Label.Props>) {
+  const compiled = stylex.props(xstyle);
+  return (
+    <Primitive.Label
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
+      {...compiled}
+      style={mergeStyle<Primitive.Label.State>(compiled.style, style)}
+    />
+  );
+}
 export const ProgressCircle = Object.assign(ProgressCircleRoot, {
   Root: ProgressCircleRoot,
   Label: ProgressCircleLabel,

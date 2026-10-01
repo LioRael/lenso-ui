@@ -3,7 +3,9 @@
 import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group";
 import { Children, createContext, isValidElement, useContext, type ComponentProps } from "react";
 import { toggleButtonGroupStyles } from "@lenso/tokens/toggle-button-group";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import type { ButtonSize } from "../button/button.js";
 import { ToggleButtonRoot } from "../toggle-button/toggle-button.js";
 type GroupOptions = {
@@ -14,14 +16,23 @@ type GroupOptions = {
   orientation?: "horizontal" | "vertical";
 };
 export const ToggleButtonGroupContext = createContext<GroupOptions>({});
-const Root = styledPart(BaseToggleGroup, "toggle-button-group", toggleButtonGroupStyles.root);
-const Separator = styledPart(
-  "span",
-  "toggle-button-group-separator",
-  toggleButtonGroupStyles.separator,
-);
+function Separator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(toggleButtonGroupStyles.separator, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "toggle-button-group-separator"}
+    />
+  );
+}
 export type ToggleButtonGroupRootProps = StyleXProps<ComponentProps<typeof BaseToggleGroup>> &
-  GroupOptions;
+  GroupOptions & { "data-slot"?: unknown };
 export function ToggleButtonGroupRoot({
   children,
   size,
@@ -30,19 +41,24 @@ export function ToggleButtonGroupRoot({
   isDetached = false,
   orientation = "horizontal",
   xstyle,
+  style,
   ...props
 }: ToggleButtonGroupRootProps) {
   const options = { size, variant, fullWidth, isDetached, orientation };
+  const compiled = stylex.props(
+    toggleButtonGroupStyles.root,
+    toggleButtonGroupStyles[orientation],
+    fullWidth && toggleButtonGroupStyles.fullWidth,
+    isDetached && toggleButtonGroupStyles.detached,
+    xstyle,
+  );
   return (
-    <Root
+    <BaseToggleGroup
       {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "toggle-button-group"}
       orientation={orientation}
-      xstyle={[
-        toggleButtonGroupStyles[orientation],
-        fullWidth && toggleButtonGroupStyles.fullWidth,
-        isDetached && toggleButtonGroupStyles.detached,
-        xstyle,
-      ]}
     >
       {Children.map(children, (child) => (
         <ToggleButtonGroupContext
@@ -56,7 +72,7 @@ export function ToggleButtonGroupRoot({
           {child}
         </ToggleButtonGroupContext>
       ))}
-    </Root>
+    </BaseToggleGroup>
   );
 }
 export function ToggleButtonGroupSeparator({ xstyle, ...props }: ComponentProps<typeof Separator>) {

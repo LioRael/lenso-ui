@@ -4,26 +4,173 @@ import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
 import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
 import { createContext, useContext, type ComponentProps } from "react";
 import { disclosureStyles } from "@lenso/tokens/disclosure";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { DisclosureGroupContext } from "../disclosure-group/disclosure-group.js";
 const Context = createContext(false);
-const Root = styledPart(BaseCollapsible.Root, "disclosure", disclosureStyles.root);
-const GroupItem = styledPart(BaseAccordion.Item, "disclosure", disclosureStyles.root);
-const Trigger = styledPart(BaseCollapsible.Trigger, "disclosure-trigger", disclosureStyles.trigger);
-const GroupTrigger = styledPart(
-  BaseAccordion.Trigger,
-  "disclosure-trigger",
-  disclosureStyles.trigger,
-);
-const Content = styledPart(BaseCollapsible.Panel, "disclosure-content", disclosureStyles.content);
-const GroupContent = styledPart(
-  BaseAccordion.Panel,
-  "disclosure-content",
-  disclosureStyles.content,
-);
-export const DisclosureHeading = styledPart("h3", "disclosure-heading", disclosureStyles.heading);
-export const DisclosureBody = styledPart("div", "disclosure-body", disclosureStyles.body);
-const Indicator = styledPart("svg", "disclosure-indicator", disclosureStyles.indicator);
+function Root({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseCollapsible.Root.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.Root>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.root, xstyle);
+  return (
+    <BaseCollapsible.Root
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure"}
+    />
+  );
+}
+function GroupItem({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseAccordion.Item.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Item>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.root, xstyle);
+  return (
+    <BaseAccordion.Item
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure"}
+    />
+  );
+}
+function Trigger({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseCollapsible.Trigger.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.Trigger>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.trigger, xstyle);
+  return (
+    <BaseCollapsible.Trigger
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure-trigger"}
+    />
+  );
+}
+function GroupTrigger({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseAccordion.Trigger.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Trigger>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.trigger, xstyle);
+  return (
+    <BaseAccordion.Trigger
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure-trigger"}
+    />
+  );
+}
+function Content({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseCollapsible.Panel.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.Panel>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.content, xstyle);
+  return (
+    <BaseCollapsible.Panel
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure-content"}
+    />
+  );
+}
+function GroupContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseAccordion.Panel.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Panel>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.content, xstyle);
+  return (
+    <BaseAccordion.Panel
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure-content"}
+    />
+  );
+}
+export function DisclosureHeading({
+  children,
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"h3">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.heading, xstyle);
+  return (
+    <h3
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure-heading"}
+    >
+      {children}
+    </h3>
+  );
+}
+export function DisclosureBody({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.body, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure-body"}
+    />
+  );
+}
+function Indicator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"svg">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(disclosureStyles.indicator, xstyle);
+  return (
+    <svg
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "disclosure-indicator"}
+    />
+  );
+}
 /** Standalone disclosure uses Collapsible; grouped disclosure uses Accordion.Item's native value. */
 export type DisclosureRootProps = ComponentProps<typeof Root> | ComponentProps<typeof GroupItem>;
 export function DisclosureRoot(props: DisclosureRootProps) {

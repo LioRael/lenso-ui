@@ -10,7 +10,7 @@ export const menuItemStyles = stylex.create({
     gap: 12,
     minHeight: 36,
     width: "100%",
-    paddingInline: 8,
+    paddingInlineEnd: 8,
     paddingBlock: 6,
     borderRadius: tokens.radius2xl,
     outline: "none",

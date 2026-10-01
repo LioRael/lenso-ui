@@ -2,9 +2,8 @@
 // Derived from HeroUI v3.2.6 (Apache-2.0); modified for native HTML, SVG and StyleX.
 import { useId, type ComponentProps } from "react";
 import { spinnerStyles, spinnerSizes, spinnerColors } from "@lenso/tokens/spinner";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
-const Root = styledPart("span", "spinner", spinnerStyles.root);
-const Icon = styledPart("svg", "spinner-icon", spinnerStyles.icon);
+import * as stylex from "@stylexjs/stylex";
+import { type StyleXProps } from "../../utils/styled.js";
 export type SpinnerRootProps = StyleXProps<ComponentProps<"span">> & {
   size?: keyof typeof spinnerSizes;
   color?: keyof typeof spinnerColors;
@@ -13,20 +12,34 @@ export function SpinnerRoot({
   size = "md",
   color = "current",
   xstyle,
+  style,
   children: _children,
   ...props
 }: SpinnerRootProps) {
   const id = useId();
+  const compiled = stylex.props(
+    spinnerStyles.root,
+    spinnerSizes[size],
+    spinnerColors[color],
+    xstyle,
+  );
   return (
-    <Root
+    <span
       // Keep source span anatomy: loading status is not a form-associated output value.
       // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="status"
       aria-label="Loading"
       {...props}
-      xstyle={[spinnerSizes[size], spinnerColors[color], xstyle]}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "spinner"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
     >
-      <Icon aria-hidden="true" viewBox="0 0 24 24">
+      <svg
+        data-slot="spinner-icon"
+        {...stylex.props(spinnerStyles.icon)}
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+      >
         <defs>
           <linearGradient id={`${id}-start`} x1="50%" x2="50%" y1="5.271%" y2="91.793%">
             <stop offset="0%" stopColor="currentColor" />
@@ -49,8 +62,8 @@ export function SpinnerRoot({
             transform="translate(1.5 1.625)"
           />
         </g>
-      </Icon>
-    </Root>
+      </svg>
+    </span>
   );
 }
 export const Spinner = Object.assign(SpinnerRoot, { Root: SpinnerRoot });

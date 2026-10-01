@@ -64,6 +64,7 @@ export default defineConfig({
   },
   plugins: [
     stylex({
+      dev: false,
       devMode: "full",
       useCSSLayers: false,
       // Lightning CSS Features.DirSelector: preserve dir, not a language approximation.

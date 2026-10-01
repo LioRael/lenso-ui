@@ -1,9 +1,25 @@
 "use client";
 
 import { closeButtonStyles } from "@lenso/tokens/close-button";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { ButtonRoot, type ButtonRootProps } from "../button/button.js";
-const Icon = styledPart("svg", "close-button-icon", closeButtonStyles.icon);
+function Icon({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"svg">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(closeButtonStyles.icon, xstyle);
+  return (
+    <svg
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "close-button-icon"}
+    />
+  );
+}
 export type CloseButtonRootProps = Omit<
   ButtonRootProps,
   "size" | "variant" | "isIconOnly" | "fullWidth"

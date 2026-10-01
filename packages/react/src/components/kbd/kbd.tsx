@@ -2,9 +2,8 @@
 // Derived from HeroUI v3.2.6 (Apache-2.0); modified for native HTML and StyleX.
 import type { ComponentProps } from "react";
 import { kbdStyles } from "@lenso/tokens/kbd";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
-const Root = styledPart("kbd", "kbd", kbdStyles.root);
-const Abbr = styledPart("abbr", "kbd-abbr", kbdStyles.abbr);
+import * as stylex from "@stylexjs/stylex";
+import { type StyleXProps } from "../../utils/styled.js";
 const keys = {
   command: ["⌘", "Command"],
   shift: ["⇧", "Shift"],
@@ -32,17 +31,42 @@ const keys = {
 export type KbdKey = keyof typeof keys;
 export type KbdRootProps = StyleXProps<ComponentProps<"kbd">> & { variant?: "default" | "light" };
 export type KbdAbbrProps = StyleXProps<ComponentProps<"abbr">> & { keyValue: KbdKey };
-export function KbdRoot({ variant = "default", xstyle, ...props }: KbdRootProps) {
-  return <Root {...props} xstyle={[variant === "light" && kbdStyles.light, xstyle]} />;
-}
-export function KbdAbbr({ keyValue, ...props }: KbdAbbrProps) {
+export function KbdRoot({ variant = "default", xstyle, style, ...props }: KbdRootProps) {
+  const compiled = stylex.props(kbdStyles.root, variant === "light" && kbdStyles.light, xstyle);
   return (
-    <Abbr title={keys[keyValue][1]} {...props}>
-      {keys[keyValue][0]}
-    </Abbr>
+    <kbd
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "kbd"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
   );
 }
-export const KbdContent = styledPart("span", "kbd-content", kbdStyles.content);
+export function KbdAbbr({ keyValue, xstyle, style, ...props }: KbdAbbrProps) {
+  const compiled = stylex.props(kbdStyles.abbr, xstyle);
+  return (
+    <abbr
+      title={keys[keyValue][1]}
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "kbd-abbr"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    >
+      {keys[keyValue][0]}
+    </abbr>
+  );
+}
+export function KbdContent({ xstyle, style, ...props }: StyleXProps<ComponentProps<"span">>) {
+  const compiled = stylex.props(kbdStyles.content, xstyle);
+  return (
+    <span
+      {...props}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "kbd-content"}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
+  );
+}
 export const Kbd = Object.assign(KbdRoot, { Root: KbdRoot, Abbr: KbdAbbr, Content: KbdContent });
 export type KbdProps = KbdRootProps;
 export type KbdContentProps = ComponentProps<typeof KbdContent>;

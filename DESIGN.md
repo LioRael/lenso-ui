@@ -30,10 +30,14 @@ props, state attributes, refs, render composition and style callbacks.
 React Aria Components owns date, time and color models, including supporting
 parts that depend on those contexts. Native HTML owns noninteractive structure.
 
-Variants are component-specific typed StyleX maps. The shared part utility
-only combines styles and forwards props; it is not a universal variant engine.
+Variants are component-specific typed StyleX maps. Concrete components compose
+StyleX directly with native Base UI parts; no shared generic component factory
+stands between their public props and the native interaction contract.
+Use public Base UI `useRender` when a native HTML part needs render/ref composition.
 Compose `xstyle` last and keep all `stylex.props` output, including runtime
-custom properties. Keep loading actions focusable while blocking activation.
+custom properties. Where a native state-dependent `style` callback coexists with
+those properties, merge the callback result without losing either source.
+Keep loading actions focusable while blocking activation.
 
 ## Acceptance
 

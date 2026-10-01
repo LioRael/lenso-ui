@@ -79,3 +79,10 @@ tags or invoke deployment as part of it. Package versions in the source tree
 are not authorization to publish. Any future release or restored automation
 requires a separate explicit owner decision, including versioning, publication
 and migration requirements.
+
+The owner subsequently authorized the 0.8.0 UI/styles release and manual CI
+publication. See `RELEASE.md` for the migration and deferred scope. The manual
+`Release` workflow uses npm Trusted Publishing from the `npm` environment and
+requires successful verification of its exact main commit. It publishes only
+`@lenso/tokens` and `@lenso/ui`; it does not restore Changesets or the former
+fixed-group automatic release process.

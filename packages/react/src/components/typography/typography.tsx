@@ -10,18 +10,8 @@ import {
   typographyWeights,
   proseCss,
 } from "@lenso/tokens/typography";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
-function SemanticText({
-  render,
-  ref,
-  tag,
-  ...props
-}: useRender.ComponentProps<"p"> & {
-  tag: keyof React.JSX.IntrinsicElements;
-}) {
-  return useRender({ render, ref, props, defaultTagName: tag });
-}
-const Part = styledPart(SemanticText, "typography", typographyStyles.root);
+import * as stylex from "@stylexjs/stylex";
+import { type StyleXProps } from "../../utils/styled.js";
 const tags = {
   h1: "h1",
   h2: "h2",
@@ -48,23 +38,32 @@ export function TypographyRoot({
   weight,
   truncate = false,
   xstyle,
+  style,
+  render,
+  ref,
   ...props
 }: TypographyRootProps) {
-  return (
-    <Part
-      data-type={type}
-      {...props}
-      tag={tags[type]}
-      xstyle={[
-        typographyTypes[type],
-        typographyAligns[align],
-        typographyColors[color],
-        weight && typographyWeights[weight],
-        truncate && typographyStyles.truncate,
-        xstyle,
-      ]}
-    />
+  const compiled = stylex.props(
+    typographyStyles.root,
+    typographyTypes[type],
+    typographyAligns[align],
+    typographyColors[color],
+    weight && typographyWeights[weight],
+    truncate && typographyStyles.truncate,
+    xstyle,
   );
+  return useRender({
+    render,
+    ref,
+    defaultTagName: tags[type],
+    props: {
+      "data-type": type,
+      ...props,
+      "data-slot": (props as { "data-slot"?: string })["data-slot"] ?? "typography",
+      ...compiled,
+      style: { ...compiled.style, ...style },
+    },
+  });
 }
 export type HeadingProps = Omit<TypographyRootProps, "type"> & { level?: 1 | 2 | 3 | 4 | 5 | 6 };
 export function Heading({ level = 1, ...props }: HeadingProps) {
@@ -78,17 +77,23 @@ export type CodeProps = Omit<TypographyRootProps, "type">;
 export function Code(props: CodeProps) {
   return <TypographyRoot type="code" {...props} />;
 }
-const ProseRoot = styledPart("div", "prose", typographyStyles.root);
-export type ProseProps = ComponentProps<typeof ProseRoot>;
-export function Prose({ children, ...props }: ProseProps) {
+export type ProseProps = StyleXProps<ComponentProps<"div">>;
+export function Prose({ children, xstyle, style, ...props }: ProseProps) {
+  const compiled = stylex.props(typographyStyles.root, xstyle);
   return (
     <>
       <style href="lenso-typography-prose" precedence="lenso-components">
         {proseCss}
       </style>
-      <ProseRoot {...props} data-prose-root="">
+      <div
+        {...props}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "prose"}
+        {...compiled}
+        style={{ ...compiled.style, ...style }}
+        data-prose-root=""
+      >
         {children}
-      </ProseRoot>
+      </div>
     </>
   );
 }

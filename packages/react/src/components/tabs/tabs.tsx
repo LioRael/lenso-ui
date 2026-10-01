@@ -3,22 +3,138 @@
 import { Tabs as BaseTabs } from "@base-ui/react/tabs";
 import { createContext, useContext, useRef, type ComponentProps } from "react";
 import { tabsStyles } from "@lenso/tokens/tabs";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import type * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { ScrollShadow } from "../scroll-shadow/scroll-shadow.js";
 const Context = createContext({
   orientation: "horizontal" as "horizontal" | "vertical",
   variant: "primary" as "primary" | "secondary",
   align: "center" as "start" | "center" | "end",
 });
-const Root = styledPart(BaseTabs.Root, "tabs", tabsStyles.root);
-const Container = styledPart("div", "tabs-list-container", tabsStyles.listContainer);
-const List = styledPart(BaseTabs.List, "tabs-list", tabsStyles.list);
-const Tab = styledPart(BaseTabs.Tab, "tabs-tab", tabsStyles.tab);
-const Panel = styledPart(BaseTabs.Panel, "tabs-panel", tabsStyles.panel);
-const Indicator = styledPart(BaseTabs.Indicator, "tabs-indicator", tabsStyles.indicator);
-const Separator = styledPart("span", "tabs-separator", tabsStyles.separator);
-const ScrollButton = styledPart("button", "tabs-scroll-button", tabsStyles.scrollButton);
+function Container({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(tabsStyles.listContainer, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "tabs-list-container"}
+    />
+  );
+}
+function List({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseTabs.List.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseTabs.List>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(tabsStyles.list, xstyle);
+  return (
+    <BaseTabs.List
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "tabs-list"}
+    />
+  );
+}
+function Tab({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseTabs.Tab.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseTabs.Tab>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(tabsStyles.tab, xstyle);
+  return (
+    <BaseTabs.Tab
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "tabs-tab"}
+    />
+  );
+}
+function Panel({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseTabs.Panel.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseTabs.Panel>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(tabsStyles.panel, xstyle);
+  return (
+    <BaseTabs.Panel
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "tabs-panel"}
+    />
+  );
+}
+function Indicator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<
+  Omit<BaseTabs.Indicator.Props, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseTabs.Indicator>["ref"];
+  }
+> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(tabsStyles.indicator, xstyle);
+  return (
+    <BaseTabs.Indicator
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "tabs-indicator"}
+    />
+  );
+}
+function Separator({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(tabsStyles.separator, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "tabs-separator"}
+    />
+  );
+}
+function ScrollButton({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"button">> & { "data-slot"?: unknown }) {
+  const compiled = stylex.props(tabsStyles.scrollButton, xstyle);
+  return (
+    <button
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={props["data-slot"] ?? "tabs-scroll-button"}
+    />
+  );
+}
 export type TabsRootProps = StyleXProps<ComponentProps<typeof BaseTabs.Root>> & {
+  "data-slot"?: unknown;
   variant?: "primary" | "secondary";
   align?: "start" | "center" | "end";
 };
@@ -27,11 +143,19 @@ export function TabsRoot({
   variant = "primary",
   align = "center",
   xstyle,
+  style,
   ...props
 }: TabsRootProps) {
+  const compiled = stylex.props(tabsStyles.root, tabsStyles[orientation], xstyle);
   return (
     <Context value={{ orientation, variant, align }}>
-      <Root {...props} orientation={orientation} xstyle={[tabsStyles[orientation], xstyle]} />
+      <BaseTabs.Root
+        {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={props["data-slot"] ?? "tabs"}
+        orientation={orientation}
+      />
     </Context>
   );
 }

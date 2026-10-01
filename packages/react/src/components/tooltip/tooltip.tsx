@@ -1,9 +1,10 @@
 "use client";
 // HeroUI v3.2.6 anatomy, Apache-2.0.
 import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Tooltip as Base } from "@base-ui/react/tooltip";
 import { tooltipStyles as s } from "@lenso/tokens/tooltip";
-import { styledPart } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
 export function TooltipRoot<Payload = unknown>(props: Base.Root.Props<Payload>) {
@@ -22,13 +23,15 @@ export function TooltipProvider({ delay, closeDelay, ...props }: Base.Provider.P
     </TimingContext.Provider>
   );
 }
-const Trigger = styledPart(Base.Trigger, "tooltip-trigger", s.trigger);
 export function TooltipTrigger({
   delay,
   closeDelay,
   ref,
+  xstyle,
+  style,
   ...props
-}: React.ComponentProps<typeof Trigger>) {
+}: StyleXProps<Omit<Base.Trigger.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Trigger>, "ref">) {
   const timing = React.useContext(TimingContext);
   const localRef = React.useRef<HTMLElement | null>(null);
   const attachRef = React.useCallback((element: HTMLElement | null) => {
@@ -65,9 +68,13 @@ export function TooltipTrigger({
       window.removeEventListener("resize", refresh);
     };
   }, []);
+  const compiled = stylex.props(s.trigger, xstyle);
   return (
-    <Trigger
+    <Base.Trigger
       {...props}
+      {...compiled}
+      style={mergeStyle<Base.Trigger.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-trigger"}
       ref={attachRef}
       delay={delay ?? timing.delay ?? delays.open}
       closeDelay={closeDelay ?? timing.closeDelay ?? delays.close}
@@ -86,18 +93,56 @@ export function TooltipPortal({
     />
   );
 }
-const Positioner = styledPart(Base.Positioner, "tooltip-positioner", s.positioner);
-export function TooltipPositioner(props: React.ComponentProps<typeof Positioner>) {
-  return <Positioner side="top" sideOffset={3} {...props} />;
-}
-const Popup = styledPart(Base.Popup, "tooltip-popup", s.popup);
-export function TooltipPopup(props: React.ComponentProps<typeof Popup>) {
-  return <Popup role="tooltip" {...props} />;
-}
-const Arrow = styledPart(Base.Arrow, "tooltip-arrow", s.arrow);
-export function TooltipArrow({ children, ...props }: React.ComponentProps<typeof Arrow>) {
+export function TooltipPositioner({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Positioner.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Positioner>, "ref">) {
+  const compiled = stylex.props(s.positioner, xstyle);
   return (
-    <Arrow {...props}>
+    <Base.Positioner
+      side="top"
+      sideOffset={3}
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-positioner"}
+    />
+  );
+}
+export function TooltipPopup({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Popup.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref">) {
+  const compiled = stylex.props(s.popup, xstyle);
+  return (
+    <Base.Popup
+      role="tooltip"
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Popup.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-popup"}
+    />
+  );
+}
+export function TooltipArrow({
+  children,
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Arrow.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, "ref">) {
+  const compiled = stylex.props(s.arrow, xstyle);
+  return (
+    <Base.Arrow
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Arrow.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-arrow"}
+    >
       {children ?? (
         <svg
           data-slot="overlay-arrow"
@@ -110,10 +155,25 @@ export function TooltipArrow({ children, ...props }: React.ComponentProps<typeof
           <path d="M0 0C5.48483 8 6.5 8 12 0Z" />
         </svg>
       )}
-    </Arrow>
+    </Base.Arrow>
   );
 }
-export const TooltipViewport = styledPart(Base.Viewport, "tooltip-viewport");
+export function TooltipViewport({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref">) {
+  const compiled = stylex.props(xstyle);
+  return (
+    <Base.Viewport
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-viewport"}
+    />
+  );
+}
 export const Tooltip = Object.assign(TooltipRoot, {
   Root: TooltipRoot,
   Provider: TooltipProvider,
