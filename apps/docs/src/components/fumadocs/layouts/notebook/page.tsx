@@ -24,7 +24,10 @@ export function PageTableOfContents({ items, locale }: { items: TOCItem[]; local
       .filter((element) => element !== null);
     const update = () => {
       const above = elements.filter((element) => element.getBoundingClientRect().top <= 170);
-      setActive((above.at(-1) ?? elements[0])?.id);
+      const atBottom =
+        window.scrollY > 0 &&
+        Math.ceil(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight - 2;
+      setActive((atBottom ? elements.at(-1) : (above.at(-1) ?? elements[0]))?.id);
     };
     const observer = new IntersectionObserver(update, { rootMargin: "-140px 0px -60% 0px" });
     elements.forEach((element) => observer.observe(element));
@@ -41,11 +44,13 @@ export function PageTableOfContents({ items, locale }: { items: TOCItem[]; local
         <a
           key={`${item.id}-${index}`}
           href={`#${item.id}`}
+          data-active={active === item.id}
           aria-current={active === item.id ? "location" : undefined}
           onClick={() => setOpen(false)}
           {...stylex.props(
             notebook.tocLink,
-            item.depth > 2 && notebook.tocNested,
+            item.depth === 3 && notebook.tocNested,
+            item.depth >= 4 && notebook.tocDeep,
             active === item.id && notebook.tocActive,
           )}
         >
@@ -85,9 +90,9 @@ export function PageTableOfContents({ items, locale }: { items: TOCItem[]; local
         <Disclosure.Content xstyle={notebook.tocContent}>{links}</Disclosure.Content>
       </Disclosure.Root>
       <aside id="nd-toc" aria-label={label} {...stylex.props(styles.toc)}>
-        <h2 {...stylex.props(notebook.tocTitle)}>
+        <h3 {...stylex.props(notebook.tocTitle)}>
           <TextAlignLeft width={16} height={16} aria-hidden="true" /> {label}
-        </h2>
+        </h3>
         {links}
       </aside>
     </>

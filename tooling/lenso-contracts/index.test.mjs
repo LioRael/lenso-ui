@@ -231,6 +231,23 @@ test("rejects unknown locales, missing family docs, and indexed example file mis
   assert.throws(() => buildLensoContract(mismatchedFile), /does not match docs index/);
 });
 
+test("accepts optional authored navigation metadata without relaxing document validation", () => {
+  const input = fixture();
+  input.docsIndex.pages[0].navigationGroup = "Handbook";
+  input.docsIndex.pages[0].navigationOrder = 10;
+  assert.doesNotThrow(() => buildLensoContract(input));
+  input.docsIndex.pages[0].navigationOrder = "10";
+  assert.throws(() => buildLensoContract(input), /navigationOrder/);
+  input.docsIndex.pages[0].navigationOrder = -1;
+  assert.throws(() => buildLensoContract(input), /navigationOrder/);
+  delete input.docsIndex.pages[0].navigationGroup;
+  input.docsIndex.pages[0].navigationOrder = 10;
+  assert.throws(() => buildLensoContract(input), /navigationGroup/);
+  input.docsIndex.pages[0].navigationGroup = "Handbook";
+  input.docs[0].navigationGroup = "Handbook";
+  assert.throws(() => buildLensoContract(input), /unknown document field/);
+});
+
 test("rejects Windows absolute and duplicate file paths", () => {
   assert.throws(() => validateExamplePath("C:\\outside.tsx"), /escapes its root/);
   const duplicateFiles = fixture();

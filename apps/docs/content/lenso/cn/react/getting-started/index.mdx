@@ -1,32 +1,55 @@
 ---
 title: "开始使用"
-description: "使用 Lenso UI 的原生组件契约与编译后的 StyleX 样式。"
+description: "使用 Lenso UI 组件、原生交互和 StyleX 构建 React 界面。"
+navigationGroup: "概览"
+navigationOrder: 0
 ---
 
-## 选择交互所有者
+Lenso UI 是一个 React 组件库，提供共享主题、类型化组件部件，以及原生键盘和焦点行为。从 `@lenso/ui` 导入组件，通过 `@lenso/tokens` 加载主题，再使用 StyleX 自定义外观。
 
-Lenso UI 通过 `@lenso/ui` 提供带样式的 React 组件。普通控件、导航和覆盖层保留 Base UI 契约。日期、时间和颜色编辑保留 React Aria Components 契约，因为值、分段和辅助部件共享这些上下文。
+## 为什么使用 Lenso UI？
 
-先阅读组件的本地 API 与运行示例。其他库中的同名组件不是兼容 API：按钮使用 DOM 激活而不是 `onPress`，Menu 项使用原生命令事件，日期字段接受国际化日期值而不是 JavaScript `Date`。
+- **开箱即用的组件。** 按钮、表单、导航和覆盖层共享主题与组件变体。
+- **可组合的部件。** 使用公开部件构建对话框、菜单或字段，而不替换连接它们的交互行为。
+- **类型化样式。** 通过 `xstyle` 定义应用样式，通过语义 CSS 变量设置颜色与表面。
+- **原生交互。** 普通交互组件采用 Base UI；日期、时间和颜色组件采用 React Aria 的值模型与上下文。组件 API 表展示实际属性与事件。
 
-## 安装与编译
+## 开始构建
 
-添加组件前请阅读[安装](./getting-started/installation)。在实际渲染文档的根布局中导入主题样式表。应用 StyleX 声明必须与 Lenso 的预编译元数据共同编译；仅导入 `@stylexjs/stylex` 不会编译样式。
+按照[快速开始](/docs/react/getting-started/installation)安装软件包、加载主题并配置构建适配器，然后渲染第一个组件：
 
 ```tsx
 import { Button } from "@lenso/ui";
 
-export function SaveAction() {
-  return <Button onClick={() => console.log("save")}>保存更改</Button>;
+export function App() {
+  return <Button onClick={() => console.log("已保存")}>保存更改</Button>;
 }
 ```
 
-使用 `xstyle` 添加类型化 StyleX 覆盖。原生 `render` 组合应保留传入属性与 ref。[StyleX](./getting-started/stylex) 说明为什么必须保留包括运行时自定义属性在内的完整样式输出。
+浏览[组件](/docs/react/components)查看用法、示例和 API。通过[样式](/docs/react/getting-started/stylex)自定义组件，通过[组合](/docs/react/getting-started/architecture)安排组件部件。
 
-## 查找本地契约
+## Lenso 工具
 
-组件页面列出当前导出部件、实际属性类型、回调状态，以及仅在本地组件参数中以字面量声明的默认值。页面运行的本地模块与源码面板展示的模块一致。
+[CLI](/docs/react/tools/cli)、[MCP 服务器](/docs/react/tools/mcp)和[代理技能](/docs/react/tools/skill)提供同一份组件 API、样式和文档。工具版本及契约应与 UI 版本匹配。目前的工具候选可从源码仓库构建；这些说明不假设它们已发布到 npm。
 
-[架构](./getting-started/architecture) 说明交互边界。[版本管理](./getting-started/versioning) 区分 Lenso 发布与内部参考来源。[Menu](/docs/react/components/menu) 是公开的弹出命令菜单系列。
+## 常见问题
 
-注册运行示例不等于无障碍或视觉一致性认证。键盘操作、主题几何、RTL、减少动态效果和对比度需要独立浏览器证据。
+### Lenso UI 需要 Provider 吗？
+
+不需要全局 UI Provider。在应用入口加载主题样式表，设置明亮或深色作用域，并将依赖上下文的部件放在组件根部内。
+
+### 可以自定义组件吗？
+
+可以。使用组件变体、组合公开部件，或通过 `xstyle` 添加 StyleX 声明。[主题](/docs/react/getting-started/theming)介绍共享 CSS 变量。
+
+### 支持 TypeScript 吗？
+
+组件导出原生属性和 ref 类型。API 参考从当前软件包生成，并包含回调签名。
+
+### 无障碍支持如何？
+
+原生组件提供键盘、焦点和语义行为。应用仍负责标签、内容、对比度和自定义组合。请一起测试这些行为；组件库不为应用提供认证。
+
+## 参与贡献
+
+在 [Lenso UI 仓库](https://github.com/LioRael/lenso-ui)反馈问题或提出修改。更改公开行为前请阅读贡献规则。Lenso UI 使用 Apache-2.0 许可证，并保留源码改编所需的声明。

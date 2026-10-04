@@ -1,0 +1,22 @@
+---
+title: "Frameworks"
+description: "Choose the supported StyleX integration for your application."
+navigationGroup: "Overview"
+navigationOrder: 3
+---
+
+## Vite and Rolldown
+
+`@lenso/stylex-build` provides `vite` and `rolldown` adapters. Configure the adapter with Lenso's `stylex-rules.json` metadata and your application root. [Quick start](/docs/react/getting-started/installation) shows the Vite options.
+
+Load `@lenso/tokens/styles.css` from the entry that renders your application. The theme stylesheet and compiled application StyleX rules are separate inputs; both must reach the document.
+
+## Next.js
+
+Use the build package's guarded App Router Webpack integration. Its setup supports `next dev --webpack` and `next build --webpack`, not Turbopack or Pages Router. Import the theme stylesheet in the root layout that renders your pages.
+
+Check the adapter's supported Next version before applying configuration. The [CLI](/docs/react/tools/cli) can inspect a consumer and prepare a dry-run setup plan for the supported integration.
+
+## Other frameworks
+
+An application must run React, compile its StyleX declarations and deliver the combined CSS. A working Webpack adapter does not by itself establish support for every framework or bundler. If your framework is not covered by the adapter, verify its production build and stylesheet delivery before relying on the integration.

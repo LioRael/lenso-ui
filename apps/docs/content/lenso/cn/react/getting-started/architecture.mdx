@@ -1,7 +1,37 @@
 ---
-title: "架构"
-description: "了解原生交互所有权、组件样式与 authored 文档投影。"
+title: "组合"
+description: "组合公开组件部件，同时保留原生上下文、属性与焦点行为。"
+navigationGroup: "手册"
+navigationOrder: 15
 ---
+
+## 复合组件
+
+使用同一组件系列导出的根部和部件。例如，对话框通过 `Modal.Root` 连接触发器、portal、背景与内容：
+
+```tsx
+import { Modal } from "@lenso/ui";
+
+export function Example() {
+  return (
+    <Modal.Root>
+      <Modal.Trigger>打开对话框</Modal.Trigger>
+      <Modal.Portal>
+        <Modal.Backdrop />
+        <Modal.Viewport>
+          <Modal.Popup>
+            <Modal.Title>账户设置</Modal.Title>
+            <Modal.Description>管理账户偏好。</Modal.Description>
+            <Modal.Close>关闭</Modal.Close>
+          </Modal.Popup>
+        </Modal.Viewport>
+      </Modal.Portal>
+    </Modal.Root>
+  );
+}
+```
+
+根部协调展开状态与焦点恢复，标题和描述为弹出内容提供标签。调整内容布局时应保留这些关系。
 
 ## 交互边界
 

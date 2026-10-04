@@ -469,7 +469,16 @@ function validateApi(api) {
 function validateDocShape(doc, label, { indexPage = false, encoded = false } = {}) {
   assertObject(doc, label);
   const fields = indexPage
-    ? ["locale", "slug", "title", "description", "markdownFile", "examples"]
+    ? [
+        "locale",
+        "slug",
+        "title",
+        "description",
+        "markdownFile",
+        "examples",
+        "navigationGroup",
+        "navigationOrder",
+      ]
     : encoded
       ? ["locale", "slug", "title", "description", "markdownLineRefs"]
       : ["locale", "slug", "title", "description", "markdown"];
@@ -482,6 +491,11 @@ function validateDocShape(doc, label, { indexPage = false, encoded = false } = {
   assertString(doc.slug, `${label} slug`);
   assertString(doc.title, `${label} title`);
   assertString(doc.description, `${label} description`);
+  if (indexPage && (doc.navigationGroup !== undefined || doc.navigationOrder !== undefined)) {
+    assertString(doc.navigationGroup, `${label} navigationGroup`);
+    if (!Number.isInteger(doc.navigationOrder) || doc.navigationOrder < 0)
+      fail(`${label} navigationOrder must be a nonnegative integer`);
+  }
 }
 
 function validateDocsIndex(index, apiReference) {

@@ -5,6 +5,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import matter from "gray-matter";
 import remarkGfm from "remark-gfm";
 import * as stylex from "@stylexjs/stylex";
+import { ChevronLeft, ChevronRight } from "@gravity-ui/icons";
 import { DocsLayout } from "@/components/fumadocs/layouts/notebook";
 import { PageTableOfContents } from "@/components/fumadocs/layouts/notebook/page";
 import { ComponentLinks } from "@/components/component-links";
@@ -148,22 +149,41 @@ export default async function DocsPage({ params }: Props) {
             />
           </div>
           <p {...stylex.props(styles.description)}>{page.description}</p>
-          <ComponentLinks links={parsed.data["links"]} />
+          <ComponentLinks family={family} />
           {content}
-          <nav aria-label="Adjacent pages" {...stylex.props(notebook.pageFooter)}>
+          <nav
+            aria-label="Adjacent pages"
+            {...stylex.props(notebook.pageFooter, !(previous && next) && notebook.footerSingle)}
+          >
             {previous?.href && (
               <Link href={previous.href} {...stylex.props(notebook.footerLink)}>
-                <strong>← {previous.label}</strong>
-                <span {...stylex.props(styles.muted)}>
-                  {lang === "cn" ? "上一页" : "Previous page"}
+                <span {...stylex.props(notebook.footerTitle)}>
+                  <ChevronLeft
+                    width={16}
+                    height={16}
+                    aria-hidden="true"
+                    {...stylex.props(notebook.footerIcon)}
+                  />
+                  {previous.label}
+                </span>
+                <span {...stylex.props(notebook.footerDescription)}>
+                  {previous.description ?? (lang === "cn" ? "上一页" : "Previous page")}
                 </span>
               </Link>
             )}
             {next?.href && (
               <Link href={next.href} {...stylex.props(notebook.footerLink, notebook.footerNext)}>
-                <strong>{next.label} →</strong>
-                <span {...stylex.props(styles.muted)}>
-                  {lang === "cn" ? "下一页" : "Next page"}
+                <span {...stylex.props(notebook.footerTitle, notebook.footerTitleNext)}>
+                  <ChevronRight
+                    width={16}
+                    height={16}
+                    aria-hidden="true"
+                    {...stylex.props(notebook.footerIcon)}
+                  />
+                  {next.label}
+                </span>
+                <span {...stylex.props(notebook.footerDescription)}>
+                  {next.description ?? (lang === "cn" ? "下一页" : "Next page")}
                 </span>
               </Link>
             )}

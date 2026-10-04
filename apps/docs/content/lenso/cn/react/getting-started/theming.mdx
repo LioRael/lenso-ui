@@ -1,0 +1,36 @@
+---
+title: "主题"
+description: "自定义共享 CSS 变量，而不替换组件样式映射。"
+navigationGroup: "手册"
+navigationOrder: 11
+---
+
+## 加载默认主题
+
+```tsx
+import "@lenso/tokens/styles.css";
+```
+
+在实际渲染应用的入口或根布局中导入一次。组件读取样式表中的 CSS 变量；仅加载编译后的 StyleX 类名不会提供主题。
+
+## 自定义作用域
+
+在主题导入之后，通过应用样式表覆盖语义变量：
+
+```css
+.project-theme {
+  --accent: oklch(0.55 0.18 270);
+  --accent-foreground: oklch(1 0 0);
+  --radius: 0.625rem;
+}
+```
+
+将类名应用于文档或容器表面。保持背景与前景颜色配对，改变基础值后检查派生的悬停与柔和颜色。[颜色](/docs/react/getting-started/colors)介绍常见角色。
+
+## Portal 组件
+
+菜单、对话框和提示可以通过 portal 渲染在触发器的 DOM 祖先之外。Lenso 的原生 portal 包装保留明暗主题作用域，但不会自动复制任意自定义类名。将共享覆盖放在文档上，或保证自定义 portal 容器参与所需主题。
+
+## 组件样式
+
+局部组件覆盖采用 `xstyle`，共享主题采用 CSS 变量。不要替换组件完整的编译类名输出。参阅[样式](/docs/react/getting-started/stylex)。

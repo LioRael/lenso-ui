@@ -1,0 +1,22 @@
+---
+title: "Design principles"
+description: "Keep presentation consistent, composition explicit and native interactions intact."
+navigationGroup: "Overview"
+navigationOrder: 2
+---
+
+## Shared visual language
+
+Use the theme's semantic colors, surfaces and spacing rather than choosing new values for each component. Variants describe presentation; changing a variant should not replace a component's activation or selection behavior.
+
+## Compose, do not simulate
+
+Use a component's public parts to arrange its content. Keep controls, labels and overlays connected through their root. A styled `div` is not a replacement for a native button, menu item or dialog.
+
+## Preserve the interaction
+
+Forward supplied props and refs when using the native `render` contract. Keep event handlers, state attributes and accessible relationships. Ordinary controls retain Base UI contracts; date, time and color parts retain their React Aria context.
+
+## Verify the application
+
+Check labels, keyboard navigation, focus restoration and contrast in the interface you ship. Test both themes and reduced motion. A component's source example does not prove your customized composition.

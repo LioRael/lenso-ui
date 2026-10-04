@@ -1,0 +1,41 @@
+---
+title: "颜色"
+description: "使用语义主题颜色设置文本、表面、操作和反馈。"
+navigationGroup: "手册"
+navigationOrder: 10
+---
+
+## 语义颜色
+
+主题通过 CSS 变量表达角色，而不是逐组件定义色板：
+
+| 角色 | 变量 |
+| --- | --- |
+| 页面 | `--background`、`--foreground` |
+| 表面 | `--surface`、`--surface-foreground` |
+| 操作 | `--accent`、`--accent-foreground` |
+| 反馈 | `--success`、`--warning`、`--danger` 及对应前景色 |
+| 辅助内容 | `--muted`、`--separator`、`--border`、`--focus` |
+
+背景与对应前景色应配套使用。强调表面的前景色不一定适合页面背景。
+
+## StyleX 令牌
+
+```tsx
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "@lenso/tokens";
+
+const styles = stylex.create({
+  panel: {
+    backgroundColor: tokens.surface,
+    color: tokens.surfaceForeground,
+    borderColor: tokens.border,
+  },
+});
+```
+
+常量解析为 CSS 变量。保留 CSS 中的 OKLCH 与 `color-mix` 表达式；转换为独立 JavaScript 色板会破坏主题继承。
+
+## 对比度
+
+在明暗主题中检查文本、控件和焦点指示器与实际背景的对比度。语义名称不是对比度认证，尤其是在覆盖颜色之后。

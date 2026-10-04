@@ -1,7 +1,13 @@
 ---
-title: "安装"
+title: "快速开始"
 description: "安装 React、主题与构建包，并正确交付编译后的样式。"
+navigationGroup: "概览"
+navigationOrder: 1
 ---
+
+## 环境要求
+
+使用符合 `@lenso/ui` 公布的 peer 范围的 React 和 React DOM，以及 `@lenso/stylex-build` 支持的打包器。Lenso 不需要 Tailwind。
 
 ## 软件包
 
@@ -44,6 +50,16 @@ const plugins = [stylex.vite(options)];
 ```
 
 构建工具还提供 `rolldown` 和 `webpack` 适配器。Next.js 支持仅限带版本保护的 App Router Webpack 集成，不代表通用 Turbopack 或 Pages Router 支持。遵循构建包的版本限制与样式表交付要求；产生 CSS 文件不等于文档实际加载它。
+
+## 使用组件
+
+```tsx
+import { Button } from "@lenso/ui";
+
+export function App() {
+  return <Button>我的按钮</Button>;
+}
+```
 
 ## 验证消费者
 

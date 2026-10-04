@@ -786,10 +786,9 @@ export async function generateDocsProjection(directory = root) {
       const markdownFile = `content/lenso/${locale}/${file}`;
       const text = await readFile(path.join(docs, markdownFile), "utf8");
       const fields = Object.fromEntries(
-        [...text.matchAll(/^(title|description): (.+)$/gm)].map((match) => [
-          match[1],
-          JSON.parse(match[2]),
-        ]),
+        [...text.matchAll(/^(title|description|navigationGroup|navigationOrder): (.+)$/gm)].map(
+          (match) => [match[1], JSON.parse(match[2])],
+        ),
       );
       if (!fields.title || !fields.description)
         throw new Error(`Missing authored metadata: ${markdownFile}`);
@@ -866,12 +865,30 @@ export async function generateDocsProjection(directory = root) {
         locale === "cn"
           ? `${title} 在当前维护的源场景清单中没有独立运行示例。公开导出与 API 表不代表独立示例覆盖。`
           : `${title} has no standalone runnable scene in the maintained source-scenario inventory. Its export and API table do not count as dedicated demo coverage.`;
+      const rootPart =
+        reference.families[family].parts.find(
+          (part) => part.name.toLowerCase() === family.replaceAll("-", ""),
+        ) ?? reference.families[family].parts[0];
+      const archivePage = archive.pages.find(
+        (page) =>
+          page.locale === locale &&
+          page.slug.startsWith("react/components/") &&
+          canonicalFamily(page.slug.split("/").at(-1)) === family,
+      );
+      const primaryName = canonicalExampleName(archivePage?.previews?.[0] ?? "");
+      const primary =
+        examples.find((example) => example.name === primaryName) ??
+        examples.find((example) => /-(?:basic|default)$/.test(example.name)) ??
+        examples[0];
       const sections = [
         frontmatter(title, description),
-        family === "menu" ? menuGuide(locale) : "",
-        locale === "cn" ? "## 本地契约\n" : "## Local contract\n",
-        nativeContractNotes(reference, family, locale),
-        locale === "cn" ? "\n## 运行示例\n" : "\n## Runnable examples\n",
+        locale === "cn" ? "## 用法\n" : "## Usage\n",
+        "```tsx",
+        `import { ${rootPart.name} } from "@lenso/ui";`,
+        "```",
+        "",
+        ...(primary ? [`<ComponentPreview name=${JSON.stringify(primary.name)} />`, ""] : []),
+        locale === "cn" ? "## 示例\n" : "## Examples\n",
         ...(!examples.length
           ? [
               noScenario,
@@ -881,12 +898,15 @@ export async function generateDocsProjection(directory = root) {
               ),
             ]
           : []),
-        ...examples.flatMap(({ name }) => [
-          `### ${name.replace(/^(?:dropdown|menu)-/, "").replaceAll("-", " ")}`,
-          "",
-          `<ComponentPreview name=${JSON.stringify(name)} />`,
-          "",
-        ]),
+        ...examples
+          .filter((example) => example !== primary)
+          .flatMap(({ name }) => [
+            `### ${name.replace(/^(?:dropdown|menu)-/, "").replaceAll("-", " ")}`,
+            "",
+            `<ComponentPreview name=${JSON.stringify(name)} />`,
+            "",
+          ]),
+        family === "menu" ? menuGuide(locale) : "",
         nativeApiMarkdown(reference, family, locale === "cn" ? "zh" : "en"),
       ];
       markdown.set(markdownFile, `${sections.join("\n")}\n`);

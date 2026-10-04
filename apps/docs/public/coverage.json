@@ -4,8 +4,8 @@
   "completeUpstreamRuntimeParity": false,
   "locales": {
     "en": {
-      "pages": 94,
-      "sections": { "getting-started": 5, "components": 85 },
+      "pages": 100,
+      "sections": { "getting-started": 11, "components": 85 },
       "registeredReferencesIncludingAliases": 682,
       "uniqueRegisteredFiles": 681,
       "preservedRegisteredSourceFiles": 677,
@@ -13,8 +13,8 @@
       "unregisteredSourceFiles": 2
     },
     "cn": {
-      "pages": 94,
-      "sections": { "getting-started": 5, "components": 85 },
+      "pages": 100,
+      "sections": { "getting-started": 11, "components": 85 },
       "registeredReferencesIncludingAliases": 682,
       "uniqueRegisteredFiles": 681,
       "preservedRegisteredSourceFiles": 677,
@@ -8235,9 +8235,15 @@
   ],
   "pageCoverage": [
     { "locale": "en", "slug": "react/getting-started", "previews": [] },
+    { "locale": "en", "slug": "react/getting-started/animation", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/architecture", "previews": [] },
+    { "locale": "en", "slug": "react/getting-started/colors", "previews": [] },
+    { "locale": "en", "slug": "react/getting-started/dark-mode", "previews": [] },
+    { "locale": "en", "slug": "react/getting-started/design-principles", "previews": [] },
+    { "locale": "en", "slug": "react/getting-started/frameworks", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/installation", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/stylex", "previews": [] },
+    { "locale": "en", "slug": "react/getting-started/theming", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/versioning", "previews": [] },
     { "locale": "en", "slug": "react/tools", "previews": [] },
     { "locale": "en", "slug": "react/tools/cli", "previews": [] },
@@ -9371,9 +9377,15 @@
       ]
     },
     { "locale": "cn", "slug": "react/getting-started", "previews": [] },
+    { "locale": "cn", "slug": "react/getting-started/animation", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/architecture", "previews": [] },
+    { "locale": "cn", "slug": "react/getting-started/colors", "previews": [] },
+    { "locale": "cn", "slug": "react/getting-started/dark-mode", "previews": [] },
+    { "locale": "cn", "slug": "react/getting-started/design-principles", "previews": [] },
+    { "locale": "cn", "slug": "react/getting-started/frameworks", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/installation", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/stylex", "previews": [] },
+    { "locale": "cn", "slug": "react/getting-started/theming", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/versioning", "previews": [] },
     { "locale": "cn", "slug": "react/tools", "previews": [] },
     { "locale": "cn", "slug": "react/tools/cli", "previews": [] },

@@ -9,32 +9,100 @@
       "locale": "en",
       "slug": "react/getting-started",
       "title": "Getting started",
-      "description": "Use Lenso UI's native component contracts and compiled StyleX presentation.",
+      "description": "Build React interfaces with Lenso UI components, native interactions and StyleX.",
+      "navigationGroup": "Overview",
+      "navigationOrder": 0,
       "markdownFile": "content/lenso/en/react/getting-started/index.mdx",
       "examples": []
     },
     {
       "locale": "en",
+      "slug": "react/getting-started/animation",
+      "title": "Animation",
+      "description": "Keep native transitions, interruption behavior and reduced-motion preferences intact.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 14,
+      "markdownFile": "content/lenso/en/react/getting-started/animation.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
       "slug": "react/getting-started/architecture",
-      "title": "Architecture",
-      "description": "Understand native interaction ownership, component styles and the authored documentation projection.",
+      "title": "Composition",
+      "description": "Compose public component parts while preserving their native context, props and focus behavior.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 15,
       "markdownFile": "content/lenso/en/react/getting-started/architecture.mdx",
       "examples": []
     },
     {
       "locale": "en",
+      "slug": "react/getting-started/colors",
+      "title": "Colors",
+      "description": "Use semantic theme colors for text, surfaces, actions and feedback.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 10,
+      "markdownFile": "content/lenso/en/react/getting-started/colors.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/getting-started/dark-mode",
+      "title": "Dark mode",
+      "description": "Apply and switch the theme at the document that renders your interface.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 12,
+      "markdownFile": "content/lenso/en/react/getting-started/dark-mode.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/getting-started/design-principles",
+      "title": "Design principles",
+      "description": "Keep presentation consistent, composition explicit and native interactions intact.",
+      "navigationGroup": "Overview",
+      "navigationOrder": 2,
+      "markdownFile": "content/lenso/en/react/getting-started/design-principles.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/getting-started/frameworks",
+      "title": "Frameworks",
+      "description": "Choose the supported StyleX integration for your application.",
+      "navigationGroup": "Overview",
+      "navigationOrder": 3,
+      "markdownFile": "content/lenso/en/react/getting-started/frameworks.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
       "slug": "react/getting-started/installation",
-      "title": "Installation",
+      "title": "Quick start",
       "description": "Install the React, theme and build packages, then deliver their compiled styles.",
+      "navigationGroup": "Overview",
+      "navigationOrder": 1,
       "markdownFile": "content/lenso/en/react/getting-started/installation.mdx",
       "examples": []
     },
     {
       "locale": "en",
       "slug": "react/getting-started/stylex",
-      "title": "StyleX",
+      "title": "Styling",
       "description": "Compose typed styles without losing native state callbacks or runtime custom properties.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 13,
       "markdownFile": "content/lenso/en/react/getting-started/stylex.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/getting-started/theming",
+      "title": "Theming",
+      "description": "Customize shared CSS variables without replacing component style maps.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 11,
+      "markdownFile": "content/lenso/en/react/getting-started/theming.mdx",
       "examples": []
     },
     {
@@ -42,14 +110,18 @@
       "slug": "react/getting-started/versioning",
       "title": "Versioning",
       "description": "Lenso owns its release versions, public names and compatibility decisions.",
+      "navigationGroup": "Overview",
+      "navigationOrder": 4,
       "markdownFile": "content/lenso/en/react/getting-started/versioning.mdx",
       "examples": []
     },
     {
       "locale": "en",
       "slug": "react/tools",
-      "title": "Tools",
+      "title": "Tools overview",
       "description": "Query the same Lenso contract through the CLI, read-only MCP server and repo-local agent skill.",
+      "navigationGroup": "UI for Agents",
+      "navigationOrder": 20,
       "markdownFile": "content/lenso/en/react/tools/index.mdx",
       "examples": []
     },
@@ -58,6 +130,8 @@
       "slug": "react/tools/cli",
       "title": "CLI",
       "description": "Use the source candidate to inspect contracts and review safe consumer setup plans.",
+      "navigationGroup": "UI for Agents",
+      "navigationOrder": 21,
       "markdownFile": "content/lenso/en/react/tools/cli.mdx",
       "examples": []
     },
@@ -66,6 +140,8 @@
       "slug": "react/tools/mcp",
       "title": "MCP server",
       "description": "Expose the matching contract to an MCP client through a read-only stdio server.",
+      "navigationGroup": "UI for Agents",
+      "navigationOrder": 22,
       "markdownFile": "content/lenso/en/react/tools/mcp.mdx",
       "examples": []
     },
@@ -74,6 +150,8 @@
       "slug": "react/tools/skill",
       "title": "Agent skill",
       "description": "Load the repo-local Lenso UI workflow and match the installed release before implementing.",
+      "navigationGroup": "UI for Agents",
+      "navigationOrder": 23,
       "markdownFile": "content/lenso/en/react/tools/skill.mdx",
       "examples": []
     },
@@ -3561,32 +3639,100 @@
       "locale": "cn",
       "slug": "react/getting-started",
       "title": "开始使用",
-      "description": "使用 Lenso UI 的原生组件契约与编译后的 StyleX 样式。",
+      "description": "使用 Lenso UI 组件、原生交互和 StyleX 构建 React 界面。",
+      "navigationGroup": "概览",
+      "navigationOrder": 0,
       "markdownFile": "content/lenso/cn/react/getting-started/index.mdx",
       "examples": []
     },
     {
       "locale": "cn",
+      "slug": "react/getting-started/animation",
+      "title": "动画",
+      "description": "保留原生过渡、中断行为与减少动态效果偏好。",
+      "navigationGroup": "手册",
+      "navigationOrder": 14,
+      "markdownFile": "content/lenso/cn/react/getting-started/animation.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
       "slug": "react/getting-started/architecture",
-      "title": "架构",
-      "description": "了解原生交互所有权、组件样式与 authored 文档投影。",
+      "title": "组合",
+      "description": "组合公开组件部件，同时保留原生上下文、属性与焦点行为。",
+      "navigationGroup": "手册",
+      "navigationOrder": 15,
       "markdownFile": "content/lenso/cn/react/getting-started/architecture.mdx",
       "examples": []
     },
     {
       "locale": "cn",
+      "slug": "react/getting-started/colors",
+      "title": "颜色",
+      "description": "使用语义主题颜色设置文本、表面、操作和反馈。",
+      "navigationGroup": "手册",
+      "navigationOrder": 10,
+      "markdownFile": "content/lenso/cn/react/getting-started/colors.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/getting-started/dark-mode",
+      "title": "深色模式",
+      "description": "在实际渲染界面的文档上应用与切换主题。",
+      "navigationGroup": "手册",
+      "navigationOrder": 12,
+      "markdownFile": "content/lenso/cn/react/getting-started/dark-mode.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/getting-started/design-principles",
+      "title": "设计原则",
+      "description": "保持视觉一致、显式组合，并保留原生交互。",
+      "navigationGroup": "概览",
+      "navigationOrder": 2,
+      "markdownFile": "content/lenso/cn/react/getting-started/design-principles.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/getting-started/frameworks",
+      "title": "框架",
+      "description": "为应用选择受支持的 StyleX 集成。",
+      "navigationGroup": "概览",
+      "navigationOrder": 3,
+      "markdownFile": "content/lenso/cn/react/getting-started/frameworks.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
       "slug": "react/getting-started/installation",
-      "title": "安装",
+      "title": "快速开始",
       "description": "安装 React、主题与构建包，并正确交付编译后的样式。",
+      "navigationGroup": "概览",
+      "navigationOrder": 1,
       "markdownFile": "content/lenso/cn/react/getting-started/installation.mdx",
       "examples": []
     },
     {
       "locale": "cn",
       "slug": "react/getting-started/stylex",
-      "title": "StyleX",
+      "title": "样式",
       "description": "组合类型化样式，同时保留原生状态回调与运行时自定义属性。",
+      "navigationGroup": "手册",
+      "navigationOrder": 13,
       "markdownFile": "content/lenso/cn/react/getting-started/stylex.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/getting-started/theming",
+      "title": "主题",
+      "description": "自定义共享 CSS 变量，而不替换组件样式映射。",
+      "navigationGroup": "手册",
+      "navigationOrder": 11,
+      "markdownFile": "content/lenso/cn/react/getting-started/theming.mdx",
       "examples": []
     },
     {
@@ -3594,14 +3740,18 @@
       "slug": "react/getting-started/versioning",
       "title": "版本管理",
       "description": "Lenso 独立管理发布版本、公开名称与兼容性决策。",
+      "navigationGroup": "概览",
+      "navigationOrder": 4,
       "markdownFile": "content/lenso/cn/react/getting-started/versioning.mdx",
       "examples": []
     },
     {
       "locale": "cn",
       "slug": "react/tools",
-      "title": "工具",
+      "title": "工具概览",
       "description": "通过 CLI、只读 MCP 服务和仓库内 agent skill 查询同一 Lenso 契约。",
+      "navigationGroup": "面向代理的 UI",
+      "navigationOrder": 20,
       "markdownFile": "content/lenso/cn/react/tools/index.mdx",
       "examples": []
     },
@@ -3610,6 +3760,8 @@
       "slug": "react/tools/cli",
       "title": "CLI",
       "description": "使用源码候选检查契约，并审阅安全的消费者配置计划。",
+      "navigationGroup": "面向代理的 UI",
+      "navigationOrder": 21,
       "markdownFile": "content/lenso/cn/react/tools/cli.mdx",
       "examples": []
     },
@@ -3618,6 +3770,8 @@
       "slug": "react/tools/mcp",
       "title": "MCP 服务",
       "description": "通过只读 stdio 服务向 MCP 客户端提供匹配契约。",
+      "navigationGroup": "面向代理的 UI",
+      "navigationOrder": 22,
       "markdownFile": "content/lenso/cn/react/tools/mcp.mdx",
       "examples": []
     },
@@ -3626,6 +3780,8 @@
       "slug": "react/tools/skill",
       "title": "Agent skill",
       "description": "加载仓库内 Lenso UI 工作流，实现前先匹配已安装版本。",
+      "navigationGroup": "面向代理的 UI",
+      "navigationOrder": 23,
       "markdownFile": "content/lenso/cn/react/tools/skill.mdx",
       "examples": []
     },

@@ -178,9 +178,9 @@ export async function checkDocumentationShell(page, base) {
   await toc.focus();
   await page.keyboard.press("Enter");
   assert.equal(await toc.getAttribute("aria-expanded"), "true");
-  await page.getByRole("link", { name: "Runnable examples", exact: true }).click();
+  await page.getByRole("link", { name: "Usage", exact: true }).click();
   assert.equal(await toc.getAttribute("aria-expanded"), "false");
-  assert.equal(new URL(page.url()).hash, "#runnable-examples");
+  assert.equal(new URL(page.url()).hash, "#usage");
   const browse = page.getByRole("button", { name: "Browse documentation", exact: true });
   await browse.focus();
   await page.keyboard.press("Enter");

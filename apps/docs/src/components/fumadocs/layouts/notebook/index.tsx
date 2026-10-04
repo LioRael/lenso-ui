@@ -45,7 +45,7 @@ export function DocsLayout({
   children: ReactNode;
 }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const section = slug.split("/")[1];
+  const section = slug.startsWith("react/tools") ? "getting-started" : slug.split("/")[1];
   const current = `/${locale}/docs/${slug}`;
   return (
     <>

@@ -1,11 +1,13 @@
 ---
 title: "Versioning"
 description: "Lenso owns its release versions, public names and compatibility decisions."
+navigationGroup: "Overview"
+navigationOrder: 4
 ---
 
 ## Active version
 
-The documentation header and generated contract read the active version from `packages/react/package.json`. The theme package should be consumed from the matching Lenso release. The current reconstruction targets the next `0.9.0` candidate; that target is not a publication announcement.
+Match the versions of `@lenso/ui` and `@lenso/tokens`, and use documentation for that release. The documentation header and generated contract read the active UI version from `packages/react/package.json`; a successful source build is not an npm publication announcement.
 
 A build using an older package manifest must not label itself as the future candidate. Rebuild the documentation and contract after merging package changes.
 

@@ -1,7 +1,13 @@
 ---
-title: "Installation"
+title: "Quick start"
 description: "Install the React, theme and build packages, then deliver their compiled styles."
+navigationGroup: "Overview"
+navigationOrder: 1
 ---
+
+## Requirements
+
+Use React and React DOM versions that satisfy `@lenso/ui`'s published peer ranges, and a bundler supported by `@lenso/stylex-build`. Lenso does not require Tailwind.
 
 ## Packages
 
@@ -44,6 +50,16 @@ const plugins = [stylex.vite(options)];
 ```
 
 The build tool also provides `rolldown` and `webpack` adapters. Next.js support is specifically the guarded App Router Webpack integration, not a general Turbopack or Pages Router integration. Follow the build package's version limits and stylesheet-delivery requirements; an emitted CSS asset alone is not proof that the document loads it.
+
+## Use components
+
+```tsx
+import { Button } from "@lenso/ui";
+
+export function App() {
+  return <Button>My button</Button>;
+}
+```
 
 ## Verify a consumer
 

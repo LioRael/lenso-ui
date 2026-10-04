@@ -1,0 +1,41 @@
+---
+title: "Colors"
+description: "Use semantic theme colors for text, surfaces, actions and feedback."
+navigationGroup: "Handbook"
+navigationOrder: 10
+---
+
+## Semantic colors
+
+The theme exposes CSS variables for roles rather than component-specific palettes:
+
+| Role | Variables |
+| --- | --- |
+| Page | `--background`, `--foreground` |
+| Surface | `--surface`, `--surface-foreground` |
+| Action | `--accent`, `--accent-foreground` |
+| Feedback | `--success`, `--warning`, `--danger` and their foreground pairs |
+| Supporting content | `--muted`, `--separator`, `--border`, `--focus` |
+
+Use a background and its foreground pair together. A foreground intended for an accent surface is not necessarily legible on the page background.
+
+## StyleX tokens
+
+```tsx
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "@lenso/tokens";
+
+const styles = stylex.create({
+  panel: {
+    backgroundColor: tokens.surface,
+    color: tokens.surfaceForeground,
+    borderColor: tokens.border,
+  },
+});
+```
+
+The constants resolve to CSS variables. Keep OKLCH and `color-mix` expressions in CSS; converting them into a separate JavaScript palette breaks theme inheritance.
+
+## Contrast
+
+Check your text, controls and focus indicators against their actual background in both themes. Semantic naming is not a contrast certificate, especially after overriding a color.

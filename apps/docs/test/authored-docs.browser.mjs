@@ -132,6 +132,7 @@ try {
       await page.goto(`${base}/${locale}/docs/react/components/dropdown`, {
         waitUntil: "networkidle",
       });
+      await page.waitForURL(`${base}/${locale}/docs/react/components/menu`);
       assert.equal(new URL(page.url()).pathname, `/${locale}/docs/react/components/menu`);
       const removed = await page.request.get(`${base}/${locale}/docs/react/migration`);
       assert.equal(removed.status(), 404);

@@ -1,0 +1,22 @@
+---
+title: "框架"
+description: "为应用选择受支持的 StyleX 集成。"
+navigationGroup: "概览"
+navigationOrder: 3
+---
+
+## Vite 与 Rolldown
+
+`@lenso/stylex-build` 提供 `vite` 和 `rolldown` 适配器。使用 Lenso 的 `stylex-rules.json` 元数据和应用根目录配置适配器。[快速开始](/docs/react/getting-started/installation)展示 Vite 配置。
+
+从实际渲染应用的入口加载 `@lenso/tokens/styles.css`。主题样式表与编译后的应用 StyleX 规则是不同输入，两者都必须到达文档。
+
+## Next.js
+
+采用构建包带版本保护的 App Router Webpack 集成。该配置支持 `next dev --webpack` 和 `next build --webpack`，不代表支持 Turbopack 或 Pages Router。将主题样式表导入实际渲染页面的根布局。
+
+应用配置前请核对适配器支持的 Next 版本。[CLI](/docs/react/tools/cli)可以检查消费者项目，并为受支持的集成生成不写入的配置计划。
+
+## 其他框架
+
+应用必须运行 React、编译 StyleX 声明并交付合并后的 CSS。Webpack 适配器可用不代表所有框架和打包器都受支持。使用尚未覆盖的框架前，请验证生产构建与样式表交付。

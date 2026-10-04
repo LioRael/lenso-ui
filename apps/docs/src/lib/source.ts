@@ -11,6 +11,8 @@ export interface DocPage {
   markdownFile: string;
   title: string;
   description: string;
+  navigationGroup?: string;
+  navigationOrder?: number;
   examples: { name: string; file: string }[];
 }
 interface DocsIndex {
@@ -69,7 +71,10 @@ export const readPage = (page: DocPage) => readFile(path.join(docsRoot, page.mar
 export type DocSection = Pick<DocPage, "locale" | "slug" | "title"> & { href: string };
 export function getSectionEntries(locale: Locale): DocSection[] {
   return source.pages
-    .filter((page) => page.locale === locale && /^react\/[^/]+$/.test(page.slug))
+    .filter(
+      (page) =>
+        page.locale === locale && /^react\/[^/]+$/.test(page.slug) && page.slug !== "react/tools",
+    )
     .map((page) => ({ locale, slug: page.slug, title: page.title, href: pageUrl(page) }));
 }
 
@@ -86,11 +91,24 @@ export async function getExample(name: string, locale: Locale) {
 }
 
 export async function getNavigation(locale: Locale, section: string) {
-  return source.pages
+  const guides = section === "getting-started" || section === "tools";
+  const pages = source.pages
     .filter(
       (page) =>
         page.locale === locale &&
-        (page.slug === `react/${section}` || page.slug.startsWith(`react/${section}/`)),
+        (guides
+          ? /^react\/(?:getting-started|tools)(?:\/|$)/.test(page.slug)
+          : page.slug === `react/${section}` || page.slug.startsWith(`react/${section}/`)),
     )
-    .map((page) => ({ label: page.title, href: pageUrl(page) }));
+    .sort((a, b) => (a.navigationOrder ?? 0) - (b.navigationOrder ?? 0));
+  const entries: { label: string; href?: string; description?: string }[] = [];
+  let group: string | undefined;
+  for (const page of pages) {
+    if (page.navigationGroup && page.navigationGroup !== group) {
+      group = page.navigationGroup;
+      entries.push({ label: group });
+    }
+    entries.push({ label: page.title, href: pageUrl(page), description: page.description });
+  }
+  return entries;
 }

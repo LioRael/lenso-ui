@@ -1,0 +1,36 @@
+---
+title: "Theming"
+description: "Customize shared CSS variables without replacing component style maps."
+navigationGroup: "Handbook"
+navigationOrder: 11
+---
+
+## Load the default theme
+
+```tsx
+import "@lenso/tokens/styles.css";
+```
+
+Import the stylesheet once from your rendering entry or root layout. Components read its CSS variables; loading only compiled StyleX classes does not supply a theme.
+
+## Customize a scope
+
+Override semantic variables in your application stylesheet, after the theme import:
+
+```css
+.project-theme {
+  --accent: oklch(0.55 0.18 270);
+  --accent-foreground: oklch(1 0 0);
+  --radius: 0.625rem;
+}
+```
+
+Apply the class to the document or a containing surface. Keep color pairs consistent, and inspect derived hover/soft colors when changing their base value. The [Colors](/docs/react/getting-started/colors) guide lists common roles.
+
+## Portalled components
+
+Portalled menus, dialogs and tooltips render outside their trigger's DOM ancestry. Lenso preserves the light/dark theme scope through its native portal wrappers; arbitrary custom classes are not automatically copied. Put shared overrides on the document, or ensure your custom portal container participates in the intended theme.
+
+## Component styling
+
+Use `xstyle` for a local component override and CSS variables for a shared theme. Do not replace the component's entire compiled class output. See [Styling](/docs/react/getting-started/stylex).

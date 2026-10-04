@@ -1,0 +1,31 @@
+---
+title: "Animation"
+description: "Keep native transitions, interruption behavior and reduced-motion preferences intact."
+navigationGroup: "Handbook"
+navigationOrder: 14
+---
+
+## Native state
+
+Component style maps respond to native state attributes such as open, closed, starting and ending states. Keep these attributes and the native part's lifecycle when composing an overlay. Hiding the element with an unrelated timer can interrupt dismissal and focus restoration.
+
+## Custom transitions
+
+Add a transition through `xstyle` only when the component exposes the state you need. Prefer opacity and transforms for visual movement; test rapid open/close interruptions and avoid animating layout on every pointer movement.
+
+Inspect the component's StyleX source and actual API before overriding a transition. Families do not share a universal animation prop.
+
+## Reduced motion
+
+Respect the user's motion preference in custom application styles:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .project-transition {
+    animation: none;
+    transition: none;
+  }
+}
+```
+
+This application rule does not replace the native component's state or completion handling. Test focus restoration and dismissal with reduced motion enabled.

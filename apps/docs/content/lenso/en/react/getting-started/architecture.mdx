@@ -1,7 +1,37 @@
 ---
-title: "Architecture"
-description: "Understand native interaction ownership, component styles and the authored documentation projection."
+title: "Composition"
+description: "Compose public component parts while preserving their native context, props and focus behavior."
+navigationGroup: "Handbook"
+navigationOrder: 15
 ---
+
+## Compound components
+
+Use the root and parts exported by the same family. For example, a dialog connects its trigger, portal, backdrop and content through `Modal.Root`:
+
+```tsx
+import { Modal } from "@lenso/ui";
+
+export function Example() {
+  return (
+    <Modal.Root>
+      <Modal.Trigger>Open dialog</Modal.Trigger>
+      <Modal.Portal>
+        <Modal.Backdrop />
+        <Modal.Viewport>
+          <Modal.Popup>
+            <Modal.Title>Account settings</Modal.Title>
+            <Modal.Description>Manage your account preferences.</Modal.Description>
+            <Modal.Close>Close</Modal.Close>
+          </Modal.Popup>
+        </Modal.Viewport>
+      </Modal.Portal>
+    </Modal.Root>
+  );
+}
+```
+
+The root coordinates open state and focus restoration; the heading and description label the popup. Keep these relationships when rearranging the content.
 
 ## Interaction boundary
 

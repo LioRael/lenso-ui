@@ -1,0 +1,28 @@
+---
+title: "Dark mode"
+description: "Apply and switch the theme at the document that renders your interface."
+navigationGroup: "Handbook"
+navigationOrder: 12
+---
+
+## Select a theme
+
+The default theme supports `.light`, `.dark`, `data-theme="light"` and `data-theme="dark"` scopes:
+
+```html
+<html class="dark">
+  <!-- Your application -->
+</html>
+```
+
+Select one scope at a time. The theme updates background, foreground, surface and field variables, as well as the browser's `color-scheme`.
+
+## System preference and persistence
+
+Your application owns theme selection. Read `prefers-color-scheme` when there is no saved preference, persist an explicit user choice, and apply it before the first paint to avoid a flash of the wrong theme. Lenso does not install a theme provider or storage policy.
+
+For a server-rendered application, coordinate the initial document class with the client theme controller. Do not read browser storage during a server render.
+
+## Test the whole interface
+
+Check controls, code blocks, overlays and custom surfaces in both themes. A portalled component should inherit the intended scope, and a custom image may need an explicit dark alternative. Keep an accessible label on an icon-only theme switch.

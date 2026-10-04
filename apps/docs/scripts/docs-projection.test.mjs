@@ -106,6 +106,13 @@ test("projects current version, canonical family placement, local API and all lo
     const markdown = await readFile(path.join(directory, "apps/docs", menu.markdownFile), "utf8");
     assert.ok(markdown.includes('<ComponentPreview name="menu-basic" />'));
     assert.ok(!markdown.includes('<ComponentPreview name="dropdown-'));
+    assert.ok(markdown.includes('import { Menu } from "@lenso/ui";'));
+    const usage = markdown.indexOf(locale === "cn" ? "## 用法" : "## Usage");
+    const examples = markdown.indexOf(locale === "cn" ? "## 示例" : "## Examples");
+    const basic = markdown.indexOf('<ComponentPreview name="menu-basic" />');
+    assert.ok(usage >= 0 && usage < basic && basic < examples);
+    assert.equal(markdown.match(/<ComponentPreview name="menu-basic" \/>/g).length, 1);
+    assert.ok(!/^## (?:Local contract|本地契约|Runnable examples|运行示例)$/m.test(markdown));
     assert.ok(markdown.includes("(open: boolean, details: NativeDetails) => void"));
     assert.ok(
       !index.pages.some((page) => /releases|migration|components\/dropdown/.test(page.slug)),
