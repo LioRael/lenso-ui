@@ -1,0 +1,60 @@
+{
+  "acceptance": "isolated-current-source-final-ui-storybook-candidate",
+  "completeUpstreamVisualParity": false,
+  "runtime": {
+    "node": "24.18.0",
+    "pnpmAvailable": "11.5.0",
+    "execution": "Tool entrypoints invoked directly with Node; pnpm did not run acceptance commands."
+  },
+  "tooling": {
+    "adaptersSha256": "f5d040cd248048e5c3305bf6e8aa8eb7c4700a6f4927804afa6c5031cc958e86",
+    "indexSha256": "c3e9e8831efb37e47f417adfcc10d737445f97414b1811b3a2863e46b19caedc",
+    "metadataSha256": "ac148e08e2f9dfb3f701b8890c83cb221bed0916986caee7e44a326359d98f89"
+  },
+  "freshBuilds": ["tokens", "ui"],
+  "strictTypeScript": {
+    "ui": "passed",
+    "storybook": "passed",
+    "originalConfigsAndDocsFixturesIncluded": true
+  },
+  "uiBrowserTests": { "passed": 253, "files": 37 },
+  "storybook": {
+    "productionBuild": "passed",
+    "sourceExports": 583,
+    "localExports": 9,
+    "totalExports": 592,
+    "missingSourceExports": 0,
+    "productionIframeProofs": {
+      "choice": { "exports": 50, "themeMounts": 100 },
+      "overlay": { "exports": 42, "themeMounts": 84, "openings": 154 },
+      "selection": { "exports": 64, "themeMounts": 128, "popups": 126 }
+    }
+  },
+  "preservation": {
+    "sourceChanges": 0,
+    "primitiveFilesUnchanged": 14,
+    "primitivesDiffAgainstHeadEmpty": true
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "reactAriaComponents": "1.21.1",
+    "singlePhysicalReactAriaRoot": true,
+    "workspaceImportsUseCurrentCheckout": true,
+    "thirdPartyProviderReadOnly": true,
+    "installationPerformed": false
+  },
+  "evidence": {
+    "directoryInIsolatedCheckout": "test-results/final-ui-storybook",
+    "summarySha256": "51364155bc462729cfcaf51888f1ce2f6ec01339f673501cd3a8e890e649ab11",
+    "sourceManifestSha256": "f31bea61f15966d13ed2eba670c39d6fd55f0df1180452c757c457095eea4b27",
+    "buildManifestsSha256": "877b46e75e06250fc35921df45a98b71423c3daadbb39f878db68a13ea87e292"
+  },
+  "limitations": [
+    "This is isolated current-source acceptance, not a parent physical-checkout gate.",
+    "One asset-copy EEXIST build attempt failed; an identical retry passed without source changes.",
+    "Exact inventory and representative iframe proofs do not establish visual parity for every story.",
+    "Docs production and API acceptance are recorded separately.",
+    "Third-party dependencies were reused read-only, not installed afresh from a registry.",
+    "No publication or landing was performed."
+  ]
+}

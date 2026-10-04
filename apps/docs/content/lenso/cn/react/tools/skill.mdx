@@ -1,0 +1,28 @@
+---
+title: "Agent skill"
+description: "加载仓库内 Lenso UI 工作流，实现前先匹配已安装版本。"
+---
+
+## 显式加载
+
+Skill 位于 `.agents/skills/lenso-ui/SKILL.md`，配置参考位于 `.agents/skills/lenso-ui/references/setup.md`。它随源码候选提供，不会自动激活，也不会安装 CLI 或 MCP 包。
+
+通过 agent 宿主支持的本地 skill 机制加载该目录。宿主专属加载命令不是 Lenso API。复制或打包 skill 时应保留配置参考。
+
+## 实现前核对版本
+
+工作流先读取消费者已安装的 `@lenso/ui`、`@lenso/tokens` 版本及框架配置。UI 和 tokens 必须匹配。再确认匹配 CLI 的 `metadata --json`，或 MCP 的 `list_components` 元数据，包括契约 digest。
+
+工具不可用时，使用同一发布生成的文档，并明确缺失证据。另一检出目录的缓存契约或上游版本号不能替代当前契约。
+
+## 遵循实际组件契约
+
+按需要查询规范系列、原生 API、authored 文档、本地示例和 StyleX 源码。保留原生属性、ref、render 组合、状态属性及键盘和焦点行为。使用原生签名，不适配旧 API。
+
+调用方 `xstyle` 最后组合，保留运行时自定义属性，并合并依赖原生状态的样式回调。加载操作保持可聚焦，同时阻止激活。[架构](/docs/react/getting-started/architecture) 说明原生和本地集合边界。
+
+## 报告证据
+
+运行消费者 typecheck、匹配的 `lenso check` 与框架构建。操作受影响的打开、导航、激活、关闭与焦点恢复。适用时检查两个主题、portal 表面、溢出和减少动态效果。
+
+Skill 要求区分已通过证据与未测试行为。仅有编译成功或源码示例，不代表无障碍、来源一致性或样式表交付认证。

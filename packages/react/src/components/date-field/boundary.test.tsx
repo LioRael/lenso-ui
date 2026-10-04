@@ -10,6 +10,7 @@ import { RangeCalendar } from "../range-calendar/index.js";
 import { Calendar } from "../calendar/index.js";
 import { ColorSlider } from "../color-slider/index.js";
 import { DatePicker } from "../date-picker/index.js";
+import { DateRangePicker } from "../date-range-picker/index.js";
 import { ThemeScope } from "../../utils/theme-scope.js";
 import { ColorField } from "../color-field/index.js";
 
@@ -61,6 +62,88 @@ test("time field uses the same RAC segments without losing its time context", as
   await userEvent.keyboard("{ArrowUp}");
   await expect.element(minute).toHaveAttribute("aria-valuenow", "31");
 });
+
+test("date and time labels inherit shared required, invalid and disabled feedback", async () => {
+  const screen = await render(
+    <div data-theme="light">
+      <DateField isRequired isInvalid>
+        <DateField.Label data-testid="date-label">Departure</DateField.Label>
+        <DateField.Group>
+          <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
+        </DateField.Group>
+      </DateField>
+      <TimeField isRequired isDisabled>
+        <TimeField.Label data-testid="time-label">Appointment</TimeField.Label>
+        <TimeField.Group>
+          <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>
+        </TimeField.Group>
+      </TimeField>
+    </div>,
+  );
+  const dateLabel = screen.getByTestId("date-label").element();
+  const timeLabel = screen.getByTestId("time-label").element();
+  expect(getComputedStyle(dateLabel).fontWeight).toBe("500");
+  expect(getComputedStyle(dateLabel, "::after").content).toContain("*");
+  expect(getComputedStyle(dateLabel).color).not.toBe(getComputedStyle(timeLabel).color);
+  expect(Number(getComputedStyle(timeLabel).opacity)).toBeLessThan(1);
+  expect(
+    screen.getByRole("spinbutton", { name: /day/i }).element().getAttribute("aria-labelledby"),
+  ).toContain(dateLabel.id);
+});
+
+test.each(["light", "dark"])(
+  "picker aliases and color labels follow required and validation changes in %s",
+  async (theme) => {
+    const example = (isRequired: boolean, isInvalid: boolean, isDisabled: boolean) => (
+      <div data-theme={theme}>
+        <DatePicker isRequired={isRequired} isInvalid={isInvalid} isDisabled={isDisabled}>
+          <DatePicker.Label data-testid="picker-label">Departure</DatePicker.Label>
+          <DatePicker.Group>
+            <DatePicker.Input>
+              {(segment) => <DatePicker.Segment segment={segment} />}
+            </DatePicker.Input>
+          </DatePicker.Group>
+        </DatePicker>
+        <DateRangePicker isRequired={isRequired} isInvalid={isInvalid} isDisabled={isDisabled}>
+          <DateRangePicker.Label data-testid="range-label">Trip</DateRangePicker.Label>
+          <DateRangePicker.Group>
+            <DateRangePicker.Input slot="start">
+              {(segment) => <DateRangePicker.Segment segment={segment} />}
+            </DateRangePicker.Input>
+            <DateRangePicker.Input slot="end">
+              {(segment) => <DateRangePicker.Segment segment={segment} />}
+            </DateRangePicker.Input>
+          </DateRangePicker.Group>
+        </DateRangePicker>
+        <ColorField isRequired={isRequired} isInvalid={isInvalid} isDisabled={isDisabled}>
+          <ColorField.Label data-testid="color-label">Brand</ColorField.Label>
+          <ColorField.Group>
+            <ColorField.Input />
+          </ColorField.Group>
+        </ColorField>
+        <span data-testid="danger-probe" style={{ color: "var(--danger)" }} />
+        <span data-testid="foreground-probe" style={{ color: "var(--foreground)" }} />
+      </div>
+    );
+    const screen = await render(example(true, true, false));
+    const labels = ["picker-label", "range-label", "color-label"].map((name) =>
+      screen.getByTestId(name).element(),
+    );
+    const danger = getComputedStyle(screen.getByTestId("danger-probe").element()).color;
+    for (const label of labels) {
+      await expect.poll(() => getComputedStyle(label).fontWeight).toBe("500");
+      expect(getComputedStyle(label, "::after").content).toContain("*");
+      await expect.poll(() => getComputedStyle(label).color).toBe(danger);
+    }
+    await screen.rerender(example(false, false, true));
+    const foreground = getComputedStyle(screen.getByTestId("foreground-probe").element()).color;
+    for (const label of labels) {
+      expect(getComputedStyle(label, "::after").content).not.toContain("*");
+      await expect.poll(() => getComputedStyle(label).color).toBe(foreground);
+      await expect.poll(() => getComputedStyle(label).opacity).toBe("0.5");
+    }
+  },
+);
 
 test("range calendar commits both endpoints through keyboard selection", async () => {
   const change = vi.fn();

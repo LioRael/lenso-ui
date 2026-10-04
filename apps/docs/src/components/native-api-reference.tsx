@@ -54,12 +54,20 @@ const copy = {
   },
 };
 
-function PropertyTable({ rows, locale }: { rows: Property[]; locale: Locale }) {
+function PropertyTable({
+  rows,
+  locale,
+  label,
+}: {
+  rows: Property[];
+  locale: Locale;
+  label: string;
+}) {
   const text = copy[locale];
   return (
     // Keyboard users must be able to scroll wide type signatures.
     // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <section {...stylex.props(styles.scroll)} tabIndex={0} aria-label={text.title}>
+    <section {...stylex.props(styles.scroll)} tabIndex={0} aria-label={label}>
       <table {...stylex.props(styles.table)}>
         <thead>
           <tr>
@@ -107,7 +115,7 @@ export function NativeApiReference({ family, locale = "en" }: { family: string; 
     );
   const text = copy[locale];
   return (
-    <section aria-labelledby={`native-api-${family}`}>
+    <section {...stylex.props(styles.reference)} aria-labelledby={`native-api-${family}`}>
       <h2 id={`native-api-${family}`}>{text.title}</h2>
       <p>{text.intro}</p>
       <p>{text.defaults}</p>
@@ -162,7 +170,7 @@ export function NativeApiReference({ family, locale = "en" }: { family: string; 
                 </a>
               </p>
             ))}
-            <PropertyTable rows={own} locale={locale} />
+            <PropertyTable rows={own} locale={locale} label={`${part.name}: ${text.title}`} />
             {Object.entries(part.states).map(([name, fields]) => (
               <div key={name}>
                 <h4>
@@ -190,7 +198,11 @@ export function NativeApiReference({ family, locale = "en" }: { family: string; 
                 <summary>
                   {text.common} ({common.length})
                 </summary>
-                <PropertyTable rows={common} locale={locale} />
+                <PropertyTable
+                  rows={common}
+                  locale={locale}
+                  label={`${part.name}: ${text.common}`}
+                />
               </details>
             )}
           </section>

@@ -26,7 +26,10 @@ export const s = stylex.create({
   maxMd: { width: "100%", maxWidth: 448 },
   maxXl: { width: "100%", maxWidth: 576 },
   alertStack: { display: "grid", width: "100%", maxWidth: 576, gap: 16 },
-  scroll: { overflowX: "auto" },
+  scroll: {
+    overflowX: "auto",
+    ":focus-visible": { outline: "2px solid var(--focus)", outlineOffset: -2 },
+  },
   matrixCell: {
     display: "flex",
     flexShrink: 0,

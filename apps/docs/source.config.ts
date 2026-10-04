@@ -1,7 +1,6 @@
 export const sourceConfig = {
-  directory: "content/docs",
-  examples: "content/examples",
+  directory: "content/lenso",
+  examples: "src/demos",
   locales: ["en", "cn"],
   platform: "react",
-  sections: ["getting-started", "components", "releases", "migration"],
 } as const;

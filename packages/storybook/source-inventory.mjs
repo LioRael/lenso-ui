@@ -15,26 +15,73 @@ if (pinnedFiles.commit !== sourcePin)
   throw new Error("Pinned story file inventory commit mismatch");
 const storyDirectory = fileURLToPath(new URL("./stories/", import.meta.url));
 const reviewedFamilies = new Set([
+  "accordion",
   "alert",
+  "alert-dialog",
+  "autocomplete",
   "avatar",
   "avatar-group",
   "badge",
+  "breadcrumbs",
+  "button",
+  "button-group",
+  "calendar",
   "card",
   "chip",
+  "checkbox",
+  "checkbox-group",
+  "close-button",
+  "color-area",
+  "color-field",
+  "color-picker",
+  "color-slider",
+  "color-swatch",
+  "color-swatch-picker",
+  "combo-box",
+  "date-field",
+  "date-picker",
+  "date-range-picker",
+  "disclosure",
+  "disclosure-group",
+  "drawer",
+  "dropdown",
   "fieldset",
   "input",
   "input-group",
+  "input-otp",
   "kbd",
+  "link",
+  "list-box",
   "meter",
+  "modal",
+  "number-field",
+  "pagination",
+  "popover",
   "progress-bar",
   "progress-circle",
+  "radio-group",
+  "range-calendar",
   "scroll-shadow",
+  "search-field",
+  "select",
   "separator",
   "skeleton",
+  "slider",
   "spinner",
   "surface",
+  "switch",
+  "switch-group",
+  "table",
+  "tabs",
+  "tag-group",
   "textarea",
   "textfield",
+  "time-field",
+  "toast",
+  "toggle-button",
+  "toggle-button-group",
+  "toolbar",
+  "tooltip",
   "typography",
 ]);
 
@@ -65,6 +112,8 @@ for (let offset = 0; offset < paths.length; offset += 8) {
       paths.slice(offset, offset + 8).map(async (path) => {
         const filename = path.split("/").at(-1);
         const family = path.split("/").at(-2);
+        // Preserve pinned upstream paths while projecting the Lenso public name.
+        const localFilename = family === "dropdown" ? "menu.stories.tsx" : filename;
         const source = localSourceDirectory
           ? await readFile(join(localSourceDirectory, filename), "utf8")
           : await getText(
@@ -72,8 +121,8 @@ for (let offset = 0; offset < paths.length; offset += 8) {
             );
         const names = [...source.matchAll(/^export const (\w+)/gm)].map((match) => match[1]);
         if (!names.length) throw new Error(`No upstream story exports found in ${path}`);
-        const local = localFiles.has(filename)
-          ? await readFile(join(storyDirectory, filename), "utf8")
+        const local = localFiles.has(localFilename)
+          ? await readFile(join(storyDirectory, localFilename), "utf8")
           : "";
         const exports = new Set(
           [...local.matchAll(/^export const (\w+)/gm)].map((match) => match[1]),
@@ -81,7 +130,7 @@ for (let offset = 0; offset < paths.length; offset += 8) {
         const implemented = reviewedFamilies.has(family)
           ? names.filter((name) => exports.has(name))
           : [];
-        return { filename, family, path, names, implemented };
+        return { filename, localFilename, family, path, names, implemented };
       }),
     )),
   );
@@ -99,15 +148,16 @@ if (json) {
     JSON.stringify(
       {
         source: { repository, version: "3.2.6", commit: sourcePin },
-        files: inventory.map(({ filename, family, path, names, implemented }) => ({
+        files: inventory.map(({ filename, localFilename, family, path, names, implemented }) => ({
           filename,
+          localFilename,
           family,
           path,
           url: `${repository}/blob/${sourcePin}/${path}`,
           sourceExports: names,
           scenarios: names.map((sourceExport) => ({
             sourceExport,
-            localFile: implemented.includes(sourceExport) ? `stories/${filename}` : null,
+            localFile: implemented.includes(sourceExport) ? `stories/${localFilename}` : null,
             localExport: implemented.includes(sourceExport) ? sourceExport : null,
             status: implemented.includes(sourceExport) ? "adapted-unverified" : "unimplemented",
           })),

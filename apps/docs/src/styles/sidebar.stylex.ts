@@ -38,5 +38,9 @@ export const sidebar = stylex.create({
     marginInlineStart: "auto",
     transform: { default: "rotate(0deg)", ":is([data-panel-open] *)": "rotate(180deg)" },
   },
-  children: { paddingInlineStart: 12 },
+  children: {
+    "--docs-sidebar-item-inset": "14px",
+    paddingBlock: 4,
+    paddingInline: 16,
+  },
 });

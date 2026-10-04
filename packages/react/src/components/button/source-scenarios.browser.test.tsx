@@ -95,11 +95,11 @@ test("source pagination is keyboard-operable and composed links retain native hr
   await userEvent.click(next);
   await expect
     .element(screen.getByRole("navigation", { name: "Pagination" }))
-    .toHaveTextContent("Showing 11-20 of 120 results");
+    .toMatchTextContent("Showing 11-20 of 120 results");
   await userEvent.keyboard("{Enter}");
   await expect
     .element(screen.getByRole("navigation", { name: "Pagination" }))
-    .toHaveTextContent("Showing 21-30 of 120 results");
+    .toMatchTextContent("Showing 21-30 of 120 results");
   const link = screen.getByRole("link", { name: "Call to action" });
   await expect.element(link).toHaveAttribute("href", "#");
   await expect.element(link).toHaveAttribute("data-custom", "foo");

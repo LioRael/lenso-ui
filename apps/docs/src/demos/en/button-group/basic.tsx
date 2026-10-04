@@ -18,7 +18,7 @@ import {
   ThumbsUp,
   Video,
 } from "@gravity-ui/icons";
-import { Button, ButtonGroup, Chip, Dropdown } from "@lenso/ui";
+import { Button, ButtonGroup, Chip, Menu } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { basicStyles as styles } from "./basic.stylex";
 import { styles as sourceStyles } from "./source.stylex";
@@ -28,18 +28,18 @@ export function Basic() {
       <div {...stylex.props(styles.section)}>
         <ButtonGroup>
           <Button>Merge pull request</Button>
-          <Dropdown>
-            <Dropdown.Trigger
+          <Menu>
+            <Menu.Trigger
               render={<Button isIconOnly aria-label="More options" xstyle={styles.splitTrigger} />}
             >
               <ButtonGroup.Separator />
               <Button.Icon>
                 <ChevronDown />
               </Button.Icon>
-            </Dropdown.Trigger>
-            <Dropdown.Portal>
-              <Dropdown.Positioner side="bottom" align="end">
-                <Dropdown.Popup xstyle={styles.popup}>
+            </Menu.Trigger>
+            <Menu.Portal>
+              <Menu.Positioner side="bottom" align="end">
+                <Menu.Popup xstyle={styles.popup}>
                   {[
                     {
                       id: "merge",
@@ -59,17 +59,17 @@ export function Basic() {
                         "The 14 commits from this branch will be rebased and added to the base branch",
                     },
                   ].map((item) => (
-                    <Dropdown.Item key={item.id} xstyle={styles.item}>
+                    <Menu.Item key={item.id} xstyle={styles.item}>
                       <span {...stylex.props(sourceStyles.menuLabel)}>{item.label}</span>
                       <span {...stylex.props(sourceStyles.menuDescription)}>
                         {item.description}
                       </span>
-                    </Dropdown.Item>
+                    </Menu.Item>
                   ))}
-                </Dropdown.Popup>
-              </Dropdown.Positioner>
-            </Dropdown.Portal>
-          </Dropdown>
+                </Menu.Popup>
+              </Menu.Positioner>
+            </Menu.Portal>
+          </Menu>
         </ButtonGroup>
       </div>
       <div {...stylex.props(styles.section)}>

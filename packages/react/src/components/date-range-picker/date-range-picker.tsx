@@ -3,9 +3,9 @@
 import { DateRangePicker as Primitive } from "react-aria-components/DateRangePicker";
 import type { DateValue } from "react-aria-components/Calendar";
 import type { ComponentPropsWithRef } from "react";
-import * as stylex from "@stylexjs/stylex";
 import { dateRangePickerStyles as styles } from "@lenso/tokens/date-range-picker";
-import { styledPart, mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import * as stylex from "@stylexjs/stylex";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import {
   DatePickerTrigger,
   DatePickerTriggerIndicator,
@@ -42,15 +42,23 @@ export function DateRangePickerRoot<T extends DateValue>({
     </PickerTriggerContext>
   );
 }
-const RangeSeparator = styledPart("span", "date-range-picker-range-separator", styles.separator);
 export function DateRangePickerRangeSeparator({
   children = " - ",
+  xstyle,
+  style,
   ...props
 }: StyleXProps<ComponentPropsWithRef<"span">>) {
+  const compiled = stylex.props(styles.separator, xstyle);
   return (
-    <RangeSeparator aria-hidden="true" {...props}>
+    <span
+      aria-hidden="true"
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "date-range-picker-range-separator"}
+      style={mergeStyle(compiled.style, style)}
+    >
       {children}
-    </RangeSeparator>
+    </span>
   );
 }
 export function DateRangePickerTrigger(

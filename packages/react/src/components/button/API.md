@@ -40,9 +40,22 @@ without replacing the action's name. Explicit `disabled` retains Base UI's
 separate `focusableWhenDisabled` behavior.
 
 `ref`, `render`, and Base UI's state-based `style` callback are forwarded.
-`xstyle` comes after the family, size, variant, and group styles; the shared
-styled-part helper forwards the complete result, including dynamic StyleX
-variables. A runtime `style` callback may still override inline geometry.
+`xstyle` comes after the family, size, variant, and group styles inside Button's
+StyleX composition. Concrete native parts forward the complete compiled result,
+including dynamic StyleX variables. A runtime `style` callback may still
+override inline geometry.
+
+When another native part renders a Button, Button preserves the part's injected
+classes, styles, events and refs using Base UI's prop composition. Its public API
+still does not accept `className`.
+
+Class preservation is not property-level StyleX merging across two components.
+Avoid defining conflicting appearance overrides on both a styled trigger and
+its rendered Button: their classes meet through normal CSS, and runtime variable
+names may also overlap. For deterministic geometry, render a native element,
+style an outer layout wrapper, or use the native inline `style` boundary.
+The `xstyle`-last rule applies to each component's own compiled style objects,
+not to opaque classes injected by another component.
 
 ## Groups and toolbar
 

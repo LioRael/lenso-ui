@@ -6,8 +6,9 @@
 import { DateInput, DateSegment } from "react-aria-components/DateField";
 import { Group } from "react-aria-components/Group";
 import type { ComponentPropsWithRef } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { dateInputGroupStyles as styles } from "@lenso/tokens/date-input-group";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { racPart } from "./rac-part.js";
 
 type GroupState = {
@@ -40,7 +41,21 @@ export function DateInputGroupRoot({
     />
   );
 }
-export const DateInputGroupInput = styledPart(DateInput, "date-input-group-input", styles.input);
+export function DateInputGroupInput({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof DateInput>>) {
+  const compiled = stylex.props(styles.input, xstyle);
+  return (
+    <DateInput
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "date-input-group-input"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}
 export const DateInputGroupSegment = racPart(
   DateSegment,
   "date-input-group-segment",
@@ -60,10 +75,48 @@ export const DateInputGroupSegment = racPart(
     state.isDisabled && styles.disabled,
   ],
 );
-export const DateInputGroupInputContainer = styledPart(
-  "div",
-  "date-input-group-input-container",
-  styles.inputContainer,
-);
-export const DateInputGroupPrefix = styledPart("div", "date-input-group-prefix", styles.prefix);
-export const DateInputGroupSuffix = styledPart("div", "date-input-group-suffix", styles.suffix);
+export function DateInputGroupInputContainer({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<"div">>) {
+  const compiled = stylex.props(styles.inputContainer, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "date-input-group-input-container"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}
+export function DateInputGroupPrefix({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<"div">>) {
+  const compiled = stylex.props(styles.prefix, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "date-input-group-prefix"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}
+export function DateInputGroupSuffix({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<"div">>) {
+  const compiled = stylex.props(styles.suffix, xstyle);
+  return (
+    <div
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "date-input-group-suffix"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}

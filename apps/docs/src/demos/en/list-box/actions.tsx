@@ -72,7 +72,7 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
             <Pencil {...stylex.props(actionStyles.icon)} />,
           )}
         </ListBoxSection>
-        <Separator />
+        <Separator aria-hidden="true" />
         <ListBoxSection aria-label="Danger zone">
           <Header>Danger zone</Header>
           {item(

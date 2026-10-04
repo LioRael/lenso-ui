@@ -8,7 +8,7 @@ import { tokens } from "../../tokens.stylex.const.js";
 export const colorFieldStyles = stylex.create({
   root: { display: "flex", flexDirection: "column", gap: 4 },
   fullWidth: { width: "100%" },
-  label: { width: "fit-content", fontSize: 14, color: tokens.foreground },
+  label: { width: "fit-content" },
   description: { fontSize: 12, color: tokens.muted },
   error: { fontSize: 12, color: tokens.danger },
   hidden: { display: "none" },

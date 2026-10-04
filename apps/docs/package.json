@@ -10,6 +10,8 @@
     "start": "node scripts/serve-docs.mjs",
     "typecheck": "node scripts/prepare-docs.mjs && next typegen && tsc --noEmit",
     "test": "node --test scripts/*.test.mjs",
+    "test:api-browser": "node test/native-api.browser.mjs",
+    "test:locale-browser": "node scripts/locale-example-proof.mjs",
     "test:browser": "node scripts/browser-check.mjs",
     "test:examples": "node scripts/examples-browser-check.mjs",
     "lint": "oxlint --deny-warnings --react-plugin --jsx-a11y-plugin src scripts test",
@@ -33,12 +35,12 @@
     "react-aria-components": "1.21.1",
     "react-dom": "catalog:",
     "remark-gfm": "4.0.1",
-    "shiki": "3.20.0"
+    "shiki": "3.23.0"
   },
   "devDependencies": {
     "@babel/generator": "7.29.8",
-    "@babel/parser": "7.29.8",
-    "@stylexjs/unplugin": "catalog:",
+    "@babel/parser": "7.29.9",
+    "@lenso/stylex-build": "workspace:*",
     "@types/mdx": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

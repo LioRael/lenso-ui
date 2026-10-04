@@ -16,6 +16,7 @@ export function InputGroupRoot({
   xstyle,
   style,
   "data-slot": slot,
+  onClick,
   ...props
 }: InputGroupRootProps) {
   const compiled = stylex.props(
@@ -25,11 +26,34 @@ export function InputGroupRoot({
     xstyle,
   );
   return (
+    // The control remains the keyboard entry point; this wrapper only expands its pointer target.
+    // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
       data-slot={slot ?? "input-group"}
+      onClick={(event) => {
+        onClick?.(event);
+        if (event.defaultPrevented || !(event.target instanceof Element)) return;
+
+        const interactive = event.target.closest(
+          "input, textarea, select, button, a[href], area[href], summary, iframe, audio[controls], video[controls], [tabindex], [contenteditable]:not([contenteditable='false']), [role='button'], [role='link'], [role='checkbox'], [role='radio'], [role='switch'], [role='combobox'], [role='textbox'], [role='slider'], [role='spinbutton'], [role='menuitem'], [role='option']",
+        );
+        if (
+          interactive &&
+          interactive !== event.currentTarget &&
+          event.currentTarget.contains(interactive)
+        ) {
+          return;
+        }
+
+        event.currentTarget
+          .querySelector<HTMLInputElement | HTMLTextAreaElement>(
+            "input:not(:disabled):not([type='hidden']), textarea:not(:disabled)",
+          )
+          ?.focus();
+      }}
     />
   );
 }

@@ -31,7 +31,6 @@ export * from "./description/index.js";
 export * from "./disclosure/index.js";
 export * from "./disclosure-group/index.js";
 export * from "./drawer/index.js";
-export * from "./dropdown/index.js";
 export * from "./empty-state/index.js";
 export * from "./error-message/index.js";
 export * from "./field-error/index.js";

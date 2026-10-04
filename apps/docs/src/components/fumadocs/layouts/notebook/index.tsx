@@ -4,18 +4,16 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import * as stylex from "@stylexjs/stylex";
 import {
-  ArrowRightArrowLeft,
   Bars,
   BookOpen,
   ChevronDown,
   Circles4Diamond,
   Globe,
   LogoGithub,
-  Rocket,
   Xmark,
 } from "@gravity-ui/icons";
-import { Dropdown, Modal } from "@lenso/ui";
-import type { Locale } from "@/lib/source";
+import { Menu, Modal } from "@lenso/ui";
+import type { Locale, DocSection } from "@/lib/source";
 import { styles } from "@/styles/docs.stylex";
 import { notebook } from "@/styles/notebook.stylex";
 import { LanguageToggle } from "../../ui/language-toggle";
@@ -23,26 +21,27 @@ import { SearchDialog, type SearchEntry } from "../../ui/search-dialog";
 import { ThemeToggle } from "../../ui/theme-toggle";
 import { SidebarPageTree } from "./sidebar";
 
-const sections = [
-  { key: "getting-started", label: "Getting Started", cn: "开始使用", icon: BookOpen },
-  { key: "components", label: "Components", cn: "组件", icon: Circles4Diamond },
-  { key: "releases", label: "Releases", cn: "更新日志", icon: Rocket },
-  { key: "migration", label: "Migration", cn: "迁移指南", icon: ArrowRightArrowLeft },
-];
+const sectionIcon = (slug: string) => (slug === "react/components" ? Circles4Diamond : BookOpen);
 
 // Source: HeroUI v3.2.6 notebook layout and locale docs layout, Apache-2.0.
 // Native/paywall/theme-builder destinations are not presented as local products.
 export function DocsLayout({
   locale,
   slug,
+  version,
+  repository,
   entries,
   searchEntries,
+  sectionEntries,
   children,
 }: {
   locale: Locale;
   slug: string;
+  version: string;
+  repository: string;
   entries: SearchEntry[];
   searchEntries: SearchEntry[];
+  sectionEntries: DocSection[];
   children: ReactNode;
 }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -50,13 +49,6 @@ export function DocsLayout({
   const current = `/${locale}/docs/${slug}`;
   return (
     <>
-      <aside aria-label="Source attribution" {...stylex.props(notebook.banner)}>
-        <span {...stylex.props(notebook.bannerBadge)}>Lenso UI</span>
-        <Link href="/coverage" {...stylex.props(notebook.bannerLink)}>
-          <span {...stylex.props(notebook.bannerDetail)}>Independent </span>
-          HeroUI v3.2.6 derivation · Coverage
-        </Link>
-      </aside>
       <div id="nd-notebook-layout" {...stylex.props(styles.shell)}>
         <header id="nd-subnav" {...stylex.props(styles.header)}>
           <div {...stylex.props(notebook.headerBody)}>
@@ -64,33 +56,33 @@ export function DocsLayout({
               <Link href={`/${locale}/docs/react/getting-started`} {...stylex.props(styles.brand)}>
                 Lenso UI
               </Link>
-              <Dropdown.Root>
-                <Dropdown.Trigger aria-label="Upstream source version" xstyle={notebook.version}>
-                  v3.2.6 <ChevronDown width={14} height={14} aria-hidden="true" />
-                </Dropdown.Trigger>
-                <Dropdown.Portal>
-                  <Dropdown.Positioner sideOffset={8}>
-                    <Dropdown.Popup xstyle={notebook.menu}>
-                      <Dropdown.LinkItem
-                        href="https://github.com/heroui-inc/heroui/tree/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e"
+              <Menu.Root>
+                <Menu.Trigger aria-label="Lenso UI release" xstyle={notebook.version}>
+                  v{version} <ChevronDown width={14} height={14} aria-hidden="true" />
+                </Menu.Trigger>
+                <Menu.Portal>
+                  <Menu.Positioner sideOffset={8}>
+                    <Menu.Popup xstyle={notebook.menu}>
+                      <Menu.LinkItem
+                        href={`/${locale}/docs/react/getting-started/versioning`}
                         xstyle={notebook.menuItem}
                       >
-                        Pinned HeroUI source
-                      </Dropdown.LinkItem>
-                      <Dropdown.LinkItem href="/coverage" xstyle={notebook.menuItem}>
-                        Reconstruction coverage
-                      </Dropdown.LinkItem>
-                    </Dropdown.Popup>
-                  </Dropdown.Positioner>
-                </Dropdown.Portal>
-              </Dropdown.Root>
+                        {locale === "cn" ? "版本策略" : "Versioning"}
+                      </Menu.LinkItem>
+                      <Menu.LinkItem href="/coverage" xstyle={notebook.menuItem}>
+                        {locale === "cn" ? "验证覆盖" : "Verification coverage"}
+                      </Menu.LinkItem>
+                    </Menu.Popup>
+                  </Menu.Positioner>
+                </Menu.Portal>
+              </Menu.Root>
             </div>
             <SearchDialog entries={searchEntries} />
             <div {...stylex.props(notebook.actions)}>
               <div {...stylex.props(notebook.headerDesktop)}>
                 <a
-                  href="https://github.com/heroui-inc/heroui/tree/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e"
-                  aria-label="HeroUI source on GitHub"
+                  href={repository}
+                  aria-label="Lenso UI on GitHub"
                   {...stylex.props(notebook.iconButton)}
                 >
                   <LogoGithub width={16} height={16} aria-hidden="true" />
@@ -131,17 +123,19 @@ export function DocsLayout({
                           aria-label="Documentation sections"
                           {...stylex.props(notebook.drawerSections)}
                         >
-                          {sections.map(({ key, label, cn, icon: Icon }) => (
-                            <Link
-                              key={key}
-                              href={`/${locale}/docs/react/${key}`}
-                              onClick={() => setDrawerOpen(false)}
-                              {...stylex.props(styles.navLink)}
-                            >
-                              <Icon width={16} height={16} aria-hidden="true" />{" "}
-                              {locale === "cn" ? cn : label}
-                            </Link>
-                          ))}
+                          {sectionEntries.map(({ slug: sectionSlug, title, href }) => {
+                            const Icon = sectionIcon(sectionSlug);
+                            return (
+                              <Link
+                                key={sectionSlug}
+                                href={href}
+                                onClick={() => setDrawerOpen(false)}
+                                {...stylex.props(styles.navLink)}
+                              >
+                                <Icon width={16} height={16} aria-hidden="true" /> {title}
+                              </Link>
+                            );
+                          })}
                         </nav>
                         <SidebarPageTree
                           entries={entries}
@@ -159,17 +153,21 @@ export function DocsLayout({
             </div>
           </div>
           <nav aria-label="Documentation sections" {...stylex.props(styles.sectionBar)}>
-            {sections.map(({ key, label, cn, icon: Icon }) => (
-              <Link
-                key={key}
-                href={`/${locale}/docs/react/${key}`}
-                aria-current={section === key ? "page" : undefined}
-                {...stylex.props(notebook.tab, section === key && notebook.selectedTab)}
-              >
-                <Icon width={16} height={16} aria-hidden="true" />
-                {locale === "cn" ? cn : label}
-              </Link>
-            ))}
+            {sectionEntries.map(({ slug: sectionSlug, title, href }) => {
+              const Icon = sectionIcon(sectionSlug);
+              const selected = sectionSlug === `react/${section}`;
+              return (
+                <Link
+                  key={sectionSlug}
+                  href={href}
+                  aria-current={selected ? "page" : undefined}
+                  {...stylex.props(notebook.tab, selected && notebook.selectedTab)}
+                >
+                  <Icon width={16} height={16} aria-hidden="true" />
+                  {title}
+                </Link>
+              );
+            })}
             <span {...stylex.props(notebook.framework)}>
               <Globe width={14} height={14} aria-hidden="true" /> Web
             </span>

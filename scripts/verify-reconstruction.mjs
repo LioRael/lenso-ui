@@ -38,7 +38,6 @@ const families = [
   "disclosure",
   "disclosure-group",
   "drawer",
-  "dropdown",
   "empty-state",
   "error-message",
   "field-error",

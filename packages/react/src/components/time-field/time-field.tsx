@@ -13,8 +13,9 @@ import { Label } from "react-aria-components/Label";
 import { Text } from "react-aria-components/Text";
 import { FieldError } from "react-aria-components/FieldError";
 import * as stylex from "@stylexjs/stylex";
+import { labelStyles } from "@lenso/tokens/label";
 import { timeFieldStyles as styles } from "@lenso/tokens/time-field";
-import { styledPart, mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
 export type TimeFieldRootProps<T extends TimeValue> = StyleXProps<
   ComponentPropsWithRef<typeof Primitive<T>>
@@ -36,19 +37,59 @@ export function TimeFieldRoot<T extends TimeValue>({
     />
   );
 }
-export const TimeFieldLabel = styledPart(Label, "label", styles.label);
-const Description = styledPart(Text, "description", styles.description);
-export function TimeFieldDescription({
+export function TimeFieldLabel({
   xstyle,
+  style,
   ...props
-}: StyleXProps<ComponentPropsWithRef<typeof Text>>) {
-  const state = use(TimeFieldStateContext);
+}: StyleXProps<ComponentPropsWithRef<typeof Label>>) {
+  const compiled = stylex.props(
+    labelStyles.label,
+    labelStyles.contextualRequired,
+    styles.label,
+    xstyle,
+  );
   return (
-    <Description
-      slot="description"
+    <Label
       {...props}
-      xstyle={[state?.displayValidation.isInvalid && styles.hidden, xstyle]}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "label"}
+      style={mergeStyle(compiled.style, style)}
     />
   );
 }
-export const TimeFieldError = styledPart(FieldError, "field-error", styles.error);
+export function TimeFieldDescription({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof Text>>) {
+  const state = use(TimeFieldStateContext);
+  const compiled = stylex.props(
+    styles.description,
+    state?.displayValidation.isInvalid && styles.hidden,
+    xstyle,
+  );
+  return (
+    <Text
+      slot="description"
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "description"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}
+export function TimeFieldError({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof FieldError>>) {
+  const compiled = stylex.props(styles.error, xstyle);
+  return (
+    <FieldError
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "field-error"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}

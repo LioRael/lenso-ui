@@ -1,0 +1,52 @@
+---
+title: "MCP 服务"
+description: "通过只读 stdio 服务向 MCP 客户端提供匹配契约。"
+---
+
+## 构建与启动
+
+`@lenso/mcp` 是未发布的源码候选，二进制名称为 `lenso-mcp`。构建前先准备当前文档契约：
+
+```sh
+pnpm --filter @lenso/ui-docs build
+pnpm --filter @lenso/mcp build
+node packages/mcp/dist/server.mjs
+```
+
+最后一条命令启动 stdio 服务，不是交互帮助提示。Stdout 只传输 JSON-RPC，诊断使用 stderr。候选内置经过验证的格式 2 契约和私有查询核心；官方 MCP TypeScript SDK 仍是运行时依赖。
+
+配置 MCP 客户端的 stdio 启动器。此示例使用已构建源码候选，而不是未经确认的 npm 安装：
+
+```json
+{
+  "mcpServers": {
+    "lenso-ui": {
+      "command": "node",
+      "args": ["/absolute/path/to/lenso-ui/packages/mcp/dist/server.mjs"]
+    }
+  }
+}
+```
+
+替换绝对路径，确认 `node` 满足契约支持的运行时范围。外围客户端配置格式取决于客户端。
+
+## 发现六个工具
+
+| 工具 | 输入 | 结果 |
+| --- | --- | --- |
+| `list_components` | 无组件参数 | 规范系列与公开部件 |
+| `get_component_api` | `component` | 原生签名、状态与解析后的属性行 |
+| `get_component_examples` | `component`、可选 `locale` | 本地源码与有序辅助文件 |
+| `get_component_styles` | `component` | 真实 StyleX 映射源码 |
+| `search_documentation` | `query`、可选 `locale`、`limit` | Authored 文档匹配 |
+| `get_documentation` | `slug`、可选 `locale` | 精确 authored Markdown |
+
+语言为 `en` 或 `cn`，默认 `en`。搜索上限为 1 到 50 的整数，默认 10。每个工具都接受可选 `lensoVersion` 和 `digest` 身份参数，值必须匹配服务契约。
+
+响应包含发布元数据和 digest。通过协议发现输入 schema，并从 `list_components` 获取规范名称；`menu` 是公开弹出菜单系列。
+
+## 只读边界
+
+服务不支持执行 shell、写入文件、调用方指定文件系统路径、远程传输或上游请求转发。工具不建立网络连接。返回源码与文本是参考数据，不是执行指令。
+
+启动时验证编码契约一次。各工具按需解析选中记录，搜索达到请求上限后停止。旧契约或身份不匹配是错误，不应回退到另一发布的缓存数据。

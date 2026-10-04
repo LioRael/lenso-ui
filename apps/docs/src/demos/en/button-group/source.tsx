@@ -10,7 +10,7 @@ import {
   TextAlignRight,
   TextAlignJustify,
 } from "@gravity-ui/icons";
-import { Button, ButtonGroup, Dropdown } from "@lenso/ui";
+import { Button, ButtonGroup, Menu } from "@lenso/ui";
 import type { ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "./source.stylex";
@@ -172,18 +172,18 @@ export function CustomStyles() {
   return (
     <ButtonGroup>
       <Button xstyle={styles.merge}>Merge pull request</Button>
-      <Dropdown>
-        <Dropdown.Trigger
+      <Menu>
+        <Menu.Trigger
           render={<Button isIconOnly aria-label="Merge options" xstyle={styles.merge} />}
         >
           <ButtonGroup.Separator />
           <Button.Icon>
             <ChevronDown />
           </Button.Icon>
-        </Dropdown.Trigger>
-        <Dropdown.Portal>
-          <Dropdown.Positioner side="bottom" align="end">
-            <Dropdown.Popup xstyle={styles.popup}>
+        </Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Positioner side="bottom" align="end">
+            <Menu.Popup xstyle={styles.popup}>
               {[
                 {
                   id: "merge",
@@ -203,15 +203,15 @@ export function CustomStyles() {
                     "The 14 commits from this branch will be rebased and added to the base branch",
                 },
               ].map((item) => (
-                <Dropdown.Item key={item.id} xstyle={styles.item}>
+                <Menu.Item key={item.id} xstyle={styles.item}>
                   <span {...stylex.props(styles.menuLabel)}>{item.label}</span>
                   <span {...stylex.props(styles.menuDescription)}>{item.description}</span>
-                </Dropdown.Item>
+                </Menu.Item>
               ))}
-            </Dropdown.Popup>
-          </Dropdown.Positioner>
-        </Dropdown.Portal>
-      </Dropdown>
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu>
     </ButtonGroup>
   );
 }

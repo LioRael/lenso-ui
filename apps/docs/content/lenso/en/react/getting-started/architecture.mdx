@@ -1,0 +1,34 @@
+---
+title: "Architecture"
+description: "Understand native interaction ownership, component styles and the authored documentation projection."
+---
+
+## Interaction boundary
+
+Base UI owns ordinary native controls, navigation and overlays. Lenso composes concrete native parts with component-specific StyleX maps; there is no generic compatibility wrapper that translates every family into another library's API.
+
+ListBox, TagGroup and Table use Lenso's local collection model: stable keys, Set-based selection, registered items and collection-aware focus. They are not React Aria collection wrappers. Read their local signatures rather than assuming a Menu, Select or another library's collection contract.
+
+React Aria Components owns date, time and color models and the supporting parts that depend on those contexts. A date segment, calendar grid or color input section cannot be substituted into an unrelated Base UI field simply because its appearance is similar.
+
+Native HTML owns noninteractive structure. Cards, text surfaces and layout regions do not acquire keyboard behavior merely by being styled.
+
+## Public contracts
+
+The public React exports determine the component family inventory. Native props, refs, state attributes, render composition and callback signatures remain observable. Local variants add presentation without inventing an `onPress` adapter or normalizing every value into a DOM event.
+
+For compound families, compose their contextual parts together. The generated API identifies each actual exported part and declaration source; imported historical snippets are not executable contract evidence.
+
+## Styles and delivery
+
+`@lenso/tokens` supplies themes and typed maps. `@lenso/stylex-build` compiles application declarations and combines their rules with package metadata. The application must deliver that union to each rendered document. Build-time tooling does not belong in the production browser JavaScript graph.
+
+## Documentation as a projection
+
+Public documentation is authored separately from the immutable reference archive. One versioned index combines authored guides, the current native API and local runnable example placements. Rendering, navigation, search, sitemap, copied Markdown and example-proof planning consume that index.
+
+The reference archive remains an integrity-checked provenance input, not a public release history or migration guide. Removing public archive pages does not excuse dropping their maintained example scenarios: those scenarios belong on the corresponding Lenso component page.
+
+## Evidence boundaries
+
+An export proves availability, and a registered local module proves a runnable placement. Neither proves visual parity, accessible keyboard operation or WCAG compliance. Source colors can have known normal-text contrast failures; report them rather than claiming certification.

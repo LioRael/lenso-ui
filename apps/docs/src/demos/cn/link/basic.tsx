@@ -4,7 +4,7 @@
 import { Link } from "@lenso/ui";
 export function LinkBasic() {
   return (
-    <Link href="/en/docs/react/getting-started">
+    <Link href="#">
       立即行动
       <Link.Icon aria-hidden="true" />
     </Link>

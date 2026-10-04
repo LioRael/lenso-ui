@@ -1,0 +1,32 @@
+---
+title: "开始使用"
+description: "使用 Lenso UI 的原生组件契约与编译后的 StyleX 样式。"
+---
+
+## 选择交互所有者
+
+Lenso UI 通过 `@lenso/ui` 提供带样式的 React 组件。普通控件、导航和覆盖层保留 Base UI 契约。日期、时间和颜色编辑保留 React Aria Components 契约，因为值、分段和辅助部件共享这些上下文。
+
+先阅读组件的本地 API 与运行示例。其他库中的同名组件不是兼容 API：按钮使用 DOM 激活而不是 `onPress`，Menu 项使用原生命令事件，日期字段接受国际化日期值而不是 JavaScript `Date`。
+
+## 安装与编译
+
+添加组件前请阅读[安装](./getting-started/installation)。在实际渲染文档的根布局中导入主题样式表。应用 StyleX 声明必须与 Lenso 的预编译元数据共同编译；仅导入 `@stylexjs/stylex` 不会编译样式。
+
+```tsx
+import { Button } from "@lenso/ui";
+
+export function SaveAction() {
+  return <Button onClick={() => console.log("save")}>保存更改</Button>;
+}
+```
+
+使用 `xstyle` 添加类型化 StyleX 覆盖。原生 `render` 组合应保留传入属性与 ref。[StyleX](./getting-started/stylex) 说明为什么必须保留包括运行时自定义属性在内的完整样式输出。
+
+## 查找本地契约
+
+组件页面列出当前导出部件、实际属性类型、回调状态，以及仅在本地组件参数中以字面量声明的默认值。页面运行的本地模块与源码面板展示的模块一致。
+
+[架构](./getting-started/architecture) 说明交互边界。[版本管理](./getting-started/versioning) 区分 Lenso 发布与内部参考来源。[Menu](/docs/react/components/menu) 是公开的弹出命令菜单系列。
+
+注册运行示例不等于无障碍或视觉一致性认证。键盘操作、主题几何、RTL、减少动态效果和对比度需要独立浏览器证据。

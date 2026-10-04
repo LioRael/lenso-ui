@@ -938,7 +938,7 @@ export function TableColumnResizer({
       style={{ ...compiled.style, ...style }}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-column-resizer"}
       role="separator"
-      aria-label="Resize column"
+      aria-label={props["aria-label"] ?? "Resize column"}
       aria-orientation="vertical"
       aria-valuemin={column.min}
       aria-valuemax={column.max}

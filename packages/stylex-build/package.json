@@ -1,0 +1,36 @@
+{
+  "name": "@lenso/stylex-build",
+  "version": "0.1.0",
+  "description": "One StyleX processing pass for precompiled Lenso packages and applications.",
+  "license": "MIT",
+  "files": [
+    "src",
+    "LICENSE",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.mjs",
+      "default": "./src/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "node --check src/index.mjs && node --check src/metadata.mjs && node --check src/adapters.mjs && node scripts/copy-notices.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stylexjs/babel-plugin": "0.19.1",
+    "@stylexjs/unplugin": "0.19.1",
+    "browserslist": "4.29.3",
+    "lightningcss": "1.33.0",
+    "unplugin": "2.3.11"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

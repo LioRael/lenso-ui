@@ -18,7 +18,8 @@
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
-    "@babel/parser": "7.29.8",
+    "@babel/parser": "7.29.9",
+    "@lenso/stylex-build": "workspace:*",
     "@stylexjs/stylex": "catalog:",
     "@stylexjs/unplugin": "catalog:",
     "@types/node": "catalog:",

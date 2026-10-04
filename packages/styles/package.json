@@ -1,6 +1,6 @@
 {
   "name": "@lenso/tokens",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "HeroUI default theme and StyleX constants for Lenso UI.",
   "license": "Apache-2.0",
   "repository": {
@@ -23,6 +23,7 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./stylex-rules.json": "./dist/stylex-rules.json",
     "./tokens.stylex.const": {
       "types": "./dist/tokens.stylex.const.d.ts",
       "source": "./src/tokens.stylex.const.ts",
@@ -45,7 +46,7 @@
     "@stylexjs/stylex": "catalog:"
   },
   "devDependencies": {
-    "@stylexjs/unplugin": "catalog:",
+    "@lenso/stylex-build": "workspace:*",
     "@types/node": "catalog:",
     "playwright": "catalog:",
     "tsdown": "catalog:",

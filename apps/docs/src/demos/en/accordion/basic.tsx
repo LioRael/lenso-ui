@@ -1,4 +1,5 @@
 "use client";
+// Derived from HeroUI v3.2.6 (Apache-2.0); modified for native Accordion contracts and StyleX.
 
 import {
   ArrowsRotateLeft,

@@ -1,0 +1,50 @@
+---
+title: "Installation"
+description: "Install the React, theme and build packages, then deliver their compiled styles."
+---
+
+## Packages
+
+The React package is `@lenso/ui`; its theme and component style maps come from `@lenso/tokens`. Use a matching Lenso UI/tokens release. React and React DOM must satisfy the React package's published peer ranges.
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex
+pnpm add -D @lenso/stylex-build
+```
+
+These are consumer instructions, not evidence that a candidate has been published. For an unpublished candidate, use the repository workspace or the candidate's packed artifacts instead of expecting the registry command to resolve it. Check the build package's supported compiler and bundler versions before installing.
+
+## Theme stylesheet
+
+Load the stylesheet from the layout that actually renders the document:
+
+```tsx
+import "@lenso/tokens/styles.css";
+```
+
+Use the theme's `light` or `dark` scope on the document or containing surface. Portalled components need the same theme scope; Lenso's native portal wrappers preserve it unless you provide your own container. A stylesheet loaded only by a sibling layout does not style this document.
+
+## Application StyleX
+
+The build adapter combines Lenso's precompiled metadata with your application declarations. Do not configure another independent StyleX compiler alongside it.
+
+```ts
+import stylex from "@lenso/stylex-build";
+
+const options = {
+  metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
+  unstable_moduleResolution: {
+    type: "commonJS" as const,
+    rootDir: import.meta.dirname,
+  },
+};
+
+// Inside a Vite configuration:
+const plugins = [stylex.vite(options)];
+```
+
+The build tool also provides `rolldown` and `webpack` adapters. Next.js support is specifically the guarded App Router Webpack integration, not a general Turbopack or Pages Router integration. Follow the build package's version limits and stylesheet-delivery requirements; an emitted CSS asset alone is not proof that the document loads it.
+
+## Verify a consumer
+
+Build the application, open its production route, and check that both theme CSS and the combined StyleX rules load before the controls render. Exercise a local `xstyle` override and a portalled overlay. Development styling can conceal missing production CSS delivery.

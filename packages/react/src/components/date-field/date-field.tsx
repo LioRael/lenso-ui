@@ -12,8 +12,9 @@ import { Label } from "react-aria-components/Label";
 import { Text } from "react-aria-components/Text";
 import { FieldError } from "react-aria-components/FieldError";
 import * as stylex from "@stylexjs/stylex";
+import { labelStyles } from "@lenso/tokens/label";
 import { dateFieldStyles as styles } from "@lenso/tokens/date-field";
-import { styledPart, mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
 export type DateFieldRootProps<T extends DateValue> = StyleXProps<
   ComponentPropsWithRef<typeof Primitive<T>>
@@ -35,22 +36,62 @@ export function DateFieldRoot<T extends DateValue>({
     />
   );
 }
-export const DateFieldLabel = styledPart(Label, "label", styles.label);
-const Description = styledPart(Text, "description", styles.description);
+export function DateFieldLabel({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof Label>>) {
+  const compiled = stylex.props(
+    labelStyles.label,
+    labelStyles.contextualRequired,
+    styles.label,
+    xstyle,
+  );
+  return (
+    <Label
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "label"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}
 export function DateFieldDescription({
   xstyle,
+  style,
   ...props
 }: StyleXProps<ComponentPropsWithRef<typeof Text>>) {
   const date = use(DateFieldStateContext);
   const picker = use(DatePickerStateContext);
   const range = use(DateRangePickerStateContext);
   const state = date ?? picker ?? range;
+  const compiled = stylex.props(
+    styles.description,
+    state?.displayValidation.isInvalid && styles.hidden,
+    xstyle,
+  );
   return (
-    <Description
+    <Text
       slot="description"
       {...props}
-      xstyle={[state?.displayValidation.isInvalid && styles.hidden, xstyle]}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "description"}
+      style={mergeStyle(compiled.style, style)}
     />
   );
 }
-export const DateFieldError = styledPart(FieldError, "field-error", styles.error);
+export function DateFieldError({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof FieldError>>) {
+  const compiled = stylex.props(styles.error, xstyle);
+  return (
+    <FieldError
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "field-error"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}

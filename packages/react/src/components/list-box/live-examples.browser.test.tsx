@@ -4,6 +4,36 @@ import { page, userEvent } from "vitest/browser";
 import { ListBox } from "./list-box.js";
 import { ListBoxItem } from "../list-box-item/list-box-item.js";
 
+// Mount coverage does not check the required owned roles or navigation across section dividers.
+test.each([false, true])(
+  "action sections keep a decorative divider out of the accessible collection (disabled: %s)",
+  async (disabled) => {
+    const { Actions } = await import("../../../../../apps/docs/src/demos/en/list-box/actions");
+    const axe = (await import("axe-core")).default;
+    const alert = vi.spyOn(window, "alert").mockImplementation(() => {});
+    const screen = await render(
+      <main>
+        <Actions disabled={disabled} />
+      </main>,
+    );
+    const list = screen.getByRole("listbox").element();
+    expect(
+      (await axe.run(list, { runOnly: ["aria-required-children", "aria-allowed-attr"] }))
+        .violations,
+    ).toEqual([]);
+    const divider = list.querySelector<HTMLElement>('[data-slot="separator"]')!;
+    expect(divider.getBoundingClientRect().height).toBeGreaterThan(0);
+    expect(divider.tabIndex).toBe(-1);
+    const options = screen.getByRole("option").elements();
+    options[0]!.focus();
+    await userEvent.keyboard("{ArrowDown}{ArrowDown}");
+    expect(document.activeElement).toBe(options[disabled ? 0 : 2]);
+    await userEvent.keyboard("{Enter}");
+    expect(alert).toHaveBeenCalledWith(`Selected item: ${disabled ? "new-file" : "delete-file"}`);
+    alert.mockRestore();
+  },
+);
+
 // Imported reference text did not prove these modules could mount as interactive examples.
 const examples = [
   [

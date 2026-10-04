@@ -4,10 +4,17 @@
 import { Envelope } from "@gravity-ui/icons";
 import { InputGroup, Label, TextField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
+
+// Adapted from HeroUI v3.2.6, Apache-2.0.
 const styles = stylex.create({
   field: {
     width: "100%",
     maxWidth: 280,
+  },
+  icon: {
+    width: 16,
+    height: 16,
+    color: "var(--muted)",
   },
 });
 export function Default() {
@@ -16,9 +23,9 @@ export function Default() {
       <Label>邮箱地址</Label>
       <InputGroup>
         <InputGroup.Prefix>
-          <Envelope aria-hidden="true" />
+          <Envelope aria-hidden="true" {...stylex.props(styles.icon)} />
         </InputGroup.Prefix>
-        <InputGroup.Input type="email" placeholder="name@email.com" />
+        <InputGroup.Input xstyle={styles.field} placeholder="name@email.com" />
       </InputGroup>
     </TextField>
   );

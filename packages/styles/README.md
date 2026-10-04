@@ -4,6 +4,14 @@ Import `@lenso/tokens/styles.css` once, then use `tokens` from
 `@lenso/tokens/tokens.stylex.const` in StyleX declarations. Component-family
 StyleX maps are available at `@lenso/tokens/<family>`.
 
+Applications declaring their own StyleX styles must use the build-only
+`@lenso/stylex-build` adapter with the exported `@lenso/tokens/stylex-rules.json`
+artifact. Pin tooling `0.1.0` and StyleX `0.19.0`; see the tooling package's README
+for Vite, Rolldown and Webpack configuration. Package and application raw rules
+are processed together, so the same atom keeps a coherent priority rank.
+Loading the theme stylesheet before application CSS is not a substitute.
+The JSON is versioned, immutable build input, not a browser/runtime entry.
+
 The `.stylex.const` entry is compiler-facing source, not a plain Node runtime
 entry. It retains `defineConsts` metadata so an application's StyleX compiler
 can substitute public CSS variable references rather than invent undeclared

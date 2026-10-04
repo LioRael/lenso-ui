@@ -5,21 +5,22 @@ import { DialogTrigger, Popover } from "react-aria-components/Popover";
 import { Dialog } from "react-aria-components/Dialog";
 import { Button } from "react-aria-components/Button";
 import type { ComponentPropsWithRef, CSSProperties } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { colorPickerStyles as styles } from "@lenso/tokens/color-picker";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 import { racPart } from "../date-input-group/rac-part.js";
 import { pickerEnterTransform } from "../date-picker/date-picker.js";
-const Wrapper = styledPart("div", "color-picker", styles.root);
 export type ColorPickerRootProps = StyleXProps<ComponentPropsWithRef<typeof ColorPicker>>;
 export function ColorPickerRoot({ children, xstyle, ...props }: ColorPickerRootProps) {
+  const compiled = stylex.props(styles.root, xstyle);
   return (
     <ColorPicker {...props}>
       {(state) => (
         <DialogTrigger>
-          <Wrapper xstyle={xstyle}>
+          <div {...compiled} data-slot="color-picker">
             {typeof children === "function" ? children(state) : children}
-          </Wrapper>
+          </div>
         </DialogTrigger>
       )}
     </ColorPicker>
@@ -62,4 +63,18 @@ export function ColorPickerPopover({
     />
   );
 }
-export const ColorPickerDialog = styledPart(Dialog, "color-picker-dialog", styles.dialog);
+export function ColorPickerDialog({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof Dialog>>) {
+  const compiled = stylex.props(styles.dialog, xstyle);
+  return (
+    <Dialog
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "color-picker-dialog"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}

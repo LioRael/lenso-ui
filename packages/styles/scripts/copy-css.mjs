@@ -1,6 +1,12 @@
 import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 
 await mkdir(new URL("../dist", import.meta.url), { recursive: true });
+// A published style package must contain both compiled maps and their raw-rule build artifact.
+const metadata = JSON.parse(await readFile(new URL("../dist/stylex-rules.json", import.meta.url)));
+if (metadata.format !== "@lenso/stylex-build/raw-rules" || metadata.version !== 1)
+  throw new Error(
+    "Missing or incompatible StyleX raw-rule artifact. Rebuild with @lenso/stylex-build.",
+  );
 await cp(new URL("../styles.css", import.meta.url), new URL("../dist/styles.css", import.meta.url));
 const compiled = new URL("../dist/assets/stylex.css", import.meta.url);
 const stylesheet = new URL("../dist/styles.css", import.meta.url);

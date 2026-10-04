@@ -1,4 +1,5 @@
 // HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
+// Modified by Lenso contributors: translated component styling to StyleX.
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../../tokens.stylex.const.js";
 export { inputGroupStyles as searchFieldGroupStyles } from "../input-group/input-group.styles.js";

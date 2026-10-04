@@ -1,7 +1,9 @@
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
+  reference: { minWidth: 0, maxWidth: "100%", overflowWrap: "anywhere" },
   scroll: {
+    maxWidth: "100%",
     overflowX: "auto",
     marginBlock: 24,
     outlineColor: "var(--focus)",

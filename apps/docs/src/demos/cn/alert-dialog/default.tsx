@@ -19,6 +19,7 @@ export function Default() {
           <AlertDialog.Popup xstyle={styles.popup}>
             <AlertDialog.Close aria-label="Close dialog" />
             <AlertDialog.Header>
+              <AlertDialog.Icon variant="danger" />
               <AlertDialog.Title>要永久删除项目吗？</AlertDialog.Title>
             </AlertDialog.Header>
             <AlertDialog.Body>

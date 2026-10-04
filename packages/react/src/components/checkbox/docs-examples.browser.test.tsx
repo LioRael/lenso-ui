@@ -29,7 +29,7 @@ test("controlled checkbox demo retains keyboard focus and reflects native checke
   await userEvent.keyboard(" ");
   await expect.element(checkbox).not.toBeChecked();
   await expect.element(checkbox).toHaveFocus();
-  await expect.element(page.getByText("Status:", { exact: false })).toHaveTextContent("Disabled");
+  await expect.element(page.getByText("Status:", { exact: false })).toMatchTextContent("Disabled");
 });
 
 test("group demo labels its group without overwriting individual checkbox names", async () => {
@@ -40,7 +40,7 @@ test("group demo labels its group without overwriting individual checkbox names"
   await page.getByRole("checkbox", { name: "Writing" }).click();
   await expect
     .element(page.getByText("Selected:", { exact: false }))
-    .toHaveTextContent("coding, design, writing");
+    .toMatchTextContent("coding, design, writing");
 });
 
 test("empty group validation marks native controls invalid and clears after selection", async () => {

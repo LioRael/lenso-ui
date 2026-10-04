@@ -1,0 +1,26 @@
+---
+title: "Versioning"
+description: "Lenso owns its release versions, public names and compatibility decisions."
+---
+
+## Active version
+
+The documentation header and generated contract read the active version from `packages/react/package.json`. The theme package should be consumed from the matching Lenso release. The current reconstruction targets the next `0.9.0` candidate; that target is not a publication announcement.
+
+A build using an older package manifest must not label itself as the future candidate. Rebuild the documentation and contract after merging package changes.
+
+## Public names
+
+`Menu` is the popup command family. There is no public Dropdown compatibility export. Historical names may remain in private provenance and raw example reference identifiers. A redirect from an old documentation URL is navigation convenience, not an API alias.
+
+Native API changes require a compatibility decision based on the actual exported TypeScript contracts and runtime behavior. An upstream library's version number is not a Lenso compatibility promise.
+
+## Reference provenance
+
+The pinned visual reference is HeroUI v3.2.6. Its historical releases and v2-to-v3 migration instructions are not Lenso releases or Lenso migration guidance. They do not appear in public navigation, search, sitemap or copied Markdown.
+
+Preserved license notices and source hashes keep derivation auditable without making reference content the product's user-facing documentation.
+
+## Reproducible consumers
+
+Docs and tooling consume the same versioned authored index and native API. Regenerate them from the current source, not a neighboring checkout's generated output. Keep full example scopes and missing-reference checks when changing public names; a partial browser run must remain explicitly partial.

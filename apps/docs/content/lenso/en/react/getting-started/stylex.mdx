@@ -1,0 +1,37 @@
+---
+title: "StyleX"
+description: "Compose typed styles without losing native state callbacks or runtime custom properties."
+---
+
+## Local overrides
+
+Component variants are typed per family. `xstyle` composes after those variant maps, so it is the intended override seam for caller StyleX declarations.
+
+```tsx
+import * as stylex from "@stylexjs/stylex";
+import { Button } from "@lenso/ui";
+
+const styles = stylex.create({
+  action: { minWidth: 160 },
+});
+
+export function ContinueAction() {
+  return <Button xstyle={styles.action}>Continue</Button>;
+}
+```
+
+Compile this declaration with the [build integration](./installation). An `xstyle` object is not an ordinary DOM `style` object.
+
+## Preserve native composition
+
+When a component supports Base UI `render`, forward the supplied props and ref to the rendered element. Preserve event handlers, state attributes and accessibility relationships rather than replacing them with a visually similar node.
+
+Some native parts accept a state-dependent `style` callback. The local API table shows whether that part accepts a callback or an object and identifies the callback state. Do not assume the same callback fields across families.
+
+Lenso merges native style output with all of `stylex.props` output. Dropping the generated `style` object can drop runtime custom properties even when the compiled class names remain. Likewise, spreading your own props after compiled output without an explicit merge can silently replace native state styles.
+
+## Themes and tokens
+
+`@lenso/tokens/styles.css` owns theme variables and standalone CSS. Component maps are compiled StyleX. Keep CSS custom properties, OKLCH colors and live `color-mix` expressions intact rather than rebuilding a second color catalog.
+
+The build metadata is a build-time input, not a browser runtime registry. A compiler or artifact-format change requires rebuilding the package and application together. Native `:dir(rtl)` selectors must remain native; English content can still be rendered in an RTL test context.

@@ -6,44 +6,60 @@
  */
 import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import { comboBoxStyles, comboBoxSharedStyles } from "@lenso/tokens/combo-box";
-import { createContext, useContext, type ComponentPropsWithRef } from "react";
+import { createContext, useContext, useMemo, type ComponentPropsWithRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
-const FullWidthContext = createContext(false);
+const AppearanceContext = createContext({
+  variant: "primary" as "primary" | "secondary",
+  fullWidth: false,
+});
+const InputGroupContext = createContext(false);
 export function ComboBoxRoot<Value, Multiple extends boolean | undefined = false>({
+  variant = "primary",
   fullWidth = false,
   ...props
 }: ComboBoxRootProps<Value, Multiple>) {
+  const appearance = useMemo(() => ({ variant, fullWidth }), [variant, fullWidth]);
   return (
-    <FullWidthContext value={fullWidth}>
-      <BaseCombobox.Root {...props} />
-    </FullWidthContext>
+    <AppearanceContext value={appearance}>
+      <InputGroupContext value={false}>
+        <BaseCombobox.Root {...props} />
+      </InputGroupContext>
+    </AppearanceContext>
   );
 }
 export type ComboBoxInputGroupProps = StyleXProps<BaseCombobox.InputGroup.Props> & {
+  variant?: "primary" | "secondary";
+  fullWidth?: boolean;
   "data-slot"?: unknown;
 };
 export function ComboBoxInputGroup({
+  variant,
+  fullWidth,
   xstyle,
   style,
   "data-slot": slot,
   ...props
 }: ComboBoxInputGroupProps) {
-  const fullWidth = useContext(FullWidthContext);
+  const inherited = useContext(AppearanceContext);
   const compiled = stylex.props(
     comboBoxStyles.inputGroup,
-    fullWidth && comboBoxSharedStyles.fullWidth,
+    comboBoxStyles.field,
+    (variant ?? inherited.variant) === "secondary" && comboBoxStyles.secondary,
+    (fullWidth ?? inherited.fullWidth) && comboBoxSharedStyles.fullWidth,
     xstyle,
   );
   return (
-    <BaseCombobox.InputGroup
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.InputGroup.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-input-group"}
-    />
+    <InputGroupContext value={true}>
+      <BaseCombobox.InputGroup
+        {...props}
+        {...compiled}
+        style={mergeStyle<BaseCombobox.InputGroup.State>(compiled.style, style)}
+        data-slot={slot ?? "combo-box-input-group"}
+      />
+    </InputGroupContext>
   );
 }
 export function ComboBoxInput({
@@ -52,7 +68,14 @@ export function ComboBoxInput({
   "data-slot": slot,
   ...props
 }: StyleXProps<BaseCombobox.Input.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(comboBoxStyles.input, xstyle);
+  const grouped = useContext(InputGroupContext);
+  const appearance = useContext(AppearanceContext);
+  const compiled = stylex.props(
+    comboBoxStyles.input,
+    grouped ? comboBoxStyles.groupedInput : comboBoxStyles.field,
+    !grouped && appearance.variant === "secondary" && comboBoxStyles.secondary,
+    xstyle,
+  );
   return (
     <BaseCombobox.Input
       {...props}
@@ -69,7 +92,12 @@ export function ComboBoxTrigger({
   "data-slot": slot,
   ...props
 }: StyleXProps<BaseCombobox.Trigger.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(comboBoxStyles.trigger, xstyle);
+  const grouped = useContext(InputGroupContext);
+  const compiled = stylex.props(
+    comboBoxStyles.trigger,
+    !grouped && comboBoxStyles.standaloneTrigger,
+    xstyle,
+  );
   return (
     <BaseCombobox.Trigger
       {...props}
@@ -387,7 +415,10 @@ export const useComboBoxFilter = BaseCombobox.useFilter;
 export type ComboBoxRootProps<
   Value,
   Multiple extends boolean | undefined = false,
-> = BaseCombobox.Root.Props<Value, Multiple> & { fullWidth?: boolean };
+> = BaseCombobox.Root.Props<Value, Multiple> & {
+  variant?: "primary" | "secondary";
+  fullWidth?: boolean;
+};
 export type ComboBoxInputProps = ComponentPropsWithRef<typeof ComboBoxInput>;
 export type ComboBoxTriggerProps = ComponentPropsWithRef<typeof ComboBoxTrigger>;
 export type ComboBoxPopoverProps = ComponentPropsWithRef<typeof ComboBoxPopover>;

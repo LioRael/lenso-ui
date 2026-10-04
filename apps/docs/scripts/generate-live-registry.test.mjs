@@ -3,11 +3,48 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { createHash } from "node:crypto";
 import {
   discoverLiveExamples,
   findDemoExport,
   generateLiveRegistry,
 } from "./generate-live-registry.mjs";
+
+// Runtime names and ARIA labels must not expose retired source-family names.
+test("registers canonical Menu scenario names and retains each raw reference only in private provenance", async (t) => {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-canonical-registry-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await mkdir(path.join(directory, "src/demos/en/menu"), { recursive: true });
+  await mkdir(path.join(directory, "content"), { recursive: true });
+  const source = {
+    examples: {
+      en: {
+        "dropdown-default": {
+          source: "apps/docs/src/demos/en/dropdown/default.tsx",
+          file: "content/examples/en/dropdown/default.json",
+        },
+      },
+      cn: {},
+    },
+  };
+  const original = JSON.stringify(source);
+  await writeFile(path.join(directory, "content/source-index.json"), original);
+  await writeFile(
+    path.join(directory, "src/demos/en/menu/default.tsx"),
+    "export function Default() { return null; }",
+  );
+  const manifest = await generateLiveRegistry(directory);
+  assert.deepEqual(manifest.en, { "menu-default": "en/menu/default.tsx" });
+  const generated = await readFile(path.join(directory, "src/demos/generated.ts"), "utf8");
+  assert.match(generated, /"menu-default":/);
+  assert.ok(!generated.includes("dropdown-default"));
+  const provenance = JSON.parse(
+    await readFile(path.join(directory, "src/demos/live-source-provenance.json"), "utf8"),
+  );
+  assert.equal(provenance.examples.en["menu-default"].rawSourceRef, "dropdown-default");
+  assert.equal(provenance.examples.en["menu-default"].localFile, "en/menu/default.tsx");
+  assert.equal(await readFile(path.join(directory, "content/source-index.json"), "utf8"), original);
+});
 
 // Imported-content integrity does not prove that added local scenarios reach the runtime registry.
 test("discovers exact source paths, loads aliases once and does not register absent or unrelated demos", async (t) => {
@@ -35,8 +72,11 @@ test("discovers exact source paths, loads aliases once and does not register abs
     "export function Unregistered() { return null; }\n",
   );
   assert.deepEqual(await generateLiveRegistry(directory), {
-    "field-controlled": "en/field/controlled.tsx",
-    "field-legacy": "en/field/controlled.tsx",
+    en: {
+      "field-controlled": "en/field/controlled.tsx",
+      "field-legacy": "en/field/controlled.tsx",
+    },
+    cn: {},
   });
   const generated = await readFile(path.join(directory, "src/demos/generated.ts"), "utf8");
   assert.equal(generated.match(/import\("\.\/en\/field\/controlled"\)/g)?.length, 1);
@@ -80,11 +120,92 @@ test("resolves genuine named re-exports, default demos and memoized scenarios wi
     "default",
   );
   assert.equal(
+    findDemoExport("const Demo = () => null; export default Demo;", "basic.tsx", "Demo"),
+    "default",
+  );
+  assert.throws(() => findDemoExport("export default {};", "styles.tsx"), /No exported live demo/);
+  assert.throws(
+    () => findDemoExport("const styles = {}; export { styles };", "styles.tsx"),
+    /No exported live demo/,
+  );
+  assert.equal(
     findDemoExport(
       "export const styles = {}; export const Demo = React.memo(() => null);",
       "demo.tsx",
       "Demo",
     ),
     "Demo",
+  );
+});
+
+test("registers only evidenced Chinese modules and deduplicates aliases and explicit equivalent reuse", async (t) => {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-localized-registry-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await mkdir(path.join(directory, "content"), { recursive: true });
+  await mkdir(path.join(directory, "src/demos/en/field"), { recursive: true });
+  await mkdir(path.join(directory, "src/demos/cn/field"), { recursive: true });
+  const source = {
+    examples: {
+      en: Object.fromEntries(
+        ["basic", "alias", "reuse", "missing"].map((name) => [
+          name,
+          {
+            source: `apps/docs/src/demos/en/field/${name === "alias" ? "basic" : name}.tsx`,
+          },
+        ]),
+      ),
+    },
+  };
+  await writeFile(path.join(directory, "content/source-index.json"), JSON.stringify(source));
+  for (const file of ["en/field/basic", "en/field/reuse", "en/field/missing", "cn/field/basic"])
+    await writeFile(
+      path.join(directory, `src/demos/${file}.tsx`),
+      "export default function Demo() { return null; }\n",
+    );
+  await writeFile(
+    path.join(directory, "src/demos/localization-provenance.json"),
+    JSON.stringify({
+      modules: {
+        "en/field/basic.tsx": {
+          status: "source-backed-localized",
+          output: "cn/field/basic.tsx",
+          outputSha256: createHash("sha256")
+            .update("export default function Demo() { return null; }\n")
+            .digest("hex"),
+        },
+        "en/field/reuse.tsx": { status: "equivalent-pinned-source-ast-reuse" },
+      },
+    }),
+  );
+  const localized = {
+    cn: {
+      basic: "cn/field/basic.tsx",
+      alias: "cn/field/basic.tsx",
+      reuse: "en/field/reuse.tsx",
+    },
+  };
+  const manifest = await generateLiveRegistry(directory, localized);
+  assert.deepEqual(manifest.cn, localized.cn);
+  assert.equal(manifest.cn.missing, undefined);
+  const generated = await readFile(path.join(directory, "src/demos/generated.ts"), "utf8");
+  assert.equal(generated.match(/import\("\.\/cn\/field\/basic"\)/g)?.length, 1);
+  assert.equal(generated.match(/import\("\.\/en\/field\/reuse"\)/g)?.length, 1);
+  assert.match(generated, /module\.default/);
+  assert.match(generated, /cn: \{\n\s*basic: Demo3,\n\s*alias: Demo3,/);
+  await assert.rejects(
+    generateLiveRegistry(directory, { cn: { missing: "en/field/missing.tsx" } }),
+    /lacks source-backed provenance/,
+  );
+  await assert.rejects(
+    generateLiveRegistry(directory, { cn: { basic: "cn/../private.tsx" } }),
+    /Unsafe localized live demo path/,
+  );
+  await writeFile(
+    path.join(directory, "src/demos/cn/field/basic.tsx"),
+    "export default function Demo() { return 'English clone'; }\n",
+  );
+  await assert.rejects(
+    generateLiveRegistry(directory, localized),
+    /differs from its source-backed projection/,
   );
 });

@@ -16,7 +16,7 @@ import { Button } from "react-aria-components/Button";
 import { Dialog } from "react-aria-components/Dialog";
 import * as stylex from "@stylexjs/stylex";
 import { datePickerStyles as styles } from "@lenso/tokens/date-picker";
-import { styledPart, mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 import { racPart } from "../date-input-group/rac-part.js";
 import { DateFieldLabel, DateFieldDescription, DateFieldError } from "../date-field/date-field.js";
@@ -99,13 +99,21 @@ export function DatePickerTrigger({
   );
   return <Trigger {...props} ref={mergedRef} />;
 }
-const Indicator = styledPart("span", "date-picker-trigger-indicator", styles.indicator);
 export function DatePickerTriggerIndicator({
   children,
+  xstyle,
+  style,
   ...props
 }: StyleXProps<ComponentPropsWithRef<"span">>) {
+  const compiled = stylex.props(styles.indicator, xstyle);
   return (
-    <Indicator aria-hidden="true" {...props}>
+    <span
+      aria-hidden="true"
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "date-picker-trigger-indicator"}
+      style={mergeStyle(compiled.style, style)}
+    >
       {children ?? (
         <svg
           width="16"
@@ -119,7 +127,7 @@ export function DatePickerTriggerIndicator({
           <path d="M16 3v4M8 3v4M3 11h18" />
         </svg>
       )}
-    </Indicator>
+    </span>
   );
 }
 const Overlay = racPart(
@@ -157,7 +165,21 @@ export function pickerEnterTransform(placement: string | null | undefined) {
   if (placement?.startsWith("right")) return "translateX(-4px) scale(.95)";
   return "scale(.95)";
 }
-export const DatePickerDialog = styledPart(Dialog, "date-picker-dialog", styles.dialog);
+export function DatePickerDialog({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof Dialog>>) {
+  const compiled = stylex.props(styles.dialog, xstyle);
+  return (
+    <Dialog
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "date-picker-dialog"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}
 export function DatePickerPrefix({ xstyle, ...props }: StyleXProps<ComponentPropsWithRef<"div">>) {
   return <DateInputGroupPrefix {...props} xstyle={[styles.accessory, xstyle]} />;
 }

@@ -62,13 +62,13 @@ test("progress native state callbacks retain dynamic xstyle and composed refs", 
   await expect
     .element(view.getByTestId("composed-fill"))
     .toHaveAttribute("data-slot", "custom-fill");
-  expect(getComputedStyle(rootRef.current!).height).toBe("73px");
+  await expect.poll(() => getComputedStyle(rootRef.current!).height).toBe("73px");
   expect(getComputedStyle(rootRef.current!).opacity).toBe("0.5");
   await view.rerender(example(100));
   await expect
     .element(view.getByTestId("composed-fill"))
     .toHaveAttribute("data-native-status", "complete");
-  expect(getComputedStyle(rootRef.current!).height).toBe("73px");
+  await expect.poll(() => getComputedStyle(rootRef.current!).height).toBe("73px");
   expect(getComputedStyle(rootRef.current!).opacity).toBe("1");
   expect(getComputedStyle(fillRef.current!).opacity).toBe("1");
 });
@@ -92,7 +92,7 @@ test("typography render composition forwards its ref, styles and semantic attrib
   expect(ref.current).toBe(element.element());
   await expect.element(element).toHaveAttribute("data-slot", "custom-text");
   await expect.element(element).toHaveAttribute("data-type", "body");
-  expect(getComputedStyle(element.element()).height).toBe("47px");
+  await expect.poll(() => getComputedStyle(element.element()).height).toBe("47px");
   expect(getComputedStyle(element.element()).opacity).toBe("0.7");
 });
 

@@ -1,0 +1,50 @@
+---
+title: "安装"
+description: "安装 React、主题与构建包，并正确交付编译后的样式。"
+---
+
+## 软件包
+
+React 包名为 `@lenso/ui`，主题与组件样式映射由 `@lenso/tokens` 提供。UI 与 tokens 应使用匹配的 Lenso 版本。React 和 React DOM 必须满足 React 包公布的 peer 范围。
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex
+pnpm add -D @lenso/stylex-build
+```
+
+这些是消费者安装说明，不证明候选版本已经发布。未发布候选应使用仓库工作区或候选打包产物，不应期待注册表命令解析该版本。安装前请核对构建包支持的编译器和打包器版本。
+
+## 主题样式表
+
+在实际渲染文档的布局中加载：
+
+```tsx
+import "@lenso/tokens/styles.css";
+```
+
+在文档或所在表面设置主题的 `light` 或 `dark` 作用域。Portal 中的组件需要相同主题作用域；未指定自定义容器时，Lenso 的原生 portal 包装会保留它。仅在兄弟布局加载的样式表不能为此文档提供样式。
+
+## 应用 StyleX
+
+构建适配器将 Lenso 预编译元数据与应用声明合并。不要并行配置另一个独立 StyleX 编译器。
+
+```ts
+import stylex from "@lenso/stylex-build";
+
+const options = {
+  metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
+  unstable_moduleResolution: {
+    type: "commonJS" as const,
+    rootDir: import.meta.dirname,
+  },
+};
+
+// Vite 配置中的插件：
+const plugins = [stylex.vite(options)];
+```
+
+构建工具还提供 `rolldown` 和 `webpack` 适配器。Next.js 支持仅限带版本保护的 App Router Webpack 集成，不代表通用 Turbopack 或 Pages Router 支持。遵循构建包的版本限制与样式表交付要求；产生 CSS 文件不等于文档实际加载它。
+
+## 验证消费者
+
+构建应用，打开生产路由，确认主题 CSS 与合并后的 StyleX 规则在控件呈现前已加载。检查本地 `xstyle` 覆盖与 portal 覆盖层。开发环境样式可能掩盖生产 CSS 交付缺失。

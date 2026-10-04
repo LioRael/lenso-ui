@@ -1,0 +1,54 @@
+diff --git a/lib/core.js b/lib/core.js
+--- a/lib/core.js
++++ b/lib/core.js
+@@ -34,6 +34,7 @@ function processCollectedRulesToCSS(rules, options) {
+   if (!rules || rules.length === 0) return '';
+   const collectedCSS = _babelPlugin.default.processStylexRules(rules, {
+     useLayers: options.useCSSLayers ?? false,
++    legacyDisableLayers: options.legacyDisableLayers ?? false,
+     enableLTRRTLComments: options?.enableLTRRTLComments
+   });
+   const {
+@@ -183,6 +184,7 @@ const unpluginFactory = (userOptions = {}, metaOptions) => {
+     } = {},
+     importSources = ['stylex', '@stylexjs/stylex'],
+     useCSSLayers = false,
++    legacyDisableLayers = false,
+     lightningcssOptions,
+     cssInjectionTarget,
+     externalPackages = [],
+@@ -305,6 +307,7 @@ const unpluginFactory = (userOptions = {}, metaOptions) => {
+     const allRules = Array.from(merged.values()).flat();
+     return processCollectedRulesToCSS(allRules, {
+       useCSSLayers,
++      legacyDisableLayers,
+       lightningcssOptions,
+       enableLTRRTLComments: stylexOptions?.enableLTRRTLComments
+     });
+diff --git a/lib/es/core.mjs b/lib/es/core.mjs
+--- a/lib/es/core.mjs
++++ b/lib/es/core.mjs
+@@ -25,6 +25,7 @@ function processCollectedRulesToCSS(rules, options) {
+   if (!rules || rules.length === 0) return '';
+   const collectedCSS = stylexBabelPlugin.processStylexRules(rules, {
+     useLayers: options.useCSSLayers ?? false,
++    legacyDisableLayers: options.legacyDisableLayers ?? false,
+     enableLTRRTLComments: options?.enableLTRRTLComments
+   });
+   const {
+@@ -174,6 +175,7 @@ export const unpluginFactory = (userOptions = {}, metaOptions) => {
+     } = {},
+     importSources = ['stylex', '@stylexjs/stylex'],
+     useCSSLayers = false,
++    legacyDisableLayers = false,
+     lightningcssOptions,
+     cssInjectionTarget,
+     externalPackages = [],
+@@ -296,6 +298,7 @@ export const unpluginFactory = (userOptions = {}, metaOptions) => {
+     const allRules = Array.from(merged.values()).flat();
+     return processCollectedRulesToCSS(allRules, {
+       useCSSLayers,
++      legacyDisableLayers,
+       lightningcssOptions,
+       enableLTRRTLComments: stylexOptions?.enableLTRRTLComments
+     });

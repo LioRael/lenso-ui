@@ -4,7 +4,7 @@ Authority: HeroUI **v3.2.6**, commit
 `e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e`.
 
 The actual upstream `packages/react/src/components/` inventory contains **68
-story files and 583 named scenarios**. The rebuilt package's 85 component
+story files and 583 named scenarios**. The rebuilt package's 84 component
 families are not the upstream story inventory. Supporting compound parts
 do not necessarily have standalone upstream stories.
 
@@ -47,8 +47,60 @@ advanced exports in those files. Card.WithImages, AvatarGroup.OverlapPlayground,
 InputGroup.WithTextArea and the controlled/validation examples are distinct
 source compositions and workflows, not aliases for their family's Default.
 
-**126 reviewed adaptations; 457 upstream scenarios remain unadapted. This is
-not reconstruction completion.** Run `node packages/storybook/source-inventory.mjs`
+Six additional action files are now reviewed, contributing **42 scenarios**:
+Button (9), ButtonGroup (8), CloseButton (3), ToggleButton (7),
+ToggleButtonGroup (11), and Toolbar (4). Exact names, pinned source hashes,
+native adaptations and verification limits are recorded in
+[ACTIONS-EVIDENCE.md](stories/ACTIONS-EVIDENCE.md#reviewed-exports).
+
+Navigation adds **41 scenarios** across Accordion (4), Breadcrumbs (5),
+Disclosure (5), DisclosureGroup (3), Link (4), Pagination (8), and Tabs (12).
+[Navigation evidence](NAVIGATION-EVIDENCE.md) records exact exports and the
+remaining styled-render composition limitation.
+
+Choices add **50 scenarios** across Checkbox (13), CheckboxGroup (6),
+RadioGroup (10), Switch (14), SwitchGroup (3), and Slider (4).
+[Choice evidence](CHOICE-EVIDENCE.md) separates these source adaptations from
+nine retained local development states.
+
+Overlays add **42 scenarios** across AlertDialog (13), Drawer (8), Modal (13),
+Popover (5), and Tooltip (3). [Overlay evidence](OVERLAY-EVIDENCE.md) records
+native dismissal-policy differences as well as actual popup verification.
+
+Menus and toasts add **27 scenarios** across Menu (16, adapted from upstream Dropdown) and Toast (11).
+[Menu/toast evidence](MENU-TOAST-EVIDENCE.md) records genuine long-press
+handling, queue/timer behavior and the native F6 focus shortcut difference.
+
+Selection adds **64 scenarios** across Select (17), ComboBox (19),
+Autocomplete (21), and ListBox (7). [Selection evidence](SELECTION-EVIDENCE.md)
+records genuine custom-value commits, async filtering and virtualization.
+
+Form workflows add **35 scenarios** across SearchField (12), NumberField (14),
+and InputOTP (9). [Form evidence](FORM-WORKFLOW-EVIDENCE.md) records native
+clipboard, validation, locale and submission workflows, and the separate
+shared invalid-outline fidelity gap.
+
+Collections add **19 scenarios** across Table (9) and TagGroup (10).
+[Collection evidence](COLLECTION-EVIDENCE.md) records native resizing,
+1,000-row virtualization, loading, expansion, selection and removal.
+
+Calendars add **46 scenarios** across Calendar (26) and RangeCalendar (20).
+[Calendar evidence](CALENDAR-EVIDENCE.md) records native selection, constraints,
+year/cell composition and Hindi/Indian locale verification with a single
+physical model/provider dependency root.
+
+Date/time adds **40 scenarios** across DateField (15), TimeField (13),
+DatePicker (6), and DateRangePicker (6). [Date/time evidence](DATE-TIME-EVIDENCE.md)
+records actual segment, form, locale, picker and range workflows.
+
+Colors add **51 scenarios** across ColorArea (6), ColorField (13),
+ColorPicker (5), ColorSlider (9), ColorSwatchPicker (10), and ColorSwatch (8).
+[Color evidence](COLOR-EVIDENCE.md) records native models, alpha/channel editing,
+validation and modal portal containment.
+
+**583 reviewed adaptations across all 68 pinned source files; no source
+scenario is absent from this inventory. This is not full visual or behavioral
+parity certification.** Run `node packages/storybook/source-inventory.mjs`
 from the repository root to obtain every exact upstream name, pinned source
 link, adaptation and remaining scenario, or add `--json` for the explicit
 filename-to-source-export contract. The source file list was captured from the
@@ -62,10 +114,11 @@ JSON statuses are `unimplemented` or `adapted-unverified`. The latter means
 source adaptation was reviewed, not that visual or full interaction parity
 has been accepted. Browser evidence is recorded separately below.
 
-Existing Button (4), Checkbox (4) and Switch (5) local states are useful
-development probes, but are not counted as source adaptations merely because
-some names match upstream. Their advanced source scenarios remain uncovered.
-All other upstream story files remain unadapted. No Next-based documentation
+The old four-state Button matrix has been replaced by its nine reviewed source
+scenarios. Checkbox and Switch now contain reviewed source adaptations and nine
+separately named local development probes. Those local probes are not included
+in source-adaptation counts.
+All pinned source files now have reviewed adaptations. No Next-based documentation
 registry or unadapted React Aria/Tailwind source is imported.
 
 ## Native adaptation differences
@@ -133,6 +186,68 @@ checkout:
 `iframe-smoke.mjs` reproduces these checks against a production build. It
 requires an explicitly supplied installed Playwright module path; it does
 not add or download dependencies.
+
+The separate action runner recorded **84 light/dark iframe mounts** for its
+42 scenarios after fresh styles/UI builds, strict Storybook TypeScript and a
+production Storybook build. It also exercised loading activation blocking,
+disabled overrides, toggle selection, dropdown actions and toolbar navigation.
+These results do not extend the earlier 278-mount shared-runner result to the
+new files. See [action evidence](stories/ACTIONS-EVIDENCE.md#verification-performed)
+and `stories/actions-smoke.fixtures.mjs` for the actual scope and rerun command.
+
+Navigation recorded **82 light/dark iframe mounts** and choices recorded
+**100 light/dark iframe mounts**, each after fresh production builds and strict
+TypeScript checks. Their scoped runners additionally exercise native keyboard,
+controlled-state and geometry workflows. The choice RTL consumer covers
+Slider Default/Range in both themes. These separate runs are not a consolidated
+whole-Storybook smoke result or full upstream visual acceptance.
+
+The overlay runner recorded **84 light/dark story combinations and 154 actual
+popup openings**, including variants within a story. It verified closing and
+focus return, controlled state, explicit dismissal policies, custom portals,
+mobile forms/internal scrolling and motion. Ordinary AlertDialog default
+Escape behavior remains native and is not claimed equivalent to upstream.
+
+The menu/toast runner recorded **54 active light/dark iframe mounts** with
+every menu opened and every toast case enqueued. It exercised keyboard,
+selection, disabled items, nested submenus, pointer-hold cancellation,
+promises, actions, queue limits, placements and permanent expansion.
+Native toast viewport focus uses F6 rather than upstream's configurable Alt+T.
+
+The selection runner recorded **128 production iframe mounts and 126 enabled
+popup openings** in both themes, plus 31 focused checks for keyboard removal,
+controlled values/open state, query clearing, required FormData, custom-value
+commits, async cursor/race handling, offscreen virtualization, mobile anchoring
+and ancestor opacity. Exhaustive RTL, reduced-motion, screen-reader and upstream
+screenshot parity remain unverified for this batch.
+
+The form runner recorded **70 desktop and 70 mobile light/dark mounts**.
+Clipboard filtering, truncation, FormData, validation, pending/reset, locale
+parsing, refs, keyboard steps, bounds and disabled constraints passed.
+SearchField/NumberField invalid-state propagation works. The initially missing
+unfocused danger outline has since been repaired in the shared group styles:
+19 focused regressions verify unfocused outlines, focused danger rings,
+state recovery and ancestor isolation. The original form evidence retains
+the before-fix measurements rather than rewriting that historical result.
+
+The collection runner recorded **38 production iframe workflows and 18 mobile
+table geometry checks**, including reachable last columns. The repaired custom
+resizer label is exercised by name. Native row-header markup and a documented
+consumer/precompiled StyleX specificity collision remain fidelity limits, not
+claims of upstream pixel parity or complete accessibility certification.
+
+The calendar runner recorded **92 light/dark production mounts and 17 assertion
+groups**, including date/range keyboard selection, controlled navigation,
+unavailable/min/max dates, validation, year/cell rendering, Hindi/Indian era,
+day/week controls and mobile scrolling. Fixed versus ambient dates are
+distinguished; exhaustive RTL and upstream visual parity are not certified.
+
+The date/time runner recorded **80 light/dark mounts and 20 enabled picker
+openings**. The color runner recorded **102 light/dark mounts** and pointer,
+keyboard, model/channel, form, picker, modal containment and selected
+RTL/reduced-motion checks. The initially measured contextual label feedback
+gap has since received a shared-style correction and focused date/time,
+picker-alias and color-label regressions; historical batch evidence is retained.
 
 Mounting, semantic attributes and these specific workflow/geometry assertions do not
 prove upstream visual parity, controls-panel interaction, comprehensive keyboard behavior,

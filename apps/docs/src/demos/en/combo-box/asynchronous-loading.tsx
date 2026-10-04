@@ -31,6 +31,7 @@ export function AsynchronousLoading() {
   useEffect(() => {
     const controller = new AbortController();
     const current = ++generation.current;
+    // oxlint-disable-next-line react/set-state-in-effect -- Query changes start an abortable external request and reset its visible lifecycle.
     setItems([]);
     setCursor(null);
     setNextPage(null);
@@ -62,6 +63,7 @@ export function AsynchronousLoading() {
     if (!nextPage) return;
     const controller = new AbortController();
     const current = generation.current;
+    // oxlint-disable-next-line react/set-state-in-effect -- Pagination starts an external request; cleanup retains cancellation and generation guards.
     setLoading(true);
     setError(null);
     fetch(nextPage.replace(/^http:\/\//i, "https://"), { signal: controller.signal })

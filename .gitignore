@@ -6,8 +6,13 @@ dist/
 out/
 storybook-static/
 coverage/
+!**/src/**/coverage/
+!**/src/**/coverage/**
 playwright-report/
 test-results/
+durabletest-results/
+apps/docs/src/generated/lenso-contract.json
+apps/docs/content/lenso/*/react/components/
 .vitest-attachments/
 **/__screenshots__/
 *.tsbuildinfo

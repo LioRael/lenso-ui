@@ -1,0 +1,28 @@
+---
+title: "Agent skill"
+description: "Load the repo-local Lenso UI workflow and match the installed release before implementing."
+---
+
+## Load explicitly
+
+The skill lives at `.agents/skills/lenso-ui/SKILL.md`, with setup guidance in `.agents/skills/lenso-ui/references/setup.md`. It is available in the source candidate; it does not activate itself or install the CLI/MCP packages.
+
+Load that directory through your agent host's supported local skill mechanism. Host-specific loader commands are not a Lenso API. Keep the setup reference with the skill when copying or packaging it.
+
+## Version before implementation
+
+The workflow first reads the consumer's installed `@lenso/ui` and `@lenso/tokens` versions and framework configuration. UI and tokens must match. Confirm the matching CLI's `metadata --json` or the MCP server's `list_components` metadata, including the contract digest.
+
+When tools are unavailable, use documentation generated for the same release and report missing evidence. A cached contract from another checkout or an upstream version number is not a substitute.
+
+## Follow the actual component contract
+
+Query the canonical family, native API, authored documentation, local examples and StyleX source as needed. Preserve native props, refs, render composition, state attributes and keyboard/focus behavior. Use the native signatures instead of adapting an older API.
+
+Place caller `xstyle` last, retain runtime custom properties and merge native state-dependent style callbacks. Keep loading actions focusable while blocking activation. The [architecture](/docs/react/getting-started/architecture) describes the native and local collection boundaries.
+
+## Report evidence
+
+Run the consumer's typecheck, matching `lenso check` and framework build. Exercise affected opening, navigation, activation, dismissal and focus restoration. Check both themes, portalled surfaces, overflow and reduced motion where relevant.
+
+The skill requires a distinction between passing evidence and untested behavior. It does not certify accessibility, source parity or stylesheet delivery merely because code compiled or a source example exists.

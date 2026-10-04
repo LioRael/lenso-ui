@@ -1,5 +1,6 @@
 "use client";
 // Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
+// oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Native horizontal overflow needs an explicit keyboard focus target.
 import { CircleDashed } from "@gravity-ui/icons";
 import { Chip, Separator } from "@lenso/ui";
 import { Fragment } from "react";
@@ -11,7 +12,7 @@ export function ChipVariants() {
   const variants = ["primary", "secondary", "tertiary", "soft"] as const;
   const colors = ["accent", "default", "success", "warning", "danger"] as const;
   return (
-    <div {...stylex.props(s.column8, s.scroll)}>
+    <div tabIndex={0} {...stylex.props(s.column8, s.scroll)}>
       {sizes.map((size, index) => (
         <Fragment key={size}>
           <div {...stylex.props(s.column4)}>

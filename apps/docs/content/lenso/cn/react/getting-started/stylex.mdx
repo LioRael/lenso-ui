@@ -1,0 +1,37 @@
+---
+title: "StyleX"
+description: "组合类型化样式，同时保留原生状态回调与运行时自定义属性。"
+---
+
+## 本地覆盖
+
+组件变体按系列分别定义类型。`xstyle` 在变体映射之后组合，因此它是调用方 StyleX 声明的覆盖入口。
+
+```tsx
+import * as stylex from "@stylexjs/stylex";
+import { Button } from "@lenso/ui";
+
+const styles = stylex.create({
+  action: { minWidth: 160 },
+});
+
+export function ContinueAction() {
+  return <Button xstyle={styles.action}>继续</Button>;
+}
+```
+
+通过[构建集成](./installation)编译这段声明。`xstyle` 对象不是普通 DOM `style` 对象。
+
+## 保留原生组合
+
+组件支持 Base UI `render` 时，应将传入属性与 ref 转发到实际渲染元素。保留事件处理、状态属性和无障碍关联，不要只替换成视觉相似的节点。
+
+部分原生部件接受依赖状态的 `style` 回调。本地 API 表说明该部件接受对象还是回调，并列出回调状态。不要假设不同系列具有相同状态字段。
+
+Lenso 将原生样式输出与完整 `stylex.props` 输出合并。丢弃生成的 `style` 对象可能丢失运行时自定义属性，即使编译类名仍在。将自己的属性直接展开在编译输出之后，也可能替换原生状态样式。
+
+## 主题与 tokens
+
+`@lenso/tokens/styles.css` 管理主题变量和独立 CSS。组件映射采用编译后的 StyleX。保留 CSS 自定义属性、OKLCH 颜色与实时 `color-mix` 表达式，不建立第二套颜色目录。
+
+构建元数据是构建时输入，不是浏览器运行时注册表。更改编译器或产物格式时，必须一起重建软件包与应用。保留原生 `:dir(rtl)` 选择器：英文内容也可以处于 RTL 测试上下文。

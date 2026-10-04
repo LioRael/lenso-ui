@@ -88,6 +88,7 @@ it("updates measured height when text wraps at a narrower width", async () => {
         </div>
         <output aria-label="height increased">
           {String(
+            // oxlint-disable-next-line react/refs -- Write-once effect baseline; height, not the baseline, drives this measurement proof.
             height !== undefined && initial.current !== undefined && height > initial.current,
           )}
         </output>

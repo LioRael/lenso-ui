@@ -5,6 +5,7 @@ import {
   shouldSkipExisting,
   validateContext,
   validatePackage,
+  waitForPublication,
 } from "./publish-packages.mjs";
 const env = {
   GITHUB_ACTIONS: "true",
@@ -148,7 +149,11 @@ test("validates packed exports, required files, dependency protocols and release
 test("only skips an existing exact integrity and dependency pin", () => {
   const metadata = {
     versions: {
-      "0.8.0": { dist: { integrity: "sha512-exact" }, dependencies: { "@lenso/tokens": "0.8.0" } },
+      "0.8.0": {
+        version: "0.8.0",
+        dist: { integrity: "sha512-exact" },
+        dependencies: { "@lenso/tokens": "0.8.0" },
+      },
     },
   };
   assert.equal(shouldSkipExisting(metadata, "0.8.0", "sha512-exact", entries[1]), true);
@@ -163,6 +168,7 @@ test("only skips an existing exact integrity and dependency pin", () => {
         {
           versions: {
             "0.8.0": {
+              version: "0.8.0",
               dist: { integrity: "sha512-exact" },
               dependencies: { "@lenso/tokens": "0.7.0" },
             },
@@ -181,4 +187,129 @@ test("release list contains only tokens then UI; primitives are never selected",
     entries.map(({ name }) => name),
     ["@lenso/tokens", "@lenso/ui"],
   );
+});
+
+test("accepted publication waits for registry version and latest without republishing", async () => {
+  let time = 0;
+  let reads = 0;
+  const version = {
+    version: "0.8.0",
+    dist: { integrity: "sha512-exact" },
+    dependencies: { "@lenso/tokens": "0.8.0" },
+  };
+  const snapshots = [
+    null,
+    { versions: {}, "dist-tags": { latest: "0.7.0" } },
+    { versions: { "0.8.0": version }, "dist-tags": { latest: "0.7.0" } },
+    { versions: { "0.8.0": version }, "dist-tags": { latest: "0.8.0" } },
+  ];
+  const result = await waitForPublication(entries[1], "0.8.0", "sha512-exact", {
+    readMetadata: async () => snapshots[reads++],
+    now: () => time,
+    sleep: async (ms) => {
+      time += ms;
+    },
+    intervalMs: 5,
+    timeoutMs: 20,
+    log: () => {},
+  });
+  assert.equal(result["dist-tags"].latest, "0.8.0");
+  assert.equal(reads, 4);
+});
+
+test("registry waiting fails immediately on wrong integrity and read errors", async () => {
+  await assert.rejects(
+    waitForPublication(entries[0], "0.8.0", "sha512-exact", {
+      readMetadata: async () => ({
+        versions: { "0.8.0": { version: "0.8.0", dist: { integrity: "sha512-other" } } },
+      }),
+      sleep: async () => assert.fail("must not retry an immutable collision"),
+    }),
+    /immutable version collision/,
+  );
+  await assert.rejects(
+    waitForPublication(entries[0], "0.8.0", "sha512-exact", {
+      readMetadata: async () => {
+        throw new Error("HTTP 503");
+      },
+      sleep: async () => assert.fail("must not hide registry errors"),
+    }),
+    /HTTP 503/,
+  );
+});
+
+test("registry waiting is bounded and does not publish again after processing timeout", async () => {
+  let time = 0;
+  await assert.rejects(
+    waitForPublication(entries[0], "0.8.0", "sha512-exact", {
+      readMetadata: async () => ({ versions: {} }),
+      now: () => time,
+      sleep: async (ms) => {
+        time += ms;
+      },
+      intervalMs: 5,
+      timeoutMs: 10,
+      log: () => {},
+    }),
+    /processing timed out.*do not republish blindly/,
+  );
+  assert.equal(time, 10);
+});
+
+test("registry version records cannot disguise missing or different versions", () => {
+  for (const version of [undefined, "0.7.0"]) {
+    assert.throws(
+      () =>
+        shouldSkipExisting(
+          { versions: { "0.8.0": { version, dist: { integrity: "sha512-exact" } } } },
+          "0.8.0",
+          "sha512-exact",
+          entries[0],
+        ),
+      /registry version mismatch/,
+    );
+  }
+});
+
+test("waiting rejects wrong UI dependency and limits latest-tag lag to its deadline", async () => {
+  await assert.rejects(
+    waitForPublication(entries[1], "0.8.0", "sha512-exact", {
+      readMetadata: async () => ({
+        versions: {
+          "0.8.0": {
+            version: "0.8.0",
+            dist: { integrity: "sha512-exact" },
+            dependencies: { "@lenso/tokens": "0.7.0" },
+          },
+        },
+      }),
+      sleep: async () => assert.fail("must not retry a dependency mismatch"),
+    }),
+    /registry dependency mismatch/,
+  );
+  let time = 0;
+  const sleeps = [];
+  const budgets = [];
+  await assert.rejects(
+    waitForPublication(entries[0], "0.8.0", "sha512-exact", {
+      readMetadata: async (_name, budget) => {
+        budgets.push(budget);
+        return {
+          versions: { "0.8.0": { version: "0.8.0", dist: { integrity: "sha512-exact" } } },
+          "dist-tags": { latest: "0.7.0" },
+        };
+      },
+      now: () => time,
+      sleep: async (ms) => {
+        sleeps.push(ms);
+        time += ms;
+      },
+      intervalMs: 6,
+      timeoutMs: 10,
+      log: () => {},
+    }),
+    /processing timed out/,
+  );
+  assert.deepEqual(sleeps, [6, 4]);
+  assert.deepEqual(budgets, [10, 4]);
 });

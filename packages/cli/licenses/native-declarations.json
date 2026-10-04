@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "packages": [
+    {
+      "name": "@base-ui/react",
+      "version": "1.8.0",
+      "license": "MIT",
+      "assets": [
+        {
+          "file": "base-ui-react-LICENSE",
+          "sha256": "07fc1b39d69d14bc7d40482a628f47226258eb01265db68ae684944b916beb2a",
+          "copyrights": ["Copyright (c) 2019 Material-UI SAS"]
+        }
+      ]
+    },
+    {
+      "name": "@types/react",
+      "version": "19.3.0",
+      "license": "MIT",
+      "assets": [
+        {
+          "file": "types-react-LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+          "copyrights": ["Copyright (c) Microsoft Corporation."]
+        }
+      ]
+    },
+    {
+      "name": "react-aria-components",
+      "version": "1.21.1",
+      "license": "Apache-2.0",
+      "assets": [
+        {
+          "file": "react-aria-components-LICENSE",
+          "sha256": "7dfe6526888bac51759c99f9a51262ba2711a8c12a067f2181609dd9a4066b84",
+          "copyrights": ["Copyright 2019 Adobe"]
+        }
+      ]
+    },
+    {
+      "name": "@react-types/shared",
+      "version": "3.36.1",
+      "license": "Apache-2.0",
+      "assets": [
+        {
+          "file": "react-types-shared-LICENSE",
+          "sha256": "7dfe6526888bac51759c99f9a51262ba2711a8c12a067f2181609dd9a4066b84",
+          "copyrights": ["Copyright 2019 Adobe"]
+        }
+      ]
+    },
+    {
+      "name": "react-stately",
+      "version": "3.50.0",
+      "license": "Apache-2.0",
+      "assets": [
+        {
+          "file": "react-stately-LICENSE",
+          "sha256": "7dfe6526888bac51759c99f9a51262ba2711a8c12a067f2181609dd9a4066b84",
+          "copyrights": ["Copyright 2019 Adobe"]
+        }
+      ]
+    },
+    {
+      "name": "react-aria",
+      "version": "3.52.1",
+      "license": "Apache-2.0",
+      "assets": [
+        {
+          "file": "react-aria-LICENSE",
+          "sha256": "7dfe6526888bac51759c99f9a51262ba2711a8c12a067f2181609dd9a4066b84",
+          "copyrights": ["Copyright 2019 Adobe"]
+        }
+      ]
+    }
+  ]
+}

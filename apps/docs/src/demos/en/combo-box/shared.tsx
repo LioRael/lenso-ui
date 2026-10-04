@@ -89,6 +89,7 @@ export function AnimalPicker({
   return (
     <div {...stylex.props(styles.field, rootProps.fullWidth && styles.fullWidth)}>
       <ComboBox
+        variant={secondary ? "secondary" : "primary"}
         items={items}
         itemToStringLabel={animalLabel}
         itemToStringValue={animalValue}
@@ -98,7 +99,6 @@ export function AnimalPicker({
       >
         <ComboBox.Label htmlFor={id}>{label}</ComboBox.Label>
         <ComboBox.InputGroup
-          xstyle={secondary && styles.secondary}
           render={composed ? (props) => <div {...props} data-custom="foo" /> : undefined}
         >
           <ComboBox.Input

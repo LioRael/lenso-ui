@@ -1,77 +1,96 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import sourceIndex from "../../content/source-index.json";
-import { sourceConfig } from "../../source.config";
+import { docsDirectory } from "./docs-directory.mjs";
+import authoredIndex from "../generated/lenso-docs-index.json";
+import reference from "../generated/api-reference.json";
 
-export type Locale = (typeof sourceConfig.locales)[number];
+export type Locale = "en" | "cn";
 export interface DocPage {
   locale: Locale;
   slug: string;
-  file: string;
+  markdownFile: string;
   title: string;
   description: string;
-  previews: string[];
+  examples: { name: string; file: string }[];
 }
-interface DemoSource {
-  file: string;
-  exported: string;
-  source: string;
-  aliasOf?: string;
-}
-interface SourceIndex {
+interface DocsIndex {
+  formatVersion: 1;
+  lensoVersion: string;
+  sourceFamilyMapping: Record<string, string>;
   pages: DocPage[];
-  examples: Record<Locale, Record<string, DemoSource>>;
-  relationships: Record<string, string[]>;
-  unresolvedPreviews: { page: string; name: string }[];
-  unregisteredSources: { locale: Locale; file: string; source: string }[];
-  excludedExamples: { locale: Locale; name: string; source: string; reason: string }[];
 }
-export const source = sourceIndex as SourceIndex;
+export const docsIndex = authoredIndex as DocsIndex;
+const docsRoot = docsDirectory();
+const exampleEntries = (locale: Locale): Record<string, { file: string; source: string }> =>
+  Object.fromEntries(
+    docsIndex.pages
+      .filter((page) => page.locale === locale)
+      .flatMap((page) =>
+        page.examples.map((example) => [
+          example.name,
+          { file: example.file, source: `apps/docs/src/demos/${example.file}` },
+        ]),
+      ),
+  );
+export const source = {
+  ...docsIndex,
+  pages: docsIndex.pages.map((page) => ({ ...page, file: page.markdownFile })),
+  examples: { en: exampleEntries("en"), cn: exampleEntries("cn") },
+  relationships: Object.fromEntries(
+    Object.entries(reference.families).map(([family, contract]) => [
+      family,
+      Object.keys(reference.families).filter(
+        (candidate) =>
+          candidate !== family &&
+          contract.parts.some((part) =>
+            part.members.some((member) =>
+              reference.families[candidate as keyof typeof reference.families].parts.some(
+                (other) => other.name === `${part.name}${member}`,
+              ),
+            ),
+          ),
+      ),
+    ]),
+  ) as Record<string, string[]>,
+};
 export const isLocale = (value: string): value is Locale => value === "en" || value === "cn";
 export const pageUrl = (page: Pick<DocPage, "locale" | "slug">) =>
   `/${page.locale}/docs/${page.slug}`;
+export function canonicalSlug(slug: string) {
+  const match = /^react\/components\/([^/]+)$/.exec(slug);
+  return match && docsIndex.sourceFamilyMapping[match[1]!]
+    ? `react/components/${docsIndex.sourceFamilyMapping[match[1]!]!}`
+    : slug;
+}
 export const getPage = (locale: Locale, slug: string) =>
-  source.pages.find((page) => page.locale === locale && page.slug === slug);
-export const readPage = (page: DocPage) => readFile(path.join(process.cwd(), page.file), "utf8");
+  source.pages.find((page) => page.locale === locale && page.slug === canonicalSlug(slug));
+export const readPage = (page: DocPage) => readFile(path.join(docsRoot, page.markdownFile), "utf8");
+
+export type DocSection = Pick<DocPage, "locale" | "slug" | "title"> & { href: string };
+export function getSectionEntries(locale: Locale): DocSection[] {
+  return source.pages
+    .filter((page) => page.locale === locale && /^react\/[^/]+$/.test(page.slug))
+    .map((page) => ({ locale, slug: page.slug, title: page.title, href: pageUrl(page) }));
+}
 
 export async function getExample(name: string, locale: Locale) {
-  const entry = source.examples[locale][name] ?? source.examples.en[name];
+  const entry = source.examples[locale][name];
   if (!entry) return null;
-  const example = JSON.parse(await readFile(path.join(process.cwd(), entry.file), "utf8")) as {
-    code?: string;
-    source: string;
-    excludedReason?: string;
+  return {
+    name,
+    code: await readFile(path.join(docsRoot, "src/demos", entry.file), "utf8"),
+    source: entry.source,
+    aliasOf: undefined,
+    excludedReason: undefined,
   };
-  return { ...example, name, aliasOf: entry.aliasOf };
 }
 
 export async function getNavigation(locale: Locale, section: string) {
-  const pages = source.pages.filter(
-    (page) => page.locale === locale && page.slug.startsWith(`react/${section}`),
-  );
-  const metadata = JSON.parse(
-    await readFile(
-      path.join(
-        process.cwd(),
-        `${sourceConfig.directory}/${locale}/${sourceConfig.platform}/${section}/meta.json`,
-      ),
-      "utf8",
-    ),
-  ) as { pages?: string[] };
-  const entries: { label: string; href?: string }[] = [];
-  for (const item of metadata.pages ?? []) {
-    if (item.startsWith("---")) {
-      entries.push({ label: item.replace(/^---|---$/g, "") });
-      continue;
-    }
-    if (item.startsWith("[")) continue;
-    const file = `content/docs/${locale}/react/${section}/${item === "index" ? "index" : item}.mdx`;
-    const page = pages.find((candidate) => candidate.file === file);
-    if (page) entries.push({ label: page.title, href: pageUrl(page) });
-  }
-  const known = new Set(entries.map((entry) => entry.href));
-  for (const page of pages) {
-    if (!known.has(pageUrl(page))) entries.push({ label: page.title, href: pageUrl(page) });
-  }
-  return entries;
+  return source.pages
+    .filter(
+      (page) =>
+        page.locale === locale &&
+        (page.slug === `react/${section}` || page.slug.startsWith(`react/${section}/`)),
+    )
+    .map((page) => ({ label: page.title, href: pageUrl(page) }));
 }

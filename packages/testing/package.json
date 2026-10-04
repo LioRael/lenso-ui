@@ -16,8 +16,8 @@
     "test:browser": "vitest run --config vitest.browser.config.ts"
   },
   "devDependencies": {
+    "@lenso/stylex-build": "workspace:*",
     "@lenso/tokens": "workspace:*",
-    "@stylexjs/unplugin": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

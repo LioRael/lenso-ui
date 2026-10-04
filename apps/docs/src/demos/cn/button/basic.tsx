@@ -2,12 +2,6 @@
 "use client";
 
 import { Button } from "@lenso/ui";
-import { useState } from "react";
 export function Basic() {
-  const [presses, setPresses] = useState(0);
-  return (
-    <Button onClick={() => setPresses((value) => value + 1)}>
-      {presses ? `Clicked ${presses} time${presses === 1 ? "" : "s"}` : "点我"}
-    </Button>
-  );
+  return <Button onClick={() => console.log("Button pressed")}>点我</Button>;
 }

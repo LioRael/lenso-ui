@@ -1,4 +1,5 @@
 // HeroUI v3.2.6, Apache-2.0.
+// Modified by Lenso contributors: translated component styling to StyleX.
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../../tokens.stylex.const.js";
 export const labelStyles = stylex.create({
@@ -18,4 +19,11 @@ export const labelStyles = stylex.create({
     },
   },
   required: { "::after": { content: '"*" / ""', marginInlineStart: 2, color: tokens.danger } },
+  contextualRequired: {
+    ":is([data-required='true'] *)::after": {
+      content: '"*" / ""',
+      marginInlineStart: 2,
+      color: tokens.danger,
+    },
+  },
 });

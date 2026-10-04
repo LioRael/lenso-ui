@@ -1,0 +1,29 @@
+{
+  "name": "@lenso/cli",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Version-matched Lenso contract queries and safe project setup.",
+  "license": "MIT",
+  "bin": {
+    "lenso": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --import ./tests/register.mjs --test tests/*.test.mjs",
+    "typecheck": "node --check src/cli.mjs && node --check src/project.mjs"
+  },
+  "devDependencies": {
+    "@babel/parser": "7.29.9",
+    "esbuild": "0.28.2"
+  },
+  "engines": {
+    "node": "^24.18.0"
+  }
+}

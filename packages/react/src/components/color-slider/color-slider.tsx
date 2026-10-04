@@ -11,8 +11,9 @@ import {
   type ColorSpace,
 } from "react-aria-components/ColorSlider";
 import { Label } from "react-aria-components/Label";
+import * as stylex from "@stylexjs/stylex";
 import { colorSliderStyles as styles } from "@lenso/tokens/color-slider";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { racPart } from "../date-input-group/rac-part.js";
 const Orientation = createContext<"horizontal" | "vertical">("horizontal");
 const Channel = createContext<ColorChannel>("hue");
@@ -69,13 +70,38 @@ export function ColorSliderRoot({
     </Orientation>
   );
 }
-export const ColorSliderLabel = styledPart(Label, "label", styles.label);
-const Output = styledPart(SliderOutput, "color-slider-output", styles.output);
+export function ColorSliderLabel({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof Label>>) {
+  const compiled = stylex.props(styles.label, xstyle);
+  return (
+    <Label
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "label"}
+      style={mergeStyle(compiled.style, style)}
+    />
+  );
+}
 export function ColorSliderOutput({
   children,
+  xstyle,
+  style,
   ...props
 }: StyleXProps<ComponentPropsWithRef<typeof SliderOutput>>) {
-  return <Output {...props}>{children ?? (({ state }) => state.getThumbValueLabel(0))}</Output>;
+  const compiled = stylex.props(styles.output, xstyle);
+  return (
+    <SliderOutput
+      {...props}
+      {...compiled}
+      data-slot={props["data-slot"] ?? "color-slider-output"}
+      style={mergeStyle(compiled.style, style)}
+    >
+      {children ?? (({ state }) => state.getThumbValueLabel(0))}
+    </SliderOutput>
+  );
 }
 const Track = racPart(SliderTrack, "color-slider-track", () => styles.track);
 export function ColorSliderTrack({

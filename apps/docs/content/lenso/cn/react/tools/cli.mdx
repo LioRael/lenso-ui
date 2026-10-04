@@ -1,0 +1,49 @@
+---
+title: "CLI"
+description: "使用源码候选检查契约，并审阅安全的消费者配置计划。"
+---
+
+## 构建源码候选
+
+包名为 `@lenso/cli`，二进制名称为 `lenso`，目前尚未发布。在已安装工作区依赖的候选源码中，先准备文档，再构建 CLI：
+
+```sh
+pnpm --filter @lenso/ui-docs build
+pnpm --filter @lenso/cli build
+node packages/cli/dist/cli.mjs --help
+```
+
+构建会验证并复制当前生产契约。已构建或打包的候选运行时不需要仓库、React、Next 或 TypeScript/StyleX 编译器。Node 应满足契约 compatibility 范围；已测试运行时为 Node 24.18.0。
+
+## 读取发布契约
+
+```sh
+node packages/cli/dist/cli.mjs metadata --json
+node packages/cli/dist/cli.mjs list --json
+node packages/cli/dist/cli.mjs info menu --json
+node packages/cli/dist/cli.mjs docs react/components/menu --locale cn
+```
+
+`metadata` 报告发布身份和 digest。`list` 给出规范系列 slug 与公开部件。`info` 解析真实签名、回调状态和属性行。`docs` 输出与页面 Copy Markdown 相同的 authored Markdown。
+
+当前命令为 `list`、`info`、`docs`、`metadata`、`check` 和 `init`。CLI 没有独立示例下载、主题生成或远程获取命令。应查询匹配二进制的 `--help`，不假设其他工具的参数也适用。
+
+## 检查消费者
+
+```sh
+node packages/cli/dist/cli.mjs check --cwd ./my-app --json
+```
+
+`check` 读取消费者源码，报告策略、兼容性和静态配置提示。它不执行应用代码，也不能证明浏览器样式表交付。符号链接、过大文件和未解析源码会明确列为跳过；非零结果需要审阅。
+
+## 写入前审阅计划
+
+```sh
+node packages/cli/dist/cli.mjs init --framework vite --cwd ./my-app --json
+```
+
+`init` 默认不写入。应检查计划文件、冲突与手动主题入口步骤。`--framework next` 选择已支持的 App Router Webpack 配置，不代表 Turbopack 或 Pages Router。
+
+仅在确实打算应用无冲突、仍匹配当前文件的计划时添加 `--write`。写入器保留软件包字段，并拒绝不兼容版本、复杂脚本和用户拥有的配置。生成文件被用户编辑后，即成为用户拥有的文件。
+
+CLI 不安装依赖，不运行项目脚本。它生成元数据和主题辅助文件，但实际渲染入口或布局仍需由你导入主题辅助文件。I/O 失败可能留下部分写入；重试前应核对计划与文件系统。

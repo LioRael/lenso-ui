@@ -1,3 +1,4 @@
+// Derived from HeroUI v3.2.6 examples (Apache-2.0); modified by translating demo styling to StyleX.
 import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   root: { width: "100%", maxWidth: 448 },

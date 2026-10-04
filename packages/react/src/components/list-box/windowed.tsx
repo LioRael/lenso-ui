@@ -30,8 +30,10 @@ export function useCollectionWindow(
       if (!options || !node.current) return;
       const top = index * options.rowHeight;
       const viewport = node.current;
+      // oxlint-disable-next-line react/immutability -- Event-time scrolling mutates the browser viewport, not React-owned data.
       if (top < viewport.scrollTop) viewport.scrollTop = top;
       else if (top + options.rowHeight > viewport.scrollTop + options.height)
+        // oxlint-disable-next-line react/immutability -- Keep the focused row in the imperative DOM viewport.
         viewport.scrollTop = top + options.rowHeight - options.height;
       setStart(Math.floor(viewport.scrollTop / options.rowHeight));
       setFocused(index);

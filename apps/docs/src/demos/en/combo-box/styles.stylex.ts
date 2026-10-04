@@ -11,7 +11,6 @@ export const styles = stylex.create({
   surface: { width: 320, maxWidth: "100%", borderRadius: 24, padding: 24 },
   muted: { margin: 0, fontSize: 14, color: "var(--muted)" },
   caption: { margin: 0, fontSize: 14, fontWeight: 500, color: "var(--muted)" },
-  secondary: { backgroundColor: "var(--default)" },
   icon: { width: 12, height: 12 },
   user: { display: "flex", flexDirection: "column" },
   loading: {

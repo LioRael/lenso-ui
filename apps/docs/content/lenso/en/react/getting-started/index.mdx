@@ -1,0 +1,32 @@
+---
+title: "Getting started"
+description: "Use Lenso UI's native component contracts and compiled StyleX presentation."
+---
+
+## Choose the interaction owner
+
+Lenso UI provides styled React components through `@lenso/ui`. Ordinary controls, navigation and overlays retain Base UI contracts. Date, time and color editing retain React Aria Components contracts because their values, segments and supporting parts share those contexts.
+
+Start with a component's local API and runnable examples. A similarly named component from another library is not a compatible API: a button uses DOM activation rather than `onPress`, a Menu item uses its native command event, and a date field accepts an internationalized date value rather than a JavaScript `Date`.
+
+## Install and compile
+
+Follow [Installation](./getting-started/installation) before adding components. Import the theme stylesheet once from the document's actual root layout. Compile application StyleX declarations together with Lenso's precompiled metadata; merely importing `@stylexjs/stylex` does not compile your styles.
+
+```tsx
+import { Button } from "@lenso/ui";
+
+export function SaveAction() {
+  return <Button onClick={() => console.log("save")}>Save changes</Button>;
+}
+```
+
+Use `xstyle` for typed StyleX overrides. Preserve the props and ref supplied by a native `render` composition. [StyleX](./getting-started/stylex) explains why the full generated style output, including runtime custom properties, matters.
+
+## Find the local contract
+
+Component pages list current exported parts, actual property types, callback state and only defaults declared literally in local component parameters. They also mount the same local modules whose source is shown in the source pane.
+
+The [architecture](./getting-started/architecture) explains interaction boundaries. [Versioning](./getting-started/versioning) distinguishes Lenso releases from internal reference provenance. [Menu](/docs/react/components/menu) is the public popup command family.
+
+Live registration is not an accessibility or visual-parity certificate. Keyboard operation, theme geometry, RTL, reduced motion and contrast require separate browser evidence.

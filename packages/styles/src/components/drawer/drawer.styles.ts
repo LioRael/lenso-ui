@@ -2,6 +2,14 @@
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../../tokens.stylex.const.js";
 export const drawerStyles = stylex.create({
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+    minHeight: 0,
+    minWidth: 0,
+  },
+  fixedSection: { flexShrink: 0 },
   backdrop: {
     position: "fixed",
     inset: 0,

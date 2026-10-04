@@ -1,21 +1,13 @@
 // Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-import { Alert, Button, Spinner } from "@lenso/ui";
-import { useState } from "react";
+// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
+import { Alert, Button, CloseButton, Spinner } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-const styles = stylex.create({
-  grid: {
-    display: "grid",
-    width: "100%",
-    maxWidth: 576,
-    gap: 16,
-  },
-});
+import { s } from "../../en/card/display.stylex";
 export function Basic() {
-  const [attempts, setAttempts] = useState(0);
   return (
-    <div {...stylex.props(styles.grid)}>
+    <div {...stylex.props(s.alertStack)}>
       <Alert>
         <Alert.Indicator />
         <Alert.Content>
@@ -32,8 +24,11 @@ export function Basic() {
           <Alert.Description>
             应用有新版本可用。请刷新页面以获取最新功能与问题修复。
           </Alert.Description>
+          <Button xstyle={s.mobile2} size="sm" variant="primary">
+            刷新
+          </Button>
         </Alert.Content>
-        <Button size="sm" onClick={() => window.location.reload()}>
+        <Button xstyle={s.desktopBlock} size="sm" variant="primary">
           刷新
         </Button>
       </Alert>
@@ -42,16 +37,18 @@ export function Basic() {
         <Alert.Content>
           <Alert.Title>无法连接到服务器</Alert.Title>
           <Alert.Description>
-            We're experiencing connection issues. Check your internet connection or refresh the
-            page.
+            当前遇到连接问题，请尝试以下操作：
+            <ul {...stylex.props(s.list)}>
+              <li>检查网络连接</li>
+              <li {...stylex.props(s.space1)}>刷新页面</li>
+              <li {...stylex.props(s.space1)}>清除浏览器缓存</li>
+            </ul>
           </Alert.Description>
-          {attempts > 0 && (
-            <output>
-              Retry activated {attempts} time{attempts === 1 ? "" : "s"} in this demonstration.
-            </output>
-          )}
+          <Button xstyle={s.mobile2} size="sm" variant="danger">
+            重试
+          </Button>
         </Alert.Content>
-        <Button size="sm" variant="danger" onClick={() => setAttempts((value) => value + 1)}>
+        <Button xstyle={s.desktopBlock} size="sm" variant="danger">
           重试
         </Button>
       </Alert>
@@ -60,10 +57,11 @@ export function Basic() {
         <Alert.Content>
           <Alert.Title>个人资料已更新</Alert.Title>
         </Alert.Content>
+        <CloseButton />
       </Alert>
       <Alert status="accent">
         <Alert.Indicator>
-          <Spinner size="sm" aria-label="Processing" />
+          <Spinner size="sm" />
         </Alert.Indicator>
         <Alert.Content>
           <Alert.Title>正在处理你的请求</Alert.Title>
@@ -75,7 +73,8 @@ export function Basic() {
         <Alert.Content>
           <Alert.Title>计划维护</Alert.Title>
           <Alert.Description>
-            Our services will be unavailable during the scheduled maintenance window.
+            我们将于 UTC 时间 3 月 15 日（周日）凌晨 2:00 至上午 6:00
+            进行计划维护，期间服务将暂时不可用。
           </Alert.Description>
         </Alert.Content>
       </Alert>

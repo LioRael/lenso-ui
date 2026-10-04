@@ -19,6 +19,7 @@ export function Variants() {
       <Button variant="outline">线框</Button>
       <Button variant="ghost">幽灵</Button>
       <Button variant="danger">危险</Button>
+      <Button variant="danger-soft">柔和危险</Button>
     </div>
   );
 }

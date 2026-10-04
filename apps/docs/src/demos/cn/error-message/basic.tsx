@@ -1,43 +1,38 @@
 // Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-import { Checkbox, ErrorMessage, Fieldset } from "@lenso/ui";
+// Adapted from HeroUI v3.2.6, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
+import { Description, ErrorMessage, Label, Tag, TagGroup } from "@lenso/ui";
+import type { TagGroupRootProps } from "@lenso/ui";
 import { useId, useState } from "react";
-import { demoStyles } from "../../demo.stylex";
-const categories = ["新闻", "旅游", "游戏", "购物"];
+const categories = ["News", "Travel", "Gaming", "Shopping"];
 export function ErrorMessageBasic() {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<TagGroupRootProps["selectedKeys"]>(new Set());
+  const labelId = useId();
+  const descriptionId = useId();
   const errorId = useId();
-  const invalid = selected.length === 0;
+  const invalid = !selected || selected.size === 0;
   return (
-    <Fieldset xstyle={demoStyles.wideColumn}>
-      <Fieldset.Legend>Required categories</Fieldset.Legend>
-      <p>请至少选择一个分类</p>
-      {categories.map((category) => (
-        <Checkbox
-          key={category}
-          checked={selected.includes(category)}
-          aria-invalid={invalid}
-          aria-describedby={invalid ? errorId : undefined}
-          onCheckedChange={(checked) =>
-            setSelected((current) =>
-              checked ? [...current, category] : current.filter((value) => value !== category),
-            )
-          }
-        >
-          <Checkbox.Content>
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
+    <TagGroup
+      selectedKeys={selected}
+      selectionMode="multiple"
+      onSelectionChange={setSelected}
+      aria-labelledby={labelId}
+      aria-describedby={`${descriptionId}${invalid ? ` ${errorId}` : ""}`}
+      aria-invalid={invalid}
+    >
+      <Label id={labelId} nativeLabel={false}>
+        必选分类
+      </Label>
+      <TagGroup.List>
+        {categories.map((category) => (
+          <Tag key={category} itemKey={category.toLowerCase()} textValue={category}>
             {category}
-          </Checkbox.Content>
-        </Checkbox>
-      ))}
-      {invalid && (
-        <ErrorMessage id={errorId} role="alert">
-          请至少选择一个分类
-        </ErrorMessage>
-      )}
-    </Fieldset>
+          </Tag>
+        ))}
+      </TagGroup.List>
+      <Description id={descriptionId}>请至少选择一个分类</Description>
+      <ErrorMessage id={errorId}>{invalid && <>请至少选择一个分类</>}</ErrorMessage>
+    </TagGroup>
   );
 }

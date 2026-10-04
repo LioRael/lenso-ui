@@ -33,7 +33,7 @@ test("empty multiple selection starts today and keyboard toggles preserve the co
     month: "long",
     year: "numeric",
   }).format(now.toDate(getLocalTimeZone()));
-  await expect.element(screen.getByRole("heading")).toHaveTextContent(expectedHeading);
+  await expect.element(screen.getByRole("heading")).toMatchTextContent(expectedHeading);
   const tenth = now.set({ day: 10 });
   const name = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -108,5 +108,5 @@ test("Indian calendar year selection changes the localized model and restores tr
   await expect.element(screen.getByRole("button", { name: /^1948/ })).toHaveFocus();
   await userEvent.keyboard("{ArrowRight}{Enter}");
   await expect.element(trigger).toHaveFocus();
-  await expect.element(trigger).toHaveTextContent("1949");
+  await expect.element(trigger).toMatchTextContent("1949");
 });

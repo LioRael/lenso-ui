@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
+import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -96,12 +97,48 @@ export function validatePackage(manifest, files, contents, item, version) {
 export function shouldSkipExisting(metadata, version, integrity, item) {
   const published = metadata?.versions?.[version];
   if (!published) return false;
+  if (published.version !== version) {
+    throw new Error(`registry version mismatch for ${item.name}@${version}`);
+  }
   if (published.dist?.integrity !== integrity)
     throw new Error(`immutable version collision for ${item.name}@${version}`);
   if (item.kind === "ui" && published.dependencies?.["@lenso/tokens"] !== version) {
     throw new Error(`registry dependency mismatch for ${item.name}@${version}`);
   }
   return true;
+}
+
+export async function waitForPublication(
+  item,
+  version,
+  integrity,
+  {
+    readMetadata = metadata,
+    sleep = delay,
+    now = Date.now,
+    timeoutMs = 600_000,
+    intervalMs = 5_000,
+    log = console.log,
+  } = {},
+) {
+  const deadline = now() + timeoutMs;
+  let announced = false;
+  while (now() < deadline) {
+    const published = await readMetadata(item.name, Math.min(15_000, deadline - now()));
+    if (
+      shouldSkipExisting(published, version, integrity, item) &&
+      published["dist-tags"]?.latest === version
+    ) {
+      return published;
+    }
+    if (now() >= deadline) break;
+    if (!announced) {
+      log(`Waiting for npm processing and registry visibility: ${item.name}@${version}`);
+      announced = true;
+    }
+    await sleep(Math.min(intervalMs, deadline - now()));
+  }
+  throw new Error(`npm processing timed out for ${item.name}@${version}; do not republish blindly`);
 }
 
 function run(command, args, options = {}) {
@@ -113,9 +150,10 @@ function run(command, args, options = {}) {
   }).trim();
 }
 
-async function metadata(name) {
+async function metadata(name, timeoutMs = 15_000) {
   const response = await fetch(new URL(encodeURIComponent(name), registry), {
     headers: { "cache-control": "no-cache" },
+    signal: AbortSignal.timeout(Math.max(1, timeoutMs)),
   });
   if (response.status === 404) return null;
   if (!response.ok) throw new Error(`registry metadata request failed: HTTP ${response.status}`);
@@ -169,26 +207,10 @@ async function publish() {
         "--ignore-scripts",
         `--registry=${registry}`,
       ]);
-      const published = await metadata(entry.item.name);
-      const result = published?.versions?.[version];
-      if (
-        result?.dist?.integrity !== entry.integrity ||
-        result?.version !== version ||
-        (entry.item.kind === "ui" && result.dependencies?.["@lenso/tokens"] !== version)
-      ) {
-        throw new Error(`published metadata did not verify for ${entry.item.name}@${version}`);
-      }
+      await waitForPublication(entry.item, version, entry.integrity);
     }
     for (const entry of tarballs) {
-      const published = await metadata(entry.item.name);
-      if (
-        published?.["dist-tags"]?.latest !== version ||
-        published.versions?.[version]?.dist?.integrity !== entry.integrity
-      ) {
-        throw new Error(
-          `latest tag or integrity verification failed for ${entry.item.name}@${version}`,
-        );
-      }
+      await waitForPublication(entry.item, version, entry.integrity);
     }
   } finally {
     await rm(temp, { recursive: true, force: true });

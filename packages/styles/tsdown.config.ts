@@ -1,5 +1,5 @@
 import { existsSync, readdirSync } from "node:fs";
-import stylex from "@stylexjs/unplugin/rolldown";
+import stylex from "@lenso/stylex-build";
 import { defineConfig } from "tsdown";
 
 const componentRoot = "src/components";
@@ -22,10 +22,9 @@ export default defineConfig({
   outExtensions: () => ({ js: ".js" }),
   dts: false,
   plugins: [
-    stylex({
-      dev: false,
+    stylex.rolldown({
+      emitMetadata: "stylex-rules.json",
       devMode: "off",
-      useCSSLayers: false,
       // Lightning CSS Features.DirSelector: preserve dir, not a language approximation.
       lightningcssOptions: { exclude: 4 },
     }),

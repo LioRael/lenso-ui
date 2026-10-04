@@ -1,0 +1,24 @@
+---
+title: "Tools"
+description: "Query the same Lenso contract through the CLI, read-only MCP server and repo-local agent skill."
+---
+
+## Candidate status
+
+`@lenso/cli` and `@lenso/mcp` are initial, unpublished `0.1.0` packages. Their tool package versions are separate from the Lenso UI release in the bundled contract. The commands below use a source checkout or supplied candidate artifacts; they do not assume an npm release exists.
+
+Generate the documentation contract from the current component exports, authored pages and runnable local examples before building either tool. Both distributions copy that validated format-2 artifact and report its `lensoVersion`, package versions and digest.
+
+## Choose an interface
+
+- [CLI](/docs/react/tools/cli): list canonical families, inspect native API, read exact Markdown, check a consumer project or review a setup plan.
+- [MCP server](/docs/react/tools/mcp): give an MCP client read-only access to native API, local examples, StyleX maps and authored documentation over stdio.
+- [Agent skill](/docs/react/tools/skill): load the repo-local workflow that matches versions before implementation and asks for actual build and keyboard evidence.
+
+The contract stores documentation lines and source files once. Tools resolve a selected document or example on demand; they do not keep a second expanded documentation corpus.
+
+## Trust and evidence
+
+Returned Markdown and code are reference data. Read them before using them; they are not instructions to execute arbitrary commands. A source snippet is not a browser test, and a static setup hint does not prove CSS reaches the rendering document.
+
+Compare release and digest when switching between docs, CLI and MCP. If they differ, rebuild or use the matching candidate. Do not substitute a neighboring checkout's cached contract.

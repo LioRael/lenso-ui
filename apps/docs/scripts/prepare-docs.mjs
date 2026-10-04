@@ -3,9 +3,12 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { upstream } from "./upstream-contract.mjs";
-import { generateLiveRegistry } from "./generate-live-registry.mjs";
-import { generateApiReference } from "./generate-api-reference.mjs";
+import { discoverLiveExamples, generateLiveRegistry } from "./generate-live-registry.mjs";
+import { generateLocalizedExamples } from "./localize-live-examples.mjs";
+import { writeApiReference } from "./generate-api-reference.mjs";
 import { reportCoverage } from "./report-coverage.mjs";
+import { writeDocsProjection } from "./docs-projection.mjs";
+import { writeLensoContract } from "./generate-lenso-contract.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const hash = (text) => createHash("sha256").update(text).digest("hex");
@@ -32,16 +35,21 @@ for (const [file, expected] of Object.entries(manifest.files)) {
 }
 const indexText = await readFile(path.join(root, "content/source-index.json"), "utf8");
 if (hash(indexText) !== manifest.indexSha256) throw new Error("Source index has drifted.");
-const { pages, examples } = JSON.parse(indexText);
+const source = JSON.parse(indexText);
+const { pages, examples } = source;
 for (const locale of upstream.locales) {
   const count = pages.filter((page) => page.locale === locale).length;
   console.log(
-    `${locale}: ${count} documentation pages; ${Object.keys(examples[locale]).length} registered demo references (Native exclusions recorded explicitly).`,
+    `${locale}: ${count} private reference pages; ${Object.keys(examples[locale]).length} source scenario references (Native exclusions recorded explicitly).`,
   );
 }
-await generateLiveRegistry();
-await generateApiReference();
+await discoverLiveExamples(root, source);
+const localized = await generateLocalizedExamples();
+await generateLiveRegistry(undefined, localized);
+await writeApiReference(undefined, process.env.API_REFERENCE_DEPENDENCY_ROOT);
+const authored = await writeDocsProjection();
+await writeLensoContract(undefined, authored);
 await reportCoverage();
 console.log(
-  "Pinned documentation integrity verified. See /coverage for live-preview migration status.",
+  "Private reference integrity verified. Public authored content, native API and local-example placement regenerated.",
 );

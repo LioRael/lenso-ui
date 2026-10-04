@@ -20,8 +20,9 @@ import { Button } from "react-aria-components/Button";
 import { Group } from "react-aria-components/Group";
 import { useLocale } from "react-aria-components/I18nProvider";
 import { today, startOfYear } from "@internationalized/date";
+import * as stylex from "@stylexjs/stylex";
 import { calendarYearPickerStyles as styles } from "@lenso/tokens/calendar-year-picker";
-import { styledPart, mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { racPart } from "../date-input-group/rac-part.js";
 import { useYearPicker, useCalendarOrRangeState } from "./year-picker-context.js";
 export interface CalendarYearPickerTriggerRenderProps {
@@ -76,7 +77,6 @@ export function CalendarYearPickerTrigger({
     </TriggerContext>
   );
 }
-const Heading = styledPart("span", "calendar-year-picker-trigger-heading", styles.heading);
 export type CalendarYearPickerTriggerHeadingProps = StyleXProps<
   Omit<ComponentPropsWithRef<"span">, "children">
 > &
@@ -87,6 +87,8 @@ export function CalendarYearPickerTriggerHeading({
   children,
   format,
   offset,
+  xstyle,
+  style,
   ...props
 }: CalendarYearPickerTriggerHeadingProps) {
   const values = use(TriggerContext);
@@ -96,28 +98,42 @@ export function CalendarYearPickerTriggerHeading({
     state,
   );
   if (!values) throw new Error("Year picker heading requires Trigger");
+  const compiled = stylex.props(styles.heading, xstyle);
   return (
-    <Heading {...props}>
+    <span
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={
+        (props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-year-picker-trigger-heading"
+      }
+    >
       {typeof children === "function" ? children(values) : (children ?? heading)}
-    </Heading>
+    </span>
   );
 }
-const Indicator = styledPart("span", "calendar-year-picker-trigger-indicator", styles.indicator);
 export type CalendarYearPickerTriggerIndicatorProps = StyleXProps<
   Omit<ComponentPropsWithRef<"span">, "children">
 > & { children?: ReactNode | ((values: CalendarYearPickerTriggerRenderProps) => ReactNode) };
 export function CalendarYearPickerTriggerIndicator({
   children,
   xstyle,
+  style,
   ...props
 }: CalendarYearPickerTriggerIndicatorProps) {
   const values = use(TriggerContext);
   if (!values) throw new Error("Year picker indicator requires Trigger");
+  const compiled = stylex.props(styles.indicator, values.isOpen && styles.openIndicator, xstyle);
   return (
-    <Indicator
+    <span
       {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={
+        (props as { "data-slot"?: unknown })["data-slot"] ??
+        "calendar-year-picker-trigger-indicator"
+      }
       aria-hidden="true"
-      xstyle={[values.isOpen && styles.openIndicator, xstyle]}
     >
       {typeof children === "function"
         ? children(values)
@@ -133,7 +149,7 @@ export function CalendarYearPickerTriggerIndicator({
               <path d="m9 6 6 6-6 6" />
             </svg>
           ))}
-    </Indicator>
+    </span>
   );
 }
 export interface CalendarYearPickerCellRenderProps {
@@ -154,7 +170,6 @@ const GridContext = createContext<{
   setActive: (year: number) => void;
   select: (year: number) => void;
 } | null>(null);
-const Grid = styledPart(Group, "calendar-year-picker-grid", styles.grid);
 export type CalendarYearPickerGridProps = StyleXProps<
   Omit<ComponentPropsWithRef<typeof Group>, "children">
 > &
@@ -231,6 +246,7 @@ export function CalendarYearPickerGrid({
     model.onChange(item.id);
     close();
   };
+  const compiled = stylex.props(styles.grid, !open && styles.hidden, xstyle);
   return (
     <GridContext
       value={{
@@ -243,13 +259,14 @@ export function CalendarYearPickerGrid({
         select,
       }}
     >
-      <Grid
+      <Group
         {...props}
+        {...compiled}
         ref={gridRef}
         aria-label={model["aria-label"]}
         aria-hidden={!open}
-        xstyle={[!open && styles.hidden, xstyle]}
-        style={mergeStyle(geometry, style)}
+        data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-year-picker-grid"}
+        style={mergeStyle({ ...compiled.style, ...geometry }, style)}
         onKeyDown={(event) => {
           onKeyDown?.(event);
           if (event.defaultPrevented || !open) return;
@@ -280,7 +297,7 @@ export function CalendarYearPickerGrid({
         }}
       >
         {children}
-      </Grid>
+      </Group>
     </GridContext>
   );
 }

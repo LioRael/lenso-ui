@@ -37,7 +37,7 @@ import {
 } from "@internationalized/date";
 import * as stylex from "@stylexjs/stylex";
 import { calendarStyles as styles } from "@lenso/tokens/calendar";
-import { styledPart, mergeStyle, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { racPart } from "../date-input-group/rac-part.js";
 import {
   YearPickerProvider,
@@ -128,8 +128,36 @@ function CalendarInner<T extends DateValue, M extends CalendarSelectionMode>({
     </CalendarView>
   );
 }
-export const CalendarHeader = styledPart("header", "calendar-header", styles.header);
-export const CalendarHeadingPart = styledPart(CalendarHeading, "calendar-heading", styles.heading);
+export function CalendarHeader({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<"header">>) {
+  const compiled = stylex.props(styles.header, xstyle);
+  return (
+    <header
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-header"}
+    />
+  );
+}
+export function CalendarHeadingPart({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof CalendarHeading>>) {
+  const compiled = stylex.props(styles.heading, xstyle);
+  return (
+    <CalendarHeading
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-heading"}
+    />
+  );
+}
 const Nav = racPart(
   Button,
   "calendar-nav-button",
@@ -176,26 +204,29 @@ export function CalendarNavButton({
     </Nav>
   );
 }
-const CalendarGridPart = styledPart(Grid, "calendar-grid", styles.grid);
 export function CalendarGrid({
   children,
   weekdayStyle = "short",
   xstyle,
+  style,
   ...props
 }: StyleXProps<ComponentPropsWithRef<typeof Grid>>) {
   const view = use(CalendarView);
   const { isYearPickerOpen, calendarGridSlot } = useYearPicker();
+  const compiled = stylex.props(
+    styles.grid,
+    view.days != null && styles.dayGrid,
+    isYearPickerOpen && styles.gridHidden,
+    xstyle,
+  );
   return (
     <CalendarView value={{ ...view, weekdayStyle }}>
-      <CalendarGridPart
+      <Grid
         {...props}
-        data-slot={calendarGridSlot}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        data-slot={calendarGridSlot ?? "calendar-grid"}
         weekdayStyle={weekdayStyle}
-        xstyle={[
-          view.days != null && styles.dayGrid,
-          isYearPickerOpen && styles.gridHidden,
-          xstyle,
-        ]}
       >
         {typeof children === "function" ? (
           <>
@@ -207,7 +238,7 @@ export function CalendarGrid({
         ) : (
           (children ?? [])
         )}
-      </CalendarGridPart>
+      </Grid>
     </CalendarView>
   );
 }
@@ -223,7 +254,6 @@ function styledRows(children: ReactNode) {
     });
   });
 }
-const Header = styledPart(GridHeader, "calendar-grid-header", styles.section);
 export function CalendarGridHeader({
   children,
   render,
@@ -234,19 +264,21 @@ export function CalendarGridHeader({
   const view = use(CalendarView);
   const state = useCalendarOrRangeState();
   const { locale } = useLocale();
+  const section = stylex.props(styles.section, view.days != null && styles.daySection, xstyle);
   if ((view.days ?? 0) < 7 || typeof children !== "function")
     return (
-      <Header
+      <GridHeader
         {...props}
-        xstyle={[view.days != null && styles.daySection, xstyle]}
-        {...(style === undefined ? {} : { style })}
+        {...section}
+        style={mergeStyle(section.style, style)}
+        data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-grid-header"}
         render={(domProps, values) => {
           const next = { ...domProps, children: styledRows(domProps.children) };
           return render ? render(next, values) : <thead {...next} />;
         }}
       >
         {children}
-      </Header>
+      </GridHeader>
     );
   const start = startOfWeek(state.visibleRange.start, locale, view.firstDayOfWeek);
   const formatter = new Intl.DateTimeFormat(locale, {
@@ -273,7 +305,6 @@ export function CalendarGridHeader({
   };
   return render ? render(domProps, undefined) : <thead {...domProps} />;
 }
-const Body = styledPart(GridBody, "calendar-grid-body", styles.section);
 export function CalendarGridBody({
   children,
   render,
@@ -284,23 +315,26 @@ export function CalendarGridBody({
   const view = use(CalendarView);
   const state = useCalendarOrRangeState();
   const { locale } = useLocale();
+  const section = stylex.props(
+    styles.section,
+    view.days != null && styles.daySection,
+    view.days != null && styles.dayBody,
+    xstyle,
+  );
   if ((view.days ?? 0) < 7 || typeof children !== "function")
     return (
-      <Body
+      <GridBody
         {...props}
-        xstyle={[
-          view.days != null && styles.daySection,
-          view.days != null && styles.dayBody,
-          xstyle,
-        ]}
-        {...(style === undefined ? {} : { style })}
+        {...section}
+        style={mergeStyle(section.style, style)}
+        data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-grid-body"}
         render={(domProps, values) => {
           const next = { ...domProps, children: styledRows(domProps.children) };
           return render ? render(next, values) : <tbody {...next} />;
         }}
       >
         {children}
-      </Body>
+      </GridBody>
     );
   const rows = [];
   let rowStart = startOfWeek(state.visibleRange.start, locale, view.firstDayOfWeek);
@@ -332,11 +366,21 @@ export function CalendarGridBody({
   };
   return render ? render(domProps, undefined) : <tbody {...domProps} />;
 }
-export const CalendarHeaderCellPart = styledPart(
-  CalendarHeaderCell,
-  "calendar-header-cell",
-  styles.headerCell,
-);
+export function CalendarHeaderCellPart({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentPropsWithRef<typeof CalendarHeaderCell>>) {
+  const compiled = stylex.props(styles.headerCell, xstyle);
+  return (
+    <CalendarHeaderCell
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-header-cell"}
+    />
+  );
+}
 export const CalendarCellSelection = createContext(false);
 const CalendarCellPart = racPart(
   Cell,
@@ -376,17 +420,20 @@ export function CalendarCell({
     </CalendarCellPart>
   );
 }
-const Indicator = styledPart("span", "calendar-cell-indicator", styles.indicator);
 export function CalendarCellIndicator({
   xstyle,
+  style,
   ...props
 }: StyleXProps<ComponentPropsWithRef<"span">>) {
   const selected = use(CalendarCellSelection);
+  const compiled = stylex.props(styles.indicator, selected && styles.selectedIndicator, xstyle);
   return (
-    <Indicator
+    <span
       {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-cell-indicator"}
       aria-hidden="true"
-      xstyle={[selected && styles.selectedIndicator, xstyle]}
     />
   );
 }

@@ -24,6 +24,7 @@ export function ThemeScope({ theme, xstyle, style, children, ref, ...props }: Th
     const portal = document.createElement("div");
     portal.dataset["slot"] = "theme-portal-host";
     document.body.append(portal);
+    // oxlint-disable-next-line react/set-state-in-effect -- Publish the committed external DOM host; creating browser nodes during render is unsafe.
     setHost(portal);
     return () => portal.remove();
   }, []);
@@ -33,6 +34,7 @@ export function ThemeScope({ theme, xstyle, style, children, ref, ...props }: Th
     if (!host || !scope) return;
     const synchronize = () => {
       const computed = getComputedStyle(scope);
+      // oxlint-disable-next-line react/immutability -- The state stores node identity; this browser-owned style declaration is mutable.
       host.style.cssText = "";
       // Copy the complete custom-property environment, not a fixed token list.
       // Consumer variables can participate in the upstream live color mixes.

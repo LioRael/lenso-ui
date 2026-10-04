@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { chromium } from "playwright";
-import { checkDocumentationShell } from "../test/shell.browser.mjs";
+import { checkAuthoredPage, checkDocumentationShell } from "../test/shell.browser.mjs";
 
 const require = createRequire(import.meta.url);
 const base = process.env["LENSO_DOCS_TEST_URL"] ?? "http://127.0.0.1:3000";
@@ -84,8 +84,8 @@ try {
     return page.getByRole("region", { name: `Example: ${id}`, exact: true });
   }
 
-  const dropdown = await basicExample("dropdown", "dropdown-default");
-  const menuTrigger = dropdown.getByRole("button", { name: "Menu", exact: true });
+  const menu = await basicExample("menu", "menu-default");
+  const menuTrigger = menu.getByRole("button", { name: "Menu", exact: true });
   await menuTrigger.focus();
   await page.keyboard.press("Enter");
   await page.getByRole("menuitem", { name: "New file", exact: true }).waitFor();
@@ -186,29 +186,20 @@ try {
   await dismiss.click();
   await dismiss.waitFor({ state: "hidden" });
 
-  await page.goto(`${base}/en/docs/react/getting-started/quick-start`, {
-    waitUntil: "networkidle",
-  });
-  const tabs = page.getByRole("tablist", { name: "Code examples", exact: true }).first();
-  const first = tabs.getByRole("tab").first();
-  assert.ok(
-    (await tabs.getByRole("tab").count()) >= 2,
-    "The imported installation page must expose its package-manager tabs.",
-  );
-  await first.focus();
-  await page.keyboard.press("ArrowRight");
-  assert.equal(
-    await tabs
-      .getByRole("tab")
-      .nth(1)
-      .evaluate((element) => element === document.activeElement),
-    true,
-  );
+  // Archived quick-start package-manager tabs are not a published Lenso contract.
+  // Prove the authored installation MDX and copied source instead; live native
+  // keyboard/focus checks above and in the shell remain independent evidence.
+  await checkAuthoredPage(page, base, "react/getting-started/installation", [
+    "Packages",
+    "Theme stylesheet",
+    "Application StyleX",
+    "Verify a consumer",
+  ]);
 
   await checkDocumentationShell(page, base);
   assert.deepEqual(errors, [], "Rendered documentation must not emit client errors.");
   console.log(
-    "Browser proof passed: native demos, focus restoration, semantic accessibility, theme propagation, search, locale navigation, tab keyboard navigation and mobile drawer geometry.",
+    "Browser proof passed: native demos, focus restoration, semantic accessibility, theme propagation, search, locale navigation, authored installation/StyleX MDX and exact Markdown copying, and mobile drawer geometry.",
   );
 } finally {
   await browser.close();

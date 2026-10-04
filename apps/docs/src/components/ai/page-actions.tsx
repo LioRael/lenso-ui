@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, ChevronDown, Copy } from "@gravity-ui/icons";
-import { Button, Dropdown } from "@lenso/ui";
+import { Button, Menu } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { notebook } from "@/styles/notebook.stylex";
 
@@ -31,23 +31,23 @@ export function ViewOptions({ markdown, sourceUrl }: { markdown: string; sourceU
           )}
           Copy Markdown
         </Button>
-        <Dropdown.Root>
-          <Dropdown.Trigger aria-label="Page source options" xstyle={notebook.pageActionMenu}>
+        <Menu.Root>
+          <Menu.Trigger aria-label="Page source options" xstyle={notebook.pageActionMenu}>
             <ChevronDown width={14} height={14} aria-hidden="true" />
-          </Dropdown.Trigger>
-          <Dropdown.Portal>
-            <Dropdown.Positioner sideOffset={8} align="end">
-              <Dropdown.Popup xstyle={notebook.menu}>
-                <Dropdown.Item onClick={copy} xstyle={notebook.menuItem}>
+          </Menu.Trigger>
+          <Menu.Portal>
+            <Menu.Positioner sideOffset={8} align="end">
+              <Menu.Popup xstyle={notebook.menu}>
+                <Menu.Item onClick={copy} xstyle={notebook.menuItem}>
                   Copy Markdown
-                </Dropdown.Item>
-                <Dropdown.LinkItem href={sourceUrl} xstyle={notebook.menuItem}>
-                  View pinned upstream page
-                </Dropdown.LinkItem>
-              </Dropdown.Popup>
-            </Dropdown.Positioner>
-          </Dropdown.Portal>
-        </Dropdown.Root>
+                </Menu.Item>
+                <Menu.LinkItem href={sourceUrl} xstyle={notebook.menuItem}>
+                  View page source
+                </Menu.LinkItem>
+              </Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.Root>
       </div>
       <output {...stylex.props(notebook.hidden)}>{status}</output>
     </>

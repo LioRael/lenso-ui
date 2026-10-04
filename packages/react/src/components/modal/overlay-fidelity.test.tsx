@@ -142,36 +142,53 @@ function ToastQueue() {
   );
 }
 
-it("unifies collapsed toast heights, hides rear content and paints only source tone parts", async () => {
-  await render(
-    <Toast.Provider>
-      <ToastQueue />
-    </Toast.Provider>,
-  );
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  const roots = [...document.querySelectorAll('[data-slot="toast"]')];
-  expect(roots).toHaveLength(2);
-  const front = roots.find((root) => root.hasAttribute("data-frontmost"))!;
-  const rear = roots.find((root) => !root.hasAttribute("data-frontmost"))!;
-  await expect.poll(() => getComputedStyle(rear).height).toBe(getComputedStyle(front).height);
-  expect(getComputedStyle(rear.querySelector('[data-slot="toast-content"]')!).opacity).toBe("0");
-  expect(getComputedStyle(front.querySelector('[data-slot="toast-content"]')!).opacity).toBe("1");
-  expect(
-    getComputedStyle(document.querySelector('[data-slot="toast-viewport"]')!).insetInlineStart,
-  ).toBe("16px");
-  expect(getComputedStyle(front).transformOrigin.endsWith(" 0px")).toBe(true);
-  await userEvent.hover(front);
-  await expect.poll(() => rear.hasAttribute("data-expanded")).toBe(true);
-  await painted(rear.querySelector('[data-slot="toast-content"]')!, "opacity", "1");
-  expect(getComputedStyle(rear, "::after").content).toBe('""');
-  const sourceColor = document.createElement("span");
-  sourceColor.style.color = "var(--success-soft-foreground)";
-  front.append(sourceColor);
-  expect(getComputedStyle(front.querySelector('[data-slot="toast-title"]')!).color).toBe(
-    getComputedStyle(sourceColor).color,
-  );
-  sourceColor.remove();
-});
+it.each([false, true])(
+  "unifies collapsed toast heights, hides rear content and paints only source tone parts (prehover=%s)",
+  async (prehover) => {
+    await render(
+      <Toast.Provider>
+        <ToastQueue />
+      </Toast.Provider>,
+    );
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const roots = [...document.querySelectorAll('[data-slot="toast"]')];
+    expect(roots).toHaveLength(2);
+    const front = roots.find((root) => root.hasAttribute("data-frontmost"))!;
+    const rear = roots.find((root) => !root.hasAttribute("data-frontmost"))!;
+    if (prehover) {
+      await userEvent.hover(front);
+      await expect.poll(() => rear.hasAttribute("data-expanded")).toBe(true);
+      await expect
+        .poll(() => getComputedStyle(rear).height)
+        .toBe(getComputedStyle(rear).getPropertyValue("--toast-height").trim());
+    }
+    // A retained browser pointer can expand this top-start stack before the assertion.
+    await cdp().send("Input.dispatchMouseEvent", {
+      type: "mouseMoved",
+      x: window.innerWidth - 1,
+      y: window.innerHeight - 1,
+    });
+    await expect.poll(() => rear.hasAttribute("data-expanded")).toBe(false);
+    await expect.poll(() => getComputedStyle(rear).height).toBe(getComputedStyle(front).height);
+    expect(getComputedStyle(rear.querySelector('[data-slot="toast-content"]')!).opacity).toBe("0");
+    expect(getComputedStyle(front.querySelector('[data-slot="toast-content"]')!).opacity).toBe("1");
+    expect(
+      getComputedStyle(document.querySelector('[data-slot="toast-viewport"]')!).insetInlineStart,
+    ).toBe("16px");
+    expect(getComputedStyle(front).transformOrigin.endsWith(" 0px")).toBe(true);
+    await userEvent.hover(front);
+    await expect.poll(() => rear.hasAttribute("data-expanded")).toBe(true);
+    await painted(rear.querySelector('[data-slot="toast-content"]')!, "opacity", "1");
+    expect(getComputedStyle(rear, "::after").content).toBe('""');
+    const sourceColor = document.createElement("span");
+    sourceColor.style.color = "var(--success-soft-foreground)";
+    front.append(sourceColor);
+    expect(getComputedStyle(front.querySelector('[data-slot="toast-title"]')!).color).toBe(
+      getComputedStyle(sourceColor).color,
+    );
+    sourceColor.remove();
+  },
+);
 
 it("removes motion and fills the viewport for full modals", async () => {
   await cdp().send("Emulation.setEmulatedMedia", {

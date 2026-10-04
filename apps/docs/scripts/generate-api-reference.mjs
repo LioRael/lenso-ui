@@ -12,11 +12,12 @@ const upstream = {
 };
 
 export async function generateApiReference(directory = root, dependencyRoot = directory) {
+  directory = path.resolve(directory);
+  dependencyRoot = path.resolve(dependencyRoot);
   const ts = require(
-    process.env.API_REFERENCE_TYPESCRIPT ??
-      require.resolve("typescript-api", {
-        paths: [path.join(dependencyRoot, "apps/docs"), dependencyRoot],
-      }),
+    require.resolve("typescript-api", {
+      paths: [path.join(dependencyRoot, "apps/docs"), dependencyRoot],
+    }),
   );
   const sourceRoot = path.join(directory, "packages/react/src");
   const publicIndex = ts.createSourceFile(
@@ -39,8 +40,14 @@ export async function generateApiReference(directory = root, dependencyRoot = di
     jsx: ts.JsxEmit.ReactJSX,
     baseUrl: directory,
     paths: { "@lenso/tokens/*": ["packages/styles/src/components/*/index.ts"] },
+    // Automatic ambient types otherwise come from the caller's cwd, changing React aliases.
+    typeRoots: [...new Set([directory, dependencyRoot])].flatMap((base) => [
+      path.join(base, "apps/docs/node_modules/@types"),
+      path.join(base, "node_modules/@types"),
+    ]),
   };
   const host = ts.createCompilerHost(options);
+  host.getCurrentDirectory = () => directory;
   host.resolveModuleNames = (names, containingFile) =>
     names.map((name) => {
       const local = ts.resolveModuleName(name, containingFile, options, host).resolvedModule;
@@ -73,9 +80,9 @@ export async function generateApiReference(directory = root, dependencyRoot = di
     const filename = file.fileName;
     const line = file.getLineAndCharacterOfPosition(node.getStart()).line + 1;
     const relative = path.relative(directory, filename).replaceAll("\\", "/");
-    if (!relative.startsWith("../")) return { path: relative, line };
     const match = filename.match(/node_modules\/(?:\.pnpm\/[^/]+\/node_modules\/)?(.+)/);
-    return { path: match ? `node_modules/${match[1]}` : relative, line };
+    if (match) return { path: `node_modules/${match[1]}`, line };
+    return { path: relative, line };
   };
   const defaults = (declarations) => {
     const result = {};
@@ -116,7 +123,7 @@ export async function generateApiReference(directory = root, dependencyRoot = di
     const parts = [];
     for (const exported of checker.getExportsOfModule(module.symbol)) {
       const name = exported.getName();
-      if (!/^[A-Z]/.test(name) || /Context$/.test(name)) continue;
+      if (!/^[A-Z]/.test(name) || name.endsWith("Context")) continue;
       const symbol =
         exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
       const declaration = symbol.valueDeclaration;
@@ -173,8 +180,12 @@ export async function generateApiReference(directory = root, dependencyRoot = di
                   stateName,
                   fields.map((field) => {
                     const fieldType = checker.getTypeOfSymbolAtLocation(field, node);
+                    const fieldName = field.valueDeclaration?.name ?? field.declarations?.[0]?.name;
                     return {
-                      name: field.name,
+                      name:
+                        fieldName && ts.isComputedPropertyName(fieldName)
+                          ? fieldName.getText()
+                          : field.name,
                       type: format(fieldType, declaration),
                       required: !(field.flags & ts.SymbolFlags.Optional),
                     };
@@ -242,15 +253,24 @@ export async function generateApiReference(directory = root, dependencyRoot = di
   return { upstream, properties: propertyPool, families: output };
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const result = await generateApiReference(
-    root,
-    process.env.API_REFERENCE_DEPENDENCY_ROOT ?? root,
-  );
-  const target = path.join(root, "apps/docs/src/generated");
+export async function writeApiReference(directory = root, dependencyRoot = directory) {
+  const result = await generateApiReference(directory, dependencyRoot);
+  const target = path.join(directory, "apps/docs/src/generated");
   await mkdir(target, { recursive: true });
-  await writeFile(path.join(target, "api-reference.json"), `${JSON.stringify(result, null, 2)}\n`);
+  const { format } = await import(require.resolve("oxfmt", { paths: [dependencyRoot] }));
+  const { $schema: _schema, ...formatOptions } = JSON.parse(
+    await readFile(path.join(directory, "packages/standard/oxfmt.json"), "utf8"),
+  );
+  const formatted = await format("api-reference.json", JSON.stringify(result), formatOptions);
+  if (formatted.errors.length)
+    throw new Error("Failed to format the generated native API reference.");
+  await writeFile(path.join(target, "api-reference.json"), formatted.code);
   console.log(
     `Native API: ${Object.keys(result.families).length} families, ${Object.values(result.families).reduce((total, family) => total + family.parts.length, 0)} public parts.`,
   );
+  return result;
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await writeApiReference(root, process.env.API_REFERENCE_DEPENDENCY_ROOT ?? root);
 }

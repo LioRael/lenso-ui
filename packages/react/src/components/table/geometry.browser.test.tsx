@@ -14,7 +14,7 @@ test("bounded percent and weighted flexible columns reflow and resize logically 
             <Table.Header>
               <Table.Column columnKey="a" width="25%" minWidth={100} maxWidth={180}>
                 Percent
-                <Table.ColumnResizer />
+                <Table.ColumnResizer aria-label="Resize percent column" />
               </Table.Column>
               <Table.Column columnKey="b" width="1fr" minWidth={100}>
                 One
@@ -41,9 +41,11 @@ test("bounded percent and weighted flexible columns reflow and resize logically 
   expect(columns()[2]! / columns()[1]!).toBeCloseTo(2, 1);
   screen.container.firstElementChild!.setAttribute("style", "width:600px");
   await expect.poll(() => columns()[0]).toBeCloseTo(148, 0);
-  await page.getByRole("separator").click();
+  await page.getByRole("separator", { name: "Resize percent column" }).click();
   await userEvent.keyboard("{ArrowLeft}");
-  await expect.element(page.getByRole("separator")).toHaveAttribute("aria-valuenow", "158");
+  await expect
+    .element(page.getByRole("separator", { name: "Resize percent column" }))
+    .toHaveAttribute("aria-valuenow", "158");
 });
 test("native table range navigation skips disabled rows and header checkbox selects all", async () => {
   await render(

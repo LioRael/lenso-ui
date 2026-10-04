@@ -1,10 +1,13 @@
 // Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-import { Checkbox, CheckboxGroup } from "@lenso/ui";
+/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
+import { Checkbox, CheckboxGroup, TextField } from "@lenso/ui";
+import { labelStyles } from "@lenso/tokens/label";
+import { descriptionStyles } from "@lenso/tokens/description";
+import { checkboxSupportingStyles } from "@lenso/tokens/checkbox";
 import { useId } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { demoStyles } from "../../demo.stylex";
 const interests = [
   {
     value: "coding",
@@ -25,15 +28,19 @@ const interests = [
 export function Basic() {
   const id = useId();
   return (
-    <div {...stylex.props(demoStyles.wideColumn)}>
-      <strong id={`${id}-label`}>选择你的兴趣</strong>
-      <p {...stylex.props(demoStyles.muted)}>可多选</p>
-      <CheckboxGroup aria-labelledby={`${id}-label`}>
+    <TextField name="interests">
+      <CheckboxGroup aria-labelledby={`${id}-label`} aria-describedby={`${id}-help`}>
+        <span id={`${id}-label`} {...stylex.props(labelStyles.label)}>
+          选择你的兴趣
+        </span>
+        <span id={`${id}-help`} {...stylex.props(descriptionStyles.description)}>
+          可多选
+        </span>
         {interests.map((interest) => (
           <Checkbox
             key={interest.value}
-            name="interests"
             value={interest.value}
+            aria-label={interest.label}
             aria-describedby={`${id}-${interest.value}`}
           >
             <Checkbox.Content>
@@ -42,12 +49,15 @@ export function Basic() {
               </Checkbox.Control>
               {interest.label}
             </Checkbox.Content>
-            <span id={`${id}-${interest.value}`} {...stylex.props(demoStyles.muted)}>
+            <span
+              id={`${id}-${interest.value}`}
+              {...stylex.props(descriptionStyles.description, checkboxSupportingStyles.direct)}
+            >
               {interest.description}
             </span>
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </div>
+    </TextField>
   );
 }

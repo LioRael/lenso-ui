@@ -1,0 +1,130 @@
+{
+  "status": "Blocked upstream compiler bug; legacy-mode adoption withdrawn; production compiler configuration unchanged",
+  "commands": {
+    "baseline": "node packages/testing/tests/compiled-priority/proof.mjs <empty-scratch> <read-only-dependency-project>",
+    "rejectedExperiment": "node packages/testing/tests/compiled-priority/proof.mjs <different-empty-scratch> <read-only-dependency-project> --legacy",
+    "rejectedApplicationOrder": "node packages/testing/tests/compiled-priority/proof.mjs <another-empty-scratch> <read-only-dependency-project> --application-order"
+  },
+  "versions": {
+    "node": "24.18.0",
+    "@stylexjs/stylex": "0.19.0",
+    "@stylexjs/unplugin": "0.19.0",
+    "@stylexjs/babel-plugin": "0.19.0",
+    "@babel/core": "7.29.7",
+    "lightningcss": "1.33.0",
+    "vite": "8.2.1",
+    "playwright": "1.62.1"
+  },
+  "configuration": {
+    "packagesAndConsumer": {
+      "dev": false,
+      "useCSSLayers": false,
+      "lightningcssOptions": { "exclude": 4 },
+      "styleResolution": "property-specificity (compiler default)"
+    },
+    "packageDevMode": "off",
+    "consumer": "Production Vite invokes the actual Storybook viteFinal compiler configuration"
+  },
+  "cause": {
+    "function": "@stylexjs/babel-plugin processStylexRules",
+    "rule": "Added selector specificity uses the ordinal index of present floor(priority / 1000) buckets, not the numeric priority",
+    "identicalRawAtoms": {
+      "opacityDefault": { "priority": 3000, "hash": "xg01cxk" },
+      "opacityChecked": { "priority": 3040, "hash": "x1u52q9k" },
+      "scaleDefaultBefore": { "priority": 8000, "hash": "xw5a0fk" },
+      "scaleCheckedBefore": { "priority": 8040, "hash": "x1j94mun" }
+    },
+    "unrelatedRulesExperiment": {
+      "addedProperties": { "margin": 1000, "borderWidth": 2000 },
+      "opacityIdGuards": { "before": 0, "after": 2 },
+      "scaleIdGuards": { "before": 1, "after": 3 },
+      "targetRawAtomsChanged": false,
+      "mismatchPresentBeforeLightningCSS": true
+    },
+    "alternatives": {
+      "styleResolution": "All three supported values produce the same scalar priority mismatch",
+      "useCSSLayers": "Also bundle-relative: identical opacity shifts priority1 to priority3; scale shifts priority2 to priority4",
+      "staleOutputs": "Excluded by repeated empty-scratch fresh token/UI builds and production consumer builds"
+    }
+  },
+  "realConsumption": {
+    "baseline": {
+      "exitCode": 1,
+      "checkedSvgOpacity": "0",
+      "checkedRadioScale": "1",
+      "opacityIdGuards": { "package": 3, "consumer": 1 },
+      "scaleIdGuards": { "package": 8, "consumer": 4 },
+      "paddingBeforeLatePackageCSS": "29px",
+      "paddingAfterLatePackageCSS": "29px",
+      "fullUISuite": { "passed": 251, "failed": 0, "files": 36 }
+    },
+    "rejectedScratchPublicProcessorFlag": {
+      "change": "Explicit --legacy applies the experimental CJS/ESM forwarding patch and enables legacyDisableLayers only in scratch package/consumer configs; no compiler implementation changes",
+      "exitCode": 1,
+      "initialScalarOnlyFixtureExitCode": 0,
+      "checkedSvgOpacity": "1",
+      "checkedRadioScale": "0.5",
+      "uncheckedRadioScale": "1",
+      "paddingBeforeLatePackageCSS": "29px",
+      "paddingAfterLatePackageCSS": "24px",
+      "dynamicInlineVariable": "--x-paddingTop: 29px",
+      "cause": "Consumer padding-top and package padding shorthand have equal specificity after synthetic priority is disabled; later package stylesheet resets the consumer longhand",
+      "fullUISuite": {
+        "runs": 2,
+        "passed": 248,
+        "failed": 3,
+        "failures": [
+          "modal popup contract",
+          "alert-dialog popup contract",
+          "drawer popup contract"
+        ],
+        "expectedPaddingTop": "29px",
+        "actualPaddingTop": "24px",
+        "singleFileRunPassed": 4,
+        "oldModeSingleFileRunPassed": 4
+      },
+      "publicPluginOptionsProbe": "CJS and ESM Vite adapters both forward true with the experimental patch; omitted flag equals false, preserving default CSS"
+    },
+    "rejectedApplicationOrder": {
+      "styleResolution": "application-order in fresh token/UI and consumer compilation",
+      "legacyDisableLayers": true,
+      "productionConsumerExitCode": 1,
+      "fullUISuite": { "passed": 248, "failed": 3, "total": 251 },
+      "checkedSvgOpacity": "1",
+      "checkedRadioScale": "0.5",
+      "paddingBeforeLatePackageCSS": "29px",
+      "paddingAfterLatePackageCSS": "24px",
+      "directionalAfterLatePackageCSS": "LTR and RTL both resolve left/right padding to package24 rather than caller logical/physical values",
+      "matchingModesProven": "Fresh package map and consumer compiled together; package shorthand key kmVPX3 retains xggk2y7 while dynamic consumer physical paddingTop uses kLKAdn with x1jm3axb and --x-paddingTop29px",
+      "falsifiedHypothesis": "application-order does not expand padding into longhands; it retains the shorthand declaration and overlapping null keys",
+      "compilerKeyABI": "StyleResolution controls overlap/null-key metadata used by stylex.props; source packages and consumers must rebuild in the same mode. Matching mode alone does not eliminate the stylesheet-order failure"
+    },
+    "bothRuns": {
+      "freshPackages": ["tokens", "ui"],
+      "packageDeclarations": true,
+      "strictConsumerTypes": true,
+      "productionConsumerBuild": true,
+      "nativeSpaceAndArrowDown": true,
+      "svgGeometry": { "width": 10, "height": 10 },
+      "radioGeometryWidth": 16,
+      "nativeCheckedCheckboxBefore": { "opacity": "1", "scale": "1" },
+      "nativeCheckedRadioBeforeScale": "0.4286",
+      "packageXstyleLastOpacity": "0.75",
+      "localLastStyle": {
+        "width": 20,
+        "opacity": "0.75",
+        "marginLeft": "4px",
+        "marginRight": "10px"
+      },
+      "pageErrors": []
+    }
+  },
+  "supportedAPI": {
+    "processor": "Default export from @stylexjs/babel-plugin exposes processStylexRules(rules, { useLayers, enableLTRRTLComments, legacyDisableLayers?: boolean }) in lib/index.d.ts",
+    "unplugin": "UserOptions in lib/core.d.ts already declares legacyDisableLayers?: boolean and is re-exported by lib/index.d.ts",
+    "missingBehavior": "Runtime collectCss and processCollectedRulesToCSS do not forward the declared option",
+    "experimentalPatch": "unplugin-forwarding.experimental.patch extracts the existing typed flag, defaults false and forwards collectCss to processStylexRules in CJS and ESM",
+    "rejection": "Removing specificity tiers is not semantically safe across independent sheets: package shorthand can overwrite a later-composed consumer physical longhand",
+    "decision": "No active patchedDependencies registration, no legacy:true production options, no dependency version changes; experimental forwarding patch retained only for reproducing the rejected approach"
+  }
+}

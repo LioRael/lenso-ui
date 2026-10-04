@@ -1,0 +1,32 @@
+{
+  "name": "@lenso/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Read-only stdio access to the version-matched Lenso contract.",
+  "license": "MIT",
+  "bin": {
+    "lenso-mcp": "./dist/server.mjs"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "node --check src/server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.31.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "engines": {
+    "node": "^24.18.0"
+  }
+}

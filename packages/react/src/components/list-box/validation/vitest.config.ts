@@ -1,11 +1,11 @@
 import { defineConfig } from "vitest/config";
 import { playwright } from "@vitest/browser-playwright";
-import stylex from "@stylexjs/unplugin";
+import stylex from "@lenso/stylex-build";
 import path from "node:path";
 export default defineConfig({
   plugins: [
     stylex.vite({
-      useCSSLayers: false,
+      metadata: [new URL(import.meta.resolve("@lenso/tokens/stylex-rules.json"))],
       unstable_moduleResolution: { type: "commonJS", rootDir: process.cwd() },
     }),
   ],

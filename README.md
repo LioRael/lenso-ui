@@ -16,6 +16,7 @@ packages/
   primitives/           preserved headless package
   react/                @lenso/ui React component families
   styles/               @lenso/tokens themes and StyleX component styles
+  stylex-build/         @lenso/stylex-build 0.1.0 raw StyleX build processing
   standard/             shared quality-tool conventions
   testing/              browser test infrastructure
   storybook/            component development
@@ -43,31 +44,64 @@ There is no old DTCG token graph, registry or compatibility API.
 
 ## Status
 
+This section describes the current source checkout, including work after the
+published `0.8.0` release. These follow-up changes are not a new package release.
 The replacement package graph and documentation application build and run.
-`pnpm check` passes, including 193 UI Chromium tests and the 11 unchanged
-primitive tests. The documentation production build generates all 352
-English/Chinese pages. Its separate browser proof checks native demos,
-focus restoration, theme paint, search, locale navigation and mobile drawers.
+Workspace verification includes component Chromium suites and the unchanged
+primitive tests. The documentation production build generates 358 static
+routes, including 352 English/Chinese documentation pages.
 
 All 72 component pages have local adaptations: 682 English references resolve
 to 681 local demo modules. Interactive previews mount on the client, avoiding
 hydration of time-dependent example state from a static documentation build.
-Chinese pages currently reuse English previews and label that reuse explicitly;
-the source-backed localization generator and its artifacts are not yet wired
-into the runtime registry. Generated localization files are not counted as
-live Chinese coverage.
+English and Chinese each have 682 references resolving to 681 unique modules.
+The generated locale registry contains 649 source-backed translated Chinese
+projections and 33 explicitly evidenced source-equivalent reuses. The 33
+equivalents are explicit projections, not source-backed translations. Four
+disclosure projections use separately
+captured, hash-pinned public EN/CN source because the imported archive records
+omit Native-product code; the immutable public-source captures are verified.
+The React previews add neither a Native runtime nor App Store functionality.
+The archive remains preserved, with 471 partial/difference reports retained;
+these do not claim complete pixel or behavioral parity.
 
-Storybook records 126 source-adapted scenarios out of 583 pinned scenarios;
-the remaining scope is listed in its coverage report. These counts do not
+Storybook's [coverage report](packages/storybook/COVERAGE.md) records reviewed
+adaptations against all 583 pinned scenarios, with separate browser evidence
+for each batch and an explicit remaining inventory. These counts do not
 certify exhaustive behavior, upstream pixel parity, RTL or reduced-motion
 coverage.
-Some visible MDX API tables still preserve the upstream contract; replacing
-them with the generated native reference remains incomplete. Treat those tables
-as historical reference, not local API compatibility guarantees.
-Known remaining component gaps include mobile Drawer body/footer scrolling,
-noninteractive InputGroup prefix/suffix click-to-focus, and the ComboBox shell
-and secondary appearance. Registration and passing tests do not mark those
-contracts complete.
+Visible component API sections and Copy Markdown now use the generated native
+reference. Archived source snippets remain historical reference, not local API
+compatibility guarantees. Production proofs cover native API display/copy and
+selected EN/CN interactions across both themes at desktop/mobile widths.
+
+Follow-up fixes cover Drawer internal scrolling, InputGroup adornment focus,
+ComboBox shell/secondary appearance, scoped disabled-state paint and invalid
+compound-field outlines/focus rings, plus contextual date/time/color label
+feedback. Button now preserves native render-injected classes; this does not
+guarantee property-level priority between independently styled components
+across a styled `render` boundary.
+The Storybook batch reports retain these limits rather than
+treating registration or passing workflow tests as full source fidelity.
+
+The unpublished `@lenso/stylex-build` 0.1.0 package introduces raw package and
+application StyleX processing in one pass. This is the current pipeline for the
+cross-bundle specificity and stylesheet-order problem recorded in the historical
+[compiled-priority experiments](packages/testing/tests/compiled-priority/README.md).
+The frozen tool candidate independently passes the original three CSS-delivery
+and raw-query regressions. The isolated current-source documentation candidate
+builds 358 static pages on Node 24.18.0 and passes 38 docs unit tests, 136 locale
+cases, 16 native API cases and 8 SSR stylesheet cases. Its registry accounts for
+682 English and 682 Chinese references: 649 translated Chinese references,
+33 source-equivalent reuses and none blocked. Exact source and evidence hashes
+are recorded in [the docs acceptance capsule](apps/docs/test/final-source-acceptance.json).
+The final isolated UI/Storybook candidate also passes 253 browser tests and
+full strict types, builds all 583 source and 9 Local stories, and passes the
+choice, overlay and selection production iframe proofs. Its exact source and
+build hashes are recorded in
+[the UI/Storybook capsule](packages/testing/tests/compiled-priority/final-ui-storybook-acceptance.json).
+These gates do not certify exhaustive upstream parity and are not a release
+or publication claim.
 
 ## Migrating from the previous architecture
 

@@ -10,7 +10,7 @@ export function WithLoadingSuffix() {
   return (
     <TextField xstyle={styles.field} name="status">
       <InputGroup>
-        <InputGroup.Input xstyle={styles.field} defaultValue="Sending..." />
+        <InputGroup.Input aria-label="Status" xstyle={styles.field} defaultValue="Sending..." />
         <InputGroup.Suffix>
           <Spinner xstyle={styles.spinner} />
         </InputGroup.Suffix>

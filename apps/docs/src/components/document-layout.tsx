@@ -16,7 +16,8 @@ const inter = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
   title: { default: "Lenso UI", template: "%s · Lenso UI" },
-  description: "Source-backed Lenso UI documentation, derived from HeroUI v3.2.6.",
+  description:
+    "Lenso UI components with StyleX, native Base UI interactions, and React Aria date, time, and color models.",
 };
 
 export default function DocumentLayout({

@@ -1,6 +1,6 @@
 {
   "name": "@lenso/ui",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "HeroUI source reconstruction with StyleX and Base UI.",
   "license": "Apache-2.0",
   "repository": {
@@ -52,7 +52,7 @@
     "react-stately": "3.50.0"
   },
   "devDependencies": {
-    "@stylexjs/unplugin": "catalog:",
+    "@lenso/stylex-build": "workspace:*",
     "@types/node": "catalog:",
     "@types/pngjs": "6.0.5",
     "@types/react": "catalog:",

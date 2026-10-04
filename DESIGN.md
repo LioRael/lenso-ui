@@ -1,6 +1,6 @@
 # Source reconstruction
 
-The visual and structural authority is HeroUI **v3.2.6**, commit
+The visual reference is HeroUI **v3.2.6**, commit
 `e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e`, from
 https://github.com/heroui-inc/heroui.
 
@@ -15,8 +15,34 @@ registry, generators, Console templates and documentation shell are removed.
 - `packages/standard`: shared oxlint/oxfmt conventions.
 - `packages/testing`: browser proof infrastructure.
 - `packages/storybook`: component development surface.
-- `apps/docs/content` and `apps/docs/src`: upstream documentation architecture
-  and its implementation.
+- `apps/docs/content`: preserved upstream reference content and authored Lenso
+  documentation, kept separate.
+- `apps/docs/src`: the Lenso documentation application.
+
+## Lenso product identity
+
+Lenso owns its release versions, public names, installation instructions and
+component contracts. HeroUI's pinned version records provenance; it is not a
+Lenso version or a promise of API compatibility. The next UI/tokens candidate
+is `0.9.0`. `Menu` replaces the public `Dropdown` name without a compatibility
+export.
+
+Published documentation describes actual Lenso exports, native interaction
+contracts and supported build integrations. Upstream v2-to-v3 migration pages
+are reference archives, not published Lenso pages. Navigation, search, copied
+Markdown and tooling must use the same authored Lenso content.
+
+Docs, CLI, MCP and skills consume one versioned contract generated from current
+components, types and runnable examples. Do not maintain independent component
+inventories or revive the removed DTCG catalog. Design policy starts as an
+internal module; it complements oxlint and browser proof rather than duplicating
+them or banning supported caller styles.
+
+Keep applicable original copyright notices and concise modification notices on
+derived files, with license copies and third-party attribution included in
+distributions. Public documentation need not repeat upstream URLs or display a
+derivation banner on every page. Provenance stays auditable without being the
+product's user-facing identity.
 
 Keep source typography, geometry, themes, shadows, state feedback and motion.
 Use original OKLCH values and live `color-mix`; the previous DTCG-to-sRGB

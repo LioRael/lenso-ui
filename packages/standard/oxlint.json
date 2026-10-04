@@ -6,5 +6,16 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/packages/primitives/src/resize-handle/index.tsx",
+        "**/packages/primitives/src/sidebar/index.tsx"
+      ],
+      "rules": {
+        "react/refs": "off"
+      }
+    }
+  ]
 }

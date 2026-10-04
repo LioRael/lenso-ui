@@ -5,6 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Menu as Base } from "@base-ui/react/menu";
 import { menuStyles as s } from "@lenso/tokens/menu";
 import { menuItemStyles } from "@lenso/tokens/menu-item";
+import { modalStyles } from "@lenso/tokens/modal";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 import { MenuItem } from "../menu-item/index.js";
@@ -19,7 +20,7 @@ export function MenuTrigger({
   ...props
 }: StyleXProps<Omit<Base.Trigger.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Trigger>, "ref">) {
-  const compiled = stylex.props(xstyle);
+  const compiled = stylex.props(modalStyles.trigger, xstyle);
   return (
     <Base.Trigger
       {...props}

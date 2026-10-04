@@ -1,5 +1,5 @@
 import { playwright } from "@vitest/browser-playwright";
-import stylex from "@stylexjs/unplugin/vite";
+import stylex from "@lenso/stylex-build";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -8,6 +8,8 @@ export default defineConfig({
   oxc: { jsx: { runtime: "automatic" } },
   optimizeDeps: {
     include: [
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
       "@base-ui/react/accordion",
       "@base-ui/react/alert-dialog",
       "@base-ui/react/avatar",
@@ -63,10 +65,9 @@ export default defineConfig({
     ],
   },
   plugins: [
-    stylex({
-      dev: false,
+    stylex.vite({
+      metadata: [new URL(import.meta.resolve("@lenso/tokens/stylex-rules.json"))],
       devMode: "full",
-      useCSSLayers: false,
       // Lightning CSS Features.DirSelector: preserve dir, not a language approximation.
       lightningcssOptions: { exclude: 4 },
     }),
@@ -74,13 +75,14 @@ export default defineConfig({
   test: {
     include: ["src/**/*.test.tsx"],
     setupFiles: ["src/test-setup.ts"],
+    fileParallelism: false,
     browser: {
       enabled: true,
       headless: true,
       provider: playwright(),
       instances: [{ browser: "chromium" }],
       viewport: { width: 1280, height: 900 },
-      fileParallelism: false,
+      locators: { exact: false },
     },
   },
 });

@@ -3,40 +3,37 @@
 
 // Adapted from HeroUI v3.2.6 toast-default (Apache-2.0).
 import { Persons } from "@gravity-ui/icons";
+import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
+import { Notifications, styles, type ToastData } from "../../en/toast/_shared";
 function InvitationQueue() {
-  const manager = Toast.useToastManager();
+  const manager = Toast.useToastManager<ToastData>();
   return (
     <>
-      <Button
-        size="sm"
-        variant="secondary"
-        onClick={() =>
-          manager.add({
-            title: "You have been invited to join a team",
-            description: "Bob 邀请您加入 HeroUI 团队",
-          })
-        }
-      >
-        显示 Toast
-      </Button>
-      <Toast.Portal>
-        <Toast.Viewport>
-          {manager.toasts.map((toast) => (
-            <Toast key={toast.id} toast={toast}>
-              <Toast.Content>
-                <Toast.Indicator>
-                  <Persons />
-                </Toast.Indicator>
-                <Toast.Title />
-                <Toast.Description />
-                <Toast.Action onClick={() => manager.close(toast.id)}>忽略</Toast.Action>
-                <Toast.Close aria-label="Close notification" />
-              </Toast.Content>
-            </Toast>
-          ))}
-        </Toast.Viewport>
-      </Toast.Portal>
+      <div {...stylex.props(styles.frame)}>
+        <Button
+          size="sm"
+          variant="secondary"
+          onClick={() => {
+            const id = manager.add({
+              title: "You have been invited to join a team",
+              description: "Bob 邀请您加入 HeroUI 团队",
+              type: "default",
+              data: {
+                indicator: <Persons />,
+                actionStyle: "tertiary",
+              },
+              actionProps: {
+                children: "忽略",
+                onClick: () => manager.close(id),
+              },
+            });
+          }}
+        >
+          显示 Toast
+        </Button>
+      </div>
+      <Notifications />
     </>
   );
 }

@@ -6,7 +6,9 @@ import { ToggleButton } from "@lenso/ui";
 export function Basic() {
   return (
     <ToggleButton>
-      <Heart aria-hidden="true" />
+      <ToggleButton.Icon>
+        <Heart />
+      </ToggleButton.Icon>
       点赞
     </ToggleButton>
   );

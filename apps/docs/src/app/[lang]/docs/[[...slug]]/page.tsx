@@ -9,11 +9,23 @@ import { DocsLayout } from "@/components/fumadocs/layouts/notebook";
 import { PageTableOfContents } from "@/components/fumadocs/layouts/notebook/page";
 import { ComponentLinks } from "@/components/component-links";
 import { ViewOptions } from "@/components/ai/page-actions";
-import { source, isLocale, getPage, getNavigation, readPage, pageUrl } from "@/lib/source";
+import {
+  source,
+  isLocale,
+  getPage,
+  getNavigation,
+  readPage,
+  pageUrl,
+  canonicalSlug,
+  getSectionEntries,
+} from "@/lib/source";
 import { getMDXComponents, headingId } from "@/mdx-components";
 import { styles } from "@/styles/docs.stylex";
 import { notebook } from "@/styles/notebook.stylex";
-import { LocalInstallation } from "@/components/local-installation";
+import { NativeApiReference } from "@/components/native-api-reference";
+import { product } from "@/lib/product";
+import reference from "@/generated/api-reference.json";
+import { headingText, nativeApiFamily, replaceNativeApiSection } from "@/lib/native-api-section";
 
 interface Props {
   params: Promise<{ lang: string; slug?: string[] }>;
@@ -58,36 +70,51 @@ export default async function DocsPage({ params }: Props) {
   const { lang, slug } = await params;
   if (!isLocale(lang)) notFound();
   if (!slug?.length) redirect(`/${lang}/docs/react/getting-started`);
+  if (canonicalSlug(slug.join("/")) !== slug.join("/"))
+    redirect(`/${lang}/docs/${canonicalSlug(slug.join("/"))}`);
   const page = getPage(lang, slug.join("/"));
   if (!page) notFound();
   const raw = await readPage(page);
   const parsed = matter(raw);
   const contentSource = parsed.content;
+  const candidate = nativeApiFamily(page.slug);
+  const family = candidate && Object.hasOwn(reference.families, candidate) ? candidate : undefined;
+  const headings: { title: string; id: string; depth: number }[] = [];
+  const nativeSection = () => (tree: Parameters<typeof replaceNativeApiSection>[0]) => {
+    if (family) {
+      const locale = lang === "cn" ? "zh" : "en";
+      replaceNativeApiSection(tree, family, locale);
+    }
+    for (const node of tree.children ?? []) {
+      if (node.type === "mdxJsxFlowElement" && node.name === "NativeApiReference") {
+        headings.push({
+          title: lang === "cn" ? "API 参考" : "API Reference",
+          id: `native-api-${family}`,
+          depth: 2,
+        });
+      } else if (node.type === "heading" && node.depth && node.depth >= 2 && node.depth <= 4) {
+        const title = headingText(node);
+        if (node.depth === 4 && !title.includes("[!toc]")) continue;
+        headings.push({
+          title: title.replace(/\[!toc\]/g, "").trim(),
+          id: headingId(title),
+          depth: node.depth,
+        });
+      }
+    }
+  };
   const { content } = await compileMDX({
     source: contentSource,
-    components: getMDXComponents(lang),
+    components: { ...getMDXComponents(lang), NativeApiReference },
     options: {
-      // v6 otherwise drops literal JSX arrays/objects (color sections, tabs, prompts).
-      // Only the integrity-checked pinned local MDX enters this compiler.
+      // Compile only authored local content; archive MDX never enters the public route.
       blockJS: false,
       blockDangerousJS: true,
-      mdxOptions: { remarkPlugins: [remarkGfm] },
+      mdxOptions: { remarkPlugins: [remarkGfm, nativeSection] },
     },
   });
   const section = page.slug.split("/")[1] ?? "getting-started";
   const entries = await getNavigation(lang, section);
-  const headings = [
-    ...contentSource.replace(/(`{3,})[\s\S]*?\1/g, "").matchAll(/^(#{2,4}) (.+)$/gm),
-  ]
-    .filter(([, hashes, title]) => hashes !== "####" || title?.includes("[!toc]"))
-    .map(([, hashes, title]) => ({
-      title: (title ?? "")
-        .replace(/\[!toc\]/g, "")
-        .replace(/[`*]/g, "")
-        .trim(),
-      id: headingId(title ?? ""),
-      depth: hashes?.length ?? 2,
-    }));
   const searchEntries = source.pages
     .filter((candidate) => candidate.locale === lang)
     .map((candidate) => ({ label: candidate.title, href: pageUrl(candidate) }));
@@ -96,7 +123,15 @@ export default async function DocsPage({ params }: Props) {
   const previous = pageEntries[position - 1];
   const next = pageEntries[position + 1];
   return (
-    <DocsLayout locale={lang} slug={page.slug} entries={entries} searchEntries={searchEntries}>
+    <DocsLayout
+      locale={lang}
+      slug={page.slug}
+      entries={entries}
+      searchEntries={searchEntries}
+      version={product.version}
+      repository={product.repository}
+      sectionEntries={getSectionEntries(lang)}
+    >
       <PageTableOfContents items={headings} locale={lang} />
       <main
         id="main-content"
@@ -109,13 +144,11 @@ export default async function DocsPage({ params }: Props) {
             <h1 {...stylex.props(styles.title)}>{page.title}</h1>
             <ViewOptions
               markdown={raw}
-              sourceUrl={`https://github.com/heroui-inc/heroui/blob/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/${page.file}`}
+              sourceUrl={`${product.repository}/blob/main/apps/docs/${page.slug.startsWith("react/components") ? "scripts/docs-projection.mjs" : page.markdownFile}`}
             />
           </div>
           <p {...stylex.props(styles.description)}>{page.description}</p>
           <ComponentLinks links={parsed.data["links"]} />
-          {(page.slug === "react/getting-started" ||
-            page.slug === "react/getting-started/quick-start") && <LocalInstallation />}
           {content}
           <nav aria-label="Adjacent pages" {...stylex.props(notebook.pageFooter)}>
             {previous?.href && (
@@ -135,26 +168,6 @@ export default async function DocsPage({ params }: Props) {
               </Link>
             )}
           </nav>
-          <footer {...stylex.props(styles.footer)}>
-            Documentation derived from{" "}
-            <a
-              href={`https://github.com/heroui-inc/heroui/blob/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/${page.file}`}
-              {...stylex.props(styles.proseLink)}
-            >
-              HeroUI v3.2.6
-            </a>
-            , licensed under Apache-2.0. Imports and runtime changed for Lenso UI.
-            <p>
-              Lenso UI is an independent derivation, not an official HeroUI product. Ordinary
-              controls use native Base UI; date, time, and color use local React Aria projections.
-              Imported API tables and Tailwind instructions are upstream historical reference, not
-              the local API.{" "}
-              <Link href="/coverage" {...stylex.props(styles.proseLink)}>
-                Check migration coverage
-              </Link>
-              .
-            </p>
-          </footer>
         </article>
       </main>
     </DocsLayout>

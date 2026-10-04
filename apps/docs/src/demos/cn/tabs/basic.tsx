@@ -16,7 +16,7 @@ export function Basic() {
   return (
     <Tabs defaultValue="overview" xstyle={styles.root}>
       <Tabs.ListContainer>
-        <Tabs.List aria-label="选项">
+        <Tabs.List activateOnFocus aria-label="选项">
           <Tabs.Tab value="overview">概览</Tabs.Tab>
           <Tabs.Tab value="analytics">分析</Tabs.Tab>
           <Tabs.Tab value="reports">报告</Tabs.Tab>

@@ -7,8 +7,9 @@ import {
   ColorSwatch,
   type ColorSwatchPickerItemRenderProps,
 } from "react-aria-components/ColorSwatchPicker";
+import * as stylex from "@stylexjs/stylex";
 import { colorSwatchPickerStyles as styles } from "@lenso/tokens/color-swatch-picker";
-import { styledPart, type StyleXProps } from "../../utils/styled.js";
+import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { racPart } from "../date-input-group/rac-part.js";
 type Size = "xs" | "sm" | "md" | "lg" | "xl";
 const Options = createContext<{ size: Size; variant: "circle" | "square" }>({
@@ -16,7 +17,6 @@ const Options = createContext<{ size: Size; variant: "circle" | "square" }>({
   variant: "circle",
 });
 const ItemState = createContext<ColorSwatchPickerItemRenderProps | null>(null);
-const Root = styledPart(ColorSwatchPicker, "color-swatch-picker", styles.root);
 export type ColorSwatchPickerRootProps = StyleXProps<
   ComponentPropsWithRef<typeof ColorSwatchPicker>
 > & { size?: Size; variant?: "circle" | "square"; layout?: "grid" | "stack" };
@@ -25,11 +25,19 @@ export function ColorSwatchPickerRoot({
   variant = "circle",
   layout = "grid",
   xstyle,
+  style,
   ...props
 }: ColorSwatchPickerRootProps) {
+  const compiled = stylex.props(styles.root, layout === "stack" && styles.stack, xstyle);
   return (
     <Options value={{ size, variant }}>
-      <Root {...props} layout={layout} xstyle={[layout === "stack" && styles.stack, xstyle]} />
+      <ColorSwatchPicker
+        {...props}
+        {...compiled}
+        data-slot={props["data-slot"] ?? "color-swatch-picker"}
+        layout={layout}
+        style={mergeStyle(compiled.style, style)}
+      />
     </Options>
   );
 }
@@ -74,7 +82,6 @@ export function ColorSwatchPickerSwatch(
   const state = use(ItemState);
   return <Swatch {...props} xstyle={[state?.isSelected && styles.selectedSwatch, props.xstyle]} />;
 }
-const Indicator = styledPart("span", "color-swatch-picker-indicator", styles.indicator);
 export type ColorSwatchPickerIndicatorProps = StyleXProps<
   Omit<ComponentPropsWithRef<"span">, "children">
 > & { children?: ReactNode | ((state: ColorSwatchPickerItemRenderProps) => ReactNode) };
@@ -91,15 +98,19 @@ export function ColorSwatchPickerIndicator({
       0.7152 * color.getChannelValue("green") +
       0.0722 * color.getChannelValue("blue")) /
     255;
+  const compiled = stylex.props(
+    styles.indicator,
+    luminance > 0.5 && styles.lightIndicator,
+    !state.isSelected && styles.hidden,
+    xstyle,
+  );
   return (
-    <Indicator
+    <span
       {...props}
+      {...compiled}
       aria-hidden="true"
-      xstyle={[
-        luminance > 0.5 && styles.lightIndicator,
-        !state.isSelected && styles.hidden,
-        xstyle,
-      ]}
+      data-slot={props["data-slot"] ?? "color-swatch-picker-indicator"}
+      style={mergeStyle(compiled.style, props.style)}
     >
       {typeof children === "function"
         ? children(state)
@@ -115,6 +126,6 @@ export function ColorSwatchPickerIndicator({
               <polyline points="2.5 6 5 8.5 9.5 3" />
             </svg>
           ))}
-    </Indicator>
+    </span>
   );
 }

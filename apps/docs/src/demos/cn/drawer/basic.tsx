@@ -17,9 +17,10 @@ export function Basic() {
                   <Drawer.Title>抽屉标题</Drawer.Title>
                 </Drawer.Header>
                 <Drawer.Body>
-                  <Drawer.Description>
-                    This drawer slides in from the right of the screen.
-                  </Drawer.Description>
+                  <p>
+                    这是一个基于 React Aria Modal 组件构建的抽屉。它会从屏幕边缘滑入，并通过流畅的
+                    CSS 过渡呈现动画效果。
+                  </p>
                 </Drawer.Body>
                 <Drawer.Footer>
                   <Drawer.Close render={<Button variant="secondary" />}>取消</Drawer.Close>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Button as BaseButton } from "@base-ui/react/button";
+import { mergeProps } from "@base-ui/react/merge-props";
 import {
   cloneElement,
   createContext,
@@ -49,8 +50,7 @@ function Icon({
   const compiled = stylex.props(buttonStyles.icon, xstyle);
   return (
     <span
-      {...props}
-      {...compiled}
+      {...mergeProps(compiled, props)}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "button-icon"}
     />
@@ -129,8 +129,7 @@ export function ButtonRoot({
   return (
     <ButtonSizeContext value={size}>
       <BaseButton
-        {...props}
-        {...compiled}
+        {...mergeProps(compiled, props)}
         style={mergeStyle(compiled.style, style)}
         data-slot={dataSlot ?? "button"}
         disabled={ownDisabled ?? group.disabled}

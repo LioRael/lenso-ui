@@ -2,6 +2,46 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
+export async function checkAuthoredPage(page, base, slug, headings) {
+  const index = JSON.parse(
+    await readFile(path.join(process.cwd(), "src/generated/lenso-docs-index.json"), "utf8"),
+  );
+  const entry = index.pages.find(
+    (candidate) => candidate.locale === "en" && candidate.slug === slug,
+  );
+  assert.ok(entry, `The authored index must publish ${slug}.`);
+  const url = `${base}/${entry.locale}/docs/${entry.slug}`;
+  const response = await page.goto(url, { waitUntil: "networkidle" });
+  assert.equal(response.status(), 200, "Authored documentation must render successfully.");
+  assert.equal(page.url(), url, "The smoke must exercise the indexed page, not a fallback route.");
+  await page.getByRole("heading", { name: entry.title, level: 1, exact: true }).waitFor();
+  assert.equal(
+    await page.locator('meta[name="description"]').getAttribute("content"),
+    entry.description,
+  );
+  assert.equal(
+    new URL(await page.locator('link[rel="canonical"]').getAttribute("href")).pathname,
+    new URL(url).pathname,
+  );
+  for (const heading of headings)
+    await page.getByRole("heading", { name: heading, level: 2, exact: true }).waitFor();
+  assert.ok(
+    (await page.locator("#nd-page pre code").count()) > 0,
+    "Authored MDX must render code blocks.",
+  );
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  const copy = page.getByRole("button", { name: "Copy Markdown", exact: true });
+  await copy.focus();
+  await page.keyboard.press("Enter");
+  await page.getByRole("status").filter({ hasText: "Markdown copied" }).waitFor();
+  const markdown = await readFile(path.join(process.cwd(), entry.markdownFile), "utf8");
+  assert.equal(
+    await page.evaluate(() => navigator.clipboard.readText()),
+    markdown,
+    "Copied Markdown must exactly match the indexed authored source, not an archive or reformatter.",
+  );
+}
+
 /**
  * Replaces the shell portion of scripts/browser-check.mjs, not its live-demo proof.
  * Regressions: the old shell had no keyboard search dialog, native theme controls,
@@ -69,9 +109,13 @@ export async function checkDocumentationShell(page, base) {
   const manifest = JSON.parse(
     await readFile(path.join(process.cwd(), "src/demos/live-manifest.json"), "utf8"),
   );
+  const sourceFile = manifest.en?.["button-basic"];
+  assert.equal(typeof sourceFile, "string", "English Button must have a registered live source.");
+  assert.ok(sourceFile.length > 0, "English Button source path must not be empty.");
+  const source = await readFile(path.join(process.cwd(), "src/demos", sourceFile), "utf8");
   assert.equal(
     await page.evaluate(() => navigator.clipboard.readText()),
-    await readFile(path.join(process.cwd(), "src/demos", manifest["button-basic"]), "utf8"),
+    source,
     "Highlighting must not change raw clipboard source or add line numbers.",
   );
   const pane = example.locator("pre");
@@ -134,9 +178,9 @@ export async function checkDocumentationShell(page, base) {
   await toc.focus();
   await page.keyboard.press("Enter");
   assert.equal(await toc.getAttribute("aria-expanded"), "true");
-  await page.getByRole("link", { name: "Usage", exact: true }).click();
+  await page.getByRole("link", { name: "Runnable examples", exact: true }).click();
   assert.equal(await toc.getAttribute("aria-expanded"), "false");
-  assert.equal(new URL(page.url()).hash, "#usage");
+  assert.equal(new URL(page.url()).hash, "#runnable-examples");
   const browse = page.getByRole("button", { name: "Browse documentation", exact: true });
   await browse.focus();
   await page.keyboard.press("Enter");
@@ -159,12 +203,13 @@ export async function checkDocumentationShell(page, base) {
     "Mobile docs must not overflow.",
   );
 
-  await page.goto(`${base}/en/docs/react/getting-started/colors`, { waitUntil: "networkidle" });
-  await page.getByRole("heading", { level: 1 }).waitFor();
-  assert.ok(
-    (await page.getByRole("button", { name: /^Copy .+ color value$/ }).count()) > 30,
-    "Literal JSX color arrays must survive MDX compilation.",
-  );
+  // The archived colors page's JSX swatch inventory is not published Lenso.
+  // Authored StyleX prose/code and exact source copying prove current MDX delivery.
+  await checkAuthoredPage(page, base, "react/getting-started/stylex", [
+    "Local overrides",
+    "Preserve native composition",
+    "Themes and tokens",
+  ]);
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(`${base}/en/docs/react/components/button`, { waitUntil: "networkidle" });
 }

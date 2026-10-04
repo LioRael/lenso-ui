@@ -5,6 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Drawer as Base } from "@base-ui/react/drawer";
 import { drawerStyles as s } from "@lenso/tokens/drawer";
 import { modalStyles } from "@lenso/tokens/modal";
+import { closeButtonStyles } from "@lenso/tokens/close-button";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
@@ -125,7 +126,7 @@ export function DrawerContent({
   ...props
 }: StyleXProps<Omit<Base.Content.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Content>, "ref">) {
-  const compiled = stylex.props(xstyle);
+  const compiled = stylex.props(s.content, xstyle);
   return (
     <Base.Content
       {...props}
@@ -168,19 +169,43 @@ export function DrawerDescription({
   );
 }
 export function DrawerClose({
+  children,
+  render,
   xstyle,
   style,
   ...props
 }: StyleXProps<Omit<Base.Close.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref">) {
-  const compiled = stylex.props(modalStyles.close, xstyle);
+  const bare = children === undefined && render === undefined;
+  const compiled = stylex.props(bare && closeButtonStyles.root, bare && modalStyles.close, xstyle);
   return (
     <Base.Close
+      aria-label={bare ? "Close" : undefined}
       {...props}
+      render={render}
       {...compiled}
       style={mergeStyle<Base.Close.State>(compiled.style, style)}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "drawer-close"}
-    />
+    >
+      {bare ? (
+        <svg
+          {...stylex.props(closeButtonStyles.icon)}
+          data-slot="close-button-icon"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="m4 4 8 8M12 4l-8 8"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      ) : (
+        children
+      )}
+    </Base.Close>
   );
 }
 export function DrawerHeader({
@@ -188,7 +213,7 @@ export function DrawerHeader({
   style,
   ...props
 }: StyleXProps<React.ComponentPropsWithRef<"div">>) {
-  const compiled = stylex.props(modalStyles.header, xstyle);
+  const compiled = stylex.props(modalStyles.header, s.fixedSection, xstyle);
   return (
     <div
       {...props}
@@ -218,7 +243,7 @@ export function DrawerFooter({
   style,
   ...props
 }: StyleXProps<React.ComponentPropsWithRef<"div">>) {
-  const compiled = stylex.props(modalStyles.footer, xstyle);
+  const compiled = stylex.props(modalStyles.footer, s.fixedSection, xstyle);
   return (
     <div
       {...props}
@@ -234,7 +259,7 @@ export function DrawerHandle({
   style,
   ...props
 }: StyleXProps<React.ComponentPropsWithRef<"div">>) {
-  const compiled = stylex.props(s.handle, xstyle);
+  const compiled = stylex.props(s.handle, s.fixedSection, xstyle);
   return (
     <div
       {...props}
