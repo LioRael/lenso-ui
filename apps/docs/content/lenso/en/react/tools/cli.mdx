@@ -5,25 +5,23 @@ navigationGroup: "UI for Agents"
 navigationOrder: 21
 ---
 
-## Build the source candidate
+## Availability
 
-The package is `@lenso/cli`, with the `lenso` binary. It is currently unpublished. In a candidate checkout with workspace dependencies installed, prepare docs and then build the CLI:
+`@lenso/ui-cli@0.1.0` is currently private and unpublished; npm commands cannot install it yet. After publication, run the version matching the installed UI, tokens and support packages:
 
-```sh
-pnpm --filter @lenso/ui-docs build
-pnpm --filter @lenso/cli build
-node packages/cli/dist/cli.mjs --help
+```bash
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui --help
 ```
 
-The build validates and copies the current production contract. A built or packed candidate runs without the monorepo, React, Next or a TypeScript/StyleX compiler. Use the Node range reported in contract compatibility; Node 24.18.0 is the tested runtime.
+Use `lenso-ui --help` for the installed command list. The installed CLI runs without a repository checkout, React, Next or a TypeScript/StyleX compiler. Use the Node range reported by the matching contract; the current toolchain requires Node 26.10.0 or a later Node 26 release. See the package maintainer guide for source generation and builds.
 
 ## Read the release contract
 
 ```sh
-node packages/cli/dist/cli.mjs metadata --json
-node packages/cli/dist/cli.mjs list --json
-node packages/cli/dist/cli.mjs info menu --json
-node packages/cli/dist/cli.mjs docs react/components/menu --locale cn
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui metadata --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui list --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui info menu --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui docs react/components/menu --locale cn
 ```
 
 `metadata` reports release identity and digest. `list` supplies canonical family slugs and public parts. `info` resolves actual signatures, callback state and property rows. `docs` prints the same authored Markdown as the documentation page's Copy Markdown action.
@@ -33,7 +31,7 @@ The current commands are `list`, `info`, `docs`, `metadata`, `check` and `init`.
 ## Check a consumer
 
 ```sh
-node packages/cli/dist/cli.mjs check --cwd ./my-app --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui check --cwd ./my-app --json
 ```
 
 `check` reads consumer source and reports policy, compatibility and static setup hints. It does not execute application code or prove browser stylesheet delivery. Skipped symlinks, oversized files and unresolved source are reported; a nonzero result requires review.
@@ -41,7 +39,7 @@ node packages/cli/dist/cli.mjs check --cwd ./my-app --json
 ## Review setup before writing
 
 ```sh
-node packages/cli/dist/cli.mjs init --framework vite --cwd ./my-app --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui init --framework vite --cwd ./my-app --json
 ```
 
 `init` is a dry run. Review the proposed files, conflicts and manual theme-entry step. `--framework next` selects the supported App Router Webpack setup, not Turbopack or Pages Router.

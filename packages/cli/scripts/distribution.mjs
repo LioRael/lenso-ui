@@ -111,7 +111,7 @@ export async function buildDistribution(name, { artifactUrl, corePath } = {}) {
     bundle: true,
     platform: "node",
     format: "esm",
-    target: "node24",
+    target: "node26",
     packages: "bundle",
     nodePaths: [fileURLToPath(new URL("../node_modules/", import.meta.url))],
     external: name === "mcp" ? ["@modelcontextprotocol/sdk/*", "zod"] : [],

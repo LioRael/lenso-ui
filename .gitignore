@@ -13,6 +13,7 @@ test-results/
 durabletest-results/
 apps/docs/src/generated/lenso-contract.json
 apps/docs/content/lenso/*/react/components/
+apps/docs/public/search/
 .vitest-attachments/
 **/__screenshots__/
 *.tsbuildinfo

@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import stylex from "@lenso/stylex-build";
 
 const config: NextConfig = {
   reactStrictMode: true,
@@ -7,22 +6,17 @@ const config: NextConfig = {
   images: { unoptimized: true },
   transpilePackages: ["@lenso/ui", "@lenso/tokens"],
   webpack(config) {
-    // Unplugin keeps extracted StyleX rules in memory, not Webpack's cached-module metadata.
-    // Reusing transformed modules can emit class names without their CSS on a later build.
-    config.cache = false;
-    config.plugins.push(
-      stylex.webpack({
-        metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
-        // Native API tables render only on the server; their declaration is absent from the client graph.
-        sources: [new URL("./src/styles/api-reference.stylex.ts", import.meta.url)],
-        // Keep :dir(rtl) native; language inference breaks English-language RTL scopes.
-        lightningcssOptions: { exclude: 4 },
-        unstable_moduleResolution: {
-          type: "commonJS",
-          rootDir: import.meta.dirname,
-        },
-      }),
-    );
+    // Next 16.3's Babel loader rewrites a locally bound module.exports in this
+    // published ESM helper to CJS and ignores Babel's file-level ignore option.
+    // Bypass only that precompiled helper, not authored StyleX or component code.
+    for (const rule of config.module.rules) {
+      if (rule && typeof rule === "object" && Array.isArray(rule.oneOf)) {
+        rule.oneOf.unshift({
+          test: /fumadocs-core[\\/]dist[\\/]remove-markdown-[^\\/]+\.js$/,
+          type: "javascript/esm",
+        });
+      }
+    }
     return config;
   },
 };

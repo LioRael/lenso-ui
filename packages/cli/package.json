@@ -1,11 +1,11 @@
 {
-  "name": "@lenso/cli",
+  "name": "@lenso/ui-cli",
   "version": "0.1.0",
   "private": true,
   "description": "Version-matched Lenso contract queries and safe project setup.",
   "license": "MIT",
   "bin": {
-    "lenso": "./dist/cli.mjs"
+    "lenso-ui": "./dist/cli.mjs"
   },
   "files": [
     "dist",
@@ -24,6 +24,6 @@
     "esbuild": "0.28.2"
   },
   "engines": {
-    "node": "^24.18.0"
+    "node": "^26.10.0"
   }
 }

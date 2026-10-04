@@ -8,6 +8,8 @@ if (metadata.format !== "@lenso/stylex-build/raw-rules" || metadata.version !== 
     "Missing or incompatible StyleX raw-rule artifact. Rebuild with @lenso/stylex-build.",
   );
 await cp(new URL("../styles.css", import.meta.url), new URL("../dist/styles.css", import.meta.url));
+// Source-union consumers need theme/base CSS without a second atomic stylesheet.
+await cp(new URL("../styles.css", import.meta.url), new URL("../dist/theme.css", import.meta.url));
 const compiled = new URL("../dist/assets/stylex.css", import.meta.url);
 const stylesheet = new URL("../dist/styles.css", import.meta.url);
 try {

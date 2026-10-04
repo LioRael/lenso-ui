@@ -8,6 +8,8 @@
  */
 import { Autocomplete, Avatar, Spinner } from "@lenso/ui";
 import { autocompleteSharedStyles } from "@lenso/tokens/autocomplete";
+import { searchFieldStyles, searchFieldGroupStyles } from "@lenso/tokens/search-field";
+import { tagStyles } from "@lenso/tokens/tag";
 import { Magnifier, Xmark } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { useId, useRef, useState, type ReactNode } from "react";
@@ -26,7 +28,7 @@ export const styles = stylex.create({
   field: {
     display: "flex",
     flexDirection: "column",
-    gap: 8,
+    gap: 4,
     width: 256,
     maxWidth: "100%",
   },
@@ -68,38 +70,44 @@ export const styles = stylex.create({
     fontSize: 12,
   },
   search: {
-    position: "sticky",
-    top: 0,
-    zIndex: 1,
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    backgroundColor: "var(--surface-secondary)",
-    borderRadius: 8,
-    paddingInline: 8,
+    flexShrink: 0,
+    paddingInline: 12,
+    paddingBlock: 4,
+  },
+  searchGroup: {
+    height: 36,
+    overflow: "hidden",
+    fontSize: 14,
+    backgroundColor: {
+      default: "var(--default)",
+      ":focus-within": "var(--default)",
+    },
   },
   input: {
     flexGrow: 1,
     width: 0,
-    backgroundColor: "transparent",
-    borderWidth: 0,
+    paddingInline: 8,
   },
   list: {
-    maxHeight: 420,
+    maxHeight: 320,
     overflowY: "auto",
   },
   fieldGroup: {
     width: "100%",
   },
   chipShell: {
-    paddingInlineEnd: 4,
-    gap: 4,
+    paddingInlineEnd: 28,
+    gap: 0,
     ":focus-within": {
       outline: "2px solid var(--focus)",
       outlineOffset: 2,
     },
   },
   toggle: {
+    position: "absolute",
+    insetInlineEnd: 0,
+    top: 0,
+    bottom: 0,
     flexShrink: 0,
     width: 24,
     minHeight: 24,
@@ -119,6 +127,8 @@ export const styles = stylex.create({
   trigger: {
     width: "100%",
     textAlign: "start",
+  },
+  triggerWithClear: {
     paddingInlineEnd: 52,
   },
   clear: {
@@ -130,30 +140,18 @@ export const styles = stylex.create({
   chips: {
     display: "flex",
     flexWrap: "wrap",
-    gap: 4,
+    gap: 6,
     flexGrow: 1,
     minWidth: 0,
   },
   searchClear: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 4,
-    borderWidth: 0,
-    borderRadius: 6,
-    backgroundColor: "transparent",
-    color: "var(--muted)",
-    cursor: "pointer",
+    width: 20,
+    height: 20,
+    marginInlineEnd: 8,
+    borderRadius: "var(--radius-xl)",
   },
   chip: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: 4,
-    fontSize: 12,
-    borderRadius: 6,
-    paddingBlock: 2,
-    paddingInline: 6,
-    backgroundColor: "var(--default)",
+    lineHeight: "16px",
   },
   smallAvatar: {
     width: 16,
@@ -376,27 +374,34 @@ export function NativeAutocomplete({
               {selectedItems.map((item) => (
                 <Autocomplete.Chip
                   key={item.id}
-                  xstyle={[styles.chip, custom && styles.customChip]}
+                  xstyle={[
+                    tagStyles.root,
+                    tagStyles.sm,
+                    tagStyles.default,
+                    styles.chip,
+                    custom && styles.customChip,
+                  ]}
                 >
                   {item.avatarUrl && <OptionAvatar item={item} small />}
                   {chipText(item)}
                   <Autocomplete.ChipRemove aria-label={`Remove ${item.name}`}>
-                    <Xmark width={12} height={12} />
+                    <Xmark width={12} height={12} aria-hidden="true" />
                   </Autocomplete.ChipRemove>
                 </Autocomplete.Chip>
               ))}
             </Autocomplete.Chips>
           )}
-          {showChips && !hideClear && (
-            <Autocomplete.Clear aria-label={`Clear ${label}`}>
-              <Xmark width={16} height={16} />
-            </Autocomplete.Clear>
-          )}
+          {showChips && !hideClear && <Autocomplete.Clear aria-label={`Clear ${label}`} />}
           <Autocomplete.Trigger
             aria-labelledby={`${id}-label`}
             aria-describedby={description || error ? `${id}-description` : undefined}
             aria-invalid={invalid || undefined}
-            xstyle={[styles.trigger, custom && styles.customTrigger, showChips && styles.toggle]}
+            xstyle={[
+              styles.trigger,
+              !showChips && !hideClear && styles.triggerWithClear,
+              custom && styles.customTrigger,
+              showChips && styles.toggle,
+            ]}
           >
             <Autocomplete.Value placeholder={placeholder}>
               {showChips
@@ -408,36 +413,43 @@ export function NativeAutocomplete({
             <Autocomplete.Indicator>{indicator}</Autocomplete.Indicator>
           </Autocomplete.Trigger>
           {!showChips && !hideClear && (
-            <Autocomplete.Clear aria-label={`Clear ${label}`} xstyle={styles.clear}>
-              <Xmark width={16} height={16} />
-            </Autocomplete.Clear>
+            <Autocomplete.Clear aria-label={`Clear ${label}`} xstyle={styles.clear} />
           )}
         </Autocomplete.InputGroup>
         <Autocomplete.Portal>
           <Autocomplete.Positioner anchor={fieldRef}>
             <Autocomplete.Popover xstyle={custom && styles.customPopup}>
-              <div {...stylex.props(styles.search)}>
-                <Magnifier width={16} height={16} aria-hidden="true" />
-                <Autocomplete.Input
-                  ref={searchRef}
-                  aria-label={searchLabel}
-                  placeholder={searchPlaceholder}
-                  xstyle={styles.input}
-                />
-                {loading && <Spinner size="sm" aria-label="Searching" />}
-                {!loading && query && (
-                  <button
-                    type="button"
-                    aria-label="Clear search"
-                    {...stylex.props(styles.searchClear)}
-                    onClick={() => {
-                      changeQuery("");
-                      searchRef.current?.focus();
-                    }}
-                  >
-                    <Xmark width={16} height={16} />
-                  </button>
-                )}
+              <div {...stylex.props(searchFieldStyles.root, styles.search)}>
+                <div
+                  {...stylex.props(
+                    searchFieldGroupStyles.root,
+                    searchFieldGroupStyles.secondary,
+                    styles.searchGroup,
+                  )}
+                >
+                  <Magnifier {...stylex.props(searchFieldStyles.icon)} aria-hidden="true" />
+                  <Autocomplete.Input
+                    ref={searchRef}
+                    aria-label={searchLabel}
+                    placeholder={searchPlaceholder}
+                    xstyle={styles.input}
+                  />
+                  {loading && <Spinner size="sm" aria-label="Searching" />}
+                  {!loading && (
+                    <button
+                      type="button"
+                      aria-label="Clear search"
+                      disabled={!query}
+                      {...stylex.props(searchFieldStyles.clear, styles.searchClear)}
+                      onClick={() => {
+                        changeQuery("");
+                        searchRef.current?.focus();
+                      }}
+                    >
+                      <Xmark width={12} height={12} aria-hidden="true" />
+                    </button>
+                  )}
+                </div>
               </div>
               <Autocomplete.Empty>{loading ? "搜索中…" : emptyText}</Autocomplete.Empty>
               {list ?? (

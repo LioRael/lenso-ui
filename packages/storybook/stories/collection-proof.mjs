@@ -13,7 +13,7 @@ assert(
   directory && playwrightModule && output,
   "Supply static build, Playwright module and scratch output",
 );
-assert.equal(process.versions.node, "24.18.0");
+assert.equal(process.versions.node, "26.10.0");
 const exec = promisify(execFile);
 const expected = {
   table: [

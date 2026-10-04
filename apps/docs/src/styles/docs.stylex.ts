@@ -4,6 +4,10 @@ import * as stylex from "@stylexjs/stylex";
 // Apache-2.0. Tailwind utilities are translated to compiled StyleX.
 export const styles = stylex.create({
   body: {
+    "--color-fd-primary": {
+      default: "oklch(0.14 0 0)",
+      ":is(.dark *)": "oklch(0.99 0 0)",
+    },
     margin: 0,
     backgroundColor: "var(--background)",
     color: "var(--foreground)",
@@ -64,6 +68,8 @@ export const styles = stylex.create({
   },
   muted: { color: "var(--muted)", fontSize: 13 },
   shell: {
+    "--fd-docs-height": "100dvh",
+    "--fd-docs-row-3": "100px",
     display: "grid",
     gridTemplateColumns: {
       default: "220px minmax(0, 1fr) 268px",
@@ -239,14 +245,18 @@ export const styles = stylex.create({
   toc: {
     gridColumn: 3,
     gridRow: 2,
-    width: 240,
+    width: { default: 220, "@media (min-width: 600px)": 240 },
     position: "sticky",
-    top: 100,
+    top: "var(--fd-docs-row-3)",
+    insetInlineEnd: 0,
     alignSelf: "start",
-    display: { default: "block", "@media (max-width: 1279px)": "none" },
-    height: "calc(100dvh - 132px)",
-    overflowY: "auto",
+    display: { default: "flex", "@media (max-width: 1279px)": "none" },
+    flexDirection: "column",
+    gap: 0,
+    height: "calc(var(--fd-docs-height) - var(--fd-docs-row-3))",
+    minHeight: 0,
     paddingTop: 24,
+    paddingBottom: 8,
     paddingInlineStart: 16,
     paddingInlineEnd: 16,
     boxSizing: "border-box",

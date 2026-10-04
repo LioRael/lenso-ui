@@ -5,43 +5,33 @@ navigationGroup: "面向代理的 UI"
 navigationOrder: 22
 ---
 
-## 构建与启动
+## 可用状态与启动
 
-`@lenso/mcp` 是未发布的源码候选，二进制名称为 `lenso-mcp`。构建前先准备当前文档契约：
+`@lenso/ui-mcp@0.1.0` 目前为私有且尚未发布；以下配置是未来示例，现在不能通过 npm 安装运行。发布后，请固定为与已安装 UI、tokens 和 support 软件包相匹配的版本：
 
-```sh
-pnpm --filter @lenso/ui-docs build
-pnpm --filter @lenso/mcp build
-node packages/mcp/dist/server.mjs
-```
-
-最后一条命令启动 stdio 服务，不是交互帮助提示。Stdout 只传输 JSON-RPC，诊断使用 stderr。候选内置经过验证的格式 2 契约和私有查询核心；官方 MCP TypeScript SDK 仍是运行时依赖。
-
-配置 MCP 客户端的 stdio 启动器。此示例使用已构建源码候选，而不是未经确认的 npm 安装：
-
-```json
+```jsonc
 {
   "mcpServers": {
     "lenso-ui": {
-      "command": "node",
-      "args": ["/absolute/path/to/lenso-ui/packages/mcp/dist/server.mjs"]
-    }
-  }
+      "command": "npx",
+      "args": ["--yes", "--package=@lenso/ui-mcp@<matching-version>", "lenso-ui-mcp"],
+    },
+  },
 }
 ```
 
-替换绝对路径，确认 `node` 满足契约支持的运行时范围。外围客户端配置格式取决于客户端。
+Node 应满足匹配契约报告的范围；当前工具链要求 Node 26.10.0 或更新的 Node 26 版本。此配置启动 stdio 服务，而非交互提示。Stdout 传输 JSON-RPC，诊断使用 stderr。已安装服务不需要仓库检出、React、Next 或 TypeScript/StyleX 编译器。官方 MCP TypeScript SDK 仍是运行时依赖。源码生成和构建仅供维护者使用，参见软件包维护者指南。
 
 ## 发现六个工具
 
-| 工具 | 输入 | 结果 |
-| --- | --- | --- |
-| `list_components` | 无组件参数 | 规范系列与公开部件 |
-| `get_component_api` | `component` | 原生签名、状态与解析后的属性行 |
-| `get_component_examples` | `component`、可选 `locale` | 本地源码与有序辅助文件 |
-| `get_component_styles` | `component` | 真实 StyleX 映射源码 |
-| `search_documentation` | `query`、可选 `locale`、`limit` | Authored 文档匹配 |
-| `get_documentation` | `slug`、可选 `locale` | 精确 authored Markdown |
+| 工具                     | 输入                            | 结果                           |
+| ------------------------ | ------------------------------- | ------------------------------ |
+| `list_components`        | 无组件参数                      | 规范系列与公开部件             |
+| `get_component_api`      | `component`                     | 原生签名、状态与解析后的属性行 |
+| `get_component_examples` | `component`、可选 `locale`      | 本地源码与有序辅助文件         |
+| `get_component_styles`   | `component`                     | 真实 StyleX 映射源码           |
+| `search_documentation`   | `query`、可选 `locale`、`limit` | Authored 文档匹配              |
+| `get_documentation`      | `slug`、可选 `locale`           | 精确 authored Markdown         |
 
 语言为 `en` 或 `cn`，默认 `en`。搜索上限为 1 到 50 的整数，默认 10。每个工具都接受可选 `lensoVersion` 和 `digest` 身份参数，值必须匹配服务契约。
 

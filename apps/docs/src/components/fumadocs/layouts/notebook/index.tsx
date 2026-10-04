@@ -31,7 +31,6 @@ export function DocsLayout({
   version,
   repository,
   entries,
-  searchEntries,
   sectionEntries,
   children,
 }: {
@@ -40,7 +39,6 @@ export function DocsLayout({
   version: string;
   repository: string;
   entries: SearchEntry[];
-  searchEntries: SearchEntry[];
   sectionEntries: DocSection[];
   children: ReactNode;
 }) {
@@ -77,7 +75,7 @@ export function DocsLayout({
                 </Menu.Portal>
               </Menu.Root>
             </div>
-            <SearchDialog entries={searchEntries} />
+            <SearchDialog locale={locale} />
             <div {...stylex.props(notebook.actions)}>
               <div {...stylex.props(notebook.headerDesktop)}>
                 <a

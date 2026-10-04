@@ -101,6 +101,11 @@ for (const name of ["cli", "mcp"]) {
   );
   const packageMetadata = JSON.parse(memberBytes("package.json"));
   assert.equal(packageMetadata.license, "MIT");
+  assert.equal(packageMetadata.name, `@lenso/ui-${name}`);
+  assert.equal(
+    packageMetadata.bin[name === "cli" ? "lenso-ui" : "lenso-ui-mcp"],
+    name === "cli" ? "./dist/cli.mjs" : "./dist/server.mjs",
+  );
   legalAudits.push({
     package: name,
     checkedLinks,
@@ -132,21 +137,25 @@ execFileSync(
   ],
   { cwd: isolated, stdio: "pipe" },
 );
-const cli = `${isolated}/node_modules/@lenso/cli/dist/cli.mjs`;
-const mcp = `${isolated}/node_modules/@lenso/mcp/dist/server.mjs`;
+const cli = `${isolated}/node_modules/@lenso/ui-cli/dist/cli.mjs`;
+const mcp = `${isolated}/node_modules/@lenso/ui-mcp/dist/server.mjs`;
 const installedModules = await readdir(`${isolated}/node_modules`);
 for (const name of ["react", "next", "typescript", "esbuild"])
   assert.ok(!installedModules.includes(name), `Unexpected runtime dependency: ${name}`);
-assert.deepEqual((await readdir(`${isolated}/node_modules/@lenso`)).sort(), ["cli", "mcp"]);
+assert.deepEqual((await readdir(`${isolated}/node_modules/@lenso`)).sort(), ["ui-cli", "ui-mcp"]);
 const installedContract = [];
 for (const name of ["cli", "mcp"])
   installedContract.push(
-    await readFile(`${isolated}/node_modules/@lenso/${name}/dist/lenso-contract.json`, "utf8"),
+    await readFile(`${isolated}/node_modules/@lenso/ui-${name}/dist/lenso-contract.json`, "utf8"),
   );
 assert.equal(installedContract[0], installedContract[1]);
 const cliStarted = performance.now();
 const metadata = JSON.parse(
   execFileSync(process.execPath, [cli, "metadata", "--json"], { cwd: isolated, encoding: "utf8" }),
+);
+assert.match(
+  execFileSync(process.execPath, [cli, "--help"], { cwd: isolated, encoding: "utf8" }),
+  /^lenso-ui —/u,
 );
 const cliMetadataStartupMs = performance.now() - cliStarted;
 assert.equal(metadata.digest, artifact.digest);
@@ -245,6 +254,7 @@ transport.stderr?.on("data", (chunk) => {
 });
 const mcpStarted = performance.now();
 await client.connect(transport);
+assert.deepEqual(client.getServerVersion(), { name: "@lenso/ui-mcp", version: "0.1.0" });
 const mcpInitializeStartupMs = performance.now() - mcpStarted;
 const beforeRequests = await readdir(isolated);
 try {
@@ -331,7 +341,7 @@ try {
   assert.deepEqual(await readdir(isolated), beforeRequests);
   for (const name of ["cli", "mcp"])
     assert.equal(
-      await readFile(`${isolated}/node_modules/@lenso/${name}/dist/lenso-contract.json`, "utf8"),
+      await readFile(`${isolated}/node_modules/@lenso/ui-${name}/dist/lenso-contract.json`, "utf8"),
       installedContract[0],
     );
   assert.equal(stderr, "");

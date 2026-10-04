@@ -5,43 +5,33 @@ navigationGroup: "UI for Agents"
 navigationOrder: 22
 ---
 
-## Build and launch
+## Availability and launch
 
-`@lenso/mcp` is an unpublished source candidate with the `lenso-mcp` binary. Prepare the current documentation contract before building it:
+`@lenso/ui-mcp@0.1.0` is currently private and unpublished; the configuration below is a future example, not a currently runnable npm install. After publication, pin it to the release matching the installed UI, tokens and support packages:
 
-```sh
-pnpm --filter @lenso/ui-docs build
-pnpm --filter @lenso/mcp build
-node packages/mcp/dist/server.mjs
-```
-
-The last command starts a stdio server, not an interactive help prompt. Stdout carries JSON-RPC; diagnostics use stderr. The built candidate includes the validated format-2 contract and private query core. The official MCP TypeScript SDK remains a runtime dependency.
-
-Configure your MCP client's stdio launcher. This example uses a built source candidate rather than an unverified npm install:
-
-```json
+```jsonc
 {
   "mcpServers": {
     "lenso-ui": {
-      "command": "node",
-      "args": ["/absolute/path/to/lenso-ui/packages/mcp/dist/server.mjs"]
-    }
-  }
+      "command": "npx",
+      "args": ["--yes", "--package=@lenso/ui-mcp@<matching-version>", "lenso-ui-mcp"],
+    },
+  },
 }
 ```
 
-Replace the absolute path and ensure `node` satisfies the contract's supported runtime range. The surrounding client configuration format is client-dependent.
+Use the Node range reported by the matching contract; the current toolchain requires Node 26.10.0 or a later Node 26 release. This launches a stdio server, not an interactive prompt. Stdout carries JSON-RPC; diagnostics use stderr. The installed server needs no repository checkout, React, Next or TypeScript/StyleX compiler. The official MCP TypeScript SDK remains a runtime dependency. Source generation and builds are maintainer-only; see the package maintainer guide.
 
 ## Discover the six tools
 
-| Tool | Input | Result |
-| --- | --- | --- |
-| `list_components` | No component argument | Canonical families and public parts |
-| `get_component_api` | `component` | Native signatures, state and resolved property rows |
-| `get_component_examples` | `component`, optional `locale` | Local source and ordered supporting files |
-| `get_component_styles` | `component` | Actual StyleX map source |
-| `search_documentation` | `query`, optional `locale`, `limit` | Authored documentation matches |
-| `get_documentation` | `slug`, optional `locale` | Exact authored Markdown |
+| Tool                     | Input                               | Result                                              |
+| ------------------------ | ----------------------------------- | --------------------------------------------------- |
+| `list_components`        | No component argument               | Canonical families and public parts                 |
+| `get_component_api`      | `component`                         | Native signatures, state and resolved property rows |
+| `get_component_examples` | `component`, optional `locale`      | Local source and ordered supporting files           |
+| `get_component_styles`   | `component`                         | Actual StyleX map source                            |
+| `search_documentation`   | `query`, optional `locale`, `limit` | Authored documentation matches                      |
+| `get_documentation`      | `slug`, optional `locale`           | Exact authored Markdown                             |
 
 Locales are `en` and `cn`, defaulting to `en`. Search limits are integers from 1 to 50, defaulting to 10. Every tool accepts optional `lensoVersion` and `digest` identity arguments, which must match the server's contract.
 

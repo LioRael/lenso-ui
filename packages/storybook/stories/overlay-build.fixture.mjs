@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const project = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArgument, dependenciesArgument = project] = process.argv.slice(2);
 if (!scratchArgument) throw new Error("Provide an empty scratch directory");
-if (process.versions.node !== "24.18.0") throw new Error("Use Node 24.18.0");
+if (process.versions.node !== "26.10.0") throw new Error("Use Node 26.10.0");
 const scratch = resolve(scratchArgument);
 const dependencies = resolve(dependenciesArgument);
 const validation = resolve(scratch, "overlay-validation");

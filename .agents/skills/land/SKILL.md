@@ -60,8 +60,8 @@ if reviews, checks, or a merge queue are now required, satisfy them. Do not
 bypass them with a direct push. If their workflow cannot be established safely,
 report the blocker and stop.
 
-Use Node **24.18.0** and pnpm **11.5.0**. Verify executable versions, not merely
-their presence. The active shell may otherwise use Node 26. An installed
+Use Node **26.10.0** and pnpm **12.9.1**. Verify executable versions, not merely
+their presence. The active shell may otherwise use a different Node version. An installed
 matching runtime may be selected without installing tools or changing shared
 configuration. Stop if the required runtime is unavailable.
 Sources: `.mise.toml` (`tools.node`), `package.json` (`engines.node`,

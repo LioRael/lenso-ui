@@ -9,7 +9,7 @@ const project = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArg, dependenciesArg] = process.argv.slice(2);
 if (!scratchArg || !dependenciesArg)
   throw new Error("Provide scratch and read-only dependency project");
-if (process.versions.node !== "24.18.0") throw new Error("Use Node 24.18.0");
+if (process.versions.node !== "26.10.0") throw new Error("Use Node 26.10.0");
 const scratch = resolve(scratchArg);
 const dependencies = resolve(dependenciesArg);
 const validation = resolve(scratch, "form-workflow-validation");

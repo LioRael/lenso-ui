@@ -1,5 +1,5 @@
 // Scratch-only fresh package builds; dependency checkout is read-only.
-// PATH=<Node24.18.0-bin>:$PATH node calendar-build.fixtures.mjs <scratch> <dependency-checkout>
+// PATH=<Node26.10.0-bin>:$PATH node calendar-build.fixtures.mjs <scratch> <dependency-checkout>
 import assert from "node:assert/strict";
 import { cp, mkdir, readFile, readdir, realpath, symlink, writeFile } from "node:fs/promises";
 import { spawn, execFileSync } from "node:child_process";
@@ -7,8 +7,8 @@ import { createRequire } from "node:module";
 import { dirname, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
-assert.equal(process.version, "v24.18.0");
-assert.equal(execFileSync("pnpm", ["--version"], { encoding: "utf8" }).trim(), "11.5.0");
+assert.equal(process.version, "v26.10.0");
+assert.equal(execFileSync("pnpm", ["--version"], { encoding: "utf8" }).trim(), "12.9.1");
 const project = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArgument, dependencyArgument] = process.argv.slice(2);
 assert(scratchArgument && dependencyArgument, "Provide scratch and read-only dependency checkout");
@@ -106,7 +106,7 @@ await writeFile(
   JSON.stringify(
     {
       node: process.version,
-      pnpm: "11.5.0",
+      pnpm: "12.9.1",
       packageBuilds,
       modelResolutions,
       configuration: "Unchanged production Storybook config; no aliases/dedupe overrides.",

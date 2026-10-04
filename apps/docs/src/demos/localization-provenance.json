@@ -9958,7 +9958,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -10070,6 +10070,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -10092,22 +10097,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -10470,7 +10480,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -10844,6 +10854,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -10866,22 +10881,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -11021,7 +11041,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -11143,6 +11163,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -11165,27 +11190,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -11332,7 +11362,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -11468,6 +11498,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -11490,27 +11525,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -11736,7 +11776,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -11956,6 +11996,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -11978,27 +12023,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -12194,7 +12244,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -12386,6 +12436,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -12408,27 +12463,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -12723,7 +12783,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -13018,6 +13078,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -13040,27 +13105,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -13194,7 +13264,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -13316,6 +13386,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -13338,27 +13413,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -13874,7 +13954,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -14379,6 +14459,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -14401,27 +14486,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -14554,7 +14644,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -14666,6 +14756,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -14688,22 +14783,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -14844,7 +14944,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -14999,6 +15099,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -15021,27 +15126,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -15196,7 +15306,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -15359,6 +15469,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -15381,27 +15496,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -15595,7 +15715,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -15806,6 +15926,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -15828,27 +15953,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -15986,7 +16116,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -16108,6 +16238,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -16130,22 +16265,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -16285,7 +16425,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -16407,6 +16547,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -16429,27 +16574,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -16612,7 +16762,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -16775,6 +16925,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -16797,27 +16952,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -16957,7 +17117,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -17079,6 +17239,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -17101,27 +17266,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -17259,7 +17429,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -17386,6 +17556,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -17408,27 +17583,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -17575,7 +17755,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -17717,6 +17897,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -17739,22 +17924,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -17887,7 +18077,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -18009,6 +18199,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -18031,22 +18226,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -18366,7 +18566,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -18684,6 +18884,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -18706,27 +18911,32 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "sm",
               "context": "attribute:size",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "-description",
@@ -18848,7 +19058,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -18975,6 +19185,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -18997,22 +19212,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -19139,7 +19359,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -19266,6 +19486,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -19288,22 +19513,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",
@@ -19473,7 +19703,7 @@
           "adaptedImplementations": [
             {
               "file": "en/autocomplete/_native.tsx",
-              "sha256": "33ddc96cf2bee030e38e443f0249bd764f63f24a3a72738a05ca6d7894019c4a"
+              "sha256": "879a831ab1d8d4ef2f326cbcb966c870e7727c845b958736c4f88fabeca6cab3"
             }
           ],
           "translations": [
@@ -19650,6 +19880,11 @@
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/openingElement/attributes/0/value/expression/quasis/0"
             },
             {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/0/expression/right/children/0/expression/arguments/0/body/children/2/children/0/openingElement/attributes/2/value"
+            },
+            {
               "value": "Clear ",
               "context": "attribute:aria-label",
               "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/1/children/1/expression/right/openingElement/attributes/0/value/expression/quasis/0"
@@ -19672,22 +19907,27 @@
             {
               "value": "true",
               "context": "attribute:aria-hidden",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/openingElement/attributes/2/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/0/openingElement/attributes/1/value"
             },
             {
               "value": "Searching",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/2/expression/right/openingElement/attributes/1/value"
             },
             {
               "value": "button",
               "context": "attribute:type",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/0/value"
             },
             {
               "value": "Clear search",
               "context": "attribute:aria-label",
-              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/openingElement/attributes/1/value"
+            },
+            {
+              "value": "true",
+              "context": "attribute:aria-hidden",
+              "location": "/program/body/declaration:NativeAutocomplete/body/body/11/argument/children/0/children/2/children/0/children/0/children/0/children/0/children/3/expression/right/children/0/openingElement/attributes/2/value"
             },
             {
               "value": "Searching...",

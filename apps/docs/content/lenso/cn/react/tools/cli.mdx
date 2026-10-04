@@ -5,25 +5,23 @@ navigationGroup: "面向代理的 UI"
 navigationOrder: 21
 ---
 
-## 构建源码候选
+## 可用状态
 
-包名为 `@lenso/cli`，二进制名称为 `lenso`，目前尚未发布。在已安装工作区依赖的候选源码中，先准备文档，再构建 CLI：
+`@lenso/ui-cli@0.1.0` 目前为私有且尚未发布；npm 命令现在无法安装它。发布后，请使用与已安装 UI、tokens 和 support 软件包相匹配的版本：
 
-```sh
-pnpm --filter @lenso/ui-docs build
-pnpm --filter @lenso/cli build
-node packages/cli/dist/cli.mjs --help
+```bash
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui --help
 ```
 
-构建会验证并复制当前生产契约。已构建或打包的候选运行时不需要仓库、React、Next 或 TypeScript/StyleX 编译器。Node 应满足契约 compatibility 范围；已测试运行时为 Node 24.18.0。
+使用 `lenso-ui --help` 查看已安装命令。CLI 运行时不需要仓库检出、React、Next 或 TypeScript/StyleX 编译器。Node 应满足匹配契约报告的范围；当前工具链要求 Node 26.10.0 或更新的 Node 26 版本。源码生成和构建仅供维护者使用，参见软件包维护者指南。
 
 ## 读取发布契约
 
 ```sh
-node packages/cli/dist/cli.mjs metadata --json
-node packages/cli/dist/cli.mjs list --json
-node packages/cli/dist/cli.mjs info menu --json
-node packages/cli/dist/cli.mjs docs react/components/menu --locale cn
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui metadata --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui list --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui info menu --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui docs react/components/menu --locale cn
 ```
 
 `metadata` 报告发布身份和 digest。`list` 给出规范系列 slug 与公开部件。`info` 解析真实签名、回调状态和属性行。`docs` 输出与页面 Copy Markdown 相同的 authored Markdown。
@@ -33,7 +31,7 @@ node packages/cli/dist/cli.mjs docs react/components/menu --locale cn
 ## 检查消费者
 
 ```sh
-node packages/cli/dist/cli.mjs check --cwd ./my-app --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui check --cwd ./my-app --json
 ```
 
 `check` 读取消费者源码，报告策略、兼容性和静态配置提示。它不执行应用代码，也不能证明浏览器样式表交付。符号链接、过大文件和未解析源码会明确列为跳过；非零结果需要审阅。
@@ -41,7 +39,7 @@ node packages/cli/dist/cli.mjs check --cwd ./my-app --json
 ## 写入前审阅计划
 
 ```sh
-node packages/cli/dist/cli.mjs init --framework vite --cwd ./my-app --json
+npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui init --framework vite --cwd ./my-app --json
 ```
 
 `init` 默认不写入。应检查计划文件、冲突与手动主题入口步骤。`--framework next` 选择已支持的 App Router Webpack 配置，不代表 Turbopack 或 Pages Router。

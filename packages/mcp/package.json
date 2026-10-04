@@ -1,11 +1,11 @@
 {
-  "name": "@lenso/mcp",
+  "name": "@lenso/ui-mcp",
   "version": "0.1.0",
   "private": true,
   "description": "Read-only stdio access to the version-matched Lenso contract.",
   "license": "MIT",
   "bin": {
-    "lenso-mcp": "./dist/server.mjs"
+    "lenso-ui-mcp": "./dist/server.mjs"
   },
   "files": [
     "dist",
@@ -27,6 +27,6 @@
     "esbuild": "0.28.2"
   },
   "engines": {
-    "node": "^24.18.0"
+    "node": "^26.10.0"
   }
 }

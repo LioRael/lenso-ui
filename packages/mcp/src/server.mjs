@@ -87,7 +87,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(realpathSync(process.ar
     const server = createServer(readContract(new URL("./lenso-contract.json", import.meta.url)));
     await server.connect(new StdioServerTransport());
   } catch (error) {
-    console.error(`[lenso/mcp] ${error.message}`);
+    console.error(`[lenso-ui-mcp] ${error.message}`);
     process.exitCode = 1;
   }
 }

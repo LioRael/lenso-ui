@@ -1,5 +1,5 @@
 // Scratch-only fresh package and Storybook build. Dependency checkout is read-only.
-// PATH=<Node 24.18.0 bin>:$PATH node menu-toast-build.fixtures.mjs <empty-scratch> <dependency-checkout>
+// PATH=<Node 26.10.0 bin>:$PATH node menu-toast-build.fixtures.mjs <empty-scratch> <dependency-checkout>
 import assert from "node:assert/strict";
 import { cp, mkdir, readdir, symlink } from "node:fs/promises";
 import { spawn, execFileSync } from "node:child_process";
@@ -7,8 +7,8 @@ import { createRequire } from "node:module";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-assert.equal(process.version, "v24.18.0");
-assert.equal(execFileSync("pnpm", ["--version"], { encoding: "utf8" }).trim(), "11.5.0");
+assert.equal(process.version, "v26.10.0");
+assert.equal(execFileSync("pnpm", ["--version"], { encoding: "utf8" }).trim(), "12.9.1");
 const project = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArgument, dependencyArgument = project] = process.argv.slice(2);
 assert(scratchArgument, "Provide an empty scratch directory");

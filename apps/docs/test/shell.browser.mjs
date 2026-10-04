@@ -25,16 +25,17 @@ export async function checkAuthoredPage(page, base, slug, headings) {
   );
   for (const heading of headings)
     await page.getByRole("heading", { name: heading, level: 2, exact: true }).waitFor();
-  assert.ok(
+  const markdown = await readFile(path.join(process.cwd(), entry.markdownFile), "utf8");
+  assert.equal(
     (await page.locator("#nd-page pre code").count()) > 0,
-    "Authored MDX must render code blocks.",
+    /^```/m.test(markdown),
+    "Code block presence must follow the authored Markdown, including guides without fences.",
   );
   await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
   const copy = page.getByRole("button", { name: "Copy Markdown", exact: true });
   await copy.focus();
   await page.keyboard.press("Enter");
   await page.getByRole("status").filter({ hasText: "Markdown copied" }).waitFor();
-  const markdown = await readFile(path.join(process.cwd(), entry.markdownFile), "utf8");
   assert.equal(
     await page.evaluate(() => navigator.clipboard.readText()),
     markdown,
@@ -132,17 +133,20 @@ export async function checkDocumentationShell(page, base) {
   await search.focus();
   await page.keyboard.press("Enter");
   const dialog = page.getByRole("dialog", { name: "Search documentation", exact: true });
-  const input = dialog.getByRole("searchbox", { name: "Find a page", exact: true });
+  const input = dialog.getByRole("textbox", { name: "Find a page", exact: true });
   await input.waitFor();
   assert.equal(await input.evaluate((element) => element === document.activeElement), true);
-  await input.fill("Color area");
-  const result = dialog.getByRole("link", { name: /^Color\s?Area$/i });
+  await input.fill("ColorArea");
+  const result = dialog
+    .getByRole("button", { name: /^Color\s?Area$/i })
+    .and(dialog.locator('[data-docs-result-type="page"]'));
   await result.waitFor();
-  await page.keyboard.press("ArrowDown");
-  assert.equal(await result.evaluate((element) => element === document.activeElement), true);
+  assert.equal(await result.getAttribute("aria-current"), "true");
+  assert.equal(await input.evaluate((element) => element === document.activeElement), true);
   await page.keyboard.press("ArrowUp");
   assert.equal(await input.evaluate((element) => element === document.activeElement), true);
-  await input.fill("No such documentation page");
+  await input.fill("zzzzzzzznotadocument");
+  await dialog.getByRole("status").filter({ hasText: "No matching pages." }).waitFor();
   assert.equal(
     await dialog.getByRole("status").filter({ hasText: "No matching pages." }).count(),
     1,
@@ -153,8 +157,8 @@ export async function checkDocumentationShell(page, base) {
 
   await page.keyboard.press("Control+k");
   await input.waitFor();
-  await input.fill("Color area");
-  await page.keyboard.press("ArrowDown");
+  await input.fill("ColorArea");
+  await result.waitFor();
   await page.keyboard.press("Enter");
   await page.waitForURL("**/en/docs/react/components/color-area");
   await page.getByRole("heading", { name: /^Color\s?Area$/, level: 1 }).waitFor();
@@ -178,7 +182,10 @@ export async function checkDocumentationShell(page, base) {
   await toc.focus();
   await page.keyboard.press("Enter");
   assert.equal(await toc.getAttribute("aria-expanded"), "true");
-  await page.getByRole("link", { name: "Usage", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "On this page", exact: true })
+    .getByRole("link", { name: "Usage", exact: true })
+    .click();
   assert.equal(await toc.getAttribute("aria-expanded"), "false");
   assert.equal(new URL(page.url()).hash, "#usage");
   const browse = page.getByRole("button", { name: "Browse documentation", exact: true });

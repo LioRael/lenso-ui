@@ -18,16 +18,21 @@ import { useThemePortalContainer } from "../../utils/theme-scope.js";
 const AutocompleteStyleContext = createContext({
   variant: "primary" as "primary" | "secondary",
   fullWidth: false,
+  virtualized: false,
 });
 export function AutocompleteRoot<Value, Multiple extends boolean | undefined = false>({
   variant = "primary",
   fullWidth = false,
+  virtualized = false,
   ...props
 }: AutocompleteRootProps<Value, Multiple>) {
-  const appearance = useMemo(() => ({ variant, fullWidth }), [variant, fullWidth]);
+  const appearance = useMemo(
+    () => ({ variant, fullWidth, virtualized }),
+    [variant, fullWidth, virtualized],
+  );
   return (
     <AutocompleteStyleContext value={appearance}>
-      <BaseCombobox.Root {...props} />
+      <BaseCombobox.Root {...props} virtualized={virtualized} />
     </AutocompleteStyleContext>
   );
 }
@@ -63,7 +68,16 @@ export function AutocompleteInput({
     />
   );
 }
-export const AutocompleteValue = BaseCombobox.Value;
+export type AutocompleteValueProps = BaseCombobox.Value.Props & {
+  xstyle?: StyleXProps<ComponentPropsWithRef<"span">>["xstyle"];
+};
+export function AutocompleteValue({ xstyle, ...props }: AutocompleteValueProps) {
+  return (
+    <span {...stylex.props(autocompleteSharedStyles.value, xstyle)} data-slot="autocomplete-value">
+      <BaseCombobox.Value {...props} />
+    </span>
+  );
+}
 export type AutocompleteTriggerProps = StyleXProps<BaseCombobox.Trigger.Props> & {
   "data-slot"?: unknown;
 };
@@ -169,9 +183,11 @@ export function AutocompleteList({
   "data-slot": slot,
   ...props
 }: StyleXProps<BaseCombobox.List.Props> & { "data-slot"?: unknown }) {
+  const { virtualized } = useContext(AutocompleteStyleContext);
   const compiled = stylex.props(autocompleteStyles.list, xstyle);
   return (
     <BaseCombobox.List
+      data-virtualized={virtualized ? "" : undefined}
       {...props}
       {...compiled}
       style={mergeStyle<BaseCombobox.List.State>(compiled.style, style)}
@@ -324,6 +340,7 @@ export function AutocompleteEmpty({
   );
 }
 export function AutocompleteClearButton({
+  children,
   xstyle,
   style,
   "data-slot": slot,
@@ -336,7 +353,18 @@ export function AutocompleteClearButton({
       {...compiled}
       style={mergeStyle<BaseCombobox.Clear.State>(compiled.style, style)}
       data-slot={slot ?? "autocomplete-clear-button"}
-    />
+    >
+      {children ?? (
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path
+            d="m4 4 8 8m0-8-8 8"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      )}
+    </BaseCombobox.Clear>
   );
 }
 export function AutocompleteChips({

@@ -9,7 +9,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { createHash } from "node:crypto";
 
-assert.equal(process.version, "v24.18.0");
+assert.equal(process.version, "v26.10.0");
 const [directory, playwrightModule, artifactsArgument] = process.argv.slice(2);
 assert(
   directory && playwrightModule,

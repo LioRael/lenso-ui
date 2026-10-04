@@ -18,7 +18,7 @@ test("CLI fixture bundle runs outside the workspace with only node builtins", as
     bundle: true,
     format: "esm",
     platform: "node",
-    target: "node24",
+    target: "node26",
     nodePaths: [fileURLToPath(new URL("../node_modules/", import.meta.url))],
     banner: {
       js: "import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);",

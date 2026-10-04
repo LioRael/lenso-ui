@@ -9,6 +9,7 @@ import { writeApiReference } from "./generate-api-reference.mjs";
 import { reportCoverage } from "./report-coverage.mjs";
 import { writeDocsProjection } from "./docs-projection.mjs";
 import { writeLensoContract } from "./generate-lenso-contract.mjs";
+import { writeStaticSearch } from "./static-search.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const hash = (text) => createHash("sha256").update(text).digest("hex");
@@ -48,6 +49,7 @@ const localized = await generateLocalizedExamples();
 await generateLiveRegistry(undefined, localized);
 await writeApiReference(undefined, process.env.API_REFERENCE_DEPENDENCY_ROOT);
 const authored = await writeDocsProjection();
+await writeStaticSearch(authored);
 await writeLensoContract(undefined, authored);
 await reportCoverage();
 console.log(

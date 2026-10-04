@@ -6,7 +6,7 @@ import { createRequire } from "node:module";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-assert.equal(process.version, "v24.18.0");
+assert.equal(process.version, "v26.10.0");
 const project = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArgument, providerArgument] = process.argv.slice(2);
 assert(

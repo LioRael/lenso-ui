@@ -17,11 +17,11 @@ assert.ok(
   scratchArgument && dependenciesArgument,
   "Provide an existing scratch directory and readonly dependency project",
 );
-assert.equal(process.versions.node, "24.18.0", "Use Node 24.18.0");
+assert.equal(process.versions.node, "26.10.0", "Use Node 26.10.0");
 assert.equal(
   spawnSync("pnpm", ["--version"], { encoding: "utf8" }).stdout.trim(),
-  "11.5.0",
-  "Use pnpm 11.5.0",
+  "12.9.1",
+  "Use pnpm 12.9.1",
 );
 const scratch = await realpath(resolve(scratchArgument));
 const dependencies = await realpath(resolve(dependenciesArgument));
@@ -33,7 +33,7 @@ for (const source of [project, dependencies])
 const validation = resolve(scratch, "color-validation");
 await mkdir(validation);
 const rootRequire = createRequire(resolve(dependencies, "package.json"));
-const runReport = { node: process.version, pnpm: "11.5.0", steps: [], artifacts: {} };
+const runReport = { node: process.version, pnpm: "12.9.1", steps: [], artifacts: {} };
 async function run(file, args, cwd = validation, env = {}) {
   await new Promise((done, reject) => {
     const child = spawn(process.execPath, [file, ...args], {

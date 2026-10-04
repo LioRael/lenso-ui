@@ -1,6 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
+import fumaMDX from "fumadocs-ui/mdx";
 import reference from "../generated/api-reference.json";
 import { styles } from "../styles/api-reference.stylex";
+import { prose } from "../styles/prose.stylex";
 
 type Locale = "en" | "zh";
 type Property = (typeof reference.properties)[number];
@@ -67,13 +69,13 @@ function PropertyTable({
   return (
     // Keyboard users must be able to scroll wide type signatures.
     // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <section {...stylex.props(styles.scroll)} tabIndex={0} aria-label={label}>
-      <table {...stylex.props(styles.table)}>
+    <section {...stylex.props(prose.scroll)} tabIndex={0} aria-label={label}>
+      <fumaMDX.table {...stylex.props(prose.table)}>
         <thead>
           <tr>
             {[text.property, text.type, text.required, text.default, text.description].map(
               (label) => (
-                <th key={label} scope="col" {...stylex.props(styles.cell)}>
+                <th key={label} scope="col" {...stylex.props(prose.cell, prose.header)}>
                   {label}
                 </th>
               ),
@@ -83,17 +85,21 @@ function PropertyTable({
         <tbody>
           {rows.map((row) => (
             <tr key={row.name}>
-              <th scope="row" {...stylex.props(styles.cell)}>
-                <code>{row.name}</code>
+              <th scope="row" {...stylex.props(prose.cell)}>
+                <code {...stylex.props(prose.code)}>{row.name}</code>
               </th>
-              <td {...stylex.props(styles.cell)}>
-                <code {...stylex.props(styles.code)}>{row.expandedType}</code>
+              <td {...stylex.props(prose.cell)}>
+                <code {...stylex.props(prose.code, styles.code)}>{row.expandedType}</code>
               </td>
-              <td {...stylex.props(styles.cell)}>{row.required ? text.yes : text.no}</td>
-              <td {...stylex.props(styles.cell)}>
-                {row.default === null ? text.unknown : <code>{row.default}</code>}
+              <td {...stylex.props(prose.cell)}>{row.required ? text.yes : text.no}</td>
+              <td {...stylex.props(prose.cell)}>
+                {row.default === null ? (
+                  text.unknown
+                ) : (
+                  <code {...stylex.props(prose.code)}>{row.default}</code>
+                )}
               </td>
-              <td {...stylex.props(styles.cell)}>
+              <td {...stylex.props(prose.cell)}>
                 {row.description}
                 <small {...stylex.props(styles.source)}>
                   {row.source.path}:{row.source.line}
@@ -102,7 +108,7 @@ function PropertyTable({
             </tr>
           ))}
         </tbody>
-      </table>
+      </fumaMDX.table>
     </section>
   );
 }

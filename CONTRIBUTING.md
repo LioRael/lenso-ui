@@ -31,7 +31,7 @@ documents must state the replacement and its remaining limitations.
 
 ## Verification
 
-Use Node 24.18.0 and pnpm 11.5.0, as configured in `.mise.toml` and the root
+Use Node 26.10.0 and pnpm 12.9.1, as configured in `.mise.toml` and the root
 `package.json`. Install from the lockfile:
 
 ```sh

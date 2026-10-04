@@ -3,15 +3,15 @@ import { checkProject, planInit, applyInit } from "./project.mjs";
 import { pathToFileURL } from "node:url";
 import { realpathSync } from "node:fs";
 
-export const help = `lenso — version-matched Lenso developer tools
+export const help = `lenso-ui — version-matched Lenso developer tools
 
 Usage:
-  lenso list [--json]
-  lenso info <component> [--json]
-  lenso docs <slug/component> [--locale en|cn]
-  lenso metadata [--json]
-  lenso check [--cwd <project>] [--json]
-  lenso init --framework vite|next [--cwd <project>] [--write] [--json]
+  lenso-ui list [--json]
+  lenso-ui info <component> [--json]
+  lenso-ui docs <slug/component> [--locale en|cn]
+  lenso-ui metadata [--json]
+  lenso-ui check [--cwd <project>] [--json]
+  lenso-ui init --framework vite|next [--cwd <project>] [--write] [--json]
 
 init is a dry run unless --write is supplied. It never installs dependencies
 or executes project scripts. check reads the consumer project without changing it.
@@ -102,7 +102,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(realpathSync(process.ar
     process.stdout.write(result.output);
     process.exitCode = result.exitCode;
   } catch (error) {
-    console.error(`[lenso] ${error.message}`);
+    console.error(`[lenso-ui] ${error.message}`);
     process.exitCode = 1;
   }
 }

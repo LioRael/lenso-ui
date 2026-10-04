@@ -3,6 +3,31 @@
 Authority: HeroUI v3.2.6, commit
 `e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e`, Apache-2.0.
 
+## Current native Fumadocs integration
+
+The bounded follow-up uses actual `fumadocs-ui`/`fumadocs-core` **16.9.0**,
+matching the pinned HeroUI release. The user explicitly authorized the docs-only
+Radix/precompiled-CSS exception. Component library packages remain Base UI/StyleX.
+`RootProvider` uses Next's framework bridge beneath the existing theme provider;
+its duplicate theme/search providers are disabled. The locale-specific shell
+owns one real Fuma `SearchProvider`, native dialog parts and static `useDocsSearch`.
+Core TOC observation/anchors and native MDX heading/table components replace the
+copied mechanics. The retained notebook rail/resize styles and other adaptations
+still carry their original licenses.
+
+Only the exported `fumadocs-ui/style.css` is imported; `css/preset.css` requires a
+Tailwind plugin and is not used. No Tailwind compiler is added. Native package
+dependencies include `tailwind-merge` and `@fumadocs/tailwind`; this is not a claim
+that the dependency graph contains no Tailwind-related packages.
+
+Search assets are built from the authored index only, using the public advanced
+search exporter and matching public Mandarin tokenizer on server and static client.
+They are `/search/en.json` and `/search/cn.json`, not `/api/search`. Native API facts,
+locale routes, existing heading IDs and exact copied Markdown stay authored.
+Current verification and explicit package compatibility limits are recorded in
+`apps/docs/test/FUMADOCS-INTEGRATION.md`. The earlier adaptation notes below are
+historical context, not proof of the current package-backed integration.
+
 ## Source and local structure
 
 - `layouts/notebook/{index,sidebar,page}.tsx` follows upstream's notebook

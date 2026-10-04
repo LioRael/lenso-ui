@@ -19,7 +19,7 @@ test("standalone fixture bundle speaks stdio JSON-RPC, returns code as data and 
     bundle: true,
     format: "esm",
     platform: "node",
-    target: "node24",
+    target: "node26",
     banner: {
       js: "import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);",
     },

@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import localFont from "next/font/local";
+import { preload } from "react-dom";
 import * as stylex from "@stylexjs/stylex";
-import "@lenso/tokens/styles.css";
+import "fumadocs-ui/style.css";
+import "@/styles/global.css";
 import { Providers } from "@/components/providers";
 import { styles } from "@/styles/docs.stylex";
 import { env } from "../../env";
-
-const inter = localFont({
-  src: [{ path: "../../public/fonts/Inter-Variable.ttf", weight: "100 900", style: "normal" }],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
@@ -27,10 +22,15 @@ export default function DocumentLayout({
   children: ReactNode;
   lang?: string;
 }) {
+  preload("/fonts/Inter-Variable.ttf", {
+    as: "font",
+    type: "font/ttf",
+    crossOrigin: "anonymous",
+  });
   return (
-    <html lang={lang} className={inter.variable} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body {...stylex.props(styles.body)}>
-        <Providers>
+        <Providers locale={lang === "zh-CN" ? "cn" : "en"}>
           <a href="#main-content" {...stylex.props(styles.skip)}>
             Skip to content
           </a>

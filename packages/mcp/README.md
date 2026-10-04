@@ -1,6 +1,8 @@
-# @lenso/mcp
+# @lenso/ui-mcp
 
-Initial `0.1.0`, unpublished. Node `24.18.0` is the tested runtime.
+`@lenso/ui-mcp@0.1.0` is private and unpublished. Its current runtime requires Node `26.10.0` or a later Node 26 release.
+
+## Maintainer build
 
 Build only after the shared production contract is generated. The distribution
 includes that validated contract and the bundled private query/validation core.
@@ -12,8 +14,8 @@ individual tools resolve only selected documentation or source records through
 the private core. Search processes one document at a time and stops at the
 requested limit. There is no expanded-corpus cache or independent decoder.
 
-Configure your MCP client to launch the installed `lenso-mcp` binary using
-stdio. The six tools are discoverable through the protocol, including their
+After publication, configure your MCP client to launch the installed
+`lenso-ui-mcp` binary using stdio. The six tools are discoverable through the protocol, including their
 input schemas and read-only annotations. Responses include release metadata and
 digest. Optional identity arguments enforce the caller's expected release.
 

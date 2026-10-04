@@ -23,6 +23,7 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./theme.css": "./dist/theme.css",
     "./stylex-rules.json": "./dist/stylex-rules.json",
     "./tokens.stylex.const": {
       "types": "./dist/tokens.stylex.const.d.ts",

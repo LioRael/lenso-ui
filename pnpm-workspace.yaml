@@ -6,7 +6,7 @@ allowBuilds:
   esbuild: true
 
 overrides:
-  "@types/node": 24.19.1
+  "@types/node": 26.6.4
 
 catalog:
   "axe-core": 4.13.0
@@ -14,7 +14,7 @@ catalog:
   "@stylexjs/stylex": 0.19.1
   "@stylexjs/unplugin": 0.19.1
   "@tanstack/react-table": 9.2.4
-  "@types/node": 24.19.1
+  "@types/node": 26.6.4
   "@types/mdx": 2.0.14
   "@types/react": 19.3.0
   "@types/react-dom": 19.3.0

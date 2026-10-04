@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import type { ComponentProps, ReactNode } from "react";
+import fumaMDX from "fumadocs-ui/mdx";
 import * as stylex from "@stylexjs/stylex";
 import { HandPointUp } from "@gravity-ui/icons";
 import { ComponentPreview } from "@/components/component-preview";
@@ -11,18 +12,12 @@ import {
 } from "@/components/color-section";
 import { source, pageUrl, type Locale } from "@/lib/source";
 import { styles } from "@/styles/docs.stylex";
+import { prose } from "@/styles/prose.stylex";
 import { getRelatedComponents } from "@/components-registry";
 import { Tab, Tabs } from "@/mdx-components/tabs";
 import { MDXCodeBlock } from "@/mdx-components/code";
-
-export function headingId(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/\[!toc\]/g, "")
-    .replace(/[^\p{L}\p{N}\s-]/gu, "")
-    .trim()
-    .replace(/\s+/g, "-");
-}
+import { headingId } from "@/lib/heading-id.mjs";
+export { headingId } from "@/lib/heading-id.mjs";
 
 function plainText(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
@@ -49,7 +44,7 @@ function DocLink({ href = "", children, ...props }: ComponentProps<"a"> & { loca
           ? `https://www.heroui.com${href}`
           : href;
   return (
-    <a {...rest} href={local} {...stylex.props(styles.proseLink)}>
+    <a {...rest} href={local} {...stylex.props(prose.link)}>
       {children}
     </a>
   );
@@ -78,42 +73,69 @@ export function getMDXComponents(locale: Locale): MDXComponents {
     (page) => page.locale === locale && page.slug.startsWith("react/components/"),
   );
   return {
+    ...fumaMDX,
     h1: ({ children }) => (
-      <h2 id={headingId(plainText(children))} {...stylex.props(styles.h2)}>
+      <fumaMDX.h2
+        id={headingId(plainText(children))}
+        aria-label={plainText(children)}
+        {...stylex.props(styles.h2)}
+      >
         {children}
-      </h2>
+      </fumaMDX.h2>
     ),
     h2: ({ children }) => (
-      <h2 id={headingId(plainText(children))} {...stylex.props(styles.h2)}>
+      <fumaMDX.h2
+        id={headingId(plainText(children))}
+        aria-label={plainText(children)}
+        {...stylex.props(styles.h2)}
+      >
         {children}
-      </h2>
+      </fumaMDX.h2>
     ),
     h3: ({ children }) => (
-      <h3 id={headingId(plainText(children))} {...stylex.props(styles.h3)}>
+      <fumaMDX.h3
+        id={headingId(plainText(children))}
+        aria-label={plainText(children)}
+        {...stylex.props(styles.h3)}
+      >
         {children}
-      </h3>
+      </fumaMDX.h3>
     ),
     h4: ({ children }) => (
-      <h4 id={headingId(plainText(children))} {...stylex.props(styles.h3)}>
+      <fumaMDX.h4
+        id={headingId(plainText(children))}
+        aria-label={plainText(children)}
+        {...stylex.props(styles.h3)}
+      >
         {children}
-      </h4>
+      </fumaMDX.h4>
     ),
     p: ({ children }) => <p {...stylex.props(styles.paragraph)}>{children}</p>,
     a: (props) => <DocLink {...props} locale={locale} />,
     code: ({ children, className }) => (
-      <code className={className} {...stylex.props(!className && styles.inlineCode)}>
+      <code className={className} {...stylex.props(!className && prose.code)}>
         {children}
       </code>
     ),
     pre: MDXCodeBlock,
-    table: ({ children }) => (
+    table: ({ children, ...props }) => (
       // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Safari needs a focusable scroll region for keyboard table scrolling.
-      <section tabIndex={0} aria-label="API reference table" {...stylex.props(styles.tableScroll)}>
-        <table {...stylex.props(styles.table)}>{children}</table>
+      <section tabIndex={0} aria-label="API reference table" {...stylex.props(prose.scroll)}>
+        <fumaMDX.table {...props} {...stylex.props(prose.table)}>
+          {children}
+        </fumaMDX.table>
       </section>
     ),
-    th: ({ children }) => <th {...stylex.props(styles.cell)}>{children}</th>,
-    td: ({ children }) => <td {...stylex.props(styles.cell)}>{children}</td>,
+    th: ({ children, ...props }) => (
+      <th {...props} {...stylex.props(prose.cell, prose.header)}>
+        {children}
+      </th>
+    ),
+    td: ({ children, ...props }) => (
+      <td {...props} {...stylex.props(prose.cell)}>
+        {children}
+      </td>
+    ),
     blockquote: Frame,
     Callout: Frame,
     Preview: Frame,

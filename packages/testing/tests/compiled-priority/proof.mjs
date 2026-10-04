@@ -20,7 +20,7 @@ import { promisify } from "node:util";
 import { compilerProbe } from "./compiler-probe.mjs";
 import { pluginOptionsProbe } from "./plugin-options.mjs";
 
-assert.equal(process.versions.node, "24.18.0");
+assert.equal(process.versions.node, "26.10.0");
 const fixture = dirname(fileURLToPath(import.meta.url));
 const project = resolve(fixture, "../../../..");
 const [scratchArgument, dependenciesArgument, mode] = process.argv.slice(2);

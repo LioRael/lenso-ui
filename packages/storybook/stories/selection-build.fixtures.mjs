@@ -10,7 +10,7 @@ const source = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArgument, dependencyArgument] = process.argv.slice(2);
 if (!scratchArgument || !dependencyArgument)
   throw new Error("Supply scratch and readonly dependency checkout");
-if (process.version !== "v24.18.0") throw new Error("Use Node 24.18.0");
+if (process.version !== "v26.10.0") throw new Error("Use Node 26.10.0");
 const scratch = resolve(scratchArgument);
 const dependencies = resolve(dependencyArgument);
 if (

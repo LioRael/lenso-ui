@@ -1,5 +1,5 @@
 // Fresh builds and links stay in scratch. Dependency project is read-only.
-// Node 24.18.0: node collection-build.fixture.mjs <empty-scratch> <dependency-project>
+// Node 26.10.0: node collection-build.fixture.mjs <empty-scratch> <dependency-project>
 import { cp, mkdir, readdir, readFile, symlink, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
@@ -7,7 +7,7 @@ import { dirname, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 
-if (process.versions.node !== "24.18.0") throw new Error("Use Node 24.18.0");
+if (process.versions.node !== "26.10.0") throw new Error("Use Node 26.10.0");
 const project = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArgument, dependenciesArgument] = process.argv.slice(2);
 if (!scratchArgument || !dependenciesArgument)

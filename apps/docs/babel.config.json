@@ -1,0 +1,15 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "@stylexjs/babel-plugin",
+      {
+        "dev": false,
+        "runtimeInjection": false,
+        "styleResolution": "property-specificity",
+        "classNamePrefix": "x",
+        "unstable_moduleResolution": { "type": "commonJS" }
+      }
+    ]
+  ]
+}

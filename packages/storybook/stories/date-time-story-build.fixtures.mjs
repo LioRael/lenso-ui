@@ -1,5 +1,5 @@
 // Scratch-only validation; dependency checkout is read-only.
-// Node 24.18.0, pnpm 11.5.0: node date-time-story-build.fixtures.mjs <empty-scratch> <dependency-checkout>
+// Node 26.10.0, pnpm 12.9.1: node date-time-story-build.fixtures.mjs <empty-scratch> <dependency-checkout>
 import assert from "node:assert/strict";
 import { cp, mkdir, readdir, symlink, readFile, realpath } from "node:fs/promises";
 import { spawn, execFileSync } from "node:child_process";
@@ -7,8 +7,8 @@ import { createRequire } from "node:module";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-assert.equal(process.version, "v24.18.0");
-assert.equal(execFileSync("pnpm", ["--version"], { encoding: "utf8" }).trim(), "11.5.0");
+assert.equal(process.version, "v26.10.0");
+assert.equal(execFileSync("pnpm", ["--version"], { encoding: "utf8" }).trim(), "12.9.1");
 const project = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const [scratchArgument, dependencyArgument] = process.argv.slice(2);
 assert(

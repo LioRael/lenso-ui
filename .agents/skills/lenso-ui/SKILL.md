@@ -10,8 +10,8 @@ description: Implement Lenso UI components, configure a Lenso consumer build, or
 1. Read the consumer's installed `@lenso/ui` and `@lenso/tokens` package versions
    and framework configuration. Match them exactly. Stop on a mismatch; the
    upstream reference version is provenance, not the installed Lenso contract.
-2. Use the matching installed `lenso --help` and `lenso metadata --json`, or the
-   configured MCP server's `list_components` metadata. Confirm `lensoVersion`,
+2. Use the matching installed `lenso-ui --help` and `lenso-ui metadata --json`,
+   or the configured MCP server's `list_components` metadata. Confirm `lensoVersion`,
    package versions and digest before querying. Use documentation generated for
    that same release when tools are unavailable; report missing evidence rather
    than substituting a cached contract.
@@ -36,7 +36,7 @@ description: Implement Lenso UI components, configure a Lenso consumer build, or
 
 ## Prove
 
-7. Run the consumer's typecheck, matching `lenso check`, and framework build.
+7. Run the consumer's typecheck, matching `lenso-ui check`, and framework build.
    Exercise keyboard opening, navigation, activation, dismissal and focus
    restoration for affected interactive parts. Check both themes, portals,
    responsive overflow and reduced motion where applicable.

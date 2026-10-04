@@ -18,7 +18,7 @@ export async function fixtureSource({ styles = true } = {}) {
     },
     compatibility: {
       schemaVersion: 1,
-      node: { range: "^24.18.0", testedVersion: "24.18.0" },
+      node: { range: "^26.10.0", testedVersion: "26.10.0" },
       stylex: {
         compiler: "@stylexjs/babel-plugin",
         version: "0.19.1",

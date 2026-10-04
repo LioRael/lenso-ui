@@ -2,7 +2,7 @@ import { contract } from "./metadata.mjs";
 
 export const buildSupport = Object.freeze({
   schemaVersion: 1,
-  node: Object.freeze({ range: "^24.18.0", testedVersion: "24.18.0" }),
+  node: Object.freeze({ range: "^26.10.0", testedVersion: "26.10.0" }),
   stylex: Object.freeze({
     compiler: contract.compiler,
     version: contract.compilerVersion,

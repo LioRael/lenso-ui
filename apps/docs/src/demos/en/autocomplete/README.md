@@ -10,6 +10,64 @@ Authority: HeroUI **v3.2.6**, commit
 The modules adapt Apache-2.0 source; attribution is retained in the files.
 The original Gravity icon and HeroUI avatar assets are used.
 
+## SearchField / Tag composition correction
+
+The shared EN `_native.tsx` owns this correction for all 24 demos. The actual
+readonly pinned archive was compared, not a current upstream release:
+
+- `apps/docs/src/demos/en/autocomplete/default.tsx`
+- `apps/docs/src/demos/en/autocomplete/tag-group-selection.tsx`
+- `packages/styles/components/autocomplete.css`
+- `packages/styles/components/search-field.css`
+- `packages/styles/components/tag.css` and `tag-group.css`
+
+Source-derived geometry now replaces the former custom wrapper/chip geometry:
+
+- Field/label gap: 4px rather than 8px.
+- Popup search outer: nonshrinking wrapper with 12px inline / 4px block padding,
+  replacing the unpadded sticky surface wrapper.
+- Search group: 36px height, field radius/border, secondary default fill,
+  no shadow and native focus ring.
+- Search icon/input: 16px icon with 12px logical start margin and
+  8px input inline padding, rather than wrapper-gap positioning.
+- Search clear: persistent 20px slot, 8px logical end margin and 12px glyph;
+  disabled/invisible while empty.
+- List: source 320px maximum rather than the 420px demo override.
+- Small tags: Tag maps supply 8px horizontal / 2px block padding,
+  12px default radius and 12px/16px medium-weight text; the list gap is 6px.
+- Selection clear: the core's native default 14px glyph replaces the
+  demo-provided 16px glyph.
+
+The SearchField style maps compose onto structural wrappers around the actual
+`Autocomplete.Input`; replacing it with `SearchField.Input` would replace the
+native combobox keyboard/search owner. Tag maps compose onto
+`Autocomplete.Chip`, not a second selection collection. Native ChipRemove keeps
+its existing 12px glyph and 24px pseudo-element hit target. Chips, clear and
+caret remain sibling controls, with a whole-field popup anchor. The caret is
+positioned at the logical trailing edge rather than consuming tag-list width.
+Custom demo styles remain last; the core library, CN demos, build configuration,
+dependencies, primitives and legal notices are unchanged by this correction.
+
+### Current correction evidence
+
+The [merged validation report](../../../../../../docs/final-merged-validation.md)
+records successful current-source builds, typechecks, lint and formatting under
+Node **24.18.0**, after canonical CN regeneration and the final Empty padding fix.
+Earlier materialization and disk-capacity failures are retained separately.
+
+`composition-proof.mjs` passed all 16 Default/MultipleSelect combinations in
+light/dark, 1280px/390px and LTR/RTL, producing 32 actual screenshots. It checks
+keyboard open/filter/select/Escape, search-clear focus, tag removal, selection
+clear, source geometry and overflow. Measurements wait for the native popup's
+finite animation to settle rather than disabling it.
+
+The empty status stays mounted and polite: populated results leave it at zero
+height, no matches retain the padded message, and clearing the query restores
+zero height. The first option starts 6px after the search wrapper.
+
+This focused run does not repeat the 24-demo behavioral suite, establish rendered
+HeroUI pixel parity, or supply a React Doctor score.
+
 ## Native interaction adaptations
 
 - Base UI owns selection, filtering, popup search, focus, controlled value/open
@@ -33,7 +91,7 @@ The original Gravity icon and HeroUI avatar assets are used.
   Native `virtualized` mode, indexed options and highlight-driven scrolling keep
   offscreen keyboard navigation functional. At most 14 options are mounted.
 
-## Verification
+## Historical verification (before the composition correction)
 
 Executed against the parent's readonly installed dependency graph using a scratch
 Vite production consumer. Both packages and demo styles were compiled with

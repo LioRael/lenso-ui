@@ -1,12 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import Link from "next/link";
+import { useRef } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { BookOpen, Magnifier, Xmark } from "@gravity-ui/icons";
-import { Modal } from "@lenso/ui";
+import { Magnifier } from "@gravity-ui/icons";
+import { Kbd } from "@lenso/ui";
+import { useDocsSearch } from "fumadocs-core/search/client";
+import { create } from "@orama/orama";
+import { createTokenizer } from "@orama/tokenizers/mandarin";
+import { SearchProvider, useSearchContext, type SharedProps } from "fumadocs-ui/contexts/search";
+import {
+  SearchDialog as FumaSearchDialog,
+  SearchDialogContent,
+  SearchDialogOverlay,
+  SearchDialogHeader,
+  SearchDialogInput,
+  SearchDialogIcon,
+  SearchDialogClose,
+  SearchDialogList,
+  SearchDialogListItem,
+  useSearchList,
+  type SearchItemType,
+} from "fumadocs-ui/components/dialog/search";
 import { notebook } from "@/styles/notebook.stylex";
+import { search as styles } from "@/styles/search.stylex";
 
+// HeroUI e385ac2 visual overrides (Apache-2.0). Fumadocs owns dialog, selection,
+// scrolling and static search; MIT attribution remains in ../LICENSE.FUMADOCS.
 export interface SearchEntry {
   label: string;
   href?: string;
@@ -16,107 +35,121 @@ export interface SearchEntry {
   defaultOpen?: boolean;
 }
 
-const normalize = (value: string) => value.toLocaleLowerCase().replace(/[\s_-]+/g, "");
-
-export function SearchDialog({ entries }: { entries: SearchEntry[] }) {
-  const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const input = useRef<HTMLInputElement>(null);
-  const results = useRef<HTMLDivElement>(null);
-  const filtered = query.trim()
-    ? entries.filter((entry) => normalize(entry.label).includes(normalize(query)))
-    : entries.slice(0, 12);
-
-  useEffect(() => {
-    const shortcut = (event: globalThis.KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        setOpen((value) => !value);
-      }
-    };
-    document.addEventListener("keydown", shortcut);
-    return () => document.removeEventListener("keydown", shortcut);
-  }, []);
-
-  function navigateResults(event: KeyboardEvent<HTMLElement>) {
-    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
-    const links = [...(results.current?.querySelectorAll<HTMLAnchorElement>("a") ?? [])];
-    if (links.length === 0) return;
-    event.preventDefault();
-    const index = links.findIndex((link) => link === document.activeElement);
-    if (index === 0 && event.key === "ArrowUp") input.current?.focus();
-    else
-      links[(index + (event.key === "ArrowDown" ? 1 : -1) + links.length) % links.length]?.focus();
-  }
-
+function SearchResult({ item, onClick }: { item: SearchItemType; onClick: () => void }) {
+  const { active } = useSearchList();
   return (
-    <Modal.Root
+    <SearchDialogListItem
+      item={item}
+      onClick={onClick}
+      aria-selected={undefined}
+      aria-current={active === item.id ? "true" : undefined}
+      data-docs-result=""
+      data-docs-result-type={item.type}
+      {...stylex.props(styles.result)}
+    />
+  );
+}
+
+function StaticSearchDialog({ open, onOpenChange, locale }: SharedProps & { locale: string }) {
+  const restoreFocus = useRef<Element | null>(null);
+  const { search, setSearch, query } = useDocsSearch(
+    {
+      type: "static",
+      from: `/search/${locale}.json`,
+      allowEmpty: true,
+      search: { limit: 60 },
+      initOrama: () =>
+        create({
+          schema: { _: "string" },
+          components: locale === "cn" ? { tokenizer: createTokenizer() } : undefined,
+        }),
+    },
+    [locale],
+  );
+  const items = query.data === "empty" ? [] : query.data;
+  return (
+    <FumaSearchDialog
       open={open}
       onOpenChange={(value) => {
-        setOpen(value);
-        if (!value) setQuery("");
+        onOpenChange(value);
+        if (!value) setSearch("");
       }}
+      search={search}
+      onSearchChange={setSearch}
+      isLoading={query.isLoading}
     >
+      <SearchDialogOverlay data-docs-search-overlay="" {...stylex.props(styles.backdrop)} />
+      <SearchDialogContent
+        aria-label="Search documentation"
+        aria-labelledby={undefined}
+        data-docs-search=""
+        onOpenAutoFocus={() => {
+          restoreFocus.current = document.activeElement;
+        }}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          if (restoreFocus.current instanceof HTMLElement) restoreFocus.current.focus();
+        }}
+        {...stylex.props(styles.popup)}
+      >
+        <SearchDialogHeader {...stylex.props(styles.header)}>
+          <SearchDialogIcon aria-hidden="true" {...stylex.props(styles.icon)} />
+          <SearchDialogInput aria-label="Find a page" placeholder="Search documentation…" />
+          <SearchDialogClose aria-label="Close search" {...stylex.props(styles.close)}>
+            <Kbd>
+              <Kbd.Content>ESC</Kbd.Content>
+            </Kbd>
+          </SearchDialogClose>
+        </SearchDialogHeader>
+        <SearchDialogList
+          items={items}
+          Empty={() => <output {...stylex.props(styles.empty)}>No matching pages.</output>}
+          Item={(props) => <SearchResult {...props} />}
+          {...stylex.props(styles.list)}
+        />
+      </SearchDialogContent>
+    </FumaSearchDialog>
+  );
+}
+
+function SearchTriggers() {
+  const { setOpenSearch, hotKey } = useSearchContext();
+  return (
+    <>
       <div {...stylex.props(notebook.headerDesktop, notebook.searchContainer)}>
-        <Modal.Trigger aria-label="Search documentation" xstyle={notebook.searchTrigger}>
+        <button
+          type="button"
+          aria-label="Search documentation"
+          onClick={() => setOpenSearch(true)}
+          {...stylex.props(notebook.searchTrigger)}
+        >
           <Magnifier width={16} height={16} aria-hidden="true" />
           <span {...stylex.props(notebook.searchLabel)}>Search</span>
-          <kbd {...stylex.props(notebook.key)}>⌘</kbd>
-          <kbd {...stylex.props(notebook.key)}>K</kbd>
-        </Modal.Trigger>
+          {hotKey.map((key, index) => (
+            <kbd key={index} {...stylex.props(notebook.key)}>
+              {key.display}
+            </kbd>
+          ))}
+        </button>
       </div>
       <div {...stylex.props(notebook.headerMobile)}>
-        <Modal.Trigger aria-label="Search documentation" xstyle={notebook.iconButton}>
+        <button
+          type="button"
+          aria-label="Search documentation"
+          onClick={() => setOpenSearch(true)}
+          {...stylex.props(notebook.iconButton)}
+        >
           <Magnifier width={18} height={18} aria-hidden="true" />
-        </Modal.Trigger>
+        </button>
       </div>
-      <Modal.Portal>
-        <Modal.Backdrop xstyle={notebook.backdrop} />
-        <Modal.Popup initialFocus={input} xstyle={notebook.searchPopup}>
-          <Modal.Title xstyle={notebook.hidden}>Search documentation</Modal.Title>
-          <Modal.Description xstyle={notebook.hidden}>
-            Search page titles. Use arrow keys to browse results and Enter to open a page.
-          </Modal.Description>
-          <div {...stylex.props(notebook.searchBar)}>
-            <Magnifier width={20} height={20} aria-hidden="true" />
-            <input
-              ref={input}
-              type="search"
-              aria-label="Find a page"
-              placeholder="Search documentation…"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              onKeyDown={navigateResults}
-              {...stylex.props(notebook.searchInput)}
-            />
-            <Modal.Close
-              aria-label="Close search"
-              xstyle={[notebook.iconButton, notebook.staticClose]}
-            >
-              <Xmark width={16} height={16} aria-hidden="true" />
-            </Modal.Close>
-          </div>
-          <div ref={results} {...stylex.props(notebook.searchResults)}>
-            {filtered.map(
-              (entry) =>
-                entry.href && (
-                  <Link
-                    key={entry.href}
-                    href={entry.href}
-                    onClick={() => setOpen(false)}
-                    onKeyDown={navigateResults}
-                    {...stylex.props(notebook.searchResult)}
-                  >
-                    <BookOpen width={16} height={16} aria-hidden="true" />
-                    {entry.label}
-                  </Link>
-                ),
-            )}
-            {filtered.length === 0 && <output>No matching pages.</output>}
-          </div>
-          <p {...stylex.props(notebook.searchHelp)}>↑ ↓ Navigate · Enter Open · Esc Close</p>
-        </Modal.Popup>
-      </Modal.Portal>
-    </Modal.Root>
+    </>
+  );
+}
+
+export function SearchDialog({ locale }: { locale: string }) {
+  return (
+    <SearchProvider SearchDialog={(props) => <StaticSearchDialog {...props} locale={locale} />}>
+      <SearchTriggers />
+    </SearchProvider>
   );
 }

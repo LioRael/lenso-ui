@@ -56,6 +56,13 @@ props, state attributes, refs, render composition and style callbacks.
 React Aria Components owns date, time and color models, including supporting
 parts that depend on those contexts. Native HTML owns noninteractive structure.
 
+The documentation shell is an explicit exception: use Fumadocs UI and core
+directly, including their native interactions and supplied CSS, with local
+presentation overrides like the pinned reference. Do not maintain copies of
+Fumadocs behavior merely to force the docs shell through Base UI. This exception
+does not change the component library's Base UI and StyleX contracts. Static
+deployment, authored Lenso content and exact Markdown copying remain required.
+
 Variants are component-specific typed StyleX maps. Concrete components compose
 StyleX directly with native Base UI parts; no shared generic component factory
 stands between their public props and the native interaction contract.

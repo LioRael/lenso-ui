@@ -116,9 +116,6 @@ export default async function DocsPage({ params }: Props) {
   });
   const section = page.slug.split("/")[1] ?? "getting-started";
   const entries = await getNavigation(lang, section);
-  const searchEntries = source.pages
-    .filter((candidate) => candidate.locale === lang)
-    .map((candidate) => ({ label: candidate.title, href: pageUrl(candidate) }));
   const pageEntries = entries.filter((entry) => entry.href);
   const position = pageEntries.findIndex((entry) => entry.href === pageUrl(page));
   const previous = pageEntries[position - 1];
@@ -128,12 +125,11 @@ export default async function DocsPage({ params }: Props) {
       locale={lang}
       slug={page.slug}
       entries={entries}
-      searchEntries={searchEntries}
       version={product.version}
       repository={product.repository}
       sectionEntries={getSectionEntries(lang)}
     >
-      <PageTableOfContents items={headings} locale={lang} />
+      <PageTableOfContents items={headings} locale={lang} title={page.title} />
       <main
         id="main-content"
         tabIndex={-1}

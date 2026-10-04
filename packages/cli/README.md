@@ -1,18 +1,20 @@
-# @lenso/cli
+# @lenso/ui-cli
 
-Initial `0.1.0`, unpublished. Node `24.18.0` is the tested runtime.
+`@lenso/ui-cli@0.1.0` is private and unpublished. Its current runtime requires Node `26.10.0` or a later Node 26 release.
+
+## Maintainer build
 
 Build with `npm run build` only after the shared production contract exists.
-The build validates and copies that exact artifact, bundling the private
-validator, queries and consumer policy parser. Installed execution needs neither
-the monorepo nor React, Next or a TypeScript/StyleX compiler.
+This maintainer-only step validates and copies that exact artifact, bundling the
+private validator, queries and consumer policy parser. Installed execution needs
+neither the monorepo nor React, Next or a TypeScript/StyleX compiler.
 
 Contract format 2 is required; format 1 is rejected. Startup validates the
 encoded contract once. Documentation and source are resolved on demand through
 the shared private core, without retaining an expanded corpus. Search stops at
 its result bound and resolves at most one document at a time.
 
-`lenso --help` is the command source. `docs` emits exact authored Markdown;
+`lenso-ui --help` is the command source. `docs` emits exact authored Markdown;
 `info` resolves native property row IDs; `metadata` reports the release and
 digest. Only canonical family slugs and public part names are accepted.
 
