@@ -1,0 +1,184 @@
+.github/workflows/release.yml
+  h_9d56aba080c170 1-61
+.gitignore
+  h_9d56aba080c170 12
+CONTRIBUTING.md
+  h_9d56aba080c170 82-88
+DESIGN.md
+  h_9d56aba080c170 33-36,38-40
+RELEASE.md
+  h_9d56aba080c170 1-60
+packages/react/package.json
+  h_9d56aba080c170 3,6-10,36-38
+packages/react/src/components/accordion/accordion.browser.test.tsx
+  h_9d56aba080c170 1,12,22,64
+packages/react/src/components/accordion/accordion.tsx
+  h_9d56aba080c170 6-8,14-119,121,132,135-139,142,144-146
+packages/react/src/components/alert-dialog/alert-dialog.tsx
+  h_9d56aba080c170 4,9,15-30,46,48-76,82-102,104-130,136,138-139,141,143,147-149,152-158,165,169-214,221,223,232,234,237-239,242
+packages/react/src/components/alert/alert.tsx
+  h_9d56aba080c170 5-6,21-22,25-30,34,36-44,46-51,53,55-60,62-68,75,77-99
+packages/react/src/components/autocomplete/autocomplete.tsx
+  h_9d56aba080c170 14-15,34-65,67-75,77-82,84,86-88,92-102,104-109,121,134-215,227-389
+packages/react/src/components/avatar-group/avatar-group.tsx
+  h_9d56aba080c170 11-12,34,37,60-65,85
+packages/react/src/components/avatar/avatar.tsx
+  h_9d56aba080c170 12-13,21-22,29-34,37,39-41,48,51,55-73,75,77-79
+packages/react/src/components/badge/badge.tsx
+  h_9d56aba080c170 12-13,26,29-59,61,63-65
+packages/react/src/components/breadcrumbs/breadcrumbs.tsx
+  h_9d56aba080c170 14-16,18-81
+packages/react/src/components/button-group/button-group.tsx
+  h_9d56aba080c170 5-7,17-33,42,46-51,53,55-57,72
+packages/react/src/components/button/button.tsx
+  h_9d56aba080c170 21-23,36,44-58,93-94,115-128,131,133-135,148
+packages/react/src/components/card/card.tsx
+  h_9d56aba080c170 4-5,10-81
+packages/react/src/components/card/display.test.tsx
+  h_9d56aba080c170 3-4,26-98
+packages/react/src/components/checkbox-group/checkbox-group.tsx
+  h_9d56aba080c170 8-10,13-24,27-32
+packages/react/src/components/checkbox/checkbox.tsx
+  h_9d56aba080c170 10-11,16-22,26-31,35-64,77-95
+packages/react/src/components/checkbox/composition.browser.test.tsx
+  h_9d56aba080c170 1-52
+packages/react/src/components/chip/chip.tsx
+  h_9d56aba080c170 12-13,24,27-46,48,50-52
+packages/react/src/components/close-button/close-button.tsx
+  h_9d56aba080c170 4-6,8-22
+packages/react/src/components/combo-box/combo-box.tsx
+  h_9d56aba080c170 10-11,25-33,35-63,66-99,111,124-205,217-381
+packages/react/src/components/description/description.tsx
+  h_9d56aba080c170 8-9,12-13,29-34,36-49
+packages/react/src/components/disclosure-group/disclosure-group.tsx
+  h_9d56aba080c170 4,6-8,11-15,20-21,24,27,29-31
+packages/react/src/components/disclosure/disclosure.tsx
+  h_9d56aba080c170 7-9,12-173
+packages/react/src/components/drawer/drawer.tsx
+  h_9d56aba080c170 8,43-58,74-234,236-244,246-294
+packages/react/src/components/dropdown/dropdown.tsx
+  h_9d56aba080c170 4,8,15-30,43-74
+packages/react/src/components/empty-state/empty-state.tsx
+  h_9d56aba080c170 4-5,7-17
+packages/react/src/components/error-message/error-message.tsx
+  h_9d56aba080c170 5-7,11-27
+packages/react/src/components/field-error/field-error.tsx
+  h_9d56aba080c170 6-8,12-28
+packages/react/src/components/fieldset/fieldset.tsx
+  h_9d56aba080c170 5-72
+packages/react/src/components/form/form.tsx
+  h_9d56aba080c170 5-25,27-28
+packages/react/src/components/header/header.tsx
+  h_9d56aba080c170 4-5,7-17
+packages/react/src/components/input-group/input-group.tsx
+  h_9d56aba080c170 5-6,8,11,17-18,21-26,28,30-50,63-94
+packages/react/src/components/input-otp/input-otp.tsx
+  h_9d56aba080c170 6-7,9,11,13-20,23-28,32-53,55-83
+packages/react/src/components/input/input.tsx
+  h_9d56aba080c170 5-6,8-10,13,19-20,23-28,30,32-34
+packages/react/src/components/kbd/kbd.tsx
+  h_9d56aba080c170 5-6,34-43,45-46,48-54,56-67
+packages/react/src/components/label/label.tsx
+  h_9d56aba080c170 7-8,16-17,33-42,44-45,47-49,51
+packages/react/src/components/link/link.tsx
+  h_9d56aba080c170 6-22,24-27,36-38,41-55,62-63,70-72
+packages/react/src/components/list-box-item/list-box-item.tsx
+  h_9d56aba080c170 7,132,134,138-142,144,146,149-150,172
+packages/react/src/components/list-box-section/list-box-section.tsx
+  h_9d56aba080c170 4-22
+packages/react/src/components/menu-item/menu-item.tsx
+  h_9d56aba080c170 4,7,12,14-24,29,31-43,48,50-62,67,69-158
+packages/react/src/components/menu-section/menu-section.tsx
+  h_9d56aba080c170 3-4,7-39
+packages/react/src/components/menu/menu.tsx
+  h_9d56aba080c170 4,8,16-31,44-139,142-157
+packages/react/src/components/meter/meter.tsx
+  h_9d56aba080c170 6-7,9,13-20,23-28,32,34-42,44,46-76
+packages/react/src/components/modal/concrete-contract.test.tsx
+  h_9d56aba080c170 1-122
+packages/react/src/components/modal/modal.tsx
+  h_9d56aba080c170 4,8,22-37,53,55-83,89,91-95,97,99,104-138,146,148-149,151,153,157-159,162-168,175,179,182-201,203-241
+packages/react/src/components/number-field/number-field.tsx
+  h_9d56aba080c170 6-7,12,15,21-22,26-30,33-38,42-47,49-70,72,74-76,83-84,86-87,89,92-94,97,103-104,106-107,109,112-114,117
+packages/react/src/components/pagination/pagination.tsx
+  h_9d56aba080c170 5-7,11-106,109-115
+packages/react/src/components/popover/popover.tsx
+  h_9d56aba080c170 4,7,13-28,41-111,113-151,164-180
+packages/react/src/components/progress-bar/progress-bar.tsx
+  h_9d56aba080c170 11-12,16,24,27,30-35,39,41-49,51-55,57-62,64,66-90
+packages/react/src/components/progress-circle/progress-circle.tsx
+  h_9d56aba080c170 10-11,19,27,34,37-42,46-50,52-57,59,64-66,70-87,89-93,99,101,111-128
+packages/react/src/components/radio-group/radio-group.tsx
+  h_9d56aba080c170 8-10,13-24,27-32
+packages/react/src/components/radio/radio.tsx
+  h_9d56aba080c170 10-12,14-32,35-64,77-95
+packages/react/src/components/scroll-shadow/scroll-shadow.tsx
+  h_9d56aba080c170 5-6,28,136-148,154,156,167-168
+packages/react/src/components/search-field/search-field.tsx
+  h_9d56aba080c170 8-9,26,29,35-36,48-52,56-61,66-71,73-78,80,82-84,88-90,97-99,106,108,111-113,150-152,157-159,163,165,169-171,185,188-198,200,207-209,217
+packages/react/src/components/select/select.tsx
+  h_9d56aba080c170 10-11,30,33,35-42,44-65,67,69-71,75-83,85-90,102,115-214,226-308
+packages/react/src/components/separator/separator.tsx
+  h_9d56aba080c170 5-7,14,17-22,24,27-29
+packages/react/src/components/skeleton/skeleton.tsx
+  h_9d56aba080c170 5-6,14,17,19,22,24-25,28
+packages/react/src/components/slider/composition.browser.test.tsx
+  h_9d56aba080c170 1-62
+packages/react/src/components/slider/slider.tsx
+  h_9d56aba080c170 9-11,13-158
+packages/react/src/components/spinner/spinner.tsx
+  h_9d56aba080c170 5-6,15,20-25,27,33-35,37-42,65-66
+packages/react/src/components/surface/surface.tsx
+  h_9d56aba080c170 5-6,10-19
+packages/react/src/components/switch-group/switch-group.tsx
+  h_9d56aba080c170 8-10,14-15,21-22,25,28-34,36,40-54
+packages/react/src/components/switch/switch.tsx
+  h_9d56aba080c170 10-12,16-27,30,32-34,39-68,83-101,116-130
+packages/react/src/components/table/table.tsx
+  h_9d56aba080c170 6,55,57-62,65-70,74-114,358-359,361,365,367-372,382,387,393,400-404,480-481,483,509-510,513,779-784,786,789,792,794,807,874-875,877,882,884-889,913,995-1009,1017-1018,1020,1026,1037,1039-1041,1050
+packages/react/src/components/tabs/tabs.tsx
+  h_9d56aba080c170 6-8,15-135,137,146,149,152-158
+packages/react/src/components/textarea/textarea.tsx
+  h_9d56aba080c170 6-7,9,29,33-39,41,43-45
+packages/react/src/components/textfield/textfield.tsx
+  h_9d56aba080c170 5-6,8-23,26-31
+packages/react/src/components/toast/toast.tsx
+  h_9d56aba080c170 4,7,22,24-27,45,48,50-51,57-61,85,87-93,97-102,104,109-188,192-193,195,222,224-231,233-265
+packages/react/src/components/toggle-button-group/toggle-button-group.tsx
+  h_9d56aba080c170 6-8,19-33,35,44,48-54,56,58-60,75
+packages/react/src/components/toggle-button/toggle-button.tsx
+  h_9d56aba080c170 7-8,12,22,28-40,43,45-47
+packages/react/src/components/toolbar/toolbar.tsx
+  h_9d56aba080c170 12-14,18-93,95,102,105-110,113,115-117
+packages/react/src/components/tooltip/tooltip.tsx
+  h_9d56aba080c170 4,7,30-31,33-34,71,73,75-77,96-112,114-129,131-138,140-145,158-174
+packages/react/src/components/typography/typography.tsx
+  h_9d56aba080c170 13-14,41-43,46-53,55-66,80-82,88-94,96
+packages/react/src/utils/native-composition.test.tsx
+  h_9d56aba080c170 1-116
+packages/react/src/utils/styled.tsx
+  h_9d56aba080c170 11-22
+packages/react/vitest.config.ts
+  h_9d56aba080c170 67
+packages/styles/package.json
+  h_9d56aba080c170 3,6-10
+packages/styles/src/components/menu-item/menu-item.styles.ts
+  h_9d56aba080c170 13
+packages/styles/tsconfig.build.json
+  h_9d56aba080c170 10
+scripts/publish-packages.mjs
+  h_9d56aba080c170 1-203
+scripts/publish-packages.test.mjs
+  h_9d56aba080c170 1-184
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d9aba485aa43b207f0808f9ba62ef7ead39584bb",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
