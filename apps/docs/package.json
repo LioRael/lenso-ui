@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "import:upstream": "node scripts/import-upstream.mjs",
-    "build": "node scripts/prepare-docs.mjs && next build --webpack",
+    "build": "node scripts/prepare-docs.mjs && next build --webpack && node scripts/check-export-size.mjs",
     "dev": "node scripts/prepare-docs.mjs && next dev --webpack",
     "start": "node scripts/serve-docs.mjs",
     "typecheck": "node scripts/prepare-docs.mjs && next typegen && tsc --noEmit",

@@ -3,6 +3,7 @@ import fumaMDX from "fumadocs-ui/mdx";
 import reference from "../generated/api-reference.json";
 import { styles } from "../styles/api-reference.stylex";
 import { prose } from "../styles/prose.stylex";
+import { groupApiProperties } from "../lib/api-property-groups";
 
 type Locale = "en" | "zh";
 type Property = (typeof reference.properties)[number];
@@ -31,6 +32,11 @@ const copy = {
     no: "No",
     unknown: "Not declared",
     common: "Native HTML and ARIA properties",
+    commonGroup: "Property set",
+    sharedCommon: "Shared native HTML and ARIA properties",
+    appliesTo: "Applies to",
+    sharedIntro:
+      "Parts with identical inherited property records share one complete table. Different native types remain separate.",
     state: "Callback state",
     defaults:
       "Only literal defaults in the component's parameter declaration are shown. Other defaults may depend on context or the native component.",
@@ -50,6 +56,10 @@ const copy = {
     no: "否",
     unknown: "未声明",
     common: "原生 HTML 和 ARIA 属性",
+    commonGroup: "属性组",
+    sharedCommon: "共享的原生 HTML 和 ARIA 属性",
+    appliesTo: "适用部件",
+    sharedIntro: "继承属性记录完全相同的部件共用一份完整表格。不同的原生类型仍分别保留。",
     state: "回调状态",
     defaults: "仅显示组件参数声明中的字面量默认值。其他默认值可能取决于上下文或原生组件。",
     attribution: "HeroUI v3.2.6 是视觉与历史参考，不代表 API 兼容承诺。",
@@ -120,31 +130,14 @@ export function NativeApiReference({ family, locale = "en" }: { family: string; 
       `No generated native API for component family "${family}". Run docs API generation.`,
     );
   const text = copy[locale];
+  const { sections, inheritedGroups } = groupApiProperties(contract.parts, reference.properties);
+  const inheritedId = (id: number) => `api-${family}-inherited-${id}`;
   return (
     <section {...stylex.props(styles.reference)} aria-labelledby={`native-api-${family}`}>
       <h2 id={`native-api-${family}`}>{text.title}</h2>
       <p>{text.intro}</p>
       <p>{text.defaults}</p>
-      {contract.parts.map((part) => {
-        const rows = part.properties
-          .map((id) => reference.properties[id])
-          .filter((row): row is Property => row !== undefined);
-        const common = rows.filter(
-          (row) =>
-            /(?:@types\/react|@react-types\/shared\/src\/dom)\//.test(row.source.path) &&
-            ![
-              "disabled",
-              "onClick",
-              "style",
-              "render",
-              "ref",
-              "children",
-              "id",
-              "onKeyDown",
-              "onKeyUp",
-            ].includes(row.name),
-        );
-        const own = rows.filter((row) => !common.includes(row));
+      {sections.map(({ part, own, inherited }) => {
         return (
           <section key={part.name} aria-labelledby={`api-${family}-${part.name}`}>
             <h3 id={`api-${family}-${part.name}`}>
@@ -199,21 +192,38 @@ export function NativeApiReference({ family, locale = "en" }: { family: string; 
                 </dl>
               </div>
             ))}
-            {common.length > 0 && (
-              <details>
-                <summary>
-                  {text.common} ({common.length})
-                </summary>
-                <PropertyTable
-                  rows={common}
-                  locale={locale}
-                  label={`${part.name}: ${text.common}`}
-                />
-              </details>
+            {inherited && (
+              <p>
+                <a href={`#${inheritedId(inherited.id)}`}>
+                  {text.common} ({inherited.rows.length}) — {text.commonGroup} {inherited.id}
+                </a>
+              </p>
             )}
           </section>
         );
       })}
+      {inheritedGroups.length > 0 && (
+        <section aria-labelledby={`api-${family}-inherited`}>
+          <h3 id={`api-${family}-inherited`}>{text.sharedCommon}</h3>
+          <p>{text.sharedIntro}</p>
+          {inheritedGroups.map((group) => (
+            <details key={group.id}>
+              <summary id={inheritedId(group.id)}>
+                {text.commonGroup} {group.id} ({group.rows.length})
+              </summary>
+              <p>
+                {text.appliesTo}:{" "}
+                <code {...stylex.props(styles.code)}>{group.parts.join(", ")}</code>
+              </p>
+              <PropertyTable
+                rows={group.rows}
+                locale={locale}
+                label={`${text.commonGroup} ${group.id}: ${text.common}`}
+              />
+            </details>
+          ))}
+        </section>
+      )}
       <p>
         {text.attribution}{" "}
         <a href={`https://github.com/heroui-inc/heroui/tree/${reference.upstream.commit}`}>
