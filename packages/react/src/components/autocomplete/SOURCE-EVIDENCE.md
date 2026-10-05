@@ -62,9 +62,10 @@ Five Chromium tests passed in `appearance.browser.test.tsx`:
 
 ## Final merged verification
 
-The [merged validation report](../../../../../docs/final-merged-validation.md)
-supersedes the initial five-test run above. Fresh builds, declaration generation,
-typechecks, lint and formatting passed on the final source.
+The current [appearance integration tests](../../../../testing/integration/autocomplete-appearance.browser.test.tsx)
+retain the six browser regressions below. Run them with
+`pnpm --filter @lenso/testing test:integration` after the ordinary package build.
+Historical merged-validation reports are not acceptance authority.
 
 All six appearance tests passed. The added virtualized-list regression preserves
 external 50px row pitch without the nonvirtualized list's 4px margin, including

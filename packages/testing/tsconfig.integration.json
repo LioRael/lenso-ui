@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "allowJs": false, "checkJs": false },
+  "include": ["integration/**/*.tsx", "integration/**/*.d.ts", "vitest.integration.config.ts"]
+}

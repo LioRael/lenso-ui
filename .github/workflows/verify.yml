@@ -13,32 +13,89 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      docs-artifact-id: ${{ steps.docs.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 26.10.0
+      - name: Bind documentation artifact to verification inputs
+        id: identity
+        run: node .github/scripts/reuse-verification.ts identity
+      - name: Look up a trusted exact-SHA candidate
+        id: candidate
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: node .github/scripts/reuse-verification.ts reuse
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Restore digest-verified candidate documentation
+        id: restore
+        if: steps.candidate.outputs.found == 'true'
+        continue-on-error: true
+        run: |
+          mkdir -p "$RUNNER_TEMP/docs-reuse"
+          unzip -q "$RUNNER_TEMP/trusted-docs.zip" -d "$RUNNER_TEMP/docs-reuse"
+          test -f "$RUNNER_TEMP/docs-reuse/index.html"
+          node apps/docs/scripts/check-export-size.mjs "$RUNNER_TEMP/docs-reuse"
+          mkdir -p apps/docs
+          test ! -e apps/docs/out
+          mv "$RUNNER_TEMP/docs-reuse" apps/docs/out
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+        if: steps.restore.outcome != 'success'
+      - name: Restore the pnpm store for complete verification
+        if: steps.restore.outcome != 'success'
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 26.10.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: node --test scripts/publish-packages.test.mjs
+        if: steps.restore.outcome != 'success'
       - run: pnpm --filter @lenso/ui exec playwright install --with-deps chromium
+        if: steps.restore.outcome != 'success'
       - run: pnpm check
+        if: steps.restore.outcome != 'success'
       - run: pnpm --filter @lenso/ui-docs build
+        if: steps.restore.outcome != 'success'
         env:
           LENSO_DOCS_SITE: https://ui.lenso.dev
-      - run: pnpm --filter @lenso/storybook build
-      - name: Preserve verified documentation output
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - run: pnpm test:production
+        if: steps.restore.outcome != 'success'
+      - name: Enforce Cloudflare's 25 MiB per-file limit
+        run: node apps/docs/scripts/check-export-size.mjs
+      - name: Preserve run-specific browser diagnostics
+        if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: docs-${{ github.sha }}
+          name: browser-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            packages/react/.vitest-attachments
+            packages/testing/.vitest-attachments
+            test-results/docs-locale
+            test-results/storybook
+            test-results/stylex-next-css-import/evidence.json
+            test-results/stylex-next-css-import/build.log
+            test-results/stylex-next-css-import/server.log
+          if-no-files-found: ignore
+          retention-days: 3
+      - name: Preserve verified documentation output
+        id: docs
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ${{ steps.identity.outputs.artifact-name }}
           path: apps/docs/out
           if-no-files-found: error
           retention-days: 3
 
   deploy-docs:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.workflow_sha == github.sha
     needs: verify
     concurrency:
       group: docs-production
@@ -48,12 +105,14 @@ jobs:
       url: https://ui.lenso.dev
     permissions:
       contents: read
+      actions: read
       deployments: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
-          name: docs-${{ github.sha }}
+          artifact-ids: ${{ needs.verify.outputs.docs-artifact-id }}
+          merge-multiple: true
           path: apps/docs/out
       - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
         with:

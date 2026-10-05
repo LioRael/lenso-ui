@@ -5,9 +5,9 @@ styles. Version `0.1.0` is initially unpublished. It does not change component
 props, render composition, runtime custom properties or native interaction.
 
 **Next.js support is limited to the pinned `16.3.8` App Router Webpack
-integration described below. Custom `app/global-error.*` is unsupported and
-fails the build.** This is not a general Next.js, Pages Router, Rspack or
-Turbopack adapter.
+integrations described below. `prepareNext` supports explicit CSS ownership in
+production, non-watch builds, including custom global errors.** This is not a
+general Next.js, Pages Router, Rspack or Turbopack adapter.
 
 ## Installed consumers
 
@@ -36,7 +36,7 @@ const options = {
 const vitePlugins = [stylex.vite(options)];
 // tsdown / Rolldown
 const rolldownPlugins = [stylex.rolldown(options)];
-// Next.js 16.3.8 App Router Webpack callback; see its delivery limits below
+// Legacy Next.js 16.3.8 compatibility/development fallback; see limits below
 config.plugins.push(stylex.webpack(options));
 ```
 
@@ -48,7 +48,6 @@ For server-only application declarations absent from the client graph, pass
 `sources: [new URL("./src/styles/server.stylex.ts", import.meta.url)]`.
 The same compiler collects these actual source files before CSS emission; it
 does not treat imported snippets as demos or share a global server/client cache.
-The docs config supplies only its server-only `api-reference.stylex.ts`.
 Next's named server compilations may have no CSS assets; client emission
 includes those explicit sources. `sources` supplies declarations, not a
 stylesheet link or evidence that a particular route loads CSS.
@@ -93,7 +92,97 @@ Mutation happens before native final CSS content hashing. Async CSS assets
 are not modified: the complete union is already available from the entry's
 initial stylesheets.
 
-### Pinned Next.js App Router integration
+### Next.js explicit production CSS
+
+For Next `16.3.8` App Router production builds, use the named `prepareNext`
+export. It generates one marked, ordinary physical CSS file **before Next's CSS
+pipeline** processes imports. Package metadata and the complete application raw
+rule tuples are processed together once; processed stylesheets are not
+concatenated. The public path does not use `ClientReferenceManifestPlugin`,
+`next/dist` imports or manifest regex rewriting.
+
+```js
+// next.config.mjs — list every actual application JS/TS source file.
+import { prepareNext } from "@lenso/stylex-build";
+
+const prepared = prepareNext({
+  metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
+  sources: [
+    new URL("./app/layout.tsx", import.meta.url),
+    new URL("./app/page.tsx", import.meta.url),
+    new URL("./app/global-error.tsx", import.meta.url),
+    new URL("./src/styles/server.stylex.ts", import.meta.url),
+  ],
+  cssFile: new URL("./app/lenso.generated.css", import.meta.url),
+  unstable_moduleResolution: {
+    type: "commonJS",
+    rootDir: import.meta.dirname,
+  },
+});
+
+export default {
+  async webpack(config) {
+    config.cache = false;
+    config.plugins.push(await prepared);
+    return config;
+  },
+};
+```
+
+This configuration is for production builds only. Reuse one preparation promise
+and plugin across Next's compiler callbacks to avoid repeated union processing
+and competing output writes. Disable Webpack caching so cached transforms cannot
+bypass raw-tuple coverage checks.
+
+`metadata`, `sources` and `cssFile` accept absolute paths or file URLs.
+`lightningcssOptions` configures the final CSS processing. The source list above
+is a small application's example, not a discovery rule: include the complete
+actual app JS/TS files, including server-only declarations and error styles.
+External discovery can use Node 26 `fs.glob`; keep the inventory complete as
+files change. A raw-tuple coverage guard rejects omitted or stale declarations.
+Generated writes are atomic and idempotent; an authored file at `cssFile` is
+rejected rather than overwritten.
+
+Every HTML owner must explicitly import **the same generated file** and
+`@lenso/tokens/styles.css`: each root layout, custom `global-error` and custom
+`global-not-found`. Each owner supplies its own `<html>`, `<body>` and theme.
+A global error is a Client Component that replaces the root layout, so it
+cannot rely on the layout's imports:
+
+```tsx
+"use client";
+
+import "./lenso.generated.css";
+import "@lenso/tokens/styles.css";
+
+export default function GlobalError() {
+  return (
+    <html lang="en">
+      <body className="light">Something went wrong.</body>
+    </html>
+  );
+}
+```
+
+Run `next build --webpack` and exercise the served production documents,
+including a cold root-layout failure. `prepareNext` is production/non-watch
+only; `next dev`, HMR and newer Next versions are not verified support.
+The maintained production/browser fixture covers actual cold root failure.
+The documentation app already uses the official Babel/PostCSS source union
+and ordinary CSS imports; it does not need migration to this helper.
+
+### Legacy pinned Next.js asset rewrite
+
+`stylex.webpack` retains the pinned `16.3.8` automatic asset rewrite as a
+compatibility/development fallback. It is not the new production default:
+the public helper has production delivery proof, while watch behavior remains
+unproved. CLI `init` continues to generate this legacy setup to preserve
+existing development flows. CLI `check` recognizes direct `prepareNext`
+configuration but does not certify CSS ownership.
+
+The support descriptor records `next.customGlobalError = "explicit-css"`,
+`next.explicitCss = { api: "prepareNext", mode: "production", watch: false, cache: false }`
+and `next.legacyAssetRewrite = { customGlobalError: "unsupported", version: "16.3.8" }`.
 
 Next `16.3.8` deduplicates CSS into layout/template entries and merges their
 inventories into client-reference manifests. A page chunk without CSS is
@@ -128,10 +217,9 @@ server fallback must import its own ordinary stylesheet; an unrelated layout
 theme does not style it. The package's proof covers both rejection without CSS
 and styled production rendering after that fallback imports CSS.
 
-**Custom `app/global-error.*` is unsupported and rejected, even when another
-route imports a theme.** Use Next's built-in global error component with this
-adapter. Supporting a custom global error renderer needs a separate delivery
-contract and proof; importing arbitrary CSS is not a bypass.
+**The legacy adapter rejects custom `app/global-error.*`, even when another
+route imports a theme.** Retain Next's built-in global error component with
+this fallback, or use the explicit production CSS contract above.
 
 The proofs use default App Router conventions and a configured extension list
 that retains the standard JS/TS families. They do not establish support for
@@ -238,8 +326,9 @@ node --test packages/stylex-build/tests/*.test.mjs
 # A fresh ignored evidence directory and a separate read-only dependency checkout:
 node packages/stylex-build/tests/production-delivery.mjs \
   test-results/stylex-delivery <dependency-checkout>
-node packages/stylex-build/tests/next-delivery.mjs \
-  test-results/stylex-delivery <dependency-checkout>
+
+# Small maintained Next production + browser fixture:
+pnpm --filter @lenso/stylex-build test:next
 ```
 
 The production fixture packs current tooling, extracts the consumed package,
@@ -248,12 +337,9 @@ clean-registry installation or a publication. Chromium checks real Vite
 multi-page/base/relative/source-only builds, query variants, lazy CSS and
 actual MiniCssExtractPlugin Webpack multi-entry consumers.
 
-The Next fixture additionally packs a precompiled map/metadata producer,
-checks server-only declarations and multiple root layouts, and exercises
-external/inline CSS, encoded routes, native fallbacks and explicit failure
-paths. Its tiny fixtures bound Next generation to one worker; they are not
-evidence that the documentation app's default SSG build passed.
-
-Both runners retain source hashes, computed values and logs in the ignored
-evidence directory. The existing packed priority proof separately checks late
-package CSS and reverse stylesheet order.
+The maintained Next fixture checks explicit production CSS delivery, including
+server-only declarations and cold root-layout failure with a custom global
+error. The older `next-delivery.mjs` runner is retired. These small fixtures do
+not establish that the documentation app's default SSG build passed, or prove
+watch/HMR behavior. The priority regression separately checks late package CSS
+and reverse stylesheet order.

@@ -38,13 +38,61 @@ Use Node 26.10.0 and pnpm 12.9.1, as configured in `.mise.toml` and the root
 pnpm install --frozen-lockfile
 ```
 
-Run the current repository gate and production consumer builds:
+Common entrypoints:
 
 ```sh
-pnpm check
-pnpm --filter @lenso/ui-docs build
-pnpm --filter @lenso/storybook build
+pnpm build                 # workspace production builds and their generated inputs
+pnpm dev:docs              # prepare necessary packages/data, then start docs
+pnpm dev:storybook         # prepare package builds, then start Storybook
+pnpm --filter @lenso/ui test src/components/button
+pnpm --filter @lenso/ui typecheck
 ```
+
+The last two commands are a normal component iteration, after the initial
+package build. They do not build the docs site. The root dev entrypoints
+start UI/tokens watchers alongside the selected app, rather than watching
+only an app that imports stale package output. Public API/documentation
+changes additionally need the explicit generator below; no new generator
+watch service is maintained. Theme CSS or declaration changes still need
+`pnpm build:packages`; the dev watchers cover component implementation and
+StyleX maps, not CSS copying or declaration emission. Docs generation uses
+`pnpm --filter @lenso/ui-docs generate`; developer-tool builds request only
+`generate:contract`. Direct docs dev/typecheck/build commands use the same
+incremental generator. Upstream import/sync is an explicit maintenance task,
+not a normal development prerequisite.
+
+While iterating, run format and lint on affected paths, the affected package's
+typecheck, and the maintained regression tests for the change. Root script
+changes also require `pnpm exec tsc -p scripts/tsconfig.json` and their narrow
+Node tests. Inspect current package scripts before choosing commands.
+
+Run production docs or Storybook builds when their build integration changes,
+not as a blanket requirement for documentation or policy-only edits. The
+authoritative candidate workflow runs the complete repository gate and consumer
+verification for the exact candidate SHA.
+
+For Next explicit CSS integration changes, use
+`pnpm --filter @lenso/stylex-build test:next`: the maintained small production
+and browser fixture checks `prepareNext` delivery, including custom global
+error styling on cold root-layout failure. The older `next-delivery.mjs` runner
+is retired. This proof is pinned to Next `16.3.8` production/non-watch builds;
+it does not certify dev/HMR or the docs application's full SSG build.
+
+`pnpm test:production` builds one Storybook artifact, checks native RTL keyboard
+geometry, installs already-built local tarballs, and runs the small Next CSS fixture.
+These checks target production focus, themes and CSS delivery;
+component behavior matrices belong to the component and docs integration suites.
+Other family proofs remain available with
+`pnpm --filter @lenso/storybook test:browser calendar` (or another suite name).
+Calling that runner without suite names runs all retained scenarios, including
+network-dependent source asset replay; it is not a normal iteration or CI gate.
+Do not invoke the retired family fixture builders. The installed consumer
+catches distribution/exports/CSS faults that workspace imports cannot expose.
+
+Playwright proof children and the locale browser script use Node 26's native
+type erasure: transpiler function-name helpers cannot cross Playwright's
+browser-function serialization boundary. Their script TypeScript projects
+enforce erasable syntax. Other typed scripts reuse the existing `tsx` runner.
 
 For changed documentation interactions, start the built docs application using
 `pnpm --filter @lenso/ui-docs start` and run
@@ -71,8 +119,11 @@ This does not waive verification or any future hosting-required review.
 Publish a signed candidate to `delta/verify/<short-sha>`. The
 `Verify reconstruction` workflow must pass its `verify` job for that exact
 push SHA before a non-force fast-forward to `origin/main`. Verify the landed
-SHA and its main CI result. Preserve unrelated work and never bypass failed or
-missing required checks.
+SHA and its main CI result. Main may reuse only trusted successful internal
+candidate evidence and the verified docs artifact for that same SHA, workflow
+and inputs; unavailable, stale or unverifiable evidence requires the full normal
+verification path. A pull-request result is not trusted candidate evidence.
+Preserve unrelated work and never bypass failed or missing required checks.
 
 This landing delivers source only. Do not publish npm packages, create release
 tags or invoke deployment as part of it. Package versions in the source tree

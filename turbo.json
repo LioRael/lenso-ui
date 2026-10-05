@@ -16,6 +16,234 @@
     "typecheck": {
       "dependsOn": ["^build"],
       "outputs": []
+    },
+    "@lenso/ui-docs#generate:api": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "scripts/generate-docs.ts",
+        "scripts/generate-api-reference.mjs",
+        "$TURBO_ROOT$/packages/standard/oxfmt.json",
+        "$TURBO_ROOT$/pnpm-lock.yaml",
+        "$TURBO_ROOT$/packages/react/src/**/*.ts",
+        "$TURBO_ROOT$/packages/react/src/**/*.tsx",
+        "!$TURBO_ROOT$/packages/react/src/**/*.test.*",
+        "!$TURBO_ROOT$/packages/react/src/**/*.browser.*",
+        "$TURBO_ROOT$/packages/react/package.json",
+        "$TURBO_ROOT$/packages/styles/src/**"
+      ],
+      "env": ["API_REFERENCE_DEPENDENCY_ROOT"],
+      "outputs": ["src/generated/api-reference.json", ".cache/api.json"]
+    },
+    "@lenso/ui-docs#generate:content": {
+      "dependsOn": ["generate:api"],
+      "inputs": [
+        "scripts/generate-docs.ts",
+        "scripts/generate-live-registry.ts",
+        "scripts/docs-projection.mjs",
+        "src/lib/native-api-section.ts",
+        "src/lib/api-property-groups.ts",
+        "content/source-index.json",
+        "content/lenso/**",
+        "!content/lenso/*/react/components/**",
+        "src/demos/en/**",
+        "src/demos/cn/**",
+        "src/demos/localized-manifest.json",
+        "$TURBO_ROOT$/packages/react/src/components/index.ts",
+        "$TURBO_ROOT$/packages/react/package.json",
+        "$TURBO_ROOT$/pnpm-lock.yaml"
+      ],
+      "outputs": [
+        "src/demos/generated.ts",
+        "src/demos/live-manifest.json",
+        "src/generated/lenso-docs-index.json",
+        "content/lenso/*/react/components/**",
+        ".cache/content.json"
+      ]
+    },
+    "@lenso/ui-docs#generate:contract": {
+      "dependsOn": ["generate:content"],
+      "inputs": [
+        "scripts/generate-docs.ts",
+        "scripts/generate-lenso-contract.mjs",
+        "src/lib/local-example-files.ts",
+        "src/lib/docs-directory.mjs",
+        "content/lenso/**",
+        "!content/lenso/*/react/components/**",
+        "src/demos/demo.stylex.ts",
+        "src/demos/en/**",
+        "src/demos/cn/**",
+        "$TURBO_ROOT$/packages/react/package.json",
+        "$TURBO_ROOT$/packages/styles/src/**",
+        "$TURBO_ROOT$/packages/styles/package.json",
+        "$TURBO_ROOT$/packages/stylex-build/src/**",
+        "$TURBO_ROOT$/packages/stylex-build/package.json",
+        "$TURBO_ROOT$/tooling/lenso-contracts/**",
+        "$TURBO_ROOT$/pnpm-lock.yaml"
+      ],
+      "outputs": ["src/generated/lenso-contract.json", ".cache/contract.json"]
+    },
+    "@lenso/ui-docs#generate": {
+      "dependsOn": ["generate:contract"],
+      "inputs": [
+        "scripts/generate-docs.ts",
+        "scripts/static-search.mjs",
+        "scripts/report-coverage.ts",
+        "scripts/docs-projection.mjs",
+        "scripts/example-proof-plan.mjs",
+        "scripts/upstream-contract.mjs",
+        "src/lib/heading-id.mjs",
+        "src/lib/native-api-section.ts",
+        "src/lib/api-property-groups.ts",
+        "content/lenso/**",
+        "!content/lenso/*/react/components/**",
+        "content/source-index.json",
+        "$TURBO_ROOT$/pnpm-lock.yaml"
+      ],
+      "outputs": ["public/search/**", "public/coverage.json", ".cache/search-coverage.json"]
+    },
+    "@lenso/ui-docs#typecheck": {
+      "dependsOn": ["^build", "generate"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!src/generated/**",
+        "!src/demos/generated.ts",
+        "!src/demos/live-manifest.json",
+        "!content/lenso/*/react/components/**",
+        "!public/search/**",
+        "!public/coverage.json",
+        "!.cache/**"
+      ],
+      "outputs": [".next/types/**"]
+    },
+    "@lenso/ui-docs#build": {
+      "dependsOn": ["^build", "typecheck", "generate"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!src/generated/**",
+        "!src/demos/generated.ts",
+        "!src/demos/live-manifest.json",
+        "!content/lenso/*/react/components/**",
+        "!public/search/**",
+        "!public/coverage.json",
+        "!.cache/**"
+      ],
+      "env": ["LENSO_DOCS_SITE", "API_REFERENCE_DEPENDENCY_ROOT"],
+      "outputs": [".next/**", "!.next/cache/**", "out/**"]
+    },
+    "@lenso/ui-docs#test": {
+      "dependsOn": ["^build", "generate"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!src/generated/**",
+        "!src/demos/generated.ts",
+        "!src/demos/live-manifest.json",
+        "!content/lenso/*/react/components/**",
+        "!public/search/**",
+        "!public/coverage.json",
+        "!.cache/**"
+      ],
+      "outputs": []
+    },
+    "@lenso/ui-docs#dev": {
+      "dependsOn": ["generate"],
+      "cache": false,
+      "persistent": true
+    },
+    "@lenso/storybook#build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        ".storybook/**",
+        "stories/**/*.tsx",
+        "stories/**/*.ts",
+        "!stories/*-proof.ts",
+        "!stories/*-smoke.ts",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "outputs": ["storybook-static/**"]
+    },
+    "@lenso/storybook#dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "@lenso/testing#typecheck": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/apps/docs/src/demos/**/*.ts",
+        "$TURBO_ROOT$/apps/docs/src/demos/**/*.tsx",
+        "!$TURBO_ROOT$/apps/docs/src/demos/generated.ts",
+        "$TURBO_ROOT$/packages/styles/src/**"
+      ],
+      "outputs": []
+    },
+    "@lenso/ui-cli#build": {
+      "dependsOn": ["typecheck", "@lenso/ui-docs#generate:contract"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/source-imports.ts",
+        "$TURBO_ROOT$/packages/stylex-build/src/**",
+        "$TURBO_ROOT$/tooling/design-policy/**",
+        "$TURBO_ROOT$/tooling/lenso-contracts/**",
+        "$TURBO_ROOT$/third-party/heroui/**"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "@lenso/ui-cli#test": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/source-imports.ts",
+        "$TURBO_ROOT$/packages/stylex-build/src/**",
+        "$TURBO_ROOT$/tooling/design-policy/**",
+        "$TURBO_ROOT$/tooling/lenso-contracts/**",
+        "$TURBO_ROOT$/third-party/heroui/**"
+      ],
+      "outputs": []
+    },
+    "@lenso/ui-cli#typecheck": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/source-imports.ts",
+        "$TURBO_ROOT$/packages/stylex-build/src/**",
+        "$TURBO_ROOT$/tooling/design-policy/**",
+        "$TURBO_ROOT$/tooling/lenso-contracts/**"
+      ],
+      "outputs": []
+    },
+    "@lenso/ui-mcp#build": {
+      "dependsOn": ["typecheck", "@lenso/ui-docs#generate:contract"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/cli/src/contract.mjs",
+        "$TURBO_ROOT$/packages/cli/scripts/**",
+        "$TURBO_ROOT$/packages/cli/licenses/**",
+        "$TURBO_ROOT$/tooling/lenso-contracts/**",
+        "$TURBO_ROOT$/third-party/heroui/**"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "@lenso/ui-mcp#test": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/cli/src/contract.mjs",
+        "$TURBO_ROOT$/packages/cli/scripts/**",
+        "$TURBO_ROOT$/packages/cli/licenses/**",
+        "$TURBO_ROOT$/tooling/lenso-contracts/**",
+        "$TURBO_ROOT$/third-party/heroui/**"
+      ],
+      "outputs": []
+    },
+    "@lenso/ui-mcp#typecheck": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/cli/scripts/**",
+        "$TURBO_ROOT$/packages/cli/src/contract.mjs",
+        "$TURBO_ROOT$/tooling/lenso-contracts/**"
+      ],
+      "outputs": []
     }
   }
 }

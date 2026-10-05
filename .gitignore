@@ -14,6 +14,7 @@ durabletest-results/
 apps/docs/src/generated/lenso-contract.json
 apps/docs/content/lenso/*/react/components/
 apps/docs/public/search/
+apps/docs/.cache/
 .vitest-attachments/
 **/__screenshots__/
 *.tsbuildinfo

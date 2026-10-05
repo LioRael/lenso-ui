@@ -1,7 +1,15 @@
 {
   "extends": "../standard/tsconfig/react.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "types": ["node", "react", "vitest/globals", "vite/client"]
   },
-  "include": ["src/**/*.ts", "helpers/**/*.ts", "setup/**/*.ts", "configs/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "helpers/**/*.ts",
+    "setup/**/*.ts",
+    "configs/**/*.ts",
+    "scripts/**/*.ts",
+    "*.config.ts"
+  ]
 }

@@ -1,164 +1,83 @@
 # Lenso UI
 
-A source reconstruction of HeroUI v3.2.6 using **StyleX**, **Base UI** and a
-bounded **React Aria** implementation for date, time and color controls.
-Linting and formatting use **oxlint + oxfmt**.
+React components styled with **StyleX**, using native **Base UI** interactions.
+Date, time and color controls use **React Aria**. Quality tooling is
+**oxlint + oxfmt**.
 
-The previous Lenso UI implementation is replaced. Only the existing
-`packages/primitives` package is preserved.
+The visual reference is HeroUI v3.2.6 at
+[`e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e`](https://github.com/heroui-inc/heroui/tree/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e).
+Lenso owns its public contracts and release versions; this is not an official
+HeroUI release or a promise of API compatibility.
 
 ## Repository
 
-```text
-apps/
-  docs/                 documentation content and application
-packages/
-  primitives/           preserved headless package
-  react/                @lenso/ui React component families
-  styles/               @lenso/tokens themes and StyleX component styles
-  stylex-build/         @lenso/stylex-build 0.1.0 raw StyleX build processing
-  standard/             shared quality-tool conventions
-  testing/              browser test infrastructure
-  storybook/            component development
-third-party/
-  heroui/               source license and attribution
-```
-
-The reference source is
-[`heroui-inc/heroui@e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e`](https://github.com/heroui-inc/heroui/tree/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e).
-The adaptation is independent, not an official HeroUI release.
+| Location                | Responsibility                                     |
+| ----------------------- | -------------------------------------------------- |
+| `packages/react`        | `@lenso/ui` component families                     |
+| `packages/styles`       | `@lenso/tokens` themes and StyleX maps             |
+| `packages/stylex-build` | Raw StyleX consumer build integration              |
+| `packages/primitives`   | Preserved headless package, unchanged              |
+| `packages/standard`     | Shared quality-tool conventions                    |
+| `packages/testing`      | Component/browser regression infrastructure        |
+| `packages/storybook`    | Component development surface                      |
+| `apps/docs`             | Authored Lenso documentation and reference archive |
+| `third-party`           | Licenses, notices and source provenance            |
 
 ## Development
 
+Use the Node and pnpm versions pinned in `.mise.toml` and `package.json`.
+
 ```sh
-pnpm install
-pnpm build:packages
+pnpm install --frozen-lockfile
 pnpm dev:docs
 pnpm dev:storybook
-pnpm check
 ```
 
-Theme CSS keeps source OKLCH and dynamic color relationships. The styles package
-owns component StyleX maps; the React package owns interaction and composition.
-There is no old DTCG token graph, registry or compatibility API.
+Run affected local checks as described in [CONTRIBUTING.md](CONTRIBUTING.md).
+The authoritative candidate CI verifies the exact commit before landing;
+historical acceptance capsules are not a second gate.
 
-## Status
+Theme CSS retains source OKLCH and dynamic color relationships. Import
+`@lenso/tokens/styles.css` and follow the supported consumer integration in the
+authored documentation. Concrete components compose typed StyleX maps with
+native interaction props. The generated API reference describes current
+exports rather than upstream prop aliases.
 
-This section describes the current source checkout, including work after the
-published `0.8.0` release. These follow-up changes are not a new package release.
-The replacement package graph and documentation application build and run.
-Workspace verification includes component Chromium suites and the unchanged
-primitive tests. The documentation production build generates 358 static
-routes, including 352 English/Chinese documentation pages.
+## Scope and evidence
 
-All 72 component pages have local adaptations: 682 English references resolve
-to 681 local demo modules. Interactive previews mount on the client, avoiding
-hydration of time-dependent example state from a static documentation build.
-English and Chinese each have 682 references resolving to 681 unique modules.
-The generated locale registry contains 649 source-backed translated Chinese
-projections and 33 explicitly evidenced source-equivalent reuses. The 33
-equivalents are explicit projections, not source-backed translations. Four
-disclosure projections use separately
-captured, hash-pinned public EN/CN source because the imported archive records
-omit Native-product code; the immutable public-source captures are verified.
-The React previews add neither a Native runtime nor App Store functionality.
-The archive remains preserved, with 471 partial/difference reports retained;
-these do not claim complete pixel or behavioral parity.
+The previous registry, DTCG token graph, compatibility adapters and Console
+templates are replaced. This is not a drop-in upgrade. Public package names
+remain `@lenso/ui` and `@lenso/tokens`; `packages/primitives` remains unchanged.
+See [DESIGN.md](DESIGN.md) for architecture and acceptance expectations.
 
-Storybook's [coverage report](packages/storybook/COVERAGE.md) records reviewed
-adaptations against all 583 pinned scenarios, with separate browser evidence
-for each batch and an explicit remaining inventory. These counts do not
-certify exhaustive behavior, upstream pixel parity, RTL or reduced-motion
-coverage.
-Visible component API sections and Copy Markdown now use the generated native
-reference. Archived source snippets remain historical reference, not local API
-compatibility guarantees. Production proofs cover native API display/copy and
-selected EN/CN interactions across both themes at desktop/mobile widths.
+Imported snippets are reference content, not working demos. Maintained tests
+cover concrete regressions; Storybook registration, a passing build or a mounted
+default does not establish exhaustive upstream parity. Report unverified themes,
+keyboard workflows, responsive geometry, RTL and reduced-motion coverage.
+Source-exact colors can fall below WCAG AA normal-text contrast.
 
-Follow-up fixes cover Drawer internal scrolling, InputGroup adornment focus,
-ComboBox shell/secondary appearance, scoped disabled-state paint and invalid
-compound-field outlines/focus rings, plus contextual date/time/color label
-feedback. Button now preserves native render-injected classes; this does not
-guarantee property-level priority between independently styled components
-across a styled `render` boundary.
-The Storybook batch reports retain these limits rather than
-treating registration or passing workflow tests as full source fidelity.
+## Landing, deployment and release
 
-The unpublished `@lenso/stylex-build` 0.1.0 package introduces raw package and
-application StyleX processing in one pass. This is the current pipeline for the
-cross-bundle specificity and stylesheet-order problem recorded in the historical
-[compiled-priority experiments](packages/testing/tests/compiled-priority/README.md).
-The frozen tool candidate independently passes the original three CSS-delivery
-and raw-query regressions. The isolated current-source documentation candidate
-builds 358 static pages on Node 24.18.0 and passes 38 docs unit tests, 136 locale
-cases, 16 native API cases and 8 SSR stylesheet cases. Its registry accounts for
-682 English and 682 Chinese references: 649 translated Chinese references,
-33 source-equivalent reuses and none blocked. Exact source and evidence hashes
-are recorded in [the docs acceptance capsule](apps/docs/test/final-source-acceptance.json).
-The final isolated UI/Storybook candidate also passes 253 browser tests and
-full strict types, builds all 583 source and 9 Local stories, and passes the
-choice, overlay and selection production iframe proofs. Its exact source and
-build hashes are recorded in
-[the UI/Storybook capsule](packages/testing/tests/compiled-priority/final-ui-storybook-acceptance.json).
-These gates do not certify exhaustive upstream parity and are not a release
-or publication claim.
+The signed exact-SHA landing workflow is documented in
+[CONTRIBUTING.md](CONTRIBUTING.md). `Verify reconstruction` / `verify` remains
+the authoritative candidate check. Main either validates trusted same-SHA
+candidate evidence and its docs artifact or runs full verification.
+Candidate branches and pull requests never deploy.
 
-## Migrating from the previous architecture
+Docs export to `apps/docs/out`. After main verification, the workflow deploys
+the verified artifact to the existing Cloudflare Pages project `lenso-ui` at
+https://ui.lenso.dev. `pnpm --filter @lenso/ui-docs start` previews the static
+export locally. Production configuration uses `LENSO_DOCS_SITE` for canonical
+metadata and the protected `docs-production` environment's existing Cloudflare
+credentials. Do not put credentials in source.
 
-This is not a drop-in upgrade. The old registry distribution, DTCG token graph,
-compatibility adapters and Console templates are removed. Styled components
-now live in `packages/react`, with their StyleX maps in `packages/styles`.
-The public package names remain `@lenso/ui` and `@lenso/tokens`.
-
-Use the current public exports and native interaction contracts rather than
-assuming old prop aliases still work. Ordinary controls use Base UI contracts
-such as `onClick`, `disabled` and `render`; date, time and color controls use
-their React Aria contracts. The generated API reference describes the actual
-local signatures. Import `@lenso/tokens/styles.css` for the source theme and
-base styles; the former `@lenso/ui/styles.css` distribution is not retained.
-The existing primitives package and its public contracts are unchanged.
-
-The reconstruction lands source only. The old Changesets publication workflow
-is retired; package publication and version tags require a separate owner
-decision. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Run the production documentation proof in two terminals:
-
-```sh
-pnpm --filter @lenso/ui-docs build
-pnpm --filter @lenso/ui-docs start
-```
-
-```sh
-pnpm --filter @lenso/ui-docs test:browser
-```
-
-For another port, set `LENSO_DOCS_TEST_URL` for the browser command.
-Remaining differences are recorded in the
-[documentation shell adaptation](apps/docs/src/components/fumadocs/SOURCE.md),
-[collection contracts](packages/react/src/components/list-box/COLLECTIONS.md),
-[overlay evidence](packages/react/src/components/modal/RECOVERY.md), and
-[Storybook coverage](packages/storybook/COVERAGE.md).
-
-Source-exact action colors can fall below WCAG AA normal-text contrast.
-The source appearance is retained rather than silently altered.
+Landing is not authorization to publish packages or create release tags.
+The manual `Release` workflow and current release scope are documented in
+[RELEASE.md](RELEASE.md); publication remains separately authorized.
 
 ## License
 
-HeroUI-derived work is Apache-2.0 with its [source attribution](third-party/heroui/NOTICE.md).
-The preserved Lenso primitives retain their MIT license.
-
-## Documentation deployment
-
-Docs build as a static export in `apps/docs/out`. `pnpm --filter @lenso/ui-docs
-start` previews that export locally, including the production redirect rules.
-
-Every push to `main` runs `Verify reconstruction`. After verification and both
-consumer builds pass, the workflow uploads the exact commit's docs artifact
-and deploys it to the existing Cloudflare Pages project `lenso-ui`, serving
-https://ui.lenso.dev. Candidate branches and pull requests never deploy. The
-`docs-production` environment uses the existing `CLOUDFLARE_ACCOUNT_ID` and
-`CLOUDFLARE_API_TOKEN` secrets; the token must have Pages deployment access.
-The build sets `LENSO_DOCS_SITE=https://ui.lenso.dev` for canonical metadata,
-robots and sitemap URLs. Re-run the failed deployment job to retry the same
-verified artifact. This workflow does not publish npm packages.
+HeroUI-derived work is Apache-2.0 with preserved
+[attribution](third-party/heroui/NOTICE.md). The original Lenso primitives
+retain their MIT terms. Distributions must contain the applicable original
+licenses and adaptation notices.

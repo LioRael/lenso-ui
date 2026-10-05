@@ -7,7 +7,7 @@ import { run } from "../src/cli.mjs";
 import { createQueries } from "../src/contract.mjs";
 import { planInit, applyInit, checkProject } from "../src/project.mjs";
 import { fixture, authoredMarkdown } from "./fixture.mjs";
-import { parseSource } from "../../../scripts/source-imports.mjs";
+import { parseSource } from "../../../scripts/source-imports.ts";
 
 async function project(framework) {
   const root = await mkdtemp(join(tmpdir(), "lenso-devtools-"));

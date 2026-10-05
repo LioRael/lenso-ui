@@ -10,9 +10,9 @@ and color source families. Consumer mode does not impose the library's
 directory convention. Both modes identify removed Lenso imports and
 Tailwind runtime imports. Type-only imports are not runtime violations.
 
-The module uses the existing `scripts/source-imports.mjs` parser and runtime
-reference implementation. It does not replace reconstruction's family
-inventory, oxlint, or browser proof.
+The module uses the existing `scripts/source-imports.ts` parser and runtime
+reference implementation. It complements oxlint and browser tests; it does not
+maintain a reconstruction inventory.
 
 StyleX checks support direct default/namespace import bindings, direct
 `.props(...).className` extraction into JSX `className`, and directly bound `xstyle` function
@@ -29,7 +29,7 @@ does not treat unresolved framework modules as proven policy violations:
 ```sh
 node tooling/design-policy/cli.mjs library --strict path/to/component.tsx
 node tooling/design-policy/cli.mjs consumer path/to/application.tsx
-node --test scripts/source-imports.test.mjs tooling/design-policy/index.test.mjs
+node --test scripts/source-imports.test.ts tooling/design-policy/index.test.mjs
 ```
 
 This is private source tooling, not a revived public design-lint package.

@@ -18,3 +18,16 @@ API and tests are outside the reconstruction boundary.
 - Treat imported source snippets as reference content, not working demos.
   Verify and record live demo coverage separately.
 - Preserve upstream licenses and identify source adaptations.
+
+## Verification and landing
+
+Run affected local format, lint, typecheck and regression checks while iterating.
+Use maintained production/browser checks when the changed integration requires
+them; report the actual scope rather than treating historical acceptance records
+as current evidence. See `CONTRIBUTING.md` for the candidate gate.
+
+Landing requires a signed candidate and the authoritative `Verify reconstruction`
+workflow's `verify` job passing for its exact `delta/verify/**` push SHA.
+Main may reuse only verified trusted evidence for that same SHA; uncertain or
+missing evidence requires full verification. Preserve signing and landing
+security. Package publication requires separate authorization.

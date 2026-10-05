@@ -1,4 +1,4 @@
-import { parseSource, runtimeModuleReferenceDetails } from "../../scripts/source-imports.mjs";
+import { parseSource, runtimeModuleReferenceDetails } from "../../scripts/source-imports.ts";
 
 const specialized =
   /\/(?:components|demos\/(?:en|cn))\/(?:calendar(?:\/|-)|range-calendar\/|date-|time-|color-)/;

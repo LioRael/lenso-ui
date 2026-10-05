@@ -13,9 +13,65 @@ Load `@lenso/tokens/styles.css` from the entry that renders your application. Th
 
 ## Next.js
 
-Use the build package's guarded App Router Webpack integration. Its setup supports `next dev --webpack` and `next build --webpack`, not Turbopack or Pages Router. Import the theme stylesheet in the root layout that renders your pages.
+For **Next `16.3.8` App Router Webpack production/non-watch builds**, use the named
+`prepareNext` export. It generates an ordinary marked CSS file before Next's CSS
+pipeline, processing raw package and application rules together once.
 
-Check the adapter's supported Next version before applying configuration. The [CLI](/docs/react/tools/cli) can inspect a consumer and prepare a dry-run setup plan for the supported integration.
+```js
+// next.config.mjs
+import { prepareNext } from "@lenso/stylex-build";
+
+const prepared = prepareNext({
+  metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
+  sources: [
+    new URL("./app/layout.tsx", import.meta.url),
+    new URL("./app/page.tsx", import.meta.url),
+    new URL("./app/global-error.tsx", import.meta.url),
+    new URL("./src/styles/server.stylex.ts", import.meta.url),
+  ],
+  cssFile: new URL("./app/lenso.generated.css", import.meta.url),
+  unstable_moduleResolution: {
+    type: "commonJS",
+    rootDir: import.meta.dirname,
+  },
+});
+
+export default {
+  async webpack(config) {
+    config.cache = false;
+    config.plugins.push(await prepared);
+    return config;
+  },
+};
+```
+
+Use this configuration for production builds only. Reuse one preparation promise
+and plugin across Next's compiler callbacks; disable Webpack caching so cached
+transforms cannot bypass raw-rule coverage checks.
+
+The example lists one small application's files. Supply **all actual application
+JS/TS source files**, including server-only declarations and error styles.
+`metadata`, `sources` and `cssFile` accept absolute paths or file URLs;
+`lightningcssOptions` configures final CSS processing. The raw-rule coverage guard
+rejects omitted or stale declarations. Generated writes are atomic and idempotent;
+the helper rejects overwriting an authored CSS file.
+
+Each HTML owner must explicitly import the **same generated CSS file** and
+`@lenso/tokens/styles.css`: every root layout, custom `global-error` and custom
+`global-not-found`. Each supplies its own `<html>`, `<body>` and theme.
+`global-error` must be a Client Component; it replaces the root layout and cannot
+rely on that layout's imports or theme.
+
+Run `next build --webpack` and check served production pages, including an actual
+cold root-layout failure. This helper does not establish support for `next dev`,
+HMR, newer Next versions, Turbopack or Pages Router.
+
+The legacy `stylex.webpack` automatic asset rewrite remains a pinned `16.3.8`
+compatibility/development fallback and rejects custom global errors. It is not
+the new production default: the public helper has production proof, while watch
+behavior remains unproved. The [CLI](/docs/react/tools/cli) still emits the
+legacy setup through `init` to preserve existing development flows. `check`
+recognizes direct `prepareNext` configuration but does not certify CSS ownership.
 
 ## Other frameworks
 

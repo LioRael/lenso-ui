@@ -42,15 +42,15 @@ export default function CoveragePage() {
         </p>
         <p>
           {live.size} English references resolve to local component and StyleX adaptations. Chinese
-          registration contains {translated} translated projections and {equivalent} explicitly
-          evidenced source-equivalent reuses.{" "}
+          registration contains {translated} maintained Chinese modules and {equivalent} explicitly
+          selected English-module reuses.{" "}
           {missingChinese.length ? (
             <>
               The remaining {missingChinese.length} Chinese references fall back to English and are
               not counted as localized.{" "}
             </>
           ) : (
-            <>All registered Chinese references have evidenced locale implementations. </>
+            <>All Chinese references have a registered local implementation. </>
           )}
           Registration does not certify complete textual, behavioral or visual parity.
         </p>
@@ -96,9 +96,9 @@ export default function CoveragePage() {
           <code>{`pnpm --filter @lenso/ui-docs build\npnpm --filter @lenso/ui-docs test:examples`}</code>
         </pre>
         <p>
-          Preparation verifies archived source hashes before regenerating local examples, native API
-          and authored placements. The full example proof rejects missing modules and noncanonical
-          placements; a scoped run is not complete coverage.
+          Generation derives native API and authored placements from maintained local examples
+          without rewriting their source. The full example proof rejects missing modules and
+          noncanonical placements; a scoped run is not complete coverage.
         </p>
       </article>
     </main>

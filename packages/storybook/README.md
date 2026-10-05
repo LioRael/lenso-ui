@@ -1,66 +1,41 @@
 # Component development
 
-This surface uses the rebuilt `@lenso/ui` and native theme CSS from
-`@lenso/tokens/styles.css`. Read [COVERAGE.md](./COVERAGE.md) before treating
-a story as upstream reconstruction evidence.
+Storybook consumes built `@lenso/ui` exports and `@lenso/tokens/styles.css`.
+Read [COVERAGE.md](./COVERAGE.md) for retained browser assertions and limitations.
 
 ```sh
-pnpm --filter @lenso/storybook dev
-pnpm --filter @lenso/storybook build
-pnpm --filter @lenso/storybook typecheck
-pnpm exec oxlint --config packages/standard/oxlint.json --deny-warnings \
-  packages/storybook/stories packages/storybook/.storybook packages/storybook/*.mjs
-node packages/storybook/source-inventory.mjs
-node packages/storybook/source-inventory.mjs --json
+pnpm dev:storybook
+pnpm exec turbo run build --filter=@lenso/storybook
+pnpm --filter @lenso/storybook test:browser navigation form overlay rtl
 ```
 
-`source-inventory.mjs` retrieves the actual pinned HeroUI component story
-files and named exports. It prints a source-linked inventory to stdout; it
-does not copy upstream code into the application. Matching a local export
-name alone never counts as source adaptation.
+The workspace build prepares package dependencies and produces one
+`storybook-static` artifact. The browser runner consumes it without rebuilding.
+`STORYBOOK_STATIC` selects another existing artifact. Pass a family name such
+as `calendar` to run its retained proof; omitting names runs all suites.
+`pnpm test:production` is the normal production integration entrypoint, including
+the single installed-package consumer.
 
-The JSON contract contains `source` (repository/version/commit), `files`
-(filename/family/path/URL/sourceExports/scenarios) and `totals`. Every exact
-source export has a scenario record containing `sourceExport`, `localFile`,
-`localExport` and `status`. Unimplemented local fields are `null`. Status is
-`unimplemented` or `adapted-unverified`; source review is not visual parity.
-The offline directory argument must contain all 68 pinned story files.
+Component behavior matrices live with components; docs-composition regressions
+live in `packages/testing/integration`. Production Storybook checks cover the
+additional composition, focus, theme and CSS-delivery boundary.
+`Local/Contracts` contains form, invalid-form, navigation and RTL slider fixtures,
+not additional upstream scenarios.
 
-After building, run the iframe smoke with an existing Playwright installation:
+## Source reference and limits
 
-```sh
-node packages/storybook/iframe-smoke.mjs \
-  packages/storybook/storybook-static \
-  /absolute/path/to/playwright/index.mjs
-```
+`pinned-story-files.json` retains the upstream revision and original story paths.
+The migration inventory's manual reviewed-family list and frozen adaptation
+totals are retired. Current Storybook `index.json` describes runnable entries;
+neither an entry nor an imported snippet proves complete source parity.
 
-The smoke starts a loopback-only static server, mounts every story in light
-and dark themes, checks actual component DOM, fails on runtime errors and
-checks selected native props and StyleX geometry. Add a mount assertion when
-adding a family. It does not substitute for source side-by-side comparison
-or keyboard interaction proof.
+Keep actual source adaptations reviewable in `stories/`, with Apache-2.0
+attribution. Use native Base UI contracts, bounded React Aria date/time/color
+parts, native HTML and StyleX. Do not import the Next documentation registry
+or unadapted upstream Tailwind snippets.
 
-For repeatable image-dependent checks, append `--replay-source-assets`.
-This retrieves genuine source image bytes read-only from the original public
-URLs, verifies image responses, caches them in memory and reports SHA-256
-hashes. It does not replace images with placeholders or alter DOM `src` props.
-Live-network availability is a separate check. The intentionally invalid
-Avatar.Fallback URL is the only allowed failed request, scoped to its exact
-story and URL; the resulting fallback must still become visible.
-
-An optional comma-separated family filter selects a narrower run, for example
-`InputGroup,TextField`. With no filter, every local story is mounted. Adding
-families requires their native mount and scenario-specific workflow assertions,
-especially for overlays and async collections; an index entry is not proof.
-
-## Contribution boundary
-
-Keep source story definitions reviewable in `stories/`. Adapt each actual
-upstream scenario, including advanced scenarios, args and controls. Use
-component-native Base UI contracts, bounded React Aria date/time/color parts,
-native HTML and StyleX. Do not import the Next documentation registry,
-upstream Tailwind classes, or unadapted source snippets.
-
-The HeroUI source adaptations retain Apache-2.0 attribution. They are
-modifications of the pinned component story files, not a compatibility layer
-for the upstream interaction API.
+Full display/source-image replay is an explicit, network-dependent proof, not
+a normal CI gate. It uses genuine original bytes rather than placeholders;
+the intentionally invalid Avatar fallback image is scoped to its exact scenario.
+The retained suites do not establish exhaustive visual parity, screen-reader
+coverage, every breakpoint, or WCAG AA.

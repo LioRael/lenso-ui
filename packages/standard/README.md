@@ -28,3 +28,8 @@ Other exceptions sit on the affected statement with the integration reason:
 imperative DOM scroll/portal style synchronization, a write-once measurement
 baseline, or a cancellable external-request/timer lifecycle. Render-affecting
 pagination cursors must be state, not covered by these exceptions.
+
+Run the root `pnpm lint` against current source. Lenso does not duplicate
+upstream rule tests or freeze the lint configuration in an acceptance test.
+Keep exception reasons beside the affected code or here; an exact-version
+false positive may warrant a small reproduction, not a manual source allowlist.

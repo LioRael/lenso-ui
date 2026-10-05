@@ -13,9 +13,58 @@ navigationOrder: 3
 
 ## Next.js
 
-采用构建包带版本保护的 App Router Webpack 集成。该配置支持 `next dev --webpack` 和 `next build --webpack`，不代表支持 Turbopack 或 Pages Router。将主题样式表导入实际渲染页面的根布局。
+对于 **Next `16.3.8` App Router Webpack 的生产、非 watch 构建**，使用命名导出
+`prepareNext`。它在 Next 的 CSS 流水线处理导入前生成一个带标记的普通 CSS 文件，
+将包与应用的原始规则一起处理一次。
 
-应用配置前请核对适配器支持的 Next 版本。[CLI](/docs/react/tools/cli)可以检查消费者项目，并为受支持的集成生成不写入的配置计划。
+```js
+// next.config.mjs
+import { prepareNext } from "@lenso/stylex-build";
+
+const prepared = prepareNext({
+  metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
+  sources: [
+    new URL("./app/layout.tsx", import.meta.url),
+    new URL("./app/page.tsx", import.meta.url),
+    new URL("./app/global-error.tsx", import.meta.url),
+    new URL("./src/styles/server.stylex.ts", import.meta.url),
+  ],
+  cssFile: new URL("./app/lenso.generated.css", import.meta.url),
+  unstable_moduleResolution: {
+    type: "commonJS",
+    rootDir: import.meta.dirname,
+  },
+});
+
+export default {
+  async webpack(config) {
+    config.cache = false;
+    config.plugins.push(await prepared);
+    return config;
+  },
+};
+```
+
+此配置仅用于生产构建。在 Next 的多个编译器回调之间复用同一个准备 Promise 与插件；
+禁用 Webpack 缓存，避免缓存的转换结果绕过原始规则覆盖检查。
+
+示例仅列出一个小型应用的文件。请提供**全部实际应用 JS/TS 源文件**，包括仅服务端使用
+的声明与错误页面样式。`metadata`、`sources` 和 `cssFile` 接受绝对路径或文件 URL；
+`lightningcssOptions` 配置最终 CSS 处理。原始规则覆盖检查会拒绝遗漏或过期的声明。
+生成文件采用原子、幂等写入；已有手写 CSS 文件不会被覆盖。
+
+每个 HTML 所有者都必须显式导入**同一个生成 CSS 文件**及
+`@lenso/tokens/styles.css`：每个根布局、自定义 `global-error` 和自定义
+`global-not-found`。各自提供 `<html>`、`<body>` 与主题。`global-error` 必须是
+Client Component；它会替换根布局，因此不能依赖根布局的导入或主题。
+
+执行 `next build --webpack` 并检查运行中的生产页面，包括实际的冷启动根布局失败。
+该 helper 不代表支持 `next dev`、HMR、更新的 Next 版本、Turbopack 或 Pages Router。
+
+旧的 `stylex.webpack` 自动资源改写仍是固定 `16.3.8` 的兼容性／开发回退方案，
+且拒绝自定义全局错误页面。它不是新的生产默认方案：公开 helper 已有生产验证，
+watch 行为仍未验证。[CLI](/docs/react/tools/cli) 的 `init` 继续生成旧配置以保留
+现有开发流程。`check` 能识别直接使用 `prepareNext` 的配置，但不会认证 CSS 所有权。
 
 ## 其他框架
 

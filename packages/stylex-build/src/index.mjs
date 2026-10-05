@@ -2,8 +2,9 @@ import compiler from "@stylexjs/babel-plugin";
 import upstream from "@stylexjs/unplugin";
 import browserslist from "browserslist";
 import { AsyncLocalStorage } from "node:async_hooks";
-import { readFile } from "node:fs/promises";
-import { isAbsolute } from "node:path";
+import { randomUUID } from "node:crypto";
+import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
+import { dirname, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { browserslistToTargets, transform as lightningTransform } from "lightningcss";
 import { createRolldownPlugin, createVitePlugin, createWebpackPlugin } from "unplugin";
@@ -12,7 +13,7 @@ import { compileMode, createMetadata, readMetadata, validateRules } from "./meta
 
 export { buildSupport } from "./support.mjs";
 
-function factory(options = {}, meta) {
+function factory(options = {}, meta, preparation) {
   const {
     metadata,
     sources = [],
@@ -65,8 +66,15 @@ function factory(options = {}, meta) {
   const moduleIdentity = new AsyncLocalStorage();
   let seeds = [];
   let version = 0;
+  const validatePrepared = (rules, filename) => {
+    if (preparation?.rules && rules.some((rule) => !preparation.rules.has(JSON.stringify(rule))))
+      throw new Error(
+        `[lenso/stylex-build] Unprepared StyleX rules in ${filename}; include current declarations in prepareNext metadata/sources and regenerate CSS before building.`,
+      );
+  };
   const reloadSeeds = () => {
     seeds = (metadata ?? []).map(readMetadata);
+    for (const seed of seeds) validatePrepared(seed.rules, seed.file);
   };
   reloadSeeds();
   const rawRules = () => [
@@ -89,6 +97,7 @@ function factory(options = {}, meta) {
     post(file) {
       const rules = file.metadata.stylex ?? [];
       validateRules(rules, file.opts.filename);
+      validatePrepared(rules, file.opts.filename);
       rulesByModule.set(moduleIdentity.getStore(), rules);
       version++;
       // Transfer collection to this build; upstream must not retain a second process-global rule store.
@@ -140,7 +149,13 @@ function factory(options = {}, meta) {
     cssInjectionTarget,
     prepareSources,
     sourceFiles,
+    explicitCss: preparation?.cssFile,
+    preparedCss: preparation?.css,
   };
+  if (preparation && !preparation.rules) {
+    preparation.context = context;
+    preparation.snapshot = () => new Set(rawRules().map((rule) => JSON.stringify(rule)));
+  }
   return adapters(
     {
       ...base,
@@ -177,6 +192,53 @@ function factory(options = {}, meta) {
     context,
     meta.framework,
   );
+}
+
+// CSS is an ordinary dependency of every document owner, not a late mutation of
+// Next's hashed assets. The complete application source set is compiled before
+// Webpack starts; later transforms must prove they match that prepared set.
+export async function prepareNext(options) {
+  const { cssFile, ...compilerOptions } = options;
+  const path =
+    cssFile instanceof URL && cssFile.protocol === "file:" ? fileURLToPath(cssFile) : cssFile;
+  if (typeof path !== "string" || !isAbsolute(path) || !path.endsWith(".css"))
+    throw new Error("[lenso/stylex-build] prepareNext cssFile must be an absolute .css file.");
+  if (!Array.isArray(compilerOptions.sources))
+    throw new Error("[lenso/stylex-build] prepareNext needs the complete application sources.");
+  if (compilerOptions.emitMetadata || compilerOptions.cssInjectionTarget)
+    throw new Error(
+      "[lenso/stylex-build] prepareNext uses explicit CSS imports, not emitMetadata/cssInjectionTarget.",
+    );
+  if (compilerOptions.devMode && compilerOptions.devMode !== "off")
+    throw new Error("[lenso/stylex-build] prepareNext supports production devMode: off only.");
+  const fixedOptions = { ...compilerOptions, devMode: "off" };
+  const preparation = {};
+  const collector = factory(fixedOptions, { framework: "rolldown" }, preparation);
+  await collector.buildStart.call({});
+  const marker = "/* @lenso/stylex-build generated; do not edit */\n";
+  const css = marker + preparation.context.collectCss();
+  let previous;
+  try {
+    previous = await readFile(path, "utf8");
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+  if (previous !== undefined && !previous.startsWith(marker))
+    throw new Error(`[lenso/stylex-build] Refusing to overwrite authored CSS at ${path}.`);
+  if (previous !== css) {
+    await mkdir(dirname(path), { recursive: true });
+    const temporary = `${path}.${randomUUID()}.tmp`;
+    try {
+      await writeFile(temporary, css);
+      await rename(temporary, path);
+    } finally {
+      await rm(temporary, { force: true });
+    }
+  }
+  const rules = preparation.snapshot();
+  return createWebpackPlugin((pluginOptions, meta) =>
+    factory(pluginOptions, meta, { rules, cssFile: path, css }),
+  )(fixedOptions);
 }
 
 const stylex = {

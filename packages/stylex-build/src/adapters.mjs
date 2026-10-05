@@ -6,7 +6,7 @@
  * the public StyleX processor; these hooks only place its result in the bundle.
  */
 import { readdirSync, realpathSync } from "node:fs";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { basename, dirname, isAbsolute, join, posix, sep } from "node:path";
 import { buildSupport } from "./support.mjs";
@@ -78,7 +78,9 @@ function hasNextSource(stem, compilation) {
   }
 }
 
-function validateNextDelivery(compilation, assets, hasUnion, compiler) {
+// Legacy automatic asset rewriting, retained for development, needs pinned
+// Next route/fallback ownership. Explicit production imports never enter this layer.
+function validateLegacyNextDelivery(compilation, assets, hasUnion, compiler) {
   const native = compiler.options.plugins?.find(
     (plugin) => plugin?.constructor?.name === "ClientReferenceManifestPlugin",
   );
@@ -408,6 +410,40 @@ export function adapters(plugin, context, framework) {
     // Unplugin maps writeBundle to Webpack afterEmit without Rollup output options.
     delete result.generateBundle;
     delete result.writeBundle;
+    if (context.explicitCss) {
+      result.webpack = (compiler) => {
+        if (compiler.options.mode !== "production" || compiler.options.watch)
+          throw new Error("[lenso/stylex-build] prepareNext supports production builds only.");
+        // Cached transforms can bypass the prepared-rule coverage check when
+        // a later configuration omits a previously compiled source.
+        if (compiler.options.cache !== false)
+          throw new Error(
+            "[lenso/stylex-build] prepareNext requires config.cache = false; cached transforms can bypass prepared-rule validation.",
+          );
+        compiler.hooks.watchRun.tap("@lenso/stylex-build:explicit-css", () => {
+          throw new Error("[lenso/stylex-build] prepareNext supports production builds only.");
+        });
+        const nextRequire = createRequire(join(compiler.context, "package.json"));
+        const version = nextRequire("next/package.json").version;
+        if (version !== buildSupport.next.version)
+          throw new Error(
+            `[lenso/stylex-build] Explicit Next CSS delivery supports ${buildSupport.next.version}, not ${version}.`,
+          );
+        compiler.hooks.beforeCompile.tapPromise("@lenso/stylex-build:explicit-css", async () => {
+          const css = await readFile(context.explicitCss, "utf8");
+          if (css !== context.preparedCss)
+            throw new Error(
+              `[lenso/stylex-build] Prepared CSS changed at ${context.explicitCss}; regenerate it and use the matching prepareNext plugin before building.`,
+            );
+        });
+        compiler.hooks.thisCompilation.tap("@lenso/stylex-build:explicit-css", (compilation) => {
+          for (const seed of context.seeds()) compilation.fileDependencies.add(seed.file);
+          for (const source of context.sourceFiles) compilation.fileDependencies.add(source);
+          compilation.fileDependencies.add(context.explicitCss);
+        });
+      };
+      return result;
+    }
     result.webpack = (compiler) => {
       compiler.hooks.thisCompilation.tap("@lenso/stylex-build", (compilation) => {
         context.reset();
@@ -456,7 +492,7 @@ export function adapters(plugin, context, framework) {
             if (["server", "edge-server"].includes(compiler.options.name)) return;
             const hasUnion = (name) => compilation.getAsset(name)?.info.lensoStylexUnion === true;
             // Next emits merged route/layout manifests after native CSS content hashes finalize.
-            if (validateNextDelivery(compilation, assets, hasUnion, compiler)) return;
+            if (validateLegacyNextDelivery(compilation, assets, hasUnion, compiler)) return;
             for (const [entryName, entrypoint] of compilation.entrypoints) {
               if (![...initialFiles(entrypoint)].some(hasUnion))
                 throw new Error(

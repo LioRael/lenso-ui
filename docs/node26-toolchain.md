@@ -20,7 +20,8 @@ pnpm **12.9.1**, pinned in `.mise.toml`, `package.json`, CI and the Land workflo
 
 ## Verification
 
-Use the configured local installations; no temporary Node distribution is needed.
-Run the maintained `pnpm check`, production docs and Storybook builds, and affected
-docs/Autocomplete proofs. Landing still requires a signed candidate and successful
-CI for its exact SHA. Historical results do not substitute for those checks.
+Verify actual executable versions and install with `pnpm install --frozen-lockfile`.
+Run affected local checks using `CONTRIBUTING.md`; consumer builds are relevant
+when build integration changes. Landing requires a signed candidate and the
+authoritative exact-SHA CI gate. Main may reuse verified trusted same-SHA evidence
+or run full verification. Historical Node 24 results are not current proof.

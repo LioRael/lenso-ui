@@ -3,12 +3,52 @@ import { resolve, join, relative, sep, dirname } from "node:path";
 import { createHash } from "node:crypto";
 import { constants } from "node:fs";
 import { checkDesignPolicy } from "../../../tooling/design-policy/index.mjs";
-import { runtimeModuleReferenceDetails } from "../../../scripts/source-imports.mjs";
+import { parseSource, runtimeModuleReferenceDetails } from "../../../scripts/source-imports.ts";
 import { validateToolContract } from "./contract.mjs";
 
 const hash = (text) => createHash("sha256").update(text).digest("hex");
 const ignored = new Set(["node_modules", ".git", ".next", "dist", "build", "coverage"]);
 const isPagesRenderer = (filename) => /^(?:src\/)?pages\/(?!api\/)/.test(filename);
+function usesPreparedNext(files, packageName) {
+  return files.some(({ filename, source }) => {
+    if (!/^next\.config\.[cm]?[jt]s$/.test(filename)) return false;
+    let program;
+    try {
+      program = parseSource(source, filename).program;
+    } catch {
+      return false;
+    }
+    const bindings = new Set();
+    for (const statement of program.body) {
+      if (
+        statement.type !== "ImportDeclaration" ||
+        statement.source.value !== packageName ||
+        statement.importKind === "type"
+      )
+        continue;
+      for (const specifier of statement.specifiers) {
+        if (
+          specifier.type === "ImportSpecifier" &&
+          specifier.importKind !== "type" &&
+          (specifier.imported.name ?? specifier.imported.value) === "prepareNext"
+        )
+          bindings.add(specifier.local.name);
+      }
+    }
+    function called(value) {
+      if (!value || typeof value !== "object") return false;
+      if (Array.isArray(value)) return value.some(called);
+      if (
+        value.type === "CallExpression" &&
+        value.callee.type === "Identifier" &&
+        bindings.has(value.callee.name)
+      )
+        return true;
+      return Object.values(value).some(called);
+    }
+    return called(program);
+  });
+}
 async function rootDirectory(cwd) {
   const root = resolve(cwd);
   if (!(await lstat(root)).isDirectory())
@@ -67,6 +107,16 @@ async function projectFiles(root) {
 
 function integration(contract) {
   const descriptor = contract.compatibility;
+  const next = descriptor.next;
+  const supportedErrorMode =
+    next?.customGlobalError === "unsupported" ||
+    (next?.customGlobalError === "explicit-css" &&
+      next.explicitCss?.api === "prepareNext" &&
+      next.explicitCss.mode === "production" &&
+      next.explicitCss.watch === false &&
+      next.explicitCss.cache === false &&
+      next.legacyAssetRewrite?.customGlobalError === "unsupported" &&
+      next.legacyAssetRewrite.version === next.version);
   if (
     descriptor.schemaVersion !== 1 ||
     typeof descriptor.stylex?.version !== "string" ||
@@ -77,7 +127,7 @@ function integration(contract) {
     typeof descriptor.next?.version !== "string" ||
     descriptor.next.router !== "App Router" ||
     descriptor.next.bundler !== "Webpack" ||
-    descriptor.next.customGlobalError !== "unsupported" ||
+    !supportedErrorMode ||
     !contract.packageVersions["@lenso/stylex-build"]
   )
     throw new Error(
@@ -140,11 +190,15 @@ export async function checkProject(cwd, input) {
         "lenso/next-router",
         "This build adapter supports App Router rendering, not Pages Router",
       );
+    const preparedNext =
+      build.next.explicitCss?.api === "prepareNext" &&
+      build.next.explicitCss.mode === "production" &&
+      usesPreparedNext(scan.files, build.package);
     for (const { filename } of scan.files)
-      if (/(?:^|\/)app\/global-error\.[cm]?[jt]sx?$/.test(filename))
+      if (/(?:^|\/)app\/global-error\.[cm]?[jt]sx?$/.test(filename) && !preparedNext)
         report(
           "lenso/next-global-error",
-          "Custom App Router global-error is unsupported by this build adapter",
+          "Legacy automatic CSS delivery does not support custom global-error. Use the production prepareNext integration and import its generated CSS and theme in the error document.",
           filename,
         );
     for (const name of ["dev", "build"])
@@ -233,7 +287,9 @@ export async function planInit(cwd, framework, input) {
     framework === "next" &&
     scan.files.some(({ filename }) => /(?:^|\/)app\/global-error\./.test(filename))
   )
-    conflicts.push("Custom app/global-error is unsupported; use Next's built-in renderer");
+    conflicts.push(
+      "Legacy init cannot configure custom app/global-error; use the production prepareNext integration with explicit CSS imports.",
+    );
   if (framework === "next" && scan.files.some(({ filename }) => isPagesRenderer(filename)))
     conflicts.push(
       "The descriptor supports App Router rendering only; preserve and review existing Pages Router files manually",

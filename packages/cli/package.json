@@ -15,9 +15,9 @@
   ],
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "test": "node --import ./tests/register.mjs --test tests/*.test.mjs",
-    "typecheck": "node --check src/cli.mjs && node --check src/project.mjs"
+    "build": "tsx scripts/build.ts",
+    "test": "node --import ./tests/register.mjs --import tsx --test tests/*.test.mjs tests/*.test.ts",
+    "typecheck": "node --check src/cli.mjs && node --check src/project.mjs && tsc -p tsconfig.scripts.json && tsc -p tsconfig.tests.json"
   },
   "devDependencies": {
     "@babel/parser": "7.29.9",

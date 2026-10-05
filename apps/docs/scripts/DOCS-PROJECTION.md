@@ -4,10 +4,11 @@
 `content/lenso/{en,cn}/react` guides, current public component exports, generated
 native TypeScript API and canonical local runnable modules.
 
-Preparation verifies the immutable archive before localizing and registering
-examples, extracting the current API, writing the authored index, and producing
-the shared contract. It fails on missing scenarios, stale native inventories,
-noncanonical paths and canonical-name collisions.
+`generate-docs.ts` incrementally registers maintained local examples, extracts
+the current API, writes the authored index and produces the shared contract.
+It fails on missing scenarios, stale native inventories, noncanonical paths and
+canonical-name collisions. It never rewrites example sources. Upstream import
+and source capture are separate explicit operations.
 
 ## Public and private data
 
@@ -25,12 +26,12 @@ release comes from `packages/react/package.json`.
 
 The explicit source-family map collapses historical `dropdown` into public
 `menu`. `canonicalExampleName` also makes scenario IDs public `menu-*` names.
-Raw source references remain in private `live-source-provenance.json` and
-localization evidence; there is no runtime Dropdown alias.
+Raw source references remain in the imported `content/source-index.json`;
+there is no runtime Dropdown alias.
 
-The preserved `content/docs`, `content/examples` and `source-index.json` are
-hash-protected reference inputs. Their release and migration pages never enter
-the authored index.
+The preserved `content/docs`, `content/examples` and `source-index.json` retain
+import-time hashes as provenance, not normal-build gates. Their release and
+migration pages never enter the authored index.
 
 ## Generated output
 
@@ -70,8 +71,6 @@ viewports. `authored-geometry.browser.mjs` records real native-control geometry
 before and after the reviewed docs styles. Neither replaces the complete
 maintained example matrix.
 
-`validate-docs-projection.mjs` constructs an ignored current-source mirror from
-explicit owner inputs and third-party-only dependencies. It records input hashes,
-applies only the reviewed header interface, canonical moves and legal file list,
-and generates fresh output. Provider workspace packages and stale generated API
-are not source authority.
+The former migration mirror validator and automatic Chinese-source projection
+are retired. Current sources and ordinary generation are the authority; browser
+proof remains separate from generated registration and historical provenance.
