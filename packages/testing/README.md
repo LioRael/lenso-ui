@@ -65,8 +65,11 @@ assertions cover actual emitted CSS, dynamic StyleX width, scoped portalled
 themes and keyboard focus restoration. It never rebuilds workspace packages
 or links workspace package sources into the consumer.
 
-Package builds must already exist. The offline install needs the dependency
-store populated by the normal workspace install.
+Package builds must already exist. Installation prefers cached dependencies but
+can resolve public dependency metadata from the registry on a fresh runner.
+Workspace lockfile installation alone does not populate an offline resolution
+cache. Lenso packages always come from local tarballs, and install scripts remain
+disabled.
 
 The former compiled-priority experiment and acceptance capsules are retired.
 The current priority regression lives in

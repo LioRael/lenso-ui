@@ -63,7 +63,7 @@ try {
       overrides: packages,
     }),
   );
-  await run("pnpm", ["install", "--offline", "--ignore-scripts"], { cwd: directory });
+  await run("pnpm", ["install", "--prefer-offline", "--ignore-scripts"], { cwd: directory });
   const installed = createRequire(join(directory, "package.json"));
   const specifiers = [
     "@lenso/ui",
