@@ -22,10 +22,12 @@ navigationOrder: 22
 
 Node 应满足匹配契约报告的范围；当前工具链要求 Node 26.10.0 或更新的 Node 26 版本。此配置启动 stdio 服务，而非交互提示。Stdout 传输 JSON-RPC，诊断使用 stderr。已安装服务不需要仓库检出、React、Next 或 TypeScript/StyleX 编译器。官方 MCP TypeScript SDK 仍是运行时依赖。源码生成和构建仅供维护者使用，参见软件包维护者指南。
 
-## 发现六个工具
+## 发现八个工具
 
 | 工具                     | 输入                            | 结果                           |
 | ------------------------ | ------------------------------- | ------------------------------ |
+| `get_component_source`   | `component`                     | 真实实现及本地支持文件图       |
+| `get_theme_variables`    | 无主题参数                      | 精确 CSS、原始作用域声明与编辑元数据 |
 | `list_components`        | 无组件参数                      | 规范系列与公开部件             |
 | `get_component_api`      | `component`                     | 原生签名、状态与解析后的属性行 |
 | `get_component_examples` | `component`、可选 `locale`      | 本地源码与有序辅助文件         |
@@ -36,6 +38,8 @@ Node 应满足匹配契约报告的范围；当前工具链要求 Node 26.10.0 �
 语言为 `en` 或 `cn`，默认 `en`。搜索上限为 1 到 50 的整数，默认 10。每个工具都接受可选 `lensoVersion` 和 `digest` 身份参数，值必须匹配服务契约。
 
 响应包含发布元数据和 digest。通过协议发现输入 schema，并从 `list_components` 获取规范名称；`menu` 是公开弹出菜单系列。
+
+实现查询不包含第三方依赖的实现。主题声明保留原始 CSS 表达式与作用域，不宣称已计算颜色。新增内容使用格式 3，与 API、示例和文档共享同一 digest；旧工具契约需要重新生成与构建。
 
 ## 只读边界
 

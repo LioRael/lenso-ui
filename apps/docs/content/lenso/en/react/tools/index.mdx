@@ -9,11 +9,11 @@ navigationOrder: 20
 
 `@lenso/ui-cli@0.1.0` and `@lenso/ui-mcp@0.1.0` are private and unpublished. Their package versions are separate from the Lenso UI release in the bundled contract. npm installation commands below are future examples only and will work only after these exact packages and a matching UI/tokens/support release are published.
 
-Consumers do not need this repository, React, Next or a compiler to run an installed tool. Maintainers generate the documentation contract from current component exports, authored pages and runnable local examples before building either tool. Both distributions copy that validated format-2 artifact and report its `lensoVersion`, package versions and digest.
+Consumers do not need this repository, React, Next or a compiler to run an installed tool. Maintainers generate the documentation contract from current component exports, implementation graphs, theme CSS, authored pages and runnable local examples before building either tool. Both distributions copy that validated format-3 artifact and report its `lensoVersion`, package versions and digest. Source and tests are TypeScript; installed entrypoints are compiled ESM JavaScript.
 
 ## Choose an interface
 
-- [CLI](/docs/react/tools/cli): list canonical families, inspect native API, read exact Markdown, check a consumer project or review a setup plan.
+- [CLI](/docs/react/tools/cli): inspect API/source/styles/themes, read exact Markdown, diagnose a consumer project or review setup, dependency and agent-file plans.
 - [MCP server](/docs/react/tools/mcp): give an MCP client read-only access to native API, local examples, StyleX maps and authored documentation over stdio.
 - [Agent skill](/docs/react/tools/skill): load the repo-local workflow that matches versions before implementation and asks for actual build and keyboard evidence.
 

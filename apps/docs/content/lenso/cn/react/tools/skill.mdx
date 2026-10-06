@@ -1,15 +1,22 @@
 ---
 title: "Agent skill"
-description: "加载仓库内 Lenso UI 工作流，实现前先匹配已安装版本。"
+description: "加载 Lenso 实现与视觉设计工作流，统一使用匹配发布的组件契约。"
 navigationGroup: "面向代理的 UI"
 navigationOrder: 23
 ---
 
 ## 显式加载
 
-Skill 位于 `.agents/skills/lenso-ui/SKILL.md`，配置参考位于 `.agents/skills/lenso-ui/references/setup.md`。它随源码候选提供，不会自动激活，也不会安装 CLI 或 MCP 包。
+源码候选包含两个工作流：
 
-通过 agent 宿主支持的本地 skill 机制加载该目录。宿主专属加载命令不是 Lenso API。复制或打包 skill 时应保留配置参考。
+| 工作流 | 使用场景 |
+| --- | --- |
+| `.agents/skills/lenso-ui/SKILL.md` | 组件、原生 API 与组合、主题、消费者构建配置 |
+| `.agents/skills/lenso-ui-design/SKILL.md` | 页面设计、视觉参考重建、样式反馈 |
+
+通过 agent 宿主支持的本地 skill 机制加载。复制时保留两个相邻目录、全部参考文件和许可证。宿主专属加载命令不是 Lenso API；工作流不会激活工具，也不会安装 CLI 或 MCP 包。本仓库的 `AGENTS.md` 已把相关任务指向这些文件，其他宿主仍需通过自己的加载机制启用。
+
+构建后的 CLI 候选也内嵌这两个工作流。先审阅 `lenso-ui skills --cwd ./my-app --json`，再添加 `--write` 准备项目级文件，随后通过宿主单独加载。`agents-md` 准备匹配的本地文档和参考块，不进行远程下载。两个命令都保留用户编辑，默认只生成零写入计划。
 
 ## 实现前核对版本
 
@@ -19,12 +26,28 @@ Skill 位于 `.agents/skills/lenso-ui/SKILL.md`，配置参考位于 `.agents/sk
 
 ## 遵循实际组件契约
 
-按需要查询规范系列、原生 API、authored 文档、本地示例和 StyleX 源码。保留原生属性、ref、render 组合、状态属性及键盘和焦点行为。使用原生签名，不适配旧 API。
+实现工作流按需展开查询、组件组合、主题和配置参考。在编写组件 JSX 前，获取规范系列、原生 API、适用示例和 StyleX 源码。保留原生属性、ref、render 组合、状态属性及键盘和焦点行为。使用实际导出的根与支持部件，包括 tab/panel 对应关系和 portal 结构。
 
 调用方 `xstyle` 最后组合，保留运行时自定义属性，并合并依赖原生状态的样式回调。加载操作保持可聚焦，同时阻止激活。[架构](/docs/react/getting-started/architecture) 说明原生和本地集合边界。
+
+## 设计确定后再分工
+
+设计工作流要求先取得真实渲染参考，或与用户确定原创方向，再分配实现任务。记录几何尺寸、字体层级、信息密度、表面层级和响应式状态；由一个设计负责人先审核代表页面，再扩展其他页面。
+
+实现 agent 接收共享设计规范、明确范围和验收状态。最终审核在相同视口和状态下比较真实截图。功能检查和视觉认可分别记录：表单可用或构建通过，不代表页面构图已被认可。
+
+## 上游适配
+
+实现工作流借鉴固定版本 HeroUI React skill 的文档优先、组合结构、语义变体和 CSS 变量主题方法。上游网络脚本由 Lenso 的版本/digest 匹配 CLI/MCP 替代；Tailwind 样式改为 StyleX；全局 React Aria 假设改为 Lenso 的原生交互边界。
+
+视觉设计工作流是 Lenso 自己的扩展，不是上游美术设计 skill，也不是 HeroUI Pro 模板。来源、修改说明和原始许可证随 skill 目录保留。Native/mobile 和 v2 到 v3 迁移 skill 不描述 Lenso 当前支持的 Web 契约，因此不引入。
+
+本候选暂不提供公共 skill 压缩包、发现端点或 shell 安装器。这里没有下载并执行上游 skill 的安装命令。
 
 ## 报告证据
 
 运行消费者 typecheck、匹配的 `lenso-ui check` 与框架构建。操作受影响的打开、导航、激活、关闭与焦点恢复。适用时检查两个主题、portal 表面、溢出和减少动态效果。
+
+在本仓库内运行维护中的源码与受影响应用检查，不把消费者模式对 workspace 别名的诊断当成发布版本冲突。开发工具内嵌契约快照：重新生成当前源码契约，比较其 digest 与工具元数据，再构建并重启过期工具。不要为满足消费者配置提示而改写仓库的 CSS 管线。
 
 Skill 要求区分已通过证据与未测试行为。仅有编译成功或源码示例，不代表无障碍、来源一致性或样式表交付认证。

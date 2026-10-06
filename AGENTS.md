@@ -6,6 +6,14 @@ The previous Lenso UI architecture is replaced, not a compatibility target.
 `packages/primitives` is preserved byte-for-byte. Its package source, public
 API and tests are outside the reconstruction boundary.
 
+## Agent workflows
+
+- Component, theme or consumer-build work: read
+  [.agents/skills/lenso-ui/SKILL.md](.agents/skills/lenso-ui/SKILL.md).
+- Page design, visual reconstruction or appearance feedback: read
+  [.agents/skills/lenso-ui-design/SKILL.md](.agents/skills/lenso-ui-design/SKILL.md)
+  before distributing implementation work.
+
 ## Implementation and evidence
 
 - Use StyleX for component styles and native Base UI interaction contracts.

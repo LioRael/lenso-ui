@@ -74,7 +74,7 @@ export async function generateDocs(target: Target = "all"): Promise<boolean> {
   ];
   const contractInputs = [
     ...common,
-    "apps/docs/scripts/generate-lenso-contract.mjs",
+    "apps/docs/scripts/generate-lenso-contract.ts",
     "apps/docs/src/lib/local-example-files.ts",
     "apps/docs/src/lib/docs-directory.mjs",
     "apps/docs/src/generated/api-reference.json",
@@ -84,7 +84,9 @@ export async function generateDocs(target: Target = "all"): Promise<boolean> {
     "apps/docs/src/demos/en",
     "apps/docs/src/demos/cn",
     "packages/react/package.json",
+    "packages/react/src",
     "packages/styles/src",
+    "packages/styles/themes",
     "packages/styles/package.json",
     "packages/stylex-build/src",
     "packages/stylex-build/package.json",
@@ -142,7 +144,7 @@ export async function generateDocs(target: Target = "all"): Promise<boolean> {
       ["apps/docs/src/generated/lenso-contract.json"],
       "apps/docs/.cache/contract.json",
       async () => {
-        const { writeLensoContract } = await import("./generate-lenso-contract.mjs");
+        const { writeLensoContract } = await import("./generate-lenso-contract.ts");
         await writeLensoContract(repository);
       },
     )) || changed;

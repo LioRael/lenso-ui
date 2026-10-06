@@ -1,15 +1,22 @@
 ---
 title: "Agent skill"
-description: "Load the repo-local Lenso UI workflow and match the installed release before implementing."
+description: "Load Lenso implementation and visual-design workflows backed by the matching release contract."
 navigationGroup: "UI for Agents"
 navigationOrder: 23
 ---
 
 ## Load explicitly
 
-The skill lives at `.agents/skills/lenso-ui/SKILL.md`, with setup guidance in `.agents/skills/lenso-ui/references/setup.md`. It is available in the source candidate; it does not activate itself or install the CLI/MCP packages.
+The source candidate includes two workflows:
 
-Load that directory through your agent host's supported local skill mechanism. Host-specific loader commands are not a Lenso API. Keep the setup reference with the skill when copying or packaging it.
+| Workflow | Use it for |
+| --- | --- |
+| `.agents/skills/lenso-ui/SKILL.md` | Components, native API/composition, themes and consumer build setup |
+| `.agents/skills/lenso-ui-design/SKILL.md` | Page design, visual-reference reconstruction and appearance feedback |
+
+Load them through your agent host's supported local skill mechanism. Keep both sibling directories, all references and licenses together when copying them. Host-specific loader commands are not a Lenso API. The workflows do not activate tools or install CLI/MCP packages. This repository's `AGENTS.md` routes the relevant tasks to these files; availability in another host still requires that host's loader.
+
+The built CLI candidate also bundles both workflows. Review `lenso-ui skills --cwd ./my-app --json` and add `--write` to prepare project-local files; load them separately through the host. `agents-md` prepares matching local docs and their reference block without remote downloads. Both commands preserve authored edits and default to zero-write plans.
 
 ## Version before implementation
 
@@ -19,12 +26,28 @@ When tools are unavailable, use documentation generated for the same release and
 
 ## Follow the actual component contract
 
-Query the canonical family, native API, authored documentation, local examples and StyleX source as needed. Preserve native props, refs, render composition, state attributes and keyboard/focus behavior. Use the native signatures instead of adapting an older API.
+The implementation workflow has progressive references for querying, component composition, theming and setup. Retrieve the canonical family, native API, applicable example and StyleX source before writing its JSX. Preserve native props, refs, render composition, state attributes and keyboard/focus behavior. Use actual exported roots and supporting parts, including tab/panel and portal relationships.
 
 Place caller `xstyle` last, retain runtime custom properties and merge native state-dependent style callbacks. Keep loading actions focusable while blocking activation. The [architecture](/docs/react/getting-started/architecture) describes the native and local collection boundaries.
+
+## Design before delegating
+
+The design workflow establishes a rendered reference or an agreed original direction before distributing implementation work. It records geometry, typography, density, surface hierarchy and responsive states; one design owner approves a representative screen before sibling pages are built.
+
+Workers receive that shared specification, exact scope and acceptance states. Final review compares actual screenshots at matching viewports and states. Functional checks and visual approval remain separate: a working form or passing build does not approve the page's composition.
+
+## Upstream adaptation
+
+The implementation workflow adapts HeroUI's pinned React skill: documentation first, compound composition, semantic variants and CSS-variable theming. It replaces upstream network scripts with Lenso's version/digest-matched CLI/MCP, Tailwind styling with StyleX, and broad React Aria assumptions with Lenso's native interaction boundary.
+
+The visual-design workflow is a first-party Lenso extension, not an upstream aesthetic skill or a HeroUI Pro template. Source provenance, modifications and original licenses accompany the skill directories. Native/mobile and v2-to-v3 migration skills do not describe Lenso's supported web contract and are not imported.
+
+Public skill archives, discovery endpoints and shell installers are not provided in this candidate. No install command here downloads or executes upstream skills.
 
 ## Report evidence
 
 Run the consumer's typecheck, matching `lenso-ui check` and framework build. Exercise affected opening, navigation, activation, dismissal and focus restoration. Check both themes, portalled surfaces, overflow and reduced motion where relevant.
+
+Inside this repository, run maintained source and affected application checks instead of interpreting consumer-mode workspace-alias diagnostics as release mismatches. Developer tools embed a snapshot: regenerate the current source contract, compare its digest with tool metadata, and rebuild/restart stale tools. Do not rewrite the repository's CSS pipeline to satisfy consumer setup hints.
 
 The skill requires a distinction between passing evidence and untested behavior. It does not certify accessibility, source parity or stylesheet delivery merely because code compiled or a source example exists.

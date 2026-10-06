@@ -15,6 +15,8 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui --help
 
 使用 `lenso-ui --help` 查看已安装命令。CLI 运行时不需要仓库检出、React、Next 或 TypeScript/StyleX 编译器。Node 应满足匹配契约报告的范围；当前工具链要求 Node 26.10.0 或更新的 Node 26 版本。源码生成和构建仅供维护者使用，参见软件包维护者指南。
 
+源码、构建脚本和测试均为严格 TypeScript。维护者构建出独立的 ESM 入口 `packages/cli/dist/cli.js`；在本仓库运行 `pnpm --filter @lenso/ui-cli build` 后，可用 `node` 执行源码候选入口。
+
 ## 读取发布契约
 
 ```sh
@@ -26,7 +28,17 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui docs react/compo
 
 `metadata` 报告发布身份和 digest。`list` 给出规范系列 slug 与公开部件。`info` 解析真实签名、回调状态和属性行。`docs` 输出与页面 Copy Markdown 相同的 authored Markdown。
 
-当前命令为 `list`、`info`、`docs`、`metadata`、`check` 和 `init`。CLI 没有独立示例下载、主题生成或远程获取命令。应查询匹配二进制的 `--help`，不假设其他工具的参数也适用。
+以匹配二进制的 `--help` 为命令来源。新增只读查询与 MCP 使用同一份版本/digest 匹配数据：
+
+```sh
+lenso-ui source menu --json
+lenso-ui styles menu --json
+lenso-ui examples menu --locale cn --json
+lenso-ui theme --json
+lenso-ui search "焦点" --locale cn --limit 5 --json
+```
+
+`source` 返回真实组件实现及本地支持文件，不包含第三方依赖的实现。`theme` 返回精确 CSS 文件、作用域内的原始 CSS 表达式和可编辑元数据，不臆造计算后颜色。这些查询读取内嵌数据，不进行网络抓取。
 
 ## 检查消费者
 
@@ -35,6 +47,8 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui check --cwd ./my
 ```
 
 `check` 读取消费者源码，报告策略、兼容性和静态配置提示。它不执行应用代码，也不能证明浏览器样式表交付。符号链接、过大文件和未解析源码会明确列为跳过；非零结果需要审阅。
+
+`doctor --cwd ./my-app --json` 还报告 Node 兼容性和实际已安装包的解析/版本证据，不执行包入口，也不自动修复。静态/跳过、环境和解析证据分别记录。
 
 ## 写入前审阅计划
 
@@ -47,3 +61,19 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui init --framework
 仅在确实打算应用无冲突、仍匹配当前文件的计划时添加 `--write`。写入器保留软件包字段，并拒绝不兼容版本、复杂脚本和用户拥有的配置。生成文件被用户编辑后，即成为用户拥有的文件。
 
 CLI 不安装依赖，不运行项目脚本。它生成元数据和主题辅助文件，但实际渲染入口或布局仍需由你导入主题辅助文件。I/O 失败可能留下部分写入；重试前应核对计划与文件系统。
+
+文件检查针对普通的过期计划和链接路径，不保证抵御恶意并发替换父目录。应在目标目录可信且稳定时应用计划；CLI 不是文件系统沙箱。
+
+## 依赖与 agent 准备计划
+
+```sh
+lenso-ui install --cwd ./my-app --json
+lenso-ui upgrade --cwd ./my-app --json
+lenso-ui uninstall --cwd ./my-app --json
+lenso-ui agents-md --cwd ./my-app --locale cn --json
+lenso-ui skills --cwd ./my-app --json
+```
+
+全部默认只生成计划；审阅变更和手动步骤后，再加 `--write`。依赖命令从同一契约的精确版本修改 manifest，不查询远程 latest，也不运行包管理器。Install 拒绝已有不兼容版本；upgrade 只修改已有受管理项；uninstall 保留共享 StyleX 依赖、用户配置和源码。所需包可用时由用户运行自己的包管理器；私有候选目前不能从 registry 安装。
+
+`agents-md` 在 `.lenso-ui/docs` 准备精确 authored 文档、索引和 `AGENTS.md` 中的受控参考块，保留块外文本，并把本地文档目录加入 `.gitignore`。`skills` 准备两个内嵌的项目级工作流目录、参考文件和许可证。二者都不写全局 agent 配置，也不下载或激活 skill。已编辑的生成文件、损坏的参考块、链接路径和计划后的文件变更会被拒绝，不会强制覆盖。

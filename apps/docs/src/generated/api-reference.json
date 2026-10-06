@@ -7476,6 +7476,15 @@
       "default": null
     },
     {
+      "name": "elevation",
+      "type": "string | number | undefined",
+      "expandedType": "string | number | undefined",
+      "required": false,
+      "description": "",
+      "source": { "path": "node_modules/@types/react/index.d.ts", "line": 3793 },
+      "default": null
+    },
+    {
       "name": "radius",
       "type": "string | number | undefined",
       "expandedType": "string | number | undefined",
@@ -10200,15 +10209,6 @@
       "required": false,
       "description": "",
       "source": { "path": "node_modules/@types/react/index.d.ts", "line": 3792 },
-      "default": null
-    },
-    {
-      "name": "elevation",
-      "type": "string | number | undefined",
-      "expandedType": "string | number | undefined",
-      "required": false,
-      "description": "",
-      "source": { "path": "node_modules/@types/react/index.d.ts", "line": 3793 },
       "default": null
     },
     {
@@ -15295,7 +15295,7 @@
       "description": "",
       "source": {
         "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-        "line": 427
+        "line": 444
       },
       "default": "\"primary\""
     },
@@ -15307,7 +15307,7 @@
       "description": "",
       "source": {
         "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-        "line": 428
+        "line": 445
       },
       "default": "false"
     },
@@ -18685,7 +18685,7 @@
       "description": "",
       "source": {
         "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-        "line": 72
+        "line": 87
       },
       "default": null
     },
@@ -49322,7 +49322,7 @@
       "expandedType": "undefined | \"secondary\" | \"primary\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 419 },
+      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 438 },
       "default": "\"primary\""
     },
     {
@@ -49331,7 +49331,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 420 },
+      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 439 },
       "default": "false"
     },
     {
@@ -49340,7 +49340,7 @@
       "expandedType": "undefined | \"secondary\" | \"primary\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 34 },
+      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 51 },
       "default": null
     },
     {
@@ -49349,7 +49349,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 35 },
+      "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 52 },
       "default": null
     },
     {
@@ -86738,10 +86738,10 @@
             859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875,
             876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892,
             893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
-            910, 911, 912, 913, 914, 915, 7, 916, 9, 917, 918, 919, 920, 921, 922, 923, 54, 55, 56,
-            57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-            79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
-            101, 102, 103, 104, 105, 106, 107, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933,
+            910, 911, 912, 913, 914, 915, 916, 7, 917, 9, 918, 919, 920, 921, 922, 923, 924, 54, 55,
+            56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
+            78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+            100, 101, 102, 103, 104, 105, 106, 107, 925, 926, 927, 928, 929, 930, 931, 932, 933,
             934, 935, 936, 937, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950,
             951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967,
             968, 969, 970, 971, 972, 973, 974, 975, 976, 977, 978, 979, 980, 981, 982, 983, 984,
@@ -87427,7 +87427,7 @@
       "parts": [
         {
           "name": "Autocomplete",
-          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, virtualized, ...props }: AutocompleteRootProps<Value, Multiple>): JSX.Element",
+          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, virtualized, onItemHighlighted, onOpenChange, ...props }: AutocompleteRootProps<Value, Multiple>): JSX.Element",
           "props": "AutocompleteRootProps<Value, Multiple>",
           "source": { "path": "packages/react/src/components/autocomplete/index.ts", "line": 30 },
           "native": [],
@@ -87472,11 +87472,11 @@
         },
         {
           "name": "AutocompleteRoot",
-          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, virtualized, ...props }: AutocompleteRootProps<Value, Multiple>): JSX.Element",
+          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, virtualized, onItemHighlighted, onOpenChange, ...props }: AutocompleteRootProps<Value, Multiple>): JSX.Element",
           "props": "AutocompleteRootProps<Value, Multiple>",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 23
+            "line": 24
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87493,7 +87493,7 @@
           "props": "Omit<ComboboxInputGroupProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 39
+            "line": 54
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87539,7 +87539,7 @@
           "props": "Omit<ComboboxInputProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 55
+            "line": 70
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87586,7 +87586,7 @@
           "props": "AutocompleteValueProps",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 74
+            "line": 89
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87599,7 +87599,7 @@
           "props": "AutocompleteTriggerProps",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 84
+            "line": 99
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87645,7 +87645,7 @@
           "props": "AutocompleteIndicatorProps",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 109
+            "line": 124
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87677,7 +87677,7 @@
           "props": "Omit<ComboboxPortalProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 139
+            "line": 154
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87709,7 +87709,7 @@
           "props": "Omit<ComboboxPositionerProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 148
+            "line": 163
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87749,7 +87749,7 @@
           "props": "Omit<ComboboxPopupProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 164
+            "line": 179
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87790,7 +87790,7 @@
           "props": "Omit<ComboboxListProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 180
+            "line": 195
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87844,7 +87844,7 @@
           "props": "Omit<ComboboxItemProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 198
+            "line": 213
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87882,7 +87882,7 @@
           "props": "AutocompleteItemIndicatorProps",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 217
+            "line": 234
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87919,7 +87919,7 @@
           "props": "Omit<ComboboxLabelProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 246
+            "line": 263
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87960,7 +87960,7 @@
           "props": "Omit<ComboboxGroupProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 262
+            "line": 279
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -87992,7 +87992,7 @@
           "props": "Omit<ComboboxGroupLabelProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 278
+            "line": 295
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88024,7 +88024,7 @@
           "props": "Omit<ComboboxSeparatorProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 294
+            "line": 311
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88060,7 +88060,7 @@
           "props": "Omit<ComboboxArrowProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 310
+            "line": 327
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88099,7 +88099,7 @@
           "props": "Omit<ComboboxEmptyProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 326
+            "line": 343
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88131,7 +88131,7 @@
           "props": "Omit<ComboboxClearProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 342
+            "line": 359
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88170,7 +88170,7 @@
           "props": "Omit<ComboboxChipsProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 370
+            "line": 387
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88202,7 +88202,7 @@
           "props": "Omit<ComboboxChipProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 386
+            "line": 403
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88236,7 +88236,7 @@
           "props": "Omit<ComboboxChipRemoveProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 402
+            "line": 419
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88270,7 +88270,7 @@
           "props": "ComboboxCollectionProps",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 418
+            "line": 435
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88304,7 +88304,7 @@
           "props": "Omit<ComboboxRowProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 419
+            "line": 436
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88336,7 +88336,7 @@
           "props": "Omit<ComboboxStatusProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 420
+            "line": 437
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -88368,7 +88368,7 @@
           "props": "Omit<ComboboxBackdropProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/autocomplete/autocomplete.tsx",
-            "line": 421
+            "line": 438
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -91691,7 +91691,7 @@
       "parts": [
         {
           "name": "ComboBox",
-          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, ...props }: ComboBoxRootProps<Value, Multiple>): JSX.Element",
+          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, onItemHighlighted, onOpenChange, ...props }: ComboBoxRootProps<Value, Multiple>): JSX.Element",
           "props": "ComboBoxRootProps<Value, Multiple>",
           "source": { "path": "packages/react/src/components/combo-box/index.ts", "line": 30 },
           "native": [],
@@ -91736,9 +91736,9 @@
         },
         {
           "name": "ComboBoxRoot",
-          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, ...props }: ComboBoxRootProps<Value, Multiple>): JSX.Element",
+          "signature": "<Value, Multiple extends boolean | undefined = false>({ variant, fullWidth, onItemHighlighted, onOpenChange, ...props }: ComboBoxRootProps<Value, Multiple>): JSX.Element",
           "props": "ComboBoxRootProps<Value, Multiple>",
-          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 19 },
+          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 20 },
           "native": ["@base-ui/react/combobox"],
           "members": [],
           "states": {},
@@ -91752,7 +91752,7 @@
           "name": "ComboBoxInputGroup",
           "signature": "({ variant, fullWidth, xstyle, style, \"data-slot\": slot, ...props }: ComboBoxInputGroupProps): JSX.Element",
           "props": "ComboBoxInputGroupProps",
-          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 38 },
+          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 55 },
           "native": ["@base-ui/react/combobox"],
           "members": [],
           "states": {
@@ -91795,7 +91795,7 @@
           "name": "ComboBoxInput",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseCombobox.Input.Props> & { \"data-slot\"?: unknown; }): JSX.Element",
           "props": "Omit<ComboboxInputProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 65 },
+          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 82 },
           "native": ["@base-ui/react/combobox"],
           "members": [],
           "states": {
@@ -91839,7 +91839,10 @@
           "name": "ComboBoxTrigger",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseCombobox.Trigger.Props> & { \"data-slot\"?: unknown; }): JSX.Element",
           "props": "Omit<ComboboxTriggerProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 89 },
+          "source": {
+            "path": "packages/react/src/components/combo-box/combo-box.tsx",
+            "line": 106
+          },
           "native": ["@base-ui/react/combobox"],
           "members": [],
           "states": {
@@ -91884,7 +91887,7 @@
           "props": "ComboBoxIndicatorProps",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 113
+            "line": 130
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -91916,7 +91919,7 @@
           "props": "Omit<ComboboxPortalProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 143
+            "line": 160
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -91948,7 +91951,7 @@
           "props": "Omit<ComboboxPositionerProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 152
+            "line": 169
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -91988,7 +91991,7 @@
           "props": "Omit<ComboboxPopupProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 168
+            "line": 185
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92029,7 +92032,7 @@
           "props": "Omit<ComboboxListProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 184
+            "line": 201
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92083,7 +92086,7 @@
           "props": "Omit<ComboboxItemProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 200
+            "line": 217
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92121,7 +92124,7 @@
           "props": "ComboBoxItemIndicatorProps",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 219
+            "line": 238
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92158,7 +92161,7 @@
           "props": "Omit<DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 248
+            "line": 267
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92190,7 +92193,7 @@
           "props": "Omit<ComboboxGroupProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 266
+            "line": 285
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92222,7 +92225,7 @@
           "props": "Omit<ComboboxGroupLabelProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 282
+            "line": 301
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92254,7 +92257,7 @@
           "props": "Omit<ComboboxSeparatorProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 298
+            "line": 317
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92290,7 +92293,7 @@
           "props": "Omit<ComboboxArrowProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 314
+            "line": 333
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92329,7 +92332,7 @@
           "props": "Omit<ComboboxEmptyProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 330
+            "line": 349
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92361,7 +92364,7 @@
           "props": "Omit<ComboboxClearProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 346
+            "line": 365
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92400,7 +92403,7 @@
           "props": "Omit<ComboboxChipsProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 362
+            "line": 381
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92432,7 +92435,7 @@
           "props": "Omit<ComboboxChipProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 378
+            "line": 397
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92466,7 +92469,7 @@
           "props": "Omit<ComboboxChipRemoveProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 394
+            "line": 413
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92498,7 +92501,10 @@
           "name": "ComboBoxValue",
           "signature": "(props: BaseCombobox.Value.Props): React.ReactElement",
           "props": "ComboboxValueProps",
-          "source": { "path": "packages/react/src/components/combo-box/combo-box.tsx", "line": 88 },
+          "source": {
+            "path": "packages/react/src/components/combo-box/combo-box.tsx",
+            "line": 105
+          },
           "native": ["@base-ui/react/combobox"],
           "members": [],
           "states": {},
@@ -92510,7 +92516,7 @@
           "props": "ComboboxCollectionProps",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 410
+            "line": 429
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92544,7 +92550,7 @@
           "props": "Omit<ComboboxRowProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 411
+            "line": 430
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92576,7 +92582,7 @@
           "props": "Omit<ComboboxStatusProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 412
+            "line": 431
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -92608,7 +92614,7 @@
           "props": "Omit<ComboboxBackdropProps, \"ref\"> & RefAttributes<HTMLDivElement>",
           "source": {
             "path": "packages/react/src/components/combo-box/combo-box.tsx",
-            "line": 413
+            "line": 432
           },
           "native": ["@base-ui/react/combobox"],
           "members": [],
@@ -94366,10 +94372,10 @@
             859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875,
             876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892,
             893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
-            910, 911, 912, 913, 914, 915, 7, 916, 9, 917, 918, 919, 920, 921, 922, 923, 54, 55, 56,
-            57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-            79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
-            101, 102, 103, 104, 105, 106, 107, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933,
+            910, 911, 912, 913, 914, 915, 916, 7, 917, 9, 918, 919, 920, 921, 922, 923, 924, 54, 55,
+            56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
+            78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+            100, 101, 102, 103, 104, 105, 106, 107, 925, 926, 927, 928, 929, 930, 931, 932, 933,
             934, 935, 936, 937, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950,
             951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967,
             968, 969, 970, 971, 972, 973, 974, 975, 976, 977, 978, 979, 980, 981, 982, 983, 984,
@@ -99316,35 +99322,35 @@
             842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858,
             859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875,
             876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892,
-            893, 894, 895, 7257, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
-            910, 911, 912, 913, 914, 915, 7, 7258, 1258, 917, 918, 919, 920, 921, 7259, 923, 54, 55,
-            56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
-            78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
-            100, 101, 102, 103, 104, 105, 1260, 107, 7260, 7261, 7262, 7263, 7264, 7265, 7266, 7267,
-            7268, 7269, 7270, 7271, 7272, 7273, 7274, 7275, 7276, 7277, 7278, 7279, 7280, 7281,
-            7282, 7283, 7284, 7285, 7286, 7287, 7288, 7289, 7290, 7291, 7292, 7293, 7294, 7295,
-            7296, 7297, 7298, 7299, 7300, 7301, 7302, 7303, 7304, 7305, 7306, 7307, 7308, 7309,
-            7310, 7311, 7312, 7313, 7314, 7315, 7316, 7317, 7318, 7319, 7320, 7321, 7322, 7323,
-            7324, 7325, 7326, 7327, 7328, 7329, 7330, 7331, 7332, 7333, 7334, 7335, 7336, 7337,
-            7338, 7339, 7340, 7341, 7342, 7343, 7344, 7345, 7346, 7347, 7348, 7349, 7350, 7351,
-            7352, 7353, 7354, 7355, 7356, 7357, 7358, 7359, 7360, 7361, 7362, 7363, 7364, 7365,
-            7366, 7367, 7368, 7369, 7370, 7371, 7372, 7373, 7374, 7375, 7376, 7377, 7378, 7379,
-            7380, 7381, 7382, 7383, 7384, 7385, 7386, 7387, 7388, 7389, 7390, 7391, 7392, 7393,
-            7394, 7395, 7396, 7397, 7398, 7399, 7400, 7401, 7402, 7403, 7404, 7405, 7406, 7407,
-            7408, 7409, 7410, 7411, 7412, 7413, 7414, 7415, 7416, 7417, 7418, 7419, 7420, 7421,
-            7422, 7423, 7424, 7425, 7426, 7427, 1092, 1093, 1094, 1095, 1096, 1097, 1098, 1099,
-            1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113,
-            1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127,
-            1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141,
-            1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155,
-            1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169,
-            1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183,
-            1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197,
-            1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211,
-            1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1225,
-            1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239,
-            1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253,
-            1254, 1255, 277, 278
+            893, 894, 895, 896, 7257, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
+            910, 911, 912, 913, 914, 915, 916, 7, 7258, 1258, 918, 919, 920, 921, 922, 7259, 924,
+            54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
+            76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
+            98, 99, 100, 101, 102, 103, 104, 105, 1260, 107, 7260, 7261, 7262, 7263, 7264, 7265,
+            7266, 7267, 7268, 7269, 7270, 7271, 7272, 7273, 7274, 7275, 7276, 7277, 7278, 7279,
+            7280, 7281, 7282, 7283, 7284, 7285, 7286, 7287, 7288, 7289, 7290, 7291, 7292, 7293,
+            7294, 7295, 7296, 7297, 7298, 7299, 7300, 7301, 7302, 7303, 7304, 7305, 7306, 7307,
+            7308, 7309, 7310, 7311, 7312, 7313, 7314, 7315, 7316, 7317, 7318, 7319, 7320, 7321,
+            7322, 7323, 7324, 7325, 7326, 7327, 7328, 7329, 7330, 7331, 7332, 7333, 7334, 7335,
+            7336, 7337, 7338, 7339, 7340, 7341, 7342, 7343, 7344, 7345, 7346, 7347, 7348, 7349,
+            7350, 7351, 7352, 7353, 7354, 7355, 7356, 7357, 7358, 7359, 7360, 7361, 7362, 7363,
+            7364, 7365, 7366, 7367, 7368, 7369, 7370, 7371, 7372, 7373, 7374, 7375, 7376, 7377,
+            7378, 7379, 7380, 7381, 7382, 7383, 7384, 7385, 7386, 7387, 7388, 7389, 7390, 7391,
+            7392, 7393, 7394, 7395, 7396, 7397, 7398, 7399, 7400, 7401, 7402, 7403, 7404, 7405,
+            7406, 7407, 7408, 7409, 7410, 7411, 7412, 7413, 7414, 7415, 7416, 7417, 7418, 7419,
+            7420, 7421, 7422, 7423, 7424, 7425, 7426, 7427, 1093, 1094, 1095, 1096, 1097, 1098,
+            1099, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112,
+            1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126,
+            1127, 1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139, 1140,
+            1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154,
+            1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168,
+            1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182,
+            1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196,
+            1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210,
+            1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224,
+            1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238,
+            1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252,
+            1253, 1254, 1255, 277, 278
           ]
         },
         {
@@ -99363,35 +99369,35 @@
             842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858,
             859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875,
             876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892,
-            893, 894, 895, 7257, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
-            910, 911, 912, 913, 914, 915, 7, 7428, 1258, 917, 918, 919, 920, 921, 7259, 923, 54, 55,
-            56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
-            78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
-            100, 101, 102, 103, 104, 105, 1260, 107, 7429, 7430, 7431, 7432, 7433, 7434, 7435, 7436,
-            7437, 7438, 7439, 7440, 7441, 7442, 7443, 7444, 7445, 7446, 7447, 7448, 7449, 7450,
-            7451, 7452, 7453, 7454, 7455, 7456, 7457, 7458, 7459, 7460, 7461, 7462, 7463, 7464,
-            7465, 7466, 7467, 7468, 7469, 7470, 7471, 7472, 7473, 7474, 7475, 7476, 7477, 7478,
-            7479, 7480, 7481, 7482, 7483, 7484, 7485, 7486, 7487, 7488, 7489, 7490, 7491, 7492,
-            7493, 7494, 7495, 7496, 7497, 7498, 7499, 7500, 7501, 7502, 7503, 7504, 7505, 7506,
-            7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514, 7515, 7516, 7517, 7518, 7519, 7520,
-            7521, 7522, 7523, 7524, 7525, 7526, 7527, 7528, 7529, 7530, 7531, 7532, 7533, 7534,
-            7535, 7536, 7537, 7538, 7539, 7540, 7541, 7542, 7543, 7544, 7545, 7546, 7547, 7548,
-            7549, 7550, 7551, 7552, 7553, 7554, 7555, 7556, 7557, 7558, 7559, 7560, 7561, 7562,
-            7563, 7564, 7565, 7566, 7567, 7568, 7569, 7570, 7571, 7572, 7573, 7574, 7575, 7576,
-            7577, 7578, 7579, 7580, 7581, 7582, 7583, 7584, 7585, 7586, 7587, 7588, 7589, 7590,
-            7591, 7592, 7593, 7594, 7595, 7596, 1092, 1093, 1094, 1095, 1096, 1097, 1098, 1099,
-            1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113,
-            1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127,
-            1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141,
-            1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155,
-            1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169,
-            1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183,
-            1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197,
-            1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211,
-            1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1225,
-            1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239,
-            1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253,
-            1254, 1255, 277, 278
+            893, 894, 895, 896, 7257, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
+            910, 911, 912, 913, 914, 915, 916, 7, 7428, 1258, 918, 919, 920, 921, 922, 7259, 924,
+            54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
+            76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
+            98, 99, 100, 101, 102, 103, 104, 105, 1260, 107, 7429, 7430, 7431, 7432, 7433, 7434,
+            7435, 7436, 7437, 7438, 7439, 7440, 7441, 7442, 7443, 7444, 7445, 7446, 7447, 7448,
+            7449, 7450, 7451, 7452, 7453, 7454, 7455, 7456, 7457, 7458, 7459, 7460, 7461, 7462,
+            7463, 7464, 7465, 7466, 7467, 7468, 7469, 7470, 7471, 7472, 7473, 7474, 7475, 7476,
+            7477, 7478, 7479, 7480, 7481, 7482, 7483, 7484, 7485, 7486, 7487, 7488, 7489, 7490,
+            7491, 7492, 7493, 7494, 7495, 7496, 7497, 7498, 7499, 7500, 7501, 7502, 7503, 7504,
+            7505, 7506, 7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514, 7515, 7516, 7517, 7518,
+            7519, 7520, 7521, 7522, 7523, 7524, 7525, 7526, 7527, 7528, 7529, 7530, 7531, 7532,
+            7533, 7534, 7535, 7536, 7537, 7538, 7539, 7540, 7541, 7542, 7543, 7544, 7545, 7546,
+            7547, 7548, 7549, 7550, 7551, 7552, 7553, 7554, 7555, 7556, 7557, 7558, 7559, 7560,
+            7561, 7562, 7563, 7564, 7565, 7566, 7567, 7568, 7569, 7570, 7571, 7572, 7573, 7574,
+            7575, 7576, 7577, 7578, 7579, 7580, 7581, 7582, 7583, 7584, 7585, 7586, 7587, 7588,
+            7589, 7590, 7591, 7592, 7593, 7594, 7595, 7596, 1093, 1094, 1095, 1096, 1097, 1098,
+            1099, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112,
+            1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126,
+            1127, 1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139, 1140,
+            1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154,
+            1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168,
+            1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182,
+            1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196,
+            1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210,
+            1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224,
+            1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238,
+            1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252,
+            1253, 1254, 1255, 277, 278
           ]
         },
         {
@@ -99410,35 +99416,35 @@
             842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858,
             859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875,
             876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892,
-            893, 894, 895, 7257, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
-            910, 911, 912, 913, 914, 915, 7, 7428, 1258, 917, 918, 919, 920, 921, 7259, 923, 54, 55,
-            56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
-            78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
-            100, 101, 102, 103, 104, 105, 1260, 107, 7429, 7430, 7431, 7432, 7433, 7434, 7435, 7436,
-            7437, 7438, 7439, 7440, 7441, 7442, 7443, 7444, 7445, 7446, 7447, 7448, 7449, 7450,
-            7451, 7452, 7453, 7454, 7455, 7456, 7457, 7458, 7459, 7460, 7461, 7462, 7463, 7464,
-            7465, 7466, 7467, 7468, 7469, 7470, 7471, 7472, 7473, 7474, 7475, 7476, 7477, 7478,
-            7479, 7480, 7481, 7482, 7483, 7484, 7485, 7486, 7487, 7488, 7489, 7490, 7491, 7492,
-            7493, 7494, 7495, 7496, 7497, 7498, 7499, 7500, 7501, 7502, 7503, 7504, 7505, 7506,
-            7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514, 7515, 7516, 7517, 7518, 7519, 7520,
-            7521, 7522, 7523, 7524, 7525, 7526, 7527, 7528, 7529, 7530, 7531, 7532, 7533, 7534,
-            7535, 7536, 7537, 7538, 7539, 7540, 7541, 7542, 7543, 7544, 7545, 7546, 7547, 7548,
-            7549, 7550, 7551, 7552, 7553, 7554, 7555, 7556, 7557, 7558, 7559, 7560, 7561, 7562,
-            7563, 7564, 7565, 7566, 7567, 7568, 7569, 7570, 7571, 7572, 7573, 7574, 7575, 7576,
-            7577, 7578, 7579, 7580, 7581, 7582, 7583, 7584, 7585, 7586, 7587, 7588, 7589, 7590,
-            7591, 7592, 7593, 7594, 7595, 7596, 1092, 1093, 1094, 1095, 1096, 1097, 1098, 1099,
-            1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113,
-            1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127,
-            1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141,
-            1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155,
-            1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169,
-            1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183,
-            1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197,
-            1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211,
-            1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1225,
-            1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239,
-            1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253,
-            1254, 1255, 277, 278
+            893, 894, 895, 896, 7257, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
+            910, 911, 912, 913, 914, 915, 916, 7, 7428, 1258, 918, 919, 920, 921, 922, 7259, 924,
+            54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
+            76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
+            98, 99, 100, 101, 102, 103, 104, 105, 1260, 107, 7429, 7430, 7431, 7432, 7433, 7434,
+            7435, 7436, 7437, 7438, 7439, 7440, 7441, 7442, 7443, 7444, 7445, 7446, 7447, 7448,
+            7449, 7450, 7451, 7452, 7453, 7454, 7455, 7456, 7457, 7458, 7459, 7460, 7461, 7462,
+            7463, 7464, 7465, 7466, 7467, 7468, 7469, 7470, 7471, 7472, 7473, 7474, 7475, 7476,
+            7477, 7478, 7479, 7480, 7481, 7482, 7483, 7484, 7485, 7486, 7487, 7488, 7489, 7490,
+            7491, 7492, 7493, 7494, 7495, 7496, 7497, 7498, 7499, 7500, 7501, 7502, 7503, 7504,
+            7505, 7506, 7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514, 7515, 7516, 7517, 7518,
+            7519, 7520, 7521, 7522, 7523, 7524, 7525, 7526, 7527, 7528, 7529, 7530, 7531, 7532,
+            7533, 7534, 7535, 7536, 7537, 7538, 7539, 7540, 7541, 7542, 7543, 7544, 7545, 7546,
+            7547, 7548, 7549, 7550, 7551, 7552, 7553, 7554, 7555, 7556, 7557, 7558, 7559, 7560,
+            7561, 7562, 7563, 7564, 7565, 7566, 7567, 7568, 7569, 7570, 7571, 7572, 7573, 7574,
+            7575, 7576, 7577, 7578, 7579, 7580, 7581, 7582, 7583, 7584, 7585, 7586, 7587, 7588,
+            7589, 7590, 7591, 7592, 7593, 7594, 7595, 7596, 1093, 1094, 1095, 1096, 1097, 1098,
+            1099, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112,
+            1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126,
+            1127, 1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139, 1140,
+            1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154,
+            1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168,
+            1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182,
+            1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196,
+            1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210,
+            1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224,
+            1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238,
+            1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252,
+            1253, 1254, 1255, 277, 278
           ]
         },
         {
@@ -100479,10 +100485,10 @@
             859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875,
             876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892,
             893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909,
-            910, 911, 912, 913, 914, 915, 7, 916, 9, 917, 918, 919, 920, 921, 922, 923, 54, 55, 56,
-            57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-            79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
-            101, 102, 103, 104, 105, 106, 107, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933,
+            910, 911, 912, 913, 914, 915, 916, 7, 917, 9, 918, 919, 920, 921, 922, 923, 924, 54, 55,
+            56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
+            78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+            100, 101, 102, 103, 104, 105, 106, 107, 925, 926, 927, 928, 929, 930, 931, 932, 933,
             934, 935, 936, 937, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950,
             951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967,
             968, 969, 970, 971, 972, 973, 974, 975, 976, 977, 978, 979, 980, 981, 982, 983, 984,

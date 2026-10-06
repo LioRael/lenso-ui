@@ -27,9 +27,9 @@ Explicit `--strict` also fails for skipped analysis; ordinary consumer analysis
 does not treat unresolved framework modules as proven policy violations:
 
 ```sh
-node tooling/design-policy/cli.mjs library --strict path/to/component.tsx
-node tooling/design-policy/cli.mjs consumer path/to/application.tsx
-node --test scripts/source-imports.test.ts tooling/design-policy/index.test.mjs
+node tooling/design-policy/cli.ts library --strict path/to/component.tsx
+node tooling/design-policy/cli.ts consumer path/to/application.tsx
+node --test scripts/source-imports.test.ts tooling/design-policy/index.test.ts
 ```
 
 This is private source tooling, not a revived public design-lint package.

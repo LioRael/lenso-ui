@@ -22,10 +22,12 @@ navigationOrder: 22
 
 Use the Node range reported by the matching contract; the current toolchain requires Node 26.10.0 or a later Node 26 release. This launches a stdio server, not an interactive prompt. Stdout carries JSON-RPC; diagnostics use stderr. The installed server needs no repository checkout, React, Next or TypeScript/StyleX compiler. The official MCP TypeScript SDK remains a runtime dependency. Source generation and builds are maintainer-only; see the package maintainer guide.
 
-## Discover the six tools
+## Discover the eight tools
 
 | Tool                     | Input                               | Result                                              |
 | ------------------------ | ----------------------------------- | --------------------------------------------------- |
+| `get_component_source`   | `component`                         | Actual implementation and local supporting graph    |
+| `get_theme_variables`    | No theme argument                   | Exact CSS, raw scoped declarations and editor metadata |
 | `list_components`        | No component argument               | Canonical families and public parts                 |
 | `get_component_api`      | `component`                         | Native signatures, state and resolved property rows |
 | `get_component_examples` | `component`, optional `locale`      | Local source and ordered supporting files           |
@@ -36,6 +38,8 @@ Use the Node range reported by the matching contract; the current toolchain requ
 Locales are `en` and `cn`, defaulting to `en`. Search limits are integers from 1 to 50, defaulting to 10. Every tool accepts optional `lensoVersion` and `digest` identity arguments, which must match the server's contract.
 
 Responses include release metadata and digest. Discover schemas through the protocol and take canonical component names from `list_components`; `menu` is the public popup menu family.
+
+Implementation queries do not bundle third-party dependency implementations. Theme declarations preserve raw CSS expressions and scopes, not computed color claims. These additions use contract format 3 and the same digest as API, examples and documentation; older tool contracts must be regenerated and rebuilt.
 
 ## Read-only boundary
 

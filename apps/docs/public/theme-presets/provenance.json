@@ -1,0 +1,63 @@
+{
+  "source": "HeroUI v3.2.6",
+  "commit": "e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e",
+  "license": "Apache-2.0",
+  "modification": "Unmodified source PNGs; served locally by Lenso.",
+  "files": [
+    {
+      "file": "default.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/default.png",
+      "sha256": "4e92cc139ec14437cceaaf5193bdf95c0bb2ab0a080fcfa24dcea2a815086116"
+    },
+    {
+      "file": "sky.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/sky.png",
+      "sha256": "6a57e5b950907b7a63aeb71edb4cfc1f6528b914b498d90fd530c3c928d88d69"
+    },
+    {
+      "file": "lavender.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/lavender.png",
+      "sha256": "db0eec900f9a5c2637d948a353271ba9fe757f7e12e8c79d1cabe4a969fe341e"
+    },
+    {
+      "file": "mint.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/mint.png",
+      "sha256": "1c92f271099459ee80e878ecc7c58ab40d0282d9df4433d3ef99726390c01ce2"
+    },
+    {
+      "file": "netflix.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/netflix.png",
+      "sha256": "5f5c69cef057273a7535a86c7330444cc7335365d2aab0dd84afcf6d5b472b2f"
+    },
+    {
+      "file": "black.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/black.png",
+      "sha256": "3a37f54ef77e9077b803ebfe7c2d9e26c4771a4ed56e193a081459c45f61e5ec"
+    },
+    {
+      "file": "spotify.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/spotify.png",
+      "sha256": "db017f0f746d004f08d391ae02d920b63ffe8c4f48c9275206b3310e8f652b72"
+    },
+    {
+      "file": "coinbase.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/coinbase.png",
+      "sha256": "8d4beb75ed3ecc41e6b416c3327882f5d6896ac125c6c9252cd094ab7c46f21f"
+    },
+    {
+      "file": "airbnb.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/airbnb.png",
+      "sha256": "f78e35c3b7e619c356dbbf0e6e2d465d01f424fb2a142430325c093b8d11a2c1"
+    },
+    {
+      "file": "discord.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/discord.png",
+      "sha256": "e22c88539888f03c02d687a8a08257afca3553206eda9ab23431f80e2f4929ee"
+    },
+    {
+      "file": "rabbit.png",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/apps/docs/src/assets/themes/rabbit.png",
+      "sha256": "8edfd6b60fcb270de1523182c05918a9496e95130e3bdb10be8dd2def1b43071"
+    }
+  ]
+}
