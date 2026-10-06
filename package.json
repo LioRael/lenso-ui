@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/parser": "7.29.9",
+    "@babel/types": "7.29.8",
     "@lenso/stylex-build": "workspace:*",
     "@stylexjs/stylex": "catalog:",
     "@stylexjs/unplugin": "catalog:",

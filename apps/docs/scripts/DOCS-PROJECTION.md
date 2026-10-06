@@ -39,12 +39,13 @@ Component MDX and `src/generated/lenso-contract.json` are ignored build outputs.
 Handwritten guides and the generator are reviewed sources. Source links for
 generated component pages point at the authoritative projection module.
 
-`generate-lenso-contract.mjs` supplies exact authored Markdown, the current API,
+`generate-lenso-contract.ts` supplies exact authored Markdown, the current API,
 actual demo entry bytes and ordered relative helpers, actual component style-map
 source, active package versions and the build package's `buildSupport`.
 
-The shared contract core owns format 2's lossless Markdown-line and source-file
-pools. The producer resolves every document, example/helper graph and style map
+The typed shared contract core owns format 3's lossless Markdown-line and source-file
+pools, including actual library implementation graphs and theme CSS declarations.
+The producer resolves every document, example/helper graph and style map
 and compares the resulting DTOs with its original inputs before writing output.
 It does not maintain another API formatter or extract component types itself.
 

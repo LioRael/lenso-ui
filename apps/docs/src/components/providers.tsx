@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { DirectionProvider } from "@base-ui/react/direction-provider";
 import { useSyncExternalStore, type ReactNode } from "react";
+import { DocsDesignThemeProvider } from "./docs-design-theme";
 export { ThemeToggle as ThemeSelector } from "./fumadocs/ui/theme-toggle";
 
 function subscribeDirection(onChange: () => void) {
@@ -32,7 +33,9 @@ export function Providers({ children, locale }: { children: ReactNode; locale: "
           ],
         }}
       >
-        <DirectionProvider direction={direction}>{children}</DirectionProvider>
+        <DirectionProvider direction={direction}>
+          <DocsDesignThemeProvider>{children}</DocsDesignThemeProvider>
+        </DirectionProvider>
       </RootProvider>
     </ThemeProvider>
   );

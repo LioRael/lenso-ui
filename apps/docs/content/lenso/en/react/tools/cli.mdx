@@ -15,6 +15,8 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui --help
 
 Use `lenso-ui --help` for the installed command list. The installed CLI runs without a repository checkout, React, Next or a TypeScript/StyleX compiler. Use the Node range reported by the matching contract; the current toolchain requires Node 26.10.0 or a later Node 26 release. See the package maintainer guide for source generation and builds.
 
+Source, build scripts and tests are strict TypeScript. Maintainers build a standalone ESM entrypoint at `packages/cli/dist/cli.js`; source-candidate commands can be run with `node` from this repository after `pnpm --filter @lenso/ui-cli build`.
+
 ## Read the release contract
 
 ```sh
@@ -26,7 +28,17 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui docs react/compo
 
 `metadata` reports release identity and digest. `list` supplies canonical family slugs and public parts. `info` resolves actual signatures, callback state and property rows. `docs` prints the same authored Markdown as the documentation page's Copy Markdown action.
 
-The current commands are `list`, `info`, `docs`, `metadata`, `check` and `init`. The CLI does not expose a separate example-download, theme-generation or remote-fetch command. Use the matching binary's `--help` rather than assuming another tool's options.
+Use the matching binary's `--help` as the command authority. Additional read-only queries return the same version/digest-matched data as MCP:
+
+```sh
+lenso-ui source menu --json
+lenso-ui styles menu --json
+lenso-ui examples menu --locale en --json
+lenso-ui theme --json
+lenso-ui search "focus restoration" --locale en --limit 5 --json
+```
+
+`source` includes actual component implementation and local supporting files, not third-party dependency implementations. `theme` returns exact CSS files, scoped declarations with raw CSS expressions and editable metadata; it does not invent computed colors. These queries are bundled data, not network fetches.
 
 ## Check a consumer
 
@@ -35,6 +47,8 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui check --cwd ./my
 ```
 
 `check` reads consumer source and reports policy, compatibility and static setup hints. It does not execute application code or prove browser stylesheet delivery. Skipped symlinks, oversized files and unresolved source are reported; a nonzero result requires review.
+
+`doctor --cwd ./my-app --json` additionally reports Node compatibility and actual installed-package resolution/version evidence without executing package entrypoints or performing repairs. Static/skipped, environment and resolution evidence remain distinct.
 
 ## Review setup before writing
 
@@ -47,3 +61,19 @@ npx --yes --package="@lenso/ui-cli@<matching-version>" lenso-ui init --framework
 Add `--write` only when you intend to apply a conflict-free, still-current plan. The writer preserves package fields and refuses incompatible pins, complex scripts and user-owned configuration. A generated file that you edit becomes user-owned.
 
 The CLI never installs dependencies or runs project scripts. It creates metadata and theme helpers, but you must import the theme helper from the actual rendering entry or layout. An I/O failure can leave a partial write; inspect the plan and filesystem before retrying.
+
+File checks protect ordinary stale plans and linked paths, not adversarial concurrent parent-directory replacement. Apply plans only while the target directories are trusted and stable; the CLI is not a filesystem sandbox.
+
+## Dependency and agent preparation plans
+
+```sh
+lenso-ui install --cwd ./my-app --json
+lenso-ui upgrade --cwd ./my-app --json
+lenso-ui uninstall --cwd ./my-app --json
+lenso-ui agents-md --cwd ./my-app --locale en --json
+lenso-ui skills --cwd ./my-app --json
+```
+
+All are dry-run plans; add `--write` only after reviewing their changes and manual steps. Dependency commands edit the manifest from the same contract's exact versions, never a remote latest release, and never run a package manager. Install refuses incompatible existing pins; upgrade changes existing managed entries; uninstall leaves shared StyleX dependencies, authored config and source intact. Run the consumer's package manager yourself when the required packages are available; private candidates are not currently registry-installable.
+
+`agents-md` prepares exact authored documentation under `.lenso-ui/docs`, its index and a delimited reference block in `AGENTS.md`. It preserves text outside the block and adds the local documentation directory to `.gitignore`. `skills` prepares both bundled project-local workflow directories with references and licenses. Neither writes global agent configuration nor downloads or activates skills. Edited generated files, malformed blocks, linked paths and changes after planning are refused rather than overwritten.

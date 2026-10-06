@@ -18,7 +18,17 @@ export function LanguageToggle({ locale, slug }: { locale: Locale; slug: string 
           <Menu.Popup xstyle={notebook.menu}>
             <Menu.RadioGroup
               value={locale}
-              onValueChange={(value) => router.push(`/${value}/docs/${slug}`)}
+              onValueChange={(value) =>
+                router.push(
+                  slug === ""
+                    ? value === "en"
+                      ? "/"
+                      : "/cn"
+                    : slug === "theme-builder"
+                      ? `/${value}/theme-builder`
+                      : `/${value}/docs/${slug}`,
+                )
+              }
             >
               <Menu.RadioItem value="en" xstyle={notebook.menuItem}>
                 English

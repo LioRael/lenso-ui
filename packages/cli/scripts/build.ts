@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
-import { buildDistribution } from "./distribution.mjs";
+import { buildDistribution } from "./distribution.ts";
 
 export async function buildDeveloperTool(name: "cli" | "mcp"): Promise<void> {
   execFileSync("pnpm", ["--filter", "@lenso/ui-docs", "generate:contract"], {

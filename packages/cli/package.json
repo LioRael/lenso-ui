@@ -5,7 +5,7 @@
   "description": "Version-matched Lenso contract queries and safe project setup.",
   "license": "MIT",
   "bin": {
-    "lenso-ui": "./dist/cli.mjs"
+    "lenso-ui": "./dist/cli.js"
   },
   "files": [
     "dist",
@@ -16,11 +16,12 @@
   "type": "module",
   "scripts": {
     "build": "tsx scripts/build.ts",
-    "test": "node --import ./tests/register.mjs --import tsx --test tests/*.test.mjs tests/*.test.ts",
-    "typecheck": "node --check src/cli.mjs && node --check src/project.mjs && tsc -p tsconfig.scripts.json && tsc -p tsconfig.tests.json"
+    "test": "node --import ./tests/register.ts --import tsx --test tests/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@babel/parser": "7.29.9",
+    "@babel/types": "7.29.8",
     "esbuild": "0.28.2"
   },
   "engines": {

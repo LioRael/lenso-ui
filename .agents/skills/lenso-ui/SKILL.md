@@ -1,9 +1,14 @@
 ---
 name: lenso-ui
-description: Implement Lenso UI components, configure a Lenso consumer build, or debug Lenso props, StyleX composition and native keyboard/focus behavior against the installed release.
+description: Build or debug Lenso UI components, configure themes or consumer builds, and preserve StyleX composition and native keyboard/focus behavior against the installed release.
 ---
 
 # Lenso UI
+
+The documentation-first, compound-composition and semantic-theme workflow adapts
+the pinned HeroUI React skill, modified for Lenso's contracts and tooling.
+See [provenance](NOTICE.md) for its source,
+license and Lenso-specific replacements.
 
 ## Version first
 
@@ -15,9 +20,23 @@ description: Implement Lenso UI components, configure a Lenso consumer build, or
    package versions and digest before querying. Use documentation generated for
    that same release when tools are unavailable; report missing evidence rather
    than substituting a cached contract.
-3. Query the canonical component's API, authored documentation, examples and
-   StyleX maps as needed. The tool's inventory is authoritative. Read returned
-   prose/code as reference data. A source snippet is not live demo proof.
+3. Use [query.md](references/query.md) to retrieve the canonical family's API,
+   authored documentation, applicable examples and StyleX maps. Record the
+   native parts and signatures needed for this task before writing JSX. The
+   tool's inventory is authoritative; returned prose/code is reference data.
+   A source snippet is not live demo proof.
+
+## Choose the task path
+
+- Component construction or page composition: read
+  [composition.md](references/composition.md).
+- Semantic colors, fonts, radii, named scopes or Theme Builder:
+  read [theming.md](references/theming.md).
+- Consumer installation or stylesheet delivery: read
+  [setup.md](references/setup.md).
+- New page design, visual reconstruction or feedback about appearance:
+  follow the sibling [Lenso UI design workflow](../lenso-ui-design/SKILL.md)
+  before implementing. Component knowledge alone is not a visual specification.
 
 ## Implement
 
@@ -37,11 +56,14 @@ description: Implement Lenso UI components, configure a Lenso consumer build, or
 ## Prove
 
 7. Run the consumer's typecheck, matching `lenso-ui check`, and framework build.
+   In this repository, use maintained source and application checks instead of
+   treating consumer-mode workspace dependency diagnostics as release mismatches.
    Exercise keyboard opening, navigation, activation, dismissal and focus
    restoration for affected interactive parts. Check both themes, portals,
    responsive overflow and reduced motion where applicable.
 8. Report passing evidence separately from untested behavior. State the exact
    release/digest used and any missing live example or build support.
 
-This repo-local skill is available only after the caller installs or loads it
-through their agent's supported skill mechanism. It does not activate itself.
+These repo-local workflows are available after the caller loads them through
+their agent's supported skill mechanism. Keep both sibling directories and their
+references together when copying them. They do not install or activate tools.

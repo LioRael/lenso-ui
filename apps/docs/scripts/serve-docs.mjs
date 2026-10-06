@@ -36,7 +36,7 @@ createServer(async (request, response) => {
         return;
       }
     }
-    const file = resolve(root, `.${pathname}`);
+    const file = resolve(root, pathname === "/" ? "index.html" : `.${pathname}`);
     if (!file.startsWith(root + sep) || ["/_redirects", "/_headers"].includes(pathname)) {
       response.writeHead(404).end();
       return;

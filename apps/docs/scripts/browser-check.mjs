@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { chromium } from "playwright";
 import { checkAuthoredPage, checkDocumentationShell } from "../test/shell.browser.mjs";
+import { checkThemeBuilder } from "../test/theme-builder.browser.mjs";
+import { checkHome } from "../test/home.browser.mjs";
 
 const require = createRequire(import.meta.url);
 const base = process.env["LENSO_DOCS_TEST_URL"] ?? "http://127.0.0.1:3000";
@@ -197,9 +199,12 @@ try {
   ]);
 
   await checkDocumentationShell(page, base);
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  await checkThemeBuilder(page, base);
+  await checkHome(page, base);
   assert.deepEqual(errors, [], "Rendered documentation must not emit client errors.");
   console.log(
-    "Browser proof passed: native demos, focus restoration, semantic accessibility, theme propagation, search, locale navigation, authored installation/StyleX MDX and exact Markdown copying, and mobile drawer geometry.",
+    "Browser proof passed: native demos, focus restoration, semantic accessibility, theme propagation, search, locale navigation, authored installation/StyleX MDX and exact Markdown copying, mobile drawer geometry, and theme builder editing/import/export.",
   );
 } finally {
   await browser.close();

@@ -176,6 +176,59 @@ test("pointer-focused text fields keep the source ring; adornment focus does not
     .toBe(getComputedStyle(screen.getByTestId("elevation-reference").element()).boxShadow);
 });
 
+test.each(["primary", "secondary"] as const)(
+  "OTP %s slots use field border width and focus/filled backgrounds",
+  async (variant) => {
+    const screen = await render(
+      <>
+        <button>Before OTP</button>
+        <InputOTP aria-label="Code" length={2} variant={variant}>
+          <InputOTP.Group>
+            <InputOTP.Slot data-testid="otp-slot" />
+            <InputOTP.Slot />
+          </InputOTP.Group>
+        </InputOTP>
+        <span data-testid="field-width" style={{ borderWidth: "var(--border-width-field)" }} />
+        <span data-testid="field-border" style={{ borderColor: "var(--field-border)" }} />
+        <span
+          data-testid="expected-background"
+          style={{
+            backgroundColor: variant === "primary" ? "var(--field-focus)" : "var(--default)",
+          }}
+        />
+        <span
+          data-testid="ring-reference"
+          style={{
+            boxShadow: `0 0 0 2px var(--focus), ${variant === "primary" ? "var(--field-shadow)" : "0 0 #0000"}`,
+          }}
+        />
+      </>,
+    );
+    const slot = screen.getByTestId("otp-slot").element();
+    expect(getComputedStyle(slot).borderTopWidth).toBe(
+      getComputedStyle(screen.getByTestId("field-width").element()).borderTopWidth,
+    );
+    await screen.getByRole("button", { name: "Before OTP" }).click();
+    await userEvent.tab();
+    expect(document.activeElement).toBe(slot);
+    await expect
+      .poll(() => getComputedStyle(slot).boxShadow)
+      .toBe(getComputedStyle(screen.getByTestId("ring-reference").element()).boxShadow);
+    expect(getComputedStyle(slot).borderTopColor).toBe(
+      getComputedStyle(screen.getByTestId("field-border").element()).borderTopColor,
+    );
+    expect(getComputedStyle(slot).backgroundColor).toBe(
+      getComputedStyle(screen.getByTestId("expected-background").element()).backgroundColor,
+    );
+    await screen.getByTestId("otp-slot").fill("7");
+    expect(slot.getAttribute("data-filled")).not.toBeNull();
+    await screen.getByRole("button", { name: "Before OTP" }).click();
+    await expect
+      .poll(() => getComputedStyle(slot).backgroundColor)
+      .toBe(getComputedStyle(screen.getByTestId("expected-background").element()).backgroundColor);
+  },
+);
+
 test("number steppers share the flush group ring rather than adding a second outer ring", async () => {
   const screen = await render(
     <>

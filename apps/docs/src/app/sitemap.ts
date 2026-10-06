@@ -5,7 +5,7 @@ import { env } from "../../env";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return source.pages.map((page) => ({
+  const pages = source.pages.map((page) => ({
     url: new URL(pageUrl(page), env.siteUrl).href,
     alternates: {
       languages: {
@@ -14,4 +14,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
   }));
+  return [
+    ...(["/", "/cn"] as const).map((pathname) => ({
+      url: new URL(pathname, env.siteUrl).href,
+      alternates: {
+        languages: {
+          en: new URL("/", env.siteUrl).href,
+          "zh-CN": new URL("/cn", env.siteUrl).href,
+        },
+      },
+    })),
+    ...pages,
+    ...(["en", "cn"] as const).map((locale) => ({
+      url: new URL(`/${locale}/theme-builder`, env.siteUrl).href,
+      alternates: {
+        languages: {
+          en: new URL("/en/theme-builder", env.siteUrl).href,
+          "zh-CN": new URL("/cn/theme-builder", env.siteUrl).href,
+        },
+      },
+    })),
+  ];
 }

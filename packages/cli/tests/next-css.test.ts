@@ -3,8 +3,8 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { checkProject, planInit } from "../src/project.mjs";
-import { fixture } from "./fixture.mjs";
+import { checkProject, planInit } from "../src/project.ts";
+import { fixture } from "./fixture.ts";
 
 // The legacy-only diagnostic must not reject a verified explicit-CSS configuration.
 test("Next global-error diagnostics distinguish prepared CSS from legacy delivery", async (t) => {

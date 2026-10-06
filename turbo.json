@@ -64,7 +64,7 @@
       "dependsOn": ["generate:content"],
       "inputs": [
         "scripts/generate-docs.ts",
-        "scripts/generate-lenso-contract.mjs",
+        "scripts/generate-lenso-contract.ts",
         "src/lib/local-example-files.ts",
         "src/lib/docs-directory.mjs",
         "content/lenso/**",
@@ -73,7 +73,9 @@
         "src/demos/en/**",
         "src/demos/cn/**",
         "$TURBO_ROOT$/packages/react/package.json",
+        "$TURBO_ROOT$/packages/react/src/**",
         "$TURBO_ROOT$/packages/styles/src/**",
+        "$TURBO_ROOT$/packages/styles/themes/**",
         "$TURBO_ROOT$/packages/styles/package.json",
         "$TURBO_ROOT$/packages/stylex-build/src/**",
         "$TURBO_ROOT$/packages/stylex-build/package.json",
@@ -186,6 +188,8 @@
         "$TURBO_ROOT$/packages/stylex-build/src/**",
         "$TURBO_ROOT$/tooling/design-policy/**",
         "$TURBO_ROOT$/tooling/lenso-contracts/**",
+        "$TURBO_ROOT$/.agents/skills/lenso-ui/**",
+        "$TURBO_ROOT$/.agents/skills/lenso-ui-design/**",
         "$TURBO_ROOT$/third-party/heroui/**"
       ],
       "outputs": ["dist/**"]
@@ -198,6 +202,8 @@
         "$TURBO_ROOT$/packages/stylex-build/src/**",
         "$TURBO_ROOT$/tooling/design-policy/**",
         "$TURBO_ROOT$/tooling/lenso-contracts/**",
+        "$TURBO_ROOT$/.agents/skills/lenso-ui/**",
+        "$TURBO_ROOT$/.agents/skills/lenso-ui-design/**",
         "$TURBO_ROOT$/third-party/heroui/**"
       ],
       "outputs": []
@@ -216,7 +222,7 @@
       "dependsOn": ["typecheck", "@lenso/ui-docs#generate:contract"],
       "inputs": [
         "$TURBO_DEFAULT$",
-        "$TURBO_ROOT$/packages/cli/src/contract.mjs",
+        "$TURBO_ROOT$/packages/cli/src/contract.ts",
         "$TURBO_ROOT$/packages/cli/scripts/**",
         "$TURBO_ROOT$/packages/cli/licenses/**",
         "$TURBO_ROOT$/tooling/lenso-contracts/**",
@@ -228,7 +234,7 @@
       "dependsOn": ["^build"],
       "inputs": [
         "$TURBO_DEFAULT$",
-        "$TURBO_ROOT$/packages/cli/src/contract.mjs",
+        "$TURBO_ROOT$/packages/cli/src/contract.ts",
         "$TURBO_ROOT$/packages/cli/scripts/**",
         "$TURBO_ROOT$/packages/cli/licenses/**",
         "$TURBO_ROOT$/tooling/lenso-contracts/**",
@@ -240,7 +246,7 @@
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/packages/cli/scripts/**",
-        "$TURBO_ROOT$/packages/cli/src/contract.mjs",
+        "$TURBO_ROOT$/packages/cli/src/contract.ts",
         "$TURBO_ROOT$/tooling/lenso-contracts/**"
       ],
       "outputs": []

@@ -1,0 +1,88 @@
+// Copyright 2025 NextUI Inc. SPDX-License-Identifier: Apache-2.0.
+// Adapted from HeroUI v3.2.6 demo-showcase.tsx at
+// e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
+// Modified: StyleX geometry, one native sizing panel and local application overlays.
+// License: third-party/heroui/LICENSE.txt.
+import * as stylex from "@stylexjs/stylex";
+
+export const homeShowcase = stylex.create({
+  scope: {
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+    minHeight: 0,
+    width: "100%",
+    maxWidth: 1200,
+    minWidth: 0,
+    marginInline: "auto",
+    paddingBlock: { default: 24, "@media (min-width: 1024px)": 40 },
+  },
+  root: { flex: 1, gap: 0, minHeight: 0, minWidth: 0 },
+  toolbar: {
+    display: { default: "none", "@media (min-width: 1024px)": "flex" },
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 16,
+    paddingInline: 8,
+    marginBlockEnd: 16,
+  },
+  tabList: { display: "flex" },
+  tab: { whiteSpace: "nowrap" },
+  palette: { display: "flex", alignItems: "center", gap: 4 },
+  swatches: { gap: 0, flexWrap: "nowrap" },
+  swatchHit: { width: 32, height: 32, borderRadius: 999 },
+  swatch: { width: 20, height: 20, borderRadius: 999, transform: "none" },
+  builderLink: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 32,
+    height: 32,
+    borderRadius: 999,
+    color: { default: "var(--muted)", ":hover": "var(--foreground)" },
+    textDecoration: "none",
+  },
+  icon: { width: 16, height: 16 },
+  frame: {
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+    width: "100%",
+    minWidth: 0,
+    minHeight: 420,
+    borderRadius: 16,
+    borderWidth: { default: 0, "@media (min-width: 1024px)": 1 },
+    borderStyle: "solid",
+    borderColor: "color-mix(in oklab, var(--border) 50%, transparent)",
+    backgroundColor: "var(--background)",
+  },
+  components: {
+    // The invisible, inert mosaic keeps intrinsic sizing behind application panels.
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+    justifyContent: "center",
+    boxSizing: "border-box",
+    minHeight: 420,
+    minWidth: 0,
+    marginTop: 0,
+    paddingInline: 0,
+    paddingBlock: 32,
+  },
+  sizingOnly: { visibility: "hidden", pointerEvents: "none" },
+  application: {
+    position: "absolute",
+    inset: 0,
+    display: "flex",
+    flexDirection: "column",
+    minWidth: 0,
+    minHeight: 0,
+    marginTop: 0,
+    padding: 0,
+    borderRadius: 16,
+    overflow: "hidden",
+    backgroundColor: "var(--background)",
+  },
+  inactive: { display: "none" },
+});

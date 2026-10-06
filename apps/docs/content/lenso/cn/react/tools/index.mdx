@@ -9,11 +9,11 @@ navigationOrder: 20
 
 `@lenso/ui-cli@0.1.0` 和 `@lenso/ui-mcp@0.1.0` 目前均为私有且尚未发布。工具包版本与内置契约中的 Lenso UI 发布版本不同。下方 npm 安装命令仅为未来示例；只有在这些包及匹配的 UI/tokens/support 版本发布后才能运行。
 
-使用已安装工具无需此仓库、React、Next 或编译器。维护者构建工具前，应从当前组件导出、authored 页面和本地运行示例生成文档契约。两个分发包复制同一经过验证的格式 2 产物，并报告 `lensoVersion`、软件包版本和 digest。
+使用已安装工具无需此仓库、React、Next 或编译器。维护者构建工具前，应从当前组件导出、实现文件图、主题 CSS、authored 页面和本地运行示例生成文档契约。两个分发包复制同一经过验证的格式 3 产物，并报告 `lensoVersion`、软件包版本和 digest。源码与测试为 TypeScript；已安装入口是编译后的 ESM JavaScript。
 
 ## 选择接口
 
-- [CLI](/docs/react/tools/cli)：列出规范系列、检查原生 API、读取精确 Markdown、检查消费者项目或审阅初始化计划。
+- [CLI](/docs/react/tools/cli)：查询 API、源码、样式与主题，读取精确 Markdown，诊断消费者项目或审阅配置、依赖和 agent 文件计划。
 - [MCP 服务](/docs/react/tools/mcp)：通过 stdio 为 MCP 客户端提供原生 API、本地示例、StyleX 映射与 authored 文档的只读访问。
 - [Agent skill](/docs/react/tools/skill)：加载仓库内工作流，先匹配版本，再实现组件并提供真实构建和键盘证据。
 

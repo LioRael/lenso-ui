@@ -70,12 +70,13 @@ export const readPage = (page: DocPage) => readFile(path.join(docsRoot, page.mar
 
 export type DocSection = Pick<DocPage, "locale" | "slug" | "title"> & { href: string };
 export function getSectionEntries(locale: Locale): DocSection[] {
-  return source.pages
+  const sections = source.pages
     .filter(
       (page) =>
         page.locale === locale && /^react\/[^/]+$/.test(page.slug) && page.slug !== "react/tools",
     )
     .map((page) => ({ locale, slug: page.slug, title: page.title, href: pageUrl(page) }));
+  return sections;
 }
 
 export async function getExample(name: string, locale: Locale) {

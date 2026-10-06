@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { createContext, useContext, useRef, type ReactNode, type RefObject } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Magnifier } from "@gravity-ui/icons";
-import { Kbd } from "@lenso/ui";
+import { Button, Kbd } from "@lenso/ui";
 import { useDocsSearch } from "fumadocs-core/search/client";
 import { create } from "@orama/orama";
 import { createTokenizer } from "@orama/tokenizers/mandarin";
@@ -35,6 +35,21 @@ export interface SearchEntry {
   defaultOpen?: boolean;
 }
 
+const SearchConfiguration = createContext<{
+  locale: string;
+  triggers: RefObject<Set<HTMLElement>>;
+} | null>(null);
+
+function useSearchTriggerRef() {
+  const registry = useContext(SearchConfiguration)?.triggers;
+  const previous = useRef<HTMLElement | null>(null);
+  return (node: HTMLElement | null) => {
+    if (previous.current) registry?.current.delete(previous.current);
+    if (node) registry?.current.add(node);
+    previous.current = node;
+  };
+}
+
 function SearchResult({ item, onClick }: { item: SearchItemType; onClick: () => void }) {
   const { active } = useSearchList();
   return (
@@ -50,7 +65,10 @@ function SearchResult({ item, onClick }: { item: SearchItemType; onClick: () => 
   );
 }
 
-function StaticSearchDialog({ open, onOpenChange, locale }: SharedProps & { locale: string }) {
+function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
+  const configuration = useContext(SearchConfiguration);
+  const locale = configuration?.locale ?? "en";
+  const triggers = configuration?.triggers;
   const restoreFocus = useRef<Element | null>(null);
   const { search, setSearch, query } = useDocsSearch(
     {
@@ -88,7 +106,18 @@ function StaticSearchDialog({ open, onOpenChange, locale }: SharedProps & { loca
         }}
         onCloseAutoFocus={(event) => {
           event.preventDefault();
-          if (restoreFocus.current instanceof HTMLElement) restoreFocus.current.focus();
+          const original = restoreFocus.current;
+          if (
+            original instanceof HTMLElement &&
+            original.isConnected &&
+            original.getClientRects().length
+          ) {
+            original.focus();
+          } else {
+            [...(triggers?.current ?? [])]
+              .find((node) => node.isConnected && node.getClientRects().length)
+              ?.focus();
+          }
         }}
         {...stylex.props(styles.popup)}
       >
@@ -112,12 +141,30 @@ function StaticSearchDialog({ open, onOpenChange, locale }: SharedProps & { loca
   );
 }
 
-function SearchTriggers() {
+function SearchTriggers({ compact }: { compact: boolean }) {
+  const desktopRef = useSearchTriggerRef();
+  const mobileRef = useSearchTriggerRef();
   const { setOpenSearch, hotKey } = useSearchContext();
+  if (compact) {
+    return (
+      <Button
+        ref={desktopRef}
+        variant="tertiary"
+        aria-label="Search documentation"
+        onClick={() => setOpenSearch(true)}
+        xstyle={notebook.iconButton}
+      >
+        <Button.Icon>
+          <Magnifier width={16} height={16} aria-hidden="true" />
+        </Button.Icon>
+      </Button>
+    );
+  }
   return (
     <>
       <div {...stylex.props(notebook.headerDesktop, notebook.searchContainer)}>
         <button
+          ref={desktopRef}
           type="button"
           aria-label="Search documentation"
           onClick={() => setOpenSearch(true)}
@@ -134,6 +181,7 @@ function SearchTriggers() {
       </div>
       <div {...stylex.props(notebook.headerMobile)}>
         <button
+          ref={mobileRef}
           type="button"
           aria-label="Search documentation"
           onClick={() => setOpenSearch(true)}
@@ -146,10 +194,25 @@ function SearchTriggers() {
   );
 }
 
-export function SearchDialog({ locale }: { locale: string }) {
+export function CompactSearchTrigger() {
+  return <SearchTriggers compact />;
+}
+
+export function SearchDialog({
+  locale,
+  compact = false,
+  children,
+}: {
+  locale: string;
+  compact?: boolean;
+  children?: ReactNode;
+}) {
+  const triggers = useRef(new Set<HTMLElement>());
   return (
-    <SearchProvider SearchDialog={(props) => <StaticSearchDialog {...props} locale={locale} />}>
-      <SearchTriggers />
-    </SearchProvider>
+    <SearchConfiguration value={{ locale, triggers }}>
+      <SearchProvider SearchDialog={StaticSearchDialog}>
+        {children ?? <SearchTriggers compact={compact} />}
+      </SearchProvider>
+    </SearchConfiguration>
   );
 }

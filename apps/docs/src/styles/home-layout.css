@@ -1,0 +1,11 @@
+/* HeroUI e385ac2 Fumadocs overrides, Apache-2.0, Copyright 2025 NextUI Inc.
+   Scoped to the native home navigation; Lenso component styles remain StyleX. */
+#nd-home-layout #nd-nav > div {
+  backdrop-filter: none;
+  border-bottom-width: 0;
+  background-color: var(--background);
+}
+
+#nd-home-layout #nd-nav > div > div:first-child {
+  padding-inline: 24px;
+}

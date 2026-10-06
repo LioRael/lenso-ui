@@ -27,6 +27,35 @@ Override semantic variables in your application stylesheet, after the theme impo
 
 Apply the class to the document or a containing surface. Keep color pairs consistent, and inspect derived hover/soft colors when changing their base value. The [Colors](/docs/react/getting-started/colors) guide lists common roles.
 
+## Theme configuration center
+
+Open the [Theme builder](/en/theme-builder) for the standalone HeroUI v3.2.6-style editor: accent and neutral tint sliders, font and radius grids, 11 theme presets, light/dark preview, undo/redo, shuffle and shared links. Alongside the component mosaic, Dashboard, Mail, Chat and Finances are local examples built with live Lenso components. Their sample-data interactions need no external service; edits in these examples are not stored or included in theme links.
+
+The builder generates both mode palettes from one appearance configuration. Edits update the address bar, so refreshing or opening a shared link restores the configuration without server storage. Use the top-right Share action to copy the link. Its code overlay exports CSS or TypeScript; JSON preserves editable builder settings and can be imported again. Custom fonts accept public Google Fonts stylesheet URLs.
+
+Applications can also configure individual semantic overrides directly through the same underlying typed API:
+
+```tsx
+import { defineTheme, themeToVariables, themeToCSS } from "@lenso/tokens";
+import { ThemeScope } from "@lenso/ui";
+
+const theme = defineTheme({
+  name: "project",
+  light: { accent: "oklch(0.55 0.18 270)", radius: "0.625rem" },
+  dark: { accent: "oklch(0.75 0.15 270)" },
+});
+
+<ThemeScope
+  theme="light"
+  data-lenso-theme={theme.name}
+  style={themeToVariables(theme, "light")}
+>
+  {/* Your components */}
+</ThemeScope>;
+```
+
+For stylesheet delivery, write `themeToCSS(theme)` to a CSS file and load it after the default theme. Use both `data-lenso-theme="project"` and `data-theme="light"` (or `"dark"`) on the intended scope. The default theme still supplies derived hover/soft colors and radius scales; the export contains only your overrides.
+
 ## Portalled components
 
 Portalled menus, dialogs and tooltips render outside their trigger's DOM ancestry. Lenso preserves the light/dark theme scope through its native portal wrappers; arbitrary custom classes are not automatically copied. Put shared overrides on the document, or ensure your custom portal container participates in the intended theme.
