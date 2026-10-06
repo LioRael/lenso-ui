@@ -1,0 +1,28 @@
+apps/docs/package.json
+  h_9d56aba080c170 8
+apps/docs/scripts/api-property-groups.test.mjs
+  h_9d56aba080c170 1-109
+apps/docs/scripts/check-export-size.mjs
+  h_9d56aba080c170 1-44
+apps/docs/scripts/check-export-size.test.mjs
+  h_9d56aba080c170 1-54
+apps/docs/src/components/native-api-reference.tsx
+  h_9d56aba080c170 6,35-39,59-62,133-134,140,195-200,205-226
+apps/docs/src/lib/api-property-groups.ts
+  h_9d56aba080c170 1-57
+apps/docs/test/API-PROPERTY-GROUPS.md
+  h_9d56aba080c170 1-61
+apps/docs/test/api-shared-properties.browser.mjs
+  h_9d56aba080c170 1-106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ade5376d1550cbfe4ebc018c42c3b8768f290c6f",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}

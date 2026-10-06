@@ -1,0 +1,86 @@
+apps/docs/content/lenso/cn/react/getting-started/theming.mdx
+  h_9d56aba080c170 30-58
+apps/docs/content/lenso/en/react/getting-started/theming.mdx
+  h_9d56aba080c170 30-58
+apps/docs/package.json
+  h_9d56aba080c170 13,19,24,40,58
+apps/docs/public/theme-presets/LICENSE.txt
+  h_9d56aba080c170 1-199
+apps/docs/public/theme-presets/NOTICE.md
+  h_9d56aba080c170 1-24
+apps/docs/public/theme-presets/provenance.json
+  h_9d56aba080c170 1-63
+apps/docs/scripts/browser-check.mjs
+  h_9d56aba080c170 5,201-202,205
+apps/docs/scripts/sync-theme-assets.mjs
+  h_9d56aba080c170 1-45
+apps/docs/src/app/[lang]/theme-builder/page.tsx
+  h_9d56aba080c170 1-35
+apps/docs/src/app/sitemap.ts
+  h_9d56aba080c170 8,17-28
+apps/docs/src/components/fumadocs/layouts/notebook/index.tsx
+  h_9d56aba080c170 27,47,156
+apps/docs/src/components/fumadocs/ui/language-toggle.tsx
+  h_9d56aba080c170 21-25
+apps/docs/src/components/theme-builder-code.tsx
+  h_9d56aba080c170 1-227
+apps/docs/src/components/theme-builder-color-picker.tsx
+  h_9d56aba080c170 1-345
+apps/docs/src/components/theme-builder-controls.tsx
+  h_9d56aba080c170 1-454
+apps/docs/src/components/theme-builder-custom-font.tsx
+  h_9d56aba080c170 1-100
+apps/docs/src/components/theme-builder-preview.tsx
+  h_9d56aba080c170 1-616
+apps/docs/src/components/theme-builder.tsx
+  h_9d56aba080c170 1-488
+apps/docs/src/generated/api-reference.json
+  h_9d56aba080c170 7478-7486,15298,15310,18688,49325,49334,49343,49352,86741-86744,87430,87475,87479,87496,87542,87589,87602,87648,87680,87712,87752,87793,87847,87885,87922,87963,87995,88027,88063,88102,88134,88173,88205,88239,88273,88307,88339,88371,91694,91739,91741,91755,91798,91842-91845,91890,91922,91954,91994,92035,92089,92127,92164,92196,92228,92260,92296,92335,92367,92406,92438,92472,92504-92507,92519,92553,92585,92617,94375-94378,99325-99353,99372-99400,99419-99447,100488-100491
+apps/docs/src/lib/source.ts
+  h_9d56aba080c170 73,79-87
+apps/docs/src/lib/theme-builder-model.test.ts
+  h_9d56aba080c170 1-245
+apps/docs/src/lib/theme-builder-model.ts
+  h_9d56aba080c170 1-660
+apps/docs/src/styles/theme-builder-code.stylex.ts
+  h_9d56aba080c170 1-154
+apps/docs/src/styles/theme-builder-color-picker.stylex.ts
+  h_9d56aba080c170 1-170
+apps/docs/src/styles/theme-builder-custom-font.stylex.ts
+  h_9d56aba080c170 1-28
+apps/docs/src/styles/theme-builder-preview.stylex.ts
+  h_9d56aba080c170 1-177
+apps/docs/src/styles/theme-builder.stylex.ts
+  h_9d56aba080c170 1-477
+apps/docs/test/theme-builder-controls.browser.mjs
+  h_9d56aba080c170 1-161
+apps/docs/test/theme-builder.browser.mjs
+  h_9d56aba080c170 1-320
+packages/react/src/utils/theme-scope.test.tsx
+  h_9d56aba080c170 6,84-122
+packages/react/src/utils/theme-scope.tsx
+  h_9d56aba080c170 58
+packages/styles/README.md
+  h_9d56aba080c170 37-123
+packages/styles/src/index.ts
+  h_9d56aba080c170 2-10
+packages/styles/src/theme.test.ts
+  h_9d56aba080c170 1-36
+packages/styles/src/theme.ts
+  h_9d56aba080c170 1-271
+packages/styles/tests/theme-config.test.mjs
+  h_9d56aba080c170 1-254
+pnpm-lock.yaml
+  h_9d56aba080c170 304-306,353-355,2530-2532,3115-3118,6461-6462,6906-6907
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ec4b92fa7577d43c1414438541303f15d7ea236b",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
