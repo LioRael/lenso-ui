@@ -1,0 +1,106 @@
+apps/docs/content/lenso/cn/react/getting-started/animation.mdx
+  h_9d56aba080c170 1-31
+apps/docs/content/lenso/cn/react/getting-started/architecture.mdx
+  h_9d56aba080c170 2-5,8-35
+apps/docs/content/lenso/cn/react/getting-started/colors.mdx
+  h_9d56aba080c170 1-41
+apps/docs/content/lenso/cn/react/getting-started/dark-mode.mdx
+  h_9d56aba080c170 1-28
+apps/docs/content/lenso/cn/react/getting-started/design-principles.mdx
+  h_9d56aba080c170 1-22
+apps/docs/content/lenso/cn/react/getting-started/frameworks.mdx
+  h_9d56aba080c170 1-22
+apps/docs/content/lenso/cn/react/getting-started/index.mdx
+  h_9d56aba080c170 3-5,8,10,12-15,17,19,24-25,29,31,33,35,37-55
+apps/docs/content/lenso/cn/react/getting-started/installation.mdx
+  h_9d56aba080c170 2,4-5,8-11,54-63
+apps/docs/content/lenso/cn/react/getting-started/stylex.mdx
+  h_9d56aba080c170 2,4-5
+apps/docs/content/lenso/cn/react/getting-started/theming.mdx
+  h_9d56aba080c170 1-36
+apps/docs/content/lenso/cn/react/getting-started/versioning.mdx
+  h_9d56aba080c170 4-5,10
+apps/docs/content/lenso/cn/react/tools/cli.mdx
+  h_9d56aba080c170 4-5
+apps/docs/content/lenso/cn/react/tools/index.mdx
+  h_9d56aba080c170 2,4-5
+apps/docs/content/lenso/cn/react/tools/mcp.mdx
+  h_9d56aba080c170 4-5
+apps/docs/content/lenso/cn/react/tools/skill.mdx
+  h_9d56aba080c170 4-5
+apps/docs/content/lenso/en/react/getting-started/animation.mdx
+  h_9d56aba080c170 1-31
+apps/docs/content/lenso/en/react/getting-started/architecture.mdx
+  h_9d56aba080c170 2-5,8-35
+apps/docs/content/lenso/en/react/getting-started/colors.mdx
+  h_9d56aba080c170 1-41
+apps/docs/content/lenso/en/react/getting-started/dark-mode.mdx
+  h_9d56aba080c170 1-28
+apps/docs/content/lenso/en/react/getting-started/design-principles.mdx
+  h_9d56aba080c170 1-22
+apps/docs/content/lenso/en/react/getting-started/frameworks.mdx
+  h_9d56aba080c170 1-22
+apps/docs/content/lenso/en/react/getting-started/index.mdx
+  h_9d56aba080c170 3-5,8,10,12-15,17,19,24-25,29,31,33,35,37-55
+apps/docs/content/lenso/en/react/getting-started/installation.mdx
+  h_9d56aba080c170 2,4-5,8-11,54-63
+apps/docs/content/lenso/en/react/getting-started/stylex.mdx
+  h_9d56aba080c170 2,4-5,25
+apps/docs/content/lenso/en/react/getting-started/theming.mdx
+  h_9d56aba080c170 1-36
+apps/docs/content/lenso/en/react/getting-started/versioning.mdx
+  h_9d56aba080c170 4-5,10
+apps/docs/content/lenso/en/react/tools/cli.mdx
+  h_9d56aba080c170 4-5
+apps/docs/content/lenso/en/react/tools/index.mdx
+  h_9d56aba080c170 2,4-5
+apps/docs/content/lenso/en/react/tools/mcp.mdx
+  h_9d56aba080c170 4-5
+apps/docs/content/lenso/en/react/tools/skill.mdx
+  h_9d56aba080c170 4-5
+apps/docs/public/_redirects
+  h_9d56aba080c170 3-5
+apps/docs/public/coverage.json
+  h_9d56aba080c170 7-8,16-17,8238,8240-8243,8246,9380,9382-9385,9388
+apps/docs/scripts/docs-projection.mjs
+  h_9d56aba080c170 789-791,868-882,885-891,901-909
+apps/docs/scripts/docs-projection.test.mjs
+  h_9d56aba080c170 109-115
+apps/docs/src/app/[lang]/docs/[[...slug]]/page.tsx
+  h_9d56aba080c170 8,152,154-157,160-170,176-186
+apps/docs/src/components/component-links.tsx
+  h_9d56aba080c170 4-5,7-14,16,18,21-23,26-29,31-33,38
+apps/docs/src/components/fumadocs/layouts/notebook/index.tsx
+  h_9d56aba080c170 48
+apps/docs/src/components/fumadocs/layouts/notebook/page.tsx
+  h_9d56aba080c170 27-30,47,52-53,93,95
+apps/docs/src/generated/lenso-docs-index.json
+  h_9d56aba080c170 12-14,18-27,31-34,38-77,81,83-84,91,93-94,98-107,113-114,121,123-124,133-134,143-144,153-154,3642-3644,3648-3657,3661-3664,3668-3707,3711,3713-3714,3721,3723-3724,3728-3737,3743-3744,3751,3753-3754,3763-3764,3773-3774,3783-3784
+apps/docs/src/lib/source.ts
+  h_9d56aba080c170 14-15,74-77,94-95,99-101,103-113
+apps/docs/src/styles/notebook.stylex.ts
+  h_9d56aba080c170 329,340-349,357-361,368,495,497,501,503,507-508,511-520
+apps/docs/test/authored-docs.browser.mjs
+  h_9d56aba080c170 135
+apps/docs/test/navigation.browser.mjs
+  h_9d56aba080c170 1-140
+apps/docs/test/shell.browser.mjs
+  h_9d56aba080c170 181,183
+docs/research/docs-navigation-restoration.md
+  h_9d56aba080c170 1-59
+tooling/lenso-contracts/index.mjs
+  h_9d56aba080c170 472-481,494-498
+tooling/lenso-contracts/index.test.mjs
+  h_9d56aba080c170 234-250
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9fb31180e115591381ee733eb880ede8ec51fb0a",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
