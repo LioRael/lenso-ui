@@ -10,6 +10,7 @@ import {
   Circles4Diamond,
   Globe,
   LogoGithub,
+  BucketPaint,
   Xmark,
 } from "@gravity-ui/icons";
 import { Menu, Modal } from "@lenso/ui";
@@ -24,7 +25,7 @@ import { SidebarPageTree } from "./sidebar";
 const sectionIcon = (slug: string) => (slug === "react/components" ? Circles4Diamond : BookOpen);
 
 // Source: HeroUI v3.2.6 notebook layout and locale docs layout, Apache-2.0.
-// Native/paywall/theme-builder destinations are not presented as local products.
+// Native/paywall destinations are not presented as local products.
 export function DocsLayout({
   locale,
   slug,
@@ -44,7 +45,7 @@ export function DocsLayout({
 }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const section = slug.startsWith("react/tools") ? "getting-started" : slug.split("/")[1];
-  const current = `/${locale}/docs/${slug}`;
+  const current = slug === "theme-builder" ? `/${locale}/theme-builder` : `/${locale}/docs/${slug}`;
   return (
     <>
       <div id="nd-notebook-layout" {...stylex.props(styles.shell)}>
@@ -78,6 +79,13 @@ export function DocsLayout({
             <SearchDialog locale={locale} />
             <div {...stylex.props(notebook.actions)}>
               <div {...stylex.props(notebook.headerDesktop)}>
+                <Link
+                  href={`/${locale}/theme-builder`}
+                  aria-label={locale === "cn" ? "主题配置中心" : "Theme builder"}
+                  {...stylex.props(notebook.iconButton)}
+                >
+                  <BucketPaint width={16} height={16} aria-hidden="true" />
+                </Link>
                 <a
                   href={repository}
                   aria-label="Lenso UI on GitHub"
@@ -89,6 +97,13 @@ export function DocsLayout({
                 <ThemeToggle />
               </div>
               <div {...stylex.props(notebook.headerMobile)}>
+                <Link
+                  href={`/${locale}/theme-builder`}
+                  aria-label={locale === "cn" ? "主题配置中心" : "Theme builder"}
+                  {...stylex.props(notebook.iconButton)}
+                >
+                  <BucketPaint width={18} height={18} aria-hidden="true" />
+                </Link>
                 <Modal.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
                   <Modal.Trigger aria-label="Browse documentation" xstyle={notebook.iconButton}>
                     <Bars width={18} height={18} aria-hidden="true" />
@@ -153,7 +168,7 @@ export function DocsLayout({
           <nav aria-label="Documentation sections" {...stylex.props(styles.sectionBar)}>
             {sectionEntries.map(({ slug: sectionSlug, title, href }) => {
               const Icon = sectionIcon(sectionSlug);
-              const selected = sectionSlug === `react/${section}`;
+              const selected = sectionSlug === `react/${section}` || sectionSlug === slug;
               return (
                 <Link
                   key={sectionSlug}
