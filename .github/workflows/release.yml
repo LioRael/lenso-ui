@@ -6,7 +6,7 @@ on:
       version:
         description: Exact version declared by both public packages
         required: true
-        default: "0.8.0"
+        default: "0.9.0"
         type: string
 
 concurrency:
