@@ -1,5 +1,6 @@
 // Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const tooltipStyles = stylex.create({
@@ -11,7 +12,7 @@ export const tooltipStyles = stylex.create({
     transitionTimingFunction: tokens.easeSmooth,
     boxShadow: {
       default: "none",
-      ":focus-visible": "0 0 0 2px var(--background), 0 0 0 4px var(--focus)",
+      ":focus-visible": focusRing.outer,
     },
   },
   positioner: { zIndex: tokens.zIndexOverlay, maxWidth: "var(--available-width)" },

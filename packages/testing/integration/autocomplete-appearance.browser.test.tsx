@@ -144,7 +144,10 @@ test("secondary focus, invalid and disabled paint retain native state and render
         <Autocomplete.Trigger aria-label="Disabled state">Pick</Autocomplete.Trigger>
       </Autocomplete>
       <span data-testid="danger" style={{ borderColor: "var(--danger)" }} />
-      <span data-testid="secondary" style={{ backgroundColor: "var(--default)" }} />
+      <span
+        data-testid="secondary"
+        style={{ backgroundColor: "var(--default)", boxShadow: "0 0 #0000" }}
+      />
     </>,
   );
   const trigger = screen.getByRole("combobox", { name: "Invalid state" }).element();
@@ -159,7 +162,9 @@ test("secondary focus, invalid and disabled paint retain native state and render
   await expect
     .poll(() => getComputedStyle(trigger).backgroundColor)
     .toBe(getComputedStyle(screen.getByTestId("secondary").element()).backgroundColor);
-  expect(getComputedStyle(trigger).boxShadow).toBe("none");
+  expect(getComputedStyle(trigger).boxShadow).toBe(
+    getComputedStyle(screen.getByTestId("secondary").element()).boxShadow,
+  );
   await screen.getByRole("combobox", { name: "Invalid state" }).click();
   expect(trigger.getAttribute("data-native-open")).toBe("true");
   expect(getComputedStyle(trigger).letterSpacing).toBe("2px");

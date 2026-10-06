@@ -3,6 +3,7 @@
  * Modified: compiled StyleX parts replace Tailwind selectors.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const dateInputGroupStyles = stylex.create({
@@ -18,7 +19,8 @@ export const dateInputGroupStyles = stylex.create({
     backgroundColor: tokens.fieldBackground,
     color: tokens.fieldForeground,
     fontSize: 14,
-    boxShadow: tokens.fieldShadow,
+    "--lenso-focus-elevation": tokens.fieldShadow,
+    boxShadow: focusRing.elevation,
     outline: "none",
     transitionProperty: "background-color, border-color, box-shadow",
     transitionDuration: { default: "150ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
@@ -27,7 +29,7 @@ export const dateInputGroupStyles = stylex.create({
   fullWidth: { width: "100%" },
   secondary: {
     backgroundColor: { default: tokens.default, ":hover:not(:focus-within)": tokens.defaultHover },
-    boxShadow: "none",
+    "--lenso-focus-elevation": "0 0 #0000",
   },
   hovered: { borderColor: tokens.fieldBorderHover, backgroundColor: tokens.fieldHover },
   secondaryHovered: { backgroundColor: tokens.defaultHover },
@@ -42,13 +44,12 @@ export const dateInputGroupStyles = stylex.create({
       ":has([data-slot='date-picker-trigger']:focus,[data-slot='date-range-picker-trigger']:focus)":
         tokens.fieldBackground,
     },
-    outlineColor: tokens.focus,
-    outlineStyle: "solid",
-    outlineWidth: {
-      default: 2,
-      ":has([data-slot='date-picker-trigger']:focus,[data-slot='date-range-picker-trigger']:focus)": 0,
+    outline: "none",
+    boxShadow: {
+      default: focusRing.fieldElevated,
+      ":has([data-slot='date-picker-trigger']:focus,[data-slot='date-range-picker-trigger']:focus)":
+        focusRing.elevation,
     },
-    outlineOffset: 2,
   },
   invalid: { borderColor: tokens.danger, backgroundColor: tokens.fieldFocus },
   disabled: { opacity: tokens.disabledOpacity, pointerEvents: "none" },

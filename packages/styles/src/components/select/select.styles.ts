@@ -4,6 +4,7 @@
  * Modified: StyleX styles and Base UI state/anchor properties.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const selectStyles = stylex.create({
@@ -32,11 +33,11 @@ export const selectStyles = stylex.create({
       ":focus-visible": tokens.fieldFocus,
     },
     color: tokens.fieldForeground,
-    boxShadow: tokens.fieldShadow,
+    "--lenso-focus-elevation": tokens.fieldShadow,
+    boxShadow: { default: focusRing.elevation, ":focus-visible": focusRing.outerElevated },
     fontSize: ".875rem",
     lineHeight: "1.25rem",
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
     userSelect: "none",
     cursor: { default: "pointer", ":is([data-disabled])": "default" },
     opacity: { default: 1, ":is([data-disabled])": tokens.disabledOpacity },
@@ -47,7 +48,7 @@ export const selectStyles = stylex.create({
   },
   secondary: {
     backgroundColor: { default: tokens.default, ":hover": tokens.defaultHover },
-    boxShadow: "none",
+    "--lenso-focus-elevation": "0 0 #0000",
   },
   value: {
     flex: 1,
@@ -118,8 +119,8 @@ export const selectStyles = stylex.create({
     width: "100%",
     borderRadius: tokens.radius2xl,
     minHeight: "2.25rem",
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: -2,
+    outline: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
     cursor: "pointer",
     userSelect: "none",
     backgroundColor: { default: "transparent", ":is([data-highlighted])": tokens.default },

@@ -6,7 +6,7 @@
  */
 import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import { comboBoxStyles, comboBoxSharedStyles } from "@lenso/tokens/combo-box";
-import { createContext, useContext, useMemo, type ComponentPropsWithRef } from "react";
+import { createContext, useContext, useMemo, useState, type ComponentPropsWithRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
@@ -14,18 +14,35 @@ import { useThemePortalContainer } from "../../utils/theme-scope.js";
 const AppearanceContext = createContext({
   variant: "primary" as "primary" | "secondary",
   fullWidth: false,
+  keyboardHighlight: false,
 });
 const InputGroupContext = createContext(false);
 export function ComboBoxRoot<Value, Multiple extends boolean | undefined = false>({
   variant = "primary",
   fullWidth = false,
+  onItemHighlighted,
+  onOpenChange,
   ...props
 }: ComboBoxRootProps<Value, Multiple>) {
-  const appearance = useMemo(() => ({ variant, fullWidth }), [variant, fullWidth]);
+  const [keyboardHighlight, setKeyboardHighlight] = useState(false);
+  const appearance = useMemo(
+    () => ({ variant, fullWidth, keyboardHighlight }),
+    [variant, fullWidth, keyboardHighlight],
+  );
   return (
     <AppearanceContext value={appearance}>
       <InputGroupContext value={false}>
-        <BaseCombobox.Root {...props} />
+        <BaseCombobox.Root
+          {...props}
+          onItemHighlighted={(value, details) => {
+            setKeyboardHighlight(details.reason === "keyboard");
+            onItemHighlighted?.(value, details);
+          }}
+          onOpenChange={(open, details) => {
+            onOpenChange?.(open, details);
+            if (!open && !details.isCanceled) setKeyboardHighlight(false);
+          }}
+        />
       </InputGroupContext>
     </AppearanceContext>
   );
@@ -203,11 +220,13 @@ export function ComboBoxItem({
   "data-slot": slot,
   ...props
 }: StyleXProps<BaseCombobox.Item.Props> & { "data-slot"?: unknown }) {
+  const { keyboardHighlight } = useContext(AppearanceContext);
   const compiled = stylex.props(comboBoxSharedStyles.item, xstyle);
   return (
     <BaseCombobox.Item
       {...props}
       {...compiled}
+      data-keyboard-highlight={keyboardHighlight ? "" : undefined}
       style={mergeStyle<BaseCombobox.Item.State>(compiled.style, style)}
       data-slot={slot ?? "combo-box-item"}
     />

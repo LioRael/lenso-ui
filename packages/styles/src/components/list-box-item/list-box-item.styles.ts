@@ -1,5 +1,6 @@
 // HeroUI v3.2.6 list-box-item.css adaptation, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const listBoxItemStyles = stylex.create({
   checkmark: {
@@ -32,8 +33,8 @@ export const listBoxItemStyles = stylex.create({
     color: tokens.foreground,
     fontSize: 14,
     cursor: tokens.cursorInteractive,
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
     backgroundColor: { default: "transparent", ":hover": tokens.default },
     transform: { default: "none", ":active": "scale(.98)" },
     transitionProperty: "transform, box-shadow",

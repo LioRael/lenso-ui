@@ -3,6 +3,7 @@
  * Modified for Lenso StyleX.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const colorInputGroupStyles = stylex.create({
@@ -18,21 +19,21 @@ export const colorInputGroupStyles = stylex.create({
     backgroundColor: tokens.fieldBackground,
     color: tokens.fieldForeground,
     fontSize: 14,
-    boxShadow: tokens.fieldShadow,
+    "--lenso-focus-elevation": tokens.fieldShadow,
+    boxShadow: focusRing.elevation,
     outline: "none",
   },
   fullWidth: { width: "100%" },
   secondary: {
     backgroundColor: { default: tokens.default, ":hover:not(:focus-within)": tokens.defaultHover },
-    boxShadow: "none",
+    "--lenso-focus-elevation": "0 0 #0000",
   },
   hovered: { borderColor: tokens.fieldBorderHover, backgroundColor: tokens.fieldHover },
   focused: {
     borderColor: tokens.fieldBorderFocus,
     backgroundColor: tokens.fieldFocus,
-    outline: "2px solid",
-    outlineColor: tokens.focus,
-    outlineOffset: 2,
+    outline: "none",
+    boxShadow: focusRing.fieldElevated,
   },
   invalid: { borderColor: tokens.danger, backgroundColor: tokens.fieldFocus },
   disabled: { opacity: tokens.disabledOpacity },

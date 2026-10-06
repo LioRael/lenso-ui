@@ -1,6 +1,7 @@
 // HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 // Modified by Lenso contributors: translated component styling to StyleX.
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const inputGroupStyles = stylex.create({
   root: {
@@ -30,8 +31,10 @@ export const inputGroupStyles = stylex.create({
         tokens.fieldFocus,
     },
     color: tokens.fieldForeground,
+    "--lenso-focus-elevation": tokens.fieldShadow,
     boxShadow: {
-      default: tokens.fieldShadow,
+      default: focusRing.elevation,
+      ":has(input:focus, textarea:focus)": focusRing.fieldElevated,
       ":is([data-invalid], :has([data-invalid]), [data-invalid] *):is(:focus, :focus-visible, :focus-within, [data-focused='true'], [data-focus-visible='true'], [data-focus-within='true'])": `0 0 0 2px ${tokens.danger}, ${tokens.fieldShadow}`,
     },
     transition: {
@@ -42,13 +45,12 @@ export const inputGroupStyles = stylex.create({
     // stays attached to the styled shell, including the Field.Root ancestor case.
     outline: {
       default: "none",
-      ":has(:focus-visible)": `2px solid ${tokens.focus}`,
       ":is([data-invalid], :has([data-invalid]), [data-invalid] *)": `1px solid ${tokens.danger}`,
       ":is([data-invalid], :has([data-invalid]), [data-invalid] *):is(:focus, :focus-visible, :focus-within, [data-focused='true'], [data-focus-visible='true'], [data-focus-within='true'])":
         "none",
     },
     outlineOffset: {
-      default: 2,
+      default: 0,
       ":is([data-invalid], :has([data-invalid]), [data-invalid] *)": 0,
     },
   },
@@ -97,6 +99,7 @@ export const inputGroupStyles = stylex.create({
     borderInlineStart: `1px solid ${tokens.fieldBorder}`,
   },
   secondary: {
+    "--lenso-focus-elevation": "0 0 #0000",
     backgroundColor: {
       default: tokens.default,
       ":hover:not(:focus-within)": tokens.defaultHover,
@@ -106,8 +109,16 @@ export const inputGroupStyles = stylex.create({
     },
     boxShadow: {
       default: "none",
+      ":has(input:focus, textarea:focus)": focusRing.fieldElevated,
       ":is([data-invalid], :has([data-invalid]), [data-invalid] *):is(:focus, :focus-visible, :focus-within, [data-focused='true'], [data-focus-visible='true'], [data-focus-within='true'])": `0 0 0 2px ${tokens.danger}`,
     },
   },
   fullWidth: { width: "100%" },
+  focusWithin: {
+    boxShadow: {
+      default: focusRing.elevation,
+      ":focus-within": focusRing.fieldElevated,
+      ":is([data-invalid], :has([data-invalid]), [data-invalid] *):focus-within": `0 0 0 2px ${tokens.danger}, ${focusRing.elevation}`,
+    },
+  },
 });

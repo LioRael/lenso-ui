@@ -1,5 +1,6 @@
 /** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const colorAreaStyles = stylex.create({
   root: {
@@ -31,12 +32,13 @@ export const colorAreaStyles = stylex.create({
     borderStyle: "solid",
     borderColor: "white",
     boxSizing: "border-box",
-    boxShadow: "0 0 0 1px rgba(0,0,0,.1),inset 0 0 0 1px rgba(0,0,0,.1)",
+    "--lenso-focus-elevation": "0 0 0 1px rgba(0,0,0,.1),inset 0 0 0 1px rgba(0,0,0,.1)",
+    boxShadow: focusRing.elevation,
     transitionProperty: "width,height",
     transitionDuration: { default: "150ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
     transitionTimingFunction: tokens.easeSmooth,
   },
   dragging: { width: 20, height: 20 },
-  focused: { outline: "2px solid", outlineColor: tokens.focus, outlineOffset: 2 },
+  focused: { outline: "none", boxShadow: focusRing.outerElevated },
   disabled: { opacity: tokens.disabledOpacity },
 });

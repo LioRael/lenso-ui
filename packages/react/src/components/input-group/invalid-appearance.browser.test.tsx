@@ -61,6 +61,15 @@ for (const theme of ["light", "dark"] as const) {
                   backgroundColor: "var(--default)",
                 }}
               />
+              <span
+                data-testid="focused-probe"
+                style={{
+                  boxShadow:
+                    variant === "primary"
+                      ? "0 0 0 2px var(--focus), var(--field-shadow)"
+                      : "0 0 0 2px var(--focus), 0 0 #0000",
+                }}
+              />
             </div>
           );
         }
@@ -72,6 +81,7 @@ for (const theme of ["light", "dark"] as const) {
         await screen.getByRole("button", { name: "Outside" }).hover();
         const probe = getComputedStyle(screen.getByTestId("probe").element());
         const validProbe = getComputedStyle(screen.getByTestId("valid-probe").element());
+        const focusedProbe = getComputedStyle(screen.getByTestId("focused-probe").element());
         const rect = shell.getBoundingClientRect();
         await expect.element(control).toHaveAttribute("aria-invalid", "true");
         await expect.poll(() => getComputedStyle(shell).outlineStyle).toBe("solid");
@@ -103,10 +113,8 @@ for (const theme of ["light", "dark"] as const) {
         await expect.element(control).not.toHaveAttribute("aria-invalid", "true");
         await expect.poll(() => getComputedStyle(shell).outlineStyle).toBe("none");
         await control.element().focus();
-        await expect.poll(() => getComputedStyle(shell).outlineWidth).toBe("2px");
-        expect(getComputedStyle(shell).outlineColor).toBe(validProbe.outlineColor);
-        expect(getComputedStyle(shell).outlineOffset).toBe("2px");
-        await expect.poll(() => getComputedStyle(shell).boxShadow).toBe(validProbe.boxShadow);
+        await expect.poll(() => getComputedStyle(shell).boxShadow).toBe(focusedProbe.boxShadow);
+        expect(getComputedStyle(shell).outlineStyle).toBe("none");
       });
     }
   }

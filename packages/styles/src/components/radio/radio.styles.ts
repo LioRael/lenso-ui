@@ -4,6 +4,7 @@
  * Modified: StyleX styles and Base UI state selectors.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const radioStyles = stylex.create({
@@ -47,12 +48,12 @@ export const radioStyles = stylex.create({
       default: tokens.fieldBackground,
       ":is([data-slot='radio'][data-checked] *)": tokens.accent,
     },
-    boxShadow: tokens.fieldShadow,
-    outline: {
-      default: "none",
-      ":is([data-slot='radio']:focus-visible *)": `2px solid ${tokens.focus}`,
+    "--lenso-focus-elevation": tokens.fieldShadow,
+    boxShadow: {
+      default: focusRing.elevation,
+      ":is([data-slot='radio']:focus-visible *)": focusRing.outerElevated,
     },
-    outlineOffset: 2,
+    outline: "none",
     transform: { default: "scale(1)", ":is([data-slot='radio']:active *)": "scale(.95)" },
     transition: {
       default: `background-color 200ms ${tokens.easeOut}, transform 100ms ${tokens.easeOut}`,
@@ -87,5 +88,5 @@ export const radioStyles = stylex.create({
       },
     },
   },
-  secondary: { backgroundColor: tokens.default, boxShadow: "none" },
+  secondary: { backgroundColor: tokens.default, "--lenso-focus-elevation": "0 0 #0000" },
 });

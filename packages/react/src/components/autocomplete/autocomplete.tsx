@@ -10,7 +10,7 @@ import {
   autocompleteFieldStyles,
   autocompleteSharedStyles,
 } from "@lenso/tokens/autocomplete";
-import { createContext, useContext, useMemo, type ComponentPropsWithRef } from "react";
+import { createContext, useContext, useMemo, useState, type ComponentPropsWithRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
@@ -19,20 +19,35 @@ const AutocompleteStyleContext = createContext({
   variant: "primary" as "primary" | "secondary",
   fullWidth: false,
   virtualized: false,
+  keyboardHighlight: false,
 });
 export function AutocompleteRoot<Value, Multiple extends boolean | undefined = false>({
   variant = "primary",
   fullWidth = false,
   virtualized = false,
+  onItemHighlighted,
+  onOpenChange,
   ...props
 }: AutocompleteRootProps<Value, Multiple>) {
+  const [keyboardHighlight, setKeyboardHighlight] = useState(false);
   const appearance = useMemo(
-    () => ({ variant, fullWidth, virtualized }),
-    [variant, fullWidth, virtualized],
+    () => ({ variant, fullWidth, virtualized, keyboardHighlight }),
+    [variant, fullWidth, virtualized, keyboardHighlight],
   );
   return (
     <AutocompleteStyleContext value={appearance}>
-      <BaseCombobox.Root {...props} virtualized={virtualized} />
+      <BaseCombobox.Root
+        {...props}
+        virtualized={virtualized}
+        onItemHighlighted={(value, details) => {
+          setKeyboardHighlight(details.reason === "keyboard");
+          onItemHighlighted?.(value, details);
+        }}
+        onOpenChange={(open, details) => {
+          onOpenChange?.(open, details);
+          if (!open && !details.isCanceled) setKeyboardHighlight(false);
+        }}
+      />
     </AutocompleteStyleContext>
   );
 }
@@ -201,11 +216,13 @@ export function AutocompleteItem({
   "data-slot": slot,
   ...props
 }: StyleXProps<BaseCombobox.Item.Props> & { "data-slot"?: unknown }) {
+  const { keyboardHighlight } = useContext(AutocompleteStyleContext);
   const compiled = stylex.props(autocompleteSharedStyles.item, xstyle);
   return (
     <BaseCombobox.Item
       {...props}
       {...compiled}
+      data-keyboard-highlight={keyboardHighlight ? "" : undefined}
       style={mergeStyle<BaseCombobox.Item.State>(compiled.style, style)}
       data-slot={slot ?? "autocomplete-item"}
     />

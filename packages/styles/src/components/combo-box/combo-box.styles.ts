@@ -4,6 +4,7 @@
  * Modified: StyleX styles; shared source popover geometry with select.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 import { selectStyles } from "../select/select.styles.js";
 
@@ -47,12 +48,12 @@ export const comboBoxStyles = stylex.create({
       ":is([data-invalid], :has(input[data-invalid]))": tokens.fieldFocus,
     },
     color: tokens.fieldForeground,
-    boxShadow: tokens.fieldShadow,
-    outline: {
-      default: "none",
-      ":focus-within": `2px solid ${tokens.focus}`,
+    "--lenso-focus-elevation": tokens.fieldShadow,
+    boxShadow: {
+      default: focusRing.elevation,
+      ":is(input:focus, :has(input:focus))": focusRing.fieldElevated,
     },
-    outlineOffset: 2,
+    outline: "none",
     opacity: {
       default: 1,
       ":is(:disabled, [data-disabled], :has(input:disabled))": tokens.disabledOpacity,
@@ -69,7 +70,7 @@ export const comboBoxStyles = stylex.create({
       ":focus-within": tokens.default,
       ":is([data-invalid], :has(input[data-invalid]))": tokens.default,
     },
-    boxShadow: "none",
+    "--lenso-focus-elevation": "0 0 #0000",
   },
   groupedInput: {
     boxSizing: "border-box",
@@ -96,8 +97,12 @@ export const comboBoxStyles = stylex.create({
     border: "none",
     backgroundColor: "transparent",
     color: { default: tokens.fieldPlaceholder, ":hover": tokens.fieldForeground },
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
+    // The source separate trigger has an explicit 2px offset.
+    boxShadow: {
+      default: "none",
+      ":focus-visible": `0 0 0 2px ${tokens.background}, 0 0 0 4px ${tokens.focus}`,
+    },
     borderRadius: tokens.radiusMd,
     cursor: { default: "pointer", ":is([data-disabled])": "default" },
   },
@@ -128,8 +133,8 @@ export const comboBoxStyles = stylex.create({
     backgroundColor: { default: "transparent", ":hover": tokens.defaultHover },
     color: tokens.muted,
     cursor: "pointer",
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
     "::after": { content: '""', position: "absolute", inset: -2 },
   },
   chips: { display: "flex", flexWrap: "wrap", alignItems: "center", gap: ".25rem" },
@@ -146,8 +151,8 @@ export const comboBoxStyles = stylex.create({
     fontSize: ".75rem",
     fontWeight: 500,
     lineHeight: "1rem",
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
   },
   chipRemove: {
     position: "relative",
@@ -174,4 +179,16 @@ export const comboBoxStyles = stylex.create({
   empty: { padding: ".75rem", textAlign: "center", fontSize: ".875rem", color: tokens.muted },
 });
 
-export const comboBoxSharedStyles = selectStyles;
+const virtualFocusStyles = stylex.create({
+  item: {
+    boxShadow: {
+      default: "none",
+      ":is([data-highlighted][data-keyboard-highlight]):not([data-disabled])": focusRing.outer,
+    },
+  },
+});
+
+export const comboBoxSharedStyles = {
+  ...selectStyles,
+  item: [selectStyles.item, virtualFocusStyles.item],
+};

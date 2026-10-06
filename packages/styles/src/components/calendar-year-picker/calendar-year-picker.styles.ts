@@ -1,5 +1,6 @@
 /** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const calendarYearPickerStyles = stylex.create({
   trigger: {
@@ -63,5 +64,5 @@ export const calendarYearPickerStyles = stylex.create({
   hovered: { backgroundColor: tokens.default, color: tokens.defaultForeground },
   selected: { backgroundColor: tokens.accent, color: tokens.accentForeground },
   selectedHovered: { backgroundColor: tokens.accentHover },
-  focused: { outline: "2px solid", outlineColor: tokens.focus, outlineOffset: 2 },
+  focused: { outline: "none", boxShadow: focusRing.outer },
 });

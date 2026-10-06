@@ -1,5 +1,6 @@
 // HeroUI v3.2.6 tag.css adaptation, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const tagStyles = stylex.create({
   cell: { display: "inline-flex", alignItems: "center", gap: "inherit" },
@@ -15,8 +16,8 @@ export const tagStyles = stylex.create({
     paddingBlock: 4,
     fontSize: 12,
     cursor: tokens.cursorInteractive,
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
     transitionProperty: "color, scale, opacity, background-color, box-shadow",
     transitionDuration: { default: "100ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
     transitionTimingFunction: tokens.easeSmooth,

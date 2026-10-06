@@ -30,6 +30,7 @@ test.each(["light", "dark"] as const)(
             width: 8,
             height: 8,
             backgroundColor: "var(--default)",
+            boxShadow: "0 0 #0000",
           }}
         />
       </div>,
@@ -41,7 +42,9 @@ test.each(["light", "dark"] as const)(
     await screen.getByTestId("default-fill").hover();
     const fill = getComputedStyle(screen.getByTestId("default-fill").element()).backgroundColor;
     await expect.poll(() => getComputedStyle(shell).backgroundColor).toBe(fill);
-    await expect.poll(() => getComputedStyle(shell).boxShadow).toBe("none");
+    await expect
+      .poll(() => getComputedStyle(shell).boxShadow)
+      .toBe(getComputedStyle(screen.getByTestId("default-fill").element()).boxShadow);
     expect(getComputedStyle(input).backgroundColor).toBe("rgba(0, 0, 0, 0)");
     expect(shell.getBoundingClientRect().width).toBe(272);
   },
@@ -111,7 +114,9 @@ for (const theme of ["light", "dark"] as const) {
     expect(input.getBoundingClientRect().left - shell.getBoundingClientRect().left).toBe(1);
     await input.focus();
     expect(getComputedStyle(input).backgroundColor).toBe("rgba(0, 0, 0, 0)");
-    await expect.poll(() => getComputedStyle(shell).outlineWidth).toBe("2px");
+    // Caller xstyle owns boxShadow; the default ring must not replace its explicit shadow.
+    await expect.poll(() => getComputedStyle(shell).boxShadow).toBe(probe.boxShadow);
+    expect(getComputedStyle(shell).outlineStyle).toBe("none");
   });
 }
 
@@ -140,7 +145,13 @@ for (const theme of ["light", "dark"] as const) {
         </ComboBox>
         <span
           data-testid="default-probe"
-          style={{ display: "block", width: 8, height: 8, backgroundColor: "var(--default)" }}
+          style={{
+            display: "block",
+            width: 8,
+            height: 8,
+            backgroundColor: "var(--default)",
+            boxShadow: "0 0 #0000",
+          }}
         />
         <span data-testid="hover-probe" style={{ backgroundColor: "var(--default-hover)" }} />
         <span
@@ -150,6 +161,10 @@ for (const theme of ["light", "dark"] as const) {
         <span
           data-testid="primary-probe"
           style={{ backgroundColor: "var(--field-background)", boxShadow: "var(--field-shadow)" }}
+        />
+        <span
+          data-testid="focused-secondary-probe"
+          style={{ boxShadow: "0 0 0 2px var(--focus), 0 0 #0000" }}
         />
       </div>,
     );
@@ -166,8 +181,11 @@ for (const theme of ["light", "dark"] as const) {
     await expect.poll(() => getComputedStyle(primary).boxShadow).toBe(primaryProbe.boxShadow);
     const standalone = screen.getByRole("combobox", { name: "Standalone secondary" }).element();
     await expect.poll(() => getComputedStyle(standalone).backgroundColor).toBe(fill);
-    await expect.poll(() => getComputedStyle(standalone).boxShadow).toBe("none");
-    expect(getComputedStyle(shell).boxShadow).toBe("none");
+    const secondaryShadow = getComputedStyle(
+      screen.getByTestId("default-probe").element(),
+    ).boxShadow;
+    await expect.poll(() => getComputedStyle(standalone).boxShadow).toBe(secondaryShadow);
+    expect(getComputedStyle(shell).boxShadow).toBe(secondaryShadow);
     expect(shell.getBoundingClientRect().width).toBe(272);
     expect(shell.getBoundingClientRect().height).toBe(36);
     expect(input.getBoundingClientRect().height).toBe(36);
@@ -177,6 +195,9 @@ for (const theme of ["light", "dark"] as const) {
       .toBe(getComputedStyle(screen.getByTestId("hover-probe").element()).backgroundColor);
     await input.focus();
     await expect.poll(() => getComputedStyle(shell).backgroundColor).toBe(fill);
+    await expect
+      .poll(() => getComputedStyle(shell).boxShadow)
+      .toBe(getComputedStyle(screen.getByTestId("focused-secondary-probe").element()).boxShadow);
     await expect
       .poll(() => getComputedStyle(shell).borderTopColor)
       .toBe(getComputedStyle(screen.getByTestId("focus-border-probe").element()).borderTopColor);

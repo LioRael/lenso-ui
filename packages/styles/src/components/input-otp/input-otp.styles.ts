@@ -1,6 +1,7 @@
 // HeroUI v3.2.6, Apache-2.0.
 // Modified by Lenso contributors: translated component styling to StyleX.
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const inputOTPStyles = stylex.create({
   root: { position: "relative", display: "flex", width: "100%", alignItems: "center", gap: 8 },
@@ -21,14 +22,14 @@ export const inputOTPStyles = stylex.create({
     },
     backgroundColor: tokens.fieldBackground,
     color: tokens.fieldForeground,
-    boxShadow: tokens.fieldShadow,
+    "--lenso-focus-elevation": tokens.fieldShadow,
+    boxShadow: { default: focusRing.elevation, ":focus": focusRing.fieldElevated },
     textAlign: "center",
     fontSize: 18,
     lineHeight: "24px",
     fontWeight: 600,
     fontVariantNumeric: "tabular-nums",
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
     opacity: { default: 1, "[data-disabled]": tokens.disabledOpacity },
   },
   separator: {
@@ -40,6 +41,6 @@ export const inputOTPStyles = stylex.create({
   },
   secondary: {
     backgroundColor: { default: tokens.default, ":hover": tokens.defaultHover },
-    boxShadow: "none",
+    "--lenso-focus-elevation": "0 0 #0000",
   },
 });

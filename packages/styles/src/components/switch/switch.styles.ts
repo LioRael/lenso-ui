@@ -4,6 +4,7 @@
  * Modified: StyleX styles and Base UI state selectors.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const switchStyles = stylex.create({
@@ -44,11 +45,11 @@ export const switchStyles = stylex.create({
       ":is([data-slot='switch'][data-checked]:hover *)": `var(--switch-control-bg-checked-hover, ${tokens.accentHover})`,
       ":is([data-slot='switch'][data-checked]:active *)": `var(--switch-control-bg-checked-hover, ${tokens.accentHover})`,
     },
-    outline: {
+    boxShadow: {
       default: "none",
-      ":is([data-slot='switch']:focus-visible *)": `2px solid ${tokens.focus}`,
+      ":is([data-slot='switch']:focus-visible *)": focusRing.outer,
     },
-    outlineOffset: 2,
+    outline: "none",
     transition: {
       default: `background-color 250ms ${tokens.easeSmooth}`,
       "@media (prefers-reduced-motion: reduce)": "none",

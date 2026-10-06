@@ -4,6 +4,7 @@
  * Modified: StyleX styles and Base UI state selectors.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const checkboxStyles = stylex.create({
@@ -56,12 +57,12 @@ export const checkboxStyles = stylex.create({
       default: tokens.accentForeground,
       ":is([data-slot='checkbox'][data-invalid] *)": tokens.dangerForeground,
     },
-    boxShadow: tokens.fieldShadow,
-    outline: {
-      default: "none",
-      ":is([data-slot='checkbox']:focus-visible *)": `2px solid ${tokens.focus}`,
+    "--lenso-focus-elevation": tokens.fieldShadow,
+    boxShadow: {
+      default: focusRing.elevation,
+      ":is([data-slot='checkbox']:focus-visible *)": focusRing.outerElevated,
     },
-    outlineOffset: 2,
+    outline: "none",
     transition: {
       default: `background-color 200ms ${tokens.easeOut}, border-color 200ms ${tokens.easeOut}`,
       "@media (prefers-reduced-motion: reduce)": "none",
@@ -113,7 +114,7 @@ export const checkboxStyles = stylex.create({
     width: ".75rem",
     height: ".75rem",
   },
-  secondary: { backgroundColor: tokens.default, boxShadow: "none" },
+  secondary: { backgroundColor: tokens.default, "--lenso-focus-elevation": "0 0 #0000" },
 });
 
 export const checkboxSupportingStyles = stylex.create({

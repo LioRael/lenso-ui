@@ -1,5 +1,6 @@
 /** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 const enter = stylex.keyframes({
   from: { opacity: 0, transform: "var(--picker-enter-from,scale(.95))" },
@@ -24,7 +25,7 @@ export const datePickerStyles = stylex.create({
     backgroundColor: "transparent",
     color: tokens.fieldForeground,
   },
-  focused: { outline: "2px solid", outlineColor: tokens.focus, outlineOffset: 2 },
+  focused: { outline: "none", boxShadow: focusRing.outer },
   disabled: { opacity: tokens.disabledOpacity },
   indicator: {
     display: "inline-flex",

@@ -2,7 +2,12 @@
 // Modified by Lenso contributors: translated component styling to StyleX.
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../../tokens.stylex.const.js";
-export { inputGroupStyles as searchFieldGroupStyles } from "../input-group/input-group.styles.js";
+import { focusRing } from "../../focus-ring.stylex.const.js";
+import { inputGroupStyles } from "../input-group/input-group.styles.js";
+export const searchFieldGroupStyles = {
+  ...inputGroupStyles,
+  root: [inputGroupStyles.root, inputGroupStyles.focusWithin],
+};
 export const searchFieldStyles = stylex.create({
   root: { display: "flex", flexDirection: "column", gap: 4 },
   icon: {
@@ -25,7 +30,8 @@ export const searchFieldStyles = stylex.create({
     backgroundColor: { default: "transparent", ":hover": tokens.defaultHover },
     color: tokens.muted,
     cursor: "pointer",
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
+    outline: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
     opacity: { default: 1, ":disabled": 0 },
     pointerEvents: { default: "auto", ":disabled": "none" },
   },

@@ -1,5 +1,6 @@
 // Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const menuItemStyles = stylex.create({
@@ -14,6 +15,7 @@ export const menuItemStyles = stylex.create({
     paddingBlock: 6,
     borderRadius: tokens.radius2xl,
     outline: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
     cursor: tokens.cursorInteractive,
     backgroundColor: { default: "transparent", ":is([data-highlighted])": tokens.default },
     opacity: { default: 1, ":is([data-disabled])": tokens.disabledOpacity },

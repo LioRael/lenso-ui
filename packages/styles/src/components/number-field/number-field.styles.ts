@@ -2,7 +2,11 @@
 // Modified by Lenso contributors: translated component styling to StyleX.
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../../tokens.stylex.const.js";
-export { inputGroupStyles as numberFieldGroupStyles } from "../input-group/input-group.styles.js";
+import { inputGroupStyles } from "../input-group/input-group.styles.js";
+export const numberFieldGroupStyles = {
+  ...inputGroupStyles,
+  root: [inputGroupStyles.root, inputGroupStyles.focusWithin],
+};
 export const numberFieldStyles = stylex.create({
   root: { display: "flex", flexDirection: "column", gap: 4 },
   input: {
@@ -29,8 +33,8 @@ export const numberFieldStyles = stylex.create({
     border: 0,
     backgroundColor: { default: "transparent", ":active": tokens.defaultHover },
     color: tokens.fieldForeground,
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: -2,
+    outline: "none",
+    boxShadow: "none",
     cursor: "pointer",
     opacity: { default: 1, "[data-disabled]": tokens.disabledOpacity },
   },

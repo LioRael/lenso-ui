@@ -4,6 +4,7 @@
  * Modified: StyleX styles; Base UI owns range geometry.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const sliderStyles = stylex.create({
@@ -72,8 +73,11 @@ export const sliderStyles = stylex.create({
       ":is([data-dragging])": "grabbing",
       ":is([data-disabled])": "default",
     },
-    outline: { default: "none", ":focus-visible": `2px solid ${tokens.focus}` },
-    outlineOffset: 2,
+    outline: "none",
+    boxShadow: {
+      default: "none",
+      ":is(:focus-visible, :has(input:focus-visible))": focusRing.outer,
+    },
     "::after": {
       content: '""',
       position: "relative",

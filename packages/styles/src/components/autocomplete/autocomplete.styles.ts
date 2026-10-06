@@ -4,6 +4,7 @@
  * Modified: Base UI popup-search selection, native states and StyleX composition.
  */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 import { selectStyles } from "../select/select.styles.js";
 import { comboBoxStyles } from "../combo-box/combo-box.styles.js";
@@ -96,11 +97,15 @@ const sharedStyles = stylex.create({
     },
     outline: {
       default: "none",
-      ":focus-visible": `2px solid ${tokens.focus}`,
       ":is([data-invalid], [aria-invalid='true'])": `1px solid ${tokens.danger}`,
       ":is([data-invalid], [aria-invalid='true']):focus-visible": `2px solid ${tokens.danger}`,
     },
-    outlineOffset: { default: 2, ":is([data-invalid], [aria-invalid='true'])": 0 },
+    outlineOffset: { default: 0, ":is([data-invalid], [aria-invalid='true'])": 0 },
+    boxShadow: {
+      default: focusRing.elevation,
+      ":focus-visible": focusRing.elevation,
+      ":focus-visible:not([data-invalid], [aria-invalid='true'])": focusRing.outerElevated,
+    },
     transition: {
       default: `background-color 150ms ${tokens.easeSmooth}, border-color 150ms ${tokens.easeSmooth}, box-shadow 150ms ${tokens.easeOut}`,
       "@media (prefers-reduced-motion: reduce)": "none",
@@ -116,7 +121,7 @@ const sharedStyles = stylex.create({
       ":focus-visible:not([data-invalid], [aria-invalid='true'])": tokens.default,
       ":is([data-invalid], [aria-invalid='true'])": tokens.default,
     },
-    boxShadow: "none",
+    "--lenso-focus-elevation": "0 0 #0000",
   },
   value: {
     flex: 1,
@@ -130,6 +135,10 @@ const sharedStyles = stylex.create({
   },
   item: {
     boxSizing: "border-box",
+    boxShadow: {
+      default: "none",
+      ":is([data-highlighted][data-keyboard-highlight]):not([data-disabled])": focusRing.outer,
+    },
     paddingInlineEnd: ".625rem",
     ":has([data-slot='autocomplete-item-indicator'])": { paddingInlineEnd: "1.75rem" },
     cursor: { default: tokens.cursorInteractive, ":is([data-disabled])": tokens.cursorDisabled },

@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const linkStyles = stylex.create({
   root: {
@@ -40,7 +41,7 @@ export const linkStyles = stylex.create({
     outlineStyle: "none",
     boxShadow: {
       default: "none",
-      ":focus-visible": `0 0 0 2px ${tokens.background}, 0 0 0 4px ${tokens.focus}`,
+      ":focus-visible": focusRing.outer,
     },
     opacity: { default: 1, ':is([aria-disabled="true"])': tokens.disabledOpacity },
   },

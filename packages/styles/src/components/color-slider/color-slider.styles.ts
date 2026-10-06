@@ -1,5 +1,6 @@
 /** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
 import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const colorSliderStyles = stylex.create({
   root: {
@@ -76,12 +77,13 @@ export const colorSliderStyles = stylex.create({
     borderStyle: "solid",
     borderColor: "white",
     boxSizing: "border-box",
-    boxShadow: tokens.shadowOverlay,
+    "--lenso-focus-elevation": tokens.shadowOverlay,
+    boxShadow: focusRing.elevation,
     cursor: "grab",
     zIndex: 1,
   },
   verticalThumb: { top: "auto", left: "50%" },
-  focused: { outline: "2px solid", outlineColor: tokens.focus, outlineOffset: 2, zIndex: 10 },
+  focused: { outline: "none", boxShadow: focusRing.outerElevated, zIndex: 10 },
   dragging: { cursor: "grabbing" },
   disabled: { opacity: tokens.disabledOpacity },
   caps: {
