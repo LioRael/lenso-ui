@@ -55,7 +55,7 @@ export function ThemeScope({ theme, xstyle, style, children, ref, ...props }: Th
     for (let ancestor: HTMLElement | null = scope; ancestor; ancestor = ancestor.parentElement) {
       observer.observe(ancestor, {
         attributes: true,
-        attributeFilter: ["class", "style", "data-theme", "dir"],
+        attributeFilter: ["class", "style", "data-theme", "data-lenso-theme", "dir"],
       });
     }
     return () => observer.disconnect();

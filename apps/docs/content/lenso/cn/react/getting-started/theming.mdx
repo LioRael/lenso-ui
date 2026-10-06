@@ -27,6 +27,35 @@ import "@lenso/tokens/styles.css";
 
 将类名应用于文档或容器表面。保持背景与前景颜色配对，改变基础值后检查派生的悬停与柔和颜色。[颜色](/docs/react/getting-started/colors)介绍常见角色。
 
+## 主题配置中心
+
+打开[主题配置中心](/cn/theme-builder)，使用独立的 HeroUI v3.2.6 同款编辑器：强调色与中性色调滑块、字体和圆角网格、11 个主题预设、明暗预览、撤销/重做、随机和分享链接。组件拼贴使用真实 Lenso 组件。其他模板标签明确标注为 HeroUI Pro 在线预览，不是本地 Lenso 模板。
+
+编辑器从同一份外观配置生成明暗配色。代码覆盖面板支持导出 CSS 或 TypeScript；JSON 保存可再次导入的编辑器设置。编辑不会自动保存。自定义字体支持公开的 Google Fonts 样式表 URL。
+
+应用也可以通过同一套底层类型化 API，直接配置单个语义变量：
+
+```tsx
+import { defineTheme, themeToVariables, themeToCSS } from "@lenso/tokens";
+import { ThemeScope } from "@lenso/ui";
+
+const theme = defineTheme({
+  name: "project",
+  light: { accent: "oklch(0.55 0.18 270)", radius: "0.625rem" },
+  dark: { accent: "oklch(0.75 0.15 270)" },
+});
+
+<ThemeScope
+  theme="light"
+  data-lenso-theme={theme.name}
+  style={themeToVariables(theme, "light")}
+>
+  {/* 你的组件 */}
+</ThemeScope>;
+```
+
+使用样式表时，将 `themeToCSS(theme)` 写入 CSS 文件，并在默认主题之后加载。在目标作用域同时设置 `data-lenso-theme="project"` 和 `data-theme="light"`（或 `"dark"`）。默认主题继续提供派生的悬停色、柔和色和圆角尺度；导出仅包含你的覆盖值。
+
 ## Portal 组件
 
 菜单、对话框和提示可以通过 portal 渲染在触发器的 DOM 祖先之外。Lenso 的原生 portal 包装保留明暗主题作用域，但不会自动复制任意自定义类名。将共享覆盖放在文档上，或保证自定义 portal 容器参与所需主题。

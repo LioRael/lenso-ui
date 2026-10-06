@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import { createPortal } from "react-dom";
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
+import { defineTheme, themeToCSS } from "@lenso/tokens";
 import "@lenso/tokens/styles.css";
 
 import { ThemeScope, useThemePortalContainer } from "./theme-scope.js";
@@ -79,4 +80,43 @@ test("scoped portals escape clipping and keep live inherited theme variables", a
   await screen.unmount();
   expect(document.body.contains(portaled)).toBe(false);
   expect(document.querySelector('[data-slot="theme-portal-host"]')).toBeNull();
+});
+
+// Inline-variable mutation coverage above doesn't exercise named CSS selectors
+// changed without a React render, including a theme inherited from an ancestor.
+test("named configuration changes synchronize portalled colors without rerendering", async () => {
+  const first = defineTheme({ name: "first", light: { accent: "oklch(0.7 0.15 140)" } });
+  const second = defineTheme({ name: "second", light: { accent: "oklch(0.6 0.12 30)" } });
+  const screen = await render(
+    <>
+      <style>{themeToCSS(first) + themeToCSS(second)}</style>
+      <div data-testid="ancestor" data-theme="light" data-lenso-theme="first">
+        <ThemeScope theme="light" data-testid="named-scope" data-lenso-theme="first">
+          <div data-testid="named-reference" style={{ background: "var(--accent-hover)" }} />
+          <PortalProbe />
+        </ThemeScope>
+      </div>
+    </>,
+  );
+  const scope = screen.getByTestId("named-scope").element();
+  const ancestor = screen.getByTestId("ancestor").element();
+  const reference = screen.getByTestId("named-reference").element();
+  const surface = screen.getByTestId("floating-surface");
+  await expect.element(surface).toBeVisible();
+  const portalled = surface.element();
+  const original = getComputedStyle(reference).backgroundColor;
+  scope.setAttribute("data-lenso-theme", "second");
+  expect(getComputedStyle(reference).backgroundColor).not.toBe(original);
+  await expect
+    .poll(() => getComputedStyle(portalled).backgroundColor)
+    .toBe(getComputedStyle(reference).backgroundColor);
+
+  scope.removeAttribute("data-lenso-theme");
+  await expect.poll(() => getComputedStyle(portalled).backgroundColor).toBe(original);
+  ancestor.setAttribute("data-lenso-theme", "second");
+  expect(getComputedStyle(reference).backgroundColor).not.toBe(original);
+  await expect
+    .poll(() => getComputedStyle(portalled).backgroundColor)
+    .toBe(getComputedStyle(reference).backgroundColor);
+  await screen.unmount();
 });
