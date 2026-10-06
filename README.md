@@ -9,6 +9,9 @@ The visual reference is HeroUI v3.2.6 at
 Lenso owns its public contracts and release versions; this is not an official
 HeroUI release or a promise of API compatibility.
 
+Inspired by HeroUI, Lenso UI will evolve its own design language and component
+direction.
+
 ## Repository
 
 | Location                | Responsibility                                     |

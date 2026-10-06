@@ -164,9 +164,13 @@ test("source token references resolve in their local theme rather than to missin
     </>,
   );
   for (const theme of ["light", "dark"] as const) {
-    const element = screen
-      .getByRole("button", { name: theme === "light" ? "Light action" : "Dark action" })
-      .element();
+    const button = screen.getByRole("button", {
+      name: theme === "light" ? "Light action" : "Dark action",
+    });
+    // A retained pointer can activate the hover token instead of the default token.
+    await button.hover();
+    await button.unhover();
+    const element = button.element();
     const reference = getComputedStyle(screen.getByTestId(`${theme}-probe`).element());
     await expect
       .poll(() => getComputedStyle(element).backgroundColor)
