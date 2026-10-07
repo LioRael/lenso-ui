@@ -1,0 +1,14 @@
+tooling/lenso-contracts/index.ts
+  h_9d56aba080c170 11,547-551
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a742a55d7171fe6f43e2a25e5f9ab921b428e646",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
