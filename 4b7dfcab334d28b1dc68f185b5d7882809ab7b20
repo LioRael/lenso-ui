@@ -1,0 +1,37 @@
+.github/workflows/verify.yml
+  s_47413092075879::t_fc00ab2c6ef150 27-28,30-81
+README.md
+  s_47413092075879::t_a964f4b366e930 116-130
+apps/docs/next.config.ts
+  s_47413092075879::t_140c29bf8b0980 6-7
+apps/docs/package.json
+  s_47413092075879::t_5d22696d57427a 10
+apps/docs/public/_redirects
+  s_47413092075879::t_2813fd596aef65 1-5
+apps/docs/scripts/serve-docs.mjs
+  s_47413092075879::t_8e41e81893a415 1-59
+apps/docs/src/app/(utility)/docs/[[...slug]]/page.tsx
+  s_47413092075879::t_374766f7a5d340 2-13
+apps/docs/src/app/[lang]/docs/[[...slug]]/page.tsx
+  s_47413092075879::t_143008ad8c2e91 22-23,25-29
+apps/docs/src/app/robots.ts
+  s_47413092075879::t_d4dcfd3f71c4e0 4-5
+apps/docs/src/app/sitemap.ts
+  s_47413092075879::t_9ee7a7acb8ebc6 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b7dfcab334d28b1dc68f185b5d7882809ab7b20",
+  "prompts": {},
+  "sessions": {
+    "s_47413092075879": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f775-99ec-75b2-968d-dcbe5abdd14a",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
