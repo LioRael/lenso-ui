@@ -1,0 +1,16 @@
+packages/docs/src/runtime.mjs
+  h_9d56aba080c170 344,440-444,448,469,473-475,481
+packages/docs/test/watch.test.mjs
+  h_9d56aba080c170 2-4,31-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c57021fa9fd2c65803952f97110fdaf2b0651340",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
