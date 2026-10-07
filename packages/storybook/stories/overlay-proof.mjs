@@ -326,6 +326,44 @@ try {
   const arrow = popup("popover").locator('[data-slot="popover-arrow"]');
   assert.equal(await arrow.count(), 1);
   await close("popover");
+  for (const theme of ["light", "dark"]) {
+    for (const family of ["tooltip", "popover"]) {
+      for (const side of ["top", "bottom", "left", "right"]) {
+        await mount(
+          family,
+          family === "tooltip" ? "Default" : "WithArrow",
+          theme,
+          `placement:${side}`,
+        );
+        await open(family);
+        const geometry = await popup(family).evaluate((node) => {
+          const arrow = node.querySelector('[data-slot$="-arrow"]');
+          const svg = arrow.querySelector("svg");
+          const box = arrow.getBoundingClientRect();
+          const icon = svg.getBoundingClientRect();
+          return {
+            side: node.getAttribute("data-side"),
+            lineHeight: getComputedStyle(node).lineHeight,
+            dx: box.x - icon.x,
+            dy: box.y - icon.y,
+            width: icon.width,
+            height: icon.height,
+            sameSurface: getComputedStyle(svg).fill === getComputedStyle(node).backgroundColor,
+          };
+        });
+        assert.equal(geometry.side, side);
+        assert.equal(geometry.lineHeight, family === "tooltip" ? "16px" : "20px");
+        assert(
+          Math.abs(geometry.dx) < 0.1 && Math.abs(geometry.dy) < 0.1,
+          `${family}: no SVG baseline gap`,
+        );
+        assert.equal(geometry.width, 12);
+        assert.equal(geometry.height, 12);
+        assert(geometry.sameSurface, `${family}: arrow fill joins the popup surface`);
+        await close(family);
+      }
+    }
+  }
   await mount("popover", "SpringAnimation");
   await open("popover");
   assert.equal(

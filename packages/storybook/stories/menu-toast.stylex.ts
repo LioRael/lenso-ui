@@ -137,6 +137,7 @@ export const menuToast = stylex.create({
     border: "none",
     backgroundColor: "transparent",
     opacity: 1,
+    pointerEvents: "auto",
   },
   modal: { maxWidth: 360 },
   modalIcon: { backgroundColor: "var(--default)", color: "var(--foreground)" },

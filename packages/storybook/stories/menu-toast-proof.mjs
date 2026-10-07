@@ -480,6 +480,105 @@ try {
       await page.getByRole("button", { name: action, exact: true }).click();
       await page.locator('[data-slot="toast"]').waitFor({ state: "hidden" });
     }
+    for (const placement of [
+      "bottom",
+      "bottom-start",
+      "bottom-end",
+      "top",
+      "top-start",
+      "top-end",
+    ]) {
+      await mount("toast", "Default", theme, `timeout:0;placement:${placement.replace("-", " ")}`);
+      for (const name of ["Default toast", "Success toast", "Danger toast"])
+        await page.getByRole("button", { name, exact: true }).click();
+      await page.mouse.move(10, 450);
+      await page.waitForTimeout(500);
+      const hiddenChildren = await page
+        .locator('[data-slot="toast"]:not([data-frontmost]) > :not([data-slot="toast-close"])')
+        .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).opacity));
+      assert(
+        hiddenChildren.every((opacity) => opacity === "0"),
+        "all collapsed rear content fades",
+      );
+      const front = page.locator('[data-slot="toast"][data-frontmost]');
+      await front.hover();
+      await page.waitForTimeout(500);
+      const geometry = await page.locator('[data-slot="toast"]').evaluateAll((nodes) =>
+        nodes.map((node) => {
+          const box = node.getBoundingClientRect();
+          return {
+            y: box.y,
+            height: box.height,
+            expanded: node.hasAttribute("data-expanded"),
+            inBounds: box.left >= 0 && box.right <= innerWidth,
+          };
+        }),
+      );
+      assert(geometry.every((item) => item.expanded && item.inBounds));
+      const ordered = geometry.toSorted((a, b) => a.y - b.y);
+      for (let index = 1; index < ordered.length; index++)
+        assert(
+          Math.abs(ordered[index].y - ordered[index - 1].y - ordered[index - 1].height - 12) < 1,
+          `${placement}: hover-expanded cards have the source 12px gap`,
+        );
+      const close = front.locator('[data-slot="toast-close"]');
+      assert.equal(await close.evaluate((node) => getComputedStyle(node).pointerEvents), "auto");
+      assert.equal(
+        await close.evaluate((node) => {
+          const probe = document.createElement("span");
+          probe.style.backgroundColor = "var(--overlay)";
+          node.append(probe);
+          const overlay = getComputedStyle(probe).backgroundColor;
+          probe.remove();
+          return getComputedStyle(node).backgroundColor === overlay;
+        }),
+        true,
+        "desktop close uses the overlay surface until the close itself is hovered",
+      );
+      const iconGeometry = await close.evaluate((node) => {
+        const button = node.getBoundingClientRect();
+        const icon = node.querySelector("svg").getBoundingClientRect();
+        return {
+          width: icon.width,
+          height: icon.height,
+          dx: icon.x + icon.width / 2 - button.x - button.width / 2,
+          dy: icon.y + icon.height / 2 - button.y - button.height / 2,
+        };
+      });
+      assert.equal(iconGeometry.width, 12);
+      assert.equal(iconGeometry.height, 12);
+      assert(
+        Math.abs(iconGeometry.dx) < 1 && Math.abs(iconGeometry.dy) < 1,
+        "close icon is centered",
+      );
+      // The hit-area bridge must keep expansion while crossing the visible gap.
+      const frontBox = await front.boundingBox();
+      await page.mouse.move(
+        frontBox.x + frontBox.width / 2,
+        placement.startsWith("top") ? frontBox.y + frontBox.height + 6 : frontBox.y - 6,
+      );
+      await page.waitForTimeout(100);
+      assert.equal(await page.locator('[data-slot="toast"][data-expanded]').count(), 3);
+      await front.hover();
+      const closingRoot = await front.elementHandle();
+      await close.click();
+      assert.equal(
+        await closingRoot.evaluate(
+          (node) => getComputedStyle(node.querySelector('[data-slot="toast-close"]')).pointerEvents,
+        ),
+        "none",
+        "an exiting close cannot remain interactive while hovered or focused",
+      );
+      await page.waitForTimeout(500);
+      assert.equal(await page.locator('[data-slot="toast"]').count(), 2);
+      await page.mouse.move(10, 450);
+      await page.waitForTimeout(500);
+      await page.keyboard.press("F6");
+      assert.equal(await page.locator('[data-slot="toast"][data-expanded]').count(), 2);
+    }
+    passed(
+      `${theme}: collapsed content, six hover placements, 12px gaps, close geometry, gap traversal and F6`,
+    );
     await mount("toast", "PromiseToast", theme);
     await enqueue("PromiseToast");
     await page.getByText("Uploading file...", { exact: true }).waitFor();
@@ -516,8 +615,10 @@ try {
     assert(
       positions
         .slice(1)
-        .every((item, index) => item.y >= positions[index].y + positions[index].height),
-      "permanently expanded stack does not overlap without hover/focus",
+        .every(
+          (item, index) => Math.abs(item.y - positions[index].y - positions[index].height - 12) < 1,
+        ),
+      "permanently expanded stack retains source 12px gaps without hover/focus",
     );
     await mount("toast", "CustomQueue", theme, "timeout:0");
     for (let i = 0; i < 4; i++)
@@ -636,6 +737,13 @@ try {
     true,
   );
   assert.equal(await page.getByRole("button", { name: "Dismiss", exact: true }).count(), 1);
+  assert.equal(
+    await page
+      .locator('[data-slot="toast-close"] svg')
+      .evaluate((node) => node.getBoundingClientRect().width),
+    14,
+    "source mobile close icon size",
+  );
   const mobileAction = await page
     .getByRole("button", { name: "Dismiss", exact: true })
     .boundingBox();

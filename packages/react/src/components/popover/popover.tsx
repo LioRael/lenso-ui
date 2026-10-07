@@ -3,6 +3,7 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Popover as Base } from "@base-ui/react/popover";
+import { useDirection } from "@base-ui/react/direction-provider";
 import { popoverStyles as s } from "@lenso/tokens/popover";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
@@ -39,6 +40,7 @@ export function PopoverPortal({
   );
 }
 export function PopoverPositioner({
+  sideOffset = 8,
   xstyle,
   style,
   ...props
@@ -47,6 +49,7 @@ export function PopoverPositioner({
   const compiled = stylex.props(s.positioner, xstyle);
   return (
     <Base.Positioner
+      sideOffset={sideOffset}
       {...props}
       {...compiled}
       style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
@@ -60,12 +63,14 @@ export function PopoverPopup({
   ...props
 }: StyleXProps<Omit<Base.Popup.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref">) {
+  const direction = useDirection();
   const compiled = stylex.props(s.popup, xstyle);
   return (
     <Base.Popup
       {...props}
       {...compiled}
       style={mergeStyle<Base.Popup.State>(compiled.style, style)}
+      data-direction={direction}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-popup"}
     />
   );
@@ -141,12 +146,14 @@ export function PopoverArrow({
   ...props
 }: StyleXProps<Omit<Base.Arrow.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, "ref">) {
+  const direction = useDirection();
   const compiled = stylex.props(s.arrow, xstyle);
   return (
     <Base.Arrow
       {...props}
       {...compiled}
       style={mergeStyle<Base.Arrow.State>(compiled.style, style)}
+      data-direction={direction}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-arrow"}
     >
       {children ?? (

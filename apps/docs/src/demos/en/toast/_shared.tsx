@@ -3,7 +3,7 @@
 // Adapted from HeroUI v3.2.6 toast examples, Apache-2.0.
 import type { ComponentProps, ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Button, CloseIcon, Toast } from "@lenso/ui";
+import { Button, Toast } from "@lenso/ui";
 
 export type ToastData = {
   indicator?: ReactNode;
@@ -134,6 +134,7 @@ export const styles = stylex.create({
     borderWidth: 0,
     backgroundColor: "transparent",
     opacity: 1,
+    pointerEvents: "auto",
   },
   customCloseIcon: { width: 16, height: 16 },
   styledRoot: {
@@ -188,9 +189,7 @@ export function Notifications({
                 }
               />
             )}
-            <Toast.Close aria-label="Close notification">
-              <CloseIcon {...stylex.props(styles.checkIcon)} />
-            </Toast.Close>
+            <Toast.Close aria-label="Close notification" />
           </Toast>
         ))}
       </Toast.Viewport>

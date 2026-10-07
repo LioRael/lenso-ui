@@ -3,6 +3,7 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Tooltip as Base } from "@base-ui/react/tooltip";
+import { useDirection } from "@base-ui/react/direction-provider";
 import { tooltipStyles as s } from "@lenso/tokens/tooltip";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
@@ -10,6 +11,9 @@ import { useThemePortalContainer } from "../../utils/theme-scope.js";
 export function TooltipRoot<Payload = unknown>(props: Base.Root.Props<Payload>) {
   return <Base.Root {...props} />;
 }
+const ArrowPresenceContext = React.createContext<React.Dispatch<
+  React.SetStateAction<boolean>
+> | null>(null);
 const TimingContext = React.createContext<Pick<Base.Provider.Props, "delay" | "closeDelay">>({});
 export function TooltipProvider({ delay, closeDelay, ...props }: Base.Provider.Props) {
   const inherited = React.useContext(TimingContext);
@@ -94,21 +98,25 @@ export function TooltipPortal({
   );
 }
 export function TooltipPositioner({
+  sideOffset,
   xstyle,
   style,
   ...props
 }: StyleXProps<Omit<Base.Positioner.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Positioner>, "ref">) {
+  const [hasArrow, setHasArrow] = React.useState(false);
   const compiled = stylex.props(s.positioner, xstyle);
   return (
-    <Base.Positioner
-      side="top"
-      sideOffset={3}
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-positioner"}
-    />
+    <ArrowPresenceContext.Provider value={setHasArrow}>
+      <Base.Positioner
+        side="top"
+        sideOffset={sideOffset ?? (hasArrow ? 7 : 3)}
+        {...props}
+        {...compiled}
+        style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-positioner"}
+      />
+    </ArrowPresenceContext.Provider>
   );
 }
 export function TooltipPopup({
@@ -117,6 +125,7 @@ export function TooltipPopup({
   ...props
 }: StyleXProps<Omit<Base.Popup.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref">) {
+  const direction = useDirection();
   const compiled = stylex.props(s.popup, xstyle);
   return (
     <Base.Popup
@@ -124,6 +133,7 @@ export function TooltipPopup({
       {...props}
       {...compiled}
       style={mergeStyle<Base.Popup.State>(compiled.style, style)}
+      data-direction={direction}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-popup"}
     />
   );
@@ -135,12 +145,20 @@ export function TooltipArrow({
   ...props
 }: StyleXProps<Omit<Base.Arrow.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, "ref">) {
+  const direction = useDirection();
+  const setHasArrow = React.useContext(ArrowPresenceContext);
+  // Registration also covers arrows inside custom components or conditional popup content.
+  React.useLayoutEffect(() => {
+    setHasArrow?.(true);
+    return () => setHasArrow?.(false);
+  }, [setHasArrow]);
   const compiled = stylex.props(s.arrow, xstyle);
   return (
     <Base.Arrow
       {...props}
       {...compiled}
       style={mergeStyle<Base.Arrow.State>(compiled.style, style)}
+      data-direction={direction}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-arrow"}
     >
       {children ?? (

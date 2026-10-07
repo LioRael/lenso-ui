@@ -13,7 +13,7 @@ export const toastStyles = stylex.create({
     pointerEvents: "none",
     width: {
       default: "calc(100vw - 32px)",
-      "@media (min-width: 640px)": "var(--toast-width, 356px)",
+      "@media (min-width: 640px)": "var(--toast-width, 460px)",
     },
     outline: "none",
     outlineWidth: { default: 0, ":focus-visible": 2 },
@@ -57,9 +57,17 @@ export const toastStyles = stylex.create({
     },
     "--toast-close-opacity": {
       default: 0,
-      ":hover:is([data-frontmost],[data-expanded],[data-layout-expanded])": 1,
-      ":focus-within": 1,
+      ":hover:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])": 1,
+      ":focus-within:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])": 1,
       ":is([data-ending-style],[data-limited])": 0,
+    },
+    "--toast-close-pointer-events": {
+      default: "none",
+      ":hover:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])":
+        "auto",
+      ":focus-within:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])":
+        "auto",
+      ":is([data-ending-style],[data-limited])": "none",
     },
     height: {
       default: "var(--toast-height, auto)",
@@ -78,12 +86,12 @@ export const toastStyles = stylex.create({
       default:
         "translate(var(--toast-swipe-movement-x, 0px), calc(var(--toast-swipe-movement-y, 0px) + var(--toast-direction) * var(--toast-index) * 12px)) scale(calc(1 - var(--toast-index) * .05))",
       ":is([data-expanded],[data-layout-expanded])":
-        "translate(var(--toast-swipe-movement-x, 0px), calc(var(--toast-swipe-movement-y, 0px) + var(--toast-direction) * var(--toast-offset-y)))",
+        "translate(var(--toast-swipe-movement-x, 0px), calc(var(--toast-swipe-movement-y, 0px) + var(--toast-direction) * (var(--toast-offset-y) + var(--toast-index) * 12px)))",
       ":is([data-starting-style])": "translateY(calc(var(--toast-direction) * -100%))",
       ":is([data-ending-style])[data-frontmost]":
         "translateY(calc(var(--toast-direction) * -100%))",
       ":is([data-ending-style]):not([data-frontmost])":
-        "translateY(calc(var(--toast-direction) * var(--toast-offset-y))) scale(.96)",
+        "translateY(calc(var(--toast-direction) * (var(--toast-offset-y) + var(--toast-index) * 12px))) scale(.96)",
       ':is([data-ending-style])[data-swipe-direction="right"]': "translateX(calc(100% + 32px))",
       ':is([data-ending-style])[data-swipe-direction="left"]': "translateX(calc(-100% - 32px))",
       ':is([data-ending-style])[data-swipe-direction="up"]': "translateY(calc(-100% - 32px))",
@@ -109,6 +117,13 @@ export const toastStyles = stylex.create({
       bottom: { default: 0, ':is([data-placement^="top"])': -13 },
     },
   },
+  fading: {
+    opacity: "var(--toast-content-opacity, 1)",
+    transition: {
+      default: "opacity 200ms var(--ease-out-fluid)",
+      "@media (prefers-reduced-motion: reduce)": "none",
+    },
+  },
   content: {
     display: "flex",
     flexDirection: "column",
@@ -116,11 +131,6 @@ export const toastStyles = stylex.create({
     minWidth: 0,
     alignItems: "flex-start",
     alignSelf: "center",
-    opacity: "var(--toast-content-opacity, 1)",
-    transition: {
-      default: "opacity 200ms var(--ease-out-fluid)",
-      "@media (prefers-reduced-motion: reduce)": "none",
-    },
   },
   title: {
     fontSize: 14,
@@ -129,14 +139,15 @@ export const toastStyles = stylex.create({
     margin: 0,
     color: "var(--toast-title-color, var(--overlay-foreground))",
   },
-  description: { fontSize: 14, color: tokens.muted, margin: 0 },
+  description: { fontSize: 14, lineHeight: "20px", color: tokens.muted, margin: 0 },
   indicator: {
     display: "flex",
     flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
     padding: 4,
     userSelect: "none",
     color: "var(--toast-indicator-color, var(--overlay-foreground))",
-    opacity: "var(--toast-content-opacity, 1)",
     animationName: {
       default: "none",
       ':is([data-swapped="true"])': settledIndicator,
@@ -146,23 +157,35 @@ export const toastStyles = stylex.create({
     animationTimingFunction: tokens.easeOutFluid,
   },
   close: {
+    boxSizing: "border-box",
     position: "absolute",
     insetInlineEnd: -4,
     top: -4,
     width: 20,
     height: 20,
     cursor: tokens.cursorInteractive,
-    borderRadius: tokens.radiusLg,
-    backgroundColor: { default: tokens.default, "@media (min-width: 640px)": tokens.overlay },
-    color: tokens.defaultForeground,
+    backgroundColor: {
+      default: tokens.default,
+      "@media (min-width: 640px)": {
+        default: tokens.overlay,
+        "@media (hover: hover)": { default: tokens.overlay, ":hover": tokens.default },
+      },
+    },
     borderWidth: { default: 0, "@media (min-width: 640px)": 1 },
     borderStyle: "solid",
     borderColor: tokens.border,
     opacity: "var(--toast-close-opacity, 0)",
+    pointerEvents: "var(--toast-close-pointer-events, none)",
     transition: {
       default: "opacity 150ms var(--ease-smooth)",
       "@media (prefers-reduced-motion: reduce)": "none",
     },
+  },
+  closeIcon: {
+    flexShrink: 0,
+    pointerEvents: "none",
+    width: { default: 14, "@media (min-width: 640px)": 12 },
+    height: { default: 14, "@media (min-width: 640px)": 12 },
   },
   action: {
     marginTop: { default: 8, "@media (min-width: 640px)": 0 },

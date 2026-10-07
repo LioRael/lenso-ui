@@ -25,6 +25,7 @@ export const tooltipStyles = stylex.create({
     maxWidth: 320,
     wordBreak: "break-all",
     fontSize: 12,
+    lineHeight: "16px",
     transformOrigin: "var(--transform-origin)",
     opacity: { default: 1, ":is([data-starting-style],[data-ending-style])": 0 },
     transform: {
@@ -36,8 +37,10 @@ export const tooltipStyles = stylex.create({
       default: "0 0",
       ':is([data-starting-style])[data-side="top"]': "0 4px",
       ':is([data-starting-style])[data-side="bottom"]': "0 -4px",
-      ':is([data-starting-style])[data-side="left"]': "4px 0",
-      ':is([data-starting-style])[data-side="right"]': "-4px 0",
+      ':is([data-starting-style]):is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
+        "4px 0",
+      ':is([data-starting-style]):is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
+        "-4px 0",
     },
     pointerEvents: { default: "auto", ":is([data-ending-style])": "none" },
     transitionProperty: "opacity, transform, translate",
@@ -49,22 +52,34 @@ export const tooltipStyles = stylex.create({
     },
   },
   arrow: {
+    display: "flex",
     width: 12,
     height: 12,
     fill: tokens.overlay,
     stroke: "color-mix(in oklab, var(--border) 40%, transparent)",
     bottom: {
       default: -12,
-      ':is([data-side="bottom"],[data-side="left"],[data-side="right"])': "auto",
+      ':is([data-side="bottom"],[data-side="left"],[data-side="right"],[data-side="inline-start"],[data-side="inline-end"])':
+        "auto",
     },
     top: { default: "auto", ':is([data-side="bottom"])': -12 },
-    right: { default: "auto", ':is([data-side="left"])': -12 },
-    left: { default: "auto", ':is([data-side="right"])': -12 },
+    right: {
+      default: "auto",
+      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
+        -12,
+    },
+    left: {
+      default: "auto",
+      ':is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
+        -12,
+    },
     rotate: {
       default: "0deg",
       ':is([data-side="bottom"])': "180deg",
-      ':is([data-side="left"])': "-90deg",
-      ':is([data-side="right"])': "90deg",
+      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
+        "-90deg",
+      ':is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
+        "90deg",
     },
   },
 });

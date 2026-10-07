@@ -36,6 +36,11 @@ for (const alwaysExpanded of [false, true]) {
 
     const roots = () => [...document.querySelectorAll<HTMLElement>('[data-slot="toast"]')];
     await expect
+      .poll(
+        () => document.querySelector('[data-slot="toast-viewport"]')!.getBoundingClientRect().width,
+      )
+      .toBe(460);
+    await expect
       .poll(() => roots().every((root) => !root.hasAttribute("data-expanded")))
       .toBe(true);
 
@@ -55,7 +60,8 @@ for (const alwaysExpanded of [false, true]) {
             .sort((a, b) => a.top - b.top);
           return bounds.every(
             (bound, index) =>
-              bound.height > 0 && (index === 0 || bounds[index - 1]!.bottom <= bound.top),
+              bound.height > 0 &&
+              (index === 0 || Math.abs(bound.top - bounds[index - 1]!.bottom - 12) < 1),
           );
         })
         .toBe(true);
@@ -72,6 +78,16 @@ for (const alwaysExpanded of [false, true]) {
 
     await userEvent.hover(page.getByText("Third message", { exact: true }));
     await expect.poll(() => roots().every((root) => root.hasAttribute("data-expanded"))).toBe(true);
+    await expect
+      .poll(() => {
+        const bounds = roots()
+          .map((root) => root.getBoundingClientRect())
+          .sort((a, b) => a.top - b.top);
+        return bounds.every(
+          (bound, index) => index === 0 || Math.abs(bound.top - bounds[index - 1]!.bottom - 12) < 1,
+        );
+      })
+      .toBe(true);
     await userEvent.hover(page.getByRole("button", { name: "Outside notifications" }));
     await expect
       .poll(() => roots().every((root) => !root.hasAttribute("data-expanded")))

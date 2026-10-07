@@ -4,9 +4,10 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Toast as Base } from "@base-ui/react/toast";
 import { toastStyles as s } from "@lenso/tokens/toast";
+import { closeButtonStyles } from "@lenso/tokens/close-button";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useThemePortalContainer } from "../../utils/theme-scope.js";
-import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from "../../icons/index.js";
+import { CloseIcon, DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from "../../icons/index.js";
 import { Spinner } from "../spinner/spinner.js";
 
 export const ToastProvider = Base.Provider;
@@ -112,7 +113,7 @@ export function ToastContent({
   ...props
 }: StyleXProps<Omit<Base.Content.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Content>, "ref">) {
-  const compiled = stylex.props(s.content, xstyle);
+  const compiled = stylex.props(s.fading, s.content, xstyle);
   return (
     <Base.Content
       {...props}
@@ -155,19 +156,23 @@ export function ToastDescription({
   );
 }
 export function ToastClose({
+  children,
   xstyle,
   style,
   ...props
 }: StyleXProps<Omit<Base.Close.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref">) {
-  const compiled = stylex.props(s.close, xstyle);
+  const compiled = stylex.props(closeButtonStyles.root, s.close, xstyle);
   return (
     <Base.Close
+      aria-label="Close"
       {...props}
       {...compiled}
       style={mergeStyle<Base.Close.State>(compiled.style, style)}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-close"}
-    />
+    >
+      {children ?? <CloseIcon {...stylex.props(s.closeIcon)} data-slot="close-button-icon" />}
+    </Base.Close>
   );
 }
 export function ToastAction({
@@ -176,7 +181,7 @@ export function ToastAction({
   ...props
 }: StyleXProps<Omit<Base.Action.Props, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof Base.Action>, "ref">) {
-  const compiled = stylex.props(s.action, xstyle);
+  const compiled = stylex.props(s.fading, s.action, xstyle);
   return (
     <Base.Action
       {...props}
@@ -219,7 +224,7 @@ export function ToastIndicator({
       setSwapped(true);
     }
   }, [kind]);
-  const compiled = stylex.props(s.indicator, xstyle);
+  const compiled = stylex.props(s.fading, s.indicator, xstyle);
   return (
     <span
       aria-hidden="true"
