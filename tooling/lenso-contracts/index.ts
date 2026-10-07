@@ -8,6 +8,7 @@ import type {
   Doc,
   DocMetadata,
   DocsIndex,
+  DocsIndexPage,
   EncodedDoc,
   EncodedExample,
   EncodedSource,
@@ -543,7 +544,11 @@ function validateApi(api: ApiReference) {
 }
 
 function validateDocShape(
-  doc: DocMetadata & { navigationGroup?: string; navigationOrder?: number },
+  doc: DocMetadata &
+    Pick<
+      DocsIndexPage,
+      "navigationGroup" | "navigationOrder" | "componentCategory" | "componentThumbnail"
+    >,
   label: string,
   { indexPage = false, encoded = false } = {},
 ) {
