@@ -341,6 +341,7 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
   let baseline;
   let timer;
   let busy = false;
+  let pending = false;
   let closed = false;
   const watchers = [];
   const contained = (relative) =>
@@ -436,10 +437,15 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
     }
   };
   const schedule = () => {
-    if (closed || busy) return;
+    if (closed) return;
+    if (busy) {
+      pending = true;
+      return;
+    }
     clearTimeout(timer);
     timer = setTimeout(async () => {
       busy = true;
+      pending = false;
       try {
         const before = await snapshot();
         if (closed || before === baseline) return;
@@ -460,14 +466,19 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
       } catch (error) {
         onError(error);
       } finally {
+        let changed = false;
         if (!closed) {
           try {
             await install();
+            // Subscription replacement has an observation gap. Compare after
+            // subscribing so a write in that gap cannot disappear.
+            changed = (await snapshot()) !== baseline;
           } catch (error) {
             onError(error);
           }
         }
         busy = false;
+        if (changed || pending) schedule();
       }
     }, 150);
   };

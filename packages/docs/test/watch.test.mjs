@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import fs from "node:fs";
+import { mkdtemp, mkdir, readFile, realpath, rm, writeFile } from "node:fs/promises";
+import { syncBuiltinESMExports } from "node:module";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -26,6 +28,47 @@ async function eventually(predicate) {
 }
 
 // Runtime preparation tests do not observe fs.watch recovery or edits during a hook.
+test("an edit while watcher subscriptions are replaced is not lost", async (t) => {
+  const { root, write } = await fixture(t);
+  const canonicalRoot = await realpath(root);
+  await write("routes/home.tsx", "initial");
+  const original = fs.promises.lstat;
+  const originalWatch = fs.watch;
+  let armed = false;
+  let dropEvents = false;
+  let inspections = 0;
+  let latest;
+  fs.watch = (file, options, listener) =>
+    originalWatch(file, options, (event, name) => {
+      // macOS may replay events to a new subscription. Model systems where
+      // changes made without a subscription have no later notification.
+      if (!dropEvents) listener(event, name);
+    });
+  fs.promises.lstat = async (...args) => {
+    // After generation, two snapshots precede subscription replacement.
+    // Inject a real input write into that unobserved filesystem interval.
+    if (armed && String(args[0]) === path.join(canonicalRoot, "routes") && ++inspections === 3) {
+      armed = false;
+      dropEvents = true;
+      await write("routes/home.tsx", "edit during subscription replacement");
+    }
+    return original(...args);
+  };
+  syncBuiltinESMExports();
+  t.after(() => {
+    fs.promises.lstat = original;
+    fs.watch = originalWatch;
+    syncBuiltinESMExports();
+  });
+  const close = await watchInputs(root, ["routes/home.tsx"], async () => {
+    latest = await readFile(path.join(root, "routes/home.tsx"), "utf8");
+    if (latest === "first edit") armed = true;
+  });
+  t.after(close);
+  await write("routes/home.tsx", "first edit");
+  await eventually(() => latest === "edit during subscription replacement");
+});
+
 test("a failed prepare keeps nested file and missing ancestor recovery live", async (t) => {
   const { root, write } = await fixture(t);
   await write("routes/nested/home.tsx", "first");
