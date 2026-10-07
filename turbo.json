@@ -17,6 +17,23 @@
       "dependsOn": ["^build"],
       "outputs": []
     },
+    "@lenso/docs-starter#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["out/**"]
+    },
+    "@lenso/docs#build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/third-party/heroui/**",
+        "$TURBO_ROOT$/pnpm-lock.yaml"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "@lenso/docs#typecheck": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
     "@lenso/ui-docs#generate:api": {
       "dependsOn": ["^build"],
       "inputs": [
@@ -39,7 +56,9 @@
       "inputs": [
         "scripts/generate-docs.ts",
         "scripts/generate-live-registry.ts",
+        "scripts/generate-page-documents.ts",
         "scripts/docs-projection.mjs",
+        "src/lib/demo-locale.ts",
         "src/lib/native-api-section.ts",
         "src/lib/api-property-groups.ts",
         "content/source-index.json",
@@ -56,6 +75,7 @@
         "src/demos/generated.ts",
         "src/demos/live-manifest.json",
         "src/generated/lenso-docs-index.json",
+        "src/generated/documents/**",
         "content/lenso/*/react/components/**",
         ".cache/content.json"
       ]
@@ -115,7 +135,7 @@
         "!public/coverage.json",
         "!.cache/**"
       ],
-      "outputs": [".next/types/**"]
+      "outputs": []
     },
     "@lenso/ui-docs#build": {
       "dependsOn": ["^build", "typecheck", "generate"],
@@ -130,7 +150,7 @@
         "!.cache/**"
       ],
       "env": ["LENSO_DOCS_SITE", "API_REFERENCE_DEPENDENCY_ROOT"],
-      "outputs": [".next/**", "!.next/cache/**", "out/**"]
+      "outputs": ["out/**"]
     },
     "@lenso/ui-docs#test": {
       "dependsOn": ["^build", "generate"],

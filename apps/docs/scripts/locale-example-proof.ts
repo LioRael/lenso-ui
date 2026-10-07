@@ -39,7 +39,9 @@ assert.ok(scenarios.length, "No requested locale-proof scenarios exist");
 const report = {
   completeUpstreamRuntimeParity: false,
   scope: scenarios,
-  localBuildId: (await readFile(new URL("../.next/BUILD_ID", import.meta.url), "utf8")).trim(),
+  localBuildId: JSON.parse(
+    await readFile(new URL("../out/_lenso/build.json", import.meta.url), "utf8"),
+  ).buildId,
   manifestSha256: createHash("sha256").update(JSON.stringify(manifest)).digest("hex"),
   cases: [] as {
     locale: string;

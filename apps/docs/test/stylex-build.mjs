@@ -8,6 +8,7 @@ import * as stylex from "@stylexjs/stylex";
 import { buttonStyles, buttonSizes } from "@lenso/tokens/button";
 import { spinnerStyles } from "@lenso/tokens/spinner";
 import { breadcrumbsStyles } from "@lenso/tokens/breadcrumbs";
+import { prose as presentationProse, styles as presentationDocs } from "@lenso/docs/presentation";
 
 // Cached transforms used to lose server-only CSS. Independently processed library
 // CSS also hid union-order errors; inspect delivered CSS and computed styles together.
@@ -25,7 +26,7 @@ const base = process.env.LENSO_DOCS_TEST_URL ?? "http://127.0.0.1:3000";
 const report = {};
 
 const sourceHashes = [];
-for (const directory of ["src", "../../packages/styles/src"]) {
+for (const directory of ["src", "../../packages/styles/src", "../../packages/docs/presentation"]) {
   for (const file of (await readdir(resolve(root, directory), { recursive: true })).sort()) {
     if (!/\.[jt]sx?$/.test(file) || file.endsWith(".d.ts")) continue;
     sourceHashes.push([
@@ -60,9 +61,11 @@ async function compiled(relative, name) {
   return Function(`${code}; return ${name};`)();
 }
 
-const prose = await compiled("src/styles/prose.stylex.ts", "prose");
+const prose = await compiled("../../packages/docs/presentation/styles/prose.stylex.ts", "prose");
 const api = await compiled("src/styles/api-reference.stylex.ts", "styles");
-const docs = await compiled("src/styles/docs.stylex.ts", "styles");
+const docs = await compiled("../../packages/docs/presentation/styles/docs.stylex.ts", "styles");
+assert.deepEqual(prose, presentationProse);
+assert.deepEqual(docs, presentationDocs);
 assert.deepEqual(
   await compiled("../../packages/styles/src/components/button/button.styles.ts", "buttonStyles"),
   buttonStyles,
@@ -185,10 +188,6 @@ try {
     assert.equal(samples.scrollTabIndex, 0);
     assert.notEqual(samples.head.background, "rgba(0, 0, 0, 0)");
     assert.ok(samples.font.includes("Lenso Inter"));
-    assert.equal(
-      await page.locator('link[rel=preload][as=font][href="/fonts/Inter-Variable.ttf"]').count(),
-      1,
-    );
     report.routes.push({ route, samples });
     await page.close();
   }
@@ -197,13 +196,36 @@ try {
   await page.goto(`${base}/en/docs/react/components/button`, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
   assert.ok(await page.evaluate(() => document.fonts.check('500 14px "Lenso Inter"')));
-  const fontResponse = await page.request.get(`${base}/fonts/Inter-Variable.ttf`);
-  assert.equal(
-    createHash("sha256")
-      .update(await fontResponse.body())
-      .digest("hex"),
-    "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
-  );
+  const fontUrl = await page.evaluate(() => {
+    for (const sheet of document.styleSheets) {
+      let rules;
+      try {
+        rules = sheet.cssRules;
+      } catch {
+        continue;
+      }
+      for (const rule of rules) {
+        if (
+          rule instanceof CSSFontFaceRule &&
+          rule.style.getPropertyValue("font-family").includes("Lenso Inter")
+        ) {
+          const source = rule.style.getPropertyValue("src");
+          const match = source.match(/url\(["']?([^"')]+)["']?\)/);
+          if (match) return new URL(match[1], sheet.href ?? document.baseURI).href;
+        }
+      }
+    }
+    return null;
+  });
+  assert.ok(fontUrl, "Delivered stylesheet must declare the Lenso Inter font source");
+  assert.equal(new URL(fontUrl).origin, new URL(base).origin);
+  const fontResponse = await page.request.get(fontUrl);
+  assert.equal(fontResponse.status(), 200);
+  const fontSha256 = createHash("sha256")
+    .update(await fontResponse.body())
+    .digest("hex");
+  assert.equal(fontSha256, "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031");
+  report.font = { url: new URL(fontUrl).pathname, sha256: fontSha256, loaded: true };
 
   report.union = await page.evaluate(
     (maps) => {

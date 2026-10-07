@@ -22,9 +22,12 @@ export function findDemoExport(code: string, filename: string, preferred?: strin
   );
   const candidates: string[] = [];
   const bindings = new Map<string, ts.Node>();
+  const isAmbient = (node: ts.Node): boolean =>
+    ts.canHaveModifiers(node) &&
+    !!ts.getModifiers(node)?.some((modifier) => modifier.kind === ts.SyntaxKind.DeclareKeyword);
   const callable = (node: ts.Node | undefined): boolean =>
     !!node &&
-    (ts.isFunctionDeclaration(node) ||
+    ((ts.isFunctionDeclaration(node) && !!node.body && !isAmbient(node)) ||
       ts.isClassDeclaration(node) ||
       ts.isFunctionExpression(node) ||
       ts.isArrowFunction(node) ||
@@ -67,7 +70,10 @@ export function findDemoExport(code: string, filename: string, preferred?: strin
       const isDefault = ts
         .getModifiers(statement)
         ?.some((modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword);
-      if (ts.isFunctionDeclaration(statement) || ts.isClassDeclaration(statement)) {
+      if (
+        (ts.isFunctionDeclaration(statement) && callable(statement)) ||
+        ts.isClassDeclaration(statement)
+      ) {
         if (isDefault) candidates.push("default");
         else if (statement.name) candidates.push(statement.name.text);
       } else if (ts.isVariableStatement(statement))

@@ -1,1 +1,0 @@
-export { demos } from "./generated";

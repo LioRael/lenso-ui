@@ -1,0 +1,58 @@
+"use client";
+
+import { useState, type ReactNode } from "react";
+import { Button } from "@base-ui/react/button";
+import { Menu } from "@base-ui/react/menu";
+import { Check, ChevronDown, Copy } from "@gravity-ui/icons";
+import * as stylex from "@stylexjs/stylex";
+import { notebook } from "../dist/presentation.js";
+
+export function DocumentationPageActions({
+  markdown,
+  markdownUrl,
+}: {
+  markdown: string;
+  markdownUrl: string;
+}): ReactNode {
+  const [status, setStatus] = useState("");
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(markdown);
+      setStatus("Markdown copied");
+    } catch {
+      setStatus("Clipboard unavailable. Select the page text to copy it.");
+    }
+  };
+  return (
+    <>
+      <div {...stylex.props(notebook.pageActionGroup)}>
+        <Button onClick={copy} {...stylex.props(notebook.pageAction, notebook.pageActionMain)}>
+          {status === "Markdown copied" ? (
+            <Check width={16} height={16} aria-hidden="true" />
+          ) : (
+            <Copy width={16} height={16} aria-hidden="true" />
+          )}
+          Copy Markdown
+        </Button>
+        <Menu.Root>
+          <Menu.Trigger aria-label="Page source options" {...stylex.props(notebook.pageActionMenu)}>
+            <ChevronDown width={14} height={14} aria-hidden="true" />
+          </Menu.Trigger>
+          <Menu.Portal>
+            <Menu.Positioner sideOffset={8} align="end">
+              <Menu.Popup {...stylex.props(notebook.menu)}>
+                <Menu.Item onClick={copy} {...stylex.props(notebook.menuItem)}>
+                  Copy Markdown
+                </Menu.Item>
+                <Menu.LinkItem href={markdownUrl} {...stylex.props(notebook.menuItem)}>
+                  View page source
+                </Menu.LinkItem>
+              </Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.Root>
+      </div>
+      <output {...stylex.props(notebook.hidden)}>{status}</output>
+    </>
+  );
+}

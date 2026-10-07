@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { createDocumentationSource } from "@lenso/docs/source";
 import { docsDirectory } from "./docs-directory.mjs";
 import authoredIndex from "../generated/lenso-docs-index.json";
 import reference from "../generated/api-reference.json";
@@ -66,9 +67,32 @@ export function canonicalSlug(slug: string) {
     ? `react/components/${docsIndex.sourceFamilyMapping[match[1]!]!}`
     : slug;
 }
-export const getPage = (locale: Locale, slug: string) =>
-  source.pages.find((page) => page.locale === locale && page.slug === canonicalSlug(slug));
-export const readPage = (page: DocPage) => readFile(path.join(docsRoot, page.markdownFile), "utf8");
+export function readPage(page: DocPage) {
+  return readFile(path.join(docsRoot, page.markdownFile), "utf8");
+}
+
+export const documentationSource = createDocumentationSource({
+  locales: [
+    { code: "en", label: "English", language: "en" },
+    { code: "cn", label: "中文", language: "zh-CN" },
+  ],
+  pages: source.pages.map((page) => ({
+    ...page,
+    url: pageUrl(page),
+    kind: page.slug.startsWith("react/components/") ? ("component" as const) : ("docs" as const),
+    collection: /^react\/(?:getting-started|tools)(?:\/|$)/.test(page.slug)
+      ? "getting-started"
+      : (page.slug.split("/")[1] ?? "getting-started"),
+    navigation: {
+      order: page.navigationOrder ?? 0,
+      ...(page.navigationGroup ? { group: page.navigationGroup } : {}),
+    },
+  })),
+  readPage,
+  canonicalSlug,
+});
+
+export const getPage = (locale: Locale, slug: string) => documentationSource.getPage(locale, slug);
 
 export type DocSection = Pick<DocPage, "locale" | "slug" | "title"> & { href: string };
 export function getSectionEntries(locale: Locale): DocSection[] {
@@ -94,24 +118,11 @@ export async function getExample(name: string, locale: Locale) {
 }
 
 export async function getNavigation(locale: Locale, section: string) {
-  const guides = section === "getting-started" || section === "tools";
-  const pages = source.pages
-    .filter(
-      (page) =>
-        page.locale === locale &&
-        (guides
-          ? /^react\/(?:getting-started|tools)(?:\/|$)/.test(page.slug)
-          : page.slug === `react/${section}` || page.slug.startsWith(`react/${section}/`)),
-    )
-    .sort((a, b) => (a.navigationOrder ?? 0) - (b.navigationOrder ?? 0));
-  const entries: { label: string; href?: string; description?: string }[] = [];
-  let group: string | undefined;
-  for (const page of pages) {
-    if (page.navigationGroup && page.navigationGroup !== group) {
-      group = page.navigationGroup;
-      entries.push({ label: group });
-    }
-    entries.push({ label: page.title, href: pageUrl(page), description: page.description });
-  }
-  return entries;
+  return documentationSource
+    .getNavigation(locale, section === "tools" ? "getting-started" : section)
+    .map(({ title, url, description }) => ({
+      label: title,
+      ...(url ? { href: url } : {}),
+      ...(description !== undefined ? { description } : {}),
+    }));
 }

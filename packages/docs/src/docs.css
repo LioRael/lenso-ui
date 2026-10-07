@@ -1,0 +1,51 @@
+@import "@lenso/tokens/theme.css";
+@import "./font.css";
+
+:root,
+.dark {
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-primary: var(--foreground);
+  --color-fd-primary-foreground: var(--background);
+  --color-fd-card: var(--surface);
+  --color-fd-card-foreground: var(--foreground);
+  --color-fd-popover: var(--overlay);
+  --color-fd-popover-foreground: var(--foreground);
+  --color-fd-secondary: var(--default);
+  --color-fd-secondary-foreground: var(--foreground);
+  --color-fd-muted: var(--surface-secondary);
+  --color-fd-muted-foreground: var(--muted);
+  --color-fd-accent: var(--default);
+  --color-fd-accent-foreground: var(--foreground);
+  --color-fd-border: var(--separator);
+  --color-fd-ring: var(--focus);
+}
+
+.lenso-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lenso-not-found {
+  max-width: 680px;
+  padding: 48px 24px;
+  margin: 0 auto;
+}
+
+[data-docs-search] > :last-child > div {
+  flex-shrink: 0;
+  min-height: 0;
+  max-height: min(460px, calc(100dvh - 85px));
+  overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+}

@@ -11,7 +11,9 @@ const { values } = parseArgs({ options: { stage: { type: "string", default: "bef
 const base = process.env.LENSO_DOCS_TEST_URL ?? "http://127.0.0.1:39147";
 const output = path.join(root, "test-results/lenso-docs-projection", values.stage);
 await mkdir(output, { recursive: true });
-const buildId = (await readFile(path.join(docs, ".next/BUILD_ID"), "utf8")).trim();
+const buildId = JSON.parse(
+  await readFile(path.join(docs, "out/_lenso/build.json"), "utf8"),
+).buildId;
 const index = JSON.parse(
   await readFile(path.join(docs, "src/generated/lenso-docs-index.json"), "utf8"),
 );

@@ -25,6 +25,36 @@ try {
             (value) => document.documentElement.classList.contains(value),
             theme,
           );
+          const references = page.getByRole("navigation", { name: "Component references" });
+          assert.equal(await references.count(), 1);
+          for (const label of ["Source", "Styles"]) {
+            const link = references.getByRole("link", { name: label, exact: true });
+            assert.match(
+              await link.getAttribute("href"),
+              /^https:\/\/github\.com\/.+\/blob\/main\//,
+            );
+          }
+          assert.equal(
+            await references
+              .getByRole("link", {
+                name: family === "button" ? "Base UI" : "React Aria",
+                exact: true,
+              })
+              .count(),
+            1,
+          );
+          assert.ok(
+            await references.evaluate((element) => {
+              const article = document.querySelector("#nd-page");
+              const example = article?.querySelector("section[data-example-name]");
+              return (
+                article?.contains(element) &&
+                example &&
+                Boolean(element.compareDocumentPosition(example) & Node.DOCUMENT_POSITION_FOLLOWING)
+              );
+            }),
+            "Component references must remain inside the article, before its live examples.",
+          );
           const api = page.locator(`section[aria-labelledby="native-api-${family}"]`);
           assert.equal(await api.count(), 1);
           assert.equal(await api.locator("h2").count(), 1);

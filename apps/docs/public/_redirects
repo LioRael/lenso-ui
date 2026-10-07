@@ -1,7 +1,0 @@
-/docs /en/docs/react/getting-started 302
-/docs/react/components/dropdown /en/docs/react/components/menu 302
-/en/docs/react/components/dropdown /en/docs/react/components/menu 302
-/cn/docs/react/components/dropdown /cn/docs/react/components/menu 302
-/docs/* /en/docs/:splat 302
-/en/docs /en/docs/react/getting-started 302
-/cn/docs /cn/docs/react/getting-started 302

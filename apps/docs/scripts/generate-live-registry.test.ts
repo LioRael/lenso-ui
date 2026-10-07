@@ -122,6 +122,21 @@ test("resolves genuine named re-exports, default demos and memoized scenarios wi
     () => findDemoExport("const styles = {}; export { styles };", "styles.tsx"),
     /No exported live demo/,
   );
+  for (const code of [
+    "declare function Ambient(): null; export { Ambient };",
+    "function Bodyless(): null; export { Bodyless };",
+    "export declare function Ambient(): null;",
+    "export function Bodyless(): null;",
+  ])
+    assert.throws(() => findDemoExport(code, "ambient.tsx"), /No exported live demo/, code);
+  assert.equal(
+    findDemoExport(
+      "function Demo() { return null; } export { Demo as Scenario };",
+      "demo.tsx",
+      "Scenario",
+    ),
+    "Scenario",
+  );
   assert.equal(
     findDemoExport(
       "export const styles = {}; export const Demo = React.memo(() => null);",

@@ -1,0 +1,23 @@
+{
+  "name": "create-lenso-docs",
+  "version": "0.1.0",
+  "description": "Create a content-only Lenso Docs project",
+  "license": "MIT",
+  "bin": {
+    "create-lenso-docs": "./src/cli.mjs"
+  },
+  "files": [
+    "src/",
+    "template/",
+    "LICENSE",
+    "README.md"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "node --check src/cli.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=26.10.0"
+  }
+}

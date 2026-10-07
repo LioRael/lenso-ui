@@ -3,7 +3,6 @@ import type { ComponentProps, ReactNode } from "react";
 import fumaMDX from "fumadocs-ui/mdx";
 import * as stylex from "@stylexjs/stylex";
 import { HandPointUp } from "@gravity-ui/icons";
-import { ComponentPreview } from "@/components/component-preview";
 import { ComponentsCategory } from "@/components/components-category";
 import {
   ColorSectionSideBySide,
@@ -24,7 +23,8 @@ function plainText(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
   if (Array.isArray(node)) return node.map(plainText).join("");
   if (node && typeof node === "object" && "props" in node) {
-    return plainText((node.props as { children?: ReactNode }).children);
+    const props = node.props as { children?: ReactNode; alt?: string };
+    return props.alt ?? plainText(props.children);
   }
   return "";
 }
@@ -64,42 +64,42 @@ function PageCards({ pages }: { pages: { title: string; description: string; hre
   );
 }
 
-export function getMDXComponents(locale: Locale): MDXComponents {
+export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}): MDXComponents {
   const componentPages = source.pages.filter(
     (page) => page.locale === locale && page.slug.startsWith("react/components/"),
   );
   return {
     ...fumaMDX,
-    h1: ({ children }) => (
+    h1: ({ children, id }) => (
       <fumaMDX.h2
-        id={headingId(plainText(children))}
+        id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h2)}
       >
         {children}
       </fumaMDX.h2>
     ),
-    h2: ({ children }) => (
+    h2: ({ children, id }) => (
       <fumaMDX.h2
-        id={headingId(plainText(children))}
+        id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h2)}
       >
         {children}
       </fumaMDX.h2>
     ),
-    h3: ({ children }) => (
+    h3: ({ children, id }) => (
       <fumaMDX.h3
-        id={headingId(plainText(children))}
+        id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h3)}
       >
         {children}
       </fumaMDX.h3>
     ),
-    h4: ({ children }) => (
+    h4: ({ children, id }) => (
       <fumaMDX.h4
-        id={headingId(plainText(children))}
+        id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h3)}
       >
@@ -152,7 +152,6 @@ export function getMDXComponents(locale: Locale): MDXComponents {
     ),
     Tabs,
     Tab,
-    ComponentPreview: (props: { name: string }) => <ComponentPreview {...props} locale={locale} />,
     ComponentCount: () => <>{componentPages.length}</>,
     ExampleCount: () => <>{Object.keys(source.examples[locale]).length}</>,
     ComponentsCategory: ({ category }: { category: string }) => {
@@ -257,5 +256,6 @@ export function getMDXComponents(locale: Locale): MDXComponents {
     ColorSectionStacked,
     ColorSectionFormField,
     ColorSectionPrimitive,
+    ...overrides,
   };
 }

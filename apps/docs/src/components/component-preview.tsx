@@ -1,10 +1,9 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { ComponentType, CSSProperties, ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { getExample, type Locale } from "@/lib/source";
 import { styles } from "@/styles/docs.stylex";
 import liveManifest from "@/demos/live-manifest.json";
-import { LivePreview } from "./demo/live-preview";
 import { ComponentSource } from "./component-source";
 import { highlightSource } from "./highlight-source";
 import { exampleSourceFiles } from "./example-source-files";
@@ -51,14 +50,12 @@ function SourceNotice({
 }
 
 function PreviewScene({
-  name,
-  locale,
+  children,
   align,
   minHeight,
   isBgSolid,
 }: {
-  name: string;
-  locale: Locale;
+  children: ReactNode;
   align: "center" | "start" | "end";
   minHeight: string;
   isBgSolid: boolean;
@@ -73,9 +70,7 @@ function PreviewScene({
         isBgSolid && codeStyles.solid,
       )}
     >
-      <div {...stylex.props(codeStyles.innerScene(minHeight))}>
-        <LivePreview name={name} locale={locale} />
-      </div>
+      <div {...stylex.props(codeStyles.innerScene(minHeight))}>{children}</div>
     </div>
   );
 }
@@ -89,6 +84,8 @@ export async function ComponentPreview({
   hideCode = false,
   description,
   style,
+  Preview,
+  children,
 }: {
   name: string;
   locale?: Locale;
@@ -98,9 +95,15 @@ export async function ComponentPreview({
   hideCode?: boolean;
   description?: string;
   style?: Pick<CSSProperties, "contain">;
+  Preview?: ComponentType;
+  children?: ReactNode;
 }) {
   const example = await getExample(name, locale);
   const resolved = resolveDemo(live, name, locale);
+  if (resolved && !Preview && children === undefined)
+    throw new Error(
+      `Missing page-local live preview "${name}" (${locale}). Regenerate docs documents and inject this page's ComponentPreview override into getMDXComponents.`,
+    );
   const liveFile = resolved?.file;
   const files = liveFile && !hideCode ? await exampleSourceFiles(liveFile) : undefined;
   const code = files?.[0]?.code ?? example?.code;
@@ -114,13 +117,9 @@ export async function ComponentPreview({
       {description && <p {...stylex.props(styles.sourceNotice)}>{description}</p>}
       <LocaleNotice status={resolved?.status} />
       {resolved ? (
-        <PreviewScene
-          name={name}
-          locale={resolved.locale}
-          align={align}
-          minHeight={minHeight}
-          isBgSolid={isBgSolid}
-        />
+        <PreviewScene align={align} minHeight={minHeight} isBgSolid={isBgSolid}>
+          {Preview ? <Preview /> : children}
+        </PreviewScene>
       ) : (
         <SourceNotice name={name} example={example} />
       )}

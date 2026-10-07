@@ -1,0 +1,97 @@
+{
+  "name": "@lenso/docs",
+  "version": "0.1.0",
+  "description": "Content-first static documentation with MDX and the Lenso documentation shell.",
+  "license": "MIT",
+  "bin": {
+    "lenso-docs": "./src/cli.mjs"
+  },
+  "files": [
+    "src",
+    "dist",
+    "LICENSE",
+    "LICENSE.FUMADOCS",
+    "NOTICE.md",
+    "ARCHITECTURE.md",
+    "VISUAL.md",
+    "README.md"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/config.d.mts",
+      "import": "./src/config.mjs"
+    },
+    "./react": "./src/react.ts",
+    "./client": "./src/client.ts",
+    "./server": "./src/compile-document.tsx",
+    "./source": {
+      "types": "./src/source.d.mts",
+      "import": "./src/source.mjs"
+    },
+    "./presentation": {
+      "types": "./dist/presentation.d.ts",
+      "import": "./dist/presentation.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs.d.ts",
+      "import": "./dist/tabs.js"
+    },
+    "./toc": {
+      "types": "./dist/toc.d.ts",
+      "import": "./dist/toc.js"
+    },
+    "./highlight": {
+      "types": "./dist/highlight.d.ts",
+      "import": "./dist/highlight.js"
+    },
+    "./styles.css": "./dist/assets/stylex.css",
+    "./stylex-rules.json": "./dist/stylex-rules.json",
+    "./font.css": "./src/font.css",
+    "./fonts/*": "./dist/fonts/*",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown --config tsdown.config.ts && tsc -p tsconfig.presentation.json && node scripts/copy-assets.mjs && node --check src/runtime.mjs",
+    "test": "node --test test/*.test.mjs && tsx --test test/*.test.ts",
+    "test:browser": "node test/browser.mjs",
+    "test:dev": "node test/dev-regressions.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings src test"
+  },
+  "dependencies": {
+    "@base-ui/react": "catalog:",
+    "@gravity-ui/icons": "2.22.0",
+    "@lenso/tokens": "workspace:*",
+    "@mdx-js/mdx": "3.1.1",
+    "@shikijs/langs": "3.23.0",
+    "@shikijs/themes": "3.23.0",
+    "@stylexjs/stylex": "catalog:",
+    "@types/mdx": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "fumadocs-core": "16.9.0",
+    "fumadocs-ui": "16.9.0",
+    "github-slugger": "2.0.0",
+    "gray-matter": "4.0.3",
+    "next": "catalog:",
+    "next-mdx-remote": "6.0.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "remark-gfm": "4.0.1",
+    "shiki": "3.23.0",
+    "typescript": "catalog:",
+    "unified": "11.0.5"
+  },
+  "devDependencies": {
+    "@lenso/stylex-build": "workspace:*",
+    "oxlint": "catalog:",
+    "playwright": "catalog:",
+    "tsdown": "catalog:",
+    "tsx": "catalog:"
+  },
+  "engines": {
+    "node": ">=26.10.0"
+  }
+}

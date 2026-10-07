@@ -8,6 +8,7 @@ module.exports = {
       include: [
         path.join(__dirname, "src/**/*.{js,jsx,ts,tsx}"),
         path.join(__dirname, "../../packages/styles/src/**/*.{js,jsx,ts,tsx}"),
+        path.join(__dirname, "../../packages/docs/presentation/**/*.{js,jsx,ts,tsx}"),
       ],
       babelConfig: {
         babelrc: false,

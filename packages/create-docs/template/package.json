@@ -1,0 +1,24 @@
+{
+  "name": "lenso-docs-project",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "lenso-docs dev",
+    "build": "lenso-docs build",
+    "preview": "lenso-docs preview"
+  },
+  "dependencies": {
+    "@lenso/docs": "0.1.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=26.10.0"
+  }
+}

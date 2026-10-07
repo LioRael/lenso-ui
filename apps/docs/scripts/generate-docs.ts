@@ -4,6 +4,7 @@ import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { generateLiveRegistry, type LocalizedChoices } from "./generate-live-registry.ts";
+import { generatePageDocuments } from "./generate-page-documents.ts";
 
 const docs = fileURLToPath(new URL("../", import.meta.url));
 const repository = path.resolve(docs, "../..");
@@ -60,6 +61,8 @@ export async function generateDocs(target: Target = "all"): Promise<boolean> {
   const contentInputs = [
     ...common,
     "apps/docs/scripts/generate-live-registry.ts",
+    "apps/docs/scripts/generate-page-documents.ts",
+    "apps/docs/src/lib/demo-locale.ts",
     "apps/docs/scripts/docs-projection.mjs",
     "apps/docs/src/lib/native-api-section.ts",
     "apps/docs/src/lib/api-property-groups.ts",
@@ -97,6 +100,7 @@ export async function generateDocs(target: Target = "all"): Promise<boolean> {
     "apps/docs/src/demos/generated.ts",
     "apps/docs/src/demos/live-manifest.json",
     "apps/docs/src/generated/lenso-docs-index.json",
+    "apps/docs/src/generated/documents",
     "apps/docs/content/lenso/en/react/components",
     "apps/docs/content/lenso/cn/react/components",
   ];
@@ -133,6 +137,7 @@ export async function generateDocs(target: Target = "all"): Promise<boolean> {
         );
         await generateLiveRegistry(docs, manifest);
         await writeDocsProjection(repository);
+        await generatePageDocuments(docs);
       },
       contentOutputs.filter((file) => file.includes("content/lenso/")),
     )) || changed;
@@ -230,6 +235,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       "build",
       "--filter=@lenso/ui",
       "--filter=@lenso/tokens",
+      "--filter=@lenso/docs",
       "--output-logs=errors-only",
     ],
     {

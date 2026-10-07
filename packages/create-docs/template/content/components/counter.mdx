@@ -1,0 +1,32 @@
+---
+title: Counter
+description: A live component example with a typed reference table.
+kind: component
+---
+
+import Counter from "../../components/Counter.tsx";
+
+This is a <PageKind /> page. Its local React component is authored by the project, not built into the framework.
+
+## Live example
+
+<ComponentExample title="Counter example">
+  <Counter />
+</ComponentExample>
+
+## Properties
+
+<ReferenceTable
+  title="Counter properties"
+  rows={[
+    {
+      name: "initialCount",
+      type: "number",
+      required: false,
+      default: "0",
+      description: "The count when the example mounts.",
+    },
+  ]}
+/>
+
+<Note>The example deliberately keeps state local. It does not send requests.</Note>

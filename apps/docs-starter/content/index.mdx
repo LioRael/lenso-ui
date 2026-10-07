@@ -1,0 +1,29 @@
+---
+title: Welcome
+description: A content-first documentation site.
+---
+
+# Welcome
+
+This is a content-only documentation project. Edit Markdown and MDX in `content/`; the docs runtime owns the application shell and build.
+
+<Callout type="info">
+  Pages are discovered from content paths. This page is `index`, so its URL is `/`.
+</Callout>
+
+## A small example
+
+| File                       | URL        |
+| -------------------------- | ---------- |
+| `content/index.mdx`        | `/`        |
+| `content/guides/index.mdx` | `/guides/` |
+
+```ts
+const docs = "written content, not an application";
+console.log(docs);
+```
+
+<Tabs items={["Markdown", "MDX"]}>
+  <Tab value="Markdown">Use Markdown for prose, headings, and tables.</Tab>
+  <Tab value="MDX">Use MDX when a page needs a component.</Tab>
+</Tabs>

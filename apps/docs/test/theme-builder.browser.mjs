@@ -125,13 +125,16 @@ export async function checkThemeBuilder(page, base) {
 
     const select = page.getByRole("combobox", { name: "State", exact: true });
     await select.click();
-    const listbox = page.getByRole("listbox");
+    // The permanent File actions demo is also a listbox; target this select's options.
+    const listbox = page.getByRole("listbox").filter({
+      has: page.getByRole("option", { name: "Florida", exact: true }),
+    });
     await listbox.waitFor();
     assert.equal(
       await listbox.evaluate((node) => getComputedStyle(node).getPropertyValue("--accent").trim()),
       await getVar("--accent"),
     );
-    await page.getByRole("option", { name: "Florida", exact: true }).click();
+    await listbox.getByRole("option", { name: "Florida", exact: true }).click();
     assert.ok((await select.innerText()).includes("Florida"));
     await page.getByRole("button", { name: "Dark theme", exact: true }).click();
     assert.notEqual(await getVar("--background"), originalBackground);

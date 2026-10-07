@@ -1,0 +1,41 @@
+---
+title: Messages API
+description: Document an endpoint, its parameters and response shapes.
+kind: api
+metadata:
+  audience: API integrators
+---
+
+This is an illustrative <PageKind /> page. The endpoint below is documentation only; no server or credentials are supplied.
+
+Audience: <PageAudience />.
+
+## List messages
+
+<ApiOperation method="GET" path="/messages" summary="List messages in a project.">
+  <ReferenceTable
+    title="Query parameters"
+    rows={[
+      {
+        name: "limit",
+        type: "integer",
+        required: false,
+        default: "20",
+        description: "Maximum messages per page.",
+      },
+    ]}
+  />
+</ApiOperation>
+
+## Responses
+
+<ApiResponses
+  responses={[
+    { status: 200, description: "An array of messages." },
+    { status: 401, description: "Authentication is required." },
+  ]}
+/>
+
+```json
+{ "messages": [] }
+```

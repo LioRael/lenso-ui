@@ -1,25 +1,7 @@
 @import "@lenso/tokens/theme.css";
-
-@font-face {
-  font-family: "Lenso Inter";
-  src: url("/fonts/Inter-Variable.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-/* Preserve next/font/local's Arial fallback metrics for the unchanged Inter asset. */
-@font-face {
-  font-family: "Lenso Inter Fallback";
-  src: local("Arial");
-  ascent-override: 89.79%;
-  descent-override: 22.36%;
-  line-gap-override: 0%;
-  size-adjust: 107.89%;
-}
+@import "@lenso/docs/font.css";
 
 :root {
-  --font-inter: "Lenso Inter", "Lenso Inter Fallback";
   --color-fd-primary: var(--foreground);
   --color-fd-accent: var(--default);
   --color-fd-accent-foreground: var(--foreground);

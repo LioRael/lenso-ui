@@ -1,0 +1,24 @@
+{
+  "name": "@lenso/docs-starter",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "lenso-docs dev",
+    "build": "lenso-docs build",
+    "preview": "lenso-docs preview"
+  },
+  "dependencies": {
+    "@lenso/docs": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": ">=26.10.0"
+  }
+}

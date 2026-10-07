@@ -1,5 +1,6 @@
 node_modules/
 .next/
+.lenso/
 **/.content-collections/
 .turbo/
 dist/
@@ -12,9 +13,11 @@ playwright-report/
 test-results/
 durabletest-results/
 apps/docs/src/generated/lenso-contract.json
+apps/docs/src/generated/documents/
 apps/docs/content/lenso/*/react/components/
 apps/docs/public/search/
 apps/docs/.cache/
+packages/docs/.cache/
 .vitest-attachments/
 **/__screenshots__/
 *.tsbuildinfo

@@ -19,11 +19,14 @@ direction.
 | `packages/react`        | `@lenso/ui` component families                     |
 | `packages/styles`       | `@lenso/tokens` themes and StyleX maps             |
 | `packages/stylex-build` | Raw StyleX consumer build integration              |
+| `packages/docs`         | Content-only MDX documentation framework           |
+| `packages/create-docs`  | Documentation project initializer                  |
 | `packages/primitives`   | Preserved headless package, unchanged              |
 | `packages/standard`     | Shared quality-tool conventions                    |
 | `packages/testing`      | Component/browser regression infrastructure        |
 | `packages/storybook`    | Component development surface                      |
 | `apps/docs`             | Authored Lenso documentation and reference archive |
+| `apps/docs-starter`     | Independent framework consumer example             |
 | `third-party`           | Licenses, notices and source provenance            |
 
 ## Development
@@ -33,8 +36,27 @@ Use the Node and pnpm versions pinned in `.mise.toml` and `package.json`.
 ```sh
 pnpm install --frozen-lockfile
 pnpm dev:docs
+pnpm dev:docs-starter
 pnpm dev:storybook
 ```
+
+Choose one development server:
+
+- `pnpm dev:docs`: the Lenso UI product documentation, at
+  `/en/docs/react/getting-started` or `/cn/docs/react/getting-started`.
+- `pnpm dev:docs-starter`: the content-only framework example, at `/` and
+  `/guides/`. These routes do not exist in the product documentation.
+
+Use the URL printed by the command. Both docs servers default to port 3000;
+stop the first before switching. The product app permits `localhost` and
+`127.0.0.1` for development resources. Unknown routes return 404 in development;
+production still exports static pages.
+
+The documentation framework is a source implementation, not a published package.
+Product documentation uses its source, compiler, layout, search and article
+modules; product controls and content/API generation remain explicit adapters.
+Its [guide](packages/docs/README.md) covers
+MDX authoring, static deployment and `pnpm test:docs-framework`.
 
 Run affected local checks as described in [CONTRIBUTING.md](CONTRIBUTING.md).
 The authoritative candidate CI verifies the exact commit before landing;

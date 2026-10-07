@@ -286,6 +286,9 @@ importers:
       '@internationalized/date':
         specifier: 3.12.4
         version: 3.12.4
+      '@lenso/docs':
+        specifier: workspace:*
+        version: link:../../packages/docs
       '@lenso/tokens':
         specifier: workspace:*
         version: link:../../packages/styles
@@ -384,6 +387,31 @@ importers:
         specifier: npm:typescript@5.9.3
         version: typescript@5.9.3
 
+  apps/docs-starter:
+    dependencies:
+      '@lenso/docs':
+        specifier: workspace:*
+        version: link:../../packages/docs
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.0(react@19.3.0)
+    devDependencies:
+      '@types/node':
+        specifier: 26.6.4
+        version: 26.6.4
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+
   packages/cli:
     devDependencies:
       '@babel/parser':
@@ -395,6 +423,96 @@ importers:
       esbuild:
         specifier: 0.28.2
         version: 0.28.2
+
+  packages/create-docs: {}
+
+  packages/docs:
+    dependencies:
+      '@base-ui/react':
+        specifier: 'catalog:'
+        version: 1.8.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@gravity-ui/icons':
+        specifier: 2.22.0
+        version: 2.22.0(react@19.3.0)
+      '@lenso/tokens':
+        specifier: workspace:*
+        version: link:../styles
+      '@mdx-js/mdx':
+        specifier: 3.1.1
+        version: 3.1.1
+      '@shikijs/langs':
+        specifier: 3.23.0
+        version: 3.23.0
+      '@shikijs/themes':
+        specifier: 3.23.0
+        version: 3.23.0
+      '@stylexjs/stylex':
+        specifier: 'catalog:'
+        version: 0.19.1
+      '@types/mdx':
+        specifier: 'catalog:'
+        version: 2.0.14
+      '@types/node':
+        specifier: 26.6.4
+        version: 26.6.4
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
+      fumadocs-core:
+        specifier: 16.9.0
+        version: 16.9.0(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.51.0(@types/react@19.3.0)(react@19.3.0))(next@16.3.8(@babel/core@7.29.7)(@types/node@26.6.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)
+      fumadocs-ui:
+        specifier: 16.9.0
+        version: 16.9.0(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.9.0(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.51.0(@types/react@19.3.0)(react@19.3.0))(next@16.3.8(@babel/core@7.29.7)(@types/node@26.6.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5))(next@16.3.8(@babel/core@7.29.7)(@types/node@26.6.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      github-slugger:
+        specifier: 2.0.0
+        version: 2.0.0
+      gray-matter:
+        specifier: 4.0.3
+        version: 4.0.3
+      next:
+        specifier: 'catalog:'
+        version: 16.3.8(@babel/core@7.29.7)(@types/node@26.6.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      next-mdx-remote:
+        specifier: 6.0.0
+        version: 6.0.0(@types/react@19.3.0)(react@19.3.0)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.0(react@19.3.0)
+      remark-gfm:
+        specifier: 4.0.1
+        version: 4.0.1
+      shiki:
+        specifier: 3.23.0
+        version: 3.23.0
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      unified:
+        specifier: 11.0.5
+        version: 11.0.5
+    devDependencies:
+      '@lenso/stylex-build':
+        specifier: workspace:*
+        version: link:../stylex-build
+      oxlint:
+        specifier: 'catalog:'
+        version: 1.86.0
+      playwright:
+        specifier: 'catalog:'
+        version: 1.63.0
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.23.0(oxc-resolver@11.21.2)(tsx@4.23.15)(typescript@7.0.2)
+      tsx:
+        specifier: 'catalog:'
+        version: 4.23.15
 
   packages/mcp:
     dependencies:

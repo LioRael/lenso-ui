@@ -1,3 +1,5 @@
+import { headingText as documentHeadingText } from "@lenso/docs/source";
+
 type Node = {
   type: string;
   depth?: number;
@@ -15,7 +17,7 @@ export function nativeApiFamily(slug: string): string | undefined {
 }
 
 export function headingText(node: Node): string {
-  return node.value ?? node.children?.map(headingText).join("") ?? "";
+  return documentHeadingText(node);
 }
 
 function apiSections(tree: Node) {

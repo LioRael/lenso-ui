@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Lenso Inter";
+  src: url("../dist/fonts/Inter-Variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Match the original documentation's fallback metrics without a second font. */
+@font-face {
+  font-family: "Lenso Inter Fallback";
+  src: local("Arial");
+  ascent-override: 89.79%;
+  descent-override: 22.36%;
+  line-gap-override: 0%;
+  size-adjust: 107.89%;
+}
+
+:root {
+  --font-inter: "Lenso Inter", "Lenso Inter Fallback";
+}
