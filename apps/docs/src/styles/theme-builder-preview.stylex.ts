@@ -85,7 +85,7 @@ export const preview = stylex.create({
   actionSurface: {
     width: 256,
     maxWidth: "100%",
-    borderRadius: 24,
+    borderRadius: "min(32px, var(--radius-3xl))",
     boxShadow: "var(--shadow-surface)",
   },
   actionList: { width: "100%", padding: 8 },
