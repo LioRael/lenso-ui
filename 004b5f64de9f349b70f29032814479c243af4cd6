@@ -1,0 +1,238 @@
+.agents/skills/land/SKILL.md
+  h_9d56aba080c170 14-36,48-55,59-63,65-76,78-81,83-85,88-89,96-98,105,107,111-112,119-122,124-125,127,129-132,134-136,138,140-141,152-174
+.agents/skills/lenso-ui/references/setup.md
+  h_9d56aba080c170 14-44
+.github/scripts/reuse-verification.test.ts
+  h_9d56aba080c170 2-4,7,10-17,19-111,113-123,125-127,130-140,145-152,155-167,170-184,187-245,247-282,284-288,291-314,318-335,337-341,344-358,361-365,367-378,382-414,416-420
+.github/scripts/reuse-verification.ts
+  h_9d56aba080c170 2,4,6-22,24-29,31-34,36-41,43-45,47-59,61,63-66,68-72,74-99,102-152,154-222,224,226-246,248-254,256-322
+.github/scripts/tsconfig.json
+  h_9d56aba080c170 1-14
+.github/workflows/verify.yml
+  h_9d56aba080c170 16-20,23-24,26-53,58,60,62,64,67-86,88-89,92,98,108,114-115
+.gitignore
+  h_9d56aba080c170 17
+AGENTS.md
+  h_9d56aba080c170 21-33
+CONTRIBUTING.md
+  h_9d56aba080c170 41,44-48,51-96,122-126
+README.md
+  h_9d56aba080c170 3-5,7-10,14-24,28-29,31,36-38,40-44,46,48-51,53-57,59,61-65,67-72,74-78,80-83
+apps/docs/content/lenso/cn/react/getting-started/frameworks.mdx
+  h_9d56aba080c170 16-18,20-67
+apps/docs/content/lenso/en/react/getting-started/frameworks.mdx
+  h_9d56aba080c170 16-18,20-74
+apps/docs/package.json
+  h_9d56aba080c170 8-14,16-18,21
+apps/docs/public/coverage.json
+  h_9d56aba080c170 28,5147,5150-5154
+apps/docs/scripts/DOCS-PROJECTION.md
+  h_9d56aba080c170 7-11,29-30,32-34,74-76
+apps/docs/scripts/README.md
+  h_9d56aba080c170 12-15,33-38,40-41,44-64,76-79,93-94,128-129,132-134,140-141,143-145
+apps/docs/scripts/capture-disclosure-source.ts
+  h_9d56aba080c170 1-2,7,23,25-28,31,42,49-50,59-62
+apps/docs/scripts/generate-docs.test.ts
+  h_9d56aba080c170 1-73
+apps/docs/scripts/generate-docs.ts
+  h_9d56aba080c170 2-4,6,8-38,40-41,43-180,182-213,215,217-223,225-231,233-236,238
+apps/docs/scripts/generate-live-registry.test.ts
+  h_9d56aba080c170 10,13,135,154-160,172-176,179-185,192-193,203
+apps/docs/scripts/generate-live-registry.ts
+  h_9d56aba080c170 1,4,9-44,46-47,49-53,55-76,79,84-87,89-110,112,115-119,123-125,127,129-136,138,143-144,149,151,156-159,176-188
+apps/docs/scripts/locale-example-proof.ts
+  h_9d56aba080c170 9,12,44-60,67,77,107,165,188-189,236,275,282,293,304,308,311,380,382-383
+apps/docs/scripts/maintained-locales.test.ts
+  h_9d56aba080c170 2-6,9-28,30-31,33-45,47-141,143-209,211-213,215
+apps/docs/scripts/report-coverage.test.ts
+  h_9d56aba080c170 6,75
+apps/docs/scripts/report-coverage.ts
+  h_9d56aba080c170 7,9-10,12-24,26,29,32,36,45,47,49-54,56,60,67-68,76-109,111-114,124-127,130,135,138,152,155-159,163
+apps/docs/scripts/static-search.test.ts
+  h_9d56aba080c170 29-35,41,80,112-134
+apps/docs/src/app/(utility)/coverage/page.tsx
+  h_9d56aba080c170 45-46,53,99-101
+apps/docs/src/demos/en/autocomplete/README.md
+  h_9d56aba080c170 1,3-5,7-11,13-16,18-20,22,24-26,35-50
+apps/docs/src/demos/generated.ts
+  h_9d56aba080c170 1,24699-24731
+apps/docs/src/demos/live-manifest.json
+  h_9d56aba080c170 1335-1368
+apps/docs/src/demos/localized-manifest.json
+  h_9d56aba080c170 35
+apps/docs/test/DOCS-UI-SOURCE.md
+  h_9d56aba080c170 1-41
+apps/docs/test/FUMADOCS-INTEGRATION.md
+  h_9d56aba080c170 3-5,7,9-12,14-15,17-20,22-23,25,27-30,32-35,37-40,42,44,47-52,54-56,59-63,65-67
+apps/docs/test/STYLEX-BUILD.md
+  h_9d56aba080c170 1,3-6,8-11,13-16,18,20,24-25,30,32,34-38,40-41,43,45-49
+apps/docs/tsconfig.scripts.json
+  h_9d56aba080c170 2-14,16
+docs/node26-toolchain.md
+  h_9d56aba080c170 23-27
+package.json
+  h_9d56aba080c170 9-13,17-23
+packages/cli/package.json
+  h_9d56aba080c170 18-20
+packages/cli/scripts/build.ts
+  h_9d56aba080c170 1-2,4-14
+packages/cli/src/project.mjs
+  h_9d56aba080c170 6,12-51,110-119,130,193-196,198,201,290-292
+packages/cli/tests/cli.test.mjs
+  h_9d56aba080c170 10
+packages/cli/tests/fixture.mjs
+  h_9d56aba080c170 38-40
+packages/cli/tests/next-css.test.ts
+  h_9d56aba080c170 2-7,9-12,14-15,17,19-21,23-47
+packages/cli/tsconfig.scripts.json
+  h_9d56aba080c170 1-11
+packages/cli/tsconfig.tests.json
+  h_9d56aba080c170 1-8
+packages/mcp/package.json
+  h_9d56aba080c170 18,20
+packages/mcp/scripts/build.ts
+  h_9d56aba080c170 1-3
+packages/mcp/tsconfig.scripts.json
+  h_9d56aba080c170 1-11
+packages/react/package.json
+  h_9d56aba080c170 41
+packages/react/src/components/autocomplete/SOURCE-EVIDENCE.md
+  h_9d56aba080c170 65-68
+packages/react/src/components/list-box/windowed.browser.test.tsx
+  h_9d56aba080c170 1-41
+packages/react/src/utils/theme-scope.test.tsx
+  h_9d56aba080c170 2,32-51,61-63,68-70,75-77,81
+packages/standard/README.md
+  h_9d56aba080c170 31-35
+packages/storybook/BOUNDED-MENU-TOAST-EVIDENCE.md
+  h_9d56aba080c170 1,3-6,8-9
+packages/storybook/CALENDAR-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-10,12-13,15-16
+packages/storybook/CHOICE-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-11,13-15,17-18
+packages/storybook/COLLECTION-EVIDENCE.md
+  h_9d56aba080c170 1,4-5,7-11,13-16,18-19
+packages/storybook/COLOR-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-10,12-13,15-16
+packages/storybook/COVERAGE.md
+  h_9d56aba080c170 1-69
+packages/storybook/DATE-TIME-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-10,12-14,16-17
+packages/storybook/FORM-WORKFLOW-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-11,13-16,18-19
+packages/storybook/MENU-TOAST-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-10,12-15,17-18
+packages/storybook/NAVIGATION-EVIDENCE.md
+  h_9d56aba080c170 1,3-4,7-11,13-16,18-19
+packages/storybook/OVERLAY-EVIDENCE.md
+  h_9d56aba080c170 1,4-5,7-10,12-16,18-19
+packages/storybook/README.md
+  h_9d56aba080c170 3-4,7-9,12-41
+packages/storybook/SELECTION-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-10,12-14,16-17
+packages/storybook/package.json
+  h_9d56aba080c170 7-11,21,30,33
+packages/storybook/scripts/browser-proofs.ts
+  h_9d56aba080c170 3,6,8-52,54-59,61,67-69,72-74,77-85,87-91,94-96
+packages/storybook/scripts/proof-types.ts
+  h_9d56aba080c170 1-9
+packages/storybook/scripts/rtl-proof.ts
+  h_9d56aba080c170 2,4-5,7-8,11,15-17,24-26,28,34
+packages/storybook/stories/ACTIONS-EVIDENCE.md
+  h_9d56aba080c170 1,4,7-10,12-14,16-17
+packages/storybook/stories/contracts.stories.tsx
+  h_9d56aba080c170 1-37
+packages/storybook/stories/form-workflow-proof.ts
+  h_9d56aba080c170 11-12,14,16-17,20,66,81-82,87,95-97,107-110,118-122,131,138,146-148,160,166,174,180-182,185-187,233,236-237,242,271,273-276,279,293-296,324,332-335,367-370,387,436,442,450-452,457,463-464,466-467,478,496-497,504-506,571,573
+packages/storybook/stories/navigation-smoke.ts
+  h_9d56aba080c170 2,10-11,13,15,55,66,75-77,90-93,101,129,131,138,146-148,157,159,164-167,169,237-240,253,286,291-292,298,301,304,314-317,319-320,336,338,360-361,363-367,369-372,411,414
+packages/storybook/tsconfig.scripts.json
+  h_9d56aba080c170 1-8
+packages/styles/package.json
+  h_9d56aba080c170 43
+packages/stylex-build/README.md
+  h_9d56aba080c170 8-10,39,95-185,220-222,329-331,340-345
+packages/stylex-build/package.json
+  h_9d56aba080c170 22-23,34,36-37
+packages/stylex-build/src/adapters.mjs
+  h_9d56aba080c170 9,81-83,413-446,495
+packages/stylex-build/src/index.d.ts
+  h_9d56aba080c170 23-25,46-60
+packages/stylex-build/src/index.mjs
+  h_9d56aba080c170 5-7,16,69-74,77,100,152-153,155-158,197-243
+packages/stylex-build/src/support.mjs
+  h_9d56aba080c170 17-24
+packages/stylex-build/tests/compiled-priority.test.ts
+  h_9d56aba080c170 1-202
+packages/stylex-build/tests/next-css-import.ts
+  h_9d56aba080c170 1-2,5,8-9,11-13,15-26,28-30,34-35,37-62,64,66-69,71-75,77-90,92-94,96-105,107-109,111-118,120-203,205-209,211-213,215-224,226,228-269,271-274,276-290,292,295-303
+packages/stylex-build/tests/prepare-next-webpack.test.ts
+  h_9d56aba080c170 2,4-6,8-40,42-64,66-78,80-127
+packages/stylex-build/tests/prepare-next.test.ts
+  h_9d56aba080c170 2,4-6,8,10-61,64-121,123-157,159-202,204-215
+packages/stylex-build/tests/support.test.ts
+  h_9d56aba080c170 4,6,11-18
+packages/stylex-build/tests/types.ts
+  h_9d56aba080c170 1,10-20
+packages/stylex-build/tsconfig.json
+  h_9d56aba080c170 3-4
+packages/testing/README.md
+  h_9d56aba080c170 20-21,38-74
+packages/testing/integration/autocomplete-appearance.browser.test.tsx
+  h_9d56aba080c170 12,14-16
+packages/testing/integration/combo-box-appearance.browser.test.tsx
+  h_9d56aba080c170 11,13-14
+packages/testing/integration/components/button/source-scenarios.browser.test.tsx
+  h_9d56aba080c170 20
+packages/testing/integration/components/drawer/scrolling.browser.test.tsx
+  h_9d56aba080c170 5
+packages/testing/integration/components/input-group/input-group.browser.test.tsx
+  h_9d56aba080c170 6
+packages/testing/integration/components/select/request-lifecycle.browser.test.tsx
+  h_9d56aba080c170 1-4,6-35,38-66
+packages/testing/integration/list-box-live-examples.browser.test.tsx
+  h_9d56aba080c170 4-5,11,41,45,50,57,62,67,74,81,88,95,99,104,111,116,121,128,134,139,144,151,158,165,169,172,177,181,185,189,194,198,203,209,213,218,223,237,283,298,319,339,399,410
+packages/testing/integration/stylex.d.ts
+  h_9d56aba080c170 1
+packages/testing/package.json
+  h_9d56aba080c170 14,16-18,21,24-25,30,34
+packages/testing/scripts/installed-consumer.ts
+  h_9d56aba080c170 1-233
+packages/testing/tsconfig.integration.json
+  h_9d56aba080c170 1-5
+packages/testing/tsconfig.json
+  h_9d56aba080c170 4,7-14
+packages/testing/vitest.integration.config.ts
+  h_9d56aba080c170 1,3-23
+pnpm-lock.yaml
+  h_9d56aba080c170 533-535,560-562,569-571,619-621,625-630,637-639,646-651,664-666,676-678
+scripts/interaction-boundaries.ts
+  h_9d56aba080c170 4,8-9,18-33
+scripts/legal-attribution.test.ts
+  h_9d56aba080c170 6
+scripts/legal-attribution.ts
+  h_9d56aba080c170 29-30
+scripts/source-imports.test.ts
+  h_9d56aba080c170 7,34-37
+scripts/source-imports.ts
+  h_9d56aba080c170 3,11-37,40,53,55,58-59,61,63,65,69
+scripts/tsconfig.json
+  h_9d56aba080c170 1-8
+tooling/design-policy/README.md
+  h_9d56aba080c170 13-15,32
+tooling/design-policy/index.mjs
+  h_9d56aba080c170 1
+turbo.json
+  h_9d56aba080c170 19-246
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "004b5f64de9f349b70f29032814479c243af4cd6",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}

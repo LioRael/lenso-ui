@@ -1,0 +1,14 @@
+packages/react/src/components/button/button.browser.test.tsx
+  h_9d56aba080c170 167-173
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "197d5a73826414ab59b9b701d33cf5204002b66f",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
