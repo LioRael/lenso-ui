@@ -408,6 +408,38 @@ test("accepts optional authored navigation metadata without relaxing document va
   assert.throws(() => buildLensoContract(input), /unknown document field/);
 });
 
+test("accepts safe component presentation metadata only in the docs index", () => {
+  const input = fixture();
+  const page = input.docsIndex.pages[0];
+  page.componentCategory = "forms";
+  page.componentThumbnail = "buttongroup";
+  assert.doesNotThrow(() => buildLensoContract(input));
+
+  for (const invalid of ["", "../forms", "Forms", "forms/group"]) {
+    const malformed = fixture();
+    malformed.docsIndex.pages[0].componentCategory = invalid;
+    assert.throws(() => buildLensoContract(malformed), /componentCategory/);
+  }
+
+  for (const invalid of ["", "../button", "Button", "button/icon"]) {
+    const malformed = fixture();
+    malformed.docsIndex.pages[0].componentCategory = "forms";
+    malformed.docsIndex.pages[0].componentThumbnail = invalid;
+    assert.throws(() => buildLensoContract(malformed), /componentThumbnail/);
+  }
+
+  const withoutCategory = fixture();
+  withoutCategory.docsIndex.pages[0].componentThumbnail = "buttongroup";
+  assert.throws(() => buildLensoContract(withoutCategory), /componentThumbnail/);
+
+  const authored = fixture();
+  Reflect.set(authored.docs[0], "componentCategory", "forms");
+  assert.throws(() => buildLensoContract(authored), /unknown (?:document )?field/);
+  const encoded = buildLensoContract(fixture());
+  Reflect.set(encoded.docs[0], "componentThumbnail", "buttongroup");
+  assert.throws(() => validateContract(encoded), /unknown (?:document )?field/);
+});
+
 test("rejects Windows absolute and duplicate file paths", () => {
   assert.throws(() => validateExamplePath("C:\\outside.tsx"), /escapes its root/);
   const duplicateFiles = fixture();

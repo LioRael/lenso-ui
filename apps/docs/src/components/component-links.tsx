@@ -1,4 +1,5 @@
 import { Code, LogoGithub } from "@gravity-ui/icons";
+import { buttonSizes, buttonStyles, buttonVariants } from "@lenso/tokens/button";
 import * as stylex from "@stylexjs/stylex";
 import { notebook } from "@/styles/notebook.stylex";
 import reference from "@/generated/api-reference.json";
@@ -42,7 +43,12 @@ export function ComponentLinks({ family }: { family?: string }) {
           href={href}
           target="_blank"
           rel="noreferrer noopener"
-          {...stylex.props(notebook.sourceLink)}
+          {...stylex.props(
+            buttonStyles.root,
+            buttonSizes.sm,
+            buttonVariants.tertiary,
+            notebook.sourceLink,
+          )}
         >
           <Icon width={16} height={16} aria-hidden="true" /> {label}
         </a>

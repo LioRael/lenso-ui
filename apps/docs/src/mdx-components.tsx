@@ -4,6 +4,7 @@ import fumaMDX from "fumadocs-ui/mdx";
 import * as stylex from "@stylexjs/stylex";
 import { HandPointUp } from "@gravity-ui/icons";
 import { ComponentPreview } from "@/components/component-preview";
+import { ComponentsCategory } from "@/components/components-category";
 import {
   ColorSectionSideBySide,
   ColorSectionStacked,
@@ -62,11 +63,6 @@ function PageCards({ pages }: { pages: { title: string; description: string; hre
     </div>
   );
 }
-
-const categoryPaths: Record<string, string> = {
-  "Date and Time": "date-and-time",
-  "Data Display": "data-display",
-};
 
 export function getMDXComponents(locale: Locale): MDXComponents {
   const componentPages = source.pages.filter(
@@ -160,9 +156,8 @@ export function getMDXComponents(locale: Locale): MDXComponents {
     ComponentCount: () => <>{componentPages.length}</>,
     ExampleCount: () => <>{Object.keys(source.examples[locale]).length}</>,
     ComponentsCategory: ({ category }: { category: string }) => {
-      const group = categoryPaths[category] ?? category.toLowerCase().replaceAll(" ", "-");
-      const pages = componentPages.filter((page) => page.file.includes(`/(${group})/`));
-      return <PageCards pages={pages.map((page) => ({ ...page, href: pageUrl(page) }))} />;
+      const pages = componentPages.filter((page) => page.componentCategory === category);
+      return <ComponentsCategory pages={pages} />;
     },
     RelatedComponents: ({ component }: { component: string }) => {
       const related = getRelatedComponents(component, locale).slice(0, 3);

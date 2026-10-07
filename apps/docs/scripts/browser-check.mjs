@@ -4,6 +4,7 @@ import { chromium } from "playwright";
 import { checkAuthoredPage, checkDocumentationShell } from "../test/shell.browser.mjs";
 import { checkThemeBuilder } from "../test/theme-builder.browser.mjs";
 import { checkHome } from "../test/home.browser.mjs";
+import { checkComponentsOverview } from "../test/components-overview.browser.mjs";
 
 const require = createRequire(import.meta.url);
 const base = process.env["LENSO_DOCS_TEST_URL"] ?? "http://127.0.0.1:3000";
@@ -199,6 +200,7 @@ try {
   ]);
 
   await checkDocumentationShell(page, base);
+  await checkComponentsOverview(browser, base);
   await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
   await checkThemeBuilder(page, base);
   await checkHome(page, base);

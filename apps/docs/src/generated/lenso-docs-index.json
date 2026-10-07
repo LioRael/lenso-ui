@@ -210,7 +210,9 @@
           "name": "accordion-custom-styles",
           "file": "en/accordion/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "accordion"
     },
     {
       "locale": "en",
@@ -227,7 +229,9 @@
           "name": "alert-custom-styles",
           "file": "en/alert/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "alert"
     },
     {
       "locale": "en",
@@ -292,7 +296,9 @@
           "name": "alert-dialog-custom-styles",
           "file": "en/alert-dialog/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "alertdialog"
     },
     {
       "locale": "en",
@@ -397,7 +403,9 @@
           "name": "autocomplete-custom-styles",
           "file": "en/autocomplete/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "pickers",
+      "componentThumbnail": "autocomplete"
     },
     {
       "locale": "en",
@@ -434,7 +442,9 @@
           "name": "avatar-custom-image-component",
           "file": "en/avatar/custom-image-component.tsx"
         }
-      ]
+      ],
+      "componentCategory": "media",
+      "componentThumbnail": "avatar"
     },
     {
       "locale": "en",
@@ -471,7 +481,9 @@
           "name": "avatar-group-overlap",
           "file": "en/avatar-group/overlap.tsx"
         }
-      ]
+      ],
+      "componentCategory": "media",
+      "componentThumbnail": "avatargroup"
     },
     {
       "locale": "en",
@@ -512,7 +524,9 @@
           "name": "badge-custom-styles",
           "file": "en/badge/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "data-display",
+      "componentThumbnail": "badge"
     },
     {
       "locale": "en",
@@ -549,7 +563,9 @@
           "name": "breadcrumbs-custom-styles",
           "file": "en/breadcrumbs/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "breadcrumbs"
     },
     {
       "locale": "en",
@@ -618,7 +634,9 @@
           "name": "release-button-outline-variant",
           "file": "en/button/release-outline-variant.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "button"
     },
     {
       "locale": "en",
@@ -663,7 +681,9 @@
           "name": "button-group-custom-styles",
           "file": "en/button-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "buttongroup"
     },
     {
       "locale": "en",
@@ -748,7 +768,9 @@
           "name": "calendar-custom-styles",
           "file": "en/calendar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "calendar"
     },
     {
       "locale": "en",
@@ -756,7 +778,8 @@
       "title": "CalendarYearPicker",
       "description": "Year selection within the calendar's date and focus context.",
       "markdownFile": "content/lenso/en/react/components/calendar-year-picker.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -793,7 +816,9 @@
           "name": "card-custom-styles",
           "file": "en/card/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "card"
     },
     {
       "locale": "en",
@@ -862,7 +887,9 @@
           "name": "checkbox-custom-styles",
           "file": "en/checkbox/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "checkbox"
     },
     {
       "locale": "en",
@@ -911,7 +938,9 @@
           "name": "checkbox-group-custom-styles",
           "file": "en/checkbox-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "checkboxgroup"
     },
     {
       "locale": "en",
@@ -944,7 +973,9 @@
           "name": "release-chip-vibrant-palette",
           "file": "en/chip/release-vibrant-palette.tsx"
         }
-      ]
+      ],
+      "componentCategory": "data-display",
+      "componentThumbnail": "chip"
     },
     {
       "locale": "en",
@@ -969,7 +1000,9 @@
           "name": "close-button-custom-styles",
           "file": "en/close-button/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "closebutton"
     },
     {
       "locale": "en",
@@ -1006,7 +1039,9 @@
           "name": "color-area-custom-styles",
           "file": "en/color-area/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorarea"
     },
     {
       "locale": "en",
@@ -1067,7 +1102,9 @@
           "name": "color-field-custom-styles",
           "file": "en/color-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorfield"
     },
     {
       "locale": "en",
@@ -1075,7 +1112,8 @@
       "title": "ColorInputGroup",
       "description": "Input sections that share a color field's editing context.",
       "markdownFile": "content/lenso/en/react/components/color-input-group.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -1108,7 +1146,9 @@
           "name": "color-picker-custom-styles",
           "file": "en/color-picker/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorpicker"
     },
     {
       "locale": "en",
@@ -1153,7 +1193,9 @@
           "name": "color-slider-custom-styles",
           "file": "en/color-slider/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorslider"
     },
     {
       "locale": "en",
@@ -1190,7 +1232,9 @@
           "name": "color-swatch-custom-styles",
           "file": "en/color-swatch/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorswatch"
     },
     {
       "locale": "en",
@@ -1239,7 +1283,9 @@
           "name": "color-swatch-picker-custom-styles",
           "file": "en/color-swatch-picker/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorswatchpicker"
     },
     {
       "locale": "en",
@@ -1328,7 +1374,9 @@
           "name": "combo-box-custom-styles",
           "file": "en/combo-box/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "pickers",
+      "componentThumbnail": "combobox"
     },
     {
       "locale": "en",
@@ -1405,7 +1453,9 @@
           "name": "date-field-custom-styles",
           "file": "en/date-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "datefield"
     },
     {
       "locale": "en",
@@ -1413,7 +1463,8 @@
       "title": "DateInputGroup",
       "description": "Date input sections sharing the date field's segment context.",
       "markdownFile": "content/lenso/en/react/components/date-input-group.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -1462,7 +1513,9 @@
           "name": "date-picker-custom-styles",
           "file": "en/date-picker/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "datepicker"
     },
     {
       "locale": "en",
@@ -1515,7 +1568,9 @@
           "name": "release-date-range-picker-input-container",
           "file": "en/date-range-picker/release-input-container.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "daterangepicker"
     },
     {
       "locale": "en",
@@ -1532,7 +1587,9 @@
           "name": "description-custom-styles",
           "file": "en/description/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "description"
     },
     {
       "locale": "en",
@@ -1553,7 +1610,9 @@
           "name": "disclosure-custom-styles",
           "file": "en/disclosure/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "disclosure"
     },
     {
       "locale": "en",
@@ -1574,7 +1633,9 @@
           "name": "disclosure-group-custom-styles",
           "file": "en/disclosure-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "disclosuregroup"
     },
     {
       "locale": "en",
@@ -1619,7 +1680,9 @@
           "name": "drawer-custom-styles",
           "file": "en/drawer/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "drawer"
     },
     {
       "locale": "en",
@@ -1627,7 +1690,8 @@
       "title": "EmptyState",
       "description": "A structural explanation and next action when a collection has no content.",
       "markdownFile": "content/lenso/en/react/components/empty-state.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -1644,7 +1708,9 @@
           "name": "error-message-custom-styles",
           "file": "en/error-message/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "errormessage"
     },
     {
       "locale": "en",
@@ -1661,7 +1727,9 @@
           "name": "field-error-custom-styles",
           "file": "en/field-error/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "fielderror"
     },
     {
       "locale": "en",
@@ -1682,7 +1750,9 @@
           "name": "fieldset-custom-styles",
           "file": "en/fieldset/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "fieldset"
     },
     {
       "locale": "en",
@@ -1703,7 +1773,9 @@
           "name": "form-custom-styles",
           "file": "en/form/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "form"
     },
     {
       "locale": "en",
@@ -1711,7 +1783,8 @@
       "title": "Header",
       "description": "A structural heading region for a page or section.",
       "markdownFile": "content/lenso/en/react/components/header.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -1748,7 +1821,9 @@
           "name": "input-custom-styles",
           "file": "en/input/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "input"
     },
     {
       "locale": "en",
@@ -1841,7 +1916,9 @@
           "name": "input-group-custom-styles",
           "file": "en/input-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "inputgroup"
     },
     {
       "locale": "en",
@@ -1894,7 +1971,9 @@
           "name": "input-otp-custom-styles",
           "file": "en/input-otp/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "inputotp"
     },
     {
       "locale": "en",
@@ -1931,7 +2010,9 @@
           "name": "kbd-custom-styles",
           "file": "en/kbd/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "typography",
+      "componentThumbnail": "kbd"
     },
     {
       "locale": "en",
@@ -1948,7 +2029,9 @@
           "name": "label-custom-styles",
           "file": "en/label/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "label"
     },
     {
       "locale": "en",
@@ -1981,7 +2064,9 @@
           "name": "link-custom-styles",
           "file": "en/link/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "link"
     },
     {
       "locale": "en",
@@ -2030,7 +2115,9 @@
           "name": "release-list-box-scrollbar-modes",
           "file": "en/list-box/release-scrollbar-modes.tsx"
         }
-      ]
+      ],
+      "componentCategory": "collections",
+      "componentThumbnail": "listbox"
     },
     {
       "locale": "en",
@@ -2038,7 +2125,8 @@
       "title": "ListBoxItem",
       "description": "An option participating in the enclosing list box's selection model.",
       "markdownFile": "content/lenso/en/react/components/list-box-item.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -2046,7 +2134,8 @@
       "title": "ListBoxSection",
       "description": "A labelled option group within a list box collection.",
       "markdownFile": "content/lenso/en/react/components/list-box-section.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -2123,7 +2212,9 @@
           "name": "menu-custom-styles",
           "file": "en/menu/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "collections",
+      "componentThumbnail": "dropdown"
     },
     {
       "locale": "en",
@@ -2131,7 +2222,8 @@
       "title": "MenuItem",
       "description": "A command, checkbox or radio item in the enclosing Menu context.",
       "markdownFile": "content/lenso/en/react/components/menu-item.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -2139,7 +2231,8 @@
       "title": "MenuSection",
       "description": "A labelled command group within a Menu popup.",
       "markdownFile": "content/lenso/en/react/components/menu-section.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -2172,7 +2265,9 @@
           "name": "meter-custom-styles",
           "file": "en/meter/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "meter"
     },
     {
       "locale": "en",
@@ -2237,7 +2332,9 @@
           "name": "modal-custom-styles",
           "file": "en/modal/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "modal"
     },
     {
       "locale": "en",
@@ -2314,7 +2411,9 @@
           "name": "number-field-custom-styles",
           "file": "en/number-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "numberfield"
     },
     {
       "locale": "en",
@@ -2359,7 +2458,9 @@
           "name": "pagination-custom-styles",
           "file": "en/pagination/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "pagination"
     },
     {
       "locale": "en",
@@ -2392,7 +2493,9 @@
           "name": "popover-custom-styles",
           "file": "en/popover/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "popover"
     },
     {
       "locale": "en",
@@ -2429,7 +2532,9 @@
           "name": "progress-bar-custom-styles",
           "file": "en/progress-bar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "progressbar"
     },
     {
       "locale": "en",
@@ -2466,7 +2571,9 @@
           "name": "progress-circle-custom-styles",
           "file": "en/progress-circle/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "progresscircle"
     },
     {
       "locale": "en",
@@ -2474,7 +2581,8 @@
       "title": "Radio",
       "description": "One mutually exclusive choice within a native radio group.",
       "markdownFile": "content/lenso/en/react/components/radio.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -2531,7 +2639,9 @@
           "name": "radio-group-custom-styles",
           "file": "en/radio-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "radiogroup"
     },
     {
       "locale": "en",
@@ -2620,7 +2730,9 @@
           "name": "range-calendar-custom-styles",
           "file": "en/range-calendar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "rangecalendar"
     },
     {
       "locale": "en",
@@ -2657,7 +2769,9 @@
           "name": "scroll-shadow-custom-styles",
           "file": "en/scroll-shadow/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "utilities",
+      "componentThumbnail": "scrollshadow"
     },
     {
       "locale": "en",
@@ -2726,7 +2840,9 @@
           "name": "search-field-custom-styles",
           "file": "en/search-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "searchfield"
     },
     {
       "locale": "en",
@@ -2811,7 +2927,9 @@
           "name": "select-custom-styles",
           "file": "en/select/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "pickers",
+      "componentThumbnail": "select"
     },
     {
       "locale": "en",
@@ -2848,7 +2966,9 @@
           "name": "separator-custom-styles",
           "file": "en/separator/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "separator"
     },
     {
       "locale": "en",
@@ -2889,7 +3009,9 @@
           "name": "skeleton-custom-styles",
           "file": "en/skeleton/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "skeleton"
     },
     {
       "locale": "en",
@@ -2922,7 +3044,9 @@
           "name": "slider-custom-styles",
           "file": "en/slider/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "controls",
+      "componentThumbnail": "slider"
     },
     {
       "locale": "en",
@@ -2951,7 +3075,9 @@
           "name": "spinner-custom-styles",
           "file": "en/spinner/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "spinner"
     },
     {
       "locale": "en",
@@ -2976,7 +3102,9 @@
           "name": "surface-custom-styles",
           "file": "en/surface/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "surface"
     },
     {
       "locale": "en",
@@ -3045,7 +3173,9 @@
           "name": "switch-custom-styles",
           "file": "en/switch/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "controls",
+      "componentThumbnail": "switch"
     },
     {
       "locale": "en",
@@ -3053,7 +3183,8 @@
       "title": "SwitchGroup",
       "description": "Related switches grouped with a shared label and description.",
       "markdownFile": "content/lenso/en/react/components/switch-group.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -3114,7 +3245,9 @@
           "name": "table-custom-styles",
           "file": "en/table/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "data-display",
+      "componentThumbnail": "table"
     },
     {
       "locale": "en",
@@ -3163,7 +3296,9 @@
           "name": "tabs-custom-styles",
           "file": "en/tabs/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "tabs"
     },
     {
       "locale": "en",
@@ -3171,7 +3306,8 @@
       "title": "Tag",
       "description": "An item in a tag collection, with optional removal.",
       "markdownFile": "content/lenso/en/react/components/tag.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -3228,7 +3364,9 @@
           "name": "tag-group-custom-styles",
           "file": "en/tag-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "collections",
+      "componentThumbnail": "taggroup"
     },
     {
       "locale": "en",
@@ -3265,7 +3403,9 @@
           "name": "text-area-custom-styles",
           "file": "en/textarea/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "textarea"
     },
     {
       "locale": "en",
@@ -3330,7 +3470,9 @@
           "name": "text-field-basic",
           "file": "en/textfield/basic.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "textfield"
     },
     {
       "locale": "en",
@@ -3399,7 +3541,9 @@
           "name": "time-field-custom-styles",
           "file": "en/time-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "timefield"
     },
     {
       "locale": "en",
@@ -3452,7 +3596,9 @@
           "name": "toast-custom-styles",
           "file": "en/toast/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "toast"
     },
     {
       "locale": "en",
@@ -3489,7 +3635,9 @@
           "name": "toggle-button-custom-styles",
           "file": "en/toggle-button/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "togglebutton"
     },
     {
       "locale": "en",
@@ -3538,7 +3686,9 @@
           "name": "toggle-button-group-custom-styles",
           "file": "en/toggle-button-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "togglebuttongroup"
     },
     {
       "locale": "en",
@@ -3567,7 +3717,9 @@
           "name": "toolbar-custom-styles",
           "file": "en/toolbar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "toolbar"
     },
     {
       "locale": "en",
@@ -3600,7 +3752,9 @@
           "name": "tooltip-custom-styles",
           "file": "en/tooltip/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "tooltip"
     },
     {
       "locale": "en",
@@ -3633,7 +3787,9 @@
           "name": "typography-custom-styles",
           "file": "en/typography/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "typography",
+      "componentThumbnail": "typography"
     },
     {
       "locale": "cn",
@@ -3840,7 +3996,9 @@
           "name": "accordion-custom-styles",
           "file": "cn/accordion/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "accordion"
     },
     {
       "locale": "cn",
@@ -3857,7 +4015,9 @@
           "name": "alert-custom-styles",
           "file": "cn/alert/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "alert"
     },
     {
       "locale": "cn",
@@ -3922,7 +4082,9 @@
           "name": "alert-dialog-custom-styles",
           "file": "cn/alert-dialog/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "alertdialog"
     },
     {
       "locale": "cn",
@@ -4027,7 +4189,9 @@
           "name": "autocomplete-custom-styles",
           "file": "cn/autocomplete/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "pickers",
+      "componentThumbnail": "autocomplete"
     },
     {
       "locale": "cn",
@@ -4064,7 +4228,9 @@
           "name": "avatar-custom-image-component",
           "file": "cn/avatar/custom-image-component.tsx"
         }
-      ]
+      ],
+      "componentCategory": "media",
+      "componentThumbnail": "avatar"
     },
     {
       "locale": "cn",
@@ -4101,7 +4267,9 @@
           "name": "avatar-group-overlap",
           "file": "en/avatar-group/overlap.tsx"
         }
-      ]
+      ],
+      "componentCategory": "media",
+      "componentThumbnail": "avatargroup"
     },
     {
       "locale": "cn",
@@ -4142,7 +4310,9 @@
           "name": "badge-custom-styles",
           "file": "cn/badge/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "data-display",
+      "componentThumbnail": "badge"
     },
     {
       "locale": "cn",
@@ -4179,7 +4349,9 @@
           "name": "breadcrumbs-custom-styles",
           "file": "cn/breadcrumbs/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "breadcrumbs"
     },
     {
       "locale": "cn",
@@ -4248,7 +4420,9 @@
           "name": "release-button-outline-variant",
           "file": "cn/button/release-outline-variant.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "button"
     },
     {
       "locale": "cn",
@@ -4293,7 +4467,9 @@
           "name": "button-group-custom-styles",
           "file": "cn/button-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "buttongroup"
     },
     {
       "locale": "cn",
@@ -4378,7 +4554,9 @@
           "name": "calendar-custom-styles",
           "file": "cn/calendar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "calendar"
     },
     {
       "locale": "cn",
@@ -4386,7 +4564,8 @@
       "title": "CalendarYearPicker",
       "description": "在日历日期与焦点上下文中选择年份。",
       "markdownFile": "content/lenso/cn/react/components/calendar-year-picker.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -4423,7 +4602,9 @@
           "name": "card-custom-styles",
           "file": "cn/card/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "card"
     },
     {
       "locale": "cn",
@@ -4492,7 +4673,9 @@
           "name": "checkbox-custom-styles",
           "file": "cn/checkbox/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "checkbox"
     },
     {
       "locale": "cn",
@@ -4541,7 +4724,9 @@
           "name": "checkbox-group-custom-styles",
           "file": "cn/checkbox-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "checkboxgroup"
     },
     {
       "locale": "cn",
@@ -4574,7 +4759,9 @@
           "name": "release-chip-vibrant-palette",
           "file": "cn/chip/release-vibrant-palette.tsx"
         }
-      ]
+      ],
+      "componentCategory": "data-display",
+      "componentThumbnail": "chip"
     },
     {
       "locale": "cn",
@@ -4599,7 +4786,9 @@
           "name": "close-button-custom-styles",
           "file": "cn/close-button/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "closebutton"
     },
     {
       "locale": "cn",
@@ -4636,7 +4825,9 @@
           "name": "color-area-custom-styles",
           "file": "en/color-area/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorarea"
     },
     {
       "locale": "cn",
@@ -4697,7 +4888,9 @@
           "name": "color-field-custom-styles",
           "file": "cn/color-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorfield"
     },
     {
       "locale": "cn",
@@ -4705,7 +4898,8 @@
       "title": "ColorInputGroup",
       "description": "共享颜色字段编辑上下文的输入区域。",
       "markdownFile": "content/lenso/cn/react/components/color-input-group.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -4738,7 +4932,9 @@
           "name": "color-picker-custom-styles",
           "file": "cn/color-picker/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorpicker"
     },
     {
       "locale": "cn",
@@ -4783,7 +4979,9 @@
           "name": "color-slider-custom-styles",
           "file": "cn/color-slider/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorslider"
     },
     {
       "locale": "cn",
@@ -4820,7 +5018,9 @@
           "name": "color-swatch-custom-styles",
           "file": "cn/color-swatch/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorswatch"
     },
     {
       "locale": "cn",
@@ -4869,7 +5069,9 @@
           "name": "color-swatch-picker-custom-styles",
           "file": "en/color-swatch-picker/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "colors",
+      "componentThumbnail": "colorswatchpicker"
     },
     {
       "locale": "cn",
@@ -4958,7 +5160,9 @@
           "name": "combo-box-custom-styles",
           "file": "cn/combo-box/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "pickers",
+      "componentThumbnail": "combobox"
     },
     {
       "locale": "cn",
@@ -5035,7 +5239,9 @@
           "name": "date-field-custom-styles",
           "file": "cn/date-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "datefield"
     },
     {
       "locale": "cn",
@@ -5043,7 +5249,8 @@
       "title": "DateInputGroup",
       "description": "共享日期字段分段上下文的日期输入区域。",
       "markdownFile": "content/lenso/cn/react/components/date-input-group.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5092,7 +5299,9 @@
           "name": "date-picker-custom-styles",
           "file": "cn/date-picker/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "datepicker"
     },
     {
       "locale": "cn",
@@ -5145,7 +5354,9 @@
           "name": "release-date-range-picker-input-container",
           "file": "cn/date-range-picker/release-input-container.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "daterangepicker"
     },
     {
       "locale": "cn",
@@ -5162,7 +5373,9 @@
           "name": "description-custom-styles",
           "file": "cn/description/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "description"
     },
     {
       "locale": "cn",
@@ -5183,7 +5396,9 @@
           "name": "disclosure-custom-styles",
           "file": "cn/disclosure/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "disclosure"
     },
     {
       "locale": "cn",
@@ -5204,7 +5419,9 @@
           "name": "disclosure-group-custom-styles",
           "file": "cn/disclosure-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "disclosuregroup"
     },
     {
       "locale": "cn",
@@ -5249,7 +5466,9 @@
           "name": "drawer-custom-styles",
           "file": "cn/drawer/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "drawer"
     },
     {
       "locale": "cn",
@@ -5257,7 +5476,8 @@
       "title": "EmptyState",
       "description": "集合没有内容时的说明与后续操作区域。",
       "markdownFile": "content/lenso/cn/react/components/empty-state.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5274,7 +5494,9 @@
           "name": "error-message-custom-styles",
           "file": "cn/error-message/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "errormessage"
     },
     {
       "locale": "cn",
@@ -5291,7 +5513,9 @@
           "name": "field-error-custom-styles",
           "file": "cn/field-error/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "fielderror"
     },
     {
       "locale": "cn",
@@ -5312,7 +5536,9 @@
           "name": "fieldset-custom-styles",
           "file": "cn/fieldset/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "fieldset"
     },
     {
       "locale": "cn",
@@ -5333,7 +5559,9 @@
           "name": "form-custom-styles",
           "file": "cn/form/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "form"
     },
     {
       "locale": "cn",
@@ -5341,7 +5569,8 @@
       "title": "Header",
       "description": "页面或章节的结构化标题区域。",
       "markdownFile": "content/lenso/cn/react/components/header.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5378,7 +5607,9 @@
           "name": "input-custom-styles",
           "file": "cn/input/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "input"
     },
     {
       "locale": "cn",
@@ -5471,7 +5702,9 @@
           "name": "input-group-custom-styles",
           "file": "cn/input-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "inputgroup"
     },
     {
       "locale": "cn",
@@ -5524,7 +5757,9 @@
           "name": "input-otp-custom-styles",
           "file": "cn/input-otp/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "inputotp"
     },
     {
       "locale": "cn",
@@ -5561,7 +5796,9 @@
           "name": "kbd-custom-styles",
           "file": "en/kbd/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "typography",
+      "componentThumbnail": "kbd"
     },
     {
       "locale": "cn",
@@ -5578,7 +5815,9 @@
           "name": "label-custom-styles",
           "file": "cn/label/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "label"
     },
     {
       "locale": "cn",
@@ -5611,7 +5850,9 @@
           "name": "link-custom-styles",
           "file": "cn/link/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "link"
     },
     {
       "locale": "cn",
@@ -5660,7 +5901,9 @@
           "name": "release-list-box-scrollbar-modes",
           "file": "cn/list-box/release-scrollbar-modes.tsx"
         }
-      ]
+      ],
+      "componentCategory": "collections",
+      "componentThumbnail": "listbox"
     },
     {
       "locale": "cn",
@@ -5668,7 +5911,8 @@
       "title": "ListBoxItem",
       "description": "参与所在列表框选择模型的选项。",
       "markdownFile": "content/lenso/cn/react/components/list-box-item.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5676,7 +5920,8 @@
       "title": "ListBoxSection",
       "description": "列表框集合中的带标签选项分组。",
       "markdownFile": "content/lenso/cn/react/components/list-box-section.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5753,7 +5998,9 @@
           "name": "menu-custom-styles",
           "file": "cn/menu/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "collections",
+      "componentThumbnail": "dropdown"
     },
     {
       "locale": "cn",
@@ -5761,7 +6008,8 @@
       "title": "MenuItem",
       "description": "所在 Menu 上下文中的命令、复选框或单选项。",
       "markdownFile": "content/lenso/cn/react/components/menu-item.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5769,7 +6017,8 @@
       "title": "MenuSection",
       "description": "Menu 弹出层中的带标签命令分组。",
       "markdownFile": "content/lenso/cn/react/components/menu-section.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5802,7 +6051,9 @@
           "name": "meter-custom-styles",
           "file": "cn/meter/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "meter"
     },
     {
       "locale": "cn",
@@ -5867,7 +6118,9 @@
           "name": "modal-custom-styles",
           "file": "cn/modal/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "modal"
     },
     {
       "locale": "cn",
@@ -5944,7 +6197,9 @@
           "name": "number-field-custom-styles",
           "file": "cn/number-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "numberfield"
     },
     {
       "locale": "cn",
@@ -5989,7 +6244,9 @@
           "name": "pagination-custom-styles",
           "file": "en/pagination/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "pagination"
     },
     {
       "locale": "cn",
@@ -6022,7 +6279,9 @@
           "name": "popover-custom-styles",
           "file": "cn/popover/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "popover"
     },
     {
       "locale": "cn",
@@ -6059,7 +6318,9 @@
           "name": "progress-bar-custom-styles",
           "file": "cn/progress-bar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "progressbar"
     },
     {
       "locale": "cn",
@@ -6096,7 +6357,9 @@
           "name": "progress-circle-custom-styles",
           "file": "cn/progress-circle/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "progresscircle"
     },
     {
       "locale": "cn",
@@ -6104,7 +6367,8 @@
       "title": "Radio",
       "description": "原生单选组中的一个互斥选项。",
       "markdownFile": "content/lenso/cn/react/components/radio.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -6161,7 +6425,9 @@
           "name": "radio-group-custom-styles",
           "file": "cn/radio-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "radiogroup"
     },
     {
       "locale": "cn",
@@ -6250,7 +6516,9 @@
           "name": "range-calendar-custom-styles",
           "file": "cn/range-calendar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "rangecalendar"
     },
     {
       "locale": "cn",
@@ -6287,7 +6555,9 @@
           "name": "scroll-shadow-custom-styles",
           "file": "cn/scroll-shadow/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "utilities",
+      "componentThumbnail": "scrollshadow"
     },
     {
       "locale": "cn",
@@ -6356,7 +6626,9 @@
           "name": "search-field-custom-styles",
           "file": "cn/search-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "searchfield"
     },
     {
       "locale": "cn",
@@ -6441,7 +6713,9 @@
           "name": "select-custom-styles",
           "file": "cn/select/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "pickers",
+      "componentThumbnail": "select"
     },
     {
       "locale": "cn",
@@ -6478,7 +6752,9 @@
           "name": "separator-custom-styles",
           "file": "cn/separator/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "separator"
     },
     {
       "locale": "cn",
@@ -6519,7 +6795,9 @@
           "name": "skeleton-custom-styles",
           "file": "en/skeleton/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "skeleton"
     },
     {
       "locale": "cn",
@@ -6552,7 +6830,9 @@
           "name": "slider-custom-styles",
           "file": "cn/slider/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "controls",
+      "componentThumbnail": "slider"
     },
     {
       "locale": "cn",
@@ -6581,7 +6861,9 @@
           "name": "spinner-custom-styles",
           "file": "en/spinner/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "feedback",
+      "componentThumbnail": "spinner"
     },
     {
       "locale": "cn",
@@ -6606,7 +6888,9 @@
           "name": "surface-custom-styles",
           "file": "cn/surface/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "surface"
     },
     {
       "locale": "cn",
@@ -6675,7 +6959,9 @@
           "name": "switch-custom-styles",
           "file": "cn/switch/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "controls",
+      "componentThumbnail": "switch"
     },
     {
       "locale": "cn",
@@ -6683,7 +6969,8 @@
       "title": "SwitchGroup",
       "description": "由共享标签和说明组织的相关开关集合。",
       "markdownFile": "content/lenso/cn/react/components/switch-group.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -6744,7 +7031,9 @@
           "name": "table-custom-styles",
           "file": "cn/table/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "data-display",
+      "componentThumbnail": "table"
     },
     {
       "locale": "cn",
@@ -6793,7 +7082,9 @@
           "name": "tabs-custom-styles",
           "file": "cn/tabs/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "navigation",
+      "componentThumbnail": "tabs"
     },
     {
       "locale": "cn",
@@ -6801,7 +7092,8 @@
       "title": "Tag",
       "description": "标签集合中的项目，可包含移除操作。",
       "markdownFile": "content/lenso/cn/react/components/tag.mdx",
-      "examples": []
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -6858,7 +7150,9 @@
           "name": "tag-group-custom-styles",
           "file": "cn/tag-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "collections",
+      "componentThumbnail": "taggroup"
     },
     {
       "locale": "cn",
@@ -6895,7 +7189,9 @@
           "name": "text-area-custom-styles",
           "file": "cn/textarea/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "textarea"
     },
     {
       "locale": "cn",
@@ -6960,7 +7256,9 @@
           "name": "text-field-basic",
           "file": "cn/textfield/basic.tsx"
         }
-      ]
+      ],
+      "componentCategory": "forms",
+      "componentThumbnail": "textfield"
     },
     {
       "locale": "cn",
@@ -7029,7 +7327,9 @@
           "name": "time-field-custom-styles",
           "file": "cn/time-field/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "date-and-time",
+      "componentThumbnail": "timefield"
     },
     {
       "locale": "cn",
@@ -7082,7 +7382,9 @@
           "name": "toast-custom-styles",
           "file": "cn/toast/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "toast"
     },
     {
       "locale": "cn",
@@ -7119,7 +7421,9 @@
           "name": "toggle-button-custom-styles",
           "file": "cn/toggle-button/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "togglebutton"
     },
     {
       "locale": "cn",
@@ -7168,7 +7472,9 @@
           "name": "toggle-button-group-custom-styles",
           "file": "cn/toggle-button-group/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "buttons",
+      "componentThumbnail": "togglebuttongroup"
     },
     {
       "locale": "cn",
@@ -7197,7 +7503,9 @@
           "name": "toolbar-custom-styles",
           "file": "cn/toolbar/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "layout",
+      "componentThumbnail": "toolbar"
     },
     {
       "locale": "cn",
@@ -7230,7 +7538,9 @@
           "name": "tooltip-custom-styles",
           "file": "cn/tooltip/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "overlays",
+      "componentThumbnail": "tooltip"
     },
     {
       "locale": "cn",
@@ -7263,7 +7573,9 @@
           "name": "typography-custom-styles",
           "file": "cn/typography/custom-styles.tsx"
         }
-      ]
+      ],
+      "componentCategory": "typography",
+      "componentThumbnail": "typography"
     }
   ]
 }

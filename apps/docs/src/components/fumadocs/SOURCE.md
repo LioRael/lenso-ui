@@ -60,6 +60,25 @@ does not invent other supported versions. Web is presented without a fake
 local Native destination. The source's Pro, AI services, custom-theme builder,
 and newsletter publishing controls are not offered as working local products.
 
+## Component overview and reference links
+
+`components-category.tsx` and `component-gallery.stylex.ts` adapt the pinned
+`components-category.tsx` / `component-item.tsx`: 16px column gaps, 40px row
+gaps, 198px preview height, 12px preview radius and mobile title-first order.
+Titles and previews share one native link for one keyboard stop per component.
+Current public exports remain the inventory; the docs projection derives category
+and thumbnail metadata from the reference archive, including canonical Menu and
+hyphen-insensitive TextField/TextArea matches. Additional public families without
+reference pages keep description links, not invented thumbnails.
+
+Static light/dark PNGs use the reference's public CDN at
+`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/related-components/`.
+They are remotely hosted reference images, not redistributed local assets or
+evidence of runnable Lenso demos. Their availability remains network-dependent.
+Reference links compose the current Lenso small tertiary button maps, following
+the pinned `utils/variants.ts` dark-background override while keeping anchors and
+visible keyboard focus. This adaptation remains Apache-2.0.
+
 ## Content and preview contracts
 
 The shared source index, navigation metadata, relationships, and live manifest

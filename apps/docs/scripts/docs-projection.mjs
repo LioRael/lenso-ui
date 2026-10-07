@@ -4,6 +4,24 @@ import { fileURLToPath } from "node:url";
 import { nativeApiMarkdown } from "../src/lib/native-api-section.ts";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
+const componentCategories = [
+  ["buttons", "Buttons", "按钮"],
+  ["collections", "Collections", "集合"],
+  ["colors", "Colors", "颜色"],
+  ["controls", "Controls", "控件"],
+  ["data-display", "Data Display", "数据展示"],
+  ["date-and-time", "Date and Time", "日期和时间"],
+  ["feedback", "Feedback", "反馈"],
+  ["forms", "Forms", "表单"],
+  ["layout", "Layout", "布局"],
+  ["media", "Media", "媒体"],
+  ["navigation", "Navigation", "导航"],
+  ["overlays", "Overlays", "浮层"],
+  ["pickers", "Pickers", "选择器"],
+  ["typography", "Typography", "排版"],
+  ["utilities", "Utilities", "实用工具"],
+  ["additional", "Additional components", "其他组件"],
+];
 export const sourceFamilyMapping = Object.freeze({ dropdown: "menu" });
 export const canonicalFamily = (family, mapping = sourceFamilyMapping) => mapping[family] ?? family;
 export function canonicalExampleName(name, mapping = sourceFamilyMapping) {
@@ -825,16 +843,33 @@ export async function generateDocsProjection(directory = root) {
       locale === "cn"
         ? "浏览当前公开组件系列的原生 API 与本地运行示例。"
         : "Browse the current public families, native APIs and local runnable examples.";
+    const componentPages = families.map((family) => {
+      const archivePage = archive.pages.find((page) => {
+        if (page.locale !== locale || !page.slug.startsWith("react/components/")) return false;
+        const sourceFamily = page.slug.split("/").at(-1);
+        return (
+          canonicalFamily(sourceFamily) === family ||
+          sourceFamily.replaceAll("-", "") === family.replaceAll("-", "")
+        );
+      });
+      const category = archivePage ? /\(([^)]+)\)/.exec(archivePage.file)?.[1] : undefined;
+      const componentCategory = componentCategories.some(([key]) => key === category)
+        ? category
+        : "additional";
+      const componentThumbnail = archivePage?.title?.trim().split(/\s+/)[0]?.toLowerCase();
+      return { family, componentCategory, componentThumbnail };
+    });
+    const categorySections = componentCategories
+      .map(([category, englishLabel, chineseLabel]) => {
+        const members = componentPages.filter((page) => page.componentCategory === category);
+        if (!members.length) return null;
+        return `## ${locale === "cn" ? chineseLabel : englishLabel}\n\n<ComponentsCategory category="${category}" />`;
+      })
+      .filter(Boolean)
+      .join("\n\n");
     markdown.set(
       overviewFile,
-      frontmatter(overviewTitle, overviewDescription) +
-        families
-          .map(
-            (family) =>
-              `- [${titles[family]}](/docs/react/components/${family}) — ${descriptions[family]?.[locale === "cn" ? 1 : 0] ?? ""}`,
-          )
-          .join("\n") +
-        "\n",
+      `${frontmatter(overviewTitle, overviewDescription)}${categorySections}\n`,
     );
     pages.push({
       locale,
@@ -845,6 +880,9 @@ export async function generateDocsProjection(directory = root) {
       examples: [],
     });
     for (const family of families) {
+      const { componentCategory, componentThumbnail } = componentPages.find(
+        (page) => page.family === family,
+      );
       const description = descriptions[family]?.[locale === "cn" ? 1 : 0];
       if (!description) throw new Error(`No authored description for native family: ${family}`);
       const title = titles[family];
@@ -917,6 +955,8 @@ export async function generateDocsProjection(directory = root) {
         description,
         markdownFile,
         examples,
+        componentCategory,
+        ...(componentThumbnail ? { componentThumbnail } : {}),
       });
     }
   }

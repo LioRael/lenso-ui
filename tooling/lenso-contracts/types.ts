@@ -110,6 +110,8 @@ export interface DocsIndexPage extends DocMetadata {
   examples: { name: string; file: string }[];
   navigationGroup?: string;
   navigationOrder?: number;
+  componentCategory?: string;
+  componentThumbnail?: string;
 }
 export interface DocsIndex {
   formatVersion: number;

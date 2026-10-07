@@ -558,6 +558,8 @@ function validateDocShape(
         "examples",
         "navigationGroup",
         "navigationOrder",
+        "componentCategory",
+        "componentThumbnail",
       ]
     : encoded
       ? ["locale", "slug", "title", "description", "markdownLineRefs"]
@@ -579,6 +581,23 @@ function validateDocShape(
       doc.navigationOrder < 0
     )
       fail(`${label} navigationOrder must be a nonnegative integer`);
+  }
+  if (indexPage && doc.componentCategory !== undefined) {
+    if (
+      typeof doc.componentCategory !== "string" ||
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(doc.componentCategory)
+    ) {
+      fail(`${label} componentCategory must be a safe lower-case slug`);
+    }
+  }
+  if (indexPage && doc.componentThumbnail !== undefined) {
+    if (
+      doc.componentCategory === undefined ||
+      typeof doc.componentThumbnail !== "string" ||
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(doc.componentThumbnail)
+    ) {
+      fail(`${label} componentThumbnail requires a category and safe lower-case image stem`);
+    }
   }
 }
 
@@ -1140,6 +1159,16 @@ export function readDocsIndex(input: unknown, api: ApiReference): DocsIndex {
               markdownFile: { type: "string" },
               navigationGroup: { type: "string" },
               navigationOrder: { type: "integer", minimum: 0 },
+              componentCategory: {
+                type: "string",
+                minLength: 1,
+                pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+              },
+              componentThumbnail: {
+                type: "string",
+                minLength: 1,
+                pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+              },
               examples: {
                 type: "array",
                 items: {

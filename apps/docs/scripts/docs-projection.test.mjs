@@ -52,7 +52,16 @@ async function fixture(t) {
     families: { chip: { parts: [part("Chip")] }, menu: { parts: [part("Menu")] } },
   });
   const archive = {
-    pages: [{ locale: "en", slug: "react/releases/v3", previews: ["chip-palette"] }],
+    pages: [
+      { locale: "en", slug: "react/releases/v3", previews: ["chip-palette"] },
+      {
+        locale: "en",
+        slug: "react/components/dropdown",
+        file: "content/docs/en/react/components/(overlays)/dropdown.mdx",
+        title: "Dropdown Menu",
+        previews: ["dropdown-basic"],
+      },
+    ],
     examples: {},
   };
   const manifests = {};
@@ -103,6 +112,8 @@ test("projects current version, canonical family placement, local API and all lo
     const menu = index.pages.find(
       (page) => page.locale === locale && page.slug === "react/components/menu",
     );
+    assert.equal(menu.componentCategory, locale === "en" ? "overlays" : "additional");
+    assert.equal(menu.componentThumbnail, locale === "en" ? "dropdown" : undefined);
     const markdown = await readFile(path.join(directory, "apps/docs", menu.markdownFile), "utf8");
     assert.ok(markdown.includes('<ComponentPreview name="menu-basic" />'));
     assert.ok(!markdown.includes('<ComponentPreview name="dropdown-'));
@@ -118,12 +129,80 @@ test("projects current version, canonical family placement, local API and all lo
       !index.pages.some((page) => /releases|migration|components\/dropdown/.test(page.slug)),
     );
   }
+  const overview = await readFile(
+    path.join(directory, "apps/docs/content/lenso/en/react/components/index.mdx"),
+    "utf8",
+  );
+  assert.match(overview, /## Overlays\n\n<ComponentsCategory category="overlays" \/>/);
+  assert.match(
+    overview,
+    /## Additional components\n\n<ComponentsCategory category="additional" \/>/,
+  );
+  assert.doesNotMatch(overview, /\/docs\/react\/components\/dropdown/);
+  for (const family of ["menu", "chip"]) {
+    const page = index.pages.find((entry) => entry.slug === `react/components/${family}`);
+    assert.ok(page);
+    if (family === "chip") {
+      assert.equal(page.componentCategory, "additional");
+      assert.equal("componentThumbnail" in page, false);
+    }
+  }
   assert.deepEqual(
     await Promise.all(
       files.map((file) => readFile(path.join(directory, "apps/docs", file)).then(digest)),
     ),
     before,
   );
+});
+
+test("matches hyphenated archive names and keeps unknown categories in the overview", async (t) => {
+  const { directory, write, archive } = await fixture(t);
+  await write(
+    "packages/react/src/components/index.ts",
+    'export * from "./menu/index.js";\nexport * from "./chip/index.js";\nexport * from "./textfield/index.js";',
+  );
+  const api = JSON.parse(
+    await readFile(path.join(directory, "apps/docs/src/generated/api-reference.json"), "utf8"),
+  );
+  api.families.textfield = {
+    parts: [{ ...api.families.chip.parts[0], name: "TextField" }],
+  };
+  await write("apps/docs/src/generated/api-reference.json", api);
+  for (const locale of ["en", "cn"]) {
+    archive.pages.push(
+      {
+        locale,
+        slug: "react/components/text-field",
+        file: `content/docs/${locale}/react/components/(forms)/text-field.mdx`,
+        title: locale === "cn" ? "TextField 文本输入" : "TextField",
+        previews: [],
+      },
+      {
+        locale,
+        slug: "react/components/chip",
+        file: `content/docs/${locale}/react/components/(future-category)/chip.mdx`,
+        title: "Chip",
+        previews: [],
+      },
+    );
+  }
+  await write("apps/docs/content/source-index.json", archive);
+  const { index, markdown } = await generateDocsProjection(directory);
+  for (const locale of ["en", "cn"]) {
+    const textfield = index.pages.find(
+      (page) => page.locale === locale && page.slug === "react/components/textfield",
+    );
+    assert.equal(textfield.componentCategory, "forms");
+    assert.equal(textfield.componentThumbnail, "textfield");
+    const chip = index.pages.find(
+      (page) => page.locale === locale && page.slug === "react/components/chip",
+    );
+    assert.equal(chip.componentCategory, "additional");
+    const overview = markdown.get(`content/lenso/${locale}/react/components/index.mdx`);
+    assert.match(overview, /<ComponentsCategory category="forms" \/>/);
+    assert.match(overview, /<ComponentsCategory category="additional" \/>/);
+    assert.doesNotMatch(overview, /future-category/);
+  }
 });
 
 test("generation is cwd-independent and derives version from the active package", async (t) => {

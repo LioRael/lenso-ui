@@ -13,6 +13,8 @@ export interface DocPage {
   description: string;
   navigationGroup?: string;
   navigationOrder?: number;
+  componentCategory?: string;
+  componentThumbnail?: string;
   examples: { name: string; file: string }[];
 }
 interface DocsIndex {
