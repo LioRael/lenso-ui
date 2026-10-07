@@ -1,0 +1,18 @@
+apps/docs/src/styles/theme-builder-dashboard.stylex.ts
+  h_9d56aba080c170 244,252,254
+apps/docs/src/styles/theme-builder-finances.stylex.ts
+  h_9d56aba080c170 255
+apps/docs/src/styles/theme-builder-preview.stylex.ts
+  h_9d56aba080c170 88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "522bf3f0622826c4b2b35191193044565c5cdbf9",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
