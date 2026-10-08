@@ -13,7 +13,7 @@ const env = {
   GITHUB_SHA: "abc123",
   LENSO_RELEASE_VERSION: "0.8.0",
 };
-const manifests = entries.map((entry) => ({ name: entry.name, version: "0.8.0" }));
+const manifests = entries.map((entry) => ({ name: entry.name, version: entry.version ?? "0.8.0" }));
 
 test("accepts only the authorized CI context and exact package identities", () => {
   assert.equal(validateContext(env, "abc123", "abc123", manifests), "0.8.0");
@@ -182,10 +182,10 @@ test("only skips an existing exact integrity and dependency pin", () => {
   );
 });
 
-test("release list contains only tokens then UI; primitives are never selected", () => {
+test("release list orders public packages by dependencies and excludes primitives", () => {
   assert.deepEqual(
     entries.map(({ name }) => name),
-    ["@lenso/tokens", "@lenso/ui"],
+    ["@lenso/tokens", "@lenso/ui", "@lenso/stylex-build", "@lenso/docs", "create-lenso-docs"],
   );
 });
 
@@ -312,4 +312,35 @@ test("waiting rejects wrong UI dependency and limits latest-tag lag to its deadl
   );
   assert.deepEqual(sleeps, [6, 4]);
   assert.deepEqual(budgets, [10, 4]);
+});
+
+test("new package validation requires runtime binaries, templates and notices", () => {
+  const item = entries.find((entry) => entry.kind === "initializer");
+  const manifest = {
+    name: item.name,
+    version: "0.1.0",
+    bin: { "create-lenso-docs": "./src/cli.mjs" },
+  };
+  const files = ["package/LICENSE", "package/template/package.json", "package/src/cli.mjs"];
+  assert.doesNotThrow(() => validatePackage(manifest, files, {}, item, "0.1.0"));
+  assert.throws(
+    () => validatePackage(manifest, files.slice(0, 2), {}, item, "0.1.0"),
+    /missing.*cli.mjs/,
+  );
+  assert.throws(
+    () =>
+      validatePackage(
+        manifest,
+        files.filter((file) => !file.includes("template")),
+        {},
+        item,
+        "0.1.0",
+      ),
+    /missing.*template/,
+  );
+  const docs = entries.find((entry) => entry.kind === "docs");
+  assert.throws(
+    () => validatePackage({ name: docs.name, version: "0.1.0" }, [], {}, docs, "0.1.0"),
+    /missing.*LICENSE/,
+  );
 });

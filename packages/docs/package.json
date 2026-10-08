@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Content-first static documentation with MDX and the Lenso documentation shell.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/docs"
+  },
   "bin": {
     "lenso-docs": "./src/cli.mjs"
   },
@@ -59,6 +64,9 @@
     "./font.css": "./src/font.css",
     "./fonts/*": "./dist/fonts/*",
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown --config tsdown.config.ts --concurrency 1 && tsc -p tsconfig.presentation.json && node scripts/copy-assets.mjs && tsc -p tsconfig.framework.json && node --check src/runtime.mjs",

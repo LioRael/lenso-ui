@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Exact version declared by both public packages
+        description: Exact version declared by UI and tokens (Docs/tooling use their manifest versions)
         required: true
-        default: "0.9.0"
+        default: "0.9.1"
         type: string
 
 concurrency:
@@ -56,7 +56,7 @@ jobs:
         run: npm install --global npm@12.0.1 --ignore-scripts
       - run: pnpm install --frozen-lockfile
       - run: node --test scripts/publish-packages.test.mjs
-      - name: Publish styles then UI with npm OIDC provenance
+      - name: Publish public packages with npm OIDC provenance
         env:
           LENSO_RELEASE_VERSION: ${{ inputs.version }}
         run: node scripts/publish-packages.mjs

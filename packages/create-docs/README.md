@@ -1,3 +1,4 @@
 # create-lenso-docs
 
-Planned initializer for content-only Lenso Docs projects. Once wired into the workspace, `pnpm create lenso-docs <directory>` will create a project without installing dependencies or accessing the network.
+Run `pnpm create lenso-docs <directory>` to create a content-only Lenso Docs project.
+The initializer creates files without installing dependencies or accessing the network.

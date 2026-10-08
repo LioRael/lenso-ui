@@ -7,7 +7,7 @@ a framework configuration. The shell uses Fumadocs notebook interactions and
 the Lenso theme directly. The typography, frame, source controls, Tabs, code
 highlighting and responsive TOC reuse the existing documentation's source.
 
-This is a source implementation, not an npm release. The existing Lenso UI
+This package provides the Lenso Docs source implementation and runtime. The existing Lenso UI
 documentation application consumes its compilation, source lookup/navigation,
 site layout, search and article renderer for both languages. Product controls,
 custom page declarations and content/API generation remain application-owned adapters.

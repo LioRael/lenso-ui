@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Create a content-only Lenso Docs project",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/create-docs"
+  },
   "bin": {
     "create-lenso-docs": "./src/cli.mjs"
   },
@@ -13,6 +18,9 @@
     "README.md"
   ],
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "node --check src/cli.mjs",
     "test": "node --test"

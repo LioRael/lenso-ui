@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "One StyleX processing pass for precompiled Lenso packages and applications.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/stylex-build"
+  },
   "files": [
     "src",
     "LICENSE",
@@ -28,6 +33,9 @@
       "import": "./src/watch-output.mjs",
       "default": "./src/watch-output.mjs"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "node --check src/index.mjs && node --check src/metadata.mjs && node --check src/adapters.mjs && node --check src/postcss.mjs && node --check src/compile-source.mjs && node --check src/webpack-loader.cjs && node --check src/watch-output.mjs && node scripts/copy-notices.mjs",

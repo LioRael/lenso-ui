@@ -1,7 +1,7 @@
 # @lenso/stylex-build
 
 Build-only tooling for composing precompiled Lenso StyleX maps with application
-styles. Version `0.1.0` is initially unpublished. It does not change component
+styles. Version `0.1.0` is the initial public release. It does not change component
 props, render composition, runtime custom properties or native interaction.
 
 **Next.js support is limited to the pinned `16.3.8` App Router Webpack

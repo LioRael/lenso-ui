@@ -1,3 +1,21 @@
+# Lenso UI 0.9.1 and Docs/tooling 0.1.0
+
+This release publishes `@lenso/ui` and `@lenso/tokens` at `0.9.1`, plus the
+first `0.1.0` releases of `@lenso/docs`, `create-lenso-docs` and
+`@lenso/stylex-build`. Unchanged `@lenso/primitives@0.7.0` remains preserved.
+CLI and MCP packages remain private.
+
+UI/tokens include the current Popover, Tooltip, Toast and Input OTP fixes.
+Docs provides content-only MDX compilation, the documentation shell and its
+CLI. The initializer creates a content-only project. StyleX build support
+provides package and consumer CSS processing.
+
+Dispatch `release.yml` on `main` with version `0.9.1`. Publication retains the
+exact-main verification gate, the protected `npm` environment, packed export
+and dependency validation, OIDC provenance and registry integrity checks.
+New package names require initial publication and per-package Trusted Publisher
+configuration before CI can publish them using OIDC.
+
 # Lenso UI 0.9.0
 
 The owner authorized publishing `@lenso/ui@0.9.0` and
