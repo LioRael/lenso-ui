@@ -13,6 +13,7 @@ import {
   resolveExample,
   resolveStyle,
   validateContract,
+  validateApiReference,
   validateExamplePath,
   resolveSource,
   resolveTheme,
@@ -258,6 +259,21 @@ test("rejects re-digested API extra fields at every closed nested boundary", () 
     contract.digest = contractDigest(contract);
     assert.throws(() => validateContract(contract), /unknown field: invented/);
   }
+});
+
+test("artifact provenance stays outside the strict published API contract", () => {
+  const api = fixture().apiReference;
+  const proof = { inputs: "a".repeat(64), contents: "b".repeat(64) };
+  assert.deepEqual(validateApiReference({ ...api, sourceFingerprint: proof }), api);
+  assert.throws(() => validateApiReference({ ...api, invented: true }), /unknown field/);
+  assert.throws(
+    () => validateApiReference({ ...api, sourceFingerprint: { ...proof, invented: true } }),
+    /unknown field/,
+  );
+  assert.throws(
+    () => validateApiReference({ ...api, sourceFingerprint: { ...proof, inputs: "invalid" } }),
+    /invalid string/,
+  );
 });
 
 test("validates included local implementation imports, not only API provenance, after re-digesting", () => {

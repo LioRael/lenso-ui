@@ -29,7 +29,13 @@ function treeNodes(nodes, basePath) {
   );
 }
 
-export async function generateHost(root, directory, config, host, { development, source, write }) {
+export async function generateHost(
+  root,
+  directory,
+  config,
+  host,
+  { development, source, write, turbopackRoot = root },
+) {
   const customization = config.components
     ? await modulePath(root, config.components, /\.(?:[cm]?js|jsx|tsx|ts)$/u)
     : undefined;
@@ -53,7 +59,7 @@ import path from "node:path";
 ${build ? `import build from ${importPath(path.join(directory, "next.config.mjs"), build)};` : "const build = {};"}
 export default async function configuration(phase, context) {
   const consumer = (typeof build === "function" ? await build(phase, context) : build) ?? {};
-  const turbopackRoot = consumer.turbopack?.root ?? ${json(root)};
+  const turbopackRoot = consumer.turbopack?.root ?? ${json(turbopackRoot)};
   const turbopackAliases = Object.fromEntries(Object.entries(${json(aliases)}).map(([name, target]) =>
     [name, "./" + path.relative(turbopackRoot, target).split(path.sep).join("/")]));
   return {

@@ -118,6 +118,9 @@ export async function generateApiReference(directory = root, dependencyRoot = di
     return propertyIds.get(key);
   };
   const output = {};
+  // Public aliases share the exact TypeScript symbol and declaration context.
+  // Reuse extraction within this one program; no state survives input changes.
+  const extractedSymbols = new Map();
   for (const [index, family] of families.entries()) {
     const module = program.getSourceFile(files[index]);
     if (!module?.symbol) throw new Error(`Cannot resolve public module: ${files[index]}`);
@@ -127,6 +130,11 @@ export async function generateApiReference(directory = root, dependencyRoot = di
       if (!/^[A-Z]/.test(name) || name.endsWith("Context")) continue;
       const symbol =
         exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
+      const previous = extractedSymbols.get(symbol);
+      if (previous) {
+        parts.push({ ...previous, name });
+        continue;
+      }
       const declaration = symbol.valueDeclaration;
       if (!declaration) continue;
       const type = checker.getTypeOfSymbolAtLocation(symbol, declaration);
@@ -231,7 +239,7 @@ export async function generateApiReference(directory = root, dependencyRoot = di
       const native = imports.filter((specifier) =>
         /^(?:@base-ui\/react|react-aria-components)(?:\/|$)/.test(specifier),
       );
-      parts.push({
+      const part = {
         name,
         signature: checker.signatureToString(signature, declaration, flags),
         props: format(props, signature.declaration ?? declaration),
@@ -246,7 +254,9 @@ export async function generateApiReference(directory = root, dependencyRoot = di
           .map((member) => member.name),
         states: Object.fromEntries(states),
         properties: propertyRows,
-      });
+      };
+      extractedSymbols.set(symbol, part);
+      parts.push(part);
     }
     if (!parts.length) throw new Error(`${family}: no callable public components found.`);
     output[family] = { parts };
@@ -255,6 +265,12 @@ export async function generateApiReference(directory = root, dependencyRoot = di
 }
 
 export async function writeApiReference(directory = root, dependencyRoot = directory) {
+  // Describe the sources extraction started from. An edit during extraction
+  // must invalidate this artifact on the queued follow-up, not bless stale data.
+  const inputs =
+    path.resolve(directory) === path.resolve(dependencyRoot)
+      ? await fingerprint(directory, await apiSourceInputs(directory))
+      : undefined;
   const result = await generateApiReference(directory, dependencyRoot);
   const target = path.join(directory, "apps/docs/src/generated");
   await mkdir(target, { recursive: true });
@@ -267,7 +283,7 @@ export async function writeApiReference(directory = root, dependencyRoot = direc
       ? {
           ...result,
           sourceFingerprint: {
-            inputs: await fingerprint(directory, await apiSourceInputs(directory)),
+            inputs,
             contents: apiSnapshotDigest(result),
           },
         }

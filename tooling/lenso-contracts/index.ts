@@ -1132,6 +1132,23 @@ export function implementationRoot(family: string, api: ApiFamily): string {
 }
 
 export function validateApiReference(input: unknown): ApiReference {
+  // Artifact freshness belongs to generation, not the published API contract.
+  // Accept only the recognized, closed provenance record at this read boundary.
+  if (input && typeof input === "object" && "sourceFingerprint" in input) {
+    const digest: Schema = { type: "string", pattern: "^[a-f0-9]{64}$" };
+    validateSchema(
+      input.sourceFingerprint,
+      {
+        type: "object",
+        additionalProperties: false,
+        required: ["inputs", "contents"],
+        properties: { inputs: digest, contents: digest },
+      },
+      "api artifact provenance",
+    );
+    const { sourceFingerprint: _provenance, ...reference } = input;
+    input = reference;
+  }
   validateSchema(input, contractSchema.properties!["api"]!, "api");
   const api = input as ApiReference;
   validateApi(api);

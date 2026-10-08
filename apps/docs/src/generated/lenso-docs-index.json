@@ -7,7 +7,9 @@
   "families": {
     "accordion": {
       "source": "packages/react/src/components/accordion/accordion.tsx",
-      "native": ["@base-ui/react/accordion"],
+      "native": [
+        "@base-ui/react/accordion"
+      ],
       "related": []
     },
     "alert": {
@@ -17,17 +19,23 @@
     },
     "alert-dialog": {
       "source": "packages/react/src/components/alert-dialog/alert-dialog.tsx",
-      "native": ["@base-ui/react/alert-dialog"],
+      "native": [
+        "@base-ui/react/alert-dialog"
+      ],
       "related": []
     },
     "autocomplete": {
       "source": "packages/react/src/components/autocomplete/index.ts",
-      "native": ["@base-ui/react/combobox"],
+      "native": [
+        "@base-ui/react/combobox"
+      ],
       "related": []
     },
     "avatar": {
       "source": "packages/react/src/components/avatar/avatar.tsx",
-      "native": ["@base-ui/react/avatar"],
+      "native": [
+        "@base-ui/react/avatar"
+      ],
       "related": []
     },
     "avatar-group": {
@@ -42,12 +50,17 @@
     },
     "breadcrumbs": {
       "source": "packages/react/src/components/breadcrumbs/breadcrumbs.tsx",
-      "native": ["@base-ui/react/use-render"],
+      "native": [
+        "@base-ui/react/use-render"
+      ],
       "related": []
     },
     "button": {
       "source": "packages/react/src/components/button/button.tsx",
-      "native": ["@base-ui/react/button", "@base-ui/react/merge-props"],
+      "native": [
+        "@base-ui/react/button",
+        "@base-ui/react/merge-props"
+      ],
       "related": []
     },
     "button-group": {
@@ -62,7 +75,9 @@
         "react-aria-components/Button",
         "react-aria-components/I18nProvider"
       ],
-      "related": ["calendar-year-picker"]
+      "related": [
+        "calendar-year-picker"
+      ]
     },
     "calendar-year-picker": {
       "source": "packages/react/src/components/calendar-year-picker/calendar-year-picker.tsx",
@@ -80,12 +95,16 @@
     },
     "checkbox": {
       "source": "packages/react/src/components/checkbox/index.ts",
-      "native": ["@base-ui/react/checkbox"],
+      "native": [
+        "@base-ui/react/checkbox"
+      ],
       "related": []
     },
     "checkbox-group": {
       "source": "packages/react/src/components/checkbox-group/index.ts",
-      "native": ["@base-ui/react/checkbox-group"],
+      "native": [
+        "@base-ui/react/checkbox-group"
+      ],
       "related": []
     },
     "chip": {
@@ -100,7 +119,9 @@
     },
     "color-area": {
       "source": "packages/react/src/components/color-area/color-area.tsx",
-      "native": ["react-aria-components/ColorArea"],
+      "native": [
+        "react-aria-components/ColorArea"
+      ],
       "related": []
     },
     "color-field": {
@@ -115,7 +136,10 @@
     },
     "color-input-group": {
       "source": "packages/react/src/components/color-input-group/color-input-group.tsx",
-      "native": ["react-aria-components/Group", "react-aria-components/Input"],
+      "native": [
+        "react-aria-components/Group",
+        "react-aria-components/Input"
+      ],
       "related": []
     },
     "color-picker": {
@@ -130,22 +154,31 @@
     },
     "color-slider": {
       "source": "packages/react/src/components/color-slider/color-slider.tsx",
-      "native": ["react-aria-components/ColorSlider", "react-aria-components/Label"],
+      "native": [
+        "react-aria-components/ColorSlider",
+        "react-aria-components/Label"
+      ],
       "related": []
     },
     "color-swatch": {
       "source": "packages/react/src/components/color-swatch/color-swatch.tsx",
-      "native": ["react-aria-components/ColorSwatch"],
+      "native": [
+        "react-aria-components/ColorSwatch"
+      ],
       "related": []
     },
     "color-swatch-picker": {
       "source": "packages/react/src/components/color-swatch-picker/color-swatch-picker.tsx",
-      "native": ["react-aria-components/ColorSwatchPicker"],
+      "native": [
+        "react-aria-components/ColorSwatchPicker"
+      ],
       "related": []
     },
     "combo-box": {
       "source": "packages/react/src/components/combo-box/index.ts",
-      "native": ["@base-ui/react/combobox"],
+      "native": [
+        "@base-ui/react/combobox"
+      ],
       "related": []
     },
     "date-field": {
@@ -163,7 +196,10 @@
     },
     "date-input-group": {
       "source": "packages/react/src/components/date-input-group/date-input-group.tsx",
-      "native": ["react-aria-components/DateField", "react-aria-components/Group"],
+      "native": [
+        "react-aria-components/DateField",
+        "react-aria-components/Group"
+      ],
       "related": []
     },
     "date-picker": {
@@ -198,22 +234,32 @@
     },
     "description": {
       "source": "packages/react/src/components/description/description.tsx",
-      "native": ["@base-ui/react/field", "@base-ui/react/use-render"],
+      "native": [
+        "@base-ui/react/field",
+        "@base-ui/react/use-render"
+      ],
       "related": []
     },
     "disclosure": {
       "source": "packages/react/src/components/disclosure/disclosure.tsx",
-      "native": ["@base-ui/react/collapsible", "@base-ui/react/accordion"],
+      "native": [
+        "@base-ui/react/collapsible",
+        "@base-ui/react/accordion"
+      ],
       "related": []
     },
     "disclosure-group": {
       "source": "packages/react/src/components/disclosure-group/disclosure-group.tsx",
-      "native": ["@base-ui/react/accordion"],
+      "native": [
+        "@base-ui/react/accordion"
+      ],
       "related": []
     },
     "drawer": {
       "source": "packages/react/src/components/drawer/drawer.tsx",
-      "native": ["@base-ui/react/drawer"],
+      "native": [
+        "@base-ui/react/drawer"
+      ],
       "related": []
     },
     "empty-state": {
@@ -228,17 +274,23 @@
     },
     "field-error": {
       "source": "packages/react/src/components/field-error/field-error.tsx",
-      "native": ["@base-ui/react/field"],
+      "native": [
+        "@base-ui/react/field"
+      ],
       "related": []
     },
     "fieldset": {
       "source": "packages/react/src/components/fieldset/fieldset.tsx",
-      "native": ["@base-ui/react/fieldset"],
+      "native": [
+        "@base-ui/react/fieldset"
+      ],
       "related": []
     },
     "form": {
       "source": "packages/react/src/components/form/form.tsx",
-      "native": ["@base-ui/react/form"],
+      "native": [
+        "@base-ui/react/form"
+      ],
       "related": []
     },
     "header": {
@@ -248,17 +300,23 @@
     },
     "input": {
       "source": "packages/react/src/components/input/input.tsx",
-      "native": ["@base-ui/react/input"],
+      "native": [
+        "@base-ui/react/input"
+      ],
       "related": []
     },
     "input-group": {
       "source": "packages/react/src/components/input-group/input-group.tsx",
-      "native": ["@base-ui/react/input"],
+      "native": [
+        "@base-ui/react/input"
+      ],
       "related": []
     },
     "input-otp": {
       "source": "packages/react/src/components/input-otp/input-otp.tsx",
-      "native": ["@base-ui/react/otp-field"],
+      "native": [
+        "@base-ui/react/otp-field"
+      ],
       "related": []
     },
     "kbd": {
@@ -268,12 +326,17 @@
     },
     "label": {
       "source": "packages/react/src/components/label/label.tsx",
-      "native": ["@base-ui/react/field", "@base-ui/react/use-render"],
+      "native": [
+        "@base-ui/react/field",
+        "@base-ui/react/use-render"
+      ],
       "related": []
     },
     "link": {
       "source": "packages/react/src/components/link/link.tsx",
-      "native": ["@base-ui/react/use-render"],
+      "native": [
+        "@base-ui/react/use-render"
+      ],
       "related": []
     },
     "list-box": {
@@ -293,32 +356,47 @@
     },
     "menu": {
       "source": "packages/react/src/components/menu/menu.tsx",
-      "native": ["@base-ui/react/menu"],
-      "related": ["menu-item", "menu-section"]
+      "native": [
+        "@base-ui/react/menu"
+      ],
+      "related": [
+        "menu-item",
+        "menu-section"
+      ]
     },
     "menu-item": {
       "source": "packages/react/src/components/menu-item/menu-item.tsx",
-      "native": ["@base-ui/react/menu"],
+      "native": [
+        "@base-ui/react/menu"
+      ],
       "related": []
     },
     "menu-section": {
       "source": "packages/react/src/components/menu-section/menu-section.tsx",
-      "native": ["@base-ui/react/menu"],
+      "native": [
+        "@base-ui/react/menu"
+      ],
       "related": []
     },
     "meter": {
       "source": "packages/react/src/components/meter/meter.tsx",
-      "native": ["@base-ui/react/meter"],
+      "native": [
+        "@base-ui/react/meter"
+      ],
       "related": []
     },
     "modal": {
       "source": "packages/react/src/components/modal/modal.tsx",
-      "native": ["@base-ui/react/dialog"],
+      "native": [
+        "@base-ui/react/dialog"
+      ],
       "related": []
     },
     "number-field": {
       "source": "packages/react/src/components/number-field/number-field.tsx",
-      "native": ["@base-ui/react/number-field"],
+      "native": [
+        "@base-ui/react/number-field"
+      ],
       "related": []
     },
     "pagination": {
@@ -328,27 +406,38 @@
     },
     "popover": {
       "source": "packages/react/src/components/popover/popover.tsx",
-      "native": ["@base-ui/react/popover", "@base-ui/react/direction-provider"],
+      "native": [
+        "@base-ui/react/popover",
+        "@base-ui/react/direction-provider"
+      ],
       "related": []
     },
     "progress-bar": {
       "source": "packages/react/src/components/progress-bar/progress-bar.tsx",
-      "native": ["@base-ui/react/progress"],
+      "native": [
+        "@base-ui/react/progress"
+      ],
       "related": []
     },
     "progress-circle": {
       "source": "packages/react/src/components/progress-circle/progress-circle.tsx",
-      "native": ["@base-ui/react/progress"],
+      "native": [
+        "@base-ui/react/progress"
+      ],
       "related": []
     },
     "radio": {
       "source": "packages/react/src/components/radio/index.ts",
-      "native": ["@base-ui/react/radio"],
+      "native": [
+        "@base-ui/react/radio"
+      ],
       "related": []
     },
     "radio-group": {
       "source": "packages/react/src/components/radio-group/index.ts",
-      "native": ["@base-ui/react/radio-group"],
+      "native": [
+        "@base-ui/react/radio-group"
+      ],
       "related": []
     },
     "range-calendar": {
@@ -368,17 +457,25 @@
     },
     "search-field": {
       "source": "packages/react/src/components/search-field/search-field.tsx",
-      "native": ["@base-ui/react/field", "@base-ui/react/input", "@base-ui/react/button"],
+      "native": [
+        "@base-ui/react/field",
+        "@base-ui/react/input",
+        "@base-ui/react/button"
+      ],
       "related": []
     },
     "select": {
       "source": "packages/react/src/components/select/index.ts",
-      "native": ["@base-ui/react/select"],
+      "native": [
+        "@base-ui/react/select"
+      ],
       "related": []
     },
     "separator": {
       "source": "packages/react/src/components/separator/separator.tsx",
-      "native": ["@base-ui/react/separator"],
+      "native": [
+        "@base-ui/react/separator"
+      ],
       "related": []
     },
     "skeleton": {
@@ -388,7 +485,9 @@
     },
     "slider": {
       "source": "packages/react/src/components/slider/index.ts",
-      "native": ["@base-ui/react/slider"],
+      "native": [
+        "@base-ui/react/slider"
+      ],
       "related": []
     },
     "spinner": {
@@ -403,7 +502,9 @@
     },
     "switch": {
       "source": "packages/react/src/components/switch/index.ts",
-      "native": ["@base-ui/react/switch"],
+      "native": [
+        "@base-ui/react/switch"
+      ],
       "related": []
     },
     "switch-group": {
@@ -418,7 +519,9 @@
     },
     "tabs": {
       "source": "packages/react/src/components/tabs/tabs.tsx",
-      "native": ["@base-ui/react/tabs"],
+      "native": [
+        "@base-ui/react/tabs"
+      ],
       "related": []
     },
     "tag": {
@@ -433,12 +536,16 @@
     },
     "textarea": {
       "source": "packages/react/src/components/textarea/textarea.tsx",
-      "native": ["@base-ui/react/field"],
+      "native": [
+        "@base-ui/react/field"
+      ],
       "related": []
     },
     "textfield": {
       "source": "packages/react/src/components/textfield/textfield.tsx",
-      "native": ["@base-ui/react/field"],
+      "native": [
+        "@base-ui/react/field"
+      ],
       "related": []
     },
     "time-field": {
@@ -453,32 +560,45 @@
     },
     "toast": {
       "source": "packages/react/src/components/toast/toast.tsx",
-      "native": ["@base-ui/react/toast"],
+      "native": [
+        "@base-ui/react/toast"
+      ],
       "related": []
     },
     "toggle-button": {
       "source": "packages/react/src/components/toggle-button/toggle-button.tsx",
-      "native": ["@base-ui/react/toggle"],
+      "native": [
+        "@base-ui/react/toggle"
+      ],
       "related": []
     },
     "toggle-button-group": {
       "source": "packages/react/src/components/toggle-button-group/toggle-button-group.tsx",
-      "native": ["@base-ui/react/toggle-group"],
+      "native": [
+        "@base-ui/react/toggle-group"
+      ],
       "related": []
     },
     "toolbar": {
       "source": "packages/react/src/components/toolbar/toolbar.tsx",
-      "native": ["@base-ui/react/toolbar"],
+      "native": [
+        "@base-ui/react/toolbar"
+      ],
       "related": []
     },
     "tooltip": {
       "source": "packages/react/src/components/tooltip/tooltip.tsx",
-      "native": ["@base-ui/react/tooltip", "@base-ui/react/direction-provider"],
+      "native": [
+        "@base-ui/react/tooltip",
+        "@base-ui/react/direction-provider"
+      ],
       "related": []
     },
     "typography": {
       "source": "packages/react/src/components/typography/typography.tsx",
-      "native": ["@base-ui/react/use-render"],
+      "native": [
+        "@base-ui/react/use-render"
+      ],
       "related": []
     }
   },

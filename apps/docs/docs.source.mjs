@@ -64,13 +64,6 @@ export async function prepare({ root, command, changedPaths = [] }) {
   preparedRoots.add(root);
 }
 
-export async function prepareBackground({ root, command }) {
-  if (command !== "dev") return;
-  console.log("Refreshing the component API snapshot in the background…");
-  await generate(root, "content", { skipBuild: true, development: true });
-  console.log("Component API snapshot is current.");
-}
-
 function homeMetadata(locale) {
   const cn = locale === "cn";
   const title = cn ? "Lenso UI · React 组件与 StyleX" : "Lenso UI — React components with StyleX";

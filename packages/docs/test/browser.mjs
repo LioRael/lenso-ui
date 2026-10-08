@@ -402,10 +402,16 @@ try {
 
   await stop(preview);
   preview = undefined;
-  dev = spawn(process.execPath, [cli, "dev", "--port", String(port)], {
-    cwd: project,
-    stdio: "inherit",
-  });
+  // A production build must not hide fresh consumer dev preparation.
+  await rm(path.join(project, ".lenso"), { recursive: true, force: true });
+  dev = spawn(
+    process.execPath,
+    [cli, ...manifest.scripts.dev.split(" ").slice(1), "--port", String(port)],
+    {
+      cwd: project,
+      stdio: "inherit",
+    },
+  );
   const live = await browser.newPage();
   await eventually(async () => {
     const response = await live.goto(`${origin}/manual/`);

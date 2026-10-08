@@ -173,8 +173,8 @@ export async function generateDocs(
         );
         if (!fields.title || !fields.description)
           throw new Error(`Missing authored metadata: ${page.markdownFile}`);
-        delete page.navigationGroup;
-        delete page.navigationOrder;
+        if (!("navigationGroup" in fields)) delete page.navigationGroup;
+        if (!("navigationOrder" in fields)) delete page.navigationOrder;
         Object.assign(page, fields);
       }
       await writeFile(indexFile, `${JSON.stringify(index, null, 2)}\n`);

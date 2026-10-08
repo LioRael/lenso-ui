@@ -47,6 +47,24 @@ async function exists(file) {
   }
 }
 
+async function turbopackWorkspaceRoot(root) {
+  // Workspace links resolve into the shared dependency store above a starter.
+  // Installed consumers keep their own project root and node_modules boundary.
+  let directory = source;
+  while (path.dirname(directory) !== directory) {
+    const relative = path.relative(directory, root);
+    if (
+      !relative.startsWith(`..${path.sep}`) &&
+      relative !== ".." &&
+      !path.isAbsolute(relative) &&
+      (await exists(path.join(directory, "pnpm-workspace.yaml")))
+    )
+      return directory;
+    directory = path.dirname(directory);
+  }
+  return root;
+}
+
 async function ownedDirectory(directory) {
   const info = await exists(directory);
   if (info?.isSymbolicLink() || (info && !info.isDirectory()))
@@ -192,6 +210,7 @@ export async function prepare(
   await generateHost(root, directory, config, host, {
     development,
     source,
+    turbopackRoot: turbopack ? await turbopackWorkspaceRoot(root) : root,
     write: async (file, content) => {
       emitted.add(path.relative(directory, file));
       modules.set(file, content);
