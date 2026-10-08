@@ -5,6 +5,10 @@
       "dependsOn": ["^build", "typecheck"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "build:dev": {
+      "dependsOn": ["^build:dev"],
+      "outputs": ["dist/**"]
+    },
     "dev": {
       "cache": false,
       "persistent": true
@@ -39,6 +43,7 @@
       "inputs": [
         "scripts/generate-docs.ts",
         "scripts/generate-api-reference.mjs",
+        "scripts/api-artifact.ts",
         "$TURBO_ROOT$/packages/standard/oxfmt.json",
         "$TURBO_ROOT$/pnpm-lock.yaml",
         "$TURBO_ROOT$/packages/react/src/**/*.ts",
@@ -57,6 +62,7 @@
         "scripts/generate-docs.ts",
         "scripts/generate-live-registry.ts",
         "scripts/generate-page-documents.ts",
+        "scripts/static-search.mjs",
         "scripts/docs-projection.mjs",
         "src/lib/demo-locale.ts",
         "src/lib/native-api-section.ts",
@@ -167,8 +173,8 @@
       "outputs": []
     },
     "@lenso/ui-docs#dev": {
-      "dependsOn": ["generate"],
       "cache": false,
+      "env": ["LENSO_DOCS_PACKAGES_READY"],
       "persistent": true
     },
     "@lenso/storybook#build": {

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { styles, prose } from "../dist/presentation.js";
+import { styles, prose } from "@lenso/docs/presentation";
 
 export interface ComponentExampleProps {
   title: string;

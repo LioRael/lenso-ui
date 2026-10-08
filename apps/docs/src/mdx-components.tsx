@@ -3,13 +3,6 @@ import type { ComponentProps, ReactNode } from "react";
 import fumaMDX from "fumadocs-ui/mdx";
 import * as stylex from "@stylexjs/stylex";
 import { HandPointUp } from "@gravity-ui/icons";
-import { ComponentsCategory } from "@/components/components-category";
-import {
-  ColorSectionSideBySide,
-  ColorSectionStacked,
-  ColorSectionFormField,
-  ColorSectionPrimitive,
-} from "@/components/color-section";
 import { source, pageUrl, type Locale } from "@/lib/source";
 import { styles } from "@/styles/docs.stylex";
 import { prose } from "@/styles/prose.stylex";
@@ -154,10 +147,6 @@ export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}):
     Tab,
     ComponentCount: () => <>{componentPages.length}</>,
     ExampleCount: () => <>{Object.keys(source.examples[locale]).length}</>,
-    ComponentsCategory: ({ category }: { category: string }) => {
-      const pages = componentPages.filter((page) => page.componentCategory === category);
-      return <ComponentsCategory pages={pages} />;
-    },
     RelatedComponents: ({ component }: { component: string }) => {
       const related = getRelatedComponents(component, locale).slice(0, 3);
       return (
@@ -252,10 +241,6 @@ export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}):
         </details>
       </Frame>
     ),
-    ColorSectionSideBySide,
-    ColorSectionStacked,
-    ColorSectionFormField,
-    ColorSectionPrimitive,
     ...overrides,
   };
 }

@@ -198,6 +198,31 @@ test("MDX imports and reexports retain their original source location", async (t
   assert.doesNotMatch(pages[0].compiled, /children: "Getting started"/u);
 });
 
+test("cached MDX resolves imports again after a source move that preserves its URL", async (t) => {
+  const markdown = 'import Demo from "./demo.js"\n\n# Guide\n\n<Demo />';
+  const root = await project(t, { "content/guide.mdx": markdown });
+  const first = await buildContent(root, { title: "Docs" });
+  await rm(path.join(root, "content", "guide.mdx"));
+  await mkdir(path.join(root, "content", "guide"));
+  await writeFile(path.join(root, "content", "guide", "index.mdx"), markdown);
+  const second = await buildContent(root, { title: "Docs" }, { previous: first.pages });
+  assert.equal(second.pages[0].url, first.pages[0].url);
+  assert.ok(second.pages[0].compiled.includes(path.join(root, "content", "guide", "demo.js")));
+  assert.ok(!second.pages[0].compiled.includes(path.join(root, "content", "demo.js")));
+});
+
+test("cached Markdown is recompiled when the file becomes MDX", async (t) => {
+  const markdown = "# Guide\n\n<Demo />\n";
+  const root = await project(t, { "content/guide.md": markdown });
+  const first = await buildContent(root, { title: "Docs" });
+  await rm(path.join(root, "content", "guide.md"));
+  await writeFile(path.join(root, "content", "guide.mdx"), markdown);
+  const second = await buildContent(root, { title: "Docs" }, { previous: first.pages });
+  assert.equal(second.pages[0].url, first.pages[0].url);
+  assert.notEqual(second.pages[0].compiled, first.pages[0].compiled);
+  assert.match(second.pages[0].compiled, /_missingMdxReference\("Demo"/u);
+});
+
 test("fenced code retains its source and remains searchable", async (t) => {
   const root = await project(t, {
     "content/index.md": "# Example\n\n```js\nconst answer = 42;\n```\n",

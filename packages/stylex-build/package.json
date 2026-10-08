@@ -15,15 +15,28 @@
       "types": "./src/index.d.ts",
       "import": "./src/index.mjs",
       "default": "./src/index.mjs"
+    },
+    "./postcss": {
+      "types": "./src/postcss.d.mts",
+      "import": "./src/postcss.mjs",
+      "require": "./src/postcss.cjs",
+      "default": "./src/postcss.cjs"
+    },
+    "./webpack-loader": "./src/webpack-loader.cjs",
+    "./watch-output": {
+      "types": "./src/watch-output.d.mts",
+      "import": "./src/watch-output.mjs",
+      "default": "./src/watch-output.mjs"
     }
   },
   "scripts": {
-    "build": "node --check src/index.mjs && node --check src/metadata.mjs && node --check src/adapters.mjs && node scripts/copy-notices.mjs",
+    "build": "node --check src/index.mjs && node --check src/metadata.mjs && node --check src/adapters.mjs && node --check src/postcss.mjs && node --check src/compile-source.mjs && node --check src/webpack-loader.cjs && node --check src/watch-output.mjs && node scripts/copy-notices.mjs",
     "test": "node --import tsx --test tests/*.test.mjs tests/*.test.ts",
     "test:next": "tsx tests/next-css-import.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@babel/core": "7.29.7",
     "@stylexjs/babel-plugin": "0.19.1",
     "@stylexjs/unplugin": "0.19.1",
     "browserslist": "4.29.3",

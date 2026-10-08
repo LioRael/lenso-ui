@@ -1,13 +1,39 @@
 import { spawn } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { watchInputs } from "../../packages/docs/src/runtime.mjs";
 
-export async function prepare({ root }) {
-  const child = spawn("pnpm", ["exec", "tsx", "scripts/generate-docs.ts"], {
-    cwd: root,
-    stdio: "inherit",
-    env: process.env,
-  });
+const preparedRoots = new Set();
+
+export function watchSource({ root, onChange, onError }) {
+  return watchInputs(
+    path.resolve(root, "../.."),
+    ["packages/react/src", "packages/styles/src", "packages/react/package.json", "pnpm-lock.yaml"],
+    () => onChange(["component-api-change"]),
+    onError,
+  );
+}
+
+async function generate(
+  root,
+  target,
+  { skipBuild = false, changedPaths = [], development = false } = {},
+) {
+  const child = spawn(
+    process.execPath,
+    [
+      "scripts/generate-docs.ts",
+      target,
+      ...(skipBuild ? ["--skip-build"] : []),
+      ...(development ? ["--development"] : []),
+      ...changedPaths,
+    ],
+    {
+      cwd: root,
+      stdio: "inherit",
+      env: process.env,
+    },
+  );
   const interrupt = () => child.kill("SIGINT");
   const terminate = () => child.kill("SIGTERM");
   process.once("SIGINT", interrupt);
@@ -25,6 +51,24 @@ export async function prepare({ root }) {
     process.removeListener("SIGINT", interrupt);
     process.removeListener("SIGTERM", terminate);
   }
+}
+
+export async function prepare({ root, command, changedPaths = [] }) {
+  await generate(root, command === "dev" ? "dev" : "all", {
+    skipBuild:
+      process.env.LENSO_DOCS_PACKAGES_READY === "1" ||
+      preparedRoots.has(root) ||
+      changedPaths.length > 0,
+    changedPaths,
+  });
+  preparedRoots.add(root);
+}
+
+export async function prepareBackground({ root, command }) {
+  if (command !== "dev") return;
+  console.log("Refreshing the component API snapshot in the background…");
+  await generate(root, "content", { skipBuild: true, development: true });
+  console.log("Component API snapshot is current.");
 }
 
 function homeMetadata(locale) {
@@ -149,6 +193,20 @@ export async function loadSource({ root }) {
     routes,
     redirects,
     search: { en: "public/search/en.json", cn: "public/search/cn.json" },
-    watchPaths: ["content/lenso", "src/generated", "src/demos"],
+    watchPaths: [
+      "content/lenso",
+      "src/demos/en",
+      "src/demos/cn",
+      "src/demos/localized-manifest.json",
+    ],
+    generatedPaths: [
+      "src/generated",
+      "public/search",
+      "public/coverage.json",
+      "src/demos/generated.ts",
+      "src/demos/live-manifest.json",
+      "content/lenso/en/react/components",
+      "content/lenso/cn/react/components",
+    ],
   };
 }

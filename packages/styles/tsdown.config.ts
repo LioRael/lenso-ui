@@ -1,5 +1,6 @@
 import { existsSync, readdirSync } from "node:fs";
 import stylex from "@lenso/stylex-build";
+import preserveWatchOutput from "@lenso/stylex-build/watch-output";
 import { defineConfig } from "tsdown";
 
 const componentRoot = "src/components";
@@ -28,6 +29,7 @@ export default defineConfig({
       // Lightning CSS Features.DirSelector: preserve dir, not a language approximation.
       lightningcssOptions: { exclude: 4 },
     }),
+    preserveWatchOutput(),
   ],
   clean: true,
 });

@@ -121,6 +121,7 @@ export async function discoverLiveExamples(
 export async function generateLiveRegistry(
   directory = root,
   localized: LocalizedChoices = { cn: {} },
+  { globalRegistry = true }: { globalRegistry?: boolean } = {},
 ): Promise<LiveManifest> {
   const source: SourceIndex = JSON.parse(
     await readFile(path.join(directory, "content/source-index.json"), "utf8"),
@@ -159,6 +160,13 @@ export async function generateLiveRegistry(
       locale: "cn",
     });
   }
+  await writeFile(
+    path.join(directory, "src/demos/live-manifest.json"),
+    `${JSON.stringify(manifest, null, 2)}\n`,
+  );
+  // Document modules supply their own demos. Keep the full tooling dispatcher
+  // available for production generation without formatting it on every dev start.
+  if (!globalRegistry) return manifest;
   const modules = new Map<string, number>();
   const imports: string[] = [];
   const entries: Record<"en" | "cn", string[]> = { en: [], cn: [] };
@@ -179,10 +187,6 @@ export async function generateLiveRegistry(
     }
     entries[locale].push(`  ${JSON.stringify(name)}: Demo${index},`);
   }
-  await writeFile(
-    path.join(directory, "src/demos/live-manifest.json"),
-    `${JSON.stringify(manifest, null, 2)}\n`,
-  );
   await writeFile(
     path.join(directory, "src/demos/generated.ts"),
     (

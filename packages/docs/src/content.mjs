@@ -12,6 +12,9 @@ import { defineDocs, validatePageId } from "./config.mjs";
 import { createDocumentationSource } from "./source.mjs";
 import { isNonRenderingPrefix } from "./heading-utils.mjs";
 
+// Symbols survive host copies without leaking source paths into serialized pages.
+const sourceFile = Symbol.for("@lenso/docs/content/source-file");
+
 function walk(node, visit) {
   visit(node);
   for (const child of node.children ?? []) walk(child, visit);
@@ -48,7 +51,8 @@ function defaultTree(pages) {
   return tree;
 }
 
-export async function buildContent(root, input) {
+export async function buildContent(root, input, { previous = [] } = {}) {
+  const previousPages = new Map(previous.map((page) => [page.url, page]));
   const config = defineDocs(input);
   const directory = path.resolve(root, config.contentDir);
   let contentRoot;
@@ -109,6 +113,21 @@ export async function buildContent(root, input) {
           .replace(/\.mdx?$/u, ""),
       );
       const markdown = await readFile(file, "utf8");
+      const previousPage = previousPages.get(
+        `${config.basePath}/${id === "index" ? "" : id.replace(/\/index$/u, "") + "/"}`,
+      );
+      if (
+        previousPage?.markdown === markdown &&
+        previousPage.locale === config.language &&
+        previousPage[sourceFile] === file
+      ) {
+        const slug = previousPage.slug;
+        if (routes.has(slug))
+          throw new Error(`duplicate route "/${slug}" also defined by ${routes.get(slug)}.`);
+        routes.set(slug, file);
+        pages.push({ ...previousPage, id });
+        continue;
+      }
       const { data, content: body } = matter(markdown);
       for (const key of Object.keys(data))
         if (!["title", "description", "draft", "kind", "metadata"].includes(key)) {
@@ -131,6 +150,7 @@ export async function buildContent(root, input) {
         throw new Error(`duplicate route "/${slug}" also defined by ${routes.get(slug)}.`);
       routes.set(slug, file);
       const page = {
+        [sourceFile]: file,
         id,
         slug,
         kind: data.kind ?? "docs",

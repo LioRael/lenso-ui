@@ -14,7 +14,7 @@ let revision = 0;
 
 const hasControl = (value) => [...value].some((character) => character.charCodeAt(0) < 32);
 
-export async function localPath(root, relative, { directory = false } = {}) {
+export async function localPath(root, relative, { directory = false, missing = false } = {}) {
   if (
     typeof relative !== "string" ||
     !relative ||
@@ -28,7 +28,14 @@ export async function localPath(root, relative, { directory = false } = {}) {
   let file = root;
   for (const part of relative.split("/")) {
     file = path.join(file, part);
-    if ((await lstat(file)).isSymbolicLink())
+    let info;
+    try {
+      info = await lstat(file);
+    } catch (error) {
+      if (missing && error.code === "ENOENT") return path.join(root, relative);
+      throw error;
+    }
+    if (info.isSymbolicLink())
       throw new Error(`Local source paths cannot contain symlinks: ${file}`);
   }
   const info = await lstat(file);
@@ -136,20 +143,31 @@ async function compilePage(input) {
   return page;
 }
 
-export async function loadHost(root, config, command) {
+export async function loadHost(
+  root,
+  config,
+  command,
+  { previous, changedPaths = [], background = true } = {},
+) {
   root = path.resolve(root);
   const locales = config.locales ?? [
     { code: config.language, label: config.language, language: config.language, routePrefix: "" },
   ];
   const defaultLocale = config.defaultLocale ?? locales[0].code;
   let input;
+  let prepareBackground;
+  let watchSource;
   const watchPaths = new Set();
   if (config.source) {
     const file = await modulePath(root, config.source);
     const url = pathToFileURL(file);
     url.searchParams.set("revision", String(++revision));
     const module = await import(url.href);
-    if (module.prepare) await module.prepare({ root, config, command });
+    if (module.prepare) await module.prepare({ root, config, command, changedPaths, background });
+    if (background && module.prepareBackground)
+      prepareBackground = () => module.prepareBackground({ root, config, command });
+    if (command === "dev" && module.watchSource)
+      watchSource = (callbacks) => module.watchSource({ root, config, ...callbacks });
     if (typeof module.loadSource !== "function")
       throw new Error(`${config.source} must export loadSource({ root, config }).`);
     input = await module.loadSource({ root, config });
@@ -159,13 +177,17 @@ export async function loadHost(root, config, command) {
     const trees = {};
     for (const locale of locales) {
       const contentDir = locale.contentDir ?? config.contentDir;
-      const content = await buildContent(root, {
-        title: config.title,
-        contentDir,
-        language: locale.code,
-        basePath: `${config.basePath}${(locale.routePrefix ?? "").replace(/\/$/u, "")}`,
-        ...(config.navigation ? { navigation: config.navigation } : {}),
-      });
+      const content = await buildContent(
+        root,
+        {
+          title: config.title,
+          contentDir,
+          language: locale.code,
+          basePath: `${config.basePath}${(locale.routePrefix ?? "").replace(/\/$/u, "")}`,
+          ...(config.navigation ? { navigation: config.navigation } : {}),
+        },
+        { previous: previous?.pages },
+      );
       pages.push(
         ...content.pages.map((page) => ({
           ...page,
@@ -210,6 +232,9 @@ export async function loadHost(root, config, command) {
       throw new Error(
         `Custom source page "${page.id}" requires a page module or a components module with getDocument.`,
       );
+    const cached = previous?.pages.find(
+      (old) => old.id === page.id && old.markdown === page.markdown,
+    );
     pages.push(
       input.render === "custom"
         ? {
@@ -217,7 +242,17 @@ export async function loadHost(root, config, command) {
             headings: page.headings ?? [],
             structuredData: page.structuredData ?? { headings: [], contents: [] },
           }
-        : await compilePage(page),
+        : page.compiled
+          ? page
+          : cached?.compiled
+            ? {
+                ...page,
+                compiled: cached.compiled,
+                headings: cached.headings,
+                structuredData: cached.structuredData,
+                searchText: cached.searchText,
+              }
+            : await compilePage(page),
     );
   }
   const source = createDocumentationSource({
@@ -280,7 +315,17 @@ export async function loadHost(root, config, command) {
       watchPaths.add(relative);
     }
   }
+  const generatedPaths = input.generatedPaths ?? [];
+  for (const relative of generatedPaths)
+    await localPath(root, relative, { directory: null, missing: true });
+  const managed = (relative) =>
+    generatedPaths.some(
+      (generated) => relative === generated || relative.startsWith(`${generated}/`),
+    );
   return {
+    prepareBackground,
+    watchSource,
+    generatedPaths,
     pages: source.pages,
     source,
     locales,
@@ -288,7 +333,7 @@ export async function loadHost(root, config, command) {
     routes,
     redirects,
     trees: input.trees,
-    watchPaths: [...watchPaths],
+    watchPaths: [...watchPaths].filter((relative) => !managed(relative)),
     searchFiles,
   };
 }

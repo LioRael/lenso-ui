@@ -121,6 +121,7 @@ test("custom rendering keeps large raw sources out of the generated module graph
 test("direct host generation protects CLI config and emits locale-correct server modules", async (t) => {
   const root = await fixture(t);
   await mkdir(path.join(root, "src"));
+  await writeFile(path.join(root, "src/site.css"), ":root { color: red; }");
   await writeFile(
     path.join(root, "docs.build.mjs"),
     `export default () => ({
@@ -134,6 +135,7 @@ test("direct host generation protects CLI config and emits locale-correct server
     build: "docs.build.mjs",
     aliases: { "@": "src" },
     stylesheet: "consumer",
+    styles: ["src/site.css"],
     trailingSlash: true,
   };
   const host = await loadHost(root, input, "build");
@@ -167,17 +169,35 @@ test("direct host generation protects CLI config and emits locale-correct server
     "@": path.join(root, "src"),
   });
   const layout = emitted.get("app/(locale-1)/layout.jsx");
+  assert.deepEqual(JSON.parse(emitted.get("tsconfig.json")).compilerOptions.paths, {
+    "@": ["../src"],
+    "@/*": ["../src/*"],
+  });
   assert.match(layout, /"language":"zh-CN"/);
   assert.doesNotMatch(layout, /stylex\.css|docs\.css/);
   assert.ok(emitted.has("app/(locale-1)/cn/read/page.jsx"));
   assert.ok(emitted.has("app/(locale-1)/cn/home/page.jsx"));
   assert.ok(emitted.has("app/(locale-0)/old/page.jsx"));
   assert.match(layout, /docs\.components\.tsx/);
+  assert.match(layout, /import "\.\.\/\.\.\/\.\.\/src\/site\.css"/);
+  for (const [file, content] of emitted) {
+    if (!/\.(?:mjs|jsx)$/.test(file)) continue;
+    for (const match of content.matchAll(/\bimport(?:[^\n;]*?\bfrom\s*)?\s*["']([^"']+)["']/g))
+      assert.equal(path.isAbsolute(match[1]), false, `${file}: ${match[1]}`);
+  }
   assert.match(layout, /Reflect\.get\(customization, "getRootOptions"\)/);
   assert.match(emitted.get("render.jsx"), /Reflect\.get\(customization, "getDocument"\)/);
   const model = await import(path.join(directory, "model.mjs"));
   assert.equal(model.pages[0].compiled, undefined);
-  assert.equal(model.bodies["cn/start"] instanceof Function, true);
+  assert.equal(model.bodies, undefined);
+  assert.doesNotMatch(emitted.get("model.mjs"), /pages\/\d+\.mjs/);
+  const route = emitted.get("app/(locale-1)/cn/read/page.jsx");
+  assert.match(route, /import Body from ".*pages\/1\.mjs"/);
+  assert.doesNotMatch(route, /pages\/0\.mjs/);
+  assert.equal(
+    (await import(path.join(directory, "pages/1.mjs"))).default instanceof Function,
+    true,
+  );
 });
 
 // A shared customization import passes the legacy host tests while pulling every
@@ -210,16 +230,21 @@ test("root and document customizations stay local to their generated entry point
   });
   for (const group of ["(locale-0)", "(locale-1)"]) {
     const layout = emitted.get(`app/${group}/layout.jsx`);
-    assert.ok(layout.includes(path.join(root, "docs.root.tsx")));
-    assert.match(layout, /\/root\.tsx"/);
-    assert.doesNotMatch(layout, /view\.tsx|docs\.components\.tsx|document\.tsx|render\.jsx/);
+    assert.match(layout, /from "\.\.\/\.\.\/\.\.\/docs\.root\.tsx"/);
+    assert.match(layout, /\/dist\/framework\/root\.js"/);
+    assert.doesNotMatch(layout, /view\.js|docs\.components\.tsx|document\.tsx|render\.jsx/);
   }
   const entries = ["app/(locale-0)/en/learn/page.jsx", "app/(locale-1)/cn/read/page.jsx"];
   for (const [index, entry] of entries.entries()) {
     const module = emitted.get(entry);
-    assert.ok(module.includes(path.join(root, documents[index])));
+    const specifier = module.match(/import \* as documentModule from "([^"]+)"/)[1];
+    assert.equal(path.isAbsolute(specifier), false);
+    assert.equal(
+      path.resolve(directory, path.dirname(entry), specifier),
+      path.join(root, documents[index]),
+    );
     assert.ok(!module.includes(documents[1 - index]));
-    assert.ok(module.includes(`renderPage(${JSON.stringify(pages[index].id)}, documentModule)`));
+    assert.ok(module.includes(`renderPage(${JSON.stringify(pages[index].id)}, documentModule, "`));
     assert.doesNotMatch(module, /\bimport\(/);
   }
   for (const module of ["model.mjs", "render.jsx"]) {
@@ -272,9 +297,10 @@ export async function getPageOptions({ page }) { return { marker: page.markdown 
   await mkdir(sourceDirectory);
   // Only inspect the shared renderer's element props, without coupling this hook
   // contract test to presentation builds or rendering the Fumadocs chrome.
+  await mkdir(path.join(root, "dist/framework"), { recursive: true });
   await writeFile(
-    path.join(sourceDirectory, "view.tsx"),
-    "export function DocumentationPage() { return null; }",
+    path.join(root, "dist/framework/page-layout.js"),
+    "export function DocumentationPageLayout() { return null; }",
   );
   await mkdir(path.join(directory, "node_modules"), { recursive: true });
   await symlink(

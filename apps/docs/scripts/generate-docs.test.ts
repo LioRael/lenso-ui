@@ -3,7 +3,41 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { runIncremental } from "./generate-docs.ts";
+import {
+  apiSnapshotCompatible,
+  apiSnapshotCurrent,
+  apiSnapshotDigest,
+  runIncremental,
+} from "./generate-docs.ts";
+
+test("an API artifact is reused only for matching sources and intact generated data", () => {
+  const data = { upstream: { version: "test" }, families: { button: {} }, properties: [] };
+  const snapshot = {
+    ...data,
+    sourceFingerprint: { inputs: "source-hash", contents: apiSnapshotDigest(data) },
+  };
+  assert.equal(apiSnapshotCurrent(snapshot, "source-hash"), true);
+  assert.equal(apiSnapshotCurrent(snapshot, "changed-source"), false);
+  assert.equal(
+    apiSnapshotCurrent({ ...snapshot, properties: [{ name: "damaged" }] }, "source-hash"),
+    false,
+  );
+  assert.equal(apiSnapshotCurrent(data, "source-hash"), false);
+  assert.equal(apiSnapshotCurrent(null, "source-hash"), false);
+});
+
+test("dev previews only an API snapshot compatible with the actual public exports", () => {
+  const index = 'export { Button } from "./button/index.js";\nexport * from "./menu/index.js";';
+  assert.equal(apiSnapshotCompatible({ families: { menu: {}, button: {} } }, index), true);
+  assert.equal(apiSnapshotCompatible({ families: { button: {} } }, index), false);
+  assert.equal(
+    apiSnapshotCompatible({ families: { button: {}, menu: {}, badge: {} } }, index),
+    false,
+  );
+  assert.equal(apiSnapshotCompatible(null, index), false);
+  assert.equal(apiSnapshotCompatible({}, index), false);
+  assert.equal(apiSnapshotCompatible({ families: {} }, ""), false);
+});
 
 // Previous preparation regenerated everything and rewrote local demos on each invocation.
 test("generation handles clean, warm, source mutation, unrelated edit and missing output", async (t) => {

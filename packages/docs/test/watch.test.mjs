@@ -6,7 +6,8 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { setTimeout as delay } from "node:timers/promises";
-import { watchInputs } from "../src/runtime.mjs";
+import { loadHost } from "../src/host.mjs";
+import { sourceWatchLifecycle, watchInputs } from "../src/runtime.mjs";
 
 async function fixture(t) {
   const root = await mkdtemp(path.join(tmpdir(), "lenso-watch-"));
@@ -26,6 +27,66 @@ async function eventually(predicate) {
     await delay(20);
   }
 }
+
+// Contained site input tests cannot prove source-owned sibling API inputs update
+// the same owner and unsubscribe when the source is replaced or dev exits.
+test("source-owned external inputs refresh through one disposable subscription", async (t) => {
+  const { root, write } = await fixture(t);
+  await write("inputs/api.ts", "initial");
+  await write(
+    "site/docs.source.mjs",
+    `
+import { watchInputs } from ${JSON.stringify(new URL("../src/runtime.mjs", import.meta.url).href)};
+export function watchSource({ root, config, onChange, onError }) {
+  if (config.title !== "Docs") throw new Error("missing config context");
+  return watchInputs(root + "/..", ["inputs"], () => onChange(["component-api-change"]), onError);
+}
+export function loadSource() {
+  return { pages: [{ id: "index", slug: "", locale: "en", url: "/", title: "Home", markdown: "# Home" }] };
+}
+`,
+  );
+  const config = { title: "Docs", basePath: "", language: "en", source: "docs.source.mjs" };
+  const site = path.join(root, "site");
+  assert.equal((await loadHost(site, config, "build")).watchSource, undefined);
+  const host = await loadHost(site, config, "dev");
+  const events = [];
+  const errors = [];
+  let subscriptions = 0;
+  let disposals = 0;
+  const lifecycle = sourceWatchLifecycle(
+    (paths) => {
+      events.push(paths);
+    },
+    (error) => errors.push(error),
+  );
+  t.after(() => lifecycle.close());
+  const subscribe = async (callbacks) => {
+    subscriptions++;
+    const close = await host.watchSource(callbacks);
+    return () => {
+      disposals++;
+      close();
+    };
+  };
+  await lifecycle.update("source-a", subscribe);
+  await lifecycle.update("source-a", subscribe);
+  assert.equal(subscriptions, 1, "body refreshes must retain the external input snapshot");
+  await write("inputs/api.ts", "updated");
+  await eventually(() => events.length === 1);
+  assert.deepEqual(events[0], ["component-api-change"]);
+  await lifecycle.update("source-b", subscribe);
+  assert.equal(subscriptions, 2);
+  assert.equal(disposals, 1);
+  await write("inputs/api.ts", "next source");
+  await eventually(() => events.length === 2);
+  await lifecycle.close();
+  assert.equal(disposals, 2);
+  await write("inputs/api.ts", "after dev exit");
+  await delay(350);
+  assert.equal(events.length, 2);
+  assert.deepEqual(errors, []);
+});
 
 // Runtime preparation tests do not observe fs.watch recovery or edits during a hook.
 test("an edit while watcher subscriptions are replaced is not lost", async (t) => {

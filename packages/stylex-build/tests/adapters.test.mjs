@@ -140,3 +140,136 @@ test("Webpack delivery follows each initial chunk graph, never an orphan or lazy
   ctx.cssInjectionTarget = (name) => name === "orphan.css";
   await assert.rejects(processAssets(Object.fromEntries(sources)), /matching cssInjectionTarget/);
 });
+
+test("declaration preloader leaves Next SWC in charge and watches inlined StyleX constants", async () => {
+  const { createRequire } = await import("node:module");
+  const { mkdtemp, writeFile, rm } = await import("node:fs/promises");
+  const { resolve, join } = await import("node:path");
+  const require = createRequire(import.meta.url);
+  const loader = require("@lenso/stylex-build/webpack-loader");
+  const nextRequire = createRequire(new URL("../../../apps/docs/package.json", import.meta.url));
+  const { transform, loadBindings } = nextRequire("next/dist/build/swc");
+  await loadBindings();
+  const { getLoaderSWCOptions } = nextRequire("next/dist/build/swc/options");
+  const { compileStylexSource } = await import("../src/compile-source.mjs");
+  const root = await mkdtemp("/tmp/lenso-stylex-loader-");
+  const filename = join(root, "client.tsx");
+  const dependencies = [];
+  const load = (source) =>
+    new Promise((resolveResult, reject) => {
+      const callback = (error, code, map) => (error ? reject(error) : resolveResult({ code, map }));
+      loader.call(
+        {
+          cacheable() {},
+          resourcePath: filename,
+          context: root,
+          sourceMap: true,
+          getOptions: () => ({ unstable_moduleResolution: { type: "commonJS" } }),
+          callback,
+          async: () => callback,
+          getResolve: (options) => {
+            assert.equal(options.dependencyType, "esm");
+            assert.deepEqual(options.conditionNames, ["source", "import", "default"]);
+            return async (context, specifier) => resolve(context, specifier);
+          },
+          addDependency: (file) => dependencies.push(file),
+        },
+        source,
+      );
+    });
+  try {
+    const constants = join(root, "values.stylex.js");
+    const constantSource = (width) =>
+      `import * as stylex from '@stylexjs/stylex';export const values=stylex.defineConsts({width:'${width}px'});`;
+    await writeFile(constants, constantSource(211));
+    const source = `"use client";import {create as c,props as p} from '@stylexjs/stylex';import {values} from './values.stylex.js';type Props={label:string};const styles=c({root:{width:values.width}});export function Widget({label}:Props){return <button {...p(styles.root)}>{label}</button>;}`;
+    const transformed = await load(source);
+    assert.match(transformed.code, /["']use client["']/);
+    assert.match(transformed.code, /type Props/);
+    assert.match(transformed.code, /<button/);
+    assert.doesNotMatch(transformed.code, /styles\s*=\s*c\(/);
+    assert.ok(transformed.map);
+    assert.ok(dependencies.includes(constants));
+    const options = (isServer, bundleLayer) => ({
+      ...getLoaderSWCOptions({
+        filename,
+        isServer,
+        development: true,
+        hasReactRefresh: !isServer,
+        configDir: root,
+        serverComponents: true,
+        isCacheComponents: false,
+        useCacheEnabled: false,
+        taintEnabled: false,
+        relativeFilePathFromRoot: "client.tsx",
+        serverReferenceHashSalt: "test",
+        bundleLayer,
+        esm: true,
+      }),
+      filename,
+    });
+    const client = await transform(transformed.code, options(false, "app-pages-browser"));
+    assert.doesNotMatch(client.code, /type Props|<button/);
+    assert.match(client.code, /Widget/);
+    const server = await transform(transformed.code, options(true, "rsc"));
+    assert.match(server.code, /__next_internal_client_entry_do_not_use__/);
+    const serverComponent = await load(source.replace('"use client";', ""));
+    const renderedServer = await transform(serverComponent.code, options(true, "rsc"));
+    assert.doesNotMatch(renderedServer.code, /__next_internal_client_entry_do_not_use__/);
+    assert.match(renderedServer.code, /Widget/);
+    const compiler = require("@stylexjs/babel-plugin");
+    const before = await compileStylexSource(source, filename);
+    const beforeConstants = await compileStylexSource(constantSource(211), constants);
+    await writeFile(constants, constantSource(223));
+    const after = await compileStylexSource(source, filename);
+    const afterConstants = await compileStylexSource(constantSource(223), constants);
+    const beforeCss = compiler.processStylexRules([...before.rules, ...beforeConstants.rules]);
+    const afterCss = compiler.processStylexRules([...after.rules, ...afterConstants.rules]);
+    assert.match(beforeCss, /211px/);
+    assert.match(afterCss, /223px/);
+    assert.doesNotMatch(afterCss, /211px/);
+    const propsOnly = `import * as sx from '@stylexjs/stylex';export const x=sx.props({$$css:true,width:'x123'});`;
+    assert.equal((await load(propsOnly)).code, propsOnly);
+    const aliased = `import * as sx from '@stylexjs/stylex';export const x=sx.create({root:{width:7}});`;
+    assert.doesNotMatch((await load(aliased)).code, /sx\.create\(/);
+  } finally {
+    await rm(root, { recursive: true });
+  }
+});
+
+test("watch output preserves identical final bytes while changed/new and production outputs remain", async () => {
+  const { mkdtemp, writeFile, readFile, stat, rm } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  const { default: preserveWatchOutput } = await import("../src/watch-output.mjs");
+  const root = await mkdtemp("/tmp/lenso-watch-output-");
+  try {
+    await writeFile(join(root, "entry.js"), "export const x=1;\n");
+    await writeFile(join(root, "rules.json"), "same");
+    const before = (await stat(join(root, "entry.js"))).mtimeMs;
+    const bundle = {
+      "entry.js": { type: "chunk", fileName: "entry.js", code: "export const x=1;\n" },
+      "rules.json": {
+        type: "asset",
+        fileName: "rules.json",
+        source: new Uint8Array(Buffer.from("same")),
+      },
+      "changed.css": { type: "asset", fileName: "changed.css", source: ".x{width:2px}" },
+      "new.js": { type: "chunk", fileName: "new.js", code: "export const newValue=1;" },
+    };
+    await writeFile(join(root, "changed.css"), ".x{width:1px}");
+    const original = structuredClone(bundle);
+    const hook = preserveWatchOutput().generateBundle.handler;
+    await hook.call({ meta: { watchMode: true } }, { dir: root }, bundle, true);
+    assert.deepEqual(Object.keys(bundle), ["changed.css", "new.js"]);
+    assert.equal((await stat(join(root, "entry.js"))).mtimeMs, before);
+    assert.equal(await readFile(join(root, "entry.js"), "utf8"), "export const x=1;\n");
+    const production = structuredClone(original);
+    await hook.call({ meta: { watchMode: false } }, { dir: root }, production, true);
+    assert.deepEqual(production, original);
+    const generated = structuredClone(original);
+    await hook.call({ meta: { watchMode: true } }, { dir: root }, generated, false);
+    assert.deepEqual(generated, original);
+  } finally {
+    await rm(root, { recursive: true });
+  }
+});

@@ -788,6 +788,26 @@ export async function generateDocsProjection(directory = root) {
     throw new Error(
       "Native API family inventory is stale; regenerate it from the current public exports.",
     );
+  const familyMetadata = Object.fromEntries(
+    Object.entries(reference.families).map(([family, contract]) => [
+      family,
+      {
+        ...(contract.parts[0] ? { source: contract.parts[0].source.path } : {}),
+        native: [...new Set(contract.parts.flatMap((part) => part.native))],
+        related: Object.keys(reference.families).filter(
+          (candidate) =>
+            candidate !== family &&
+            contract.parts.some((part) =>
+              part.members.some((member) =>
+                reference.families[candidate].parts.some(
+                  (other) => other.name === `${part.name}${member}`,
+                ),
+              ),
+            ),
+        ),
+      },
+    ]),
+  );
   const titles = Object.fromEntries(
     families.map((family) => [
       family,
@@ -961,7 +981,13 @@ export async function generateDocsProjection(directory = root) {
     }
   }
   return {
-    index: { formatVersion: 1, lensoVersion: product.version, sourceFamilyMapping, pages },
+    index: {
+      formatVersion: 1,
+      lensoVersion: product.version,
+      sourceFamilyMapping,
+      families: familyMetadata,
+      pages,
+    },
     markdown,
   };
 }

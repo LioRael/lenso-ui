@@ -72,3 +72,16 @@ test("component preview infrastructure does not own a global demo dispatcher", a
   const graph = await localGraph([path.join(root, "src/components/component-preview.tsx")]);
   assert.ok(!graph.has(allDemos), "A page must supply only its own example references.");
 });
+
+test("ordinary document and navigation modules do not statically reach the full API contract", async () => {
+  const graph = await localGraph([
+    path.join(root, "docs.components.tsx"),
+    path.join(root, "docs.document.tsx"),
+    path.join(root, "src/mdx-components.tsx"),
+    path.join(root, "routes/home.tsx"),
+  ]);
+  assert.ok(
+    !graph.has(path.join(root, "src/generated/api-reference.json")),
+    "Only page-local native API rendering should compile the full API contract.",
+  );
+});

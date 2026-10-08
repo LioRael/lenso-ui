@@ -11,7 +11,7 @@ import { useTreePath } from "fumadocs-ui/contexts/tree";
 import { useFooterItems } from "fumadocs-ui/utils/use-footer-items";
 import { useTranslations } from "fumadocs-ui/contexts/i18n";
 import type { FooterProps } from "fumadocs-ui/layouts/notebook/page/slots/footer";
-import { notebook } from "../dist/presentation.js";
+import { notebook } from "@lenso/docs/presentation";
 
 const subscribeTheme = () => () => {};
 const themeOptions = [

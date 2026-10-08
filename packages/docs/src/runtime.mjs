@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { watch } from "node:fs";
 import {
   cp,
@@ -82,9 +82,15 @@ async function writeChanged(file, content) {
   if (info) {
     if (!info.isFile() || info.isSymbolicLink())
       throw new Error(`Generated file cannot be a symlink or directory: ${file}`);
-    if ((await readFile(file, "utf8")) === content) return;
+    if ((await readFile(file)).equals(Buffer.from(content))) return;
   }
-  await writeFile(file, content);
+  const staged = `${file}.${randomUUID()}.pending`;
+  try {
+    await writeFile(staged, content, { flag: "wx" });
+    await rename(staged, file);
+  } finally {
+    await rm(staged, { force: true });
+  }
 }
 
 async function linkPackages(directory) {
@@ -127,13 +133,35 @@ async function generatedFiles(directory, prefix = "") {
   return files;
 }
 
+async function removeAssetMirror(publicRoot, files) {
+  for (const relative of files) {
+    const file = path.join(publicRoot, relative);
+    await rm(file, { force: true });
+    for (let folder = path.dirname(file); folder !== publicRoot; folder = path.dirname(folder)) {
+      if ((await exists(folder)) && !(await readdir(folder)).length)
+        await rm(folder, { recursive: true });
+    }
+  }
+}
+
 export async function prepare(
   root,
-  { development = false, command = development ? "dev" : "build" } = {},
+  {
+    development = false,
+    command = development ? "dev" : "build",
+    previous,
+    changedPaths = [],
+    background = true,
+    turbopack = false,
+  } = {},
 ) {
   root = path.resolve(root);
   const config = await loadConfig(root);
-  const host = await loadHost(root, config, command);
+  const host = await loadHost(root, config, command, {
+    previous: previous?.host,
+    changedPaths,
+    background,
+  });
   const directory = path.join(root, ".lenso");
   await ownedDirectory(directory);
   await linkPackages(directory);
@@ -142,23 +170,33 @@ export async function prepare(
     JSON.stringify({ name: "lenso-docs-runtime", private: true, type: "module" }),
   );
   const emitted = new Set();
+  const modules = new Map();
+  const searchRevision = createHash("sha256");
+  searchRevision.update(
+    JSON.stringify(
+      host.pages.map(({ id, url, title, description, markdown, structuredData }) => [
+        id,
+        url,
+        title,
+        description,
+        markdown,
+        structuredData,
+      ]),
+    ),
+  );
+  for (const [locale, file] of Object.entries(host.searchFiles).sort()) {
+    searchRevision.update(locale);
+    searchRevision.update(await readFile(file));
+  }
+  host.searchRevision = searchRevision.digest("hex");
   await generateHost(root, directory, config, host, {
     development,
     source,
     write: async (file, content) => {
       emitted.add(path.relative(directory, file));
-      await writeChanged(file, content);
+      modules.set(file, content);
     },
   });
-  // Prune removed exact routes, while retaining unchanged modules for Next HMR.
-  for (const folder of ["app", "pages"]) {
-    const target = path.join(directory, folder);
-    if (await exists(target)) {
-      for (const relative of await generatedFiles(target)) {
-        if (!emitted.has(path.join(folder, relative))) await rm(path.join(target, relative));
-      }
-    }
-  }
   const watchPaths = new Set(host.watchPaths);
   for (const relative of ["components", "root", "build"]) {
     if (config[relative]) {
@@ -170,13 +208,15 @@ export async function prepare(
   for (const name of ["babel.config.json", "postcss.config.cjs"]) {
     const original = path.join(root, name);
     const staged = path.join(directory, name);
-    if (await exists(original)) {
+    if (!(development && turbopack && name === "babel.config.json") && (await exists(original))) {
       await localPath(root, name);
       watchPaths.add(name);
       await writeChanged(
         staged,
         name === "postcss.config.cjs"
-          ? `module.exports = require(${scriptJson(original)});\n`
+          ? // Bundled __dirname/require.resolve are virtual Turbopack paths.
+            // Keep authored PostCSS config evaluation native for real FS inputs.
+            `module.exports = require("node:module").createRequire(${scriptJson(original)})(${scriptJson(original)});\n`
           : await readFile(original, "utf8"),
       );
     } else if (await exists(staged)) {
@@ -190,9 +230,16 @@ export async function prepare(
   if (await exists(publicRoot)) {
     if ((await lstat(publicRoot)).isSymbolicLink())
       throw new Error("Generated public cannot be a symlink.");
-    await validatePublic(publicRoot);
+    if (!previous) await validatePublic(publicRoot);
   }
-  await rm(publicRoot, { recursive: true, force: true });
+  if (!previous) await rm(publicRoot, { recursive: true, force: true });
+  await mkdir(publicRoot, { recursive: true });
+  const syncAssets =
+    !previous ||
+    changedPaths.some(
+      (file) => file === "public" || file.startsWith("public/") || file.startsWith("docs.config."),
+    );
+  let publicFiles = previous?.publicFiles ?? [];
   const publicSource = path.join(root, "public");
   if (await exists(publicSource)) {
     await localPath(root, "public", { directory: true });
@@ -223,8 +270,22 @@ export async function prepare(
     for (const file of ["404.html", "sitemap.xml", "robots.txt"])
       if ((file === "404.html" || config.siteUrl) && (await exists(path.join(publicSource, file))))
         throw new Error(`public/${file} is generated by lenso-docs.`);
-    await cp(publicSource, publicRoot, { recursive: true, dereference: false });
-    watchPaths.add("public");
+    if (syncAssets) {
+      // Asset edits can turn a file into a directory or vice versa. Rebuild only
+      // their mirror; ordinary content edits retain all asset modification times.
+      await removeAssetMirror(publicRoot, previous?.publicFiles ?? []);
+      publicFiles = await generatedFiles(publicSource);
+      for (const relative of publicFiles)
+        await writeChanged(
+          path.join(publicRoot, relative),
+          await readFile(path.join(publicSource, relative)),
+        );
+    }
+  }
+  if (await exists(publicSource)) watchPaths.add("public");
+  if (syncAssets && !(await exists(publicSource))) {
+    await removeAssetMirror(publicRoot, publicFiles);
+    publicFiles = [];
   }
   const assets = path.join(publicRoot, "_lenso");
   await mkdir(path.join(assets, "markdown"), { recursive: true });
@@ -232,10 +293,32 @@ export async function prepare(
   for (const page of host.pages) {
     const markdown = path.join(assets, "markdown", `${page.id}.md`);
     await mkdir(path.dirname(markdown), { recursive: true });
-    await writeFile(markdown, page.markdown);
+    if (previous?.pages.find((old) => old.id === page.id)?.markdown !== page.markdown)
+      await writeChanged(markdown, page.markdown);
   }
+  for (const old of previous?.pages ?? [])
+    if (!host.pages.some((page) => page.id === old.id))
+      await rm(path.join(assets, "markdown", `${old.id}.md`), { force: true });
   for (const locale of host.locales) {
     let text;
+    const localePages = host.pages.filter((page) => page.locale === locale.code);
+    const oldPages = previous?.pages.filter((page) => page.locale === locale.code);
+    const samePages =
+      oldPages?.length === localePages.length &&
+      localePages.every(
+        (page, index) =>
+          oldPages[index].markdown === page.markdown &&
+          oldPages[index].url === page.url &&
+          oldPages[index].title === page.title &&
+          oldPages[index].description === page.description &&
+          JSON.stringify(oldPages[index].structuredData) === JSON.stringify(page.structuredData),
+      );
+    if (
+      !host.searchFiles[locale.code] &&
+      samePages &&
+      previous.host.defaultLocale === host.defaultLocale
+    )
+      continue;
     if (host.searchFiles[locale.code]) {
       text = await readFile(host.searchFiles[locale.code], "utf8");
       const exported = JSON.parse(text);
@@ -257,52 +340,85 @@ export async function prepare(
       const response = await search.staticGET();
       text = await response.text();
     }
-    await writeFile(path.join(assets, "search", `${locale.code}.json`), text);
-    if (locale.code === host.defaultLocale) await writeFile(path.join(assets, "search.json"), text);
+    await writeChanged(path.join(assets, "search", `${locale.code}.json`), text);
+    if (locale.code === host.defaultLocale)
+      await writeChanged(path.join(assets, "search.json"), text);
   }
+  for (const locale of previous?.host.locales ?? [])
+    if (!host.locales.some((current) => current.code === locale.code))
+      await rm(path.join(assets, "search", `${locale.code}.json`), { force: true });
   await mkdir(publicRoot, { recursive: true });
   if (host.redirects.length)
-    await writeFile(
+    await writeChanged(
       path.join(publicRoot, "_redirects"),
       host.redirects
         .map((redirect) => `${redirect.from} ${redirect.to} ${redirect.permanent ? 301 : 302}`)
         .join("\n") + "\n",
     );
+  else await rm(path.join(publicRoot, "_redirects"), { force: true });
   if (config.siteUrl) {
     const escapeXml = (value) =>
       value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll('"', "&quot;");
     const urls = [...host.pages.map((page) => page.url), ...host.routes.map((route) => route.path)];
-    await writeFile(
+    await writeChanged(
       path.join(publicRoot, "sitemap.xml"),
       `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls
         .map((url) => `<url><loc>${escapeXml(new URL(url, config.siteUrl).href)}</loc></url>`)
         .join("")}</urlset>`,
     );
-    await writeFile(
+    await writeChanged(
       path.join(publicRoot, "robots.txt"),
       `User-agent: *\nAllow: /\nSitemap: ${new URL(`${config.basePath}/sitemap.xml`, config.siteUrl).href}\n`,
     );
+  } else
+    for (const file of ["sitemap.xml", "robots.txt"])
+      if (!publicFiles.includes(file)) await rm(path.join(publicRoot, file), { force: true });
+  // Markdown and public assets must be complete before route modules invalidate Next.
+  for (const [file, content] of modules) await writeChanged(file, content);
+  // Prune removed exact routes, while retaining unchanged modules for Next HMR.
+  for (const folder of ["app", "pages"]) {
+    const target = path.join(directory, folder);
+    if (await exists(target)) {
+      for (const relative of await generatedFiles(target)) {
+        if (!emitted.has(path.join(folder, relative))) await rm(path.join(target, relative));
+      }
+    }
   }
   const buildInputs = [];
-  for (const relative of [config.build, "babel.config.json", "postcss.config.cjs"].filter(
-    Boolean,
-  )) {
+  for (const relative of [
+    config.build,
+    !(development && turbopack) && "babel.config.json",
+    "postcss.config.cjs",
+  ].filter(Boolean)) {
     const file = path.join(root, relative);
     if (await exists(file)) buildInputs.push([relative, await readFile(file, "utf8")]);
   }
   return {
     config,
+    host,
+    publicFiles,
     directory,
-    configurationKey: scriptJson([config, buildInputs]),
+    configurationKey: scriptJson([config, buildInputs, development && turbopack]),
     pages: host.pages,
     routes: host.routes,
     redirects: host.redirects,
     watchPaths: [...watchPaths],
+    generatedPaths: host.generatedPaths,
+    prepareBackground: host.prepareBackground,
+    sourceWatchKey:
+      development && host.watchSource
+        ? scriptJson([config, await readFile(path.join(root, config.source), "utf8")])
+        : undefined,
   };
 }
 
 function nextProcess(command, directory, options) {
-  const args = [require.resolve("next/dist/bin/next"), command, directory, "--webpack"];
+  const args = [
+    require.resolve("next/dist/bin/next"),
+    command,
+    directory,
+    command === "dev" && options.turbopack ? "--turbopack" : "--webpack",
+  ];
   if (command === "dev")
     args.push("--port", String(options.port ?? 3000), "--hostname", options.host ?? "127.0.0.1");
   return spawn(process.execPath, args, {
@@ -335,9 +451,16 @@ async function waitForChild(child) {
 }
 
 // Internal dev seam: the callback owns generation; this owns only observation.
-export async function watchInputs(root, watchPaths, regenerate, onError = console.error) {
+export async function watchInputs(
+  root,
+  watchPaths,
+  regenerate,
+  onError = console.error,
+  generatedPaths = [],
+) {
   root = await realpath(root);
   let paths;
+  let ignored = generatedPaths;
   let baseline;
   let timer;
   let busy = false;
@@ -352,9 +475,13 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
     [...relative].every((character) => character.charCodeAt(0) >= 32) &&
     relative.split("/").every((part) => part && part !== "." && part !== "..") &&
     ![".lenso", "out", "node_modules", ".git"].includes(relative.split("/")[0]);
+  const generated = (relative) =>
+    ignored.some((input) => relative === input || relative.startsWith(`${input}/`));
   const setPaths = (inputs) => {
     paths = [...new Set(["docs.config.ts", "docs.config.mjs", "public", ...inputs])];
-    if (!paths.every(contained)) throw new Error("Expected contained watch paths.");
+    if (![...paths, ...ignored].every(contained))
+      throw new Error("Expected contained watch paths.");
+    paths = paths.filter((relative) => !generated(relative));
   };
   const inspect = async (relative) => {
     let file = root;
@@ -371,9 +498,13 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
   };
   const snapshot = async () => {
     const hash = createHash("sha256");
+    const files = new Map();
     const visit = async (relative) => {
+      if (generated(relative)) return;
       const info = await inspect(relative);
-      hash.update(JSON.stringify([relative, info?.isDirectory() ? "directory" : "file"]));
+      const kind = info?.isDirectory() ? "directory" : info?.isFile() ? "file" : "missing";
+      files.set(relative, kind);
+      hash.update(JSON.stringify([relative, kind]));
       if (info?.isDirectory()) {
         try {
           for (const name of (await readdir(path.join(root, relative))).sort())
@@ -384,11 +515,11 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
         }
       } else if (info?.isFile()) {
         try {
-          hash.update(
-            createHash("sha256")
-              .update(await readFile(path.join(root, relative)))
-              .digest(),
-          );
+          const content = createHash("sha256")
+            .update(await readFile(path.join(root, relative)))
+            .digest("hex");
+          hash.update(content);
+          files.set(relative, content);
         } catch (error) {
           if (error.code !== "ENOENT") throw error;
           hash.update("missing");
@@ -396,8 +527,12 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
       } else hash.update("missing");
     };
     for (const relative of [...paths].sort()) await visit(relative);
-    return hash.digest("hex");
+    return { digest: hash.digest("hex"), files };
   };
+  const changes = (before, after) =>
+    [...new Set([...before.files.keys(), ...after.files.keys()])].filter(
+      (file) => before.files.get(file) !== after.files.get(file),
+    );
   const closeWatchers = () => {
     for (const watcher of watchers.splice(0)) watcher.close();
   };
@@ -419,13 +554,14 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
         const watcher = watch(path.join(root, relative), { recursive }, (_event, name) => {
           const changed = name === null ? relative : path.posix.join(relative, String(name));
           if (
-            name === null ||
-            paths.some(
-              (input) =>
-                changed === input ||
-                changed.startsWith(`${input}/`) ||
-                input.startsWith(`${changed}/`),
-            )
+            !generated(changed) &&
+            (name === null ||
+              paths.some(
+                (input) =>
+                  changed === input ||
+                  changed.startsWith(`${input}/`) ||
+                  input.startsWith(`${changed}/`),
+              ))
           )
             schedule();
         });
@@ -448,20 +584,24 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
       pending = false;
       try {
         const before = await snapshot();
-        if (closed || before === baseline) return;
-        const generate = async () => {
+        if (closed || before.digest === baseline.digest) return;
+        const generate = async (changedPaths) => {
           try {
-            const inputs = await regenerate();
-            if (inputs) setPaths(inputs);
+            const inputs = await regenerate(changedPaths);
+            if (Array.isArray(inputs)) setPaths(inputs);
+            else if (inputs) {
+              ignored = inputs.generatedPaths ?? [];
+              setPaths(inputs.watchPaths);
+            }
           } catch (error) {
             onError(error);
           }
         };
-        await generate();
+        await generate(changes(baseline, before));
         const after = await snapshot();
         // A concurrent edit needs one catch-up pass. Byte-identical prepare
         // rewrites do not; a producer changing its outputs cannot warm-loop.
-        if (!closed && after !== before) await generate();
+        if (!closed && after.digest !== before.digest) await generate(changes(before, after));
         baseline = await snapshot();
       } catch (error) {
         onError(error);
@@ -472,7 +612,7 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
             await install();
             // Subscription replacement has an observation gap. Compare after
             // subscribing so a write in that gap cannot disappear.
-            changed = (await snapshot()) !== baseline;
+            changed = (await snapshot()).digest !== baseline.digest;
           } catch (error) {
             onError(error);
           }
@@ -485,14 +625,68 @@ export async function watchInputs(root, watchPaths, regenerate, onError = consol
   setPaths(watchPaths);
   await install();
   baseline = await snapshot();
-  return () => {
+  const close = () => {
     closed = true;
     clearTimeout(timer);
     closeWatchers();
   };
+  close.update = async (inputs, outputs = ignored) => {
+    ignored = outputs;
+    setPaths(inputs);
+    await install();
+    const after = await snapshot();
+    if (after.digest !== baseline.digest) schedule();
+    else baseline = after;
+  };
+  return close;
+}
+
+// Subscription lifecycle only; the dev runtime's existing refresh queue owns work.
+export function sourceWatchLifecycle(onChange, onError) {
+  let key;
+  let dispose;
+  let closed = false;
+  let generation = 0;
+  let pending = Promise.resolve();
+  const enqueue = (task) => {
+    const result = pending.then(task);
+    pending = result.catch(() => {});
+    return result;
+  };
+  const remove = async () => {
+    const cleanup = dispose;
+    dispose = undefined;
+    key = undefined;
+    await cleanup?.();
+  };
+  return {
+    update(nextKey, subscribe) {
+      return enqueue(async () => {
+        if (closed || key === nextKey) return;
+        const revision = ++generation;
+        await remove();
+        if (closed || !subscribe) return;
+        const cleanup = await subscribe({
+          onChange: (paths) => (!closed && revision === generation ? onChange(paths) : undefined),
+          onError,
+        });
+        if (typeof cleanup !== "function") throw new Error("watchSource must return a disposer.");
+        dispose = cleanup;
+        key = nextKey;
+        if (closed) await remove();
+      });
+    },
+    close() {
+      closed = true;
+      generation++;
+      return enqueue(remove);
+    },
+  };
 }
 
 export async function run(command, root, options = {}) {
+  if (options.turbopack && command !== "dev")
+    throw new Error("Turbopack is only available for development.");
   if (command === "preview") {
     let config;
     try {
@@ -512,7 +706,11 @@ export async function run(command, root, options = {}) {
     );
     return;
   }
-  let prepared = await prepare(root, { development: command === "dev", command });
+  let prepared = await prepare(root, {
+    development: command === "dev",
+    command,
+    turbopack: options.turbopack,
+  });
   if (command === "build") {
     const output = path.join(root, "out");
     await ownedDirectory(output);
@@ -548,6 +746,8 @@ export async function run(command, root, options = {}) {
   let stopping = false;
   let restarting = false;
   let closeWatchers = () => {};
+  let closeSourceWatch = () => Promise.resolve();
+  const onError = (error) => console.error(`lenso-docs: ${error.message}`);
   let resolveDone;
   let rejectDone;
   const done = new Promise((resolve, reject) => {
@@ -559,52 +759,95 @@ export async function run(command, root, options = {}) {
     current.once("error", (error) => {
       stopping = true;
       closeWatchers();
+      closeSourceWatch().catch(onError);
       rejectDone(error);
     });
     current.once("exit", (code, signal) => {
       if (current !== child || restarting) return;
+      const expected = stopping || code === 0;
+      stopping = true;
       closeWatchers();
-      if (stopping || code === 0) resolveDone();
+      closeSourceWatch().catch(onError);
+      if (expected) resolveDone();
       else rejectDone(new Error(`Development server exited ${signal ?? code}.`));
     });
     return current;
   };
+  let refreshes = Promise.resolve();
+  const refresh = (changedPaths) => {
+    const task = refreshes.then(async () => {
+      if (stopping) return;
+      const next = await prepare(root, {
+        development: true,
+        turbopack: options.turbopack,
+        command: "dev",
+        previous: prepared,
+        changedPaths,
+        background: false,
+      });
+      if (stopping) return;
+      if (next.configurationKey !== prepared.configurationKey) {
+        restarting = true;
+        const exited = new Promise((resolve) => child.once("exit", resolve));
+        child.kill("SIGTERM");
+        await exited;
+        if (stopping) {
+          resolveDone();
+          return;
+        }
+        prepared = next;
+        child = launch();
+        restarting = false;
+      }
+      prepared = next;
+      await sourceWatcher.update(prepared.sourceWatchKey, prepared.host.watchSource);
+      return { watchPaths: prepared.watchPaths, generatedPaths: prepared.generatedPaths };
+    });
+    refreshes = task.catch(() => {});
+    return task;
+  };
+  const sourceWatcher = sourceWatchLifecycle(async (paths) => {
+    await refresh(paths);
+    if (!stopping) await closeWatchers.update(prepared.watchPaths, prepared.generatedPaths);
+  }, onError);
+  closeSourceWatch = () => sourceWatcher.close();
   closeWatchers = await watchInputs(
     root,
     prepared.watchPaths,
-    async () => {
-      if (stopping) return;
-      try {
-        const next = await prepare(root, { development: true, command: "dev" });
-        if (stopping) return;
-        if (next.configurationKey !== prepared.configurationKey) {
-          restarting = true;
-          const exited = new Promise((resolve) => child.once("exit", resolve));
-          child.kill("SIGTERM");
-          await exited;
-          if (stopping) {
-            resolveDone();
-            return;
-          }
-          prepared = next;
-          child = launch();
-          restarting = false;
-        }
-        prepared = next;
-        return prepared.watchPaths;
-      } catch (error) {
-        restarting = false;
-        throw error;
-      }
-    },
-    (error) => console.error(`lenso-docs: ${error.message}`),
+    refresh,
+    onError,
+    prepared.generatedPaths,
   );
+  try {
+    await sourceWatcher.update(prepared.sourceWatchKey, prepared.host.watchSource);
+  } catch (error) {
+    closeWatchers();
+    await closeSourceWatch();
+    throw error;
+  }
   const stop = () => {
     stopping = true;
     closeWatchers();
+    closeSourceWatch().catch(onError);
     child?.kill("SIGTERM");
   };
   child = launch();
+  if (prepared.prepareBackground) {
+    const background = prepared.prepareBackground;
+    const preparation = refreshes.then(() => background());
+    refreshes = preparation.catch(() => {});
+    preparation
+      .then(async () => {
+        if (stopping) return;
+        await refresh(["docs.source.mjs"]);
+        if (!stopping) await closeWatchers.update(prepared.watchPaths, prepared.generatedPaths);
+      })
+      .catch((error) =>
+        console.error(
+          `lenso-docs: Background preparation failed: ${error.message}. Retry with the application generate command.`,
+        ),
+      );
+  }
   process.once("SIGINT", stop);
   process.once("SIGTERM", stop);
   try {
@@ -613,5 +856,6 @@ export async function run(command, root, options = {}) {
     process.removeListener("SIGINT", stop);
     process.removeListener("SIGTERM", stop);
     closeWatchers();
+    await closeSourceWatch();
   }
 }

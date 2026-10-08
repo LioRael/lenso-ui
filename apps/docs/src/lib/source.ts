@@ -3,7 +3,6 @@ import path from "node:path";
 import { createDocumentationSource } from "@lenso/docs/source";
 import { docsDirectory } from "./docs-directory.mjs";
 import authoredIndex from "../generated/lenso-docs-index.json";
-import reference from "../generated/api-reference.json";
 
 export type Locale = "en" | "cn";
 export interface DocPage {
@@ -22,6 +21,7 @@ interface DocsIndex {
   formatVersion: 1;
   lensoVersion: string;
   sourceFamilyMapping: Record<string, string>;
+  families: Record<string, { source?: string; native: string[]; related: string[] }>;
   pages: DocPage[];
 }
 export const docsIndex = authoredIndex as DocsIndex;
@@ -42,20 +42,7 @@ export const source = {
   pages: docsIndex.pages.map((page) => ({ ...page, file: page.markdownFile })),
   examples: { en: exampleEntries("en"), cn: exampleEntries("cn") },
   relationships: Object.fromEntries(
-    Object.entries(reference.families).map(([family, contract]) => [
-      family,
-      Object.keys(reference.families).filter(
-        (candidate) =>
-          candidate !== family &&
-          contract.parts.some((part) =>
-            part.members.some((member) =>
-              reference.families[candidate as keyof typeof reference.families].parts.some(
-                (other) => other.name === `${part.name}${member}`,
-              ),
-            ),
-          ),
-      ),
-    ]),
+    Object.entries(docsIndex.families).map(([family, metadata]) => [family, metadata.related]),
   ) as Record<string, string[]>,
 };
 export const isLocale = (value: string): value is Locale => value === "en" || value === "cn";

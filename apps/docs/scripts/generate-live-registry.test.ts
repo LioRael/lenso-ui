@@ -38,6 +38,19 @@ test("registers canonical Menu scenario names without rewriting private source r
   assert.match(generated, /"menu-default":/);
   assert.ok(!generated.includes("dropdown-default"));
   assert.equal(await readFile(path.join(directory, "content/source-index.json"), "utf8"), original);
+  await writeFile(path.join(directory, "src/demos/generated.ts"), "// existing tooling registry");
+  assert.deepEqual(
+    await generateLiveRegistry(directory, { cn: {} }, { globalRegistry: false }),
+    manifest,
+  );
+  assert.equal(
+    await readFile(path.join(directory, "src/demos/generated.ts"), "utf8"),
+    "// existing tooling registry",
+  );
+  assert.deepEqual(
+    JSON.parse(await readFile(path.join(directory, "src/demos/live-manifest.json"), "utf8")),
+    manifest,
+  );
 });
 
 // Imported-content integrity does not prove that added local scenarios reach the runtime registry.

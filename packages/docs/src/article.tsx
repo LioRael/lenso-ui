@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { DocsPage, DocsTitle } from "fumadocs-ui/layouts/notebook/page";
 import { PageContainer } from "./providers";
-import { PageTableOfContents } from "../dist/toc.js";
-import { styles, notebook } from "../dist/presentation.js";
+import { PageTableOfContents } from "@lenso/docs/toc";
+import { styles, notebook } from "@lenso/docs/presentation";
 import type { DocsHeading } from "./content.mjs";
 import type { DocumentationKind } from "./document-model";
 

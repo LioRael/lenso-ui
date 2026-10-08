@@ -19,7 +19,7 @@ import {
   useSearchList,
   type SearchItemType,
 } from "fumadocs-ui/components/dialog/search";
-import { notebook, search as styles } from "../dist/presentation.js";
+import { notebook, search as styles } from "@lenso/docs/presentation";
 
 // Adapted from the application's HeroUI e385ac2 visual overrides (Apache-2.0).
 // Fumadocs owns dialog, selection, scrolling and static search (../LICENSE.FUMADOCS).
@@ -44,6 +44,19 @@ const SearchConfiguration = createContext<
     })
   | null
 >(null);
+
+const SearchRevision = createContext("");
+
+// Internal host boundary: Fumadocs caches static databases by their source URL.
+export function DocumentationSearchRevision({
+  revision,
+  children,
+}: {
+  revision: string;
+  children: ReactNode;
+}) {
+  return <SearchRevision value={revision}>{children}</SearchRevision>;
+}
 
 function useSearchTriggerRef() {
   const registry = useContext(SearchConfiguration)?.triggers;
@@ -217,13 +230,18 @@ export function DocumentationCompactSearchTrigger() {
 }
 
 export function DocumentationSearch({
-  from,
+  from: source,
   initOrama,
   compact = false,
   children,
   labels,
   allowEmpty = false,
 }: DocumentationSearchProps) {
+  const revision = useContext(SearchRevision);
+  const [resource = source, fragment] = source.split("#", 2);
+  const from = revision
+    ? `${resource}${resource.includes("?") ? "&" : "?"}v=${encodeURIComponent(revision)}${fragment ? `#${fragment}` : ""}`
+    : source;
   const triggers = useRef(new Set<HTMLElement>());
   const configuration = useMemo(
     () => ({

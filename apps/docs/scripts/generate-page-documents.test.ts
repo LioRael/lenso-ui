@@ -4,7 +4,11 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import ts from "typescript-api";
-import { generatePageDocuments, previewNames } from "./generate-page-documents.ts";
+import {
+  documentReferences,
+  generatePageDocuments,
+  previewNames,
+} from "./generate-page-documents.ts";
 import { generateLiveRegistry } from "./generate-live-registry.ts";
 
 function inspect(code: string) {
@@ -121,6 +125,12 @@ test("emits only authored page targets with locale resolution, export selection 
   assert.ok(!prose.includes(".client"));
   assert.ok(!prose.includes("demos/generated"));
   assert.ok(!prose.includes("component-preview"), "prose must not load demo source parsers");
+  assert.ok(!prose.includes("native-api-reference"), "ordinary prose must not load API tables");
+  assert.ok(!prose.includes("color-section"), "ordinary prose must not load color controls");
+  assert.ok(
+    (await read("en/react/components/field.tsx")).includes("native-api-reference"),
+    "component pages need the API renderer inserted by the heading transform",
+  );
   const clientCode = await read("cn/react/components/field.client.tsx");
   assert.ok(clientCode.includes('"data-example-mounted"'));
   assert.ok(clientCode.includes("ssr: false"));
@@ -130,6 +140,17 @@ test("emits only authored page targets with locale resolution, export selection 
   await put("content/field-en.mdx", "# Now prose only");
   await put("src/generated/documents/en/stale.tsx", "// obsolete");
   await put("src/generated/outside.tsx", "// not owned");
+  const cnBefore = await stat(
+    path.join(directory, "src/generated/documents/cn/react/components/field.tsx"),
+  );
+  await generatePageDocuments(directory, { pageIds: ["en/react/components/field"] });
+  await assert.rejects(read("en/react/components/field.client.tsx"), { code: "ENOENT" });
+  assert.equal(await read("en/stale.tsx"), "// obsolete", "a page edit cannot prune other pages");
+  assert.equal(
+    (await stat(path.join(directory, "src/generated/documents/cn/react/components/field.tsx")))
+      .mtimeMs,
+    cnBefore.mtimeMs,
+  );
   await generatePageDocuments(directory);
   await assert.rejects(read("en/react/components/field.client.tsx"), { code: "ENOENT" });
   await assert.rejects(read("en/stale.tsx"), { code: "ENOENT" });
@@ -137,6 +158,67 @@ test("emits only authored page targets with locale resolution, export selection 
     await readFile(path.join(directory, "src/generated/outside.tsx"), "utf8"),
     "// not owned",
   );
+});
+
+test("page extensions follow real MDX tags without restricting local imports or expressions", async (t) => {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-mdx-extensions-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const put = async (file: string, value: string) => {
+    await mkdir(path.dirname(path.join(directory, file)), { recursive: true });
+    await writeFile(path.join(directory, file), value);
+  };
+  await put("content/source-index.json", '{"examples":{"en":{},"cn":{}}}');
+  await put("src/demos/live-manifest.json", '{"en":{},"cn":{}}');
+  const markdown = `import Local from './local'
+export const show = true
+
+# Color guide
+
+<Local render={<ColorSectionPrimitive colors={[]} />} />
+
+{show && <ColorSectionStacked lightColors={[]} darkColors={[]} />}
+
+<ComponentsCategory category="controls" />
+
+<NativeApiReference family="button" />
+
+\`\`\`mdx
+<ColorSectionFormField colors={{}} />
+\`\`\`
+
+{/* <ColorSectionSideBySide /> */}`;
+  await put("content/colors.mdx", markdown);
+  await put(
+    "src/generated/lenso-docs-index.json",
+    JSON.stringify({
+      pages: [
+        { locale: "cn", slug: "react/getting-started/colors", markdownFile: "content/colors.mdx" },
+      ],
+    }),
+  );
+  const references = await documentReferences(markdown);
+  assert.deepEqual(
+    new Set(references.components),
+    new Set([
+      "Local",
+      "ColorSectionPrimitive",
+      "ColorSectionStacked",
+      "ComponentsCategory",
+      "NativeApiReference",
+    ]),
+  );
+  await generatePageDocuments(directory);
+  const code = await readFile(
+    path.join(directory, "src/generated/documents/cn/react/getting-started/colors.tsx"),
+    "utf8",
+  );
+  assert.match(code, /import\s*\{\s*ColorSectionStacked,\s*ColorSectionPrimitive,?\s*\}/);
+  assert.ok(code.includes("native-api-reference"));
+  assert.ok(code.includes("components-category"));
+  assert.ok(code.includes('page.locale === "cn"'));
+  assert.ok(!code.includes("ColorSectionFormField"));
+  assert.ok(!code.includes("ColorSectionSideBySide"));
+  assert.equal(await readFile(path.join(directory, "content/colors.mdx"), "utf8"), markdown);
 });
 
 test("MDX inventory ignores code and comments, deduplicates real references and rejects dynamic names", async () => {

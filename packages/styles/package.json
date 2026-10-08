@@ -40,6 +40,7 @@
   },
   "scripts": {
     "build": "node src/components/typography/generate-prose.mjs && tsdown --config tsdown.config.ts && tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --noEmit false --outDir dist && node scripts/copy-css.mjs",
+    "build:dev": "node src/components/typography/generate-prose.mjs && tsdown --config tsdown.config.ts && node scripts/copy-css.mjs",
     "dev": "tsdown --config tsdown.config.ts --watch --no-clean",
     "test": "node src/components/typography/generate-prose.mjs --check && node --test tests/*.test.mjs",
     "typecheck": "tsc --noEmit"

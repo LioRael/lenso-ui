@@ -4,10 +4,65 @@ import { test } from "node:test";
 import { create } from "@orama/orama";
 import { createTokenizer } from "@orama/tokenizers/mandarin";
 import { oramaStaticClient } from "fumadocs-core/search/client/orama-static";
-import { authoredHeadingIds, createLocaleSearch } from "./static-search.mjs";
+import {
+  authoredHeadingIds,
+  createLocaleSearch,
+  searchMarkdown,
+  searchStructure,
+} from "./static-search.mjs";
 import { structure } from "fumadocs-core/mdx-plugins/remark-structure";
 import { remarkHeading } from "fumadocs-core/mdx-plugins/remark-heading";
 import matter from "gray-matter";
+
+test("skipping native API tables preserves the actual heading and prose search records", async () => {
+  const markdown = matter(
+    await readFile(
+      new URL("../content/lenso/en/react/components/button.mdx", import.meta.url),
+      "utf8",
+    ),
+  ).content;
+  const plugins: Parameters<typeof structure>[1] = [
+    authoredHeadingIds("button"),
+    [remarkHeading, { customId: false }],
+  ];
+  const options = { types: ["heading", "paragraph"] };
+  assert.deepEqual(
+    structure(searchMarkdown(markdown, "button"), plugins, options),
+    structure(markdown, plugins, options),
+  );
+  assert.deepEqual(
+    searchStructure(searchMarkdown(markdown, "button"), "button"),
+    structure(searchMarkdown(markdown, "button"), plugins, options),
+  );
+  const authored =
+    "## Guide\n\n| Heading | Value |\n| --- | --- |\n| a | b |\n\n## API Reference\n\n```md\n| example | code |\n```\n\n| Property | Type |\n| --- | --- |\n| name | string |\n\n## More\n\n| Still | authored |";
+  const stripped = searchMarkdown(authored, "button");
+  assert.ok(stripped.includes("| Heading | Value |"));
+  assert.ok(stripped.includes("| example | code |"));
+  assert.ok(stripped.includes("| Still | authored |"));
+  assert.ok(!stripped.includes("| name | string |"));
+  assert.equal(searchMarkdown(authored, undefined), authored);
+});
+
+test("transform-only search extraction retains official records for every authored page", async () => {
+  const index = JSON.parse(
+    await readFile(new URL("../src/generated/lenso-docs-index.json", import.meta.url), "utf8"),
+  );
+  for (const page of index.pages) {
+    const family = page.slug.startsWith("react/components/") ? page.slug.split("/")[2] : undefined;
+    const markdown = searchMarkdown(
+      matter(await readFile(new URL(`../${page.markdownFile}`, import.meta.url), "utf8")).content,
+      family,
+    );
+    assert.deepEqual(
+      searchStructure(markdown, family),
+      structure(markdown, [authoredHeadingIds(family), [remarkHeading, { customId: false }]], {
+        types: ["heading", "paragraph"],
+      }),
+      page.markdownFile,
+    );
+  }
+});
 
 test("search anchors use the renderer's punctuation/Unicode IDs and native API IDs", () => {
   const data = structure(

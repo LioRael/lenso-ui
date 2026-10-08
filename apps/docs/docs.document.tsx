@@ -2,10 +2,8 @@ import { compileDocument } from "@lenso/docs/server";
 import type { DocumentationCustomizationContext } from "@lenso/docs/react";
 import type { MDXComponents } from "mdx/types";
 import { getMDXComponents, headingId } from "./src/mdx-components";
-import { NativeApiReference } from "./src/components/native-api-reference";
 import { nativeApiFamily, replaceNativeApiSection } from "./src/lib/native-api-section";
-import { isLocale } from "./src/lib/source";
-import reference from "./src/generated/api-reference.json";
+import { docsIndex, isLocale } from "./src/lib/source";
 
 function localeOf(code: string) {
   if (!isLocale(code)) throw new Error(`Unsupported Lenso locale: ${code}`);
@@ -16,7 +14,7 @@ export function getComponents(
   { page }: DocumentationCustomizationContext,
   overrides: MDXComponents = {},
 ) {
-  return { ...getMDXComponents(localeOf(page.locale), overrides), NativeApiReference };
+  return getMDXComponents(localeOf(page.locale), overrides);
 }
 
 export async function getDocument(
@@ -26,7 +24,7 @@ export async function getDocument(
   const { page } = context;
   const locale = localeOf(page.locale);
   const candidate = nativeApiFamily(page.slug);
-  const family = candidate && Object.hasOwn(reference.families, candidate) ? candidate : undefined;
+  const family = candidate && Object.hasOwn(docsIndex.families, candidate) ? candidate : undefined;
   const nativeSection = () => (tree: Parameters<typeof replaceNativeApiSection>[0]) => {
     if (family) replaceNativeApiSection(tree, family, locale === "cn" ? "zh" : "en");
   };

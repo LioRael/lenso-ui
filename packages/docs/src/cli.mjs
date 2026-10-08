@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { run } from "./runtime.mjs";
 
-const help = `Usage: lenso-docs <dev|build|preview> [--port <number>] [--host <host>]
+const help = `Usage: lenso-docs <dev|build|preview> [--port <number>] [--host <host>] [--turbopack]
 
 Run from the directory containing docs.config.ts and content/.
 dev      Compile content and start a live documentation server (localhost:3000).
@@ -11,6 +11,7 @@ preview  Serve the built out/ directory (localhost:4173).
 Options:
   --port     Server port (1–65535).
   --host     Bind address; defaults to 127.0.0.1.
+  --turbopack  Use Turbopack for dev (requires matching consumer build rules).
   --help     Show this help.
   --version  Show the framework version.`;
 
@@ -27,6 +28,11 @@ try {
     const options = {};
     while (args.length) {
       const flag = args.shift();
+      if (flag === "--turbopack") {
+        if (command !== "dev") throw new Error("--turbopack is only available for dev.");
+        options.turbopack = true;
+        continue;
+      }
       if (!["--port", "--host"].includes(flag) || !args.length)
         throw new Error(`Invalid option "${flag}". Use lenso-docs --help.`);
       const value = args.shift();

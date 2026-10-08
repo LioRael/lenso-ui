@@ -1,22 +1,14 @@
 const path = require("node:path");
-const babelConfig = require("./babel.config.json");
 
 module.exports = {
   plugins: {
-    "@stylexjs/postcss-plugin": {
-      // One union includes server-only declarations and the canonical library sources.
-      include: [
-        path.join(__dirname, "src/**/*.{js,jsx,ts,tsx}"),
-        path.join(__dirname, "../../packages/styles/src/**/*.{js,jsx,ts,tsx}"),
-        path.join(__dirname, "../../packages/docs/presentation/**/*.{js,jsx,ts,tsx}"),
+    "@lenso/stylex-build/postcss": {
+      include: [path.join(__dirname, "src/**/*.{js,jsx,ts,tsx}")],
+      metadata: [
+        require.resolve("@lenso/tokens/stylex-rules.json"),
+        require.resolve("@lenso/docs/stylex-rules.json"),
       ],
-      babelConfig: {
-        babelrc: false,
-        configFile: false,
-        parserOpts: { plugins: ["typescript", "jsx"] },
-        plugins: babelConfig.plugins,
-      },
-      useCSSLayers: false,
+      unstable_moduleResolution: { type: "commonJS" },
     },
   },
 };

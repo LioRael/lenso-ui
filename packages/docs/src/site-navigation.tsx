@@ -5,7 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Collapsible } from "@base-ui/react/collapsible";
 import { ChevronDown } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
-import { styles, sidebar } from "../dist/presentation.js";
+import { styles, sidebar } from "@lenso/docs/presentation";
 import { DesktopNavigationState, navigationBranchId } from "./sidebar-state";
 
 // Adapted from the Lenso UI notebook sidebar; HeroUI v3.2.6, Apache-2.0.

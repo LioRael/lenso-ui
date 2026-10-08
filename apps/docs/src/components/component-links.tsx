@@ -2,16 +2,15 @@ import { Code, LogoGithub } from "@gravity-ui/icons";
 import { buttonSizes, buttonStyles, buttonVariants } from "@lenso/tokens/button";
 import * as stylex from "@stylexjs/stylex";
 import { notebook } from "@/styles/notebook.stylex";
-import reference from "@/generated/api-reference.json";
+import { docsIndex } from "@/lib/source";
 import { product } from "@/lib/product";
 
 export function ComponentLinks({ family }: { family?: string }) {
-  if (!family || !Object.hasOwn(reference.families, family)) return null;
-  const contract = reference.families[family as keyof typeof reference.families];
-  const root = contract.parts[0];
-  if (!root) throw new Error(`Missing component source: ${family}`);
-  const implementation = root.source.path;
-  const native = [...new Set(contract.parts.flatMap((part) => part.native))];
+  if (!family || !Object.hasOwn(docsIndex.families, family)) return null;
+  const metadata = docsIndex.families[family]!;
+  if (metadata.source === undefined) throw new Error(`Missing component source: ${family}`);
+  const implementation = metadata.source;
+  const native = metadata.native;
   const base = native.find((module) => module.startsWith("@base-ui/react/"))?.split("/")[2];
   const entries = [
     {

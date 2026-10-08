@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { RootProvider } from "fumadocs-ui/provider/next";
-import { styles } from "../dist/presentation.js";
+import { styles } from "@lenso/docs/presentation";
 import type { DocsConfig } from "./config.mjs";
 import type { DocumentationRootOptions } from "./customization";
 import type { DocumentationLocale } from "./document-model";

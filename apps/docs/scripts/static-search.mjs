@@ -1,14 +1,40 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { initAdvancedSearch } from "fumadocs-core/search/server";
-import { structure } from "fumadocs-core/mdx-plugins/remark-structure";
+import { remarkStructure } from "fumadocs-core/mdx-plugins/remark-structure";
 import { remarkHeading } from "fumadocs-core/mdx-plugins/remark-heading";
+import { remark } from "remark";
+import remarkGfm from "remark-gfm";
+import { VFile } from "vfile";
 import matter from "gray-matter";
 import { createTokenizer } from "@orama/tokenizers/mandarin";
 import { headingId } from "../src/lib/heading-id.mjs";
 import { headingText, nativeApiFamily } from "../src/lib/native-api-section.ts";
 
 const root = new URL("../", import.meta.url);
+
+// Generated native API tables are deliberately absent from the search records.
+// Avoid constructing thousands of GFM table nodes only to discard them later.
+// Keep authored prose, code, headings and tables outside the native API section.
+export function searchMarkdown(markdown, family) {
+  if (!family) return markdown;
+  let api = false;
+  let fence;
+  return markdown
+    .split("\n")
+    .map((line) => {
+      const boundary = /^\s*(`{3,}|~{3,})/.exec(line)?.[1];
+      if (boundary) {
+        if (!fence) fence = boundary[0];
+        else if (boundary[0] === fence) fence = undefined;
+      }
+      if (fence || boundary) return line;
+      const heading = /^##\s+(.+)$/.exec(line);
+      if (heading) api = /^(?:API Reference|API 参考)\s*$/.test(heading[1]);
+      return api && /^\|.*\|\s*$/.test(line) ? "" : line;
+    })
+    .join("\n");
+}
 
 export function authoredHeadingIds(family) {
   return () => (tree) => {
@@ -34,16 +60,29 @@ export function authoredHeadingIds(family) {
   };
 }
 
+export function searchStructure(markdown, family) {
+  const processor = remark()
+    .use(remarkGfm)
+    .use(authoredHeadingIds(family))
+    .use(remarkHeading, { customId: false })
+    .use(remarkHeading)
+    .use(remarkStructure, { types: ["heading", "paragraph"] });
+  const file = new VFile(markdown);
+  // Fuma's structure() also stringifies the entire document after extraction.
+  // Search only needs its unchanged official plugin's data, so stop after run.
+  processor.runSync(processor.parse(file), file);
+  return file.data.structuredData;
+}
+
 export async function createLocaleSearch(index, locale) {
   const indexes = await Promise.all(
     index.pages
       .filter((page) => page.locale === locale)
       .map(async (page) => {
         const content = await readFile(new URL(page.markdownFile, root), "utf8");
-        const extracted = structure(
-          matter(content).content,
-          [authoredHeadingIds(nativeApiFamily(page.slug)), [remarkHeading, { customId: false }]],
-          { types: ["heading", "paragraph"] },
+        const extracted = searchStructure(
+          searchMarkdown(matter(content).content, nativeApiFamily(page.slug)),
+          nativeApiFamily(page.slug),
         );
         return {
           id: `/${locale}/docs/${page.slug}`,
@@ -64,10 +103,10 @@ export async function createLocaleSearch(index, locale) {
   });
 }
 
-export async function writeStaticSearch(index) {
+export async function writeStaticSearch(index, { locales = ["en", "cn"] } = {}) {
   const directory = new URL("public/search/", root);
   await mkdir(directory, { recursive: true });
-  for (const locale of ["en", "cn"]) {
+  for (const locale of locales) {
     const server = await createLocaleSearch(index, locale);
     await writeFile(new URL(`${locale}.json`, directory), JSON.stringify(await server.export()));
   }

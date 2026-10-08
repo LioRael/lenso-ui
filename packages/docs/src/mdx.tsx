@@ -1,11 +1,11 @@
 import type { MDXComponents } from "mdx/types";
 import { isValidElement, type ComponentProps, type ReactNode } from "react";
 import fumaMDX from "fumadocs-ui/mdx";
-import { Tab, Tabs } from "../dist/tabs.js";
+import { Tab, Tabs } from "@lenso/docs/tabs";
 import { Step, Steps } from "fumadocs-ui/components/steps";
 import * as stylex from "@stylexjs/stylex";
-import { styles, prose } from "../dist/presentation.js";
-import { highlightSource } from "../dist/highlight.js";
+import { styles, prose } from "@lenso/docs/presentation";
+import { highlightSource } from "@lenso/docs/highlight";
 import { DocumentationCodeBlock } from "./code-block";
 import { ComponentExample, ReferenceTable, ApiOperation, ApiResponses } from "./reference";
 

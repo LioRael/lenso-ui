@@ -35,11 +35,29 @@ export interface HostSource {
   routes?: HostRoute[];
   redirects?: HostRedirect[];
   watchPaths?: string[];
+  /** Source-owned outputs excluded from watching and content regeneration. */
+  generatedPaths?: string[];
   search?: Record<string, string>;
 }
 
+export interface SourceWatchCallbacks {
+  onChange(changedPaths: string[]): void | Promise<unknown>;
+  onError(error: unknown): void;
+}
+
 export interface SourceModule {
+  /** Optional source-owned external inputs; runtime owns scheduling and disposal. */
+  watchSource?(
+    context: SourceWatchCallbacks & { root: string; config: DocsConfig },
+  ): (() => void | Promise<void>) | Promise<() => void | Promise<void>>;
   prepare?(context: {
+    root: string;
+    config: DocsConfig;
+    command: "dev" | "build";
+    changedPaths?: string[];
+    background?: boolean;
+  }): void | Promise<void>;
+  prepareBackground?(context: {
     root: string;
     config: DocsConfig;
     command: "dev" | "build";
@@ -58,6 +76,7 @@ export function loadHost(
   root: string,
   config: DocsConfig,
   command: "dev" | "build",
+  options?: { previous?: { pages: HostPage[] }; changedPaths?: string[]; background?: boolean },
 ): Promise<{
   pages: HostPage[];
   locales: DocumentationLocale[];
@@ -66,4 +85,9 @@ export function loadHost(
   redirects: HostRedirect[];
   watchPaths: string[];
   searchFiles: Record<string, string>;
+  generatedPaths: string[];
+  prepareBackground?: () => void | Promise<void>;
+  watchSource?: (
+    callbacks: SourceWatchCallbacks,
+  ) => (() => void | Promise<void>) | Promise<() => void | Promise<void>>;
 }>;

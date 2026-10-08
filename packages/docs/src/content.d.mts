@@ -42,6 +42,7 @@ export type DocsTreeNode = DocsPageNode | DocsFolderNode;
 export function buildContent(
   root: string,
   config: DocsConfig,
+  options?: { previous?: DocsPage[] },
 ): Promise<{
   pages: DocsPage[];
   tree: DocsTreeNode[];

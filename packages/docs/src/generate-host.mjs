@@ -1,8 +1,20 @@
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { localPath, modulePath, routePath } from "./host.mjs";
 
 const json = (value) =>
   JSON.stringify(value).replaceAll("<", "\\u003c").replaceAll("\u2028", "\\u2028");
+
+function importPath(file, target) {
+  const relative = path.relative(path.dirname(file), target).split(path.sep).join("/");
+  return json(relative.startsWith(".") ? relative : `./${relative}`);
+}
+
+function customizationImport(file, target) {
+  return target
+    ? `import * as customization from ${importPath(file, target)};`
+    : "const customization = {};";
+}
 
 function treeNodes(nodes, basePath) {
   return nodes.map((node) =>
@@ -19,10 +31,10 @@ function treeNodes(nodes, basePath) {
 
 export async function generateHost(root, directory, config, host, { development, source, write }) {
   const customization = config.components
-    ? `import * as customization from ${json(await modulePath(root, config.components, /\.(?:[cm]?js|jsx|tsx|ts)$/u))};`
-    : "const customization = {};";
+    ? await modulePath(root, config.components, /\.(?:[cm]?js|jsx|tsx|ts)$/u)
+    : undefined;
   const rootCustomization = config.root
-    ? `import * as customization from ${json(await modulePath(root, config.root, /\.(?:[cm]?js|jsx|tsx|ts)$/u))};`
+    ? await modulePath(root, config.root, /\.(?:[cm]?js|jsx|tsx|ts)$/u)
     : customization;
   const aliases = {};
   for (const [alias, relative] of Object.entries(config.aliases ?? {}))
@@ -37,17 +49,30 @@ export async function generateHost(root, directory, config, host, { development,
   await write(
     path.join(directory, "next.config.mjs"),
     `
-${build ? `import build from ${json(build)};` : "const build = {};"}
+import path from "node:path";
+${build ? `import build from ${importPath(path.join(directory, "next.config.mjs"), build)};` : "const build = {};"}
 export default async function configuration(phase, context) {
   const consumer = (typeof build === "function" ? await build(phase, context) : build) ?? {};
+  const turbopackRoot = consumer.turbopack?.root ?? ${json(root)};
+  const turbopackAliases = Object.fromEntries(Object.entries(${json(aliases)}).map(([name, target]) =>
+    [name, "./" + path.relative(turbopackRoot, target).split(path.sep).join("/")]));
   return {
     ...consumer,
     ...${json(protectedConfig)},
     output: ${development ? "undefined" : '"export"'},
     images: { ...consumer.images, unoptimized: true },
     reactStrictMode: true,
+    turbopack: {
+      ...consumer.turbopack,
+      root: turbopackRoot,
+      resolveAlias: { ...consumer.turbopack?.resolveAlias, ...turbopackAliases },
+    },
     transpilePackages: [...new Set(["@lenso/docs", ...(consumer.transpilePackages ?? [])])],
-    experimental: { ...consumer.experimental, externalDir: true, globalNotFound: true },
+    experimental: {
+      ...consumer.experimental,
+      optimizePackageImports: [...new Set(["@gravity-ui/icons", ...(consumer.experimental?.optimizePackageImports ?? [])])],
+      externalDir: true, globalNotFound: true,
+    },
     webpack(config, context) {
       const result = consumer.webpack ? consumer.webpack(config, context) ?? config : config;
       result.resolve ??= {};
@@ -76,10 +101,14 @@ export default async function configuration(phase, context) {
         incremental: true,
         plugins: [{ name: "next" }],
         paths: Object.fromEntries(
-          Object.entries(aliases).flatMap(([name, value]) => [
-            [name, [value]],
-            [`${name}/*`, [`${value}/*`]],
-          ]),
+          Object.entries(aliases).flatMap(([name, value]) => {
+            const relative = path.relative(directory, value).split(path.sep).join("/");
+            const target = relative.startsWith(".") ? relative : `./${relative}`;
+            return [
+              [name, [target]],
+              [`${name}/*`, [`${target}/*`]],
+            ];
+          }),
         ),
       },
       include: ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
@@ -97,14 +126,10 @@ export default async function configuration(phase, context) {
         }));
     trees[locale.code] = { name: config.title, children };
   }
-  const imports = [];
-  const bodies = [];
   for (const [index, page] of host.pages.entries()) {
     await write(path.join(directory, "pages", `${index}.md`), page.markdown);
     if (page.compiled !== undefined) {
       await write(path.join(directory, "pages", `${index}.mjs`), page.compiled);
-      imports.push(`import page${index} from "./pages/${index}.mjs";`);
-      bodies.push(`${json(page.id)}:page${index}`);
     }
   }
   const pages = host.pages.map(
@@ -128,28 +153,29 @@ export default async function configuration(phase, context) {
   );
   await write(
     path.join(directory, "model.mjs"),
-    `${imports.join("\n")}
-export const config = ${json(config)};
+    `export const config = ${json(config)};
 export const pages = ${json(pages)};
 export const trees = ${json(trees)};
 export const alternates = ${json(alternates)};
-export const bodies = {${bodies.join(",")}};
+export const searchRevision = ${json(host.searchRevision ?? "")};
 `,
   );
+  const hasBodies = host.pages.some((page) => page.compiled !== undefined);
   await write(
     path.join(directory, "render.jsx"),
     `
-import { config, pages, trees, bodies, alternates } from "./model.mjs";
+import { config, pages, trees, alternates, searchRevision } from "./model.mjs";
 import { readFile } from "node:fs/promises";
 import React from "react";
-import { DocumentationPage } from ${json(path.join(source, "view.tsx"))};
-${customization}
+import { ${hasBodies ? "DocumentationPage" : "DocumentationPageLayout as DocumentationPage"} } from ${importPath(path.join(directory, "render.jsx"), path.join(source, "../dist/framework", hasBodies ? "view.js" : "page-layout.js"))};
+${customizationImport(path.join(directory, "render.jsx"), customization)}
 export function pageMetadata(id) {
   const page = pages.find(page => page.id === id);
   return { title: page.title, description: page.description,
     ...(config.siteUrl ? { alternates: { canonical: page.url, languages: alternates[id] } } : {}) };
 }
-export async function renderPage(id, documentModule = {}) {
+export async function renderPage(id, documentModule = {}, markdownRevision, Body) {
+  void markdownRevision;
   const index = pages.findIndex(page => page.id === id);
   const page = { ...pages[index], markdown: await readFile(${json(path.join(directory, "pages"))} + "/" + index + ".md", "utf8") };
   const context = { config, page };
@@ -163,22 +189,18 @@ export async function renderPage(id, documentModule = {}) {
   const pageOptions = await Reflect.get(customization, "getPageOptions")?.(context);
   const getDocument = Reflect.get(documentModule, "getDocument") ?? Reflect.get(customization, "getDocument");
   const document = await getDocument?.(context);
-  if (!document && !bodies[id])
+  if (!document && !Body)
     throw new Error('Documentation page "' + id + '" requires getDocument to return a document result or a compiled Body.');
   return <DocumentationPage config={config} page={page} tree={trees[page.locale]}
-    Body={bodies[id]} customComponents={customComponents} siteSlots={siteSlots}
-    siteOptions={siteOptions} pageOptions={pageOptions} document={document} />;
+    Body={Body} customComponents={customComponents} siteSlots={siteSlots}
+    siteOptions={siteOptions} pageOptions={pageOptions} document={document} searchRevision={searchRevision} />;
 }
 `,
   );
-  const css = ['import "fumadocs-ui/style.css";'];
+  const styles = [];
   if ((config.stylesheet ?? "framework") === "framework")
-    css.push(
-      `import ${json(path.join(source, "../dist/assets/stylex.css"))};`,
-      `import ${json(path.join(source, "docs.css"))};`,
-    );
-  for (const relative of config.styles ?? [])
-    css.push(`import ${json(await localPath(root, relative))};`);
+    styles.push(path.join(source, "../dist/assets/stylex.css"), path.join(source, "docs.css"));
+  for (const relative of config.styles ?? []) styles.push(await localPath(root, relative));
   const groups = new Map(host.locales.map((locale, index) => [locale.code, `(locale-${index})`]));
   const active = new Set([
     ...host.pages.map((page) => page.locale),
@@ -186,13 +208,15 @@ export async function renderPage(id, documentModule = {}) {
   ]);
   if (host.redirects.length) active.add(host.defaultLocale);
   for (const locale of host.locales.filter((locale) => active.has(locale.code))) {
+    const file = path.join(directory, "app", groups.get(locale.code), "layout.jsx");
     await write(
-      path.join(directory, "app", groups.get(locale.code), "layout.jsx"),
+      file,
       `
-${css.join("\n")}
-import { DocumentationRoot } from ${json(path.join(source, "root.tsx"))};
+import "fumadocs-ui/style.css";
+${styles.map((target) => `import ${importPath(file, target)};`).join("\n")}
+import { DocumentationRoot } from ${importPath(file, path.join(source, "../dist/framework/root.js"))};
 import { config } from "../../model.mjs";
-${rootCustomization}
+${customizationImport(file, rootCustomization)}
 const locale = ${json(locale)};
 const options = await Reflect.get(customization, "getRootOptions")?.({ config, locale });
 export const metadata = {
@@ -216,23 +240,21 @@ export default function Layout({ children }) {
       "page.jsx",
     );
   }
-  for (const page of host.pages) {
+  for (const [index, page] of host.pages.entries()) {
     const file = pageFile(page.url, page.locale);
-    const relative = path
-      .relative(path.dirname(file), path.join(directory, "render.jsx"))
-      .split(path.sep)
-      .join("/");
+    const revision = createHash("sha256").update(page.markdown).digest("hex");
     await write(
       file,
-      `${page.module ? `import * as documentModule from ${json(page.module)};\n` : ""}import { renderPage, pageMetadata } from ${json(relative.startsWith(".") ? relative : `./${relative}`)};
+      `${page.compiled !== undefined ? `import Body from ${importPath(file, path.join(directory, "pages", `${index}.mjs`))};\n` : ""}${page.module ? `import * as documentModule from ${importPath(file, page.module)};\n` : ""}import { renderPage, pageMetadata } from ${importPath(file, path.join(directory, "render.jsx"))};
 export function generateMetadata() { return pageMetadata(${json(page.id)}); }
-export default function Page() { return renderPage(${json(page.id)}${page.module ? ", documentModule" : ""}); }\n`,
+export default function Page() { return renderPage(${json(page.id)}${page.module ? ", documentModule" : ", undefined"}, ${json(revision)}${page.compiled !== undefined ? ", Body" : ""}); }\n`,
     );
   }
   for (const route of host.routes) {
+    const file = pageFile(route.path, route.locale);
     await write(
-      pageFile(route.path, route.locale),
-      `import CustomPage from ${json(route.module)};
+      file,
+      `import CustomPage from ${importPath(file, route.module)};
 export const metadata = ${json(route.metadata)};
 export default function Page() { return <CustomPage {...${json(route.props)}} />; }\n`,
     );

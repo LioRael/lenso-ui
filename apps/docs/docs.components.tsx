@@ -1,12 +1,11 @@
 import type { DocumentationCustomizationContext } from "@lenso/docs/react";
 import { nativeApiFamily } from "./src/lib/native-api-section";
-import { getNavigation, getSectionEntries, isLocale } from "./src/lib/source";
+import { docsIndex, getNavigation, getSectionEntries, isLocale } from "./src/lib/source";
 import { createLensoSiteOptions } from "./src/components/docs-site-options";
 import { ComponentLinks } from "./src/components/component-links";
 import { ViewOptions } from "./src/components/ai/page-actions";
 import { DocsFooter } from "./src/components/docs-footer";
 import { product } from "./src/lib/product";
-import reference from "./src/generated/api-reference.json";
 
 function localeOf(code: string) {
   if (!isLocale(code)) throw new Error(`Unsupported Lenso locale: ${code}`);
@@ -15,7 +14,7 @@ function localeOf(code: string) {
 
 function familyOf(slug: string) {
   const family = nativeApiFamily(slug);
-  return family && Object.hasOwn(reference.families, family) ? family : undefined;
+  return family && Object.hasOwn(docsIndex.families, family) ? family : undefined;
 }
 
 export async function getSiteOptions({ page }: DocumentationCustomizationContext) {

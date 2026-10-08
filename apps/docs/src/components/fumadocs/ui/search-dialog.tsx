@@ -35,7 +35,7 @@ export function SearchDialog({
   );
   return (
     <DocumentationSearch
-      from={`/search/${locale}.json`}
+      from={`/_lenso/search/${locale}.json`}
       initOrama={initOrama}
       compact={compact}
       labels={{ input: "Find a page" }}

@@ -12,7 +12,7 @@
     "sync:disclosure": "tsx scripts/capture-disclosure-source.ts",
     "sync:theme-assets": "node scripts/sync-theme-assets.mjs",
     "build": "lenso-docs build && node scripts/check-export-size.mjs",
-    "dev": "lenso-docs dev",
+    "dev": "lenso-docs dev --turbopack",
     "start": "lenso-docs preview",
     "preview": "lenso-docs preview",
     "typecheck": "pnpm generate && tsc --noEmit && pnpm typecheck:scripts",
@@ -52,11 +52,14 @@
     "react": "catalog:",
     "react-aria-components": "1.21.1",
     "react-dom": "catalog:",
+    "remark": "15.0.1",
     "remark-gfm": "4.0.1",
-    "shiki": "3.23.0"
+    "shiki": "3.23.0",
+    "vfile": "6.0.3"
   },
   "devDependencies": {
     "@babel/parser": "7.29.9",
+    "@lenso/stylex-build": "workspace:*",
     "@stylexjs/babel-plugin": "0.19.1",
     "@stylexjs/postcss-plugin": "0.19.1",
     "@types/culori": "4.0.1",

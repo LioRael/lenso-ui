@@ -38,6 +38,7 @@
   },
   "scripts": {
     "build": "tsdown --config tsdown.config.ts && tsc -p tsconfig.build.json --emitDeclarationOnly --noEmit false --outDir dist && node scripts/copy-notices.mjs",
+    "build:dev": "tsdown --config tsdown.config.ts && node scripts/copy-notices.mjs",
     "dev": "tsdown --config tsdown.config.ts --watch --no-clean",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"

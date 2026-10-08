@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Copy, Check } from "@gravity-ui/icons";
 import { Button } from "@base-ui/react/button";
-import { styles, notebook } from "../dist/presentation.js";
+import { styles, notebook } from "@lenso/docs/presentation";
 
 export function DocumentationCodeBlock({
   code,

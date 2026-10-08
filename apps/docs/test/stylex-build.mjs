@@ -16,7 +16,14 @@ const require = createRequire(import.meta.url);
 const pluginRequire = createRequire(require.resolve("@stylexjs/postcss-plugin"));
 const postcss = pluginRequire("postcss");
 const babel = pluginRequire("@babel/core");
-const options = require("../postcss.config.cjs").plugins["@stylexjs/postcss-plugin"];
+const options = require("../postcss.config.cjs").plugins["@lenso/stylex-build/postcss"];
+const createPlugin = require("@lenso/stylex-build/postcss");
+const babelConfig = {
+  babelrc: false,
+  configFile: false,
+  parserOpts: { plugins: ["typescript", "jsx"] },
+  plugins: require("../babel.config.json").plugins,
+};
 const root = resolve(import.meta.dirname, "..");
 const evidence = resolve(
   root,
@@ -54,7 +61,7 @@ assert.ok(
 async function compiled(relative, name) {
   const filename = resolve(root, relative);
   const result = await babel.transformAsync(await readFile(filename, "utf8"), {
-    ...options.babelConfig,
+    ...babelConfig,
     filename,
   });
   const code = result.code.replace(/^import .*;$/gm, "").replace(/export const /g, "const ");
@@ -343,7 +350,7 @@ await mkdir(evidence, { recursive: true });
 const temporary = await mkdtemp(join(evidence, "probe-"));
 try {
   const file = join(temporary, "probe.ts");
-  const plugin = pluginRequire("@stylexjs/postcss-plugin")({ ...options, include: [file] });
+  const plugin = createPlugin({ ...options, metadata: [], include: [file] });
   const process = () =>
     postcss([plugin]).process("@stylex;", { from: join(temporary, "entry.css") });
   const source = (value) =>
@@ -356,8 +363,8 @@ try {
   await writeFile(file, "export const styles = {};");
   const removedDeclaration = (await process()).css;
   assert.ok(
-    removedDeclaration.includes("197px"),
-    "0.19.1 retains stale rules when the last declaration/import is removed",
+    !removedDeclaration.includes("197px"),
+    "Removing the last declaration/import must clear its prior rules",
   );
   await rm(file);
   const deletedFile = (await process()).css;
@@ -372,8 +379,9 @@ try {
     consumer,
     'import * as stylex from "@stylexjs/stylex"; import { values } from "./values.stylex.js"; export const styles=stylex.create({probe:{width:values.size}});',
   );
-  const dependentPlugin = pluginRequire("@stylexjs/postcss-plugin")({
+  const dependentPlugin = createPlugin({
     ...options,
+    metadata: [],
     include: [constants, consumer],
   });
   const dependentProcess = () =>
@@ -394,7 +402,7 @@ try {
     deletedFile,
     constantEdit: { before: "211px", after: "223px", classIdentityPreserved: true },
     limitation:
-      "Removing all declarations/imports from an existing file leaves stale rules until a fresh plugin process. Direct edits and imported defineConsts value edits update when PostCSS reruns. Deleting a file clears its rules when PostCSS reruns. Actual Next dev invalidation is not claimed by this standalone builder probe.",
+      "Direct edits, declaration removal, imported defineConsts value edits and file deletion update when PostCSS reruns. Actual Next dev invalidation is checked separately.",
   };
 } finally {
   await rm(temporary, { recursive: true, force: true });

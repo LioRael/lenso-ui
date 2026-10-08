@@ -2,6 +2,7 @@ import { createRequire } from "node:module";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { apiSourceInputs, apiSnapshotDigest, fingerprint } from "./api-artifact.ts";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const require = createRequire(import.meta.url);
@@ -261,10 +262,25 @@ export async function writeApiReference(directory = root, dependencyRoot = direc
   const { $schema: _schema, ...formatOptions } = JSON.parse(
     await readFile(path.join(directory, "packages/standard/oxfmt.json"), "utf8"),
   );
-  const formatted = await format("api-reference.json", JSON.stringify(result), formatOptions);
+  const snapshot =
+    path.resolve(directory) === path.resolve(dependencyRoot)
+      ? {
+          ...result,
+          sourceFingerprint: {
+            inputs: await fingerprint(directory, await apiSourceInputs(directory)),
+            contents: apiSnapshotDigest(result),
+          },
+        }
+      : result;
+  const formatted = await format("api-reference.json", JSON.stringify(snapshot), formatOptions);
   if (formatted.errors.length)
     throw new Error("Failed to format the generated native API reference.");
-  await writeFile(path.join(target, "api-reference.json"), formatted.code);
+  const output = path.join(target, "api-reference.json");
+  const previous = await readFile(output, "utf8").catch((error) => {
+    if (error.code === "ENOENT") return undefined;
+    throw error;
+  });
+  if (previous !== formatted.code) await writeFile(output, formatted.code);
   console.log(
     `Native API: ${Object.keys(result.families).length} families, ${Object.values(result.families).reduce((total, family) => total + family.parts.length, 0)} public parts.`,
   );

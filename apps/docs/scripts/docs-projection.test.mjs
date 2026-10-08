@@ -104,6 +104,12 @@ test("projects current version, canonical family placement, local API and all lo
   assert.equal(index.formatVersion, 1);
   assert.equal(index.lensoVersion, "0.9.0");
   assert.deepEqual(index.sourceFamilyMapping, { dropdown: "menu" });
+  assert.deepEqual(index.families.menu, {
+    source: "packages/react/src/components/menu/menu.tsx",
+    native: ["@base-ui/react/menu"],
+    related: [],
+  });
+  assert.equal(Object.hasOwn(index.families, "dropdown"), false);
   assert.equal(index.pages.length, 8);
   for (const locale of ["en", "cn"]) {
     const plan = createExamplePlan(archive, index, manifests, { locale });
@@ -153,6 +159,39 @@ test("projects current version, canonical family placement, local API and all lo
     ),
     before,
   );
+});
+
+test("projects only link and relationship metadata while preserving the full API contract", async (t) => {
+  const { directory, write } = await fixture(t);
+  const apiFile = path.join(directory, "apps/docs/src/generated/api-reference.json");
+  const api = JSON.parse(await readFile(apiFile, "utf8"));
+  api.families.menu.parts[0].members = ["Item"];
+  api.families.chip.parts.push({
+    ...api.families.chip.parts[0],
+    name: "MenuItem",
+    native: ["react-aria-components", "@base-ui/react/menu"],
+    source: { path: "packages/react/src/components/chip/item.tsx", line: 17 },
+  });
+  await write("apps/docs/src/generated/api-reference.json", api);
+  const before = await readFile(apiFile, "utf8");
+  const index = await writeDocsProjection(directory);
+  assert.deepEqual(index.families, {
+    chip: {
+      source: "packages/react/src/components/menu/menu.tsx",
+      native: ["@base-ui/react/menu", "react-aria-components"],
+      related: [],
+    },
+    menu: {
+      source: "packages/react/src/components/menu/menu.tsx",
+      native: ["@base-ui/react/menu"],
+      related: ["chip"],
+    },
+  });
+  assert.equal(await readFile(apiFile, "utf8"), before);
+  const published = JSON.parse(
+    await readFile(path.join(directory, "apps/docs/src/generated/lenso-docs-index.json"), "utf8"),
+  );
+  assert.deepEqual(published.families, index.families);
 });
 
 test("matches hyphenated archive names and keeps unknown categories in the overview", async (t) => {

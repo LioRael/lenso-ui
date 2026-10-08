@@ -5,7 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Dialog } from "@base-ui/react/dialog";
 import { Bars, Xmark } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
-import { styles, notebook } from "../dist/presentation.js";
+import { styles, notebook } from "@lenso/docs/presentation";
 import { DocumentationNavigation, type DocumentationNavigationItem } from "./site-navigation";
 import { DesktopNavigationState, sidebarScope, useSidebarState } from "./sidebar-state";
 

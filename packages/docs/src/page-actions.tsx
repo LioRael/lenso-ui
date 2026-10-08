@@ -5,7 +5,7 @@ import { Button } from "@base-ui/react/button";
 import { Menu } from "@base-ui/react/menu";
 import { Check, ChevronDown, Copy } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { notebook } from "../dist/presentation.js";
+import { notebook } from "@lenso/docs/presentation";
 
 export function DocumentationPageActions({
   markdown,
