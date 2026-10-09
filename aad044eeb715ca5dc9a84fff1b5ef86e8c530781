@@ -1,0 +1,41 @@
+apps/docs-starter/package.json
+  s_e3dbe949a951a5::t_eee586e8411dd5 6
+apps/docs/scripts/generate-api-reference.mjs
+  s_e3dbe949a951a5::t_8a43cba7d97d24 121-123,133-137,242,257-259,268-273,286
+apps/docs/scripts/generate-docs.ts
+  s_e3dbe949a951a5::t_ecc80b186a8046 176-177
+apps/docs/src/generated/api-reference.json
+  s_e3dbe949a951a5::t_24f264618bf0ed 105088
+apps/docs/src/generated/lenso-docs-index.json
+  s_e3dbe949a951a5::t_becdae38931f93 10-12,22-24,29-31,36-38,53-55,60-63,78-80,98-100,105-107,122-124,139-142,157-160,165-167,172-174,179-181,199-202,237-240,245-248,253-255,260-262,277-279,284-286,291-293,303-305,310-312,317-319,329-332,337-339,359-365,369-371,376-378,383-385,390-392,397-399,409-412,417-419,424-426,431-433,438-440,460-464,469-471,476-478,488-490,505-507,522-524,539-541,546-548,563-565,570-572,577-579,584-586,591-594,599-601
+packages/create-docs/template/package.json
+  s_e3dbe949a951a5::t_bdc27c6688cdd2 6
+packages/create-docs/test/cli.test.mjs
+  s_e3dbe949a951a5::t_0ed0c1c3037e80 63
+packages/docs/src/generate-host.mjs
+  s_e3dbe949a951a5::t_742603d0027b4d 32-38,62
+packages/docs/src/runtime.mjs
+  s_e3dbe949a951a5::t_23044ae6348c3f 50-67,213
+packages/docs/test/browser.mjs
+  s_e3dbe949a951a5::t_6694cef1ac00f0 405-414
+tooling/lenso-contracts/index.test.ts
+  s_e3dbe949a951a5::t_72c923769888f9 16,264-278
+tooling/lenso-contracts/index.ts
+  s_e3dbe949a951a5::t_9d0fafede58f8a 1135-1151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aad044eeb715ca5dc9a84fff1b5ef86e8c530781",
+  "prompts": {},
+  "sessions": {
+    "s_e3dbe949a951a5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11a4a-829c-7a91-8ac5-ef4c67bb9d37",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}

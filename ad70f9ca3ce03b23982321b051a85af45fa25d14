@@ -1,0 +1,41 @@
+.github/workflows/release.yml
+  s_e3dbe949a951a5::t_b8d2deccecab3c 7,9,59
+RELEASE.md
+  s_e3dbe949a951a5::t_feb98b75d3596a 1-18
+packages/create-docs/README.md
+  s_e3dbe949a951a5::t_ffcfc4855bdc2d 3-4
+packages/create-docs/package.json
+  s_e3dbe949a951a5::t_02f70a578abb28 6-10,21-23
+packages/docs/README.md
+  s_e3dbe949a951a5::t_3d7795c54dc869 10
+packages/docs/package.json
+  s_e3dbe949a951a5::t_128d4b56333359 6-10,68-70
+packages/react/package.json
+  s_e3dbe949a951a5::t_9831c6efd40f14 3
+packages/styles/package.json
+  s_e3dbe949a951a5::t_d8984bfaf2a1aa 3
+packages/stylex-build/README.md
+  s_e3dbe949a951a5::t_62d535a42a1d44 4
+packages/stylex-build/package.json
+  s_e3dbe949a951a5::t_d10f911abff2b2 6-10,37-39
+scripts/publish-packages.mjs
+  s_e3dbe949a951a5::t_c4afd1e2d70ae0 14-16,32,63,90-105,196,207,210,219-220,232,235
+scripts/publish-packages.test.mjs
+  s_e3dbe949a951a5::t_21fcc7ca22d67b 16,185,188,316-346
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ad70f9ca3ce03b23982321b051a85af45fa25d14",
+  "prompts": {},
+  "sessions": {
+    "s_e3dbe949a951a5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11a4a-829c-7a91-8ac5-ef4c67bb9d37",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}

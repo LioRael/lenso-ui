@@ -1,0 +1,16 @@
+packages/testing/README.md
+  h_9d56aba080c170 68-72
+packages/testing/scripts/installed-consumer.ts
+  h_9d56aba080c170 66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "06a9647f85f9acbc3b357ac7c4d473b351b5c6e1",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}

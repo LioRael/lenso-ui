@@ -1,0 +1,24 @@
+.github/workflows/release.yml
+  h_9d56aba080c170 9
+README.md
+  h_9d56aba080c170 12-14
+RELEASE.md
+  h_9d56aba080c170 1-78
+apps/docs/content/lenso/cn/react/getting-started/theming.mdx
+  h_9d56aba080c170 36-37
+apps/docs/content/lenso/en/react/getting-started/theming.mdx
+  h_9d56aba080c170 36-37
+packages/react/src/components/button/button.browser.test.tsx
+  h_9d56aba080c170 167-173
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b2ed2a906bf72410e9f0cd779c0d4aef7c23e10",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}

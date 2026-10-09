@@ -1,0 +1,26 @@
+packages/ui/src/checkbox/checkbox.browser.test.tsx
+  s_3cd9cc36da2171::t_d7e93fd2e31145 9
+  s_3cd9cc36da2171::t_ae94293c594487 37-63
+  s_3cd9cc36da2171::t_7d5ca2d8505194 36
+  s_3cd9cc36da2171::t_4cd568328845ba 64
+AGENTS.md
+  s_3cd9cc36da2171::t_6b1e02ca6d76e1 14-18,20-21,23
+  s_3cd9cc36da2171::t_9c1b8dc16971b3 22
+  s_3cd9cc36da2171::t_ae94293c594487 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6b3f4d102fd2e82ba0546119ef2eaed91eb40919",
+  "prompts": {},
+  "sessions": {
+    "s_3cd9cc36da2171": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a095d0-f362-76b3-8fc9-7000d6c48e78",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
