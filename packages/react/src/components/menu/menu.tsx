@@ -3,6 +3,9 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Menu as Base } from "@base-ui/react/menu";
+import { inputStyles } from "@lenso/tokens/input";
+import { emptyStateStyles } from "@lenso/tokens/empty-state";
+import { buttonStyles, buttonSizes, buttonVariants } from "@lenso/tokens/button";
 import { menuStyles as s } from "@lenso/tokens/menu";
 import { menuItemStyles } from "@lenso/tokens/menu-item";
 import { modalStyles } from "@lenso/tokens/modal";
@@ -140,6 +143,72 @@ export function MenuSubmenuTrigger({
 }
 export const MenuSubmenuRoot = Base.SubmenuRoot;
 export const MenuRadioGroup = Base.RadioGroup;
+export const MenuFilterProvider = Base.FilterProvider;
+export const useMenuFilter = Base.useFilter;
+export function MenuInput({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Input.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Input>, "ref">) {
+  const compiled = stylex.props(inputStyles.input, inputStyles.fullWidth, xstyle);
+  return (
+    <Base.Input
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Input.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-input"}
+    />
+  );
+}
+export function MenuList({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.List.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.List>, "ref">) {
+  const compiled = stylex.props(s.list, xstyle);
+  return (
+    <Base.List
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.List.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-list"}
+    />
+  );
+}
+export function MenuClear({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Clear.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Clear>, "ref">) {
+  const compiled = stylex.props(buttonStyles.root, buttonSizes.sm, buttonVariants.ghost, xstyle);
+  return (
+    <Base.Clear
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Clear.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-clear"}
+    />
+  );
+}
+export function MenuEmpty({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<Omit<Base.Empty.Props, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof Base.Empty>, "ref">) {
+  const compiled = stylex.props(emptyStateStyles.root, xstyle);
+  return (
+    <Base.Empty
+      {...props}
+      {...compiled}
+      style={mergeStyle<Base.Empty.State>(compiled.style, style)}
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-empty"}
+    />
+  );
+}
 export function MenuViewport({
   xstyle,
   style,
@@ -178,4 +247,10 @@ export const Menu = Object.assign(MenuRoot, {
   SubmenuRoot: MenuSubmenuRoot,
   SubmenuTrigger: MenuSubmenuTrigger,
   Viewport: MenuViewport,
+  FilterProvider: MenuFilterProvider,
+  Input: MenuInput,
+  List: MenuList,
+  Clear: MenuClear,
+  Empty: MenuEmpty,
+  useFilter: useMenuFilter,
 });

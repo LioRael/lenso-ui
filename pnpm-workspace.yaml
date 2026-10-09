@@ -10,7 +10,7 @@ overrides:
 
 catalog:
   "axe-core": 4.13.0
-  "@base-ui/react": 1.8.0
+  "@base-ui/react": 1.9.0
   "@stylexjs/stylex": 0.19.1
   "@stylexjs/unplugin": 0.19.1
   "@tanstack/react-table": 9.2.4
@@ -46,3 +46,5 @@ minimumReleaseAgeExclude:
   - next@16.3.8
   - "@types/node@24.19.1"
   - vite@8.3.2
+  - "@base-ui/react@1.9.0"
+  - "@base-ui/utils@0.5.0"

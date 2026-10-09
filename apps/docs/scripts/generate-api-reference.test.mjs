@@ -123,6 +123,15 @@ test("supporting tables and compound members come from callable public named exp
   assert.ok(rows(part("button", "ButtonIcon")).ref);
   assert.ok(part("accordion", "Accordion").members.includes("Trigger"));
   assert.ok(rows(part("accordion", "AccordionTrigger")).render);
+  for (const member of ["FilterProvider", "Input", "List", "Clear", "Empty"]) {
+    assert.ok(part("menu", "Menu").members.includes(member));
+    assert.ok(part("menu", `Menu${member}`).properties.length);
+  }
+  assert.ok(rows(part("menu", "MenuFilterProvider")).onValueChange);
+  assert.ok(rows(part("menu", "MenuInput")).ref);
+  assert.ok(rows(part("menu", "MenuInput")).render);
+  assert.ok(rows(part("menu", "MenuInput")).xstyle);
+  assert.ok(rows(part("menu", "MenuRoot")).onItemHighlighted);
   const publicBarrel = await readFile(
     path.join(root, "packages/react/src/components/index.ts"),
     "utf8",

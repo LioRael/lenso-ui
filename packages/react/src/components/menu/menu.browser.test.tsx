@@ -1,16 +1,18 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { expect, test, vi } from "vitest";
-import { userEvent } from "vitest/browser";
+import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import "virtual:stylex:runtime";
 import "@lenso/tokens/styles.css";
 import { Menu } from "./menu.js";
 import { Button } from "../button/index.js";
+import { ThemeScope } from "../../utils/theme-scope.js";
 
 const styles = stylex.create({
   trigger: (spacing: number) => ({ letterSpacing: spacing }),
   popup: (radius: number) => ({ borderRadius: radius }),
+  input: (spacing: number) => ({ letterSpacing: spacing }),
 });
 
 // Story proof does not cover refs or native render callbacks through styled parts.
@@ -116,3 +118,80 @@ test("canonical Menu keeps checkbox, radio and nested submenu contracts", async 
   await userEvent.keyboard("{Escape}");
   await expect.element(trigger).toHaveAttribute("aria-expanded", "false");
 });
+
+test.each([
+  { theme: "light", width: 390 },
+  { theme: "dark", width: 390 },
+  { theme: "light", width: 1280 },
+  { theme: "dark", width: 1280 },
+] as const)(
+  "filterable Menu in $theme at $width preserves filtering, focus and style composition",
+  async ({ theme, width }) => {
+    await page.viewport(width, 900);
+    try {
+      const inputRef = React.createRef<HTMLInputElement>();
+      const activate = vi.fn();
+      const screen = await render(
+        <ThemeScope theme={theme}>
+          <Menu.FilterProvider>
+            <Menu>
+              <Menu.Trigger>Find action</Menu.Trigger>
+              <Menu.Portal>
+                <Menu.Positioner>
+                  <Menu.Popup>
+                    <Menu.Input
+                      ref={inputRef}
+                      aria-label="Filter actions"
+                      xstyle={styles.input(2)}
+                      style={() => ({ marginTop: 7 })}
+                      render={(props) => <input {...props} data-testid="menu-filter" />}
+                    />
+                    <Menu.List>
+                      <Menu.Item onClick={activate}>Copy link</Menu.Item>
+                      <Menu.Item>Download file</Menu.Item>
+                    </Menu.List>
+                    <Menu.Empty>No matching actions</Menu.Empty>
+                    <Menu.Clear>Clear filter</Menu.Clear>
+                  </Menu.Popup>
+                </Menu.Positioner>
+              </Menu.Portal>
+            </Menu>
+          </Menu.FilterProvider>
+        </ThemeScope>,
+      );
+      const trigger = screen.getByRole("button", { name: "Find action" });
+      await trigger.click();
+      const input = screen.getByRole("searchbox", { name: "Filter actions" });
+      expect(inputRef.current).toBe(input.element());
+      await expect.element(input).toHaveFocus();
+      expect(getComputedStyle(input.element()).letterSpacing).toBe("2px");
+      expect(getComputedStyle(input.element()).marginTop).toBe("7px");
+      const popup = input.element().closest<HTMLElement>('[data-slot="menu-popup"]')!;
+      await expect.poll(() => getComputedStyle(popup).transform).toBe("matrix(1, 0, 0, 1, 0, 0)");
+      expect(popup.scrollWidth).toBeLessThanOrEqual(popup.clientWidth);
+      expect(input.element().getBoundingClientRect().right).toBeLessThanOrEqual(
+        popup.getBoundingClientRect().right,
+      );
+      await userEvent.type(input, "copy");
+      await expect.element(screen.getByRole("menuitem", { name: "Copy link" })).toBeVisible();
+      await expect
+        .element(screen.getByRole("menuitem", { name: "Download file" }))
+        .not.toBeInTheDocument();
+      await userEvent.keyboard("{ArrowDown}{Enter}");
+      expect(activate).toHaveBeenCalledTimes(1);
+      await expect.element(trigger).toHaveAttribute("aria-expanded", "false");
+
+      await trigger.click();
+      const openedInput = screen.getByRole("searchbox", { name: "Filter actions" });
+      await userEvent.type(openedInput, "missing");
+      await expect.element(screen.getByText("No matching actions")).toBeVisible();
+      await screen.getByText("Clear filter").click();
+      await expect.element(screen.getByRole("menuitem", { name: "Copy link" })).toBeVisible();
+      await userEvent.keyboard("{Escape}");
+      await expect.element(trigger).toHaveAttribute("aria-expanded", "false");
+      await expect.element(trigger).toHaveFocus();
+    } finally {
+      await page.viewport(1280, 900);
+    }
+  },
+);

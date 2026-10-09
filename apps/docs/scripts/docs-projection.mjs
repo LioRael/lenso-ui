@@ -722,6 +722,11 @@ export function nativeContractNotes(reference, family, locale) {
     "使用原生展开状态回调及其类型化事件详情，而不是 onPress 别名",
   );
   describe(
+    "actionsRef",
+    "An imperative actions ref does not retain a closing popup. For an externally controlled exit animation, call eventDetails.preventUnmountOnClose() in onOpenChange, then actionsRef.current?.unmount() when the animation finishes",
+    "命令式 actions ref 不会保留正在关闭的弹层。使用外部退出动画时，在 onOpenChange 中调用 eventDetails.preventUnmountOnClose()，动画结束后调用 actionsRef.current?.unmount()",
+  );
+  describe(
     "onValueChange",
     "Consume the native value-change signature shown below, not a synthesized DOM change event",
     "使用下方原生值变化签名，不要将其视为合成 DOM change 事件",
@@ -745,9 +750,42 @@ export function nativeContractNotes(reference, family, locale) {
 }
 
 function menuGuide(locale) {
-  return locale === "cn"
-    ? "## 组合与键盘\n\n`Menu.Root` 管理展开状态；`Menu.Trigger` 打开菜单。将 `Menu.Popup` 放入 `Menu.Portal` 和 `Menu.Positioner` 中，定位器处理锚点与侧边偏移，弹出层负责菜单表面。\n\n菜单项必须位于 Menu 上下文内。箭头键在可用项目间移动，Enter 或 Space 激活命令，Escape 关闭并返回触发器。子菜单使用 `Menu.SubmenuRoot` 和 `Menu.SubmenuTrigger`，不要嵌套另一个普通按钮来模拟菜单项。\n\n受控展开采用 `open` 和 `onOpenChange`；回调签名以本地 API 为准。项目行为采用 Base UI 事件，不使用 React Aria 的 `onAction` 或 `onPress`。选项、分组、链接和子菜单的运行示例均列在下方。\n\n公开名称只有 `Menu`。历史 Dropdown 的来源名称仅保留在内部示例引用中；旧文档地址可以重定向到本页，但不表示存在 Dropdown 导出。\n"
-    : "## Composition and keyboard\n\n`Menu.Root` owns open state; `Menu.Trigger` opens the menu. Place `Menu.Popup` inside `Menu.Portal` and `Menu.Positioner`: the positioner handles anchoring and side offsets, while the popup owns the menu surface.\n\nItems must participate in the Menu context. Arrow keys move between enabled items, Enter or Space activates a command, and Escape dismisses the popup and returns focus to its trigger. Submenus use `Menu.SubmenuRoot` and `Menu.SubmenuTrigger`; do not simulate an item by nesting another ordinary button.\n\nControl visibility with `open` and `onOpenChange`, using the local callback signature below. Item activation uses Base UI events, not React Aria's `onAction` or `onPress`. Runnable examples below cover items, groups, links and submenus.\n\nThe public name is `Menu` only. Historical Dropdown names remain internal example references; an old documentation URL may redirect here, but that does not imply a Dropdown export.\n";
+  const composition =
+    locale === "cn"
+      ? "## 组合与键盘\n\n`Menu.Root` 管理展开状态；`Menu.Trigger` 打开菜单。将 `Menu.Popup` 放入 `Menu.Portal` 和 `Menu.Positioner` 中，定位器处理锚点与侧边偏移，弹出层负责菜单表面。\n\n菜单项必须位于 Menu 上下文内。箭头键在可用项目间移动，Enter 或 Space 激活命令，Escape 关闭并返回触发器。子菜单使用 `Menu.SubmenuRoot` 和 `Menu.SubmenuTrigger`，不要嵌套另一个普通按钮来模拟菜单项。\n\n受控展开采用 `open` 和 `onOpenChange`；回调签名以本地 API 为准。项目行为采用 Base UI 事件，不使用 React Aria 的 `onAction` 或 `onPress`。选项、分组、链接和子菜单的运行示例均列在下方。\n\n公开名称只有 `Menu`。历史 Dropdown 的来源名称仅保留在内部示例引用中；旧文档地址可以重定向到本页，但不表示存在 Dropdown 导出。\n"
+      : "## Composition and keyboard\n\n`Menu.Root` owns open state; `Menu.Trigger` opens the menu. Place `Menu.Popup` inside `Menu.Portal` and `Menu.Positioner`: the positioner handles anchoring and side offsets, while the popup owns the menu surface.\n\nItems must participate in the Menu context. Arrow keys move between enabled items, Enter or Space activates a command, and Escape dismisses the popup and returns focus to its trigger. Submenus use `Menu.SubmenuRoot` and `Menu.SubmenuTrigger`; do not simulate an item by nesting another ordinary button.\n\nControl visibility with `open` and `onOpenChange`, using the local callback signature below. Item activation uses Base UI events, not React Aria's `onAction` or `onPress`. Runnable examples below cover items, groups, links and submenus.\n\nThe public name is `Menu` only. Historical Dropdown names remain internal example references; an old documentation URL may redirect here, but that does not imply a Dropdown export.\n";
+  const filtering =
+    locale === "cn"
+      ? '## 筛选菜单（预览）\n\nBase UI 1.9.0 的原生菜单筛选仍标记为预览。用 `Menu.FilterProvider` 包裹 `Menu.Root`，在弹层中放置带可访问名称的 `Menu.Input`，并将项目放入 `Menu.List`。每个可搜索子菜单都需要独立的 provider。\n\n`autoHighlight` 默认为 `false`；`true` 在查询非空时高亮第一个匹配项，`"always"` 在查询为空时也高亮。输入框保留焦点，箭头键移动高亮，Enter 激活命令，Escape 关闭菜单。`Menu.Clear` 清空查询，`Menu.Empty` 显示无匹配状态。关闭菜单时原生 provider 请求将查询重置为空；受控查询通过 `value` 和 `onValueChange` 更新。\n\n以下为组合参考代码，不是独立在线演示。为项目提供真实的 `onClick` 行为，并为清除按钮提供可访问名称。\n'
+      : '## Filterable menu (preview)\n\nNative menu filtering is marked as preview in Base UI 1.9.0. Wrap `Menu.Root` in `Menu.FilterProvider`, place an accessibly named `Menu.Input` in the popup, and put the items in `Menu.List`. Each searchable submenu needs its own provider.\n\n`autoHighlight` defaults to `false`; `true` highlights the first match while the query is nonempty, and `"always"` also highlights it for an empty query. Focus stays on the input, arrow keys move the highlight, Enter activates a command, and Escape closes the menu. `Menu.Clear` resets the query and `Menu.Empty` displays the no-match state. On close, the native provider requests an empty query; controlled queries update through `value` and `onValueChange`.\n\nThe following is composition reference code, not a standalone live demo. Supply real item `onClick` handlers and an accessible name for the clear button.\n';
+  const example = [
+    "```tsx",
+    "<Menu.FilterProvider autoHighlight>",
+    "  <Menu.Root>",
+    "    <Menu.Trigger>Actions</Menu.Trigger>",
+    "    <Menu.Portal>",
+    "      <Menu.Positioner>",
+    "        <Menu.Popup>",
+    '          <Menu.Input aria-label="Filter actions" />',
+    "          <Menu.Clear>Clear search</Menu.Clear>",
+    "          <Menu.List>",
+    "            <Menu.Item onClick={onCopy}>Copy</Menu.Item>",
+    "            <Menu.Item onClick={onPaste}>Paste</Menu.Item>",
+    "          </Menu.List>",
+    "          <Menu.Empty>No matching actions</Menu.Empty>",
+    "        </Menu.Popup>",
+    "      </Menu.Positioner>",
+    "    </Menu.Portal>",
+    "  </Menu.Root>",
+    "</Menu.FilterProvider>",
+    "```",
+    "",
+  ].join("\n");
+  const clearSemantics =
+    locale === "cn"
+      ? "`Menu.Clear` 保留 Base UI 的辅助指针控件语义（`aria-hidden`、不参与 Tab 顺序）；键盘用户直接编辑输入框以清除查询。\n"
+      : "`Menu.Clear` retains Base UI's auxiliary pointer-control semantics (`aria-hidden`, outside the Tab order); keyboard users clear the query by editing the input.\n";
+  return `${composition}\n${filtering}\n${example}\n${clearSemantics}`;
 }
 
 async function authoredFiles(directory, prefix = "react") {

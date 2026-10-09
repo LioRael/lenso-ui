@@ -56,12 +56,18 @@ try {
       },
     }),
   );
+  // pnpm appends release-age exclusions for new dependencies; JSON-in-YAML is not editable.
   await writeFile(
     join(directory, "pnpm-workspace.yaml"),
-    JSON.stringify({
-      packages: ["."],
-      overrides: packages,
-    }),
+    [
+      "packages:",
+      '  - "."',
+      "overrides:",
+      ...Object.entries(packages).map(
+        ([name, specifier]) => `  ${JSON.stringify(name)}: ${JSON.stringify(specifier)}`,
+      ),
+      "",
+    ].join("\n"),
   );
   await run("pnpm", ["install", "--prefer-offline", "--ignore-scripts"], { cwd: directory });
   const installed = createRequire(join(directory, "package.json"));

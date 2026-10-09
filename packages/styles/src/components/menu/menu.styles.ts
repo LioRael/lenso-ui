@@ -42,6 +42,7 @@ export const menuStyles = stylex.create({
       "@media (prefers-reduced-motion: reduce)": "0ms",
     },
   },
+  list: { display: "flex", flexDirection: "column", gap: 2 },
   positioner: { zIndex: tokens.zIndexOverlay, maxWidth: "var(--available-width)" },
   separator: {
     marginInline: "3%",

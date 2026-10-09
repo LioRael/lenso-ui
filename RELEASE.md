@@ -1,3 +1,33 @@
+# Unreleased: Base UI 1.9.0 adaptation
+
+The workspace now pins `@base-ui/react@1.9.0`. Lenso package versions are
+unchanged; this source update does not authorize publication.
+
+- `Menu` exposes native `FilterProvider`, `Input`, `List`, `Clear`, `Empty`
+  and `useFilter` composition. Native filtering remains an upstream preview
+  API. Wrap each searchable menu root or submenu root in its own provider.
+  Nonfilterable menus require no composition changes.
+- Select, ComboBox and Autocomplete inherit the upstream async highlighting,
+  collection performance and interaction fixes. Multiple-value contracts
+  accept native readonly arrays. Highlight callbacks forward the originating
+  event; pointer events may be `MouseEvent` or `PointerEvent`, and typing can
+  report the reason `none`.
+- Supplying `actionsRef` no longer opts Select, ComboBox or Autocomplete out of
+  automatic popup unmounting. Consumers with externally controlled exit
+  animations must call `eventDetails.preventUnmountOnClose()` while closing
+  in `onOpenChange`, then `actionsRef.current?.unmount()` when finished.
+  Do not add this opt-out for ordinary CSS transitions.
+- Drawer inherits native gesture and virtual-keyboard fixes. Touch interaction
+  regions can use `data-base-ui-swipe-ignore="x"` or `"y"` to ignore only that
+  gesture axis. An empty attribute ignores both axes; mouse/pen pointer drags
+  ignore a marked region regardless of its value. `Drawer.Content` retains its
+  existing native swipe-exclusion semantics.
+
+The performance improvements are upstream changes, not a local benchmark
+claim. New filtering composition is documented separately from the preserved
+upstream live-example inventory. `packages/primitives` source, API and tests
+remain unchanged.
+
 # Lenso UI 0.9.1 and Docs/tooling 0.1.0
 
 This release publishes `@lenso/ui` and `@lenso/tokens` at `0.9.1`, plus the
