@@ -6,8 +6,16 @@ on:
       version:
         description: Exact version declared by UI and tokens (Docs/tooling use their manifest versions)
         required: true
-        default: "0.9.1"
+        default: "0.9.2"
         type: string
+      scope:
+        description: Publish UI/tokens only, or all public packages
+        required: true
+        default: ui
+        type: choice
+        options:
+          - ui
+          - all
 
 concurrency:
   group: npm-release
@@ -59,4 +67,5 @@ jobs:
       - name: Publish public packages with npm OIDC provenance
         env:
           LENSO_RELEASE_VERSION: ${{ inputs.version }}
+          LENSO_RELEASE_SCOPE: ${{ inputs.scope }}
         run: node scripts/publish-packages.mjs

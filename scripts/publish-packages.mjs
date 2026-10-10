@@ -16,6 +16,13 @@ export const packages = [
   { dir: "packages/create-docs", name: "create-lenso-docs", kind: "initializer", version: "0.1.0" },
 ];
 
+export function selectPackages(scope = "all") {
+  if (scope === "all") return packages;
+  if (scope === "ui")
+    return packages.filter((item) => item.kind === "tokens" || item.kind === "ui");
+  throw new Error("LENSO_RELEASE_SCOPE must be ui or all");
+}
+
 export function validateContext(env, head, remoteHead, manifests) {
   if (env.GITHUB_ACTIONS !== "true") throw new Error("must run in GitHub Actions");
   if (env.GITHUB_REF !== "refs/heads/main") throw new Error("must run on refs/heads/main");
@@ -25,7 +32,10 @@ export function validateContext(env, head, remoteHead, manifests) {
   if (!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(env.LENSO_RELEASE_VERSION ?? "")) {
     throw new Error("LENSO_RELEASE_VERSION must be canonical stable semver");
   }
-  for (const [i, item] of packages.entries()) {
+  const selected = selectPackages(env.LENSO_RELEASE_SCOPE);
+  if (manifests.length !== selected.length)
+    throw new Error("package manifests must match the selected release scope");
+  for (const [i, item] of selected.entries()) {
     if (
       manifests[i].name !== item.name ||
       manifests[i].private === true ||
@@ -181,10 +191,11 @@ async function metadata(name, timeoutMs = 15_000) {
 
 async function publish() {
   const env = process.env;
+  const selected = selectPackages(env.LENSO_RELEASE_SCOPE);
   const head = run("git", ["rev-parse", "HEAD"]);
   const remoteHead = run("git", ["ls-remote", "origin", "refs/heads/main"]).split(/\s/)[0];
   const manifests = await Promise.all(
-    packages.map(async (item) =>
+    selected.map(async (item) =>
       JSON.parse(await readFile(join(root, item.dir, "package.json"), "utf8")),
     ),
   );
@@ -192,7 +203,7 @@ async function publish() {
   const temp = await mkdtemp(join(env.RUNNER_TEMP ?? tmpdir(), "lenso-release-"));
   try {
     const tarballs = [];
-    for (const [i, item] of packages.entries()) {
+    for (const [i, item] of selected.entries()) {
       const packageVersion = item.version ?? version;
       run("pnpm", ["--dir", item.dir, "build"]);
       run("pnpm", ["--dir", item.dir, "pack", "--out", join(temp, `${i}.tgz`)]);

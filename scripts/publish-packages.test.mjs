@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   packages as entries,
+  selectPackages,
   shouldSkipExisting,
   validateContext,
   validatePackage,
@@ -187,6 +188,48 @@ test("release list orders public packages by dependencies and excludes primitive
     entries.map(({ name }) => name),
     ["@lenso/tokens", "@lenso/ui", "@lenso/stylex-build", "@lenso/docs", "create-lenso-docs"],
   );
+});
+
+test("UI-only releases exclude Docs/tooling before validation, packing and publication", () => {
+  const selected = selectPackages("ui");
+  assert.deepEqual(selected, entries.slice(0, 2));
+  assert.deepEqual(selectPackages(), entries);
+  assert.deepEqual(selectPackages("all"), entries);
+  for (const scope of ["", "docs", "@lenso/ui", "UI", "ui,all"])
+    assert.throws(() => selectPackages(scope), /LENSO_RELEASE_SCOPE/);
+  const scopedEnv = { ...env, LENSO_RELEASE_SCOPE: "ui" };
+  assert.equal(validateContext(scopedEnv, "abc123", "abc123", manifests.slice(0, 2)), "0.8.0");
+  for (const supplied of [manifests, manifests.slice(0, 1), []])
+    assert.throws(
+      () => validateContext(scopedEnv, "abc123", "abc123", supplied),
+      /selected release scope/,
+    );
+  for (const patch of [
+    { GITHUB_ACTIONS: "false" },
+    { GITHUB_REF: "refs/heads/other" },
+    { LENSO_RELEASE_VERSION: "0.8.0-rc.1" },
+    { LENSO_RELEASE_SCOPE: "docs" },
+  ])
+    assert.throws(() =>
+      validateContext({ ...scopedEnv, ...patch }, "abc123", "abc123", manifests.slice(0, 2)),
+    );
+  assert.throws(
+    () => validateContext(scopedEnv, "wrong", "abc123", manifests.slice(0, 2)),
+    /GITHUB_SHA/,
+  );
+  assert.throws(
+    () => validateContext(scopedEnv, "abc123", "wrong", manifests.slice(0, 2)),
+    /GITHUB_SHA/,
+  );
+  for (const patch of [{ name: "@lenso/primitives" }, { private: true }, { version: "0.7.0" }])
+    assert.throws(
+      () =>
+        validateContext(scopedEnv, "abc123", "abc123", [
+          { ...manifests[0], ...patch },
+          manifests[1],
+        ]),
+      /unexpected package identity or version/,
+    );
 });
 
 test("accepted publication waits for registry version and latest without republishing", async () => {

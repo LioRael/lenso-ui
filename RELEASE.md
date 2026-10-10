@@ -1,7 +1,36 @@
-# Unreleased: Base UI 1.9.0 adaptation
+# Lenso UI 0.9.2
 
-The workspace now pins `@base-ui/react@1.9.0`. Lenso package versions are
-unchanged; this source update does not authorize publication.
+The owner authorized publishing only `@lenso/ui@0.9.2` and
+`@lenso/tokens@0.9.2`. Docs, initializer and StyleX tooling remain at `0.1.0`;
+`@lenso/primitives@0.7.0` remains preserved and is not published.
+
+Dispatch `release.yml` on the verified `main` commit with version `0.9.2`
+and scope `ui`. The selected package list is used for identity validation,
+building, packing, publication and registry checks. The exact-main gate,
+protected `npm` environment, export/license checks, OIDC provenance and
+immutable-integrity checks are unchanged. Scope `all` retains the broader
+release path; it must not be used to overwrite existing Docs/tooling versions.
+
+## Toolbar and choice styles
+
+- Restore default and selected ToggleButton backgrounds, including hover and
+  pressed feedback in standalone buttons, groups and Toolbar.
+- Preserve caller styles and connected-button geometry through Toolbar native
+  render composition. Icon-only Button consumers using
+  `render={<Toolbar.Button />}` should also set `isIconOnly` on that adapter.
+- Align RadioGroup header and option spacing, label/description typography,
+  logical description indentation, secondary selection/hover and invalid
+  feedback with the pinned HeroUI source.
+
+Update both packages together:
+
+```sh
+pnpm add @lenso/ui@0.9.2 @lenso/tokens@0.9.2
+```
+
+## Base UI 1.9.0 adaptation
+
+The released UI package now pins `@base-ui/react@1.9.0`.
 
 - `Menu` exposes native `FilterProvider`, `Input`, `List`, `Clear`, `Empty`
   and `useFilter` composition. Native filtering remains an upstream preview
