@@ -1,0 +1,29 @@
+apps/docs/package.json
+  s_e3dbe949a951a5::t_171c0e24f2fbea 15,55,57-58,62
+apps/docs/scripts/generate-page-documents.ts
+  s_e3dbe949a951a5::t_f7d0097a13e34d 12-14,23,26-27,29-38,42-71,73-83,85,89-93,109-112,122-152,154,156,164-194,207-215,246,253-255,257-260,263-264,266,289-294
+apps/docs/scripts/static-search.mjs
+  s_e3dbe949a951a5::t_c1a0e0972c4b6d 4,6-8,16-38,63-76,83-85,106,109
+apps/docs/scripts/static-search.test.ts
+  s_e3dbe949a951a5::t_1c8170fb2ed18c 7-12,17-66
+apps/docs/src/generated/api-reference.json
+  s_e3dbe949a951a5::t_855949f097122e 105086-105089
+pnpm-lock.yaml
+  s_e3dbe949a951a5::t_fa82da765134b9 346-348,355-358,363-365,746-748
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "138e1cb6724cb69405effb3d5b4b85d8fc61e17b",
+  "prompts": {},
+  "sessions": {
+    "s_e3dbe949a951a5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11a4a-829c-7a91-8ac5-ef4c67bb9d37",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
