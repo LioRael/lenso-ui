@@ -151,7 +151,6 @@ export const Orientation: Story = {
           name="plan-orientation"
           aria-labelledby={id}
           aria-orientation="horizontal"
-          xstyle={s.row}
         >
           <SubscriptionChoices />
         </RadioGroup>

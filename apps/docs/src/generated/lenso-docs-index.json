@@ -582,7 +582,8 @@
     "toolbar": {
       "source": "packages/react/src/components/toolbar/toolbar.tsx",
       "native": [
-        "@base-ui/react/toolbar"
+        "@base-ui/react/toolbar",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },

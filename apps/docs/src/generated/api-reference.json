@@ -86006,7 +86006,7 @@
       "expandedType": "React.Ref<HTMLAnchorElement> | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 62 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 63 },
       "default": null
     },
     {
@@ -86045,7 +86045,7 @@
       "expandedType": "React.Ref<HTMLDivElement> | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 81 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 82 },
       "default": null
     },
     {
@@ -86108,7 +86108,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 96 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 97 },
       "default": "false"
     },
     {
@@ -86138,7 +86138,7 @@
       "expandedType": "React.Ref<HTMLButtonElement> | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 24 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 26 },
       "default": null
     },
     {
@@ -86168,7 +86168,7 @@
       "expandedType": "undefined | \"sm\" | \"md\" | \"lg\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 124 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 125 },
       "default": "\"md\""
     },
     {
@@ -86177,7 +86177,7 @@
       "expandedType": "undefined | \"danger\" | \"outline\" | \"secondary\" | \"primary\" | \"tertiary\" | \"ghost\" | \"danger-soft\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 125 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 126 },
       "default": "\"primary\""
     },
     {
@@ -86186,7 +86186,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 126 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 127 },
       "default": "false"
     },
     {
@@ -86195,7 +86195,7 @@
       "expandedType": "React.Ref<HTMLDivElement> | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 43 },
+      "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 44 },
       "default": null
     },
     {
@@ -104615,7 +104615,7 @@
           "props": "ToggleButtonRootProps",
           "source": {
             "path": "packages/react/src/components/toggle-button/toggle-button.tsx",
-            "line": 52
+            "line": 51
           },
           "native": ["@base-ui/react/toggle"],
           "members": ["Root", "Icon"],
@@ -104763,8 +104763,8 @@
           "name": "ToolbarLink",
           "signature": "({ xstyle, style, ...props }: StyleXProps<Omit<BaseToolbar.Link.Props, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Link>[\"ref\"]; }> & { \"data-slot\"?: unknown; }): React.JSX.Element",
           "props": "Omit<Omit<ToolbarLinkProps, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Link>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 56 },
-          "native": ["@base-ui/react/toolbar"],
+          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 57 },
+          "native": ["@base-ui/react/toolbar", "@base-ui/react/merge-props"],
           "members": [],
           "states": {
             "ToolbarLinkState": [
@@ -104796,8 +104796,8 @@
           "name": "ToolbarGroup",
           "signature": "({ xstyle, style, ...props }: StyleXProps<Omit<BaseToolbar.Group.Props, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Group>[\"ref\"]; }> & { \"data-slot\"?: unknown; }): React.JSX.Element",
           "props": "Omit<Omit<ToolbarGroupProps, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Group>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 75 },
-          "native": ["@base-ui/react/toolbar"],
+          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 76 },
+          "native": ["@base-ui/react/toolbar", "@base-ui/react/merge-props"],
           "members": [],
           "states": {
             "ToolbarGroupState": [
@@ -104828,8 +104828,8 @@
           "name": "ToolbarRoot",
           "signature": "({ isAttached, orientation, xstyle, style, ...props }: ToolbarRootProps): React.JSX.Element",
           "props": "ToolbarRootProps",
-          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 98 },
-          "native": ["@base-ui/react/toolbar"],
+          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 99 },
+          "native": ["@base-ui/react/toolbar", "@base-ui/react/merge-props"],
           "members": [],
           "states": {
             "ToolbarRootState": [
@@ -104860,8 +104860,8 @@
           "name": "ToolbarButton",
           "signature": "({ size, variant, isIconOnly, xstyle, ...props }: ToolbarButtonProps): React.JSX.Element",
           "props": "ToolbarButtonProps",
-          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 128 },
-          "native": ["@base-ui/react/toolbar"],
+          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 129 },
+          "native": ["@base-ui/react/toolbar", "@base-ui/react/merge-props"],
           "members": [],
           "states": {
             "ToolbarButtonState": [
@@ -104893,8 +104893,8 @@
           "name": "ToolbarSeparator",
           "signature": "({ orientation: ownOrientation, xstyle, ...props }: ComponentProps<typeof Separator>): React.JSX.Element",
           "props": "Omit<Omit<ToolbarSeparatorProps, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Separator>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 149 },
-          "native": ["@base-ui/react/toolbar"],
+          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 155 },
+          "native": ["@base-ui/react/toolbar", "@base-ui/react/merge-props"],
           "members": [],
           "states": {
             "SeparatorState": [
@@ -104924,8 +104924,8 @@
           "name": "Toolbar",
           "signature": "({ isAttached, orientation, xstyle, style, ...props }: ToolbarRootProps): React.JSX.Element",
           "props": "ToolbarRootProps",
-          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 168 },
-          "native": ["@base-ui/react/toolbar"],
+          "source": { "path": "packages/react/src/components/toolbar/toolbar.tsx", "line": 174 },
+          "native": ["@base-ui/react/toolbar", "@base-ui/react/merge-props"],
           "members": ["Root", "Button", "Link", "Group", "Separator"],
           "states": {
             "ToolbarRootState": [
@@ -105409,7 +105409,7 @@
     }
   },
   "sourceFingerprint": {
-    "inputs": "e687fea70543207bf3173daec7363d7dc64bc9939b4103d2bc0ec54ba495ede4",
-    "contents": "242ad62c3fc94783dd4cd8d09bf7c4413c801cd50f5ac0f2a4365aadc166a21d"
+    "inputs": "6309916a20adf9f5fc5c26cedf93c86d8e63d14d59c1c86a9fd83ca5dea6f5ca",
+    "contents": "cfabbfe8faa7ef876e55ac76ac42f0067429b9aa5c0d5289bc5450366bf8fce7"
   }
 }

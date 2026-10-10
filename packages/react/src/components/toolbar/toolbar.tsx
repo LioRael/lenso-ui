@@ -1,6 +1,7 @@
 "use client";
 
 import { Toolbar as BaseToolbar } from "@base-ui/react/toolbar";
+import { mergeProps } from "@base-ui/react/merge-props";
 import { toolbarStyles } from "@lenso/tokens/toolbar";
 import {
   buttonStyles,
@@ -14,6 +15,7 @@ import type * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { createContext, useContext, type ComponentProps } from "react";
 import { ButtonSizeContext, type ButtonSize, type ButtonVariant } from "../button/button.js";
+import { ButtonGroupContext } from "../button-group/button-group.js";
 const Context = createContext<"horizontal" | "vertical">("horizontal");
 function Button({
   xstyle,
@@ -27,8 +29,7 @@ function Button({
   const compiled = stylex.props(buttonStyles.root, xstyle);
   return (
     <BaseToolbar.Button
-      {...props}
-      {...compiled}
+      {...mergeProps(compiled, props)}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "toolbar-button"}
     />
@@ -132,6 +133,7 @@ export function ToolbarButton({
   xstyle,
   ...props
 }: ToolbarButtonProps) {
+  const group = useContext(ButtonGroupContext);
   return (
     <ButtonSizeContext value={size}>
       <Button
@@ -140,6 +142,10 @@ export function ToolbarButton({
           buttonSizes[size],
           buttonVariants[variant],
           isIconOnly && buttonIconOnlySizes[size],
+          group.orientation &&
+            buttonStyles[
+              group.orientation === "horizontal" ? "groupedHorizontal" : "groupedVertical"
+            ],
           xstyle,
         ]}
       />

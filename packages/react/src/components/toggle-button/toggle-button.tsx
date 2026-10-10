@@ -29,7 +29,6 @@ export function ToggleButtonRoot({
     buttonStyles.root,
     buttonSizes[size],
     toggleButtonStyles[variant === "ghost" ? "ghost" : "root"],
-    toggleButtonStyles.selectedHover,
     isIconOnly && buttonIconOnlySizes[size],
     group.orientation &&
       !group.isDetached &&

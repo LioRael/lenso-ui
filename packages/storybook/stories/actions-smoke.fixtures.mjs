@@ -120,6 +120,28 @@ async function focused(name) {
     `Focus: ${name}`,
   );
 }
+async function tokenColor(locator, property, token) {
+  await page.waitForFunction(
+    ({ selector, property, token }) => {
+      const target = document.querySelector(selector);
+      const probe = document.createElement("span");
+      probe.style.color = `var(${token})`;
+      target.append(probe);
+      const expected = getComputedStyle(probe).color;
+      probe.remove();
+      return getComputedStyle(target)[property] === expected;
+    },
+    {
+      selector: await locator.evaluate((element) => {
+        element.setAttribute("data-color-proof", "target");
+        return '[data-color-proof="target"]';
+      }),
+      property,
+      token,
+    },
+  );
+  await locator.evaluate((element) => element.removeAttribute("data-color-proof"));
+}
 async function joined(selector, vertical = false) {
   const boxes = await page.locator(selector).evaluateAll((elements) =>
     elements.map((element) => {
@@ -221,6 +243,25 @@ try {
     await page.getByRole("button", { name: "Like", exact: true }).press("Space");
     await pressed("Liked", true);
     assert(await page.getByText("Status: Selected").isVisible());
+    // Mount/selection coverage did not catch a composed hover map erasing default backgrounds.
+    await visit("ToggleButton", "Variants", theme);
+    const toggles = page.locator('[data-slot="toggle-button"]');
+    await page.mouse.move(0, 0);
+    await tokenColor(toggles.nth(0), "backgroundColor", "--default");
+    await tokenColor(toggles.nth(1), "backgroundColor", "--accent-soft");
+    assert.equal(
+      await toggles.nth(2).evaluate((element) => getComputedStyle(element).backgroundColor),
+      "rgba(0, 0, 0, 0)",
+    );
+    await tokenColor(toggles.nth(3), "backgroundColor", "--accent-soft");
+    await toggles.nth(0).hover();
+    await tokenColor(toggles.nth(0), "backgroundColor", "--default-hover");
+    await toggles.nth(1).hover();
+    await tokenColor(toggles.nth(1), "backgroundColor", "--accent-soft-hover");
+    await toggles.nth(2).hover();
+    await tokenColor(toggles.nth(2), "backgroundColor", "--default");
+    await toggles.nth(3).hover();
+    await tokenColor(toggles.nth(3), "backgroundColor", "--accent-soft-hover");
     await visit("ToggleButton", "Default", theme, "disabled:true;size:sm");
     assert.equal(await page.locator("button:disabled").count(), 2);
     await visit("ToggleButton", "RealWorld", theme);
@@ -276,6 +317,46 @@ try {
     await pressed("List view", true);
 
     await visit("Toolbar", "Default", theme);
+    await page.mouse.move(0, 0);
+    await tokenColor(
+      page.getByRole("button", { name: "Bold", exact: true }),
+      "backgroundColor",
+      "--default",
+    );
+    await tokenColor(
+      page.getByRole("button", { name: "Copy", exact: true }),
+      "backgroundColor",
+      "--default",
+    );
+    assert.equal(
+      await page
+        .getByRole("button", { name: "Copy", exact: true })
+        .evaluate((element) => getComputedStyle(element).color),
+      await page
+        .getByRole("button", { name: "Bold", exact: true })
+        .evaluate((element) => getComputedStyle(element).color),
+    );
+    const toolbarDivider = await page.locator('[data-slot="button-group-separator"]').boundingBox();
+    const cutBox = await page.getByRole("button", { name: "Cut", exact: true }).boundingBox();
+    assert.equal(cutBox.width, 36);
+    assert.equal(cutBox.height, 36);
+    assert.equal(toolbarDivider.height, cutBox.height / 2);
+    assert.equal(toolbarDivider.x, cutBox.x - 1);
+    assert.equal(toolbarDivider.y, cutBox.y + cutBox.height / 4);
+    await page.getByRole("button", { name: "Cut", exact: true }).hover();
+    await page.mouse.down();
+    const activeScale = await page
+      .getByRole("button", { name: "Cut", exact: true })
+      .evaluate(async (element) => {
+        void getComputedStyle(element).transform;
+        await Promise.all(
+          element.getAnimations().map((animation) => animation.finished.catch(() => {})),
+        );
+        const matrix = new DOMMatrixReadOnly(getComputedStyle(element).transform);
+        return [matrix.a, matrix.d];
+      });
+    assert.deepEqual(activeScale, [1, 1], "Attached toolbar buttons must not shrink on activation");
+    await page.mouse.up();
     await page.getByRole("button", { name: "Bold" }).focus();
     for (const name of ["Italic", "Underline", "Copy", "Cut", "Bold"]) {
       await page.keyboard.press("ArrowRight");
@@ -310,6 +391,10 @@ try {
       );
     }
     await page.setViewportSize({ width: 390, height: 844 });
+    await visit("Toolbar", "Default", theme);
+    const mobileCutBox = await page.getByRole("button", { name: "Cut", exact: true }).boundingBox();
+    assert.equal(mobileCutBox.width, 40);
+    assert.equal(mobileCutBox.height, 40);
     await visit("Button", "Sizes", theme);
     const heights = await page
       .locator("#storybook-root > div > div:first-child button")

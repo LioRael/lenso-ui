@@ -3,17 +3,24 @@ import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   field: { display: "flex", flexDirection: "column", minWidth: 0, width: "100%" },
   column: { display: "flex", flexDirection: "column", gap: 16 },
-  description: { fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
+  description: {
+    fontSize: { default: 14, ":is([data-slot='radio'] *)": 12 },
+    lineHeight: { default: "20px", ":is([data-slot='radio'] *)": "16px" },
+    paddingInlineStart: { default: 0, ":is([data-slot='radio'] > *)": 28 },
+    minWidth: 0,
+    overflowWrap: "break-word",
+    color: "var(--muted)",
+  },
   medium: { fontWeight: 500 },
   check: { fontSize: 12, lineHeight: 1, color: "var(--background)" },
-  horizontal: { flexDirection: "row", flexWrap: "wrap", gap: 24 },
+  horizontal: { flexDirection: "row", flexWrap: "wrap", gap: 16 },
   surface: { width: "100%", borderRadius: 24, padding: 24 },
   variants: { display: "flex", flexDirection: "column", gap: 32 },
   variant: { display: "flex", flexDirection: "column", gap: 8 },
   variantLabel: { fontSize: 14, fontWeight: 500, color: "var(--muted)" },
   submit: { marginTop: 8, width: "fit-content" },
   billing: { width: "100%", maxWidth: 384, gap: 12 },
-  billingRadio: { marginTop: 0 },
+  billingRadio: { marginBlockStart: 0 },
   billingLabel: {
     fontWeight: 500,
     color: {
@@ -23,8 +30,8 @@ export const styles = stylex.create({
   },
   billingText: { display: "flex", flexDirection: "column", gap: 2 },
   billingDescription: {
-    fontSize: 14,
-    lineHeight: "20px",
+    fontSize: 12,
+    lineHeight: "16px",
     color: {
       default: "var(--muted)",
       ":is([data-slot='radio'][data-checked] *)":

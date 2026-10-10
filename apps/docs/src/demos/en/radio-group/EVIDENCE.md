@@ -69,7 +69,7 @@ modified in either worktree.
 
 ## Remaining integration evidence
 
-These runs used the parent’s existing built component graph. They prove the
+The preceding historical runs used the parent’s existing built component graph. They prove the
 demo workflows and production compilation, not final component visual parity.
 The consumer showed missing rounded-control geometry and secondary checked
 colors. The component worker confirmed the pinned source uses rounded-lg
@@ -81,3 +81,51 @@ attributing those differences to component behavior.
 No pinned upstream rendered baseline was available in this isolated consumer;
 pixel-identical upstream comparison, RTL and reduced-motion visual proof are
 not claimed. Screenshots were scratch artifacts, not committed baselines.
+
+## Shared-style correction
+
+The current source audit used the pinned raw `radio.css`, `radio-group.css`,
+`utilities/index.css` and English/Chinese RadioGroup demos.
+
+- Radio keeps 16px controls, a 12px content gap and 14px medium labels.
+- Option help text is 12px muted with a 28px logical indent. English and Chinese
+  live demos consume the same StyleX map; card descriptions remain unindented.
+- Vertical groups space radios with 16px top margins, including nested card
+  radios, rather than adding a gap between every label and description.
+  Horizontal groups retain a 16px wrapping row gap.
+- Secondary controls set background variables instead of overriding the
+  control's entire background state map. Upstream checked selectors have higher
+  specificity than the secondary base selector, so checked accent fill remains.
+  Unchecked indicator hover uses field/default hover colors.
+- Invalid feedback follows the source utility: a danger outline, or a danger
+  ring when focused, without replacing the selected background.
+- Billing retains its explicit 12px group gap, zero radio margins and custom
+  20px controls.
+
+Current executed checks: six-file oxfmt and oxlint, English/Chinese demo oxlint
+(27 files), strict scoped demo TypeScript using the docs configuration,
+tokens/UI typechecks and builds, six existing tokens tests, Storybook TypeScript
+and script TypeScript, `node --check` for the production choice proof and
+`git diff --check`. UI bundling emitted the existing module-level `"use client"`
+warnings.
+
+The consolidated production Storybook build now passes `test:browser choice`:
+100 light/dark story mounts, including the added radio geometry, secondary
+checked/hover feedback, invalid outline and horizontal spacing assertions.
+Selection, ArrowDown navigation, validation and responsive card checks pass
+without page errors.
+
+The production docs build and scoped live-example browser proof also pass for
+toolbar, toggle-button, toggle-button-group and radio-group: 272 mounts across
+English/Chinese, light/dark, desktop/mobile, including mobile RTL/reduced motion.
+Every requested source example is implemented; no viewport overflow, client
+errors or checked accessibility-semantic violations were found. This runner
+disables color-contrast checks and is not a WCAG AA certification.
+
+A separate settled-render comparison used the published HeroUI 3.2.6 CSS,
+compiled only in scratch, with native state attributes mapped to source state
+attributes and matching frame/font settings. RadioGroup Default was captured
+at 1200px and 390px in both themes. Control dimensions, colors, radii, font
+sizes and spacing matched; text-width rounding differed by 1/64px. This is
+representative static-style evidence, not upstream React Aria runtime proof
+or an exhaustive pixel baseline.

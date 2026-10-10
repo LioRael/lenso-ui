@@ -190,6 +190,85 @@ try {
       ["notifications", "on"],
       ["newsletter", "on"],
     ]);
+    await story("radio-group", "Default", theme);
+    const radioGeometry = await page
+      .getByRole("radio")
+      .first()
+      .evaluate((element) => {
+        const content = element.querySelector("[data-slot=radio-content]");
+        const control = element.querySelector("[data-slot=radio-control]");
+        const help = element.querySelector("[aria-describedby]") ?? element.lastElementChild;
+        const contentStyle = getComputedStyle(content);
+        const helpStyle = getComputedStyle(help);
+        return {
+          control: [control.getBoundingClientRect().width, control.getBoundingClientRect().height],
+          gap: contentStyle.columnGap,
+          label: [contentStyle.fontSize, contentStyle.fontWeight],
+          description: [helpStyle.fontSize, helpStyle.paddingInlineStart],
+          margin: getComputedStyle(element).marginBlockStart,
+        };
+      });
+    assert.deepEqual(radioGeometry, {
+      control: [16, 16],
+      gap: "12px",
+      label: ["14px", "500"],
+      description: ["12px", "28px"],
+      margin: "16px",
+    });
+    await story("radio-group", "Variants", theme);
+    const primarySelected = page
+      .getByRole("radiogroup")
+      .first()
+      .locator("[data-checked] [data-slot=radio-control]");
+    const secondary = page.getByRole("radiogroup").nth(1);
+    const secondarySelected = secondary.locator("[data-checked] [data-slot=radio-control]");
+    assert.equal(
+      await secondarySelected.evaluate((element) => getComputedStyle(element).backgroundColor),
+      await primarySelected.evaluate((element) => getComputedStyle(element).backgroundColor),
+      "secondary selection retains the primary accent fill",
+    );
+    const secondaryUnselected = secondary.getByRole("radio", { name: "Option 2", exact: true });
+    const secondaryIndicator = secondaryUnselected.locator("[data-slot=radio-indicator]");
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(250);
+    const beforeHover = await secondaryIndicator.evaluate(
+      (element) => getComputedStyle(element, "::before").backgroundColor,
+    );
+    await secondaryUnselected.hover();
+    await page.waitForTimeout(250);
+    assert.notEqual(
+      await secondaryIndicator.evaluate(
+        (element) => getComputedStyle(element, "::before").backgroundColor,
+      ),
+      beforeHover,
+      "secondary unselected indicator supplies hover feedback",
+    );
+    await secondaryUnselected.click();
+    await page.waitForTimeout(250);
+    assert.equal(
+      await secondaryUnselected
+        .locator("[data-slot=radio-control]")
+        .evaluate((element) => getComputedStyle(element).backgroundColor),
+      await primarySelected.evaluate((element) => getComputedStyle(element).backgroundColor),
+      "secondary remains accent-filled after selection",
+    );
+    await story("radio-group", "PerRadioInvalid", theme);
+    const invalidRadio = page.getByRole("radio", { name: "Basic Plan", exact: true });
+    assert.deepEqual(
+      await invalidRadio.locator("[data-slot=radio-control]").evaluate((element) => {
+        const style = getComputedStyle(element);
+        return [style.outlineStyle, style.outlineWidth];
+      }),
+      ["solid", "1px"],
+    );
+    await story("radio-group", "Orientation", theme);
+    assert.deepEqual(
+      await page.getByRole("radiogroup").evaluate((element) => {
+        const style = getComputedStyle(element);
+        return [style.flexDirection, style.columnGap];
+      }),
+      ["row", "16px"],
+    );
     await story("radio-group", "Controlled", theme);
     control = page.getByRole("radio", { name: "Pro", exact: true });
     await control.focus();

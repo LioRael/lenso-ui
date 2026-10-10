@@ -39,12 +39,16 @@ function TextStyle({ custom = false }: { custom?: boolean }) {
 function Clipboard() {
   return (
     <ButtonGroup variant="tertiary">
-      <Button isIconOnly aria-label="Copy" render={<Toolbar.Button variant="tertiary" />}>
+      <Button
+        isIconOnly
+        aria-label="Copy"
+        render={<Toolbar.Button isIconOnly variant="tertiary" />}
+      >
         <Button.Icon>
           <Copy />
         </Button.Icon>
       </Button>
-      <Button isIconOnly aria-label="Cut" render={<Toolbar.Button variant="tertiary" />}>
+      <Button isIconOnly aria-label="Cut" render={<Toolbar.Button isIconOnly variant="tertiary" />}>
         <ButtonGroup.Separator />
         <Button.Icon>
           <Scissors />
@@ -77,12 +81,20 @@ export function Vertical() {
       <TextStyle />
       <Toolbar.Separator />
       <ButtonGroup variant="tertiary">
-        <Button isIconOnly aria-label="Undo" render={<Toolbar.Button variant="tertiary" />}>
+        <Button
+          isIconOnly
+          aria-label="Undo"
+          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+        >
           <Button.Icon>
             <ArrowUturnCcwLeft />
           </Button.Icon>
         </Button>
-        <Button isIconOnly aria-label="Redo" render={<Toolbar.Button variant="tertiary" />}>
+        <Button
+          isIconOnly
+          aria-label="Redo"
+          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+        >
           <ButtonGroup.Separator />
           <Button.Icon>
             <ArrowUturnCwRight />
@@ -130,7 +142,7 @@ export function WithButtonGroup() {
             key={item.label}
             isIconOnly
             aria-label={item.label}
-            render={<Toolbar.Button variant="tertiary" />}
+            render={<Toolbar.Button isIconOnly variant="tertiary" />}
           >
             {index > 0 && <ButtonGroup.Separator />}
             <Button.Icon>{item.icon}</Button.Icon>

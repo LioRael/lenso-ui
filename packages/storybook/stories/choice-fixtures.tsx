@@ -7,6 +7,7 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Checkbox, Radio, Switch, TextField, FieldError } from "@lenso/ui";
 import { checkboxSupportingStyles } from "@lenso/tokens/checkbox";
+import { radioStyles } from "@lenso/tokens/radio";
 import { descriptionStyles } from "@lenso/tokens/description";
 import { labelStyles } from "@lenso/tokens/label";
 import { choiceStyles as s } from "./choice.styles";
@@ -183,12 +184,15 @@ export function RadioItem({
             {price && <span {...stylex.props(s.price)}>{price}</span>}
           </Radio.Content>
           {!card && description && (
-            <span id={`${id}-help`} {...stylex.props(descriptionStyles.description)}>
+            <span
+              id={`${id}-help`}
+              {...stylex.props(descriptionStyles.description, radioStyles.supporting)}
+            >
               {resolve(description, checked)}
             </span>
           )}
           {error && (
-            <FieldError id={`${id}-help`} match={true}>
+            <FieldError id={`${id}-help`} match={true} xstyle={radioStyles.supporting}>
               {error}
             </FieldError>
           )}
