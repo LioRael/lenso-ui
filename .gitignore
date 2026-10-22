@@ -24,3 +24,6 @@ packages/docs/.cache/
 .DS_Store
 .env*
 !.env.example
+
+# Per-checkout tools and disposable fixtures; never sync credentials.
+/.agents/state/

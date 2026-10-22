@@ -1,0 +1,37 @@
+#!/bin/sh
+# Invoked only by setup after its Linux/x86-64 guard.
+set -eu
+. .agents/env
+[ "$(uname -s)/$(uname -m)" = Linux/x86_64 ] || exit 78
+mkdir -p .agents/state/tools
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT HUP INT TERM
+fetch() { curl --proto '=https' --tlsv1.2 --fail --location --retry 2 --connect-timeout 15 --max-time 180 "$1" -o "$2"; }
+apt() {
+    command -v apt-get >/dev/null 2>&1 || { echo "Debian apt-get required for missing prerequisites" >&2; exit 78; }
+    if [ "$(id -u)" -eq 0 ]; then
+        DEBIAN_FRONTEND=noninteractive apt-get "$@"
+    elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+        sudo -n env DEBIAN_FRONTEND=noninteractive apt-get "$@"
+    else
+        echo "Missing system prerequisites; install the packages listed in .agents/install-tools on the Linux runner" >&2
+        exit 78
+    fi
+}
+# Bookworm packages only; never run on macOS. Install only missing prerequisites.
+missing=''
+for pair in curl:curl tar:tar xz:xz-utils; do
+    command -v "${pair%%:*}" >/dev/null 2>&1 || missing="$missing ${pair#*:}"
+done
+if [ -n "$missing" ]; then apt update; apt install -y --no-install-recommends ca-certificates $missing; fi
+if ! command -v node >/dev/null 2>&1 || [ "$(node --version)" != v26.10.0 ]; then
+    file=node-v26.10.0-linux-x64.tar.xz
+    fetch https://nodejs.org/dist/v26.10.0/$file "$work/$file"
+    fetch https://nodejs.org/dist/v26.10.0/SHASUMS256.txt "$work/sums"
+    (cd "$work" && awk -v f="$file" '$2 == f {print}' sums > selected && test -s selected && sha256sum -c selected)
+    mkdir -p .agents/state/tools/node
+    tar -xJf "$work/$file" --strip-components=1 -C .agents/state/tools/node
+fi
+if ! command -v pnpm >/dev/null 2>&1 || [ "$(pnpm --version)" != 12.9.1 ]; then
+    npm install --prefix "$ROOT/.agents/state/tools/node" --no-audit --no-fund pnpm@12.9.1
+fi
