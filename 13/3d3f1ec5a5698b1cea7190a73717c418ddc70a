@@ -1,0 +1,38 @@
+apps/content-stage/README.md
+  h_9d56aba080c170 1-83
+apps/content-stage/index.html
+  h_9d56aba080c170 1-12
+apps/content-stage/package.json
+  h_9d56aba080c170 1-29
+apps/content-stage/src/data.ts
+  h_9d56aba080c170 1-65
+apps/content-stage/src/library-candidate.stylex.ts
+  h_9d56aba080c170 1-152
+apps/content-stage/src/library-candidate.tsx
+  h_9d56aba080c170 1-433
+apps/content-stage/src/main.tsx
+  h_9d56aba080c170 1-105
+apps/content-stage/src/story-panel.tsx
+  h_9d56aba080c170 1-76
+apps/content-stage/src/story.stylex.ts
+  h_9d56aba080c170 1-46
+apps/content-stage/src/workbench.story.tsx
+  h_9d56aba080c170 1-32
+apps/content-stage/tsconfig.json
+  h_9d56aba080c170 1-5
+apps/content-stage/vite.config.ts
+  h_9d56aba080c170 1-14
+pnpm-lock.yaml
+  h_9d56aba080c170 275-320,1207-1247,1259-1268,3306-3310,3623-3681,3741-3760,5571-5604,5607-5613,7259-7260,7573-7606,7640-7676
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "133d3f1ec5a5698b1cea7190a73717c418ddc70a",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
