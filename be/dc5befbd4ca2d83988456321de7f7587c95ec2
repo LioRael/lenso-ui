@@ -1,0 +1,18 @@
+apps/content-stage/README.md
+  h_9d56aba080c170 30,40,75,77,79,81-83
+apps/content-stage/src/library-candidate.stylex.ts
+  h_9d56aba080c170 3,14-19,21-29,32-91,96-98,102,104,108,114,121,130,147-152,157-158,171-173,176-179,191,195-205
+apps/content-stage/src/library-candidate.tsx
+  h_9d56aba080c170 3,28,45-51,53-56,77,96,98,113,121-127,131,136,140,144,158,163,211,233,244-324,326-328,330-337,340-363,365-430
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bedc5befbd4ca2d83988456321de7f7587c95ec2",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
