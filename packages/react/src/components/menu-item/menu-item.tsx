@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Menu as Base } from "@base-ui/react/menu";
-import { menuItemStyles as s } from "@lenso/tokens/menu-item";
+import { menuItemStyles as s } from "@lenso/tokens/menu";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
 export function MenuItemRoot({
@@ -157,8 +157,56 @@ export function MenuItemDescription({
     />
   );
 }
+export function MenuItemIcon({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">>) {
+  const compiled = stylex.props(s.icon, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot="menu-item-icon"
+    />
+  );
+}
+export function MenuItemContent({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">>) {
+  const compiled = stylex.props(s.content, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot="menu-item-content"
+    />
+  );
+}
+export function MenuItemShortcut({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentPropsWithRef<"span">>) {
+  const compiled = stylex.props(s.shortcut, xstyle);
+  return (
+    <span
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-slot="menu-item-shortcut"
+    />
+  );
+}
 export const MenuItem = Object.assign(MenuItemRoot, {
   Root: MenuItemRoot,
+  Icon: MenuItemIcon,
+  Content: MenuItemContent,
+  Shortcut: MenuItemShortcut,
   Checkbox: MenuItemCheckbox,
   Radio: MenuItemRadio,
   Link: MenuItemLink,

@@ -1,0 +1,698 @@
+/* Semantic colors used by the glass materials and their controls. */
+@layer base {
+  :root,
+  :host,
+  .light,
+  .default,
+  [data-theme="light"],
+  [data-theme="default"],
+  :host(.light),
+  :host([data-theme="light"]) {
+    --lenso-material-solid: var(--lenso-background-secondary);
+    --lenso-label-primary: rgb(0 0 0);
+    --lenso-label-secondary: rgb(60.00000022 60.00000022 67.00000361 / 0.6000000238418579);
+    --lenso-label-tertiary: rgb(60.00000022 60.00000022 67.00000361 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(60.00000022 60.00000022 67.00000361 / 0.18000000715255737);
+    --lenso-background-primary: rgb(255 255 255);
+    --lenso-background-secondary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-background-grouped-primary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 120.00000045 / 0.20000000298023224);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.1599999964237213);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.11999999731779099);
+    --lenso-separator: rgb(0 0 0 / 0.11999999731779099);
+    --lenso-system-blue: rgb(0 136.00000709 255);
+    --lenso-system-red: rgb(255 56.00000046 60.00000022);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(0 110.84000578 207.825);
+    --lenso-action-destructive-text: rgb(210.12 46.14400038 49.44000018);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  .dark,
+  [data-theme="dark"],
+  :host(.dark),
+  :host([data-theme="dark"]) {
+    --lenso-material-solid: var(--lenso-background-secondary);
+    --lenso-label-primary: rgb(255 255 255);
+    --lenso-label-secondary: rgb(235.00000119 235.00000119 245.0000006 / 0.699999988079071);
+    --lenso-label-tertiary: rgb(235.00000119 235.00000119 245.0000006 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(235.00000119 235.00000119 245.0000006 / 0.1599999964237213);
+    --lenso-background-primary: rgb(0 0 0);
+    --lenso-background-secondary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-background-grouped-primary: rgb(0 0 0);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 128.00000757 / 0.36000001430511475);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.3199999928474426);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.23999999463558197);
+    --lenso-separator: rgb(255 255 255 / 0.17000000178813934);
+    --lenso-system-blue: rgb(0 145.00000656 255);
+    --lenso-system-red: rgb(255 66.00000367 69.00000349);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(10.2 149.40000629 255);
+    --lenso-action-destructive-text: rgb(255 87.54600325 90.20400309);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  :root[data-level="elevated"],
+  :host([data-level="elevated"]),
+  .light[data-level="elevated"],
+  .default[data-level="elevated"],
+  [data-theme="light"][data-level="elevated"],
+  [data-theme="default"][data-level="elevated"],
+  :host(.light[data-level="elevated"]),
+  :host([data-theme="light"][data-level="elevated"]) {
+    --lenso-label-primary: rgb(0 0 0);
+    --lenso-label-secondary: rgb(60.00000022 60.00000022 67.00000361 / 0.6000000238418579);
+    --lenso-label-tertiary: rgb(60.00000022 60.00000022 67.00000361 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(60.00000022 60.00000022 67.00000361 / 0.18000000715255737);
+    --lenso-background-primary: rgb(255 255 255);
+    --lenso-background-secondary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-background-grouped-primary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 120.00000045 / 0.20000000298023224);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.1599999964237213);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.11999999731779099);
+    --lenso-separator: rgb(0 0 0 / 0.11999999731779099);
+    --lenso-system-blue: rgb(0 136.00000709 255);
+    --lenso-system-red: rgb(255 56.00000046 60.00000022);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(0 110.84000578 207.825);
+    --lenso-action-destructive-text: rgb(210.12 46.14400038 49.44000018);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  .dark[data-level="elevated"],
+  [data-theme="dark"][data-level="elevated"],
+  :host(.dark[data-level="elevated"]),
+  :host([data-theme="dark"][data-level="elevated"]) {
+    --lenso-label-primary: rgb(255 255 255);
+    --lenso-label-secondary: rgb(235.00000119 235.00000119 245.0000006 / 0.699999988079071);
+    --lenso-label-tertiary: rgb(235.00000119 235.00000119 245.0000006 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(235.00000119 235.00000119 245.0000006 / 0.1599999964237213);
+    --lenso-background-primary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-background-secondary: rgb(44.00000118 44.00000118 46.00000106);
+    --lenso-background-grouped-primary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 128.00000757 / 0.36000001430511475);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.3199999928474426);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.23999999463558197);
+    --lenso-separator: rgb(255 255 255 / 0.17000000178813934);
+    --lenso-system-blue: rgb(0 145.00000656 255);
+    --lenso-system-red: rgb(255 66.00000367 69.00000349);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(56.865 169.53000509 255);
+    --lenso-action-destructive-text: rgb(255 122.13300258 124.24200245);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  @media (prefers-contrast: more) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]) {
+      --lenso-label-primary: rgb(0 0 0);
+      --lenso-label-secondary: rgb(60 60 67 / 0.8);
+      --lenso-label-tertiary: rgb(60 60 67 / 0.6980392156862745);
+      --lenso-label-quaternary: rgb(60 60 67 / 0.5490196078431373);
+      --lenso-background-primary: rgb(255 255 255);
+      --lenso-background-secondary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-background-grouped-primary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.28);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.24);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.2);
+      --lenso-separator: rgb(59.99999642 59.99999642 67.00000361 / 0.12);
+      --lenso-system-blue: rgb(30 110 244);
+      --lenso-system-red: rgb(233 21 45);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(20.04 73.48 162.992);
+      --lenso-action-destructive-text: rgb(157.275 14.175 30.375);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+  }
+  @media (prefers-contrast: more) {
+    :root[data-level="elevated"],
+    :host([data-level="elevated"]),
+    .light[data-level="elevated"],
+    .default[data-level="elevated"],
+    [data-theme="light"][data-level="elevated"],
+    [data-theme="default"][data-level="elevated"],
+    :host(.light[data-level="elevated"]),
+    :host([data-theme="light"][data-level="elevated"]) {
+      --lenso-label-primary: rgb(0 0 0);
+      --lenso-label-secondary: rgb(60 60 67 / 0.8);
+      --lenso-label-tertiary: rgb(60 60 67 / 0.6980392156862745);
+      --lenso-label-quaternary: rgb(60 60 67 / 0.5490196078431373);
+      --lenso-background-primary: rgb(255 255 255);
+      --lenso-background-secondary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-background-grouped-primary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.28);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.24);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.2);
+      --lenso-separator: rgb(59.99999642 59.99999642 67.00000361 / 0.12);
+      --lenso-system-blue: rgb(30 110 244);
+      --lenso-system-red: rgb(233 21 45);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(20.04 73.48 162.992);
+      --lenso-action-destructive-text: rgb(157.275 14.175 30.375);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+  }
+  @media (prefers-contrast: more) {
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-label-primary: rgb(255 255 255);
+      --lenso-label-secondary: rgb(235 235 245 / 0.6980392156862745);
+      --lenso-label-tertiary: rgb(235 235 245 / 0.5490196078431373);
+      --lenso-label-quaternary: rgb(235 235 245 / 0.4);
+      --lenso-background-primary: rgb(0 0 0);
+      --lenso-background-secondary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-background-grouped-primary: rgb(0 0 0);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.44);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.4);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.32);
+      --lenso-separator: rgb(84.00000259 84.00000259 88.00000235 / 0.5);
+      --lenso-system-blue: rgb(92 184 255);
+      --lenso-system-red: rgb(255 97 101);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(138.455 204.235 255);
+      --lenso-action-destructive-text: rgb(255 177.106 179.078);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+  }
+  @media (prefers-contrast: more) {
+    .dark[data-level="elevated"],
+    [data-theme="dark"][data-level="elevated"],
+    :host(.dark[data-level="elevated"]),
+    :host([data-theme="dark"][data-level="elevated"]) {
+      --lenso-label-primary: rgb(255 255 255);
+      --lenso-label-secondary: rgb(235 235 245 / 0.6980392156862745);
+      --lenso-label-tertiary: rgb(235 235 245 / 0.5490196078431373);
+      --lenso-label-quaternary: rgb(235 235 245 / 0.4);
+      --lenso-background-primary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-background-secondary: rgb(53.99999678 53.99999678 55.99999666);
+      --lenso-background-grouped-primary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.44);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.4);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.32);
+      --lenso-separator: rgb(84.00000259 84.00000259 88.00000235 / 0.5);
+      --lenso-system-blue: rgb(92 184 255);
+      --lenso-system-red: rgb(255 97 101);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(183.769 223.973 255);
+      --lenso-action-destructive-text: rgb(255 207.442 208.646);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+  }
+  :root[data-contrast="standard"],
+  :host([data-contrast="standard"]),
+  .light[data-contrast="standard"],
+  .default[data-contrast="standard"],
+  [data-theme="light"][data-contrast="standard"],
+  [data-theme="default"][data-contrast="standard"],
+  :host(.light[data-contrast="standard"]),
+  :host([data-theme="light"][data-contrast="standard"]) {
+    --lenso-label-primary: rgb(0 0 0);
+    --lenso-label-secondary: rgb(60.00000022 60.00000022 67.00000361 / 0.6000000238418579);
+    --lenso-label-tertiary: rgb(60.00000022 60.00000022 67.00000361 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(60.00000022 60.00000022 67.00000361 / 0.18000000715255737);
+    --lenso-background-primary: rgb(255 255 255);
+    --lenso-background-secondary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-background-grouped-primary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 120.00000045 / 0.20000000298023224);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.1599999964237213);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.11999999731779099);
+    --lenso-separator: rgb(0 0 0 / 0.11999999731779099);
+    --lenso-system-blue: rgb(0 136.00000709 255);
+    --lenso-system-red: rgb(255 56.00000046 60.00000022);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(0 110.84000578 207.825);
+    --lenso-action-destructive-text: rgb(210.12 46.14400038 49.44000018);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  :root[data-contrast="standard"][data-level="elevated"],
+  :host([data-contrast="standard"][data-level="elevated"]),
+  .light[data-contrast="standard"][data-level="elevated"],
+  .default[data-contrast="standard"][data-level="elevated"],
+  [data-theme="light"][data-contrast="standard"][data-level="elevated"],
+  [data-theme="default"][data-contrast="standard"][data-level="elevated"],
+  :host(.light[data-contrast="standard"][data-level="elevated"]),
+  :host([data-theme="light"][data-contrast="standard"][data-level="elevated"]) {
+    --lenso-label-primary: rgb(0 0 0);
+    --lenso-label-secondary: rgb(60.00000022 60.00000022 67.00000361 / 0.6000000238418579);
+    --lenso-label-tertiary: rgb(60.00000022 60.00000022 67.00000361 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(60.00000022 60.00000022 67.00000361 / 0.18000000715255737);
+    --lenso-background-primary: rgb(255 255 255);
+    --lenso-background-secondary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-background-grouped-primary: rgb(242.00000077 242.00000077 247.00000048);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 120.00000045 / 0.20000000298023224);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.1599999964237213);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.11999999731779099);
+    --lenso-separator: rgb(0 0 0 / 0.11999999731779099);
+    --lenso-system-blue: rgb(0 136.00000709 255);
+    --lenso-system-red: rgb(255 56.00000046 60.00000022);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(0 110.84000578 207.825);
+    --lenso-action-destructive-text: rgb(210.12 46.14400038 49.44000018);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  .dark[data-contrast="standard"],
+  [data-theme="dark"][data-contrast="standard"],
+  :host(.dark[data-contrast="standard"]),
+  :host([data-theme="dark"][data-contrast="standard"]) {
+    --lenso-label-primary: rgb(255 255 255);
+    --lenso-label-secondary: rgb(235.00000119 235.00000119 245.0000006 / 0.699999988079071);
+    --lenso-label-tertiary: rgb(235.00000119 235.00000119 245.0000006 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(235.00000119 235.00000119 245.0000006 / 0.1599999964237213);
+    --lenso-background-primary: rgb(0 0 0);
+    --lenso-background-secondary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-background-grouped-primary: rgb(0 0 0);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 128.00000757 / 0.36000001430511475);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.3199999928474426);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.23999999463558197);
+    --lenso-separator: rgb(255 255 255 / 0.17000000178813934);
+    --lenso-system-blue: rgb(0 145.00000656 255);
+    --lenso-system-red: rgb(255 66.00000367 69.00000349);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(10.2 149.40000629 255);
+    --lenso-action-destructive-text: rgb(255 87.54600325 90.20400309);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  .dark[data-contrast="standard"][data-level="elevated"],
+  [data-theme="dark"][data-contrast="standard"][data-level="elevated"],
+  :host(.dark[data-contrast="standard"][data-level="elevated"]),
+  :host([data-theme="dark"][data-contrast="standard"][data-level="elevated"]) {
+    --lenso-label-primary: rgb(255 255 255);
+    --lenso-label-secondary: rgb(235.00000119 235.00000119 245.0000006 / 0.699999988079071);
+    --lenso-label-tertiary: rgb(235.00000119 235.00000119 245.0000006 / 0.30000001192092896);
+    --lenso-label-quaternary: rgb(235.00000119 235.00000119 245.0000006 / 0.1599999964237213);
+    --lenso-background-primary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-background-secondary: rgb(44.00000118 44.00000118 46.00000106);
+    --lenso-background-grouped-primary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-fill-primary: rgb(120.00000045 120.00000045 128.00000757 / 0.36000001430511475);
+    --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.3199999928474426);
+    --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.23999999463558197);
+    --lenso-separator: rgb(255 255 255 / 0.17000000178813934);
+    --lenso-system-blue: rgb(0 145.00000656 255);
+    --lenso-system-red: rgb(255 66.00000367 69.00000349);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(56.865 169.53000509 255);
+    --lenso-action-destructive-text: rgb(255 122.13300258 124.24200245);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  :root[data-contrast="increased"],
+  :host([data-contrast="increased"]),
+  .light[data-contrast="increased"],
+  .default[data-contrast="increased"],
+  [data-theme="light"][data-contrast="increased"],
+  [data-theme="default"][data-contrast="increased"],
+  :host(.light[data-contrast="increased"]),
+  :host([data-theme="light"][data-contrast="increased"]) {
+    --lenso-label-primary: rgb(0 0 0);
+    --lenso-label-secondary: rgb(60 60 67 / 0.8);
+    --lenso-label-tertiary: rgb(60 60 67 / 0.6980392156862745);
+    --lenso-label-quaternary: rgb(60 60 67 / 0.5490196078431373);
+    --lenso-background-primary: rgb(255 255 255);
+    --lenso-background-secondary: rgb(235.00000119 235.00000119 240.00000089);
+    --lenso-background-grouped-primary: rgb(235.00000119 235.00000119 240.00000089);
+    --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.28);
+    --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.24);
+    --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.2);
+    --lenso-separator: rgb(59.99999642 59.99999642 67.00000361 / 0.12);
+    --lenso-system-blue: rgb(30 110 244);
+    --lenso-system-red: rgb(233 21 45);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(20.04 73.48 162.992);
+    --lenso-action-destructive-text: rgb(157.275 14.175 30.375);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  :root[data-contrast="increased"][data-level="elevated"],
+  :host([data-contrast="increased"][data-level="elevated"]),
+  .light[data-contrast="increased"][data-level="elevated"],
+  .default[data-contrast="increased"][data-level="elevated"],
+  [data-theme="light"][data-contrast="increased"][data-level="elevated"],
+  [data-theme="default"][data-contrast="increased"][data-level="elevated"],
+  :host(.light[data-contrast="increased"][data-level="elevated"]),
+  :host([data-theme="light"][data-contrast="increased"][data-level="elevated"]) {
+    --lenso-label-primary: rgb(0 0 0);
+    --lenso-label-secondary: rgb(60 60 67 / 0.8);
+    --lenso-label-tertiary: rgb(60 60 67 / 0.6980392156862745);
+    --lenso-label-quaternary: rgb(60 60 67 / 0.5490196078431373);
+    --lenso-background-primary: rgb(255 255 255);
+    --lenso-background-secondary: rgb(235.00000119 235.00000119 240.00000089);
+    --lenso-background-grouped-primary: rgb(235.00000119 235.00000119 240.00000089);
+    --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.28);
+    --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.24);
+    --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.2);
+    --lenso-separator: rgb(59.99999642 59.99999642 67.00000361 / 0.12);
+    --lenso-system-blue: rgb(30 110 244);
+    --lenso-system-red: rgb(233 21 45);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(20.04 73.48 162.992);
+    --lenso-action-destructive-text: rgb(157.275 14.175 30.375);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  .dark[data-contrast="increased"],
+  [data-theme="dark"][data-contrast="increased"],
+  :host(.dark[data-contrast="increased"]),
+  :host([data-theme="dark"][data-contrast="increased"]) {
+    --lenso-label-primary: rgb(255 255 255);
+    --lenso-label-secondary: rgb(235 235 245 / 0.6980392156862745);
+    --lenso-label-tertiary: rgb(235 235 245 / 0.5490196078431373);
+    --lenso-label-quaternary: rgb(235 235 245 / 0.4);
+    --lenso-background-primary: rgb(0 0 0);
+    --lenso-background-secondary: rgb(36.00000165 36.00000165 38.00000153);
+    --lenso-background-grouped-primary: rgb(0 0 0);
+    --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.44);
+    --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.4);
+    --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.32);
+    --lenso-separator: rgb(84.00000259 84.00000259 88.00000235 / 0.5);
+    --lenso-system-blue: rgb(92 184 255);
+    --lenso-system-red: rgb(255 97 101);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(138.455 204.235 255);
+    --lenso-action-destructive-text: rgb(255 177.106 179.078);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  .dark[data-contrast="increased"][data-level="elevated"],
+  [data-theme="dark"][data-contrast="increased"][data-level="elevated"],
+  :host(.dark[data-contrast="increased"][data-level="elevated"]),
+  :host([data-theme="dark"][data-contrast="increased"][data-level="elevated"]) {
+    --lenso-label-primary: rgb(255 255 255);
+    --lenso-label-secondary: rgb(235 235 245 / 0.6980392156862745);
+    --lenso-label-tertiary: rgb(235 235 245 / 0.5490196078431373);
+    --lenso-label-quaternary: rgb(235 235 245 / 0.4);
+    --lenso-background-primary: rgb(36.00000165 36.00000165 38.00000153);
+    --lenso-background-secondary: rgb(53.99999678 53.99999678 55.99999666);
+    --lenso-background-grouped-primary: rgb(36.00000165 36.00000165 38.00000153);
+    --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.44);
+    --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.4);
+    --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.32);
+    --lenso-separator: rgb(84.00000259 84.00000259 88.00000235 / 0.5);
+    --lenso-system-blue: rgb(92 184 255);
+    --lenso-system-red: rgb(255 97 101);
+    --lenso-tint: var(--lenso-system-blue);
+    --lenso-action-destructive: var(--lenso-system-red);
+    --lenso-label-on-tint: rgb(255 255 255);
+    --lenso-label-on-destructive: rgb(255 255 255);
+    --lenso-tint-text: rgb(183.769 223.973 255);
+    --lenso-action-destructive-text: rgb(255 207.442 208.646);
+    --lenso-focus-ring: var(--lenso-tint-text);
+  }
+  @scope ([data-contrast="standard"]) to ([data-contrast]) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]) {
+      --lenso-label-primary: rgb(0 0 0);
+      --lenso-label-secondary: rgb(60.00000022 60.00000022 67.00000361 / 0.6000000238418579);
+      --lenso-label-tertiary: rgb(60.00000022 60.00000022 67.00000361 / 0.30000001192092896);
+      --lenso-label-quaternary: rgb(60.00000022 60.00000022 67.00000361 / 0.18000000715255737);
+      --lenso-background-primary: rgb(255 255 255);
+      --lenso-background-secondary: rgb(242.00000077 242.00000077 247.00000048);
+      --lenso-background-grouped-primary: rgb(242.00000077 242.00000077 247.00000048);
+      --lenso-fill-primary: rgb(120.00000045 120.00000045 120.00000045 / 0.20000000298023224);
+      --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.1599999964237213);
+      --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.11999999731779099);
+      --lenso-separator: rgb(0 0 0 / 0.11999999731779099);
+      --lenso-system-blue: rgb(0 136.00000709 255);
+      --lenso-system-red: rgb(255 56.00000046 60.00000022);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(0 110.84000578 207.825);
+      --lenso-action-destructive-text: rgb(210.12 46.14400038 49.44000018);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+    :root[data-level="elevated"],
+    :host([data-level="elevated"]),
+    .light[data-level="elevated"],
+    .default[data-level="elevated"],
+    [data-theme="light"][data-level="elevated"],
+    [data-theme="default"][data-level="elevated"],
+    :host(.light[data-level="elevated"]),
+    :host([data-theme="light"][data-level="elevated"]) {
+      --lenso-label-primary: rgb(0 0 0);
+      --lenso-label-secondary: rgb(60.00000022 60.00000022 67.00000361 / 0.6000000238418579);
+      --lenso-label-tertiary: rgb(60.00000022 60.00000022 67.00000361 / 0.30000001192092896);
+      --lenso-label-quaternary: rgb(60.00000022 60.00000022 67.00000361 / 0.18000000715255737);
+      --lenso-background-primary: rgb(255 255 255);
+      --lenso-background-secondary: rgb(242.00000077 242.00000077 247.00000048);
+      --lenso-background-grouped-primary: rgb(242.00000077 242.00000077 247.00000048);
+      --lenso-fill-primary: rgb(120.00000045 120.00000045 120.00000045 / 0.20000000298023224);
+      --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.1599999964237213);
+      --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.11999999731779099);
+      --lenso-separator: rgb(0 0 0 / 0.11999999731779099);
+      --lenso-system-blue: rgb(0 136.00000709 255);
+      --lenso-system-red: rgb(255 56.00000046 60.00000022);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(0 110.84000578 207.825);
+      --lenso-action-destructive-text: rgb(210.12 46.14400038 49.44000018);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-label-primary: rgb(255 255 255);
+      --lenso-label-secondary: rgb(235.00000119 235.00000119 245.0000006 / 0.699999988079071);
+      --lenso-label-tertiary: rgb(235.00000119 235.00000119 245.0000006 / 0.30000001192092896);
+      --lenso-label-quaternary: rgb(235.00000119 235.00000119 245.0000006 / 0.1599999964237213);
+      --lenso-background-primary: rgb(0 0 0);
+      --lenso-background-secondary: rgb(28.00000023 28.00000023 30.00000011);
+      --lenso-background-grouped-primary: rgb(0 0 0);
+      --lenso-fill-primary: rgb(120.00000045 120.00000045 128.00000757 / 0.36000001430511475);
+      --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.3199999928474426);
+      --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.23999999463558197);
+      --lenso-separator: rgb(255 255 255 / 0.17000000178813934);
+      --lenso-system-blue: rgb(0 145.00000656 255);
+      --lenso-system-red: rgb(255 66.00000367 69.00000349);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(10.2 149.40000629 255);
+      --lenso-action-destructive-text: rgb(255 87.54600325 90.20400309);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+    .dark[data-level="elevated"],
+    [data-theme="dark"][data-level="elevated"],
+    :host(.dark[data-level="elevated"]),
+    :host([data-theme="dark"][data-level="elevated"]) {
+      --lenso-label-primary: rgb(255 255 255);
+      --lenso-label-secondary: rgb(235.00000119 235.00000119 245.0000006 / 0.699999988079071);
+      --lenso-label-tertiary: rgb(235.00000119 235.00000119 245.0000006 / 0.30000001192092896);
+      --lenso-label-quaternary: rgb(235.00000119 235.00000119 245.0000006 / 0.1599999964237213);
+      --lenso-background-primary: rgb(28.00000023 28.00000023 30.00000011);
+      --lenso-background-secondary: rgb(44.00000118 44.00000118 46.00000106);
+      --lenso-background-grouped-primary: rgb(28.00000023 28.00000023 30.00000011);
+      --lenso-fill-primary: rgb(120.00000045 120.00000045 128.00000757 / 0.36000001430511475);
+      --lenso-fill-secondary: rgb(120.00000045 120.00000045 128.00000757 / 0.3199999928474426);
+      --lenso-fill-tertiary: rgb(118.00000057 118.00000057 128.00000757 / 0.23999999463558197);
+      --lenso-separator: rgb(255 255 255 / 0.17000000178813934);
+      --lenso-system-blue: rgb(0 145.00000656 255);
+      --lenso-system-red: rgb(255 66.00000367 69.00000349);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(56.865 169.53000509 255);
+      --lenso-action-destructive-text: rgb(255 122.13300258 124.24200245);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+  }
+  @scope ([data-contrast="increased"]) to ([data-contrast]) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]) {
+      --lenso-label-primary: rgb(0 0 0);
+      --lenso-label-secondary: rgb(60 60 67 / 0.8);
+      --lenso-label-tertiary: rgb(60 60 67 / 0.6980392156862745);
+      --lenso-label-quaternary: rgb(60 60 67 / 0.5490196078431373);
+      --lenso-background-primary: rgb(255 255 255);
+      --lenso-background-secondary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-background-grouped-primary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.28);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.24);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.2);
+      --lenso-separator: rgb(59.99999642 59.99999642 67.00000361 / 0.12);
+      --lenso-system-blue: rgb(30 110 244);
+      --lenso-system-red: rgb(233 21 45);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(20.04 73.48 162.992);
+      --lenso-action-destructive-text: rgb(157.275 14.175 30.375);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+    :root[data-level="elevated"],
+    :host([data-level="elevated"]),
+    .light[data-level="elevated"],
+    .default[data-level="elevated"],
+    [data-theme="light"][data-level="elevated"],
+    [data-theme="default"][data-level="elevated"],
+    :host(.light[data-level="elevated"]),
+    :host([data-theme="light"][data-level="elevated"]) {
+      --lenso-label-primary: rgb(0 0 0);
+      --lenso-label-secondary: rgb(60 60 67 / 0.8);
+      --lenso-label-tertiary: rgb(60 60 67 / 0.6980392156862745);
+      --lenso-label-quaternary: rgb(60 60 67 / 0.5490196078431373);
+      --lenso-background-primary: rgb(255 255 255);
+      --lenso-background-secondary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-background-grouped-primary: rgb(235.00000119 235.00000119 240.00000089);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.28);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.24);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.2);
+      --lenso-separator: rgb(59.99999642 59.99999642 67.00000361 / 0.12);
+      --lenso-system-blue: rgb(30 110 244);
+      --lenso-system-red: rgb(233 21 45);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(20.04 73.48 162.992);
+      --lenso-action-destructive-text: rgb(157.275 14.175 30.375);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-label-primary: rgb(255 255 255);
+      --lenso-label-secondary: rgb(235 235 245 / 0.6980392156862745);
+      --lenso-label-tertiary: rgb(235 235 245 / 0.5490196078431373);
+      --lenso-label-quaternary: rgb(235 235 245 / 0.4);
+      --lenso-background-primary: rgb(0 0 0);
+      --lenso-background-secondary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-background-grouped-primary: rgb(0 0 0);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.44);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.4);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.32);
+      --lenso-separator: rgb(84.00000259 84.00000259 88.00000235 / 0.5);
+      --lenso-system-blue: rgb(92 184 255);
+      --lenso-system-red: rgb(255 97 101);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(138.455 204.235 255);
+      --lenso-action-destructive-text: rgb(255 177.106 179.078);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+    .dark[data-level="elevated"],
+    [data-theme="dark"][data-level="elevated"],
+    :host(.dark[data-level="elevated"]),
+    :host([data-theme="dark"][data-level="elevated"]) {
+      --lenso-label-primary: rgb(255 255 255);
+      --lenso-label-secondary: rgb(235 235 245 / 0.6980392156862745);
+      --lenso-label-tertiary: rgb(235 235 245 / 0.5490196078431373);
+      --lenso-label-quaternary: rgb(235 235 245 / 0.4);
+      --lenso-background-primary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-background-secondary: rgb(53.99999678 53.99999678 55.99999666);
+      --lenso-background-grouped-primary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-fill-primary: rgb(120.00000805 120.00000805 128.00000757 / 0.44);
+      --lenso-fill-secondary: rgb(120.00000805 120.00000805 128.00000757 / 0.4);
+      --lenso-fill-tertiary: rgb(117.99999297 117.99999297 128.00000757 / 0.32);
+      --lenso-separator: rgb(84.00000259 84.00000259 88.00000235 / 0.5);
+      --lenso-system-blue: rgb(92 184 255);
+      --lenso-system-red: rgb(255 97 101);
+      --lenso-tint: var(--lenso-system-blue);
+      --lenso-action-destructive: var(--lenso-system-red);
+      --lenso-label-on-tint: rgb(255 255 255);
+      --lenso-label-on-destructive: rgb(255 255 255);
+      --lenso-tint-text: rgb(183.769 223.973 255);
+      --lenso-action-destructive-text: rgb(255 207.442 208.646);
+      --lenso-focus-ring: var(--lenso-tint-text);
+    }
+  }
+  @media (forced-colors: active) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]),
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-label-primary: CanvasText;
+      --lenso-label-secondary: CanvasText;
+      --lenso-label-tertiary: CanvasText;
+      --lenso-label-quaternary: CanvasText;
+      --lenso-background-primary: Canvas;
+      --lenso-background-secondary: Canvas;
+      --lenso-background-grouped-primary: Canvas;
+      --lenso-fill-primary: Canvas;
+      --lenso-fill-secondary: Canvas;
+      --lenso-fill-tertiary: Canvas;
+      --lenso-separator: CanvasText;
+      --lenso-tint: Highlight;
+      --lenso-action-destructive: CanvasText;
+      --lenso-label-on-tint: HighlightText;
+      --lenso-label-on-destructive: Canvas;
+      --lenso-tint-text: LinkText;
+      --lenso-action-destructive-text: CanvasText;
+      --lenso-focus-ring: Highlight;
+    }
+  }
+}

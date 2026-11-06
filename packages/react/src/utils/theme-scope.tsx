@@ -4,16 +4,49 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 
 import type { StyleXProps } from "./styled.js";
+import { synchronizeThemePortal } from "./sync-theme-portal.js";
 
 export type Theme = "light" | "dark";
 export interface ThemeScopeProps extends StyleXProps<React.ComponentPropsWithRef<"div">> {
   theme?: Theme;
+  materialVersion?: "ios26" | "ios27";
+  /** 0 is opaque; 1 retains the selected glass recipe. Inherited by nested scopes and portals. */
+  glassTransparency?: number;
+  /** 0 is more clear, 0.5 is the reference recipe, and 1 is more tinted. */
+  glassTint?: number;
+  "data-material-version"?: "ios26" | "ios27";
+  contrast?: "standard" | "increased";
+  level?: "base" | "elevated";
+  "data-contrast"?: "standard" | "increased";
+  "data-level"?: "base" | "elevated";
 }
+
+const AppearanceContext = React.createContext<{
+  contrast?: "standard" | "increased";
+  level?: "base" | "elevated";
+}>({});
 
 const PortalContext = React.createContext<HTMLElement | null>(null);
 
-export function ThemeScope({ theme, xstyle, style, children, ref, ...props }: ThemeScopeProps) {
+export function ThemeScope({
+  theme,
+  materialVersion,
+  glassTransparency,
+  glassTint,
+  contrast,
+  level,
+  xstyle,
+  style,
+  children,
+  ref,
+  ...props
+}: ThemeScopeProps) {
   const parentHost = React.useContext(PortalContext);
+  const inherited = React.useContext(AppearanceContext);
+  const appearance = {
+    contrast: contrast ?? props["data-contrast"] ?? inherited.contrast,
+    level: level ?? props["data-level"] ?? inherited.level,
+  };
   const scopeRef = React.useRef<HTMLDivElement | null>(null);
   const [host, setHost] = React.useState<HTMLDivElement | null>(null);
   const compiled = stylex.props(xstyle);
@@ -32,47 +65,73 @@ export function ThemeScope({ theme, xstyle, style, children, ref, ...props }: Th
   React.useLayoutEffect(() => {
     const scope = scopeRef.current;
     if (!host || !scope) return;
-    const synchronize = () => {
-      const computed = getComputedStyle(scope);
-      // oxlint-disable-next-line react/immutability -- The state stores node identity; this browser-owned style declaration is mutable.
-      host.style.cssText = "";
-      // Copy the complete custom-property environment, not a fixed token list.
-      // Consumer variables can participate in the upstream live color mixes.
-      for (const property of computed) {
-        if (property.startsWith("--")) {
-          host.style.setProperty(property, computed.getPropertyValue(property));
-        }
-      }
-      host.style.direction = computed.direction;
-      host.style.fontFamily = computed.fontFamily;
-      const themeOwner = scope.closest<HTMLElement>("[data-theme]");
-      const scopedTheme = themeOwner?.dataset["theme"];
-      if (scopedTheme) host.dataset["theme"] = scopedTheme;
-      else delete host.dataset["theme"];
-    };
+    const synchronize = () => synchronizeThemePortal(scope, host);
     synchronize();
     const observer = new MutationObserver(synchronize);
     for (let ancestor: HTMLElement | null = scope; ancestor; ancestor = ancestor.parentElement) {
       observer.observe(ancestor, {
         attributes: true,
-        attributeFilter: ["class", "style", "data-theme", "data-lenso-theme", "dir"],
+        attributeFilter: [
+          "class",
+          "style",
+          "data-theme",
+          "data-lenso-theme",
+          "data-material-version",
+          "data-contrast",
+          "data-level",
+          "dir",
+        ],
       });
     }
-    return () => observer.disconnect();
+    const media = [
+      "(prefers-color-scheme: dark)",
+      "(prefers-contrast: more)",
+      "(prefers-reduced-transparency: reduce)",
+      "(forced-colors: active)",
+    ].map((query) => matchMedia(query));
+    for (const query of media) query.addEventListener("change", synchronize);
+    return () => {
+      observer.disconnect();
+      for (const query of media) query.removeEventListener("change", synchronize);
+    };
   });
 
   return (
-    <PortalContext.Provider value={host ?? parentHost}>
-      <div
-        {...props}
-        {...compiled}
-        data-theme={theme}
-        ref={scopeRef}
-        style={mergeThemeStyle(compiled.style, style)}
-      >
-        {children}
-      </div>
-    </PortalContext.Provider>
+    <AppearanceContext value={appearance}>
+      <PortalContext.Provider value={host ?? parentHost}>
+        <div
+          {...props}
+          {...compiled}
+          data-theme={theme}
+          data-material-version={materialVersion ?? props["data-material-version"]}
+          data-contrast={appearance.contrast}
+          data-level={appearance.level}
+          ref={scopeRef}
+          style={mergeThemeStyle(
+            {
+              ...compiled.style,
+              ...(glassTint === undefined
+                ? {}
+                : {
+                    "--lenso-glass-tint-amount": Number.isFinite(glassTint)
+                      ? Math.max(0, Math.min(1, glassTint))
+                      : 0.5,
+                  }),
+              ...(glassTransparency === undefined
+                ? {}
+                : {
+                    "--lenso-glass-transparency": Number.isFinite(glassTransparency)
+                      ? Math.max(0, Math.min(1, glassTransparency))
+                      : 1,
+                  }),
+            } as React.CSSProperties,
+            style,
+          )}
+        >
+          {children}
+        </div>
+      </PortalContext.Provider>
+    </AppearanceContext>
   );
 }
 

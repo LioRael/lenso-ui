@@ -5,16 +5,18 @@ export const legalPackages = [
   {
     directory: "react",
     name: "@lenso/ui",
-    license: "Apache-2.0",
+    license: "(Apache-2.0 AND MIT)",
     text: "dist/HEROUI-LICENSE.txt",
     notice: "dist/HEROUI-NOTICE.md",
+    glassNotice: "dist/GLASS-NOTICE.md",
   },
   {
     directory: "styles",
     name: "@lenso/tokens",
-    license: "Apache-2.0",
+    license: "(Apache-2.0 AND MIT)",
     text: "dist/third-party/heroui/LICENSE.txt",
     notice: "dist/third-party/heroui/NOTICE.md",
+    glassNotice: "dist/GLASS-NOTICE.md",
   },
   {
     directory: "stylex-build",
@@ -42,7 +44,9 @@ export async function validateLegalPackage(root: URL, entry: (typeof legalPackag
     "Full original license must ship unchanged",
   );
   assert.match(notice, /Modified by Lenso contributors:/);
-  if (entry.license === "Apache-2.0") {
+  if (entry.glassNotice) {
+    const originalGlassNotice = new URL("../third-party/glass/NOTICE.md", import.meta.url);
+    assert.equal(await get(entry.glassNotice), await readFile(originalGlassNotice, "utf8"));
     assert.match(license, /Copyright 2025 NextUI Inc\./);
     assert.match(notice, /e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/);
     assert.match(notice, /authored by Lenso/);
@@ -55,6 +59,6 @@ export async function validateLegalPackage(root: URL, entry: (typeof legalPackag
     name: manifest.name,
     version: manifest.version,
     license: manifest.license,
-    files: [entry.text, entry.notice],
+    files: [entry.text, entry.notice, ...(entry.glassNotice ? [entry.glassNotice] : [])],
   };
 }

@@ -25,6 +25,12 @@ for (const entry of legalPackages) {
       );
       await cp(original, new URL(entry.text, root));
       await cp(notice, new URL(entry.notice, root));
+      if (entry.glassNotice) {
+        await cp(
+          new URL("../third-party/glass/NOTICE.md", import.meta.url),
+          new URL(entry.glassNotice, root),
+        );
+      }
       if (entry.license === "MIT") {
         await mkdir(new URL("src/", root));
         await cp(

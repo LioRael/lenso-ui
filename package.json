@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "build:packages": "turbo run build --filter=@lenso/tokens --filter=@lenso/ui --filter=@lenso/primitives",
+    "build:packages": "turbo run build --filter=@lenso/tokens --filter=@lenso/glass --filter=@lenso/ui --filter=@lenso/primitives",
     "check": "pnpm format:check && pnpm lint && pnpm source:check && pnpm build:packages && pnpm typecheck && pnpm test && pnpm --filter @lenso/testing test:browser && pnpm --filter @lenso/testing test:integration",
     "source:check": "tsx scripts/interaction-boundaries.ts",
     "dev": "turbo run dev",

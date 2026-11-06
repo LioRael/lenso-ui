@@ -1,0 +1,7 @@
+{
+  "extends": "../standard/tsconfig/react.json",
+  "compilerOptions": {
+    "types": ["node", "react", "@webgpu/types"]
+  },
+  "include": ["src/**/*.ts", "scripts/**/*.ts", "tsdown.config.ts"]
+}

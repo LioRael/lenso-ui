@@ -32,3 +32,8 @@ await cp(
   new URL("../dist/third-party/heroui", import.meta.url),
   { recursive: true },
 );
+
+await cp(
+  new URL("../../../third-party/glass/NOTICE.md", import.meta.url),
+  new URL("../dist/GLASS-NOTICE.md", import.meta.url),
+);

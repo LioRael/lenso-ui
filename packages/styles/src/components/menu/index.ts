@@ -1,1 +1,1 @@
-export { menuStyles } from "./menu.styles.js";
+export * from "./menu.styles.js";

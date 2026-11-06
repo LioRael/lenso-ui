@@ -4,6 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 import { getExample, type Locale } from "@/lib/source";
 import { styles } from "@/styles/docs.stylex";
 import liveManifest from "@/demos/live-manifest.json";
+import { MenuBackdropPreview, MenuExampleFrame } from "./menu-backdrop-preview";
 import { ComponentSource } from "./component-source";
 import { highlightSource } from "./highlight-source";
 import { exampleSourceFiles } from "./example-source-files";
@@ -54,24 +55,29 @@ function PreviewScene({
   align,
   minHeight,
   isBgSolid,
+  menuBackdrop,
 }: {
   children: ReactNode;
   align: "center" | "start" | "end";
   minHeight: string;
   isBgSolid: boolean;
+  menuBackdrop: boolean;
 }) {
+  const Scene = menuBackdrop ? MenuBackdropPreview : "div";
   return (
-    <div
+    <Scene
       data-example-scene
       {...stylex.props(
-        styles.previewBody,
+        menuBackdrop ? glassExample.scene : styles.previewBody,
         align === "start" && codeStyles.start,
         align === "end" && codeStyles.end,
         isBgSolid && codeStyles.solid,
       )}
     >
-      <div {...stylex.props(codeStyles.innerScene(minHeight))}>{children}</div>
-    </div>
+      <div {...stylex.props(codeStyles.innerScene(minHeight), menuBackdrop && glassExample.inner)}>
+        {children}
+      </div>
+    </Scene>
   );
 }
 
@@ -108,6 +114,21 @@ export async function ComponentPreview({
   const files = liveFile && !hideCode ? await exampleSourceFiles(liveFile) : undefined;
   const code = files?.[0]?.code ?? example?.code;
   const highlighted = code && !hideCode && !liveFile ? await highlightSource(code) : undefined;
+  const preview = resolved ? (
+    <PreviewScene
+      menuBackdrop={name === "menu-default"}
+      align={align}
+      minHeight={minHeight}
+      isBgSolid={isBgSolid}
+    >
+      {Preview ? <Preview /> : children}
+    </PreviewScene>
+  ) : (
+    <SourceNotice name={name} example={example} />
+  );
+  const source = code && !hideCode && (
+    <ComponentSource code={code} local={!!liveFile} highlighted={highlighted} files={files} />
+  );
   return (
     <section
       data-example-name={name}
@@ -116,16 +137,31 @@ export async function ComponentPreview({
     >
       {description && <p {...stylex.props(styles.sourceNotice)}>{description}</p>}
       <LocaleNotice status={resolved?.status} />
-      {resolved ? (
-        <PreviewScene align={align} minHeight={minHeight} isBgSolid={isBgSolid}>
-          {Preview ? <Preview /> : children}
-        </PreviewScene>
+      {name === "menu-default" ? (
+        <MenuExampleFrame name={name} locale={locale} preview={preview} source={source} />
       ) : (
-        <SourceNotice name={name} example={example} />
-      )}
-      {code && !hideCode && (
-        <ComponentSource code={code} local={!!liveFile} highlighted={highlighted} files={files} />
+        <>
+          {preview}
+          {source}
+        </>
       )}
     </section>
   );
 }
+
+const glassExample = stylex.create({
+  inner: { justifyContent: "safe center" },
+  scene: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 128,
+    padding: { default: 24, "@media (max-width: 639px)": 16 },
+    overflow: "auto",
+    minWidth: 0,
+    borderRadius: "var(--lenso-shape-content-2xl, 16px)",
+    backgroundColor: "var(--lenso-background-grouped-primary)",
+    outline: { default: "none", ":focus-visible": "2px solid var(--lenso-focus-ring)" },
+    outlineOffset: -2,
+  },
+});
