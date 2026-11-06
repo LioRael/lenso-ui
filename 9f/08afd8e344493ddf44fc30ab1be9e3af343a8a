@@ -1,0 +1,617 @@
+apps/docs/src/demos/stories/form.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-2,4-18,29
+  s_264b01c1b2cb2e::t_893f38af7b9e10 3,19,22-27
+  s_264b01c1b2cb2e::t_2f61db4052ce2c 20-21,28
+apps/docs/src/stories/alert.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/color-area.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5,11
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,6-10,12-24
+apps/docs/src/stories/tag.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/calendar-year-picker.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 6,9,18
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-5,7-8,10-17,19-38
+apps/docs/src/stories/story-panel.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-112,114-121,123-126,128,136-141,143-146,148-155,157-161,164-186,188-193,195-267,269-303,305-317,319-443
+  s_264b01c1b2cb2e::t_893f38af7b9e10 163,304
+  s_264b01c1b2cb2e::t_311fcc6a37e085 113,122,127,129-135,142,147,156,162,187,194,318
+  s_264b01c1b2cb2e::t_ceba04b0116c8e 268
+apps/docs/src/demos/stories/color-field.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,6-10,13-38
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5,11-12
+apps/docs/src/components/component-example-frame.tsx
+  s_264b01c1b2cb2e::t_da30ba268cce42 103
+  s_264b01c1b2cb2e::t_311fcc6a37e085 22,24-25,30-32
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 1-21,23,26-29,33-102,104-121
+apps/docs/src/styles/home.stylex.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 25-26,42,45-48,53,72-76,79,82-83,92,107-112
+apps/docs/src/demos/stories/number-field.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-38
+apps/docs/src/stories/slider.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-9
+apps/docs/src/stories/toolbar.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-10
+apps/docs/src/stories/toggle-button-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-5,7
+  s_264b01c1b2cb2e::t_3f5631c02dfe9a 6
+apps/docs/src/demos/stories/label.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-25
+apps/docs/src/stories/tag-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/close-button.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/date-input-group.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-23
+apps/docs/src/styles/home-layout.stylex.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 10-11,16
+apps/docs/src/demos/stories/progress-circle.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-24
+apps/docs/src/stories/tabs.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-16
+apps/docs/src/demos/stories/checkbox.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-30
+apps/docs/src/stories/avatar-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/card.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/components/home-layout.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 10,79
+apps/docs/src/stories/story-sources.json
+  s_264b01c1b2cb2e::t_7f2f29b44e1abe 1-69
+packages/docs/src/docs.css
+  s_264b01c1b2cb2e::t_2899f54a75909f 2
+apps/docs/src/demos/stories/color-input-group.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-23
+apps/docs/src/demos/stories/description.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-13
+apps/docs/src/stories/button-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-5,7
+  s_264b01c1b2cb2e::t_c4ab2b9389030e 6
+apps/docs/scripts/docs-projection.mjs
+  s_264b01c1b2cb2e::t_7f2f29b44e1abe 796-800,802,972-976,978-979
+  s_264b01c1b2cb2e::t_49eb7c9d928298 2,984-986,988-991,1008-1009,1011-1015,1017,1019-1020,1022-1023,1025-1026
+  s_264b01c1b2cb2e::t_311fcc6a37e085 981-983,992-996
+  s_264b01c1b2cb2e::t_59f69999894b7c 1,801,977,987,1010,1018,1021
+apps/docs/scripts/generate-page-documents.ts
+  s_264b01c1b2cb2e::t_7f2f29b44e1abe 1,126,243-269,271-272,277,279,333-336
+  s_264b01c1b2cb2e::t_311fcc6a37e085 197-198,200-202,204-206
+  s_264b01c1b2cb2e::t_9e3cbc3594c404 199,203,270
+apps/docs/src/styles/header-controls.stylex.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 1-53
+apps/docs/src/demos/stories/color-slider.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,6-10,12-38
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5,11
+apps/docs/src/demos/stories/range-calendar.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-34
+apps/docs/src/demos/stories/toggle-button.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-10,12-27
+  s_264b01c1b2cb2e::t_893f38af7b9e10 11
+apps/docs/src/mdx-components.tsx
+  s_264b01c1b2cb2e::t_49eb7c9d928298 66
+apps/docs/src/demos/stories/breadcrumbs.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-24
+apps/docs/src/stories/calendar.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/pagination.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-34
+apps/docs/src/stories/select.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7,9-10
+  s_264b01c1b2cb2e::t_49eb7c9d928298 8
+apps/docs/src/stories/meter.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/parameter-groups.ts
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-71
+apps/docs/src/stories/skeleton.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/fieldset.tsx
+  s_264b01c1b2cb2e::t_807532a06851ed 72
+  s_264b01c1b2cb2e::t_893f38af7b9e10 74
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-71,73,75-79
+apps/docs/src/demos/stories/toolbar.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5,11,17,22-25
+  s_264b01c1b2cb2e::t_807532a06851ed 16,19-20
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,6-10,12-15,18,27
+  s_264b01c1b2cb2e::t_55d10de14599a1 21,26
+apps/docs/src/lib/component-categories.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 1-18
+apps/docs/src/stories/color-area.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/time-field.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/components/component-links.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 80
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 1,7,9-27,57-79,81-89
+apps/docs/scripts/example-sections.ts
+  s_264b01c1b2cb2e::t_49eb7c9d928298 1-98
+packages/docs/src/providers.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 4,10
+apps/docs/src/demos/stories/toast.tsx
+  s_264b01c1b2cb2e::t_807532a06851ed 10
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-9,11-40
+apps/docs/src/stories/color-slider.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/radio-group.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-31
+apps/docs/src/stories/modal.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/search-field.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-12
+apps/docs/src/stories/alert-dialog.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/typography.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/use-live-args.ts
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-29
+apps/docs/src/stories/drawer.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/color-swatch-picker.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,6-27
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5
+apps/docs/src/stories/spinner.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/fieldset.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/date-field.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/label.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+packages/docs/src/header-button.tsx
+  s_264b01c1b2cb2e::t_d06a30014bae38 1-9,11-18,20-23,26-38,40-41,43
+  s_264b01c1b2cb2e::t_8885d87ad07008 10,19,24-25,39,42
+apps/docs/src/demos/stories/kbd.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-35
+apps/docs/src/demos/stories/badge.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-49
+apps/docs/src/demos/stories/typography.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-39
+apps/docs/src/demos/stories/select.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-5,7-18
+  s_264b01c1b2cb2e::t_893f38af7b9e10 6
+apps/docs/src/stories/progress-bar.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/styles/api-reference.stylex.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 3-5,7-57,60-222
+apps/docs/src/demos/stories/tooltip.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-53
+apps/docs/src/demos/stories/scroll-shadow.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-43
+apps/docs/src/demos/stories/close-button.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-17
+apps/docs/src/demos/stories/chip.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-29
+apps/docs/src/stories/button.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-13,15-36
+  s_264b01c1b2cb2e::t_893f38af7b9e10 14
+apps/docs/src/components/docs-site-controls.tsx
+  s_264b01c1b2cb2e::t_da30ba268cce42 2,44,55,124,133
+  s_264b01c1b2cb2e::t_51e1500e493706 8,136-141
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 4-7,9-10,13,35,42-43,45-54,56-57,87-123,125-132,134-135,142-144,146-147
+  s_264b01c1b2cb2e::t_8f1de1494ffeea 3,58,145
+apps/docs/src/demos/stories/input-group.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,6-35
+apps/docs/src/stories/story-panel.stylex.ts
+  s_264b01c1b2cb2e::t_311fcc6a37e085 23-24,29-32,78-79,88-91,101-108,110-111,132-135
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-22,25-28,33-77,80-87,92-100,112-131,136-165
+  s_264b01c1b2cb2e::t_a446dc470c7602 109
+apps/docs/src/stories/toast.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7,9-10
+  s_264b01c1b2cb2e::t_807532a06851ed 8
+apps/docs/src/stories/color-swatch.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/date-picker.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5-7,15-17
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,8-14,18-68
+apps/docs/src/stories/input.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-35
+apps/docs/src/demos/stories/avatar-group.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-34
+apps/docs/src/stories/checkbox-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/color-swatch.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-29
+apps/docs/src/demos/stories/separator.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-41
+apps/docs/src/demos/stories/tag-group.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-42
+apps/docs/src/demos/stories/modal.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-50
+packages/docs/src/site-navigation.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 8,101-102
+  s_264b01c1b2cb2e::t_da30ba268cce42 60,64,66,89,91,100,119,133
+apps/docs/src/components/fumadocs/ui/theme-toggle.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 6-7,24-27,29,31-46
+apps/docs/src/stories/input-group.story.tsx
+  s_264b01c1b2cb2e::t_49eb7c9d928298 8
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7,9-10
+apps/docs/src/demos/stories/time-field.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5-7,15-17
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,8-14,18-39
+apps/docs/src/stories/accordion.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/materials.tsx
+  s_264b01c1b2cb2e::t_311fcc6a37e085 149
+  s_264b01c1b2cb2e::t_893f38af7b9e10 21,41
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-20,22-40,42-94,96-148,150-177
+  s_264b01c1b2cb2e::t_93649e1b7dfa0e 95
+apps/docs/src/components/fumadocs/ui/language-toggle.tsx
+  s_264b01c1b2cb2e::t_da30ba268cce42 2,15
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 7,13-14,17,22,37-38
+  s_264b01c1b2cb2e::t_a826d44fdebc72 16
+apps/docs/src/stories/switch.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-25
+apps/docs/src/demos/stories/table.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-54
+apps/docs/src/styles/home-layout.css
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 6
+apps/docs/src/stories/color-field.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/disclosure.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/pagination.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/usage.ts
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-8,22-24,27-28,36-48,51-52,55-56,79-82
+  s_264b01c1b2cb2e::t_0ba2806834338e 9-21,25-26,29-35,49-50,53-54,57-78
+apps/docs/src/styles/docs-theme-picker.stylex.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 6-25,29-31,34,36-37,41,61-70,97,100-101,106,108-109,117,124-125,131,142,144
+packages/docs/src/sidebar-state.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 91,99-100,110,121,128,142-154
+apps/docs/src/stories/number-field.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/avatar.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-35
+apps/docs/src/stories/textfield.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+packages/docs/presentation/styles/sidebar.stylex.ts
+  s_264b01c1b2cb2e::t_da30ba268cce42 4-119,131-132,136-138,143-144,149-150,152,155-156,165-166,168
+apps/docs/src/components/semantic-color-examples.tsx
+  s_264b01c1b2cb2e::t_a494d7f9ad663e 1-50
+apps/docs/src/styles/component-gallery.stylex.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 21,24,40,51-56
+apps/docs/src/demos/stories/button-group.tsx
+  s_264b01c1b2cb2e::t_807532a06851ed 10,16-20,22-23,25-27,29-31
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-9,11-15,33
+  s_264b01c1b2cb2e::t_c80f03c9a29f95 21,24,28,32
+apps/docs/src/demos/stories/date-field.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,8-14,18-39
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5-7,15-17
+apps/docs/src/demos/stories/spinner.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 8
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7,9-23
+apps/docs/src/components/client-preview.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-18
+apps/docs/src/demos/stories/link.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-17
+apps/docs/src/demos/stories/surface.tsx
+  s_264b01c1b2cb2e::t_807532a06851ed 10,13
+  s_264b01c1b2cb2e::t_893f38af7b9e10 12
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-9,11,14-25
+apps/docs/src/demos/stories/textfield.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1,27
+  s_264b01c1b2cb2e::t_807532a06851ed 2-14,16-19,21-25
+  s_264b01c1b2cb2e::t_f6556a757ce123 15,20,26
+apps/docs/src/stories/autocomplete.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/date-input-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/description.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/empty-state.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-2,4-19,21,23,25,31,34,37-40
+  s_264b01c1b2cb2e::t_807532a06851ed 3,20,22,24,26-30,32-33,35-36
+apps/docs/src/demos/stories/accordion.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-99
+apps/docs/src/stories/empty-state.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-17
+apps/docs/src/stories/input-otp.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/menu.story.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 14
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-13,15-21
+apps/docs/src/stories/radio.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/switch.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-21
+apps/docs/src/stories/badge.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/story.ts
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-5
+apps/docs/src/components/docs-site-options.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 5,11,40-44,46,53,55,58-61
+apps/docs/src/components/docs-design-theme-context.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 1-34
+apps/docs/src/demos/stories/tag.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-36
+apps/docs/src/stories/calendar-year-picker.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/components/materials-preview.tsx
+  s_264b01c1b2cb2e::t_a494d7f9ad663e 1-9,11-85,87,89-95,97-98,100-109,111-112,114-127,129-130,132-135,137-139,141-149,151-157,159-160,163-170,172-173,175-177,179,181-295
+  s_264b01c1b2cb2e::t_b72eb337f2a963 10,86,88,96,99,110,113,128,131,136,140,150,158,161-162,171,174,178,180
+apps/docs/src/components/ai/page-actions.tsx
+  s_264b01c1b2cb2e::t_311fcc6a37e085 5,9-21,26,28-32,37-55,58-67
+apps/docs/src/demos/stories/drawer.tsx
+  s_264b01c1b2cb2e::t_807532a06851ed 9,29
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-8,10-28,30-39
+apps/docs/src/demos/stories/date-range-picker.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,8-14,18-76
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5-7,15-17
+apps/docs/src/demos/stories/list-box.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-14,16-31,33-42,45-48
+  s_264b01c1b2cb2e::t_893f38af7b9e10 32,43-44
+  s_264b01c1b2cb2e::t_d481ce8043707a 15
+apps/docs/src/demos/stories/disclosure.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-30
+apps/docs/src/demos/stories/popover.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-43
+apps/docs/src/stories/color-picker.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-5,7
+  s_264b01c1b2cb2e::t_bc8e0bdf2c167c 6
+apps/docs/src/demos/stories/progress-bar.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-27
+apps/docs/src/components/component-playground.tsx
+  s_264b01c1b2cb2e::t_7f2f29b44e1abe 1-31
+apps/docs/src/styles/global.css
+  s_264b01c1b2cb2e::t_2899f54a75909f 2,6-9
+apps/docs/src/components/docs-header-backdrop.tsx
+  s_264b01c1b2cb2e::t_3af59a0a56929c 1-17,20-30,32-37,39
+  s_264b01c1b2cb2e::t_0f7c4dd373e47e 18-19,31,38
+apps/docs/src/stories/date-range-picker.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/skeleton.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-44
+apps/docs/src/stories/checkbox.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/color-input-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/form.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/link.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/separator.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/checkbox-group.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-61
+apps/docs/docs.components.tsx
+  s_264b01c1b2cb2e::t_311fcc6a37e085 44
+  s_264b01c1b2cb2e::t_da30ba268cce42 34-36
+  s_264b01c1b2cb2e::t_70481756af3a28 41
+packages/docs/src/page-actions.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 13,17,19-22,27,29-33,39-44,49,52-55,62,65
+packages/docs/src/client.ts
+  s_264b01c1b2cb2e::t_da30ba268cce42 14-15
+apps/docs/src/demos/stories/textarea.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 5
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-4,6-30
+apps/docs/src/demos/stories/toolbar-navigation.tsx
+  s_264b01c1b2cb2e::t_807532a06851ed 1-58
+packages/docs/src/site-layout.tsx
+  s_264b01c1b2cb2e::t_da30ba268cce42 5,74,77-78,80-82,122,165-166,172-173,175,177-179,183,185,187,213,222-223
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 6,10,28,36,39-40,52,60-61,72-73,75-76,79,83-84,87-106,113,121,129-139,141-157,161,163-164,167-171,174,176,180-182,184,186,188-191,201,212,231-233
+apps/docs/src/components/docs-theme-picker.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 6,12,19-23,39-46,50,65-68,81-103,105,107-120,122-126,129-131,142-144,146-157,159-160
+  s_264b01c1b2cb2e::t_893f38af7b9e10 9,121,127-128,145,158
+  s_264b01c1b2cb2e::t_da30ba268cce42 2,55-59,104,106
+apps/docs/src/demos/stories/calendar.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-32
+apps/docs/src/stories/surface.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/textarea.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-5,7
+  s_264b01c1b2cb2e::t_e88271073e1ede 6
+apps/docs/src/stories/kbd.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/breadcrumbs.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/content/lenso/en/react/getting-started/materials.mdx
+  s_264b01c1b2cb2e::t_a494d7f9ad663e 1-18,20-35
+  s_264b01c1b2cb2e::t_311fcc6a37e085 19
+apps/docs/src/components/components-category.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 6,14
+apps/docs/src/stories/tooltip.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/content/lenso/cn/react/getting-started/colors.mdx
+  s_264b01c1b2cb2e::t_311fcc6a37e085 8-9
+apps/docs/src/demos/stories/card.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-46
+apps/docs/package.json
+  s_264b01c1b2cb2e::t_7f2f29b44e1abe 33
+  s_264b01c1b2cb2e::t_95f96ab1bb54bf 34-35,46-47
+packages/docs/src/search-results.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 1-18
+apps/docs/src/styles/home-showcase.stylex.ts
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 5,42-45,60-61,88
+apps/docs/src/components/docs-phone-navigation.tsx
+  s_264b01c1b2cb2e::t_e9915781bdaad6 1-22,24-39,41-43,45-46,48-55,57-75,77,79-83,85-92,94,96-104,106,108-117,119
+  s_264b01c1b2cb2e::t_a1fcdf92bb67b3 23,40,44,47,56,76,78,84,93,95,105,107,118
+apps/docs/src/stories/color-swatch-picker.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/autocomplete.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-22
+apps/docs/src/demos/stories/alert.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-34,36-38,40-54,56-58,60-93
+  s_264b01c1b2cb2e::t_893f38af7b9e10 35,39
+  s_264b01c1b2cb2e::t_520b93d60f1a89 55,59
+apps/docs/src/stories/avatar.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/test/components-overview.browser.mjs
+  s_264b01c1b2cb2e::t_01b0787226e105 11-12,50-53,56,62-63,69-70,90-100,113
+  s_264b01c1b2cb2e::t_009e35615eb2c8 122-123,125-131
+packages/docs/presentation/tabs.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 15,18-21,29,32,34
+packages/docs/package.json
+  s_264b01c1b2cb2e::t_2899f54a75909f 66-67
+  s_264b01c1b2cb2e::t_7f2f29b44e1abe 83
+  s_264b01c1b2cb2e::t_4b5b5516939f47 85,87,96-97
+apps/docs/src/components/home-page.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 5
+apps/docs/src/components/component-source.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 10,13,20-22,27,29-31,33-39,66,71,73-77,81,93-97,100-103,112-113,120-128
+apps/docs/src/stories/range-calendar.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/list-box.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/meter.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-28
+apps/docs/src/stories/progress-circle.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+packages/docs/src/appearance.css
+  s_264b01c1b2cb2e::t_a494d7f9ad663e 42-43,69-70,84-85,95-96,111-112,128-129,141-142,154-155,170-171,185-186,196-197,207-208,222-223,237-238,248-249,259-260,275-276,290-291,301-302,312-313,329-330,344-345,355-356,366-367,387-388
+  s_264b01c1b2cb2e::t_2899f54a75909f 1,14-41,44-68,71-83,86-94,97-110,113-127,130-140,143-153,156-169,172-184,187-195,198-206,209-221,224-236,239-247,250-258,261-274,277-289,292-300,303-311,314-328,331-343,346-354,357-365,368-386,389-392
+  s_264b01c1b2cb2e::t_311fcc6a37e085 2-13
+apps/docs/src/demos/stories/input-otp.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-40
+apps/docs/src/stories/button.story.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 9,12,20,23,31,34,45
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-8,10-11,13-19,21-22,24-30,32-33,35-44,46-53
+apps/docs/src/stories/toggle-button.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+packages/docs/src/search.tsx
+  s_264b01c1b2cb2e::t_da30ba268cce42 14,33,230,240,264,274
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 3-12,29,39,45,54,84-92,95,100-108,115,122-123,125-134,149,175-185,190,198-202,227,231,234,237,249,265,268,271,286,303,306
+apps/docs/src/components/docs-design-theme.tsx
+  s_264b01c1b2cb2e::t_da30ba268cce42 199-206
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 2,6,9,16-25,27-30,54,56-80,84-91,93-97,103-108,113-118,122-128,149-157,168,174-178,186,209-216,218
+apps/docs/src/components/fumadocs/ui/search-dialog.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 3-4,27,29-38,40-56
+apps/docs/src/stories/date-picker.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/chip.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/components/live-source.tsx
+  s_264b01c1b2cb2e::t_7f2f29b44e1abe 1-108
+apps/docs/src/stories/combo-box.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/toggle-button-group.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 13,21
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-12,14-17,19-20,22-46
+  s_264b01c1b2cb2e::t_db1fde24d7376a 18
+apps/docs/src/stories/field-error.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/components/home-showcase.tsx
+  s_264b01c1b2cb2e::t_893f38af7b9e10 20
+  s_264b01c1b2cb2e::t_807532a06851ed 80
+  s_264b01c1b2cb2e::t_49eb7c9d928298 94
+apps/docs/content/lenso/en/react/getting-started/colors.mdx
+  s_264b01c1b2cb2e::t_311fcc6a37e085 8-9
+apps/docs/src/stories/table.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+packages/docs/src/article.tsx
+  s_264b01c1b2cb2e::t_9af75cdba1ebe9 37-41
+apps/docs/test/home.browser.mjs
+  s_264b01c1b2cb2e::t_01b0787226e105 231-236
+  s_264b01c1b2cb2e::t_69dfe74e9fd61f 97,230
+apps/docs/content/lenso/cn/react/getting-started/materials.mdx
+  s_264b01c1b2cb2e::t_311fcc6a37e085 19
+  s_264b01c1b2cb2e::t_a494d7f9ad663e 1-18,20-35
+apps/docs/src/stories/radio-group.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/popover.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/stories/scroll-shadow.story.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-7
+apps/docs/src/demos/stories/combo-box.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-20
+apps/docs/src/stories/color-picker.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1,4,10,12,14-17,19,22-27,36-38
+  s_264b01c1b2cb2e::t_f8bfdbb9d3b023 2-3,5-9,11,13,18,20-21,28-35
+apps/docs/src/lib/theme-builder-model.ts
+  s_264b01c1b2cb2e::t_893f38af7b9e10 661-665
+apps/docs/src/demos/stories/radio.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-30
+apps/docs/src/demos/stories/alert-dialog.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1,4-14,16-34,37,39-40,42,45,47,49,51-57
+  s_264b01c1b2cb2e::t_807532a06851ed 2-3,15,35,38,41,44,46,48,50
+  s_264b01c1b2cb2e::t_3f517a9fab78c8 36,43
+apps/docs/src/demos/stories/field-error.tsx
+  s_264b01c1b2cb2e::t_f3e728bf0f0209 1-21
+apps/docs/content/lenso/cn/react/getting-started/animation.mdx
+  s_264b01c1b2cb2e::t_a3a12e69feaccc 32-59
+apps/docs/content/lenso/cn/react/getting-started/design-principles.mdx
+  s_264b01c1b2cb2e::t_b98f4797b1679f 3,8,10,12,14,16,18,20,22-40
+apps/docs/content/lenso/cn/react/getting-started/versioning.mdx
+  s_264b01c1b2cb2e::t_cb9edd1ab3979f 22
+apps/docs/content/lenso/en/react/getting-started/animation.mdx
+  s_264b01c1b2cb2e::t_e74366126ec61a 32-59
+apps/docs/content/lenso/en/react/getting-started/design-principles.mdx
+  s_264b01c1b2cb2e::t_b82a5e18130415 3,8,10,12,14,16,18-26,30-42
+apps/docs/content/lenso/en/react/getting-started/versioning.mdx
+  s_264b01c1b2cb2e::t_8ee5f99e306bc9 10,22
+apps/docs/docs.build.mjs
+  s_264b01c1b2cb2e::t_2ffe2a4798a6e0 5-8,25,36
+apps/docs/public/coverage.json
+  s_264b01c1b2cb2e::t_68f9074fc7e750 3,7-8,16-17,2866,4009
+apps/docs/scripts/browser-check.mjs
+  s_264b01c1b2cb2e::t_2eec34774933c3 23-35,48,56,74,81,94
+apps/docs/scripts/examples-browser-check.mjs
+  s_264b01c1b2cb2e::t_25f9282c5ccd00 20-29
+apps/docs/scripts/generate-docs.ts
+  s_264b01c1b2cb2e::t_b79ed1102cda1e 43-46
+apps/docs/scripts/static-search.test.ts
+  s_264b01c1b2cb2e::t_0e3ffb80d48f32 4,101
+apps/docs/src/components/component-preview.tsx
+  s_264b01c1b2cb2e::t_f14280296e5e6e 7,67-68,71,77-78,89,101,130-137,147-153
+apps/docs/src/components/example-source-files.tsx
+  s_264b01c1b2cb2e::t_901d30cfec8e5c 4
+apps/docs/src/components/native-api-reference.tsx
+  s_264b01c1b2cb2e::t_63e8dfca81e856 3,5,19,23,33,35,38,40-43,45,49,59,61,63,65-69,73-80,92-95,97-105,110-114,116-136,138-141,143-145,147,153-170,175-182,184-185,195-215,217-218,220-236,238,240,242-298,300-306,308-321,323-347,350-399,401,403-407
+apps/docs/src/generated/lenso-docs-index.json
+  s_264b01c1b2cb2e::t_5c5a50b518b42f 661,687-696,4457,4483-4492
+apps/docs/src/lib/api-property-groups.ts
+  s_264b01c1b2cb2e::t_2210f01abe13d8 4,8-9,17-18
+apps/docs/src/lib/source.ts
+  s_264b01c1b2cb2e::t_b99a7d38070491 1-2,109-122
+apps/docs/test/authored-geometry.browser.mjs
+  s_264b01c1b2cb2e::t_49bcc994754102 82-85
+apps/docs/test/docs-theme-picker.browser.mjs
+  s_264b01c1b2cb2e::t_7ed5fe772cf940 27-28,72,89
+apps/docs/test/shell.browser.mjs
+  s_264b01c1b2cb2e::t_ff039420cc3665 56-57,61,65,87,97,101,127,131,136,139,199-202
+apps/docs/test/theme-builder-examples.browser.mjs
+  s_264b01c1b2cb2e::t_1ebe203878152e 142
+apps/docs/test/theme-builder.browser.mjs
+  s_264b01c1b2cb2e::t_4664cf47934c51 139,141
+packages/docs/presentation/styles/code.stylex.ts
+  s_264b01c1b2cb2e::t_01ea0e8ac668f3 16,20,28-32,44
+packages/docs/presentation/styles/docs.stylex.ts
+  s_264b01c1b2cb2e::t_72edbe6187a836 6-10,12-15,17-21,38-50,53,59-72,75-77,79-100,102,105,108-109,112,115-116,118-119,121-122,126,132,134-137,139-140,146-155,158,160-162,164,167,170-173,176-184,207-212,225,229,234,244,246,258,264-265,271,287,293-298,323-324,327,331,334-335,338,348-349,365,368
+packages/docs/presentation/styles/notebook.stylex.ts
+  s_264b01c1b2cb2e::t_ed7fc7fb51634a 13-14,19-20,32,42,48-55,62-66,82-85,93,98,107,110-118,124-126,132-133,136-142,149-151,165,178,182-186,189-190,194,208,214,229-230,237-241,243-244,251-254,261-269,274,284,293-294,302,317-319,341,343,348,351,363,368,376,403-404,407-409,415,418,430-431,445,449-452,465-466,469-470,472-473,491,494-495,502,514-516,534,546
+packages/docs/presentation/styles/prose.stylex.ts
+  s_264b01c1b2cb2e::t_bc7d7949eec09f 12,35,37-38,51,57,66
+packages/docs/presentation/styles/search.stylex.ts
+  s_264b01c1b2cb2e::t_0977f80faa324f 43-44,56,61-62,74,76,87,89,92,99-100,129,131,138-158
+packages/docs/src/page-layout.tsx
+  s_264b01c1b2cb2e::t_089a921cd13773 101
+packages/docs/src/shell.tsx
+  s_264b01c1b2cb2e::t_5c91960dcaa3c0 12,65,84,100
+pnpm-lock.yaml
+  s_264b01c1b2cb2e::t_9fd1fcdd02c717 280-288,320-321,323-324,449-451,455-457,461-463,489-490,492-493,1212-1213,1215-1217,1219-1234,1236-1247,1251-1263,2064-2065,2067-2068,2080-2081,2093-2094,2106-2107,2128-2129,2137-2138,2150-2151,2159-2160,2172-2173,2181-2182,2203-2204,2216-2217,2229-2230,2242-2243,2255-2256,2268-2269,2281-2282,2294-2295,2307-2308,2316-2317,2329-2330,2338-2339,2392-2393,2401-2402,2816-2827,2834-2839,2846-2851,2858-2863,2870-2875,2882-2887,2894-2899,2906-2911,2918-2923,2930-2935,2942-2947,2954-2959,2966-2971,2978-2983,2990-2995,3002-3007,3014-3019,3026-3031,3038-3043,3050-3055,3419-3423,3709-3710,3714,3720-3721,3732-3733,3737,3740,3749,3753,3761-3762,3767-3768,3785-3786,3800-3801,3805,3809,3817-3818,3874-3875,4118-4119,4285-4287,4318-4320,4348-4349,4351-4352,4354-4355,4359,4365-4366,4421-4424,5069-5073,5306-5310,5320-5323,5617-5653,6179,6181,6183-6185,6187-6188,6190-6191,6198,6200,6207,6209,6211,6213-6215,6223,6226-6229,6242,6248,6250,6252-6255,6257-6261,6271,6277,6279,6281-6282,6290,6296,6299-6300,6314,6316-6317,6319-6321,6323-6327,6330,6337,6339,6341-6344,6346-6352,6361,6364,6366-6368,6371,6379,6381,6389,6398,6400,6407,6409-6410,6412-6413,6415-6417,6426,6429,6431-6436,6444,6451,6453-6455,6457-6460,6467,6469,6474,6476,6515,6522,6524,6942-6947,6951-6953,6957-6959,6963-6965,6969-6971,6975-6977,6981-6983,6987-6989,6993-6995,6999-7001,7005-7007,7011-7013,7017-7019,7023-7025,7029-7031,7035-7037,7041-7043,7047-7049,7053-7055,7059-7061,7362-7363,7660,7662-7663,7674,7676,7679,7682-7684,7693-7694,7701,7709-7722,7724-7727,7740,7802,8038,8432-8435,8497-8519,8541,8543,8545,8547,8549,8611-8612,9428-9451,9627-9628,9668-9669
+apps/docs/src/generated/api-reference.json
+  s_e765c726ab3a59::t_d99bc002ec0627 105601
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9f08afd8e344493ddf44fc30ab1be9e3af343a8a",
+  "prompts": {},
+  "sessions": {
+    "s_264b01c1b2cb2e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a18686-0ac0-7fa0-ab10-971e9c1a4c23",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_e765c726ab3a59": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1af94-d4d8-70a0-a45b-429fc9427325",
+        "model": "unknown"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
