@@ -1,0 +1,246 @@
+packages/react/src/components/menu-item/menu-item.tsx
+  s_264b01c1b2cb2e::t_bde22a93b3310d 6,160-204,207-209
+packages/glass/src/panel-backdrop.ts
+  s_264b01c1b2cb2e::t_4f6fe79204d547 1-97
+packages/glass/src/motion/glass-motion.ts
+  s_264b01c1b2cb2e::t_ffa44bc228b8bd 1-149
+packages/glass/src/refraction.ts
+  s_264b01c1b2cb2e::t_483259c7eeb892 1-1118
+packages/react/src/utils/sync-theme-portal.ts
+  s_264b01c1b2cb2e::t_5a848ac710131f 1-38
+packages/glass/README.md
+  s_264b01c1b2cb2e::t_6a99fbafe0eaef 1-2,20-21,27-29,52-54
+  s_264b01c1b2cb2e::t_14dbfd689b6ea6 3-19,22-26,30-51,55-62
+apps/docs/package.json
+  s_264b01c1b2cb2e::t_c89428d2ffec19 37
+packages/styles/src/components/glass-button/glass-button.styles.ts
+  s_264b01c1b2cb2e::t_ae49cf4b557a7e 1-135
+packages/glass/src/motion/spring.ts
+  s_264b01c1b2cb2e::t_caf009228b6818 1-115
+apps/docs/src/lib/menu-backdrop/vector-paint.d.ts
+  s_264b01c1b2cb2e::t_5aa5ed8995dad2 1-10
+packages/styles/tsdown.config.ts
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 16-18
+packages/glass/src/motion/velocity-deformation.ts
+  s_264b01c1b2cb2e::t_2456b444cb65c2 1-34
+packages/react/scripts/copy-notices.mjs
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 12-15
+  s_264b01c1b2cb2e::t_c89428d2ffec19 11
+packages/glass/src/canvas.ts
+  s_264b01c1b2cb2e::t_2d186f7772993d 1-100
+packages/styles/src/components/glass/index.ts
+  s_264b01c1b2cb2e::t_e1c2018815c311 1
+packages/testing/scripts/installed-consumer.ts
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 38-40
+  s_264b01c1b2cb2e::t_c89428d2ffec19 24,31
+packages/glass/tsconfig.build.json
+  s_264b01c1b2cb2e::t_221bcc798c7628 1-10
+packages/react/src/utils/interaction/menu-exit-scroll.ts
+  s_264b01c1b2cb2e::t_d1f801fc014714 1-77
+packages/glass/src/react/elastic.ts
+  s_264b01c1b2cb2e::t_ce40a7c21e285e 1-39
+packages/glass/src/gpu-optics.ts
+  s_264b01c1b2cb2e::t_db258589810d18 1-388
+packages/styles/src/components/menu-item/menu-item.styles.ts
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 1
+packages/glass/src/backdrop-scheduler.ts
+  s_264b01c1b2cb2e::t_c1104d93b32e0b 1-360
+packages/styles/src/materials/knob.styles.ts
+  s_264b01c1b2cb2e::t_561bad4e51bb29 1-94
+scripts/legal-attribution.ts
+  s_264b01c1b2cb2e::t_b0f81959aa166b 11,19,47-49,62
+  s_264b01c1b2cb2e::t_6a99fbafe0eaef 8,16
+packages/react/src/components/menu/menu.tsx
+  s_264b01c1b2cb2e::t_779850a2ec4584 100,106,261,275,283
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 5-12,16,18-30,36-54,56-87,89,93-95,99,101-105,107-128,133-134,137-150,155-156,160-178,182-183,185-223,225-229,234-236,240-260,267-274,276-282,284,293-294,298-326,331,334-368,422-423,427-444,449-450,454-541,545-547,638-639
+  s_264b01c1b2cb2e::t_80bfaa23a281c9 55
+apps/docs/src/components/native-api-reference.tsx
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 228,241
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 229-240
+  s_264b01c1b2cb2e::t_6d0110a92d130a 209-210,216-227,242-249
+packages/glass/src/backdrop-paints.ts
+  s_264b01c1b2cb2e::t_b54f9b27029591 1-287
+packages/glass/src/preparation-budget.ts
+  s_264b01c1b2cb2e::t_1c63d366decc8c 1-23
+packages/react/src/utils/interaction/menu-placement.ts
+  s_264b01c1b2cb2e::t_51d8b5b4e78712 1-32
+packages/react/src/utils/theme-scope.tsx
+  s_264b01c1b2cb2e::t_20ff3540c7275d 7,12-21,24-28,31-43,45-49,68,74-83,86-96,100-134
+packages/react/src/utils/interaction/submenu.ts
+  s_264b01c1b2cb2e::t_75106b93a1d676 1-190
+third-party/glass/NOTICE.md
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 224
+  s_264b01c1b2cb2e::t_c89428d2ffec19 1-223,225-570
+packages/react/src/utils/interaction/menu.ts
+  s_264b01c1b2cb2e::t_3f1a9cca458011 1-317
+packages/react/src/utils/interaction/menu-feedback.ts
+  s_264b01c1b2cb2e::t_80bfaa23a281c9 1-96,98-108,110-204
+  s_264b01c1b2cb2e::t_079c6591281bb7 109
+  s_264b01c1b2cb2e::t_47439cfa28ee25 97
+packages/styles/themes/default/material-versions.css
+  s_264b01c1b2cb2e::t_66d6b1ed3158de 1-72
+packages/glass/src/fusion.ts
+  s_264b01c1b2cb2e::t_d8c4ac68527ba6 1-376
+packages/styles/src/components/menu-section/menu-section.styles.ts
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 1
+packages/glass/tsdown.config.ts
+  s_264b01c1b2cb2e::t_c89428d2ffec19 1-17
+apps/docs/src/demos/en/menu/default.tsx
+  s_264b01c1b2cb2e::t_6a99fbafe0eaef 3,23,64
+  s_264b01c1b2cb2e::t_0b20c4b4f040d8 16
+  s_264b01c1b2cb2e::t_80bfaa23a281c9 15
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 2,4-9,11-12,14,17-22,24-63,65-91
+apps/docs/src/demos/cn/menu/default.tsx
+  s_264b01c1b2cb2e::t_6a99fbafe0eaef 3,23,63
+  s_264b01c1b2cb2e::t_80bfaa23a281c9 15
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 2,4-9,11-12,14,17-22,24-62,64-90
+  s_264b01c1b2cb2e::t_0b20c4b4f040d8 16
+packages/glass/src/motion/index.ts
+  s_264b01c1b2cb2e::t_1ba5d4a0862999 1-8
+packages/glass/src/react/ref.ts
+  s_264b01c1b2cb2e::t_c0867ea50be156 1-15
+packages/styles/themes/default/glass-colors.css
+  s_264b01c1b2cb2e::t_eab3be0ac4d504 18,44,73,98,128,159,186,213,243,272,297,322,351,380,405,430,460,489,514,539,570,599,624,649,684
+  s_264b01c1b2cb2e::t_c3f704debea41e 1-17,19-43,45-72,74-97,99-127,129-158,160-185,187-212,214-242,244-271,273-296,298-321,323-350,352-379,381-404,406-429,431-459,461-488,490-513,515-538,540-569,571-598,600-623,625-648,650-683,685-698
+packages/glass/scripts/copy-notices.ts
+  s_264b01c1b2cb2e::t_c89428d2ffec19 1-17
+packages/react/src/utils/menu-presentation.tsx
+  s_264b01c1b2cb2e::t_779850a2ec4584 1-68
+packages/glass/src/react/refraction.ts
+  s_264b01c1b2cb2e::t_a71068eed30c0d 1-80
+packages/glass/src/gpu-pipeline.ts
+  s_264b01c1b2cb2e::t_085a0c9e716bc2 1-58
+packages/glass/src/fusion-geometry.ts
+  s_264b01c1b2cb2e::t_f50852dbcd680e 1-180
+packages/react/package.json
+  s_264b01c1b2cb2e::t_6a99fbafe0eaef 5
+  s_264b01c1b2cb2e::t_c89428d2ffec19 48,50
+packages/styles/src/optical.stylex.const.ts
+  s_264b01c1b2cb2e::t_d58eabc742da98 1-7
+packages/glass/src/gpu-capture.ts
+  s_264b01c1b2cb2e::t_98690b337dad1b 1-542
+THIRD_PARTY_NOTICES.md
+  s_264b01c1b2cb2e::t_c89428d2ffec19 38-41
+packages/glass/src/motion/press.ts
+  s_264b01c1b2cb2e::t_2124d2a2f77491 1-138
+packages/styles/src/materials/material.styles.ts
+  s_264b01c1b2cb2e::t_dba234d46c1b3d 1-351
+packages/styles/scripts/copy-css.mjs
+  s_264b01c1b2cb2e::t_c89428d2ffec19 35
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 36-39
+packages/glass/src/preferences.ts
+  s_264b01c1b2cb2e::t_e9ffc60cc466dc 1-103
+packages/styles/themes/default/index.css
+  s_264b01c1b2cb2e::t_04f9dca0cce77e 3
+  s_264b01c1b2cb2e::t_c89428d2ffec19 4-6
+packages/styles/package.json
+  s_264b01c1b2cb2e::t_c89428d2ffec19 21-24
+  s_264b01c1b2cb2e::t_6a99fbafe0eaef 5
+packages/react/src/components/menu-section/menu-section.tsx
+  s_264b01c1b2cb2e::t_6bcef7b1192874 6
+packages/styles/src/components/glass-container/glass-container.styles.ts
+  s_264b01c1b2cb2e::t_70ca01a75a16ab 1-41
+packages/styles/src/components/menu/menu.styles.ts
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 1,10-13,15-21,23,25-34,36-73,76-119,121-135,139-298
+  s_264b01c1b2cb2e::t_6a99fbafe0eaef 9,120
+packages/glass/src/initial-visibility.ts
+  s_264b01c1b2cb2e::t_a64b4fb5bd8af3 1-44
+packages/glass/src/index.ts
+  s_264b01c1b2cb2e::t_edc87425ea4575 1-16
+apps/docs/src/lib/menu-backdrop/vector-paint.js
+  s_264b01c1b2cb2e::t_5aa5ed8995dad2 1-579
+packages/glass/package.json
+  s_264b01c1b2cb2e::t_c89428d2ffec19 1-59
+pnpm-lock.yaml
+  s_264b01c1b2cb2e::t_b7847776264a00 292-294,529-559,624-626,630-632,2939-2941,6872-6873
+packages/glass/src/backdrop-perimeter.ts
+  s_264b01c1b2cb2e::t_8c3019df007404 1-245
+packages/react/src/utils/materials/render.tsx
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 1-5,11-98
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 6-10
+packages/glass/src/gpu-blur.ts
+  s_264b01c1b2cb2e::t_3dde94eac5508d 1-230
+packages/styles/src/components/menu/index.ts
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 1
+packages/styles/themes/default/materials.css
+  s_264b01c1b2cb2e::t_57ef7e586ad71b 1-136
+packages/glass/src/apple-material.ts
+  s_264b01c1b2cb2e::t_bbdccaa3019cd7 1-442
+packages/styles/src/materials/index.ts
+  s_264b01c1b2cb2e::t_dfbb67706bf0c2 1-20
+packages/react/tsdown.config.ts
+  s_264b01c1b2cb2e::t_c89428d2ffec19 27-28
+apps/docs/src/components/component-preview.tsx
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 58,64,66,68,80
+  s_264b01c1b2cb2e::t_a058b2e2d1930e 7,117,129,140-141
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 118-128,130-131,143-146
+  s_264b01c1b2cb2e::t_eab3be0ac4d504 71,77-79,151-167
+packages/glass/src/react/index.ts
+  s_264b01c1b2cb2e::t_f2183f64661a84 1-13
+packages/styles/src/components/glass/glass.styles.ts
+  s_264b01c1b2cb2e::t_b9a680f21ce9d7 1-67
+scripts/legal-attribution.test.ts
+  s_264b01c1b2cb2e::t_b0f81959aa166b 28-33
+packages/glass/src/backdrop.ts
+  s_264b01c1b2cb2e::t_4f32ca519111ad 1-408
+packages/styles/src/components/glass-container/index.ts
+  s_264b01c1b2cb2e::t_2d64d6da2bd449 1
+packages/react/src/utils/interaction/submenu-cascade.ts
+  s_264b01c1b2cb2e::t_67c7fa0b195144 1-81
+apps/docs/src/styles/api-reference.stylex.ts
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 4-5
+packages/glass/src/react/fusion.ts
+  s_264b01c1b2cb2e::t_a6445feb85e0f7 1-8
+apps/docs/src/lib/menu-backdrop/source.ts
+  s_264b01c1b2cb2e::t_5aa5ed8995dad2 1-97
+packages/styles/themes/default/glass.css
+  s_264b01c1b2cb2e::t_6b85e3a90d407d 1-87
+packages/glass/src/fusion-contour.ts
+  s_264b01c1b2cb2e::t_0a6fac477565e3 1-76
+packages/glass/tsconfig.json
+  s_264b01c1b2cb2e::t_c89428d2ffec19 1-3,5,7
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 4,6
+packages/react/src/utils/interaction/ref.ts
+  s_264b01c1b2cb2e::t_53f288f75d9e4b 1-15
+packages/glass/src/control-lens.ts
+  s_264b01c1b2cb2e::t_c92e9d690aab53 1-1097
+packages/glass/src/backdrop-snapshot.ts
+  s_264b01c1b2cb2e::t_f10df7021825b1 1-260
+packages/styles/src/components/glass-button/index.ts
+  s_264b01c1b2cb2e::t_cce1288eecb17b 1
+packages/glass/src/fusion-optics.ts
+  s_264b01c1b2cb2e::t_ebd167b653754c 1-536
+apps/docs/src/components/menu-backdrop-preview.tsx
+  s_264b01c1b2cb2e::t_a058b2e2d1930e 2-4,18-52,62-69
+  s_264b01c1b2cb2e::t_4a558cbd9587ee 1,5-8,70
+  s_264b01c1b2cb2e::t_afd7f87af0fb04 53-61
+  s_264b01c1b2cb2e::t_b0e020c22d55e5 9-17
+packages/glass/src/gpu-backdrop.ts
+  s_264b01c1b2cb2e::t_19e7a196a3dd0e 1-540
+apps/docs/src/generated/api-reference.json
+  s_264b01c1b2cb2e::t_2493125260ffe6 59870-59887,60278-60421,96833-96835,96845,96850,96852,96862,96867,96877,96883,96885,96890,96904-96905,96910,96912,96926,96940-96941,96946,96948,96966,96970,96980,96988,96995,97009,97017,97029,97043,97051,97061,97075,97081,97083,97094-97165,97175,97179-97180,97187,97196,97213,97222,97227,97241,97249,97258,97273,97280,97285,97299,97307,97322,97326,97336,97344,97351,97356,97368,97375,97379,97383-97385,97394-97395,97425,97446,97456,97460-97461,97479-97480,97489,97494,97512,97522,97526-97527,97541,97546-97558,97577,97593-97594,97613,97629-97630,97729-97824,97831,97836-97838,97855,97865,97869-97870,97889,97893,97903,97919,97933,97949,97953,97963,97980,97984,97997,98009,98026,98038,98055,98067,98084,98117,98121,98134,98146,98150,98163,98182,98213,98272,98340,98562,98594-98595,98609-98610,98639,98653,98682,98686,98699,98730,98735,98745,98774,98779,98789,98826-98827,98841-98842,98861,98866-98878,98893,98898-98910,98942,99004,99207,99226,99242,99257,99270,99284-99285,99305,99319-99320,99344,99358,99371,99385,99398,99414,99427,99442,99459,99473,99493,99507,99530,99534,99544,99572,99594,99598,99611,99630,99647,99666,99683,99702,99719,99738,99742,99755,99774,99778,99791,99814,99818,99831,99850-99851,99854-99866,99897-99898,99901-99913,99944-99945,99948-99960,99991,100008,100027,100031,100044,100072,100089,100113,100130,100188,100213,100230,100257,100272,100298,100313,100350-100351,100355-100357,100690,100770-100771,100775-100777,100813,100845,100873,100888,100942,100959,100983,101063,101078,101116-101117,101129-101130,101156,101161,101173,101190,101194,101207,101221,101238,101250,101267,101286,101303,101323,101327,101340,101352,101369,101387,101392,101404,101416,101433,101450,101454,101467,101488,101505,101517,101534,101546,101563,101579,101596,101615,101632,101644,101661,101673,101690,101707,101724,101742,101759,101773,101790,101823,101852,101896,101911-101912,101941,101956-101957,101986,102000,102297,102302-102314,102343,102357,102386,102400,102429,102443,102472-102473,102476-102477,102479,102487,102530,102547,102559,102576,102609,102638,102666-102667,102683,102707-102708,102724,102806,102823,102883,102913,102943,102974,103067-103068,103073-103085,103097,103102-103114,103126,103131-103143,103163,103168-103180,103192,103197-103209,103228,103233-103245,103262-103274,103293-103305,103334,103402,103407-103419,103430,103474,103499,103513-103514,103562,103576,103600,103615,103638,103655,103678,103692,103743,103757-103758,103780,103813,103845-103857,103876,103903,103939,103979,103997-103998,104019,104037-104038,104063,104080,104101,104118,104167,104172-104173,104338,104343-104344,104373,104387-104388,104400,104414,104429,104443-104444,104461,104475,104490,104504,104521,104537,104552,104567,104581,104596,104625,104643,104657-104658,104676,104690,104702,104741,104755-104756,104780,104797-104798,104818,104835-104836,104861,104876,104897,104912,104964,104969-104981,104998,105012,105030,105044-105045,105063,105078,105094,105108,105126,105140-105141,105160,105170,105183,105198,105210,105224-105225,105245,105259-105260,105284,105298,105323,105337,105360,105364,105374,105399,105417,105434,105449,105466,105481,105498,105513,105530,105577,105594,105601-105602
+apps/docs/src/lib/menu-backdrop/paint-fonts.js
+  s_264b01c1b2cb2e::t_e92466bdc94540 1-52
+packages/glass/src/react/backdrop-source.ts
+  s_264b01c1b2cb2e::t_e6c1b83896d8f3 1-7
+package.json
+  s_264b01c1b2cb2e::t_c89428d2ffec19 8
+packages/glass/src/press-highlight.ts
+  s_264b01c1b2cb2e::t_b5ec5be0e9600e 1-164
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ee11c8bea32776904da5341a0f205705a6971c43",
+  "prompts": {},
+  "sessions": {
+    "s_264b01c1b2cb2e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a18686-0ac0-7fa0-ab10-971e9c1a4c23",
+        "model": "gpt-6-astra"
+      },
+      "human_author": null
+    }
+  }
+}
