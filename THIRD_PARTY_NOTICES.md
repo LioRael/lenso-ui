@@ -35,3 +35,7 @@ The documentation site's bundled Inter fonts retain the SIL Open Font License
 and original copyright in
 [apps/docs/public/fonts/Inter-Variable-OFL.txt](apps/docs/public/fonts/Inter-Variable-OFL.txt).
 The UI, tokens and StyleX build packages do not bundle these font files.
+
+Glass optics and component feedback retain Kelvin Zhang’s MIT notice. The
+WebKit-derived filter backend retains LGPL-2.0-or-later. The complete terms,
+source provenance and modifications are in [the Glass notices](third-party/glass/NOTICE.md).

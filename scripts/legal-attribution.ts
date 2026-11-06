@@ -5,14 +5,14 @@ export const legalPackages = [
   {
     directory: "react",
     name: "@lenso/ui",
-    license: "Apache-2.0",
+    license: "(Apache-2.0 AND MIT)",
     text: "dist/HEROUI-LICENSE.txt",
     notice: "dist/HEROUI-NOTICE.md",
   },
   {
     directory: "styles",
     name: "@lenso/tokens",
-    license: "Apache-2.0",
+    license: "(Apache-2.0 AND MIT)",
     text: "dist/third-party/heroui/LICENSE.txt",
     notice: "dist/third-party/heroui/NOTICE.md",
   },
@@ -42,7 +42,8 @@ export async function validateLegalPackage(root: URL, entry: (typeof legalPackag
     "Full original license must ship unchanged",
   );
   assert.match(notice, /Modified by Lenso contributors:/);
-  if (entry.license === "Apache-2.0") {
+  if (entry.directory === "react" || entry.directory === "styles") {
+    assert.match(await get("dist/GLASS-NOTICE.md"), /Copyright \(c\) 2026 Kelvin Zhang/);
     assert.match(license, /Copyright 2025 NextUI Inc\./);
     assert.match(notice, /e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e/);
     assert.match(notice, /authored by Lenso/);

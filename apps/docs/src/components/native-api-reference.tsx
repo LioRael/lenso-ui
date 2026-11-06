@@ -206,22 +206,47 @@ export function NativeApiReference({ family, locale = "en" }: { family: string; 
         <section aria-labelledby={`api-${family}-inherited`}>
           <h3 id={`api-${family}-inherited`}>{text.sharedCommon}</h3>
           <p>{text.sharedIntro}</p>
-          {inheritedGroups.map((group) => (
-            <details key={group.id}>
-              <summary id={inheritedId(group.id)}>
-                {text.commonGroup} {group.id} ({group.rows.length})
-              </summary>
-              <p>
-                {text.appliesTo}:{" "}
-                <code {...stylex.props(styles.code)}>{group.parts.join(", ")}</code>
-              </p>
+          {inheritedGroups.map((group) => {
+            const table = (
               <PropertyTable
                 rows={group.rows}
                 locale={locale}
                 label={`${text.commonGroup} ${group.id}: ${text.common}`}
               />
-            </details>
-          ))}
+            );
+            return (
+              <details key={group.id}>
+                <summary id={inheritedId(group.id)}>
+                  {text.commonGroup} {group.id} ({group.rows.length})
+                </summary>
+                <p>
+                  {text.appliesTo}:{" "}
+                  <code {...stylex.props(styles.code)}>{group.parts.join(", ")}</code>
+                </p>
+                {family === "menu" ? (
+                  <>
+                    <span aria-hidden="true" {...stylex.props(styles.closedIndex)}>
+                      {group.rows
+                        .map((row) =>
+                          [
+                            row.name,
+                            row.expandedType,
+                            row.required ? text.yes : text.no,
+                            row.default ?? text.unknown,
+                            row.description,
+                            `${row.source.path}:${row.source.line}`,
+                          ].join("\n"),
+                        )
+                        .join("\n")}
+                    </span>
+                    <div {...stylex.props(styles.inheritedTable)}>{table}</div>
+                  </>
+                ) : (
+                  table
+                )}
+              </details>
+            );
+          })}
         </section>
       )}
       <p>

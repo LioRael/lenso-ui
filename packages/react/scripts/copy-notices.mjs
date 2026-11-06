@@ -8,3 +8,8 @@ await Promise.all(
     ),
   ),
 );
+
+await copyFile(
+  new URL("../../../third-party/glass/NOTICE.md", import.meta.url),
+  new URL("../dist/GLASS-NOTICE.md", import.meta.url),
+);

@@ -13,10 +13,9 @@ const components = existsSync(componentRoot)
 
 export default defineConfig({
   entry: Object.fromEntries(
-    ["src/index.ts", "src/tokens.stylex.const.ts", ...components].map((source) => [
-      source.replace(/^src\//, "").replace(/\.ts$/, ""),
-      source,
-    ]),
+    ["src/index.ts", "src/tokens.stylex.const.ts", "src/materials/index.ts", ...components].map(
+      (source) => [source.replace(/^src\//, "").replace(/\.ts$/, ""), source],
+    ),
   ),
   outDir: "dist",
   format: "esm",

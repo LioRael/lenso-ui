@@ -21,21 +21,23 @@ const version = (name: string): string =>
   (require(`${name}/package.json`) as { version: string }).version;
 
 try {
-  for (const name of ["styles", "react", "stylex-build"]) {
+  for (const name of ["styles", "glass", "react", "stylex-build"]) {
     // Pack existing build outputs; no package builds or workspace dependency links.
     await run("pnpm", ["pack", "--pack-destination", directory, "--ignore-scripts"], {
       cwd: resolve(workspace, "packages", name),
     });
   }
   const tarballs = (await readdir(directory)).filter((name) => name.endsWith(".tgz"));
-  assert.equal(tarballs.length, 3);
+  assert.equal(tarballs.length, 4);
   const packages = Object.fromEntries(
     tarballs.map((file) => {
       const name = file.startsWith("lenso-ui-")
         ? "@lenso/ui"
         : file.startsWith("lenso-tokens-")
           ? "@lenso/tokens"
-          : "@lenso/stylex-build";
+          : file.startsWith("lenso-glass-")
+            ? "@lenso/glass"
+            : "@lenso/stylex-build";
       return [name, `file:./${file}`];
     }),
   );

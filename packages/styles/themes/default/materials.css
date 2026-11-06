@@ -1,0 +1,136 @@
+@layer base {
+  :root,
+  :host,
+  .light,
+  .default,
+  [data-theme="light"],
+  [data-theme="default"] {
+    /* Menus page variable bindings, resolved from the iOS 27 export. */
+    --lenso-menu-primary: #1a1a1a;
+    --lenso-menu-secondary: #727272;
+    --lenso-menu-tertiary: #bfbfbf;
+    --lenso-menu-quaternary: #d9d9d9;
+    --lenso-menu-separator: #e6e6e6;
+    /* #ededed Multiply = black at 18/255 alpha, without a blend backdrop. */
+    --lenso-menu-highlight: rgb(0 0 0 / calc(18 / 255));
+    --lenso-menu-blend: multiply;
+    --lenso-material-upper-blend: normal;
+    /* The preceding white fill makes every channel positive. White Color Dodge
+       then equals white source-over, without WebKit's partial-alpha Dodge bug. */
+    --lenso-material-base-lower-blend: normal;
+    --lenso-material-dense-blend: plus-lighter;
+    --lenso-material-ultrathin-upper: rgb(255 255 255 / 0.07);
+    --lenso-material-ultrathin-lower: rgb(255 255 255 / 0.03);
+    --lenso-material-thin-upper: rgb(255 255 255 / 0.05);
+    --lenso-material-thin-lower: rgb(255 255 255 / 0.4);
+    --lenso-material-regular-upper: rgb(255 255 255 / 0.25);
+    --lenso-material-regular-lower: rgb(255 255 255 / 0.6);
+    --lenso-material-thick-upper: rgb(255 255 255 / 0.34);
+    --lenso-material-thick-lower: rgb(255 255 255 / 0.84);
+    --lenso-material-chrome-upper: rgb(255 255 255 / 0.75);
+    --lenso-material-chrome-lower: transparent;
+    --lenso-material-chrome-upper-blend: hard-light;
+    --lenso-material-chrome-blur: 25px;
+    --lenso-material-edge-hard: rgb(255 255 255 / 0.85);
+    --lenso-panel-paint-1: rgb(255 255 255 / 0.7);
+    --lenso-panel-blend-1: lighten;
+    --lenso-panel-paint-2: rgb(191 191 191 / 0.1);
+    --lenso-panel-blend-2: darken;
+    --lenso-panel-paint-3: transparent;
+    --lenso-panel-blend-3: normal;
+    --lenso-clear-paint-1: rgb(255 255 255 / 0.04);
+    --lenso-clear-paint-2: #101010;
+    --lenso-material-panel-fill: rgb(255 255 255 / 0.7);
+    --lenso-material-panel-shadow: 0 8px 48px rgb(0 0 0 / 0.25), 0 0 0 0.5px rgb(0 0 0 / 0.141);
+  }
+  .dark,
+  [data-theme="dark"],
+  :host(.dark),
+  :host([data-theme="dark"]) {
+    --lenso-material-upper-blend: normal;
+    --lenso-material-base-lower-blend: normal;
+    --lenso-material-dense-blend: normal;
+    --lenso-material-ultrathin-upper: rgb(0 0 0 / 0.02);
+    --lenso-material-ultrathin-lower: transparent;
+    --lenso-material-thin-upper: rgb(0 0 0 / 0.26);
+    --lenso-material-thin-lower: transparent;
+    --lenso-material-regular-upper: rgb(0 0 0 / 0.41);
+    --lenso-material-regular-lower: transparent;
+    --lenso-material-thick-upper: rgb(0 0 0 / 0.6);
+    --lenso-material-thick-lower: transparent;
+    --lenso-material-chrome-upper: rgb(28 28 28 / 0.9);
+    --lenso-material-chrome-lower: #7c7c7c;
+    --lenso-material-chrome-upper-blend: normal;
+    --lenso-material-chrome-blur: 50px;
+    --lenso-material-edge-hard: rgb(0 0 0 / 0.55);
+    --lenso-panel-paint-1: rgb(26 26 26 / 0.7);
+    --lenso-panel-blend-1: luminosity;
+    --lenso-panel-paint-2: rgb(26 26 26 / 0.9);
+    --lenso-panel-blend-2: luminosity;
+    --lenso-panel-paint-3: #1a1a1a;
+    --lenso-panel-blend-3: lighten;
+    --lenso-material-panel-fill: rgb(26 26 26 / 0.97);
+    --lenso-material-panel-shadow: 0 8px 48px rgb(0 0 0 / 0.45);
+  }
+}
+@layer base {
+  :root,
+  :host,
+  .light,
+  .default,
+  [data-theme="light"],
+  [data-theme="default"] {
+    --lenso-vibrant-label-lower-blend: overlay;
+    --lenso-vibrant-primary-blend: normal;
+    --lenso-vibrant-primary: #000;
+    --lenso-vibrant-secondary: #3d3d3d;
+    --lenso-vibrant-tertiary: rgb(61 61 61 / 0.5);
+    --lenso-vibrant-quaternary: rgb(61 61 61 / 0.5);
+    --lenso-vibrant-secondary-upper: rgb(127 127 127 / 0.5);
+    --lenso-vibrant-tertiary-upper: rgb(127 127 127 / 0.4);
+    --lenso-vibrant-quaternary-upper: rgb(127 127 127 / 0.2);
+    --lenso-vibrant-fill-blend: multiply;
+    --lenso-vibrant-fill-primary: #ccc;
+    --lenso-vibrant-fill-secondary: #e0e0e0;
+    --lenso-vibrant-fill-tertiary: #ededed;
+    --lenso-vibrant-separator: rgb(0 0 0 / 0.12);
+  }
+  @supports (mix-blend-mode: plus-darker) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"] {
+      --lenso-vibrant-fill-blend: plus-darker;
+      --lenso-menu-blend: plus-darker;
+    }
+  }
+  .dark,
+  [data-theme="dark"],
+  :host(.dark),
+  :host([data-theme="dark"]) {
+    --lenso-menu-primary: #f5f5f5;
+    --lenso-menu-secondary: #8a8a8a;
+    --lenso-menu-tertiary: #404040;
+    --lenso-menu-quaternary: #262626;
+    --lenso-menu-separator: #1a1a1a;
+    /* Source #121212: bounded alpha adaptation of additive highlighting. */
+    --lenso-menu-highlight: rgb(255 255 255 / calc(18 / 255));
+    --lenso-menu-blend: plus-lighter;
+    --lenso-vibrant-label-lower-blend: plus-lighter;
+    --lenso-vibrant-primary-blend: plus-lighter;
+    --lenso-vibrant-primary: #fff;
+    --lenso-vibrant-secondary: #999;
+    --lenso-vibrant-tertiary: rgb(25% 25% 25%);
+    --lenso-vibrant-quaternary: rgb(15% 15% 15%);
+    --lenso-vibrant-secondary-upper: transparent;
+    --lenso-vibrant-tertiary-upper: transparent;
+    --lenso-vibrant-quaternary-upper: transparent;
+    --lenso-vibrant-fill-blend: plus-lighter;
+    --lenso-vibrant-fill-primary: #333;
+    --lenso-vibrant-fill-secondary: #1f1f1f;
+    --lenso-vibrant-fill-tertiary: #121212;
+    --lenso-vibrant-separator: rgb(255 255 255 / 0.17);
+  }
+}

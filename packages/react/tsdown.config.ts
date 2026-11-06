@@ -24,6 +24,8 @@ export default defineConfig({
     neverBundle: [
       "@base-ui/react",
       "@lenso/tokens",
+      "@lenso/glass",
+      "@base-ui/utils",
       "react",
       "react-dom",
       "react-aria",

@@ -1,0 +1,72 @@
+/* iOS 26 kit: lXlBV698BVKCVBA2d8iZdp, Materials 215:105157.
+ * Frost / 2 is a Web blur mapping. No native GLASS pixel parity is claimed.
+ * Dark edges/shadow adapted, Copyright (c) 2026 Kelvin Zhang, MIT. */
+@layer base {
+  [data-material-version="ios27"] {
+    --lenso-material-version: ios27;
+    --lenso-glass-depth: initial;
+    --lenso-glass-refraction: initial;
+    --lenso-glass-dispersion: initial;
+    --lenso-glass-angle: initial;
+    --lenso-glass-splay: initial;
+    --lenso-glass-small-blur: initial;
+    --lenso-glass-medium-blur: initial;
+    --lenso-glass-large-blur: initial;
+    --lenso-glass-clear-blur: initial;
+    --lenso-glass-small-light: initial;
+    --lenso-glass-panel-light: initial;
+    --lenso-glass-clear-light: initial;
+    --lenso-glass-clear-refraction: initial;
+    --lenso-glass-shadow: initial;
+    --lenso-glass-panel-shadow: initial;
+    --lenso-glass-clear-shadow: initial;
+    --lenso-glass-small-fill: initial;
+    --lenso-glass-small-blend: initial;
+    --lenso-glass-medium-fill: initial;
+    --lenso-glass-large-fill: initial;
+    --lenso-glass-clear-fill: initial;
+    --lenso-glass-contour: initial;
+  }
+  [data-material-version="ios26"] {
+    --lenso-material-version: ios26;
+    --lenso-glass26-light-dodge: rgb(15% 15% 15%);
+    --lenso-glass26-light-medium: rgb(245 245 245 / 0.6);
+    --lenso-glass26-light-large: rgb(250 250 250 / 0.7);
+    --lenso-glass26-clear: rgb(255 255 255 / 0.07);
+    --lenso-glass26-dark-burn: #ccc;
+    --lenso-glass26-dark-group-opacity: 0.67;
+    --lenso-glass26-dark-white-opacity: 0.06;
+    --lenso-glass26-dark-medium-opacity: 0.6;
+    --lenso-glass26-dark-large-opacity: 0.8;
+    --lenso-glass-depth: 16;
+    --lenso-glass-refraction: 1;
+    --lenso-glass-dispersion: 0;
+    --lenso-glass-angle: 315;
+    --lenso-glass-splay: 0.06;
+    --lenso-glass-small-blur: 3.5px;
+    --lenso-glass-medium-blur: 6px;
+    --lenso-glass-large-blur: 7px;
+    --lenso-glass-clear-blur: 2.5px;
+    --lenso-glass-small-light: 0.8;
+    --lenso-glass-panel-light: 0.6;
+    --lenso-glass-clear-light: 0.5;
+    --lenso-glass-clear-refraction: 0.8;
+    /* Dark edges; retain the kit's cast-shadow offset and Light recipe. */
+    --lenso-glass-shadow:
+      inset 0 0 0 0.5px light-dark(transparent, rgb(255 255 255 / 0.08)),
+      0 8px 40px rgb(0 0 0 / 0.12);
+    --lenso-glass-panel-shadow:
+      inset 0 0 0 0.5px light-dark(transparent, rgb(255 255 255 / 0.13)),
+      0 8px 40px light-dark(rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.38));
+    --lenso-glass-clear-shadow:
+      inset 0 0 0 0.5px light-dark(transparent, rgb(255 255 255 / 0.08)),
+      0 8px 40px rgb(0 0 0 / 0.2);
+    /* Alpha-paint fallbacks when the renderer cannot sample a backdrop. */
+    --lenso-glass-small-fill: light-dark(rgb(255 255 255 / 0.65), rgb(0 0 0 / 0.4));
+    --lenso-glass-small-blend: normal;
+    --lenso-glass-medium-fill: light-dark(rgb(245 245 245 / 0.6), rgb(0 0 0 / 0.4));
+    --lenso-glass-large-fill: light-dark(rgb(250 250 250 / 0.7), rgb(0 0 0 / 0.54));
+    --lenso-glass-clear-fill: rgb(255 255 255 / 0.07);
+    --lenso-glass-contour: none;
+  }
+}

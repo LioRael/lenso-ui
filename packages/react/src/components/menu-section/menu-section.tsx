@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Menu as Base } from "@base-ui/react/menu";
-import { menuSectionStyles as s } from "@lenso/tokens/menu-section";
+import { menuSectionStyles as s } from "@lenso/tokens/menu";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 export function MenuSectionRoot({
   xstyle,
