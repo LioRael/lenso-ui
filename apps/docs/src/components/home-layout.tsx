@@ -7,6 +7,7 @@ import "@/styles/home-layout.css";
 import * as stylex from "@stylexjs/stylex";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import { Header } from "fumadocs-ui/layouts/home/slots/header";
+import { RepositoryControl } from "./docs-site-controls";
 import { DocsThemePicker } from "./docs-theme-picker";
 import { CompactSearchTrigger, SearchDialog } from "./fumadocs/ui/search-dialog";
 import { ThemeToggle } from "./fumadocs/ui/theme-toggle";
@@ -59,7 +60,6 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
             </div>
           ),
         }}
-        githubUrl={product.repository}
         themeSwitch={{ enabled: false }}
         searchToggle={{ enabled: false }}
         i18n={false}
@@ -76,6 +76,7 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
               <div {...stylex.props(s.desktopActions)}>
                 <CompactSearchTrigger />
                 <DocsThemePicker locale={locale} />
+                <RepositoryControl repository={product.repository} />
                 <ThemeToggle />
                 <LanguageToggle locale={locale} slug="" />
               </div>

@@ -1,4 +1,5 @@
 @import "@lenso/tokens/theme.css";
+@import "@lenso/docs/appearance.css";
 @import "./font.css";
 
 :root,

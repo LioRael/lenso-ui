@@ -1,3 +1,4 @@
+import { localExampleFiles } from "../src/lib/local-example-files.ts";
 import { mkdir, readFile, readdir, unlink, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
@@ -122,6 +123,7 @@ export async function generatePageDocuments(
   const pages = pageIds
     ? index.pages.filter((page) => pageIds.includes(`${page.locale}/${page.slug}`))
     : index.pages;
+  let storySources: Record<string, string> | undefined;
   const previews = new Map<string, string[]>();
   const pageComponents = new Map<string, string[]>();
   for (const page of pages) {
@@ -192,6 +194,16 @@ export async function generatePageDocuments(
       );
       extensions.push("NativeApiReference");
     }
+    for (const [tag, module] of [
+      ["MaterialsPreview", "materials-preview"],
+      ["SemanticColorExamples", "semantic-color-examples"],
+    ] as const) {
+      if (!tags.has(tag)) continue;
+      imports.push(
+        `import { ${tag} } from ${JSON.stringify(relativeImport(server, "src/components/" + module))};`,
+      );
+      extensions.push(`${tag}: () => <${tag} chinese={${page.locale === "cn"}} />`);
+    }
     const identities = new Map<string, number>();
     const wrappers: string[] = [];
     const entries: string[] = [];
@@ -228,14 +240,43 @@ export async function generatePageDocuments(
       }
       entries.push(`${JSON.stringify(name)}: Demo${id}`);
     }
-    const refs = [...identities.values()].map((id) => `Demo${id}`).join(", ");
-    if (wrappers.length)
+    let storyWrapper = "";
+    if (tags.has("ComponentPlayground")) {
+      const family = nativeApiFamily(page.slug);
+      if (!family || !/^[a-z][a-z0-9-]*$/.test(family))
+        throw new Error(`Invalid playground on ${page.slug}`);
+      const storiesPath = path.join(directory, "src/stories/story-sources.json");
+      storySources ??= JSON.parse(await readFile(storiesPath, "utf8"));
+      const entry = storySources![family];
+      const files = entry ? await localExampleFiles(entry, directory) : [];
+      const module = client.replace(/\.client\.tsx$/, ".sources.tsx");
+      outputs.set(module, `export const files = ${JSON.stringify(files)};\n`);
+      storyWrapper = `
+import { StoryLanguage, StoryLoading, type StoryFile } from ${JSON.stringify(relativeImport(client, "src/stories/story-panel"))};
+import { ComponentPlayground } from ${JSON.stringify(relativeImport(client, "src/components/component-playground"))};
+const StoryControl = dynamic(() => import(${JSON.stringify(relativeImport(client, `src/stories/${family}.story`))}).then(module => module.story.WithControl), {
+ ssr:false, loading:()=> <StoryLoading locale=${JSON.stringify(page.locale)} />
+});
+function StoryView({locale,files}: {locale:"en"|"cn";files?:StoryFile[]}) {
+  return <StoryLanguage locale={locale} files={files}><StoryControl /></StoryLanguage>;
+}
+const loadFiles = () => import(${JSON.stringify(relativeImport(client, module.slice(0, -4)))}).then(module=>module.files);
+export function PagePlayground(){return <ComponentPlayground family=${JSON.stringify(family)} locale=${JSON.stringify(page.locale)} Preview={StoryView} loadFiles={loadFiles} />;}
+`;
+      extensions.push("ComponentPlayground: PagePlayground");
+    }
+    const refs = [
+      ...[...identities.values()].map((id) => `Demo${id}`),
+      ...(storyWrapper ? ["PagePlayground"] : []),
+    ].join(", ");
+    if (wrappers.length || storyWrapper)
       outputs.set(
         client,
         `"use client";
 import dynamic from "next/dynamic";
-import { createElement, Fragment } from "react";
+${wrappers.length ? 'import { createElement, Fragment } from "react";' : ""}
 ${wrappers.join("\n")}
+${storyWrapper}
 `,
       );
     outputs.set(
@@ -289,7 +330,10 @@ export function getComponents(context: DocumentationCustomizationContext) { retu
     const affected =
       !pageIds ||
       pageIds.some(
-        (id) => relative === `${owned}/${id}.tsx` || relative === `${owned}/${id}.client.tsx`,
+        (id) =>
+          relative === `${owned}/${id}.tsx` ||
+          relative === `${owned}/${id}.client.tsx` ||
+          relative === `${owned}/${id}.sources.tsx`,
       );
     if (affected && file.endsWith(".tsx") && !outputs.has(relative))
       await unlink(path.join(directory, relative));

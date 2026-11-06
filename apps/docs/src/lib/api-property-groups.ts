@@ -1,14 +1,12 @@
 type Property = { name: string; source: { path: string } };
 type Part = { name: string; properties: readonly number[] };
 
-const inlineNativeProperties = new Set([
-  "disabled",
-  "onClick",
-  "style",
-  "render",
+export const commonApiProperties = new Set([
   "ref",
   "children",
   "id",
+  "style",
+  "onClick",
   "onKeyDown",
   "onKeyUp",
 ]);
@@ -16,7 +14,8 @@ const inlineNativeProperties = new Set([
 function isInherited(row: Property) {
   return (
     /(?:@types\/react|@react-types\/shared\/src\/dom)\//.test(row.source.path) &&
-    !inlineNativeProperties.has(row.name)
+    row.name !== "disabled" &&
+    !commonApiProperties.has(row.name)
   );
 }
 

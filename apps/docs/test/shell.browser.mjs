@@ -53,16 +53,16 @@ export async function checkDocumentationShell(page, base) {
   await page.goto(`${base}/en/docs/react/components/button`, { waitUntil: "networkidle" });
   const title = page.getByRole("heading", { name: "Button", level: 1, exact: true });
   await title.waitFor();
-  const theme = page.getByRole("group", { name: "Color theme", exact: true });
-  await theme.getByRole("button", { name: "Light theme", exact: true }).click();
+  const theme = page.getByRole("tablist", { name: "Color theme", exact: true });
+  await theme.getByRole("tab", { name: "Light theme", exact: true }).click();
   const light = await page
     .locator("body")
     .evaluate((element) => getComputedStyle(element).backgroundColor);
-  await theme.getByRole("button", { name: "Light theme", exact: true }).focus();
+  await theme.getByRole("tab", { name: "Light theme", exact: true }).focus();
   await page.keyboard.press("ArrowRight");
   assert.equal(
     await theme
-      .getByRole("button", { name: "Dark theme", exact: true })
+      .getByRole("tab", { name: "Dark theme", exact: true })
       .evaluate((element) => element === document.activeElement),
     true,
   );
@@ -84,7 +84,7 @@ export async function checkDocumentationShell(page, base) {
     .filter({ hasText: /^import$/ })
     .first();
   const darkToken = await importToken.evaluate((element) => getComputedStyle(element).color);
-  await theme.getByRole("button", { name: "Light theme", exact: true }).click();
+  await theme.getByRole("tab", { name: "Light theme", exact: true }).click();
   const lightToken = await importToken.evaluate((element) => getComputedStyle(element).color);
   assert.notEqual(
     lightToken,
@@ -94,11 +94,11 @@ export async function checkDocumentationShell(page, base) {
   await page.evaluate(() => {
     document.documentElement.dir = "rtl";
   });
-  await theme.getByRole("button", { name: "Light theme", exact: true }).focus();
+  await theme.getByRole("tab", { name: "Light theme", exact: true }).focus();
   await page.keyboard.press("ArrowLeft");
   assert.equal(
     await theme
-      .getByRole("button", { name: "Dark theme", exact: true })
+      .getByRole("tab", { name: "Dark theme", exact: true })
       .evaluate((element) => element === document.activeElement),
     true,
   );
@@ -124,24 +124,19 @@ export async function checkDocumentationShell(page, base) {
   assert.equal(await pane.evaluate((element) => element === document.activeElement), true);
 
   const search = page.getByRole("button", { name: "Search documentation", exact: true });
-  const searchBox = await search.boundingBox();
-  const shortcutBox = await search.locator("kbd").last().boundingBox();
-  assert.ok(
-    Math.abs(searchBox.x + searchBox.width - shortcutBox.x - shortcutBox.width) <= 16,
-    "The keyboard hint must remain right-aligned when local xstyle overrides built library styles.",
-  );
+  assert.equal(await search.getAttribute("aria-keyshortcuts"), "Meta+K Control+K");
   await search.focus();
   await page.keyboard.press("Enter");
   const dialog = page.getByRole("dialog", { name: "Search documentation", exact: true });
-  const input = dialog.getByRole("textbox", { name: "Find a page", exact: true });
+  const input = dialog.getByRole("combobox", { name: "Find a page", exact: true });
   await input.waitFor();
   assert.equal(await input.evaluate((element) => element === document.activeElement), true);
   await input.fill("ColorArea");
   const result = dialog
-    .getByRole("button", { name: /^Color\s?Area$/i })
+    .getByRole("option", { name: /^Color\s?Area$/i })
     .and(dialog.locator('[data-docs-result-type="page"]'));
   await result.waitFor();
-  assert.equal(await result.getAttribute("aria-current"), "true");
+  assert.equal(await result.getAttribute("aria-selected"), "true");
   assert.equal(await input.evaluate((element) => element === document.activeElement), true);
   await page.keyboard.press("ArrowUp");
   assert.equal(await input.evaluate((element) => element === document.activeElement), true);
@@ -201,7 +196,10 @@ export async function checkDocumentationShell(page, base) {
   await drawer.waitFor({ state: "hidden" });
   assert.equal(await browse.evaluate((element) => element === document.activeElement), true);
   await browse.click();
-  await drawer.getByRole("link", { name: "Accordion", exact: true }).click();
+  const accordion = drawer.getByRole("link", { name: "Accordion", exact: true });
+  if (!(await accordion.isVisible()))
+    await drawer.getByRole("button", { name: "Navigation", exact: true }).click();
+  await accordion.click();
   await page.waitForURL("**/en/docs/react/components/accordion");
   await page.getByRole("heading", { name: "Accordion", level: 1, exact: true }).waitFor();
   assert.equal(await page.getByRole("dialog").count(), 0);

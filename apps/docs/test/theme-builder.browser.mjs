@@ -136,9 +136,9 @@ export async function checkThemeBuilder(page, base) {
     );
     await listbox.getByRole("option", { name: "Florida", exact: true }).click();
     assert.ok((await select.innerText()).includes("Florida"));
-    await page.getByRole("button", { name: "Dark theme", exact: true }).click();
+    await page.getByRole("tab", { name: "Dark theme", exact: true }).click();
     assert.notEqual(await getVar("--background"), originalBackground);
-    await page.getByRole("button", { name: "Light theme", exact: true }).click();
+    await page.getByRole("tab", { name: "Light theme", exact: true }).click();
 
     await page.getByRole("button", { name: "View code", exact: true }).click();
     const code = page.getByRole("textbox", {

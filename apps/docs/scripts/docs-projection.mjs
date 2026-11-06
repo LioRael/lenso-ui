@@ -1,27 +1,11 @@
+import { componentCategories } from "../src/lib/component-categories.ts";
+import { exampleGroups, examplePresentation } from "./example-sections.ts";
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { nativeApiMarkdown } from "../src/lib/native-api-section.ts";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
-const componentCategories = [
-  ["buttons", "Buttons", "按钮"],
-  ["collections", "Collections", "集合"],
-  ["colors", "Colors", "颜色"],
-  ["controls", "Controls", "控件"],
-  ["data-display", "Data Display", "数据展示"],
-  ["date-and-time", "Date and Time", "日期和时间"],
-  ["feedback", "Feedback", "反馈"],
-  ["forms", "Forms", "表单"],
-  ["layout", "Layout", "布局"],
-  ["media", "Media", "媒体"],
-  ["navigation", "Navigation", "导航"],
-  ["overlays", "Overlays", "浮层"],
-  ["pickers", "Pickers", "选择器"],
-  ["typography", "Typography", "排版"],
-  ["utilities", "Utilities", "实用工具"],
-  ["additional", "Additional components", "其他组件"],
-];
 export const sourceFamilyMapping = Object.freeze({ dropdown: "menu" });
 export const canonicalFamily = (family, mapping = sourceFamilyMapping) => mapping[family] ?? family;
 export function canonicalExampleName(name, mapping = sourceFamilyMapping) {
@@ -809,6 +793,13 @@ async function authoredFiles(directory, prefix = "react") {
 
 export async function generateDocsProjection(directory = root) {
   const docs = path.join(path.resolve(directory), "apps/docs");
+  const storyFiles = await readdir(path.join(docs, "src/stories")).catch((error) => {
+    if (error.code === "ENOENT") return [];
+    throw error;
+  });
+  const stories = new Set(
+    storyFiles.filter((file) => file.endsWith(".story.tsx")).map((file) => file.slice(0, -10)),
+  );
   const product = await json(path.join(directory, "packages/react/package.json"));
   const reference = await json(path.join(docs, "src/generated/api-reference.json"));
   const archive = await json(path.join(docs, "content/source-index.json"));
@@ -978,12 +969,32 @@ export async function generateDocsProjection(directory = root) {
         examples[0];
       const sections = [
         frontmatter(title, description),
+        ...(stories.has(family)
+          ? [
+              locale === "cn" ? "## 交互预览" : "## Playground",
+              "",
+              `<ComponentPlayground family=${JSON.stringify(family)} />`,
+              "",
+            ]
+          : []),
         locale === "cn" ? "## 用法\n" : "## Usage\n",
-        "```tsx",
-        `import { ${rootPart.name} } from "@lenso/ui";`,
-        "```",
+        ...(!(primary && stories.has(family))
+          ? ["```tsx", `import { ${rootPart.name} } from "@lenso/ui";`, "```", ""]
+          : []),
+        ...(primary
+          ? [
+              `<ComponentPreview name=${JSON.stringify(primary.name)}${stories.has(family) ? ' defaultView="source"' : ""} />`,
+              "",
+            ]
+          : []),
+        locale === "cn" ? "## 使用与交互" : "## Use and interaction",
         "",
-        ...(primary ? [`<ComponentPreview name=${JSON.stringify(primary.name)} />`, ""] : []),
+        family === "menu"
+          ? stories.has(family)
+            ? menuGuide(locale).replace(/^## /gm, "### ")
+            : menuGuide(locale)
+          : nativeContractNotes(reference, family, locale),
+        "",
         locale === "cn" ? "## 示例\n" : "## Examples\n",
         ...(!examples.length
           ? [
@@ -994,15 +1005,25 @@ export async function generateDocsProjection(directory = root) {
               ),
             ]
           : []),
-        ...examples
-          .filter((example) => example !== primary)
-          .flatMap(({ name }) => [
-            `### ${name.replace(/^(?:dropdown|menu)-/, "").replaceAll("-", " ")}`,
+        ...exampleGroups.flatMap(({ title: groupTitle, matches }) => {
+          const members = examples.filter(
+            (example) => example !== primary && matches(example.name, family),
+          );
+          if (!members.length) return [];
+          return [
+            "<details>",
+            `<DisclosureSummary>${groupTitle[locale === "cn" ? 1 : 0]} (${members.length})</DisclosureSummary>`,
             "",
-            `<ComponentPreview name=${JSON.stringify(name)} />`,
+            ...members.flatMap(({ name }) => [
+              `### ${examplePresentation(name, family, locale).title}`,
+              "",
+              `<ComponentPreview name=${JSON.stringify(name)} />`,
+              "",
+            ]),
+            "</details>",
             "",
-          ]),
-        family === "menu" ? menuGuide(locale) : "",
+          ];
+        }),
         nativeApiMarkdown(reference, family, locale === "cn" ? "zh" : "en"),
       ];
       markdown.set(markdownFile, `${sections.join("\n")}\n`);

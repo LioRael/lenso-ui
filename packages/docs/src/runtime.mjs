@@ -344,7 +344,6 @@ export async function prepare(
       if (exported?.type !== "advanced")
         throw new Error(`Search export for "${locale.code}" must use the advanced static format.`);
     } else {
-      // The advanced static DB is the supported Fumadocs 16.9 client format.
       const search = createSearchAPI("advanced", {
         indexes: host.pages
           .filter((page) => page.locale === locale.code)

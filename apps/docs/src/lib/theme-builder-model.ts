@@ -658,3 +658,8 @@ export function builderCSS(settings: BuilderSettings): string {
     .join("\n\n");
   return `@import url("${getBuilderFont(settings.fontFamily).cdnUrl}");\n\n${scopes}`;
 }
+
+export function presetPreview({ lightness, chroma, hue }: BuilderSettings): string {
+  const highlight = Math.min(0.96, lightness + 0.18);
+  return `linear-gradient(135deg, oklch(${highlight} ${chroma * 0.6} ${hue}), oklch(${lightness} ${chroma} ${hue}))`;
+}

@@ -3,8 +3,8 @@
 import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { Display, Moon, Sun } from "@gravity-ui/icons";
-import { ToggleButton, ToggleButtonGroup } from "@lenso/ui";
-import { notebook } from "@/styles/notebook.stylex";
+import { Tabs } from "@lenso/ui";
+import { headerControls as s } from "@/styles/header-controls.stylex";
 
 const subscribe = () => () => {};
 const options = [
@@ -13,7 +13,6 @@ const options = [
   ["system", Display],
 ] as const;
 
-// HeroUI's three-icon theme toggle; native Base UI roving focus replaces plain buttons.
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const mounted = useSyncExternalStore(
@@ -22,27 +21,28 @@ export function ThemeToggle() {
     () => false,
   );
   return (
-    <ToggleButtonGroup
-      aria-label="Color theme"
-      value={mounted && theme ? [theme] : []}
-      onValueChange={(values) => {
-        if (values[0]) setTheme(values[0]);
+    <Tabs
+      value={mounted ? (theme ?? "system") : null}
+      onValueChange={(value) => {
+        if (typeof value === "string") setTheme(value);
       }}
-      isDetached
-      xstyle={notebook.themeGroup}
+      xstyle={s.themeGroup}
     >
-      {options.map(([value, Icon]) => (
-        <ToggleButton
-          key={value}
-          value={value}
-          aria-label={`${value[0]?.toUpperCase()}${value.slice(1)} theme`}
-          isIconOnly
-          variant="ghost"
-          xstyle={[notebook.themeButton, mounted && theme === value && notebook.themeActive]}
-        >
-          <Icon width={14} height={14} aria-hidden="true" />
-        </ToggleButton>
-      ))}
-    </ToggleButtonGroup>
+      <Tabs.ListContainer>
+        <Tabs.List aria-label="Color theme" xstyle={s.themeList}>
+          {options.map(([value, Icon]) => (
+            <Tabs.Tab
+              key={value}
+              value={value}
+              title={`${value[0]?.toUpperCase()}${value.slice(1)} theme`}
+              aria-label={`${value[0]?.toUpperCase()}${value.slice(1)} theme`}
+            >
+              <Icon width={16} height={16} aria-hidden="true" />
+            </Tabs.Tab>
+          ))}
+          <Tabs.Indicator />
+        </Tabs.List>
+      </Tabs.ListContainer>
+    </Tabs>
   );
 }

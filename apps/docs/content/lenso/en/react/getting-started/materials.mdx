@@ -1,0 +1,35 @@
+---
+title: "Materials"
+description: "Theme variables and shared presentation recipes for Apple materials."
+navigationGroup: "Handbook"
+navigationOrder: 11
+---
+
+Materials are a design foundation, not public React components. Import style recipes and types from `@lenso/tokens/materials`; load `@lenso/tokens/theme.css` for the theme variables. Components retain their own structure and native behavior. The internal renderer supplies decorative layers and cached optical maps.
+
+## Material families
+
+| Family                                      | Usage                                |
+| ------------------------------------------- | ------------------------------------ |
+| Ultrathin / Thin / Regular / Thick / Chrome | CSS blur, paint and blending recipes |
+| Small / Medium / Large / Clear              | Liquid Glass optical profiles        |
+| Vibrant labels / fills                      | Foreground paint and blend roles     |
+| Scroll edges                                | Soft and hard edge recipes           |
+
+<MaterialsPreview />
+
+## Menu and backdrop sources
+
+The [Menu](../components/menu) popup uses the medium glass profile. Its trigger stays anchored by default. Set `morphTrigger` on the Menu to animate from the trigger. The example in these Docs registers the pixels behind its root popup with `@lenso/glass`. Other backgrounds use the live material.
+
+## Appearance
+
+Open Theme in the page header to switch between the iOS 26 and iOS 27 material recipes or adjust the glass tint. The default tint is 0.5. In application code, `ThemeScope` accepts `materialVersion` and `glassTint` for a subtree and its portals. Reduced transparency and increased contrast take precedence.
+
+```tsx
+import { ThemeScope } from "@lenso/ui";
+
+<ThemeScope materialVersion="ios26" glassTint={0.5}>
+  {children}
+</ThemeScope>
+```

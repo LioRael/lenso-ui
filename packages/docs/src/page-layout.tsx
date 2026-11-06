@@ -98,6 +98,7 @@ export function DocumentationPageLayout({
                 : {}),
             }
           }
+          locale={siteOptions?.locale ?? page.locale}
           currentUrl={siteOptions?.currentUrl ?? page.url.slice(basePath.length)}
           activeSection={siteOptions?.activeSection ?? "docs"}
           sections={

@@ -94,7 +94,7 @@ export async function checkHome(page, base) {
       await snapshot.setViewportSize({ width: 1440, height: 900 });
       await snapshot.goto(base);
       const serverHeader = snapshot.getByRole("banner");
-      await serverHeader.getByRole("group", { name: "Color theme", exact: true }).waitFor();
+      await serverHeader.getByRole("tablist", { name: "Color theme", exact: true }).waitFor();
       await serverHeader.getByRole("button", { name: "Change language", exact: true }).waitFor();
       assert.equal(
         await serverHeader
@@ -227,8 +227,13 @@ export async function checkHome(page, base) {
         if (width === 768) {
           const tabletMenu = header.getByRole("button", { name: /menu/i });
           await tabletMenu.click();
-          await header.getByRole("group", { name: "Color theme", exact: true }).waitFor();
-          await header.getByRole("button", { name: "Change language", exact: true }).waitFor();
+          await header.getByRole("tablist", { name: "Color theme", exact: true }).waitFor();
+          await header
+            .getByRole("button", {
+              name: locale === "cn" ? "切换语言" : "Change language",
+              exact: true,
+            })
+            .waitFor();
           await page.keyboard.press("Escape");
         }
       }

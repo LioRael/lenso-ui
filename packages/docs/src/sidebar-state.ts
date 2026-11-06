@@ -88,6 +88,7 @@ function initialBranches(
   items: readonly DocumentationNavigationItem[],
   currentUrl: string,
   parent?: string,
+  stored: Record<string, boolean> = {},
 ): Record<string, boolean> {
   const containsCurrent = (item: DocumentationNavigationItem): boolean =>
     item.url === currentUrl || (item.children?.some(containsCurrent) ?? false);
@@ -95,8 +96,8 @@ function initialBranches(
   for (const item of items) {
     if (!item.children?.length) continue;
     const id = navigationBranchId(item, parent);
-    branches[id] = item.defaultOpen ?? containsCurrent(item);
-    Object.assign(branches, initialBranches(item.children, currentUrl, id));
+    branches[id] = containsCurrent(item) || (stored[id] ?? item.defaultOpen ?? false);
+    Object.assign(branches, initialBranches(item.children, currentUrl, id, stored));
   }
   return branches;
 }
@@ -106,7 +107,7 @@ export function useSidebarState(
   navigation: readonly DocumentationNavigationItem[],
   currentUrl: string,
 ) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [branches, setBranches] = useState<Record<string, boolean>>({});
   const state = useRef<SidebarState>({ top: 0, branches: {} });
   const restore = useRef<(() => void) | null>(null);
@@ -117,13 +118,14 @@ export function useSidebarState(
     const stored = read(key);
     state.current = {
       ...stored,
-      branches: { ...initialBranches(navigation, currentUrl), ...stored.branches },
+      branches: initialBranches(navigation, currentUrl, undefined, stored.branches),
     };
     write(key, state.current);
     setBranches(state.current.branches);
     let visible = false;
     let restoring = false;
     let clamped = false;
+    let revealCurrent = true;
     let frame = 0;
     const isVisible = () => element.getClientRects().length > 0 && element.clientHeight > 0;
     const apply = () => {
@@ -137,6 +139,19 @@ export function useSidebarState(
       );
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
+        const current = [
+          ...element.querySelectorAll<HTMLAnchorElement>('a[aria-current="page"]'),
+        ].find((link) => link.getAttribute("href") === currentUrl);
+        if (revealCurrent && current) {
+          const viewport = element.getBoundingClientRect();
+          const row = current.getBoundingClientRect();
+          if (row.top < viewport.top) element.scrollTop += row.top - viewport.top - 8;
+          else if (row.bottom > viewport.bottom)
+            element.scrollTop += row.bottom - viewport.bottom + 8;
+        }
+        revealCurrent = false;
+        state.current = { ...state.current, top: element.scrollTop };
+        write(key, state.current);
         restoring = false;
       });
     };

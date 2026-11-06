@@ -11,3 +11,5 @@ export {
   DocumentationCompactSearchTrigger,
   type DocumentationSearchProps,
 } from "./search";
+
+export { DocumentationButton } from "./header-button";

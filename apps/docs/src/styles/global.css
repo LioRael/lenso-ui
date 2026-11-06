@@ -1,11 +1,12 @@
 @import "@lenso/tokens/theme.css";
+@import "@lenso/docs/appearance.css";
 @import "@lenso/docs/font.css";
 
 :root {
-  --color-fd-primary: var(--foreground);
-  --color-fd-accent: var(--default);
-  --color-fd-accent-foreground: var(--foreground);
-  --color-fd-muted-foreground: var(--muted);
+  --color-fd-primary: var(--lenso-label-primary);
+  --color-fd-accent: var(--lenso-control-fill);
+  --color-fd-accent-foreground: var(--lenso-label-primary);
+  --color-fd-muted-foreground: var(--lenso-label-secondary);
 }
 
 /* Native Fuma parts retain HeroUI's resolved overrides. The nested viewport is

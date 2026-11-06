@@ -20,6 +20,19 @@ try {
       { node: await locator.elementHandle(), contains },
     );
   }
+  async function revealExample(id) {
+    const region = page.getByRole("region", {
+      name: `Example: ${id}`,
+      exact: true,
+      includeHidden: true,
+    });
+    const details = region.locator("xpath=ancestor::details[not(@open)][1]");
+    if (await details.count()) await details.locator("summary").first().click();
+    const preview = region.getByRole("tab", { name: "Preview", exact: true });
+    if (await preview.count()) await preview.click();
+    await region.locator("[data-example-mounted]").first().waitFor({ state: "attached" });
+    return region;
+  }
   await page.goto(`${base}/en/docs/react/components/button`, { waitUntil: "networkidle" });
   assert.equal(
     await page.getByRole("heading", { name: "Button", exact: true, level: 1 }).count(),
@@ -32,7 +45,7 @@ try {
     "100000",
     "The compiled base layer must apply, not become an inactive @media layer(base) rule.",
   );
-  const example = page.getByRole("region", { name: "Example: button-basic", exact: true });
+  const example = await revealExample("button-basic");
   await example.getByRole("button", { name: "Click me", exact: true }).focus();
   const activation = page.waitForEvent("console", {
     predicate: (message) => message.type() === "log" && message.text() === "Button pressed",
@@ -40,7 +53,7 @@ try {
   await page.keyboard.press("Enter");
   await activation;
   assert.equal(await example.getByRole("button", { name: "Click me", exact: true }).count(), 1);
-  const disabled = page.getByRole("region", { name: "Example: button-disabled", exact: true });
+  const disabled = await revealExample("button-disabled");
   for (const name of ["Primary", "Secondary", "Tertiary", "Outline", "Ghost", "Danger"])
     assert.equal(await disabled.getByRole("button", { name, exact: true }).isDisabled(), true);
 
@@ -58,20 +71,14 @@ try {
   );
 
   await page.goto(`${base}/en/docs/react/components/close-button`, { waitUntil: "networkidle" });
-  const closeExample = page.getByRole("region", {
-    name: "Example: close-button-default",
-    exact: true,
-  });
+  const closeExample = await revealExample("close-button-default");
   const closeButton = closeExample.getByRole("button", { name: "Close", exact: true });
   await closeButton.focus();
   await page.keyboard.press("Enter");
   assert.equal(await closeButton.evaluate((element) => element === document.activeElement), true);
 
   await page.goto(`${base}/en/docs/react/components/error-message`, { waitUntil: "networkidle" });
-  const errorExample = page.getByRole("region", {
-    name: "Example: error-message-basic",
-    exact: true,
-  });
+  const errorExample = await revealExample("error-message-basic");
   const errorMessage = errorExample.getByText("Please select at least one category", {
     exact: true,
   });
@@ -84,7 +91,7 @@ try {
   // prove that their docs registrations mount or compose the native contracts.
   async function basicExample(family, id) {
     await page.goto(`${base}/en/docs/react/components/${family}`, { waitUntil: "networkidle" });
-    return page.getByRole("region", { name: `Example: ${id}`, exact: true });
+    return revealExample(id);
   }
 
   const menu = await basicExample("menu", "menu-default");

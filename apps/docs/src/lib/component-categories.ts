@@ -1,0 +1,18 @@
+export const componentCategories = [
+  ["buttons", "Buttons", "按钮"],
+  ["collections", "Collections", "集合"],
+  ["colors", "Colors", "颜色"],
+  ["controls", "Controls", "控件"],
+  ["data-display", "Data Display", "数据展示"],
+  ["date-and-time", "Date and Time", "日期和时间"],
+  ["feedback", "Feedback", "反馈"],
+  ["forms", "Forms", "表单"],
+  ["layout", "Layout", "布局"],
+  ["media", "Media", "媒体"],
+  ["navigation", "Navigation", "导航"],
+  ["overlays", "Overlays", "浮层"],
+  ["pickers", "Pickers", "选择器"],
+  ["typography", "Typography", "排版"],
+  ["utilities", "Utilities", "实用工具"],
+  ["additional", "Additional components", "其他组件"],
+] as const;

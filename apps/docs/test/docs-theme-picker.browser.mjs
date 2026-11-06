@@ -24,8 +24,8 @@ export async function checkDocsThemePicker(page, base) {
       name: locale === "cn" ? "选择主题" : "Choose theme",
       exact: true,
     });
-    const mode = page.getByRole("group", { name: "Color theme", exact: true });
-    await mode.getByRole("button", { name: "Light theme", exact: true }).click();
+    const mode = page.getByRole("tablist", { name: "Color theme", exact: true });
+    await mode.getByRole("tab", { name: "Light theme", exact: true }).click();
     const sample = page.locator('[data-example-name="button-basic"]').getByRole("button", {
       name: locale === "cn" ? "点我" : "Click me",
       exact: true,
@@ -69,7 +69,7 @@ export async function checkDocsThemePicker(page, base) {
     await page.reload();
     await page.waitForFunction(() => document.documentElement.dataset.lensoDesignTheme === "sky");
     assert.ok((await trigger.textContent()).includes("Sky"));
-    await mode.getByRole("button", { name: "Dark theme", exact: true }).click();
+    await mode.getByRole("tab", { name: "Dark theme", exact: true }).click();
     await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
     assert.equal(await page.locator("html").getAttribute("data-lenso-design-theme"), "sky");
     await page.setViewportSize({ width: 390, height: 900 });
@@ -86,7 +86,7 @@ export async function checkDocsThemePicker(page, base) {
         !document.documentElement.hasAttribute("data-lenso-vibrant-palette"),
     );
     await page.setViewportSize({ width: 1440, height: 900 });
-    await mode.getByRole("button", { name: "Light theme", exact: true }).click();
+    await mode.getByRole("tab", { name: "Light theme", exact: true }).click();
     assert.equal(await color(), original);
   }
   const restricted = await page.context().browser().newContext();

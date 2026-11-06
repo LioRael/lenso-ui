@@ -12,10 +12,13 @@ const styles = stylex.create({
     overflowX: "auto",
     borderBottomWidth: 1,
     borderBottomStyle: "solid",
-    borderBottomColor: "var(--border)",
+    borderBottomColor: "var(--lenso-control-border)",
   },
   tab: {
-    color: { default: "var(--muted)", ":is([data-active])": "var(--foreground)" },
+    color: {
+      default: "var(--lenso-label-secondary)",
+      ":is([data-active])": "var(--lenso-label-primary)",
+    },
     backgroundColor: "transparent",
     borderWidth: 0,
     paddingBlock: 12,
@@ -23,12 +26,12 @@ const styles = stylex.create({
     cursor: "pointer",
     font: "inherit",
     fontWeight: 500,
-    outlineColor: "var(--focus)",
+    outlineColor: "var(--lenso-focus-ring)",
     borderBottomWidth: 2,
     borderBottomStyle: "solid",
-    borderBottomColor: { default: "transparent", ":is([data-active])": "var(--accent)" },
+    borderBottomColor: { default: "transparent", ":is([data-active])": "var(--lenso-tint)" },
   },
-  panel: { paddingTop: 12, outlineColor: "var(--focus)" },
+  panel: { paddingTop: 12, outlineColor: "var(--lenso-focus-ring)" },
 });
 interface TabProps {
   title?: string;

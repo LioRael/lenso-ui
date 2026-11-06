@@ -5,7 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Collapsible } from "@base-ui/react/collapsible";
 import { ChevronDown } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
-import { styles, sidebar } from "@lenso/docs/presentation";
+import { sidebar } from "@lenso/docs/presentation";
 import { DesktopNavigationState, navigationBranchId } from "./sidebar-state";
 
 // Adapted from the Lenso UI notebook sidebar; HeroUI v3.2.6, Apache-2.0.
@@ -57,13 +57,13 @@ function NavigationEntry({
   const selected = item.url === currentUrl;
   const link = item.url ? (
     <Link
+      aria-current={selected ? "page" : undefined}
       href={item.url}
       title={item.description}
       {...(onNavigate ? { onClick: onNavigate } : {})}
-      aria-current={selected ? "page" : undefined}
-      {...stylex.props(styles.navLink, sidebar.item, selected && styles.active)}
+      {...stylex.props(sidebar.row, selected && sidebar.selected)}
     >
-      {item.title}
+      <span>{item.title}</span>
       <Status item={item} />
     </Link>
   ) : null;
@@ -86,9 +86,9 @@ function NavigationEntry({
         <Collapsible.Trigger
           title={item.description}
           aria-label={item.url ? `Toggle ${item.title} pages` : undefined}
-          {...stylex.props(styles.navLink, sidebar.item, sidebar.trigger)}
+          {...stylex.props(sidebar.row, sidebar.trigger)}
         >
-          {item.title}
+          <span>{item.title}</span>
           {!item.url && <Status item={item} />}
           <ChevronDown
             width={16}
@@ -97,7 +97,9 @@ function NavigationEntry({
             {...stylex.props(sidebar.chevron)}
           />
         </Collapsible.Trigger>
-        <Collapsible.Panel {...stylex.props(sidebar.children)}>
+        <Collapsible.Panel
+          {...stylex.props(sidebar.children, !item.url && sidebar.categoryChildren)}
+        >
           {item.children.map((child) => (
             <NavigationEntry
               key={child.url ?? child.title}
@@ -114,7 +116,7 @@ function NavigationEntry({
 
   return (
     link ?? (
-      <p title={item.description} {...stylex.props(styles.navHeading)}>
+      <p title={item.description} {...stylex.props(sidebar.label)}>
         {item.title}
         <Status item={item} />
       </p>
@@ -128,7 +130,7 @@ export function DocumentationNavigation({
   onNavigate,
 }: DocumentationNavigationProps): ReactNode {
   return (
-    <nav aria-label="Documentation pages" {...stylex.props(styles.navigation)}>
+    <nav aria-label="Documentation pages" {...stylex.props(sidebar.navigation)}>
       {navigation.map((item) => (
         <NavigationEntry
           key={item.url ?? item.title}

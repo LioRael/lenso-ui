@@ -2,7 +2,7 @@
 
 // HeroUI v3.2.6 homepage, Apache-2.0, Copyright 2025 NextUI Inc.
 // Modified copy, destinations and component composition for Lenso UI.
-import NextLink from "next/link";
+import NextLink from "fumadocs-core/link";
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "@lenso/ui";
 import { LogoGithub, Rocket } from "@gravity-ui/icons";
@@ -69,9 +69,6 @@ export function HomePage({ locale }: { locale: Locale }) {
         </Link>
         <Link href={product.repository} xstyle={s.footerLink}>
           GitHub
-        </Link>
-        <Link render={<NextLink href="/coverage" />} xstyle={s.footerLink}>
-          {cn ? "验证覆盖" : "Verification coverage"}
         </Link>
       </footer>
     </HomeShell>

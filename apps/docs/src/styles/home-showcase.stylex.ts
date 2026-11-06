@@ -2,7 +2,7 @@
 // Adapted from HeroUI v3.2.6 demo-showcase.tsx at
 // e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
 // Modified: StyleX geometry, one native sizing panel and local application overlays.
-// License: third-party/heroui/LICENSE.txt.
+// License: THIRD_PARTY_NOTICES.md.
 import * as stylex from "@stylexjs/stylex";
 
 export const homeShowcase = stylex.create({
@@ -39,7 +39,10 @@ export const homeShowcase = stylex.create({
     width: 32,
     height: 32,
     borderRadius: 999,
-    color: { default: "var(--muted)", ":hover": "var(--foreground)" },
+    color: {
+      default: "var(--docs-label-secondary, var(--lenso-label-secondary))",
+      ":hover": "var(--lenso-label-primary)",
+    },
     textDecoration: "none",
   },
   icon: { width: 16, height: 16 },
@@ -54,8 +57,8 @@ export const homeShowcase = stylex.create({
     borderRadius: 16,
     borderWidth: { default: 0, "@media (min-width: 1024px)": 1 },
     borderStyle: "solid",
-    borderColor: "color-mix(in oklab, var(--border) 50%, transparent)",
-    backgroundColor: "var(--background)",
+    borderColor: "color-mix(in oklab, var(--lenso-control-border) 50%, transparent)",
+    backgroundColor: "var(--lenso-background-primary)",
   },
   components: {
     // The invisible, inert mosaic keeps intrinsic sizing behind application panels.
@@ -82,7 +85,7 @@ export const homeShowcase = stylex.create({
     padding: 0,
     borderRadius: 16,
     overflow: "hidden",
-    backgroundColor: "var(--background)",
+    backgroundColor: "var(--lenso-background-primary)",
   },
   inactive: { display: "none" },
 });

@@ -29,3 +29,31 @@ navigationOrder: 14
 ```
 
 该应用规则不替代原生组件的状态与完成处理。启用减少动态效果后，仍应测试焦点恢复与关闭行为。
+
+## 弹性控件
+
+
+自定义控件可以直接组合公开 Hook 与样式变量：
+
+```tsx
+import { useElasticRef } from "@lenso/glass/react";
+import * as stylex from "@stylexjs/stylex";
+
+const styles = stylex.create({
+  elastic: {
+    scale: "var(--lg-press-scale, 1 1)",
+    translate: "var(--lg-press-translate, 0px 0px)",
+  },
+});
+
+function ElasticButton() {
+  const ref = useElasticRef<HTMLButtonElement>(undefined);
+  return (
+    <button ref={ref} {...stylex.props(styles.elastic)}>
+      Press me
+    </button>
+  );
+}
+```
+
+Hook 管理指针跟踪、弹簧回弹和清理；组件仍负责原生语义、焦点与键盘激活。它不自动添加玻璃材质，可以搭配自己的表面样式。降低动态效果遵循共享动效偏好。

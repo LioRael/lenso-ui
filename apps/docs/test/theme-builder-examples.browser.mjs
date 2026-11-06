@@ -139,7 +139,7 @@ async function checkChat(page) {
   await history.evaluate((node) => {
     node.scrollTop = 0;
   });
-  await page.getByRole("button", { name: "Light theme", exact: true }).click();
+  await page.getByRole("tab", { name: "Light theme", exact: true }).click();
   assert.equal(
     await history.evaluate((node) => node.scrollTop),
     0,

@@ -9,7 +9,7 @@ import Link from "fumadocs-core/link";
 import { useTheme } from "fumadocs-ui/provider/base";
 import { useTreePath } from "fumadocs-ui/contexts/tree";
 import { useFooterItems } from "fumadocs-ui/utils/use-footer-items";
-import { useTranslations } from "fumadocs-ui/contexts/i18n";
+import { useTranslations } from "@fuma-translate/react";
 import type { FooterProps } from "fumadocs-ui/layouts/notebook/page/slots/footer";
 import { notebook } from "@lenso/docs/presentation";
 
@@ -62,7 +62,7 @@ export function DocumentationFooter({ items }: FooterProps): ReactNode {
   );
   const previous = items?.previous ?? (position >= 0 ? pages[position - 1] : undefined);
   const next = items?.next ?? (position >= 0 ? pages[position + 1] : undefined);
-  const labels = useTranslations();
+  const translate = useTranslations({ note: "pagination" });
   if (!previous && !next) return null;
   return (
     <nav
@@ -81,7 +81,7 @@ export function DocumentationFooter({ items }: FooterProps): ReactNode {
             {previous.name}
           </span>
           <span {...stylex.props(notebook.footerDescription)}>
-            {previous.description ?? labels.previousPage}
+            {previous.description ?? translate("Previous Page")}
           </span>
         </Link>
       )}
@@ -97,7 +97,7 @@ export function DocumentationFooter({ items }: FooterProps): ReactNode {
             {next.name}
           </span>
           <span {...stylex.props(notebook.footerDescription)}>
-            {next.description ?? labels.nextPage}
+            {next.description ?? translate("Next Page")}
           </span>
         </Link>
       )}

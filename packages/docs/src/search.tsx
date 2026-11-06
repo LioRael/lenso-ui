@@ -1,7 +1,17 @@
 "use client";
 
-import { createContext, useContext, useMemo, useRef, type ReactNode, type RefObject } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import * as stylex from "@stylexjs/stylex";
+import { DocumentationButton } from "./header-button";
 import { Magnifier } from "@gravity-ui/icons";
 import { kbdStyles } from "@lenso/tokens/kbd";
 import { useDocsSearch, type StaticOptions } from "fumadocs-core/search/client";
@@ -16,21 +26,23 @@ import {
   SearchDialogClose,
   SearchDialogList,
   SearchDialogListItem,
-  useSearchList,
+  useSearch,
   type SearchItemType,
 } from "fumadocs-ui/components/dialog/search";
 import { notebook, search as styles } from "@lenso/docs/presentation";
+import { prioritizeSearchPages } from "./search-results";
 
 // Adapted from the application's HeroUI e385ac2 visual overrides (Apache-2.0).
 // Fumadocs owns dialog, selection, scrolling and static search (../LICENSE.FUMADOCS).
 export interface DocumentationSearchProps {
   from: string;
-  initOrama?: NonNullable<StaticOptions["initOrama"]>;
+  initDB?: NonNullable<StaticOptions["initDB"]>;
   compact?: boolean;
   allowEmpty?: boolean;
   children?: ReactNode;
   labels?: {
     input?: string;
+    trigger?: string;
     placeholder?: string;
     close?: string;
     empty?: string;
@@ -39,7 +51,7 @@ export interface DocumentationSearchProps {
 }
 
 const SearchConfiguration = createContext<
-  | (Pick<DocumentationSearchProps, "from" | "initOrama" | "labels" | "allowEmpty"> & {
+  | (Pick<DocumentationSearchProps, "from" | "initDB" | "labels" | "allowEmpty"> & {
       triggers: RefObject<Set<HTMLElement>>;
     })
   | null
@@ -69,36 +81,58 @@ function useSearchTriggerRef() {
 }
 
 function SearchResult({ item, onClick }: { item: SearchItemType; onClick: () => void }) {
-  const { active } = useSearchList();
+  const { subscribeActive, getActive } = useSearch();
+  const active = useSyncExternalStore(subscribeActive, getActive, getActive) === item.id;
+  const scrollActive = useCallback(
+    (node: HTMLDivElement | null) => {
+      // The StyleX wrapper owns scrolling instead of Fumadocs' Tailwind listbox.
+      if (node && active) node.scrollIntoView({ block: "nearest" });
+    },
+    [active],
+  );
   return (
     <SearchDialogListItem
+      ref={scrollActive}
       item={item}
       onClick={onClick}
-      aria-selected={undefined}
-      aria-current={active === item.id ? "true" : undefined}
       data-docs-result=""
       data-docs-result-type={item.type}
-      {...stylex.props(styles.result)}
-    />
+      {...stylex.props(
+        styles.result,
+        item.type === "page" ? styles.pageResult : styles.childResult,
+      )}
+    >
+      <span {...stylex.props(styles.resultText)}>
+        {item.type === "action" ? item.node : item.content}
+      </span>
+    </SearchDialogListItem>
   );
 }
 
 function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
   const configuration = useContext(SearchConfiguration);
   if (!configuration) throw new Error("Search dialog requires DocumentationSearch.");
-  const { from, initOrama, triggers, labels, allowEmpty = false } = configuration;
+  const { from, initDB, triggers, labels, allowEmpty = false } = configuration;
   const restoreFocus = useRef<Element | null>(null);
   const { search, setSearch, query } = useDocsSearch(
     {
       type: "static",
       from,
       allowEmpty,
-      search: { limit: 60 },
-      ...(initOrama !== undefined ? { initOrama } : {}),
+      search: { limit: 40, groupBy: { properties: ["page_id"], maxResult: 2 } },
+      ...(initDB !== undefined ? { initDB } : {}),
     },
-    [from, initOrama, allowEmpty],
+    [from, initDB, allowEmpty],
   );
-  const items = query.data === "empty" ? (allowEmpty ? [] : null) : query.data;
+  const items = useMemo(
+    () =>
+      query.data === "empty"
+        ? allowEmpty
+          ? []
+          : null
+        : query.data && prioritizeSearchPages(query.data, search),
+    [query.data, search, allowEmpty],
+  );
   return (
     <FumaSearchDialog
       open={open}
@@ -112,7 +146,7 @@ function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
     >
       <SearchDialogOverlay data-docs-search-overlay="" {...stylex.props(styles.backdrop)} />
       <SearchDialogContent
-        aria-label="Search documentation"
+        aria-label={labels?.trigger ?? "Search documentation"}
         aria-labelledby={undefined}
         data-docs-search=""
         onOpenAutoFocus={() => {
@@ -138,11 +172,22 @@ function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
         <SearchDialogHeader {...stylex.props(styles.header)}>
           <SearchDialogIcon aria-hidden="true" {...stylex.props(styles.icon)} />
           <SearchDialogInput
+            // Fumadocs replaces className on this native input; style is its forwarding boundary.
+            style={{
+              flex: 1,
+              minWidth: 0,
+              width: 0,
+              border: 0,
+              background: "transparent",
+              color: "inherit",
+              font: "inherit",
+              outline: "none",
+            }}
             aria-label={labels?.input ?? "Search documentation"}
             placeholder={labels?.placeholder ?? "Search documentation…"}
           />
           <SearchDialogClose
-            aria-label={labels?.close ?? "Close search"}
+            aria-label={`${labels?.close ?? "Close search"} Esc`}
             {...stylex.props(styles.close)}
           >
             <kbd {...stylex.props(kbdStyles.root)}>
@@ -150,7 +195,11 @@ function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
             </kbd>
           </SearchDialogClose>
         </SearchDialogHeader>
-        {query.error ? (
+        {!search.trim() ? (
+          <p {...stylex.props(styles.empty)}>
+            {labels?.placeholder ?? "Search components and guides"}
+          </p>
+        ) : query.error ? (
           <p role="alert">
             {labels?.error ?? "Unable to load search. Close this dialog and try again."}
           </p>
@@ -175,18 +224,20 @@ function SearchTriggers({ compact }: { compact: boolean }) {
   const desktopRef = useSearchTriggerRef();
   const mobileRef = useSearchTriggerRef();
   const { setOpenSearch, hotKey } = useSearchContext();
+  const label = useContext(SearchConfiguration)?.labels?.trigger ?? "Search documentation";
   if (compact) {
     return (
-      <button
+      <DocumentationButton
+        isIconOnly
         ref={desktopRef}
         type="button"
-        aria-label="Search documentation"
+        aria-label={label}
         data-docs-search-trigger=""
         onClick={() => setOpenSearch(true)}
-        {...stylex.props(notebook.iconButton)}
+        xstyle={notebook.glassIconButton}
       >
         <Magnifier width={16} height={16} aria-hidden="true" />
-      </button>
+      </DocumentationButton>
     );
   }
   return (
@@ -195,7 +246,7 @@ function SearchTriggers({ compact }: { compact: boolean }) {
         <button
           ref={desktopRef}
           type="button"
-          aria-label="Search documentation"
+          aria-label={label}
           data-docs-search-trigger=""
           onClick={() => setOpenSearch(true)}
           {...stylex.props(notebook.searchTrigger)}
@@ -210,16 +261,17 @@ function SearchTriggers({ compact }: { compact: boolean }) {
         </button>
       </div>
       <div {...stylex.props(notebook.headerMobile)}>
-        <button
+        <DocumentationButton
+          isIconOnly
           ref={mobileRef}
           type="button"
-          aria-label="Search documentation"
+          aria-label={label}
           data-docs-search-trigger=""
           onClick={() => setOpenSearch(true)}
-          {...stylex.props(notebook.iconButton)}
+          xstyle={notebook.glassIconButton}
         >
           <Magnifier width={18} height={18} aria-hidden="true" />
-        </button>
+        </DocumentationButton>
       </div>
     </>
   );
@@ -231,7 +283,7 @@ export function DocumentationCompactSearchTrigger() {
 
 export function DocumentationSearch({
   from: source,
-  initOrama,
+  initDB,
   compact = false,
   children,
   labels,
@@ -248,10 +300,10 @@ export function DocumentationSearch({
       from,
       triggers,
       allowEmpty,
-      ...(initOrama !== undefined ? { initOrama } : {}),
+      ...(initDB !== undefined ? { initDB } : {}),
       ...(labels ? { labels } : {}),
     }),
-    [from, triggers, allowEmpty, initOrama, labels],
+    [from, triggers, allowEmpty, initDB, labels],
   );
   return (
     <SearchConfiguration value={configuration}>

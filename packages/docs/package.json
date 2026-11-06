@@ -63,7 +63,8 @@
     "./stylex-rules.json": "./dist/stylex-rules.json",
     "./font.css": "./src/font.css",
     "./fonts/*": "./dist/fonts/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./appearance.css": "./src/appearance.css"
   },
   "publishConfig": {
     "access": "public"
@@ -79,8 +80,11 @@
   },
   "dependencies": {
     "@base-ui/react": "catalog:",
+    "@fuma-translate/react": "1.0.2",
     "@gravity-ui/icons": "2.22.0",
+    "@lenso/glass": "workspace:*",
     "@lenso/tokens": "workspace:*",
+    "@lenso/ui": "workspace:*",
     "@mdx-js/mdx": "3.1.1",
     "@shikijs/langs": "3.23.0",
     "@shikijs/themes": "3.23.0",
@@ -89,8 +93,8 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "fumadocs-core": "16.9.0",
-    "fumadocs-ui": "16.9.0",
+    "fumadocs-core": "16.17.9",
+    "fumadocs-ui": "16.17.9",
     "github-slugger": "2.0.0",
     "gray-matter": "4.0.3",
     "next": "catalog:",

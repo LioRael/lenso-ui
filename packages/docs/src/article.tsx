@@ -34,7 +34,11 @@ export function DocumentationArticle({
   const chinese = locale === "cn" || locale.startsWith("zh");
   return (
     <>
-      <PageTableOfContents items={[...headings]} locale={chinese ? "cn" : "en"} title={title} />
+      <PageTableOfContents
+        items={headings.filter((heading) => kind !== "component" || heading.depth === 2)}
+        locale={chinese ? "cn" : "en"}
+        title={title}
+      />
       <DocsPage
         id="main-content"
         lang={chinese ? "zh-CN" : locale}
