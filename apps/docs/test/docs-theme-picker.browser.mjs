@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 
 const themeKey = "lenso:docs:design-theme";
-const vibrantKey = "lenso:docs:vibrant-palette";
+const materialKey = "lenso:docs:material-version";
 
 // A direct header link did not prove global preset application, persistence,
 // native picker focus or the deliberately partial upstream editor handoff.
@@ -10,11 +10,11 @@ export async function checkDocsThemePicker(page, base) {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${base}/${locale}/docs/react/components/button`);
     await page.evaluate(
-      ({ themeKey, vibrantKey }) => {
+      ({ themeKey, materialKey }) => {
         localStorage.removeItem(themeKey);
-        localStorage.removeItem(vibrantKey);
+        localStorage.removeItem(materialKey);
       },
-      { themeKey, vibrantKey },
+      { themeKey, materialKey },
     );
     await page.reload();
     const trigger = page
@@ -24,8 +24,12 @@ export async function checkDocsThemePicker(page, base) {
       name: locale === "cn" ? "选择主题" : "Choose theme",
       exact: true,
     });
-    const mode = page.getByRole("group", { name: "Color theme", exact: true });
-    await mode.getByRole("button", { name: "Light theme", exact: true }).click();
+    const mode = page.getByRole("tablist", { name: "Color theme", exact: true });
+    await mode.getByRole("tab", { name: "Light theme", exact: true }).click();
+    const example = page.locator('[data-example-name="button-basic"]');
+    await example
+      .getByRole("tab", { name: locale === "cn" ? "预览" : "Preview", exact: true })
+      .click();
     const sample = page.locator('[data-example-name="button-basic"]').getByRole("button", {
       name: locale === "cn" ? "点我" : "Click me",
       exact: true,
@@ -36,22 +40,25 @@ export async function checkDocsThemePicker(page, base) {
     await trigger.focus();
     await page.keyboard.press("Enter");
     await dialog.waitFor();
-    assert.equal((await dialog.boundingBox()).width, 248);
-    assert.equal(await dialog.getByRole("option").count(), 11);
+    await page.waitForFunction(
+      (node) => node.getBoundingClientRect().width === 248,
+      await dialog.elementHandle(),
+    );
+    assert.equal(
+      await dialog
+        .getByRole("listbox", { name: locale === "cn" ? "主题预设" : "Theme presets" })
+        .getByRole("option")
+        .count(),
+      11,
+    );
     await dialog.getByRole("option", { name: "Apply Sky theme", exact: true }).click();
     assert.equal(await dialog.isVisible(), true);
     await page.waitForFunction(() => document.documentElement.dataset.lensoDesignTheme === "sky");
     assert.notEqual(await color(), original);
     assert.equal(await page.evaluate((key) => localStorage.getItem(key), themeKey), "sky");
-    const vibrant = dialog.getByRole("switch", {
-      name: locale === "cn" ? "鲜艳色板" : "Vibrant palette",
-      exact: true,
-    });
-    await vibrant.click();
-    await page.waitForFunction(
-      () => document.documentElement.dataset.lensoVibrantPalette === "true",
-    );
-    assert.equal(await page.evaluate((key) => localStorage.getItem(key), vibrantKey), "true");
+    await dialog.getByRole("option", { name: "iOS 26", exact: true }).click();
+    await page.waitForFunction(() => document.documentElement.dataset.materialVersion === "ios26");
+    assert.equal(await page.evaluate((key) => localStorage.getItem(key), materialKey), "ios26");
     const editor = dialog.getByRole("link", {
       name: locale === "cn" ? "编辑主题" : "Edit Theme",
       exact: true,
@@ -69,24 +76,27 @@ export async function checkDocsThemePicker(page, base) {
     await page.reload();
     await page.waitForFunction(() => document.documentElement.dataset.lensoDesignTheme === "sky");
     assert.ok((await trigger.textContent()).includes("Sky"));
-    await mode.getByRole("button", { name: "Dark theme", exact: true }).click();
+    await mode.getByRole("tab", { name: "Dark theme", exact: true }).click();
     await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
     assert.equal(await page.locator("html").getAttribute("data-lenso-design-theme"), "sky");
     await page.setViewportSize({ width: 390, height: 900 });
     await trigger.waitFor();
-    assert.equal((await trigger.locator("img").boundingBox()).width, 20);
+    assert.equal((await trigger.locator("span[aria-hidden=true]").boundingBox()).width, 20);
     await trigger.click();
     await dialog.waitFor();
     await dialog.getByRole("option", { name: "Apply Default theme", exact: true }).click();
-    await vibrant.click();
+    await dialog.getByRole("option", { name: "iOS 27", exact: true }).click();
     await page.keyboard.press("Escape");
     await page.waitForFunction(
       () =>
         !document.documentElement.hasAttribute("data-lenso-design-theme") &&
-        !document.documentElement.hasAttribute("data-lenso-vibrant-palette"),
+        document.documentElement.dataset.materialVersion === "ios27",
     );
     await page.setViewportSize({ width: 1440, height: 900 });
-    await mode.getByRole("button", { name: "Light theme", exact: true }).click();
+    await mode.getByRole("tab", { name: "Light theme", exact: true }).click();
+    await example
+      .getByRole("tab", { name: locale === "cn" ? "预览" : "Preview", exact: true })
+      .click();
     assert.equal(await color(), original);
   }
   const restricted = await page.context().browser().newContext();

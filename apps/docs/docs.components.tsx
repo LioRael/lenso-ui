@@ -22,7 +22,6 @@ export async function getSiteOptions({ page }: DocumentationCustomizationContext
   return createLensoSiteOptions({
     locale,
     slug: page.slug,
-    version: product.version,
     repository: product.repository,
     entries: await getNavigation(locale, page.slug.split("/")[1] ?? "getting-started"),
     sectionEntries: getSectionEntries(locale),
@@ -32,14 +31,17 @@ export async function getSiteOptions({ page }: DocumentationCustomizationContext
 export async function getPageOptions({ page }: DocumentationCustomizationContext) {
   const locale = localeOf(page.locale);
   const entries = await getNavigation(locale, page.slug.split("/")[1] ?? "getting-started");
-  const pages = entries.filter((entry) => entry.href);
+  const pages = entries
+    .flatMap((entry) => ("children" in entry && entry.children ? entry.children : [entry]))
+    .filter((entry) => entry.href);
   const position = pages.findIndex((entry) => entry.href === page.url);
   const markdownFile = page.metadata?.["markdownFile"];
   if (typeof markdownFile !== "string") throw new Error(`Missing source path for ${page.id}.`);
   return {
-    beforeContent: <ComponentLinks family={familyOf(page.slug)} />,
+    beforeContent: <ComponentLinks family={familyOf(page.slug)} locale={locale} />,
     actions: (
       <ViewOptions
+        locale={locale}
         markdown={page.markdown}
         sourceUrl={`${product.repository}/blob/main/apps/docs/${page.slug.startsWith("react/components") ? "scripts/docs-projection.mjs" : markdownFile}`}
       />

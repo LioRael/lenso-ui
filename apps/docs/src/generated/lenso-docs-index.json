@@ -658,7 +658,7 @@
       "locale": "en",
       "slug": "react/getting-started/design-principles",
       "title": "Design principles",
-      "description": "Keep presentation consistent, composition explicit and native interactions intact.",
+      "description": "Design around the task, make relationships clear and preserve familiar interaction.",
       "navigationGroup": "Overview",
       "navigationOrder": 2,
       "markdownFile": "content/lenso/en/react/getting-started/design-principles.mdx",
@@ -682,6 +682,16 @@
       "navigationGroup": "Overview",
       "navigationOrder": 1,
       "markdownFile": "content/lenso/en/react/getting-started/installation.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/getting-started/materials",
+      "title": "Materials",
+      "description": "Theme variables and shared presentation recipes for Apple materials.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 11,
+      "markdownFile": "content/lenso/en/react/getting-started/materials.mdx",
       "examples": []
     },
     {
@@ -4444,7 +4454,7 @@
       "locale": "cn",
       "slug": "react/getting-started/design-principles",
       "title": "设计原则",
-      "description": "保持视觉一致、显式组合，并保留原生交互。",
+      "description": "围绕任务建立层级、对齐和材质关系，并保留原生交互。",
       "navigationGroup": "概览",
       "navigationOrder": 2,
       "markdownFile": "content/lenso/cn/react/getting-started/design-principles.mdx",
@@ -4468,6 +4478,16 @@
       "navigationGroup": "概览",
       "navigationOrder": 1,
       "markdownFile": "content/lenso/cn/react/getting-started/installation.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/getting-started/materials",
+      "title": "材料",
+      "description": "Apple 材料的主题变量与共享样式配置。",
+      "navigationGroup": "手册",
+      "navigationOrder": 11,
+      "markdownFile": "content/lenso/cn/react/getting-started/materials.mdx",
       "examples": []
     },
     {

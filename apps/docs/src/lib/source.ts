@@ -1,3 +1,5 @@
+import type { SearchEntry } from "../components/fumadocs/ui/search-dialog";
+import { componentCategories } from "./component-categories";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { createDocumentationSource } from "@lenso/docs/source";
@@ -104,7 +106,20 @@ export async function getExample(name: string, locale: Locale) {
   };
 }
 
-export async function getNavigation(locale: Locale, section: string) {
+export async function getNavigation(locale: Locale, section: string): Promise<SearchEntry[]> {
+  if (section === "components") {
+    const pages = source.pages.filter((page) => page.locale === locale);
+    const overview = pages.find((page) => page.slug === "react/components");
+    return [
+      ...(overview ? [{ label: overview.title, href: pageUrl(overview) }] : []),
+      ...componentCategories.flatMap(([id, en, cn]) => {
+        const children = pages
+          .filter((page) => page.componentCategory === id)
+          .map((page) => ({ label: page.title, href: pageUrl(page) }));
+        return children.length ? [{ label: locale === "cn" ? cn : en, children }] : [];
+      }),
+    ];
+  }
   return documentationSource
     .getNavigation(locale, section === "tools" ? "getting-started" : section)
     .map(({ title, url, description }) => ({

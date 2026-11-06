@@ -17,7 +17,7 @@ import {
   themeValuesById,
 } from "@/lib/theme-builder-model";
 import { homeShowcase as s } from "@/styles/home-showcase.stylex";
-import { useDocsDesignTheme } from "./docs-design-theme";
+import { useDocsDesignTheme } from "./docs-design-theme-context";
 import { ThemeBuilderPreview } from "./theme-builder-preview";
 import { ThemeBuilderDashboard } from "./theme-builder-dashboard";
 import { ThemeBuilderMail } from "./theme-builder-mail";
@@ -77,7 +77,7 @@ export function HomeShowcase({ locale }: { locale: "en" | "cn" }) {
   const componentsRef = useRef<HTMLDivElement>(null);
   const [desktopSelection, setDesktopSelection] = useState<Preview>("components");
   const [color, setColor] = useState<Color>();
-  const { active, vibrant } = useDocsDesignTheme();
+  const { active } = useDocsDesignTheme();
   const desktop = useSyncExternalStore(subscribeViewport, desktopSnapshot, mobileServerSnapshot);
   const mode = useSyncExternalStore(subscribeMode, modeSnapshot, serverModeSnapshot);
   const selected = desktop ? desktopSelection : "components";
@@ -91,7 +91,7 @@ export function HomeShowcase({ locale }: { locale: "en" | "cn" }) {
   // owner's baseline, rather than resetting its neutrals, fonts or radii.
   const scopeStyle = mode
     ? ({
-        ...builderVariables({ ...themeValuesById[active], vibrantPalette: vibrant }, mode),
+        ...builderVariables(themeValuesById[active], mode),
         ...(generated && {
           "--accent": generated["--accent"],
           "--accent-foreground": generated["--accent-foreground"],

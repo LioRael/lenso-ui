@@ -13,11 +13,11 @@ export const codeStyles = stylex.create({
     overflowX: "auto",
     borderBottomWidth: 1,
     borderBottomStyle: "solid",
-    borderBottomColor: "var(--separator)",
+    borderBottomColor: "var(--lenso-separator)",
   },
   file: {
     backgroundColor: "transparent",
-    color: "var(--muted)",
+    color: "var(--docs-label-secondary, var(--lenso-label-secondary))",
     borderWidth: 0,
     borderRadius: 8,
     padding: 8,
@@ -25,8 +25,11 @@ export const codeStyles = stylex.create({
     fontSize: 12,
     cursor: "pointer",
     whiteSpace: "nowrap",
-    ":focus-visible": { outline: "2px solid var(--focus)" },
-    ":is([aria-pressed=true])": { color: "var(--foreground)", backgroundColor: "var(--default)" },
+    ":focus-visible": { outline: "2px solid var(--lenso-focus-ring)" },
+    ":is([aria-pressed=true])": {
+      color: "var(--lenso-label-primary)",
+      backgroundColor: "var(--lenso-control-fill)",
+    },
   },
   innerScene: (minHeight: string) => ({
     display: "flex",
@@ -38,5 +41,5 @@ export const codeStyles = stylex.create({
   }),
   start: { alignItems: "flex-start", justifyContent: "flex-start" },
   end: { alignItems: "flex-end", justifyContent: "flex-end" },
-  solid: { backgroundColor: "var(--background)" },
+  solid: { backgroundColor: "var(--lenso-background-primary)" },
 });

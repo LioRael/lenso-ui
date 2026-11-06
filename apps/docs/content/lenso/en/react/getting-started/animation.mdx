@@ -29,3 +29,31 @@ Respect the user's motion preference in custom application styles:
 ```
 
 This application rule does not replace the native component's state or completion handling. Test focus restoration and dismissal with reduced motion enabled.
+
+## Elastic controls
+
+
+For custom controls, pair the public hook with its presentation variables:
+
+```tsx
+import { useElasticRef } from "@lenso/glass/react";
+import * as stylex from "@stylexjs/stylex";
+
+const styles = stylex.create({
+  elastic: {
+    scale: "var(--lg-press-scale, 1 1)",
+    translate: "var(--lg-press-translate, 0px 0px)",
+  },
+});
+
+function ElasticButton() {
+  const ref = useElasticRef<HTMLButtonElement>(undefined);
+  return (
+    <button ref={ref} {...stylex.props(styles.elastic)}>
+      Press me
+    </button>
+  );
+}
+```
+
+The hook manages pointer tracking, spring return and cleanup. Native semantics, focus and keyboard activation remain your component’s responsibility. It does not add glass rendering; use your own surface. Reduced motion follows the shared motion preference.

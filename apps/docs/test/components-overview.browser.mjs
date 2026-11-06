@@ -8,8 +8,8 @@ const index = JSON.parse(
 );
 const evidence = new URL("../../../test-results/components-overview/", import.meta.url);
 
-// A route/content check cannot catch missing authored categories, broken thumbnail
-// delivery, mobile reading order or a reference-link hover that matches its rest color.
+// A route/content check cannot catch missing authored categories, missing descriptions
+// on mobile or a reference-link hover that matches its rest color.
 export async function checkComponentsOverview(browser, base) {
   await mkdir(evidence, { recursive: true });
   const results = [];
@@ -47,28 +47,27 @@ export async function checkComponentsOverview(browser, base) {
             await galleries.count(),
             new Set(families.map((p) => p.componentCategory)).size,
           );
-          const button = cards.filter({ hasText: /^Button$/ });
-          const image = button.locator("img:visible");
-          await image.waitFor();
-          await image.evaluate((node) => node.decode());
-          assert.ok((await image.getAttribute("src")).includes(`/${theme}-button.png`));
+          const buttonPage = families.find((entry) => entry.slug === "react/components/button");
+          const button = galleries.locator(`a[href="/${locale}/docs/${buttonPage.slug}"]`);
+          assert.equal(await button.locator("span").first().innerText(), buttonPage.title);
+          assert.equal(await button.locator("span").last().innerText(), buttonPage.description);
           const geometry = await button.evaluate((node) => {
             const title = node.firstElementChild.getBoundingClientRect();
-            const preview = node.lastElementChild.getBoundingClientRect();
+            const description = node.lastElementChild.getBoundingClientRect();
             const grid = getComputedStyle(node.parentElement);
             return {
               columns: grid.gridTemplateColumns.split(" ").length,
               columnGap: grid.columnGap,
               rowGap: grid.rowGap,
-              previewHeight: preview.height,
-              titleAbove: title.top < preview.top,
+              descriptionHeight: description.height,
+              titleAbove: title.bottom <= description.top,
             };
           });
           assert.equal(geometry.columns, width < 640 ? 1 : 3);
           assert.equal(geometry.columnGap, "16px");
           assert.equal(geometry.rowGap, "40px");
-          assert.equal(geometry.previewHeight, 198);
-          assert.equal(geometry.titleAbove, width < 640);
+          assert.ok(geometry.descriptionHeight >= 24);
+          assert.equal(geometry.titleAbove, true);
           assert.ok(
             await page.evaluate(
               () =>
@@ -88,8 +87,17 @@ export async function checkComponentsOverview(browser, base) {
           await page.keyboard.press("Enter");
           await page.waitForURL(`${base}/${locale}/docs/react/components/button`);
 
-          const references = page.getByRole("navigation", { name: "Component references" });
-          const link = references.getByRole("link", { name: "Source", exact: true });
+          const summary = page
+            .locator("summary")
+            .filter({ hasText: locale === "cn" ? "参考链接" : "References" });
+          await summary.click();
+          const references = page.getByRole("navigation", {
+            name: locale === "cn" ? "组件参考链接" : "Component references",
+          });
+          const link = references.getByRole("link", {
+            name: locale === "cn" ? "源码" : "Source",
+            exact: true,
+          });
           assert.equal(await references.getByRole("button").count(), 0);
           assert.equal(await link.getAttribute("target"), "_blank");
           assert.ok((await link.getAttribute("rel")).includes("noopener"));
@@ -102,7 +110,7 @@ export async function checkComponentsOverview(browser, base) {
           await link.hover();
           const hovered = await link.evaluate((node) => {
             const probe = document.createElement("span");
-            probe.style.backgroundColor = "var(--default-hover)";
+            probe.style.backgroundColor = "var(--lenso-control-hover-fill)";
             node.parentElement.append(probe);
             const expected = getComputedStyle(probe).backgroundColor;
             probe.remove();
@@ -111,9 +119,16 @@ export async function checkComponentsOverview(browser, base) {
           assert.notEqual(hovered.background, resting.background);
           assert.equal(hovered.background, hovered.expected);
           await page.mouse.move(0, 0);
-          await link.focus();
+          await summary.focus();
+          await page.keyboard.press("Tab");
           assert.equal(await link.evaluate((node) => node === document.activeElement), true);
-          assert.notEqual(await link.evaluate((node) => getComputedStyle(node).boxShadow), "none");
+          assert.ok(
+            await link.evaluate((node) => {
+              const style = getComputedStyle(node);
+              return style.outlineStyle !== "none" || style.boxShadow !== "none";
+            }),
+            "The keyboard-focused reference link must have a visible indicator.",
+          );
           await page.screenshot({
             path: fileURLToPath(new URL(`${locale}-${theme}-${width}-links.png`, evidence)),
           });

@@ -17,6 +17,16 @@ export async function navigateToExamples(page, url, placement, mode, { timeout =
     const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout });
     assert.ok(response?.ok(), `Example route failed: ${response?.status()} ${url}`);
     assert.equal(new URL(page.url()).pathname, new URL(url).pathname, "Unexpected example route");
+    for (const { name } of placement.cases) {
+      const region = page.locator(`[data-example-name=${JSON.stringify(name)}]`).first();
+      const details = region.locator("xpath=ancestor::details[not(@open)][1]");
+      if (await details.count()) await details.locator("summary").first().click();
+      const preview = region.getByRole("tab", {
+        name: page.url().includes("/cn/") ? "预览" : "Preview",
+        exact: true,
+      });
+      if (await preview.count()) await preview.click();
+    }
     // Generated live previews use dynamic(..., { ssr: false }); these markers
     // appear only when the corresponding client preview has rendered.
     await page.waitForFunction(

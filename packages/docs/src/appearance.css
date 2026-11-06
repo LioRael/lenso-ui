@@ -1,0 +1,392 @@
+/* Document surfaces and foregrounds used by the documentation layout. */
+:root,
+:host,
+.light,
+.default,
+.dark,
+[data-theme="light"],
+[data-theme="default"],
+[data-theme="dark"] {
+  --lenso-shape-content-lg: 8px;
+  --lenso-shape-content-2xl: 16px;
+  --lenso-shape-content-3xl: 24px;
+}
+@layer base {
+  :root,
+  :host,
+  .light,
+  .default,
+  [data-theme="light"],
+  [data-theme="default"],
+  :host(.light),
+  :host([data-theme="light"]) {
+    --lenso-shape-content: 20px;
+    --lenso-shape-field: 20px;
+    --lenso-scrollbar-thumb: var(--lenso-label-tertiary);
+    --lenso-control-fill: var(--lenso-fill-tertiary);
+    --lenso-control-hover-fill: var(--lenso-fill-secondary);
+    --lenso-control-field-fill: var(--lenso-background-secondary);
+    --lenso-control-tint-hover-fill: color-mix(
+      in srgb,
+      var(--lenso-tint) 88%,
+      var(--lenso-label-primary)
+    );
+    --lenso-control-tint-subtle-fill: color-mix(
+      in srgb,
+      var(--lenso-tint) 12%,
+      var(--lenso-background-primary)
+    );
+    --lenso-background-grouped-secondary: rgb(255 255 255);
+    --lenso-fill-quaternary: rgb(116.00000069 116.00000069 128.00000757 / 0.07999999821186066);
+    --lenso-scrim: rgb(0 0 0 / 0.20000000298023224);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(139.87000663 139.87000663 144.79500634);
+  }
+  .dark,
+  [data-theme="dark"],
+  :host(.dark),
+  :host([data-theme="dark"]) {
+    --lenso-shape-content: 20px;
+    --lenso-shape-field: 20px;
+    --lenso-scrollbar-thumb: var(--lenso-label-tertiary);
+    --lenso-control-fill: var(--lenso-fill-tertiary);
+    --lenso-control-hover-fill: var(--lenso-fill-secondary);
+    --lenso-control-field-fill: var(--lenso-background-secondary);
+    --lenso-control-tint-hover-fill: color-mix(
+      in srgb,
+      var(--lenso-tint) 88%,
+      var(--lenso-label-primary)
+    );
+    --lenso-control-tint-subtle-fill: color-mix(
+      in srgb,
+      var(--lenso-tint) 12%,
+      var(--lenso-background-primary)
+    );
+    --lenso-background-grouped-secondary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-fill-quaternary: rgb(118.00000057 118.00000057 128.00000757 / 0.18000000715255737);
+    --lenso-scrim: rgb(0 0 0 / 0.47999998927116394);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(142.00000674 142.00000674 147.00000644);
+  }
+  :root[data-level="elevated"],
+  :host([data-level="elevated"]),
+  .light[data-level="elevated"],
+  .default[data-level="elevated"],
+  [data-theme="light"][data-level="elevated"],
+  [data-theme="default"][data-level="elevated"],
+  :host(.light[data-level="elevated"]),
+  :host([data-theme="light"][data-level="elevated"]) {
+    --lenso-background-grouped-secondary: rgb(255 255 255);
+    --lenso-fill-quaternary: rgb(116.00000069 116.00000069 128.00000757 / 0.07999999821186066);
+    --lenso-scrim: rgb(0 0 0 / 0.20000000298023224);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(139.87000663 139.87000663 144.79500634);
+  }
+  .dark[data-level="elevated"],
+  [data-theme="dark"][data-level="elevated"],
+  :host(.dark[data-level="elevated"]),
+  :host([data-theme="dark"][data-level="elevated"]) {
+    --lenso-background-grouped-secondary: rgb(44.00000118 44.00000118 46.00000106);
+    --lenso-fill-quaternary: rgb(118.00000057 118.00000057 128.00000757 / 0.18000000715255737);
+    --lenso-scrim: rgb(0 0 0 / 0.47999998927116394);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(142.00000674 142.00000674 147.00000644);
+  }
+  @media (prefers-contrast: more) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]) {
+      --lenso-background-grouped-secondary: rgb(255 255 255);
+      --lenso-fill-quaternary: rgb(115.99999309 115.99999309 128.00000757 / 0.16);
+      --lenso-scrim: rgb(0 0 0 / 0.4);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(108 108 112);
+    }
+  }
+  @media (prefers-contrast: more) {
+    :root[data-level="elevated"],
+    :host([data-level="elevated"]),
+    .light[data-level="elevated"],
+    .default[data-level="elevated"],
+    [data-theme="light"][data-level="elevated"],
+    [data-theme="default"][data-level="elevated"],
+    :host(.light[data-level="elevated"]),
+    :host([data-theme="light"][data-level="elevated"]) {
+      --lenso-background-grouped-secondary: rgb(255 255 255);
+      --lenso-fill-quaternary: rgb(115.99999309 115.99999309 128.00000757 / 0.16);
+      --lenso-scrim: rgb(0 0 0 / 0.4);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(108 108 112);
+    }
+  }
+  @media (prefers-contrast: more) {
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-background-grouped-secondary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-fill-quaternary: rgb(117.99999297 117.99999297 128.00000757 / 0.26);
+      --lenso-scrim: rgb(0 0 0 / 0.6);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(174 174 178);
+    }
+  }
+  @media (prefers-contrast: more) {
+    .dark[data-level="elevated"],
+    [data-theme="dark"][data-level="elevated"],
+    :host(.dark[data-level="elevated"]),
+    :host([data-theme="dark"][data-level="elevated"]) {
+      --lenso-background-grouped-secondary: rgb(53.99999678 53.99999678 55.99999666);
+      --lenso-fill-quaternary: rgb(117.99999297 117.99999297 128.00000757 / 0.26);
+      --lenso-scrim: rgb(0 0 0 / 0.6);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(174 174 178);
+    }
+  }
+  :root[data-contrast="standard"],
+  :host([data-contrast="standard"]),
+  .light[data-contrast="standard"],
+  .default[data-contrast="standard"],
+  [data-theme="light"][data-contrast="standard"],
+  [data-theme="default"][data-contrast="standard"],
+  :host(.light[data-contrast="standard"]),
+  :host([data-theme="light"][data-contrast="standard"]) {
+    --lenso-background-grouped-secondary: rgb(255 255 255);
+    --lenso-fill-quaternary: rgb(116.00000069 116.00000069 128.00000757 / 0.07999999821186066);
+    --lenso-scrim: rgb(0 0 0 / 0.20000000298023224);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(139.87000663 139.87000663 144.79500634);
+  }
+  :root[data-contrast="standard"][data-level="elevated"],
+  :host([data-contrast="standard"][data-level="elevated"]),
+  .light[data-contrast="standard"][data-level="elevated"],
+  .default[data-contrast="standard"][data-level="elevated"],
+  [data-theme="light"][data-contrast="standard"][data-level="elevated"],
+  [data-theme="default"][data-contrast="standard"][data-level="elevated"],
+  :host(.light[data-contrast="standard"][data-level="elevated"]),
+  :host([data-theme="light"][data-contrast="standard"][data-level="elevated"]) {
+    --lenso-background-grouped-secondary: rgb(255 255 255);
+    --lenso-fill-quaternary: rgb(116.00000069 116.00000069 128.00000757 / 0.07999999821186066);
+    --lenso-scrim: rgb(0 0 0 / 0.20000000298023224);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(139.87000663 139.87000663 144.79500634);
+  }
+  .dark[data-contrast="standard"],
+  [data-theme="dark"][data-contrast="standard"],
+  :host(.dark[data-contrast="standard"]),
+  :host([data-theme="dark"][data-contrast="standard"]) {
+    --lenso-background-grouped-secondary: rgb(28.00000023 28.00000023 30.00000011);
+    --lenso-fill-quaternary: rgb(118.00000057 118.00000057 128.00000757 / 0.18000000715255737);
+    --lenso-scrim: rgb(0 0 0 / 0.47999998927116394);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(142.00000674 142.00000674 147.00000644);
+  }
+  .dark[data-contrast="standard"][data-level="elevated"],
+  [data-theme="dark"][data-contrast="standard"][data-level="elevated"],
+  :host(.dark[data-contrast="standard"][data-level="elevated"]),
+  :host([data-theme="dark"][data-contrast="standard"][data-level="elevated"]) {
+    --lenso-background-grouped-secondary: rgb(44.00000118 44.00000118 46.00000106);
+    --lenso-fill-quaternary: rgb(118.00000057 118.00000057 128.00000757 / 0.18000000715255737);
+    --lenso-scrim: rgb(0 0 0 / 0.47999998927116394);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(142.00000674 142.00000674 147.00000644);
+  }
+  :root[data-contrast="increased"],
+  :host([data-contrast="increased"]),
+  .light[data-contrast="increased"],
+  .default[data-contrast="increased"],
+  [data-theme="light"][data-contrast="increased"],
+  [data-theme="default"][data-contrast="increased"],
+  :host(.light[data-contrast="increased"]),
+  :host([data-theme="light"][data-contrast="increased"]) {
+    --lenso-background-grouped-secondary: rgb(255 255 255);
+    --lenso-fill-quaternary: rgb(115.99999309 115.99999309 128.00000757 / 0.16);
+    --lenso-scrim: rgb(0 0 0 / 0.4);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(108 108 112);
+  }
+  :root[data-contrast="increased"][data-level="elevated"],
+  :host([data-contrast="increased"][data-level="elevated"]),
+  .light[data-contrast="increased"][data-level="elevated"],
+  .default[data-contrast="increased"][data-level="elevated"],
+  [data-theme="light"][data-contrast="increased"][data-level="elevated"],
+  [data-theme="default"][data-contrast="increased"][data-level="elevated"],
+  :host(.light[data-contrast="increased"][data-level="elevated"]),
+  :host([data-theme="light"][data-contrast="increased"][data-level="elevated"]) {
+    --lenso-background-grouped-secondary: rgb(255 255 255);
+    --lenso-fill-quaternary: rgb(115.99999309 115.99999309 128.00000757 / 0.16);
+    --lenso-scrim: rgb(0 0 0 / 0.4);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(108 108 112);
+  }
+  .dark[data-contrast="increased"],
+  [data-theme="dark"][data-contrast="increased"],
+  :host(.dark[data-contrast="increased"]),
+  :host([data-theme="dark"][data-contrast="increased"]) {
+    --lenso-background-grouped-secondary: rgb(36.00000165 36.00000165 38.00000153);
+    --lenso-fill-quaternary: rgb(117.99999297 117.99999297 128.00000757 / 0.26);
+    --lenso-scrim: rgb(0 0 0 / 0.6);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(174 174 178);
+  }
+  .dark[data-contrast="increased"][data-level="elevated"],
+  [data-theme="dark"][data-contrast="increased"][data-level="elevated"],
+  :host(.dark[data-contrast="increased"][data-level="elevated"]),
+  :host([data-theme="dark"][data-contrast="increased"][data-level="elevated"]) {
+    --lenso-background-grouped-secondary: rgb(53.99999678 53.99999678 55.99999666);
+    --lenso-fill-quaternary: rgb(117.99999297 117.99999297 128.00000757 / 0.26);
+    --lenso-scrim: rgb(0 0 0 / 0.6);
+    --lenso-status-error-fill: var(--lenso-system-red);
+    --lenso-status-error-on-fill: rgb(0 0 0);
+    --lenso-control-border: rgb(174 174 178);
+  }
+  @scope ([data-contrast="standard"]) to ([data-contrast]) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]) {
+      --lenso-background-grouped-secondary: rgb(255 255 255);
+      --lenso-fill-quaternary: rgb(116.00000069 116.00000069 128.00000757 / 0.07999999821186066);
+      --lenso-scrim: rgb(0 0 0 / 0.20000000298023224);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(139.87000663 139.87000663 144.79500634);
+    }
+    :root[data-level="elevated"],
+    :host([data-level="elevated"]),
+    .light[data-level="elevated"],
+    .default[data-level="elevated"],
+    [data-theme="light"][data-level="elevated"],
+    [data-theme="default"][data-level="elevated"],
+    :host(.light[data-level="elevated"]),
+    :host([data-theme="light"][data-level="elevated"]) {
+      --lenso-background-grouped-secondary: rgb(255 255 255);
+      --lenso-fill-quaternary: rgb(116.00000069 116.00000069 128.00000757 / 0.07999999821186066);
+      --lenso-scrim: rgb(0 0 0 / 0.20000000298023224);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(139.87000663 139.87000663 144.79500634);
+    }
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-background-grouped-secondary: rgb(28.00000023 28.00000023 30.00000011);
+      --lenso-fill-quaternary: rgb(118.00000057 118.00000057 128.00000757 / 0.18000000715255737);
+      --lenso-scrim: rgb(0 0 0 / 0.47999998927116394);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(142.00000674 142.00000674 147.00000644);
+    }
+    .dark[data-level="elevated"],
+    [data-theme="dark"][data-level="elevated"],
+    :host(.dark[data-level="elevated"]),
+    :host([data-theme="dark"][data-level="elevated"]) {
+      --lenso-background-grouped-secondary: rgb(44.00000118 44.00000118 46.00000106);
+      --lenso-fill-quaternary: rgb(118.00000057 118.00000057 128.00000757 / 0.18000000715255737);
+      --lenso-scrim: rgb(0 0 0 / 0.47999998927116394);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(142.00000674 142.00000674 147.00000644);
+    }
+  }
+  @scope ([data-contrast="increased"]) to ([data-contrast]) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]) {
+      --lenso-background-grouped-secondary: rgb(255 255 255);
+      --lenso-fill-quaternary: rgb(115.99999309 115.99999309 128.00000757 / 0.16);
+      --lenso-scrim: rgb(0 0 0 / 0.4);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(108 108 112);
+    }
+    :root[data-level="elevated"],
+    :host([data-level="elevated"]),
+    .light[data-level="elevated"],
+    .default[data-level="elevated"],
+    [data-theme="light"][data-level="elevated"],
+    [data-theme="default"][data-level="elevated"],
+    :host(.light[data-level="elevated"]),
+    :host([data-theme="light"][data-level="elevated"]) {
+      --lenso-background-grouped-secondary: rgb(255 255 255);
+      --lenso-fill-quaternary: rgb(115.99999309 115.99999309 128.00000757 / 0.16);
+      --lenso-scrim: rgb(0 0 0 / 0.4);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(108 108 112);
+    }
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-background-grouped-secondary: rgb(36.00000165 36.00000165 38.00000153);
+      --lenso-fill-quaternary: rgb(117.99999297 117.99999297 128.00000757 / 0.26);
+      --lenso-scrim: rgb(0 0 0 / 0.6);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(174 174 178);
+    }
+    .dark[data-level="elevated"],
+    [data-theme="dark"][data-level="elevated"],
+    :host(.dark[data-level="elevated"]),
+    :host([data-theme="dark"][data-level="elevated"]) {
+      --lenso-background-grouped-secondary: rgb(53.99999678 53.99999678 55.99999666);
+      --lenso-fill-quaternary: rgb(117.99999297 117.99999297 128.00000757 / 0.26);
+      --lenso-scrim: rgb(0 0 0 / 0.6);
+      --lenso-status-error-fill: var(--lenso-system-red);
+      --lenso-status-error-on-fill: rgb(0 0 0);
+      --lenso-control-border: rgb(174 174 178);
+    }
+  }
+  @media (forced-colors: active) {
+    :root,
+    :host,
+    .light,
+    .default,
+    [data-theme="light"],
+    [data-theme="default"],
+    :host(.light),
+    :host([data-theme="light"]),
+    .dark,
+    [data-theme="dark"],
+    :host(.dark),
+    :host([data-theme="dark"]) {
+      --lenso-background-grouped-secondary: Canvas;
+      --lenso-fill-quaternary: Canvas;
+      --lenso-scrim: Canvas;
+      --lenso-status-error-fill: Canvas;
+      --lenso-status-error-on-fill: CanvasText;
+      --lenso-control-border: CanvasText;
+    }
+  }
+}

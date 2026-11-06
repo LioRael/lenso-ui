@@ -1,9 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import { create } from "@orama/orama";
-import { createTokenizer } from "@orama/tokenizers/mandarin";
-import { oramaStaticClient } from "fumadocs-core/search/client/orama-static";
+import { staticClient } from "fumadocs-core/search/client/orama-static";
 import {
   authoredHeadingIds,
   createLocaleSearch,
@@ -100,14 +98,9 @@ for (const locale of ["en", "cn"]) {
       return Response.json(data);
     };
     try {
-      const client = oramaStaticClient({
+      const client = staticClient({
         from: `/search/${locale}.json`,
         search: { limit: 60 },
-        initOrama: () =>
-          create({
-            schema: { _: "string" },
-            components: locale === "cn" ? { tokenizer: createTokenizer() } : undefined,
-          }),
       });
       const cases =
         locale === "cn"

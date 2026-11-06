@@ -1,11 +1,11 @@
 {
   "formatVersion": 1,
-  "lensoVersion": "0.9.1",
+  "lensoVersion": "0.9.2",
   "completeUpstreamRuntimeParity": false,
   "locales": {
     "en": {
-      "pages": 100,
-      "sections": { "getting-started": 11, "components": 85 },
+      "pages": 101,
+      "sections": { "getting-started": 12, "components": 85 },
       "registeredReferencesIncludingAliases": 682,
       "uniqueRegisteredFiles": 681,
       "preservedRegisteredSourceFiles": 677,
@@ -13,8 +13,8 @@
       "unregisteredSourceFiles": 2
     },
     "cn": {
-      "pages": 100,
-      "sections": { "getting-started": 11, "components": 85 },
+      "pages": 101,
+      "sections": { "getting-started": 12, "components": 85 },
       "registeredReferencesIncludingAliases": 682,
       "uniqueRegisteredFiles": 681,
       "preservedRegisteredSourceFiles": 677,
@@ -2863,6 +2863,7 @@
     { "locale": "en", "slug": "react/getting-started/design-principles", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/frameworks", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/installation", "previews": [] },
+    { "locale": "en", "slug": "react/getting-started/materials", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/stylex", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/theming", "previews": [] },
     { "locale": "en", "slug": "react/getting-started/versioning", "previews": [] },
@@ -4005,6 +4006,7 @@
     { "locale": "cn", "slug": "react/getting-started/design-principles", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/frameworks", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/installation", "previews": [] },
+    { "locale": "cn", "slug": "react/getting-started/materials", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/stylex", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/theming", "previews": [] },
     { "locale": "cn", "slug": "react/getting-started/versioning", "previews": [] },

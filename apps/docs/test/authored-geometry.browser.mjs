@@ -79,6 +79,10 @@ try {
           await page.keyboard.press("Escape");
           await shellPopup.waitFor({ state: "hidden" });
         }
+        const tabs = page.locator('[data-example-name="menu-default"]');
+        await tabs
+          .getByRole("tab", { name: locale === "cn" ? "预览" : "Preview", exact: true })
+          .click();
         const scene = page.locator('[data-example-name="menu-default"] [data-example-scene]');
         await scene.scrollIntoViewIfNeeded();
         const sceneTrigger = scene.locator('[data-slot="menu-trigger"]');

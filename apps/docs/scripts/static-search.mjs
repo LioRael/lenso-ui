@@ -7,7 +7,6 @@ import { remark } from "remark";
 import remarkGfm from "remark-gfm";
 import { VFile } from "vfile";
 import matter from "gray-matter";
-import { createTokenizer } from "@orama/tokenizers/mandarin";
 import { headingId } from "../src/lib/heading-id.mjs";
 import { headingText, nativeApiFamily } from "../src/lib/native-api-section.ts";
 
@@ -98,7 +97,6 @@ export async function createLocaleSearch(index, locale) {
   );
   return initAdvancedSearch({
     indexes,
-    tokenizer: locale === "cn" ? createTokenizer() : undefined,
     search: { limit: 60 },
   });
 }

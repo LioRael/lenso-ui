@@ -63,6 +63,7 @@ export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}):
   );
   return {
     ...fumaMDX,
+    DisclosureSummary: (props) => <summary {...props} {...stylex.props(styles.disclosureFocus)} />,
     h1: ({ children, id }) => (
       <fumaMDX.h2
         id={id ?? headingId(plainText(children))}

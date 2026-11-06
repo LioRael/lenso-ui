@@ -1,0 +1,35 @@
+---
+title: "材料"
+description: "Apple 材料的主题变量与共享样式配置。"
+navigationGroup: "手册"
+navigationOrder: 11
+---
+
+Materials 属于设计基础，不是公开的 React 组件。通过 `@lenso/tokens/materials` 使用样式配置与类型，通过 `@lenso/tokens/theme.css` 加载主题变量。组件保留自己的结构和原生交互，内部渲染器负责装饰层与缓存光学贴图。
+
+## 材料家族
+
+| 家族                                        | 用途                     |
+| ------------------------------------------- | ------------------------ |
+| Ultrathin / Thin / Regular / Thick / Chrome | CSS 模糊、颜色和混合配置 |
+| Small / Medium / Large / Clear              | Liquid Glass 光学配置    |
+| Vibrant labels / fills                      | 前景颜色与混合角色       |
+| Scroll edges                                | Soft / Hard 滚动边缘配置 |
+
+<MaterialsPreview />
+
+## 菜单和背景来源
+
+[Menu](../components/menu) 弹层使用中号玻璃材质。触发按钮默认留在原位，可以设置 `morphTrigger` 让弹层从按钮展开。本站 Menu 示例通过 `@lenso/glass` 注册主菜单背后的背景像素。其他背景使用浏览器实时绘制的材质。
+
+## 外观
+
+在页头的“主题”中可以切换 iOS 26 和 iOS 27 材质，或调整玻璃的着色量。默认值为 0.5。在应用中，`ThemeScope` 的 `materialVersion` 和 `glassTint` 会应用到子树及其弹层。系统的降低透明度和增强对比度设置优先。
+
+```tsx
+import { ThemeScope } from "@lenso/ui";
+
+<ThemeScope materialVersion="ios26" glassTint={0.5}>
+  {children}
+</ThemeScope>
+```

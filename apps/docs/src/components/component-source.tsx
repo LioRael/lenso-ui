@@ -7,22 +7,36 @@ import { Button } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/styles/docs.stylex";
 import { notebook } from "@/styles/notebook.stylex";
+import { LiveSource } from "./live-source";
 import { codeStyles } from "@/styles/code.stylex";
 
-// HeroUI's vertically stacked source pane; local source is never substituted with upstream TSX.
+// Local examples show their own source rather than a substitute.
 export function ComponentSource({
   code,
   local,
   highlighted,
   files,
   standalone = false,
+  live = false,
+  active: visible = true,
+  locale = "en",
 }: {
   code: string;
   local: boolean;
   highlighted?: ReactNode;
-  files?: { name: string; code: string; highlighted: ReactNode }[] | undefined;
+  files?: { name: string; code: string; highlighted?: ReactNode }[] | undefined;
   standalone?: boolean;
+  live?: boolean;
+  active?: boolean;
+  locale?: "en" | "cn";
 }) {
+  const cn = locale === "cn";
+  const copyLabel = local
+    ? cn
+      ? "复制本地示例源码"
+      : "Copy local example source"
+    : "Copy preserved source";
+  const copiedLabel = cn ? "源码已复制" : "Source copied";
   const [status, setStatus] = useState("");
   const [selected, setSelected] = useState(0);
   const active = files?.[selected];
@@ -49,18 +63,22 @@ export function ComponentSource({
       )}
       <Button
         variant="ghost"
-        aria-label={local ? "Copy local example source" : "Copy preserved source"}
+        aria-label={copyLabel}
         xstyle={[notebook.iconButton, notebook.codeCopy]}
         onClick={async () => {
           try {
             await navigator.clipboard.writeText(raw);
-            setStatus("Source copied");
+            setStatus(copiedLabel);
           } catch {
-            setStatus("Clipboard unavailable. Select the code to copy it.");
+            setStatus(
+              cn
+                ? "无法访问剪贴板，请选择代码复制。"
+                : "Clipboard unavailable. Select the code to copy it.",
+            );
           }
         }}
       >
-        {status === "Source copied" ? (
+        {status === copiedLabel ? (
           <Check width={16} height={16} aria-hidden="true" />
         ) : (
           <Copy width={16} height={16} aria-hidden="true" />
@@ -72,10 +90,17 @@ export function ComponentSource({
         aria-label={
           active?.name ?? (local ? "Local adaptation source" : "Preserved upstream source")
         }
-        {...stylex.props(styles.pre, !standalone && notebook.previewPre)}
+        {...stylex.props(
+          styles.pre,
+          !standalone && notebook.previewPre,
+          standalone && sourceStyles.standalone,
+        )}
       >
         <code>
-          {active?.highlighted ??
+          {live ? (
+            <LiveSource code={raw} file={active?.name} active={visible} />
+          ) : (
+            (active?.highlighted ??
             highlighted ??
             raw.split("\n").map((line, index) => (
               <span key={index} {...stylex.props(notebook.codeLine)}>
@@ -84,10 +109,20 @@ export function ComponentSource({
                 </span>
                 {line || " "}
               </span>
-            ))}
+            )))
+          )}
         </code>
       </pre>
       <output {...stylex.props(notebook.hidden)}>{status}</output>
     </div>
   );
 }
+
+const sourceStyles = stylex.create({
+  standalone: {
+    marginBlock: 0,
+    maxHeight: "min(420px, 60dvh)",
+    overflow: "auto",
+    ":focus-visible": { outline: "1.5px solid var(--lenso-focus-ring)", outlineOffset: 3 },
+  },
+});

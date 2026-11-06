@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 import { getExample, type Locale } from "@/lib/source";
 import { styles } from "@/styles/docs.stylex";
 import liveManifest from "@/demos/live-manifest.json";
-import { MenuBackdropPreview, MenuExampleFrame } from "./menu-backdrop-preview";
+import { ComponentExampleFrame, ScrollableExampleScene } from "./component-example-frame";
 import { ComponentSource } from "./component-source";
 import { highlightSource } from "./highlight-source";
 import { exampleSourceFiles } from "./example-source-files";
@@ -63,21 +63,19 @@ function PreviewScene({
   isBgSolid: boolean;
   menuBackdrop: boolean;
 }) {
-  const Scene = menuBackdrop ? MenuBackdropPreview : "div";
   return (
-    <Scene
+    <ScrollableExampleScene
+      registerMenuBackdrop={menuBackdrop}
       data-example-scene
       {...stylex.props(
-        menuBackdrop ? glassExample.scene : styles.previewBody,
+        glassExample.scene,
         align === "start" && codeStyles.start,
         align === "end" && codeStyles.end,
         isBgSolid && codeStyles.solid,
       )}
     >
-      <div {...stylex.props(codeStyles.innerScene(minHeight), menuBackdrop && glassExample.inner)}>
-        {children}
-      </div>
-    </Scene>
+      <div {...stylex.props(codeStyles.innerScene(minHeight), glassExample.inner)}>{children}</div>
+    </ScrollableExampleScene>
   );
 }
 
@@ -88,6 +86,7 @@ export async function ComponentPreview({
   minHeight = "0px",
   isBgSolid = false,
   hideCode = false,
+  defaultView = "preview",
   description,
   style,
   Preview,
@@ -99,6 +98,7 @@ export async function ComponentPreview({
   minHeight?: string;
   isBgSolid?: boolean;
   hideCode?: boolean;
+  defaultView?: "preview" | "source";
   description?: string;
   style?: Pick<CSSProperties, "contain">;
   Preview?: ComponentType;
@@ -127,7 +127,14 @@ export async function ComponentPreview({
     <SourceNotice name={name} example={example} />
   );
   const source = code && !hideCode && (
-    <ComponentSource code={code} local={!!liveFile} highlighted={highlighted} files={files} />
+    <ComponentSource
+      code={files?.length ? "" : code}
+      live={!!files}
+      local={!!liveFile}
+      highlighted={highlighted}
+      files={files}
+      locale={locale}
+    />
   );
   return (
     <section
@@ -137,14 +144,13 @@ export async function ComponentPreview({
     >
       {description && <p {...stylex.props(styles.sourceNotice)}>{description}</p>}
       <LocaleNotice status={resolved?.status} />
-      {name === "menu-default" ? (
-        <MenuExampleFrame name={name} locale={locale} preview={preview} source={source} />
-      ) : (
-        <>
-          {preview}
-          {source}
-        </>
-      )}
+      <ComponentExampleFrame
+        name={name}
+        locale={locale}
+        preview={preview}
+        source={source}
+        defaultView={defaultView}
+      />
     </section>
   );
 }

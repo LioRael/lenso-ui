@@ -94,7 +94,7 @@ export async function checkHome(page, base) {
       await snapshot.setViewportSize({ width: 1440, height: 900 });
       await snapshot.goto(base);
       const serverHeader = snapshot.getByRole("banner");
-      await serverHeader.getByRole("group", { name: "Color theme", exact: true }).waitFor();
+      await serverHeader.getByRole("tablist", { name: "Color theme", exact: true }).waitFor();
       await serverHeader.getByRole("button", { name: "Change language", exact: true }).waitFor();
       assert.equal(
         await serverHeader
@@ -137,15 +137,18 @@ export async function checkHome(page, base) {
       );
       const header = page.getByRole("banner");
       const searchTrigger = header.getByRole("button", {
-        name: "Search documentation",
+        name: locale === "en" ? "Search documentation" : "搜索文档",
         exact: true,
       });
       const searchIcon = await searchTrigger.locator("svg").boundingBox();
       assert.ok(searchIcon.width >= 12 && searchIcon.height >= 12);
       await searchTrigger.click();
-      const search = page.getByRole("dialog", { name: "Search documentation", exact: true });
+      const search = page.getByRole("dialog", {
+        name: locale === "en" ? "Search documentation" : "搜索文档",
+        exact: true,
+      });
       await search
-        .getByLabel("Find a page", { exact: true })
+        .getByLabel(locale === "en" ? "Find a page" : "搜索文档", { exact: true })
         .fill(locale === "en" ? "Button" : "按钮");
       await search.locator("[data-docs-result]").first().waitFor();
       await page.keyboard.press("Escape");
@@ -227,8 +230,13 @@ export async function checkHome(page, base) {
         if (width === 768) {
           const tabletMenu = header.getByRole("button", { name: /menu/i });
           await tabletMenu.click();
-          await header.getByRole("group", { name: "Color theme", exact: true }).waitFor();
-          await header.getByRole("button", { name: "Change language", exact: true }).waitFor();
+          await header.getByRole("tablist", { name: "Color theme", exact: true }).waitFor();
+          await header
+            .getByRole("button", {
+              name: locale === "cn" ? "切换语言" : "Change language",
+              exact: true,
+            })
+            .waitFor();
           await page.keyboard.press("Escape");
         }
       }
