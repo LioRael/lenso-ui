@@ -1,0 +1,19 @@
+docs/research/section-index-native-2026-11-09.md
+  s_59ed3bf8c366a4::t_4dd6682be02977 113-120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "abf32faa3c15db374b5dee61900fc082ba05f49f",
+  "prompts": {},
+  "sessions": {
+    "s_59ed3bf8c366a4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bc70-2a33-76a1-8338-ed2b35e32b01",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
