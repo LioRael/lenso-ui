@@ -9,7 +9,6 @@ composition principles and review sequence.
 | Implement grouped forms, focus, materials or docs navigation            | [Component conventions](component-conventions.md) and the linked owning source |
 | Execute a page-design task                                              | [Lenso UI design skill](../../.agents/skills/lenso-ui-design/SKILL.md)         |
 | Implement component contracts and StyleX composition                    | [Lenso UI skill](../../.agents/skills/lenso-ui/SKILL.md)                       |
-| Understand the Vercel reference and this document structure             | [Design guidance review](../research/design-guidance-review.md)                |
 
 Principles, implementation conventions and historical evidence have different
 jobs. Keep a rule in its owning document and link to it from skills. Record a

@@ -29,4 +29,5 @@ Both drivers derive from the Lenso route lab under its retained MIT notices and
 consume the package-owned GLSL sources. See `packages/glass/shaders/NOTICE.md`.
 No shader or runtime from MyGo is included.
 
-Results and limitations: `docs/research/glass-driver-comparison-validation.md`.
+Measurements apply only to the tested scene and browser. Rerun the harness
+against the revision under review before drawing performance conclusions.

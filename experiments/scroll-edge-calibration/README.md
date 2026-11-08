@@ -61,14 +61,11 @@ recipes in Chromium and desktop WebKit. On the reviewed host, desktop WebKit
 did not paint backdrop blur even in an unmasked diagnostic. Its captures are
 not an optical acceptance result; use the physical WKWebView comparison.
 
-See `docs/research/soft-scroll-edge-calibration-2026-11-08.md` and
-`docs/research/soft-scroll-edge-refinement-2026-11-08.md` for results and
-coverage limits. Pixel-error reduction is specific to this fixture and is not
+Pixel-error reduction is specific to this fixture and is not
 a claim about overall native parity, browser frame rate or power consumption.
 
 For the third-pass dataset, run
 `python3 experiments/scroll-edge-calibration/analyze-refinement.py output/scroll-edge-fine refined trial-E`.
 The captured candidate E matches the current production helper. `selection.json`
 records all eight candidates on the four selection states; `metrics.json`
-records full pattern/photo validation. See
-`docs/research/soft-scroll-edge-top-band-2026-11-08.md`.
+records full pattern/photo validation.

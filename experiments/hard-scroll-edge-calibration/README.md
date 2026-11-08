@@ -49,9 +49,7 @@ preserve the actual backdrop color. `Trial` reads current source, so newly
 generated fixtures use that correction; the earlier captured metrics describe
 the recorded trial above and must not be reported as the current light result.
 
-See `docs/research/hard-scroll-edge-physical-device-2026-11-08.md` for the
-results and verification limits. MyGo attribution remains in
-`THIRD_PARTY_NOTICES.md` for the retained benchmark and hairline reference.
+Calibration results apply only to the captured device, recipe and fixture.
 
 ## Saved local replay
 

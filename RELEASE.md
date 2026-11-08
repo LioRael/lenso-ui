@@ -1,3 +1,41 @@
+# Unreleased: control and layout compatibility
+
+These are source changes; use the migration details for the version you consume.
+
+- Replace `FieldGroup` with `Fieldset.Group`, and `TextField.Group` with a labelled
+  `Fieldset` containing `Fieldset.Group`. Compatibility entries remain, but groups
+  now form a continuous surface. Use a plain layout container for separate controls.
+  `TextField` supplies row geometry inside a group; use `Fieldset.Row` for other
+  settings and `layout="stacked"` for long or multiline text fields.
+- Input, TextArea and InputGroup default to ordinary form surfaces. Set `glass`
+  explicitly for floating inputs; adornments belong inside an InputGroup whose
+  shell owns the material. Do not add a second material to its inner controls.
+  Revisit overrides assuming 44px Input height: content fields now use 52px
+  single-line height, 26px corners and 112px multiline minimum height.
+- InputOTP uses 44px circular digit fields. Review fixed-width overrides; a
+  six-digit row with a separator is 328px wide and contracts in narrow containers.
+  Existing value, paste, form and composition contracts remain supported.
+- Glass pressed-lighting and connected-optics changes require no prop or import
+  migration. Review custom active colors, elastic clearance and elevation;
+  explicit `--lenso-glass-panel-shadow` and `--lenso-glass-shadow` retain precedence.
+  Use matching material recipes and `data-lenso-backdrop` sources for connected
+  surfaces. Mixed recipes and unmarked WebKit fallbacks have optical differences.
+- PageControl defaults to prominent small Glass; use `variant="plain"` to omit
+  its capsule. Keyboard entry now uses one selected dot with arrow/Home/End
+  navigation. Controlled owners must update `page` from `onPageChange`.
+- SegmentedControl now shares Tabs presentation. Choose `size="lg"` for 46px
+  segments; the small default is 28px rather than the initial 44px height.
+  It retains radio/form semantics; use Tabs for associated content panels.
+- WheelPicker's default viewport is 216px rather than 180px. Controlled owners
+  manage accepted values and form reset. SwipeActions never executes a full-swipe
+  action unless that action opts in through `fullSwipe`; applications own deletion,
+  confirmation and undo.
+- Editable List rows need stable `itemKey` and `textValue`; update application
+  state from selection/reorder callbacks. Prefer integrated `startActions` and
+  `endActions` for list rows. Set `--lenso-list-surface` at the shared ancestor for
+  custom row colors. RefreshControl's Viewport must own scrolling; return the
+  asynchronous work from `onRefresh` and disable refresh during editing.
+
 # Unreleased: SectionIndex interaction
 
 SectionIndex activates on primary pointer-down instead of pointer release and

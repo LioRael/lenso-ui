@@ -24,9 +24,6 @@ tests/                  Repository and installed-consumer checks; shared DOM set
 docs/
   architecture/         Current ownership and integration decisions
   design/               Maintained design conventions and source principles
-  migrations/           Consumer migration instructions
-  plans/                Work that still has an implementation or review remaining
-  research/             Retained investigation evidence, with its original limits
 experiments/            Reproducible rendering and calibration investigations
 .agents/                Agent entrypoints and skills
 .github/                Signed verification and release orchestration
@@ -78,8 +75,12 @@ evidence and are excluded from source checks. Archive completed investigations
 with a recoverable copy before removing them; preserve referenced recordings,
 unapplied patches and any remaining verification limits.
 
+Use the [documentation index](../README.md) to find maintained guidance and
+[release notes](../../RELEASE.md) for consumer changes. Keep investigation
+receipts outside the active documentation tree.
+
 Delete forwarding modules after callers use the owning entrypoint. Completed
-plans become maintained guidance or leave the active checkout. Keep applicable
+work becomes maintained guidance or leaves the active checkout. Keep applicable
 copyright, license and provenance text with retained adaptations and verify its
 presence in the distribution. A dependency patch needs a reproduced defect;
 there are currently no registered dependency patches.

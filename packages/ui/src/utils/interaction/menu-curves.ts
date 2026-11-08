@@ -1,6 +1,6 @@
 // Physical iPhone captures: Files More and the twelve-action native probe.
 // Tables retain the measured shape; monotone cubic interpolation removes knot
-// velocity jumps. See docs/research/menu-continuous-expansion.md for limits.
+// velocity jumps. These are sampled Web approximations of the captured motion.
 type Frame = readonly [
   ms: number,
   x: number,

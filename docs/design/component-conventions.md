@@ -221,12 +221,7 @@ Closing shares compact/tall physical capture profiles across circular, text and
 Select sources. Width, height and centre contract together, independently of
 corner settling. Glass hands back to source paint at 299ms. Morphing Menu
 sources retain a small rebound and lift through 533ms (uniform for circles); Select and
-stationary sources finish at the handoff without that rebound. Capture
-provenance, aspect adaptation and limits are recorded in the
-[continuous expansion report](../research/menu-continuous-expansion.md),
-[whole-panel closing report](../research/menu-whole-panel-closing.md) and
-[device alignment report](../research/menu-icon-device-alignment.md). These are
-sampled Web approximations, not recovered native spring constants.
+stationary sources finish at the handoff without that rebound. These are sampled Web approximations, not recovered native spring constants.
 
 Menu ink has independent time-based softness and foreground rim refraction.
 Do not end either effect merely because width has reached the panel width.
@@ -237,7 +232,7 @@ panel's optical material and fusion recipe remain separate. During a transformed
 Menu/Select or cascading submenu morph, paint the foreground rim in current
 visible coordinates with the same pose as the surface/clip; never scale the
 final rounded-rectangle rim bitmap into an earlier circular face. Restore fitted
-foreground paint at rest. See the [live contour report](../research/menu-live-contour.md).
+foreground paint at rest.
 
 With `morphTrigger={false}`, Menu and Select keep their trigger visible and
 stationary. Their popups unfold from a compact source near that trigger with
@@ -259,8 +254,7 @@ inherit the ordinary row's 20px inline padding.
 Offscreen glass pauses background observation work while retaining its decoded
 source and output. Re-entry alone must not replace a source copy or clear its
 paint. Each paused consumer retains real source edits even if a visible sibling
-has already consumed that shared source's update. See the
-[ink and re-entry follow-up](../research/menu-ink-and-reentry.md) for evidence.
+has already consumed that shared source's update.
 Prepared shared GPU batches also retain their mounted owners across visibility
 changes; an offscreen member must not recreate a visible sibling's canvas.
 All-offscreen batches stop drawing, and actual unmounts release their resources.
@@ -424,8 +418,7 @@ rounded corners on all sides. Existing physical swipe directions remain supporte
 up/down presentations retain their edge-attached geometry. Modal keeps its sizes,
 placements and inside/outside scroll contracts; full size remains edge-to-edge.
 These are Lenso Web choices aligning the existing content panel family, not an
-exact reconstruction of every native presentation. See the
-[alignment record](../research/presentation-panels-alignment.md) for validation.
+exact reconstruction of every native presentation.
 
 ## Material implementation
 
@@ -442,9 +435,7 @@ identity. Respect reduced motion, disabled and loading states.
 Popover and Tooltip bodies and default arrows share one local Thick-material silhouette and
 one backdrop filter. Keep its geometry attached to the native popup during
 scaling; independently positioned body paints and separately blended arrows
-break continuity. Custom arrow content retains its own presentation. See the
-[Popover correction](../research/popover-material-continuity.md) for reference
-and browser coverage.
+break continuity. Custom arrow content retains its own presentation.
 
 Soft scroll edges use six overlapping live backdrop filters with variance-corrected
 incremental radii and smooth cosine falloff, including a near-clear tail and an
@@ -469,10 +460,8 @@ washed out colored backgrounds in the docs header. Dark appearance applies satur
 59% fill using the primary background raised by 10/255 per channel, clamped.
 The initial values were calibrated against a public UIKit hard edge on iPhone 15 Pro
 Max / iOS 27.2 with a 96-point bar; photos were held out from fitting. They
-supersede the earlier macOS/MyGo recipe. See the
-[physical-device comparison](../research/hard-scroll-edge-physical-device-2026-11-08.md)
-for evidence and limits. Its recorded light-mode optical metrics predate the
-backdrop-color correction and no longer describe the current light default.
+supersede the earlier macOS/MyGo recipe. Historical light-mode optical metrics predate the
+backdrop-color correction and do not describe the current light default.
 Soft-edge tints retain their own earlier values.
 Hard edges include one hairline on the content-facing boundary: 0.5 CSS
 pixels on high-density displays, black at 10% in light appearance and white at
@@ -548,10 +537,8 @@ inherited item indentation cannot shift the page text independently of labels.
 | Optical materials and press behavior         | `packages/glass/` and the token material recipes                                           |
 | Documentation row and icon alignment         | `packages/docs/presentation/styles/sidebar.stylex.ts`, `packages/docs/src/site-layout.tsx` |
 
-The [grouped-form migration](../migrations/grouped-forms-migration.md) explains consumer
-changes. The [shared-focus review](../research/shared-focus-validation.md) and
-[sidebar review](../research/sidebar-alignment-validation.md) record specific
-checks; a recorded check is not proof that later source still behaves the same.
+See [release notes](../../RELEASE.md) for consumer changes. Historical checks
+do not verify later source revisions.
 
 ## Glass interaction review surface
 
@@ -559,8 +546,6 @@ Registered Menu scenes include the root and its native submenu ownership chain,
 including portals across a preview shadow root. A complete owned material retires
 the hoisted native panel paints until invalidation; the two must never stack.
 Keep the fitted clear-end optics when the analytic material cannot represent it.
-See the [Safari submenu material investigation](../research/submenu-safari-material.md)
-for the browser checks and native-fallback limitations.
 
 The bilingual `/en/glass-lab` and `/cn/glass-lab` routes provide a focused
 review surface for shared materials and motion. Drag the glass members or use
@@ -590,16 +575,14 @@ sample makes oblique hairlines break into isolated dark pixels. Keep internal
 shading and texture resolution independent of this edge antialiasing. Suppress this local paint while
 a shared fusion contour is visible. Colored and knob recipes retain their
 own ownership. Standalone default shadows follow fitted size; explicit caller
-shadows retain priority. See the
-[tinted-material correction](../research/glass-tinted-appearance-fix.md).
+shadows retain priority.
 
 Generic Glass starts with neutral pre-material saturation, matching GlassButton.
 For compatible fused members, the shared surface owns the preference wash once,
 including the connecting neck. Suppress each member's local wash only while that
 shared surface is visible, and restore it when fusion ends. Different preference
 paints cannot share one material plane. Matching flat face colors does not
-establish matching edge optics or interaction highlights; the
-[material audit](../research/glass-material-consistency-audit.md) records these limits.
+establish matching edge optics or interaction highlights.
 
 Compatible untinted iOS 27 small/clear fusion groups use the reference's
 large-surface linear transfer, without per-button inner shading. Standalone
@@ -640,19 +623,16 @@ recursively invalidate backdrop consumers. Exterior painting may skip pixels
 outside the traced contour support, while retaining the same coverage and light.
 Generate only fields consumed by the selected composition: a compatible shared
 plane owns its visible rim and contour separately, but spectral edge saturation
-still requires its highlight map. The [computation-path review](../research/glass-fusion-computation-refactor.md)
-records performance and image-equivalence evidence.
-The [CPU follow-up](../research/glass-fusion-cpu-optimization.md) distinguishes
-renderer savings from aggregate renderer, GPU and browser process CPU.
+still requires its highlight map.
+Measure renderer savings separately from aggregate renderer, GPU and browser
+process CPU.
 Menus sample independent width, height, center, content zoom and roundness
 channels on separate time-based opening and closing paths, including the closing
 drop and trigger return. Interrupted motion carries the current pose and velocity
 into the new trajectory. Base UI still owns interaction and placement; touch
 scrolling in constrained menus and modifier keys on scrub activation stay native.
 
-The [reference alignment pass](../research/glass-reference-alignment.md) records
-material roles, hover/press measurements, contour migration and remaining visual
-limits. GlassButton uses a white .34/.30 light/dark active wash and a .035 local
+GlassButton uses a white .34/.30 light/dark active wash and a .035 local
 light with a 240px radius and .025 midpoint, while shared lighting continues
 across the neck. Forced colors suppress these washes, including focused states.
 

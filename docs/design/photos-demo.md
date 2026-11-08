@@ -318,9 +318,8 @@ Relative rulers, gesture history, dirty-exit confirmation, crop geometry and
 actual JPEG export replace the earlier minimal editor. Edited output dimensions
 are propagated back into the viewer.
 
-See the [implementation and bounded acceptance record](../research/photos-editing-implementation-2026-11-06.md)
-for browser evidence, regression checks and remaining native-processing and
-touch-platform differences. This is an implemented iteration, not full iOS parity.
+Native-processing and touch-platform differences remain; this implementation
+does not establish full iOS parity.
 
 ## Detail options and discard confirmation, November 6, 2026
 
@@ -328,13 +327,10 @@ The detail overflow now uses the existing morphing Menu rather than a Popover.
 Its action row, separators and album/information submenus follow a fresh native
 inspection. Discarding edits now uses a compact, undimmed ActionSheet near Cancel,
 with one destructive action and outside/Escape dismissal that retains the draft.
-See the [overlay correction record](../research/photos-overlay-corrections-2026-11-06.md)
-for frame observations, click-through evidence and the remaining metadata limits.
 
 ## Editor appearance inheritance, November 6, 2026
 
 The editor now inherits the surrounding Photos appearance. Removed its forced
 dark ThemeScope and replaced fixed workspace/control colors with semantic theme
 variables. Normal and crop workspaces, menus and discard confirmation therefore
-follow light/dark appearance together without losing a draft. See the
-[theme correction evidence](../research/photos-editor-theme-2026-11-06.md).
+follow light/dark appearance together without losing a draft.
