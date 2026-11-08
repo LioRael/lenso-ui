@@ -45,7 +45,10 @@ scroll locking and focus restoration. Applications own shortcuts, asynchronous
 search, ranking, route navigation and dismissal. The docs adapter keeps
 Fumadocs static index loading and highlighting and uses `filter={false}` to
 preserve its external result order. Keep the existing search material, spacing
-and responsive geometry. Command is an owner-authorized additive primitive;
+and responsive geometry as the default Command presentation. The UI package
+owns the glass surface, header, results, scrolling viewport and footer; its
+Popup and Backdrop compose native Dialog placement and dismissal. Documentation
+search uses those parts without a private style map. Command is an owner-authorized additive primitive;
 existing primitive families remain unchanged.
 
 ## Grouped forms
@@ -264,13 +267,23 @@ All-offscreen batches stop drawing, and actual unmounts release their resources.
 
 ## Navigation and page controls
 
+Content List and option ListBox have separate interaction contracts. List editing
+adds checkbox selection and reorder handles to native content rows, without
+changing them into options. List owns the grouped surface and row spacing;
+SwipeActions borrows its opaque row fill through `--lenso-list-surface` and only
+owns reveal behavior. Use List.Item actions for coordinated rows and List.Section
+for group-local reorder boundaries. RefreshControl.Viewport owns vertical
+scrolling; disable refresh during list editing. See
+[list composition](list-composition.md) for ownership and the integrated example.
+
 SwipeActions is an inline row, not a modal Drawer. Base UI buttons own action
 activation; the public useRender contract owns root composition. Horizontal
 pointer intent reveals logical leading/trailing actions, while native vertical
 scrolling retains ownership. Canceled gestures restore the accepted open side.
 Every action group has a visible reveal control and is inert while closed.
 Full-swipe execution requires an explicit per-action opt-in. The application owns
-removal, confirmation and undo. Use a native `li` root inside List.
+removal, confirmation and undo. List.Item composes it within its native `li`;
+standalone composition inside a list must also retain native list items.
 Touch capture belongs to the root only after transfer: ignore a descendant's
 bubbled `lostpointercapture` during that transfer. Non-editable row text suppresses
 selection and callout, while focused native editors retain both. Release selection
@@ -319,8 +332,31 @@ owns touch scrubbing, while adjacent content retains native scrolling. Prevent
 native link dragging, preserve normal modified clicks, ignore descendant capture
 transfer and suppress only the pointer-generated click after a scrub. value is
 a current-location marker; application scroll-spy state and section targets remain
-application-owned. Use sticky placement within a list's scrolling container.
-Small index text mixes link color with primary ink for default-surface contrast.
+application-owned. Anchor the index at the inline end, centered on the list's
+viewport, independently of content scrolling. The visible 16px letter column
+retains a 44px gesture strip, with 13.8px minimum letter pitch and 11px semibold type.
+Do not draw a persistent background behind the current letter. Pointer-down
+activates immediately, captures the pointer and tracks every new letter without
+a drag threshold; releasing does not activate it again. These dimensions are
+Lenso Web choices informed by the iOS 27.2 Contacts reference, not native parity.
+The demo uses A–Z/# data with 45px leading avatars, 77px minimum rows, 16px vertical
+padding and a 16px avatar-to-text gap. Body text is 17px/22px, weight 400;
+36px section headings use 17px/22px, weight 600. Ordinary 1px row dividers start
+at the 77px text guide and end 16px from the trailing edge. Section dividers are
+also 1px but inset 16px on both sides; the last row has no divider of its own.
+The pinned title sits beneath NavigationBar and is pushed out by the next group.
+One shared soft ScrollEdge extends behind both navigation and the pinned title;
+neither adds a second opaque background. A subdued, full-width device-pixel line
+replaces the inset divider at the pinned edge. The visual pinned copy is
+aria-hidden; the original heading retains the section's accessible name.
+Keep the backdrop at full strength through the combined 96px navigation/title
+region, then fade over a further 24px. Stretching a zero-to-clear mask to 96px
+instead places the title in its transparent tail and exposes sharp content.
+The viewport scrolls instantly and updates the location marker on ordinary scrolling.
+Keep scrollbars out of the index's hit area; an overlapping WebKit scrollbar can
+intercept input even when the underlying letters remain visible.
+Small index text uses the native tint in dark appearance and the darker semantic
+tint-text role in light appearance for default-surface contrast.
 
 NavigationBar composes Toolbar with a sticky inline title and an optional large
 heading in the scrolling content. Its leading/trailing slots use Toolbar parts;

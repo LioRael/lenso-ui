@@ -5,6 +5,7 @@ import { Command } from "../src/components/command/index.js";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
   true;
+if (!document.fonts) Object.defineProperty(document, "fonts", { value: new EventTarget() });
 let root: Root;
 afterEach(async () => {
   if (root) await act(() => root.unmount());

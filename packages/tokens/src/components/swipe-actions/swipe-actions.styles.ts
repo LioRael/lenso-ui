@@ -24,7 +24,8 @@ export const swipeActionsStyles = stylex.create({
     paddingInline: 12,
     minHeight: 52,
     minWidth: 0,
-    backgroundColor: tokens.backgroundGroupedSecondary,
+    backgroundColor: "var(--lenso-list-surface, var(--lenso-background-grouped-secondary))",
+    ":has(> [data-slot='swipe-actions-body'] > [data-slot='list-row'])": { paddingInline: 0 },
     touchAction: "pan-y",
     userSelect: {
       default: "none",

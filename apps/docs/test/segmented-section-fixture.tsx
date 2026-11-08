@@ -20,6 +20,7 @@ const s = stylex.create({
     gap: 8,
     height: 240,
     overflowY: "auto",
+    scrollbarWidth: "none",
     overscrollBehaviorY: "contain",
   },
   index: { position: "sticky", top: 0, alignSelf: "start" },

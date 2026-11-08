@@ -1,5 +1,5 @@
 import type { DocumentationSiteLayoutProps, DocumentationNavigationItem } from "@lenso/docs/client";
-import { BookOpen, Circles4Diamond } from "@gravity-ui/icons";
+import { BookOpen, Circles4Diamond, Cube, LayoutHeaderCellsLarge } from "@gravity-ui/icons";
 import type { DocSection, Locale } from "@/lib/source";
 import type { SearchEntry } from "./fumadocs/ui/search-dialog";
 import { DocsHeaderBackdrop } from "./docs-header-backdrop";
@@ -20,6 +20,13 @@ export interface OptionsProps {
   sectionEntries: DocSection[];
 }
 
+const sectionIcons: Record<string, typeof BookOpen> = {
+  "react/getting-started": BookOpen,
+  "react/components": Circles4Diamond,
+  "react/primitives": Cube,
+  "react/templates": LayoutHeaderCellsLarge,
+};
+
 function navigation(entries: SearchEntry[]): DocumentationNavigationItem[] {
   return entries.map(({ label, href, children, ...entry }) => ({
     ...entry,
@@ -38,7 +45,7 @@ export function createLensoSiteOptions({
 }: OptionsProps): Omit<DocumentationSiteLayoutProps, "children"> {
   const section = slug.startsWith("react/tools") ? "getting-started" : slug.split("/")[1];
   const sections = sectionEntries.map(({ slug: id, title, href: url }) => {
-    const Icon = id === "react/components" ? Circles4Diamond : BookOpen;
+    const Icon = sectionIcons[id] ?? BookOpen;
     return { id, title, url, icon: <Icon key={id} width={16} height={16} aria-hidden="true" /> };
   });
   const activeSection = `react/${section}`;

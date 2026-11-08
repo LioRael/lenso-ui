@@ -178,7 +178,7 @@ const categoryFamilies: Record<string, readonly string[]> = {
   overlays: ["alert-dialog", "drawer", "modal", "popover", "sheet", "toast", "tooltip"],
   pickers: ["autocomplete", "combo-box", "select", "wheel-picker"],
   typography: ["kbd", "typography"],
-  utilities: ["scroll-shadow"],
+  utilities: ["scroll-shadow", "refresh-control"],
 };
 const categoryByFamily = new Map(
   Object.entries(categoryFamilies).flatMap(([category, families]) =>
@@ -245,6 +245,10 @@ const descriptions: Record<string, [string, string]> = {
   sidebar: [
     "Sectioned application navigation with current-page links and collapsible groups.",
     "具有当前页面链接和可折叠分组的应用导航。",
+  ],
+  "refresh-control": [
+    "Pull-to-refresh with an explicit refresh action and asynchronous feedback.",
+    "支持下拉手势、显式刷新操作与异步反馈的刷新控件。",
   ],
   list: [
     "Content rows with regular and tall layouts, accessories and inline controls.",
@@ -635,8 +639,12 @@ const contracts: Record<string, [string, string]> = {
     "为导航区域提供标签。Item 保留原生链接地址，selected 表示当前页面。indent 支持两级缩进；Disclosure 复用 Base UI Collapsible。响应式抽屉由外围应用负责。",
   ],
   list: [
-    "Use Item inside List; Content groups Title and Description. List shares the grouped-secondary background and 26px outer corners with Fieldset.Group, default Surface and Accordion's surface variant. Compose List.Separator explicitly for a 0.5px inset divider. Use Action for an actionable row, or an independently labelled control in Trailing. List retains list semantics; use Fieldset.Group for mixed form sections and ListBox for selectable options.",
-    "List 内使用 Item，Content 包含 Title 和 Description。List 与 Fieldset.Group、默认 Surface、Accordion.surface 共享分组次级背景和 26px 外圆角。显式组合 List.Separator，得到 0.5px 内缩分隔线。操作行使用 Action，独立控件放在 Trailing 并提供标签。混合表单使用 Fieldset.Group，可选集合使用 ListBox。",
+    "Content lists retain native ul/li semantics. For editing, supply itemKey and textValue, editing, selectedKeys/onSelectionChange and onReorder. Rows expose native checkboxes and handles; Space/Enter picks up a handle, Up/Down chooses a destination and Enter places it. Escape or leaving the handle cancels. Sections constrain reordering. The application owns deletion, undo and accepted order. ListBox is for selectable options. List owns the grouped surface and row spacing; SwipeActions only reveals actions. Use --lenso-list-surface to customize both row cover and group together. Try /en/list-lab for refresh, indexing, swipe, selection and sorting in one page.",
+    "内容列表保留原生 ul/li 语义。编辑时提供 itemKey、textValue、editing、selectedKeys/onSelectionChange 和 onReorder；行自动提供原生复选框与排序手柄。空格或 Enter 拾取，方向键选择目标，Enter 放置；Escape 或离开手柄取消。Section 限定组内排序，应用负责删除、撤销与接受新顺序。ListBox 用于可选项集合。List 负责分组表面与行间距，SwipeActions 只负责揭示操作。--lenso-list-surface 同时定制分组和移动行底色。/cn/list-lab 提供完整组合示例。",
+  ],
+  "refresh-control": [
+    "Root owns the asynchronous onRefresh job; Viewport must be the actual scroll container. Trigger provides a keyboard-accessible alternative. A downward touch at the top claims the gesture after direction lock; horizontal swipes, upward scrolling and form fields retain their native behavior. Resolve the promise after data updates; rejected jobs show errorLabel and permit retry. Localize the status labels. Disable refresh while editing a list. Data loading and errors belong to the application.",
+    "Root 管理异步 onRefresh，Viewport 必须是实际滚动容器，Trigger 提供键盘刷新入口。仅顶部向下触摸在方向锁定后接管手势；横向侧滑、向上滚动和表单输入保留原生行为。数据更新完成后结束 Promise，拒绝时显示 errorLabel 并允许重试。请本地化状态标签，列表编辑时禁用刷新。应用负责数据加载。",
   ],
   stepper: [
     "Compose Input and Group with DecrementButton and IncrementButton. Input retains the accessible name, keyboard editing and form value while remaining visually hidden. Native min, max, step and controlled value contracts belong to Base UI NumberField.",

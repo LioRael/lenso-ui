@@ -83,13 +83,25 @@ export const getPage = (locale: Locale, slug: string) => documentationSource.get
 
 export type DocSection = Pick<DocPage, "locale" | "slug" | "title"> & { href: string };
 export function getSectionEntries(locale: Locale): DocSection[] {
+  const order = ["getting-started", "components", "primitives", "templates"];
   const sections = source.pages
     .filter(
       (page) =>
         page.locale === locale && /^react\/[^/]+$/.test(page.slug) && page.slug !== "react/tools",
     )
     .map((page) => ({ locale, slug: page.slug, title: page.title, href: pageUrl(page) }));
-  return sections;
+  for (const [section, title] of [
+    ["primitives", "Primitives"],
+    ["templates", "Templates"],
+  ] as const) {
+    const entry = source.pages
+      .filter((page) => page.locale === locale && page.slug.startsWith(`react/${section}/`))
+      .sort((a, b) => (a.navigationOrder ?? 0) - (b.navigationOrder ?? 0))[0];
+    if (entry) sections.push({ locale, slug: `react/${section}`, title, href: pageUrl(entry) });
+  }
+  return sections.sort(
+    (a, b) => order.indexOf(a.slug.split("/")[1]!) - order.indexOf(b.slug.split("/")[1]!),
+  );
 }
 
 export function getNavigation(locale: Locale, section: string) {

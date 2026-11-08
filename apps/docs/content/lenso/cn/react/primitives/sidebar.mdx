@@ -1,0 +1,72 @@
+---
+title: "Sidebar"
+description: "组合无默认视觉样式、独立管理展开状态的导航面板。"
+navigationOrder: 1
+---
+
+## 用法
+
+```tsx
+import { Sidebar } from "@lenso/primitives/sidebar";
+
+export function Navigation() {
+  return (
+    <Sidebar.Root defaultOpen>
+      <Sidebar.Trigger>切换导航</Sidebar.Trigger>
+      <Sidebar.Panel aria-label="主导航">
+        <Sidebar.Header>工作区</Sidebar.Header>
+        <Sidebar.Content>
+          <nav aria-label="工作区"><a href="/">首页</a></nav>
+        </Sidebar.Content>
+        <Sidebar.Footer>账户设置</Sidebar.Footer>
+      </Sidebar.Panel>
+    </Sidebar.Root>
+  );
+}
+```
+
+受控模式同时传入 `open` 和 `onOpenChange`；非受控模式使用 `defaultOpen`。嵌套 Root 各自管理状态。布局、面板宽度、响应式切换与动画由应用负责。
+
+## Root API
+
+| 属性 | 类型 | 默认值 / 用途 |
+| --- | --- | --- |
+| `open` | `boolean` | 受控展开状态 |
+| `defaultOpen` | `boolean` | `true` |
+| `onOpenChange` | `(open: boolean) => void` | 状态变化回调 |
+| `side` | `"left" \| "right"` | `"left"`，物理位置 |
+| `dir` | `"ltr" \| "rtl"` | `"ltr"` |
+| `id` | `string` | 自动生成；外部控件通过它定位 |
+| `render` | Base UI render prop | 默认 `div` |
+
+Root 暴露 `data-state="open|closed"` 和 `data-side="left|right"`；render 状态包含 `open`、`side`、`dir`。部件保留原生属性、ref 和 Base UI render 组合能力，不接受带样式组件的视觉变体。
+
+## 部件 API
+
+| 部件 | 默认元素 | 职责 |
+| --- | --- | --- |
+| `Group` | `div` | 注册 Root，支持 `targetId` |
+| `Root` | `div` | 提供状态和操作 |
+| `Trigger` | Base UI Button | 切换最近的 Root 或指定 `targetId` |
+| `Rail` | Base UI Button | 支持 `openLabel`、`closeLabel` 的切换控件 |
+| `Panel` | `aside` | 面板 ID、隐藏状态与关闭行为 |
+| `Header`、`Content`、`Footer` | `div` | 结构区域 |
+| `Menu`、`Submenu` | `ul` | 列表容器 |
+| `MenuItem` | `li` | 列表项容器 |
+| `Item` | `button` | `selected`、`nested` 均默认 `false` |
+| `Inset` | `main` | 主内容区域 |
+| `Provider` | 仅 Context | 显式接入 `state`、`actions`、`meta` |
+
+`Item` 暴露 `data-state="selected|default"`、`data-level="nested|root"`，选中时设置 `aria-current="page"`。表单中的按钮项应设置 `type="button"`。导航使用原生链接，或通过 render 输出链接并保留导航语义。
+
+`Rail` 默认标签是 “Open sidebar” / “Close sidebar”，可传入本地化标签。`Provider` 需要 `state: { open }`、`actions: { setOpen, toggle }` 和 `meta: { dir, panelId, rootId, side, triggerRef }`。
+
+## 多面板与键盘
+
+将独立 Root 与外部 Trigger 放在同一个 `Sidebar.Group` 内，为每个 Root 设置唯一且稳定的 `id`，再给 Trigger 或 Rail 传入对应的 `targetId`。未指定目标时使用最近的 Root。
+
+Trigger 提供 `aria-controls` 和 `aria-expanded`。关闭的 Panel 设置 `hidden` 和 `aria-hidden`。交互后代上的 Escape 关闭面板并将焦点返回触发器；已被阻止的事件不会重复处理。面板不内置模态焦点陷阱或移动端抽屉遮罩。
+
+## 源码与带样式组件
+
+[完整源码与导出类型](https://github.com/LioRael/lenso-ui/blob/main/packages/primitives/src/sidebar/index.tsx)。需要 Lenso 外观时使用 [Sidebar 组件](/docs/react/components/sidebar)。

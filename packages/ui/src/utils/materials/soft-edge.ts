@@ -10,17 +10,31 @@ export const softEdgeBands = [
 ].map(({ radius, start, end }, index, levels) => {
   // Successive filters sample earlier bands: Gaussian variances, not radii, add.
   const previous = levels[index - 1]?.radius ?? 0;
-  return { blur: Math.sqrt(radius ** 2 - previous ** 2), mask: softEdgeMask(start, end) };
+  return {
+    blur: Math.sqrt(radius ** 2 - previous ** 2),
+    mask: softEdgeMask(start, end),
+    start,
+    end,
+  };
 });
 
-export const softEdgeTintMask = softEdgeMask(0, 100, 1.35);
+export function createSoftEdgeTintMask(fadeStart = 0) {
+  return softEdgeMask(0, 100, 1.35, fadeStart);
+}
+export const softEdgeTintMask = createSoftEdgeTintMask();
 
 /** Raised-cosine falloff has zero slope at both ends of each band. */
-export function softEdgeMask(start = 0, end = 100, power = 1) {
+export function softEdgeMask(start = 0, end = 100, power = 1, fadeStart = 0) {
   const stops = Array.from({ length: 17 }, (_, index) => {
     const t = index / 16;
     const alpha = ((1 + Math.cos(Math.PI * t)) / 2) ** power;
-    return `rgb(0 0 0 / ${alpha.toFixed(5)}) ${start + (end - start) * t}%`;
+    const position = start + (end - start) * t;
+    const stop =
+      fadeStart === 0
+        ? `${position}%`
+        : `calc(${fadeStart}px + (100% - ${fadeStart}px) * ${position / 100})`;
+    return `rgb(0 0 0 / ${alpha.toFixed(5)}) ${stop}`;
   });
-  return `linear-gradient(var(--material-edge-direction), ${stops.join(", ")})`;
+  const prefix = fadeStart ? "rgb(0 0 0 / 1) 0px, " : "";
+  return `linear-gradient(var(--material-edge-direction), ${prefix}${stops.join(", ")})`;
 }

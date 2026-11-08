@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, type ComponentProps } from "react";
+import { useEffect, useRef, useState, type ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { sectionIndexStyles as s } from "@lenso/tokens/section-index";
 import type { StyleXProps } from "../../utils/styled.js";
@@ -43,9 +43,21 @@ export function SectionIndex({
   const [focusValue, setFocusValue] = useState<string>();
   const current = value ?? localValue;
   const links = useRef(new Map<string, HTMLAnchorElement>());
-  const drag = useRef<{ id: number; y: number; moved: boolean; last?: string } | null>(null);
+  const drag = useRef<{ id: number; last: string } | null>(null);
   const suppressClick = useRef(false);
+  useEffect(() => {
+    if (disabled) {
+      drag.current = null;
+    }
+  }, [disabled]);
   const available = items.filter((item) => !disabled && !item.disabled);
+  const nearestItem = (y: number) =>
+    available
+      .map((item) => {
+        const rect = links.current.get(item.value)!.getBoundingClientRect();
+        return { item, distance: Math.abs(y - (rect.top + rect.height / 2)) };
+      })
+      .sort((a, b) => a.distance - b.distance)[0]?.item;
   const tabValue =
     available.find((item) => item.value === (focusValue ?? current))?.value ?? available[0]?.value;
   const compiled = stylex.props(s.root, disabled && s.disabled, xstyle);
@@ -92,29 +104,35 @@ export function SectionIndex({
       }}
       onPointerDown={(event) => {
         onPointerDown?.(event);
-        suppressClick.current = false;
-        if (event.defaultPrevented || disabled || !event.isPrimary || event.button !== 0) return;
+        if (!drag.current) suppressClick.current = false;
         if (
-          !available.some((item) => links.current.get(item.value)?.contains(event.target as Node))
+          event.defaultPrevented ||
+          disabled ||
+          !event.isPrimary ||
+          event.button !== 0 ||
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          drag.current
         )
           return;
-        drag.current = { id: event.pointerId, y: event.clientY, moved: false };
+        const hit = items.find((item) =>
+          links.current.get(item.value)?.contains(event.target as Node),
+        );
+        if (hit?.disabled) return;
+        const item = hit ?? nearestItem(event.clientY);
+        if (!item) return;
+        event.preventDefault();
+        event.currentTarget.setPointerCapture(event.pointerId);
+        drag.current = { id: event.pointerId, last: item.value };
+        links.current.get(item.value)?.click();
       }}
       onPointerMove={(event) => {
         onPointerMove?.(event);
         const active = drag.current;
         if (event.defaultPrevented || !active || active.id !== event.pointerId || disabled) return;
-        if (!active.moved && Math.abs(event.clientY - active.y) < 4) return;
-        if (!active.moved) {
-          active.moved = true;
-          event.currentTarget.setPointerCapture(event.pointerId);
-        }
-        const nearest = available
-          .map((item) => {
-            const rect = links.current.get(item.value)!.getBoundingClientRect();
-            return { item, distance: Math.abs(event.clientY - (rect.top + rect.height / 2)) };
-          })
-          .sort((a, b) => a.distance - b.distance)[0]?.item;
+        const nearest = nearestItem(event.clientY);
         if (nearest && active.last !== nearest.value) {
           active.last = nearest.value;
           links.current.get(nearest.value)?.click();
@@ -123,18 +141,23 @@ export function SectionIndex({
       onPointerUp={(event) => {
         onPointerUp?.(event);
         if (drag.current?.id !== event.pointerId) return;
-        suppressClick.current = drag.current.moved;
+        suppressClick.current = true;
         drag.current = null;
       }}
       onPointerCancel={(event) => {
         onPointerCancel?.(event);
-        if (drag.current?.id === event.pointerId) drag.current = null;
+        if (drag.current?.id === event.pointerId) {
+          suppressClick.current = true;
+          drag.current = null;
+        }
       }}
       onLostPointerCapture={(event) => {
         onLostPointerCapture?.(event);
         // Ignore the child's implicit capture being transferred to this nav.
-        if (event.target === event.currentTarget && drag.current?.id === event.pointerId)
+        if (event.target === event.currentTarget && drag.current?.id === event.pointerId) {
+          suppressClick.current = true;
           drag.current = null;
+        }
       }}
     >
       {items.map((item) => (

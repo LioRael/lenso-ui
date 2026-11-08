@@ -1,3 +1,15 @@
+# Unreleased: SectionIndex interaction
+
+SectionIndex activates on primary pointer-down instead of pointer release and
+captures the pointer immediately. Scrubbing reports each newly entered enabled
+letter; the release click is suppressed. Consumers should not assume that
+`onValueChange` waits for pointer-up. Keyboard and modified-click contracts are
+unchanged. Its visible letter column is now compact and has no persistent
+current-letter fill; the gesture strip remains 44px wide. Dark index text now
+uses semantic tint (the default iOS 27 blue), while light appearance uses the
+contrast-preserving tint-text role. Keep positioning and
+scroll-spy state in the consuming application. This is a source change only.
+
 # Unreleased: button and toggle families
 
 `ToggleButton` now uses ordinary `Button` geometry and presentation, without

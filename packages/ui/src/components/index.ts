@@ -100,5 +100,6 @@ export * from "./notification/index.js";
 export * from "./share-sheet/index.js";
 export * from "./segmented-control/index.js";
 export * from "./section-index/index.js";
+export * from "./refresh-control/index.js";
 
 export * from "./command/index.js";

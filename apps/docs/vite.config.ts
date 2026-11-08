@@ -33,6 +33,8 @@ export default defineConfig(({ command }) => {
         { path: "/cn/photos" },
         { path: "/en/glass-lab" },
         { path: "/cn/glass-lab" },
+        { path: "/en/list-lab" },
+        { path: "/cn/list-lab" },
       ];
   return {
     cacheDir: path.join(cache, "vite"),

@@ -10,7 +10,12 @@ import { mergeStyle, type StyleXProps, type XStyle } from "../styled.js";
 
 import { useScrollEdgeRef, type ScrollEdgeSide } from "./scroll-edge.js";
 
-import { softEdgeBands, softEdgeTintMask } from "./soft-edge.js";
+import {
+  createSoftEdgeTintMask,
+  softEdgeBands,
+  softEdgeMask,
+  softEdgeTintMask,
+} from "./soft-edge.js";
 
 import type { MaterialVariant } from "@lenso/tokens/materials";
 export type MaterialProps = StyleXProps<useRender.ComponentProps<"div">> & {
@@ -147,12 +152,15 @@ export type ScrollEdgeProps = StyleXProps<useRender.ComponentProps<"div">> & {
   edge?: ScrollEdgeSide;
   /** Bind to the viewport to reveal only the edges with content beyond them. */
   scrollRef?: RefObject<HTMLElement | null>;
+  /** Keep the soft backdrop at full strength through this many pixels before it fades. */
+  fadeStart?: number;
 };
 /** Decorative overlay; position inside a bounded scroll viewport, outside scrolling content. */
 export function ScrollEdge({
   variant = "soft",
   edge = "top",
   scrollRef,
+  fadeStart = 0,
   ref,
   render,
   xstyle,
@@ -189,12 +197,15 @@ export function ScrollEdge({
       children:
         variant === "soft" ? (
           <>
-            {softEdgeBands.map(({ blur, mask }) => (
+            {softEdgeBands.map(({ blur, mask, start, end }) => (
               <span
                 key={blur}
                 {...stylex.props(
                   materialStyles.softLayer,
-                  materialStyles.softProgressive(blur, mask),
+                  materialStyles.softProgressive(
+                    blur,
+                    fadeStart ? softEdgeMask(start, end, 1, fadeStart) : mask,
+                  ),
                 )}
               />
             ))}
@@ -202,7 +213,9 @@ export function ScrollEdge({
               {...stylex.props(
                 materialStyles.softLayer,
                 materialStyles.softTint,
-                materialStyles.softMask(softEdgeTintMask),
+                materialStyles.softMask(
+                  fadeStart ? createSoftEdgeTintMask(fadeStart) : softEdgeTintMask,
+                ),
               )}
             />
           </>

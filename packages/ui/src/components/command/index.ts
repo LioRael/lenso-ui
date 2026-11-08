@@ -1,5 +1,26 @@
 import {
   CommandRoot,
+  CommandPortal,
+  CommandBackdrop,
+  CommandPopup,
+  CommandHeader,
+  CommandInputGroup,
+  CommandSearchIcon,
+  CommandViewport,
+  CommandSectionLabel,
+  CommandIcon,
+  CommandItemBody,
+  CommandItemContent,
+  CommandItemText,
+  CommandItemDescription,
+  CommandItemMeta,
+  CommandMessage,
+  CommandFooter,
+  CommandHint,
+  CommandKey,
+  CommandAction,
+  CommandActionKey,
+  CommandClose,
   CommandInput,
   CommandList,
   CommandItem,
@@ -15,6 +36,28 @@ import {
 
 export const Command: typeof CommandRoot & {
   Root: typeof CommandRoot;
+  Portal: typeof CommandPortal;
+  Backdrop: typeof CommandBackdrop;
+  Popup: typeof CommandPopup;
+  Header: typeof CommandHeader;
+  InputGroup: typeof CommandInputGroup;
+  SearchIcon: typeof CommandSearchIcon;
+  Viewport: typeof CommandViewport;
+  SectionLabel: typeof CommandSectionLabel;
+  Icon: typeof CommandIcon;
+  ItemBody: typeof CommandItemBody;
+  ItemContent: typeof CommandItemContent;
+  ItemText: typeof CommandItemText;
+  ItemDescription: typeof CommandItemDescription;
+  ItemMeta: typeof CommandItemMeta;
+  Message: typeof CommandMessage;
+  Footer: typeof CommandFooter;
+  Hint: typeof CommandHint;
+  Key: typeof CommandKey;
+  Action: typeof CommandAction;
+  ActionKey: typeof CommandActionKey;
+  Close: typeof CommandClose;
+
   Input: typeof CommandInput;
   List: typeof CommandList;
   Item: typeof CommandItem;
@@ -28,6 +71,28 @@ export const Command: typeof CommandRoot & {
   useFilter: typeof useCommandFilter;
 } = Object.assign(CommandRoot, {
   Root: CommandRoot,
+  Portal: CommandPortal,
+  Backdrop: CommandBackdrop,
+  Popup: CommandPopup,
+  Header: CommandHeader,
+  InputGroup: CommandInputGroup,
+  SearchIcon: CommandSearchIcon,
+  Viewport: CommandViewport,
+  SectionLabel: CommandSectionLabel,
+  Icon: CommandIcon,
+  ItemBody: CommandItemBody,
+  ItemContent: CommandItemContent,
+  ItemText: CommandItemText,
+  ItemDescription: CommandItemDescription,
+  ItemMeta: CommandItemMeta,
+  Message: CommandMessage,
+  Footer: CommandFooter,
+  Hint: CommandHint,
+  Key: CommandKey,
+  Action: CommandAction,
+  ActionKey: CommandActionKey,
+  Close: CommandClose,
+
   Input: CommandInput,
   List: CommandList,
   Item: CommandItem,

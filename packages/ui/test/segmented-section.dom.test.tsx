@@ -130,6 +130,7 @@ test("index drag survives child capture transfer and suppresses the release clic
       );
     });
   await pointer(links[0]!, "pointerdown", 12);
+  expect(changes).toEqual(["a"]);
   await pointer(nav, "pointermove", 60);
   await pointer(links[0]!, "lostpointercapture", 60);
   await pointer(nav, "pointermove", 12);
@@ -139,15 +140,15 @@ test("index drag survives child capture transfer and suppresses the release clic
       new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }),
     ),
   );
-  expect(changes).toEqual(["c", "a"]);
+  expect(changes).toEqual(["a", "c", "a"]);
   await pointer(links[0]!, "pointerdown", 12);
   await pointer(nav, "pointercancel", 12);
   await pointer(nav, "pointermove", 60);
-  expect(changes).toEqual(["c", "a"]);
+  expect(changes).toEqual(["a", "c", "a", "a"]);
   await pointer(links[0]!, "pointerdown", 12);
   await pointer(nav, "pointermove", 60);
   await pointer(nav, "pointerup", 60);
   // A browser may omit the release click; the next keyboard activation has detail 0.
   await act(() => links[0]!.click());
-  expect(changes).toEqual(["c", "a", "c", "a"]);
+  expect(changes).toEqual(["a", "c", "a", "a", "a", "c", "a"]);
 });

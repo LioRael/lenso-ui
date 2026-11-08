@@ -1,14 +1,111 @@
 "use client";
-import type { ComponentProps } from "react";
+import {
+  useContext,
+  useId,
+  useLayoutEffect,
+  useRef,
+  type ComponentProps,
+  type Key,
+  type ReactNode,
+} from "react";
+import { useMergedRefs } from "@base-ui/utils/useMergedRefs";
+import { Button as BaseButton } from "@base-ui/react/button";
+import { Checkbox } from "../checkbox/index.js";
+import { SwipeActions, type SwipeAction } from "../swipe-actions/index.js";
+import {
+  ListContext,
+  ListRowContext,
+  ListSectionContext,
+  useListContext,
+  useListEditing,
+  type ListEditingProps,
+} from "./list-state.js";
 import { listStyles } from "@lenso/tokens/list";
 import { groupStyles } from "@lenso/tokens/surface";
 import * as stylex from "@stylexjs/stylex";
 import { type StyleXProps } from "../../utils/styled.js";
-export type ListRootProps = StyleXProps<ComponentProps<"ul">>;
-export function ListRoot({ xstyle, style, ...props }: ListRootProps) {
-  const compiled = stylex.props(groupStyles.surface, listStyles.root, xstyle);
+export type ListRootProps = StyleXProps<ComponentProps<"ul">> &
+  ListEditingProps & { variant?: "grouped" | "plain" };
+export function ListRoot({
+  editing,
+  disabled,
+  selectedKeys,
+  defaultSelectedKeys,
+  onSelectionChange,
+  onReorder,
+  variant = "grouped",
+  onKeyDown,
+  onClickCapture,
+  xstyle,
+  style,
+  ...props
+}: ListRootProps) {
+  const model = useListEditing({
+    editing,
+    disabled,
+    selectedKeys,
+    defaultSelectedKeys,
+    onSelectionChange,
+    onReorder,
+  });
+  const compiled = stylex.props(
+    variant === "grouped" && groupStyles.surface,
+    listStyles.root,
+    variant === "grouped" && listStyles.surface,
+    xstyle,
+  );
   return (
-    <ul {...props} {...compiled} style={{ ...compiled.style, ...style }} data-slot="list-root" />
+    <ListContext value={model}>
+      {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Cmd/Ctrl+A selects registered row checkboxes while each control keeps its native keys. */}
+      <ul
+        {...props}
+        {...compiled}
+        style={{ ...compiled.style, ...style }}
+        data-slot="list-root"
+        data-editing={editing ? "" : undefined}
+        onClickCapture={(event) => {
+          onClickCapture?.(event);
+          if (
+            !event.defaultPrevented &&
+            model.dismissOtherRow(event.target as Node) &&
+            event.detail > 0
+          ) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }}
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
+          if (
+            !event.defaultPrevented &&
+            model.editing &&
+            !model.disabled &&
+            (event.ctrlKey || event.metaKey) &&
+            event.key.toLowerCase() === "a" &&
+            !(event.target as Element).closest(
+              'input:not([type="checkbox"]),textarea,select,[contenteditable]',
+            )
+          ) {
+            event.preventDefault();
+            model.selectAll();
+          }
+        }}
+      />
+      {model.editing && model.canReorder && (
+        <span id={model.instructionsId} {...stylex.props(listStyles.srOnly)}>
+          Press Space or Enter to move. Use Up or Down, Enter to place, Escape to cancel.
+        </span>
+      )}
+      <span
+        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- A collection announcement is not a form-associated output field.
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        {...stylex.props(listStyles.srOnly)}
+      >
+        {model.announcement}
+      </span>
+    </ListContext>
   );
 }
 export type ListContentProps = StyleXProps<ComponentProps<"div">>;
@@ -81,27 +178,222 @@ export function ListSeparator({ xstyle, style, ...props }: ListSeparatorProps) {
 }
 export type ListActionProps = StyleXProps<ComponentProps<"button">>;
 export function ListAction({ xstyle, style, ...props }: ListActionProps) {
-  const compiled = stylex.props(listStyles.action, xstyle);
+  const row = useContext(ListRowContext);
+  const compiled = stylex.props(listStyles.action, row.editing && listStyles.editingAction, xstyle);
   return (
     <button
       type="button"
       {...props}
+      disabled={props.disabled || row.disabled || row.editing}
       {...compiled}
       style={{ ...compiled.style, ...style }}
       data-slot="list-action"
     />
   );
 }
-export type ListItemProps = StyleXProps<ComponentProps<"li">> & { height?: "regular" | "tall" };
-export function ListItem({ height = "regular", xstyle, style, ...props }: ListItemProps) {
+export type ListItemProps = Omit<StyleXProps<ComponentProps<"li">>, "children"> & {
+  height?: "regular" | "tall";
+  itemKey?: Key;
+  textValue?: string;
+  disabled?: boolean;
+  selectionLabel?: string;
+  reorderLabel?: string;
+  startActions?: readonly SwipeAction[];
+  endActions?: readonly SwipeAction[];
+  startActionsLabel?: string;
+  endActionsLabel?: string;
+  children?: ReactNode | ((state: { editing: boolean; isSelected: boolean }) => ReactNode);
+};
+export function ListItem({
+  height = "regular",
+  itemKey,
+  textValue,
+  disabled = false,
+  selectionLabel,
+  reorderLabel,
+  startActions,
+  endActions,
+  startActionsLabel,
+  endActionsLabel,
+  children,
+  ref,
+  onClickCapture,
+  xstyle,
+  style,
+  ...props
+}: ListItemProps) {
+  const model = useListContext();
+  const group = useContext(ListSectionContext);
+  const node = useRef<HTMLLIElement>(null);
+  const mergedRef = useMergedRefs(node, ref);
+  const register = model?.register;
+  const text = textValue ?? String(itemKey ?? "item");
+  const inactive = disabled || !!model?.disabled;
+  const editing = !!model?.editing && itemKey !== undefined;
+  const selected = itemKey !== undefined && !!model?.selected.has(itemKey);
+  const managed = itemKey !== undefined || !!startActions?.length || !!endActions?.length;
+  useLayoutEffect(() => {
+    if (register && itemKey !== undefined && node.current)
+      return register({ key: itemKey, text, node: node.current, disabled: inactive, group });
+  }, [register, itemKey, text, inactive, group]);
+  const content =
+    typeof children === "function" ? children({ editing, isSelected: selected }) : children;
+  const dragging = itemKey !== undefined && model?.drag?.key === itemKey;
+  const dropPosition =
+    itemKey !== undefined && model?.drag?.target?.key === itemKey
+      ? model.drag.target.position
+      : null;
   const compiled = stylex.props(
-    groupStyles.row,
-    listStyles.item,
+    !managed && groupStyles.row,
+    managed ? listStyles.container : listStyles.item,
+    listStyles.boundary,
     height === "tall" && listStyles.tall,
+    dragging && listStyles.dragged,
+    dropPosition === "before" && listStyles.dropBefore,
+    dropPosition === "after" && listStyles.dropAfter,
     xstyle,
   );
+  const row = (
+    <div
+      data-slot="list-row"
+      {...stylex.props(groupStyles.row, listStyles.item, height === "tall" && listStyles.tall)}
+    >
+      {editing && (
+        // oxlint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- Only stop a native checkbox's handled click from activating the row.
+        <span
+          data-list-selection=""
+          {...stylex.props(listStyles.selection)}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <Checkbox
+            disabled={inactive}
+            checked={selected}
+            aria-label={selectionLabel ?? `Select ${text}`}
+            onCheckedChange={(checked) => model!.setChecked(itemKey!, checked)}
+          >
+            <Checkbox.Content>
+              <Checkbox.Control xstyle={listStyles.selectionControl}>
+                <Checkbox.Indicator />
+              </Checkbox.Control>
+            </Checkbox.Content>
+          </Checkbox>
+        </span>
+      )}
+      <div data-slot="list-body" {...stylex.props(listStyles.body)}>
+        {content}
+      </div>
+      {editing && model?.canReorder && (
+        <BaseButton
+          data-list-reorder=""
+          disabled={inactive}
+          aria-label={reorderLabel ?? `Move ${text}`}
+          aria-describedby={model.instructionsId}
+          aria-pressed={model.drag?.key === itemKey}
+          {...stylex.props(listStyles.handle)}
+          onPointerDown={(event) => {
+            if (event.isPrimary && event.button === 0 && !event.defaultPrevented) {
+              event.preventDefault();
+              model.pointerDown(itemKey!, event.currentTarget, event.pointerId, event.clientY);
+            }
+          }}
+          onPointerMove={(event) => model.pointerMove(event.pointerId, event.clientY)}
+          onPointerUp={(event) => model.pointerEnd(event.pointerId, event.defaultPrevented)}
+          onPointerCancel={(event) => model.pointerEnd(event.pointerId, true)}
+          onLostPointerCapture={(event) => {
+            if (event.target === event.currentTarget) model.pointerEnd(event.pointerId, true);
+          }}
+          onKeyDown={(event) => model.keyDown(itemKey!, event.currentTarget, event)}
+          onBlur={() => model.blurHandle(itemKey!)}
+          onClick={(event) => {
+            event.stopPropagation();
+            if (event.detail === 0) model.activateHandle(itemKey!, event.currentTarget);
+          }}
+        >
+          <span aria-hidden="true">≡</span>
+        </BaseButton>
+      )}
+    </div>
+  );
+  const swiping = !!startActions?.length || !!endActions?.length;
   return (
-    <li {...props} {...compiled} style={{ ...compiled.style, ...style }} data-slot="list-item" />
+    <ListRowContext value={{ editing, disabled: inactive }}>
+      <li
+        {...props}
+        {...compiled}
+        ref={mergedRef}
+        style={{ ...compiled.style, ...style }}
+        data-slot="list-item"
+        data-list-key={itemKey === undefined ? undefined : String(itemKey)}
+        data-selected={selected ? "" : undefined}
+        onClickCapture={(event) => {
+          onClickCapture?.(event);
+          if (event.defaultPrevented) return;
+          if (inactive) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+          if (
+            editing &&
+            !(event.target as Element).closest(
+              "[data-list-selection],[data-list-reorder],button,a,input,textarea,select,[contenteditable]",
+            )
+          ) {
+            event.preventDefault();
+            event.stopPropagation();
+            node.current
+              ?.querySelector<HTMLElement>('[data-list-selection] [role="checkbox"]')
+              ?.click();
+          }
+        }}
+      >
+        {swiping ? (
+          <SwipeActions
+            startActionsLabel={startActionsLabel ?? `Leading actions for ${text}`}
+            endActionsLabel={endActionsLabel ?? `Actions for ${text}`}
+            startActions={editing ? [] : startActions}
+            endActions={editing ? [] : endActions}
+            disabled={inactive || editing}
+            {...(model && itemKey !== undefined
+              ? {
+                  openSide: model.open?.key === itemKey ? model.open.side : null,
+                  onOpenSideChange: (side: "start" | "end" | null) =>
+                    model.setOpen(side ? { key: itemKey, side } : null),
+                }
+              : {})}
+          >
+            {row}
+          </SwipeActions>
+        ) : managed ? (
+          row
+        ) : (
+          content
+        )}
+      </li>
+    </ListRowContext>
+  );
+}
+export type ListSectionProps = Omit<StyleXProps<ComponentProps<"li">>, "title"> & {
+  title: ReactNode;
+};
+export function ListSection({ title, id, children, xstyle, style, ...props }: ListSectionProps) {
+  const generated = useId();
+  const heading = id ?? generated;
+  const compiled = stylex.props(listStyles.section, xstyle);
+  return (
+    <li {...props} {...compiled} style={{ ...compiled.style, ...style }}>
+      <h2 id={heading} {...stylex.props(listStyles.sectionHeading)}>
+        {title}
+      </h2>
+      <ListSectionContext value={heading}>
+        <ul
+          aria-labelledby={heading}
+          {...stylex.props(groupStyles.surface, listStyles.root, listStyles.surface)}
+        >
+          {children}
+        </ul>
+      </ListSectionContext>
+    </li>
   );
 }
 export const List = Object.assign(ListRoot, {
@@ -114,5 +406,7 @@ export const List = Object.assign(ListRoot, {
   Trailing: ListTrailing,
   Separator: ListSeparator,
   Action: ListAction,
+  Section: ListSection,
 });
 export type ListProps = ListRootProps;
+export type { ListReorderDetails } from "./list-state.js";

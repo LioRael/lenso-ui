@@ -3,10 +3,10 @@ import * as stylex from "@stylexjs/stylex";
 export const headerControls = stylex.create({
   navigation: { display: { default: "none", "@media (min-width: 768px)": "flex" }, flexShrink: 0 },
   phoneDestination: {
-    minWidth: { default: 112, ":is([data-minimized] *)": 44 },
-    width: { default: "max-content", ":is([data-minimized] *)": 44 },
+    minWidth: 44,
+    width: { default: "100%", ":is([data-minimized] *)": 44 },
   },
-  phoneDestinations: { flexGrow: 0, flexBasis: "auto" },
+  phoneDestinations: { flexGrow: 1, flexBasis: 0 },
   phoneNavigation: {
     display: { default: "flex", "@media (min-width: 768px)": "none" },
     position: "fixed",

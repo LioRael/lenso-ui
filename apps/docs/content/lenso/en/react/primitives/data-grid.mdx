@@ -1,0 +1,98 @@
+---
+title: "Data Grid"
+description: "A headless table model with validated batches of cell edits."
+navigationOrder: 3
+---
+
+## Usage
+
+```tsx
+import { useState } from "react";
+import { useDataGrid, type DataGridColumn } from "@lenso/primitives/data-grid";
+
+type Row = { id: string; name: string };
+const columns: DataGridColumn<Row>[] = [{
+  id: "name",
+  header: "Name",
+  getValue: (row) => row.name,
+  setValue: (row, value) => ({ ...row, name: String(value ?? "") }),
+  validate: (value) => String(value).trim() ? null : "Enter a name",
+}];
+
+export function Records() {
+  const [rows, setRows] = useState<Row[]>([{ id: "1", name: "First document" }]);
+  const { table } = useDataGrid({ rows, columns, getRowId: (row) => row.id, onRowsChange: setRows });
+  return (
+    <table>
+      <caption>Documents</caption>
+      <thead><tr><th scope="col">Name</th></tr></thead>
+      <tbody>{table.getRowModel().rows.map((row) => (
+        <tr key={row.id}><td>{row.original.name}</td></tr>
+      ))}</tbody>
+    </table>
+  );
+}
+```
+
+This source example renders read-only table cells from the model. Add editors and wire their actions to `commitCells` when editing is needed. The hook supplies neither cell DOM nor editor focus, clipboard listeners, virtualization or keyboard handlers.
+
+## Hook options
+
+| Option | Contract / default |
+| --- | --- |
+| `rows` | Required `readonly TRow[]`; application-owned data |
+| `columns` | Required `readonly DataGridColumn<TRow, TValidationData>[]` |
+| `getRowId` | Required `(row: TRow) => string`; stable row identity |
+| `onRowsChange` | `(rows: TRow[], changes) => void`; required for successful edits |
+| `readOnly` | `false` |
+| `rowSelection`, `cellSelection`, `sorting` | Each defaults to `true` |
+| `onRowSelectionChange` | `(rowIds: ReadonlySet<string>) => void` |
+| `onCellSelectionChange` | `(ranges: CellSelectionState) => void` |
+| `onSortingChange` | `(sorting: SortingState) => void` |
+| `onCellEditComplete` | `(change: DataGridCellChange<TRow>) => void` |
+| `onRowEditComplete` | `(change: DataGridRowChange<TRow>) => void` |
+| `cellEvents` | Per-cell `{ rowId, columnId, onEditComplete }[]` |
+| `validationData` | Optional application validation context |
+| `tableOptions` | Partial native table options, excluding owned features, columns, data and row IDs |
+
+The return value is `{ table, commitCells }`. `table` exposes the configured TanStack Table model, including selection, sorting and sizing features. Controlled native state can be supplied through `tableOptions`.
+
+## Column API
+
+| Field | Contract |
+| --- | --- |
+| `id`, `header` | Required strings |
+| `getValue` | Required `(row) => DataGridValue` |
+| `setValue` | `(row, value) => TRow`; return a new row to enable editing |
+| `parse` | `(input: string, row) => DataGridValue`; available for your editor to call |
+| `validate` | `(value, row, context) => string \| null` |
+| `editable` | Boolean or `(row) => boolean`; cannot enable editing without `setValue` |
+| `sortable` | Set `false` to disable this column's sorting |
+| `width`, `minWidth`, `maxWidth` | Model defaults: `180`, `80`, `1200` |
+| `pinned` | Optional column metadata; consumer rendering owns placement |
+| `onCellEditComplete` | Column-level edit completion callback |
+| `tableColumn` | Native column options excluding `id`, `header`, `accessorFn` |
+
+`DataGridValue` is `string | number | boolean | null`. `commitCells` receives already-parsed values; it does not call `column.parse`.
+
+## Committing edits
+
+```ts
+const result = commitCells(
+  [{ rowId: "1", columnId: "name", value: "Updated document" }],
+  "edit",
+);
+// Render result.error next to the editor when result.ok is false.
+```
+
+`commitCells(edits, reason = "edit")` accepts `readonly DataGridEdit[]`. Reasons are `"edit"`, `"paste"`, `"fill"` and `"programmatic"`; these labels do not install the corresponding interaction.
+
+Edits to the same cell are deduplicated, keeping the last value. Unknown rows/columns, read-only cells and validation errors reject the batch before `onRowsChange`. Return new rows from `setValue` so a rejected batch cannot mutate application data. Without `onRowsChange`, nonempty batches are read-only. An empty batch succeeds with no changes.
+
+Validation receives the proposed rows, original rows, batch changes, row/column IDs, row index, reason, `validationData` as `data`, and the table. Return an error string to reject or `null` to accept. On success, the hook calls `onRowsChange`, then cell completion callbacks, then row completion callbacks. The application must apply the returned rows.
+
+The result is `{ ok: true, changes }` or `{ ok: false, error, edit }`. A cell change contains row/column IDs, row index, old/new values, old/new rows and reason. A row change contains row identity, old/new row, the row's changes and reason. Display errors and manage focus in your editor.
+
+## Source
+
+[Full source and exported types](https://github.com/LioRael/lenso-ui/blob/main/packages/primitives/src/data-grid/index.tsx). The current public component catalog has no Data Grid adapter; build the rendering layer around this model.

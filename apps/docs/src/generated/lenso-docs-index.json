@@ -195,7 +195,10 @@
     },
     "command": {
       "source": "packages/ui/src/components/command/command.tsx",
-      "native": [],
+      "native": [
+        "@base-ui/react/dialog",
+        "@base-ui/react/use-render"
+      ],
       "related": []
     },
     "context-menu": {
@@ -371,7 +374,9 @@
     },
     "list": {
       "source": "packages/ui/src/components/list/list.tsx",
-      "native": [],
+      "native": [
+        "@base-ui/react/button"
+      ],
       "related": []
     },
     "list-box": {
@@ -486,6 +491,13 @@
         "@base-ui/react/button",
         "@base-ui/react/use-render",
         "@base-ui/react/merge-props"
+      ],
+      "related": []
+    },
+    "refresh-control": {
+      "source": "packages/ui/src/components/refresh-control/refresh-control.tsx",
+      "native": [
+        "@base-ui/react/button"
       ],
       "related": []
     },
@@ -819,6 +831,51 @@
       "navigationGroup": "Overview",
       "navigationOrder": 4,
       "markdownFile": "content/lenso/en/react/getting-started/versioning.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/primitives/command",
+      "title": "Command",
+      "description": "Unstyled inline command filtering, keyboard navigation and execution.",
+      "navigationOrder": 4,
+      "markdownFile": "content/lenso/en/react/primitives/command.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/primitives/data-grid",
+      "title": "Data Grid",
+      "description": "A headless table model with validated batches of cell edits.",
+      "navigationOrder": 3,
+      "markdownFile": "content/lenso/en/react/primitives/data-grid.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/primitives/resize-handle",
+      "title": "Resize Handle",
+      "description": "A controlled window splitter with pointer capture and keyboard resizing.",
+      "navigationOrder": 2,
+      "markdownFile": "content/lenso/en/react/primitives/resize-handle.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/primitives/sidebar",
+      "title": "Sidebar",
+      "description": "Compose unstyled navigation panels with independent open state.",
+      "navigationOrder": 1,
+      "markdownFile": "content/lenso/en/react/primitives/sidebar.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/templates/photos",
+      "title": "Photos",
+      "description": "A responsive photo library built with Lenso UI.",
+      "navigationOrder": 1,
+      "markdownFile": "content/lenso/en/react/templates/photos.mdx",
       "examples": []
     },
     {
@@ -3264,6 +3321,15 @@
     },
     {
       "locale": "en",
+      "slug": "react/components/refresh-control",
+      "title": "RefreshControl",
+      "description": "Pull-to-refresh with an explicit refresh action and asynchronous feedback.",
+      "markdownFile": "content/lenso/en/react/components/refresh-control.mdx",
+      "examples": [],
+      "componentCategory": "utilities"
+    },
+    {
+      "locale": "en",
       "slug": "react/components/scroll-shadow",
       "title": "ScrollShadow",
       "description": "Overflow-edge feedback for a scrollable content region.",
@@ -4422,6 +4488,51 @@
       "navigationGroup": "概览",
       "navigationOrder": 4,
       "markdownFile": "content/lenso/cn/react/getting-started/versioning.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/primitives/command",
+      "title": "Command",
+      "description": "无默认视觉样式的内联命令过滤、键盘导航与执行。",
+      "navigationOrder": 4,
+      "markdownFile": "content/lenso/cn/react/primitives/command.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/primitives/data-grid",
+      "title": "Data Grid",
+      "description": "提供校验与批量单元格编辑的无界面表格模型。",
+      "navigationOrder": 3,
+      "markdownFile": "content/lenso/cn/react/primitives/data-grid.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/primitives/resize-handle",
+      "title": "Resize Handle",
+      "description": "支持指针捕获、尺寸边界与键盘操作的受控分隔条。",
+      "navigationOrder": 2,
+      "markdownFile": "content/lenso/cn/react/primitives/resize-handle.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/primitives/sidebar",
+      "title": "Sidebar",
+      "description": "组合无默认视觉样式、独立管理展开状态的导航面板。",
+      "navigationOrder": 1,
+      "markdownFile": "content/lenso/cn/react/primitives/sidebar.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/templates/photos",
+      "title": "Photos",
+      "description": "使用 Lenso UI 构建的响应式照片库。",
+      "navigationOrder": 1,
+      "markdownFile": "content/lenso/cn/react/templates/photos.mdx",
       "examples": []
     },
     {
@@ -6864,6 +6975,15 @@
         }
       ],
       "componentCategory": "date-and-time"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/refresh-control",
+      "title": "RefreshControl",
+      "description": "支持下拉手势、显式刷新操作与异步反馈的刷新控件。",
+      "markdownFile": "content/lenso/cn/react/components/refresh-control.mdx",
+      "examples": [],
+      "componentCategory": "utilities"
     },
     {
       "locale": "cn",

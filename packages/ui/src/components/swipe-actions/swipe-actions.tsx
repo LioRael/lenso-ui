@@ -341,7 +341,9 @@ export function SwipeActions({
             {...stylex.props(s.content, s.offset(offset * direction), pan !== null && s.dragging)}
           >
             {trigger("start", startActions)}
-            <div {...stylex.props(s.body)}>{children}</div>
+            <div data-slot="swipe-actions-body" {...stylex.props(s.body)}>
+              {children}
+            </div>
             {trigger("end", endActions)}
           </div>
           {actions("start", startActions)}

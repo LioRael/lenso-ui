@@ -14,13 +14,8 @@ import { GlassButton } from "@lenso/ui/glass-button";
 import { Command } from "@lenso/ui/command";
 import { Dialog } from "@base-ui/react/dialog";
 import { useRouter } from "fumadocs-core/framework";
-import { SearchField } from "@lenso/ui/search-field";
-import { CloseButton } from "@lenso/ui/close-button";
 import { Kbd } from "@lenso/ui/kbd";
 import { Spinner } from "@lenso/ui/spinner";
-import { ScrollShadow } from "@lenso/ui/scroll-shadow";
-import { useGlassRef } from "@lenso/glass/react";
-import { liquidMaterialStyles, materialStyles } from "@lenso/tokens/materials";
 import { Magnifier, FileText, Hashtag } from "@gravity-ui/icons";
 import { useDocsSearch, useHighlightQuery, type StaticOptions } from "fumadocs-core/search/client";
 import {
@@ -29,7 +24,7 @@ import {
   type SharedProps,
   type SearchLink,
 } from "fumadocs-ui/contexts/search";
-import { notebook, search as styles } from "@lenso/docs/presentation";
+import { notebook } from "@lenso/docs/presentation";
 import { compactSearchResults, type DocumentationSearchResult } from "./search-results.ts";
 
 // Fumadocs owns static search; Command and Base UI own interactive behavior.
@@ -92,37 +87,24 @@ function useSearchTriggerRef() {
   };
 }
 
-function SearchInput({
-  search,
-  isLoading,
-  onClose,
-}: {
-  search: string;
-  isLoading: boolean;
-  onClose: () => void;
-}) {
+function SearchInput({ isLoading, onClose }: { isLoading: boolean; onClose: () => void }) {
   const labels = useContext(SearchConfiguration)?.labels;
   return (
-    <SearchField fullWidth xstyle={styles.field}>
-      <div {...stylex.props(styles.inputRow)}>
-        <SearchField.SearchIcon xstyle={styles.searchIcon} />
-        <Command.Input
-          render={<SearchField.Input value={search} />}
-          xstyle={styles.input}
-          aria-label={labels?.input ?? "Search documentation"}
-          placeholder={labels?.placeholder ?? "Search components and guides"}
-          // Escape dismisses the search overlay, including when the query is nonempty.
-          onKeyDown={(event) => {
-            if (event.key === "Escape") {
-              event.preventDefault();
-              if (!event.nativeEvent.isComposing) onClose();
-            }
-          }}
-        />
-        {isLoading && <Spinner size="sm" aria-label={labels?.loading ?? "Searching…"} />}
-        <SearchField.ClearButton aria-label={labels?.clear ?? "Clear search"} />
-      </div>
-    </SearchField>
+    <Command.InputGroup>
+      <Command.SearchIcon />
+      <Command.Input
+        aria-label={labels?.input ?? "Search documentation"}
+        placeholder={labels?.placeholder ?? "Search components and guides"}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            event.preventDefault();
+            if (!event.nativeEvent.isComposing) onClose();
+          }
+        }}
+      />
+      {isLoading && <Spinner size="sm" aria-label={labels?.loading ?? "Searching…"} />}
+      <Command.Clear aria-label={labels?.clear ?? "Clear search"} />
+    </Command.InputGroup>
   );
 }
 
@@ -144,20 +126,20 @@ function SearchResult({
       onSelect={onSelect}
       data-docs-result=""
       data-docs-result-type={item.type}
-      xstyle={[styles.result, item.type === "page" ? styles.pageResult : styles.childResult]}
+      indent={item.type !== "page"}
     >
-      <span {...stylex.props(styles.resultIcon)} aria-hidden="true">
+      <Command.Icon aria-hidden="true">
         <Icon width={20} height={20} />
-      </span>
-      <span {...stylex.props(styles.resultBody)}>
-        <span ref={highlightRef} {...stylex.props(styles.resultContent)}>
-          <span {...stylex.props(styles.resultText)}>{item.content}</span>
-          {item.summary && <span {...stylex.props(styles.summary)}>{item.summary}</span>}
-        </span>
-      </span>
-      <span {...stylex.props(styles.resultType)}>
+      </Command.Icon>
+      <Command.ItemBody>
+        <Command.ItemContent ref={highlightRef}>
+          <Command.ItemText>{item.content}</Command.ItemText>
+          {item.summary && <Command.ItemDescription>{item.summary}</Command.ItemDescription>}
+        </Command.ItemContent>
+      </Command.ItemBody>
+      <Command.ItemMeta>
         {item.type === "heading" ? (labels?.section ?? "Section") : (labels?.page ?? "Page")}
-      </span>
+      </Command.ItemMeta>
     </Command.Item>
   );
 }
@@ -171,41 +153,27 @@ function SearchActions({
 }) {
   const labels = useContext(SearchConfiguration)?.labels;
   return (
-    <footer {...stylex.props(styles.footer)}>
-      <span {...stylex.props(styles.hint)}>
-        <Kbd variant="light" xstyle={styles.key}>
+    <Command.Footer>
+      <Command.Hint>
+        <Command.Key>
           <Kbd.Abbr keyValue="up" />
           <Kbd.Abbr keyValue="down" />
-        </Kbd>
+        </Command.Key>
         {labels?.navigate ?? "Navigate"}
-      </span>
-      <GlassButton
-        size="sm"
-        disabled={!selected}
-        onClick={() => selected && onSelect(selected)}
-        xstyle={styles.openAction}
-      >
+      </Command.Hint>
+      <Command.Action disabled={!selected} onClick={() => selected && onSelect(selected)}>
         {selected?.type === "heading"
           ? (labels?.openSection ?? "Open section")
           : (labels?.openPage ?? "Open page")}
-        <Kbd variant="light" xstyle={styles.actionKey}>
+        <Command.ActionKey>
           <Kbd.Abbr keyValue="enter" />
-        </Kbd>
-      </GlassButton>
-    </footer>
+        </Command.ActionKey>
+      </Command.Action>
+    </Command.Footer>
   );
 }
 
 function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
-  const glassRef = useGlassRef<HTMLDivElement>(
-    undefined,
-    true,
-    false,
-    "glass-medium",
-    undefined,
-    false,
-    true,
-  );
   const configuration = useContext(SearchConfiguration);
   if (!configuration) throw new Error("Search dialog requires DocumentationSearch.");
   const { from, initDB, triggers, labels, links, allowEmpty = false } = configuration;
@@ -253,25 +221,19 @@ function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
         if (!next) setSearch("");
       }}
     >
-      <Dialog.Portal>
-        <div data-lenso-backdrop="live" {...stylex.props(styles.opticalScope)}>
-          <Dialog.Backdrop
-            data-state={open ? "open" : "closed"}
-            data-docs-search-overlay=""
-            {...stylex.props(styles.backdrop)}
-          />
-          <Dialog.Popup
-            ref={glassRef}
-            aria-label={labels?.trigger ?? "Search documentation"}
-            aria-describedby={undefined}
-            data-state={open ? "open" : "closed"}
-            data-docs-search=""
-            data-docs-search-glass="panel"
-            initialFocus={() => {
+      <Command.Portal>
+        <Command.Backdrop data-docs-search-overlay="" />
+        <Command.Popup<DocumentationSearchResult>
+          popupProps={{
+            "aria-label": labels?.trigger ?? "Search documentation",
+            "aria-describedby": undefined,
+            "data-docs-search": "",
+            "data-docs-search-glass": "panel",
+            initialFocus: () => {
               restoreFocus.current = document.activeElement;
               return true;
-            }}
-            finalFocus={() => {
+            },
+            finalFocus: () => {
               const original = restoreFocus.current;
               if (
                 original instanceof HTMLElement &&
@@ -284,85 +246,47 @@ function StaticSearchDialog({ open, onOpenChange }: SharedProps) {
                   (node) => node.isConnected && node.getClientRects().length,
                 ) ?? false
               );
-            }}
-            {...stylex.props(
-              materialStyles.root,
-              liquidMaterialStyles.small,
-              liquidMaterialStyles.medium,
-              materialStyles.accessible,
-              styles.popup,
-            )}
-          >
-            <Command.Root<DocumentationSearchResult>
-              xstyle={styles.opticalScope}
-              items={results}
-              value={search}
-              onValueChange={setSearch}
-              filter={false}
-              itemToStringValue={(item) =>
-                typeof item.content === "string" ? item.content : item.url
-              }
-              onItemHighlighted={(item) => setActive(item)}
-            >
-              <div {...stylex.props(styles.header)}>
-                <SearchInput
-                  search={search}
-                  isLoading={query.isLoading}
-                  onClose={() => onOpenChange(false)}
-                />
-                <CloseButton
-                  xstyle={styles.close}
-                  aria-label={labels?.close ?? "Close search"}
-                  onClick={() => onOpenChange(false)}
-                >
-                  <Kbd variant="light" xstyle={styles.key}>
-                    <Kbd.Content>esc</Kbd.Content>
-                  </Kbd>
-                </CloseButton>
-              </div>
-              {!search.trim() && !items?.length ? (
-                <p {...stylex.props(styles.empty)}>
-                  {labels?.hint ?? "Search by component name or topic."}
-                </p>
-              ) : query.error ? (
-                <p role="alert" {...stylex.props(styles.empty)}>
-                  {labels?.error ?? "Unable to load search. Close this dialog and try again."}
-                </p>
-              ) : (
-                <>
-                  <div {...stylex.props(styles.sectionLabel)}>
-                    {search.trim()
-                      ? (labels?.results ?? "Results")
-                      : (labels?.suggestions ?? "Quick access")}
-                  </div>
-                  <ScrollShadow size={24} data-docs-search-scroll="" xstyle={styles.list}>
-                    <Command.Empty xstyle={styles.listEmpty}>
-                      <output {...stylex.props(styles.empty)}>
-                        {labels?.empty ?? "No matching pages."}
-                      </output>
-                    </Command.Empty>
-                    <Command.List
-                      data-docs-search-results=""
-                      aria-label={labels?.results ?? "Results"}
-                      xstyle={styles.listContent}
-                    >
-                      {(item: DocumentationSearchResult) => (
-                        <SearchResult
-                          key={item.id}
-                          item={item}
-                          query={search}
-                          onSelect={onSelect}
-                        />
-                      )}
-                    </Command.List>
-                  </ScrollShadow>
-                </>
-              )}
-              <SearchActions selected={selected} onSelect={onSelect} />
-            </Command.Root>
-          </Dialog.Popup>
-        </div>
-      </Dialog.Portal>
+            },
+          }}
+          items={results}
+          value={search}
+          onValueChange={setSearch}
+          filter={false}
+          itemToStringValue={(item) => (typeof item.content === "string" ? item.content : item.url)}
+          onItemHighlighted={(item) => setActive(item)}
+        >
+          <Command.Header>
+            <SearchInput isLoading={query.isLoading} onClose={() => onOpenChange(false)} />
+            <Command.Close aria-label={labels?.close ?? "Close search"} />
+          </Command.Header>
+          {!search.trim() && !items?.length ? (
+            <Command.Message>
+              {labels?.hint ?? "Search by component name or topic."}
+            </Command.Message>
+          ) : query.error ? (
+            <Command.Message role="alert">
+              {labels?.error ?? "Unable to load search. Close this dialog and try again."}
+            </Command.Message>
+          ) : (
+            <>
+              <Command.SectionLabel>
+                {search.trim()
+                  ? (labels?.results ?? "Results")
+                  : (labels?.suggestions ?? "Quick access")}
+              </Command.SectionLabel>
+              <Command.Viewport data-docs-search-scroll="">
+                <Command.Empty>{labels?.empty ?? "No matching pages."}</Command.Empty>
+                <Command.List data-docs-search-results="" aria-label={labels?.results ?? "Results"}>
+                  {(item: DocumentationSearchResult) => (
+                    <SearchResult key={item.id} item={item} query={search} onSelect={onSelect} />
+                  )}
+                </Command.List>
+              </Command.Viewport>
+            </>
+          )}
+          <SearchActions selected={selected} onSelect={onSelect} />
+        </Command.Popup>
+      </Command.Portal>
     </Dialog.Root>
   );
 }

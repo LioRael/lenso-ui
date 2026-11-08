@@ -1,0 +1,76 @@
+---
+title: "Sidebar"
+description: "Compose unstyled navigation panels with independent open state."
+navigationOrder: 1
+---
+
+## Usage
+
+```tsx
+import { Sidebar } from "@lenso/primitives/sidebar";
+
+export function Navigation() {
+  return (
+    <Sidebar.Root defaultOpen>
+      <Sidebar.Trigger>Toggle navigation</Sidebar.Trigger>
+      <Sidebar.Panel aria-label="Primary navigation">
+        <Sidebar.Header>Workspace</Sidebar.Header>
+        <Sidebar.Content>
+          <nav aria-label="Workspace">
+            <a href="/">Home</a>
+          </nav>
+        </Sidebar.Content>
+        <Sidebar.Footer>Account settings</Sidebar.Footer>
+      </Sidebar.Panel>
+    </Sidebar.Root>
+  );
+}
+```
+
+Use `open` and `onOpenChange` together for controlled state. Uncontrolled roots use `defaultOpen`. Each root owns its panel; nested roots keep independent state. Layout, panel width, responsive changes and animation are application choices.
+
+## Root API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `open` | `boolean` | Uncontrolled | Current visibility |
+| `defaultOpen` | `boolean` | `true` | Initial uncontrolled visibility |
+| `onOpenChange` | `(open: boolean) => void` | | Visibility callback |
+| `side` | `"left" \| "right"` | `"left"` | Physical panel side |
+| `dir` | `"ltr" \| "rtl"` | `"ltr"` | Text direction |
+| `id` | `string` | Generated | Root ID used by targeted controls |
+| `render` | Base UI render prop | `div` | Replace the root element |
+
+Root exposes `data-state="open|closed"` and `data-side="left|right"`. Render state contains `open`, `side` and `dir`. Parts accept their native props, refs and Base UI render composition; they do not accept the styled adapter's visual variants.
+
+## Parts
+
+| Part | Default element | Contract |
+| --- | --- | --- |
+| `Group` | `div` | Registers roots for controls using `targetId` |
+| `Root` | `div` | Provides panel state and actions |
+| `Trigger` | Base UI Button | Toggles the nearest root or `targetId` |
+| `Rail` | Base UI Button | Toggle with `openLabel` / `closeLabel` |
+| `Panel` | `aside` | Hidden when closed; owns panel ID and dismissal |
+| `Header`, `Content`, `Footer` | `div` | Structural regions |
+| `Menu`, `Submenu` | `ul` | List containers |
+| `MenuItem` | `li` | List item container |
+| `Item` | `button` | `selected` and `nested` state, both default `false` |
+| `Inset` | `main` | Main content region |
+| `Provider` | Context only | Explicit `state`, `actions`, `meta` integration |
+
+`Item` exposes `data-state="selected|default"`, `data-level="nested|root"` and `aria-current="page"` when selected. Give button items `type="button"` inside forms. For navigation links, use native anchors or render an anchor and preserve its navigation semantics.
+
+`Rail` defaults to “Open sidebar” / “Close sidebar”; pass localized labels as needed. `Provider` requires `state: { open }`, `actions: { setOpen, toggle }` and `meta: { dir, panelId, rootId, side, triggerRef }`.
+
+## Multiple panels
+
+Wrap independent roots and external triggers in the same `Sidebar.Group`. Set a stable root `id`, then pass that ID as `targetId` to `Trigger` or `Rail`. Without `targetId`, controls use their nearest root. Target IDs must be unique inside the group.
+
+## Keyboard and focus
+
+Triggers expose `aria-controls` and `aria-expanded`. The closed panel has `hidden` and `aria-hidden`. Escape from an interactive descendant closes the panel and returns focus to its trigger unless the event was already prevented. This is a navigation panel, with no built-in modal focus trap or mobile drawer overlay.
+
+## Source and styled adapter
+
+[Full source and exported types](https://github.com/LioRael/lenso-ui/blob/main/packages/primitives/src/sidebar/index.tsx). Use [Sidebar component](/docs/react/components/sidebar) for Lenso's styled adapter.

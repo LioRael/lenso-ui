@@ -1,0 +1,57 @@
+---
+title: "Photos"
+description: "使用 Lenso UI 构建的响应式照片库。"
+navigationOrder: 1
+---
+
+[打开 Photos 演示](/cn/photos) · [浏览源码](https://github.com/LioRael/lenso-ui/tree/main/apps/docs/src/components)
+
+## 包含的界面
+
+Photos 将示例照片网格、相簿、搜索、选择操作、全屏查看器与照片编辑组合在一起，展示内容背景与浮动控件的关系，以及窄屏和宽屏下的布局。
+
+| 区域 | 组件与应用逻辑 |
+| --- | --- |
+| 导航 | `TabBar`、`Tabs`、`Toolbar`、`SearchField` |
+| 浮动操作 | `GlassButton`、`GlassContainer`、`Menu` |
+| 查看器 | 查看状态、缩放、手势与照片信息 |
+| 选择 | 拖选、选择过渡与批量操作 |
+| 编辑 | `ActionSheet`、`Modal`、`Tabs`、调整/裁剪状态及撤销/重做 |
+| 外观 | `ThemeScope`、StyleX 与共享材质工具 |
+
+## 体验路径
+
+1. 从照片库打开一张照片，再返回网格。
+2. 浏览 Collections，然后通过 Search 筛选示例照片。
+3. 选择照片并查看批量操作。
+4. 打开编辑工具，修改调整项或裁剪，再尝试撤销与重做。
+
+## 迁移的文件
+
+以下路径相对于仓库根目录。模板跨多个模块，单独复制路由文件不会带入依赖。
+
+| 文件 | 职责 |
+| --- | --- |
+| `apps/docs/src/routes/$locale.photos.tsx` | 路由与元信息 |
+| `apps/docs/src/components/photos-demo.tsx` | 照片库组合与状态 |
+| `apps/docs/src/components/photos-*.tsx` 和 `photos-*.ts` | 查看器、编辑器、菜单、选择与过渡 |
+| `apps/docs/src/lib/photos-*.ts` | 数据、调整、手势与选择模型 |
+| `apps/docs/src/styles/photos-demo.stylex.ts` | 照片库与查看器样式 |
+| `apps/docs/src/styles/photos-editor.stylex.ts` | 编辑器样式 |
+| `apps/docs/public/assets/demo/photos/` | 示例照片与来源/许可说明 |
+
+从现有[路由](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/src/routes/%24locale.photos.tsx)与 [PhotosDemo](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/src/components/photos-demo.tsx)开始。仓库内从根目录运行 `bun run dev:docs`，在打印的地址打开 `/cn/photos`。
+
+## 接入边界
+
+按照[快速开始](/docs/react/getting-started/installation)配置主题 CSS 与 StyleX 编译。保留 Photos 使用的支持模块与依赖，包括 Gravity UI 图标。调整路由链接，并用自己的数据模型替换示例照片库。
+
+演示目前通过仓库内部材质工具导入 `ScrollEdge`。抽取到独立项目之前，应通过受支持的公开集成解决该依赖。当前文件属于仓库内模板，尚未整理成独立的复制即运行分发。
+
+照片状态由演示管理。存储、上传、认证和持久化编辑需要接入应用自己的服务；此示例不代表已经完成服务端集成或刷新后的数据保留。
+
+复用图片时保留[来源与许可说明](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/public/assets/demo/photos/README.md)，也可以替换成有权使用的资源。
+
+## 现有验证
+
+`apps/docs/test/photos-*` 覆盖搜索、拖选、编辑模型、编辑器和查看器菜单。运行 `bun run --filter @lenso/ui-docs test:photos` 执行检查。DOM 与模型测试不证明浏览器渲染或原生平台一致性；迁移时仍应检查目标浏览器的手势、响应式布局和明暗外观。

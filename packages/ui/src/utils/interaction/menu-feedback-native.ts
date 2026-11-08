@@ -14,17 +14,23 @@ interface Track extends Omit<Spring, "set"> {
 
 /** Move the complete popup together; copied backdrops retain a coordinated JS path. */
 export function createNativeMenuFeedback(card: HTMLElement) {
+  const copied = () => card.matches("[data-copy]") || !!card.querySelector("[data-copy]");
   if (
     typeof card.animate !== "function" ||
     !document.timeline ||
     document.timeline.currentTime === null ||
     card.ownerDocument !== document ||
+    card.style.scale ||
+    card.style.translate ||
+    card.style.transform ||
+    card.getAttribute("data-menu-elastic") === "false" ||
     !CSS.supports("scale", "1") ||
     !CSS.supports("translate", "0px 0px") ||
-    card.querySelector("[data-copy]")
+    copied()
   )
     return;
   const style = getComputedStyle(card);
+  if (style.transform.replace(/\s/g, "") !== "matrix(1,0,0,1,0,0)") return;
   if (!["none", "1"].includes(style.scale) || !["none", "0px", "0px 0px"].includes(style.translate))
     return;
   const original = {
@@ -38,7 +44,7 @@ export function createNativeMenuFeedback(card: HTMLElement) {
   const written = new Map<keyof typeof original, string>();
   const write = (property: keyof typeof original, value: string) => {
     if (card.style.getPropertyValue(property) !== value) card.style.setProperty(property, value);
-    written.set(property, value);
+    written.set(property, card.style.getPropertyValue(property));
   };
   const restore = (property: keyof typeof original) => {
     if (written.has(property) && card.style.getPropertyValue(property) === written.get(property))
@@ -195,7 +201,7 @@ export function createNativeMenuFeedback(card: HTMLElement) {
   reduced.addEventListener("change", finish);
   document.addEventListener("visibilitychange", finish);
   const copies = new MutationObserver(() => {
-    if (native && card.querySelector("[data-copy]")) {
+    if (native && copied()) {
       native = false;
       // A JS-positioned optical input cannot follow compositor-only motion
       // through a stall. Resume both from the same analytical pose.

@@ -28,7 +28,12 @@ function setup() {
   };
   CSS.supports = () => true;
   const card = document.createElement("div");
-  card.style.cssText = "scale:1;translate:0px;will-change:opacity";
+  card.setAttribute("data-native-feedback-test", "");
+  const sheet = document.createElement("style");
+  sheet.textContent =
+    "[data-native-feedback-test]{scale:1;translate:0px;transform:matrix(1,0,0,1,0,0)}";
+  document.head.append(sheet);
+  card.style.willChange = "opacity";
   document.body.append(card);
   const animations: {
     frames: Keyframe[];
@@ -72,6 +77,7 @@ function setup() {
     restore() {
       control.destroy();
       card.remove();
+      sheet.remove();
       if (previous.timeline) Object.defineProperty(document, "timeline", previous.timeline);
       else Reflect.deleteProperty(document, "timeline");
       performance.now = previous.now;
@@ -161,11 +167,53 @@ test("reduced motion settles native playback and cleanup preserves caller owners
     s.card.style.scale = "2";
     s.control.destroy();
     expect(s.card.style.scale).toBe("2");
-    expect(s.card.style.translate).toBe("0px");
+    expect(s.card.style.translate).toBe("");
     expect(s.card.style.willChange).toBe("opacity");
     const count = s.animations.length;
     s.control.scale.set(1.03);
     expect(s.animations.length).toBe(count);
+  } finally {
+    s.restore();
+  }
+});
+
+test("cleanup recognizes CSSOM shorthand serialization of owned translations", () => {
+  const s = setup();
+  const setProperty = s.card.style.setProperty;
+  s.card.style.setProperty = function (property, value, priority) {
+    setProperty.call(
+      this,
+      property,
+      property === "translate" && value === "0px 0px" ? "0px" : value,
+      priority,
+    );
+  };
+  try {
+    s.control.x.set(0, true);
+    expect(s.card.style.translate).toBe("0px");
+    s.control.destroy();
+    expect(s.card.style.translate).toBe("");
+  } finally {
+    s.card.style.setProperty = setProperty;
+    s.restore();
+  }
+});
+
+test("authored transforms, copied inputs and stationary controls retain the existing backend", () => {
+  const s = setup();
+  try {
+    s.control.destroy();
+    s.card.style.transform = "none";
+    expect(createNativeMenuFeedback(s.card)).toBeUndefined();
+    s.card.style.transform = "";
+    s.card.style.scale = "2";
+    expect(createNativeMenuFeedback(s.card)).toBeUndefined();
+    s.card.style.scale = "";
+    s.card.setAttribute("data-copy", "");
+    expect(createNativeMenuFeedback(s.card)).toBeUndefined();
+    s.card.removeAttribute("data-copy");
+    s.card.setAttribute("data-menu-elastic", "false");
+    expect(createNativeMenuFeedback(s.card)).toBeUndefined();
   } finally {
     s.restore();
   }

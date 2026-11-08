@@ -238,9 +238,10 @@ try {
         const before = Number(await page.getByLabel("Index activations").textContent());
         await nav.scrollIntoViewIfNeeded();
         const start = await a.boundingBox();
-        const end = await d.boundingBox();
         await page.mouse.move(start.x + start.width / 2, start.y + start.height / 2);
         await page.mouse.down();
+        // This fixture retains native fragments, so immediate activation can move the page.
+        const end = await d.boundingBox();
         await page.mouse.move(end.x + end.width / 2, end.y + end.height / 2, { steps: 6 });
         await page.mouse.up();
         assert.equal(await d.getAttribute("aria-current"), "location");
@@ -253,15 +254,15 @@ try {
               touchPoints: type === "touchEnd" ? [] : [{ id: 1, x, y }],
             });
           const last = await d.boundingBox();
-          const first = await a.boundingBox();
           const touchBefore = Number(await page.getByLabel("Index activations").textContent());
           await touch("touchStart", last.x + last.width / 2, last.y + last.height / 2);
+          const first = await a.boundingBox();
           await touch("touchMove", first.x + first.width / 2, first.y + first.height / 2);
           await touch("touchEnd", 0, 0);
           assert.equal(await a.getAttribute("aria-current"), "location");
           assert.equal(
             Number(await page.getByLabel("Index activations").textContent()),
-            touchBefore + 1,
+            touchBefore + 2,
           );
           await cdp.detach();
         }

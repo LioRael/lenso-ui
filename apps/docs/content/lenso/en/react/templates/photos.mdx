@@ -1,0 +1,57 @@
+---
+title: "Photos"
+description: "A responsive photo library built with Lenso UI."
+navigationOrder: 1
+---
+
+[Open Photos demo](/en/photos) · [Browse source](https://github.com/LioRael/lenso-ui/tree/main/apps/docs/src/components)
+
+## What is included
+
+Photos combines a sample photo grid, collections, search, selection actions, a full-screen viewer and image editing. It demonstrates how navigation and floating controls share a content backdrop, and how the same library adapts to narrow and wide screens.
+
+| Area | Components and application logic |
+| --- | --- |
+| Navigation | `TabBar`, `Tabs`, `Toolbar`, `SearchField` |
+| Floating actions | `GlassButton`, `GlassContainer`, `Menu` |
+| Photo viewer | Viewer state, image zoom, gestures and information |
+| Selection | Drag selection, selection transitions and bulk actions |
+| Editing | `ActionSheet`, `Modal`, `Tabs`, adjustment/crop state and undo/redo |
+| Appearance | `ThemeScope`, StyleX and shared material utilities |
+
+## Try the flow
+
+1. Open a photo from the library and return to the grid.
+2. Browse Collections, then use Search to narrow the sample library.
+3. Select photos and inspect the available selection actions.
+4. Open a photo's editing tools, change an adjustment or crop, then try undo/redo.
+
+## Files to adapt
+
+Paths below are relative to the repository root. The template spans multiple modules; copying only the route will not provide its dependencies.
+
+| Files | Responsibility |
+| --- | --- |
+| `apps/docs/src/routes/$locale.photos.tsx` | Route and metadata |
+| `apps/docs/src/components/photos-demo.tsx` | Library composition and state |
+| `apps/docs/src/components/photos-*.tsx` and `photos-*.ts` | Viewer, editor, menus, selection and transitions |
+| `apps/docs/src/lib/photos-*.ts` | Library data, adjustments, gesture and selection models |
+| `apps/docs/src/styles/photos-demo.stylex.ts` | Library and viewer styles |
+| `apps/docs/src/styles/photos-editor.stylex.ts` | Editor styles |
+| `apps/docs/public/assets/demo/photos/` | Sample images and source/license notes |
+
+Start from the existing [route](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/src/routes/%24locale.photos.tsx) and [PhotosDemo](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/src/components/photos-demo.tsx). For local development, run `bun run dev:docs` from the repository root and open `/en/photos` at the printed URL.
+
+## Integration boundaries
+
+Follow [Quick start](/docs/react/getting-started/installation) for theme CSS and StyleX compilation. Retain the supporting modules and dependencies used by Photos, including Gravity UI icons. Adapt route links and replace the sample library with your own data model.
+
+The demo currently imports `ScrollEdge` through a repository-internal material utility. Resolve that dependency through a supported public integration before extracting Photos into an independent consumer. The current files are a repository template, rather than a standalone copy-and-run distribution.
+
+Photo state is managed by the demo. Connect storage, uploads, authentication and durable edits to your application's services as needed. The example does not establish backend integration or persistence across reloads.
+
+Keep the sample images' [source and license notes](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/public/assets/demo/photos/README.md) when reusing those files, or replace them with assets you can use.
+
+## Existing verification
+
+The repository maintains Photos search, drag-selection, editing, editor and viewer-menu tests under `apps/docs/test/photos-*`. Run `bun run --filter @lenso/ui-docs test:photos` for those checks. DOM and model tests do not establish browser rendering or native platform parity; review gestures, responsive layout and both appearances in your target browser when adapting the template.

@@ -71,6 +71,9 @@ test("installed packages preserve consumer exports, types, SSR and production as
       "@lenso/ui/page-control",
       "@lenso/ui/swipe-actions",
       "@lenso/ui/wheel-picker",
+      "@lenso/ui/list",
+      "@lenso/ui/refresh-control",
+      "@lenso/tokens/refresh-control",
       "@lenso/ui/segmented-control",
       "@lenso/ui/section-index",
       "@lenso/ui/hooks",
@@ -162,6 +165,8 @@ import {NavigationBar} from "@lenso/ui/navigation-bar";
 import {PageControl} from "@lenso/ui/page-control";
 import {SwipeActions} from "@lenso/ui/swipe-actions";
 import {WheelPicker} from "@lenso/ui/wheel-picker";
+import {RefreshControl} from "@lenso/ui/refresh-control";
+import {List} from "@lenso/ui/list";
 import {SegmentedControl} from "@lenso/ui/segmented-control";
 import {SectionIndex} from "@lenso/ui/section-index";
 import {Command} from "@lenso/ui/command";
@@ -179,6 +184,7 @@ createRoot(document.getElementById("root")!).render(
   </Modal.Root><ButtonGroup size="sm"><GlassButton>Previous</GlassButton><GlassButton>Next</GlassButton></ButtonGroup>
   <ToggleButtonGroup multiple defaultValue={["bold"]}><GlassToggleButton value="bold">Bold</GlassToggleButton><GlassToggleButton value="italic">Italic</GlassToggleButton></ToggleButtonGroup>
   <GlassContainer spacing={18} style={{display: "flex", gap: 12, padding: 24}}><GlassButton>Save</GlassButton><GlassContainer.Item elastic render={<button type="button" />} style={{width: 64, height: 50, borderRadius: 16}}>Add</GlassContainer.Item></GlassContainer>
+  <RefreshControl onRefresh={async()=>{}}><RefreshControl.Trigger/><RefreshControl.Viewport><List editing onReorder={details=>{void details.targetKey}}><List.Item itemKey="one" textValue="One"><List.Title>One</List.Title></List.Item></List></RefreshControl.Viewport></RefreshControl>
   <NavigationBar title="Installed navigation" large={false} level={2} />
   <PageControl count={20} variant="plain" /><PageControl count={3} variant="prominent" />
   <SwipeActions endActions={[{id: "delete", label: "Delete", onAction: () => {}}]}>Installed row</SwipeActions>
@@ -246,6 +252,10 @@ import {SegmentedControl as SubpathSegments} from "@lenso/ui/segmented-control";
 import {SectionIndex as SubpathIndex} from "@lenso/ui/section-index";
 import {Menu as SubpathMenu, MenuTrigger, MenuPopup} from "@lenso/ui/menu";
 import {menuStyles} from "@lenso/tokens/menu";
+import {RefreshControl, List} from "@lenso/ui";
+import {RefreshControl as SubpathRefresh} from "@lenso/ui/refresh-control";
+assert.equal(RefreshControl, SubpathRefresh);
+assert.match(renderToString(<RefreshControl onRefresh={()=>{}}><RefreshControl.Trigger/><RefreshControl.Viewport><List editing><List.Item itemKey="one" textValue="One">One</List.Item></List></RefreshControl.Viewport></RefreshControl>), /Select One/);
 assert.equal(Menu, SubpathMenu);
 assert.equal(GlassToggleButton, SubpathToggle);
 assert.equal(GlassContainer, SubpathContainer);

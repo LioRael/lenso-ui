@@ -14,6 +14,26 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         await page.goto(`${base}/en/docs/react/components/command`);
         await page.waitForLoadState("networkidle");
         const input = page.getByRole("combobox", { name: "Find a command", exact: true });
+        const presentation = (root) => {
+          const properties = {
+            command: ["borderRadius", "padding", "gap"],
+            "command-header": ["padding", "gap"],
+            "command-input": ["fontSize", "lineHeight", "backgroundColor", "padding"],
+            "command-item": ["padding", "borderRadius", "minHeight"],
+            "command-viewport": ["padding", "scrollPaddingTop"],
+            "command-footer": ["padding", "fontSize"],
+          };
+          return Object.fromEntries(
+            Object.entries(properties).map(([slot, keys]) => {
+              const node = slot === "command" ? root : root.querySelector(`[data-slot="${slot}"]`);
+              const style = getComputedStyle(node);
+              return [slot, Object.fromEntries(keys.map((key) => [key, style[key]]))];
+            }),
+          );
+        };
+        const inlinePresentation = await input
+          .locator('xpath=ancestor::*[@data-slot="command"][1]')
+          .evaluate(presentation);
         await input.fill("settings");
         await page.waitForFunction(() => document.querySelectorAll('[role="option"]').length === 1);
         await input.dispatchEvent("compositionstart");
@@ -32,6 +52,11 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         const search = panel.getByRole("combobox");
         await search.fill("button");
         await panel.getByRole("option").first().waitFor();
+        assert.deepEqual(
+          await panel.evaluate(presentation),
+          inlinePresentation,
+          "Documentation search must use the default Command presentation",
+        );
         await search.press("ArrowDown");
         const active = await search.getAttribute("aria-activedescendant");
         assert.ok(active && (await page.locator(`[id="${active}"]`).count()));
@@ -40,6 +65,9 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         assert.equal(await trigger.evaluate((node) => node === document.activeElement), true);
         await trigger.click();
         assert.equal(await search.inputValue(), "");
+        await panel.getByRole("button", { name: "Close search", exact: true }).click();
+        await panel.waitFor({ state: "hidden" });
+        await trigger.click();
         await search.fill("button");
         await panel.getByRole("option").first().waitFor();
         await search.press("Enter");
