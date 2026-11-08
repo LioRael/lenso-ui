@@ -55616,7 +55616,7 @@
       "expandedType": "ReactNode",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/list/list.tsx", "line": 374 },
+      "source": { "path": "packages/ui/src/components/list/list.tsx", "line": 377 },
       "default": null
     },
     {
@@ -82121,7 +82121,7 @@
           "name": "ListSection",
           "signature": "({ title, id, children, xstyle, style, ...props }: ListSectionProps): React.JSX.Element",
           "props": "ListSectionProps",
-          "source": { "path": "packages/ui/src/components/list/list.tsx", "line": 376 },
+          "source": { "path": "packages/ui/src/components/list/list.tsx", "line": 379 },
           "native": ["@base-ui/react/button"],
           "members": [],
           "states": {},
@@ -82151,7 +82151,7 @@
           "name": "List",
           "signature": "({ editing, disabled, selectedKeys, defaultSelectedKeys, onSelectionChange, onReorder, variant, onKeyDown, onClickCapture, xstyle, style, ...props }: ListRootProps): React.JSX.Element",
           "props": "ListRootProps",
-          "source": { "path": "packages/ui/src/components/list/list.tsx", "line": 396 },
+          "source": { "path": "packages/ui/src/components/list/list.tsx", "line": 399 },
           "native": ["@base-ui/react/button"],
           "members": [
             "Root",

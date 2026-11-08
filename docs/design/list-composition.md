@@ -3,15 +3,15 @@
 A library, mailbox or downloads page is a content list. A picker of values is an
 option list. Multiple selection alone does not make a content list a ListBox.
 
-| Part | Responsibility | Does not own |
-| --- | --- | --- |
-| List / List.Item | Native list structure, row layout, editing coordination | Application data and persistence |
-| List.Section | Labelled group and grouped surface; reorder boundary | Filtering or loading |
-| List editing | Row checkbox selection, exclusive swipe state, reorder handles | Bulk deletion or saving accepted order |
-| ListBox | Option selection and coordinated option focus | Arbitrary interactive content rows |
-| SwipeActions | Reveal and activate contextual row actions | Group material, selection or deletion |
-| Surface | Background, material and outer shape | Collection or selection semantics |
-| RefreshControl | Top-of-scroll pull gesture, asynchronous job feedback and explicit trigger | Fetching, caching or merging records |
+| Part             | Responsibility                                                             | Does not own                           |
+| ---------------- | -------------------------------------------------------------------------- | -------------------------------------- |
+| List / List.Item | Native list structure, row layout, editing coordination                    | Application data and persistence       |
+| List.Section     | Labelled group and grouped surface; reorder boundary                       | Filtering or loading                   |
+| List editing     | Row checkbox selection, exclusive swipe state, reorder handles             | Bulk deletion or saving accepted order |
+| ListBox          | Option selection and coordinated option focus                              | Arbitrary interactive content rows     |
+| SwipeActions     | Reveal and activate contextual row actions                                 | Group material, selection or deletion  |
+| Surface          | Background, material and outer shape                                       | Collection or selection semantics      |
+| RefreshControl   | Top-of-scroll pull gesture, asynchronous job feedback and explicit trigger | Fetching, caching or merging records   |
 
 ## Compose one owner for each concern
 

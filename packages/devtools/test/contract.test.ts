@@ -403,6 +403,8 @@ test("accepts optional authored navigation metadata without relaxing document va
   assert.throws(() => buildLensoContract(input), /navigationOrder/);
   delete input.docsIndex.pages[0]!.navigationGroup;
   input.docsIndex.pages[0]!.navigationOrder = 10;
+  assert.doesNotThrow(() => buildLensoContract(input));
+  input.docsIndex.pages[0]!.navigationGroup = "";
   assert.throws(() => buildLensoContract(input), /navigationGroup/);
   input.docsIndex.pages[0]!.navigationGroup = "Handbook";
   Reflect.set(input.docs[0]!, "navigationGroup", "Handbook");

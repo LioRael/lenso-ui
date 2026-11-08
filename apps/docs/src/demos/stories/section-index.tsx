@@ -2,7 +2,7 @@
 import { useId, useRef, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Avatar, NavigationBar, SectionIndex, List } from "@lenso/ui";
-import { ScrollEdge } from "../../../../../packages/ui/src/utils/materials/render";
+import { ScrollEdge } from "@/stories/scroll-edge";
 const produce = [
   ["Apricot", "Artichoke", "Avocado"],
   ["Banana", "Beetroot", "Blueberry"],

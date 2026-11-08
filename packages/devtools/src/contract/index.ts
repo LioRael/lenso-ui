@@ -578,8 +578,9 @@ function validateDocShape(
   assertString(doc.slug, `${label} slug`);
   assertString(doc.title, `${label} title`);
   assertString(doc.description, `${label} description`);
-  if (indexPage && (doc.navigationGroup !== undefined || doc.navigationOrder !== undefined)) {
+  if (indexPage && doc.navigationGroup !== undefined)
     assertString(doc.navigationGroup, `${label} navigationGroup`);
+  if (indexPage && doc.navigationOrder !== undefined) {
     if (
       typeof doc.navigationOrder !== "number" ||
       !Number.isInteger(doc.navigationOrder) ||
