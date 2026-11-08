@@ -1,0 +1,35 @@
+packages/glass/test/browser/lens-geometry.dom.test.ts
+  s_10c7d362cf24b2::t_48ccc8e43ac73d 76
+  s_10c7d362cf24b2::t_400657dafcfd93 2,5-7,17-52,67-75,77,85,97-98,101-103,106-113,116-117
+  s_10c7d362cf24b2::t_f84ea4c6fd2ef8 53-66,88-94,96
+  s_10c7d362cf24b2::t_4b3d5e0ac78c6b 99-100,104
+  s_10c7d362cf24b2::t_26aa68e6ad5f70 8-10,14-16
+  s_10c7d362cf24b2::t_d3a7cd2a278758 78-80,82-84
+  s_10c7d362cf24b2::t_681fa496de45fa 86-87
+  s_10c7d362cf24b2::t_74802de5603cb3 95
+  s_10c7d362cf24b2::t_0e69f707564bda 105
+  s_10c7d362cf24b2::t_23685602cac240 114-115
+  s_10c7d362cf24b2::t_b28da0f1343d9d 118
+  s_10c7d362cf24b2::t_cd254134743078 11-13,81
+packages/glass/src/control-lens.ts
+  s_10c7d362cf24b2::t_1a7afadcce5123 349,383-388,407-426,595-608,612,615,618,621-640,647,654,656,665-680,683-684,703,718,909-910,912-913,922-929
+  s_10c7d362cf24b2::t_400657dafcfd93 374
+  s_10c7d362cf24b2::t_62e256efddf669 227-252,259-260,262-263,309,311-318,342-346
+  s_10c7d362cf24b2::t_4e09e9444fec4f 221-226,347-348,350-352,367-369,373,375,930
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4a7fcb3889b6cd612b36f9068f2263f2f18eaa6",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
