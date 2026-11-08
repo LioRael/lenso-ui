@@ -1,0 +1,37 @@
+experiments/glass-driver-comparison/README.md
+  s_62031d1b9380fe::t_aaf13d367ad1e3 32-33
+packages/ui/src/utils/interaction/menu-curves.ts
+  s_62031d1b9380fe::t_aaf13d367ad1e3 3
+docs/architecture/repository.md
+  s_62031d1b9380fe::t_aaf13d367ad1e3 78-81,83
+experiments/hard-scroll-edge-calibration/README.md
+  s_62031d1b9380fe::t_aaf13d367ad1e3 52
+docs/design/component-conventions.md
+  s_62031d1b9380fe::t_aaf13d367ad1e3 224,235,257,421,438,463-464,540-541,578,585,626-628,635
+experiments/scroll-edge-calibration/README.md
+  s_62031d1b9380fe::t_aaf13d367ad1e3 64,71
+docs/design/photos-demo.md
+  s_62031d1b9380fe::t_aaf13d367ad1e3 321-322,336
+RELEASE.md
+  s_62031d1b9380fe::t_d69c83d1a20d17 1-38
+docs/README.md
+  s_62031d1b9380fe::t_28f77f58327ac7 5-8,10
+  s_62031d1b9380fe::t_aaf13d367ad1e3 3,9,12-14
+  s_62031d1b9380fe::t_571512d2d16a72 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c4c9cc242a0ae9d53e927bb9386b3c84327ba6b",
+  "prompts": {},
+  "sessions": {
+    "s_62031d1b9380fe": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bca8-ee73-7690-92d5-3b69ff5036b2",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
