@@ -110,3 +110,11 @@ and samples the painted pixels in the middle of the pinned-title region and
 near the end of the tail. It must remove sharp stripe detail behind the title
 while returning to clear content below it; sharing a DOM node alone is not
 accepted as proof of a continuous backdrop.
+
+The stripe probe passed in Chromium at 390/1280px in both appearances. In this
+host's headless WebKit, an independent unmasked CSS blur reference also retained
+sharp stripes, so that backend is not used as pixel-blur acceptance; its four
+layout/interaction runs still passed. Physical iPhone Safari was reopened with
+the corrected profile: a jump to M followed by ordinary scrolling showed rows
+blurring through the navigation/title region and clearing below it, while the
+pinned M stayed sharp. The temporary LAN proxy was stopped after inspection.
