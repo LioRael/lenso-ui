@@ -1,0 +1,42 @@
+docs/design/component-conventions.md
+  s_10c7d362cf24b2::t_276981dde81591 197,226-234,238
+packages/ui/src/components/menu/menu.tsx
+  s_10c7d362cf24b2::t_299b1a4bd22f00 422
+packages/ui/src/utils/interaction/submenu-cascade.ts
+  s_10c7d362cf24b2::t_299b1a4bd22f00 95
+  s_10c7d362cf24b2::t_08fb7ad867a4ab 96,136
+RELEASE.md
+  s_10c7d362cf24b2::t_276981dde81591 5-10
+packages/ui/test/submenu-cascade.dom.test.tsx
+  s_10c7d362cf24b2::t_299b1a4bd22f00 4,64
+  s_10c7d362cf24b2::t_f6f6fab7bfe0d0 65,86
+packages/tokens/src/materials/material.styles.ts
+  s_10c7d362cf24b2::t_299b1a4bd22f00 34-39,41-45
+  s_10c7d362cf24b2::t_ed55abd2aa9870 40
+packages/ui/src/utils/materials/render.tsx
+  s_10c7d362cf24b2::t_299b1a4bd22f00 66,76
+  s_10c7d362cf24b2::t_a0963899081e3d 75,118,136
+packages/ui/src/components/select/select.tsx
+  s_10c7d362cf24b2::t_299b1a4bd22f00 230-235
+packages/ui/src/utils/interaction/menu.ts
+  s_10c7d362cf24b2::t_299b1a4bd22f00 224-227
+  s_10c7d362cf24b2::t_78045f19329a20 229,292,337,368
+packages/glass/src/react/refraction.ts
+  s_10c7d362cf24b2::t_75ea31029507ab 14,16-17,20,29,39-70,80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ffb8548fdaaa7e785756a3067778cf995f974f36",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
