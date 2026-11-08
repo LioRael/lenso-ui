@@ -1,0 +1,29 @@
+apps/docs/src/demos/stories/section-index.tsx
+  s_a6270f77131666::t_098213154f5f16 5
+apps/docs/src/stories/scroll-edge.tsx
+  s_a6270f77131666::t_098213154f5f16 1-3
+packages/devtools/src/contract/index.ts
+  s_a6270f77131666::t_7458b20cbca2c5 581,583
+packages/devtools/test/contract.test.ts
+  s_a6270f77131666::t_7458b20cbca2c5 406-407
+apps/docs/src/generated/api-reference.json
+  s_a6270f77131666::t_fa46beafc5eed7 55619,82124,82154
+docs/design/list-composition.md
+  s_a6270f77131666::t_2ef2a74b577814 6-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3eb1db47939f05d164d66ae4a4744c09f8f7e41c",
+  "prompts": {},
+  "sessions": {
+    "s_a6270f77131666": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bcb8-a1d5-78b2-90ee-0c449da00710",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
