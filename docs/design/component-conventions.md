@@ -194,7 +194,7 @@ restore the parent only after its last child returns. Base UI retains focus,
 activation and dismissal ownership throughout.
 
 Cascading submenus share Menu's reversible timeline, continuous shape progress
-and ink softness/refraction. Keep their growing panel attached to the adjoining
+and ink softness. Keep their growing panel attached to the adjoining
 edge and source-row height; do not reuse a root Menu's travelling circular
 source. The parent row remains visible and undeformed. Content stays anchored
 near that row and is clipped to the moving contour. Settled and reduced-motion
@@ -223,20 +223,19 @@ corner settling. Glass hands back to source paint at 299ms. Morphing Menu
 sources retain a small rebound and lift through 533ms (uniform for circles); Select and
 stationary sources finish at the handoff without that rebound. These are sampled Web approximations, not recovered native spring constants.
 
-Menu ink has independent time-based softness and foreground rim refraction.
-Do not end either effect merely because width has reached the panel width.
-Clear both at rest and for reduced motion. The foreground lens uses the shared
-control-lens displacement model with neutral spectral separation; it preserves
-the ink's colour and alpha without duplicating identical colour passes. The
-panel's optical material and fusion recipe remain separate. During a transformed
-Menu/Select or cascading submenu morph, paint the foreground rim in current
-visible coordinates with the same pose as the surface/clip; never scale the
-final rounded-rectangle rim bitmap into an earlier circular face. Restore fitted
-foreground paint at rest.
+Menu and Select retain their time-based ink softness, clipping and shape
+trajectories while using a lighter glass treatment during motion. Moving panels
+use native backdrop blur, the material fill and simple inset/outer shadows;
+they do not refract foreground content, paint a live rim or fit panel optics.
+Install the existing fitted material after opening settles, and suspend it
+again before the closing or reversed morph. Reduced motion reaches the resting
+material directly. Cascading submenus use the same policy. This adopts the
+upstream Menu's motion-time rendering strategy without changing Base UI
+interaction ownership or Lenso's motion profiles.
 
 With `morphTrigger={false}`, Menu and Select keep their trigger visible and
 stationary. Their popups unfold from a compact source near that trigger with
-the same contour/ink behavior, without masking or rebounding the source.
+the same lightweight glass and ink softness, without masking or rebounding the source.
 Text Menu sources retain their early opening neck, while their content follows
 the shared contour. Closing uses the same whole-panel contraction. Base UI retains placement,
 selection, keyboard operation and focus restoration in both modes.

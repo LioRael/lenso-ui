@@ -11,11 +11,13 @@ import {
 } from "react";
 import { GlassBackdropSourceContext } from "./backdrop-source.js";
 import { GlassFusionContext } from "./fusion.js";
-import { attachGlass, attachContentRefraction } from "../refraction.js";
+import { attachGlass, attachContentRefraction, refractsBackdrop } from "../refraction.js";
 import { assignRef } from "./ref.js";
+import { paintMaterialBackdrop } from "../backdrop-paints.js";
+import { paintBackdrop } from "../panel-backdrop.js";
 import { trackPressHighlight } from "../press-highlight.js";
 
-/** Binds the shared runtime while preserving the caller's ref and cleanup. */
+/** Bind shared optics; deferred owners mark their surface with data-material-resting. */
 export function useGlassRef<T extends HTMLElement>(
   ref: Ref<T> | undefined,
   enabled: boolean,
@@ -24,6 +26,7 @@ export function useGlassRef<T extends HTMLElement>(
   sourceAnchor?: RefObject<HTMLElement | null>,
   liveBackdrop = false,
   liveGeometry = false,
+  deferOptics = false,
 ) {
   const [element, setElement] = useState<T | null>(null);
   const fusion = useContext(GlassFusionContext);
@@ -33,15 +36,38 @@ export function useGlassRef<T extends HTMLElement>(
     [element, enabled],
   );
   useLayoutEffect(() => {
-    if (element && enabled)
-      return attachGlass(element, {
-        selection,
-        profileKey,
-        sourceAnchor: sourceAnchor?.current,
-        liveBackdrop,
-        liveGeometry,
-        backdropSource,
-      });
+    if (!element || !enabled) return;
+    let stop: (() => void) | undefined;
+    const surface = element.parentElement;
+    let resting: boolean | undefined;
+    const sync = () => {
+      const active = !deferOptics || !!surface?.hasAttribute("data-material-resting");
+      if (active === resting) return;
+      resting = active;
+      stop?.();
+      stop = active
+        ? attachGlass(element, {
+            selection,
+            profileKey,
+            sourceAnchor: sourceAnchor?.current,
+            liveBackdrop,
+            liveGeometry,
+            backdropSource,
+          })
+        : liveBackdrop
+          ? refractsBackdrop()
+            ? paintMaterialBackdrop(element, true)
+            : paintBackdrop(element)
+          : undefined;
+    };
+    const observer = deferOptics ? new MutationObserver(sync) : undefined;
+    if (surface)
+      observer?.observe(surface, { attributes: true, attributeFilter: ["data-material-resting"] });
+    sync();
+    return () => {
+      observer?.disconnect();
+      stop?.();
+    };
   }, [
     element,
     enabled,
@@ -51,6 +77,7 @@ export function useGlassRef<T extends HTMLElement>(
     liveBackdrop,
     liveGeometry,
     backdropSource,
+    deferOptics,
   ]);
   useEffect(() => {
     if (!element || !enabled || !fusion || selection) return;

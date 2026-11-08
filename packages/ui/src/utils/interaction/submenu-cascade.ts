@@ -1,7 +1,5 @@
-import { createGlassContour } from "@lenso/glass";
 import { presentMenuFeedback } from "./menu-feedback.js";
 import { afterMenuPlacement, retainMenuChild } from "./menu-placement.js";
-import { createMenuInk } from "./menu-ink.js";
 import { menuDurations, sampleMenu } from "./menu-shape.js";
 import { createMenuTimeline } from "./menu-timeline.js";
 
@@ -22,7 +20,6 @@ export function presentCascadingSubmenu(
 ) {
   const surface = element.querySelector<HTMLElement>('[data-slot="menu-surface"]')!;
   const content = element.querySelector<HTMLElement>('[data-slot="menu-content"]')!;
-  const contour = createGlassContour(surface);
   let release = retainMenuChild(parent);
   let retained = true;
   const feedback = presentMenuFeedback(element);
@@ -30,7 +27,6 @@ export function presentCascadingSubmenu(
   content.style.opacity = "0";
   element.setAttribute("data-menu-motion", "cascade");
   let timeline: ReturnType<typeof createMenuTimeline> | undefined;
-  let ink: ReturnType<typeof createMenuInk> | undefined;
   let observer: MutationObserver | undefined;
   const cancelPlacement = afterMenuPlacement(element, () => {
     const width = surface.offsetWidth,
@@ -45,7 +41,6 @@ export function presentCascadingSubmenu(
       y: initialAnchor.y - initialBox.y + initialAnchor.height / 2,
     };
     content.style.transformOrigin = `${origin.x}px ${origin.y}px`;
-    ink = createMenuInk(surface, content);
     timeline = createMenuTimeline(
       (time, open) => {
         const box = element.getBoundingClientRect(),
@@ -88,8 +83,6 @@ export function presentCascadingSubmenu(
         surface.style.borderRadius = settled
           ? ""
           : `${(corner * width) / w}px / ${(corner * height) / h}px`;
-        if (settled || pose.opacity === 0) contour.clear();
-        else contour.paint(w, h, corner, { width, height });
         surface.style.setProperty("--lg-menu-surface-opacity", String(pose.opacity));
         content.style.transform = settled ? "" : `scale(${scale})`;
         content.style.opacity = String(pose.items);
@@ -99,7 +92,8 @@ export function presentCascadingSubmenu(
           width: w / scale,
           height: h / scale,
         };
-        ink!.paint(finished ? 0 : pose.refraction, finished ? 0 : pose.blur, clip, pose.items > 0);
+        content.style.filter = finished || pose.items <= 0 ? "" : `blur(${pose.blur}px)`;
+        surface.toggleAttribute("data-material-resting", settled);
         content.style.clipPath = settled
           ? ""
           : `inset(${clip.y}px ${width - clip.x - clip.width}px ${height - clip.y - clip.height}px ${clip.x}px round ${corner / scale}px)`;
@@ -139,8 +133,7 @@ export function presentCascadingSubmenu(
     cancelPlacement();
     observer?.disconnect();
     timeline?.stop();
-    ink?.destroy();
-    contour.destroy();
+    surface.removeAttribute("data-material-resting");
     element.removeAttribute("data-menu-morphing");
     element.removeAttribute("data-menu-motion");
     feedback();

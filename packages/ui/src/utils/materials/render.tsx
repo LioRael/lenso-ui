@@ -63,6 +63,7 @@ export function MaterialBackground({
   sourceAnchor,
   liveBackdrop = false,
   liveGeometry = false,
+  deferOptics = false,
   local = false,
   layerXstyle,
 }: {
@@ -71,6 +72,8 @@ export function MaterialBackground({
   sourceAnchor?: RefObject<HTMLElement | null>;
   liveBackdrop?: boolean;
   liveGeometry?: boolean;
+  /** The surface owns data-material-resting; moving glass uses native blur and a CSS edge. */
+  deferOptics?: boolean;
   /** Keep paints inside a nonrectangular clipped shape. */
   local?: boolean;
 }) {
@@ -112,6 +115,7 @@ export function MaterialBackground({
     sourceAnchor,
     liveBackdrop,
     liveGeometry,
+    deferOptics,
   );
   const panel = variant === "glass-medium" || variant === "glass-large";
   return (
@@ -129,6 +133,7 @@ export function MaterialBackground({
             panel && liquidMaterialStyles.medium,
             variant === "glass-large" && liquidMaterialStyles.large,
             variant === "glass-clear" && liquidMaterialStyles.clear,
+            deferOptics && liquidMaterialStyles.menuMoving,
             layerXstyle,
           )}
         />

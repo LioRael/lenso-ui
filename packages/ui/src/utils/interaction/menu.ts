@@ -1,7 +1,6 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
 // Adapted: Base UI owns open state, dismissal, focus, selection and unmount actions.
 import { useCallback, useLayoutEffect, useState, type Ref, type RefObject } from "react";
-import { createGlassContour } from "@lenso/glass";
 import { createSpring } from "@lenso/glass/motion";
 import { presentMenuFeedback } from "./menu-feedback.js";
 import { afterMenuPlacement } from "./menu-placement.js";
@@ -9,7 +8,6 @@ import { assignRef } from "./ref.js";
 import { sampleMenu, type MenuPose } from "./menu-shape.js";
 import { createMenuTimeline } from "./menu-timeline.js";
 import { iconMenuDurations, sampleIconMenu } from "./menu-icon-shape.js";
-import { createMenuInk } from "./menu-ink.js";
 
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 const writeStyle = (node: HTMLElement, name: string, value: string) => {
@@ -158,8 +156,6 @@ function present(
       target.y -
       (positionedNow.y - positioned.y);
   };
-  const ink = createMenuInk(surface, content);
-  const contour = createGlassContour(surface);
   const paintShape = (value: number, liquid?: MenuPose, finished = false) => {
     const t = clamp(value),
       settled = liquid ? finished && !leaving : t === 1;
@@ -183,8 +179,6 @@ function present(
     const rx = `${(corner * to.width) / width}px`,
       ry = `${(corner * to.height) / height}px`;
     surface.style.borderRadius = settled ? "" : `${rx} / ${ry}`;
-    if (settled || liquid?.opacity === 0) contour.clear();
-    else contour.paint(width, height, corner, to);
     // Fade the lens itself: ancestor opacity cuts off Chromium backdrop input.
     writeStyle(surface, "--lg-menu-surface-opacity", String(liquid?.opacity ?? clamp(t / 0.2)));
     if (sourceMasks.get(trigger) === mask)
@@ -227,17 +221,12 @@ function present(
       : family === "menu" || !morph
         ? `translate(${shiftX}px, ${shiftY}px) scale(${scale})`
         : `scale(${scale})`;
-    ink.paint(
-      finished ? 0 : (liquid?.refraction ?? 1 - t),
-      settled ? 0 : (liquid?.blur ?? 6 * (1 - t)),
-      {
-        x: local(left, origin.x, shiftX),
-        y: local(top, origin.y, shiftY),
-        width: width / scale,
-        height: height / scale,
-      },
-      items > 0,
+    writeStyle(
+      content,
+      "filter",
+      settled || items <= 0 ? "" : `blur(${liquid?.blur ?? 6 * (1 - t)}px)`,
     );
+    surface.toggleAttribute("data-material-resting", settled);
     content.style.clipPath = settled
       ? ""
       : `inset(${local(top, origin.y, shiftY)}px ${to.width - local(left + width, origin.x, shiftX)}px ${to.height - local(top + height, origin.y, shiftY)}px ${local(left, origin.x, shiftX)}px round ${corner / scale}px)`;
@@ -300,8 +289,7 @@ function present(
     card.removeAttribute("data-menu-plate-active");
     card.removeAttribute("data-menu-motion");
     shape.stop();
-    ink.destroy();
-    contour.destroy();
+    surface.removeAttribute("data-material-resting");
     if (sourceMasks.get(trigger) === mask) {
       sourceMasks.delete(trigger);
       trigger.style.removeProperty("--lg-menu-trigger-opacity");
@@ -346,6 +334,7 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
     content.style.transform = transform;
     content.style.opacity = String(leaving ? clamp((t - 0.55) / 0.45) : clamp((t - 0.15) / 0.6));
     content.style.filter = t === 1 ? "" : `blur(${6 * (1 - t)}px)`;
+    surface.toggleAttribute("data-material-resting", t === 1);
     card.toggleAttribute("data-menu-morphing", t !== 1 && value !== 0);
     if (leaving && value === 0) unmount();
   });
@@ -376,6 +365,7 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
       for (const property of ["transform", "transform-origin", "opacity", "filter"])
         node.style.removeProperty(property);
     card.removeAttribute("data-menu-morphing");
+    surface.removeAttribute("data-material-resting");
   };
 }
 

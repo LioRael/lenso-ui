@@ -227,7 +227,12 @@ export function SelectPopover({
       data-menu-elastic="false"
     >
       <div aria-hidden="true" data-slot="select-surface" {...stylex.props(menuStyles.surface)}>
-        <MaterialBackground variant="glass-medium" sourceAnchor={motion.trigger} liveBackdrop />
+        <MaterialBackground
+          variant="glass-medium"
+          sourceAnchor={motion.trigger}
+          liveBackdrop
+          deferOptics
+        />
       </div>
       <div aria-hidden="true" inert data-slot="select-glyph" {...stylex.props(menuStyles.glyph)} />
       {children}

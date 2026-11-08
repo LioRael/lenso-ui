@@ -2,6 +2,12 @@
 
 These are source changes; use the migration details for the version you consume.
 
+- Menu, Select and cascading submenu morphs now use native backdrop blur and
+  simple CSS edges during motion. Content refraction and live rim painting are
+  removed from these transitions; the existing fitted panel material returns
+  after opening settles. Existing props, selection, focus and motion trajectories
+  require no migration. Review custom optical overrides in both themes.
+
 - Replace `FieldGroup` with `Fieldset.Group`, and `TextField.Group` with a labelled
   `Fieldset` containing `Fieldset.Group`. Compatibility entries remain, but groups
   now form a continuous surface. Use a plain layout container for separate controls.

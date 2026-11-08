@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import { presentCascadingSubmenu } from "../src/utils/interaction/submenu-cascade.js";
 
-// The old cascade only scaled/faded: no moving ink contour, no optical tail,
+// The old cascade only scaled/faded: no moving ink contour,
 // and reduced-motion changes could leave an active return holding its parent.
 test.each(["left", "right"])(
   "cascade %s clips moving ink and releases its parent after an interrupted return",
@@ -61,6 +61,8 @@ test.each(["left", "right"])(
       step(4);
       expect(content.style.clipPath).toContain("inset(");
       expect(content.style.filter).toContain("blur(");
+      expect(content.style.filter).not.toContain("url(");
+      expect(surface.hasAttribute("data-material-resting")).toBe(false);
       expect(surface.style.transform).not.toContain("NaN");
       const geometry = [...surface.style.transform.matchAll(/-?\d+(?:\.\d+)?/g)].map((value) =>
         Number(value[0]),
@@ -81,6 +83,7 @@ test.each(["left", "right"])(
       expect(surface.style.transform).toBe("");
       expect(content.style.clipPath).toBe("");
       expect(content.style.filter).not.toContain("blur(");
+      expect(surface.hasAttribute("data-material-resting")).toBe(true);
       popup.removeAttribute("data-open");
       await sync();
       step(2);

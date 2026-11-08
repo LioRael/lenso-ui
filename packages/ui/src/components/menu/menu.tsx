@@ -419,6 +419,7 @@ export function MenuPopup({
           variant={presentationMaterials.compact}
           sourceAnchor={sourceAnchor}
           liveBackdrop
+          deferOptics={!!motion || (!!submenu && !submenu.stacked)}
         />
       </div>
       {motion && <div data-slot="menu-glyph" aria-hidden="true" inert {...stylex.props(s.glyph)} />}

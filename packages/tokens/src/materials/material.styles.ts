@@ -31,6 +31,18 @@ export const liquidMaterialStyles = stylex.create({
     opacity: "calc(var(--lg-menu-surface-opacity, 1) * var(--lg-menu-popup-opacity, 1))",
     transition: "var(--lg-menu-fade-transition, none)",
   },
+  menuMoving: {
+    ":is(:not([data-material-resting]) > *)": {
+      backgroundImage: "none",
+      backdropFilter: "blur(var(--lg-blur)) saturate(1)",
+      boxShadow:
+        "var(--lenso-glass-panel-shadow, var(--lenso-glass-shadow, inset 0 1px 0 rgb(255 255 255 / .35), inset 0 -1px 0 rgb(255 255 255 / .25), 0 0 0 .5px rgb(0 0 0 / .14), var(--lenso-material-panel-shadow)))",
+      "::after": { display: "none" },
+    },
+    ":is([data-material-paints]):is(:not([data-material-resting]) > *)": {
+      backdropFilter: "none",
+    },
+  },
   small: {
     "--lenso-glass-default-active-fill": {
       default: "rgb(255 255 255 / .34)",
