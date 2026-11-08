@@ -121,7 +121,7 @@ created first, then the consumer's named components/slots override their regions
 ## Current adoption and limits
 
 The Lenso product site runs through `lenso-docs dev`, `build` and `preview`.
-It supplies `docs.config.ts`, a Node source adapter, a server customization
+It supplies `docs.config.ts`, a server-side source adapter, a server customization
 module, a narrow build adapter and explicit product route components. The CLI
 owns generated Next routes, locale root layouts, redirects, source artifacts,
 static metadata and the development/build lifecycle. No manual `src/app`,

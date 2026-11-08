@@ -1,7 +1,0 @@
-{
-  "display": "Vite",
-  "extends": "./react.json",
-  "compilerOptions": { "types": ["vite/client"] },
-  "include": [],
-  "exclude": ["node_modules"]
-}

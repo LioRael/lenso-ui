@@ -1,0 +1,10 @@
+[package]
+name = "lenso-glass-core-prototype"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99"
+publish = false
+license = "MIT AND LGPL-2.0-or-later"
+
+[dependencies]
+lenso-glass-renderer = { path = "../../glass-driver-comparison/renderer", default-features = false }

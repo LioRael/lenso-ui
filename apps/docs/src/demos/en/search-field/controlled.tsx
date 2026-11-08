@@ -1,6 +1,5 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
-import { Button, Description, Label, SearchField } from "@lenso/ui";
+import { GlassButton, Description, Label, SearchField } from "@lenso/ui";
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
@@ -27,12 +26,12 @@ export function Controlled() {
         <Description>Current value: {value || "(empty)"}</Description>
       </SearchField>
       <div {...stylex.props(styles.actions)}>
-        <Button variant="tertiary" onClick={() => setValue("")}>
+        <GlassButton variant="default" onClick={() => setValue("")}>
           Clear
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue("example query")}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue("example query")}>
           Set example
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

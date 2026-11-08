@@ -1,8 +1,7 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-multiple-selection, Apache-2.0.
 import { useState } from "react";
-import { Button, Menu, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { Checkmark, Popup, styles } from "./_shared";
 
 export function WithMultipleSelection() {
@@ -28,21 +27,21 @@ export function WithMultipleSelection() {
       <Menu.CheckboxItemIndicator keepMounted xstyle={styles.selectionIndicator}>
         <Checkmark />
       </Menu.CheckboxItemIndicator>
-      <MenuItem.Label>{label}</MenuItem.Label>
+      <Menu.Item.Label>{label}</Menu.Item.Label>
     </Menu.CheckboxItem>
   );
   return (
     <Menu open={open} onOpenChange={setOpen}>
-      <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>
+      <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
         Preferred Fruits
       </Menu.Trigger>
       <Popup xstyle={styles.wide}>
-        <Menu.Section>
-          <Menu.Section.Label>Select a fruit</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Select a fruit</Menu.Group.Label>
           {fruit("apple", "Apple")}
           {fruit("banana", "Banana")}
           {fruit("cherry", "Cherry")}
-        </Menu.Section>
+        </Menu.Group>
         {fruit("orange", "Orange")}
         {fruit("pear", "Pear")}
       </Popup>

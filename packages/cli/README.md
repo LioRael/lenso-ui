@@ -1,10 +1,10 @@
 # @lenso/ui-cli
 
-`@lenso/ui-cli@0.1.0` is private and unpublished. Its current runtime requires Node `26.10.0` or a later Node 26 release.
+`@lenso/ui-cli@0.1.0` is private and unpublished. Its current runtime requires Bun `1.4.4` or later.
 
 ## Maintainer build
 
-Build with `npm run build` only after the shared production contract exists.
+Build with `bun run build` only after the shared production contract exists.
 This maintainer-only step validates and copies that exact artifact, bundling the
 private validator, queries and consumer policy parser. Installed execution needs
 neither the monorepo nor React, Next or a TypeScript/StyleX compiler.
@@ -29,14 +29,14 @@ and theme values are CSS expressions, not fabricated computed colors.
 static setup hints. It does not prove browser CSS delivery or execute configs.
 Symlinks and oversized/unresolved sources are reported as skipped, never followed.
 
-`doctor` adds Node compatibility and installed-package resolution/version evidence
+`doctor` adds Bun compatibility and installed-package resolution/version evidence
 without executing package entrypoints or repairing files. Its result is still
 not browser proof.
 
 `init` plans changes without writing. `--write` applies only a conflict-free,
 still-current plan. It preserves package fields, refuses incompatible dependency
 pins, complex scripts and user-owned config, and tracks generated-file hashes.
-Edited generated files become user-owned. Helpers seed actual raw-rule metadata
+Edited generated files become user-owned. Configuration uses official StyleX plugins
 and theme CSS; import the theme helper from your rendering entry/layout yourself.
 It never installs dependencies or executes project scripts. An I/O failure during
 application may leave a partial write; review the printed plan and filesystem

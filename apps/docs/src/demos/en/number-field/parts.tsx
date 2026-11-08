@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { NumberField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 
@@ -22,15 +21,18 @@ export const styles = stylex.create({
   },
   row: { display: "flex", gap: 8 },
   guests: { width: "100%", maxWidth: 192 },
-  label: { fontWeight: 500, color: "var(--foreground)" },
-  customGroup: { borderRadius: 12, backgroundColor: "var(--default)" },
+  label: { fontWeight: 500, color: "var(--lenso-label-primary)" },
+  customGroup: { borderRadius: 12, backgroundColor: "var(--lenso-control-fill)" },
   customInput: { textAlign: "center", fontVariantNumeric: "tabular-nums" },
-  customButton: { color: { default: "var(--muted)", ":hover": "var(--foreground)" } },
+  customButton: {
+    color: { default: "var(--lenso-label-secondary)", ":hover": "var(--lenso-label-primary)" },
+  },
   chevrons: {
     display: "flex",
     height: "100%",
     flexDirection: "column",
-    borderInlineStart: "1px solid color-mix(in oklch, var(--field-placeholder) 15%, transparent)",
+    borderInlineStart:
+      "1px solid color-mix(in oklch, var(--lenso-label-placeholder) 15%, transparent)",
   },
   chevronButton: {
     display: "flex",

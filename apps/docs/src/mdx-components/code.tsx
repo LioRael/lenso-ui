@@ -1,6 +1,5 @@
 import { isValidElement, type ComponentProps, type ReactNode } from "react";
 import { ComponentSource } from "@/components/component-source";
-import { highlightSource } from "@/components/highlight-source";
 
 function rawText(children: ReactNode): string {
   if (typeof children === "string" || typeof children === "number") return String(children);
@@ -9,18 +8,16 @@ function rawText(children: ReactNode): string {
   return "";
 }
 
-export async function MDXCodeBlock({ children }: ComponentProps<"pre">) {
+export function MDXCodeBlock({ children }: ComponentProps<"pre">) {
   const code = rawText(children);
-  const className = isValidElement<{ className?: string }>(children)
-    ? children.props.className
-    : "";
-  const language = className?.match(/(?:^|\s)language-([^\s]+)/)?.[1] ?? "text";
   return (
     <ComponentSource
       code={code}
       local={false}
       standalone
-      highlighted={await highlightSource(code, language)}
+      highlighted={
+        isValidElement<{ children?: ReactNode }>(children) ? children.props.children : children
+      }
     />
   );
 }

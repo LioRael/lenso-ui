@@ -1,8 +1,8 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. */
+// Copyright NextUI Inc. Apache-2.0.
 import { Calendar } from "@lenso/ui";
 import { getLocalTimeZone, today } from "@internationalized/date";
-import { I18nProvider } from "react-aria-components/I18nProvider";
+import { I18nProvider } from "@lenso/ui";
 
 export function InternationalCalendar() {
   return (

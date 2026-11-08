@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@lenso/ui": ["../../packages/ui/src/index.ts"],
+      "@lenso/tokens": ["../../packages/tokens/src/index.ts"],
+      "@lenso/tokens/*": ["../../packages/tokens/src/components/*/index.ts"],
+      "@lenso/tokens/materials": ["../../packages/tokens/src/materials/index.ts"],
+      "@lenso/glass": ["../../packages/glass/src/index.ts"],
+      "@lenso/glass/*": ["../../packages/glass/src/*/index.ts"]
+    }
+  }
+}

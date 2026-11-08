@@ -15,16 +15,14 @@
   ],
   "type": "module",
   "scripts": {
-    "build": "tsx scripts/build.ts",
-    "test": "node --import ./tests/register.ts --import tsx --test tests/*.test.ts",
-    "typecheck": "tsc -p tsconfig.json"
+    "build": "lenso-tool-build cli",
+    "test": "bun test --timeout 30000 --preload ./tests/register.ts tests/*.test.ts",
+    "typecheck": "bun check --no-script -p tsconfig.json"
   },
   "devDependencies": {
-    "@babel/parser": "7.29.9",
-    "@babel/types": "7.29.8",
-    "esbuild": "0.28.2"
+    "@lenso/ui-devtools": "workspace:*"
   },
   "engines": {
-    "node": "^26.10.0"
+    "bun": ">=1.4.4"
   }
 }

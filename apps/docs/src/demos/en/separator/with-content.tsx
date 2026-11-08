@@ -1,21 +1,19 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Separator } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const items = [
   {
-    iconUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/bell-small.png",
+    iconUrl: "/assets/demo/illustrations/bell-small.svg",
     subtitle: "Receive account activity updates",
     title: "Set Up Notifications",
   },
   {
-    iconUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/compass-small.png",
+    iconUrl: "/assets/demo/illustrations/compass-small.svg",
     subtitle: "Connect your browser to your account",
     title: "Set up Browser Extension",
   },
   {
-    iconUrl:
-      "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/mint-collective-small.png",
+    iconUrl: "/assets/demo/illustrations/mint-collective-small.svg",
     subtitle: "Create your first collectible",
     title: "Mint Collectible",
   },
@@ -26,7 +24,7 @@ const styles = stylex.create({
   image: { width: 48, height: 48 },
   text: { flex: 1 },
   title: { fontSize: 14, lineHeight: "20px", fontWeight: 500 },
-  subtitle: { fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
+  subtitle: { fontSize: 14, lineHeight: "20px", color: "var(--lenso-label-secondary)" },
   separator: { marginBlock: 16 },
 });
 export function WithContent() {

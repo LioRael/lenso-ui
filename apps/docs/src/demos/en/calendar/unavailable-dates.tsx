@@ -1,8 +1,8 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX.
 import { Calendar } from "@lenso/ui";
 import { isWeekend } from "@internationalized/date";
-import { useLocale } from "react-aria-components/I18nProvider";
+import { useLocale } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { CalendarHeader, CalendarGrid, CalendarNote, layout } from "./demo-parts";
 export function UnavailableDates() {

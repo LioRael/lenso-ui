@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 variants adaptation (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { TagGroup } from "@lenso/ui";
 import { Label } from "./text";

@@ -1,20 +1,19 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-disabled-items, Apache-2.0.
 import { Bars, Pencil, SquarePlus, TrashBin } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { ActionItem, Popup, Shortcut, styles } from "./_shared";
 
 export function WithDisabledItems() {
   return (
     <Menu>
-      <Menu.Trigger render={<Button isIconOnly aria-label="Menu" variant="secondary" />}>
+      <Menu.Trigger render={<GlassButton isIconOnly aria-label="Menu" variant="default" />}>
         <Bars />
       </Menu.Trigger>
       <Popup xstyle={styles.disabledWidth}>
-        <Menu.Section>
-          <Menu.Section.Label>Actions</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Actions</Menu.Group.Label>
           <ActionItem
             label="New file"
             description="Create a new file"
@@ -29,10 +28,10 @@ export function WithDisabledItems() {
             shortcut={<Shortcut letter="E" />}
             onClick={() => console.log("Selected: edit-file")}
           />
-        </Menu.Section>
+        </Menu.Group>
         <Menu.Separator />
-        <Menu.Section>
-          <Menu.Section.Label>Danger zone</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Danger zone</Menu.Group.Label>
           <ActionItem
             disabled
             label="Delete file"
@@ -42,7 +41,7 @@ export function WithDisabledItems() {
             shortcut={<Shortcut letter="D" shift />}
             onClick={() => console.log("Selected: delete-file")}
           />
-        </Menu.Section>
+        </Menu.Group>
       </Popup>
     </Menu>
   );

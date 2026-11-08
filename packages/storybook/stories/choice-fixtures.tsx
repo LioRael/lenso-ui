@@ -1,5 +1,4 @@
 /**
- * Choice-story anatomy adapted from HeroUI v3.2.6.
  * SPDX-License-Identifier: Apache-2.0
  * Native props remain native; these fixtures only assemble labels and indicators.
  */
@@ -7,10 +6,23 @@ import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Checkbox, Radio, Switch, TextField, FieldError } from "@lenso/ui";
 import { checkboxSupportingStyles } from "@lenso/tokens/checkbox";
-import { radioStyles } from "@lenso/tokens/radio";
 import { descriptionStyles } from "@lenso/tokens/description";
 import { labelStyles } from "@lenso/tokens/label";
 import { choiceStyles as s } from "./choice.styles";
+
+const radioSupporting = stylex.create({
+  text: {
+    paddingInlineStart: "1.75rem",
+    width: "100%",
+    minWidth: 0,
+    cursor: "default",
+    fontSize: ".75rem",
+    lineHeight: "1rem",
+    color: "var(--lenso-label-secondary)",
+    overflowWrap: "break-word",
+    userSelect: "none",
+  },
+});
 
 export type ChoiceLabel = React.ReactNode | ((checked: boolean) => React.ReactNode);
 type Supporting = {
@@ -186,13 +198,13 @@ export function RadioItem({
           {!card && description && (
             <span
               id={`${id}-help`}
-              {...stylex.props(descriptionStyles.description, radioStyles.supporting)}
+              {...stylex.props(descriptionStyles.description, radioSupporting.text)}
             >
               {resolve(description, checked)}
             </span>
           )}
           {error && (
-            <FieldError id={`${id}-help`} match={true} xstyle={radioStyles.supporting}>
+            <FieldError id={`${id}-help`} match={true} xstyle={radioSupporting.text}>
               {error}
             </FieldError>
           )}

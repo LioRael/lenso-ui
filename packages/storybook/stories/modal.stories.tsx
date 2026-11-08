@@ -1,9 +1,8 @@
-// HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 // Modified: native Base UI anatomy, onClick, controlled open/onOpenChange.
 import type { Meta } from "@storybook/react-vite";
 import React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Modal, Button, Surface, Radio, RadioGroup } from "@lenso/ui";
+import { GlassButton, Modal, Button, Surface, Radio, RadioGroup } from "@lenso/ui";
 import { overlayStyles as s } from "./overlay.stylex";
 import {
   AnimationExamples,
@@ -27,7 +26,7 @@ export default {
 } as Meta<typeof Modal>;
 
 export const Default = () => (
-  <ModalExample trigger="Open Modal" title="Welcome to HeroUI">
+  <ModalExample trigger="Open Modal" title="Welcome to Lenso UI">
     <p>
       A beautiful, fast, and modern React UI library for building accessible and customizable web
       applications with ease.
@@ -113,7 +112,7 @@ export const Sizes = () => (
 
 export const CustomBackdrop = () => (
   <Modal.Root>
-    <Modal.Trigger render={<Button variant="secondary" />}>Custom Backdrop</Modal.Trigger>
+    <Modal.Trigger render={<GlassButton variant="default" />}>Custom Backdrop</Modal.Trigger>
     <Modal.Portal>
       <Modal.Backdrop variant="blur" xstyle={s.gradient} />
       <Modal.Viewport>
@@ -134,7 +133,7 @@ export const CustomBackdrop = () => (
           </Modal.Body>
           <Modal.Footer xstyle={s.reverse}>
             <Modal.Close render={<Button fullWidth />}>Amazing!</Modal.Close>
-            <Modal.Close render={<Button fullWidth variant="secondary" />}>Close</Modal.Close>
+            <Modal.Close render={<GlassButton fullWidth variant="default" />}>Close</Modal.Close>
           </Modal.Footer>
           <Modal.Close />
         </Modal.Popup>
@@ -167,7 +166,7 @@ export const ScrollComparison = () => {
         ))}
       </RadioGroup>
       <Modal.Root scroll={scroll}>
-        <Modal.Trigger render={<Button variant="secondary" />}>
+        <Modal.Trigger render={<GlassButton variant="default" />}>
           Open Modal ({cap(scroll)})
         </Modal.Trigger>
         <Modal.Portal>
@@ -189,7 +188,7 @@ export const ScrollComparison = () => {
                 ))}
               </Modal.Body>
               <Modal.Footer>
-                <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+                <Modal.Close render={<GlassButton variant="default" />}>Cancel</Modal.Close>
                 <Modal.Close render={<Button />}>Confirm</Modal.Close>
               </Modal.Footer>
               <Modal.Close />
@@ -204,7 +203,7 @@ export const ScrollComparison = () => {
 export const Controlled = () => <ControlledExamples />;
 export const WithForm = () => (
   <Modal.Root>
-    <Modal.Trigger render={<Button variant="secondary" />}>Open Contact Form</Modal.Trigger>
+    <Modal.Trigger render={<GlassButton variant="default" />}>Open Contact Form</Modal.Trigger>
     <Modal.Portal>
       <Modal.Backdrop />
       <Modal.Viewport>
@@ -226,7 +225,7 @@ export const WithForm = () => (
             </Surface>
           </Modal.Body>
           <Modal.Footer>
-            <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+            <Modal.Close render={<GlassButton variant="default" />}>Cancel</Modal.Close>
             <Modal.Close render={<Button />}>Send Message</Modal.Close>
           </Modal.Footer>
         </Modal.Popup>
@@ -264,7 +263,7 @@ export const CustomTrigger = () => (
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+            <Modal.Close render={<GlassButton variant="default" />}>Cancel</Modal.Close>
             <Modal.Close render={<Button />}>Save</Modal.Close>
           </Modal.Footer>
         </Modal.Popup>

@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 variants, Apache-2.0.
 import { HardDrive, Persons } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
@@ -14,11 +12,20 @@ function Messages() {
         <div {...stylex.props(styles.buttons)}>
           <Button
             size="sm"
-            variant="tertiary"
+
+            onClick={() =>
+              manager.add({ title: "Solid notification", data: { variant: "default" } })
+            }
+          >
+            纯色 Toast
+          </Button>
+          <Button
+            size="sm"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have been invited to join a team",
-                description: "Bob 邀请您加入 HeroUI 团队",
+                description: "Bob 邀请您加入 团队",
                 type: "default",
                 data: {
                   indicator: <Persons />,
@@ -35,7 +42,7 @@ function Messages() {
           </Button>
           <Button
             size="sm"
-            variant="secondary"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have 2 credits left",
@@ -53,11 +60,11 @@ function Messages() {
           <Button
             xstyle={styles.successText}
             size="sm"
-            variant="tertiary"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have upgraded your plan",
-                description: "您可以继续使用 HeroUI Chat",
+                description: "您可以继续使用聊天功能",
                 type: "success",
                 data: {
                   actionStyle: "success",
@@ -74,7 +81,7 @@ function Messages() {
           <Button
             xstyle={styles.warningText}
             size="sm"
-            variant="tertiary"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have no credits left",
@@ -93,8 +100,9 @@ function Messages() {
             警告 Toast
           </Button>
           <Button
+            destructive
             size="sm"
-            variant="danger-soft"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "Storage is full",

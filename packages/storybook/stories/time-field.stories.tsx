@@ -1,9 +1,7 @@
-/**
- * Adapted from HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
- * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
- */
+import { GlassButton } from "@lenso/ui";
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { TimeValue } from "react-aria-components/TimeField";
+import type { TimeValue } from "@lenso/ui";
 import React, { useState } from "react";
 import { Time, getLocalTimeZone, now, parseTime } from "@internationalized/date";
 import * as stylex from "@stylexjs/stylex";
@@ -163,18 +161,18 @@ export const Controlled: Story = {
           </TimeField.Description>
         </TimeField>
         <div {...stylex.props(s.row2)}>
-          <Button
-            variant="tertiary"
+          <GlassButton
+            variant="default"
             onClick={() => {
               const currentTime = now(getLocalTimeZone());
               setValue(new Time(currentTime.hour, currentTime.minute, currentTime.second));
             }}
           >
             Set now
-          </Button>
-          <Button variant="tertiary" onClick={() => setValue(null)}>
+          </GlassButton>
+          <GlassButton variant="default" onClick={() => setValue(null)}>
             Clear
-          </Button>
+          </GlassButton>
         </div>
       </div>
     );
@@ -306,7 +304,7 @@ export const FormExample: Story = {
           disabled={!value || isInvalid}
           isLoading={isSubmitting}
           type="submit"
-          variant="primary"
+          variant="prominent"
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>

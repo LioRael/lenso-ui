@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 with-prefix adaptation (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { Avatar, Tag, TagGroup } from "@lenso/ui";
 import { Description, Label } from "./text";
@@ -22,7 +21,7 @@ export function TagGroupWithPrefix() {
               <Avatar xstyle={styles.avatar}>
                 <Avatar.Image
                   alt={name}
-                  src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/${["blue", "green", "purple"][index]}.jpg`}
+                  src={`/assets/demo/avatars/${["blue", "green", "purple"][index]}.svg`}
                 />
                 <Avatar.Fallback>{name[0]}</Avatar.Fallback>
               </Avatar>

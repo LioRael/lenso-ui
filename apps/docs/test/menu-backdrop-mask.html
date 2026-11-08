@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <title>Menu backdrop mask regression</title>
+  <style>
+    body {
+      background: rgb(255, 255, 255);
+      color: #111;
+      font: 14px system-ui;
+    }
+    #scene {
+      position: absolute;
+      left: 20px;
+      top: 100px;
+      width: 300px;
+      height: 150px;
+      background: rgb(255, 0, 0);
+    }
+    .paint {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100px;
+      height: 100px;
+      background: rgb(0, 0, 255);
+    }
+  </style>
+  <h1>Menu backdrop mask regression</h1>
+  <pre id="results">Running…</pre>
+  <div id="scene"><div class="paint"></div></div>
+  <script type="module">
+    import { captureMenuTexture } from "/src/lib/menu-backdrop/vector-paint.js";
+    import { paintMask } from "/src/lib/menu-backdrop/paint-mask.js";
+    const results = [];
+    function check(name, condition) {
+      results.push({ name, passed: !!condition });
+    }
+    const scene = document.querySelector("#scene"),
+      child = scene.firstElementChild;
+    const capture = async () => {
+      const box = scene.getBoundingClientRect();
+      return (await captureMenuTexture(scene, box, box, 1, 0, 0, 0, async () => true))?.pixels;
+    };
+    const pixel = (canvas, x, y) => [...canvas.getContext("2d").getImageData(x, y, 1, 1).data];
+    const same = (actual, expected) => actual.every((v, i) => Math.abs(v - expected[i]) <= 2);
+    try {
+      child.style.maskImage =
+        "linear-gradient(90deg, #000 0%, #000 calc(100% - 50px), transparent 100%)";
+      child.style.maskSize = "100% 100%";
+      child.style.maskRepeat = "no-repeat";
+      let canvas = await capture();
+      check(
+        "gradient preserves the opaque edge",
+        canvas && same(pixel(canvas, 10, 20), [0, 0, 255, 255]),
+      );
+      check(
+        "gradient blends descendant paint into the page",
+        canvas && same(pixel(canvas, 75, 20), [130, 0, 125, 255]),
+      );
+      check(
+        "mask leaves earlier page paint untouched",
+        canvas && same(pixel(canvas, 120, 20), [255, 0, 0, 255]),
+      );
+      canvas.width = canvas.height = 1;
+      child.style.maskImage =
+        "linear-gradient(#000 0 0), linear-gradient(#000 0 0), radial-gradient(circle closest-side,#000 99%,transparent 100%), radial-gradient(circle closest-side,#000 99%,transparent 100%)";
+      child.style.maskSize = "100% 100%, 40px 40px, 40px 40px, 40px 40px";
+      child.style.maskPosition = "0 0,30px 30px,10px 30px,50px 30px";
+      child.style.maskComposite = "exclude,add,add";
+      canvas = await capture();
+      check(
+        "Tabs exclusion reveals the existing background",
+        canvas && same(pixel(canvas, 50, 50), [255, 0, 0, 255]),
+      );
+      check(
+        "Tabs exclusion preserves outer paint",
+        canvas && same(pixel(canvas, 5, 5), [0, 0, 255, 255]),
+      );
+      canvas.width = canvas.height = 1;
+      child.style.maskImage = "none";
+      child.style.clipPath = 'path(evenodd, "M0 0H100V100H0Z M20 20H80V80H20Z")';
+      canvas = await capture();
+      check(
+        "even-odd clipping preserves its hole",
+        canvas && same(pixel(canvas, 50, 50), [255, 0, 0, 255]),
+      );
+      check(
+        "even-odd clipping preserves its ring",
+        canvas && same(pixel(canvas, 5, 5), [0, 0, 255, 255]),
+      );
+      canvas.width = canvas.height = 1;
+      child.style.clipPath = "inset(20px round 10px)";
+      canvas = await capture();
+      check(
+        "rounded inset clips exterior paint",
+        canvas && same(pixel(canvas, 5, 5), [255, 0, 0, 255]),
+      );
+      check(
+        "rounded inset preserves interior paint",
+        canvas && same(pixel(canvas, 50, 50), [0, 0, 255, 255]),
+      );
+      canvas.width = canvas.height = 1;
+      const style = {
+        maskImage: 'url("unowned.png")',
+        maskSize: "100% 100%",
+        maskPosition: "0px 0px",
+        maskRepeat: "no-repeat",
+        maskComposite: "add",
+      };
+      check(
+        "unsupported masks retain the existing renderer",
+        paintMask(document, style, 100, 100, 1) === undefined,
+      );
+    } catch (error) {
+      results.push({ name: String(error), passed: false });
+    }
+    document.querySelector("#results").textContent = JSON.stringify(
+      { passed: results.every((r) => r.passed), results },
+      null,
+      2,
+    );
+  </script>
+</html>

@@ -1,17 +1,16 @@
-// Adapted from HeroUI e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Avatar, Button, Description, Menu, Kbd, Label, MenuSection } from "@lenso/ui";
+import { GlassButton, Avatar, Description, Menu, Kbd, Label } from "@lenso/ui";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { menuToast as s } from "./menu-toast.stylex";
 import { MenuToastIcon } from "./menu-toast-icons.fixtures";
 
-const meta = {
+const meta: Meta<typeof Menu> = {
   component: Menu,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   title: "Components/Collections/Menu",
-} satisfies Meta<typeof Menu>;
+};
 export default meta;
 type Story = StoryObj<typeof meta>;
 function Popup({
@@ -35,7 +34,9 @@ function Popup({
 }
 function Trigger({ children, iconOnly = false }: { children: ReactNode; iconOnly?: boolean }) {
   return (
-    <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" isIconOnly={iconOnly} />}>
+    <Menu.Trigger
+      render={<GlassButton aria-label="Menu" variant="default" isIconOnly={iconOnly} />}
+    >
       {children}
     </Menu.Trigger>
   );
@@ -150,15 +151,15 @@ export const Default: Story = {
     <Menu>
       <Trigger>Actions</Trigger>
       <Popup>
-        <Menu.Section>
+        <Menu.Group>
           <File item={{ id: "new-file", label: "New file" }} />
           <File item={{ id: "copy-link", label: "Copy link" }} />
           <File item={{ id: "edit-file", label: "Edit file" }} />
-        </Menu.Section>
+        </Menu.Group>
         <Menu.Separator />
-        <Menu.Section>
+        <Menu.Group>
           <File item={files[3]!} />
-        </Menu.Section>
+        </Menu.Group>
       </Popup>
     </Menu>
   ),
@@ -221,10 +222,10 @@ function FruitSelection({
   }
   const content = (
     <>
-      <Menu.Section>
-        <MenuSection.Label>Select a fruit</MenuSection.Label>
+      <Menu.Group>
+        <Menu.Group.Label>Select a fruit</Menu.Group.Label>
         {fruits.slice(0, 3).map(fruitItem)}
-      </Menu.Section>
+      </Menu.Group>
       {fruits.slice(3).map(fruitItem)}
     </>
   );
@@ -280,23 +281,23 @@ function TextStyles({ controlled = false }: { controlled?: boolean }) {
             selection
           ) : (
             <>
-              <Menu.Section>
-                <MenuSection.Label>Actions</MenuSection.Label>
+              <Menu.Group>
+                <Menu.Group.Label>Actions</Menu.Group.Label>
                 {["Cut", "Copy", "Paste"].map((label, index) => (
                   <Menu.Item key={label} label={label}>
                     <Label>{label}</Label>
                     <Shortcut letter={["X", "C", "U"][index]!} />
                   </Menu.Item>
                 ))}
-              </Menu.Section>
+              </Menu.Group>
               <Menu.Separator />
-              <Menu.Section>
-                <MenuSection.Label>Text Style</MenuSection.Label>
+              <Menu.Group>
+                <Menu.Group.Label>Text Style</Menu.Group.Label>
                 {selection}
-              </Menu.Section>
+              </Menu.Group>
               <Menu.Separator />
-              <Menu.Section>
-                <MenuSection.Label>Text Alignment</MenuSection.Label>
+              <Menu.Group>
+                <Menu.Group.Label>Text Alignment</Menu.Group.Label>
                 <Menu.RadioGroup
                   value={alignment}
                   onValueChange={(next) => setAlignment(String(next))}
@@ -309,7 +310,7 @@ function TextStyles({ controlled = false }: { controlled?: boolean }) {
                     </Menu.RadioItem>
                   ))}
                 </Menu.RadioGroup>
-              </Menu.Section>
+              </Menu.Group>
             </>
           )}
         </Popup>
@@ -393,7 +394,7 @@ function LongPress({ disabled = false }: { disabled?: boolean }) {
     >
       <Menu.Trigger
         disabled={disabled}
-        render={<Button aria-label="Menu" variant="secondary" />}
+        render={<GlassButton aria-label="Menu" variant="default" />}
         onMouseDown={(event) => event.preventBaseUIHandler()}
         onPointerDown={(event) => {
           if (disabled || event.button !== 0) return;
@@ -459,17 +460,17 @@ function Sections({ disabled = false }: { disabled?: boolean }) {
         <MenuToastIcon name={disabled ? "bars" : "ellipsis-vertical"} />
       </Trigger>
       <Popup wide={disabled ? 220 : undefined}>
-        <Menu.Section>
-          <MenuSection.Label>Actions</MenuSection.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Actions</Menu.Group.Label>
           {[files[0]!, edit].map((item) => (
             <File key={item.id} item={item} icons descriptions shortcuts />
           ))}
-        </Menu.Section>
+        </Menu.Group>
         <Menu.Separator />
-        <Menu.Section>
-          <MenuSection.Label>Danger zone</MenuSection.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Danger zone</Menu.Group.Label>
           <File item={{ ...files[3]!, disabled }} icons descriptions shortcuts />
-        </Menu.Section>
+        </Menu.Group>
       </Popup>
     </Menu>
   );
@@ -558,7 +559,7 @@ function OpenState() {
   );
 }
 export const ControlledOpenState: Story = { render: () => <OpenState /> };
-const orangeAvatar = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg";
+const orangeAvatar = "/assets/demo/avatars/orange.svg";
 export const CustomTrigger: Story = {
   render: () => (
     <Menu>

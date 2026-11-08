@@ -1,5 +1,5 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. */
+// Copyright NextUI Inc. Apache-2.0.
 import { RangeCalendar } from "@lenso/ui";
 import type { CalendarDate } from "@internationalized/date";
 import type { ReactElement } from "react";

@@ -1,20 +1,46 @@
 @import "@lenso/tokens/theme.css";
 @import "@lenso/docs/font.css";
 
-:root {
-  --color-fd-primary: var(--foreground);
-  --color-fd-accent: var(--default);
-  --color-fd-accent-foreground: var(--foreground);
-  --color-fd-muted-foreground: var(--muted);
+/* The custom code frame owns rendering instead of Fumadocs' .shiki frame. */
+pre span[style*="--shiki-light"] {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style, normal);
+  font-weight: var(--shiki-light-font-weight, inherit);
+  text-decoration: var(--shiki-light-text-decoration, none);
 }
 
-/* Native Fuma parts retain HeroUI's resolved overrides. The nested viewport is
-   owned by SearchDialogList, so its short-screen constraint belongs here. */
-[data-docs-search] > :last-child > div {
+.dark pre span[style*="--shiki-dark"] {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style, normal);
+  font-weight: var(--shiki-dark-font-weight, inherit);
+  text-decoration: var(--shiki-dark-text-decoration, none);
+}
+
+:root {
+  --color-fd-primary: var(--lenso-label-primary);
+  --color-fd-accent: var(--lenso-control-fill);
+  --color-fd-accent-foreground: var(--lenso-label-primary);
+  --color-fd-muted-foreground: var(--lenso-label-secondary);
+}
+
+/* Radix's hidden overflow makes the positioned body a new sticky scroll container. */
+:root body[data-scroll-locked] {
+  overflow: clip !important;
+}
+
+/* Fumadocs' internal title and viewport do not expose StyleX props. */
+[data-docs-search] > h2 {
+  display: none;
+}
+
+[data-docs-search-results] > #fd-search-list {
   flex-shrink: 0;
   min-height: 0;
-  max-height: min(460px, calc(100dvh - 85px));
-  overscroll-behavior: contain;
+}
+
+::highlight(fd-search) {
+  color: inherit;
+  text-decoration: underline;
 }
 @media (prefers-reduced-motion: reduce) {
   [data-docs-search],
@@ -27,5 +53,3 @@ section[tabindex][aria-label] > .prose-no-margin {
   margin: 0;
   overflow: visible;
 }
-
-@stylex;

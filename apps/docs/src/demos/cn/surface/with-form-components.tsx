@@ -1,22 +1,21 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
-
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
-import { Input, Surface, TextArea } from "@lenso/ui";
+import { Fieldset, Input, TextArea, TextField } from "@lenso/ui";
 import { s } from "../../en/card/display.stylex";
+
 export function WithFormComponents() {
   return (
-    <Surface xstyle={s.surfaceForm} variant="default">
-      <Input
-        aria-label="使用次要变体的输入框"
-        placeholder="使用次要变体的输入框"
-        variant="secondary"
-      />
-      <TextArea
-        aria-label="使用次要变体的文本域"
-        placeholder="使用次要变体的文本域"
-        variant="secondary"
-      />
-    </Surface>
+    <Fieldset xstyle={s.maxMd}>
+      <Fieldset.Legend>个人资料</Fieldset.Legend>
+      <Fieldset.Group>
+        <TextField name="name">
+          <TextField.Label>姓名</TextField.Label>
+          <Input placeholder="姓名" />
+        </TextField>
+        <TextField name="notes" layout="stacked">
+          <TextField.Label>备注</TextField.Label>
+          <TextArea placeholder="添加备注" fullWidth />
+        </TextField>
+      </Fieldset.Group>
+    </Fieldset>
   );
 }

@@ -17,22 +17,22 @@ custom page declarations and content/API generation remain application-owned ada
 From the repository root:
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm dev:docs-starter
+bun install --frozen-lockfile
+bun run dev:docs-starter
 ```
 
 To build and preview:
 
 ```sh
-pnpm --filter @lenso/tokens build
-pnpm --filter @lenso/docs build
-pnpm --filter @lenso/docs-starter build
-pnpm --filter @lenso/docs-starter preview
+bun run --filter @lenso/tokens build
+bun run --filter @lenso/docs build
+bun run --filter @lenso/docs-starter build
+bun run --filter @lenso/docs-starter preview
 ```
 
 The standalone initializer is `create-lenso-docs`. Its generated dependency
 targets `@lenso/docs` 0.1.0; use packed local packages until a release is
-separately authorized. `pnpm test:docs-framework` exercises that packed workflow
+separately authorized. `bun run test:docs-framework` exercises that packed workflow
 without publishing anything.
 
 ## Author a project
@@ -50,7 +50,11 @@ package.json
 ```
 
 Once `@lenso/docs` is installed, set the project scripts to `lenso-docs dev`,
-`lenso-docs build` and `lenso-docs preview`. Node 26.10 or later is required.
+`lenso-docs build` and `lenso-docs preview`. The CLI requires Bun 1.4.4 or later. Its built-in Next.js host runs in
+Node.js 20.9 or later; this workspace pins Node 26.10.0.
+The starter declares [Next's modern browser targets](https://nextjs.org/docs/architecture/supported-browsers)
+in `package.json` so Babel uses the same browser floor. Preserve or deliberately
+replace that Browserslist configuration when customizing the project.
 Servers bind to `127.0.0.1` by default. Use `--port` or `--host` to change that.
 Development serves unknown routes as 404s without static-export parameter
 validation; production builds still enumerate and export only published pages.
@@ -83,6 +87,12 @@ subdirectory through `basePath`.
 
 Config entry edits reload during development. Imported configuration helper
 modules retain Node's module cache; restart development after editing a helper.
+
+Development hosts import the shipped framework TSX sources so a workspace package
+rebuild cannot temporarily remove their entrypoints. Production keeps the compiled
+framework entries. If a previously broken development build persists after a
+restart, stop the server and move the generated `.lenso/.next` cache aside before
+restarting; keep the authored configuration, content and generated host inputs.
 Custom local components imported by MDX are watched by Next.js.
 
 ### Pages and components
@@ -191,13 +201,14 @@ use one article in a notebook-compatible host grid. Its main/article IDs are
 its own responsive TOC, not a site navigation provider. Configure Next's
 `transpilePackages` with `@lenso/docs` for the exported React source.
 
-Import `@lenso/docs/font.css` and deliver the presentation through **one** StyleX
-path. A compiled-CSS consumer imports `@lenso/docs/styles.css`. A host with a
-StyleX raw union includes the package metadata exported at
-`@lenso/docs/stylex-rules.json` instead; do not also import the compiled atomic
-CSS. This repository's docs app includes the package-owned presentation sources
-in its existing raw union. The host remains responsible for global theme and
-layout integration.
+Import `@lenso/docs/font.css` and compile shipped declarations with the official
+StyleX integration. PostCSS scans include this package's
+`dist/presentation/**/*.js` and `@lenso/tokens/dist/**/*.js` alongside application
+sources. Next transpiles both packages. The CLI host stages ordinary official
+Babel/PostCSS configuration when no authored config exists. Authored configs
+own their complete source inventory. The default framework stylesheet contains
+`@stylex`; consumer stylesheets must supply it themselves. There is no separate
+precompiled atomic stylesheet.
 
 Presentation sources and font assets live in this package. Rebuild `@lenso/docs`
 after changing presentation source before running either consumer; there is no
@@ -207,7 +218,7 @@ presentation watcher yet.
 
 ### Generated sources, locales and product routes
 
-Set `source` to a contained Node module exporting `loadSource({ root, config })`.
+Set `source` to a contained server module exporting `loadSource({ root, config })`.
 An optional `prepare({ root, config, command })` runs generation before dev/build.
 Return pages with globally unique IDs, locale codes, public URLs and exact source
 Markdown. Configure `locales` and `defaultLocale` to generate locale-specific root
@@ -254,41 +265,18 @@ or reserved `_lenso`, `_next`, 404 and metadata assets.
 ## Verification and scope
 
 ```sh
-pnpm --filter @lenso/docs typecheck
-pnpm --filter @lenso/docs test
-pnpm --filter create-lenso-docs test
-pnpm --filter @lenso/docs test:dev
-pnpm test:docs-framework
+bun run --filter @lenso/docs typecheck
+bun run --filter @lenso/docs test
+bun run --filter create-lenso-docs test
+bun run test:docs-framework
 ```
 
-The production/browser proof packs the real packages and initializer, installs
-an independent consumer, builds with `/manual`, and exercises Markdown
-copying, search, local imports, native tab keyboard operation, themes, mobile
-overflow and live content/config changes. Playwright Chromium must be available.
-Set `LENSO_DOCS_OFFLINE=1` only when the pnpm store and registry metadata cache
-already contain the required dependencies.
+Automated checks use Bun; browser layout and interaction require separate manual verification.
 
-Optional screenshot output: set `LENSO_DOCS_PROOF_DIR` to an existing directory.
+The visual target is the documentation's restrained notebook layout: ENERGY 1, RHYTHM 2, MOTION 1. Navigation, article and TOC establish the reading order. Motion is limited to native state feedback and respects reduced motion. The framework ships the same Inter font and compiler-readable StyleX presentation as the existing app. The application compiler reads shipped presentation modules; font and license assets remain in the package, without imports into `apps/docs`. Turbo tracks the package-owned source inputs.
 
-The visual target is the existing documentation's restrained notebook layout:
-ENERGY 1, RHYTHM 2, MOTION 1. Navigation, article and TOC establish the reading
-order. Motion is limited to native state feedback and respects reduced motion.
-The framework ships the same Inter font and compiled StyleX presentation as the
-existing app. Build-only adapters read this package's presentation styles and
-widgets; the packed runtime contains compiled output and font/license assets,
-not imports into `apps/docs`. Turbo tracks the package-owned source inputs.
+Header product controls remain consumer-specific: the framework does not invent a product release selector, Theme Builder or language switcher for a single-language site. See [VISUAL.md](VISUAL.md) for historical comparisons and their scope.
 
-Rendered comparison uses the same authored Getting started content at
-1440×1000 and 390×844 in both themes. Header product controls remain
-consumer-specific: the framework does not invent a product release selector,
-Theme Builder or language switcher for a single-language site. Browser behavior
-checks do not establish full WCAG compliance or exhaustive page parity.
-See [VISUAL.md](VISUAL.md) for the measured comparison and its scope.
+Not included in this slice: an OpenAPI generator, authenticated request playgrounds, remote search, AI services, CMS editing or hosting. Lenso's API-reference and Demo generation remain owned by its documentation application.
 
-Not included in this slice: an OpenAPI generator, authenticated request playgrounds, remote search, AI services,
-CMS editing or hosting. Lenso's API-reference and Demo generation remain owned
-by its documentation application.
-
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the interfaces, two consumer modes and
-remaining adapter work. Both the product site and starter are CLI consumers;
-the product site uses generated bilingual sources and explicit custom routes.
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the interfaces, two consumer modes and remaining adapter work. Both the product site and starter are CLI consumers; the product site uses generated bilingual sources and explicit custom routes.

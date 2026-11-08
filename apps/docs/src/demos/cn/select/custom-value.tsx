@@ -1,7 +1,6 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** HeroUI v3.2.6 adaptation. Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0 */
+// Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
 import { Avatar, AvatarImage, AvatarFallback } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { exampleStyles, SelectExample } from "../../en/select/select-example";
@@ -9,41 +8,38 @@ const users = [
   {
     id: "1",
     name: "Bob",
-    email: "bob@heroui.com",
+    email: "bob@example.com",
     color: "blue",
   },
   {
     id: "2",
     name: "Fred",
-    email: "fred@heroui.com",
+    email: "fred@example.com",
     color: "green",
   },
   {
     id: "3",
     name: "Martha",
-    email: "martha@heroui.com",
+    email: "martha@example.com",
     color: "purple",
   },
   {
     id: "4",
     name: "John",
-    email: "john@heroui.com",
+    email: "john@example.com",
     color: "red",
   },
   {
     id: "5",
     name: "Jane",
-    email: "jane@heroui.com",
+    email: "jane@example.com",
     color: "orange",
   },
 ];
 function UserAvatar({ user, small = false }: { user: (typeof users)[number]; small?: boolean }) {
   return (
     <Avatar size="sm" xstyle={small ? exampleStyles.smallAvatar : undefined}>
-      <AvatarImage
-        src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/${user.color}.jpg`}
-        alt=""
-      />
+      <AvatarImage src={`/assets/demo/avatars/${user.color}.svg`} alt="" />
       <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
     </Avatar>
   );

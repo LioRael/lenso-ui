@@ -1,8 +1,7 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button. */
-import { Button, ButtonGroup, RangeCalendar } from "@lenso/ui";
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button.
+import { GlassButton, Button, ButtonGroup, RangeCalendar } from "@lenso/ui";
 import {
   getLocalTimeZone,
   parseDate,
@@ -12,7 +11,7 @@ import {
   type DateValue,
 } from "@internationalized/date";
 import { useState } from "react";
-import { useLocale } from "react-aria-components/I18nProvider";
+import { useLocale } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { CalendarNote, layout } from "../../en/calendar/demo-parts";
 import { RangeHeader, RangeGrid } from "../../en/range-calendar/demo-parts";
@@ -25,7 +24,7 @@ export function Controlled() {
   const { locale } = useLocale();
   return (
     <div {...stylex.props(layout.stack)}>
-      <ButtonGroup variant="tertiary">
+      <ButtonGroup variant="bordered">
         <Button onClick={() => setFocusedDate(today(getLocalTimeZone()))}>本周</Button>
         <Button
           onClick={() =>
@@ -70,9 +69,9 @@ export function Controlled() {
         已选区间：{value ? `${value.start.toString()} -> ${value.end.toString()}` : "（无）"}
       </CalendarNote>
       <div {...stylex.props(layout.controls)}>
-        <Button
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() => {
             const start = today(getLocalTimeZone());
             setValue({
@@ -85,10 +84,10 @@ export function Controlled() {
           }}
         >
           设为 1 周
-        </Button>
-        <Button
+        </GlassButton>
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() => {
             const start = parseDate("2025-12-20");
             setValue({
@@ -99,10 +98,10 @@ export function Controlled() {
           }}
         >
           设为节假日
-        </Button>
-        <Button size="sm" variant="tertiary" onClick={() => setValue(null)}>
+        </GlassButton>
+        <GlassButton size="sm" variant="default" onClick={() => setValue(null)}>
           清空
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

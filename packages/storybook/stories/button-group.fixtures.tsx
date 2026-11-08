@@ -1,4 +1,3 @@
-// Repeated three-button anatomy from HeroUI v3.2.6 source stories, Apache-2.0.
 import type { ComponentProps } from "react";
 import { Button, ButtonGroup } from "@lenso/ui";
 

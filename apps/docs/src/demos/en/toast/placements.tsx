@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 placements, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "./_shared";
@@ -28,7 +27,7 @@ export function Placements() {
           <Button
             key={placement}
             size="sm"
-            variant="secondary"
+            variant="bordered"
             onClick={() =>
               placementQueues[placement].add({
                 description: "Event has been created",

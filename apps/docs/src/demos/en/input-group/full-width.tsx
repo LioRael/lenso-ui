@@ -1,11 +1,10 @@
 "use client";
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { Envelope, Eye } from "@gravity-ui/icons";
 import { InputGroup, Label, TextField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   stack: { width: 400, display: "flex", flexDirection: "column", gap: 16 },
-  icon: { width: 16, height: 16, color: "var(--muted)" },
+  icon: { width: 16, height: 16, color: "var(--lenso-label-secondary)" },
 });
 export function FullWidth() {
   return (

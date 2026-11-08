@@ -1,0 +1,87 @@
+import * as stylex from "@stylexjs/stylex";
+import { focusRing } from "../../focus-ring.stylex.const.js";
+import { tokens } from "../../tokens.stylex.const.js";
+
+export const tooltipStyles = stylex.create({
+  trigger: {
+    display: "inline-block",
+    outline: "none",
+    transitionProperty: "color, background-color, box-shadow",
+    transitionDuration: { default: "150ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
+    transitionTimingFunction: tokens.motionEaseSmooth,
+    boxShadow: {
+      default: "none",
+      ":focus-visible": focusRing.outer,
+    },
+  },
+  positioner: { zIndex: tokens.zIndexOverlay, maxWidth: "var(--available-width)" },
+  popup: {
+    "--material-blur": "65px",
+    color: tokens.labelPrimary,
+    boxShadow: tokens.overlayShadow,
+    borderRadius: "min(32px, var(--lenso-shape-content-xl))",
+    padding: 8,
+    maxWidth: 320,
+    wordBreak: "break-all",
+    fontSize: 12,
+    lineHeight: "16px",
+    transformOrigin: "var(--transform-origin)",
+    opacity: { default: 1, ":is([data-starting-style],[data-ending-style])": 0 },
+    transform: {
+      default: "scale(1)",
+      ":is([data-starting-style])": "scale(.9)",
+      ":is([data-ending-style])": "scale(.95)",
+    },
+    translate: {
+      default: "0 0",
+      ':is([data-starting-style])[data-side="top"]': "0 4px",
+      ':is([data-starting-style])[data-side="bottom"]': "0 -4px",
+      ':is([data-starting-style]):is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
+        "4px 0",
+      ':is([data-starting-style]):is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
+        "-4px 0",
+    },
+    pointerEvents: { default: "auto", ":is([data-ending-style])": "none" },
+    transitionProperty: "opacity, transform, translate",
+    transitionTimingFunction: tokens.motionEaseSmooth,
+    transitionDuration: {
+      default: "150ms",
+      ":is([data-ending-style])": "100ms",
+      "@media (prefers-reduced-motion: reduce)": "0ms",
+    },
+  },
+  arrow: {
+    display: "flex",
+    width: 12,
+    height: 12,
+    bottom: {
+      default: -12,
+      ':is([data-side="bottom"],[data-side="left"],[data-side="right"],[data-side="inline-start"],[data-side="inline-end"])':
+        "auto",
+    },
+    top: { default: "auto", ':is([data-side="bottom"])': -12 },
+    right: {
+      default: "auto",
+      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
+        -12,
+    },
+    left: {
+      default: "auto",
+      ':is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
+        -12,
+    },
+    rotate: {
+      default: "0deg",
+      ':is([data-side="bottom"])': "180deg",
+      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
+        "-90deg",
+      ':is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
+        "90deg",
+    },
+  },
+  arrowMaterial: {
+    position: "absolute",
+    inset: 0,
+    borderRadius: 0,
+  },
+});

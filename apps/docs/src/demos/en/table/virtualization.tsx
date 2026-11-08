@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6 virtualization adaptation (Apache-2.0); native row spacers.
+// native row spacers.
 import { Table } from "@lenso/ui";
 import { styles } from "./data";
 const first = [

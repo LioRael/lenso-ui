@@ -1,0 +1,39 @@
+[package]
+name = "lenso-glass-renderer"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99"
+publish = false
+license = "MIT AND LGPL-2.0-or-later"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["web"]
+web = ["dep:wasm-bindgen", "dep:js-sys", "dep:web-sys"]
+
+[dependencies]
+wasm-bindgen = { version = "=0.2.127", optional = true }
+js-sys = { version = "=0.3.104", optional = true }
+web-sys = { version = "=0.3.104", optional = true, features = [
+  "HtmlCanvasElement",
+  "WebGl2RenderingContext",
+  "WebGlBuffer",
+  "WebGlFramebuffer",
+  "WebGlProgram",
+  "WebGlShader",
+  "WebGlTexture",
+  "WebGlUniformLocation",
+  "WebGlVertexArrayObject",
+] }
+
+[profile.release]
+lto = true
+opt-level = 3
+panic = "abort"
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+
+[workspace]

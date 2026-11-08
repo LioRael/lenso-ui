@@ -1,0 +1,35 @@
+[package]
+name = "lenso-glass-route-lab"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99"
+publish = false
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Match the already installed binding generator; this is an isolated experiment.
+wasm-bindgen = "=0.2.127"
+js-sys = "=0.3.104"
+web-sys = { version = "=0.3.104", features = [
+  "HtmlCanvasElement",
+  "HtmlVideoElement",
+  "WebGl2RenderingContext",
+  "WebGlBuffer",
+  "WebGlFramebuffer",
+  "WebGlProgram",
+  "WebGlShader",
+  "WebGlTexture",
+  "WebGlUniformLocation",
+  "WebGlVertexArrayObject",
+] }
+
+[profile.release]
+lto = true
+opt-level = 3
+panic = "abort"
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"

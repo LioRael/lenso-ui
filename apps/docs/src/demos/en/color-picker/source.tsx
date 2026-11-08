@@ -1,5 +1,4 @@
 "use client";
-/** HeroUI v3.2.6 demo support, adapted to native Base UI selection. Apache-2.0. */
 import { Select } from "@lenso/ui";
 import { useId, useState } from "react";
 import * as stylex from "@stylexjs/stylex";

@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-custom-portal (Apache-2.0).
 import { useCallback, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -7,7 +6,7 @@ import { Button, Modal } from "@lenso/ui";
 const styles = stylex.create({
   column: { display: "flex", flexDirection: "column", gap: 16 },
   text: { fontSize: 14 },
-  caption: { fontSize: 14, color: "var(--muted)" },
+  caption: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   code: { borderRadius: 4, paddingInline: 4, paddingBlock: 2, fontSize: 12 },
   container: {
     position: "relative",
@@ -16,8 +15,8 @@ const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    borderRadius: "var(--radius)",
-    backgroundColor: "color-mix(in oklab, var(--muted) 20%, transparent)",
+    borderRadius: "var(--lenso-shape-content)",
+    backgroundColor: "color-mix(in oklab, var(--lenso-label-secondary) 20%, transparent)",
     transform: "translateZ(0)",
   },
   backdrop: { height: "100%" },
@@ -62,7 +61,7 @@ export function CustomPortal() {
                     ))}
                   </Modal.Body>
                   <Modal.Footer>
-                    <Modal.Close render={<Button variant="secondary" />}>Close</Modal.Close>
+                    <Modal.Close render={<Button variant="bordered" />}>Close</Modal.Close>
                   </Modal.Footer>
                 </Modal.Popup>
               </Modal.Viewport>

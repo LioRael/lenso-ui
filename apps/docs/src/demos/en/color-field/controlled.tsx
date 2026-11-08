@@ -1,6 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. Apache-2.0. */
-import { Button, ColorField, ColorSwatch, parseColor } from "@lenso/ui";
+import { GlassButton, ColorField, ColorSwatch, parseColor } from "@lenso/ui";
 import type { Color } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -22,15 +21,15 @@ export function Controlled() {
         </ColorField.Description>
       </ColorField>
       <div {...stylex.props(styles.row2)}>
-        <Button variant="tertiary" onClick={() => setValue(parseColor("#EF4444"))}>
+        <GlassButton variant="default" onClick={() => setValue(parseColor("#EF4444"))}>
           Set Red
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue(parseColor("#10B981"))}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue(parseColor("#10B981"))}>
           Set Green
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue(null)}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue(null)}>
           Clear
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

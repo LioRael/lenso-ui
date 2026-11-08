@@ -4,18 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Exact version declared by UI and tokens (Docs/tooling use their manifest versions)
+        description: Exact version declared by UI and tokens (glass, Docs and tooling use their manifest versions)
         required: true
-        default: "0.9.2"
+        default: "0.9.1"
         type: string
-      scope:
-        description: Publish UI/tokens only, or all public packages
-        required: true
-        default: ui
-        type: choice
-        options:
-          - ui
-          - all
 
 concurrency:
   group: npm-release
@@ -37,11 +29,14 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.4.4
       - name: Require successful verification of this exact main commit
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          node --input-type=module <<'NODE'
+          bun - <<'BUN'
           import { execFileSync } from "node:child_process";
           import assert from "node:assert/strict";
           const runs = JSON.parse(execFileSync("gh", [
@@ -54,18 +49,15 @@ jobs:
             runs.some((run) => run.headSha === process.env.GITHUB_SHA && run.conclusion === "success"),
             "The exact main commit must pass Verify reconstruction before publication.",
           );
-          NODE
-      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+          BUN
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 26.10.0
-          cache: pnpm
       - name: Install npm with Trusted Publishing support
         run: npm install --global npm@12.0.1 --ignore-scripts
-      - run: pnpm install --frozen-lockfile
-      - run: node --test scripts/publish-packages.test.mjs
+      - run: bun install --frozen-lockfile
+      - run: bun test tests/publish-packages.test.ts
       - name: Publish public packages with npm OIDC provenance
         env:
           LENSO_RELEASE_VERSION: ${{ inputs.version }}
-          LENSO_RELEASE_SCOPE: ${{ inputs.scope }}
-        run: node scripts/publish-packages.mjs
+        run: bun scripts/publish-packages.ts

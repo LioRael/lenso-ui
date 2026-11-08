@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { test } from "node:test";
+import { test } from "bun:test";
 import { fileURLToPath } from "node:url";
 import {
   artifactName,
@@ -14,6 +14,7 @@ import {
   WORKFLOW_PATH,
   type Context,
   type GitHubApi,
+  type FetchRequest,
 } from "./reuse-verification.ts";
 
 // No existing coverage exercises the CI trust boundary: a successful PR, another
@@ -86,7 +87,7 @@ function fixture() {
     async raw(url) {
       calls.push(url);
       if (url.includes(`/contents/${WORKFLOW_PATH}?ref=${context.sha}`)) return sourceWorkflow;
-      if (url.includes(`/contents/pnpm-lock.yaml?ref=${context.sha}`)) return sourceLockfile;
+      if (url.includes(`/contents/bun.lock?ref=${context.sha}`)) return sourceLockfile;
       throw new Error(`Unexpected source lookup ${url}`);
     },
   };
@@ -319,7 +320,7 @@ test("download verifies digest and never forwards GitHub credentials to storage"
   const f = fixture();
   const trusted = (await findTrustedArtifact(f.api, f.context))!;
   const calls: { url: string; init?: RequestInit }[] = [];
-  const request: typeof fetch = async (url, init) => {
+  const request: FetchRequest = async (url, init) => {
     calls.push({ url: String(url), init });
     return calls.length === 1
       ? new Response(null, {
@@ -348,7 +349,7 @@ test("unsafe redirects, digest mismatches, and GitHub API failures reject downlo
     "http://storage.example/file",
     "https://user:pass@storage.example/file",
   ]) {
-    const request: typeof fetch = async () =>
+    const request: FetchRequest = async () =>
       new Response(null, { status: 302, headers: { location } });
     await assert.rejects(
       githubApi("test-only-token", AbortSignal.timeout(1000), request).download(
@@ -358,7 +359,7 @@ test("unsafe redirects, digest mismatches, and GitHub API failures reject downlo
       /Invalid artifact redirect/,
     );
   }
-  const failure: typeof fetch = async () => new Response(null, { status: 403 });
+  const failure: FetchRequest = async () => new Response(null, { status: 403 });
   const api = githubApi("test-only-token", AbortSignal.timeout(1000), failure);
   await assert.rejects(
     api.get("/repos/LioRael/lenso-ui/actions/runs/100"),
@@ -366,7 +367,7 @@ test("unsafe redirects, digest mismatches, and GitHub API failures reject downlo
   );
   await assert.rejects(api.download(f.context.repository, trusted), /Missing artifact redirect/);
   let requests = 0;
-  const corrupt: typeof fetch = async () =>
+  const corrupt: FetchRequest = async () =>
     ++requests === 1
       ? new Response(null, { status: 302, headers: { location: "https://storage.example/file" } })
       : new Response("tampered");
@@ -408,12 +409,12 @@ test("CLI selects complete verification when trust configuration is unavailable 
 });
 
 test("API payload and redirect handling are bounded and fail closed", async () => {
-  const oversized: typeof fetch = async () => new Response("x".repeat(2 * 1024 * 1024 + 1));
+  const oversized: FetchRequest = async () => new Response("x".repeat(2 * 1024 * 1024 + 1));
   await assert.rejects(
     githubApi("test-only-token", AbortSignal.timeout(1000), oversized).get("/repos/owner/repo"),
     /exceeds limit/,
   );
-  const redirect: typeof fetch = async () =>
+  const redirect: FetchRequest = async () =>
     new Response(null, { status: 302, headers: { location: "https://other.example" } });
   await assert.rejects(
     githubApi("test-only-token", AbortSignal.timeout(1000), redirect).get("/repos/owner/repo"),

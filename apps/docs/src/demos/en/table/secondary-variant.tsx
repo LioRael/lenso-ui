@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 secondary-variant adaptation (Apache-2.0).
 import { Table } from "@lenso/ui";
 import { Headers, Rows, styles, users } from "./data";
 export function SecondaryVariant() {

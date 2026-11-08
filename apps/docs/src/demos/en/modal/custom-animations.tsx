@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-custom-animations (Apache-2.0).
 import { ArrowUpFromLine, Sparkles } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -23,7 +22,7 @@ const slideOut = stylex.keyframes({
 const styles = stylex.create({
   row: { display: "flex", flexWrap: "wrap", gap: 16 },
   popup: { maxWidth: 360 },
-  icon: { backgroundColor: "var(--default)", color: "var(--foreground)" },
+  icon: { backgroundColor: "var(--lenso-control-fill)", color: "var(--lenso-label-primary)" },
   glyph: { width: 20, height: 20 },
   description: { marginTop: 4 },
   scaleBackdrop: {
@@ -99,7 +98,7 @@ export function CustomAnimations() {
     <div {...stylex.props(styles.row)}>
       {animations.map(({ name, Icon, popup, backdrop, description }) => (
         <Modal key={name}>
-          <Modal.Trigger render={<Button variant="secondary" />}>{name}</Modal.Trigger>
+          <Modal.Trigger render={<Button />}>{name}</Modal.Trigger>
           <Modal.Portal>
             <Modal.Backdrop xstyle={backdrop} />
             <Modal.Viewport>
@@ -115,7 +114,7 @@ export function CustomAnimations() {
                   <Modal.Description xstyle={styles.description}>{description}</Modal.Description>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Modal.Close render={<Button variant="tertiary" />}>Close</Modal.Close>
+                  <Modal.Close render={<Button variant="bordered" />}>Close</Modal.Close>
                   <Modal.Close render={<Button />}>Try Again</Modal.Close>
                 </Modal.Footer>
               </Modal.Popup>

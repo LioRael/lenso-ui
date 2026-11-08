@@ -1,5 +1,4 @@
 /**
- * HeroUI v3.2.6 list-box stories, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
  * Modified: public native collection parts, selection sets and windowing.
  */
@@ -9,11 +8,11 @@ import { useMemo } from "react";
 import { CollectionStory } from "./selection.fixtures";
 import { users, fileActions, generateUsers } from "./selection-data.fixtures";
 
-const meta = {
+const meta: Meta<typeof ListBox> = {
   component: ListBox,
   title: "Components/Collections/ListBox",
   parameters: { layout: "centered" },
-} satisfies Meta<typeof ListBox>;
+};
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { render: () => <CollectionStory items={users.slice(0, 3)} bare /> };

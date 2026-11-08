@@ -1,7 +1,6 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** Adapted from HeroUI v3.2.6 format-options.json. Copyright NextUI Inc. Apache-2.0. */
+// Copyright NextUI Inc. Apache-2.0.
 import { DateRangePicker, Separator, TimeField } from "@lenso/ui";
 import {
   DateFormatter,
@@ -10,7 +9,7 @@ import {
   parseZonedDateTime,
   type DateValue,
 } from "@internationalized/date";
-import { useLocale } from "react-aria-components/I18nProvider";
+import { useLocale } from "@lenso/ui";
 import { useMemo, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import {

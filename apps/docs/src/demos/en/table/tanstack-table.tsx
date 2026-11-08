@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6 tanstack-table adaptation (Apache-2.0); retains the v9 data model.
+// retains the v9 data model.
 import { useState } from "react";
 import { Table, type SortDescriptor } from "@lenso/ui";
 import {

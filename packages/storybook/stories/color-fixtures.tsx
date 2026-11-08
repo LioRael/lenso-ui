@@ -1,5 +1,4 @@
 /**
- * Color-story composition adapted from HeroUI v3.2.6.
  * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
  * Supporting labels use the exported color context parts, not ordinary Field.
  */
@@ -24,7 +23,7 @@ export function ColorStoryField({
   inputDefaultValue,
   variant,
   ...props
-}: ColorFieldRootProps & {
+}: Omit<ColorFieldRootProps, "prefix"> & {
   label: string;
   description?: React.ReactNode;
   error?: string;
@@ -34,12 +33,21 @@ export function ColorStoryField({
   inputDefaultValue?: string;
   variant?: "primary" | "secondary";
 }) {
+  const [inputValue, setInputValue] = React.useState(inputDefaultValue);
   return (
     <ColorField {...props}>
       <ColorField.Label>{label}</ColorField.Label>
       <ColorField.Group variant={variant}>
         {prefix && <ColorField.Prefix>{prefix}</ColorField.Prefix>}
-        <ColorField.Input placeholder={placeholder} defaultValue={inputDefaultValue} />
+        <ColorField.Input
+          placeholder={placeholder}
+          value={inputDefaultValue === undefined ? undefined : inputValue}
+          onChange={
+            inputDefaultValue === undefined
+              ? undefined
+              : (event) => setInputValue(event.target.value)
+          }
+        />
         {suffix && <ColorField.Suffix>{suffix}</ColorField.Suffix>}
       </ColorField.Group>
       {description && <ColorField.Description>{description}</ColorField.Description>}
@@ -63,7 +71,7 @@ export function ColorSpaceSelect({
   value: ColorSpace;
   onChange: (space: ColorSpace) => void;
 }) {
-  // Keep the ordinary Select popup inside RAC's modal focus and interaction boundary.
+  // Keep the nested Select popup inside the color picker's focus boundary.
   const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
   return (
     <Select
@@ -96,7 +104,7 @@ export function ColorSpaceSelect({
   );
 }
 
-/** Gravity UI icons, MIT. Paths and provenance are recorded in COLOR-EVIDENCE.md. */
+/** Gravity UI icons, MIT, Copyright YANDEX LLC; see ../GRAVITY-ICONS-LICENSE.txt. */
 export function ColorStoryIcon({ kind }: { kind: "star" | "shuffle" }) {
   return (
     <svg {...stylex.props(s.icon)} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import test from "node:test";
+import { afterEach, test } from "bun:test";
 import {
   discoverLiveExamples,
   findDemoExport,
@@ -10,9 +10,9 @@ import {
 } from "./generate-live-registry.ts";
 
 // Runtime names and ARIA labels must not expose retired source-family names.
-test("registers canonical Menu scenario names without rewriting private source references", async (t) => {
+test("registers canonical Menu scenario names without rewriting private source references", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-canonical-registry-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await mkdir(path.join(directory, "src/demos/en/menu"), { recursive: true });
   await mkdir(path.join(directory, "content"), { recursive: true });
   const source = {
@@ -27,7 +27,7 @@ test("registers canonical Menu scenario names without rewriting private source r
     },
   };
   const original = JSON.stringify(source);
-  await writeFile(path.join(directory, "content/source-index.json"), original);
+  await writeFile(path.join(directory, "content/example-catalog.json"), original);
   await writeFile(
     path.join(directory, "src/demos/en/menu/default.tsx"),
     "export function Default() { return null; }",
@@ -37,7 +37,10 @@ test("registers canonical Menu scenario names without rewriting private source r
   const generated = await readFile(path.join(directory, "src/demos/generated.ts"), "utf8");
   assert.match(generated, /"menu-default":/);
   assert.ok(!generated.includes("dropdown-default"));
-  assert.equal(await readFile(path.join(directory, "content/source-index.json"), "utf8"), original);
+  assert.equal(
+    await readFile(path.join(directory, "content/example-catalog.json"), "utf8"),
+    original,
+  );
   await writeFile(path.join(directory, "src/demos/generated.ts"), "// existing tooling registry");
   assert.deepEqual(
     await generateLiveRegistry(directory, { cn: {} }, { globalRegistry: false }),
@@ -54,9 +57,9 @@ test("registers canonical Menu scenario names without rewriting private source r
 });
 
 // Imported-content integrity does not prove that added local scenarios reach the runtime registry.
-test("discovers exact source paths, loads aliases once and does not register absent or unrelated demos", async (t) => {
+test("discovers exact source paths, loads aliases once and does not register absent or unrelated demos", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-live-registry-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await mkdir(path.join(directory, "src/demos/en/field"), { recursive: true });
   await mkdir(path.join(directory, "content"), { recursive: true });
   const entry = { source: "apps/docs/src/demos/en/field/controlled.tsx" };
@@ -69,7 +72,7 @@ test("discovers exact source paths, loads aliases once and does not register abs
       },
     },
   };
-  await writeFile(path.join(directory, "content/source-index.json"), JSON.stringify(source));
+  await writeFile(path.join(directory, "content/example-catalog.json"), JSON.stringify(source));
   await writeFile(
     path.join(directory, "src/demos/en/field/controlled.tsx"),
     "export function Controlled() { return null; }\n",
@@ -91,9 +94,18 @@ test("discovers exact source paths, loads aliases once and does not register abs
   assert.match(generated, /"field-legacy": Demo0/);
 });
 
-test("rejects unsafe source paths and modules without a callable export rather than certifying them live", async (t) => {
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
+});
+
+test("rejects unsafe source paths and modules without a callable export rather than certifying them live", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-live-registry-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await assert.rejects(
     discoverLiveExamples(directory, {
       examples: { en: { unsafe: { source: "apps/docs/src/demos/en/../../private.tsx" } } },
@@ -160,9 +172,9 @@ test("resolves genuine named re-exports, default demos and memoized scenarios wi
   );
 });
 
-test("registers maintained Chinese modules and deduplicates aliases and explicit equivalent reuse", async (t) => {
+test("registers maintained Chinese modules and deduplicates aliases and explicit equivalent reuse", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-localized-registry-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await mkdir(path.join(directory, "content"), { recursive: true });
   await mkdir(path.join(directory, "src/demos/en/field"), { recursive: true });
   await mkdir(path.join(directory, "src/demos/cn/field"), { recursive: true });
@@ -178,7 +190,7 @@ test("registers maintained Chinese modules and deduplicates aliases and explicit
       ),
     },
   };
-  await writeFile(path.join(directory, "content/source-index.json"), JSON.stringify(source));
+  await writeFile(path.join(directory, "content/example-catalog.json"), JSON.stringify(source));
   for (const file of [
     "en/field/basic",
     "en/field/reuse",

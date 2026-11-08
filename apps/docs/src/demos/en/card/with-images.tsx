@@ -1,13 +1,12 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 // oxlint-disable jsx-a11y/prefer-tag-over-role -- A named SVG needs img semantics; an HTML img cannot render this icon.
 import { CircleDollar } from "@gravity-ui/icons";
-import { Avatar, Button, Card, CloseButton, Link } from "@lenso/ui";
+import { GlassButton, Avatar, Button, Card, CloseButton, Link } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { s } from "./display.stylex";
 
-const DOCS = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/";
-const AVATARS = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/";
+const DOCS = "/assets/demo/illustrations/";
+const AVATARS = "/assets/demo/avatars/";
 
 export function WithImages() {
   return (
@@ -19,7 +18,7 @@ export function WithImages() {
               alt="Cherries"
               {...stylex.props(s.imageZoom)}
               loading="lazy"
-              src={`${DOCS}cherries.jpeg`}
+              src={`${DOCS}cherries.svg`}
             />
           </div>
           <div {...stylex.props(s.flexContent)}>
@@ -71,7 +70,7 @@ export function WithImages() {
               <Card xstyle={s.smallCard}>
                 <Card.Header>
                   <Avatar xstyle={s.roundedAvatar}>
-                    <Avatar.Image alt="Demo 1" src={`${DOCS}demo1.jpg`} />
+                    <Avatar.Image alt="Demo 1" src={`/assets/demo/illustrations/landscape.svg`} />
                     <Avatar.Fallback>JK</Avatar.Fallback>
                   </Avatar>
                 </Card.Header>
@@ -81,7 +80,7 @@ export function WithImages() {
                 </Card.Content>
                 <Card.Footer xstyle={s.row2}>
                   <Avatar xstyle={s.avatarMini}>
-                    <Avatar.Image alt="John" src={`${AVATARS}red.jpg`} />
+                    <Avatar.Image alt="John" src={`${AVATARS}red.svg`} />
                     <Avatar.Fallback>JK</Avatar.Fallback>
                   </Avatar>
                   <p {...stylex.props(s.textXs, s.muted)}>By John</p>
@@ -90,7 +89,7 @@ export function WithImages() {
               <Card xstyle={s.smallCard}>
                 <Card.Header>
                   <Avatar xstyle={s.roundedAvatar}>
-                    <Avatar.Image alt="Demo 2" src={`${DOCS}demo2.jpg`} />
+                    <Avatar.Image alt="Demo 2" src={`/assets/demo/illustrations/workspace.svg`} />
                     <Avatar.Fallback>AB</Avatar.Fallback>
                   </Avatar>
                 </Card.Header>
@@ -100,7 +99,7 @@ export function WithImages() {
                 </Card.Content>
                 <Card.Footer xstyle={s.row2}>
                   <Avatar xstyle={s.avatarMini}>
-                    <Avatar.Image alt="John" src={`${AVATARS}blue.jpg`} />
+                    <Avatar.Image alt="John" src={`${AVATARS}blue.svg`} />
                     <Avatar.Fallback>M</Avatar.Fallback>
                   </Avatar>
                   <p {...stylex.props(s.textXs, s.muted)}>By Martha</p>
@@ -113,7 +112,7 @@ export function WithImages() {
               alt="NEO Home Robot"
               aria-hidden="true"
               {...stylex.props(s.imageCover)}
-              src={`${DOCS}neo2.jpeg`}
+              src={`${DOCS}robot1.svg`}
             />
             <Card.Header xstyle={[s.z10, s.white]}>
               <Card.Title xstyle={[s.textXs, s.semibold, s.tracking, s.black70]}>NEO</Card.Title>
@@ -126,9 +125,9 @@ export function WithImages() {
                 <div {...stylex.props(s.textSm, s.medium, s.black)}>Available soon</div>
                 <div {...stylex.props(s.textXs, s.black60)}>Get notified</div>
               </div>
-              <Button xstyle={s.whiteButton} size="sm" variant="tertiary">
+              <GlassButton xstyle={s.whiteButton} size="sm" variant="default">
                 Notify me
-              </Button>
+              </GlassButton>
             </Card.Footer>
           </Card>
         </div>
@@ -138,16 +137,16 @@ export function WithImages() {
               alt="NEO Home Robot"
               aria-hidden="true"
               {...stylex.props(s.imageCover)}
-              src={`${DOCS}neo1.jpeg`}
+              src={`${DOCS}robot1.svg`}
             />
             <Card.Footer xstyle={s.robotLargeFooter}>
               <div>
                 <div {...stylex.props(s.responsiveBase, s.medium, s.black)}>NEO</div>
                 <div {...stylex.props(s.responsiveXs, s.medium, s.black50)}>$499/m</div>
               </div>
-              <Button xstyle={s.whiteButton} size="sm" variant="tertiary">
+              <GlassButton xstyle={s.whiteButton} size="sm" variant="default">
                 Get now
-              </Button>
+              </GlassButton>
             </Card.Footer>
           </Card>
           <div {...stylex.props(s.robotStack)}>
@@ -156,7 +155,7 @@ export function WithImages() {
                 alt="Futuristic Robot"
                 {...stylex.props(s.eventImage)}
                 loading="lazy"
-                src={`${DOCS}robot1.jpeg`}
+                src={`${DOCS}robot1.svg`}
               />
               <div {...stylex.props(s.eventContent)}>
                 <Card.Title xstyle={s.textSm}>Bridging the Future</Card.Title>
@@ -168,7 +167,7 @@ export function WithImages() {
                 alt="Avocado"
                 {...stylex.props(s.eventImage)}
                 loading="lazy"
-                src={`${DOCS}avocado.jpeg`}
+                src={`${DOCS}avocado.svg`}
               />
               <div {...stylex.props(s.eventContent)}>
                 <Card.Title xstyle={s.textSm}>Avocado Hackathon</Card.Title>
@@ -180,7 +179,7 @@ export function WithImages() {
                 alt="Sound Electro event"
                 {...stylex.props(s.eventImage)}
                 loading="lazy"
-                src={`${DOCS}oranges.jpeg`}
+                src={`${DOCS}oranges.svg`}
               />
               <div {...stylex.props(s.eventContent)}>
                 <Card.Title xstyle={s.textSm}>Sound Electro | Beyond art</Card.Title>

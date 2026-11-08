@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6, Apache-2.0. Base Field context owns validation and error linkage.
+// Base Field context owns validation and error linkage.
 import { Button, FieldError, Form, TextField } from "@lenso/ui";
 import { AnimalPicker } from "./shared";
 import { styles } from "./styles.stylex";

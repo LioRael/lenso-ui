@@ -7,65 +7,84 @@ navigationOrder: 3
 
 ## Vite 与 Rolldown
 
-`@lenso/stylex-build` 提供 `vite` 和 `rolldown` 适配器。使用 Lenso 的 `stylex-rules.json` 元数据和应用根目录配置适配器。[快速开始](/docs/react/getting-started/installation)展示 Vite 配置。
+直接使用 `@stylexjs/unplugin`。Lenso 发布包含 StyleX 声明的普通模块，应用编译器在同一个依赖图中处理库与应用的样式。导入 `@lenso/tokens/styles.css` 加载主题和基础 CSS，不再需要私有 metadata 产物或 Lenso 构建适配器。
 
-从实际渲染应用的入口加载 `@lenso/tokens/styles.css`。主题样式表与编译后的应用 StyleX 规则是不同输入，两者都必须到达文档。
+```ts
+import stylex from "@stylexjs/unplugin";
+const plugins = [stylex.vite({
+  dev: false,
+  runtimeInjection: false,
+  useCSSLayers: false,
+  lightningcssOptions: { exclude: 4 },
+  unstable_moduleResolution: { type: "commonJS" },
+})];
+```
 
-## Next.js
+Rolldown 使用 `stylex.rolldown`。配置 Lightning CSS 目标时保留原生 `:dir()`。
 
-对于 **Next `16.3.8` App Router Webpack 的生产、非 watch 构建**，使用命名导出
-`prepareNext`。它在 Next 的 CSS 流水线处理导入前生成一个带标记的普通 CSS 文件，
-将包与应用的原始规则一起处理一次。
+Vite SSR 需要编译这些源码包，不能将它们作为外部依赖跳过编译：
+
+```ts
+ssr: { noExternal: ["@lenso/ui", "@lenso/tokens", "@lenso/glass"] }
+```
+
+使用文档框架时还需包含 `@lenso/docs`。直接通过 Node 导入不会编译 StyleX 声明。仅服务端使用的样式也必须进入应用的 CSS 编译；仅客户端依赖图不能证明它们已被交付。
+
+## Next.js App Router
+
+使用官方 Babel 和 PostCSS 插件，并将 tokens 加入 `transpilePackages`。
+
+```ts
+// next.config.ts
+export default { transpilePackages: ["@lenso/tokens"] };
+```
+
+```json
+{
+  "presets": ["next/babel"],
+  "plugins": [["@stylexjs/babel-plugin", {
+    "dev": false,
+    "runtimeInjection": false,
+    "treeshakeCompensation": true,
+    "unstable_moduleResolution": { "type": "commonJS" }
+  }]]
+}
+```
+
+将以上配置保存为 `babel.config.json`。从应用源码和发布包中的 tokens 模块生成 CSS：
 
 ```js
-// next.config.mjs
-import { prepareNext } from "@lenso/stylex-build";
-
-const prepared = prepareNext({
-  metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
-  sources: [
-    new URL("./app/layout.tsx", import.meta.url),
-    new URL("./app/page.tsx", import.meta.url),
-    new URL("./app/global-error.tsx", import.meta.url),
-    new URL("./src/styles/server.stylex.ts", import.meta.url),
-  ],
-  cssFile: new URL("./app/lenso.generated.css", import.meta.url),
-  unstable_moduleResolution: {
-    type: "commonJS",
-    rootDir: import.meta.dirname,
-  },
-});
-
-export default {
-  async webpack(config) {
-    config.cache = false;
-    config.plugins.push(await prepared);
-    return config;
+// postcss.config.cjs
+const path = require("node:path");
+const babel = require("./babel.config.json");
+module.exports = {
+  plugins: {
+    "@stylexjs/postcss-plugin": {
+      include: [
+        "./src/**/*.{js,jsx,ts,tsx}",
+        "./app/**/*.{js,jsx,ts,tsx}",
+        "./components/**/*.{js,jsx,ts,tsx}",
+        path.join(path.dirname(require.resolve("@lenso/tokens/package.json")), "dist/**/*.js"),
+      ],
+      babelConfig: {
+        babelrc: false,
+        configFile: false,
+        parserOpts: { plugins: ["typescript", "jsx"] },
+        plugins: babel.plugins,
+      },
+    },
   },
 };
 ```
 
-此配置仅用于生产构建。在 Next 的多个编译器回调之间复用同一个准备 Promise 与插件；
-禁用 Webpack 缓存，避免缓存的转换结果绕过原始规则覆盖检查。
+```css
+/* globals.css */
+@import "@lenso/tokens/styles.css";
+@stylex;
+```
 
-示例仅列出一个小型应用的文件。请提供**全部实际应用 JS/TS 源文件**，包括仅服务端使用
-的声明与错误页面样式。`metadata`、`sources` 和 `cssFile` 接受绝对路径或文件 URL；
-`lightningcssOptions` 配置最终 CSS 处理。原始规则覆盖检查会拒绝遗漏或过期的声明。
-生成文件采用原子、幂等写入；已有手写 CSS 文件不会被覆盖。
+每个根布局，以及替代布局的自定义 `global-error` 或 `global-not-found` 文档，都应导入这份样式表。CSS 交付、哈希和清单由 Next 管理。使用其他源码目录或仅服务端声明时，需要扩展 `include`。
 
-每个 HTML 所有者都必须显式导入**同一个生成 CSS 文件**及
-`@lenso/tokens/styles.css`：每个根布局、自定义 `global-error` 和自定义
-`global-not-found`。各自提供 `<html>`、`<body>` 与主题。`global-error` 必须是
-Client Component；它会替换根布局，因此不能依赖根布局的导入或主题。
+`init --framework next` 生成这些普通配置文件。静态 `check` 诊断只提供提示，仍需验证框架构建和实际页面。仓库中的依赖补丁修复了上游 0.19.1 删除声明后遗留 CSS 和重复加载 Babel 配置的问题。常量值和媒体查询键的更新使用上游机制，不再添加本地重编译逻辑。独立安装的应用需验证所用上游版本。
 
-执行 `next build --webpack` 并检查运行中的生产页面，包括实际的冷启动根布局失败。
-该 helper 不代表支持 `next dev`、HMR、更新的 Next 版本、Turbopack 或 Pages Router。
-
-旧的 `stylex.webpack` 自动资源改写仍是固定 `16.3.8` 的兼容性／开发回退方案，
-且拒绝自定义全局错误页面。它不是新的生产默认方案：公开 helper 已有生产验证，
-watch 行为仍未验证。[CLI](/docs/react/tools/cli) 的 `init` 继续生成旧配置以保留
-现有开发流程。`check` 能识别直接使用 `prepareNext` 的配置，但不会认证 CSS 所有权。
-
-## 其他框架
-
-应用必须运行 React、编译 StyleX 声明并交付合并后的 CSS。Webpack 适配器可用不代表所有框架和打包器都受支持。使用尚未覆盖的框架前，请验证生产构建与样式表交付。
+[官方 Next.js 集成](https://stylexjs.com/docs/learn/installation/nextjs/)、[官方 Vite 集成](https://stylexjs.com/docs/learn/installation/vite/)。

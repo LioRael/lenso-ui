@@ -6,9 +6,9 @@ It does not relicense the embedded contract's third-party source or documentatio
 HeroUI-derived examples, reference documentation and StyleX maps retain
 Apache-2.0, Copyright 2025 NextUI Inc. The distribution contains the original
 Apache text and Lenso's pinned provenance/modification notice in the
-[Apache license](dist/licenses/heroui-LICENSE.txt) and
-[provenance/modification notice](dist/licenses/heroui-NOTICE.md).
-The original headers within returned source remain intact.
+[repository notices](dist/licenses/repository-notices.md).
+Original copyright notices remain in returned source; repeated source/version
+headers are consolidated in the repository notices.
 
 Extracted native declaration descriptions and type information retain their
 original licenses and copyright notices in the

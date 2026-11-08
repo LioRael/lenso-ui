@@ -1,0 +1,231 @@
+"use client";
+import type { ComponentProps as StoryComponentProps } from "react";
+export interface ButtonGroupStoryProps extends Pick<
+  StoryComponentProps<typeof ButtonGroup>,
+  "disabled" | "size" | "variant" | "fullWidth" | "orientation"
+> {
+  glass?: boolean;
+}
+export const initialArgs: ButtonGroupStoryProps = /* story-args:start */ {
+  disabled: false,
+  size: "md",
+  variant: "prominent",
+  fullWidth: false,
+  orientation: "horizontal",
+}; /* story-args:end */
+
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  CodeFork,
+  Ellipsis,
+  Picture,
+  Pin,
+  QrCode,
+  Star,
+  TextAlignCenter,
+  TextAlignJustify,
+  TextAlignLeft,
+  TextAlignRight,
+  ThumbsDown,
+  ThumbsUp,
+  Video,
+} from "@gravity-ui/icons";
+import { Button as ContentButton, GlassButton, ButtonGroup, Chip, Menu } from "@lenso/ui";
+import * as stylex from "@stylexjs/stylex";
+import { basicStyles as styles } from "../en/button-group/basic.stylex";
+import { styles as sourceStyles } from "../en/button-group/source.stylex";
+export function Basic(overrides: ButtonGroupStoryProps) {
+  const { glass = false, ...args } = { ...initialArgs, ...overrides };
+  const Button = glass ? GlassButton : ContentButton;
+  return (
+    <div {...stylex.props(styles.root)}>
+      <div {...stylex.props(styles.section)}>
+        <ButtonGroup {...args}>
+          <Button>Merge pull request</Button>
+          <Menu>
+            <Menu.Trigger
+              render={<Button isIconOnly aria-label="More options" xstyle={styles.splitTrigger} />}
+            >
+              <ButtonGroup.Separator />
+              <Button.Icon>
+                <ChevronDown />
+              </Button.Icon>
+            </Menu.Trigger>
+            <Menu.Portal>
+              <Menu.Positioner side="bottom" align="end">
+                <Menu.Popup xstyle={styles.popup}>
+                  {[
+                    {
+                      id: "merge",
+                      label: "Create a merge commit",
+                      description: "All commits from this branch will be added to the base branch",
+                    },
+                    {
+                      id: "squash",
+                      label: "Squash and merge",
+                      description:
+                        "The 14 commits from this branch will be combined into one commit in the base branch",
+                    },
+                    {
+                      id: "rebase",
+                      label: "Rebase and merge",
+                      description:
+                        "The 14 commits from this branch will be rebased and added to the base branch",
+                    },
+                  ].map((item) => (
+                    <Menu.Item key={item.id} xstyle={styles.item}>
+                      <span {...stylex.props(sourceStyles.menuLabel)}>{item.label}</span>
+                      <span {...stylex.props(sourceStyles.menuDescription)}>
+                        {item.description}
+                      </span>
+                    </Menu.Item>
+                  ))}
+                </Menu.Popup>
+              </Menu.Positioner>
+            </Menu.Portal>
+          </Menu>
+        </ButtonGroup>
+      </div>
+      <div {...stylex.props(styles.section)}>
+        <div {...stylex.props(styles.row)}>
+          <ButtonGroup variant="bordered">
+            <Button>
+              <CodeFork {...stylex.props(styles.smallIcon)} />
+              Fork
+              <Chip color="accent" size="sm" variant="soft">
+                24
+              </Chip>
+            </Button>
+            <Button isIconOnly aria-label="More fork options">
+              <ButtonGroup.Separator />
+              <Button.Icon>
+                <ChevronDown />
+              </Button.Icon>
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup variant="bordered">
+            <Button isIconOnly aria-label="Show QR code">
+              <Button.Icon>
+                <QrCode />
+              </Button.Icon>
+            </Button>
+            <Button>
+              <ButtonGroup.Separator />
+              Scan to pay
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup variant="bordered">
+            <Button>
+              <Button.Icon>
+                <ThumbsUp />
+              </Button.Icon>
+              <span {...stylex.props(styles.count)}>2.4K</span>
+            </Button>
+            <Button isIconOnly aria-label="Dislike">
+              <ButtonGroup.Separator />
+              <Button.Icon>
+                <ThumbsDown />
+              </Button.Icon>
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup variant="bordered">
+            <Button>
+              <Star {...stylex.props(styles.smallIcon)} />
+              Star
+            </Button>
+            <Button xstyle={styles.countButton}>
+              <ButtonGroup.Separator />
+              <Chip color="accent" size="sm" variant="soft">
+                104
+              </Chip>
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup variant="bordered">
+            <Button>
+              <Button.Icon>
+                <Pin />
+              </Button.Icon>
+              Pinned
+            </Button>
+            <Button isIconOnly aria-label="More pin options">
+              <ButtonGroup.Separator />
+              <Button.Icon>
+                <ChevronDown />
+              </Button.Icon>
+            </Button>
+          </ButtonGroup>
+        </div>
+      </div>
+      <div {...stylex.props(styles.section)}>
+        <ButtonGroup variant="bordered">
+          <Button>
+            <Button.Icon>
+              <ChevronLeft />
+            </Button.Icon>
+            Previous
+          </Button>
+          <Button>
+            <ButtonGroup.Separator />
+            Next
+            <Button.Icon>
+              <ChevronRight />
+            </Button.Icon>
+          </Button>
+        </ButtonGroup>
+      </div>
+      <div {...stylex.props(styles.section)}>
+        <ButtonGroup variant="bordered">
+          <Button>
+            <Button.Icon>
+              <Picture />
+            </Button.Icon>
+            Photos
+          </Button>
+          <Button>
+            <ButtonGroup.Separator />
+            <Button.Icon>
+              <Video />
+            </Button.Icon>
+            Videos
+          </Button>
+          <Button isIconOnly aria-label="More options">
+            <ButtonGroup.Separator />
+            <Button.Icon>
+              <Ellipsis />
+            </Button.Icon>
+          </Button>
+        </ButtonGroup>
+      </div>
+      <div {...stylex.props(styles.section)}>
+        <ButtonGroup variant="bordered">
+          <Button>Left</Button>
+          <Button>
+            <ButtonGroup.Separator />
+            Center
+          </Button>
+          <Button>
+            <ButtonGroup.Separator />
+            Right
+          </Button>
+        </ButtonGroup>
+      </div>
+      <div {...stylex.props(styles.section)}>
+        <ButtonGroup variant="bordered">
+          {[
+            { label: "Align left", icon: <TextAlignLeft /> },
+            { label: "Align center", icon: <TextAlignCenter /> },
+            { label: "Align right", icon: <TextAlignRight /> },
+            { label: "Justify", icon: <TextAlignJustify /> },
+          ].map((item, index) => (
+            <Button key={item.label} isIconOnly aria-label={item.label}>
+              {index > 0 && <ButtonGroup.Separator />}
+              <Button.Icon>{item.icon}</Button.Icon>
+            </Button>
+          ))}
+        </ButtonGroup>
+      </div>
+    </div>
+  );
+}

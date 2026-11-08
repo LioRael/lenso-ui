@@ -1,4 +1,3 @@
-// Adapted from HeroUI e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Tabs, type TabsRootProps } from "@lenso/ui";
 import { useState } from "react";
@@ -207,7 +206,7 @@ export const Vertical: Story = {
   ),
 };
 export const VerticalAlign: Story = {
-  args: { align: "end", children: null, orientation: "vertical", variant: "secondary" },
+  args: { align: "end", children: null, orientation: "vertical" },
   render: (props) => (
     <Template {...props} orientation="vertical" items={vertical} label="Vertical tabs" />
   ),
@@ -252,20 +251,4 @@ export const Showcase1: Story = {
   args: { children: null },
   render: ShowcaseTemplate,
   name: "Showcases/Apple iPhone 17 Pro cameras",
-};
-export const Secondary: Story = {
-  args: { children: null, variant: "secondary" },
-  render: (props) => <Template {...props} variant="secondary" />,
-};
-export const SecondaryVertical: Story = {
-  args: { children: null, orientation: "vertical", variant: "secondary" },
-  render: (props) => (
-    <Template
-      {...props}
-      orientation="vertical"
-      variant="secondary"
-      items={vertical}
-      label="Vertical tabs"
-    />
-  ),
 };

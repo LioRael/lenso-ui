@@ -1,9 +1,9 @@
 "use client";
-// HeroUI v3.2.6. Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 import type { Time } from "@internationalized/date";
 import { Clock } from "@gravity-ui/icons";
 import { Button, TimeField } from "@lenso/ui";
-import { Form } from "react-aria-components/Form";
+import { Form } from "@lenso/ui";
 import { parseTime } from "@internationalized/date";
 import { useState, type FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -55,7 +55,7 @@ export function FormExample() {
         disabled={!value || isInvalid}
         isLoading={isSubmitting}
         type="submit"
-        variant="primary"
+        variant="prominent"
       >
         {isSubmitting ? "Submitting..." : "Submit"}
       </Button>

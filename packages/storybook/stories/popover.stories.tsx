@@ -1,9 +1,8 @@
-// HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 // Modified: native Base UI trigger render and Portal/Positioner/Popup anatomy.
 import type { Meta } from "@storybook/react-vite";
 import React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Avatar, Button, Card, Popover } from "@lenso/ui";
+import { GlassButton, Avatar, Button, Card, Popover } from "@lenso/ui";
 import { overlayStyles as s } from "./overlay.stylex";
 import { OverlayIcon } from "./overlay.fixtures";
 import { position, positionControls, type OverlayPositionArgs } from "./overlay-position.fixtures";
@@ -21,7 +20,7 @@ function Template(props: OverlayPositionArgs) {
     <div {...stylex.props(s.compactRow)}>
       <Popover.Root>
         <Popover.Trigger
-          render={<Button isIconOnly aria-label="Popover trigger" variant="tertiary" />}
+          render={<GlassButton isIconOnly aria-label="Popover trigger" variant="default" />}
         >
           <OverlayIcon name="circle-info" />
         </Popover.Trigger>
@@ -42,7 +41,7 @@ function TemplateWithArrow(props: OverlayPositionArgs) {
     <div {...stylex.props(s.compactRow)}>
       <Popover.Root>
         <Popover.Trigger
-          render={<Button isIconOnly aria-label="Popover trigger" variant="tertiary" />}
+          render={<GlassButton isIconOnly aria-label="Popover trigger" variant="default" />}
         >
           <OverlayIcon name="circle-info" />
         </Popover.Trigger>
@@ -59,7 +58,7 @@ function TemplateWithArrow(props: OverlayPositionArgs) {
     </div>
   );
 }
-const avatarUrl = "https://img.heroui.chat/image/avatar?w=400&h=400&u=5";
+const avatarUrl = "/assets/demo/avatars/blue.svg";
 function TemplateWithCustomContent(props: OverlayPositionArgs) {
   const [isFollowing, setIsFollowing] = React.useState(false);
   return (
@@ -73,7 +72,7 @@ function TemplateWithCustomContent(props: OverlayPositionArgs) {
             </Avatar>
             <div>
               <p>Zoe</p>
-              <p {...stylex.props(s.small)}>zoe@heroui.com</p>
+              <p {...stylex.props(s.small)}>zoe@example.com</p>
             </div>
           </div>
         </Popover.Trigger>
@@ -94,7 +93,7 @@ function TemplateWithCustomContent(props: OverlayPositionArgs) {
                 <Button
                   xstyle={s.follow}
                   size="sm"
-                  variant={isFollowing ? "tertiary" : "primary"}
+                  variant={isFollowing ? "borderless" : "prominent"}
                   onClick={() => setIsFollowing(!isFollowing)}
                 >
                   {isFollowing ? "Following" : "Follow"}
@@ -102,7 +101,7 @@ function TemplateWithCustomContent(props: OverlayPositionArgs) {
               </div>
               <div>
                 <p>
-                  Design Engineer, @hero_ui lover she/her. SF Bay Area&nbsp;
+                  Design engineer building interfaces. SF Bay Area&nbsp;
                   {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- Source emoji has a named image role, not an image URL. */}
                   <span aria-label="confetti" role="img">
                     🎉
@@ -172,7 +171,7 @@ function CardWithHelptextTemplate(props: OverlayPositionArgs) {
           <Popover.Root>
             <Popover.Trigger
               aria-label="Help information"
-              render={<Button isIconOnly aria-label="Help" size="sm" variant="ghost" />}
+              render={<Button isIconOnly aria-label="Help" size="sm" variant="borderless" />}
             >
               <OverlayIcon name="circle-info" />
             </Popover.Trigger>

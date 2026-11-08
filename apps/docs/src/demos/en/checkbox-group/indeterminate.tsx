@@ -1,5 +1,4 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Checkbox, CheckboxGroup } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";

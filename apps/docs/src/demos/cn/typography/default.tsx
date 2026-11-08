@@ -1,4 +1,3 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
 import { Typography } from "@lenso/ui";
@@ -24,7 +23,7 @@ export function Default() {
       <Typography color="muted" type="body-sm">
         用于次要说明的较小弱化正文。
       </Typography>
-      <Typography type="code">pnpm add @lenso/ui</Typography>
+      <Typography type="code">bun add @lenso/ui</Typography>
     </div>
   );
 }

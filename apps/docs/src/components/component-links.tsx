@@ -1,11 +1,12 @@
 import { Code, LogoGithub } from "@gravity-ui/icons";
 import { buttonSizes, buttonStyles, buttonVariants } from "@lenso/tokens/button";
 import * as stylex from "@stylexjs/stylex";
-import { notebook } from "@/styles/notebook.stylex";
+import { notebook } from "@lenso/docs/presentation";
 import { docsIndex } from "@/lib/source";
 import { product } from "@/lib/product";
 
-export function ComponentLinks({ family }: { family?: string }) {
+export function ComponentLinks({ family, locale = "en" }: { family?: string; locale?: string }) {
+  const cn = locale === "cn";
   if (!family || !Object.hasOwn(docsIndex.families, family)) return null;
   const metadata = docsIndex.families[family]!;
   if (metadata.source === undefined) throw new Error(`Missing component source: ${family}`);
@@ -20,7 +21,7 @@ export function ComponentLinks({ family }: { family?: string }) {
     },
     {
       label: "Styles",
-      href: `${product.repository}/blob/main/packages/styles/src/components/${family}/${family}.styles.ts`,
+      href: `${product.repository}/blob/main/packages/tokens/src/components/${family}/${family}.styles.ts`,
       icon: LogoGithub,
     },
     base && {
@@ -35,7 +36,10 @@ export function ComponentLinks({ family }: { family?: string }) {
     },
   ].filter((entry) => !!entry);
   return (
-    <nav aria-label="Component references" {...stylex.props(notebook.sourceLinks)}>
+    <nav
+      aria-label={cn ? "组件参考链接" : "Component references"}
+      {...stylex.props(notebook.sourceLinks)}
+    >
       {entries.map(({ label, href, icon: Icon }) => (
         <a
           key={label}
@@ -45,11 +49,12 @@ export function ComponentLinks({ family }: { family?: string }) {
           {...stylex.props(
             buttonStyles.root,
             buttonSizes.sm,
-            buttonVariants.tertiary,
+            buttonVariants.borderless,
             notebook.sourceLink,
           )}
         >
-          <Icon width={16} height={16} aria-hidden="true" /> {label}
+          <Icon width={16} height={16} aria-hidden="true" />{" "}
+          {cn ? ({ Source: "源码", Styles: "样式" }[label] ?? label) : label}
         </a>
       ))}
     </nav>

@@ -1,10 +1,8 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 alert-dialog-custom-animations (Apache-2.0).
 import { ArrowUpFromLine, Sparkles } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 const scaleIn = stylex.keyframes({
   from: {
     opacity: 0,
@@ -139,7 +137,7 @@ export function CustomAnimations() {
     <div {...stylex.props(styles.row)}>
       {animations.map(({ name, Icon, popup, backdrop, description }) => (
         <AlertDialog key={name}>
-          <AlertDialog.Trigger render={<Button variant="secondary" />}>{name}</AlertDialog.Trigger>
+          <AlertDialog.Trigger render={<Button />}>{name}</AlertDialog.Trigger>
           <AlertDialog.Portal>
             <AlertDialog.Backdrop xstyle={backdrop} />
             <AlertDialog.Viewport>
@@ -157,8 +155,8 @@ export function CustomAnimations() {
                   </AlertDialog.Description>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <AlertDialog.Close render={<Button variant="tertiary" />}>关闭</AlertDialog.Close>
-                  <AlertDialog.Close render={<Button />}>再试一次</AlertDialog.Close>
+                  <AlertDialog.Action variant="cancel">关闭</AlertDialog.Action>
+                  <AlertDialog.Action variant="cancel">再试一次</AlertDialog.Action>
                 </AlertDialog.Footer>
               </AlertDialog.Popup>
             </AlertDialog.Viewport>

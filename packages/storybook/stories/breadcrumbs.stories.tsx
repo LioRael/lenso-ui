@@ -1,4 +1,3 @@
-// Adapted from HeroUI e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Breadcrumbs, BreadcrumbsItem } from "@lenso/ui";
 import { NavigationIcon } from "./navigation-icons";

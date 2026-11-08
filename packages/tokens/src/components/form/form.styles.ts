@@ -1,0 +1,5 @@
+// Modified by Lenso contributors: translated component styling to StyleX.
+import * as stylex from "@stylexjs/stylex";
+export const formStyles = stylex.create({
+  root: { display: "flex", flexDirection: "column", gap: 24, minWidth: 0 },
+});

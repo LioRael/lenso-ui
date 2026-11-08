@@ -1,9 +1,8 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** Adapted from HeroUI v3.2.6. Apache-2.0. Gravity Shuffle replaces the source Iconify reference to the same icon. */
+// Gravity Shuffle replaces the source Iconify reference to the same icon.
 import {
-  Button,
+  GlassButton,
   ColorArea,
   ColorField,
   ColorPicker,
@@ -65,15 +64,15 @@ export function Controlled() {
                 <ColorSlider.Thumb />
               </ColorSlider.Track>
             </ColorSlider>
-            <Button
+            <GlassButton
               isIconOnly
               aria-label="随机颜色"
               size="sm"
-              variant="tertiary"
+              variant="default"
               onClick={shuffleColor}
             >
               <Shuffle {...stylex.props(styles.icon)} />
-            </Button>
+            </GlassButton>
           </div>
           <ColorField aria-label="颜色">
             <ColorField.Group variant="secondary">

@@ -1,4 +1,4 @@
-// HeroUI v3.2.6 placement controls, Apache-2.0; native Base UI side/align mapping.
+// native Base UI side/align mapping.
 export const placements = [
   "bottom",
   "bottom left",

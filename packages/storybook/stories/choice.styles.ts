@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 pinned choice stories. SPDX-License-Identifier: Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 
 export const choiceStyles = stylex.create({
@@ -11,8 +10,8 @@ export const choiceStyles = stylex.create({
   variantsColumn: { display: "flex", flexDirection: "column", gap: "2rem" },
   icons: { display: "flex", gap: ".75rem" },
   padded: { paddingInline: "1rem" },
-  status: { fontSize: ".875rem", color: "var(--muted)", marginTop: ".5rem" },
-  heading: { fontSize: ".875rem", fontWeight: 500, color: "var(--muted)" },
+  status: { fontSize: ".875rem", color: "var(--lenso-label-secondary)", marginTop: ".5rem" },
+  heading: { fontSize: ".875rem", fontWeight: 500, color: "var(--lenso-label-secondary)" },
   indent: { marginInlineStart: "1.5rem", display: "flex", flexDirection: "column", gap: ".5rem" },
   minWidth: { minWidth: "320px" },
   maxWidth: { maxWidth: "24rem" },
@@ -26,7 +25,7 @@ export const choiceStyles = stylex.create({
   large: { width: "1.25rem", height: "1.25rem" },
   extraLarge: { width: "1.5rem", height: "1.5rem" },
   customIndicator: { width: "100%", height: "100%" },
-  customRadio: { color: "var(--background)", fontSize: ".75rem", lineHeight: 1 },
+  customRadio: { color: "var(--lenso-background-primary)", fontSize: ".75rem", lineHeight: 1 },
   showcase: {
     display: "flex",
     width: "100%",
@@ -70,8 +69,8 @@ export const choiceStyles = stylex.create({
     gap: "1rem",
     borderRadius: "1.5rem",
     backgroundColor: {
-      default: "var(--surface-tertiary)",
-      ":is([data-checked] *)": "color-mix(in oklab, var(--accent) 10%, transparent)",
+      default: "var(--lenso-background-grouped-tertiary)",
+      ":is([data-checked] *)": "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
     },
     paddingInline: "1.25rem",
     paddingBlock: "1rem",
@@ -87,10 +86,10 @@ export const choiceStyles = stylex.create({
     gap: "1.5rem",
     borderRadius: ".75rem",
     backgroundColor: {
-      default: "var(--surface-tertiary)",
-      ":is([data-checked] *)": "color-mix(in oklab, var(--accent) 10%, transparent)",
+      default: "var(--lenso-background-grouped-tertiary)",
+      ":is([data-checked] *)": "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
       ":is([data-slot='radio']:focus-visible *)":
-        "color-mix(in oklab, var(--accent) 10%, transparent)",
+        "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
     },
   },
   cardControl: {
@@ -102,28 +101,30 @@ export const choiceStyles = stylex.create({
   },
   cardText: { display: "flex", flexDirection: "column", gap: ".25rem" },
   price: { fontSize: ".875rem", fontWeight: 600 },
-  cardIcon: { width: "1.25rem", height: "1.25rem", flexShrink: 0, color: "var(--accent)" },
-  paymentIcon: { width: "1.5rem", height: "1.5rem", flexShrink: 0, color: "var(--accent)" },
+  cardIcon: { width: "1.25rem", height: "1.25rem", flexShrink: 0, color: "var(--lenso-tint)" },
+  paymentIcon: { width: "1.5rem", height: "1.5rem", flexShrink: 0, color: "var(--lenso-tint)" },
   customSwitchControl: {
     height: "31px",
     width: "51px",
-    "--switch-control-bg": "#3b82f6",
-    "--switch-control-bg-hover": "#3b82f6",
-    "--switch-control-bg-pressed": "#3b82f6",
-    "--switch-control-bg-checked": "#06b6d4",
-    "--switch-control-bg-checked-hover": "#06b6d4",
-    boxShadow: { default: "none", ":is([data-checked] *)": "0 0 12px rgb(6 182 212 / .5)" },
+    "--lenso-control-switch-track": "var(--lenso-system-blue)",
+
+    "--lenso-control-switch-on": "var(--lenso-system-cyan)",
+
+    boxShadow: { default: "none", ":is([data-checked] *)": "var(--lenso-surface-shadow)" },
   },
   customSwitchThumb: {
     width: "27px",
     height: "27px",
-    backgroundColor: { default: "white", ":is([data-checked])": "white" },
+    backgroundColor: "var(--lenso-background-secondary)",
     marginInlineStart: { default: "2px", ":is([data-checked])": "22px" },
   },
   customSwitchIcon: {
     width: "1rem",
     height: "1rem",
-    color: { default: "#2563eb", ":is([data-checked] *)": "#0891b2" },
+    color: {
+      default: "var(--lenso-system-blue)",
+      ":is([data-checked] *)": "var(--lenso-system-cyan)",
+    },
   },
   switchIcon: {
     width: ".75rem",
@@ -131,22 +132,19 @@ export const choiceStyles = stylex.create({
     opacity: { default: 0.7, ":is([data-checked] *)": 1 },
   },
   blue: {
-    "--switch-control-bg-checked": "#3b82f6",
-    "--switch-control-bg-checked-hover": "#3b82f6",
+    "--lenso-control-switch-on": "var(--lenso-system-blue)",
   },
-  red: { "--switch-control-bg-checked": "#ef4444", "--switch-control-bg-checked-hover": "#ef4444" },
+  red: { "--lenso-control-switch-on": "var(--lenso-system-red)" },
   green: {
-    "--switch-control-bg-checked": "#22c55e",
-    "--switch-control-bg-checked-hover": "#22c55e",
+    "--lenso-control-switch-on": "var(--lenso-system-green)",
   },
   purple: {
-    "--switch-control-bg-checked": "#a855f7",
-    "--switch-control-bg-checked-hover": "#a855f7",
+    "--lenso-control-switch-on": "var(--lenso-system-purple)",
   },
-  blueIcon: { color: "#2563eb" },
-  redIcon: { color: "#dc2626" },
-  greenIcon: { color: "#16a34a" },
-  purpleIcon: { color: "#9333ea" },
+  blueIcon: { color: "var(--lenso-system-blue)" },
+  redIcon: { color: "var(--lenso-system-red)" },
+  greenIcon: { color: "var(--lenso-system-green)" },
+  purpleIcon: { color: "var(--lenso-system-purple)" },
   sliderFrame: { width: "24rem", padding: "2rem" },
   verticalFrame: { height: "24rem", padding: "2rem" },
 });

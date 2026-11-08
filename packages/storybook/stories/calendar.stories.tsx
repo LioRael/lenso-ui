@@ -1,4 +1,5 @@
-/** HeroUI v3.2.6 derived stories. Copyright NextUI Inc. Apache-2.0.
+/**
+ * Copyright NextUI Inc. Apache-2.0.
  * Adapted from e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e for native Lenso APIs and StyleX.
  */
 import type { Meta, StoryObj } from "@storybook/react-vite";
@@ -12,7 +13,7 @@ import {
   today,
 } from "@internationalized/date";
 import { useState } from "react";
-import { I18nProvider, useLocale } from "react-aria-components/I18nProvider";
+import { GlassButton, I18nProvider, useLocale } from "@lenso/ui";
 import { Button, ButtonGroup, Calendar, Description } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { calendarStoryStyles as s } from "./calendar.stylex";
@@ -65,7 +66,7 @@ export const Controlled: Story = {
     };
     return (
       <div {...stylex.props(s.stack)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button onClick={() => set(today(getLocalTimeZone()))}>Today</Button>
           <Button
             onClick={() => set(startOfWeek(today(getLocalTimeZone()).add({ weeks: 1 }), locale))}
@@ -88,15 +89,15 @@ export const Controlled: Story = {
           Selected date: {value ? value.toString() : "(none)"}
         </Description>
         <div {...stylex.props(s.actions)}>
-          <Button size="sm" variant="secondary" onClick={() => set(today(getLocalTimeZone()))}>
+          <GlassButton size="sm" variant="default" onClick={() => set(today(getLocalTimeZone()))}>
             Set Today
-          </Button>
-          <Button size="sm" variant="secondary" onClick={() => set(parseDate("2025-12-25"))}>
+          </GlassButton>
+          <GlassButton size="sm" variant="default" onClick={() => set(parseDate("2025-12-25"))}>
             Set Christmas
-          </Button>
-          <Button size="sm" variant="tertiary" onClick={() => setValue(null)}>
+          </GlassButton>
+          <GlassButton size="sm" variant="default" onClick={() => setValue(null)}>
             Clear
-          </Button>
+          </GlassButton>
         </div>
       </div>
     );
@@ -372,7 +373,7 @@ export const BookingCalendar: Story = {
         <div {...stylex.props(s.legendColumn)}>
           <BookingLegend />
           {selectedDate ? (
-            <Button size="sm" variant="primary">
+            <Button size="sm" variant="prominent">
               Book {selectedDate.toString()}
             </Button>
           ) : null}

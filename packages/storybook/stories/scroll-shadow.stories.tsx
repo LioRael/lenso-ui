@@ -1,8 +1,7 @@
-// Adapted from HeroUI v3.2.6 scroll-shadow.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { ScrollShadow, type ScrollShadowVisibility, Card, Button } from "@lenso/ui";
+import { GlassButton, ScrollShadow, type ScrollShadowVisibility, Card, Button } from "@lenso/ui";
 
 const styles = stylex.create({
   content: { display: "flex", flexDirection: "column", gap: 16 },
@@ -39,7 +38,7 @@ const styles = stylex.create({
   heading: { marginBottom: 8, fontSize: 14, fontWeight: 600 },
   visibility: { display: "flex", flexDirection: "column", gap: 16 },
   verticalSection: { marginBottom: 16 },
-  state: { borderRadius: 4, backgroundColor: "var(--default)", padding: 16 },
+  state: { borderRadius: 4, backgroundColor: "var(--lenso-control-fill)", padding: 16 },
   stateText: { fontSize: 14, fontWeight: 600 },
   terms: { maxWidth: 400 },
   noPadding: { padding: 0 },
@@ -67,7 +66,7 @@ function LoremContent() {
     </div>
   );
 }
-const images = ["robot1.jpeg", "avocado.jpeg", "oranges.jpeg"];
+const images = ["robot1.svg", "avocado.svg", "oranges.svg"];
 function LoremCards() {
   return (
     <div {...stylex.props(styles.cards)}>
@@ -77,7 +76,7 @@ function LoremCards() {
             alt="Lorem Card"
             {...stylex.props(styles.image)}
             loading="lazy"
-            src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/${images[index % images.length]}`}
+            src={`/assets/demo/illustrations/${images[index % images.length]}`}
           />
           <div {...stylex.props(styles.cardContent)}>
             <Card.Title xstyle={styles.cardTitle}>Bridging the Future</Card.Title>
@@ -226,9 +225,9 @@ export const WithCard: Story = {
         </ScrollShadow>
       </Card.Content>
       <Card.Footer xstyle={styles.footer}>
-        <Button xstyle={styles.button} variant="secondary">
+        <GlassButton xstyle={styles.button} variant="default">
           Cancel
-        </Button>
+        </GlassButton>
         <Button xstyle={styles.button}>Accept</Button>
       </Card.Footer>
     </Card>

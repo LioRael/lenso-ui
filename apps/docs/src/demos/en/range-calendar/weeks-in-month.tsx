@@ -1,5 +1,5 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX.
 import { RangeCalendar } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { CalendarNote, layout } from "../calendar/demo-parts";

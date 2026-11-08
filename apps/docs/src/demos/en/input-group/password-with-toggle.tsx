@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { Button, InputGroup, Label, TextField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -26,7 +25,7 @@ export function PasswordWithToggle() {
             isIconOnly
             aria-label={isVisible ? "Hide password" : "Show password"}
             size="sm"
-            variant="ghost"
+            variant="borderless"
             onClick={() => setIsVisible(!isVisible)}
           >
             {isVisible ? (

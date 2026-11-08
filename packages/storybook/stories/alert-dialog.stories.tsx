@@ -1,8 +1,7 @@
-// HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 // Modified: native Base UI Root/Portal/Viewport/Popup/Close composition.
 import type { Meta } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { GlassButton, AlertDialog, Button } from "@lenso/ui";
 import { overlayStyles as s } from "./overlay.stylex";
 import {
   AlertExample,
@@ -92,11 +91,16 @@ export const Statuses = () => {
                   <p>{body}</p>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <AlertDialog.Close render={<Button variant="tertiary" />}>
+                  <AlertDialog.Close render={<GlassButton variant="default" />}>
                     {cancel}
                   </AlertDialog.Close>
                   <AlertDialog.Close
-                    render={<Button variant={status === "danger" ? "danger" : "primary"} />}
+                    render={
+                      <Button
+                        destructive={status === "danger"}
+                        variant={status === "danger" ? "prominent" : "prominent"}
+                      />
+                    }
                   >
                     {confirm}
                   </AlertDialog.Close>
@@ -121,7 +125,7 @@ export const Placements = () => (
       >
         <p>
           {placement === "auto"
-            ? "Automatically positions at the bottom on mobile and center on desktop for optimal user experience."
+            ? "Centers the alert on mobile and desktop."
             : `This dialog is positioned at the ${placement} of the viewport. Critical confirmations are typically centered for maximum attention.`}
         </p>
       </AlertExample>
@@ -188,7 +192,7 @@ export const BackdropVariants = () => (
 
 export const CustomIcon = () => (
   <AlertDialog.Root>
-    <AlertDialog.Trigger render={<Button variant="secondary" />}>
+    <AlertDialog.Trigger render={<GlassButton variant="default" />}>
       Reset Password
     </AlertDialog.Trigger>
     <AlertDialog.Portal>
@@ -209,7 +213,7 @@ export const CustomIcon = () => (
             </p>
           </AlertDialog.Body>
           <AlertDialog.Footer>
-            <AlertDialog.Close render={<Button variant="tertiary" />}>Cancel</AlertDialog.Close>
+            <AlertDialog.Close render={<GlassButton variant="default" />}>Cancel</AlertDialog.Close>
             <AlertDialog.Close render={<Button />}>Send Reset Link</AlertDialog.Close>
           </AlertDialog.Footer>
         </AlertDialog.Popup>
@@ -220,7 +224,9 @@ export const CustomIcon = () => (
 
 export const CustomBackdrop = () => (
   <AlertDialog.Root>
-    <AlertDialog.Trigger render={<Button variant="danger" />}>Delete Account</AlertDialog.Trigger>
+    <AlertDialog.Trigger render={<Button destructive variant="prominent" />}>
+      Delete Account
+    </AlertDialog.Trigger>
     <AlertDialog.Portal>
       <AlertDialog.Backdrop variant="blur" xstyle={custom.redBackdrop} />
       <AlertDialog.Viewport>
@@ -241,7 +247,7 @@ export const CustomBackdrop = () => (
           </AlertDialog.Body>
           <AlertDialog.Footer xstyle={s.reverse}>
             <AlertDialog.Close render={<Button fullWidth />}>Keep Account</AlertDialog.Close>
-            <AlertDialog.Close render={<Button fullWidth variant="danger" />}>
+            <AlertDialog.Close render={<Button destructive fullWidth variant="prominent" />}>
               Delete Forever
             </AlertDialog.Close>
           </AlertDialog.Footer>
@@ -284,8 +290,10 @@ export const CustomTrigger = () => (
             </p>
           </AlertDialog.Body>
           <AlertDialog.Footer>
-            <AlertDialog.Close render={<Button variant="tertiary" />}>Cancel</AlertDialog.Close>
-            <AlertDialog.Close render={<Button variant="danger" />}>Delete Item</AlertDialog.Close>
+            <AlertDialog.Close render={<GlassButton variant="default" />}>Cancel</AlertDialog.Close>
+            <AlertDialog.Close render={<Button destructive variant="prominent" />}>
+              Delete Item
+            </AlertDialog.Close>
           </AlertDialog.Footer>
         </AlertDialog.Popup>
       </AlertDialog.Viewport>
@@ -299,11 +307,7 @@ export const CustomPortal = () => <PortalExample alert />;
 const custom = stylex.create({
   width420: { maxWidth: { default: null, "@media (min-width: 640px)": 420 } },
   redBackdrop: {
-    backgroundImage: {
-      default:
-        "linear-gradient(to top, oklch(.258 .092 26.042 / .9), oklch(.258 .092 26.042 / .5), transparent)",
-      ':where([data-theme="dark"]) &':
-        "linear-gradient(to top, oklch(.258 .092 26.042 / .95), oklch(.258 .092 26.042 / .6), transparent)",
-    },
+    backgroundImage:
+      "linear-gradient(to top, var(--lenso-status-error-fill), var(--lenso-status-error-fill), transparent)",
   },
 });

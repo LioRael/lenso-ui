@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["bun", "node", "react"],
+    "allowImportingTsExtensions": true,
+    "incremental": false,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+  },
+  "include": ["*.ts", "consumer/**/*.ts", "setup/**/*.ts", "../scripts/**/*.ts"]
+}

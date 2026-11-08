@@ -1,7 +1,6 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (Apache-2.0); native Base UI range and selection contracts.
+// native Base UI range and selection contracts.
 import { NumberField, ProgressBar, Select, Separator } from "@lenso/ui";
 import { useId, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -89,7 +88,7 @@ const styles = stylex.create({
     fontSize: 12,
     lineHeight: "16px",
     fontWeight: 500,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   field: {
     display: "flex",

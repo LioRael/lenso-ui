@@ -1,4 +1,4 @@
-import { createQueries, readContract } from "./contract.ts";
+import { createQueries, readContract } from "@lenso/ui-devtools/queries";
 import { checkProject, planInit, applyInit, applyPlan } from "./project.ts";
 import { doctorProject, planDependencies } from "./lifecycle.ts";
 import { planAgentDocs, planSkills } from "./agents.ts";

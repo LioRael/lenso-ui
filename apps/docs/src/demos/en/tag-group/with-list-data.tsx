@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6 with-list-data adaptation (Apache-2.0); native controlled collection.
+// native controlled collection.
 import { useState, type Key } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Avatar, EmptyState, Tag, TagGroup } from "@lenso/ui";
@@ -15,10 +15,7 @@ export function TagGroupWithListData() {
   const [selected, setSelected] = useState<Set<Key>>(new Set(["fred", "michael"]));
   const avatar = (user: (typeof initial)[number]) => (
     <Avatar xstyle={styles.avatar} size="sm">
-      <Avatar.Image
-        alt={user.textValue}
-        src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/${user.color}.jpg`}
-      />
+      <Avatar.Image alt={user.textValue} src={`/assets/demo/avatars/${user.color}.svg`} />
       <Avatar.Fallback>{user.textValue[0]}</Avatar.Fallback>
     </Avatar>
   );

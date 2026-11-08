@@ -1,8 +1,8 @@
 # Native Fumadocs docs-shell integration
 
-HeroUI v3.2.6 commit `e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e` is the visual
-reference. Fumadocs UI/core 16.9.0 own the docs shell's native interactions; this
-exception does not change the component library's Base UI/StyleX boundary.
+Fumadocs UI/core own the docs shell's native interactions; the component
+library keeps its Base UI and StyleX boundary. Current dependency versions are
+recorded in `apps/docs/package.json`.
 
 ## Ownership and compatibility
 
@@ -14,17 +14,12 @@ rails, viewport visibility and focus return; they do not copy these algorithms.
 Docs import the package's precompiled `fumadocs-ui/style.css`, not its
 compiler-only CSS preset. No Tailwind compiler or runtime styling system is added.
 
-Next's Webpack Babel transform misidentifies a locally bound `module.exports`
-inside Fumadocs' precompiled `remove-markdown-*.js` helper as module-level CJS.
-`next.config.ts` bypasses Babel only for that helper. Fumadocs is not included in
-`transpilePackages`; StyleX extraction and normal Webpack caching remain intact.
-
-The advanced static search exporter/client avoids Fumadocs 16.9.0's simple-client
-database-shape mismatch. Both export and client use the public Mandarin tokenizer.
+The advanced static search exporter and client use the same public Mandarin
+tokenizer so generated search data and client queries agree.
 
 ## Search regression purpose
 
-`pnpm generate` produces authored EN/CN search assets. Public `structure()`
+`bun run generate` produces authored EN/CN search assets. Public `structure()`
 paragraph records retain their owning rendered heading IDs. Native API table
 cells remain fully displayed/copied, but are not individually indexed: repeated
 cells create excessive per-document frequency data.
@@ -39,29 +34,30 @@ Results retain native buttons and tab stops. Current-result state uses
 empty results are a status, and the loading indicator reflects real query state.
 There is no local arrow-key, IME or snippet algorithm.
 
+Keep native TOC observation, scrolling and mobile disclosure; locale-separated
+search with keyboard and IME handling; focus restoration; reduced motion and
+portalled themes; and semantic, keyboard-scrollable API tables and exact copying.
+The maintained Bun tests do not establish the rendered geometry or browser
+interaction of these behaviors.
+
 ## Reproduce
 
-Use Node 26.10 and pnpm 12.9:
+Use the workspace Bun toolchain:
 
 ```sh
-pnpm --filter @lenso/ui-docs generate
+bun run --filter @lenso/ui-docs generate
 # From apps/docs:
-pnpm exec tsx --test scripts/static-search.test.ts
-pnpm build
-pnpm start
-# In another terminal, from apps/docs:
-node test/fumadocs.browser.mjs
-node test/docs-ui-regressions.browser.mjs
-pnpm test:api-browser
-pnpm test:stylex-build
+bun test scripts/static-search.test.ts
+bun run test
+bun run build
+bun run test:stylex-artifacts
 ```
 
-`LENSO_DOCS_TEST_URL` selects the current static server. The browser matrix
-covers both locales/themes, desktop/mobile, native loading and empty results,
-IME, keyboard selection, navigation/scrolling, focus restoration, TOC/sidebar,
-table overflow and exact Markdown copying. Search fetches generated locale JSON,
+The retired browser checks covered English desktop light and Chinese mobile dark,
+native loading and empty results, IME, keyboard selection, navigation and
+scrolling, focus restoration, TOC behavior and exact Markdown copying. Search fetches generated locale JSON,
 not a runtime API.
 
-Reports and screenshots belong under ignored `test-results/`. This document
-records integration reasons and runnable checks, not fixed route counts, build
-timings, runtime archives or a passing acceptance snapshot.
+The maintained Bun tests do not replace those browser checks. This document
+records integration reasons and current commands, not a passing browser acceptance
+snapshot.

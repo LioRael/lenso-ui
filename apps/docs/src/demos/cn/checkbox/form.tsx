@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Button, Checkbox } from "@lenso/ui";
 import type { FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -57,7 +55,7 @@ ${Array.from(formData.entries())
           </Checkbox.Content>
         </Checkbox>
       </div>
-      <Button xstyle={styles.submit} size="sm" type="submit" variant="primary">
+      <Button xstyle={styles.submit} size="sm" type="submit" variant="prominent">
         提交
       </Button>
     </form>

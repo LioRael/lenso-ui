@@ -1,7 +1,6 @@
-// Adapted from HeroUI v3.2.6 e385ac2 button-group.stories.tsx, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, ButtonGroup, Chip, Description, Menu, Label } from "@lenso/ui";
-import { buttonStyles } from "@lenso/tokens/button";
+import { controlButtonStyles as buttonStyles } from "@lenso/tokens/button";
 import * as stylex from "@stylexjs/stylex";
 import { actions as s } from "./actions.stylex";
 import { ActionIcon } from "./actions-icons.fixtures";
@@ -59,27 +58,27 @@ export const Variants: Story = {
     <div {...stylex.props(s.stack6)}>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Primary</p>
-        <ThreeButtons variant="primary" />
+        <ThreeButtons variant="prominent" />
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Secondary</p>
-        <ThreeButtons variant="secondary" />
+        <ThreeButtons variant="bordered" />
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Tertiary</p>
-        <ThreeButtons variant="tertiary" />
+        <ThreeButtons variant="bordered" />
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Outline</p>
-        <ThreeButtons variant="outline" />
+        <ThreeButtons variant="borderless" />
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Ghost</p>
-        <ThreeButtons variant="ghost" />
+        <ThreeButtons variant="borderless" />
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Danger</p>
-        <ThreeButtons variant="danger" />
+        <ThreeButtons destructive variant="prominent" />
       </div>
     </div>
   ),
@@ -103,7 +102,7 @@ export const WithIcons: Story = {
     <div {...stylex.props(s.stack6)}>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>With icons</p>
-        <ButtonGroup variant="secondary">
+        <ButtonGroup variant="bordered">
           <Button>
             <ActionIcon icon="gravity-ui:globe" />
             Search
@@ -122,7 +121,7 @@ export const WithIcons: Story = {
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Icon only buttons</p>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button isIconOnly>
             <ActionIcon icon="gravity-ui:globe" />
           </Button>
@@ -206,7 +205,7 @@ export const Examples: Story = {
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Individual buttons</p>
         <div {...stylex.props(s.row2)}>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <ActionIcon icon="gravity-ui:code-fork" compact />
               Fork
@@ -219,7 +218,7 @@ export const Examples: Story = {
               <ActionIcon icon="gravity-ui:chevron-down" />
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button isIconOnly>
               <ActionIcon icon="gravity-ui:qr-code" />
             </Button>
@@ -228,7 +227,7 @@ export const Examples: Story = {
               Scan to pay
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <ActionIcon icon="gravity-ui:thumbs-up" />
               <span {...stylex.props(s.count)}>2.4K</span>
@@ -238,7 +237,7 @@ export const Examples: Story = {
               <ActionIcon icon="gravity-ui:thumbs-down" />
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <ActionIcon icon="gravity-ui:star" compact />
               Star
@@ -250,7 +249,7 @@ export const Examples: Story = {
               </Chip>
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <ActionIcon icon="gravity-ui:pin" />
               Pinned
@@ -264,7 +263,7 @@ export const Examples: Story = {
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Previous/Next navigation</p>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>
             <ActionIcon icon="gravity-ui:chevron-left" />
             Previous
@@ -278,7 +277,7 @@ export const Examples: Story = {
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Content selection</p>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>
             <ActionIcon icon="gravity-ui:picture" />
             Photos
@@ -296,7 +295,7 @@ export const Examples: Story = {
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Text alignment</p>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>Left</Button>
           <Button>
             <ButtonGroup.Separator />
@@ -310,7 +309,7 @@ export const Examples: Story = {
       </div>
       <div {...stylex.props(s.stack2)}>
         <p {...stylex.props(s.muted)}>Icon-only alignment</p>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button isIconOnly>
             <ActionIcon icon="gravity-ui:text-align-left" />
           </Button>

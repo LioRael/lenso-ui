@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "fumadocs-core/link";
 import * as stylex from "@stylexjs/stylex";
 import { ChevronLeft, ChevronRight } from "@gravity-ui/icons";
 import { notebook } from "@lenso/docs/presentation";

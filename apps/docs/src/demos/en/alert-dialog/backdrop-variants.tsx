@@ -1,7 +1,6 @@
 "use client";
-// Adapted from HeroUI v3.2.6 alert-dialog-backdrop-variants (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 
 const styles = stylex.create({
   row: { display: "flex", flexWrap: "wrap", gap: 16 },
@@ -14,7 +13,7 @@ export function BackdropVariants() {
     <div {...stylex.props(styles.row)}>
       {variants.map((variant) => (
         <AlertDialog key={variant}>
-          <AlertDialog.Trigger render={<Button variant="secondary" />}>
+          <AlertDialog.Trigger render={<Button />}>
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </AlertDialog.Trigger>
           <AlertDialog.Portal>
@@ -38,10 +37,8 @@ export function BackdropVariants() {
                   </AlertDialog.Description>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <AlertDialog.Close render={<Button variant="tertiary" />}>
-                    Cancel
-                  </AlertDialog.Close>
-                  <AlertDialog.Close render={<Button />}>Confirm</AlertDialog.Close>
+                  <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+                  <AlertDialog.Action>Confirm</AlertDialog.Action>
                 </AlertDialog.Footer>
               </AlertDialog.Popup>
             </AlertDialog.Viewport>

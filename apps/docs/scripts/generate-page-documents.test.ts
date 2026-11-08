@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import test from "node:test";
-import ts from "typescript-api";
+import { afterEach, test } from "bun:test";
+import { parseTestSource, walkSyntax } from "./test-syntax.ts";
 import {
   documentReferences,
   generatePageDocuments,
@@ -11,46 +11,60 @@ import {
 } from "./generate-page-documents.ts";
 import { generateLiveRegistry } from "./generate-live-registry.ts";
 
-function inspect(code: string) {
-  const tree = ts.createSourceFile(
-    "page.tsx",
-    code,
-    ts.ScriptTarget.Latest,
-    true,
-    ts.ScriptKind.TSX,
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
   );
+});
+
+function inspect(code: string) {
+  const tree = parseTestSource(code);
   const targets: string[] = [];
   const entries: Record<string, string> = {};
   const exports: string[] = [];
-  function visit(node: ts.Node) {
-    if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword) {
-      assert.ok(ts.isStringLiteral(node.arguments[0]), "dynamic targets must be literal imports");
-      targets.push(node.arguments[0].text);
+  walkSyntax(tree, (node) => {
+    if (node.type === "CallExpression" && node.callee.type === "Import") {
+      assert.ok(
+        node.arguments[0]?.type === "StringLiteral",
+        "dynamic targets must be literal imports",
+      );
+      targets.push(node.arguments[0].value);
     }
-    if (ts.isVariableDeclaration(node) && node.name.getText(tree) === "demos") {
-      assert.ok(node.initializer && ts.isObjectLiteralExpression(node.initializer));
-      for (const property of node.initializer.properties) {
-        assert.ok(ts.isPropertyAssignment(property));
-        assert.ok(ts.isStringLiteral(property.name) || ts.isIdentifier(property.name));
-        assert.ok(ts.isIdentifier(property.initializer));
-        entries[property.name.text] = property.initializer.text;
+    if (
+      node.type === "VariableDeclarator" &&
+      node.id.type === "Identifier" &&
+      node.id.name === "demos"
+    ) {
+      assert.ok(node.init?.type === "ObjectExpression");
+      for (const property of node.init.properties) {
+        assert.ok(property.type === "ObjectProperty");
+        assert.ok(property.key.type === "StringLiteral" || property.key.type === "Identifier");
+        assert.ok(property.value.type === "Identifier");
+        entries[property.key.type === "Identifier" ? property.key.name : property.key.value] =
+          property.value.name;
       }
     }
-    if (ts.isElementAccessExpression(node) && node.expression.getText(tree) === "module") {
-      assert.ok(ts.isStringLiteral(node.argumentExpression));
-      exports.push(node.argumentExpression.text);
+    if (
+      node.type === "MemberExpression" &&
+      node.computed &&
+      node.object.type === "Identifier" &&
+      node.object.name === "module"
+    ) {
+      assert.ok(node.property.type === "StringLiteral");
+      exports.push(node.property.value);
     }
-    ts.forEachChild(node, visit);
-  }
-  visit(tree);
+  });
   return { targets, entries, exports };
 }
 
 // The projection inventory includes more examples than prose actually renders.
 // Neither global registry coverage nor inventory-only tests prove route-local loading.
-test("emits only authored page targets with locale resolution, export selection and alias deduplication", async (t) => {
+test("emits only authored page targets with locale resolution, export selection and alias deduplication", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-page-documents-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   const put = async (file: string, text: string) => {
     await mkdir(path.dirname(path.join(directory, file)), { recursive: true });
     await writeFile(path.join(directory, file), text);
@@ -62,7 +76,7 @@ test("emits only authored page targets with locale resolution, export selection 
     reuse: { source: "apps/docs/src/demos/en/field/reuse.tsx" },
     unrelated: { source: "apps/docs/src/demos/en/field/unrelated.tsx" },
   };
-  await put("content/source-index.json", JSON.stringify({ examples: { en: entries, cn: {} } }));
+  await put("content/example-catalog.json", JSON.stringify({ examples: { en: entries, cn: {} } }));
   await put(
     "src/demos/en/field/basic.tsx",
     "export function Other() { return null; }\nexport function Chosen() { return null; }",
@@ -87,7 +101,7 @@ test("emits only authored page targets with locale resolution, export selection 
   await put("src/generated/lenso-docs-index.json", JSON.stringify({ pages }));
   await put(
     "content/field-en.mdx",
-    '<ComponentPreview name="basic" />\n\n<ComponentPreview name="alias" />',
+    '<ComponentPlayground family="field" locale="en" />\n\n<ComponentPreview name="basic" />\n\n<ComponentPreview name="alias" />',
   );
   await put(
     "content/field-cn.mdx",
@@ -97,19 +111,31 @@ test("emits only authored page targets with locale resolution, export selection 
     "content/start.mdx",
     '# Prose\n\n```mdx\n<ComponentPreview name="unrelated" />\n```\n\n{/* <ComponentPreview name="unrelated" /> */}',
   );
+  await put("src/stories/story-sources.json", "{}");
+  await put(
+    "src/generated/api-reference.json",
+    JSON.stringify({ families: { field: { parts: [] }, button: { parts: [] } }, properties: [] }),
+  );
   const outputs = await generatePageDocuments(directory);
-  assert.equal(outputs.length, 5, "preview-free pages need only one server module");
+  assert.equal(outputs.length, 9, "preview-free pages need only one component module");
   const read = (file: string) =>
     readFile(path.join(directory, "src/generated/documents", file), "utf8");
-  const enClient = inspect(await read("en/react/components/field.client.tsx"));
+  const enClient = inspect(await read("en/react/components/field.examples.tsx"));
   assert.deepEqual(
     enClient.targets.map((target) => path.basename(target)),
     ["basic"],
   );
   assert.deepEqual(enClient.exports, ["Chosen"]);
-  const en = inspect(await read("en/react/components/field.tsx"));
+  const enCode = await read("en/react/components/field.tsx");
+  assert.ok(enCode.includes("component-playground"));
+  assert.ok((await read("en/react/components/field.examples.tsx")).includes("stories/field.story"));
+  assert.ok(enCode.includes("Preview={PageStory}"));
+  const sources = await read("en/react/components/field.sources.ts");
+  assert.ok(sources.includes("basic.tsx?raw"));
+  assert.ok(!enCode.includes("export function Chosen"));
+  const en = inspect(enCode);
   assert.deepEqual(en.entries, { basic: "Demo0", alias: "Demo0" });
-  const cnClient = inspect(await read("cn/react/components/field.client.tsx"));
+  const cnClient = inspect(await read("cn/react/components/field.examples.tsx"));
   assert.deepEqual(
     cnClient.targets.map((target) => target.split("/").slice(-3).join("/")),
     ["cn/field/basic", "en/field/fallback", "en/field/reuse"],
@@ -131,9 +157,9 @@ test("emits only authored page targets with locale resolution, export selection 
     (await read("en/react/components/field.tsx")).includes("native-api-reference"),
     "component pages need the API renderer inserted by the heading transform",
   );
-  const clientCode = await read("cn/react/components/field.client.tsx");
+  const clientCode = await read("cn/react/components/field.examples.tsx");
   assert.ok(clientCode.includes('"data-example-mounted"'));
-  assert.ok(clientCode.includes("ssr: false"));
+  assert.ok(clientCode.includes("<ClientPreview>"));
   const before = await stat(path.join(directory, outputs[0]));
   await generatePageDocuments(directory);
   assert.equal((await stat(path.join(directory, outputs[0]))).mtimeMs, before.mtimeMs);
@@ -144,7 +170,7 @@ test("emits only authored page targets with locale resolution, export selection 
     path.join(directory, "src/generated/documents/cn/react/components/field.tsx"),
   );
   await generatePageDocuments(directory, { pageIds: ["en/react/components/field"] });
-  await assert.rejects(read("en/react/components/field.client.tsx"), { code: "ENOENT" });
+  await assert.rejects(read("en/react/components/field.examples.tsx"), { code: "ENOENT" });
   assert.equal(await read("en/stale.tsx"), "// obsolete", "a page edit cannot prune other pages");
   assert.equal(
     (await stat(path.join(directory, "src/generated/documents/cn/react/components/field.tsx")))
@@ -152,7 +178,7 @@ test("emits only authored page targets with locale resolution, export selection 
     cnBefore.mtimeMs,
   );
   await generatePageDocuments(directory);
-  await assert.rejects(read("en/react/components/field.client.tsx"), { code: "ENOENT" });
+  await assert.rejects(read("en/react/components/field.examples.tsx"), { code: "ENOENT" });
   await assert.rejects(read("en/stale.tsx"), { code: "ENOENT" });
   assert.equal(
     await readFile(path.join(directory, "src/generated/outside.tsx"), "utf8"),
@@ -160,14 +186,14 @@ test("emits only authored page targets with locale resolution, export selection 
   );
 });
 
-test("page extensions follow real MDX tags without restricting local imports or expressions", async (t) => {
+test("page extensions follow real MDX tags without restricting local imports or expressions", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-mdx-extensions-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   const put = async (file: string, value: string) => {
     await mkdir(path.dirname(path.join(directory, file)), { recursive: true });
     await writeFile(path.join(directory, file), value);
   };
-  await put("content/source-index.json", '{"examples":{"en":{},"cn":{}}}');
+  await put("content/example-catalog.json", '{"examples":{"en":{},"cn":{}}}');
   await put("src/demos/live-manifest.json", '{"en":{},"cn":{}}');
   const markdown = `import Local from './local'
 export const show = true
@@ -182,12 +208,19 @@ export const show = true
 
 <NativeApiReference family="button" />
 
+<ComponentPlayground family="button" locale="cn" />
+
 \`\`\`mdx
 <ColorSectionFormField colors={{}} />
 \`\`\`
 
 {/* <ColorSectionSideBySide /> */}`;
   await put("content/colors.mdx", markdown);
+  await put("src/stories/story-sources.json", "{}");
+  await put(
+    "src/generated/api-reference.json",
+    JSON.stringify({ families: { field: { parts: [] }, button: { parts: [] } }, properties: [] }),
+  );
   await put(
     "src/generated/lenso-docs-index.json",
     JSON.stringify({
@@ -205,6 +238,7 @@ export const show = true
       "ColorSectionStacked",
       "ComponentsCategory",
       "NativeApiReference",
+      "ComponentPlayground",
     ]),
   );
   await generatePageDocuments(directory);
@@ -215,6 +249,12 @@ export const show = true
   assert.match(code, /import\s*\{\s*ColorSectionStacked,\s*ColorSectionPrimitive,?\s*\}/);
   assert.ok(code.includes("native-api-reference"));
   assert.ok(code.includes("components-category"));
+  assert.ok(code.includes("component-playground"));
+  const examples = await readFile(
+    path.join(directory, "src/generated/documents/cn/react/getting-started/colors.examples.tsx"),
+    "utf8",
+  );
+  assert.match(examples, /import \{\s*story as pageStory\s*\} from .*button\.story/);
   assert.ok(code.includes('page.locale === "cn"'));
   assert.ok(!code.includes("ColorSectionFormField"));
   assert.ok(!code.includes("ColorSectionSideBySide"));
@@ -231,14 +271,14 @@ test("MDX inventory ignores code and comments, deduplicates real references and 
   await assert.rejects(previewNames("<ComponentPreview name={scenario} />"), /literal name/);
 });
 
-test("rejects document traversal before writing outside the owned output directory", async (t) => {
+test("rejects document traversal before writing outside the owned output directory", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-page-path-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await mkdir(path.join(directory, "src/generated"), { recursive: true });
   await mkdir(path.join(directory, "src/demos"), { recursive: true });
   await mkdir(path.join(directory, "content"), { recursive: true });
   await writeFile(path.join(directory, "src/demos/live-manifest.json"), '{"en":{},"cn":{}}');
-  await writeFile(path.join(directory, "content/source-index.json"), '{"examples":{"en":{}}}');
+  await writeFile(path.join(directory, "content/example-catalog.json"), '{"examples":{"en":{}}}');
   await writeFile(
     path.join(directory, "src/generated/lenso-docs-index.json"),
     JSON.stringify({

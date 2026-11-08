@@ -9,7 +9,7 @@
     "directory": "packages/docs"
   },
   "bin": {
-    "lenso-docs": "./src/cli.mjs"
+    "lenso-docs": "./src/cli.ts"
   },
   "files": [
     "src",
@@ -24,8 +24,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/config.d.mts",
-      "import": "./src/config.mjs"
+      "types": "./src/config.ts",
+      "import": "./src/config.ts"
     },
     "./react": {
       "types": "./dist/framework/react.d.ts",
@@ -40,27 +40,25 @@
       "import": "./dist/framework/compile-document.js"
     },
     "./source": {
-      "types": "./src/source.d.mts",
-      "import": "./src/source.mjs"
+      "types": "./dist/source/source.d.ts",
+      "import": "./dist/source/source.js"
     },
     "./presentation": {
-      "types": "./dist/presentation.d.ts",
-      "import": "./dist/presentation.js"
+      "types": "./dist/presentation/index.d.ts",
+      "import": "./dist/presentation/index.js"
     },
     "./tabs": {
-      "types": "./dist/tabs.d.ts",
-      "import": "./dist/tabs.js"
+      "types": "./dist/presentation/tabs.d.ts",
+      "import": "./dist/presentation/tabs.js"
     },
     "./toc": {
-      "types": "./dist/toc.d.ts",
-      "import": "./dist/toc.js"
+      "types": "./dist/presentation/toc.d.ts",
+      "import": "./dist/presentation/toc.js"
     },
     "./highlight": {
-      "types": "./dist/highlight.d.ts",
-      "import": "./dist/highlight.js"
+      "types": "./dist/presentation/highlight.d.ts",
+      "import": "./dist/presentation/highlight.js"
     },
-    "./styles.css": "./dist/assets/stylex.css",
-    "./stylex-rules.json": "./dist/stylex-rules.json",
     "./font.css": "./src/font.css",
     "./fonts/*": "./dist/fonts/*",
     "./package.json": "./package.json"
@@ -69,28 +67,33 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsdown --config tsdown.config.ts --concurrency 1 && tsc -p tsconfig.presentation.json && node scripts/copy-assets.mjs && tsc -p tsconfig.framework.json && node --check src/runtime.mjs",
-    "build:dev": "tsdown --config tsdown.config.ts --concurrency 1 && node scripts/copy-assets.mjs --development && node --check src/runtime.mjs",
-    "test": "node --test test/*.test.mjs && tsx --test test/*.test.ts",
-    "test:browser": "node test/browser.mjs",
-    "test:dev": "node test/dev-regressions.mjs",
-    "typecheck": "tsc --noEmit",
-    "lint": "oxlint --deny-warnings src test"
+    "build": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts --concurrency 1 && bun ./node_modules/typescript/bin/tsc -p tsconfig.presentation.json && bun scripts/copy-assets.ts && bun ./node_modules/typescript/bin/tsc -p tsconfig.framework.json && bun build src/source.ts --target=bun --outfile dist/source/source.js && bun ./node_modules/typescript/bin/tsc -p tsconfig.source.json && bun build src/runtime.ts --target=bun --external '*' --outfile /dev/null",
+    "build:dev": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts --concurrency 1 && bun scripts/copy-assets.ts --development && bun build src/source.ts --target=bun --outfile dist/source/source.js && bun ./node_modules/typescript/bin/tsc -p tsconfig.source.json && bun build src/runtime.ts --target=bun --external '*' --outfile /dev/null",
+    "test": "bun test --preload ../../tests/setup/stylex.ts --timeout 30000 test/*.test.ts",
+    "typecheck": "bun check --no-script --noEmit && bun check --no-script -p tsconfig.test.json --noEmit",
+    "lint": "bun --bun oxlint --deny-warnings src test",
+    "dev": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts --watch --no-clean --concurrency 1"
   },
   "dependencies": {
+    "@babel/runtime": "7.29.7",
     "@base-ui/react": "catalog:",
-    "@gravity-ui/icons": "2.22.0",
+    "@fuma-translate/react": "1.0.2",
+    "@gravity-ui/icons": "2.23.0",
+    "@lenso/glass": "workspace:*",
     "@lenso/tokens": "workspace:*",
+    "@lenso/ui": "workspace:*",
     "@mdx-js/mdx": "3.1.1",
-    "@shikijs/langs": "3.23.0",
-    "@shikijs/themes": "3.23.0",
+    "@shikijs/langs": "4.5.0",
+    "@shikijs/themes": "4.5.0",
+    "@stylexjs/babel-plugin": "0.19.1",
+    "@stylexjs/postcss-plugin": "0.19.1",
     "@stylexjs/stylex": "catalog:",
     "@types/mdx": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "fumadocs-core": "16.9.0",
-    "fumadocs-ui": "16.9.0",
+    "fumadocs-core": "16.17.9",
+    "fumadocs-ui": "16.17.9",
     "github-slugger": "2.0.0",
     "gray-matter": "4.0.3",
     "next": "catalog:",
@@ -98,18 +101,16 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "remark-gfm": "4.0.1",
-    "shiki": "3.23.0",
+    "shiki": "4.5.0",
     "typescript": "catalog:",
     "unified": "11.0.5"
   },
   "devDependencies": {
-    "@lenso/stylex-build": "workspace:*",
     "oxlint": "catalog:",
-    "playwright": "catalog:",
-    "tsdown": "catalog:",
-    "tsx": "catalog:"
+    "tsdown": "catalog:"
   },
   "engines": {
-    "node": ">=26.10.0"
+    "bun": ">=1.4.4",
+    "node": ">=20.9.0"
   }
 }

@@ -1,43 +1,51 @@
 import assert from "node:assert/strict";
-import test from "node:test";
-import { build } from "esbuild";
-import { mkdtemp, writeFile, readFile } from "node:fs/promises";
+import { afterEach, test } from "bun:test";
+import { mkdtemp, writeFile, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
-import { fixture, authoredMarkdown } from "./fixture.ts";
+import { fixture, authoredMarkdown } from "@lenso/ui-devtools/testing";
 
-test("CLI fixture bundle runs outside the workspace with only node builtins", async () => {
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
+});
+
+test("CLI fixture bundle runs outside the workspace on Bun", async () => {
   const root = await mkdtemp(join(tmpdir(), "lenso-cli-bundle-"));
+  temporaryDirectories.push(root);
   await writeFile(join(root, "package.json"), '{"type":"module"}\n');
   const contract = await fixture();
   await writeFile(join(root, "lenso-contract.json"), JSON.stringify(contract));
-  const result = await build({
-    entryPoints: [fileURLToPath(new URL("../src/cli.ts", import.meta.url))],
-    outfile: join(root, "cli.js"),
-    bundle: true,
+  const result = await Bun.build({
+    entrypoints: [fileURLToPath(new URL("../src/cli.ts", import.meta.url))],
+    outdir: root,
+    naming: "cli.js",
     format: "esm",
-    platform: "node",
-    target: "node26",
-    nodePaths: [fileURLToPath(new URL("../node_modules/", import.meta.url))],
-    banner: {
-      js: "import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);",
-    },
+    target: "bun",
     metafile: true,
     plugins: process.env["LENSO_TEST_CONTRACT_CORE"]
       ? [
           {
             name: "test-only-current-private-core",
             setup(builder) {
-              builder.onResolve({ filter: /\/tooling\/lenso-contracts\/index\.ts$/ }, () => ({
-                path: process.env["LENSO_TEST_CONTRACT_CORE"]!,
-              }));
+              builder.onResolve(
+                { filter: /^(?:@lenso\/ui-devtools\/contract|\.\/contract\/index\.ts)$/ },
+                () => ({
+                  path: process.env["LENSO_TEST_CONTRACT_CORE"]!,
+                }),
+              );
             },
           },
         ]
       : [],
   });
+  assert.ok(result.success && result.metafile);
   for (const output of Object.values(result.metafile.outputs))
     for (const dependency of output.imports) assert.match(dependency.path, /^node:/);
   const run = (...args: string[]) =>

@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-scroll-comparison (Apache-2.0).
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -8,7 +7,7 @@ const styles = stylex.create({
   column: { display: "flex", flexDirection: "column", gap: 16 },
   options: { display: "flex", gap: 16, borderWidth: 0, padding: 0 },
   popup: { maxWidth: 360 },
-  caption: { fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
+  caption: { fontSize: 14, lineHeight: "20px", color: "var(--lenso-label-secondary)" },
   paragraph: { marginBottom: 12 },
 });
 
@@ -31,7 +30,7 @@ export function ScrollComparison() {
         ))}
       </fieldset>
       <Modal scroll={scroll}>
-        <Modal.Trigger render={<Button variant="secondary" />}>
+        <Modal.Trigger render={<Button />}>
           Open Modal ({scroll.charAt(0).toUpperCase() + scroll.slice(1)})
         </Modal.Trigger>
         <Modal.Portal>
@@ -57,7 +56,7 @@ export function ScrollComparison() {
                 ))}
               </Modal.Body>
               <Modal.Footer>
-                <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+                <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
                 <Modal.Close render={<Button />}>Confirm</Modal.Close>
               </Modal.Footer>
               <Modal.Close aria-label="Close dialog" />

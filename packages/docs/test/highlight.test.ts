@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
+import { test } from "bun:test";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement, Fragment } from "react";
-import { highlightSource } from "../dist/highlight.js";
+import { highlightSource } from "@lenso/docs/highlight";
 
 test("highlights authored languages and aliases with both theme colors", async () => {
   for (const language of ["tsx", "ts", "js", "jsonc", "css", "html", "bash", "sh"]) {

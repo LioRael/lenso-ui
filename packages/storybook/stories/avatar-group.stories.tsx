@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 avatar-group.stories.tsx (Apache-2.0).
 // Playground selectors become explicit StyleX on native parts; Base UI owns its controls.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useId, useState, type ReactNode } from "react";
@@ -11,7 +10,7 @@ const stripes = stylex.keyframes({ to: { backgroundPosition: "24px 24px" } });
 const styles = stylex.create({
   sections: { display: "flex", flexDirection: "column", gap: 24 },
   section: { display: "flex", flexDirection: "column", gap: 8 },
-  caption: { fontSize: 14, color: "var(--muted)" },
+  caption: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   playground: { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 24 },
   features: { maxWidth: 448 },
   sizeOptions: { display: "flex", flexDirection: "row" },
@@ -21,12 +20,13 @@ const styles = stylex.create({
     position: "absolute",
     inset: 0,
     borderRadius: 12,
-    backgroundColor: "var(--background)",
+    backgroundColor: "var(--lenso-background-primary)",
   },
   stripes: {
-    backgroundColor: "color-mix(in oklab, var(--danger) 6%, var(--surface))",
+    backgroundColor:
+      "color-mix(in oklab, var(--lenso-status-error-indicator) 6%, var(--lenso-background-grouped-secondary))",
     backgroundImage:
-      "repeating-linear-gradient(-45deg, transparent 0 10px, color-mix(in oklab, var(--danger) 12%, transparent) 10px 11px, transparent 11px 21px, color-mix(in oklab, var(--danger) 28%, transparent) 21px 22px)",
+      "repeating-linear-gradient(-45deg, transparent 0 10px, color-mix(in oklab, var(--lenso-status-error-indicator) 12%, transparent) 10px 11px, transparent 11px 21px, color-mix(in oklab, var(--lenso-status-error-indicator) 28%, transparent) 21px 22px)",
     backgroundSize: "24px 24px",
     animationName: stripes,
     animationDuration: "2.8s",
@@ -52,16 +52,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 const users = [
-  { id: 1, name: "John", image: "https://img.heroui.chat/image/avatar?w=400&h=400&u=3" },
-  { id: 2, name: "Kate", image: "https://img.heroui.chat/image/avatar?w=400&h=400&u=5" },
-  { id: 3, name: "Emily", image: "https://img.heroui.chat/image/avatar?w=400&h=400&u=20" },
-  { id: 4, name: "Michael", image: "https://img.heroui.chat/image/avatar?w=400&h=400&u=23" },
-  { id: 5, name: "Olivia", image: "https://img.heroui.chat/image/avatar?w=400&h=400&u=16" },
+  { id: 1, name: "John", image: "/assets/demo/avatars/red.svg" },
+  { id: 2, name: "Kate", image: "/assets/demo/avatars/blue.svg" },
+  { id: 3, name: "Emily", image: "/assets/demo/avatars/blue.svg" },
+  { id: 4, name: "Michael", image: "/assets/demo/avatars/red.svg" },
+  { id: 5, name: "Olivia", image: "/assets/demo/avatars/green.svg" },
 ];
 const circles = ["red", "orange", "green", "white", "black"].map((color, id) => ({
   id,
   name: color.charAt(0).toUpperCase(),
-  image: `https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/${color}.jpg`,
+  image: `/assets/demo/avatars/${color}.svg`,
 }));
 function avatars(items = users) {
   return items.map((user) => (

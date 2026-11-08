@@ -1,0 +1,1682 @@
+{
+  "dark-increased-base": {
+    "label-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "label",
+      "reason": "missing-increased-contrast"
+    },
+    "label-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-increased-contrast"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "background-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "separator": {
+      "source": "uikit-26.5-fallback",
+      "selector": "separatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "separator-opaque": {
+      "source": "uikit-26.5-fallback",
+      "selector": "opaqueSeparatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-blue": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBlueColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-brown": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBrownColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-cyan": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemCyanColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-2": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray2Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-3": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray3Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-4": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray4Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-5": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray5Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-6": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray6Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGrayColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-green": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGreenColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-indigo": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemIndigoColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-mint": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemMintColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-orange": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemOrangeColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-pink": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPinkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-purple": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPurpleColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-red": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemRedColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-teal": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemTealColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-yellow": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemYellowColor",
+      "reason": "missing-increased-contrast"
+    },
+    "scrim": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Existing scrim opacity"
+    },
+    "control-selection-fill": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Sampled increased-contrast background-primary"
+    }
+  },
+  "dark-increased-elevated": {
+    "label-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "label",
+      "reason": "missing-increased-contrast"
+    },
+    "label-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-increased-contrast"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "background-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "separator": {
+      "source": "uikit-26.5-fallback",
+      "selector": "separatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "separator-opaque": {
+      "source": "uikit-26.5-fallback",
+      "selector": "opaqueSeparatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-blue": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBlueColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-brown": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBrownColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-cyan": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemCyanColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-2": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray2Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-3": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray3Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-4": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray4Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-5": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray5Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-6": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray6Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGrayColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-green": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGreenColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-indigo": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemIndigoColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-mint": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemMintColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-orange": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemOrangeColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-pink": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPinkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-purple": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPurpleColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-red": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemRedColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-teal": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemTealColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-yellow": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemYellowColor",
+      "reason": "missing-increased-contrast"
+    },
+    "scrim": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Existing scrim opacity"
+    },
+    "control-selection-fill": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Sampled increased-contrast background-primary"
+    }
+  },
+  "dark-standard-base": {
+    "label-primary": {
+      "source": "figma",
+      "variable": "Labels/Primary",
+      "nodeId": "507:29167",
+      "mode": "dark"
+    },
+    "label-secondary": {
+      "source": "figma",
+      "variable": "Labels/Secondary",
+      "nodeId": "507:29162",
+      "mode": "dark"
+    },
+    "label-tertiary": {
+      "source": "figma",
+      "variable": "Labels/Tertiary",
+      "nodeId": "508:77449",
+      "mode": "dark"
+    },
+    "label-quaternary": {
+      "source": "figma",
+      "variable": "Labels/Quaternary",
+      "nodeId": "508:77450",
+      "mode": "dark"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-semantic-role"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-semantic-role"
+    },
+    "background-primary": {
+      "source": "figma",
+      "variable": "Backgrounds/Primary",
+      "nodeId": "508:77440",
+      "mode": "dark"
+    },
+    "background-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds/Secondary",
+      "nodeId": "508:77460",
+      "mode": "dark"
+    },
+    "background-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds/Tertiary",
+      "nodeId": "508:77458",
+      "mode": "dark"
+    },
+    "background-grouped-primary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Primary",
+      "nodeId": "508:77464",
+      "mode": "dark"
+    },
+    "background-grouped-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Secondary",
+      "nodeId": "508:77466",
+      "mode": "dark"
+    },
+    "background-grouped-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Tertiary",
+      "nodeId": "508:77468",
+      "mode": "dark"
+    },
+    "fill-primary": {
+      "source": "figma",
+      "variable": "Fills/Primary",
+      "nodeId": "508:77441",
+      "mode": "dark"
+    },
+    "fill-secondary": {
+      "source": "figma",
+      "variable": "Fills/Secondary",
+      "nodeId": "509:77491",
+      "mode": "dark"
+    },
+    "fill-tertiary": {
+      "source": "figma",
+      "variable": "Fills/Tertiary",
+      "nodeId": "509:77493",
+      "mode": "dark"
+    },
+    "fill-quaternary": {
+      "source": "figma",
+      "variable": "Fills/Quaternary",
+      "nodeId": "509:77492",
+      "mode": "dark"
+    },
+    "separator": {
+      "source": "figma",
+      "variable": "Separators/Non-opaque",
+      "nodeId": "509:77495",
+      "mode": "dark"
+    },
+    "separator-opaque": {
+      "source": "figma",
+      "variable": "Separators/Opaque",
+      "nodeId": "508:77442",
+      "mode": "dark"
+    },
+    "system-blue": {
+      "source": "figma",
+      "variable": "Accents/Blue",
+      "nodeId": "507:29166",
+      "mode": "dark"
+    },
+    "system-brown": {
+      "source": "figma",
+      "variable": "Accents/Brown",
+      "nodeId": "509:77478",
+      "mode": "dark"
+    },
+    "system-cyan": {
+      "source": "figma",
+      "variable": "Accents/Cyan",
+      "nodeId": "509:77477",
+      "mode": "dark"
+    },
+    "system-gray-2": {
+      "source": "figma",
+      "variable": "Grays/Gray 2",
+      "nodeId": "509:77486",
+      "mode": "dark"
+    },
+    "system-gray-3": {
+      "source": "figma",
+      "variable": "Grays/Gray 3",
+      "nodeId": "509:77487",
+      "mode": "dark"
+    },
+    "system-gray-4": {
+      "source": "figma",
+      "variable": "Grays/Gray 4",
+      "nodeId": "509:77488",
+      "mode": "dark"
+    },
+    "system-gray-5": {
+      "source": "figma",
+      "variable": "Grays/Gray 5",
+      "nodeId": "509:77489",
+      "mode": "dark"
+    },
+    "system-gray-6": {
+      "source": "figma",
+      "variable": "Grays/Gray 6",
+      "nodeId": "509:77490",
+      "mode": "dark"
+    },
+    "system-gray": {
+      "source": "figma",
+      "variable": "Grays/Gray",
+      "nodeId": "509:77485",
+      "mode": "dark"
+    },
+    "system-green": {
+      "source": "figma",
+      "variable": "Accents/Green",
+      "nodeId": "509:77474",
+      "mode": "dark"
+    },
+    "system-indigo": {
+      "source": "figma",
+      "variable": "Accents/Indigo",
+      "nodeId": "509:77479",
+      "mode": "dark"
+    },
+    "system-mint": {
+      "source": "figma",
+      "variable": "Accents/Mint",
+      "nodeId": "509:77475",
+      "mode": "dark"
+    },
+    "system-orange": {
+      "source": "figma",
+      "variable": "Accents/Orange",
+      "nodeId": "509:77472",
+      "mode": "dark"
+    },
+    "system-pink": {
+      "source": "figma",
+      "variable": "Accents/Pink",
+      "nodeId": "509:77481",
+      "mode": "dark"
+    },
+    "system-purple": {
+      "source": "figma",
+      "variable": "Accents/Purple",
+      "nodeId": "509:77480",
+      "mode": "dark"
+    },
+    "system-red": {
+      "source": "figma",
+      "variable": "Accents/Red",
+      "nodeId": "509:77471",
+      "mode": "dark"
+    },
+    "system-teal": {
+      "source": "figma",
+      "variable": "Accents/Teal",
+      "nodeId": "509:77476",
+      "mode": "dark"
+    },
+    "system-yellow": {
+      "source": "figma",
+      "variable": "Accents/Yellow",
+      "nodeId": "509:77473",
+      "mode": "dark"
+    },
+    "scrim": {
+      "source": "figma",
+      "variable": "Overlays/Default",
+      "nodeId": "513:90698",
+      "mode": "dark"
+    },
+    "control-selection-fill": {
+      "source": "figma",
+      "variable": "Miscellaneous/Segmented Control - Selected Fill",
+      "nodeId": "5704:37749",
+      "mode": "dark"
+    }
+  },
+  "dark-standard-elevated": {
+    "label-primary": {
+      "source": "figma",
+      "variable": "Labels/Primary",
+      "nodeId": "507:29167",
+      "mode": "dark"
+    },
+    "label-secondary": {
+      "source": "figma",
+      "variable": "Labels/Secondary",
+      "nodeId": "507:29162",
+      "mode": "dark"
+    },
+    "label-tertiary": {
+      "source": "figma",
+      "variable": "Labels/Tertiary",
+      "nodeId": "508:77449",
+      "mode": "dark"
+    },
+    "label-quaternary": {
+      "source": "figma",
+      "variable": "Labels/Quaternary",
+      "nodeId": "508:77450",
+      "mode": "dark"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-semantic-role"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-semantic-role"
+    },
+    "background-primary": {
+      "source": "figma",
+      "variable": "Backgrounds/Primary - Elevated",
+      "nodeId": "5719:30767",
+      "mode": "dark"
+    },
+    "background-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds/Secondary - Elevated",
+      "nodeId": "5719:30768",
+      "mode": "dark"
+    },
+    "background-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds/Tertiary - Elevated",
+      "nodeId": "5719:30769",
+      "mode": "dark"
+    },
+    "background-grouped-primary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Primary - Elevated",
+      "nodeId": "5719:30770",
+      "mode": "dark"
+    },
+    "background-grouped-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Secondary - Elevated",
+      "nodeId": "5719:30771",
+      "mode": "dark"
+    },
+    "background-grouped-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Tertiary - Elevated",
+      "nodeId": "5719:30772",
+      "mode": "dark"
+    },
+    "fill-primary": {
+      "source": "figma",
+      "variable": "Fills/Primary",
+      "nodeId": "508:77441",
+      "mode": "dark"
+    },
+    "fill-secondary": {
+      "source": "figma",
+      "variable": "Fills/Secondary",
+      "nodeId": "509:77491",
+      "mode": "dark"
+    },
+    "fill-tertiary": {
+      "source": "figma",
+      "variable": "Fills/Tertiary",
+      "nodeId": "509:77493",
+      "mode": "dark"
+    },
+    "fill-quaternary": {
+      "source": "figma",
+      "variable": "Fills/Quaternary",
+      "nodeId": "509:77492",
+      "mode": "dark"
+    },
+    "separator": {
+      "source": "figma",
+      "variable": "Separators/Non-opaque",
+      "nodeId": "509:77495",
+      "mode": "dark"
+    },
+    "separator-opaque": {
+      "source": "figma",
+      "variable": "Separators/Opaque",
+      "nodeId": "508:77442",
+      "mode": "dark"
+    },
+    "system-blue": {
+      "source": "figma",
+      "variable": "Accents/Blue",
+      "nodeId": "507:29166",
+      "mode": "dark"
+    },
+    "system-brown": {
+      "source": "figma",
+      "variable": "Accents/Brown",
+      "nodeId": "509:77478",
+      "mode": "dark"
+    },
+    "system-cyan": {
+      "source": "figma",
+      "variable": "Accents/Cyan",
+      "nodeId": "509:77477",
+      "mode": "dark"
+    },
+    "system-gray-2": {
+      "source": "figma",
+      "variable": "Grays/Gray 2",
+      "nodeId": "509:77486",
+      "mode": "dark"
+    },
+    "system-gray-3": {
+      "source": "figma",
+      "variable": "Grays/Gray 3",
+      "nodeId": "509:77487",
+      "mode": "dark"
+    },
+    "system-gray-4": {
+      "source": "figma",
+      "variable": "Grays/Gray 4",
+      "nodeId": "509:77488",
+      "mode": "dark"
+    },
+    "system-gray-5": {
+      "source": "figma",
+      "variable": "Grays/Gray 5",
+      "nodeId": "509:77489",
+      "mode": "dark"
+    },
+    "system-gray-6": {
+      "source": "figma",
+      "variable": "Grays/Gray 6",
+      "nodeId": "509:77490",
+      "mode": "dark"
+    },
+    "system-gray": {
+      "source": "figma",
+      "variable": "Grays/Gray",
+      "nodeId": "509:77485",
+      "mode": "dark"
+    },
+    "system-green": {
+      "source": "figma",
+      "variable": "Accents/Green",
+      "nodeId": "509:77474",
+      "mode": "dark"
+    },
+    "system-indigo": {
+      "source": "figma",
+      "variable": "Accents/Indigo",
+      "nodeId": "509:77479",
+      "mode": "dark"
+    },
+    "system-mint": {
+      "source": "figma",
+      "variable": "Accents/Mint",
+      "nodeId": "509:77475",
+      "mode": "dark"
+    },
+    "system-orange": {
+      "source": "figma",
+      "variable": "Accents/Orange",
+      "nodeId": "509:77472",
+      "mode": "dark"
+    },
+    "system-pink": {
+      "source": "figma",
+      "variable": "Accents/Pink",
+      "nodeId": "509:77481",
+      "mode": "dark"
+    },
+    "system-purple": {
+      "source": "figma",
+      "variable": "Accents/Purple",
+      "nodeId": "509:77480",
+      "mode": "dark"
+    },
+    "system-red": {
+      "source": "figma",
+      "variable": "Accents/Red",
+      "nodeId": "509:77471",
+      "mode": "dark"
+    },
+    "system-teal": {
+      "source": "figma",
+      "variable": "Accents/Teal",
+      "nodeId": "509:77476",
+      "mode": "dark"
+    },
+    "system-yellow": {
+      "source": "figma",
+      "variable": "Accents/Yellow",
+      "nodeId": "509:77473",
+      "mode": "dark"
+    },
+    "scrim": {
+      "source": "figma",
+      "variable": "Overlays/Default",
+      "nodeId": "513:90698",
+      "mode": "dark"
+    },
+    "control-selection-fill": {
+      "source": "figma",
+      "variable": "Miscellaneous/Segmented Control - Selected Fill",
+      "nodeId": "5704:37749",
+      "mode": "dark"
+    }
+  },
+  "light-increased-base": {
+    "label-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "label",
+      "reason": "missing-increased-contrast"
+    },
+    "label-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-increased-contrast"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "background-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "separator": {
+      "source": "uikit-26.5-fallback",
+      "selector": "separatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "separator-opaque": {
+      "source": "uikit-26.5-fallback",
+      "selector": "opaqueSeparatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-blue": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBlueColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-brown": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBrownColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-cyan": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemCyanColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-2": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray2Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-3": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray3Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-4": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray4Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-5": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray5Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-6": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray6Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGrayColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-green": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGreenColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-indigo": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemIndigoColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-mint": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemMintColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-orange": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemOrangeColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-pink": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPinkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-purple": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPurpleColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-red": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemRedColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-teal": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemTealColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-yellow": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemYellowColor",
+      "reason": "missing-increased-contrast"
+    },
+    "scrim": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Existing scrim opacity"
+    },
+    "control-selection-fill": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Sampled increased-contrast background-primary"
+    }
+  },
+  "light-increased-elevated": {
+    "label-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "label",
+      "reason": "missing-increased-contrast"
+    },
+    "label-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternaryLabel",
+      "reason": "missing-increased-contrast"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-increased-contrast"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "background-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "background-grouped-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemGroupedBackground",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-primary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-secondary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "secondarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-tertiary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "tertiarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "fill-quaternary": {
+      "source": "uikit-26.5-fallback",
+      "selector": "quaternarySystemFill",
+      "reason": "missing-increased-contrast"
+    },
+    "separator": {
+      "source": "uikit-26.5-fallback",
+      "selector": "separatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "separator-opaque": {
+      "source": "uikit-26.5-fallback",
+      "selector": "opaqueSeparatorColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-blue": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBlueColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-brown": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemBrownColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-cyan": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemCyanColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-2": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray2Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-3": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray3Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-4": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray4Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-5": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray5Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray-6": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGray6Color",
+      "reason": "missing-increased-contrast"
+    },
+    "system-gray": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGrayColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-green": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemGreenColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-indigo": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemIndigoColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-mint": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemMintColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-orange": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemOrangeColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-pink": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPinkColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-purple": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemPurpleColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-red": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemRedColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-teal": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemTealColor",
+      "reason": "missing-increased-contrast"
+    },
+    "system-yellow": {
+      "source": "uikit-26.5-fallback",
+      "selector": "systemYellowColor",
+      "reason": "missing-increased-contrast"
+    },
+    "scrim": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Existing scrim opacity"
+    },
+    "control-selection-fill": {
+      "source": "lenso-web-fallback",
+      "reason": "missing-increased-contrast",
+      "rule": "Sampled increased-contrast background-primary"
+    }
+  },
+  "light-standard-base": {
+    "label-primary": {
+      "source": "figma",
+      "variable": "Labels/Primary",
+      "nodeId": "507:29167",
+      "mode": "light"
+    },
+    "label-secondary": {
+      "source": "figma",
+      "variable": "Labels/Secondary",
+      "nodeId": "507:29162",
+      "mode": "light"
+    },
+    "label-tertiary": {
+      "source": "figma",
+      "variable": "Labels/Tertiary",
+      "nodeId": "508:77449",
+      "mode": "light"
+    },
+    "label-quaternary": {
+      "source": "figma",
+      "variable": "Labels/Quaternary",
+      "nodeId": "508:77450",
+      "mode": "light"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-semantic-role"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-semantic-role"
+    },
+    "background-primary": {
+      "source": "figma",
+      "variable": "Backgrounds/Primary",
+      "nodeId": "508:77440",
+      "mode": "light"
+    },
+    "background-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds/Secondary",
+      "nodeId": "508:77460",
+      "mode": "light"
+    },
+    "background-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds/Tertiary",
+      "nodeId": "508:77458",
+      "mode": "light"
+    },
+    "background-grouped-primary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Primary",
+      "nodeId": "508:77464",
+      "mode": "light"
+    },
+    "background-grouped-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Secondary",
+      "nodeId": "508:77466",
+      "mode": "light"
+    },
+    "background-grouped-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Tertiary",
+      "nodeId": "508:77468",
+      "mode": "light"
+    },
+    "fill-primary": {
+      "source": "figma",
+      "variable": "Fills/Primary",
+      "nodeId": "508:77441",
+      "mode": "light"
+    },
+    "fill-secondary": {
+      "source": "figma",
+      "variable": "Fills/Secondary",
+      "nodeId": "509:77491",
+      "mode": "light"
+    },
+    "fill-tertiary": {
+      "source": "figma",
+      "variable": "Fills/Tertiary",
+      "nodeId": "509:77493",
+      "mode": "light"
+    },
+    "fill-quaternary": {
+      "source": "figma",
+      "variable": "Fills/Quaternary",
+      "nodeId": "509:77492",
+      "mode": "light"
+    },
+    "separator": {
+      "source": "figma",
+      "variable": "Separators/Non-opaque",
+      "nodeId": "509:77495",
+      "mode": "light"
+    },
+    "separator-opaque": {
+      "source": "figma",
+      "variable": "Separators/Opaque",
+      "nodeId": "508:77442",
+      "mode": "light"
+    },
+    "system-blue": {
+      "source": "figma",
+      "variable": "Accents/Blue",
+      "nodeId": "507:29166",
+      "mode": "light"
+    },
+    "system-brown": {
+      "source": "figma",
+      "variable": "Accents/Brown",
+      "nodeId": "509:77478",
+      "mode": "light"
+    },
+    "system-cyan": {
+      "source": "figma",
+      "variable": "Accents/Cyan",
+      "nodeId": "509:77477",
+      "mode": "light"
+    },
+    "system-gray-2": {
+      "source": "figma",
+      "variable": "Grays/Gray 2",
+      "nodeId": "509:77486",
+      "mode": "light"
+    },
+    "system-gray-3": {
+      "source": "figma",
+      "variable": "Grays/Gray 3",
+      "nodeId": "509:77487",
+      "mode": "light"
+    },
+    "system-gray-4": {
+      "source": "figma",
+      "variable": "Grays/Gray 4",
+      "nodeId": "509:77488",
+      "mode": "light"
+    },
+    "system-gray-5": {
+      "source": "figma",
+      "variable": "Grays/Gray 5",
+      "nodeId": "509:77489",
+      "mode": "light"
+    },
+    "system-gray-6": {
+      "source": "figma",
+      "variable": "Grays/Gray 6",
+      "nodeId": "509:77490",
+      "mode": "light"
+    },
+    "system-gray": {
+      "source": "figma",
+      "variable": "Grays/Gray",
+      "nodeId": "509:77485",
+      "mode": "light"
+    },
+    "system-green": {
+      "source": "figma",
+      "variable": "Accents/Green",
+      "nodeId": "509:77474",
+      "mode": "light"
+    },
+    "system-indigo": {
+      "source": "figma",
+      "variable": "Accents/Indigo",
+      "nodeId": "509:77479",
+      "mode": "light"
+    },
+    "system-mint": {
+      "source": "figma",
+      "variable": "Accents/Mint",
+      "nodeId": "509:77475",
+      "mode": "light"
+    },
+    "system-orange": {
+      "source": "figma",
+      "variable": "Accents/Orange",
+      "nodeId": "509:77472",
+      "mode": "light"
+    },
+    "system-pink": {
+      "source": "figma",
+      "variable": "Accents/Pink",
+      "nodeId": "509:77481",
+      "mode": "light"
+    },
+    "system-purple": {
+      "source": "figma",
+      "variable": "Accents/Purple",
+      "nodeId": "509:77480",
+      "mode": "light"
+    },
+    "system-red": {
+      "source": "figma",
+      "variable": "Accents/Red",
+      "nodeId": "509:77471",
+      "mode": "light"
+    },
+    "system-teal": {
+      "source": "figma",
+      "variable": "Accents/Teal",
+      "nodeId": "509:77476",
+      "mode": "light"
+    },
+    "system-yellow": {
+      "source": "figma",
+      "variable": "Accents/Yellow",
+      "nodeId": "509:77473",
+      "mode": "light"
+    },
+    "scrim": {
+      "source": "figma",
+      "variable": "Overlays/Default",
+      "nodeId": "513:90698",
+      "mode": "light"
+    },
+    "control-selection-fill": {
+      "source": "figma",
+      "variable": "Miscellaneous/Segmented Control - Selected Fill",
+      "nodeId": "5704:37749",
+      "mode": "light"
+    }
+  },
+  "light-standard-elevated": {
+    "label-primary": {
+      "source": "figma",
+      "variable": "Labels/Primary",
+      "nodeId": "507:29167",
+      "mode": "light"
+    },
+    "label-secondary": {
+      "source": "figma",
+      "variable": "Labels/Secondary",
+      "nodeId": "507:29162",
+      "mode": "light"
+    },
+    "label-tertiary": {
+      "source": "figma",
+      "variable": "Labels/Tertiary",
+      "nodeId": "508:77449",
+      "mode": "light"
+    },
+    "label-quaternary": {
+      "source": "figma",
+      "variable": "Labels/Quaternary",
+      "nodeId": "508:77450",
+      "mode": "light"
+    },
+    "label-placeholder": {
+      "source": "uikit-26.5-fallback",
+      "selector": "placeholderText",
+      "reason": "missing-semantic-role"
+    },
+    "link": {
+      "source": "uikit-26.5-fallback",
+      "selector": "linkColor",
+      "reason": "missing-semantic-role"
+    },
+    "background-primary": {
+      "source": "figma",
+      "variable": "Backgrounds/Primary - Elevated",
+      "nodeId": "5719:30767",
+      "mode": "light"
+    },
+    "background-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds/Secondary - Elevated",
+      "nodeId": "5719:30768",
+      "mode": "light"
+    },
+    "background-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds/Tertiary - Elevated",
+      "nodeId": "5719:30769",
+      "mode": "light"
+    },
+    "background-grouped-primary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Primary - Elevated",
+      "nodeId": "5719:30770",
+      "mode": "light"
+    },
+    "background-grouped-secondary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Secondary - Elevated",
+      "nodeId": "5719:30771",
+      "mode": "light"
+    },
+    "background-grouped-tertiary": {
+      "source": "figma",
+      "variable": "Backgrounds (Grouped)/Tertiary - Elevated",
+      "nodeId": "5719:30772",
+      "mode": "light"
+    },
+    "fill-primary": {
+      "source": "figma",
+      "variable": "Fills/Primary",
+      "nodeId": "508:77441",
+      "mode": "light"
+    },
+    "fill-secondary": {
+      "source": "figma",
+      "variable": "Fills/Secondary",
+      "nodeId": "509:77491",
+      "mode": "light"
+    },
+    "fill-tertiary": {
+      "source": "figma",
+      "variable": "Fills/Tertiary",
+      "nodeId": "509:77493",
+      "mode": "light"
+    },
+    "fill-quaternary": {
+      "source": "figma",
+      "variable": "Fills/Quaternary",
+      "nodeId": "509:77492",
+      "mode": "light"
+    },
+    "separator": {
+      "source": "figma",
+      "variable": "Separators/Non-opaque",
+      "nodeId": "509:77495",
+      "mode": "light"
+    },
+    "separator-opaque": {
+      "source": "figma",
+      "variable": "Separators/Opaque",
+      "nodeId": "508:77442",
+      "mode": "light"
+    },
+    "system-blue": {
+      "source": "figma",
+      "variable": "Accents/Blue",
+      "nodeId": "507:29166",
+      "mode": "light"
+    },
+    "system-brown": {
+      "source": "figma",
+      "variable": "Accents/Brown",
+      "nodeId": "509:77478",
+      "mode": "light"
+    },
+    "system-cyan": {
+      "source": "figma",
+      "variable": "Accents/Cyan",
+      "nodeId": "509:77477",
+      "mode": "light"
+    },
+    "system-gray-2": {
+      "source": "figma",
+      "variable": "Grays/Gray 2",
+      "nodeId": "509:77486",
+      "mode": "light"
+    },
+    "system-gray-3": {
+      "source": "figma",
+      "variable": "Grays/Gray 3",
+      "nodeId": "509:77487",
+      "mode": "light"
+    },
+    "system-gray-4": {
+      "source": "figma",
+      "variable": "Grays/Gray 4",
+      "nodeId": "509:77488",
+      "mode": "light"
+    },
+    "system-gray-5": {
+      "source": "figma",
+      "variable": "Grays/Gray 5",
+      "nodeId": "509:77489",
+      "mode": "light"
+    },
+    "system-gray-6": {
+      "source": "figma",
+      "variable": "Grays/Gray 6",
+      "nodeId": "509:77490",
+      "mode": "light"
+    },
+    "system-gray": {
+      "source": "figma",
+      "variable": "Grays/Gray",
+      "nodeId": "509:77485",
+      "mode": "light"
+    },
+    "system-green": {
+      "source": "figma",
+      "variable": "Accents/Green",
+      "nodeId": "509:77474",
+      "mode": "light"
+    },
+    "system-indigo": {
+      "source": "figma",
+      "variable": "Accents/Indigo",
+      "nodeId": "509:77479",
+      "mode": "light"
+    },
+    "system-mint": {
+      "source": "figma",
+      "variable": "Accents/Mint",
+      "nodeId": "509:77475",
+      "mode": "light"
+    },
+    "system-orange": {
+      "source": "figma",
+      "variable": "Accents/Orange",
+      "nodeId": "509:77472",
+      "mode": "light"
+    },
+    "system-pink": {
+      "source": "figma",
+      "variable": "Accents/Pink",
+      "nodeId": "509:77481",
+      "mode": "light"
+    },
+    "system-purple": {
+      "source": "figma",
+      "variable": "Accents/Purple",
+      "nodeId": "509:77480",
+      "mode": "light"
+    },
+    "system-red": {
+      "source": "figma",
+      "variable": "Accents/Red",
+      "nodeId": "509:77471",
+      "mode": "light"
+    },
+    "system-teal": {
+      "source": "figma",
+      "variable": "Accents/Teal",
+      "nodeId": "509:77476",
+      "mode": "light"
+    },
+    "system-yellow": {
+      "source": "figma",
+      "variable": "Accents/Yellow",
+      "nodeId": "509:77473",
+      "mode": "light"
+    },
+    "scrim": {
+      "source": "figma",
+      "variable": "Overlays/Default",
+      "nodeId": "513:90698",
+      "mode": "light"
+    },
+    "control-selection-fill": {
+      "source": "figma",
+      "variable": "Miscellaneous/Segmented Control - Selected Fill",
+      "nodeId": "5704:37749",
+      "mode": "light"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0. Native anchors supply real navigation.
+// Native anchors supply real navigation.
 import { Tabs } from "@lenso/ui";
-import Link from "next/link";
+import Link from "fumadocs-core/link";
 import { styles } from "./source.stylex";
 export function RenderFunction() {
   return (

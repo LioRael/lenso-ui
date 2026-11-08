@@ -1,35 +1,22 @@
 "use client";
-
-// Adapted from HeroUI v3.2.6 alert-dialog-default (Apache-2.0).
-import * as stylex from "@stylexjs/stylex";
 import { AlertDialog, Button } from "@lenso/ui";
-
-const styles = stylex.create({ popup: { maxWidth: 400 } });
-
 export function Default() {
   return (
     <AlertDialog>
-      <AlertDialog.Trigger render={<Button variant="danger" />}>Delete Project</AlertDialog.Trigger>
+      <AlertDialog.Trigger render={<Button destructive />}>Delete project</AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Backdrop />
         <AlertDialog.Viewport>
-          <AlertDialog.Popup xstyle={styles.popup}>
-            <AlertDialog.Close aria-label="Close dialog" />
+          <AlertDialog.Popup>
             <AlertDialog.Header>
-              <AlertDialog.Icon variant="danger" />
-              <AlertDialog.Title>Delete project permanently?</AlertDialog.Title>
-            </AlertDialog.Header>
-            <AlertDialog.Body>
+              <AlertDialog.Title>Delete this project?</AlertDialog.Title>
               <AlertDialog.Description>
-                This will permanently delete <strong>My Awesome Project</strong> and all of its
-                data. This action cannot be undone.
+                This project and its files will be permanently deleted.
               </AlertDialog.Description>
-            </AlertDialog.Body>
+            </AlertDialog.Header>
             <AlertDialog.Footer>
-              <AlertDialog.Close render={<Button variant="tertiary" />}>Cancel</AlertDialog.Close>
-              <AlertDialog.Close render={<Button variant="danger" />}>
-                Delete Project
-              </AlertDialog.Close>
+              <AlertDialog.Close>Cancel</AlertDialog.Close>
+              <AlertDialog.Action variant="destructive">Delete</AlertDialog.Action>
             </AlertDialog.Footer>
           </AlertDialog.Popup>
         </AlertDialog.Viewport>

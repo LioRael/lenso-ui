@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import { Paperclip } from "@gravity-ui/icons";
 import { Button, Spinner } from "@lenso/ui";
 import { useEffect, useRef, useState } from "react";

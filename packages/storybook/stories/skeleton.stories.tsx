@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 skeleton.stories.tsx (Apache-2.0).
 // A Skeleton parent replaces the upstream CSS descendant shimmer contract.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
@@ -9,11 +8,11 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: 20,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     width: 200,
     borderRadius: 24,
     padding: 16,
-    boxShadow: "var(--shadow-surface)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   lines: { display: "flex", flexDirection: "column", gap: 12 },
   image: { height: 96, borderRadius: 12 },

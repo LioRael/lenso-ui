@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 tooltip-basic (Apache-2.0).
 import { CircleInfo } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Tooltip } from "@lenso/ui";
@@ -15,7 +14,7 @@ export function TooltipBasic() {
     <Tooltip.Provider delay={0}>
       <div {...stylex.props(styles.row)}>
         <Tooltip>
-          <Tooltip.Trigger aria-describedby={textId} render={<Button variant="secondary" />}>
+          <Tooltip.Trigger aria-describedby={textId} render={<Button />}>
             Hover me
           </Tooltip.Trigger>
           <Tooltip.Portal>
@@ -27,7 +26,7 @@ export function TooltipBasic() {
         <Tooltip>
           <Tooltip.Trigger
             aria-describedby={informationId}
-            render={<Button isIconOnly aria-label="More information" variant="tertiary" />}
+            render={<Button isIconOnly aria-label="More information" />}
           >
             <CircleInfo />
           </Tooltip.Trigger>

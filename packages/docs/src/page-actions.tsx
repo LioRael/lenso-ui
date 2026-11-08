@@ -10,42 +10,59 @@ import { notebook } from "@lenso/docs/presentation";
 export function DocumentationPageActions({
   markdown,
   markdownUrl,
+  locale = "en",
 }: {
   markdown: string;
   markdownUrl: string;
+  locale?: string;
 }): ReactNode {
+  const cn = locale === "cn" || locale.startsWith("zh");
+  const copyLabel = cn ? "复制 Markdown" : "Copy Markdown";
+  const copiedLabel = cn ? "已复制 Markdown" : "Markdown copied";
+  const sourceLabel = cn ? "查看页面源码" : "View page source";
   const [status, setStatus] = useState("");
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(markdown);
-      setStatus("Markdown copied");
+      setStatus(copiedLabel);
     } catch {
-      setStatus("Clipboard unavailable. Select the page text to copy it.");
+      setStatus(
+        cn
+          ? "无法访问剪贴板，请选择页面文字复制。"
+          : "Clipboard unavailable. Select the page text to copy it.",
+      );
     }
   };
   return (
     <>
       <div {...stylex.props(notebook.pageActionGroup)}>
-        <Button onClick={copy} {...stylex.props(notebook.pageAction, notebook.pageActionMain)}>
-          {status === "Markdown copied" ? (
+        <Button
+          aria-label={copyLabel}
+          onClick={copy}
+          {...stylex.props(notebook.pageAction, notebook.pageActionMain)}
+        >
+          {status === copiedLabel ? (
             <Check width={16} height={16} aria-hidden="true" />
           ) : (
             <Copy width={16} height={16} aria-hidden="true" />
           )}
-          Copy Markdown
+          <span {...stylex.props(notebook.pageActionLabel)}>{copyLabel}</span>
         </Button>
         <Menu.Root>
-          <Menu.Trigger aria-label="Page source options" {...stylex.props(notebook.pageActionMenu)}>
+          <Menu.Trigger
+            aria-label={cn ? "页面源码选项" : "Page source options"}
+            {...stylex.props(notebook.pageActionMenu)}
+          >
             <ChevronDown width={14} height={14} aria-hidden="true" />
           </Menu.Trigger>
           <Menu.Portal>
             <Menu.Positioner sideOffset={8} align="end">
               <Menu.Popup {...stylex.props(notebook.menu)}>
                 <Menu.Item onClick={copy} {...stylex.props(notebook.menuItem)}>
-                  Copy Markdown
+                  {copyLabel}
                 </Menu.Item>
                 <Menu.LinkItem href={markdownUrl} {...stylex.props(notebook.menuItem)}>
-                  View page source
+                  {sourceLabel}
                 </Menu.LinkItem>
               </Menu.Popup>
             </Menu.Positioner>

@@ -1,6 +1,3 @@
-export const sourceConfig = {
-  directory: "content/lenso",
-  examples: "src/demos",
-  locales: ["en", "cn"],
-  platform: "react",
-} as const;
+import { defineConfig } from "fumadocs-mdx/config";
+import { remarkLensoDocument } from "./scripts/remark-lenso-document";
+export default defineConfig({ mdxOptions: { remarkPlugins: [remarkLensoDocument] } });

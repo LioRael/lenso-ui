@@ -1,41 +1,36 @@
 ---
 title: "颜色"
-description: "使用语义主题颜色设置文本、表面、操作和反馈。"
+description: "内容、控件、反馈与材质共用的语义颜色体系。"
 navigationGroup: "手册"
 navigationOrder: 10
 ---
 
-## 语义颜色
+## 唯一语义颜色体系
 
-主题通过 CSS 变量表达角色，而不是逐组件定义色板：
+当前以指定的 iOS/iPadOS 27 Figma 文件提供的明暗颜色和 Elevated 背景为准。文件缺少的增强对比度、placeholder、系统链接色暂用明确标注的 UIKit 26.5 样本；缺失的 Web 状态保留 Lenso 配方。这些补充不代表 iOS 27 原生认证。所有值进入同一 token 矩阵，不提供旧主题切换。
 
-| 角色 | 变量 |
-| --- | --- |
-| 页面 | `--background`、`--foreground` |
-| 表面 | `--surface`、`--surface-foreground` |
-| 操作 | `--accent`、`--accent-foreground` |
-| 反馈 | `--success`、`--warning`、`--danger` 及对应前景色 |
-| 辅助内容 | `--muted`、`--separator`、`--border`、`--focus` |
+| 角色                                                                               | 用途                             |
+| ---------------------------------------------------------------------------------- | -------------------------------- |
+| `--lenso-label-primary`, `-secondary`, `-tertiary`, `-quaternary`                  | 普通文字层级                     |
+| `--lenso-label-placeholder`                                                        | 输入占位符                       |
+| `--lenso-background-primary`, `-secondary`, `-tertiary`                            | 普通内容背景层级                 |
+| `--lenso-background-grouped-primary`, `-secondary`, `-tertiary`                    | 分组内容背景层级                 |
+| `--lenso-fill-primary`, `-secondary`, `-tertiary`, `-quaternary`                   | 控件形状填充，不替代页面背景层级 |
+| `--lenso-separator`, `--lenso-separator-opaque`                                    | 透明 / 不透明分隔                |
+| `--lenso-tint`, `--lenso-label-on-tint`, `--lenso-tint-text`                       | 动作填充、配对前景、文字动作     |
+| `--lenso-link`                                                                     | 导航链接                         |
+| `--lenso-action-destructive`, `--lenso-action-destructive-text`                    | 破坏性动作填充 / 文字            |
+| `--lenso-status-{success,warning,error,info}-{indicator,text,fill,on-fill,border}` | 业务反馈，按实际用途选择子角色   |
+| `--lenso-focus-ring`, `--lenso-focus-ring-backing`                                 | 键盘焦点与衬底                   |
+| `--lenso-selection-fill`, `--lenso-selection-text`                                 | 选中内容                         |
+| `--lenso-scrim`                                                                    | 模态遮罩                         |
 
-背景与对应前景色应配套使用。强调表面的前景色不一定适合页面背景。
+状态指示色不一定适合普通字号文字。`status-*-text` 针对采样的普通背景验证；`status-*-on-fill` 与对应实色填充配对。图片、用户选择的颜色、图表和代码高亮保留各自的内容含义。
 
-## StyleX 令牌
+## 材质
 
-```tsx
-import * as stylex from "@stylexjs/stylex";
-import { tokens } from "@lenso/tokens";
+材质前景依赖混合方式与背板。不要用普通 label 色替代材质前景配方。减少透明度及高对比度回退采用 Web 适配的不透明表面和普通前景；系统强制颜色优先于品牌配色。
 
-const styles = stylex.create({
-  panel: {
-    backgroundColor: tokens.surface,
-    color: tokens.surfaceForeground,
-    borderColor: tokens.border,
-  },
-});
-```
+## 自定义
 
-常量解析为 CSS 变量。保留 CSS 中的 OKLCH 与 `color-mix` 表达式；转换为独立 JavaScript 色板会破坏主题继承。
-
-## 对比度
-
-在明暗主题中检查文本、控件和焦点指示器与实际背景的对比度。语义名称不是对比度认证，尤其是在覆盖颜色之后。
+使用[主题 API](./theming)配置颜色。Theme Builder 与应用代码消费相同的语义配置，不提供独立 Apple 主题或旧色板。验证自定义颜色时，应覆盖实际内容、焦点、禁用态、透明度与两种外观。

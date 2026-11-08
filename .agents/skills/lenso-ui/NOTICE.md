@@ -17,8 +17,7 @@ Modified by Lenso contributors:
   version/digest-matched Lenso CLI/MCP and authored source contract.
 - Added progressive component, theme and setup references, explicit tooling
   availability, and repository/consumer verification distinctions.
-- Linked a separate first-party Lenso visual-design workflow. That workflow is
-  not a copied HeroUI Pro template or a claimed upstream design skill.
+- Linked a separate first-party Lenso visual-design workflow.
 
 Upstream installation and public archive discovery are reference mechanisms,
 not currently implemented Lenso installation endpoints. These workflows remain

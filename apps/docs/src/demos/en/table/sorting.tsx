@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 sorting adaptation (Apache-2.0).
 import { useState } from "react";
 import { Table, type SortDescriptor } from "@lenso/ui";
 import { Headers, Rows, styles, users, type User } from "./data";

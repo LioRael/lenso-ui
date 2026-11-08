@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import test from "node:test";
+import { test } from "bun:test";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createServer } from "../src/server.ts";
-import { fixture, fixtureSource, authoredMarkdown } from "../../cli/tests/fixture.ts";
-import { createQueries } from "../../cli/src/contract.ts";
+import { fixture, fixtureSource, authoredMarkdown } from "@lenso/ui-devtools/testing";
+import { createQueries } from "@lenso/ui-devtools/queries";
 
 test("official SDK discovers eight strict read-only tools backed by shared queries", async () => {
   const contract = await fixture();

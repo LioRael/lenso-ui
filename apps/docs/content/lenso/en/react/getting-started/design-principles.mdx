@@ -1,22 +1,43 @@
 ---
 title: "Design principles"
-description: "Keep presentation consistent, composition explicit and native interactions intact."
+description: "Design around the task, make relationships clear and preserve familiar interaction."
 navigationGroup: "Overview"
 navigationOrder: 2
 ---
 
-## Shared visual language
+## Start with the task
 
-Use the theme's semantic colors, surfaces and spacing rather than choosing new values for each component. Variants describe presentation; changing a variant should not replace a component's activation or selection behavior.
+Make the useful content or action easy to reach. A settings page should expose the settings; a component example should be ready to try. Keep supporting explanation close to the decision it helps, and put detailed reference material after the primary task.
 
-## Compose, do not simulate
+## Align related content
 
-Use a component's public parts to arrange its content. Keep controls, labels and overlays connected through their root. A styled `div` is not a replacement for a native button, menu item or dialog.
+Give related labels, rows and icons a common leading guide. Use indentation for real child relationships. Let the parent layout own spacing, and keep equivalent items on shared tracks. When a split leaves one side empty while the other grows long, rebalance it or stack the content.
 
-## Preserve the interaction
+## Give surfaces clear roles
 
-Forward supplied props and refs when using the native `render` contract. Keep event handlers, state attributes and accessible relationships. Ordinary controls retain Base UI contracts; date, time and color parts retain their React Aria context.
+Use semantic page, group and control backgrounds. A grouped form paints one content surface; inner fields compose within it. Choose glass for a floating control or navigation role that needs visual separation. Typography and spacing should explain the hierarchy before another container is added.
+
+Use the theme's semantic colors in both appearances. Keep selection, focus and error feedback distinct. These choices follow the intent of Apple's [Layout](https://developer.apple.com/design/human-interface-guidelines/layout), [Color](https://developer.apple.com/design/human-interface-guidelines/color) and [Materials](https://developer.apple.com/design/human-interface-guidelines/materials) guidance, adapted to the Web.
+
+## Compose familiar controls
+
+Use public component parts to keep controls, labels and overlays connected through their root. Preserve supplied props, refs, event handlers, state attributes and accessible relationships through the native `render` contract. Ordinary controls retain Base UI behavior; date, time and color parts retain their native value-model context.
+
+Keep native text selection, paste and editing. Keyboard users need a visible location cue, and errors need an associated explanation. Use motion to explain a transition or confirm an action while retaining a complete reduced-motion experience.
 
 ## Verify the application
 
-Check labels, keyboard navigation, focus restoration and contrast in the interface you ship. Test both themes and reduced motion. A component's source example does not prove your customized composition.
+Try the primary task with pointer and keyboard. Check focus restoration, invalid content, both themes, narrow layouts and larger text in the rendered application. Measure alignment or contrast when the change depends on it. A source snippet, typecheck or DOM test alone does not prove a customized composition's appearance or usability.
+
+## Choose the field component
+
+| Need                                       | Component and responsibility                                            |
+| ------------------------------------------ | ----------------------------------------------------------------------- |
+| Edit short text                            | Input supplies the editing control.                                     |
+| Edit longer text                           | TextArea supplies multiline editing.                                    |
+| Label and validate one field               | TextField connects its label, control, description and error.           |
+| Group related settings                     | Fieldset supplies the legend; Fieldset.Group paints the shared surface. |
+| Place a non-text control in a settings row | Fieldset.Row lays out a switch or selector with its label.              |
+| Submit and validate a set of fields        | Form owns submission and field errors.                                  |
+
+Use a TextField directly inside Fieldset.Group; wrapping it in another Fieldset.Row duplicates row layout. See [Form](/docs/react/components/form) for a complete mixed-control example and [TextField](/docs/react/components/textfield) for individual fields.

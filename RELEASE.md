@@ -1,68 +1,67 @@
-# Lenso UI 0.9.2
+# Unreleased: button and toggle families
 
-The owner authorized publishing only `@lenso/ui@0.9.2` and
-`@lenso/tokens@0.9.2`. Docs, initializer and StyleX tooling remain at `0.1.0`;
-`@lenso/primitives@0.7.0` remains preserved and is not published.
+`ToggleButton` now uses ordinary `Button` geometry and presentation, without
+glass or elastic effects. Prefer `bordered`, `borderless` or `prominent`;
+legacy `default` and `ghost` map to `bordered` and `borderless`. Replace toggles
+that need glass with `GlassToggleButton`, exported from `@lenso/ui` and
+`@lenso/ui/glass-toggle-button`. It retains native Toggle pressed-state,
+keyboard, ref and render contracts and shares GlassButton material and sizes.
 
-Dispatch `release.yml` on the verified `main` commit with version `0.9.2`
-and scope `ui`. The selected package list is used for identity validation,
-building, packing, publication and registry checks. The exact-main gate,
-protected `npm` environment, export/license checks, OIDC provenance and
-immutable-integrity checks are unchanged. Scope `all` retains the broader
-release path; it must not be used to overwrite existing Docs/tooling versions.
+`ButtonGroup` accepts `GlassButton`; `ToggleButtonGroup` accepts
+`GlassToggleButton`. Keep one button family per group. Configuration now reaches
+wrapped members, including render-composed triggers. Group `prominent` works
+for either family; ordinary variants are `bordered`/`borderless` and the glass
+neutral variant is `default`. Joined members draw seams automatically;
+`Separator` remains available but renders hidden, so remove manual separators.
+`ButtonGroup.isDetached` joins the existing toggle group option for separated
+controls. Joined glass members suppress individual elastic movement. Full-width
+horizontal groups distribute members equally; vertical members fill the group.
+Disabled groups disable all members, including members with `disabled={false}`.
 
-## Toolbar and choice styles
+Glass icon-only buttons now follow their requested size: sm/md/lg use
+28/34/50px squares instead of always using 50px. Update layouts that relied on
+the former fixed frame. These source changes are not a publication.
 
-- Restore default and selected ToggleButton backgrounds, including hover and
-  pressed feedback in standalone buttons, groups and Toolbar.
-- Preserve caller styles and connected-button geometry through Toolbar native
-  render composition. Icon-only Button consumers using
-  `render={<Toolbar.Button />}` should also set `isIconOnly` on that adapter.
-- Align RadioGroup header and option spacing, label/description typography,
-  logical description indentation, secondary selection/hover and invalid
-  feedback with the pinned HeroUI source.
+# Unreleased: official StyleX integration
 
-Update both packages together:
-
-```sh
-pnpm add @lenso/ui@0.9.2 @lenso/tokens@0.9.2
-```
-
-## Base UI 1.9.0 adaptation
-
-The released UI package now pins `@base-ui/react@1.9.0`.
-
-- `Menu` exposes native `FilterProvider`, `Input`, `List`, `Clear`, `Empty`
-  and `useFilter` composition. Native filtering remains an upstream preview
-  API. Wrap each searchable menu root or submenu root in its own provider.
-  Nonfilterable menus require no composition changes.
-- Select, ComboBox and Autocomplete inherit the upstream async highlighting,
-  collection performance and interaction fixes. Multiple-value contracts
-  accept native readonly arrays. Highlight callbacks forward the originating
-  event; pointer events may be `MouseEvent` or `PointerEvent`, and typing can
-  report the reason `none`.
-- Supplying `actionsRef` no longer opts Select, ComboBox or Autocomplete out of
-  automatic popup unmounting. Consumers with externally controlled exit
-  animations must call `eventDetails.preventUnmountOnClose()` while closing
-  in `onOpenChange`, then `actionsRef.current?.unmount()` when finished.
-  Do not add this opt-out for ordinary CSS transitions.
-- Drawer inherits native gesture and virtual-keyboard fixes. Touch interaction
-  regions can use `data-base-ui-swipe-ignore="x"` or `"y"` to ignore only that
-  gesture axis. An empty attribute ignores both axes; mouse/pen pointer drags
-  ignore a marked region regardless of its value. `Drawer.Content` retains its
-  existing native swipe-exclusion semantics.
-
-The performance improvements are upstream changes, not a local benchmark
-claim. New filtering composition is documented separately from the preserved
-upstream live-example inventory. `packages/primitives` source, API and tests
-remain unchanged.
+Declarations now ship as JS modules and are compiled by the application's
+official StyleX integration, including SSR builds. The private build package,
+raw-rule JSON exports and standalone atomic CSS are removed. Use the official
+Vite/Rolldown plugin or Next Babel/PostCSS. Include tokens and docs presentation
+modules in PostCSS scans and transpile both packages in Next. Theme/base CSS
+remains in `styles.css`. Existing consumer configuration requires migration.
+This source change is not authorization to publish.
 
 # Lenso UI 0.9.1 and Docs/tooling 0.1.0
 
+## Unreleased Select refinement
+
+Add `PopupButton` and the `@lenso/ui/popup-button` entry as a plain native button
+using the owner-supplied iOS 27 Figma measurements. Compose it through
+`Select.Trigger` or `Menu.Trigger`'s `render` prop when an overlay is needed;
+selection, menu contents and motion belong to those owners. The preliminary
+PopupButton Root/Item/List/Portal selection API is removed. Custom component
+Select triggers now own their presentation, matching Menu's render composition.
+
+Select trigger values and popup items now share typography and 44px row
+geometry. Both opening modes use Menu's spring surface/content animation and
+respect reduced motion. Overlapping popups morph from the trigger; anchored
+popups expand from their anchor. Popup ancestors stay opaque so glass can
+sample the backdrop during motion. No consumer prop changes are required: `Select.Positioner` retains
+`alignItemWithTrigger={true}` by default; set it to `false` for an anchored
+dropdown. The documentation playground now exposes both modes and starts with
+a selected value so the overlapping text alignment can be reviewed.
+
+## Release scope
+
 This release publishes `@lenso/ui` and `@lenso/tokens` at `0.9.1`, plus the
-first `0.1.0` releases of `@lenso/docs`, `create-lenso-docs` and
-`@lenso/stylex-build`. Unchanged `@lenso/primitives@0.7.0` remains preserved.
+first `0.1.0` releases of `@lenso/glass`, `@lenso/docs`, `create-lenso-docs`
+and `@lenso/stylex-build`. Unchanged `@lenso/primitives@0.7.0` remains preserved.
 CLI and MCP packages remain private.
+
+Glass is published after tokens and before UI, with its LGPL notice and corresponding
+source. The UI package pins this glass release; a subsequent tokens version requires
+a matching new glass version.
 
 UI/tokens include the current Popover, Tooltip, Toast and Input OTP fixes.
 Docs provides content-only MDX compilation, the documentation shell and its
@@ -104,7 +103,7 @@ The owner authorized publishing `@lenso/ui@0.9.0` and
 Update both packages together:
 
 ```sh
-pnpm add @lenso/ui@0.9.0 @lenso/tokens@0.9.0
+bun add @lenso/ui@0.9.0 @lenso/tokens@0.9.0
 ```
 
 Keep importing `@lenso/tokens/styles.css` once for the default theme and
@@ -128,16 +127,16 @@ recorded in the 0.8.0 section below.
 ## Verification scope and limitations
 
 Publication requires successful `Verify reconstruction` verification of the
-exact main SHA. The maintained gate runs `pnpm check`, the production docs
-build and `pnpm test:production`, including installed-tarball and Next CSS
+exact main SHA. The maintained gate runs `bun run check`, the production docs
+build and `bun run test:production`, including installed-tarball and Next CSS
 consumer checks. The release job separately builds and validates both release
 tarballs before publishing.
 
-This is not a claim of exhaustive HeroUI visual parity, complete live-example
-browser coverage or WCAG AA compliance. Imported snippets remain reference
-content, not proof of working local demos. Source-exact colors retain known
-normal-text contrast limitations. The historical deferred-work list below
-records the 0.8.0 baseline, not a current 0.9.0 defect inventory.
+This is not a claim of complete live-example browser coverage or WCAG AA
+compliance. Imported snippets remain reference content, not proof of working
+local demos. Some colors retain known normal-text contrast limitations. The
+historical deferred-work list below records the 0.8.0 baseline, not a current
+0.9.0 defect inventory.
 
 ## Publication
 
@@ -161,7 +160,7 @@ before completing every upstream example and visual-parity check.
 ## Packages
 
 - `@lenso/ui@0.8.0`: source-backed React components with native Base UI contracts.
-- `@lenso/tokens@0.8.0`: HeroUI theme CSS and compiled StyleX component maps.
+- `@lenso/tokens@0.8.0`: theme CSS and compiled StyleX component maps.
 - `@lenso/primitives@0.7.0`: unchanged; not rebuilt or published by this release job.
 
 ## Migration
@@ -169,7 +168,7 @@ before completing every upstream example and visual-parity check.
 Install both updated packages together:
 
 ```sh
-pnpm add @lenso/ui@0.8.0 @lenso/tokens@0.8.0
+bun add @lenso/ui@0.8.0 @lenso/tokens@0.8.0
 ```
 
 Import the stylesheet once:

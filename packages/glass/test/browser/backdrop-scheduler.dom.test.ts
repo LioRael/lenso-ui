@@ -1,0 +1,105 @@
+import { expect, test } from "bun:test";
+import { observeBackdrop } from "../../src/backdrop-scheduler.js";
+
+// A visible sibling can consume a shared source edit while another copy is
+// paused. The paused consumer must still receive that edit on re-entry.
+test("paused backdrop consumers retain source edits consumed by a visible sibling", async () => {
+  const fonts = Object.getOwnPropertyDescriptor(document, "fonts");
+  Object.defineProperty(document, "fonts", { configurable: true, value: new EventTarget() });
+  const raf = globalThis.requestAnimationFrame;
+  globalThis.requestAnimationFrame = () => 1;
+  const source = document.createElement("div");
+  const nodes = Array.from({ length: 4 }, () => document.createElement("div"));
+  document.body.append(source, ...nodes);
+  const changes: boolean[] = [];
+  const subscribe = (index: number) =>
+    observeBackdrop({
+      source,
+      element: nodes[index]!,
+      layer: nodes[index + 1]!,
+      prepare() {},
+      read(change) {
+        if (index === 0) changes.push(change.content);
+        return () => {};
+      },
+    });
+  const paused = subscribe(0),
+    visible = subscribe(2);
+  const settle = () => new Promise((resolve) => setTimeout(resolve, 10));
+  try {
+    await settle();
+    paused.visible(false);
+    source.textContent = "Updated while offscreen";
+    await settle();
+    paused.visible(true);
+    await settle();
+    expect(changes.at(-1)).toBe(true);
+    paused.visible(false);
+    await settle();
+    paused.visible(true);
+    await settle();
+    expect(changes.at(-1)).toBe(false);
+  } finally {
+    paused.stop();
+    visible.stop();
+    source.remove();
+    nodes.forEach((node) => node.remove());
+    globalThis.requestAnimationFrame = raf;
+    if (fonts) Object.defineProperty(document, "fonts", fonts);
+    else Reflect.deleteProperty(document, "fonts");
+  }
+});
+
+// Optical outputs change every morph frame. Observing those derived resources
+// must not recursively invalidate other lenses; real source edits still must.
+test("optical resource updates do not invalidate backdrop consumers", async () => {
+  const fonts = Object.getOwnPropertyDescriptor(document, "fonts");
+  Object.defineProperty(document, "fonts", { configurable: true, value: new EventTarget() });
+  const raf = globalThis.requestAnimationFrame;
+  globalThis.requestAnimationFrame = () => 1;
+  const source = document.createElement("div");
+  const element = document.createElement("div");
+  const layer = document.createElement("div");
+  document.body.append(source, element, layer);
+  let reads = 0;
+  const subscription = observeBackdrop({
+    source,
+    element,
+    layer,
+    prepare() {},
+    read() {
+      reads++;
+      return () => {};
+    },
+  });
+  const settle = () => new Promise((resolve) => setTimeout(resolve, 10));
+  const resources = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  resources.setAttribute("data-lenso-glass-optics", "");
+  const image = document.createElementNS(resources.namespaceURI, "feImage");
+  resources.append(image);
+  try {
+    await settle();
+    const initial = reads;
+    document.body.append(resources);
+    await settle();
+    image.setAttribute("href", "data:image/png;base64,changed");
+    await settle();
+    expect(reads).toBe(initial);
+    source.style.backgroundColor = "red";
+    await settle();
+    expect(reads).toBeGreaterThan(initial);
+    const updated = reads;
+    resources.remove();
+    await settle();
+    expect(reads).toBe(updated);
+  } finally {
+    subscription.stop();
+    resources.remove();
+    source.remove();
+    element.remove();
+    layer.remove();
+    globalThis.requestAnimationFrame = raf;
+    if (fonts) Object.defineProperty(document, "fonts", fonts);
+    else Reflect.deleteProperty(document, "fonts");
+  }
+});

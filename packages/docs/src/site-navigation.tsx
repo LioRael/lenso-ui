@@ -2,13 +2,13 @@
 
 import { useContext, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Collapsible } from "@base-ui/react/collapsible";
+import { Sidebar } from "@lenso/ui/sidebar";
+import { sidebarStyles } from "@lenso/tokens/sidebar";
 import { ChevronDown } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
-import { styles, sidebar } from "@lenso/docs/presentation";
+import { sidebar } from "@lenso/docs/presentation";
 import { DesktopNavigationState, navigationBranchId } from "./sidebar-state";
 
-// Adapted from the Lenso UI notebook sidebar; HeroUI v3.2.6, Apache-2.0.
 // Navigation data and route identity belong to the application adapter.
 export interface DocumentationNavigationItem {
   title: string;
@@ -56,21 +56,22 @@ function NavigationEntry({
   const desktopState = useContext(DesktopNavigationState);
   const selected = item.url === currentUrl;
   const link = item.url ? (
-    <Link
+    <Sidebar.Item
+      render={<Link href={item.url} />}
+      selected={selected}
       href={item.url}
       title={item.description}
       {...(onNavigate ? { onClick: onNavigate } : {})}
-      aria-current={selected ? "page" : undefined}
-      {...stylex.props(styles.navLink, sidebar.item, selected && styles.active)}
+      xstyle={[sidebar.row, selected && sidebar.selected]}
     >
-      {item.title}
+      <Sidebar.Text>{item.title}</Sidebar.Text>
       <Status item={item} />
-    </Link>
+    </Sidebar.Item>
   ) : null;
 
   if (item.children?.length) {
     return (
-      <Collapsible.Root
+      <Sidebar.Disclosure
         defaultOpen={item.defaultOpen ?? containsCurrentUrl(item, currentUrl)}
         {...(desktopState
           ? {
@@ -83,21 +84,23 @@ function NavigationEntry({
           : {})}
       >
         {link}
-        <Collapsible.Trigger
+        <Sidebar.DisclosureTrigger
           title={item.description}
           aria-label={item.url ? `Toggle ${item.title} pages` : undefined}
-          {...stylex.props(styles.navLink, sidebar.item, sidebar.trigger)}
+          xstyle={[sidebar.row, sidebar.trigger]}
         >
-          {item.title}
+          <Sidebar.Text>{item.title}</Sidebar.Text>
           {!item.url && <Status item={item} />}
           <ChevronDown
             width={16}
             height={16}
             aria-hidden="true"
-            {...stylex.props(sidebar.chevron)}
+            {...stylex.props(sidebarStyles.disclosureIndicator, sidebar.chevron)}
           />
-        </Collapsible.Trigger>
-        <Collapsible.Panel {...stylex.props(sidebar.children)}>
+        </Sidebar.DisclosureTrigger>
+        <Sidebar.DisclosurePanel
+          {...stylex.props(sidebar.children, !item.url && sidebar.categoryChildren)}
+        >
           {item.children.map((child) => (
             <NavigationEntry
               key={child.url ?? child.title}
@@ -107,17 +110,17 @@ function NavigationEntry({
               onNavigate={onNavigate}
             />
           ))}
-        </Collapsible.Panel>
-      </Collapsible.Root>
+        </Sidebar.DisclosurePanel>
+      </Sidebar.Disclosure>
     );
   }
 
   return (
     link ?? (
-      <p title={item.description} {...stylex.props(styles.navHeading)}>
+      <Sidebar.Label title={item.description} xstyle={sidebar.label}>
         {item.title}
         <Status item={item} />
-      </p>
+      </Sidebar.Label>
     )
   );
 }
@@ -128,7 +131,7 @@ export function DocumentationNavigation({
   onNavigate,
 }: DocumentationNavigationProps): ReactNode {
   return (
-    <nav aria-label="Documentation pages" {...stylex.props(styles.navigation)}>
+    <Sidebar aria-label="Documentation pages" xstyle={sidebar.navigation}>
       {navigation.map((item) => (
         <NavigationEntry
           key={item.url ?? item.title}
@@ -138,6 +141,6 @@ export function DocumentationNavigation({
           onNavigate={onNavigate}
         />
       ))}
-    </nav>
+    </Sidebar>
   );
 }

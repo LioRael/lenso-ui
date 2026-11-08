@@ -1,4 +1,4 @@
-import uiPackage from "../../../../packages/react/package.json";
+import uiPackage from "../../../../packages/ui/package.json";
 
 /** The UI package owns the product release; documentation has no separate version. */
 export const product = {

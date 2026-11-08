@@ -1,16 +1,27 @@
 import assert from "node:assert/strict";
-import test from "node:test";
-import { mkdtemp, writeFile, readFile, readdir, symlink, link, mkdir } from "node:fs/promises";
+import { afterEach, test } from "bun:test";
+import { mkdtemp, writeFile, readFile, readdir, symlink, link, mkdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { createHash } from "node:crypto";
 import { run } from "../src/cli.ts";
-import { createQueries } from "../src/contract.ts";
+import { createQueries } from "@lenso/ui-devtools/queries";
 import { planInit, applyInit, checkProject } from "../src/project.ts";
-import { fixture, authoredMarkdown } from "./fixture.ts";
-import { parseSource } from "../../../scripts/source-imports.ts";
+import { fixture, authoredMarkdown } from "@lenso/ui-devtools/testing";
+import { parseSource } from "@lenso/ui-devtools/parser";
+
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
+});
 
 async function project(framework: "vite" | "next") {
   const root = await mkdtemp(join(tmpdir(), "lenso-devtools-"));
+  temporaryDirectories.push(root);
   const packageJson = {
     name: "real-starter",
     private: true,
@@ -67,8 +78,18 @@ for (const framework of ["vite", "next"] as const) {
     const pkg = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
     assert.deepEqual(pkg.custom, { preserve: true });
     assert.equal(pkg.dependencies["@lenso/ui"], contract.lensoVersion);
-    assert.equal(pkg.devDependencies["@lenso/stylex-build"], "0.1.0");
-    assert.match(await readFile(join(root, "lenso.stylex.mjs"), "utf8"), /stylex-rules\.json/);
+    const configFile = `${framework}.config.ts`;
+    const config = await readFile(join(root, configFile), "utf8");
+    if (framework === "vite") {
+      assert.equal(pkg.devDependencies["@stylexjs/unplugin"], "0.19.1");
+      assert.match(config, /@stylexjs\/unplugin/);
+      assert.match(config, /stylex\.vite/);
+    } else {
+      assert.equal(pkg.devDependencies["@stylexjs/babel-plugin"], "0.19.1");
+      assert.equal(pkg.devDependencies["@stylexjs/postcss-plugin"], "0.19.1");
+      assert.match(config, /transpilePackages/);
+    }
+    assert.doesNotThrow(() => parseSource(config, configFile));
     assert.match(await readFile(join(root, "lenso.theme.css"), "utf8"), /styles\.css/);
     assert.deepEqual((await planInit(root, framework, contract)).changes, []);
   });
@@ -88,10 +109,72 @@ test("dirty generated config and arbitrary existing starter configs are never ov
   assert.equal(await readFile(join(root, "package.json"), "utf8"), before);
   const clean = await project("vite");
   await applyInit(await planInit(clean, "vite", contract));
-  await writeFile(join(clean, "vite.config.mjs"), "export default { custom: true };\n");
+  await writeFile(join(clean, "vite.config.ts"), "export default { custom: true };\n");
   const dirty = await planInit(clean, "vite", contract);
   assert.match(dirty.conflicts.join("\n"), /Refusing overwrite/);
   assert.equal((await applyInit(dirty)).applied, false);
+});
+
+test("legacy generated JavaScript configs are reported without changing consumer files", async () => {
+  const contract = await fixture();
+  const root = await project("vite");
+  const files = {
+    "vite.config.mjs": 'import "./lenso.stylex.mjs";\nexport default {};\n',
+    "lenso.stylex.mjs": "export const lensoStylex = {};\n",
+    "lenso.theme.css": '@import "@lenso/tokens/styles.css";\n',
+  };
+  for (const [name, content] of Object.entries(files)) await writeFile(join(root, name), content);
+  const state = JSON.stringify({
+    formatVersion: 1,
+    digest: contract.digest,
+    files: Object.fromEntries(
+      Object.entries(files).map(([name, content]) => [
+        name,
+        createHash("sha256").update(content).digest("hex"),
+      ]),
+    ),
+  });
+  await writeFile(join(root, ".lenso-init.json"), state);
+  const plan = await planInit(root, "vite", contract);
+  assert.match(plan.conflicts.join("\n"), /Existing vite\.config\.mjs is user-owned/);
+  assert.equal((await applyInit(plan)).applied, false);
+  for (const [name, content] of Object.entries(files))
+    assert.equal(await readFile(join(root, name), "utf8"), content);
+  assert.equal(await readFile(join(root, ".lenso-init.json"), "utf8"), state);
+});
+
+// Main config ownership checks do not catch a second Babel/PostCSS config in another format.
+test("Next init preserves alternative Babel and PostCSS configurations", async () => {
+  for (const filename of ["babel.config.cjs", "postcss.config.mjs"]) {
+    const root = await project("next");
+    await writeFile(join(root, filename), "export default {};\n");
+    const plan = await planInit(root, "next", await fixture());
+    assert.ok(plan.conflicts.some((conflict) => conflict.includes(filename)));
+    assert.equal((await applyInit(plan)).applied, false);
+    assert.deepEqual((await readdir(root)).sort(), [filename, "package.json"].sort());
+  }
+});
+
+test("generated Next configuration uses official Babel/PostCSS and includes source packages", async () => {
+  const root = await project("next");
+  try {
+    const plan = await planInit(root, "next", await fixture());
+    assert.deepEqual(plan.conflicts, []);
+    await applyInit(plan);
+    const generated = (await import(join(root, "next.config.ts"))).default;
+    assert.deepEqual(generated.transpilePackages, ["@lenso/tokens"]);
+    assert.match(
+      await readFile(join(root, "babel.config.json"), "utf8"),
+      /@stylexjs\/babel-plugin/,
+    );
+    assert.match(
+      await readFile(join(root, "postcss.config.cjs"), "utf8"),
+      /@stylexjs\/postcss-plugin/,
+    );
+    assert.match(await readFile(join(root, "lenso.theme.css"), "utf8"), /@stylex;/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });
 
 test("changed-after-plan, symlink and hardlink package paths refuse write before mutation", async () => {
@@ -103,7 +186,7 @@ test("changed-after-plan, symlink and hardlink package paths refuse write before
   assert.deepEqual(await readdir(root), ["package.json"]);
   const unsafe = await project("vite");
   const outside = await project("vite");
-  await symlink(join(outside, "package.json"), join(unsafe, "vite.config.mjs"));
+  await symlink(join(outside, "package.json"), join(unsafe, "vite.config.ts"));
   await assert.rejects(planInit(unsafe, "vite", contract), /Unsafe project file/);
   const alias = `${unsafe}-alias`;
   await symlink(unsafe, alias);
@@ -138,7 +221,11 @@ test("consumer check uses shared policy without library-only React Aria restrict
     join(next, "app/global-error.tsx"),
     "export default function Error() { return null; }",
   );
-  assert.match((await planInit(next, "next", contract)).conflicts.join("\n"), /global-error/);
+  assert.ok(
+    (await checkProject(next, contract)).diagnostics.some(
+      (entry) => entry.ruleId === "lenso/next-global-error",
+    ),
+  );
   await mkdir(join(next, "pages"));
   await writeFile(join(next, "pages/index.tsx"), "export default function Page() { return null; }");
   assert.match((await planInit(next, "next", contract)).conflicts.join("\n"), /Pages Router/);
@@ -162,7 +249,7 @@ test("typed Vite and Next starter configs remain user-owned and plans contain va
     const beforePackage = await readFile(join(root, "package.json"), "utf8");
     const plan = await planInit(root, framework, contract);
     assert.match(plan.conflicts.join("\n"), /user-owned/);
-    for (const change of plan.changes.filter((entry) => entry.file.endsWith(".mjs")))
+    for (const change of plan.changes.filter((entry) => entry.file.endsWith(".ts")))
       assert.doesNotThrow(() => parseSource(change.after, change.file));
     assert.equal((await applyInit(plan)).applied, false);
     assert.equal(await readFile(join(root, `${framework}.config.ts`), "utf8"), source);
@@ -177,11 +264,11 @@ test("unknown build support and ownership formats fail closed before any write",
   await assert.rejects(planInit(root, "vite", contract), /Unknown.*ownership/);
   const unknown = {
     ...structuredClone(contract),
-    compatibility: { ...contract.compatibility, schemaVersion: 2 },
+    compatibility: { ...contract.compatibility, schemaVersion: 99 },
   };
-  const { contractDigest } = await import("../../../tooling/lenso-contracts/index.ts");
+  const { contractDigest } = await import("@lenso/ui-devtools/contract");
   unknown.digest = contractDigest(unknown);
-  await assert.rejects(planInit(root, "vite", unknown), /schemaVersion|buildSupport/);
+  await assert.rejects(planInit(root, "vite", unknown), /schemaVersion/);
   assert.deepEqual((await readdir(root)).sort(), [".lenso-init.json", "package.json"]);
 });
 

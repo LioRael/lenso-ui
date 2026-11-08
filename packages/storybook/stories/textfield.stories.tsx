@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 textfield.stories.tsx (Apache-2.0).
 // Field.Root owns validity; native Input/TextArea own type, required and controlled values.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type ReactNode } from "react";

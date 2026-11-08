@@ -1,11 +1,10 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// HeroUI v3.2.6. Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 import type { DateValue } from "@internationalized/date";
 import { Calendar } from "@gravity-ui/icons";
 import { Button, DateField } from "@lenso/ui";
-import { Form } from "react-aria-components/Form";
+import { Form } from "@lenso/ui";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useState, type FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -56,7 +55,7 @@ export function FormExample() {
         disabled={!value || isInvalid}
         isLoading={isSubmitting}
         type="submit"
-        variant="primary"
+        variant="prominent"
       >
         {isSubmitting ? "提交中…" : "Submit"}
       </Button>

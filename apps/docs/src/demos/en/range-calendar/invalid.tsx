@@ -1,12 +1,14 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX.
 import { RangeCalendar } from "@lenso/ui";
 import { getLocalTimeZone, today, type DateValue } from "@internationalized/date";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { CalendarNote, layout } from "../calendar/demo-parts";
 import { RangeHeader, RangeGrid } from "./demo-parts";
-const styles = stylex.create({ error: { fontSize: 14, color: "var(--danger)" } });
+const styles = stylex.create({
+  error: { fontSize: 14, color: "var(--lenso-status-error-indicator)" },
+});
 export function Invalid() {
   const now = today(getLocalTimeZone());
   const [value, setValue] = useState<{ start: DateValue; end: DateValue }>({

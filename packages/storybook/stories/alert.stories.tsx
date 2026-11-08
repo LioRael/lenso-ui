@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 alert.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import { Alert, Button, CloseButton, Spinner } from "@lenso/ui";
@@ -41,7 +40,7 @@ const actions = [
     description:
       "A new version of the application is available. Please refresh to get the latest features and bug fixes.",
     action: "Refresh",
-    variant: "primary",
+    variant: "prominent",
   },
   {
     status: "success",
@@ -49,7 +48,7 @@ const actions = [
     description:
       "Your payment of $49.99 has been processed. A confirmation email has been sent to your inbox.",
     action: "View Receipt",
-    variant: "secondary",
+    variant: "bordered",
   },
   {
     status: "warning",
@@ -57,7 +56,7 @@ const actions = [
     description:
       "You're using 90% of your storage quota. Consider upgrading your plan or removing unused files to avoid service interruption.",
     action: "Manage Storage",
-    variant: "secondary",
+    variant: "bordered",
   },
 ] as const;
 export const Default: Story = {
@@ -100,11 +99,11 @@ export const Default: Story = {
               <li>Clear your browser cache</li>
             </ul>
           </Alert.Description>
-          <Button xstyle={styles.mobileAction} size="sm" variant="danger">
+          <Button destructive xstyle={styles.mobileAction} size="sm" variant="prominent">
             Retry
           </Button>
         </Alert.Content>
-        <Button xstyle={styles.desktopAction} size="sm" variant="danger">
+        <Button destructive xstyle={styles.desktopAction} size="sm" variant="prominent">
           Retry
         </Button>
       </Alert>

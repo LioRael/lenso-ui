@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-close-methods (Apache-2.0).
 import { CircleCheck, CircleInfo } from "@gravity-ui/icons";
 import { useRef } from "react";
 import { Dialog } from "@base-ui/react/dialog";
@@ -10,10 +9,16 @@ const styles = stylex.create({
   column: { display: "flex", maxWidth: 672, flexDirection: "column", gap: 32 },
   section: { display: "flex", flexDirection: "column", gap: 8 },
   heading: { fontSize: 18, fontWeight: 600 },
-  caption: { fontSize: 14, color: "var(--muted)" },
+  caption: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   popup: { maxWidth: 360 },
-  accent: { backgroundColor: "var(--accent-soft)", color: "var(--accent-soft-foreground)" },
-  success: { backgroundColor: "var(--success-soft)", color: "var(--success-soft-foreground)" },
+  accent: {
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
+  },
+  success: {
+    backgroundColor: "var(--lenso-control-status-success-soft-fill)",
+    color: "var(--lenso-status-success-text)",
+  },
   circle: { width: 20, height: 20 },
 });
 
@@ -27,7 +32,7 @@ export function CloseMethods() {
           Compose a Button with <code>Modal.Close</code> to close the modal automatically.
         </p>
         <Modal>
-          <Modal.Trigger render={<Button variant="secondary" />}>Open Modal</Modal.Trigger>
+          <Modal.Trigger render={<Button />}>Open Modal</Modal.Trigger>
           <Modal.Portal>
             <Modal.Backdrop />
             <Modal.Viewport>
@@ -45,7 +50,7 @@ export function CloseMethods() {
                   </Modal.Description>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+                  <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
                   <Modal.Close render={<Button />}>Confirm</Modal.Close>
                 </Modal.Footer>
               </Modal.Popup>
@@ -61,7 +66,7 @@ export function CloseMethods() {
           allowing you to add custom logic before closing.
         </p>
         <Modal actionsRef={actionsRef}>
-          <Modal.Trigger render={<Button variant="secondary" />}>Open Modal</Modal.Trigger>
+          <Modal.Trigger render={<Button />}>Open Modal</Modal.Trigger>
           <Modal.Portal>
             <Modal.Backdrop />
             <Modal.Viewport>
@@ -80,7 +85,7 @@ export function CloseMethods() {
                   </Modal.Description>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button variant="secondary" onClick={() => actionsRef.current?.close()}>
+                  <Button variant="bordered" onClick={() => actionsRef.current?.close()}>
                     Cancel
                   </Button>
                   <Button onClick={() => actionsRef.current?.close()}>Confirm</Button>

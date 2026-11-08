@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 modal-backdrop-variants (Apache-2.0).
 import { Rocket } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -20,8 +18,8 @@ const styles = stylex.create({
     maxWidth: 360,
   },
   icon: {
-    backgroundColor: "var(--default)",
-    color: "var(--foreground)",
+    backgroundColor: "var(--lenso-control-fill)",
+    color: "var(--lenso-label-primary)",
   },
   rocket: {
     width: 20,
@@ -37,7 +35,7 @@ export function BackdropVariants() {
     <div {...stylex.props(styles.row)}>
       {variants.map((variant) => (
         <Modal key={variant}>
-          <Modal.Trigger render={<Button variant="secondary" />}>
+          <Modal.Trigger render={<Button />}>
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </Modal.Trigger>
           <Modal.Portal>

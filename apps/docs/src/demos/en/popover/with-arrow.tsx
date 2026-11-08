@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 popover-with-arrow (Apache-2.0).
 import { Ellipsis } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Popover } from "@lenso/ui";
@@ -10,9 +9,9 @@ export function PopoverWithArrow() {
   return (
     <div {...stylex.props(styles.row)}>
       <Popover>
-        <Popover.Trigger render={<Button variant="secondary" />}>With Arrow</Popover.Trigger>
+        <Popover.Trigger render={<Button />}>With Arrow</Popover.Trigger>
         <Popover.Portal>
-          <Popover.Positioner sideOffset={8}>
+          <Popover.Positioner sideOffset={16}>
             <Popover.Popup xstyle={styles.popup}>
               <Popover.Arrow />
               <Popover.Title>Popover with Arrow</Popover.Title>
@@ -24,9 +23,7 @@ export function PopoverWithArrow() {
         </Popover.Portal>
       </Popover>
       <Popover>
-        <Popover.Trigger
-          render={<Button isIconOnly aria-label="More options" variant="tertiary" />}
-        >
+        <Popover.Trigger render={<Button isIconOnly aria-label="More options" />}>
           <Button.Icon>
             <Ellipsis />
           </Button.Icon>

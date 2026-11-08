@@ -1,8 +1,0 @@
-{
-  "extends": "../standard/tsconfig/react.json",
-  "compilerOptions": {
-    "erasableSyntaxOnly": true,
-    "types": ["node"]
-  },
-  "include": ["scripts/**/*.ts", "stories/*proof.ts", "stories/*smoke.ts"]
-}

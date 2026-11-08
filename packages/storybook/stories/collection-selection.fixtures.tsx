@@ -1,4 +1,4 @@
-// HeroUI v3.2.6 Checkbox appearance (Apache-2.0), on the native public Table input.
+// on the native public Table input.
 // The input alone owns selection and keyboard activation; the sibling is decorative.
 import * as stylex from "@stylexjs/stylex";
 import { Table } from "@lenso/ui";
@@ -19,7 +19,7 @@ const selectionStyles = stylex.create({
     opacity: 0,
     margin: 0,
     zIndex: 1,
-    cursor: "var(--cursor-interactive)",
+    cursor: "var(--lenso-cursor-interactive)",
   },
   control: {
     display: "inline-flex",
@@ -27,25 +27,25 @@ const selectionStyles = stylex.create({
     height: 16,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: "var(--radius-md)",
-    borderWidth: "var(--border-width-field)",
+    borderRadius: "var(--lenso-shape-content-md)",
+    borderWidth: "var(--lenso-field-stroke-width)",
     borderStyle: "solid",
     borderColor: {
       default: null,
-      ":is(span)": "var(--field-border)",
+      ":is(span)": "var(--lenso-control-field-border)",
       ":is(input:checked + *, input:indeterminate + *)": "transparent",
     },
     backgroundColor: {
       default: null,
-      ":is(span)": "var(--field-background)",
-      ":is(input:checked + *, input:indeterminate + *)": "var(--accent)",
+      ":is(span)": "var(--lenso-control-field-fill)",
+      ":is(input:checked + *, input:indeterminate + *)": "var(--lenso-tint)",
     },
-    color: "var(--accent-foreground)",
-    boxShadow: "var(--field-shadow)",
+    color: "var(--lenso-label-on-tint)",
+    boxShadow: "var(--lenso-field-shadow)",
     outline: {
       default: null,
       ":is(span)": "none",
-      ":is(input:focus-visible + *)": "2px solid var(--focus)",
+      ":is(input:focus-visible + *)": "2px solid var(--lenso-focus-ring)",
     },
     outlineOffset: 2,
     pointerEvents: "none",
@@ -53,8 +53,8 @@ const selectionStyles = stylex.create({
   secondary: {
     backgroundColor: {
       default: null,
-      ":is(span)": "var(--default)",
-      ":is(input:checked + *, input:indeterminate + *)": "var(--accent)",
+      ":is(span)": "var(--lenso-control-fill)",
+      ":is(input:checked + *, input:indeterminate + *)": "var(--lenso-tint)",
     },
     boxShadow: "none",
   },

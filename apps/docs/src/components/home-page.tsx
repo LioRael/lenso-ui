@@ -1,16 +1,50 @@
 "use client";
 
-// HeroUI v3.2.6 homepage, Apache-2.0, Copyright 2025 NextUI Inc.
-// Modified copy, destinations and component composition for Lenso UI.
-import NextLink from "next/link";
+/* oxlint-disable jsx-a11y/prefer-tag-over-role -- These polymorphic Buttons render anchors; override Base UI's button role. */
+
+// Copyright 2025 NextUI Inc.
+// Modified: Apple-inspired hierarchy, live glass example and Lenso documentation paths.
+import NextLink from "fumadocs-core/link";
 import * as stylex from "@stylexjs/stylex";
-import { Link } from "@lenso/ui";
-import { LogoGithub, Rocket } from "@gravity-ui/icons";
+import { Button, Link } from "@lenso/ui";
 import { HomeShell } from "./home-layout";
 import { HomeShowcase } from "./home-showcase";
 import { home as s } from "@/styles/home.stylex";
 import { product } from "@/lib/product";
 import type { Locale } from "@/lib/source";
+
+const foundations = [
+  {
+    path: "components/glass-button",
+    en: "Materials with a purpose.",
+    cn: "材质，各司其职。",
+    description: "Glass for floating controls. Quiet surfaces for the content that matters.",
+    descriptionCn: "玻璃承载浮动控件，安静的表面承载内容。让层级清晰，也让注意力有所归属。",
+    link: "Meet GlassButton",
+    linkCn: "查看 GlassButton",
+  },
+  {
+    path: "getting-started/architecture",
+    en: "Familiar from the first touch.",
+    cn: "上手，就很熟悉。",
+    description:
+      "Native Web interaction, composed with Base UI. Keyboard, focus and editing stay familiar.",
+    descriptionCn: "基于 Base UI 组合原生 Web 交互，让键盘、焦点与文本编辑遵循熟悉的方式。",
+    link: "Read the composition guide",
+    linkCn: "阅读组合指南",
+  },
+  {
+    path: "getting-started/theming",
+    en: "Make it feel like yours.",
+    cn: "一致，也有你的个性。",
+    description:
+      "Semantic colors, light and dark appearances, and StyleX. A shared language with room for your product.",
+    descriptionCn:
+      "语义颜色、浅色与深色外观，以及 StyleX。在统一的设计语言中，保留产品自己的表达。",
+    link: "Shape your theme",
+    linkCn: "了解主题定制",
+  },
+] as const;
 
 export function HomePage({ locale }: { locale: Locale }) {
   const cn = locale === "cn";
@@ -19,60 +53,81 @@ export function HomePage({ locale }: { locale: Locale }) {
       <main id="main-content" {...stylex.props(s.main)}>
         <section aria-labelledby="home-title" {...stylex.props(s.hero)}>
           <div {...stylex.props(s.heroContent)}>
-            <Link
-              render={<NextLink href={`/${locale}/docs/react/getting-started/versioning`} />}
-              xstyle={s.release}
-            >
-              <Rocket width={12} height={12} aria-hidden="true" />
-              Lenso UI {product.version} · {cn ? "源码候选版本" : "Source candidate"}
-            </Link>
+            <p {...stylex.props(s.eyebrow)}>React. StyleX. Liquid Glass.</p>
             <h1 id="home-title" {...stylex.props(s.title)}>
-              <span>{cn ? "开箱即用的美感。" : "Beautiful by default."}</span>
+              {cn ? "熟悉的感觉。" : "Feels familiar."}
+              <br />
               <span {...stylex.props(s.titleMuted)}>
-                {cn ? "为自由定制而设计。" : "Customizable by design."}
+                {cn ? "全新的可能。" : "A fresh perspective."}
               </span>
             </h1>
             <p {...stylex.props(s.description)}>
               {cn
-                ? "Lenso UI 是 React 组件库，以原生交互和 StyleX 样式，帮助你快速构建、保持一致，并按需定制界面。"
-                : "Lenso UI is a React component library built to help you move fast, stay consistent, and customize with StyleX."}
+                ? "遵循 Apple 设计理念的 React 组件库。清晰的层级、自然的交互，还有恰到好处的 Liquid Glass。"
+                : "React components with an Apple-inspired point of view. Clear hierarchy, natural interaction, and Liquid Glass where it belongs."}
             </p>
             <div {...stylex.props(s.ctas)}>
-              <Link
+              <Button
+                nativeButton={false}
+                role="link"
+                size="lg"
+                variant="prominent"
                 render={<NextLink href={`/${locale}/docs/react/getting-started`} />}
-                xstyle={[s.cta, s.primary]}
               >
-                {cn ? "开始使用" : "Get started"}
-              </Link>
-              <Link
+                {cn ? "构建你的界面" : "Build with Lenso"}
+              </Button>
+              <Button
+                nativeButton={false}
+                role="link"
+                size="lg"
+                variant="bordered"
                 render={<NextLink href={`/${locale}/docs/react/components`} />}
-                xstyle={[s.cta, s.outline]}
               >
-                {cn ? "查看组件" : "View components"}
-              </Link>
+                {cn ? "浏览组件" : "Browse components"}
+              </Button>
             </div>
-            <Link href={product.repository} xstyle={s.repository}>
-              <LogoGithub width={14} height={14} aria-hidden="true" />
-              {cn ? "在 GitHub 查看源码" : "Open source on GitHub"}
-            </Link>
+          </div>
+          <HomeShowcase locale={locale} />
+        </section>
+        <section aria-labelledby="foundations-title" {...stylex.props(s.foundations)}>
+          <div {...stylex.props(s.sectionHeading)}>
+            <p {...stylex.props(s.eyebrow)}>{cn ? "Lenso 的设计语言" : "The Lenso approach"}</p>
+            <h2 id="foundations-title" {...stylex.props(s.sectionTitle)}>
+              {cn ? "细节，汇成整体。" : "Small details. One considered whole."}
+            </h2>
+          </div>
+          <div {...stylex.props(s.rows)}>
+            {foundations.map((item) => (
+              <div key={item.path} {...stylex.props(s.row)}>
+                <h3 {...stylex.props(s.rowTitle)}>{item[locale]}</h3>
+                <div {...stylex.props(s.rowContent)}>
+                  <p {...stylex.props(s.rowDescription)}>
+                    {cn ? item.descriptionCn : item.description}
+                  </p>
+                  <Link
+                    render={<NextLink href={`/${locale}/docs/react/${item.path}`} />}
+                    xstyle={s.textLink}
+                  >
+                    {cn ? item.linkCn : item.link}
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
-        <HomeShowcase locale={locale} />
       </main>
       <footer {...stylex.props(s.footer)}>
-        <span>Lenso UI · {product.version}</span>
-        <Link
-          render={<NextLink href={`/${locale}/docs/react/getting-started`} />}
-          xstyle={s.footerLink}
-        >
-          {cn ? "文档" : "Documentation"}
-        </Link>
-        <Link href={product.repository} xstyle={s.footerLink}>
-          GitHub
-        </Link>
-        <Link render={<NextLink href="/coverage" />} xstyle={s.footerLink}>
-          {cn ? "验证覆盖" : "Verification coverage"}
-        </Link>
+        <div {...stylex.props(s.footerLinks)}>
+          <Link
+            render={<NextLink href={`/${locale}/docs/react/getting-started`} />}
+            xstyle={s.footerLink}
+          >
+            {cn ? "文档" : "Documentation"}
+          </Link>
+          <Link href={product.repository} xstyle={s.footerLink}>
+            GitHub
+          </Link>
+        </div>
       </footer>
     </HomeShell>
   );

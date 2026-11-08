@@ -1,9 +1,8 @@
 "use client";
-// Shared content from the pinned HeroUI v3.2.6 list-box examples (Apache-2.0).
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Check } from "@gravity-ui/icons";
-import { Avatar, ListBox, ListBoxItem } from "@lenso/ui";
+import { Avatar, ListBox } from "@lenso/ui";
 import { Description, Label } from "./text";
 
 export const styles = stylex.create({
@@ -11,27 +10,27 @@ export const styles = stylex.create({
   surface: {
     width: 256,
     borderRadius: 24,
-    backgroundColor: "var(--surface)",
-    boxShadow: "var(--surface-shadow)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   details: { display: "flex", flexDirection: "column" },
   stack: { display: "flex", flexDirection: "column", gap: 16 },
-  muted: { fontSize: 14, color: "var(--muted)" },
-  check: { width: 16, height: 16, color: "var(--accent-soft-foreground)" },
+  muted: { fontSize: 14, color: "var(--lenso-label-secondary)" },
+  check: { width: 16, height: 16, color: "var(--lenso-tint-text)" },
   custom: {
     width: 224,
     borderRadius: 12,
-    border: "1px solid color-mix(in oklch, var(--border) 80%, transparent)",
-    backgroundColor: "var(--surface)",
+    border: "1px solid color-mix(in oklch, var(--lenso-control-border) 80%, transparent)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 4,
-    boxShadow: "0 1px 2px #0000000d",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   customItem: {
     borderRadius: 8,
     backgroundColor: {
       default: "transparent",
-      ":focus": "color-mix(in oklch, var(--accent) 10%, transparent)",
-      ":is([aria-selected=true])": "color-mix(in oklch, var(--accent) 5%, transparent)",
+      ":focus": "color-mix(in oklch, var(--lenso-tint) 10%, transparent)",
+      ":is([aria-selected=true])": "color-mix(in oklch, var(--lenso-tint) 5%, transparent)",
     },
   },
 });
@@ -52,7 +51,7 @@ export function UserItems({
   count?: number;
 }) {
   return users.slice(0, count).map((user, index) => (
-    <ListBoxItem
+    <ListBox.Item
       key={user.key}
       itemKey={user.key}
       textValue={user.name}
@@ -64,23 +63,20 @@ export function UserItems({
       }
     >
       <Avatar size="sm">
-        <Avatar.Image
-          alt={user.name}
-          src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/${user.color}.jpg`}
-        />
+        <Avatar.Image alt={user.name} src={`/assets/demo/avatars/${user.color}.svg`} />
         <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
       </Avatar>
       <div {...stylex.props(styles.details)}>
         <Label>{user.name}</Label>
-        <Description>{user.name.toLowerCase()}@heroui.com</Description>
+        <Description>{user.name.toLowerCase()}@example.com</Description>
       </div>
-      <ListBoxItem.Indicator>
+      <ListBox.Item.Indicator>
         {customCheck
           ? ({ isSelected }) =>
               isSelected ? <Check {...stylex.props(styles.check)} aria-hidden="true" /> : null
           : undefined}
-      </ListBoxItem.Indicator>
-    </ListBoxItem>
+      </ListBox.Item.Indicator>
+    </ListBox.Item>
   ));
 }
 export function UsersList(

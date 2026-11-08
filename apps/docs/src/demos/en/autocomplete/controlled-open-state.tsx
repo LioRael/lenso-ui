@@ -1,5 +1,4 @@
 "use client";
-/** HeroUI v3.2.6 adaptation. SPDX-License-Identifier: Apache-2.0 */
 import { Button } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";

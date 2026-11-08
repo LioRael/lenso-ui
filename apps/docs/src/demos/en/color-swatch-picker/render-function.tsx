@@ -1,5 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. Apache-2.0. Native RAC render state replaces DOM render interception. */
+// Native RAC render state replaces DOM render interception.
 import { ColorSwatchPicker } from "@lenso/ui";
 import { colors } from "./source";
 export function RenderFunction() {

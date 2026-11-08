@@ -1,23 +1,20 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Separator } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const items = [
   {
-    iconUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/bell-small.png",
+    iconUrl: "/assets/demo/illustrations/bell-small.svg",
     subtitle: "Receive account activity updates",
     title: "设置通知",
   },
   {
-    iconUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/compass-small.png",
+    iconUrl: "/assets/demo/illustrations/compass-small.svg",
     subtitle: "Connect your browser to your account",
     title: "设置浏览器扩展",
   },
   {
-    iconUrl:
-      "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/mint-collective-small.png",
+    iconUrl: "/assets/demo/illustrations/mint-collective-small.svg",
     subtitle: "Create your first collectible",
     title: "铸造收藏品",
   },
@@ -49,7 +46,7 @@ const styles = stylex.create({
   subtitle: {
     fontSize: 14,
     lineHeight: "20px",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   separator: {
     marginBlock: 16,

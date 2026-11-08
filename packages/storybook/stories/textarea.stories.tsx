@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 textarea.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import { TextArea, Surface } from "@lenso/ui";

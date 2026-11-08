@@ -1,10 +1,8 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 alert-dialog-custom-icon (Apache-2.0).
 import { LockOpen } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 const styles = stylex.create({
   popup: {
     maxWidth: 400,
@@ -17,7 +15,7 @@ const styles = stylex.create({
 export function CustomIcon() {
   return (
     <AlertDialog>
-      <AlertDialog.Trigger render={<Button variant="secondary" />}>重置密码</AlertDialog.Trigger>
+      <AlertDialog.Trigger render={<Button />}>重置密码</AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Backdrop />
         <AlertDialog.Viewport>
@@ -35,8 +33,8 @@ export function CustomIcon() {
               </AlertDialog.Description>
             </AlertDialog.Body>
             <AlertDialog.Footer>
-              <AlertDialog.Close render={<Button variant="tertiary" />}>取消</AlertDialog.Close>
-              <AlertDialog.Close render={<Button />}>发送重置链接</AlertDialog.Close>
+              <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+              <AlertDialog.Action variant="cancel">发送重置链接</AlertDialog.Action>
             </AlertDialog.Footer>
           </AlertDialog.Popup>
         </AlertDialog.Viewport>

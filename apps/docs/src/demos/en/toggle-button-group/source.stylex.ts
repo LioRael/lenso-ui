@@ -5,21 +5,27 @@ export const styles = stylex.create({
   controlled: { display: "flex", flexDirection: "column", gap: 16 },
   row: { display: "flex", alignItems: "flex-start", gap: 32 },
   full: { width: "100%", maxWidth: 448, display: "flex", flexDirection: "column", gap: 12 },
-  muted: { fontSize: 14, color: "var(--muted)" },
+  muted: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   medium: { fontWeight: 500 },
   custom: {
     gap: 4,
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "color-mix(in oklab,var(--border) 80%,transparent)",
-    backgroundColor: "var(--surface)",
+    borderColor: "color-mix(in oklab,var(--lenso-control-border) 80%,transparent)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 4,
-    boxShadow: "var(--shadow-sm)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   toggle: {
     borderRadius: 8,
-    color: { default: "var(--muted)", ":is([data-pressed])": "var(--accent-soft-foreground)" },
-    backgroundColor: { default: null, ":is([data-pressed])": "var(--accent-soft)" },
+    color: {
+      default: "var(--lenso-label-secondary)",
+      ":is([data-pressed])": "var(--lenso-tint-text)",
+    },
+    backgroundColor: {
+      default: null,
+      ":is([data-pressed])": "var(--lenso-control-tint-subtle-fill)",
+    },
   },
 });

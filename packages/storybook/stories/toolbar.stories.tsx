@@ -1,6 +1,6 @@
-// HeroUI v3.2.6 story cases with the docs' tertiary toolbar composition, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, ButtonGroup, Toolbar } from "@lenso/ui";
+import { ButtonGroup, Toolbar } from "@lenso/ui";
+import { controlButtonStyles as buttonStyles } from "@lenso/tokens/button";
 import { FormattingGroup } from "./toggle-button-group.fixtures";
 import { ActionIcon } from "./actions-icons.fixtures";
 
@@ -17,22 +17,24 @@ export const Default: Story = {
     <Toolbar aria-label="Text formatting">
       <FormattingGroup count={3} aria-label="Text style" multiple />
       <Toolbar.Separator />
-      <ButtonGroup variant="tertiary">
-        <Button
+      <ButtonGroup>
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Copy"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
           <ActionIcon icon="gravity-ui:copy" />
-        </Button>
-        <Button
+        </Toolbar.Button>
+        <ButtonGroup.Separator />
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Cut"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
-          <ButtonGroup.Separator />
           <ActionIcon icon="gravity-ui:scissors" />
-        </Button>
+        </Toolbar.Button>
       </ButtonGroup>
     </Toolbar>
   ),
@@ -42,22 +44,24 @@ export const Vertical: Story = {
     <Toolbar aria-label="Tools" orientation="vertical">
       <FormattingGroup count={3} aria-label="Text style" multiple />
       <Toolbar.Separator />
-      <ButtonGroup variant="tertiary">
-        <Button
+      <ButtonGroup>
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Undo"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
           <ActionIcon icon="gravity-ui:arrow-uturn-ccw-left" />
-        </Button>
-        <Button
+        </Toolbar.Button>
+        <ButtonGroup.Separator />
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Redo"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
-          <ButtonGroup.Separator />
           <ActionIcon icon="gravity-ui:arrow-uturn-cw-right" />
-        </Button>
+        </Toolbar.Button>
       </ButtonGroup>
     </Toolbar>
   ),
@@ -65,44 +69,47 @@ export const Vertical: Story = {
 export const WithButtonGroup: Story = {
   render: () => (
     <Toolbar aria-label="Editor toolbar">
-      <ButtonGroup variant="tertiary">
-        <Button render={<Toolbar.Button variant="tertiary" />}>
+      <ButtonGroup>
+        <Toolbar.Button xstyle={buttonStyles.groupedHorizontal} variant="glass">
           <ActionIcon icon="gravity-ui:arrow-uturn-ccw-left" />
           Undo
-        </Button>
-        <Button render={<Toolbar.Button variant="tertiary" />}>
-          <ButtonGroup.Separator />
+        </Toolbar.Button>
+        <ButtonGroup.Separator />
+        <Toolbar.Button xstyle={buttonStyles.groupedHorizontal} variant="glass">
           <ActionIcon icon="gravity-ui:arrow-uturn-cw-right" />
           Redo
-        </Button>
+        </Toolbar.Button>
       </ButtonGroup>
       <Toolbar.Separator />
       <FormattingGroup count={3} aria-label="Text style" multiple />
       <Toolbar.Separator />
-      <ButtonGroup variant="tertiary">
-        <Button
+      <ButtonGroup>
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Align left"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
           <ActionIcon icon="gravity-ui:text-align-left" />
-        </Button>
-        <Button
+        </Toolbar.Button>
+        <ButtonGroup.Separator />
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Align center"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
-          <ButtonGroup.Separator />
           <ActionIcon icon="gravity-ui:text-align-center" />
-        </Button>
-        <Button
+        </Toolbar.Button>
+        <ButtonGroup.Separator />
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Align right"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
-          <ButtonGroup.Separator />
           <ActionIcon icon="gravity-ui:text-align-right" />
-        </Button>
+        </Toolbar.Button>
       </ButtonGroup>
     </Toolbar>
   ),
@@ -112,22 +119,24 @@ export const Attached: Story = {
     <Toolbar isAttached aria-label="Attached toolbar">
       <FormattingGroup count={3} aria-label="Text style" multiple />
       <Toolbar.Separator />
-      <ButtonGroup variant="tertiary">
-        <Button
+      <ButtonGroup>
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Copy"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
           <ActionIcon icon="gravity-ui:copy" />
-        </Button>
-        <Button
+        </Toolbar.Button>
+        <ButtonGroup.Separator />
+        <Toolbar.Button
+          xstyle={buttonStyles.groupedHorizontal}
           isIconOnly
           aria-label="Cut"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
+          variant="glass"
         >
-          <ButtonGroup.Separator />
           <ActionIcon icon="gravity-ui:scissors" />
-        </Button>
+        </Toolbar.Button>
       </ButtonGroup>
     </Toolbar>
   ),

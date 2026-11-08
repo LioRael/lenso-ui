@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Skeleton } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
@@ -18,7 +17,7 @@ const styles = stylex.create({
   label: {
     fontSize: 12,
     lineHeight: "16px",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
@@ -27,14 +26,14 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: 12,
-    borderRadius: "var(--radius-lg)",
+    borderRadius: "var(--lenso-shape-content-lg)",
     backgroundColor: "transparent",
     padding: 16,
-    boxShadow: "var(--shadow-panel)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
-  picture: { height: 80, borderRadius: "var(--radius-lg)" },
-  short: { height: 12, width: "60%", borderRadius: "var(--radius-lg)" },
-  long: { height: 12, width: "80%", borderRadius: "var(--radius-lg)" },
+  picture: { height: 80, borderRadius: "var(--lenso-shape-content-lg)" },
+  short: { height: 12, width: "60%", borderRadius: "var(--lenso-shape-content-lg)" },
+  long: { height: 12, width: "80%", borderRadius: "var(--lenso-shape-content-lg)" },
 });
 export function AnimationTypes() {
   return (

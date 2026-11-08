@@ -1,5 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6 format-options.json. Copyright NextUI Inc. Apache-2.0. */
+// Copyright NextUI Inc. Apache-2.0.
 import { DatePicker, TimeField } from "@lenso/ui";
 import {
   getLocalTimeZone,

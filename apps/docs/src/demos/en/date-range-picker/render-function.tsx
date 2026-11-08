@@ -1,5 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6 render-function.json. Copyright NextUI Inc. Apache-2.0. RAC 1.21 owns the native DOM render contract. */
+// Copyright NextUI Inc. Apache-2.0. RAC 1.21 owns the native DOM render contract.
 import { DateRangePicker } from "@lenso/ui";
 import { PickerCalendar, RangeInput, styles } from "./parts";
 

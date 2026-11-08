@@ -1,13 +1,23 @@
-// Adapted from HeroUI v3.2.6 card.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
-import { Card, Avatar, Button, CloseButton, Form, Input, Label, Link, TextField } from "@lenso/ui";
+import {
+  GlassButton,
+  Card,
+  Avatar,
+  Button,
+  CloseButton,
+  Form,
+  Input,
+  Label,
+  Link,
+  TextField,
+} from "@lenso/ui";
 import { SourceIcon } from "./source-icons";
 
 const styles = stylex.create({
   defaultCard: { width: 400 },
-  icon: { color: "var(--accent)", width: 24, height: 24 },
-  paymentIcon: { color: "var(--accent)", width: 32, height: 32, flexShrink: 0 },
+  icon: { color: "var(--lenso-tint)", width: 24, height: 24 },
+  paymentIcon: { color: "var(--lenso-tint)", width: 32, height: 32, flexShrink: 0 },
   stack: { display: "flex", flexDirection: "column", gap: 16 },
   variant: { width: 320 },
   horizontal: {
@@ -35,8 +45,8 @@ const styles = stylex.create({
     justifyContent: "space-between",
   },
   column: { display: "flex", flexDirection: "column" },
-  price: { fontSize: 14, fontWeight: 500, color: "var(--foreground)" },
-  caption: { fontSize: 12, color: "var(--muted)" },
+  price: { fontSize: 14, fontWeight: 500, color: "var(--lenso-label-primary)" },
+  caption: { fontSize: 12, color: "var(--lenso-label-secondary)" },
   avatarCards: { display: "flex", gap: 16 },
   community: { width: 200, gap: 8 },
   communityImage: {
@@ -107,7 +117,7 @@ const styles = stylex.create({
   paymentLabel: {
     fontSize: 12,
     fontWeight: 500,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
     textTransform: "uppercase",
   },
   paymentTitle: {
@@ -237,7 +247,16 @@ const meta = {
 } satisfies Meta<typeof Card>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-const asset = (path: string) => `https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/${path}`;
+const asset = (path: string) => {
+  if (path.startsWith("avatars/"))
+    return `/assets/demo/avatars/${path.slice(8).replace(/\.jpg$/, ".svg")}`;
+  const name = path.split("/").pop()!;
+  if (name === "demo1.jpg") return "/assets/demo/illustrations/landscape.svg";
+  if (name === "demo2.jpg") return "/assets/demo/illustrations/workspace.svg";
+  if (name === "porsche-911.png") return "/assets/demo/illustrations/car.svg";
+  if (name.startsWith("neo")) return "/assets/demo/illustrations/robot1.svg";
+  return `/assets/demo/illustrations/${name.replace(/\.jpeg$/, ".svg")}`;
+};
 export const Default: Story = {
   render: (args) => (
     <Card {...args} xstyle={[styles.defaultCard, args.xstyle]}>
@@ -258,7 +277,7 @@ export const Default: Story = {
       <Card.Footer>
         <Link
           aria-label="Go to Acme Creator Hub (opens in new tab)"
-          href="https://heroui.com"
+          href="/"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -531,9 +550,9 @@ export const WithImages: Story = {
                 <div {...stylex.props(styles.black)}>Available soon</div>
                 <div {...stylex.props(styles.blackCaption)}>Get notified</div>
               </div>
-              <Button xstyle={styles.whiteButton} size="sm" variant="tertiary">
+              <GlassButton xstyle={styles.whiteButton} size="sm" variant="default">
                 Notify me
-              </Button>
+              </GlassButton>
             </Card.Footer>
           </Card>
         </div>
@@ -553,9 +572,9 @@ export const WithImages: Story = {
                 <div {...stylex.props(styles.heroTitle)}>NEO</div>
                 <div {...stylex.props(styles.heroPrice)}>$499/m</div>
               </div>
-              <Button xstyle={styles.whiteButton} size="sm" variant="tertiary">
+              <GlassButton xstyle={styles.whiteButton} size="sm" variant="default">
                 Get now
-              </Button>
+              </GlassButton>
             </Card.Footer>
           </Card>
           <div {...stylex.props(styles.events)}>

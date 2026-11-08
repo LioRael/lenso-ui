@@ -1,5 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6 render-function.json. Copyright NextUI Inc. Apache-2.0. RAC 1.21 native DOM render functions preserve props, refs and input semantics. */
+// Copyright NextUI Inc. Apache-2.0. RAC 1.21 native DOM render functions preserve props, refs and input semantics.
 import { DateField, DatePicker } from "@lenso/ui";
 import { PickerCalendar, styles } from "./parts";
 

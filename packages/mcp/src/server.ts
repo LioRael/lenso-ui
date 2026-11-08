@@ -1,8 +1,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { createQueries, readContract, validateToolContract } from "../../cli/src/contract.ts";
-import type { LensoContract } from "../../../tooling/lenso-contracts/index.ts";
+import { createQueries, readContract, validateToolContract } from "@lenso/ui-devtools/queries";
+import type { LensoContract } from "@lenso/ui-devtools/contract";
 import { pathToFileURL } from "node:url";
 import { realpathSync } from "node:fs";
 import packageMetadata from "../package.json" with { type: "json" };

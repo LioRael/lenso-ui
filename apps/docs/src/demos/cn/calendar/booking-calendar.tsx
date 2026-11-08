@@ -1,11 +1,10 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button. */
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button.
 import { Button, Calendar } from "@lenso/ui";
 import { getLocalTimeZone, isWeekend, today, type CalendarDate } from "@internationalized/date";
 import { useState } from "react";
-import { useLocale } from "react-aria-components/I18nProvider";
+import { useLocale } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { CalendarHeader, CalendarGrid, layout } from "../../en/calendar/demo-parts";
 const bookedDates = [5, 6, 12, 13, 14, 20];
@@ -49,7 +48,7 @@ export function BookingCalendar() {
           </span>
         </div>
         {selectedDate ? (
-          <Button size="sm" variant="primary">
+          <Button size="sm" variant="prominent">
             预订{selectedDate.toString()}
           </Button>
         ) : null}

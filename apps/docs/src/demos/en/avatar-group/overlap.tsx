@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import type { ReactNode } from "react";
 import { Avatar, AvatarGroup } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -13,9 +12,10 @@ const styles = stylex.create({
     position: "absolute",
     inset: 0,
     borderRadius: 12,
-    backgroundColor: "color-mix(in oklab, var(--danger) 6%, var(--surface))",
+    backgroundColor:
+      "color-mix(in oklab, var(--lenso-status-error-indicator) 6%, var(--lenso-background-grouped-secondary))",
     backgroundImage:
-      "repeating-linear-gradient(-45deg, transparent 0 10px, color-mix(in oklab, var(--danger) 12%, transparent) 10px 11px, transparent 11px 21px, color-mix(in oklab, var(--danger) 28%, transparent) 21px 22px)",
+      "repeating-linear-gradient(-45deg, transparent 0 10px, color-mix(in oklab, var(--lenso-status-error-indicator) 12%, transparent) 10px 11px, transparent 11px 21px, color-mix(in oklab, var(--lenso-status-error-indicator) 28%, transparent) 21px 22px)",
     backgroundSize: "24px 24px",
     animationName: stripes,
     animationDuration: "2.8s",
@@ -36,20 +36,14 @@ function DemoGroup({ overlap }: { overlap: "clip" | "ring" }) {
   return (
     <AvatarGroup overlap={overlap} size="lg">
       <Avatar>
-        <Avatar.Image
-          alt="John"
-          src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg"
-        />
+        <Avatar.Image alt="John" src="/assets/demo/avatars/blue.svg" />
         <Avatar.Fallback>JD</Avatar.Fallback>
       </Avatar>
       <Avatar>
         <Avatar.Fallback>AB</Avatar.Fallback>
       </Avatar>
       <Avatar>
-        <Avatar.Image
-          alt="Emily"
-          src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg"
-        />
+        <Avatar.Image alt="Emily" src="/assets/demo/avatars/purple.svg" />
         <Avatar.Fallback>EC</Avatar.Fallback>
       </Avatar>
       <Avatar>

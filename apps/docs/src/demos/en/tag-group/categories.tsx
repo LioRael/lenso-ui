@@ -1,5 +1,4 @@
 "use client";
-// Shared pinned HeroUI v3.2.6 tag content (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { createElement } from "react";
 import { PlanetEarth, Rocket, ShoppingBag, SquareArticle } from "@gravity-ui/icons";
@@ -16,31 +15,30 @@ export const styles = stylex.create({
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: {
-      default: "color-mix(in oklch, oklch(.87 0 0) 80%, transparent)",
-      ":is([data-selected])": "oklch(.556 0 0)",
-      ":is(.dark *,[data-theme='dark'] *)": "color-mix(in oklch, oklch(.439 0 0) 80%, transparent)",
-      ":is(.dark *,[data-theme='dark'] *):is([data-selected])": "oklch(.708 0 0)",
+      default: "color-mix(in oklch, var(--lenso-control-border) 80%, transparent)",
+      ":is([data-selected])": "var(--lenso-control-border)",
+      ":is(.dark *,[data-theme='dark'] *)":
+        "color-mix(in oklch, var(--lenso-control-border) 80%, transparent)",
+      ":is(.dark *,[data-theme='dark'] *):is([data-selected])": "var(--lenso-control-border)",
     },
     backgroundColor: {
-      default: "color-mix(in oklch, white 80%, transparent)",
-      ":is([data-selected])": "oklch(.205 0 0)",
-      ":is(.dark *,[data-theme='dark'] *)": "color-mix(in oklch, oklch(.205 0 0) 60%, transparent)",
-      ":is(.dark *,[data-theme='dark'] *):is([data-selected])": "oklch(.97 0 0)",
+      default: "color-mix(in oklch, var(--lenso-background-secondary) 80%, transparent)",
+      ":is([data-selected])": "var(--lenso-background-inverse)",
+      ":is(.dark *,[data-theme='dark'] *)":
+        "color-mix(in oklch, var(--lenso-background-secondary) 60%, transparent)",
+      ":is(.dark *,[data-theme='dark'] *):is([data-selected])": "var(--lenso-background-inverse)",
     },
     paddingInline: 10,
     paddingBlock: 4,
     fontSize: 14,
     fontWeight: 500,
     color: {
-      default: "oklch(.371 0 0)",
-      ":is([data-selected])": "oklch(.985 0 0)",
-      ":is(.dark *,[data-theme='dark'] *)": "oklch(.922 0 0)",
-      ":is(.dark *,[data-theme='dark'] *):is([data-selected])": "oklch(.205 0 0)",
+      default: "var(--lenso-label-secondary)",
+      ":is([data-selected])": "var(--lenso-label-on-inverse)",
+      ":is(.dark *,[data-theme='dark'] *)": "var(--lenso-label-secondary)",
+      ":is(.dark *,[data-theme='dark'] *):is([data-selected])": "var(--lenso-label-on-inverse)",
     },
-    boxShadow: {
-      default: "0 1px 2px #0000000d, 0 0 0 1px #0000000d",
-      ":is(.dark *,[data-theme='dark'] *)": "0 1px 2px #0000000d, 0 0 0 1px #ffffff1a",
-    },
+    boxShadow: "var(--lenso-surface-shadow)",
     backdropFilter: "blur(4px)",
     transitionProperty: "color, background-color, border-color",
     transitionDuration: { default: "150ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
@@ -54,7 +52,7 @@ export const styles = stylex.create({
     alignItems: "center",
     gap: 8,
     borderRadius: 8,
-    backgroundColor: "var(--surface-tertiary)",
+    backgroundColor: "var(--lenso-background-grouped-tertiary)",
     paddingInline: 8,
     paddingBlock: 4,
     fontSize: 14,

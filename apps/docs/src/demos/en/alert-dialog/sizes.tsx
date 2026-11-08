@@ -1,12 +1,11 @@
 "use client";
-// Adapted from HeroUI v3.2.6 alert-dialog-sizes (Apache-2.0).
 import { Rocket } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 
 const styles = stylex.create({
   row: { display: "flex", flexWrap: "wrap", gap: 16 },
-  icon: { backgroundColor: "var(--default)", color: "var(--foreground)" },
+  icon: { backgroundColor: "var(--lenso-control-fill)", color: "var(--lenso-label-primary)" },
   rocket: { width: 20, height: 20 },
 });
 
@@ -16,7 +15,7 @@ export function Sizes() {
     <div {...stylex.props(styles.row)}>
       {sizes.map((size) => (
         <AlertDialog key={size}>
-          <AlertDialog.Trigger render={<Button variant="secondary" />}>
+          <AlertDialog.Trigger render={<Button />}>
             {size.charAt(0).toUpperCase() + size.slice(1)}
           </AlertDialog.Trigger>
           <AlertDialog.Portal>
@@ -51,10 +50,8 @@ export function Sizes() {
                   </AlertDialog.Description>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <AlertDialog.Close render={<Button variant="tertiary" />}>
-                    Cancel
-                  </AlertDialog.Close>
-                  <AlertDialog.Close render={<Button />}>Confirm</AlertDialog.Close>
+                  <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+                  <AlertDialog.Action>Confirm</AlertDialog.Action>
                 </AlertDialog.Footer>
               </AlertDialog.Popup>
             </AlertDialog.Viewport>

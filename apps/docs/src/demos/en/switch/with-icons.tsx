@@ -1,5 +1,4 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import {
   BellFill,
   BellSlash,
@@ -19,36 +18,16 @@ const styles = stylex.create({
   icon: { width: ".75rem", height: ".75rem", color: "inherit", opacity: 1 },
   offIcon: { opacity: 0.7 },
   green: {
-    backgroundColor: {
-      default: "rgb(34 197 94 / .8)",
-      ":is([data-slot='switch'][data-checked] *)": "rgb(34 197 94 / .8)",
-      ":is([data-slot='switch'][data-checked]:hover *)": "rgb(34 197 94 / .8)",
-      ":is([data-slot='switch'][data-checked]:active *)": "rgb(34 197 94 / .8)",
-    },
+    backgroundColor: "color-mix(in srgb, var(--lenso-system-green) 80%, transparent)",
   },
   red: {
-    backgroundColor: {
-      default: "rgb(239 68 68 / .8)",
-      ":is([data-slot='switch'][data-checked] *)": "rgb(239 68 68 / .8)",
-      ":is([data-slot='switch'][data-checked]:hover *)": "rgb(239 68 68 / .8)",
-      ":is([data-slot='switch'][data-checked]:active *)": "rgb(239 68 68 / .8)",
-    },
+    backgroundColor: "color-mix(in srgb, var(--lenso-system-red) 80%, transparent)",
   },
   purple: {
-    backgroundColor: {
-      default: "rgb(168 85 247 / .8)",
-      ":is([data-slot='switch'][data-checked] *)": "rgb(168 85 247 / .8)",
-      ":is([data-slot='switch'][data-checked]:hover *)": "rgb(168 85 247 / .8)",
-      ":is([data-slot='switch'][data-checked]:active *)": "rgb(168 85 247 / .8)",
-    },
+    backgroundColor: "color-mix(in srgb, var(--lenso-system-purple) 80%, transparent)",
   },
   blue: {
-    backgroundColor: {
-      default: "rgb(59 130 246 / .8)",
-      ":is([data-slot='switch'][data-checked] *)": "rgb(59 130 246 / .8)",
-      ":is([data-slot='switch'][data-checked]:hover *)": "rgb(59 130 246 / .8)",
-      ":is([data-slot='switch'][data-checked]:active *)": "rgb(59 130 246 / .8)",
-    },
+    backgroundColor: "color-mix(in srgb, var(--lenso-system-blue) 80%, transparent)",
   },
 });
 const icons = {

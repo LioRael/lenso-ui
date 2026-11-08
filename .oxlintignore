@@ -1,5 +1,10 @@
-apps/docs/public/source-snippets/**
+.artifacts/**
+output/**
 apps/docs/src/generated/**
 apps/docs/.content-collections/**
+apps/docs/.lenso-*/**
+**/.cache/**
 **/dist/**
 **/.next/**
+experiments/glass-driver-comparison/generated/**
+apps/docs/src/routeTree.gen.ts

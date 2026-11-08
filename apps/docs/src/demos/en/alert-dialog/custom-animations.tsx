@@ -1,8 +1,7 @@
 "use client";
-// Adapted from HeroUI v3.2.6 alert-dialog-custom-animations (Apache-2.0).
 import { ArrowUpFromLine, Sparkles } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 
 const scaleIn = stylex.keyframes({
   from: { opacity: 0, transform: "scale(.95)" },
@@ -98,7 +97,7 @@ export function CustomAnimations() {
     <div {...stylex.props(styles.row)}>
       {animations.map(({ name, Icon, popup, backdrop, description }) => (
         <AlertDialog key={name}>
-          <AlertDialog.Trigger render={<Button variant="secondary" />}>{name}</AlertDialog.Trigger>
+          <AlertDialog.Trigger render={<Button />}>{name}</AlertDialog.Trigger>
           <AlertDialog.Portal>
             <AlertDialog.Backdrop xstyle={backdrop} />
             <AlertDialog.Viewport>
@@ -116,10 +115,8 @@ export function CustomAnimations() {
                   </AlertDialog.Description>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <AlertDialog.Close render={<Button variant="tertiary" />}>
-                    Close
-                  </AlertDialog.Close>
-                  <AlertDialog.Close render={<Button />}>Try Again</AlertDialog.Close>
+                  <AlertDialog.Action variant="cancel">Close</AlertDialog.Action>
+                  <AlertDialog.Action>Try Again</AlertDialog.Action>
                 </AlertDialog.Footer>
               </AlertDialog.Popup>
             </AlertDialog.Viewport>

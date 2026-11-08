@@ -27,3 +27,8 @@ export function AppShell() {
 Use `@lenso/ui/sidebar` when you want the Lenso UI visual adapter. The registry also includes an editable Sidebar Recipe for Consumers that need structural ownership.
 
 Source and browser tests live under `packages/primitives/src/sidebar`. See the repository [architecture guide](../../docs/architecture.md) for the dependency boundary and the [contributing guide](../../CONTRIBUTING.md) for changes and release verification.
+
+## Command
+
+`@lenso/primitives/command` provides unstyled command filtering, navigation and execution.
+Use `@lenso/ui/command` for the styled Lenso component.

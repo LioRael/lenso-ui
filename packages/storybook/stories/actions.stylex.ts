@@ -1,4 +1,3 @@
-// HeroUI v3.2.6 source-story layout adaptations, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 
 export const actions = stylex.create({
@@ -21,8 +20,13 @@ export const actions = stylex.create({
   },
   fullWidth: { display: "flex", flexDirection: "column", width: 400, gap: 12 },
   social: { display: "flex", flexDirection: "column", width: "100%", maxWidth: 320, gap: 12 },
-  muted: { fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
-  mediumMuted: { fontSize: 14, lineHeight: "20px", fontWeight: 500, color: "var(--muted)" },
+  muted: { fontSize: 14, lineHeight: "20px", color: "var(--lenso-label-secondary)" },
+  mediumMuted: {
+    fontSize: 14,
+    lineHeight: "20px",
+    fontWeight: 500,
+    color: "var(--lenso-label-secondary)",
+  },
   small: { fontSize: 14, lineHeight: "20px" },
   medium: { fontWeight: 500 },
   count: { fontSize: 12, lineHeight: "16px", fontWeight: 600 },

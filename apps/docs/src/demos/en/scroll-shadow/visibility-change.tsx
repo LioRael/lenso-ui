@@ -1,18 +1,21 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Card, ScrollShadow, type ScrollShadowVisibility } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 const images = [
-  "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/robot1.jpeg",
-  "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/avocado.jpeg",
-  "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/oranges.jpeg",
+  "/assets/demo/illustrations/robot1.svg",
+  "/assets/demo/illustrations/avocado.svg",
+  "/assets/demo/illustrations/oranges.svg",
 ];
 const styles = stylex.create({
   root: { width: "100%", maxWidth: { default: null, "@media (min-width: 640px)": 384 } },
   section: { display: "flex", flexDirection: "column", gap: 8 },
   vertical: { marginBottom: 32 },
-  status: { borderRadius: "var(--radius)", backgroundColor: "var(--default)", padding: 16 },
+  status: {
+    borderRadius: "var(--lenso-shape-content)",
+    backgroundColor: "var(--lenso-control-fill)",
+    padding: 16,
+  },
   statusText: { fontSize: 14, lineHeight: "20px", fontWeight: 600 },
   verticalScroll: { maxHeight: 240, padding: 16 },
   horizontalScroll: { padding: 16 },
@@ -24,7 +27,7 @@ const styles = stylex.create({
     width: { default: 64, "@media (min-width: 640px)": 80 },
     height: { default: 64, "@media (min-width: 640px)": 80 },
     flexShrink: 0,
-    borderRadius: "var(--radius-xl)",
+    borderRadius: "var(--lenso-shape-content-xl)",
     objectFit: "cover",
     userSelect: "none",
   },

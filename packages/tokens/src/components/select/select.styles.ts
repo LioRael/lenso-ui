@@ -1,0 +1,110 @@
+// Apple Pop-up Button geometry.
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "../../tokens.stylex.const.js";
+import { focusRing } from "../../focus-ring.stylex.const.js";
+export const selectStyles = stylex.create({
+  typography: {
+    fontFamily: "var(--lenso-font-body)",
+    fontSize: 18,
+    lineHeight: "18px",
+    fontWeight: 600,
+    letterSpacing: 0,
+  },
+  trigger: {
+    position: "relative",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    boxSizing: "border-box",
+    minWidth: 0,
+    minHeight: 44,
+    gap: 3,
+    paddingBlock: 13,
+    paddingInline: 0,
+    border: 0,
+    borderRadius: 8,
+    backgroundColor: "transparent",
+    color: { default: tokens.tint, ":is([data-disabled])": tokens.labelTertiary },
+    textAlign: "start",
+    userSelect: "none",
+    cursor: { default: "pointer", ":is([data-disabled])": "default" },
+    outline: {
+      default: "none",
+      ":focus-visible": "1.5px solid var(--lenso-focus-ring)",
+      ":is([data-invalid], [aria-invalid='true'])": "none",
+    },
+    outlineOffset: 3,
+  },
+  interaction: {
+    backgroundColor: {
+      default: "transparent",
+      "@media (hover: hover) and (pointer: fine)": {
+        default: null,
+        ":hover:not([data-disabled])": tokens.fillTertiary,
+      },
+      ":active:not([data-disabled])": tokens.fillSecondary,
+    },
+  },
+  secondary: {
+    color: { default: tokens.labelPrimary, ":is([data-disabled])": tokens.labelTertiary },
+  },
+  validation: {
+    borderRadius: 12,
+    outline: {
+      default: "none",
+      ":focus-visible": "1.5px solid var(--lenso-focus-ring)",
+      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *)": "none",
+      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *):focus-visible": "none",
+    },
+    outlineOffset: 2,
+    boxShadow: {
+      default: "none",
+      ":focus-visible": "none",
+      ":is([data-invalid], [aria-invalid='true'])": focusRing.errorUnderline,
+      ":is([data-invalid], [aria-invalid='true']):focus-visible": focusRing.errorUnderline,
+    },
+    backgroundColor: { default: "transparent", ":focus-visible": "transparent" },
+  },
+  value: {
+    minWidth: 0,
+    textAlign: "start",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    color: "inherit",
+    fontSize: "inherit",
+    lineHeight: "inherit",
+  },
+  indicator: {
+    display: "flex",
+    flexShrink: 0,
+    width: 14,
+    height: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    color: "inherit",
+  },
+  positioner: { zIndex: tokens.zIndexOverlay, outline: "none" },
+  popover: {
+    touchAction: "pan-y",
+    width: "max-content",
+    minWidth: "min(var(--available-width), max(250px, var(--anchor-width)))",
+    maxWidth: "var(--available-width)",
+    maxHeight: "var(--available-height)",
+  },
+  list: { outline: "none", maxHeight: "var(--available-height)" },
+  item: {
+    minHeight: 44,
+    paddingBlock: 13,
+    paddingInlineStart: 36,
+    borderRadius: 20,
+    textAlign: "start",
+  },
+  primaryItem: {
+    color: { default: null, ":is([data-selected]):not([data-disabled])": tokens.tint },
+  },
+  itemText: { flex: 1, minWidth: 0, overflowWrap: "anywhere" },
+  label: { fontSize: 14, fontWeight: 500, color: tokens.labelPrimary },
+  arrow: { fill: "var(--lenso-material-panel-fill)" },
+  fullWidth: { width: "100%" },
+});

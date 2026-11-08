@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import test from "node:test";
-import ts from "typescript-api";
+import { test } from "bun:test";
+import type { Node } from "@babel/types";
+import { parseTestSource, walkSyntax } from "./test-syntax.ts";
 import type { LiveManifest } from "./generate-live-registry.ts";
 import { localExampleFiles } from "../src/lib/local-example-files.ts";
 import { fileURLToPath } from "node:url";
@@ -9,25 +10,17 @@ import { fileURLToPath } from "node:url";
 const root = new URL("../", import.meta.url);
 const readDemo = (file: string) => readFile(new URL(`src/demos/${file}`, root), "utf8");
 function attributes(code: string, name: string): string[] {
-  const source = ts.createSourceFile(
-    "demo.tsx",
-    code,
-    ts.ScriptTarget.Latest,
-    true,
-    ts.ScriptKind.TSX,
-  );
+  const source = parseTestSource(code);
   const values: string[] = [];
-  function visit(node: ts.Node): void {
+  walkSyntax(source, (node) => {
     if (
-      ts.isJsxAttribute(node) &&
-      node.name.getText(source) === name &&
-      node.initializer &&
-      ts.isStringLiteral(node.initializer)
+      node.type === "JSXAttribute" &&
+      node.name.type === "JSXIdentifier" &&
+      node.name.name === name &&
+      node.value?.type === "StringLiteral"
     )
-      values.push(node.initializer.text);
-    ts.forEachChild(node, visit);
-  }
-  visit(source);
+      values.push(node.value.value);
+  });
   return values.sort();
 }
 
@@ -72,13 +65,7 @@ function programChoices(
   collections: Record<string, string>,
   selectionBindings: string[] = [],
 ): string[] {
-  const source = ts.createSourceFile(
-    "demo.tsx",
-    code,
-    ts.ScriptTarget.Latest,
-    true,
-    ts.ScriptKind.TSX,
-  );
+  const source = parseTestSource(code);
   const values = new Set<string>();
   const choiceParts = new Set([
     "Select",
@@ -95,49 +82,51 @@ function programChoices(
     "Tabs.Tab",
     "Tabs.Panel",
   ]);
-  const literal = (node: ts.Node | undefined): string | undefined =>
-    node && (ts.isStringLiteral(node) || ts.isNumericLiteral(node)) ? node.text : undefined;
-  function collectProperties(node: ts.Node, property: string): void {
-    if (ts.isPropertyAssignment(node) && node.name.getText(source) === property) {
-      const value = literal(node.initializer);
-      if (value !== undefined) values.add(`collection:${property}:${value}`);
-    }
-    ts.forEachChild(node, (child) => collectProperties(child, property));
+  const text = (node: Node) => code.slice(node.start ?? 0, node.end ?? 0);
+  const literal = (node: Node | null | undefined): string | undefined =>
+    node?.type === "StringLiteral" || node?.type === "NumericLiteral"
+      ? String(node.value)
+      : undefined;
+  function collectProperties(node: Node, property: string): void {
+    walkSyntax(node, (child) => {
+      if (child.type === "ObjectProperty" && text(child.key) === property) {
+        const value = literal(child.value);
+        if (value !== undefined) values.add(`collection:${property}:${value}`);
+      }
+    });
   }
-  function visit(node: ts.Node): void {
-    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) {
-      const property = collections[node.name.text];
-      if (property) collectProperties(node.initializer, property);
+  walkSyntax(source, (node) => {
+    if (node.type === "VariableDeclarator" && node.id.type === "Identifier" && node.init) {
+      const property = collections[node.id.name];
+      if (property) collectProperties(node.init, property);
     }
-    if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
-      const part = node.tagName.getText(source);
+    if (node.type === "JSXOpeningElement") {
+      const part = text(node.name);
       if (choiceParts.has(part))
-        for (const attribute of node.attributes.properties) {
-          if (!ts.isJsxAttribute(attribute) || !attribute.initializer) continue;
-          const name = attribute.name.getText(source);
+        for (const attribute of node.attributes) {
+          if (attribute.type !== "JSXAttribute" || !attribute.value) continue;
+          const name = text(attribute.name);
           if (!["value", "defaultValue", "itemKey", "id"].includes(name)) continue;
           const value = literal(
-            ts.isJsxExpression(attribute.initializer)
-              ? attribute.initializer.expression
-              : attribute.initializer,
+            attribute.value.type === "JSXExpressionContainer"
+              ? attribute.value.expression
+              : attribute.value,
           );
           if (value !== undefined) values.add(`${part}:${name}:${value}`);
         }
     }
     if (
-      ts.isVariableDeclaration(node) &&
-      ts.isArrayBindingPattern(node.name) &&
-      selectionBindings.includes(node.name.elements[0]?.getText(source) ?? "") &&
-      node.initializer &&
-      ts.isCallExpression(node.initializer) &&
-      node.initializer.expression.getText(source) === "useState"
+      node.type === "VariableDeclarator" &&
+      node.id.type === "ArrayPattern" &&
+      node.id.elements[0] &&
+      selectionBindings.includes(text(node.id.elements[0])) &&
+      node.init?.type === "CallExpression" &&
+      text(node.init.callee) === "useState"
     ) {
-      const value = literal(node.initializer.arguments[0]);
+      const value = literal(node.init.arguments[0]);
       if (value !== undefined) values.add(`initial-selection:${value}`);
     }
-    ts.forEachChild(node, visit);
-  }
-  visit(source);
+  });
   return [...values].sort();
 }
 

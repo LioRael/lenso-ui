@@ -1,5 +1,4 @@
 /**
- * HeroUI v3.2.6 examples, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
  * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
  * Modified: source utility declarations expressed as StyleX.
  */
@@ -25,34 +24,32 @@ export const styles = stylex.create({
     borderRadius: 24,
     padding: 24,
   },
-  icon: { width: 16, height: 16, color: "var(--muted)" },
+  icon: { width: 16, height: 16, color: "var(--lenso-label-secondary)" },
   dateCustom: {
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "color-mix(in oklab, var(--border) 80%, transparent)",
-    backgroundColor: "var(--default)",
-    boxShadow: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+    borderColor: "color-mix(in oklab, var(--lenso-control-border) 80%, transparent)",
+    backgroundColor: "var(--lenso-control-fill)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   reminder: { width: "100%", maxWidth: 192, gap: 6 },
-  reminderLabel: { fontWeight: 500, color: "var(--foreground)" },
+  reminderLabel: { fontWeight: 500, color: "var(--lenso-label-primary)" },
   reminderGroup: {
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: {
-      default: "color-mix(in oklab, var(--border) 80%, transparent)",
-      ":focus-within": "color-mix(in oklab, var(--accent) 25%, transparent)",
+      default: "color-mix(in oklab, var(--lenso-control-border) 80%, transparent)",
+      ":focus-within": "color-mix(in oklab, var(--lenso-tint) 25%, transparent)",
     },
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     paddingInline: 8,
     paddingBlock: 4,
     boxShadow: {
-      default:
-        "0 0 0 1px color-mix(in oklab, var(--accent) 5%, transparent), 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-      ":focus-within":
-        "0 0 0 2px color-mix(in oklab, var(--accent) 15%, transparent), 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+      default: "0 0 0 1px var(--lenso-control-border)",
+      ":focus-within": "0 0 0 2px var(--lenso-focus-ring), var(--lenso-field-shadow)",
     },
   },
-  foreground: { color: "var(--foreground)" },
+  foreground: { color: "var(--lenso-label-primary)" },
 });

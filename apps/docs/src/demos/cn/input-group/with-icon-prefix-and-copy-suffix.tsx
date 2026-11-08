@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { Copy, Globe } from "@gravity-ui/icons";
 import { Button, InputGroup, Label, TextField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -18,7 +16,7 @@ const styles = stylex.create({
     height: 16,
   },
   muted: {
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
 });
 export function WithIconPrefixAndCopySuffix() {
@@ -29,9 +27,9 @@ export function WithIconPrefixAndCopySuffix() {
         <InputGroup.Prefix>
           <Globe aria-hidden="true" {...stylex.props(styles.icon, styles.muted)} />
         </InputGroup.Prefix>
-        <InputGroup.Input xstyle={styles.field} defaultValue="heroui.com" />
+        <InputGroup.Input xstyle={styles.field} defaultValue="example.com" />
         <InputGroup.Suffix xstyle={styles.suffix}>
-          <Button isIconOnly aria-label="复制" size="sm" variant="ghost">
+          <Button isIconOnly aria-label="复制" size="sm" variant="borderless">
             <Copy aria-hidden="true" {...stylex.props(styles.icon)} />
           </Button>
         </InputGroup.Suffix>

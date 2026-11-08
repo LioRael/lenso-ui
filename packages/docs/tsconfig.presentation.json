@@ -7,10 +7,5 @@
     "declaration": true,
     "emitDeclarationOnly": true
   },
-  "include": [
-    "scripts/presentation.ts",
-    "scripts/tabs.ts",
-    "scripts/highlight.ts",
-    "scripts/toc.ts"
-  ]
+  "include": ["presentation/**/*.ts", "presentation/**/*.tsx"]
 }

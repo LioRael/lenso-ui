@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 selection-modes adaptation (Apache-2.0).
 import { useState, type Key } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { TagGroup } from "@lenso/ui";

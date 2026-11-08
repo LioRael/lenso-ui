@@ -1,13 +1,14 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-keyboard-shortcuts, Apache-2.0.
-import { Button, Menu } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { ActionItem, Popup, Shortcut } from "./_shared";
 
 export function WithKeyboardShortcuts() {
   return (
     <Menu>
-      <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>Actions</Menu.Trigger>
+      <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
+        Actions
+      </Menu.Trigger>
       <Popup>
         <ActionItem
           label="New"

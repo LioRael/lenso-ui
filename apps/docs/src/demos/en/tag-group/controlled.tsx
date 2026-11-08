@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 controlled adaptation (Apache-2.0).
 import { useState, type Key } from "react";
 import { TagGroup } from "@lenso/ui";
 import { Description, Label } from "./text";

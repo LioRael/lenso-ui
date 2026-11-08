@@ -1,5 +1,5 @@
 "use client";
-// Derived from HeroUI v3.2.6 (Apache-2.0); modified for native Accordion contracts and StyleX.
+// modified for native Accordion contracts and StyleX.
 
 import {
   ArrowsRotateLeft,
@@ -15,7 +15,13 @@ import * as stylex from "@stylexjs/stylex";
 
 const styles = stylex.create({
   root: { width: "100%", maxWidth: 448 },
-  icon: { width: 16, height: 16, flexShrink: 0, marginInlineEnd: 12, color: "var(--muted)" },
+  icon: {
+    width: 16,
+    height: 16,
+    flexShrink: 0,
+    marginInlineEnd: 12,
+    color: "var(--lenso-label-secondary)",
+  },
 });
 const items = [
   {

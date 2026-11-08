@@ -1,8 +1,5 @@
 "use client";
-/**
- * Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0
- * Native Base UI control geometry and value formatting.
- */
+// Native Base UI control geometry and value formatting.
 import { Slider } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 

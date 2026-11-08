@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Separator, Surface } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
@@ -15,22 +13,22 @@ const styles = stylex.create({
     minWidth: 320,
     flexDirection: "column",
     gap: 12,
-    borderRadius: "var(--radius-3xl)",
+    borderRadius: "var(--lenso-shape-content-3xl)",
     padding: 24,
   },
   border: {
-    border: "1px solid var(--border)",
+    border: "1px solid var(--lenso-control-border)",
   },
   heading: {
     fontSize: 16,
     lineHeight: "24px",
     fontWeight: 600,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
   },
   text: {
     fontSize: 14,
     lineHeight: "20px",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
 });
 export function WithSurface() {

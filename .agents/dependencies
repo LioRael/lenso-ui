@@ -2,9 +2,9 @@
 set -eu
 [ "$#" -eq 0 ] || { echo "This script takes no arguments" >&2; exit 64; }
 . .agents/env
-command -v node >/dev/null 2>&1 || { echo "Required tool: node; Linux: .agents/setup; macOS: supply the documented tool locally" >&2; exit 78; }
+command -v bun >/dev/null 2>&1 || { echo "Required tool: Bun 1.4.4; Linux: .agents/setup" >&2; exit 78; }
+[ "$(bun --version)" = 1.4.4 ] || { echo "Required Bun 1.4.4" >&2; exit 78; }
+# Documentation hosts, preserved primitives and publishing use the pinned Node version.
+command -v node >/dev/null 2>&1 || { echo "Required tool: Node 26.10.0" >&2; exit 78; }
 [ "$(node --version)" = v26.10.0 ] || { echo "Required Node 26.10.0" >&2; exit 78; }
-command -v pnpm >/dev/null 2>&1 || { echo "Required tool: pnpm; Linux: .agents/setup; macOS: supply the documented tool locally" >&2; exit 78; }
-[ "$(pnpm --version)" = 12.9.1 ] || { echo "Required pnpm 12.9.1" >&2; exit 78; }
-
-pnpm install --frozen-lockfile
+bun install --frozen-lockfile

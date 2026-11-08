@@ -1,9 +1,36 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "allowJs": false,
+    "declaration": true,
+    "exactOptionalPropertyTypes": true,
     "isolatedDeclarations": false,
-    "types": ["node", "react", "vitest/globals"]
+    "jsx": "react-jsx",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": false,
+    "target": "ES2022",
+    "moduleDetection": "auto",
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "checkJs": false,
+    "isolatedModules": false,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "types": [
+      "bun",
+      "node",
+      "react"
+    ]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["src/sidebar/sidebar-state-board.browser.test.tsx"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
 }

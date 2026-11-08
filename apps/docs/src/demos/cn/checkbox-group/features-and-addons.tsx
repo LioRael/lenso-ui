@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Bell, Comment, Envelope } from "@gravity-ui/icons";
 import { Checkbox, CheckboxGroup, TextField } from "@lenso/ui";
 import { labelStyles } from "@lenso/tokens/label";
@@ -40,8 +38,8 @@ const styles = stylex.create({
     gap: "1rem",
     borderRadius: "1.5rem",
     backgroundColor: {
-      default: "var(--surface)",
-      ":is([data-checked] *)": "color-mix(in oklab, var(--accent) 10%, transparent)",
+      default: "var(--lenso-background-grouped-secondary)",
+      ":is([data-checked] *)": "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
     },
     paddingInline: "1.25rem",
     paddingBlock: "1rem",
@@ -64,7 +62,7 @@ const styles = stylex.create({
   icon: {
     width: "1.25rem",
     height: "1.25rem",
-    color: "var(--accent-soft-foreground)",
+    color: "var(--lenso-tint-text)",
   },
   copy: {
     display: "flex",

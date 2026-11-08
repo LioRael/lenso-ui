@@ -1,14 +1,12 @@
-import Link from "next/link";
 import type { ComponentType, CSSProperties, ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { getExample, type Locale } from "@/lib/source";
-import { styles } from "@/styles/docs.stylex";
+import { source, type Locale } from "@/lib/source";
+import { styles, codeStyles } from "@lenso/docs/presentation";
 import liveManifest from "@/demos/live-manifest.json";
-import { ComponentSource } from "./component-source";
-import { highlightSource } from "./highlight-source";
-import { exampleSourceFiles } from "./example-source-files";
-import { codeStyles } from "@/styles/code.stylex";
+import { DeferredExampleSource, type ExampleSourceFile } from "./deferred-example-source";
+import { ClientPreview } from "./client-preview";
 import { resolveDemo, type DemoManifest } from "@/lib/demo-locale";
+import { ComponentExampleFrame, ScrollableExampleScene } from "./component-example-frame";
 
 const live = liveManifest as DemoManifest;
 
@@ -20,8 +18,7 @@ function LocaleNotice({
   const messages = {
     "local-adaptation": null,
     "english-fallback": "此预览复用英文版适配，不代表中文源示例已完成本地实现。",
-    "source-equivalent-reuse":
-      "中英文固定源示例相同或 AST 等价；此预览复用同一适配模块，不计为中文翻译。",
+    "source-equivalent-reuse": "此预览有意复用英文示例。",
   };
   const message = messages[status ?? "local-adaptation"];
   return message ? <p {...stylex.props(styles.sourceNotice)}>{message}</p> : null;
@@ -32,21 +29,14 @@ function SourceNotice({
   example,
 }: {
   name: string;
-  example: Awaited<ReturnType<typeof getExample>>;
+  example: { excludedReason?: string } | null;
 }) {
   const message =
     example?.excludedReason ??
     (example
-      ? "Preserved upstream example. Its React Aria interaction or Tailwind styling has not yet been migrated to the local runtime; this is source, not a working Lenso UI preview."
-      : `This preview reference (${name}) is missing from the pinned upstream demo registry.`);
-  return (
-    <div {...stylex.props(styles.sourceNotice)}>
-      {message}{" "}
-      <Link href="/coverage" {...stylex.props(styles.proseLink)}>
-        Migration coverage
-      </Link>
-    </div>
-  );
+      ? "This local example has no runnable preview."
+      : `No local example is registered as ${name}.`);
+  return <div {...stylex.props(styles.sourceNotice)}>{message}</div>;
 }
 
 function PreviewScene({
@@ -54,37 +44,43 @@ function PreviewScene({
   align,
   minHeight,
   isBgSolid,
+  registerMenuBackdrop,
 }: {
   children: ReactNode;
   align: "center" | "start" | "end";
   minHeight: string;
   isBgSolid: boolean;
+  registerMenuBackdrop: boolean;
 }) {
   return (
-    <div
+    <ScrollableExampleScene
+      registerMenuBackdrop={registerMenuBackdrop}
       data-example-scene
       {...stylex.props(
-        styles.previewBody,
+        previewScene,
         align === "start" && codeStyles.start,
         align === "end" && codeStyles.end,
         isBgSolid && codeStyles.solid,
       )}
     >
-      <div {...stylex.props(codeStyles.innerScene(minHeight))}>{children}</div>
-    </div>
+      <div {...stylex.props(codeStyles.innerScene(minHeight), previewInner)}>{children}</div>
+    </ScrollableExampleScene>
   );
 }
 
-export async function ComponentPreview({
+export function ComponentPreview({
   name,
   locale = "en",
   align = "center",
   minHeight = "0px",
   isBgSolid = false,
   hideCode = false,
+  defaultView = "preview",
+  sourceFile,
   description,
   style,
   Preview,
+  loadFiles,
   children,
 }: {
   name: string;
@@ -93,39 +89,83 @@ export async function ComponentPreview({
   minHeight?: string;
   isBgSolid?: boolean;
   hideCode?: boolean;
+  defaultView?: "preview" | "source";
+  sourceFile?: string;
   description?: string;
   style?: Pick<CSSProperties, "contain">;
   Preview?: ComponentType;
+  loadFiles?: () => Promise<ExampleSourceFile[]>;
   children?: ReactNode;
 }) {
-  const example = await getExample(name, locale);
+  const example = source.examples[locale][name] ?? null;
   const resolved = resolveDemo(live, name, locale);
   if (resolved && !Preview && children === undefined)
     throw new Error(
       `Missing page-local live preview "${name}" (${locale}). Regenerate docs documents and inject this page's ComponentPreview override into getMDXComponents.`,
     );
-  const liveFile = resolved?.file;
-  const files = liveFile && !hideCode ? await exampleSourceFiles(liveFile) : undefined;
-  const code = files?.[0]?.code ?? example?.code;
-  const highlighted = code && !hideCode && !liveFile ? await highlightSource(code) : undefined;
+
   return (
     <section
       data-example-name={name}
       aria-label={`Example: ${name}`}
-      {...stylex.props(styles.preview, codeStyles.containment(style?.contain ?? "content"))}
+      {...stylex.props(
+        styles.preview,
+        exampleSpacing,
+        codeStyles.containment(style?.contain ?? "content"),
+      )}
     >
       {description && <p {...stylex.props(styles.sourceNotice)}>{description}</p>}
       <LocaleNotice status={resolved?.status} />
-      {resolved ? (
-        <PreviewScene align={align} minHeight={minHeight} isBgSolid={isBgSolid}>
-          {Preview ? <Preview /> : children}
-        </PreviewScene>
-      ) : (
-        <SourceNotice name={name} example={example} />
-      )}
-      {code && !hideCode && (
-        <ComponentSource code={code} local={!!liveFile} highlighted={highlighted} files={files} />
-      )}
+      <ComponentExampleFrame
+        defaultView={defaultView}
+        name={name}
+        locale={locale}
+        preview={
+          resolved ? (
+            <PreviewScene
+              align={align}
+              minHeight={minHeight}
+              isBgSolid={isBgSolid}
+              registerMenuBackdrop={name === "menu-default"}
+            >
+              {/^(?:calendar|range-calendar|date-field|date-picker|date-range-picker|time-field)-/.test(
+                name,
+              ) ? (
+                <ClientPreview>{Preview ? <Preview /> : children}</ClientPreview>
+              ) : Preview ? (
+                <Preview />
+              ) : (
+                children
+              )}
+            </PreviewScene>
+          ) : (
+            <SourceNotice name={name} example={example ? {} : null} />
+          )
+        }
+        source={
+          loadFiles && !hideCode ? (
+            <DeferredExampleSource load={loadFiles} locale={locale} initialFile={sourceFile} />
+          ) : undefined
+        }
+      />
     </section>
   );
 }
+
+const { previewScene, previewInner, exampleSpacing } = stylex.create({
+  exampleSpacing: { marginBlock: 24 },
+  previewInner: { justifyContent: "safe center" },
+  previewScene: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 128,
+    padding: { default: 24, "@media (max-width: 639px)": 16 },
+    overflow: "auto",
+    minWidth: 0,
+    borderRadius: "var(--lenso-shape-content-2xl)",
+    backgroundColor: "var(--lenso-background-grouped-primary)",
+    outline: { default: "none", ":focus-visible": "2px solid var(--lenso-focus-ring)" },
+    outlineOffset: -2,
+  },
+});

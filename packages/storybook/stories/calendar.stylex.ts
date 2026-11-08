@@ -1,4 +1,4 @@
-/** HeroUI v3.2.6 story adaptations. Copyright NextUI Inc. Apache-2.0. */
+// Copyright NextUI Inc. Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 
 export const calendarStoryStyles = stylex.create({
@@ -6,7 +6,7 @@ export const calendarStoryStyles = stylex.create({
   stack6: { display: "flex", flexDirection: "column", alignItems: "center", gap: 24 },
   actions: { display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 8 },
   center: { textAlign: "center" },
-  danger: { fontSize: 14, color: "var(--danger)" },
+  danger: { fontSize: 14, color: "var(--lenso-status-error-indicator)" },
   scroll: {
     width: "min(544px, calc(100vw - 32px))",
     maxWidth: "none",
@@ -31,17 +31,33 @@ export const calendarStoryStyles = stylex.create({
     justifyContent: "center",
     gap: 16,
     fontSize: 12,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   legendColumn: { display: "flex", flexDirection: "column", gap: 8, textAlign: "center" },
   inline: { display: "inline-flex", alignItems: "center", gap: 4 },
-  dotMuted: { width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--muted)" },
-  dotDefault: { width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--default)" },
-  events: { display: "flex", flexDirection: "column", gap: 4, fontSize: 12, color: "var(--muted)" },
-  currentYear: {
-    color: "var(--accent)",
-    boxShadow: "inset 0 0 0 1px color-mix(in oklab, var(--accent) 60%, transparent)",
+  dotMuted: {
+    width: 8,
+    height: 8,
+    borderRadius: "50%",
+    backgroundColor: "var(--lenso-label-secondary)",
   },
-  accent: { color: "var(--accent)" },
-  accentForeground: { color: "var(--accent-foreground)" },
+  dotDefault: {
+    width: 8,
+    height: 8,
+    borderRadius: "50%",
+    backgroundColor: "var(--lenso-control-fill)",
+  },
+  events: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 4,
+    fontSize: 12,
+    color: "var(--lenso-label-secondary)",
+  },
+  currentYear: {
+    color: "var(--lenso-tint)",
+    boxShadow: "inset 0 0 0 1px color-mix(in oklab, var(--lenso-tint) 60%, transparent)",
+  },
+  accent: { color: "var(--lenso-tint)" },
+  accentForeground: { color: "var(--lenso-label-on-tint)" },
 });

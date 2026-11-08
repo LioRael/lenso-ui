@@ -1,15 +1,14 @@
 "use client";
-// Adapted from HeroUI v3.2.6 alert-dialog-close-methods (Apache-2.0).
 import { useRef } from "react";
 import { AlertDialog as BaseAlertDialog } from "@base-ui/react/alert-dialog";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { GlassButton, AlertDialog, Button } from "@lenso/ui";
 
 const styles = stylex.create({
   column: { display: "flex", maxWidth: 672, flexDirection: "column", gap: 32 },
   section: { display: "flex", flexDirection: "column", gap: 8 },
   heading: { fontSize: 18, fontWeight: 600 },
-  caption: { fontSize: 14, color: "var(--muted)" },
+  caption: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   popup: { maxWidth: 400 },
 });
 
@@ -23,9 +22,7 @@ export function CloseMethods() {
           Compose a Button with <code>AlertDialog.Close</code> to close the dialog automatically.
         </p>
         <AlertDialog>
-          <AlertDialog.Trigger render={<Button variant="secondary" />}>
-            Open Dialog
-          </AlertDialog.Trigger>
+          <AlertDialog.Trigger render={<Button />}>Open Dialog</AlertDialog.Trigger>
           <AlertDialog.Portal>
             <AlertDialog.Backdrop />
             <AlertDialog.Viewport>
@@ -41,10 +38,8 @@ export function CloseMethods() {
                   </AlertDialog.Description>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <AlertDialog.Close render={<Button variant="tertiary" />}>
-                    Cancel
-                  </AlertDialog.Close>
-                  <AlertDialog.Close render={<Button />}>Confirm</AlertDialog.Close>
+                  <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+                  <AlertDialog.Action>Confirm</AlertDialog.Action>
                 </AlertDialog.Footer>
               </AlertDialog.Popup>
             </AlertDialog.Viewport>
@@ -59,9 +54,7 @@ export function CloseMethods() {
           dialog, allowing you to add custom logic before closing.
         </p>
         <AlertDialog actionsRef={actionsRef}>
-          <AlertDialog.Trigger render={<Button variant="secondary" />}>
-            Open Dialog
-          </AlertDialog.Trigger>
+          <AlertDialog.Trigger render={<Button />}>Open Dialog</AlertDialog.Trigger>
           <AlertDialog.Portal>
             <AlertDialog.Backdrop />
             <AlertDialog.Viewport>
@@ -78,9 +71,9 @@ export function CloseMethods() {
                   </AlertDialog.Description>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <Button variant="tertiary" onClick={() => actionsRef.current?.close()}>
+                  <GlassButton variant="default" onClick={() => actionsRef.current?.close()}>
                     Cancel
-                  </Button>
+                  </GlassButton>
                   <Button onClick={() => actionsRef.current?.close()}>Confirm</Button>
                 </AlertDialog.Footer>
               </AlertDialog.Popup>

@@ -1,13 +1,12 @@
-import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
+import workspace from "../../../package.json" with { type: "json" };
+import { readFile, mkdir, readdir } from "node:fs/promises";
+import { writeGeneratedFile } from "./write-generated-file.ts";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { localExampleFiles } from "../src/lib/local-example-files.ts";
 import assert from "node:assert/strict";
-import * as core from "../../../tooling/lenso-contracts/index.ts";
-import {
-  collectImplementationSource,
-  collectTheme,
-} from "../../../tooling/lenso-contracts/source.ts";
+import * as core from "@lenso/ui-devtools/contract";
+import { collectImplementationSource, collectTheme } from "@lenso/ui-devtools/contract/source";
 import type {
   ContractInputs,
   DocsIndex,
@@ -15,7 +14,7 @@ import type {
   Example,
   SourceFile,
   Style,
-} from "../../../tooling/lenso-contracts/index.ts";
+} from "@lenso/ui-devtools/contract";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const json = async (file: string): Promise<unknown> => JSON.parse(await readFile(file, "utf8"));
@@ -58,21 +57,34 @@ export async function collectContractInputs(
     apiReference,
   );
   const packages = await Promise.all(
-    ["react", "styles", "stylex-build"].map((name) =>
+    ["ui", "tokens"].map((name) =>
       json(path.join(directory, "packages", name, "package.json")).then(packageInfo),
     ),
   );
   if (!compatibilityInput) {
-    const build: unknown = await import(
-      pathToFileURL(path.join(directory, "packages/stylex-build/src/index.mjs")).href
+    const runtime = packageInfo(
+      await json(path.join(docsRoot, "node_modules/@stylexjs/stylex/package.json")),
     );
-    if (build && typeof build === "object" && "buildSupport" in build)
-      compatibilityInput = build.buildSupport;
+    for (const name of ["babel-plugin", "postcss-plugin", "unplugin"]) {
+      const compiler = packageInfo(
+        await json(
+          path.join(
+            name === "postcss-plugin" ? path.join(directory, "packages/docs") : docsRoot,
+            `node_modules/@stylexjs/${name}/package.json`,
+          ),
+        ),
+      );
+      if (compiler.version !== runtime.version)
+        throw new Error("StyleX compiler/runtime versions differ.");
+    }
+    compatibilityInput = {
+      schemaVersion: 2,
+      bun: { range: workspace.engines.bun, testedVersion: Bun.version },
+      stylex: { version: runtime.version },
+      next: { version: workspace.workspaces.catalog.next, router: "App Router" },
+      vite: { testedVersion: workspace.workspaces.catalog.vite },
+    };
   }
-  if (!compatibilityInput)
-    throw new Error(
-      "The current @lenso/stylex-build source must export buildSupport; refusing invented compatibility metadata.",
-    );
   const compatibility = core.validateCompatibility(compatibilityInput);
   const packageVersions = Object.fromEntries(packages.map((pkg) => [pkg.name, pkg.version]));
   const runtimeStylex = packages[0]!.dependencies["@stylexjs/stylex"];
@@ -86,7 +98,7 @@ export async function collectContractInputs(
   );
   if (installedStylex.version !== compatibility.stylex.version)
     throw new Error(
-      "Installed StyleX runtime differs from buildSupport. Regenerate with the current dependency graph.",
+      "Installed StyleX runtime differs from the compatibility descriptor. Regenerate with the current dependency graph.",
     );
   packageVersions["@stylexjs/stylex"] = installedStylex.version;
   const docs: Doc[] = [];
@@ -122,19 +134,24 @@ export async function collectContractInputs(
   }
   const styles: Style[] = [];
   const sources: ContractInputs["sources"] = [];
+  const styledFamilies = new Set(
+    await readdir(path.join(directory, "packages/tokens/src/components")),
+  );
   for (const family of Object.keys(apiReference.families).sort()) {
-    const folder = path.join(directory, "packages/styles/src/components", family);
+    sources.push(
+      await collectImplementationSource(directory, family, apiReference.families[family]!),
+    );
+    // Unstyled compositions still publish implementation source, without a paint map.
+    if (!styledFamilies.has(family)) continue;
+    const folder = path.join(directory, "packages/tokens/src/components", family);
     const files = (await readdir(folder)).filter(
       (file) => file.endsWith(".styles.ts") || file.endsWith(".stylex.ts"),
     );
     if (files.length !== 1)
       throw new Error(`Expected one actual style-map source for ${family}, found ${files.length}.`);
-    const file = `packages/styles/src/components/${family}/${files[0]}`;
-    core.validateRepositoryPath(file, "packages/styles/src/components/", directory);
+    const file = `packages/tokens/src/components/${family}/${files[0]}`;
+    core.validateRepositoryPath(file, "packages/tokens/src/components/", directory);
     styles.push({ family, file, code: await readFile(path.join(directory, file), "utf8") });
-    sources.push(
-      await collectImplementationSource(directory, family, apiReference.families[family]!),
-    );
   }
   return {
     apiReference,
@@ -179,7 +196,7 @@ export async function writeLensoContract(directory = root, docsIndex?: DocsIndex
   assert.deepEqual(core.resolveTheme(contract), input.theme);
   const file = path.join(directory, "apps/docs/src/generated/lenso-contract.json");
   await mkdir(path.dirname(file), { recursive: true });
-  await writeFile(file, `${core.canonicalSerialize(contract)}\n`);
+  await writeGeneratedFile(file, `${core.canonicalSerialize(contract)}\n`);
   console.log(
     `Contract ${contract.formatVersion}: ${contract.docs.length} exact Markdown documents, ${contract.examples.length} exact local example graphs and ${contract.styles.length} exact style maps round-tripped.`,
   );

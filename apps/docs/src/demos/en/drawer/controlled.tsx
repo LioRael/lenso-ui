@@ -1,8 +1,7 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 drawer-controlled (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
-import { Button, CloseIcon, Drawer, useOverlayState } from "@lenso/ui";
+import { Button, Drawer, useOverlayState } from "@lenso/ui";
 import React from "react";
 import { styles } from "./styles";
 
@@ -24,10 +23,8 @@ export function Controlled() {
                 <span {...stylex.props(styles.statusValue)}>{isOpen ? "open" : "closed"}</span>
               </p>
               <div {...stylex.props(styles.actions)}>
-                <Drawer.Trigger render={<Button size="sm" variant="secondary" />}>
-                  Open Drawer
-                </Drawer.Trigger>
-                <Button size="sm" variant="tertiary" onClick={() => setIsOpen(!isOpen)}>
+                <Drawer.Trigger render={<Button size="sm" />}>Open Drawer</Drawer.Trigger>
+                <Button size="sm" onClick={() => setIsOpen(!isOpen)}>
                   Toggle
                 </Button>
               </div>
@@ -37,19 +34,7 @@ export function Controlled() {
               <Drawer.Viewport>
                 <Drawer.Popup>
                   <Drawer.Content>
-                    <Drawer.Close
-                      aria-label="Close drawer"
-                      render={
-                        <Button
-                          isIconOnly
-                          size="sm"
-                          variant="tertiary"
-                          xstyle={styles.cornerClose}
-                        />
-                      }
-                    >
-                      <CloseIcon />
-                    </Drawer.Close>
+                    <Drawer.Close aria-label="Close drawer" />
                     <Drawer.Header>
                       <Drawer.Title>Controlled with useState()</Drawer.Title>
                     </Drawer.Header>
@@ -61,7 +46,7 @@ export function Controlled() {
                       </p>
                     </Drawer.Body>
                     <Drawer.Footer>
-                      <Drawer.Close render={<Button variant="secondary" />}>Close</Drawer.Close>
+                      <Drawer.Close render={<Button variant="bordered" />}>Close</Drawer.Close>
                     </Drawer.Footer>
                   </Drawer.Content>
                 </Drawer.Popup>
@@ -86,13 +71,10 @@ export function Controlled() {
                 </span>
               </p>
               <div {...stylex.props(styles.actions)}>
-                <Drawer.Trigger
-                  render={<Button size="sm" variant="secondary" />}
-                  onClick={state.open}
-                >
+                <Drawer.Trigger render={<Button size="sm" />} onClick={state.open}>
                   Open Drawer
                 </Drawer.Trigger>
-                <Button size="sm" variant="tertiary" onClick={state.toggle}>
+                <Button size="sm" onClick={state.toggle}>
                   Toggle
                 </Button>
               </div>
@@ -102,19 +84,7 @@ export function Controlled() {
               <Drawer.Viewport>
                 <Drawer.Popup>
                   <Drawer.Content>
-                    <Drawer.Close
-                      aria-label="Close drawer"
-                      render={
-                        <Button
-                          isIconOnly
-                          size="sm"
-                          variant="tertiary"
-                          xstyle={styles.cornerClose}
-                        />
-                      }
-                    >
-                      <CloseIcon />
-                    </Drawer.Close>
+                    <Drawer.Close aria-label="Close drawer" />
                     <Drawer.Header>
                       <Drawer.Title>Controlled with useOverlayState()</Drawer.Title>
                     </Drawer.Header>
@@ -127,7 +97,7 @@ export function Controlled() {
                       </p>
                     </Drawer.Body>
                     <Drawer.Footer>
-                      <Drawer.Close render={<Button variant="secondary" />}>Close</Drawer.Close>
+                      <Drawer.Close render={<Button variant="bordered" />}>Close</Drawer.Close>
                     </Drawer.Footer>
                   </Drawer.Content>
                 </Drawer.Popup>

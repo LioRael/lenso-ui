@@ -1,11 +1,12 @@
-/** HeroUI v3.2.6 story adaptations. Copyright NextUI Inc. Apache-2.0.
+/**
+ * Copyright NextUI Inc. Apache-2.0.
  * Source: e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, calendar and range-calendar stories.
  * Native Base UI buttons/select replace upstream ordinary interaction props.
  */
 import type { ComponentProps } from "react";
 import type { DateValue } from "@internationalized/date";
 import { getLocalTimeZone, isToday } from "@internationalized/date";
-import { Button, Calendar, RangeCalendar, Select } from "@lenso/ui";
+import { GlassButton, Calendar, RangeCalendar, Select } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { calendarStoryStyles as s } from "./calendar.stylex";
 
@@ -75,15 +76,15 @@ export function ViewSelect({
 export function FocusActions({ onChange }: { onChange: (value: DateValue) => void }) {
   return (
     <div {...stylex.props(s.actions)}>
-      <Button size="sm" variant="secondary" onClick={() => onChange(fixedDates.jan)}>
+      <GlassButton size="sm" variant="default" onClick={() => onChange(fixedDates.jan)}>
         Go to Jan
-      </Button>
-      <Button size="sm" variant="secondary" onClick={() => onChange(fixedDates.jun)}>
+      </GlassButton>
+      <GlassButton size="sm" variant="default" onClick={() => onChange(fixedDates.jun)}>
         Go to Jun
-      </Button>
-      <Button size="sm" variant="secondary" onClick={() => onChange(fixedDates.christmas)}>
+      </GlassButton>
+      <GlassButton size="sm" variant="default" onClick={() => onChange(fixedDates.christmas)}>
         Go to Christmas
-      </Button>
+      </GlassButton>
     </div>
   );
 }

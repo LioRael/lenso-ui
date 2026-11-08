@@ -1,5 +1,4 @@
 "use client";
-/** HeroUI v3.2.6 adaptation. SPDX-License-Identifier: Apache-2.0 */
 import { NativeAutocomplete } from "./_native";
 const emails = [
   { email: "alice@example.com", id: "alice@example.com", name: "Alice Johnson" },

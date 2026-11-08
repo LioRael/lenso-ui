@@ -1,9 +1,8 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 controlled-open-state, Apache-2.0.
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { ActionItem, Popup, styles } from "./_shared";
 
 export function ControlledOpenState() {
@@ -14,7 +13,7 @@ export function ControlledOpenState() {
         Menu is: <strong>{open ? "open" : "closed"}</strong>
       </p>
       <Menu open={open} onOpenChange={setOpen}>
-        <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>
+        <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
           Actions
         </Menu.Trigger>
         <Popup>

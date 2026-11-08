@@ -1,6 +1,6 @@
 "use client";
 
-/** Adapted from the pinned HeroUI v3.2.6 basic.json. Copyright NextUI Inc. Apache-2.0. Local RAC label and StyleX replace source Label and utility classes. */
+// Copyright NextUI Inc. Apache-2.0. Local RAC label and StyleX replace source Label and utility classes.
 import { DateField, DateRangePicker, RangeCalendar } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 

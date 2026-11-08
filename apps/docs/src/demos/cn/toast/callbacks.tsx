@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 callbacks, Apache-2.0.
 import { useRef, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
@@ -36,7 +34,7 @@ function History() {
         <div {...stylex.props(styles.buttons)}>
           <Button
             size="sm"
-            variant="secondary"
+            variant="bordered"
             onClick={() =>
               manager.add({
                 title: "File saved",
@@ -49,7 +47,7 @@ function History() {
           </Button>
           <Button
             size="sm"
-            variant="secondary"
+            variant="bordered"
             onClick={() =>
               manager.add({
                 title: "Changes saved",
@@ -62,7 +60,7 @@ function History() {
           </Button>
           <Button
             size="sm"
-            variant="secondary"
+            variant="bordered"
             onClick={() =>
               manager.add({
                 title: "Event created",
@@ -75,7 +73,7 @@ function History() {
           </Button>
           <Button
             size="sm"
-            variant="secondary"
+            variant="bordered"
             onClick={() =>
               manager.add({
                 title: "Important notification",
@@ -95,7 +93,7 @@ function History() {
               <Button
                 xstyle={styles.clear}
                 size="sm"
-                variant="tertiary"
+                variant="bordered"
                 onClick={() => setClosedHistory([])}
               >
                 清空

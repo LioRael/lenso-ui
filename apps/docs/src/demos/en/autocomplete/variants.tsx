@@ -1,5 +1,4 @@
 "use client";
-/** HeroUI v3.2.6 adaptation. SPDX-License-Identifier: Apache-2.0 */
 import * as stylex from "@stylexjs/stylex";
 import { NativeAutocomplete, styles } from "./_native";
 const items = [1, 2, 3, 4].map((number) => ({ id: `option${number}`, name: `Option ${number}` }));

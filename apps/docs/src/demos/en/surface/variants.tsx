@@ -1,24 +1,29 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Surface } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { s } from "../card/display.stylex";
+import { surfaceDemoStyles } from "./surface-demo.stylex";
 
 const variants = [
   {
+    variant: "glass",
+    label: "Glass",
+    description: "Thick blur material, following the supplied Popover background.",
+  },
+  {
     variant: "default",
     label: "Default",
-    description: "This is a default surface variant. It uses bg-surface styling.",
+    description: "Grouped secondary background, shared with form groups and lists.",
   },
   {
     variant: "secondary",
     label: "Secondary",
-    description: "This is a secondary surface variant. It uses bg-surface-secondary styling.",
+    description: "Secondary background for ordinary content, outside the grouped hierarchy.",
   },
   {
     variant: "tertiary",
     label: "Tertiary",
-    description: "This is a tertiary surface variant. It uses bg-surface-tertiary styling.",
+    description: "Tertiary grouped background for a necessary deeper layer.",
   },
   {
     variant: "transparent",
@@ -31,9 +36,19 @@ export function Variants() {
   return (
     <div {...stylex.props(s.column4)}>
       {variants.map(({ variant, label, description }) => (
-        <div key={variant} {...stylex.props(s.column2)}>
+        <div key={variant} {...stylex.props(s.column2, variant === "glass" && s.glassScene)}>
+          {variant === "glass" && (
+            <div data-lenso-backdrop aria-hidden="true" {...stylex.props(s.glassBackdrop)} />
+          )}
           <p {...stylex.props(s.textSm, s.medium, s.muted)}>{label}</p>
-          <Surface xstyle={[s.surface, variant === "transparent" && s.border]} variant={variant}>
+          <Surface
+            xstyle={[
+              surfaceDemoStyles.panel,
+              variant === "transparent" && s.border,
+              variant === "glass" && s.glassCard,
+            ]}
+            variant={variant}
+          >
             <h3 {...stylex.props(s.textBase, s.semibold, s.foreground)}>Surface Content</h3>
             <p {...stylex.props(s.textSm, s.muted)}>{description}</p>
           </Surface>

@@ -1,9 +1,8 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0. Native anchors supply real navigation.
+// Native anchors supply real navigation.
 import { Tabs } from "@lenso/ui";
-import Link from "next/link";
+import Link from "fumadocs-core/link";
 import { styles } from "../../en/tabs/source.stylex";
 export function RenderFunction() {
   return (

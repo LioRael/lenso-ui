@@ -1,7 +1,15 @@
 "use client";
-// Adapted from HeroUI v3.2.6, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import { Check } from "@gravity-ui/icons";
-import { Button, Description, FieldError, Form, Input, Label, TextField } from "@lenso/ui";
+import {
+  GlassButton,
+  Button,
+  Description,
+  FieldError,
+  Form,
+  Input,
+  Label,
+  TextField,
+} from "@lenso/ui";
 import type { FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 
@@ -54,9 +62,9 @@ export function RenderFunction() {
           <Check aria-hidden="true" />
           Submit
         </Button>
-        <Button type="reset" variant="secondary">
+        <GlassButton type="reset" variant="default">
           Reset
-        </Button>
+        </GlassButton>
       </div>
     </Form>
   );

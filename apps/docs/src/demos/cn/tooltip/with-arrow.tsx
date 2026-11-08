@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 tooltip-with-arrow (Apache-2.0).
 import { Button, Tooltip } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";
@@ -18,11 +16,7 @@ export function TooltipWithArrow() {
   return (
     <div {...stylex.props(styles.row)}>
       <Tooltip>
-        <Tooltip.Trigger
-          delay={0}
-          aria-describedby={arrowId}
-          render={<Button variant="secondary" />}
-        >
+        <Tooltip.Trigger delay={0} aria-describedby={arrowId} render={<Button />}>
           带箭头
         </Tooltip.Trigger>
         <Tooltip.Portal>
@@ -38,7 +32,7 @@ export function TooltipWithArrow() {
         <Tooltip.Trigger
           delay={0}
           aria-describedby={offsetId}
-          render={<Button variant="primary" />}
+          render={<Button variant="prominent" />}
         >
           自定义偏移
         </Tooltip.Trigger>

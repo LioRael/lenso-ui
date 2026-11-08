@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { Copy } from "@gravity-ui/icons";
 import { Button, InputGroup, Label, TextField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -13,9 +12,9 @@ export function WithCopySuffix() {
     <TextField xstyle={styles.field} name="website">
       <Label>Website</Label>
       <InputGroup>
-        <InputGroup.Input xstyle={styles.field} defaultValue="heroui.com" />
+        <InputGroup.Input xstyle={styles.field} defaultValue="example.com" />
         <InputGroup.Suffix xstyle={styles.suffix}>
-          <Button isIconOnly aria-label="Copy" size="sm" variant="ghost">
+          <Button isIconOnly aria-label="Copy" size="sm" variant="borderless">
             <Copy aria-hidden="true" {...stylex.props(styles.icon)} />
           </Button>
         </InputGroup.Suffix>

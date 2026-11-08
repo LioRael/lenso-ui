@@ -1,9 +1,8 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 single-with-custom-indicator, Apache-2.0.
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { Popup, styles } from "./_shared";
 
 export function SingleWithCustomIndicator() {
@@ -30,20 +29,22 @@ export function SingleWithCustomIndicator() {
       <Menu.RadioItemIndicator keepMounted xstyle={styles.selectionIndicator}>
         {customCheckmarkIcon}
       </Menu.RadioItemIndicator>
-      <MenuItem.Label>{label}</MenuItem.Label>
+      <Menu.Item.Label>{label}</Menu.Item.Label>
     </Menu.RadioItem>
   );
   return (
     <Menu>
-      <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>Fruits</Menu.Trigger>
+      <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
+        Fruits
+      </Menu.Trigger>
       <Popup xstyle={styles.wide}>
         <Menu.RadioGroup value={selected} onValueChange={setSelected}>
-          <Menu.Section>
-            <Menu.Section.Label>Select a fruit</Menu.Section.Label>
+          <Menu.Group>
+            <Menu.Group.Label>Select a fruit</Menu.Group.Label>
             {fruit("apple", "Apple")}
             {fruit("banana", "Banana")}
             {fruit("cherry", "Cherry")}
-          </Menu.Section>
+          </Menu.Group>
           {fruit("orange", "Orange")}
           {fruit("pear", "Pear")}
         </Menu.RadioGroup>

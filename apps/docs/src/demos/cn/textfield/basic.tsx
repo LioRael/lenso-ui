@@ -1,20 +1,26 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
-
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
-import { Input, Label, TextField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-const styles = stylex.create({
-  field: {
-    width: "100%",
-    maxWidth: 256,
-  },
-});
+import { Fieldset, TextField } from "@lenso/ui";
+
+const styles = stylex.create({ section: { width: 402, maxWidth: "100%" } });
+
 export function Basic() {
   return (
-    <TextField name="email" xstyle={styles.field}>
-      <Label>邮箱</Label>
-      <Input type="email" placeholder="输入你的邮箱" />
-    </TextField>
+    <Fieldset aria-label="联系信息" xstyle={styles.section}>
+      <Fieldset.Group>
+        <TextField name="name">
+          <TextField.Label>姓名</TextField.Label>
+          <TextField.Input clearLabel="清除文本" placeholder="Alex" />
+        </TextField>
+        <TextField name="email">
+          <TextField.Label>邮箱</TextField.Label>
+          <TextField.Input clearLabel="清除文本" type="email" placeholder="you@example.com" />
+        </TextField>
+        <TextField name="company">
+          <TextField.Label>公司</TextField.Label>
+          <TextField.Input clearLabel="清除文本" defaultValue="Acme" />
+        </TextField>
+      </Fieldset.Group>
+    </Fieldset>
   );
 }

@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 progress-circle.stories.tsx (Apache-2.0).
 // Base UI represents indeterminate progress with value=null, not isIndeterminate.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ComponentProps } from "react";

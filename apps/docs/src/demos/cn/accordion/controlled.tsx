@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import {
   ArrowsRotateLeft,
   Box,
@@ -16,7 +14,7 @@ import {
   Receipt,
   ShoppingBag,
 } from "@gravity-ui/icons";
-import { Accordion, Button } from "@lenso/ui";
+import { GlassButton, Accordion } from "@lenso/ui";
 import { useState, type ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "../../en/accordion/source.stylex";
@@ -68,13 +66,13 @@ const concepts = [
     id: "getting-started",
     title: "快速开始",
     content:
-      "了解 HeroUI 的基础知识，以及如何将其集成到你的 React 项目中。本节涵盖安装、配置和你的第一个组件。",
+      "了解 Lenso UI 的基础知识，以及如何将其集成到你的 React 项目中。本节涵盖安装、配置和你的第一个组件。",
   },
   {
     id: "core-concepts",
     title: "核心概念",
     content:
-      "理解 HeroUI 背后的核心概念，包括复合组件模式、使用 Tailwind CSS 进行样式设计，以及无障碍特性。",
+      "理解 Lenso UI 背后的核心概念，包括复合组件模式、使用 StyleX 进行样式设计，以及无障碍特性。",
   },
   {
     id: "advanced-usage",
@@ -85,7 +83,7 @@ const concepts = [
     id: "best-practices",
     title: "Best Practices",
     content:
-      "Follow our recommended best practices for building performant, accessible, and maintainable applications with HeroUI components.",
+      "Follow our recommended best practices for building performant, accessible, and maintainable applications with Lenso UI components.",
   },
 ];
 function OrderAccordion({
@@ -180,24 +178,24 @@ export function Controlled() {
           已展开：<strong>{expanded.join(", ") || "无"}</strong>
         </p>
         <div {...stylex.props(styles.buttons)}>
-          <Button
+          <GlassButton
             aria-label="上一项"
             disabled={index <= 0}
             size="sm"
-            variant="secondary"
+            variant="default"
             onClick={() => setExpanded([items[index - 1]!.id])}
           >
             <ChevronUp {...stylex.props(styles.smallIcon)} />
-          </Button>
-          <Button
+          </GlassButton>
+          <GlassButton
             aria-label="下一项"
             disabled={index >= items.length - 1}
             size="sm"
-            variant="secondary"
+            variant="default"
             onClick={() => setExpanded([items[index + 1]!.id])}
           >
             <ChevronDown {...stylex.props(styles.smallIcon)} />
-          </Button>
+          </GlassButton>
         </div>
       </div>
       <Accordion value={expanded} onValueChange={setExpanded}>
@@ -394,22 +392,20 @@ export function CustomStyles() {
       title: "Set Up Notifications",
       subtitle: "Receive account activity updates",
       content: "Stay informed about your account activity with real-time notifications.",
-      iconUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/bell-small.png",
+      iconUrl: "/assets/demo/illustrations/bell-small.svg",
     },
     {
       title: "Set up Browser Extension",
       subtitle: "Connect your browser to your account",
       content: "Enhance your browsing experience by installing our official browser extension",
-      iconUrl:
-        "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/compass-small.png",
+      iconUrl: "/assets/demo/illustrations/compass-small.svg",
     },
     {
       title: "Mint Collectible",
       subtitle: "Create your first collectible",
       content:
         "Begin your journey into the world of digital collectibles by creating your first NFT. ",
-      iconUrl:
-        "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/mint-collective-small.png",
+      iconUrl: "/assets/demo/illustrations/mint-collective-small.svg",
     },
   ];
   return (

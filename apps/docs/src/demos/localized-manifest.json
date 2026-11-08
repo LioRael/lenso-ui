@@ -9,7 +9,6 @@
     "color-area-disabled": "en/color-area/disabled.tsx",
     "color-area-controlled": "en/color-area/controlled.tsx",
     "color-area-render-function": "en/color-area/render-function.tsx",
-    "color-area-custom-styles": "en/color-area/custom-styles.tsx",
     "color-swatch-sizes": "en/color-swatch/sizes.tsx",
     "color-swatch-shapes": "en/color-swatch/shapes.tsx",
     "color-swatch-picker-basic": "en/color-swatch-picker/basic.tsx",
@@ -18,10 +17,7 @@
     "color-swatch-picker-default-value": "en/color-swatch-picker/default-value.tsx",
     "color-swatch-picker-custom-indicator": "en/color-swatch-picker/custom-indicator.tsx",
     "color-swatch-picker-render-function": "en/color-swatch-picker/render-function.tsx",
-    "color-swatch-picker-custom-styles": "en/color-swatch-picker/custom-styles.tsx",
     "kbd-basic": "en/kbd/basic.tsx",
-    "kbd-custom-styles": "en/kbd/custom-styles.tsx",
-    "pagination-custom-styles": "en/pagination/custom-styles.tsx",
     "select-with-clear-button": "en/select/with-clear-button.tsx",
     "skeleton-basic": "en/skeleton/basic.tsx",
     "skeleton-text-content": "en/skeleton/text-content.tsx",
@@ -29,9 +25,7 @@
     "skeleton-list": "en/skeleton/list.tsx",
     "skeleton-grid": "en/skeleton/grid.tsx",
     "skeleton-single-shimmer": "en/skeleton/single-shimmer.tsx",
-    "skeleton-custom-styles": "en/skeleton/custom-styles.tsx",
     "spinner-basic": "en/spinner/basic.tsx",
-    "spinner-custom-styles": "en/spinner/custom-styles.tsx",
     "switch-with-icons": "en/switch/with-icons.tsx"
   }
 }

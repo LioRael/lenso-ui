@@ -15,8 +15,8 @@ import { DocumentationSearch, DocumentationSearchRevision } from "./search";
 import { DocumentationArticle } from "./article";
 import { DocumentationPageActions } from "./page-actions";
 import { styles, notebook } from "@lenso/docs/presentation";
-import type { DocsConfig } from "./config.mjs";
-import type { DocsRuntimePage as ContentPage } from "./content.mjs";
+import type { DocsConfig } from "./config.ts";
+import type { DocsRuntimePage as ContentPage } from "./content.ts";
 import type {
   DocumentationDocumentResult,
   DocumentationPageOptions,
@@ -49,7 +49,7 @@ export function DocumentationPageLayout({
   searchRevision?: string;
 }): ReactNode {
   const basePath = config.basePath ?? "";
-  const hasLocaleRegistry = Array.isArray((config as DocsConfig & { locales?: unknown }).locales);
+  const hasLocaleRegistry = config.locales !== undefined;
   const local = (value: string) =>
     value.startsWith("/") &&
     !value.startsWith("//") &&
@@ -57,8 +57,10 @@ export function DocumentationPageLayout({
     !value.startsWith(`${basePath}/`)
       ? `${basePath}${value}`
       : value;
-  const components = customComponents;
-  if (!document && !Body) {
+  let content: ReactNode;
+  if (document) content = document.content;
+  else if (Body) content = <Body components={customComponents} />;
+  else {
     throw new Error("DocumentationPage requires either a document result or a Body component.");
   }
   function navigation(nodes: Node[]): DocumentationNavigationItem[] {
@@ -89,6 +91,7 @@ export function DocumentationPageLayout({
     <DocumentationSearchRevision revision={searchRevision}>
       <TreeContextProvider tree={tree}>
         <DocumentationSiteLayout
+          locale={page.locale}
           brand={
             siteOptions?.brand ?? {
               title: config.title,
@@ -160,17 +163,14 @@ export function DocumentationPageLayout({
             description={page.description}
             headings={document?.headings ?? page.headings}
             locale={
-              (
-                config as DocsConfig & {
-                  locales?: { code: string; language: string }[];
-                }
-              ).locales?.find((item) => item.code === page.locale)?.language ??
+              config.locales?.find((item) => item.code === page.locale)?.language ??
               config.language ??
               page.locale
             }
             actions={
               pageOptions?.actions ?? (
                 <DocumentationPageActions
+                  locale={page.locale}
                   markdown={page.markdown}
                   markdownUrl={`${basePath}/_lenso/markdown/${page.id}.md`}
                 />
@@ -179,7 +179,7 @@ export function DocumentationPageLayout({
             beforeContent={pageOptions?.beforeContent}
             footer={pageOptions?.footer ?? <DocumentationFooter />}
           >
-            {document ? document.content : Body ? <Body components={components} /> : null}
+            {content}
           </DocumentationArticle>
         </DocumentationSiteLayout>
       </TreeContextProvider>

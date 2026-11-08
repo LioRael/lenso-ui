@@ -1,9 +1,7 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { ArrowUp, At, Microphone, PlugConnection, Plus } from "@gravity-ui/icons";
-import { Button, InputGroup, Kbd, Spinner, TextField, Tooltip } from "@lenso/ui";
+import { GlassButton, Button, InputGroup, Kbd, Spinner, TextField, Tooltip } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 const styles = stylex.create({
@@ -57,7 +55,7 @@ const styles = stylex.create({
   },
   key: {
     height: 16,
-    borderRadius: "var(--radius-sm)",
+    borderRadius: "var(--lenso-shape-content-sm)",
     paddingInline: 4,
   },
 });
@@ -76,7 +74,7 @@ export function WithTextArea() {
     <TextField fullWidth xstyle={styles.field} name="prompt">
       <InputGroup fullWidth xstyle={styles.group}>
         <InputGroup.Prefix xstyle={styles.prefix}>
-          <Button aria-label="添加上下文" size="sm" variant="outline">
+          <Button aria-label="添加上下文" size="sm" variant="borderless">
             <At aria-hidden="true" />
             添加上下文
           </Button>
@@ -93,7 +91,7 @@ export function WithTextArea() {
           <Tooltip>
             <Tooltip.Trigger
               delay={0}
-              render={<Button isIconOnly aria-label="附加文件" size="sm" variant="tertiary" />}
+              render={<GlassButton isIconOnly aria-label="附加文件" size="sm" variant="default" />}
             >
               <Plus aria-hidden="true" />
             </Tooltip.Trigger>
@@ -108,7 +106,7 @@ export function WithTextArea() {
           <Tooltip>
             <Tooltip.Trigger
               delay={0}
-              render={<Button isIconOnly aria-label="连接应用" size="sm" variant="tertiary" />}
+              render={<Button isIconOnly aria-label="连接应用" size="sm" />}
             >
               <PlugConnection aria-hidden="true" />
             </Tooltip.Trigger>
@@ -124,7 +122,7 @@ export function WithTextArea() {
             <Tooltip>
               <Tooltip.Trigger
                 delay={0}
-                render={<Button isIconOnly aria-label="语音输入" size="sm" variant="ghost" />}
+                render={<Button isIconOnly aria-label="语音输入" size="sm" variant="borderless" />}
               >
                 <Microphone aria-hidden="true" />
               </Tooltip.Trigger>

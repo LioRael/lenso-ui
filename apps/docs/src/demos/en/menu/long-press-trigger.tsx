@@ -1,8 +1,7 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 long-press-trigger, Apache-2.0.
 import { useEffect, useRef, useState } from "react";
-import { Button, Menu } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { ActionItem, Popup } from "./_shared";
 
 export function LongPressTrigger() {
@@ -23,7 +22,7 @@ export function LongPressTrigger() {
       }}
     >
       <Menu.Trigger
-        render={<Button aria-label="Menu" variant="secondary" />}
+        render={<GlassButton aria-label="Menu" variant="default" />}
         onPointerDown={(event) => {
           if (event.button !== 0) return;
           pointerActive.current = true;

@@ -1,7 +1,6 @@
 "use client";
 
 /**
- * Adapted from HeroUI v3.2.6, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0.
  * Modified: native Base UI selection, popup search and removable chips.
  */
@@ -31,7 +30,7 @@ export const styles = stylex.create({
   stack: { display: "flex", flexDirection: "column", gap: 16 },
   section: { display: "flex", flexDirection: "column", gap: 32 },
   surface: {
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     width: 320,
     maxWidth: "100%",
     borderRadius: 24,
@@ -40,7 +39,7 @@ export const styles = stylex.create({
   fullSurface: { width: 380 },
   row: { display: "flex", alignItems: "center", gap: 8 },
   details: { display: "flex", flexDirection: "column", minWidth: 0 },
-  muted: { color: "var(--muted)", fontSize: 12 },
+  muted: { color: "var(--lenso-label-secondary)", fontSize: 12 },
   search: {
     flexShrink: 0,
     paddingInline: 12,
@@ -50,7 +49,7 @@ export const styles = stylex.create({
     height: 36,
     overflow: "hidden",
     fontSize: 14,
-    backgroundColor: { default: "var(--default)", ":focus-within": "var(--default)" },
+    backgroundColor: "var(--lenso-control-fill)",
   },
   input: { flexGrow: 1, width: 0, paddingInline: 8 },
   list: { maxHeight: 320, overflowY: "auto" },
@@ -58,7 +57,7 @@ export const styles = stylex.create({
   chipShell: {
     paddingInlineEnd: 28,
     gap: 0,
-    ":focus-within": { outline: "2px solid var(--focus)", outlineOffset: 2 },
+    ":focus-within": { outline: "2px solid var(--lenso-focus-ring)", outlineOffset: 2 },
   },
   toggle: {
     position: "absolute",
@@ -71,12 +70,8 @@ export const styles = stylex.create({
     padding: 0,
     borderWidth: 0,
     boxShadow: "none",
-    backgroundColor: {
-      default: "transparent",
-      ":hover": "transparent",
-      ":focus-visible": "transparent",
-    },
-    outline: { default: "none", ":focus-visible": "none" },
+    backgroundColor: "transparent",
+    outline: "none",
   },
   trigger: { width: "100%", textAlign: "start" },
   triggerWithClear: { paddingInlineEnd: 52 },
@@ -86,7 +81,7 @@ export const styles = stylex.create({
     width: 20,
     height: 20,
     marginInlineEnd: 8,
-    borderRadius: "var(--radius-xl)",
+    borderRadius: "var(--lenso-shape-content-xl)",
   },
   chip: { lineHeight: "16px" },
   smallAvatar: { width: 16, height: 16 },
@@ -95,12 +90,12 @@ export const styles = stylex.create({
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "color-mix(in oklch, var(--border) 80%, transparent)",
-    backgroundColor: "var(--surface)",
-    boxShadow: "0 1px 2px #0000000d, 0 0 0 1px color-mix(in oklch, var(--accent) 5%, transparent)",
+    borderColor: "color-mix(in oklch, var(--lenso-control-border) 80%, transparent)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    boxShadow: "var(--lenso-surface-shadow)",
     ":focus-visible": {
-      borderColor: "color-mix(in oklch, var(--accent) 25%, transparent)",
-      outline: "2px solid color-mix(in oklch, var(--accent) 15%, transparent)",
+      borderColor: "color-mix(in oklch, var(--lenso-tint) 25%, transparent)",
+      outline: "2px solid color-mix(in oklch, var(--lenso-tint) 15%, transparent)",
     },
   },
   customPopup: {
@@ -108,23 +103,23 @@ export const styles = stylex.create({
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "color-mix(in oklch, var(--border) 80%, transparent)",
-    backgroundColor: "var(--surface)",
-    boxShadow: "0 20px 25px -5px #0000001a",
+    borderColor: "color-mix(in oklch, var(--lenso-control-border) 80%, transparent)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    boxShadow: "var(--lenso-overlay-shadow)",
   },
   customChip: {
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "color-mix(in oklch, var(--accent) 15%, transparent)",
-    backgroundColor: "color-mix(in oklch, var(--accent) 8%, transparent)",
+    borderColor: "color-mix(in oklch, var(--lenso-tint) 15%, transparent)",
+    backgroundColor: "color-mix(in oklch, var(--lenso-tint) 8%, transparent)",
   },
   customItem: {
     borderRadius: 8,
     ":is([data-highlighted])": {
-      backgroundColor: "color-mix(in oklch, var(--accent) 10%, transparent)",
+      backgroundColor: "color-mix(in oklch, var(--lenso-tint) 10%, transparent)",
     },
     ":is([data-selected])": {
-      backgroundColor: "color-mix(in oklch, var(--accent) 5%, transparent)",
+      backgroundColor: "color-mix(in oklch, var(--lenso-tint) 5%, transparent)",
     },
   },
 });

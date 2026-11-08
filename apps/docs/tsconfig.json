@@ -1,18 +1,32 @@
 {
-  "extends": "../../packages/standard/tsconfig/next.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "incremental": false,
-    "isolatedDeclarations": false,
-    "jsx": "preserve",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "types": ["bun", "node", "react", "react-dom"],
+    "incremental": false,
+    "allowImportingTsExtensions": true,
+    "isolatedDeclarations": false,
     "noEmit": true,
     "paths": {
       "@/*": ["./src/*"]
     },
-    "plugins": [{ "name": "next" }],
     "skipLibCheck": true,
-    "types": ["node", "react", "react-dom"]
+    "verbatimModuleSyntax": false
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "routes/**/*.tsx", "*.ts", "*.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "*.ts",
+    "*.tsx",
+    "test/first-paint-fixture*.tsx",
+    "test/navigation-controls-fixture*.tsx",
+    "test/swipe-wheel-fixture*.tsx",
+    "test/ios-controls.client.tsx",
+    "test/segmented-section-fixture.tsx"
+  ],
   "exclude": ["node_modules"]
 }

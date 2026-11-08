@@ -1,5 +1,4 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Description, Switch, TextField } from "@lenso/ui";
 import { switchSupportingStyles } from "@lenso/tokens/switch";
 import * as stylex from "@stylexjs/stylex";

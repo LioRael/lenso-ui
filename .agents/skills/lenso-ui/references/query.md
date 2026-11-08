@@ -1,7 +1,7 @@
 # Retrieve the matching Lenso contract
 
-Adapted from HeroUI's documentation retrieval workflow. Modified for Lenso's
-versioned local CLI/MCP; see [provenance](../NOTICE.md).
+This workflow uses Lenso's versioned local CLI/MCP. Retained adaptation
+attribution is in [provenance](../NOTICE.md).
 
 ## Pick the available interface
 
@@ -33,11 +33,11 @@ still be stale. At the start of a source-owned task, read their package scripts
 and build the CLI from this worktree:
 
 ```sh
-pnpm --filter @lenso/ui-cli build
-node packages/cli/dist/cli.js --help
-node packages/cli/dist/cli.js metadata --json
-node packages/cli/dist/cli.js info menu --json
-node packages/cli/dist/cli.js docs react/components/menu --locale en
+bun run --filter @lenso/ui-cli build
+bun packages/cli/dist/cli.js --help
+bun packages/cli/dist/cli.js metadata --json
+bun packages/cli/dist/cli.js info menu --json
+bun packages/cli/dist/cli.js docs react/components/menu --locale en
 ```
 
 The build requests the maintained contract generator; it is not a package

@@ -6,7 +6,7 @@ import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   area: { maxWidth: "100%" },
   slider: { gap: 4, paddingInline: 4 },
-  output: { color: "var(--muted)" },
+  output: { color: "var(--lenso-label-secondary)" },
 });
 export function Basic() {
   return (

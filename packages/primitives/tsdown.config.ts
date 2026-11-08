@@ -8,6 +8,7 @@ export default defineConfig({
   },
   dts: false,
   entry: {
+    "command/index": path.resolve(import.meta.dirname, "src/command/index.ts"),
     "data-grid/index": path.resolve(import.meta.dirname, "src/data-grid/index.tsx"),
     "resize-handle/index": path.resolve(import.meta.dirname, "src/resize-handle/index.tsx"),
     "sidebar/index": path.resolve(import.meta.dirname, "src/sidebar/index.tsx"),

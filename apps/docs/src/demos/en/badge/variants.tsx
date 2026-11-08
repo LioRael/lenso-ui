@@ -1,11 +1,10 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Avatar, Badge, Separator } from "@lenso/ui";
 import { Fragment } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { s } from "../card/display.stylex";
 
-const AVATAR_URL = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg";
+const AVATAR_URL = "/assets/demo/avatars/green.svg";
 export function BadgeVariants() {
   const variants = ["primary", "secondary", "soft"] as const;
   const colors = ["accent", "default", "success", "warning", "danger"] as const;

@@ -1,5 +1,5 @@
 // Minimal reproductions for the pinned invalid-group outline gap.
-// HeroUI v3.2.6 source values/state, Apache-2.0; no compensating xstyle.
+// no compensating xstyle.
 import { SearchField, NumberField, TextField, Label, FieldError } from "@lenso/ui";
 
 export function FormWorkflowInvalidFixture() {

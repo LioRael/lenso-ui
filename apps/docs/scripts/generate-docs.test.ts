@@ -1,48 +1,107 @@
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdtemp, mkdir, readFile, rm, writeFile, symlink, stat } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { pathToFileURL } from "node:url";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import test from "node:test";
-import {
-  apiSnapshotCompatible,
-  apiSnapshotCurrent,
-  apiSnapshotDigest,
-  runIncremental,
-} from "./generate-docs.ts";
+import { afterEach, test } from "bun:test";
+import { runIncremental } from "./generate-docs.ts";
 
-test("an API artifact is reused only for matching sources and intact generated data", () => {
-  const data = { upstream: { version: "test" }, families: { button: {} }, properties: [] };
-  const snapshot = {
-    ...data,
-    sourceFingerprint: { inputs: "source-hash", contents: apiSnapshotDigest(data) },
-  };
-  assert.equal(apiSnapshotCurrent(snapshot, "source-hash"), true);
-  assert.equal(apiSnapshotCurrent(snapshot, "changed-source"), false);
-  assert.equal(
-    apiSnapshotCurrent({ ...snapshot, properties: [{ name: "damaged" }] }, "source-hash"),
-    false,
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
   );
-  assert.equal(apiSnapshotCurrent(data, "source-hash"), false);
-  assert.equal(apiSnapshotCurrent(null, "source-hash"), false);
 });
 
-test("dev previews only an API snapshot compatible with the actual public exports", () => {
-  const index = 'export { Button } from "./button/index.js";\nexport * from "./menu/index.js";';
-  assert.equal(apiSnapshotCompatible({ families: { menu: {}, button: {} } }, index), true);
-  assert.equal(apiSnapshotCompatible({ families: { button: {} } }, index), false);
-  assert.equal(
-    apiSnapshotCompatible({ families: { button: {}, menu: {}, badge: {} } }, index),
-    false,
+test("generator can load before workspace packages have been built", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-docs-preflight-"));
+  temporaryDirectories.push(directory);
+  for (const file of ["generate-docs.ts", "api-artifact.ts", "write-generated-file.ts"])
+    await copyFile(new URL(file, import.meta.url), path.join(directory, file));
+  const moduleUrl = pathToFileURL(path.join(directory, "generate-docs.ts")).href;
+  assert.doesNotThrow(() =>
+    execFileSync(process.execPath, ["-e", `await import(${JSON.stringify(moduleUrl)})`], {
+      cwd: directory,
+      stdio: "pipe",
+    }),
   );
-  assert.equal(apiSnapshotCompatible(null, index), false);
-  assert.equal(apiSnapshotCompatible({}, index), false);
-  assert.equal(apiSnapshotCompatible({ families: {} }, ""), false);
 });
 
-// Previous preparation regenerated everything and rewrote local demos on each invocation.
-test("generation handles clean, warm, source mutation, unrelated edit and missing output", async (t) => {
+test("private implementation input changes do not rewrite unchanged rendered API data", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-api-stable-output-"));
+  temporaryDirectories.push(directory);
+  const root = path.resolve(import.meta.dirname, "../../..");
+  for (const folder of [
+    "packages/ui/src/components/button",
+    "packages/tokens/src",
+    "apps/docs/scripts",
+  ])
+    await mkdir(path.join(directory, folder), { recursive: true });
+  await symlink(path.join(root, "node_modules"), path.join(directory, "node_modules"));
+  await symlink(
+    path.join(root, "apps/docs/node_modules"),
+    path.join(directory, "apps/docs/node_modules"),
+  );
+  for (const file of [
+    "bun.lock",
+    "apps/docs/scripts/generate-api-reference.ts",
+    "apps/docs/scripts/api-artifact.ts",
+  ])
+    await writeFile(path.join(directory, file), "fixture");
+  await writeFile(path.join(directory, "packages/ui/package.json"), '{"name":"fixture"}');
+  await copyFile(path.join(root, ".oxfmtrc.json"), path.join(directory, ".oxfmtrc.json"));
+  await writeFile(
+    path.join(directory, "packages/ui/src/components/index.ts"),
+    'export * from "./button/index.js";',
+  );
+  await writeFile(
+    path.join(directory, "packages/ui/src/components/button/index.ts"),
+    "export interface ButtonProps { label: string }; export function Button(props: ButtonProps): null { return null; }",
+  );
+  const style = path.join(directory, "packages/tokens/src/private.ts");
+  await writeFile(style, 'export const color = "red";');
+  const { writeApiReference } = await import("./generate-api-reference.ts");
+  await writeApiReference(directory, directory);
+  const output = path.join(directory, "apps/docs/src/generated/api-reference.json");
+  const before = await readFile(output, "utf8");
+  const stamp = (await stat(output)).mtimeMs;
+  await writeFile(style, 'export const color = "blue";');
+  await writeApiReference(directory, directory);
+  assert.equal(await readFile(output, "utf8"), before);
+  assert.equal((await stat(output)).mtimeMs, stamp);
+  const index = path.join(directory, "packages/ui/src/components/button/index.ts");
+  await writeFile(index, (await readFile(index, "utf8")).replace("label: string", "label: number"));
+  await writeApiReference(directory, directory);
+  assert.equal(JSON.parse(await readFile(output, "utf8")).properties[0].type, "number");
+});
+
+test("cached API output is reused only for matching inputs and intact generated bytes", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-api-cache-"));
+  temporaryDirectories.push(directory);
+  await writeFile(path.join(directory, "input"), "public exports");
+  const output = path.join(directory, "api.json");
+  let calls = 0;
+  const run = () =>
+    runIncremental(directory, ["input"], ["api.json"], ".cache/api.json", async () => {
+      calls++;
+      await writeFile(output, '{"families":{"button":{}},"properties":[]}');
+    });
+  assert.equal(await run(), true);
+  assert.equal(await run(), false);
+  await writeFile(output, '{"families":{},"properties":[]}');
+  assert.equal(await run(), true);
+  assert.deepEqual(JSON.parse(await readFile(output, "utf8")).families, { button: {} });
+  await writeFile(path.join(directory, "input"), "changed public exports");
+  assert.equal(await run(), true);
+  assert.equal(calls, 3);
+});
+
+test("generation handles clean, warm, source mutation, unrelated edit and missing output", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-docs-generation-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await mkdir(path.join(directory, "source"));
   await writeFile(path.join(directory, "source/demo.tsx"), "first");
   let calls = 0;
@@ -71,9 +130,9 @@ test("generation handles clean, warm, source mutation, unrelated edit and missin
   assert.equal(calls, 3);
 });
 
-test("failed generation is retried, never cached as complete", async (t) => {
+test("failed generation is retried, never cached as complete", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-docs-failed-generation-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await writeFile(path.join(directory, "input"), "content");
   let calls = 0;
   const run = () =>
@@ -87,9 +146,9 @@ test("failed generation is retried, never cached as complete", async (t) => {
   assert.equal(calls, 2);
 });
 
-test("an input changed during generation invalidates the next invocation", async (t) => {
+test("an input changed during generation invalidates the next invocation", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "lenso-docs-concurrent-edit-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+  temporaryDirectories.push(directory);
   await writeFile(path.join(directory, "input"), "first");
   let calls = 0;
   const run = () =>

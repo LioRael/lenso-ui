@@ -1,14 +1,13 @@
 "use client";
-// Adapted from HeroUI v3.2.6 alert-dialog-dismiss-behavior (Apache-2.0).
 import { CircleInfo } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 
 const styles = stylex.create({
   column: { display: "flex", maxWidth: 384, flexDirection: "column", gap: 24 },
   section: { display: "flex", flexDirection: "column", gap: 8 },
   heading: { fontSize: 18, fontWeight: 600 },
-  caption: { fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
+  caption: { fontSize: 14, lineHeight: "20px", color: "var(--lenso-label-secondary)" },
   popup: { maxWidth: 400 },
   circle: { width: 20, height: 20 },
 });
@@ -31,9 +30,7 @@ export function DismissBehavior() {
               if (!open && blockEscape && details.reason === "escape-key") details.cancel();
             }}
           >
-            <AlertDialog.Trigger render={<Button variant="secondary" />}>
-              Open Alert Dialog
-            </AlertDialog.Trigger>
+            <AlertDialog.Trigger render={<Button />}>Open Alert Dialog</AlertDialog.Trigger>
             <AlertDialog.Portal>
               <AlertDialog.Backdrop />
               <AlertDialog.Viewport>
@@ -60,10 +57,8 @@ export function DismissBehavior() {
                     </p>
                   </AlertDialog.Body>
                   <AlertDialog.Footer>
-                    <AlertDialog.Close render={<Button variant="tertiary" />}>
-                      Cancel
-                    </AlertDialog.Close>
-                    <AlertDialog.Close render={<Button />}>Confirm</AlertDialog.Close>
+                    <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+                    <AlertDialog.Action>Confirm</AlertDialog.Action>
                   </AlertDialog.Footer>
                 </AlertDialog.Popup>
               </AlertDialog.Viewport>

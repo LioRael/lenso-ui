@@ -1,10 +1,9 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 dropdown examples, Apache-2.0.
 import type { ComponentProps, ReactNode } from "react";
 import { cloneElement, isValidElement, useId } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Menu, Kbd, MenuItem } from "@lenso/ui";
+import { Menu, Kbd } from "@lenso/ui";
 
 export const styles = stylex.create({
   controlled: {
@@ -15,13 +14,18 @@ export const styles = stylex.create({
     justifyContent: "center",
     gap: 16,
   },
-  status: { fontSize: 14, color: "var(--muted)" },
+  status: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   wide: { minWidth: 256 },
   disabledWidth: { minWidth: 220 },
-  icon: { width: 16, height: 16, flexShrink: 0, color: "var(--muted)" },
-  dangerIcon: { width: 16, height: 16, flexShrink: 0, color: "var(--danger)" },
-  smallIcon: { width: 14, height: 14, color: "var(--muted)" },
-  smallDangerIcon: { width: 14, height: 14, color: "var(--danger)" },
+  icon: { width: 16, height: 16, flexShrink: 0, color: "var(--lenso-label-secondary)" },
+  dangerIcon: {
+    width: 16,
+    height: 16,
+    flexShrink: 0,
+    color: "var(--lenso-status-error-indicator)",
+  },
+  smallIcon: { width: 14, height: 14, color: "var(--lenso-label-secondary)" },
+  smallDangerIcon: { width: 14, height: 14, color: "var(--lenso-status-error-indicator)" },
   iconWrap: {
     display: "flex",
     height: 32,
@@ -35,24 +39,24 @@ export const styles = stylex.create({
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "color-mix(in oklab, var(--border) 80%, transparent)",
-    backgroundColor: "var(--surface)",
+    borderColor: "color-mix(in oklab, var(--lenso-control-border) 80%, transparent)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 4,
-    boxShadow: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   customItem: {
     borderRadius: 8,
-    backgroundColor: { default: null, ":is([data-highlighted])": "var(--default)" },
+    "--lenso-menu-highlight": "var(--lenso-control-fill)",
   },
   customDangerItem: {
     borderRadius: 8,
-    backgroundColor: { default: null, ":is([data-highlighted])": "var(--danger-soft)" },
+    "--lenso-menu-highlight": "var(--lenso-control-status-error-soft-fill)",
   },
   round: { borderRadius: 9999 },
   profile: { paddingInline: 12, paddingTop: 12, paddingBottom: 4 },
   profileRow: { display: "flex", alignItems: "center", gap: 8 },
   profileName: { fontSize: 14, lineHeight: "20px", fontWeight: 500 },
-  profileEmail: { fontSize: 12, lineHeight: 1, color: "var(--muted)" },
+  profileEmail: { fontSize: 12, lineHeight: 1, color: "var(--lenso-label-secondary)" },
   itemRow: {
     display: "flex",
     width: "100%",
@@ -60,7 +64,7 @@ export const styles = stylex.create({
     justifyContent: "space-between",
     gap: 8,
   },
-  accent: { color: "var(--accent-soft-foreground)" },
+  accent: { color: "var(--lenso-tint-text)" },
   selectionIndicator: { visibility: { default: "visible", ":is([data-unchecked])": "hidden" } },
   dot: { width: 6, height: 6, borderRadius: 9999, backgroundColor: "currentColor" },
 });
@@ -68,7 +72,7 @@ export const styles = stylex.create({
 export function Popup({ children, ...props }: ComponentProps<typeof Menu.Popup>) {
   return (
     <Menu.Portal>
-      <Menu.Positioner sideOffset={4}>
+      <Menu.Positioner>
         <Menu.Popup {...props}>{children}</Menu.Popup>
       </Menu.Positioner>
     </Menu.Portal>
@@ -124,14 +128,14 @@ export function ActionItem({
       }
       {...props}
     >
-      {description && icon ? <div {...stylex.props(styles.iconWrap)}>{icon}</div> : icon}
+      {icon && <Menu.Item.Icon>{icon}</Menu.Item.Icon>}
       {description ? (
-        <div {...stylex.props(styles.text)}>
-          <MenuItem.Label>{label}</MenuItem.Label>
-          <MenuItem.Description id={descriptionId}>{description}</MenuItem.Description>
-        </div>
+        <Menu.Item.Content>
+          <Menu.Item.Label>{label}</Menu.Item.Label>
+          <Menu.Item.Description id={descriptionId}>{description}</Menu.Item.Description>
+        </Menu.Item.Content>
       ) : (
-        <MenuItem.Label>{label}</MenuItem.Label>
+        <Menu.Item.Label>{label}</Menu.Item.Label>
       )}
       {keyboard}
     </Menu.Item>

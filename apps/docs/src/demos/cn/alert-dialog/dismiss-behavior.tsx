@@ -1,10 +1,8 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 alert-dialog-dismiss-behavior (Apache-2.0).
 import { CircleInfo } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 const styles = stylex.create({
   column: {
     display: "flex",
@@ -24,7 +22,7 @@ const styles = stylex.create({
   caption: {
     fontSize: 14,
     lineHeight: "20px",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   popup: {
     maxWidth: 400,
@@ -52,9 +50,7 @@ export function DismissBehavior() {
               if (!open && blockEscape && details.reason === "escape-key") details.cancel();
             }}
           >
-            <AlertDialog.Trigger render={<Button variant="secondary" />}>
-              打开警告对话框
-            </AlertDialog.Trigger>
+            <AlertDialog.Trigger render={<Button />}>打开警告对话框</AlertDialog.Trigger>
             <AlertDialog.Portal>
               <AlertDialog.Backdrop />
               <AlertDialog.Viewport>
@@ -79,10 +75,8 @@ export function DismissBehavior() {
                     </p>
                   </AlertDialog.Body>
                   <AlertDialog.Footer>
-                    <AlertDialog.Close render={<Button variant="tertiary" />}>
-                      取消
-                    </AlertDialog.Close>
-                    <AlertDialog.Close render={<Button />}>确认</AlertDialog.Close>
+                    <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+                    <AlertDialog.Action>确认</AlertDialog.Action>
                   </AlertDialog.Footer>
                 </AlertDialog.Popup>
               </AlertDialog.Viewport>

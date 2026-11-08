@@ -1,7 +1,7 @@
 "use client";
-// HeroUI v3.2.6. Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 import type { DateValue } from "@internationalized/date";
-import { Button, DateField } from "@lenso/ui";
+import { GlassButton, DateField } from "@lenso/ui";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -21,12 +21,12 @@ export function Controlled() {
         </DateField.Description>
       </DateField>
       <div {...stylex.props(styles.row)}>
-        <Button variant="tertiary" onClick={() => setValue(today(getLocalTimeZone()))}>
+        <GlassButton variant="default" onClick={() => setValue(today(getLocalTimeZone()))}>
           Set today
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue(null)}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue(null)}>
           Clear
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

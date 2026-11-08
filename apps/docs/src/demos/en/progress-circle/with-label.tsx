@@ -1,5 +1,5 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0); the label belongs to the progress context.
+// the label belongs to the progress context.
 import { ProgressCircle } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({ row: { display: "flex", alignItems: "center", gap: 12 } });

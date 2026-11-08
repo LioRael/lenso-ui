@@ -1,14 +1,15 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-submenus, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu, IconChevronRight, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu, IconChevronRight } from "@lenso/ui";
 import { ActionItem, Popup, styles } from "./_shared";
 
 export function WithSubmenus() {
   return (
     <Menu>
-      <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>Share</Menu.Trigger>
+      <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
+        Share
+      </Menu.Trigger>
       <Popup>
         <ActionItem label="Copy Link" onClick={() => console.log("Selected: copy-link")} />
         <ActionItem label="Facebook" onClick={() => console.log("Selected: facebook")} />
@@ -19,10 +20,10 @@ export function WithSubmenus() {
         />
         <Menu.SubmenuRoot>
           <Menu.SubmenuTrigger label="Share">
-            <MenuItem.Label>Other</MenuItem.Label>
-            <MenuItem.SubmenuIndicator>
+            <Menu.Item.Label>Other</Menu.Item.Label>
+            <Menu.Item.SubmenuIndicator>
               <IconChevronRight {...stylex.props(styles.smallIcon)} />
-            </MenuItem.SubmenuIndicator>
+            </Menu.Item.SubmenuIndicator>
           </Menu.SubmenuTrigger>
           <Popup>
             <ActionItem label="WhatsApp" />
@@ -30,10 +31,10 @@ export function WithSubmenus() {
             <ActionItem label="Discord" />
             <Menu.SubmenuRoot>
               <Menu.SubmenuTrigger>
-                <MenuItem.Label>Email</MenuItem.Label>
-                <MenuItem.SubmenuIndicator>
+                <Menu.Item.Label>Email</Menu.Item.Label>
+                <Menu.Item.SubmenuIndicator>
                   <IconChevronRight {...stylex.props(styles.smallIcon)} />
-                </MenuItem.SubmenuIndicator>
+                </Menu.Item.SubmenuIndicator>
               </Menu.SubmenuTrigger>
               <Popup>
                 <ActionItem label="Work email" />

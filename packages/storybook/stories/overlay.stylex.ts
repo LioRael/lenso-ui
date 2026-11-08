@@ -1,4 +1,3 @@
-// HeroUI v3.2.6 source-story utility adaptations, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 
 export const overlayStyles = stylex.create({
@@ -9,8 +8,8 @@ export const overlayStyles = stylex.create({
   examples: { display: "flex", flexDirection: "column", gap: 32, maxWidth: 448 },
   wideExamples: { display: "flex", flexDirection: "column", gap: 32, maxWidth: 672 },
   dismissExamples: { display: "flex", flexDirection: "column", gap: 24, maxWidth: 384 },
-  muted: { color: "var(--muted)", fontSize: 14, lineHeight: "20px" },
-  small: { color: "var(--muted)", fontSize: 12, lineHeight: "16px" },
+  muted: { color: "var(--lenso-label-secondary)", fontSize: 14, lineHeight: "20px" },
+  small: { color: "var(--lenso-label-secondary)", fontSize: 12, lineHeight: "16px" },
   heading: { fontSize: 18, fontWeight: 600 },
   full: { width: "100%" },
   modalWidth: { maxWidth: { default: null, "@media (min-width: 640px)": 360 } },
@@ -20,19 +19,37 @@ export const overlayStyles = stylex.create({
   reverse: { flexDirection: "column-reverse" },
   icon: { width: 20, height: 20, flexShrink: 0 },
   largeIcon: { width: 24, height: 24 },
-  neutralIcon: { backgroundColor: "var(--default)", color: "var(--foreground)" },
-  accent: { backgroundColor: "var(--accent-soft)", color: "var(--accent-soft-foreground)" },
-  success: { backgroundColor: "var(--success-soft)", color: "var(--success-soft-foreground)" },
-  warning: { backgroundColor: "var(--warning-soft)", color: "var(--warning-soft-foreground)" },
-  danger: { backgroundColor: "var(--danger-soft)", color: "var(--danger-soft-foreground)" },
+  neutralIcon: {
+    backgroundColor: "var(--lenso-control-fill)",
+    color: "var(--lenso-label-primary)",
+  },
+  accent: {
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
+  },
+  success: {
+    backgroundColor: "var(--lenso-control-status-success-soft-fill)",
+    color: "var(--lenso-status-success-text)",
+  },
+  warning: {
+    backgroundColor: "var(--lenso-control-status-warning-soft-fill)",
+    color: "var(--lenso-status-warning-text)",
+  },
+  danger: {
+    backgroundColor: "var(--lenso-control-status-error-soft-fill)",
+    color: "var(--lenso-status-error-text)",
+  },
   customTrigger: {
     display: "flex",
     alignItems: "center",
     gap: 12,
     borderRadius: 16,
     padding: 16,
-    backgroundColor: { default: "var(--surface)", ":hover": "var(--surface-secondary)" },
-    boxShadow: "var(--shadow-xs)",
+    backgroundColor: {
+      default: "var(--lenso-background-grouped-secondary)",
+      ":hover": "var(--lenso-background-secondary)",
+    },
+    boxShadow: "var(--lenso-surface-shadow)",
     userSelect: "none",
   },
   triggerIcon: {
@@ -52,8 +69,8 @@ export const overlayStyles = stylex.create({
     gap: 12,
     borderRadius: 16,
     padding: 16,
-    backgroundColor: "var(--surface)",
-    boxShadow: "var(--shadow-sm)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   portalHost: {
     position: "relative",
@@ -63,18 +80,14 @@ export const overlayStyles = stylex.create({
     height: 380,
     width: "min(560px, calc(100vw - 32px))",
     overflow: "hidden",
-    borderRadius: "var(--radius)",
-    backgroundColor: "color-mix(in oklab, var(--muted) 20%, transparent)",
+    borderRadius: "var(--lenso-shape-content)",
+    backgroundColor: "color-mix(in oklab, var(--lenso-label-secondary) 20%, transparent)",
     transform: "translate(0)",
   },
   portalFill: { height: "100%", maxHeight: "100%" },
   portalPopup: { height: "100%", maxHeight: "100%", maxWidth: 448 },
   gradient: {
-    backgroundImage: {
-      default: "linear-gradient(to top, rgb(0 0 0 / .8), rgb(0 0 0 / .4), transparent)",
-      ':where([data-theme="dark"]) &':
-        "linear-gradient(to top, oklch(.274 .006 286.033 / .8), oklch(.274 .006 286.033 / .4), transparent)",
-    },
+    backgroundImage: "linear-gradient(to top, var(--lenso-scrim), transparent)",
   },
   kinematic: {
     transitionDuration: {
@@ -139,7 +152,7 @@ export const overlayStyles = stylex.create({
     },
     transitionTimingFunction: {
       default: "cubic-bezier(.36,1.66,.04,1)",
-      ":is([data-ending-style])": "var(--ease-smooth)",
+      ":is([data-ending-style])": "var(--lenso-motion-ease-smooth)",
     },
     transform: {
       default: "scale(1)",
@@ -157,8 +170,8 @@ export const overlayStyles = stylex.create({
     paddingInline: 12,
     paddingBlock: 10,
     fontSize: 14,
-    color: "var(--foreground)",
-    backgroundColor: { default: "transparent", ":hover": "var(--default)" },
+    color: "var(--lenso-label-primary)",
+    backgroundColor: { default: "transparent", ":hover": "var(--lenso-control-fill)" },
     transition: "background-color 150ms",
   },
   popoverProfile: { width: 290, display: "flex", flexDirection: "column", gap: 12 },
@@ -173,7 +186,11 @@ export const overlayStyles = stylex.create({
   card400: { width: "min(400px, calc(100vw - 32px))" },
   card200: { width: 200 },
   help: { maxWidth: 200 },
-  tooltipTrigger: { borderRadius: 9999, backgroundColor: "var(--accent-soft)", padding: 8 },
+  tooltipTrigger: {
+    borderRadius: 9999,
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    padding: 8,
+  },
   round: { borderRadius: 9999 },
   cardTooltip: { display: "flex", alignItems: "center", justifyContent: "center", padding: 24 },
   springStage: {
@@ -185,8 +202,8 @@ export const overlayStyles = stylex.create({
   },
   springTitle: { fontSize: 20, fontWeight: 600 },
   code: {
-    borderRadius: "var(--radius)",
-    backgroundColor: "var(--surface)",
+    borderRadius: "var(--lenso-shape-content)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     paddingInline: 8,
     paddingBlock: 4,
     fontSize: 12,

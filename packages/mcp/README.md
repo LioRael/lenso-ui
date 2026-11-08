@@ -1,6 +1,6 @@
 # @lenso/ui-mcp
 
-`@lenso/ui-mcp@0.1.0` is private and unpublished. Its current runtime requires Node `26.10.0` or a later Node 26 release.
+`@lenso/ui-mcp@0.1.0` is private and unpublished. Its current runtime requires Bun `1.4.4` or later.
 
 ## Maintainer build
 

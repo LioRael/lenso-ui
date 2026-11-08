@@ -1,7 +1,7 @@
 "use client";
-// HeroUI v3.2.6 virtualization adaptation (Apache-2.0); native fixed-row window.
+// native fixed-row window.
 import * as stylex from "@stylexjs/stylex";
-import { ListBox, ListBoxItem } from "@lenso/ui";
+import { ListBox } from "@lenso/ui";
 import { Description, Label } from "./text";
 const first = [
   "Emma",
@@ -65,13 +65,13 @@ export function Virtualization() {
       virtualized={{ rowHeight: 50, height: 400 }}
     >
       {(item) => (
-        <ListBoxItem itemKey={item.key} textValue={item.textValue}>
+        <ListBox.Item itemKey={item.key} textValue={item.textValue}>
           <div {...stylex.props(styles.detail)}>
             <Label>{item.textValue}</Label>
             <Description>{users[Number(item.key) - 1]!.email}</Description>
           </div>
-          <ListBoxItem.Indicator />
-        </ListBoxItem>
+          <ListBox.Item.Indicator />
+        </ListBox.Item>
       )}
     </ListBox>
   );

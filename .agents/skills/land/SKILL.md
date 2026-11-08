@@ -26,8 +26,8 @@ local checks or topic-branch publication do not authorize or complete landing.
    newly configured protections or merge queue.
 3. Separate the requested change from unrelated work. Stop if separation would
    discard or overwrite another participant's changes.
-4. Verify the actual Node/pnpm executables against `.mise.toml` and
-   `package.json`. Install with `pnpm install --frozen-lockfile` when needed.
+4. Verify the actual Bun and required Node executables against `.mise.toml` and
+   `package.json`. Install with `bun install --frozen-lockfile` when needed.
 5. Inspect `.github/workflows/verify.yml` and release/deployment effects.
    The authoritative workflow is `Verify reconstruction`, required job `verify`.
    It must support `delta/verify/**` push candidates. Missing, disabled, empty

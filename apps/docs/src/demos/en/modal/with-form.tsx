@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-with-form (Apache-2.0).
 import { Envelope } from "@gravity-ui/icons";
 import { useId, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -7,9 +6,17 @@ import { Button, Input, Label, Modal, Surface, TextField } from "@lenso/ui";
 
 const styles = stylex.create({
   popup: { maxWidth: 448 },
-  icon: { backgroundColor: "var(--accent-soft)", color: "var(--accent-soft-foreground)" },
+  icon: {
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
+  },
   envelope: { width: 20, height: 20 },
-  caption: { marginTop: 6, fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
+  caption: {
+    marginTop: 6,
+    fontSize: 14,
+    lineHeight: "20px",
+    color: "var(--lenso-label-secondary)",
+  },
   body: { padding: 24 },
   form: { display: "flex", flexDirection: "column", gap: 16 },
   field: { width: "100%" },
@@ -20,7 +27,7 @@ export function WithForm() {
   const [open, setOpen] = useState(false);
   return (
     <Modal open={open} onOpenChange={setOpen}>
-      <Modal.Trigger render={<Button variant="secondary" />}>Open Contact Form</Modal.Trigger>
+      <Modal.Trigger render={<Button />}>Open Contact Form</Modal.Trigger>
       <Modal.Portal>
         <Modal.Backdrop />
         <Modal.Viewport>
@@ -70,7 +77,7 @@ export function WithForm() {
               </Surface>
             </Modal.Body>
             <Modal.Footer>
-              <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+              <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
               <Button type="submit" form={formId}>
                 Send Message
               </Button>

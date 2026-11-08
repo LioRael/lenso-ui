@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 custom-toast, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 import { Button, CloseIcon, Toast } from "@lenso/ui";
 import { styles } from "../../en/toast/_shared";
@@ -31,7 +29,7 @@ function CustomLayout() {
       </Toast.Portal>
       <Button
         size="sm"
-        variant="secondary"
+        variant="bordered"
         onClick={() =>
           manager.add({
             description: "使用自定义渲染函数",

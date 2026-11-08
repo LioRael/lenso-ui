@@ -3,7 +3,7 @@ name: start-preview
 description: Start the existing ui development preview, verify readiness, and return its supported URL.
 ---
 
-This is the real documentation dev server. Package source edits require rerunning the build step (or separate owned package watchers).
+This is the real documentation dev server. It reads workspace source and theme CSS directly; package builds and separate package watchers are unnecessary for preview edits. Static builds may run concurrently.
 
 1. From the repository root, run `.agents/dependencies` and source `. .agents/env`.
 2. Choose a free `PREVIEW_PORT` (default 4310); never use runner-reserved 49983.
@@ -19,10 +19,7 @@ This is the real documentation dev server. Package source edits require rerunnin
 5. On a supported runner, return exactly the HTTPS URL printed by
    `delta-runner preview url 4310`. Locally return the loopback URL. Never infer
    a preview hostname or expose a port whose host/origin checks reject it.
-6. Stop through Ctrl+C in the owned server terminal; wait for cleanup. Studio's
-   wrapper also stops and removes its private cluster and agent SQLite file.
-   Never run broad kill/pkill or stop another checkout's database.
+6. Stop the owned server through Ctrl+C and wait for cleanup. Never stop an
+   unrelated process.
 
-Only UI and Relay currently support cloud preview here. Console and Studio need
-the separately reviewed origin/Auth support described above before cloud use.
-Delta preview access is per runner/thread; only share with trusted collaborators.
+Delta preview access is per runner; share it only with trusted collaborators.

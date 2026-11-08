@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 export interface User {
   key: number;
   id: number;
@@ -8,7 +7,7 @@ export interface User {
   status: "Active" | "Inactive" | "On Leave";
   email: string;
 }
-const avatarRoot = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/";
+const avatarRoot = "/assets/demo/avatars/";
 export const users: User[] = [
   {
     key: 4586932,
@@ -17,7 +16,7 @@ export const users: User[] = [
     role: "Chief Executive Officer",
     status: "Active",
     email: "kate@acme.com",
-    image_url: avatarRoot + "red.jpg",
+    image_url: avatarRoot + "red.svg",
   },
   {
     key: 5273849,
@@ -26,7 +25,7 @@ export const users: User[] = [
     role: "Chief Technology Officer",
     status: "Active",
     email: "john@acme.com",
-    image_url: avatarRoot + "green.jpg",
+    image_url: avatarRoot + "green.svg",
   },
   {
     key: 7492836,
@@ -35,7 +34,7 @@ export const users: User[] = [
     role: "Chief Marketing Officer",
     status: "On Leave",
     email: "sara@acme.com",
-    image_url: avatarRoot + "blue.jpg",
+    image_url: avatarRoot + "blue.svg",
   },
   {
     key: 8293746,
@@ -44,7 +43,7 @@ export const users: User[] = [
     role: "Chief Financial Officer",
     status: "Active",
     email: "michael@acme.com",
-    image_url: avatarRoot + "purple.jpg",
+    image_url: avatarRoot + "purple.svg",
   },
   {
     key: 1234567,
@@ -53,7 +52,7 @@ export const users: User[] = [
     role: "Product Manager",
     status: "Inactive",
     email: "emily@acme.com",
-    image_url: avatarRoot + "orange.jpg",
+    image_url: avatarRoot + "orange.svg",
   },
   {
     key: 9876543,
@@ -62,7 +61,7 @@ export const users: User[] = [
     role: "Lead Designer",
     status: "Active",
     email: "davis@acme.com",
-    image_url: avatarRoot + "black.jpg",
+    image_url: avatarRoot + "black.svg",
   },
   {
     key: 3456789,
@@ -71,7 +70,7 @@ export const users: User[] = [
     role: "Frontend Engineer",
     status: "Active",
     email: "olivia@acme.com",
-    image_url: avatarRoot + "red.jpg",
+    image_url: avatarRoot + "red.svg",
   },
   {
     key: 4567890,
@@ -80,7 +79,7 @@ export const users: User[] = [
     role: "Backend Engineer",
     status: "Active",
     email: "james@acme.com",
-    image_url: avatarRoot + "green.jpg",
+    image_url: avatarRoot + "green.svg",
   },
   {
     key: 5678901,
@@ -89,7 +88,7 @@ export const users: User[] = [
     role: "QA Engineer",
     status: "On Leave",
     email: "sophia@acme.com",
-    image_url: avatarRoot + "blue.jpg",
+    image_url: avatarRoot + "blue.svg",
   },
   {
     key: 6789012,
@@ -98,7 +97,7 @@ export const users: User[] = [
     role: "DevOps Engineer",
     status: "Active",
     email: "liam@acme.com",
-    image_url: avatarRoot + "purple.jpg",
+    image_url: avatarRoot + "purple.svg",
   },
   {
     key: 7890123,
@@ -107,7 +106,7 @@ export const users: User[] = [
     role: "Data Analyst",
     status: "Inactive",
     email: "ava@acme.com",
-    image_url: avatarRoot + "orange.jpg",
+    image_url: avatarRoot + "orange.svg",
   },
   {
     key: 8901234,
@@ -116,7 +115,7 @@ export const users: User[] = [
     role: "Security Engineer",
     status: "Active",
     email: "noah@acme.com",
-    image_url: avatarRoot + "black.jpg",
+    image_url: avatarRoot + "black.svg",
   },
 ];
 export const columns = [
@@ -195,7 +194,7 @@ export function generateUsers(n: number): User[] {
       key: i + 1,
       id: i + 1,
       name: `${first} ${last}`,
-      image_url: avatarRoot + "red.jpg",
+      image_url: avatarRoot + "red.svg",
       role: roles[i % roles.length]!,
       status: statuses[i % statuses.length]!,
       email: `${first.toLowerCase()}.${last.toLowerCase()}@acme.com`,
@@ -240,10 +239,10 @@ export const files: FileRow[] = [
   },
 ];
 export const team = [
-  { key: "fred", textValue: "Fred", avatar: avatarRoot + "blue.jpg", fallback: "F" },
-  { key: "michael", textValue: "Michael", avatar: avatarRoot + "green.jpg", fallback: "M" },
-  { key: "jane", textValue: "Jane", avatar: avatarRoot + "purple.jpg", fallback: "J" },
-  { key: "alice", textValue: "Alice", avatar: avatarRoot + "red.jpg", fallback: "A" },
-  { key: "bob", textValue: "Bob", avatar: avatarRoot + "orange.jpg", fallback: "B" },
-  { key: "charlie", textValue: "Charlie", avatar: avatarRoot + "black.jpg", fallback: "C" },
+  { key: "fred", textValue: "Fred", avatar: avatarRoot + "blue.svg", fallback: "F" },
+  { key: "michael", textValue: "Michael", avatar: avatarRoot + "green.svg", fallback: "M" },
+  { key: "jane", textValue: "Jane", avatar: avatarRoot + "purple.svg", fallback: "J" },
+  { key: "alice", textValue: "Alice", avatar: avatarRoot + "red.svg", fallback: "A" },
+  { key: "bob", textValue: "Bob", avatar: avatarRoot + "orange.svg", fallback: "B" },
+  { key: "charlie", textValue: "Charlie", avatar: avatarRoot + "black.svg", fallback: "C" },
 ];

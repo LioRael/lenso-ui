@@ -1,10 +1,20 @@
 # Lenso UI Docs presentation verification
 
+## Current navigation language (2026-10-28)
+
+The owner requested adoption of the current Apple semantic design language for
+sidebar and section navigation. This supersedes the older shell geometry and
+visual-parity target below, which remain historical extraction evidence.
+The new shared frame uses a 112px desktop / 104px mobile header, a 296px sidebar
+column with an inset 280px surface, segmented section links and a viewport-inset
+mobile drawer. Article typography and native navigation ownership are preserved.
+See the current design direction in [DESIGN.md](../../DESIGN.md).
+
 ## Authority and reuse
 
 The target is the actual Lenso UI Docs application at repository base
 `a742a55d7171fe6f43e2a25e5f9ab921b428e646`, not a default Fumadocs theme.
-The application retains the HeroUI provenance recorded in the root `DESIGN.md`.
+Retained source provenance is recorded in the root `THIRD_PARTY_NOTICES.md`.
 
 The extracted StyleX maps, Tabs, syntax highlighter and responsive TOC now live
 in `packages/docs/presentation`; build-only adapters compile those owned sources.
@@ -63,9 +73,10 @@ switching and mobile TOC/navigation dismissal passed. Button activation and
 Theme Builder mounting received smoke checks only.
 
 Local evidence lives in `apps/docs/.cache/framework-migration-proof/`.
-The maintained `test:stylex-build` separately verifies authoritative source/
-compiled-map equality, a single atomic stylesheet without duplicate rules or
-keyframes, delivered font bytes, composition, RTL and search portals.
+The current `test:stylex-artifacts` separately checks library rule delivery, a
+single atomic stylesheet without duplicate rules or keyframes, RTL selectors,
+server-only styles and PostCSS invalidation. The historical font, composition
+and portal observations above are not claims about every current build.
 
 ## Remaining documentation pages
 
@@ -146,8 +157,8 @@ at 0px. There were no client errors.
 The sidebar DOM may still remount across route boundaries. The proof establishes
 state restoration, not a claim that the DOM is never recreated. The production
 menu had no nested branches, so that run does not prove every nested expansion
-case. Reproduce with `test/sidebar-scroll.browser.mjs`; its report is generated
-under `test-results/sidebar-scroll/`.
+case. Reproduce against the docs preview with
+`bun test test/browser/sidebar-scroll.test.ts` from `apps/docs`. The original run generated a report for that review.
 
 ## Compilation-scope regression
 

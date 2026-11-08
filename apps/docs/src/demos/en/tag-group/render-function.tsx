@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 render-function adaptation (Apache-2.0).
 import { TagGroup } from "@lenso/ui";
 import { Categories } from "./categories";
 export function RenderFunction() {

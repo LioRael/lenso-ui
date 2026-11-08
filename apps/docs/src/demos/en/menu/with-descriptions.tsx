@@ -1,15 +1,16 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-descriptions, Apache-2.0.
 import { FloppyDisk, FolderOpen, SquarePlus, TrashBin } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { ActionItem, Popup, Shortcut, styles } from "./_shared";
 
 export function WithDescriptions() {
   return (
     <Menu>
-      <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>Actions</Menu.Trigger>
+      <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
+        Actions
+      </Menu.Trigger>
       <Popup>
         <ActionItem
           label="New file"

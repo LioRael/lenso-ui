@@ -1,8 +1,7 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-single-selection, Apache-2.0.
 import { useState } from "react";
-import { Button, Menu, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { Checkmark, Popup, styles } from "./_shared";
 
 export function WithSingleSelection() {
@@ -12,20 +11,22 @@ export function WithSingleSelection() {
       <Menu.RadioItemIndicator keepMounted xstyle={styles.selectionIndicator}>
         <Checkmark />
       </Menu.RadioItemIndicator>
-      <MenuItem.Label>{label}</MenuItem.Label>
+      <Menu.Item.Label>{label}</Menu.Item.Label>
     </Menu.RadioItem>
   );
   return (
     <Menu>
-      <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>Fruit</Menu.Trigger>
+      <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
+        Fruit
+      </Menu.Trigger>
       <Popup xstyle={styles.wide}>
         <Menu.RadioGroup value={selected} onValueChange={setSelected}>
-          <Menu.Section>
-            <Menu.Section.Label>Select a fruit</Menu.Section.Label>
+          <Menu.Group>
+            <Menu.Group.Label>Select a fruit</Menu.Group.Label>
             {fruit("apple", "Apple")}
             {fruit("banana", "Banana")}
             {fruit("cherry", "Cherry")}
-          </Menu.Section>
+          </Menu.Group>
           {fruit("orange", "Orange")}
           {fruit("pear", "Pear")}
         </Menu.RadioGroup>

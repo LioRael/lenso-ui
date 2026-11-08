@@ -22,16 +22,19 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.4.4
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 26.10.0
       - name: Bind documentation artifact to verification inputs
         id: identity
-        run: node .github/scripts/reuse-verification.ts identity
+        run: bun .github/scripts/reuse-verification.ts identity
       - name: Look up a trusted exact-SHA candidate
         id: candidate
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: node .github/scripts/reuse-verification.ts reuse
+        run: bun .github/scripts/reuse-verification.ts reuse
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Restore digest-verified candidate documentation
@@ -42,48 +45,22 @@ jobs:
           mkdir -p "$RUNNER_TEMP/docs-reuse"
           unzip -q "$RUNNER_TEMP/trusted-docs.zip" -d "$RUNNER_TEMP/docs-reuse"
           test -f "$RUNNER_TEMP/docs-reuse/index.html"
-          node apps/docs/scripts/check-export-size.mjs "$RUNNER_TEMP/docs-reuse"
+          bun apps/docs/scripts/check-export-size.ts "$RUNNER_TEMP/docs-reuse"
           mkdir -p apps/docs
           test ! -e apps/docs/out
           mv "$RUNNER_TEMP/docs-reuse" apps/docs/out
-      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+      - run: bun install --frozen-lockfile
         if: steps.restore.outcome != 'success'
-      - name: Restore the pnpm store for complete verification
+      - run: bun run check
         if: steps.restore.outcome != 'success'
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: 26.10.0
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-        if: steps.restore.outcome != 'success'
-      - run: pnpm --filter @lenso/ui exec playwright install --with-deps chromium
-        if: steps.restore.outcome != 'success'
-      - run: pnpm check
-        if: steps.restore.outcome != 'success'
-      - run: pnpm --filter @lenso/ui-docs build
+      - run: bun run --filter @lenso/ui-docs build
         if: steps.restore.outcome != 'success'
         env:
           LENSO_DOCS_SITE: https://ui.lenso.dev
-      - run: pnpm test:production
+      - run: bun run test:production
         if: steps.restore.outcome != 'success'
       - name: Enforce Cloudflare's 25 MiB per-file limit
-        run: node apps/docs/scripts/check-export-size.mjs
-      - name: Preserve run-specific browser diagnostics
-        if: always()
-        continue-on-error: true
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: browser-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            packages/react/.vitest-attachments
-            packages/testing/.vitest-attachments
-            test-results/docs-locale
-            test-results/storybook
-            test-results/stylex-next-css-import/evidence.json
-            test-results/stylex-next-css-import/build.log
-            test-results/stylex-next-css-import/server.log
-          if-no-files-found: ignore
-          retention-days: 3
+        run: bun apps/docs/scripts/check-export-size.ts
       - name: Preserve verified documentation output
         id: docs
         if: github.event_name == 'push'
@@ -114,12 +91,9 @@ jobs:
           artifact-ids: ${{ needs.verify.outputs.docs-artifact-id }}
           merge-multiple: true
           path: apps/docs/out
-      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
-          version: 12.9.1
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: 26.10.0
+          bun-version: 1.4.4
       - name: Skip commits superseded on main
         id: current
         env:
@@ -135,7 +109,7 @@ jobs:
           fi
       - name: Deploy verified docs to the existing Cloudflare Pages project
         if: steps.current.outputs.deploy == 'true'
-        run: pnpm dlx wrangler@4.124.0 pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
+        run: bunx --bun wrangler@4.124.0 pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

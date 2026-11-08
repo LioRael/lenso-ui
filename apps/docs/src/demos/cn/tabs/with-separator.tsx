@@ -1,7 +1,6 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0. Base UI measures one indicator per list.
+// Base UI measures one indicator per list.
 import { Tabs } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
@@ -98,17 +97,11 @@ function SettingsTabs(props: ComponentProps<typeof Tabs>) {
     </Tabs>
   );
 }
-export function Secondary() {
-  return <ProjectTabs variant="secondary" />;
-}
 export function WithSeparator() {
   return <ProjectTabs separators />;
 }
 export function Vertical() {
   return <SettingsTabs />;
-}
-export function SecondaryVertical() {
-  return <SettingsTabs variant="secondary" />;
 }
 export function VerticalAlignment() {
   const items = [
@@ -139,13 +132,7 @@ export function VerticalAlignment() {
     },
   ];
   return (
-    <Tabs
-      defaultValue="general"
-      align="start"
-      orientation="vertical"
-      variant="secondary"
-      xstyle={styles.vertical}
-    >
+    <Tabs defaultValue="general" align="start" orientation="vertical" xstyle={styles.vertical}>
       <Tabs.ListContainer>
         <Tabs.List activateOnFocus aria-label="Settings">
           {items.map((item) => (

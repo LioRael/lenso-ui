@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 modal-custom-trigger (Apache-2.0).
 import { Gear } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -12,11 +10,11 @@ const styles = stylex.create({
     gap: 12,
     borderRadius: 16,
     backgroundColor: {
-      default: "var(--surface)",
-      ":hover": "var(--surface-secondary)",
+      default: "var(--lenso-background-grouped-secondary)",
+      ":hover": "var(--lenso-background-secondary)",
     },
     padding: 16,
-    boxShadow: "var(--shadow-xs)",
+    boxShadow: "var(--lenso-surface-shadow)",
     userSelect: "none",
   },
   gearBox: {
@@ -27,8 +25,8 @@ const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 12,
-    backgroundColor: "var(--accent-soft)",
-    color: "var(--accent-soft-foreground)",
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
   },
   copy: {
     display: "flex",
@@ -43,14 +41,14 @@ const styles = stylex.create({
   },
   caption: {
     fontSize: 12,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   popup: {
     maxWidth: 360,
   },
   icon: {
-    backgroundColor: "var(--accent-soft)",
-    color: "var(--accent-soft-foreground)",
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
   },
   largeGear: {
     width: 24,
@@ -91,7 +89,7 @@ export function CustomTrigger() {
               </Modal.Description>
             </Modal.Body>
             <Modal.Footer>
-              <Modal.Close render={<Button variant="secondary" />}>取消</Modal.Close>
+              <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
               <Modal.Close render={<Button />}>保存</Modal.Close>
             </Modal.Footer>
           </Modal.Popup>

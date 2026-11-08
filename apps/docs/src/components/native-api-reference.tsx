@@ -1,9 +1,9 @@
 import * as stylex from "@stylexjs/stylex";
-import fumaMDX from "fumadocs-ui/mdx";
-import reference from "../generated/api-reference.json";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import type reference from "../generated/api-reference.json";
+import { styles as docsStyles } from "@lenso/docs/presentation";
 import { styles } from "../styles/api-reference.stylex";
-import { prose } from "../styles/prose.stylex";
-import { groupApiProperties } from "../lib/api-property-groups";
+import { commonApiProperties, groupApiProperties } from "../lib/api-property-groups";
 
 type Locale = "en" | "zh";
 type Property = (typeof reference.properties)[number];
@@ -17,12 +17,11 @@ type Part = {
   properties: number[];
   states: Partial<Record<string, { name: string; type: string; required: boolean }[]>>;
 };
-const families: Record<string, { parts: Part[] }> = reference.families;
+export type NativeApiData = { families: Record<string, { parts: Part[] }>; properties: Property[] };
 const copy = {
   en: {
     title: "API Reference",
-    intro:
-      "Generated from the local public TypeScript exports. Types and callback state follow the installed native contracts, not the historical HeroUI API.",
+    intro: "Component properties, callback state and native attributes.",
     property: "Property",
     type: "Type",
     required: "Required",
@@ -32,21 +31,23 @@ const copy = {
     no: "No",
     unknown: "Not declared",
     common: "Native HTML and ARIA properties",
+    composition: "Common properties and events",
     commonGroup: "Property set",
-    sharedCommon: "Shared native HTML and ARIA properties",
+    sharedCommon: "HTML and ARIA properties",
     appliesTo: "Applies to",
     sharedIntro:
-      "Parts with identical inherited property records share one complete table. Different native types remain separate.",
+      "Expand a group to look up DOM events, accessibility labels and other native attributes for its listed parts.",
     state: "Callback state",
+    declaration: "Property declarations",
+    expanded: "Full type",
+    implementation: "Type declaration and sources",
+    properties: "properties",
     defaults:
-      "Only literal defaults in the component's parameter declaration are shown. Other defaults may depend on context or the native component.",
-    attribution:
-      "HeroUI v3.2.6 is the visual and historical reference, not an API compatibility promise.",
+      "— means no literal default is declared. Context and native controls may supply other defaults.",
   },
   zh: {
     title: "API 参考",
-    intro:
-      "根据本地公开的 TypeScript 导出生成。类型与回调状态遵循已安装的原生接口，而不是历史 HeroUI API。",
+    intro: "查阅组件属性、回调状态与原生属性。",
     property: "属性",
     type: "类型",
     required: "必填",
@@ -56,15 +57,27 @@ const copy = {
     no: "否",
     unknown: "未声明",
     common: "原生 HTML 和 ARIA 属性",
+    composition: "通用属性与事件",
     commonGroup: "属性组",
-    sharedCommon: "共享的原生 HTML 和 ARIA 属性",
+    sharedCommon: "HTML 与 ARIA 属性",
     appliesTo: "适用部件",
-    sharedIntro: "继承属性记录完全相同的部件共用一份完整表格。不同的原生类型仍分别保留。",
+    sharedIntro: "展开分组，查看所列部件支持的 DOM 事件、无障碍标签和其他原生属性。",
     state: "回调状态",
-    defaults: "仅显示组件参数声明中的字面量默认值。其他默认值可能取决于上下文或原生组件。",
-    attribution: "HeroUI v3.2.6 是视觉与历史参考，不代表 API 兼容承诺。",
+    declaration: "属性声明来源",
+    expanded: "完整类型",
+    implementation: "类型声明与来源",
+    properties: "个属性",
+    defaults: "— 表示未声明字面量默认值；上下文或原生控件仍可能提供默认值。",
   },
 };
+
+function propertyOrder(row: Property) {
+  return row.source.path.startsWith("packages/ui/src/components/")
+    ? 0
+    : row.source.path.startsWith("packages/ui/")
+      ? 1
+      : 2;
+}
 
 function PropertyTable({
   rows,
@@ -77,54 +90,140 @@ function PropertyTable({
 }) {
   const text = copy[locale];
   return (
-    // Keyboard users must be able to scroll wide type signatures.
-    // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <section {...stylex.props(prose.scroll)} tabIndex={0} aria-label={label}>
-      <fumaMDX.table {...stylex.props(prose.table)}>
-        <thead>
+    // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Long native signatures scroll within the named table region.
+    <section {...stylex.props(styles.scroll)} tabIndex={0} aria-label={label}>
+      <table {...stylex.props(styles.table, styles.propertyTable)}>
+        <thead {...stylex.props(styles.propertyHead)}>
           <tr>
-            {[text.property, text.type, text.required, text.default, text.description].map(
-              (label) => (
-                <th key={label} scope="col" {...stylex.props(prose.cell, prose.header)}>
-                  {label}
-                </th>
-              ),
-            )}
+            <th scope="col" {...stylex.props(styles.cell, styles.header, styles.propertyColumn)}>
+              {text.property}
+            </th>
+            <th scope="col" {...stylex.props(styles.cell, styles.header, styles.typeColumn)}>
+              {text.type}
+            </th>
+            <th scope="col" {...stylex.props(styles.cell, styles.header, styles.defaultColumn)}>
+              {text.default}
+            </th>
           </tr>
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.name}>
-              <th scope="row" {...stylex.props(prose.cell)}>
-                <code {...stylex.props(prose.code)}>{row.name}</code>
+            <tr key={row.name} {...stylex.props(styles.propertyRow)}>
+              <th scope="row" {...stylex.props(styles.cell, styles.propertyNameCell)}>
+                <code {...stylex.props(styles.property)}>{row.name}</code>
+                {row.required && <span {...stylex.props(styles.required)}>{text.required}</span>}
+                {row.description && <p {...stylex.props(styles.description)}>{row.description}</p>}
               </th>
-              <td {...stylex.props(prose.cell)}>
-                <code {...stylex.props(prose.code, styles.code)}>{row.expandedType}</code>
-              </td>
-              <td {...stylex.props(prose.cell)}>{row.required ? text.yes : text.no}</td>
-              <td {...stylex.props(prose.cell)}>
-                {row.default === null ? (
-                  text.unknown
+              <td {...stylex.props(styles.cell, styles.propertyValueCell)}>
+                <span aria-hidden="true" {...stylex.props(styles.mobileLabel)}>
+                  {text.type}
+                </span>
+                {row.expandedType.length > 110 ? (
+                  <details>
+                    <summary {...stylex.props(styles.detailToggle)}>
+                      <code {...stylex.props(styles.code, styles.type)}>
+                        {row.type.length > 160 ? text.expanded : row.type}
+                      </code>
+                    </summary>
+                    <code
+                      aria-label={text.expanded}
+                      {...stylex.props(styles.code, styles.expandedType)}
+                    >
+                      {row.expandedType}
+                    </code>
+                  </details>
                 ) : (
-                  <code {...stylex.props(prose.code)}>{row.default}</code>
+                  <code {...stylex.props(styles.code, styles.type)}>{row.expandedType}</code>
                 )}
               </td>
-              <td {...stylex.props(prose.cell)}>
-                {row.description}
-                <small {...stylex.props(styles.source)}>
-                  {row.source.path}:{row.source.line}
-                </small>
+              <td {...stylex.props(styles.cell, styles.propertyValueCell)}>
+                <span aria-hidden="true" {...stylex.props(styles.mobileLabel)}>
+                  {text.default}
+                </span>
+                {row.default === null ? (
+                  <span title={text.unknown} {...stylex.props(styles.default)}>
+                    —
+                  </span>
+                ) : (
+                  <code {...stylex.props(styles.code)}>{row.default}</code>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
-      </fumaMDX.table>
+      </table>
+      <details {...stylex.props(styles.metadata)}>
+        <summary {...stylex.props(styles.detailToggle)}>{text.declaration}</summary>
+        <dl>
+          {rows.map((row) => (
+            <div key={row.name} {...stylex.props(styles.sourceRow)}>
+              <dt>
+                <code {...stylex.props(styles.property)}>{row.name}</code>
+              </dt>
+              <dd {...stylex.props(styles.sourcePath)}>
+                <code {...stylex.props(styles.source)}>
+                  {row.source.path}:{row.source.line}
+                </code>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </details>
     </section>
   );
 }
 
-export function NativeApiReference({ family, locale = "en" }: { family: string; locale?: Locale }) {
-  const contract = families[family];
+function Chevron() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true" {...stylex.props(styles.chevron)}>
+      <path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function ApiDisclosure({
+  initiallyOpen = false,
+  summary,
+  search,
+  children,
+}: {
+  initiallyOpen?: boolean;
+  summary: ReactNode;
+  search: string;
+  children: ReactNode;
+}) {
+  const disclosure = useRef<HTMLDetailsElement>(null);
+  const [showContent, setShowContent] = useState(true);
+  // Preserve full server/no-JS content, including disclosures opened by Find before hydration.
+  useEffect(() => setShowContent(disclosure.current?.open ?? false), []);
+  return (
+    <details
+      {...stylex.props(styles.part)}
+      ref={disclosure}
+      open={initiallyOpen}
+      onToggle={(event) => {
+        if (event.target === event.currentTarget) setShowContent(event.currentTarget.open);
+      }}
+    >
+      {summary}
+      <span aria-hidden="true" {...stylex.props(styles.closedIndex)}>
+        {search}
+      </span>
+      {showContent ? children : null}
+    </details>
+  );
+}
+
+export function NativeApiReference({
+  family,
+  locale = "en",
+  reference,
+}: {
+  family: string;
+  locale?: Locale;
+  reference: NativeApiData;
+}) {
+  const contract = reference.families[family];
   if (!contract)
     throw new Error(
       `No generated native API for component family "${family}". Run docs API generation.`,
@@ -134,102 +233,244 @@ export function NativeApiReference({ family, locale = "en" }: { family: string; 
   const inheritedId = (id: number) => `api-${family}-inherited-${id}`;
   return (
     <section {...stylex.props(styles.reference)} aria-labelledby={`native-api-${family}`}>
-      <h2 id={`native-api-${family}`}>{text.title}</h2>
-      <p>{text.intro}</p>
-      <p>{text.defaults}</p>
-      {sections.map(({ part, own, inherited }) => {
-        return (
-          <section key={part.name} aria-labelledby={`api-${family}-${part.name}`}>
-            <h3 id={`api-${family}-${part.name}`}>
-              <code>{part.name}</code>
-            </h3>
-            <p>
-              <code {...stylex.props(styles.code)}>{part.signature}</code>
-            </p>
-            <p>
-              <small>
+      <h2 id={`native-api-${family}`} {...stylex.props(docsStyles.h2)}>
+        {text.title}
+      </h2>
+      <p {...stylex.props(styles.intro)}>{text.intro}</p>
+      <p {...stylex.props(styles.note)}>{text.defaults}</p>
+      {sections.map(({ part, own, inherited }, index) => {
+        const canonical = sections.find(
+          ({ part: candidate }, candidateIndex) =>
+            candidateIndex < index &&
+            (part.name === `${candidate.name}Root` || candidate.name === `${part.name}Root`) &&
+            part.properties.length === candidate.properties.length &&
+            part.properties.every((id, position) => candidate.properties[position] === id) &&
+            JSON.stringify(part.states) === JSON.stringify(candidate.states),
+        );
+        if (canonical)
+          return (
+            <details key={part.name} {...stylex.props(styles.part)}>
+              <summary id={`api-${family}-${part.name}`} {...stylex.props(styles.partTitle)}>
+                <span>{part.name}</span>
+                <Chevron />
+              </summary>
+              <p>
+                {locale === "zh" ? "使用相同的属性契约：" : "Shares the property contract of "}
+                <a href={`#api-${family}-${canonical.part.name}`}>{canonical.part.name}</a>.
+              </p>
+              <code {...stylex.props(styles.source)}>
                 {part.source.path}:{part.source.line}
-              </small>
-            </p>
-            {part.members.length > 0 && (
-              <p>
-                <code>{part.members.map((member) => `${part.name}.${member}`).join(", ")}</code>
-              </p>
-            )}
-            {part.native.map((specifier) => (
-              <p key={specifier}>
-                <a
-                  href={
-                    specifier.startsWith("@base-ui")
-                      ? `https://base-ui.com/react/components/${specifier.split("/")[2] ?? family}`
-                      : `https://react-spectrum.adobe.com/react-aria/${specifier.split("/")[1] ?? "components"}.html`
-                  }
-                >
-                  {specifier}
-                </a>
-              </p>
-            ))}
-            <PropertyTable rows={own} locale={locale} label={`${part.name}: ${text.title}`} />
-            {Object.entries(part.states).map(([name, fields]) => (
-              <div key={name}>
-                <h4>
-                  {text.state}: <code>{name}</code>
-                </h4>
-                <dl>
-                  {fields?.map((field) => (
-                    <div key={field.name}>
-                      <dt>
-                        <code>
-                          {field.name}
-                          {field.required ? "" : "?"}
-                        </code>
-                      </dt>
-                      <dd>
-                        <code {...stylex.props(styles.code)}>{field.type}</code>
-                      </dd>
-                    </div>
+              </code>
+            </details>
+          );
+        const componentRows = own.filter((row) => !commonApiProperties.has(row.name));
+        const commonRows = own.filter((row) => commonApiProperties.has(row.name));
+        return (
+          <ApiDisclosure
+            key={part.name}
+            initiallyOpen={index === 0}
+            search={[
+              ...own.map((row) =>
+                [
+                  row.name,
+                  row.description,
+                  row.expandedType,
+                  row.default ?? "—",
+                  `${row.source.path}:${row.source.line}`,
+                ].join("\n"),
+              ),
+              part.signature,
+              `${part.source.path}:${part.source.line}`,
+              ...part.members,
+              ...part.native,
+              ...Object.entries(part.states).flatMap(([name, fields]) => [
+                name,
+                ...(fields ?? []).map(
+                  (field) => `${field.name}${field.required ? "" : "?"}\n${field.type}`,
+                ),
+              ]),
+            ].join("\n")}
+            summary={
+              <summary id={`api-${family}-${part.name}`} {...stylex.props(styles.partTitle)}>
+                <span>{part.name}</span>
+                <span {...stylex.props(styles.count)}>
+                  {componentRows.length} {text.properties}
+                </span>
+                <Chevron />
+              </summary>
+            }
+          >
+            <div {...stylex.props(styles.partBody)}>
+              <PropertyTable
+                rows={componentRows.sort((a, b) => propertyOrder(a) - propertyOrder(b))}
+                locale={locale}
+                label={`${part.name}: ${text.title}`}
+              />
+              {commonRows.length > 0 && (
+                <details {...stylex.props(styles.metadata)}>
+                  <summary {...stylex.props(styles.detailToggle)}>
+                    {text.composition} ({commonRows.length})
+                  </summary>
+                  <PropertyTable
+                    rows={commonRows}
+                    locale={locale}
+                    label={`${part.name}: ${text.composition}`}
+                  />
+                </details>
+              )}
+              {Object.entries(part.states).map(([name, fields]) => (
+                <details key={name} {...stylex.props(styles.metadata)}>
+                  <summary {...stylex.props(styles.detailToggle)}>
+                    {text.state}: <code {...stylex.props(styles.stateName)}>{name}</code>
+                  </summary>
+                  <section
+                    {...stylex.props(styles.scroll)}
+                    // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Callback state fields also need keyboard scrolling.
+                    tabIndex={0}
+                    aria-label={`${part.name}: ${text.state} ${name}`}
+                  >
+                    <table {...stylex.props(styles.table)}>
+                      <thead>
+                        <tr>
+                          <th scope="col" {...stylex.props(styles.cell, styles.header)}>
+                            {text.property}
+                          </th>
+                          <th scope="col" {...stylex.props(styles.cell, styles.header)}>
+                            {text.type}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {fields?.map((field) => (
+                          <tr key={field.name}>
+                            <th scope="row" {...stylex.props(styles.cell)}>
+                              <code {...stylex.props(styles.property)}>
+                                {field.name}
+                                {field.required ? "" : "?"}
+                              </code>
+                            </th>
+                            <td {...stylex.props(styles.cell)}>
+                              <code {...stylex.props(styles.code)}>{field.type}</code>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </section>
+                </details>
+              ))}
+              <details {...stylex.props(styles.metadata)}>
+                <summary {...stylex.props(styles.detailToggle)}>{text.implementation}</summary>
+                <p {...stylex.props(styles.signature)}>
+                  <code {...stylex.props(styles.code)}>{part.signature}</code>
+                </p>
+                <code {...stylex.props(styles.source)}>
+                  {part.source.path}:{part.source.line}
+                </code>
+                {part.members.length > 0 && (
+                  <p {...stylex.props(styles.note)}>
+                    {part.members.map((member) => `${part.name}.${member}`).join(", ")}
+                  </p>
+                )}
+                <div {...stylex.props(styles.metadataLinks)}>
+                  {part.native.map((specifier) => (
+                    <a
+                      key={specifier}
+                      href={
+                        specifier.startsWith("@base-ui")
+                          ? `https://base-ui.com/react/components/${specifier.split("/")[2] ?? family}`
+                          : `https://react-spectrum.adobe.com/react-aria/${specifier.split("/")[1] ?? "components"}.html`
+                      }
+                    >
+                      {specifier}
+                    </a>
                   ))}
-                </dl>
-              </div>
-            ))}
-            {inherited && (
-              <p>
-                <a href={`#${inheritedId(inherited.id)}`}>
-                  {text.common} ({inherited.rows.length}) — {text.commonGroup} {inherited.id}
-                </a>
-              </p>
-            )}
-          </section>
+                </div>
+              </details>
+              {inherited && (
+                <p>
+                  <a href={`#${inheritedId(inherited.id)}`} {...stylex.props(styles.inheritedLink)}>
+                    {text.common} ({inherited.rows.length})
+                  </a>
+                </p>
+              )}
+            </div>
+          </ApiDisclosure>
         );
       })}
       {inheritedGroups.length > 0 && (
-        <section aria-labelledby={`api-${family}-inherited`}>
-          <h3 id={`api-${family}-inherited`}>{text.sharedCommon}</h3>
-          <p>{text.sharedIntro}</p>
+        <section aria-labelledby={`api-${family}-inherited`} {...stylex.props(styles.inherited)}>
+          <h3 id={`api-${family}-inherited`} {...stylex.props(styles.inheritedTitle)}>
+            {text.sharedCommon}
+          </h3>
+          <p {...stylex.props(styles.note)}>{text.sharedIntro}</p>
           {inheritedGroups.map((group) => (
-            <details key={group.id}>
-              <summary id={inheritedId(group.id)}>
-                {text.commonGroup} {group.id} ({group.rows.length})
-              </summary>
-              <p>
-                {text.appliesTo}:{" "}
-                <code {...stylex.props(styles.code)}>{group.parts.join(", ")}</code>
-              </p>
-              <PropertyTable
-                rows={group.rows}
-                locale={locale}
-                label={`${text.commonGroup} ${group.id}: ${text.common}`}
-              />
-            </details>
+            <InheritedPropertyGroup
+              key={group.id}
+              id={inheritedId(group.id)}
+              group={group}
+              locale={locale}
+            />
           ))}
         </section>
       )}
-      <p>
-        {text.attribution}{" "}
-        <a href={`https://github.com/heroui-inc/heroui/tree/${reference.upstream.commit}`}>
-          HeroUI v{reference.upstream.version}
-        </a>
-      </p>
     </section>
+  );
+}
+
+type InheritedGroup = ReturnType<
+  typeof groupApiProperties<Part, Property>
+>["inheritedGroups"][number];
+
+function InheritedPropertyGroup({
+  id,
+  group,
+  locale,
+}: {
+  id: string;
+  group: InheritedGroup;
+  locale: Locale;
+}) {
+  const text = copy[locale];
+  const parts = group.parts.join(", ");
+  const table = (
+    <PropertyTable
+      rows={group.rows}
+      locale={locale}
+      label={`${text.commonGroup} ${group.id}: ${text.common}`}
+    />
+  );
+  // The compact text index lets native Find open the disclosure without retaining its table DOM.
+  const index = [
+    ...group.rows.map((row) =>
+      [
+        row.name,
+        row.required ? text.required : "",
+        row.description,
+        row.expandedType.length > 110 ? (row.type.length > 160 ? text.expanded : row.type) : "",
+        row.expandedType,
+        row.default ?? "—",
+      ].join("\n"),
+    ),
+    ...group.rows.map((row) => `${row.name}\n${row.source.path}:${row.source.line}`),
+  ].join("\n");
+  return (
+    <ApiDisclosure
+      search={index}
+      summary={
+        <summary id={id} {...stylex.props(styles.partTitle)}>
+          <span>{parts}</span>
+          <span {...stylex.props(styles.count)}>
+            {group.rows.length} {text.properties}
+          </span>
+          <Chevron />
+        </summary>
+      }
+    >
+      <p>
+        {text.appliesTo}: <code {...stylex.props(styles.code)}>{parts}</code>
+      </p>
+      <div {...stylex.props(styles.inheritedTable)}>{table}</div>
+    </ApiDisclosure>
   );
 }

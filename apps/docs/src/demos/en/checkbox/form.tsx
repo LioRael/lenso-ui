@@ -1,5 +1,4 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Button, Checkbox } from "@lenso/ui";
 import type { FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -46,7 +45,7 @@ export function Form() {
           </Checkbox.Content>
         </Checkbox>
       </div>
-      <Button xstyle={styles.submit} size="sm" type="submit" variant="primary">
+      <Button xstyle={styles.submit} size="sm" type="submit" variant="prominent">
         Submit
       </Button>
     </form>

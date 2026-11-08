@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 async-loading adaptation (Apache-2.0).
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "@lenso/ui";
 import { Rows, styles, users } from "./data";

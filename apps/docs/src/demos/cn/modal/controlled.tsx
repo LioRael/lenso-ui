@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 modal-controlled (Apache-2.0).
 // The second controller uses a reducer instead of the React Aria overlay-state hook.
 import { CircleCheck } from "@gravity-ui/icons";
 import { useReducer, useState } from "react";
@@ -22,13 +20,13 @@ const styles = stylex.create({
   heading: {
     fontSize: 18,
     fontWeight: 600,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
   },
   caption: {
     fontSize: 14,
     lineHeight: 1.625,
     textWrap: "pretty",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   panel: {
     display: "flex",
@@ -36,18 +34,18 @@ const styles = stylex.create({
     alignItems: "flex-start",
     gap: 12,
     borderRadius: 16,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
-    boxShadow: "var(--shadow-sm)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   status: {
     fontSize: 12,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   value: {
     fontFamily: "monospace",
     fontWeight: 500,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
   },
   actions: {
     display: "flex",
@@ -57,12 +55,12 @@ const styles = stylex.create({
     maxWidth: 360,
   },
   accent: {
-    backgroundColor: "var(--accent-soft)",
-    color: "var(--accent-soft-foreground)",
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
   },
   success: {
-    backgroundColor: "var(--success-soft)",
-    color: "var(--success-soft-foreground)",
+    backgroundColor: "var(--lenso-control-status-success-soft-fill)",
+    color: "var(--lenso-status-success-text)",
   },
   circle: {
     width: 20,
@@ -102,12 +100,11 @@ export function Controlled() {
                 状态：<span {...stylex.props(styles.value)}>{open ? "打开" : "关闭"}</span>
               </p>
               <div {...stylex.props(styles.actions)}>
-                <Button size="sm" variant="secondary" onClick={() => setOpen(true)}>
+                <Button size="sm" onClick={() => setOpen(true)}>
                   打开模态框
                 </Button>
                 <Button
                   size="sm"
-                  variant="tertiary"
                   onClick={() => (reducer ? dispatch("toggle") : setIsOpen((value) => !value))}
                 >
                   切换
@@ -142,7 +139,7 @@ export function Controlled() {
                       </Modal.Description>
                     </Modal.Body>
                     <Modal.Footer>
-                      <Modal.Close render={<Button variant="secondary" />}>取消</Modal.Close>
+                      <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
                       <Modal.Close render={<Button />}>确认</Modal.Close>
                     </Modal.Footer>
                   </Modal.Popup>

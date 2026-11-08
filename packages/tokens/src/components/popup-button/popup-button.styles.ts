@@ -1,0 +1,41 @@
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "../../tokens.stylex.const.js";
+
+export const popupButtonStyles = stylex.create({
+  root: {
+    position: "relative",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    boxSizing: "border-box",
+    minWidth: 0,
+    width: "max-content",
+    maxWidth: "100%",
+    minHeight: 44,
+    paddingBlock: 13,
+    paddingInline: 0,
+    gap: 3,
+    border: 0,
+    borderRadius: 0,
+    backgroundColor: "transparent",
+    color: { default: tokens.tint, ":is(:disabled, [data-disabled])": tokens.labelTertiary },
+    fontFamily: tokens.fontBody,
+    fontSize: 18,
+    fontWeight: 600,
+    lineHeight: "18px",
+    letterSpacing: 0,
+    textAlign: "start",
+    userSelect: "none",
+    cursor: { default: "pointer", ":is(:disabled, [data-disabled])": "default" },
+    outline: { default: "none", ":focus-visible": "2px solid var(--lenso-focus-ring)" },
+    outlineOffset: 3,
+  },
+  indicator: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    width: 14,
+    height: 18,
+  },
+});

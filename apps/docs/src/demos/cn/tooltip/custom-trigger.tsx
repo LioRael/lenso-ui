@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 tooltip-custom-trigger (Apache-2.0).
 import { CircleCheckFill, CircleQuestion } from "@gravity-ui/icons";
 import { Avatar, Chip, Tooltip } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -34,7 +32,7 @@ const styles = stylex.create({
   },
   email: {
     fontSize: 12,
-    color: tokens.muted,
+    color: tokens.labelSecondary,
   },
   status: {
     display: "flex",
@@ -53,7 +51,7 @@ const styles = stylex.create({
     width: "100%",
     height: "100%",
     borderRadius: "50%",
-    backgroundColor: tokens.success,
+    backgroundColor: tokens.statusSuccessIndicator,
     opacity: 0.75,
     animationName: {
       default: ping,
@@ -69,15 +67,15 @@ const styles = stylex.create({
     width: 8,
     height: 8,
     borderRadius: "50%",
-    backgroundColor: tokens.success,
+    backgroundColor: tokens.statusSuccessIndicator,
   },
   iconBackground: {
     borderRadius: "50%",
-    backgroundColor: tokens.accentSoft,
+    backgroundColor: tokens.controlTintSubtleFill,
     padding: 8,
   },
   icon: {
-    color: tokens.accentSoftForeground,
+    color: tokens.tintText,
   },
   help: {
     maxWidth: 320,
@@ -90,7 +88,7 @@ const styles = stylex.create({
   },
   helpText: {
     fontSize: 14,
-    color: tokens.muted,
+    color: tokens.labelSecondary,
   },
 });
 export function TooltipCustomTrigger() {
@@ -102,10 +100,7 @@ export function TooltipCustomTrigger() {
       <Tooltip>
         <Tooltip.Trigger delay={0} aria-label="用户头像" aria-describedby={avatarId}>
           <Avatar size="sm">
-            <Avatar.Image
-              alt="Jane Doe"
-              src="https://img.heroui.chat/image/avatar?w=400&h=400&u=4"
-            />
+            <Avatar.Image alt="Jane Doe" src="/assets/demo/avatars/red.svg" />
             <Avatar.Fallback>JD</Avatar.Fallback>
           </Avatar>
         </Tooltip.Trigger>

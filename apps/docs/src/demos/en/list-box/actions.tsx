@@ -1,21 +1,20 @@
 "use client";
-// Content from HeroUI v3.2.6 section examples (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { Pencil, SquarePlus, TrashBin } from "@gravity-ui/icons";
-import { Header, Kbd, ListBox, ListBoxItem, ListBoxSection, Separator } from "@lenso/ui";
+import { ListBox, Kbd, Separator } from "@lenso/ui";
 import { Description, Label } from "./text";
 import { styles } from "./users";
 const actionStyles = stylex.create({
   list: { width: "100%", padding: 8 },
   shortcut: { marginInlineStart: "auto" },
-  header: { fontSize: 12, color: "var(--muted)", padding: 8 },
+  header: { fontSize: 12, color: "var(--lenso-label-secondary)", padding: 8 },
   iconBox: {
     display: "flex",
     height: 32,
     alignItems: "flex-start",
     justifyContent: "center",
     paddingTop: 1,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   icon: { width: 16, height: 16, flexShrink: 0 },
 });
@@ -27,7 +26,7 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
     shortcut: string,
     icon: React.ReactNode,
   ) => (
-    <ListBoxItem
+    <ListBox.Item
       itemKey={key}
       textValue={name}
       variant={key === "delete-file" ? "danger" : "default"}
@@ -44,7 +43,7 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
         {key === "delete-file" && <Kbd.Abbr keyValue="shift" />}
         <Kbd.Content>{shortcut}</Kbd.Content>
       </Kbd>
-    </ListBoxItem>
+    </ListBox.Item>
   );
   return (
     <div {...stylex.props(styles.surface)}>
@@ -55,8 +54,8 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
         disabledKeys={disabled ? new Set(["delete-file"]) : undefined}
         onAction={(key) => alert(`Selected item: ${String(key)}`)}
       >
-        <ListBoxSection aria-label="Actions">
-          <Header>Actions</Header>
+        <ListBox.Section aria-label="Actions">
+          <ListBox.SectionLabel>Actions</ListBox.SectionLabel>
           {item(
             "new-file",
             "New file",
@@ -71,10 +70,10 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
             "E",
             <Pencil {...stylex.props(actionStyles.icon)} />,
           )}
-        </ListBoxSection>
+        </ListBox.Section>
         <Separator aria-hidden="true" />
-        <ListBoxSection aria-label="Danger zone">
-          <Header>Danger zone</Header>
+        <ListBox.Section aria-label="Danger zone">
+          <ListBox.SectionLabel>Danger zone</ListBox.SectionLabel>
           {item(
             "delete-file",
             "Delete file",
@@ -82,7 +81,7 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
             "D",
             <TrashBin {...stylex.props(actionStyles.icon)} />,
           )}
-        </ListBoxSection>
+        </ListBox.Section>
       </ListBox>
     </div>
   );

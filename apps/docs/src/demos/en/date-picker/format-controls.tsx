@@ -1,5 +1,5 @@
 "use client";
-/** HeroUI v3.2.6 adapted example controls. Copyright NextUI Inc. Apache-2.0. Base UI owns select and switch interaction. */
+// Copyright NextUI Inc. Apache-2.0. Base UI owns select and switch interaction.
 import { Select, Switch } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";
@@ -22,10 +22,10 @@ export const formatStyles = stylex.create({
   select: { width: 120 },
   switches: { display: "flex", flexDirection: "column", gap: 8, minWidth: 320 },
   rangeSwitches: { display: "flex", flexDirection: "column", gap: 8, minWidth: 529 },
-  selected: { marginTop: 4, fontSize: 12, color: "var(--muted)" },
+  selected: { marginTop: 4, fontSize: 12, color: "var(--lenso-label-secondary)" },
   separator: { marginTop: 20, marginBottom: 20 },
-  heading: { fontSize: 12, fontWeight: 500, color: "var(--muted)" },
-  label: { fontSize: 14, lineHeight: "20px", fontWeight: 500, color: "var(--foreground)" },
+  heading: { fontSize: 12, fontWeight: 500, color: "var(--lenso-label-secondary)" },
+  label: { fontSize: 14, lineHeight: "20px", fontWeight: 500, color: "var(--lenso-label-primary)" },
 });
 const granularityOptions: { label: string; value: Granularity }[] = [
   { label: "Day", value: "day" },

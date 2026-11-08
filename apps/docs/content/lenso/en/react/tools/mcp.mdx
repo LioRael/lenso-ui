@@ -13,14 +13,14 @@ navigationOrder: 22
 {
   "mcpServers": {
     "lenso-ui": {
-      "command": "npx",
-      "args": ["--yes", "--package=@lenso/ui-mcp@<matching-version>", "lenso-ui-mcp"],
+      "command": "bunx",
+      "args": ["--bun", "--package=@lenso/ui-mcp@<matching-version>", "lenso-ui-mcp"],
     },
   },
 }
 ```
 
-Use the Node range reported by the matching contract; the current toolchain requires Node 26.10.0 or a later Node 26 release. This launches a stdio server, not an interactive prompt. Stdout carries JSON-RPC; diagnostics use stderr. The installed server needs no repository checkout, React, Next or TypeScript/StyleX compiler. The official MCP TypeScript SDK remains a runtime dependency. Source generation and builds are maintainer-only; see the package maintainer guide.
+Use Bun 1.4.4 or later, as reported by the matching contract. This launches a stdio server, not an interactive prompt. Stdout carries JSON-RPC; diagnostics use stderr. The installed server needs no repository checkout, React, Next or TypeScript/StyleX compiler. The official MCP TypeScript SDK remains a runtime dependency. Source generation and builds are maintainer-only; see the package maintainer guide.
 
 ## Discover the eight tools
 

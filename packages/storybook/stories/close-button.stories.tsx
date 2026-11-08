@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 e385ac2 close-button.stories.tsx, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type ComponentProps } from "react";
 import { CloseButton } from "@lenso/ui";

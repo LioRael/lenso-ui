@@ -9,7 +9,7 @@
     "directory": "packages/create-docs"
   },
   "bin": {
-    "create-lenso-docs": "./src/cli.mjs"
+    "create-lenso-docs": "./src/cli.ts"
   },
   "files": [
     "src/",
@@ -22,10 +22,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "node --check src/cli.mjs",
-    "test": "node --test"
+    "build": "bun build src/cli.ts --target=bun --external '*' --outfile /dev/null",
+    "test": "bun test",
+    "typecheck": "bun check --no-script --noEmit"
   },
   "engines": {
-    "node": ">=26.10.0"
+    "bun": ">=1.4.4"
   }
 }

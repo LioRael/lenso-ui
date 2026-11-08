@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 input.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import { Input, Surface } from "@lenso/ui";
@@ -12,13 +11,13 @@ const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 24,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
   },
   width: { width: "100%" },
   stack: { display: "flex", flexDirection: "column", gap: 32 },
   sample: { display: "flex", flexDirection: "column", gap: 8 },
-  caption: { fontSize: 14, fontWeight: 500, color: "var(--muted)" },
+  caption: { fontSize: 14, fontWeight: 500, color: "var(--lenso-label-secondary)" },
   surface: {
     display: "flex",
     minWidth: 320,
@@ -27,7 +26,7 @@ const styles = stylex.create({
     borderRadius: 24,
     padding: 24,
   },
-  border: { borderWidth: 1, borderStyle: "solid", borderColor: "var(--border)" },
+  border: { borderWidth: 1, borderStyle: "solid", borderColor: "var(--lenso-control-border)" },
 });
 const meta = { title: "Components/Forms/Input", component: Input } satisfies Meta<typeof Input>;
 export default meta;

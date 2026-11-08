@@ -1,7 +1,8 @@
 "use client";
-// HeroUI v3.2.6. Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
-import type { TimeValue } from "react-aria-components/TimeField";
-import { Button, TimeField } from "@lenso/ui";
+import { GlassButton } from "@lenso/ui";
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
+import type { TimeValue } from "@lenso/ui";
+import { TimeField } from "@lenso/ui";
 import { Time, getLocalTimeZone, now } from "@internationalized/date";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -21,18 +22,18 @@ export function Controlled() {
         </TimeField.Description>
       </TimeField>
       <div {...stylex.props(styles.row)}>
-        <Button
-          variant="tertiary"
+        <GlassButton
+          variant="default"
           onClick={() => {
             const currentTime = now(getLocalTimeZone());
             setValue(new Time(currentTime.hour, currentTime.minute, currentTime.second));
           }}
         >
           Set now
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue(null)}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue(null)}>
           Clear
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

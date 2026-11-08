@@ -1,12 +1,11 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Checkbox, Description, TextField } from "@lenso/ui";
 import { checkboxSupportingStyles } from "@lenso/tokens/checkbox";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   root: { display: "flex", flexDirection: "column", gap: "1rem" },
   section: { display: "flex", flexDirection: "column", gap: ".5rem" },
-  heading: { fontSize: ".875rem", fontWeight: 500, color: "var(--muted)" },
+  heading: { fontSize: ".875rem", fontWeight: 500, color: "var(--lenso-label-secondary)" },
 });
 export function Variants() {
   return (

@@ -1,7 +1,6 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// HeroUI v3.2.6, Apache-2.0. Source user data and avatar composition retained.
+// Source user data and avatar composition retained.
 import { Avatar, AvatarImage, AvatarFallback, ComboBox } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";
@@ -9,36 +8,36 @@ import { styles } from "../../en/combo-box/styles.stylex";
 import { useFocusMenu } from "../../en/combo-box/shared";
 const users = [
   {
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg",
-    email: "bob@heroui.com",
+    avatarUrl: "/assets/demo/avatars/blue.svg",
+    email: "bob@example.com",
     fallback: "B",
     id: "1",
     name: "Bob",
   },
   {
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg",
-    email: "fred@heroui.com",
+    avatarUrl: "/assets/demo/avatars/green.svg",
+    email: "fred@example.com",
     fallback: "F",
     id: "2",
     name: "Fred",
   },
   {
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg",
-    email: "martha@heroui.com",
+    avatarUrl: "/assets/demo/avatars/purple.svg",
+    email: "martha@example.com",
     fallback: "M",
     id: "3",
     name: "Martha",
   },
   {
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg",
-    email: "john@heroui.com",
+    avatarUrl: "/assets/demo/avatars/red.svg",
+    email: "john@example.com",
     fallback: "J",
     id: "4",
     name: "John",
   },
   {
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg",
-    email: "jane@heroui.com",
+    avatarUrl: "/assets/demo/avatars/orange.svg",
+    email: "jane@example.com",
     fallback: "J",
     id: "5",
     name: "Jane",

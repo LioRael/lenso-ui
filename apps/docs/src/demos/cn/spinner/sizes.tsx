@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Spinner } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
@@ -19,7 +17,7 @@ const styles = stylex.create({
   caption: {
     fontSize: 12,
     lineHeight: "16px",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
 });
 export function SpinnerSizes() {

@@ -1,12 +1,14 @@
 {
-  "extends": "../standard/tsconfig/node.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["bun", "node"],
     "allowJs": false,
     "checkJs": false,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "incremental": false,
-    "types": ["node"]
+    "incremental": false
   },
-  "include": ["src/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts"]
+  "include": ["src/**/*.ts", "tests/**/*.ts"]
 }

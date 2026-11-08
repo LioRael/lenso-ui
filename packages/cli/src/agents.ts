@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { lstat, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createQueries, validateToolContract } from "./contract.ts";
+import { createQueries, validateToolContract } from "@lenso/ui-devtools/queries";
 import { planFiles, type ProjectPlan } from "./project.ts";
 
 const start = "<!-- lenso-ui:begin -->";

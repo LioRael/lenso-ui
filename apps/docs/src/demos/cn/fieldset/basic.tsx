@@ -1,13 +1,11 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { FloppyDisk } from "@gravity-ui/icons";
 import {
+  GlassButton,
   Button,
   Description,
   FieldError,
-  FieldGroup,
   Fieldset,
   Form,
   Input,
@@ -28,7 +26,7 @@ export function Basic() {
       <Fieldset aria-describedby={descriptionId}>
         <Fieldset.Legend>个人资料设置</Fieldset.Legend>
         <Description id={descriptionId}>更新你的个人资料信息。</Description>
-        <FieldGroup>
+        <Fieldset.Group>
           <TextField
             name="name"
             validate={(value) =>
@@ -46,6 +44,7 @@ export function Basic() {
           </TextField>
           <TextField
             name="bio"
+            layout="stacked"
             validate={(value) =>
               String(value).length < 10 ? "Bio must be at least 10 characters" : null
             }
@@ -55,15 +54,15 @@ export function Basic() {
             <Description>至少 10 个字符</Description>
             <FieldError />
           </TextField>
-        </FieldGroup>
+        </Fieldset.Group>
         <Fieldset.Actions>
           <Button type="submit">
             <FloppyDisk aria-hidden="true" />
             保存更改
           </Button>
-          <Button type="reset" variant="secondary">
+          <GlassButton type="reset" variant="default">
             取消
-          </Button>
+          </GlassButton>
         </Fieldset.Actions>
       </Fieldset>
     </Form>

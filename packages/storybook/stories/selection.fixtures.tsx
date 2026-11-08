@@ -1,5 +1,5 @@
 /**
- * HeroUI v3.2.6 story adaptations. Copyright 2026 HeroUI.
+ * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
  * Modified: explicit native Base UI anatomy, DOM field shells, native value
  * callbacks and popup filtering. These helpers are private story fixtures.
@@ -13,8 +13,6 @@ import {
   Form,
   Kbd,
   ListBox,
-  ListBoxItem,
-  ListBoxSection,
   Label,
   Select,
   SearchField,
@@ -27,7 +25,7 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import { labelStyles } from "@lenso/tokens/label";
 import { descriptionStyles } from "@lenso/tokens/description";
-import { headerStyles } from "@lenso/tokens/header";
+import { listBoxSectionLabelStyles } from "@lenso/tokens/list-box";
 import {
   Fragment,
   useCallback,
@@ -210,7 +208,7 @@ export function SelectField({
           {clear && value !== null && (!Array.isArray(value) || value.length > 0) && (
             <Button
               aria-label="Clear selection"
-              variant="ghost"
+              variant="borderless"
               size="sm"
               disabled={disabled}
               onClick={() => {
@@ -542,7 +540,7 @@ export function SearchPicker({
                       input && (
                         <Button
                           aria-label="Clear search"
-                          variant="ghost"
+                          variant="borderless"
                           isIconOnly
                           size="sm"
                           onClick={() => setInput("")}
@@ -806,7 +804,7 @@ export function CollectionStory({
   const [action, setAction] = useState("");
   const groups = [...new Set(items.map((item) => item.group))];
   const renderItem = (item: SelectionItem) => (
-    <ListBoxItem
+    <ListBox.Item
       itemKey={item.id}
       textValue={item.name}
       key={item.id}
@@ -814,16 +812,16 @@ export function CollectionStory({
     >
       <ItemContent item={item} />
       {!actions && (
-        <ListBoxItem.Indicator>
+        <ListBox.Item.Indicator>
           {customCheck
             ? ({ isSelected }) =>
                 isSelected ? (
                   <SelectionIcon name="check" {...stylex.props(s.icon, s.accentIcon)} />
                 ) : null
             : undefined}
-        </ListBoxItem.Indicator>
+        </ListBox.Item.Indicator>
       )}
-    </ListBoxItem>
+    </ListBox.Item>
   );
   const list = (
     <ListBox
@@ -843,11 +841,11 @@ export function CollectionStory({
         ? (collectionItem) => renderItem(items.find((item) => item.id === collectionItem.key)!)
         : groups.map((group, index) =>
             group ? (
-              <ListBoxSection key={group} aria-label={group}>
-                <h3 {...stylex.props(headerStyles.root)}>{group}</h3>
+              <ListBox.Section key={group} aria-label={group}>
+                <h3 {...stylex.props(listBoxSectionLabelStyles.root)}>{group}</h3>
                 {items.filter((item) => item.group === group).map(renderItem)}
                 {index < groups.length - 1 && <Separator />}
-              </ListBoxSection>
+              </ListBox.Section>
             ) : (
               items.filter((item) => !item.group).map(renderItem)
             ),

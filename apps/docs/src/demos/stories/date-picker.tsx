@@ -1,0 +1,68 @@
+"use client";
+import type { ComponentProps as StoryComponentProps } from "react";
+export interface DatePickerStoryProps extends Pick<
+  StoryComponentProps<typeof DatePicker>,
+  | "disabled"
+  | "required"
+  | "readOnly"
+  | "defaultOpen"
+  | "hourCycle"
+  | "isInvalid"
+  | "hideTimeZone"
+  | "shouldForceLeadingZeros"
+> {}
+export const initialArgs: DatePickerStoryProps = /* story-args:start */ {
+  disabled: false,
+  required: false,
+  readOnly: false,
+  defaultOpen: false,
+  hourCycle: 12,
+  isInvalid: false,
+  hideTimeZone: false,
+  shouldForceLeadingZeros: false,
+}; /* story-args:end */
+
+// Copyright NextUI Inc. Apache-2.0. Local RAC label and StyleX replace source Label and utility classes.
+import { Calendar, DateField, DatePicker } from "@lenso/ui";
+import * as stylex from "@stylexjs/stylex";
+
+const styles = stylex.create({ field: { width: 288 } });
+export function Basic(overrides: DatePickerStoryProps) {
+  const args = { ...initialArgs, ...overrides };
+  return (
+    <DatePicker xstyle={styles.field} name="date" {...args}>
+      <DatePicker.Label>Date</DatePicker.Label>
+      <DateField.Group fullWidth>
+        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
+        <DateField.Suffix>
+          <DatePicker.Trigger>
+            <DatePicker.TriggerIndicator />
+          </DatePicker.Trigger>
+        </DateField.Suffix>
+      </DateField.Group>
+      <DatePicker.Popover>
+        <Calendar aria-label="Event date">
+          <Calendar.Header>
+            <Calendar.YearPickerTrigger>
+              <Calendar.YearPickerTriggerHeading />
+              <Calendar.YearPickerTriggerIndicator />
+            </Calendar.YearPickerTrigger>
+            <Calendar.NavButton slot="previous" />
+            <Calendar.NavButton slot="next" />
+          </Calendar.Header>
+          <Calendar.Grid>
+            <Calendar.GridHeader>
+              {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}
+            </Calendar.GridHeader>
+            <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>
+          </Calendar.Grid>
+          <Calendar.YearPickerGrid>
+            <Calendar.YearPickerGridBody>
+              {({ year }) => <Calendar.YearPickerCell year={year} />}
+            </Calendar.YearPickerGridBody>
+          </Calendar.YearPickerGrid>
+        </Calendar>
+      </DatePicker.Popover>
+    </DatePicker>
+  );
+}

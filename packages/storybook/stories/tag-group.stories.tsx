@@ -1,8 +1,9 @@
-// HeroUI v3.2.6 stories adaptation, Apache-2.0. Native TagGroup selection/removal.
+import { fieldErrorStyles } from "@lenso/tokens/field-error";
+// Native TagGroup selection/removal.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Avatar, Description, EmptyState, ErrorMessage, Label, Tag, TagGroup } from "@lenso/ui";
+import { Avatar, Description, EmptyState, Label, Tag, TagGroup } from "@lenso/ui";
 import { collectionStyles as s } from "./collection.stylex";
 import { CollectionIcon } from "./collection-icons.fixtures";
 import { team } from "./collection-data.fixtures";
@@ -187,7 +188,9 @@ function ErrorDemo() {
       <Description>
         {invalid ? "Select at least one category" : "Selected: " + Array.from(selected).join(", ")}
       </Description>
-      {invalid && <ErrorMessage>Please select at least one category</ErrorMessage>}
+      {invalid && (
+        <span {...stylex.props(fieldErrorStyles.error)}>Please select at least one category</span>
+      )}
     </TagGroup>
   );
 }

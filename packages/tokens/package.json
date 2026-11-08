@@ -1,0 +1,59 @@
+{
+  "name": "@lenso/tokens",
+  "version": "0.9.1",
+  "description": "Apple semantic colors and Lenso Web materials with StyleX.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/tokens"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./theme.css": "./dist/theme.css",
+    "./tokens.stylex.const": {
+      "types": "./dist/tokens.stylex.const.d.ts",
+      "import": "./dist/tokens.stylex.const.js"
+    },
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.js"
+    },
+    "./materials": {
+      "types": "./dist/materials/index.d.ts",
+      "import": "./dist/materials/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "bun run generate:theme && bun src/components/typography/generate-prose.ts && bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts && bun ./node_modules/typescript/bin/tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --noEmit false --outDir dist && bun scripts/copy-css.ts",
+    "build:dev": "bun run generate:theme && bun src/components/typography/generate-prose.ts && bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts && bun scripts/copy-css.ts",
+    "dev": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts --watch --no-clean",
+    "test": "bun run generate:theme --check && bun src/components/typography/generate-prose.ts --check && bun test tests/*.test.ts",
+    "typecheck": "bun check --no-script --noEmit && bun check --no-script -p tsconfig.test.json --noEmit",
+    "generate:theme": "bun scripts/generate-theme.ts"
+  },
+  "dependencies": {
+    "@stylexjs/stylex": "catalog:"
+  },
+  "devDependencies": {
+    "@stylexjs/unplugin": "catalog:",
+    "@types/node": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Typography } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const scale = [
@@ -37,7 +36,7 @@ const scale = [
     sample: "Captions, badges, helper text, and fine print.",
     type: "body-xs",
   },
-  { label: "code", meta: "14px / mono", sample: "pnpm add @lenso/ui", type: "code" },
+  { label: "code", meta: "14px / mono", sample: "bun add @lenso/ui", type: "code" },
 ] as const;
 const styles = stylex.create({
   column: { display: "flex", width: "100%", flexDirection: "column" },
@@ -49,11 +48,16 @@ const styles = stylex.create({
     paddingBlock: 20,
     borderBlockEndWidth: { default: 1, ":last-child": 0 },
     borderBlockEndStyle: "solid",
-    borderBlockEndColor: "var(--border)",
+    borderBlockEndColor: "var(--lenso-control-border)",
   },
   caption: { display: "flex", flexShrink: 0, flexDirection: "column", gap: 2 },
-  label: { fontSize: 14, lineHeight: "20px", fontWeight: 600, color: "var(--foreground)" },
-  meta: { fontSize: 12, lineHeight: "16px", whiteSpace: "nowrap", color: "var(--muted)" },
+  label: { fontSize: 14, lineHeight: "20px", fontWeight: 600, color: "var(--lenso-label-primary)" },
+  meta: {
+    fontSize: 12,
+    lineHeight: "16px",
+    whiteSpace: "nowrap",
+    color: "var(--lenso-label-secondary)",
+  },
 });
 export function TypographyScale() {
   return (

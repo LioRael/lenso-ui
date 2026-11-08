@@ -1,7 +1,6 @@
 "use client";
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { ArrowUp, At, Microphone, PlugConnection, Plus } from "@gravity-ui/icons";
-import { Button, InputGroup, Kbd, Spinner, TextField, Tooltip } from "@lenso/ui";
+import { GlassButton, Button, InputGroup, Kbd, Spinner, TextField, Tooltip } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 const styles = stylex.create({
@@ -24,7 +23,7 @@ const styles = stylex.create({
   actions: { marginInlineStart: "auto", display: "flex", alignItems: "center", gap: 6 },
   tooltip: { display: "flex", alignItems: "center", gap: 4 },
   hint: { fontSize: 12, lineHeight: "16px" },
-  key: { height: 16, borderRadius: "var(--radius-sm)", paddingInline: 4 },
+  key: { height: 16, borderRadius: "var(--lenso-shape-content-sm)", paddingInline: 4 },
 });
 export function WithTextArea() {
   const [value, setValue] = useState("");
@@ -41,7 +40,7 @@ export function WithTextArea() {
     <TextField fullWidth xstyle={styles.field} name="prompt">
       <InputGroup fullWidth xstyle={styles.group}>
         <InputGroup.Prefix xstyle={styles.prefix}>
-          <Button aria-label="Add context" size="sm" variant="outline">
+          <Button aria-label="Add context" size="sm" variant="borderless">
             <At aria-hidden="true" />
             Add Context
           </Button>
@@ -58,7 +57,9 @@ export function WithTextArea() {
           <Tooltip>
             <Tooltip.Trigger
               delay={0}
-              render={<Button isIconOnly aria-label="Attach file" size="sm" variant="tertiary" />}
+              render={
+                <GlassButton isIconOnly aria-label="Attach file" size="sm" variant="default" />
+              }
             >
               <Plus aria-hidden="true" />
             </Tooltip.Trigger>
@@ -73,7 +74,9 @@ export function WithTextArea() {
           <Tooltip>
             <Tooltip.Trigger
               delay={0}
-              render={<Button isIconOnly aria-label="Connect Apps" size="sm" variant="tertiary" />}
+              render={
+                <GlassButton isIconOnly aria-label="Connect Apps" size="sm" variant="default" />
+              }
             >
               <PlugConnection aria-hidden="true" />
             </Tooltip.Trigger>
@@ -89,7 +92,9 @@ export function WithTextArea() {
             <Tooltip>
               <Tooltip.Trigger
                 delay={0}
-                render={<Button isIconOnly aria-label="Voice input" size="sm" variant="ghost" />}
+                render={
+                  <Button isIconOnly aria-label="Voice input" size="sm" variant="borderless" />
+                }
               >
                 <Microphone aria-hidden="true" />
               </Tooltip.Trigger>

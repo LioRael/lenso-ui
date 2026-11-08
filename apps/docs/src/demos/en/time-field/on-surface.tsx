@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6. Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 import { Clock } from "@gravity-ui/icons";
 import { Surface, TimeField } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";

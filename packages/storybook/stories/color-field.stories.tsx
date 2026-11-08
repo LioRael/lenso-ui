@@ -1,11 +1,8 @@
-/**
- * Adapted from HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
- * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
- */
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Button, ColorField, ColorSwatch, parseColor, type Color } from "@lenso/ui";
+import { GlassButton, Button, ColorField, ColorSwatch, parseColor, type Color } from "@lenso/ui";
 import { ColorStoryField, ColorStoryPreview } from "./color-fixtures";
 import { colorStoryStyles as s } from "./color.stylex";
 
@@ -173,15 +170,15 @@ export const Controlled: Story = {
           description={<>Current value: {value ? value.toString("hex") : "(empty)"}</>}
         />
         <div {...stylex.props(s.row2)}>
-          <Button variant="tertiary" onClick={() => setValue(parseColor("#EF4444"))}>
+          <GlassButton variant="default" onClick={() => setValue(parseColor("#EF4444"))}>
             Set Red
-          </Button>
-          <Button variant="tertiary" onClick={() => setValue(parseColor("#10B981"))}>
+          </GlassButton>
+          <GlassButton variant="default" onClick={() => setValue(parseColor("#10B981"))}>
             Set Green
-          </Button>
-          <Button variant="tertiary" onClick={() => setValue(null)}>
+          </GlassButton>
+          <GlassButton variant="default" onClick={() => setValue(null)}>
             Clear
-          </Button>
+          </GlassButton>
         </div>
       </div>
     );
@@ -281,7 +278,7 @@ export const FormExample: Story = {
           disabled={!value}
           isLoading={isSubmitting}
           type="submit"
-          variant="primary"
+          variant="prominent"
         >
           {isSubmitting ? "Saving..." : "Save Color"}
         </Button>
@@ -309,7 +306,7 @@ export const WithColorPresets: Story = {
             <Button
               key={preset}
               isIconOnly
-              variant="ghost"
+              variant="borderless"
               aria-label={`Set ${preset}`}
               onClick={() => setValue(parseColor(preset))}
             >

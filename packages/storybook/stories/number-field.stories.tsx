@@ -1,9 +1,9 @@
-// Adapted from HeroUI v3.2.6 at e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
 // Apache-2.0. TextField supplies Base Field registration; NumberField keeps its native contracts.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
 import {
+  GlassButton,
   NumberField,
   TextField,
   Label,
@@ -223,12 +223,12 @@ function ControlledNumber() {
         description={`Current value: ${value}`}
       />
       <div {...stylex.props(s.row)}>
-        <Button variant="tertiary" onClick={() => setValue(0)}>
+        <GlassButton variant="default" onClick={() => setValue(0)}>
           Reset to 0
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue(2048)}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue(2048)}>
           Set to 2048
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );
@@ -396,7 +396,7 @@ function Order({ args }: { args: ComponentProps<typeof NumberField> }) {
         disabled={value === null || value < 1 || value > 3}
         isLoading={submitting}
         type="submit"
-        variant="primary"
+        variant="prominent"
       >
         {submitting ? (
           <>

@@ -1,9 +1,8 @@
-// Source icon IDs from HeroUI v3.2.6 action stories (Apache-2.0 adaptation).
 // Gravity UI SVGs: MIT, YANDEX LLC; see ../GRAVITY-ICONS-LICENSE.txt.
 // Brand SVGs: Devicon MIT; Material Design Icons Apache-2.0; Ionicons MIT;
 // Typicons CC BY-SA 4.0, Stephen Hutchings. Retrieved from iconify/icon-sets.
 // Material Design Icons (Pictogrammers): https://github.com/Templarian/MaterialDesign
-// Apache-2.0 text is retained at ../../../third-party/heroui/LICENSE.txt.
+// Apache-2.0 text is retained at ../../../THIRD_PARTY_NOTICES.md.
 // Typicons social-linkedin shape is retained under CC BY-SA 4.0, not relicensed:
 // https://github.com/stephenhutchings/typicons.font
 // https://creativecommons.org/licenses/by-sa/4.0/

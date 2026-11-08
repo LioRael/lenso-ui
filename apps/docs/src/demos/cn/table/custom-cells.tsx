@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// HeroUI v3.2.6 custom-cells adaptation (Apache-2.0).
 import { useState, type Key } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Icon } from "@iconify/react";
@@ -75,7 +73,7 @@ export function CustomCells() {
                       isIconOnly
                       aria-label={`复制 ID #${user.key}`}
                       size="sm"
-                      variant="ghost"
+                      variant="borderless"
                     >
                       <Icon icon="gravity-ui:copy" width={16} aria-hidden="true" />
                     </Button>
@@ -86,7 +84,7 @@ export function CustomCells() {
                     <Avatar size="sm">
                       <Avatar.Image
                         alt={user.name}
-                        src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/${user.color}.jpg`}
+                        src={`/assets/demo/avatars/${user.color}.svg`}
                       />
                       <Avatar.Fallback>
                         {user.name
@@ -113,7 +111,8 @@ export function CustomCells() {
                         isIconOnly
                         aria-label={`${action} ${user.name}`}
                         size="sm"
-                        variant={action === "Delete" ? "danger-soft" : "tertiary"}
+                        variant="borderless"
+                        destructive={action === "Delete"}
                       >
                         <Icon
                           icon={`gravity-ui:${["eye", "pencil", "trash-bin"][index]}`}

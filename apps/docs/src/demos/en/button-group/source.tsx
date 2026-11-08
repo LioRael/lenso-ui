@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import {
   ChevronDown,
   Globe,
@@ -64,7 +63,7 @@ export function Sizes() {
       {(["sm", "md", "lg"] as const).map((size, index) => (
         <div key={size} {...stylex.props(styles.section)}>
           <p {...stylex.props(styles.caption)}>{["Small", "Medium (default)", "Large"][index]}</p>
-          <Three size={size} variant="secondary" />
+          <Three size={size} variant="bordered" />
         </div>
       ))}
     </div>
@@ -73,16 +72,12 @@ export function Sizes() {
 export function Variants() {
   return (
     <div {...stylex.props(styles.column)}>
-      {(["primary", "secondary", "tertiary", "outline", "ghost", "danger"] as const).map(
-        (variant, index) => (
-          <div key={variant} {...stylex.props(styles.section)}>
-            <p {...stylex.props(styles.caption)}>
-              {["Primary", "Secondary", "Tertiary", "Outline", "Ghost", "Danger"][index]}
-            </p>
-            <Three variant={variant} />
-          </div>
-        ),
-      )}
+      {(["bordered", "prominent", "borderless"] as const).map((variant, index) => (
+        <div key={variant} {...stylex.props(styles.section)}>
+          <p {...stylex.props(styles.caption)}>{["Glass", "Filled", "Plain"][index]}</p>
+          <Three variant={variant} />
+        </div>
+      ))}
     </div>
   );
 }
@@ -109,7 +104,7 @@ export function Orientation() {
       {(["horizontal", "vertical"] as const).map((orientation, index) => (
         <div key={orientation} {...stylex.props(styles.section)}>
           <span {...stylex.props(styles.caption)}>{["Horizontal", "Vertical"][index]}</span>
-          <Align orientation={orientation} variant="tertiary" />
+          <Align orientation={orientation} variant="borderless" />
         </div>
       ))}
     </div>
@@ -120,7 +115,7 @@ export function WithIcons() {
     <div {...stylex.props(styles.column)}>
       <div {...stylex.props(styles.section)}>
         <p {...stylex.props(styles.caption)}>With icons</p>
-        <ButtonGroup variant="secondary">
+        <ButtonGroup variant="bordered">
           <Button>
             <Button.Icon>
               <Globe />
@@ -145,7 +140,7 @@ export function WithIcons() {
       </div>
       <div {...stylex.props(styles.section)}>
         <p {...stylex.props(styles.caption)}>Icon only buttons</p>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button isIconOnly aria-label="Search">
             <Button.Icon>
               <Globe />

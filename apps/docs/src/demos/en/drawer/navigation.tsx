@@ -1,10 +1,9 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 drawer-navigation (Apache-2.0).
 import type { ComponentType, SVGProps } from "react";
 import { Bars, Bell, Envelope, Gear, House, Magnifier, Person } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { Button, CloseIcon, Drawer } from "@lenso/ui";
+import { Button, Drawer } from "@lenso/ui";
 import { styles } from "./styles";
 
 export function Navigation() {
@@ -19,7 +18,7 @@ export function Navigation() {
   return (
     <Drawer.Provider>
       <Drawer swipeDirection="left">
-        <Drawer.Trigger render={<Button variant="secondary" />}>
+        <Drawer.Trigger render={<Button />}>
           <Button.Icon>
             <Bars />
           </Button.Icon>
@@ -30,14 +29,7 @@ export function Navigation() {
           <Drawer.Viewport>
             <Drawer.Popup>
               <Drawer.Content>
-                <Drawer.Close
-                  aria-label="Close drawer"
-                  render={
-                    <Button isIconOnly size="sm" variant="tertiary" xstyle={styles.cornerClose} />
-                  }
-                >
-                  <CloseIcon />
-                </Drawer.Close>
+                <Drawer.Close aria-label="Close drawer" />
                 <Drawer.Header>
                   <Drawer.Title>Navigation</Drawer.Title>
                 </Drawer.Header>

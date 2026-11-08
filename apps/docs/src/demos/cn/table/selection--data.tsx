@@ -1,7 +1,5 @@
-// Generated source-backed helper adaptation from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Shared source data/anatomy from HeroUI v3.2.6 table examples (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { Chip, Pagination, Table } from "@lenso/ui";
 export interface User {
@@ -86,7 +84,7 @@ export const styles = stylex.create({
     position: "sticky",
     top: 0,
     zIndex: 10,
-    backgroundColor: "var(--surface-secondary)",
+    backgroundColor: "var(--lenso-background-secondary)",
   },
   row: {
     display: "flex",
@@ -99,46 +97,38 @@ export const styles = stylex.create({
     fontSize: 12,
   },
   muted: {
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
     fontSize: 14,
   },
   customRoot: {
     maxWidth: 672,
     overflow: "hidden",
     borderRadius: 12,
-    border: "1px solid color-mix(in oklch, var(--border) 80%, transparent)",
-    boxShadow: {
-      default: "0 1px 2px #0000000d, 0 0 0 1px #0000000d",
-      ":is(.dark *,[data-theme='dark'] *)": "0 1px 2px #0000000d, 0 0 0 1px #ffffff1a",
-    },
+    border: "1px solid color-mix(in oklch, var(--lenso-control-border) 80%, transparent)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   customHeaderRow: {
-    backgroundColor: {
-      default: "color-mix(in oklch, oklch(.97 0 0) 80%, transparent)",
-      ":is(.dark *,[data-theme='dark'] *)": "color-mix(in oklch, oklch(.269 0 0) 80%, transparent)",
-    },
+    backgroundColor: "color-mix(in oklch, var(--lenso-background-secondary) 80%, transparent)",
   },
   customHeader: {
     fontSize: 12,
     fontWeight: 600,
     textTransform: "uppercase",
     letterSpacing: ".025em",
-    color: {
-      default: "oklch(.556 0 0)",
-      ":is(.dark *,[data-theme='dark'] *)": "oklch(.708 0 0)",
-    },
+    color: "var(--lenso-label-secondary)",
   },
   customCell: {
     backgroundColor: {
-      default: "var(--surface)",
-      ":is(tr:nth-child(even)>td)": "color-mix(in oklch, oklch(.985 0 0) 50%, transparent)",
-      ":is(tr:hover>td)": "color-mix(in oklch, oklch(.97 0 0) 60%, transparent)",
+      default: "var(--lenso-background-grouped-secondary)",
+      ":is(tr:nth-child(even)>td)":
+        "color-mix(in oklch, var(--lenso-background-secondary) 50%, transparent)",
+      ":is(tr:hover>td)": "color-mix(in oklch, var(--lenso-background-secondary) 60%, transparent)",
       ":is(.dark *,[data-theme='dark'] *):is(tr:nth-child(even)>td)":
-        "color-mix(in oklch, oklch(.205 0 0) 30%, transparent)",
+        "color-mix(in oklch, var(--lenso-background-secondary) 30%, transparent)",
       ":is(.dark *,[data-theme='dark'] *):is(tr:hover>td)":
-        "color-mix(in oklch, oklch(.269 0 0) 50%, transparent)",
+        "color-mix(in oklch, var(--lenso-background-secondary) 50%, transparent)",
     },
-    borderTop: "1px solid color-mix(in oklch, var(--border) 60%, transparent)",
+    borderTop: "1px solid color-mix(in oklch, var(--lenso-control-border) 60%, transparent)",
     transitionProperty: "background-color",
     transitionDuration: {
       default: "150ms",
@@ -147,10 +137,7 @@ export const styles = stylex.create({
   },
   customName: {
     fontWeight: 500,
-    color: {
-      default: "oklch(.205 0 0)",
-      ":is(.dark *,[data-theme='dark'] *)": "oklch(.97 0 0)",
-    },
+    color: "var(--lenso-label-primary)",
   },
 });
 export function Status({ status }: { status: string }) {

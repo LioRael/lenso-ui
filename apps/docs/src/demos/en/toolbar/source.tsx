@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import {
   ArrowUturnCcwLeft,
   ArrowUturnCwRight,
@@ -12,57 +11,65 @@ import {
   TextAlignRight,
   Underline,
 } from "@gravity-ui/icons";
-import { Button, ButtonGroup, ToggleButton, ToggleButtonGroup, Toolbar } from "@lenso/ui";
+import { Toolbar } from "@lenso/ui";
+import { useState, type ComponentProps } from "react";
 import { styles } from "./source.stylex";
-function TextStyle({ custom = false }: { custom?: boolean }) {
+function TextStyle() {
+  const [selected, setSelected] = useState<string[]>([]);
   return (
-    <ToggleButtonGroup multiple aria-label="Text style" xstyle={custom && styles.group}>
+    <Toolbar.Group aria-label="Text style">
       {[
-        { value: "bold", label: "Bold", icon: <Bold /> },
-        { value: "italic", label: "Italic", icon: <Italic /> },
-        { value: "underline", label: "Underline", icon: <Underline /> },
-      ].map((item, index) => (
-        <ToggleButton
+        { value: "bold", label: "Bold", icon: <Bold width={17} height={22} /> },
+        { value: "italic", label: "Italic", icon: <Italic width={17} height={22} /> },
+        { value: "underline", label: "Underline", icon: <Underline width={17} height={22} /> },
+      ].map((item) => (
+        <Toolbar.Button
           key={item.value}
-          value={item.value}
           isIconOnly
           aria-label={item.label}
-          xstyle={custom && styles.toggle}
+          aria-pressed={selected.includes(item.value)}
+          onClick={() =>
+            setSelected((current) =>
+              current.includes(item.value)
+                ? current.filter((value) => value !== item.value)
+                : [...current, item.value],
+            )
+          }
+          xstyle={selected.includes(item.value) && styles.selected}
         >
-          {index > 0 && !custom && <ToggleButtonGroup.Separator />}
-          <ToggleButton.Icon>{item.icon}</ToggleButton.Icon>
-        </ToggleButton>
+          {item.icon}
+        </Toolbar.Button>
       ))}
-    </ToggleButtonGroup>
+    </Toolbar.Group>
   );
 }
 function Clipboard() {
   return (
-    <ButtonGroup variant="tertiary">
-      <Button
-        isIconOnly
-        aria-label="Copy"
-        render={<Toolbar.Button isIconOnly variant="tertiary" />}
-      >
-        <Button.Icon>
-          <Copy />
-        </Button.Icon>
-      </Button>
-      <Button isIconOnly aria-label="Cut" render={<Toolbar.Button isIconOnly variant="tertiary" />}>
-        <ButtonGroup.Separator />
-        <Button.Icon>
-          <Scissors />
-        </Button.Icon>
-      </Button>
-    </ButtonGroup>
+    <Toolbar.Group aria-label="Clipboard">
+      <Toolbar.Button isIconOnly aria-label="Copy">
+        <Copy width={17} height={22} />
+      </Toolbar.Button>
+      <Toolbar.Button isIconOnly aria-label="Cut">
+        <Scissors width={17} height={22} />
+      </Toolbar.Button>
+    </Toolbar.Group>
   );
 }
-export function Basic() {
+export function Basic(props: ComponentProps<typeof Toolbar>) {
   return (
-    <Toolbar aria-label="Text formatting">
-      <TextStyle />
-      <Toolbar.Separator />
-      <Clipboard />
+    <Toolbar aria-label="Text formatting" {...props}>
+      <Toolbar.Group aria-label="History">
+        <Toolbar.Button isIconOnly aria-label="Undo">
+          <ArrowUturnCcwLeft width={17} height={22} />
+        </Toolbar.Button>
+        <Toolbar.Button isIconOnly aria-label="Redo">
+          <ArrowUturnCwRight width={17} height={22} />
+        </Toolbar.Button>
+      </Toolbar.Group>
+      <Toolbar.Group aria-label="Clipboard">
+        <Toolbar.Button>Copy</Toolbar.Button>
+        <Toolbar.Button>Paste</Toolbar.Button>
+      </Toolbar.Group>
     </Toolbar>
   );
 }
@@ -77,78 +84,55 @@ export function Attached() {
 }
 export function Vertical() {
   return (
-    <Toolbar aria-label="Tools" orientation="vertical">
-      <TextStyle />
-      <Toolbar.Separator />
-      <ButtonGroup variant="tertiary">
-        <Button
-          isIconOnly
-          aria-label="Undo"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
-        >
-          <Button.Icon>
-            <ArrowUturnCcwLeft />
-          </Button.Icon>
-        </Button>
-        <Button
-          isIconOnly
-          aria-label="Redo"
-          render={<Toolbar.Button isIconOnly variant="tertiary" />}
-        >
-          <ButtonGroup.Separator />
-          <Button.Icon>
-            <ArrowUturnCwRight />
-          </Button.Icon>
-        </Button>
-      </ButtonGroup>
-    </Toolbar>
-  );
-}
-export function CustomStyles() {
-  return (
-    <Toolbar aria-label="Formatting toolbar" xstyle={styles.root}>
-      <TextStyle custom />
+    <Toolbar aria-label="History" orientation="vertical">
+      <Toolbar.Group aria-label="History">
+        <Toolbar.Button isIconOnly aria-label="Undo">
+          <ArrowUturnCcwLeft width={17} height={22} />
+        </Toolbar.Button>
+        <Toolbar.Button isIconOnly aria-label="Redo">
+          <ArrowUturnCwRight width={17} height={22} />
+        </Toolbar.Button>
+      </Toolbar.Group>
     </Toolbar>
   );
 }
 export function WithButtonGroup() {
+  const [alignment, setAlignment] = useState("left");
   return (
     <Toolbar aria-label="Editor toolbar">
-      <ButtonGroup variant="tertiary">
-        <Button render={<Toolbar.Button variant="tertiary" />}>
-          <Button.Icon>
-            <ArrowUturnCcwLeft />
-          </Button.Icon>
+      <Toolbar.Group aria-label="History">
+        <Toolbar.Button>
+          <ArrowUturnCcwLeft width={17} height={22} />
           Undo
-        </Button>
-        <Button render={<Toolbar.Button variant="tertiary" />}>
-          <ButtonGroup.Separator />
-          <Button.Icon>
-            <ArrowUturnCwRight />
-          </Button.Icon>
+        </Toolbar.Button>
+        <Toolbar.Button>
+          <ArrowUturnCwRight width={17} height={22} />
           Redo
-        </Button>
-      </ButtonGroup>
-      <Toolbar.Separator />
+        </Toolbar.Button>
+      </Toolbar.Group>
       <TextStyle />
-      <Toolbar.Separator />
-      <ButtonGroup variant="tertiary">
+      <Toolbar.Group aria-label="Alignment">
         {[
-          { label: "Align left", icon: <TextAlignLeft /> },
-          { label: "Align center", icon: <TextAlignCenter /> },
-          { label: "Align right", icon: <TextAlignRight /> },
-        ].map((item, index) => (
-          <Button
-            key={item.label}
+          { value: "left", label: "Align left", icon: <TextAlignLeft width={17} height={22} /> },
+          {
+            value: "center",
+            label: "Align center",
+            icon: <TextAlignCenter width={17} height={22} />,
+          },
+          { value: "right", label: "Align right", icon: <TextAlignRight width={17} height={22} /> },
+        ].map((item) => (
+          <Toolbar.Button
+            key={item.value}
             isIconOnly
             aria-label={item.label}
-            render={<Toolbar.Button isIconOnly variant="tertiary" />}
+            aria-pressed={alignment === item.value}
+            onClick={() => setAlignment(item.value)}
+            xstyle={alignment === item.value && styles.selected}
           >
-            {index > 0 && <ButtonGroup.Separator />}
-            <Button.Icon>{item.icon}</Button.Icon>
-          </Button>
+            {item.icon}
+          </Toolbar.Button>
         ))}
-      </ButtonGroup>
+      </Toolbar.Group>
     </Toolbar>
   );
 }

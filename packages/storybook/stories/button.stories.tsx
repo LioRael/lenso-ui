@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type ComponentProps } from "react";
-import { Button, Spinner } from "@lenso/ui";
+import { GlassButton, Button, Spinner } from "@lenso/ui";
 import {
   buttonStyles,
   buttonSizes,
@@ -11,7 +11,6 @@ import * as stylex from "@stylexjs/stylex";
 import { actions as s } from "./actions.stylex";
 import { ActionIcon } from "./actions-icons.fixtures";
 
-// Adapted from HeroUI v3.2.6 e385ac2 button.stories.tsx, Apache-2.0.
 const meta = {
   title: "Components/Buttons/Button",
   component: Button,
@@ -21,7 +20,7 @@ const meta = {
     size: { control: "select", options: ["sm", "md", "lg"] },
     variant: {
       control: "select",
-      options: ["primary", "secondary", "tertiary", "outline", "ghost", "danger"],
+      options: ["bordered", "prominent", "borderless"],
     },
   },
 } satisfies Meta<typeof Button>;
@@ -33,26 +32,17 @@ export const Default: Story = {
   args: defaultArgs,
   render: ({ disabled, size }) => (
     <div {...stylex.props(s.row)}>
-      <Button disabled={disabled} size={size}>
-        Primary
+      <Button disabled={disabled} size={size} variant="prominent">
+        Prominent
       </Button>
-      <Button disabled={disabled} size={size} variant="secondary">
-        Secondary
+      <Button disabled={disabled} size={size} variant="bordered">
+        Bordered
       </Button>
-      <Button disabled={disabled} size={size} variant="tertiary">
-        Tertiary
+      <Button disabled={disabled} size={size} variant="borderless">
+        Borderless
       </Button>
-      <Button disabled={disabled} size={size} variant="outline">
-        Outline
-      </Button>
-      <Button disabled={disabled} size={size} variant="ghost">
-        Ghost
-      </Button>
-      <Button disabled={disabled} size={size} variant="danger">
-        Danger
-      </Button>
-      <Button disabled={disabled} size={size} variant="danger-soft">
-        Danger Soft
+      <Button disabled={disabled} size={size} destructive variant="prominent">
+        Delete
       </Button>
     </div>
   ),
@@ -66,7 +56,7 @@ export const WithLinkButton: Story = {
           {...stylex.props(
             buttonStyles.root,
             buttonSizes[size ?? "md"],
-            buttonVariants[variant ?? "primary"],
+            buttonVariants[variant ?? "bordered"],
             isIconOnly && buttonIconOnlySizes[size ?? "md"],
           )}
           href="https://www.google.com"
@@ -88,29 +78,29 @@ export const Sizes: Story = {
         <Button size="lg">Large</Button>
       </div>
       <div {...stylex.props(s.aligned)}>
-        <Button size="sm" variant="secondary">
+        <GlassButton size="sm" variant="default">
           <ActionIcon icon="gravity-ui:plus" />
           Small
-        </Button>
-        <Button size="md" variant="secondary">
+        </GlassButton>
+        <GlassButton size="md" variant="default">
           <ActionIcon icon="gravity-ui:plus" />
           Medium
-        </Button>
-        <Button size="lg" variant="secondary">
+        </GlassButton>
+        <GlassButton size="lg" variant="default">
           <ActionIcon icon="gravity-ui:plus" />
           Large
-        </Button>
+        </GlassButton>
       </div>
       <div {...stylex.props(s.aligned)}>
-        <Button isIconOnly size="sm" variant="tertiary">
+        <GlassButton isIconOnly size="sm" variant="default">
           <ActionIcon icon="gravity-ui:ellipsis" />
-        </Button>
-        <Button isIconOnly size="md" variant="tertiary">
+        </GlassButton>
+        <GlassButton isIconOnly size="md" variant="default">
           <ActionIcon icon="gravity-ui:ellipsis" />
-        </Button>
-        <Button isIconOnly size="lg" variant="tertiary">
+        </GlassButton>
+        <GlassButton isIconOnly size="lg" variant="default">
           <ActionIcon icon="gravity-ui:ellipsis" />
-        </Button>
+        </GlassButton>
       </div>
     </div>
   ),
@@ -119,12 +109,12 @@ export const FullWidth: Story = {
   render: () => (
     <div {...stylex.props(s.fullWidth)}>
       <Button fullWidth>Primary</Button>
-      <Button fullWidth variant="secondary">
+      <GlassButton fullWidth variant="default">
         Secondary
-      </Button>
-      <Button fullWidth variant="tertiary">
+      </GlassButton>
+      <GlassButton fullWidth variant="default">
         Tertiary
-      </Button>
+      </GlassButton>
       <Button fullWidth size="sm">
         Small
       </Button>
@@ -146,22 +136,22 @@ export const WithIcon: Story = {
         <ActionIcon icon="gravity-ui:globe" />
         Search
       </Button>
-      <Button disabled={disabled} size={size} variant="secondary">
+      <GlassButton disabled={disabled} size={size} variant="default">
         <ActionIcon icon="gravity-ui:plus" />
         Add Member
-      </Button>
-      <Button disabled={disabled} size={size} variant="tertiary">
+      </GlassButton>
+      <GlassButton disabled={disabled} size={size} variant="default">
         <ActionIcon icon="gravity-ui:envelope" />
         Email
-      </Button>
-      <Button disabled={disabled} size={size} variant="danger">
+      </GlassButton>
+      <Button destructive disabled={disabled} size={size} variant="prominent">
         <ActionIcon icon="gravity-ui:trash-bin" />
         Delete
       </Button>
-      <Button disabled={disabled} size={size} variant="danger-soft">
+      <GlassButton destructive disabled={disabled} size={size} variant="default">
         <ActionIcon icon="gravity-ui:trash-bin" />
         Cancel
-      </Button>
+      </GlassButton>
     </div>
   ),
 };
@@ -169,7 +159,7 @@ export const WithIconOnly: Story = {
   args: defaultArgs,
   render: ({ disabled, size, variant }) => (
     <div {...stylex.props(s.row)}>
-      <Button isIconOnly disabled={disabled} size={size} variant={variant ?? "tertiary"}>
+      <Button isIconOnly disabled={disabled} size={size} variant={variant ?? "borderless"}>
         <ActionIcon icon="gravity-ui:ellipsis" />
       </Button>
     </div>
@@ -192,7 +182,7 @@ function LoadingScene({ size, variant }: ComponentProps<typeof Button>) {
     <Button
       isLoading={isLoading}
       size={size}
-      variant={variant ?? "tertiary"}
+      variant={variant ?? "borderless"}
       onClick={() => {
         setLoading(true);
         setTimeout(() => setLoading(false), 4500);
@@ -212,19 +202,19 @@ export const WithSocialButton: Story = {
   args: defaultArgs,
   render: ({ size, variant }) => (
     <div {...stylex.props(s.social)}>
-      <Button size={size} variant={variant ?? "tertiary"}>
+      <Button size={size} variant={variant ?? "borderless"}>
         <ActionIcon icon="devicon:google" />
         Sign in with Google
       </Button>
-      <Button size={size} variant={variant ?? "tertiary"}>
+      <Button size={size} variant={variant ?? "borderless"}>
         <ActionIcon icon="mdi:github" />
         Sign in with GitHub
       </Button>
-      <Button size={size} variant={variant ?? "tertiary"}>
+      <Button size={size} variant={variant ?? "borderless"}>
         <ActionIcon icon="ion:logo-apple" />
         Sign in with Apple
       </Button>
-      <Button size={size} variant={variant ?? "tertiary"}>
+      <Button size={size} variant={variant ?? "borderless"}>
         <ActionIcon icon="typcn:social-linkedin" />
         Sign in with LinkedIn
       </Button>

@@ -1,14 +1,13 @@
 /**
- * Adapted from HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
  * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
  * Native Lenso RAC supporting parts; ordinary actions and selection use Base UI.
  */
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { DateValue } from "react-aria-components/Calendar";
+import type { DateValue } from "@internationalized/date";
 import React, { useState } from "react";
 import { getLocalTimeZone, parseDate, parseZonedDateTime, today } from "@internationalized/date";
 import * as stylex from "@stylexjs/stylex";
-import { Button, DateField, Select, Tooltip } from "@lenso/ui";
+import { GlassButton, Button, DateField, Select, Tooltip } from "@lenso/ui";
 import { labelStyles } from "@lenso/tokens/label";
 import {
   DateTimeStoryIcon,
@@ -175,12 +174,12 @@ export const Controlled: Story = {
           </DateField.Description>
         </DateField>
         <div {...stylex.props(s.row2)}>
-          <Button variant="tertiary" onClick={() => setValue(today(getLocalTimeZone()))}>
+          <GlassButton variant="default" onClick={() => setValue(today(getLocalTimeZone()))}>
             Set today
-          </Button>
-          <Button variant="tertiary" onClick={() => setValue(null)}>
+          </GlassButton>
+          <GlassButton variant="default" onClick={() => setValue(null)}>
             Clear
-          </Button>
+          </GlassButton>
         </div>
       </div>
     );
@@ -308,7 +307,7 @@ export const FormExample: Story = {
           disabled={!value || isInvalid}
           isLoading={isSubmitting}
           type="submit"
-          variant="primary"
+          variant="prominent"
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>

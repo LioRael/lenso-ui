@@ -1,7 +1,7 @@
 import type { ComponentType, ReactNode } from "react";
 import type { MDXComponents } from "mdx/types";
-import type { DocsConfig } from "./config.mjs";
-import type { DocsHeading, DocsRuntimePage } from "./content.mjs";
+import type { DocsConfig } from "./config.ts";
+import type { DocsHeading, DocsRuntimePage } from "./content.ts";
 import type { DocumentationSiteLayoutProps } from "./site-layout";
 import type { DocumentationLocale } from "./document-model";
 import type { DocumentationArticleProps } from "./article";

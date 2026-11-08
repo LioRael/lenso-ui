@@ -1,0 +1,51 @@
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "../../tokens.stylex.const.js";
+import { focusRing } from "../../focus-ring.stylex.const.js";
+export const pageControlStyles = stylex.create({
+  root: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 44,
+    maxWidth: "100%",
+  },
+  track: {
+    display: "inline-flex",
+    position: "relative",
+    alignItems: "center",
+    paddingInline: 8,
+    height: 26,
+    borderRadius: 50,
+  },
+  button: {
+    position: "relative",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 16,
+    height: 44,
+    flexShrink: 0,
+    borderWidth: 0,
+    padding: 0,
+    backgroundColor: "transparent",
+    cursor: tokens.cursorInteractive,
+    borderRadius: 8,
+    outlineStyle: "none",
+    boxShadow: { default: "none", ":focus-visible": focusRing.outer },
+  },
+  sevenTrack: { paddingInline: 7 },
+  plainTrack: { paddingInline: 0 },
+  sevenButton: { width: 18 },
+  edgeButton: { width: 14 },
+  dot: {
+    display: "block",
+    width: 8,
+    height: 8,
+    borderRadius: 50,
+    backgroundColor: tokens.labelTertiary,
+    transitionProperty: "transform, background-color",
+    transitionDuration: { default: "180ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
+  },
+  active: { backgroundColor: tokens.labelPrimary },
+  overflow: { transform: "scale(0.5)" },
+});

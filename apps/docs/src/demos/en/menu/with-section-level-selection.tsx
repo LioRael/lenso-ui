@@ -1,8 +1,7 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-section-level-selection, Apache-2.0.
 import { useState } from "react";
-import { Button, Menu, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { ActionItem, Checkmark, Dotmark, Popup, Shortcut, styles } from "./_shared";
 
 export function WithSectionLevelSelection() {
@@ -11,17 +10,19 @@ export function WithSectionLevelSelection() {
   const [open, setOpen] = useState(false);
   return (
     <Menu open={open} onOpenChange={setOpen}>
-      <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>Styles</Menu.Trigger>
+      <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
+        Styles
+      </Menu.Trigger>
       <Popup xstyle={styles.wide}>
-        <Menu.Section>
-          <Menu.Section.Label>Actions</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Actions</Menu.Group.Label>
           <ActionItem label="Cut" shortcut={<Shortcut letter="X" />} />
           <ActionItem label="Copy" shortcut={<Shortcut letter="C" />} />
           <ActionItem label="Paste" shortcut={<Shortcut letter="U" />} />
-        </Menu.Section>
+        </Menu.Group>
         <Menu.Separator />
-        <Menu.Section>
-          <Menu.Section.Label>Text Style</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Text Style</Menu.Group.Label>
           {(["bold", "italic", "underline"] as const).map((value) => (
             <Menu.CheckboxItem
               key={value}
@@ -43,14 +44,14 @@ export function WithSectionLevelSelection() {
               <Menu.CheckboxItemIndicator keepMounted xstyle={styles.selectionIndicator}>
                 <Checkmark />
               </Menu.CheckboxItemIndicator>
-              <MenuItem.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</MenuItem.Label>
+              <Menu.Item.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</Menu.Item.Label>
               <Shortcut letter={value === "underline" ? "U" : value.charAt(0).toUpperCase()} />
             </Menu.CheckboxItem>
           ))}
-        </Menu.Section>
+        </Menu.Group>
         <Menu.Separator />
-        <Menu.Section>
-          <Menu.Section.Label>Text Alignment</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>Text Alignment</Menu.Group.Label>
           <Menu.RadioGroup value={textAlignment} onValueChange={setTextAlignment}>
             {(["left", "center", "right"] as const).map((value) => (
               <Menu.RadioItem
@@ -62,7 +63,7 @@ export function WithSectionLevelSelection() {
                 <Menu.RadioItemIndicator keepMounted xstyle={styles.selectionIndicator}>
                   <Dotmark />
                 </Menu.RadioItemIndicator>
-                <MenuItem.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</MenuItem.Label>
+                <Menu.Item.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</Menu.Item.Label>
                 <Shortcut
                   modifier="alt"
                   letter={value === "left" ? "A" : value === "center" ? "H" : "D"}
@@ -70,7 +71,7 @@ export function WithSectionLevelSelection() {
               </Menu.RadioItem>
             ))}
           </Menu.RadioGroup>
-        </Menu.Section>
+        </Menu.Group>
       </Popup>
     </Menu>
   );

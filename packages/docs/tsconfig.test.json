@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["bun", "node", "react", "react-dom"]
+  },
+  "include": ["test/*.test.ts", "scripts/copy-assets.ts"]
+}

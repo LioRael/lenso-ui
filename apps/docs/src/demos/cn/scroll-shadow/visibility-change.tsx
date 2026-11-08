@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Card, ScrollShadow, type ScrollShadowVisibility } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -15,9 +13,9 @@ const VISIBILITY_LABELS = {
   top: "顶部",
 };
 const images = [
-  "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/robot1.jpeg",
-  "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/avocado.jpeg",
-  "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/oranges.jpeg",
+  "/assets/demo/illustrations/robot1.svg",
+  "/assets/demo/illustrations/avocado.svg",
+  "/assets/demo/illustrations/oranges.svg",
 ];
 const styles = stylex.create({
   root: {
@@ -36,8 +34,8 @@ const styles = stylex.create({
     marginBottom: 32,
   },
   status: {
-    borderRadius: "var(--radius)",
-    backgroundColor: "var(--default)",
+    borderRadius: "var(--lenso-shape-content)",
+    backgroundColor: "var(--lenso-control-fill)",
     padding: 16,
   },
   statusText: {
@@ -80,7 +78,7 @@ const styles = stylex.create({
       "@media (min-width: 640px)": 80,
     },
     flexShrink: 0,
-    borderRadius: "var(--radius-xl)",
+    borderRadius: "var(--lenso-shape-content-xl)",
     objectFit: "cover",
     userSelect: "none",
   },

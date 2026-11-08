@@ -1,7 +1,8 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { RootProvider } from "fumadocs-ui/provider/next";
+import { RootProvider } from "fumadocs-ui/provider/tanstack";
+import { I18nProvider } from "@lenso/ui";
 import { DirectionProvider } from "@base-ui/react/direction-provider";
 import { useSyncExternalStore, type ReactNode } from "react";
 import { DocsDesignThemeProvider } from "./docs-design-theme";
@@ -33,9 +34,11 @@ export function Providers({ children, locale }: { children: ReactNode; locale: "
           ],
         }}
       >
-        <DirectionProvider direction={direction}>
-          <DocsDesignThemeProvider>{children}</DocsDesignThemeProvider>
-        </DirectionProvider>
+        <I18nProvider locale={locale === "cn" ? "zh-CN" : "en-US"}>
+          <DirectionProvider direction={direction}>
+            <DocsDesignThemeProvider>{children}</DocsDesignThemeProvider>
+          </DirectionProvider>
+        </I18nProvider>
       </RootProvider>
     </ThemeProvider>
   );

@@ -1,9 +1,8 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import { FloppyDisk } from "@gravity-ui/icons";
 import {
+  GlassButton,
   Button,
   Description,
   FieldError,
@@ -23,7 +22,7 @@ const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 24,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 24,
   },
   surface: {
@@ -81,9 +80,9 @@ export function OnSurface() {
                 <FloppyDisk aria-hidden="true" />
                 保存更改
               </Button>
-              <Button type="reset" variant="tertiary">
+              <GlassButton type="reset" variant="default">
                 取消
-              </Button>
+              </GlassButton>
             </Fieldset.Actions>
           </Fieldset>
         </Form>

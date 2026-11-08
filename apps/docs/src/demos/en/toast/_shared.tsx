@@ -1,11 +1,11 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 toast examples, Apache-2.0.
 import type { ComponentProps, ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
 
 export type ToastData = {
+  variant?: ComponentProps<typeof Toast.Root>["variant"];
   indicator?: ReactNode;
   actionStyle?: "success" | "warning" | "danger" | "tertiary";
 };
@@ -34,13 +34,22 @@ export const styles = stylex.create({
   },
   section: { width: "100%", display: "flex", flexDirection: "column", gap: 12 },
   heading: { fontSize: 14, fontWeight: 500 },
-  help: { fontSize: 12, color: "var(--muted)" },
+  help: { fontSize: 12, color: "var(--lenso-label-secondary)" },
   center: { textAlign: "center" },
-  successText: { color: "var(--success-soft-foreground)" },
-  warningText: { color: "var(--warning-soft-foreground)" },
-  successAction: { backgroundColor: "var(--success)", color: "var(--success-foreground)" },
-  warningAction: { backgroundColor: "var(--warning)", color: "var(--warning-foreground)" },
-  dangerAction: { backgroundColor: "var(--danger)", color: "var(--danger-foreground)" },
+  successText: { color: "var(--lenso-status-success-text)" },
+  warningText: { color: "var(--lenso-status-warning-text)" },
+  successAction: {
+    backgroundColor: "var(--lenso-status-success-indicator)",
+    color: "var(--lenso-status-success-on-fill)",
+  },
+  warningAction: {
+    backgroundColor: "var(--lenso-status-warning-indicator)",
+    color: "var(--lenso-status-warning-on-fill)",
+  },
+  dangerAction: {
+    backgroundColor: "var(--lenso-status-error-indicator)",
+    color: "var(--lenso-status-error-on-fill)",
+  },
   tertiaryAction: { backgroundColor: "transparent" },
   placements: {
     display: "flex",
@@ -78,11 +87,11 @@ export const styles = stylex.create({
     borderRadius: 8,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "var(--border)",
-    backgroundColor: "var(--surface)",
+    borderColor: "var(--lenso-control-border)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
   },
-  empty: { fontSize: 14, color: "var(--muted)" },
+  empty: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   historyItem: {
     animationName: { default: historyEntrance, "@media (prefers-reduced-motion: reduce)": "none" },
     animationDuration: "200ms",
@@ -94,8 +103,8 @@ export const styles = stylex.create({
     borderRadius: 6,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "var(--border)",
-    backgroundColor: "var(--default)",
+    borderColor: "var(--lenso-control-border)",
+    backgroundColor: "var(--lenso-control-fill)",
     paddingInline: 12,
     paddingBlock: 8,
     fontSize: 14,
@@ -103,7 +112,7 @@ export const styles = stylex.create({
   historyDelay: (delay: number) => ({ animationDelay: `${delay}ms` }),
   historyText: { flex: 1 },
   medium: { fontWeight: 500 },
-  time: { marginInlineStart: 8, fontSize: 12, color: "var(--muted)" },
+  time: { marginInlineStart: 8, fontSize: 12, color: "var(--lenso-label-secondary)" },
   check: {
     display: "flex",
     width: 20,
@@ -112,8 +121,8 @@ export const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 9999,
-    backgroundColor: "color-mix(in oklab, var(--success) 10%, transparent)",
-    color: "var(--success-soft-foreground)",
+    backgroundColor: "color-mix(in oklab, var(--lenso-status-success-indicator) 10%, transparent)",
+    color: "var(--lenso-status-success-text)",
   },
   checkIcon: { width: 12, height: 12 },
   customFrame: { display: "flex", flexDirection: "column", alignItems: "center", gap: 16 },
@@ -121,11 +130,11 @@ export const styles = stylex.create({
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "var(--border)",
+    borderColor: "var(--lenso-control-border)",
   },
   customRow: { display: "flex", alignItems: "center", gap: 8 },
   customText: { display: "flex", flexDirection: "column", paddingInlineEnd: 24 },
-  accent: { color: "var(--accent-soft-foreground)" },
+  accent: { color: "var(--lenso-tint-text)" },
   customClose: {
     position: "absolute",
     insetInlineEnd: 8,
@@ -141,16 +150,15 @@ export const styles = stylex.create({
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "color-mix(in oklab, var(--border) 80%, transparent)",
-    backgroundColor: "var(--surface)",
-    boxShadow:
-      "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1), 0 0 0 1px light-dark(rgb(0 0 0 / 0.05), rgb(255 255 255 / 0.1))",
+    borderColor: "color-mix(in oklab, var(--lenso-control-border) 80%, transparent)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    boxShadow: "var(--lenso-overlay-shadow)",
   },
   styledRow: { display: "flex", alignItems: "center", gap: 10 },
   styledText: { display: "flex", flexDirection: "column", gap: 2 },
-  neutral: { color: "light-dark(#525252, #a3a3a3)" },
-  styledTitle: { fontSize: 14, fontWeight: 500, color: "light-dark(#171717, #fafafa)" },
-  styledDescription: { fontSize: 14, color: "light-dark(#525252, #a3a3a3)" },
+  neutral: { color: "var(--lenso-label-secondary)" },
+  styledTitle: { fontSize: 14, fontWeight: 500, color: "var(--lenso-label-primary)" },
+  styledDescription: { fontSize: 14, color: "var(--lenso-label-secondary)" },
 });
 
 export function Notifications({
@@ -163,7 +171,7 @@ export function Notifications({
     <Toast.Portal>
       <Toast.Viewport placement={placement} alwaysExpanded={expanded} {...props}>
         {toasts.map((item) => (
-          <Toast key={item.id} toast={item}>
+          <Toast key={item.id} toast={item} variant={item.data?.variant}>
             <Toast.Indicator>{item.data?.indicator}</Toast.Indicator>
             <Toast.Content>
               <Toast.Title />
@@ -175,13 +183,8 @@ export function Notifications({
                 render={
                   <Button
                     size="sm"
-                    variant={
-                      item.data?.actionStyle === "danger"
-                        ? "danger"
-                        : item.data?.actionStyle === "tertiary"
-                          ? "tertiary"
-                          : "primary"
-                    }
+                    variant={item.data?.actionStyle === "tertiary" ? "borderless" : "prominent"}
+                    destructive={item.data?.actionStyle === "danger"}
                   />
                 }
                 xstyle={

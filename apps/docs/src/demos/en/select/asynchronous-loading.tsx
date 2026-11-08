@@ -1,6 +1,6 @@
 "use client";
 /**
- * HeroUI v3.2.6 adaptation. Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
+ * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
  * Modified: abortable native fetch and scroll pagination replace RAC collection/load-more.
  */
 import { Spinner } from "@lenso/ui";
@@ -53,7 +53,7 @@ export function AsynchronousLoading() {
       label="Pick a Pokemon"
       placeholder="Select a Pokemon"
       choices={pokemon.map(({ name }) => ({ value: name, label: name }))}
-      onPopoverScroll={(event) => {
+      onListScroll={(event) => {
         const element = event.currentTarget;
         if (element.scrollHeight - element.scrollTop - element.clientHeight < 48) void load(cursor);
       }}

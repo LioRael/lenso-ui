@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 badge.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Fragment, type ComponentProps, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -8,11 +7,11 @@ import { SourceIcon } from "./source-icons";
 const styles = stylex.create({
   row: { display: "flex", alignItems: "center", gap: 32 },
   sample: { display: "flex", flexDirection: "column", alignItems: "center", gap: 8 },
-  caption: { fontSize: 12, color: "var(--muted)" },
+  caption: { fontSize: 12, color: "var(--lenso-label-secondary)" },
   capitalized: { textTransform: "capitalize" },
   sections: { display: "flex", flexDirection: "column", gap: 32 },
   section: { display: "flex", flexDirection: "column", gap: 16 },
-  heading: { fontSize: 14, fontWeight: 600, color: "var(--muted)" },
+  heading: { fontSize: 14, fontWeight: 600, color: "var(--lenso-label-secondary)" },
 });
 const colors = ["accent", "default", "success", "warning", "danger"] as const;
 const sizes = [
@@ -21,7 +20,7 @@ const sizes = [
   ["sm", "Small"],
 ] as const;
 const variants = ["primary", "secondary", "soft"] as const;
-const avatarURL = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg";
+const avatarURL = "/assets/demo/avatars/green.svg";
 const meta = {
   title: "Components/Data Display/Badge",
   component: Badge,

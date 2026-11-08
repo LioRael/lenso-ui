@@ -1,6 +1,6 @@
 # Delta checkout workflow
 
-Tools: node 26.10.0, pnpm 12.9.1.
+Tools: Bun 1.4.4 and Node 26.10.0 (preserved primitives and npm publication).
 
 Delta invokes executable `prepare` at checkout root when mounting a new managed
 checkout, before the agent and before cloud `setup`. Existing adopted or already

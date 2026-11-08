@@ -1,0 +1,71 @@
+{
+  "name": "@lenso/ui",
+  "version": "0.9.1",
+  "description": "Lenso React components with StyleX and native Base UI interactions.",
+  "license": "(Apache-2.0 AND MIT)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LioRael/lenso-ui.git",
+    "directory": "packages/ui"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "import": "./dist/icons/index.js"
+    },
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts && bun ./node_modules/typescript/bin/tsc -p tsconfig.build.json --emitDeclarationOnly --noEmit false --outDir dist && bun scripts/copy-notices.ts",
+    "build:dev": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts && bun scripts/copy-notices.ts",
+    "dev": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts --watch --no-clean",
+    "typecheck": "bun check --no-script --noEmit && bun check --no-script -p tsconfig.test.json",
+    "test": "bun test test/*.test.ts && bun test --preload ../../tests/setup/dom.ts test/*.dom.test.tsx"
+  },
+  "dependencies": {
+    "@base-ui/react": "catalog:",
+    "@base-ui/utils": "0.5.0",
+    "@internationalized/date": "3.12.4",
+    "@lenso/glass": "workspace:*",
+    "@lenso/primitives": "workspace:*",
+    "@lenso/tokens": "workspace:*",
+    "@stylexjs/stylex": "catalog:",
+    "react-stately": "3.51.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.4",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@webgpu/types": "0.1.74",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "react": ">=19.2.0 <20.0.0",
+    "react-dom": ">=19.2.0 <20.0.0"
+  }
+}

@@ -1,5 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. Apache-2.0. Base UI owns the ordinary selects. */
+// Base UI owns the ordinary selects.
 import { ColorArea, parseColor } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";

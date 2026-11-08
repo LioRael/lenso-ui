@@ -1,39 +1,47 @@
 import assert from "node:assert/strict";
-import test from "node:test";
-import { mkdtemp, writeFile, readdir } from "node:fs/promises";
+import { afterEach, test } from "bun:test";
+import { mkdtemp, writeFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { build } from "esbuild";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { fixture, authoredMarkdown } from "../../cli/tests/fixture.ts";
-import { createQueries } from "../../cli/src/contract.ts";
+import { fixture, authoredMarkdown } from "@lenso/ui-devtools/testing";
+import { createQueries } from "@lenso/ui-devtools/queries";
+
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
+});
 
 test("standalone fixture bundle speaks stdio JSON-RPC, returns code as data and rejects malicious requests", async () => {
   const root = await mkdtemp(join(tmpdir(), "lenso-stdio-test-"));
+  temporaryDirectories.push(root);
   const contract = await fixture();
   const queries = createQueries(contract);
   await writeFile(join(root, "package.json"), '{"type":"module"}\n');
   await writeFile(join(root, "lenso-contract.json"), JSON.stringify(contract));
-  await build({
-    entryPoints: [fileURLToPath(new URL("../src/server.ts", import.meta.url))],
-    outfile: join(root, "server.js"),
-    bundle: true,
+  await Bun.build({
+    entrypoints: [fileURLToPath(new URL("../src/server.ts", import.meta.url))],
+    outdir: root,
+    naming: "server.js",
     format: "esm",
-    platform: "node",
-    target: "node26",
-    banner: {
-      js: "import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);",
-    },
+    target: "bun",
     plugins: process.env["LENSO_TEST_CONTRACT_CORE"]
       ? [
           {
             name: "test-only-current-private-core",
             setup(builder) {
-              builder.onResolve({ filter: /\/tooling\/lenso-contracts\/index\.ts$/ }, () => ({
-                path: process.env["LENSO_TEST_CONTRACT_CORE"] ?? "",
-              }));
+              builder.onResolve(
+                { filter: /^(?:@lenso\/ui-devtools\/contract|\.\/contract\/index\.ts)$/ },
+                () => ({
+                  path: process.env["LENSO_TEST_CONTRACT_CORE"] ?? "",
+                }),
+              );
             },
           },
         ]

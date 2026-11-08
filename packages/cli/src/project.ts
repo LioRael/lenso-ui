@@ -2,9 +2,9 @@ import { lstat, readdir, realpath, open, unlink, mkdir, rmdir } from "node:fs/pr
 import { resolve, join, relative, sep, dirname, isAbsolute } from "node:path";
 import { createHash } from "node:crypto";
 import { constants } from "node:fs";
-import { checkDesignPolicy, type Skipped } from "../../../tooling/design-policy/index.ts";
-import { parseSource, runtimeModuleReferenceDetails } from "../../../scripts/source-imports.ts";
-import { validateToolContract, type LensoContract } from "./contract.ts";
+import { checkDesignPolicy, type Skipped } from "@lenso/ui-devtools/policy";
+import { runtimeModuleReferenceDetails } from "@lenso/ui-devtools/parser";
+import { validateToolContract, type LensoContract } from "@lenso/ui-devtools/queries";
 
 export interface ProjectPlan {
   root: string;
@@ -38,57 +38,18 @@ export function parsePackage(source: string): PackageData {
   return value as PackageData;
 }
 const hash = (text: string) => createHash("sha256").update(text).digest("hex");
+const babelConfigurations = [
+  "babel.config.json",
+  "babel.config.js",
+  "babel.config.cjs",
+  "babel.config.mjs",
+  ".babelrc",
+  ".babelrc.json",
+  ".babelrc.js",
+  ".babelrc.cjs",
+];
 const ignored = new Set(["node_modules", ".git", ".next", "dist", "build", "coverage"]);
 const isPagesRenderer = (filename: string) => /^(?:src\/)?pages\/(?!api\/)/.test(filename);
-function usesPreparedNext(files: { filename: string; source: string }[], packageName: string) {
-  return files.some(({ filename, source }) => {
-    if (!/^next\.config\.[cm]?[jt]s$/.test(filename)) return false;
-    let program: ReturnType<typeof parseSource>["program"];
-    try {
-      program = parseSource(source, filename).program;
-    } catch {
-      return false;
-    }
-    const bindings = new Set();
-    for (const statement of program.body) {
-      if (
-        statement.type !== "ImportDeclaration" ||
-        statement.source.value !== packageName ||
-        statement.importKind === "type"
-      )
-        continue;
-      for (const specifier of statement.specifiers) {
-        if (
-          specifier.type === "ImportSpecifier" &&
-          specifier.importKind !== "type" &&
-          (specifier.imported.type === "Identifier"
-            ? specifier.imported.name
-            : specifier.imported.value) === "prepareNext"
-        )
-          bindings.add(specifier.local.name);
-      }
-    }
-    function called(value: unknown): boolean {
-      if (!value || typeof value !== "object") return false;
-      if (Array.isArray(value)) return value.some(called);
-      const node = value as Record<string, unknown>;
-      const callee = node["callee"];
-      if (
-        node["type"] === "CallExpression" &&
-        callee &&
-        typeof callee === "object" &&
-        "type" in callee &&
-        callee.type === "Identifier" &&
-        "name" in callee &&
-        typeof callee.name === "string" &&
-        bindings.has(callee.name)
-      )
-        return true;
-      return Object.values(value).some(called);
-    }
-    return called(program);
-  });
-}
 export async function rootDirectory(cwd: string) {
   const root = resolve(cwd);
   if (!(await lstat(root)).isDirectory())
@@ -173,50 +134,21 @@ async function projectFiles(root: string) {
 
 export function integration(contract: LensoContract) {
   const descriptor = contract.compatibility;
-  const next = descriptor.next;
-  const version = contract.packageVersions["@lenso/stylex-build"];
   const uiVersion = contract.packageVersions["@lenso/ui"];
   const tokensVersion = contract.packageVersions["@lenso/tokens"];
-  const supportedErrorMode =
-    next?.customGlobalError === "unsupported" ||
-    (next?.customGlobalError === "explicit-css" &&
-      next.explicitCss?.api === "prepareNext" &&
-      next.explicitCss.mode === "production" &&
-      next.explicitCss.watch === false &&
-      next.explicitCss.cache === false &&
-      next.legacyAssetRewrite?.customGlobalError === "unsupported" &&
-      next.legacyAssetRewrite.version === next.version);
-  if (
-    descriptor.schemaVersion !== 1 ||
-    typeof descriptor.stylex?.version !== "string" ||
-    descriptor.stylex.metadataFormat !== "@lenso/stylex-build/raw-rules" ||
-    descriptor.stylex.metadataVersion !== 1 ||
-    typeof descriptor.node?.range !== "string" ||
-    typeof descriptor.vite?.testedVersion !== "string" ||
-    typeof descriptor.next?.version !== "string" ||
-    descriptor.next.router !== "App Router" ||
-    descriptor.next.bundler !== "Webpack" ||
-    !supportedErrorMode ||
-    !version ||
-    !uiVersion ||
-    !tokensVersion
-  )
-    throw new Error(
-      "Contract lacks the buildSupport compatibility descriptor; regenerate the production contract.",
-    );
+  if (!uiVersion || !tokensVersion) throw new Error("Contract lacks UI/tokens package versions.");
   return {
-    package: "@lenso/stylex-build",
-    version,
+    package: "@stylexjs/unplugin",
+    version: descriptor.stylex.version,
     uiVersion,
     tokensVersion,
     stylexVersion: descriptor.stylex.version,
-    metadata: "@lenso/tokens/stylex-rules.json",
     themeCss: "@lenso/tokens/styles.css",
     next: descriptor.next,
-    node: descriptor.node,
+    bun: descriptor.bun,
   };
 }
-export function dependencies(contract: LensoContract) {
+export function dependencies(contract: LensoContract, framework: "vite" | "next" = "vite") {
   const build = integration(contract);
   return {
     dependencies: {
@@ -224,7 +156,10 @@ export function dependencies(contract: LensoContract) {
       "@lenso/tokens": build.tokensVersion,
       "@stylexjs/stylex": build.stylexVersion,
     },
-    devDependencies: { [build.package]: build.version },
+    devDependencies:
+      framework === "vite"
+        ? { "@stylexjs/unplugin": build.version }
+        : { "@stylexjs/babel-plugin": build.version, "@stylexjs/postcss-plugin": build.version },
   };
 }
 export async function checkProject(cwd: string, input: unknown) {
@@ -238,7 +173,10 @@ export async function checkProject(cwd: string, input: unknown) {
   const diagnostics = [...result.diagnostics];
   const report = (ruleId: string, message: string, file = "package.json") =>
     diagnostics.push({ ruleId, severity: "error", file, line: 1, column: 1, message });
-  const expected = dependencies(contract);
+  const expected = dependencies(
+    contract,
+    pkg.dependencies?.["next"] || pkg.devDependencies?.["next"] ? "next" : "vite",
+  );
   for (const [name, version] of Object.entries({
     ...expected.dependencies,
     ...expected.devDependencies,
@@ -263,27 +201,44 @@ export async function checkProject(cwd: string, input: unknown) {
         "lenso/next-router",
         "This build adapter supports App Router rendering, not Pages Router",
       );
-    const preparedNext =
-      build.next.explicitCss?.api === "prepareNext" &&
-      build.next.explicitCss.mode === "production" &&
-      usesPreparedNext(scan.files, build.package);
-    for (const { filename } of scan.files)
-      if (/(?:^|\/)app\/global-error\.[cm]?[jt]sx?$/.test(filename) && !preparedNext)
+    for (const { filename, source } of scan.files) {
+      if (!/(?:^|\/)app\/global-error\.[cm]?[jt]sx?$/.test(filename)) continue;
+      const imports = runtimeModuleReferenceDetails(source, filename);
+      let ownsCss = false;
+      for (const { module } of imports) {
+        if (!module?.startsWith(".") || !module.endsWith(".css")) continue;
+        const css = await fileAt(
+          root,
+          relative(root, resolve(dirname(join(root, filename)), module)),
+        );
+        if (css?.includes("@stylex")) ownsCss = true;
+      }
+      if (!ownsCss)
         report(
           "lenso/next-global-error",
-          "Legacy automatic CSS delivery does not support custom global-error. Use the production prepareNext integration and import its generated CSS and theme in the error document.",
+          "Import the theme stylesheet containing @stylex from global-error; it replaces the root layout.",
           filename,
         );
-    for (const name of ["dev", "build"])
-      if (!pkg.scripts?.[name]?.includes("--webpack"))
-        report("lenso/next-webpack", `The ${name} script must use Next's supported Webpack build`);
+    }
   }
   const configs = scan.files.filter(({ filename }) => /^(vite|next)\.config\./.test(filename));
   if (!configs.length)
     report("lenso/build-config", "No Vite/Next config found; use init to review setup");
   const references = scan.files.map(({ source }) => source).join("\n");
-  if (!references.includes(build.package) || !references.includes(build.metadata))
-    report("lenso/build-config", `Config must seed ${build.package} from ${build.metadata}`);
+  if (next) {
+    const babel = (await Promise.all(babelConfigurations.map((file) => fileAt(root, file))))
+      .filter(Boolean)
+      .join("\n");
+    if (
+      !babel?.includes("@stylexjs/babel-plugin") ||
+      !references.includes("@stylexjs/postcss-plugin")
+    )
+      report(
+        "lenso/build-config",
+        "Configure the official StyleX Babel and PostCSS plugins for Next.",
+      );
+  } else if (!references.includes(build.package))
+    report("lenso/build-config", `Configure ${build.package} in Vite.`);
   const themeHelper = await fileAt(root, "lenso.theme.css");
   let themeImported = false;
   for (const { filename, source } of scan.files) {
@@ -333,7 +288,7 @@ export async function planInit(cwd: string, framework: "vite" | "next", input: u
   if (!pkg || typeof pkg !== "object" || Array.isArray(pkg))
     throw new Error("Invalid package.json");
   const build = integration(contract);
-  const desired = dependencies(contract);
+  const desired = dependencies(contract, framework);
   const conflicts: string[] = [];
   const changes: ProjectPlan["changes"] = [];
   const manual: string[] = [];
@@ -356,13 +311,6 @@ export async function planInit(cwd: string, framework: "vite" | "next", input: u
     conflicts.push(
       `Next ${frameworkVersion} is unsupported; descriptor requires ${build.next.version}`,
     );
-  if (
-    framework === "next" &&
-    scan.files.some(({ filename }) => /(?:^|\/)app\/global-error\./.test(filename))
-  )
-    conflicts.push(
-      "Legacy init cannot configure custom app/global-error; use the production prepareNext integration with explicit CSS imports.",
-    );
   if (framework === "next" && scan.files.some(({ filename }) => isPagesRenderer(filename)))
     conflicts.push(
       "The descriptor supports App Router rendering only; preserve and review existing Pages Router files manually",
@@ -378,24 +326,25 @@ export async function planInit(cwd: string, framework: "vite" | "next", input: u
     }
   }
   if (framework === "next") {
-    for (const command of ["dev", "build"] as const) {
-      const current = pkg.scripts?.[command];
-      if (current === `next ${command}`)
-        pkg.scripts = { ...pkg.scripts, [command]: `${current} --webpack` };
-      else if (current !== `next ${command} --webpack`)
+    for (const filename of [
+      ...babelConfigurations.filter((file) => file !== "babel.config.json"),
+      "postcss.config.js",
+      "postcss.config.mjs",
+      "postcss.config.ts",
+    ]) {
+      if ((await fileAt(root, filename)) !== null)
         conflicts.push(
-          `package.json scripts.${command}: review complex command; use next ${command} --webpack`,
+          `${filename} is user-owned. Integrate the official StyleX plugins into that configuration instead of creating a second config.`,
         );
     }
   }
   const marker = "// Generated by lenso-ui init. Change this file only after taking ownership.\n";
-  const options = `metadata: [import.meta.resolve(${JSON.stringify(build.metadata)})],\n  unstable_moduleResolution: { type: "commonJS", rootDir: import.meta.dirname }`;
-  const helper = `${marker}import stylex from ${JSON.stringify(build.package)};\nexport const lensoStylex = stylex.${framework === "vite" ? "vite" : "webpack"}({\n  ${options}\n});\n`;
-  const configFile = framework === "vite" ? "vite.config.mjs" : "next.config.mjs";
+  const options = `dev: false, runtimeInjection: false, useCSSLayers: false, lightningcssOptions: { exclude: 4 },\n  unstable_moduleResolution: { type: "commonJS", rootDir: import.meta.dirname }`;
+  const configFile = framework === "vite" ? "vite.config.ts" : "next.config.ts";
   const config =
     framework === "vite"
-      ? `${marker}import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\nimport { lensoStylex } from "./lenso.stylex.mjs";\nexport default defineConfig({ plugins: [react(), lensoStylex] });\n`
-      : `${marker}import { lensoStylex } from "./lenso.stylex.mjs";\nexport default {\n  webpack(config) {\n    config.cache = false;\n    config.plugins.push(lensoStylex);\n    return config;\n  },\n};\n`;
+      ? `${marker}import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\nimport stylex from "@stylexjs/unplugin";\nexport default defineConfig({ plugins: [react(), stylex.vite({ ${options} })] });\n`
+      : `${marker}import type { NextConfig } from "next";\nconst config: NextConfig = { transpilePackages: ["@lenso/tokens"] };\nexport default config;\n`;
   const existingConfigs = scan.files.filter(({ filename }) =>
     new RegExp(`^${framework}\\.config\\.`).test(filename),
   );
@@ -420,9 +369,17 @@ export async function planInit(cwd: string, framework: "vite" | "next", input: u
       Object.keys(state).some((key) => !["formatVersion", "digest", "files"].includes(key)) ||
       Object.entries(state.files).some(
         ([file, value]) =>
-          !["lenso.stylex.mjs", "lenso.theme.css", "vite.config.mjs", "next.config.mjs"].includes(
-            file,
-          ) ||
+          ![
+            "lenso.stylex.ts",
+            "lenso.stylex.mjs",
+            "lenso.theme.css",
+            "vite.config.ts",
+            "vite.config.mjs",
+            "next.config.ts",
+            "next.config.mjs",
+            "babel.config.json",
+            "postcss.config.cjs",
+          ].includes(file) ||
           typeof value !== "string" ||
           !/^[a-f0-9]{64}$/.test(value),
       )
@@ -433,11 +390,30 @@ export async function planInit(cwd: string, framework: "vite" | "next", input: u
   }
   if (existingConfigs.some(({ filename }) => filename !== configFile))
     conflicts.push(
-      `Existing ${existingConfigs.map(({ filename }) => filename).join(", ")} is user-owned. Keep it and manually import lensoStylex; proposed config:\n${config}`,
+      `Existing ${existingConfigs.map(({ filename }) => filename).join(", ")} is user-owned. Keep it and integrate the official StyleX configuration manually; proposed config:\n${config}`,
     );
-  const generated = {
-    "lenso.stylex.mjs": helper,
-    "lenso.theme.css": `/* Generated by lenso-ui init. Import from each rendering entry/layout. */\n@import ${JSON.stringify(build.themeCss)};\n`,
+  const babel = {
+    presets: ["next/babel"],
+    plugins: [
+      [
+        "@stylexjs/babel-plugin",
+        {
+          dev: false,
+          runtimeInjection: false,
+          treeshakeCompensation: true,
+          unstable_moduleResolution: { type: "commonJS" },
+        },
+      ],
+    ],
+  };
+  const generated: Record<string, string> = {
+    ...(framework === "vite"
+      ? {}
+      : {
+          "babel.config.json": JSON.stringify(babel, null, 2) + "\n",
+          "postcss.config.cjs": `${marker}const path = require("node:path");\nconst babel = require("./babel.config.json");\nmodule.exports = { plugins: { "@stylexjs/postcss-plugin": {\n  include: ["./src/**/*.{js,jsx,ts,tsx}", "./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}", path.join(path.dirname(require.resolve("@lenso/tokens/package.json")), "dist/**/*.js")],\n  babelConfig: { babelrc: false, configFile: false, parserOpts: { plugins: ["typescript", "jsx"] }, plugins: babel.plugins },\n} } };\n`,
+        }),
+    "lenso.theme.css": `/* Generated by lenso-ui init. Import from each rendering entry/layout. */\n@import ${JSON.stringify(build.themeCss)};\n${framework === "next" ? "@stylex;\n" : ""}`,
     [configFile]: config,
   };
   for (const [file, after] of Object.entries(generated)) {

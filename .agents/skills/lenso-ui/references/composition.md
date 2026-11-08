@@ -1,7 +1,7 @@
 # Compose native Lenso parts
 
-Adapted from HeroUI's compound-composition and semantic-variant guidance.
-Modified for Lenso native contracts and StyleX; see [provenance](../NOTICE.md).
+This guidance uses Lenso native contracts and StyleX. Retained adaptation
+attribution is in [provenance](../NOTICE.md).
 
 ## Establish the structure
 
@@ -9,9 +9,9 @@ Start from the matching family documentation, native signatures and applicable
 example. Identify the root's state owner, its supporting parts and any context
 requirements. Use actual public exports from `@lenso/ui`.
 
-Base UI owns ordinary controls, collections and overlays. React Aria owns date,
-time and color families and supporting parts that require those contexts. Native
-HTML owns static structure. Follow the queried API for that family; similarly
+Base UI owns controls, collections, forms and overlays. Specialized date, time
+and color parts share their internationalized value model while using native
+Base UI interaction parts. Native HTML owns static structure. Follow the queried API for that family; similarly
 named parts from another library are not interchangeable.
 
 Use controlled state when the surrounding workflow needs to coordinate it.

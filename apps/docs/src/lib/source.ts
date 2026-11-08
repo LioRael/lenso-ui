@@ -1,7 +1,5 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
+import { componentCategories } from "./component-categories";
 import { createDocumentationSource } from "@lenso/docs/source";
-import { docsDirectory } from "./docs-directory.mjs";
 import authoredIndex from "../generated/lenso-docs-index.json";
 
 export type Locale = "en" | "cn";
@@ -14,7 +12,6 @@ export interface DocPage {
   navigationGroup?: string;
   navigationOrder?: number;
   componentCategory?: string;
-  componentThumbnail?: string;
   examples: { name: string; file: string }[];
 }
 interface DocsIndex {
@@ -25,7 +22,6 @@ interface DocsIndex {
   pages: DocPage[];
 }
 export const docsIndex = authoredIndex as DocsIndex;
-const docsRoot = docsDirectory();
 const exampleEntries = (locale: Locale): Record<string, { file: string; source: string }> =>
   Object.fromEntries(
     docsIndex.pages
@@ -55,7 +51,11 @@ export function canonicalSlug(slug: string) {
     : slug;
 }
 export function readPage(page: DocPage) {
-  return readFile(path.join(docsRoot, page.markdownFile), "utf8");
+  const files = import.meta.glob<string>("../../content/lenso/**/*.mdx", {
+    query: "?raw",
+    import: "default",
+  });
+  return files[`../../${page.markdownFile}`]!();
 }
 
 export const documentationSource = createDocumentationSource({
@@ -92,19 +92,20 @@ export function getSectionEntries(locale: Locale): DocSection[] {
   return sections;
 }
 
-export async function getExample(name: string, locale: Locale) {
-  const entry = source.examples[locale][name];
-  if (!entry) return null;
-  return {
-    name,
-    code: await readFile(path.join(docsRoot, "src/demos", entry.file), "utf8"),
-    source: entry.source,
-    aliasOf: undefined,
-    excludedReason: undefined,
-  };
-}
-
-export async function getNavigation(locale: Locale, section: string) {
+export function getNavigation(locale: Locale, section: string) {
+  if (section === "components") {
+    const pages = source.pages.filter((page) => page.locale === locale);
+    const overview = pages.find((page) => page.slug === "react/components");
+    return [
+      ...(overview ? [{ label: overview.title, href: pageUrl(overview) }] : []),
+      ...componentCategories.flatMap(([category, english, chinese]) => {
+        const children = pages
+          .filter((page) => page.componentCategory === category)
+          .map((page) => ({ label: page.title, href: pageUrl(page) }));
+        return children.length ? [{ label: locale === "cn" ? chinese : english, children }] : [];
+      }),
+    ];
+  }
   return documentationSource
     .getNavigation(locale, section === "tools" ? "getting-started" : section)
     .map(({ title, url, description }) => ({

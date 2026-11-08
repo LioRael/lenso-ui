@@ -1,5 +1,5 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0); native Base UI range and selection contracts.
+// native Base UI range and selection contracts.
 import { NumberField, ProgressBar, Select, Separator } from "@lenso/ui";
 import { useId, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -28,7 +28,12 @@ const styles = stylex.create({
   horizontal: { display: { default: "block", "@media (min-width: 768px)": "none" } },
   vertical: { display: { default: "none", "@media (min-width: 768px)": "block" } },
   options: { display: "flex", maxWidth: 208, flexDirection: "column", gap: 12 },
-  caption: { fontSize: 12, lineHeight: "16px", fontWeight: 500, color: "var(--muted)" },
+  caption: {
+    fontSize: 12,
+    lineHeight: "16px",
+    fontWeight: 500,
+    color: "var(--lenso-label-secondary)",
+  },
   field: { display: "flex", flexDirection: "column", gap: 4 },
   label: { fontSize: 14, lineHeight: "20px", fontWeight: 500 },
 });

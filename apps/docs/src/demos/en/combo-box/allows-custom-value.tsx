@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6, Apache-2.0. Native input retains free text independently of selection.
+// Native input retains free text independently of selection.
 import { AnimalPicker } from "./shared";
 export function AllowsCustomValue() {
   return (

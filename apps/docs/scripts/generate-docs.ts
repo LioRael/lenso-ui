@@ -1,31 +1,15 @@
 import { execFileSync } from "node:child_process";
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
+import { writeGeneratedFile } from "./write-generated-file.ts";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { generateLiveRegistry, type LocalizedChoices } from "./generate-live-registry.ts";
-import { generatePageDocuments } from "./generate-page-documents.ts";
-import { fingerprint, apiSourceInputs, apiSnapshotCurrent } from "./api-artifact.ts";
-export { fingerprint, apiSnapshotCurrent, apiSnapshotDigest } from "./api-artifact.ts";
+import type { LocalizedChoices } from "./generate-live-registry.ts";
+import { fingerprint, apiSourceInputs } from "./api-artifact.ts";
 
 const docs = fileURLToPath(new URL("../", import.meta.url));
 const repository = path.resolve(docs, "../..");
 
-type Target = "api" | "content" | "contract" | "all" | "dev";
-
-export function apiSnapshotCompatible(
-  reference: { families?: Record<string, unknown> } | null,
-  publicIndex: string,
-): boolean {
-  // Match the projection's actual public family inventory, including aliases.
-  const families = [...publicIndex.matchAll(/from\s+["']\.\/([^/]+)\/index\.js["']/g)]
-    .map((match) => match[1])
-    .sort();
-  return Boolean(
-    families.length &&
-    reference?.families &&
-    families.join() === Object.keys(reference.families).sort().join(),
-  );
-}
+type Target = "api" | "content" | "contract" | "all" | "dev" | "site";
 
 export async function generateDocs(
   target: Target = "all",
@@ -34,49 +18,54 @@ export async function generateDocs(
     development = target === "dev",
   }: { changedPaths?: string[]; development?: boolean } = {},
 ): Promise<boolean> {
-  const common = ["apps/docs/scripts/generate-docs.ts", "pnpm-lock.yaml"];
-  const apiInputs = await apiSourceInputs(repository);
+  const common = [
+    "apps/docs/scripts/generate-docs.ts",
+    "apps/docs/scripts/write-generated-file.ts",
+    "bun.lock",
+  ];
+  const apiInputs = target === "dev" ? [] : await apiSourceInputs(repository);
   const contentInputs = [
     ...common,
     "apps/docs/scripts/generate-live-registry.ts",
     "apps/docs/scripts/generate-page-documents.ts",
-    "apps/docs/scripts/static-search.mjs",
+    "apps/docs/scripts/static-search.ts",
     "apps/docs/src/lib/demo-locale.ts",
-    "apps/docs/scripts/docs-projection.mjs",
+    "apps/docs/scripts/docs-projection.ts",
+    "apps/docs/src/lib/redirects.ts",
     "apps/docs/src/lib/native-api-section.ts",
     "apps/docs/src/lib/api-property-groups.ts",
-    "apps/docs/content/source-index.json",
+    "apps/docs/content/example-catalog.json",
     "apps/docs/content/lenso",
     "apps/docs/src/demos/en",
     "apps/docs/src/demos/cn",
+    "apps/docs/src/stories",
     "apps/docs/src/demos/localized-manifest.json",
     "apps/docs/src/generated/api-reference.json",
-    "packages/react/src/components/index.ts",
-    "packages/react/package.json",
+    "packages/ui/src/components/index.ts",
+    "packages/ui/package.json",
   ];
   const contractInputs = [
     ...common,
     "apps/docs/scripts/generate-lenso-contract.ts",
     "apps/docs/src/lib/local-example-files.ts",
-    "apps/docs/src/lib/docs-directory.mjs",
+    "apps/docs/src/lib/docs-directory.ts",
     "apps/docs/src/generated/api-reference.json",
     "apps/docs/src/generated/lenso-docs-index.json",
     "apps/docs/content/lenso",
     "apps/docs/src/demos/demo.stylex.ts",
     "apps/docs/src/demos/en",
     "apps/docs/src/demos/cn",
-    "packages/react/package.json",
-    "packages/react/src",
-    "packages/styles/src",
-    "packages/styles/themes",
-    "packages/styles/package.json",
-    "packages/stylex-build/src",
-    "packages/stylex-build/package.json",
-    "tooling/lenso-contracts",
+    "apps/docs/src/demos/shared",
+    "packages/ui/package.json",
+    "packages/ui/src",
+    "packages/tokens/src",
+    "packages/tokens/themes",
+    "packages/tokens/package.json",
+    "packages/devtools/src/contract",
   ];
   const apiOutputs = ["apps/docs/src/generated/api-reference.json"];
   const contentOutputs = [
-    ...(!development ? ["apps/docs/src/demos/generated.ts"] : []),
+    "apps/docs/public/_redirects",
     "apps/docs/src/demos/live-manifest.json",
     "apps/docs/src/generated/lenso-docs-index.json",
     "apps/docs/src/generated/documents",
@@ -84,60 +73,31 @@ export async function generateDocs(
     "apps/docs/content/lenso/cn/react/components",
   ];
   const writeApi = async () => {
-    const { writeApiReference } = await import("./generate-api-reference.mjs");
+    const { writeApiReference } = await import("./generate-api-reference.ts");
     await writeApiReference(repository, process.env.API_REFERENCE_DEPENDENCY_ROOT ?? repository);
   };
-  // An external dependency checkout is not described by this checkout's lockfile.
-  // Preserve the override for isolated fixtures without caching its declarations.
+  // External dependency inputs are not covered by this checkout's cache.
   let changed: boolean;
-  if (target === "dev" && !process.env.API_REFERENCE_DEPENDENCY_ROOT) {
-    let compatible = false;
+  if (target === "dev") {
     try {
-      const snapshot = JSON.parse(await readFile(path.join(repository, apiOutputs[0]!), "utf8"));
-      compatible =
-        apiSnapshotCompatible(
-          snapshot,
-          await readFile(path.join(repository, "packages/react/src/components/index.ts"), "utf8"),
-        ) && apiSnapshotCurrent(snapshot, await fingerprint(repository, apiInputs));
-    } catch (error) {
-      if (!(error instanceof SyntaxError) && (error as NodeJS.ErrnoException).code !== "ENOENT")
-        throw error;
-    }
-    if (compatible) {
-      // The tracked API is a generated artifact for these exact inputs, rather
-      // than a stale preview. Changed sources must finish extraction before ready.
+      await access(path.join(repository, apiOutputs[0]!));
       changed = false;
-    } else {
-      console.log("Preparing the missing, changed or incompatible component API artifact…");
-      changed = await runIncremental(
-        repository,
-        apiInputs,
-        apiOutputs,
-        "apps/docs/.cache/api.json",
-        writeApi,
-      );
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      await writeApi();
+      changed = true;
     }
   } else if (process.env.API_REFERENCE_DEPENDENCY_ROOT) {
     await writeApi();
     changed = true;
   } else {
-    const snapshot = await readFile(path.join(repository, apiOutputs[0]!), "utf8")
-      .then((text) => JSON.parse(text))
-      .catch((error) => {
-        if (error instanceof SyntaxError || error.code === "ENOENT") return null;
-        throw error;
-      });
-    if (apiSnapshotCurrent(snapshot, await fingerprint(repository, apiInputs))) {
-      changed = false;
-    } else {
-      changed = await runIncremental(
-        repository,
-        apiInputs,
-        apiOutputs,
-        "apps/docs/.cache/api.json",
-        writeApi,
-      );
-    }
+    changed = await runIncremental(
+      repository,
+      apiInputs,
+      apiOutputs,
+      "apps/docs/.cache/api.json",
+      writeApi,
+    );
   }
   if (target === "api") return changed;
   if (target === "dev" && changedPaths.length) {
@@ -177,13 +137,14 @@ export async function generateDocs(
         if (!("navigationOrder" in fields)) delete page.navigationOrder;
         Object.assign(page, fields);
       }
-      await writeFile(indexFile, `${JSON.stringify(index, null, 2)}\n`);
+      await writeGeneratedFile(indexFile, `${JSON.stringify(index, null, 2)}\n`);
+      const { generatePageDocuments } = await import("./generate-page-documents.ts");
       await generatePageDocuments(docs, {
         pageIds: affected.map(
           (page: { locale: string; slug: string }) => `${page.locale}/${page.slug}`,
         ),
       });
-      const { writeStaticSearch } = await import("./static-search.mjs");
+      const { writeStaticSearch } = await import("./static-search.ts");
       await writeStaticSearch(index, {
         locales: [...new Set<string>(affected.map((page: { locale: string }) => page.locale))],
       });
@@ -197,18 +158,20 @@ export async function generateDocs(
       contentOutputs,
       development ? "apps/docs/.cache/content-dev.json" : "apps/docs/.cache/content.json",
       async () => {
-        const { writeDocsProjection } = await import("./docs-projection.mjs");
+        const { writeDocsProjection } = await import("./docs-projection.ts");
+        const { generateLiveRegistry } = await import("./generate-live-registry.ts");
+        const { generatePageDocuments } = await import("./generate-page-documents.ts");
         const manifest: LocalizedChoices = JSON.parse(
           await readFile(path.join(docs, "src/demos/localized-manifest.json"), "utf8"),
         );
-        await generateLiveRegistry(docs, manifest, { globalRegistry: !development });
+        await generateLiveRegistry(docs, manifest, { globalRegistry: false });
         await writeDocsProjection(repository);
         await generatePageDocuments(docs);
       },
       contentOutputs.filter((file) => file.includes("content/lenso/")),
     )) || changed;
   if (target === "content") return changed;
-  if (target !== "dev")
+  if (target !== "dev" && target !== "site")
     changed =
       (await runIncremental(
         repository,
@@ -226,29 +189,26 @@ export async function generateDocs(
       repository,
       [
         ...common,
-        "apps/docs/scripts/static-search.mjs",
-        "apps/docs/scripts/report-coverage.ts",
-        "apps/docs/scripts/docs-projection.mjs",
-        "apps/docs/scripts/example-proof-plan.mjs",
-        "apps/docs/scripts/upstream-contract.mjs",
-        "apps/docs/src/lib/heading-id.mjs",
+        "apps/docs/scripts/static-search.ts",
+        "apps/docs/scripts/docs-projection.ts",
+        "apps/docs/src/lib/redirects.ts",
+        "apps/docs/scripts/example-proof-plan.ts",
+        "apps/docs/src/lib/heading-id.ts",
         "apps/docs/src/lib/native-api-section.ts",
         "apps/docs/src/lib/api-property-groups.ts",
         "apps/docs/src/generated/lenso-docs-index.json",
         "apps/docs/content/lenso",
-        "apps/docs/content/source-index.json",
+        "apps/docs/content/example-catalog.json",
         "apps/docs/src/demos/live-manifest.json",
       ],
-      ["apps/docs/public/search", "apps/docs/public/coverage.json"],
-      "apps/docs/.cache/search-coverage.json",
+      ["apps/docs/public/search"],
+      "apps/docs/.cache/static-search.json",
       async () => {
-        const { writeStaticSearch } = await import("./static-search.mjs");
-        const { reportCoverage } = await import("./report-coverage.ts");
+        const { writeStaticSearch } = await import("./static-search.ts");
         const authored = JSON.parse(
           await readFile(path.join(docs, "src/generated/lenso-docs-index.json"), "utf8"),
         );
         await writeStaticSearch(authored);
-        await reportCoverage(docs);
       },
     )) || changed;
   return changed;
@@ -278,8 +238,7 @@ export async function runIncremental(
       throw error;
   }
   await generate();
-  await mkdir(path.dirname(cache), { recursive: true });
-  await writeFile(
+  await writeGeneratedFile(
     cache,
     JSON.stringify({
       inputs: inputHash,
@@ -291,16 +250,16 @@ export async function runIncremental(
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const target = process.argv[2] ?? "all";
-  if (!["api", "content", "contract", "all", "dev"].includes(target))
-    throw new Error("Usage: tsx scripts/generate-docs.ts [api|content|contract|all|dev]");
+  if (!["api", "content", "contract", "all", "dev", "site"].includes(target))
+    throw new Error("Usage: bun scripts/generate-docs.ts [api|content|contract|all|dev|site]");
   if (!process.argv.includes("--skip-build"))
     execFileSync(
-      "pnpm",
+      "bun",
       [
-        "exec",
-        "turbo",
+        "./node_modules/turbo/bin/turbo",
         "run",
-        target === "dev" ? "build:dev" : "build",
+        // Story's compiler needs package declarations even in development.
+        "build",
         "--filter=@lenso/ui",
         "--filter=@lenso/tokens",
         "--filter=@lenso/docs",

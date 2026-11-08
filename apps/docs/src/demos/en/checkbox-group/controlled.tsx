@@ -1,12 +1,11 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Checkbox, CheckboxGroup, TextField } from "@lenso/ui";
 import { labelStyles } from "@lenso/tokens/label";
 import { useId, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   root: { minWidth: "320px" },
-  summary: { marginBlock: "1rem", fontSize: ".875rem", color: "var(--muted)" },
+  summary: { marginBlock: "1rem", fontSize: ".875rem", color: "var(--lenso-label-secondary)" },
 });
 export function Controlled() {
   const labelId = useId();

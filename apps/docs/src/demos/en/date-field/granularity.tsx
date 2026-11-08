@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6. Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 import type { DateValue } from "@internationalized/date";
 import { CircleQuestion } from "@gravity-ui/icons";
 import { DateField, Select, Tooltip } from "@lenso/ui";

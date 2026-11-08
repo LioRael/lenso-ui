@@ -1,8 +1,6 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
-import { Button, Switch, SwitchGroup } from "@lenso/ui";
+import { Button, Switch } from "@lenso/ui";
 import type { FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
@@ -26,7 +24,7 @@ ${Array.from(formData.entries())
   };
   return (
     <form {...stylex.props(styles.form)} onSubmit={handleSubmit}>
-      <SwitchGroup>
+      <fieldset {...stylex.props(switchGrouping.root)} aria-label="Notification preferences">
         <Switch name="notifications" value="on">
           <Switch.Content>
             <Switch.Control>
@@ -51,10 +49,22 @@ ${Array.from(formData.entries())
             接收营销更新
           </Switch.Content>
         </Switch>
-      </SwitchGroup>
-      <Button xstyle={styles.submit} size="sm" type="submit" variant="primary">
+      </fieldset>
+      <Button xstyle={styles.submit} size="sm" type="submit" variant="prominent">
         Submit
       </Button>
     </form>
   );
 }
+
+const switchGrouping = stylex.create({
+  root: {
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+    minWidth: 0,
+    display: "flex",
+    gap: 12,
+    flexDirection: "column",
+  },
+});

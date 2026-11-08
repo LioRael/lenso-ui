@@ -1,8 +1,7 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 drawer-backdrop-variants (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
-import { Button, CloseIcon, Drawer } from "@lenso/ui";
+import { Button, Drawer } from "@lenso/ui";
 import { styles } from "./styles";
 
 export function BackdropVariants() {
@@ -12,7 +11,7 @@ export function BackdropVariants() {
       {variants.map((variant) => (
         <Drawer.Provider key={variant}>
           <Drawer swipeDirection="down">
-            <Drawer.Trigger render={<Button variant="secondary" />}>
+            <Drawer.Trigger render={<Button />}>
               {variant.charAt(0).toUpperCase() + variant.slice(1)}
             </Drawer.Trigger>
             <Drawer.Portal>
@@ -21,19 +20,7 @@ export function BackdropVariants() {
                 <Drawer.Popup>
                   <Drawer.Content>
                     <Drawer.Handle />
-                    <Drawer.Close
-                      aria-label="Close drawer"
-                      render={
-                        <Button
-                          isIconOnly
-                          size="sm"
-                          variant="tertiary"
-                          xstyle={styles.cornerClose}
-                        />
-                      }
-                    >
-                      <CloseIcon />
-                    </Drawer.Close>
+                    <Drawer.Close aria-label="Close drawer" />
                     <Drawer.Header>
                       <Drawer.Title>
                         Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}

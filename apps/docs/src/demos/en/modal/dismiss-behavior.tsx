@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-dismiss-behavior (Apache-2.0).
 import { CircleInfo } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -8,9 +7,9 @@ const styles = stylex.create({
   column: { display: "flex", maxWidth: 384, flexDirection: "column", gap: 24 },
   section: { display: "flex", flexDirection: "column", gap: 8 },
   heading: { fontSize: 18, fontWeight: 600 },
-  caption: { fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
+  caption: { fontSize: 14, lineHeight: "20px", color: "var(--lenso-label-secondary)" },
   popup: { maxWidth: 360 },
-  icon: { backgroundColor: "var(--default)", color: "var(--foreground)" },
+  icon: { backgroundColor: "var(--lenso-control-fill)", color: "var(--lenso-label-primary)" },
   circle: { width: 20, height: 20 },
   action: { width: "100%" },
 });
@@ -33,7 +32,7 @@ export function DismissBehavior() {
               if (!open && details.reason === blockedReason) details.cancel();
             }}
           >
-            <Modal.Trigger render={<Button variant="secondary" />}>Open Modal</Modal.Trigger>
+            <Modal.Trigger render={<Button />}>Open Modal</Modal.Trigger>
             <Modal.Portal>
               <Modal.Backdrop />
               <Modal.Viewport>

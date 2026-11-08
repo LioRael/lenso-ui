@@ -1,7 +1,0 @@
-{
-  "display": "Next",
-  "extends": "./react.json",
-  "compilerOptions": { "jsx": "preserve", "plugins": [{ "name": "next" }] },
-  "include": [],
-  "exclude": ["node_modules"]
-}

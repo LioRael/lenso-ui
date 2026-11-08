@@ -1,5 +1,4 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Button, Checkbox, CheckboxGroup, FieldError, Form, TextField } from "@lenso/ui";
 import { labelStyles } from "@lenso/tokens/label";
 import { useId } from "react";

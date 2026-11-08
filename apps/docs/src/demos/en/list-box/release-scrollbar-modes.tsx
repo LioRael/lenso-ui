@@ -1,7 +1,6 @@
 "use client";
-// HeroUI v3.2.6 release-scrollbar-modes adaptation (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
-import { ListBox, ListBoxItem } from "@lenso/ui";
+import { ListBox } from "@lenso/ui";
 const animals = [
   "Aardvark",
   "Alpaca",
@@ -26,12 +25,12 @@ const animals = [
 const styles = stylex.create({
   root: { display: "flex", width: "100%", flexWrap: "wrap", justifyContent: "center", gap: 16 },
   group: { display: "flex", width: 260, flexDirection: "column", gap: 8 },
-  title: { paddingInline: 4, fontSize: 14, fontWeight: 600, color: "var(--muted)" },
+  title: { paddingInline: 4, fontSize: 14, fontWeight: 600, color: "var(--lenso-label-secondary)" },
   surface: {
     overflow: "hidden",
     borderRadius: 24,
-    backgroundColor: "var(--surface)",
-    boxShadow: "var(--surface-shadow)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   viewport: { height: 208, overflowY: "auto", padding: 4 },
   thin: { scrollbarWidth: "thin" },
@@ -42,9 +41,7 @@ export function ScrollbarModes() {
     <div {...stylex.props(styles.root)}>
       {(["thin", "default", "none"] as const).map((mode, index) => (
         <div key={mode} {...stylex.props(styles.group)}>
-          <h3 {...stylex.props(styles.title)}>
-            {["HeroUI thin", "Browser default", "Hidden"][index]}
-          </h3>
+          <h3 {...stylex.props(styles.title)}>{["Thin", "Browser default", "Hidden"][index]}</h3>
           <div data-scrollbar={mode} {...stylex.props(styles.surface)}>
             <div
               {...stylex.props(
@@ -54,17 +51,17 @@ export function ScrollbarModes() {
               )}
             >
               <ListBox
-                aria-label={`${["HeroUI thin", "Browser default", "Hidden"][index]} animals`}
+                aria-label={`${["Thin", "Browser default", "Hidden"][index]} animals`}
                 selectionMode="single"
               >
                 {animals.map((name) => (
-                  <ListBoxItem
+                  <ListBox.Item
                     key={name}
                     itemKey={`${mode}-${name.toLowerCase()}`}
                     textValue={name}
                   >
                     {name}
-                  </ListBoxItem>
+                  </ListBox.Item>
                 ))}
               </ListBox>
             </div>

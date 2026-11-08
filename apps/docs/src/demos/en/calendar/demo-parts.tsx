@@ -1,5 +1,5 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX. */
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX.
 import { Calendar, Select } from "@lenso/ui";
 import type { CalendarDate } from "@internationalized/date";
 import type { ReactElement, ReactNode } from "react";
@@ -14,7 +14,7 @@ export const layout = stylex.create({
     textAlign: "center",
     fontSize: 12,
     lineHeight: "16px",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
     overflowWrap: "break-word",
   },
   select: { width: 160 },
@@ -25,11 +25,21 @@ export const layout = stylex.create({
     justifyContent: "center",
     gap: 16,
     fontSize: 12,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   legendItem: { display: "flex", alignItems: "center", gap: 4 },
-  mutedDot: { width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--muted)" },
-  defaultDot: { width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--default)" },
+  mutedDot: {
+    width: 8,
+    height: 8,
+    borderRadius: "50%",
+    backgroundColor: "var(--lenso-label-secondary)",
+  },
+  defaultDot: {
+    width: 8,
+    height: 8,
+    borderRadius: "50%",
+    backgroundColor: "var(--lenso-control-fill)",
+  },
 });
 
 export function CalendarHeader() {

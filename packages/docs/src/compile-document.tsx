@@ -5,7 +5,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
-import { headingText, isNonRenderingPrefix } from "./heading-utils.mjs";
+import { headingText, isNonRenderingPrefix } from "./heading-utils.js";
 import type { DocumentationHeading } from "./document-model";
 
 /** Structural AST contract shared by Markdown and MDX JSX nodes. */

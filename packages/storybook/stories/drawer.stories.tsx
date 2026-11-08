@@ -1,9 +1,8 @@
-// HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 // Modified: Base UI swipeDirection, Root/Portal/Viewport/Popup/Content/Close.
 import type { Meta } from "@storybook/react-vite";
 import React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Drawer, Button } from "@lenso/ui";
+import { GlassButton, Drawer, Button } from "@lenso/ui";
 import { overlayStyles as s } from "./overlay.stylex";
 import { OverlayForm, OverlayIcon, cap, lorem } from "./overlay.fixtures";
 
@@ -39,7 +38,7 @@ function Example({
     <Drawer.Root
       swipeDirection={placement === "bottom" ? "down" : placement === "top" ? "up" : placement}
     >
-      <Drawer.Trigger render={<Button variant="secondary" />}>{trigger}</Drawer.Trigger>
+      <Drawer.Trigger render={<GlassButton variant="default" />}>{trigger}</Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Backdrop variant={backdrop} />
         <Drawer.Viewport>
@@ -54,7 +53,7 @@ function Example({
               {(cancel || confirm) && (
                 <Drawer.Footer>
                   {cancel && (
-                    <Drawer.Close render={<Button variant="secondary" />}>{cancel}</Drawer.Close>
+                    <Drawer.Close render={<GlassButton variant="default" />}>{cancel}</Drawer.Close>
                   )}
                   {confirm && (
                     <Drawer.Close render={<Button fullWidth={!cancel} />}>{confirm}</Drawer.Close>
@@ -182,7 +181,7 @@ export const NonDismissable = () => (
       if (details.reason === "outside-press" || details.reason === "swipe") details.cancel();
     }}
   >
-    <Drawer.Trigger render={<Button variant="secondary" />}>Important Action</Drawer.Trigger>
+    <Drawer.Trigger render={<GlassButton variant="default" />}>Important Action</Drawer.Trigger>
     <Drawer.Portal>
       <Drawer.Backdrop />
       <Drawer.Viewport>
@@ -198,7 +197,7 @@ export const NonDismissable = () => (
               </p>
             </Drawer.Body>
             <Drawer.Footer>
-              <Drawer.Close render={<Button variant="secondary" />}>Cancel</Drawer.Close>
+              <Drawer.Close render={<GlassButton variant="default" />}>Cancel</Drawer.Close>
               <Drawer.Close render={<Button />}>Confirm</Drawer.Close>
             </Drawer.Footer>
           </Drawer.Content>
@@ -213,7 +212,7 @@ export const Controlled = () => {
     <div {...stylex.props(s.column)}>
       <Drawer.Root open={open} onOpenChange={setOpen} swipeDirection="right">
         <div {...stylex.props(s.compactRow)}>
-          <Drawer.Trigger render={<Button variant="secondary" />}>Open Drawer</Drawer.Trigger>
+          <Drawer.Trigger render={<GlassButton variant="default" />}>Open Drawer</Drawer.Trigger>
           <p {...stylex.props(s.muted)}>
             Status: <span>{open ? "open" : "closed"}</span>
           </p>
@@ -231,7 +230,7 @@ export const Controlled = () => {
                   <p>This drawer is controlled externally via React state.</p>
                 </Drawer.Body>
                 <Drawer.Footer>
-                  <Drawer.Close render={<Button variant="secondary" />}>Close</Drawer.Close>
+                  <Drawer.Close render={<GlassButton variant="default" />}>Close</Drawer.Close>
                 </Drawer.Footer>
               </Drawer.Content>
             </Drawer.Popup>

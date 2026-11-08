@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 custom-queue, Apache-2.0.
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
@@ -18,7 +17,7 @@ export function CustomQueue() {
       <div {...stylex.props(styles.queueButtons)}>
         <Button
           size="sm"
-          variant="secondary"
+          variant="bordered"
           onClick={() =>
             notificationQueue.add({
               description: "You have a new message",
@@ -35,8 +34,9 @@ export function CustomQueue() {
       </Toast.Provider>
       <div {...stylex.props(styles.queueButtons)}>
         <Button
+          destructive
           size="sm"
-          variant="danger-soft"
+          variant="bordered"
           onClick={() =>
             errorQueue.add({
               description: "Failed to save changes",
@@ -55,7 +55,7 @@ export function CustomQueue() {
         <Button
           xstyle={styles.successText}
           size="sm"
-          variant="secondary"
+          variant="bordered"
           onClick={() =>
             successQueue.add({
               description: `Operation ${Date.now()}`,

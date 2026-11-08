@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import {
   ChevronDown,
   ChevronLeft,
@@ -74,7 +72,7 @@ export function Basic() {
       </div>
       <div {...stylex.props(styles.section)}>
         <div {...stylex.props(styles.row)}>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <CodeFork {...stylex.props(styles.smallIcon)} />
               复刻
@@ -89,7 +87,7 @@ export function Basic() {
               </Button.Icon>
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button isIconOnly aria-label="显示二维码">
               <Button.Icon>
                 <QrCode />
@@ -100,7 +98,7 @@ export function Basic() {
               扫码支付
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <Button.Icon>
                 <ThumbsUp />
@@ -114,7 +112,7 @@ export function Basic() {
               </Button.Icon>
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <Star {...stylex.props(styles.smallIcon)} />
               星标
@@ -126,7 +124,7 @@ export function Basic() {
               </Chip>
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <Button.Icon>
                 <Pin />
@@ -143,7 +141,7 @@ export function Basic() {
         </div>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>
             <Button.Icon>
               <ChevronLeft />
@@ -160,7 +158,7 @@ export function Basic() {
         </ButtonGroup>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>
             <Button.Icon>
               <Picture />
@@ -183,7 +181,7 @@ export function Basic() {
         </ButtonGroup>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>左对齐</Button>
           <Button>
             <ButtonGroup.Separator />
@@ -196,7 +194,7 @@ export function Basic() {
         </ButtonGroup>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           {[
             {
               label: "左对齐",

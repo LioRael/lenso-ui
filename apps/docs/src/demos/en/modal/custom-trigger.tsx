@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-custom-trigger (Apache-2.0).
 import { Gear } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -10,9 +9,12 @@ const styles = stylex.create({
     alignItems: "center",
     gap: 12,
     borderRadius: 16,
-    backgroundColor: { default: "var(--surface)", ":hover": "var(--surface-secondary)" },
+    backgroundColor: {
+      default: "var(--lenso-background-grouped-secondary)",
+      ":hover": "var(--lenso-background-secondary)",
+    },
     padding: 16,
-    boxShadow: "var(--shadow-xs)",
+    boxShadow: "var(--lenso-surface-shadow)",
     userSelect: "none",
   },
   gearBox: {
@@ -23,14 +25,17 @@ const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 12,
-    backgroundColor: "var(--accent-soft)",
-    color: "var(--accent-soft-foreground)",
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
   },
   copy: { display: "flex", flex: 1, flexDirection: "column", gap: 2, textAlign: "start" },
   heading: { fontSize: 14, fontWeight: 600 },
-  caption: { fontSize: 12, color: "var(--muted)" },
+  caption: { fontSize: 12, color: "var(--lenso-label-secondary)" },
   popup: { maxWidth: 360 },
-  icon: { backgroundColor: "var(--accent-soft)", color: "var(--accent-soft-foreground)" },
+  icon: {
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
+  },
   largeGear: { width: 24, height: 24 },
   gear: { width: 20, height: 20 },
 });
@@ -65,7 +70,7 @@ export function CustomTrigger() {
               </Modal.Description>
             </Modal.Body>
             <Modal.Footer>
-              <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+              <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
               <Modal.Close render={<Button />}>Save</Modal.Close>
             </Modal.Footer>
           </Modal.Popup>

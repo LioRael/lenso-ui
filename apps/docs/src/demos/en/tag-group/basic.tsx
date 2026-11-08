@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 tag-group-basic (Apache-2.0).
 import { PlanetEarth, Rocket, ShoppingBag, SquareArticle } from "@gravity-ui/icons";
 import { Tag, TagGroup } from "@lenso/ui";
 

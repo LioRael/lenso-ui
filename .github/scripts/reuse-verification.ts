@@ -138,7 +138,7 @@ export async function findTrustedArtifact(
     workflow.state !== "active" ||
     (await api.raw(`${base}/contents/${WORKFLOW_PATH}?ref=${context.workflowSha}`)) !==
       context.workflow ||
-    (await api.raw(`${base}/contents/pnpm-lock.yaml?ref=${context.sha}`)) !== context.lockfile
+    (await api.raw(`${base}/contents/bun.lock?ref=${context.sha}`)) !== context.lockfile
   ) {
     return null;
   }
@@ -224,7 +224,9 @@ async function boundedBody(response: Response, limit: number): Promise<Buffer> {
   return Buffer.concat(parts);
 }
 
-export function githubApi(token: string, signal: AbortSignal, request = fetch) {
+export type FetchRequest = (input: string | URL | Request, init?: RequestInit) => Promise<Response>;
+
+export function githubApi(token: string, signal: AbortSignal, request: FetchRequest = fetch) {
   async function response(apiPath: string, accept: string) {
     if (!apiPath.startsWith("/repos/")) throw new Error("Invalid GitHub API path");
     return request(`https://api.github.com${apiPath}`, {
@@ -285,7 +287,7 @@ async function main() {
     runId: Number(process.env.GITHUB_RUN_ID),
     attempt: Number(process.env.GITHUB_RUN_ATTEMPT),
     workflow: await readFile(WORKFLOW_PATH, "utf8"),
-    lockfile: await readFile("pnpm-lock.yaml", "utf8"),
+    lockfile: await readFile("bun.lock", "utf8"),
   };
   const output = process.env.GITHUB_OUTPUT;
   if (!output) throw new Error("Missing GitHub output file");

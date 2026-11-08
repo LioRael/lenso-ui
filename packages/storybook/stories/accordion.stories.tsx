@@ -1,4 +1,3 @@
-// Adapted from HeroUI e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Accordion, type AccordionRootProps } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -63,9 +62,10 @@ const categories = [
   },
   {
     title: "Usage",
-    items: ["How do I use the HeroUI icon set?", "Can I use it with Tailwind CSS?"].map(
-      (title) => ({ title, content: order }),
-    ),
+    items: ["How do I use the icon set?", "Can I use it with Tailwind CSS?"].map((title) => ({
+      title,
+      content: order,
+    })),
   },
   { title: "Support", items: [{ title: "How do I get support?", content: order }] },
   { title: "Other", items: [{ title: "How do I get support?", content: order }] },

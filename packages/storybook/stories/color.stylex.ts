@@ -1,7 +1,4 @@
-/**
- * HeroUI v3.2.6 story geometry adapted to compiled StyleX.
- * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
- */
+// Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
 import * as stylex from "@stylexjs/stylex";
 
 export const colorStoryStyles = stylex.create({
@@ -31,11 +28,11 @@ export const colorStoryStyles = stylex.create({
   verticalFrame: { display: "flex", height: 256, gap: 32, padding: 32 },
   vertical: { height: 256 },
   flex: { flex: 1 },
-  muted: { color: "var(--muted)", fontSize: 14 },
+  muted: { color: "var(--lenso-label-secondary)", fontSize: 14 },
   small: { fontSize: 14 },
-  tiny: { color: "var(--muted)", fontSize: 12 },
+  tiny: { color: "var(--lenso-label-secondary)", fontSize: 12 },
   medium: { fontWeight: 500 },
-  heading: { color: "var(--muted)", fontSize: 14, fontWeight: 600 },
+  heading: { color: "var(--lenso-label-secondary)", fontSize: 14, fontWeight: 600 },
   capitalize: { textTransform: "capitalize" },
   mono: { fontFamily: "var(--font-mono)" },
   previewText: { display: "flex", flexDirection: "column", gap: 2 },

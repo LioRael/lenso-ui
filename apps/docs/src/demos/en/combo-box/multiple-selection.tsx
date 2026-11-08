@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6, Apache-2.0. Native chips preserve keyboard removal and focus.
+// Native chips preserve keyboard removal and focus.
 import { ComboBox } from "@lenso/ui";
 import { useId } from "react";
 import * as stylex from "@stylexjs/stylex";

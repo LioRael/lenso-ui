@@ -1,7 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { runtimeModuleReferences } from "./source-imports.ts";
+import { runtimeModuleReferences } from "@lenso/ui-devtools/parser";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 
@@ -16,19 +16,29 @@ async function sourceFiles(directory: string): Promise<string[]> {
 }
 
 const failures: string[] = [];
-for (const directory of ["packages/react/src", "apps/docs/src/demos"]) {
+for (const directory of [
+  "packages/glass/src",
+  "packages/ui/src",
+  "apps/docs/src",
+  "packages/storybook/stories",
+]) {
   for (const file of await sourceFiles(path.join(root, directory))) {
     const relative = path.relative(root, file).replaceAll(path.sep, "/");
     const specialized =
       /\/(?:components|demos\/(?:en|cn))\/(?:calendar|range-calendar|calendar-year-picker|date-|time-|color-)/.test(
         relative,
       );
+    const colorStateHelper = relative === "packages/ui/src/utils/color-state.tsx";
     for (const module of runtimeModuleReferences(await readFile(file, "utf8"), relative)) {
+      if (/^(?:react-aria(?:-components)?|@react-aria\/)/.test(module))
+        failures.push(`React Aria interaction in Base UI reconstruction: ${relative}`);
       if (
         !specialized &&
-        /^(?:react-aria(?:-components)?|react-stately|@react-aria\/|@react-stately\/)/.test(module)
+        module !== "react-stately/Color" &&
+        !(colorStateHelper && module === "react-stately/useColorPickerState") &&
+        /^(?:react-stately|@react-stately\/)/.test(module)
       )
-        failures.push(`React Aria runtime outside its specialized boundary: ${relative}`);
+        failures.push(`Specialized state model outside its boundary: ${relative}`);
       if (/^(?:tailwind-variants|tailwindcss)/.test(module))
         failures.push(`Tailwind runtime in component source: ${relative}`);
     }

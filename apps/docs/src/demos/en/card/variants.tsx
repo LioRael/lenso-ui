@@ -1,10 +1,15 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Card } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { s } from "./display.stylex";
 
 const cards = [
+  {
+    variant: "glass",
+    title: "Glass",
+    description: "Medium Liquid Glass panel",
+    content: "Use variant=glass for a surface that reveals its backdrop.",
+  },
   {
     variant: "transparent",
     title: "Transparent",
@@ -34,15 +39,23 @@ export function Variants() {
   return (
     <div {...stylex.props(s.column4)}>
       {cards.map((card) => (
-        <Card key={card.variant} xstyle={s.card320} variant={card.variant}>
-          <Card.Header>
-            <Card.Title>{card.title}</Card.Title>
-            <Card.Description>{card.description}</Card.Description>
-          </Card.Header>
-          <Card.Content>
-            <p>{card.content}</p>
-          </Card.Content>
-        </Card>
+        <div key={card.variant} {...stylex.props(card.variant === "glass" && s.glassScene)}>
+          {card.variant === "glass" && (
+            <div data-lenso-backdrop aria-hidden="true" {...stylex.props(s.glassBackdrop)} />
+          )}
+          <Card
+            xstyle={[s.card320, card.variant === "glass" && s.glassCard]}
+            variant={card.variant}
+          >
+            <Card.Header>
+              <Card.Title>{card.title}</Card.Title>
+              <Card.Description>{card.description}</Card.Description>
+            </Card.Header>
+            <Card.Content>
+              <p>{card.content}</p>
+            </Card.Content>
+          </Card>
+        </div>
       ))}
     </div>
   );

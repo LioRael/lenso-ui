@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 tooltip-placement (Apache-2.0).
 import { Button, Tooltip } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";
@@ -9,7 +8,7 @@ import { tokens } from "@lenso/tokens/tokens.stylex.const";
 const styles = stylex.create({
   grid: { display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 16 },
   center: { display: "flex", alignItems: "center", justifyContent: "center" },
-  caption: { fontSize: 14, color: tokens.muted },
+  caption: { fontSize: 14, color: tokens.labelSecondary },
   button: { width: "100%" },
 });
 
@@ -17,11 +16,7 @@ function Placement({ side, label }: { side: "top" | "left" | "right" | "bottom";
   const id = useId();
   return (
     <Tooltip>
-      <Tooltip.Trigger
-        delay={0}
-        aria-describedby={id}
-        render={<Button variant="tertiary" xstyle={styles.button} />}
-      >
+      <Tooltip.Trigger delay={0} aria-describedby={id} render={<Button xstyle={styles.button} />}>
         {label}
       </Tooltip.Trigger>
       <Tooltip.Portal>

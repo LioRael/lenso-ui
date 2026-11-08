@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 separator.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import { Separator } from "@lenso/ui";
@@ -7,7 +6,7 @@ const styles = stylex.create({
   frame: { maxWidth: 448 },
   intro: { display: "flex", flexDirection: "column", gap: 4 },
   heading: { fontSize: 16, fontWeight: 500 },
-  subtitle: { fontSize: 14, color: "var(--muted)" },
+  subtitle: { fontSize: 14, color: "var(--lenso-label-secondary)" },
   separator: { marginBlock: 16 },
   navigation: { fontSize: 14, display: "flex", height: 20, alignItems: "center", gap: 16 },
   card: {
@@ -16,9 +15,9 @@ const styles = stylex.create({
     maxWidth: 448,
     gap: 16,
     borderRadius: 24,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
-    boxShadow: "var(--shadow-surface)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   item: { display: "flex", alignItems: "center", gap: 12 },
   image: { width: 48, height: 48 },
@@ -54,7 +53,7 @@ export const Default: Story = {
   render: () => (
     <div {...stylex.props(styles.frame)}>
       <div {...stylex.props(styles.intro)}>
-        <h4 {...stylex.props(styles.heading)}>HeroUI v3 Components</h4>
+        <h4 {...stylex.props(styles.heading)}>Lenso UI Components</h4>
         <p {...stylex.props(styles.subtitle)}>Beautiful, fast and modern React UI library.</p>
       </div>
       <Separator xstyle={styles.separator} />
@@ -65,17 +64,17 @@ export const Default: Story = {
 export const Vertical: Story = { render: () => <Navigation /> };
 const items = [
   {
-    image: "bell-small.png",
+    image: "bell-small.svg",
     title: "Set Up Notifications",
     subtitle: "Receive account activity updates",
   },
   {
-    image: "compass-small.png",
+    image: "compass-small.svg",
     title: "Set up Browser Extension",
     subtitle: "Connect your browser to your account",
   },
   {
-    image: "mint-collective-small.png",
+    image: "mint-collective-small.svg",
     title: "Mint Collectible",
     subtitle: "Create your first collectible",
   },
@@ -89,7 +88,7 @@ export const WithContent: Story = {
             <img
               alt={item.title}
               {...stylex.props(styles.image)}
-              src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/${item.image}`}
+              src={`/assets/demo/illustrations/${item.image}`}
             />
             <div {...stylex.props(styles.content)}>
               <h4 {...stylex.props(styles.title)}>{item.title}</h4>

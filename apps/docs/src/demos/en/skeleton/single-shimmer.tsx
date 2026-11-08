@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Skeleton } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
@@ -9,10 +8,10 @@ const styles = stylex.create({
     maxWidth: 576,
     gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
     gap: 16,
-    borderRadius: "var(--radius-xl)",
+    borderRadius: "var(--lenso-shape-content-xl)",
     backgroundColor: "transparent",
   },
-  bone: { height: 96, borderRadius: "var(--radius-xl)" },
+  bone: { height: 96, borderRadius: "var(--lenso-shape-content-xl)" },
 });
 export function SingleShimmer() {
   return (

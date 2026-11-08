@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 popover-interactive (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { Avatar, Button, Popover } from "@lenso/ui";
 import { useState } from "react";
@@ -14,10 +12,7 @@ export function PopoverInteractive() {
         <Popover.Trigger aria-label="用户资料">
           <div {...stylex.props(styles.identity)}>
             <Avatar size="sm">
-              <Avatar.Image
-                alt="Sarah Johnson"
-                src="https://img.heroui.chat/image/avatar?w=400&h=400&u=1"
-              />
+              <Avatar.Image alt="Sarah Johnson" src="/assets/demo/avatars/green.svg" />
               <Avatar.Fallback>SJ</Avatar.Fallback>
             </Avatar>
             <div {...stylex.props(styles.identityText)}>
@@ -27,16 +22,13 @@ export function PopoverInteractive() {
           </div>
         </Popover.Trigger>
         <Popover.Portal>
-          <Popover.Positioner sideOffset={8}>
+          <Popover.Positioner sideOffset={16}>
             <Popover.Popup xstyle={styles.profilePopup}>
               <Popover.Title render={<div />}>
                 <div {...stylex.props(styles.profileHeading)}>
                   <div {...stylex.props(styles.identityLarge)}>
                     <Avatar size="md">
-                      <Avatar.Image
-                        alt="Sarah Johnson"
-                        src="https://img.heroui.chat/image/avatar?w=400&h=400&u=1"
-                      />
+                      <Avatar.Image alt="Sarah Johnson" src="/assets/demo/avatars/green.svg" />
                       <Avatar.Fallback>SJ</Avatar.Fallback>
                     </Avatar>
                     <div>
@@ -47,7 +39,7 @@ export function PopoverInteractive() {
                   <Button
                     xstyle={styles.follow}
                     size="sm"
-                    variant={isFollowing ? "tertiary" : "primary"}
+                    variant={isFollowing ? "borderless" : "prominent"}
                     onClick={() => setIsFollowing(!isFollowing)}
                   >
                     {isFollowing ? "Following" : "关注"}

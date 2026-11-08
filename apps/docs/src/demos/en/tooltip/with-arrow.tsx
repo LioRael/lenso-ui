@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 tooltip-with-arrow (Apache-2.0).
 import { Button, Tooltip } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";
@@ -13,11 +12,7 @@ export function TooltipWithArrow() {
   return (
     <div {...stylex.props(styles.row)}>
       <Tooltip>
-        <Tooltip.Trigger
-          delay={0}
-          aria-describedby={arrowId}
-          render={<Button variant="secondary" />}
-        >
+        <Tooltip.Trigger delay={0} aria-describedby={arrowId} render={<Button />}>
           With Arrow
         </Tooltip.Trigger>
         <Tooltip.Portal>
@@ -33,7 +28,7 @@ export function TooltipWithArrow() {
         <Tooltip.Trigger
           delay={0}
           aria-describedby={offsetId}
-          render={<Button variant="primary" />}
+          render={<Button variant="prominent" />}
         >
           Custom Offset
         </Tooltip.Trigger>

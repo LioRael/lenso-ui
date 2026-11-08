@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 spinner.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import { Spinner } from "@lenso/ui";
@@ -6,7 +5,7 @@ import { Spinner } from "@lenso/ui";
 const styles = stylex.create({
   row: { display: "flex", alignItems: "center", gap: 32 },
   sample: { display: "flex", flexDirection: "column", alignItems: "center", gap: 8 },
-  caption: { fontSize: 12, color: "var(--muted)" },
+  caption: { fontSize: 12, color: "var(--lenso-label-secondary)" },
 });
 const meta = {
   title: "Components/Feedback/Spinner",

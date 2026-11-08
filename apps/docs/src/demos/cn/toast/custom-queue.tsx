@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 custom-queue, Apache-2.0.
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
@@ -18,7 +16,7 @@ export function CustomQueue() {
       <div {...stylex.props(styles.queueButtons)}>
         <Button
           size="sm"
-          variant="secondary"
+          variant="bordered"
           onClick={() =>
             notificationQueue.add({
               description: "您有一条新消息",
@@ -35,8 +33,9 @@ export function CustomQueue() {
       </Toast.Provider>
       <div {...stylex.props(styles.queueButtons)}>
         <Button
+          destructive
           size="sm"
-          variant="danger-soft"
+          variant="bordered"
           onClick={() =>
             errorQueue.add({
               description: "保存更改失败",
@@ -55,7 +54,7 @@ export function CustomQueue() {
         <Button
           xstyle={styles.successText}
           size="sm"
-          variant="secondary"
+          variant="bordered"
           onClick={() =>
             successQueue.add({
               description: `操作 ${Date.now()}`,

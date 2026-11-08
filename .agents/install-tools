@@ -20,7 +20,7 @@ apt() {
 }
 # Bookworm packages only; never run on macOS. Install only missing prerequisites.
 missing=''
-for pair in curl:curl tar:tar xz:xz-utils; do
+for pair in curl:curl tar:tar xz:xz-utils unzip:unzip; do
     command -v "${pair%%:*}" >/dev/null 2>&1 || missing="$missing ${pair#*:}"
 done
 if [ -n "$missing" ]; then apt update; apt install -y --no-install-recommends ca-certificates $missing; fi
@@ -32,6 +32,12 @@ if ! command -v node >/dev/null 2>&1 || [ "$(node --version)" != v26.10.0 ]; the
     mkdir -p .agents/state/tools/node
     tar -xJf "$work/$file" --strip-components=1 -C .agents/state/tools/node
 fi
-if ! command -v pnpm >/dev/null 2>&1 || [ "$(pnpm --version)" != 12.9.1 ]; then
-    npm install --prefix "$ROOT/.agents/state/tools/node" --no-audit --no-fund pnpm@12.9.1
+if ! command -v bun >/dev/null 2>&1 || [ "$(bun --version)" != 1.4.4 ]; then
+    file=bun-linux-x64.zip
+    fetch https://github.com/oven-sh/bun/releases/download/bun-v1.4.4/$file "$work/$file"
+    printf '%s  %s\n' 'bf8ccbfb2b0b80159e0f9a6d15c55317add8077534dbc6130a3edb52fccb395c' "$work/$file" | sha256sum -c -
+    unzip -q "$work/$file" -d "$work"
+    mkdir -p .agents/state/tools/bun/bin
+    cp "$work/bun-linux-x64/bun" .agents/state/tools/bun/bin/bun
+    chmod +x .agents/state/tools/bun/bin/bun
 fi

@@ -1,7 +1,7 @@
 # Configure one Lenso theme
 
-Adapted from HeroUI's semantic CSS-variable theming guidance. Modified for
-Lenso's typed theme and scope APIs; see [provenance](../NOTICE.md).
+This guidance uses Lenso's typed theme and scope APIs. Retained adaptation
+attribution is in [provenance](../NOTICE.md).
 
 Read the matching authored theming guide and `@lenso/tokens` exports. The theme
 stylesheet supplies defaults and derived values; load it from the actual
@@ -17,17 +17,20 @@ rendering document before adding overrides.
 A basic application composition is:
 
 ```tsx
-import { defineTheme, themeToVariables } from "@lenso/tokens";
+import { defineTheme, themeToCSS, tintOverrides } from "@lenso/tokens";
 import { ThemeScope } from "@lenso/ui";
 import "@lenso/tokens/styles.css";
 
 const theme = defineTheme({
   name: "studio",
-  light: { accent: "oklch(0.55 0.18 270)", radius: "0.625rem" },
-  dark: { accent: "oklch(0.75 0.15 270)" },
+  light: { ...tintOverrides([0.1, 0.4, 0.9], "light"), "shape-content": "0.625rem" },
+  dark: tintOverrides([0.3, 0.6, 1], "dark"),
+  lightIncreased: tintOverrides([0.1, 0.4, 0.9], "light", "increased"),
+  darkIncreased: tintOverrides([0.3, 0.6, 1], "dark", "increased"),
 });
 
-<ThemeScope theme="light" data-lenso-theme={theme.name} style={themeToVariables(theme, "light")}>
+<ThemeScope theme="light" data-lenso-theme={theme.name}>
+  <style>{themeToCSS(theme)}</style>
   {/* Application components */}
 </ThemeScope>;
 ```
@@ -39,12 +42,12 @@ to their defaults.
 
 ## Keep the source of truth
 
-Use public CSS names without `--` in typed overrides. Leave derived hover/soft
-mixes, radius scales and aliases in the theme CSS. Retrieve the current editable
+Use public CSS names without `--lenso-` in typed overrides. Leave derived hover/soft
+mixes and material recipes in the theme CSS. Retrieve the current editable
 keys rather than maintaining another token inventory or copying default values.
-Treat background and `-foreground` variables as a pair; preserve distinct
-accent, surface, muted and status roles instead of using one raw color everywhere.
-The font source key is `font-sans`; named font references also need their family
+Pair `tint` with `label-on-tint`; keep background, label and status roles distinct.
+Use `tintOverrides` for validated RGB custom tint pairs in each mode/contrast.
+The font source key is `font-body`; named font references also need their family
 variable and actual stylesheet/font delivery.
 
 Keep a Theme Builder's editable settings, generated palettes and exported CSS
@@ -58,3 +61,8 @@ Exercise both modes, hover/focus states, explicit field radius overrides and a
 portalled overlay. Check colors and geometry in computed styles, not just a
 serializer string. Changing hue can change contrast: source fidelity and a
 working theme selector do not certify WCAG contrast.
+
+Provide `lightIncreased` and `darkIncreased` when custom colors need contrast variants.
+Prefer `themeToCSS` for live system preference support. Inline maps must be
+recomputed with `themeToVariables(theme, mode, contrast)` when appearance changes.
+There are no legacy palette aliases; inspect the matching `@lenso/tokens` exports for current names.

@@ -1,4 +1,3 @@
-// HeroUI v3.2.6 form story layouts, adapted to StyleX (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 
 export const formWorkflowStyles = stylex.create({
@@ -14,8 +13,12 @@ export const formWorkflowStyles = stylex.create({
   number: { width: 120 },
   grow: { flexGrow: 1, width: "100%" },
   wide: { width: "100%" },
-  muted: { fontSize: 14, color: "var(--muted)", margin: 0 },
-  underline: { color: "var(--foreground)", textDecorationLine: "underline", fontWeight: 500 },
+  muted: { fontSize: 14, color: "var(--lenso-label-secondary)", margin: 0 },
+  underline: {
+    color: "var(--lenso-label-primary)",
+    textDecorationLine: "underline",
+    fontWeight: 500,
+  },
   resend: { display: "flex", alignItems: "center", gap: 5, paddingInline: 4, paddingTop: 4 },
   backup: { display: "flex", alignItems: "center", justifyContent: "center", gap: 4 },
   chevronGroup: { display: "flex", height: 36, overflow: "hidden" },
@@ -25,7 +28,7 @@ export const formWorkflowStyles = stylex.create({
     height: "100%",
     borderInlineStartWidth: 1,
     borderInlineStartStyle: "solid",
-    borderInlineStartColor: "color-mix(in oklab, var(--field-placeholder) 15%, transparent)",
+    borderInlineStartColor: "color-mix(in oklab, var(--lenso-label-placeholder) 15%, transparent)",
   },
   chevronUp: {
     display: "flex",
@@ -47,6 +50,6 @@ export const formWorkflowStyles = stylex.create({
     borderWidth: 0,
     paddingBottom: 2,
   },
-  error: { color: "var(--danger)", fontSize: 14 },
+  error: { color: "var(--lenso-status-error-indicator)", fontSize: 14 },
   pending: { marginTop: 8, width: "100%" },
 });

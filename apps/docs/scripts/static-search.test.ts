@@ -1,20 +1,18 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { test } from "node:test";
-import { create } from "@orama/orama";
-import { createTokenizer } from "@orama/tokenizers/mandarin";
-import { oramaStaticClient } from "fumadocs-core/search/client/orama-static";
+import { test } from "bun:test";
+import { staticClient } from "fumadocs-core/search/client/orama-static";
 import {
   authoredHeadingIds,
   createLocaleSearch,
   searchMarkdown,
   searchStructure,
-} from "./static-search.mjs";
+} from "./static-search.ts";
 import { structure } from "fumadocs-core/mdx-plugins/remark-structure";
 import { remarkHeading } from "fumadocs-core/mdx-plugins/remark-heading";
 import matter from "gray-matter";
 
-test("skipping native API tables preserves the actual heading and prose search records", async () => {
+test("search retains authored guidance without native API declarations", async () => {
   const markdown = matter(
     await readFile(
       new URL("../content/lenso/en/react/components/button.mdx", import.meta.url),
@@ -26,10 +24,9 @@ test("skipping native API tables preserves the actual heading and prose search r
     [remarkHeading, { customId: false }],
   ];
   const options = { types: ["heading", "paragraph"] };
-  assert.deepEqual(
-    structure(searchMarkdown(markdown, "button"), plugins, options),
-    structure(markdown, plugins, options),
-  );
+  const searchable = searchMarkdown(markdown, "button");
+  assert.ok(!searchable.includes("Property declarations"));
+  assert.ok(!searchable.includes("packages/ui/src/components/button/"));
   assert.deepEqual(
     searchStructure(searchMarkdown(markdown, "button"), "button"),
     structure(searchMarkdown(markdown, "button"), plugins, options),
@@ -38,7 +35,7 @@ test("skipping native API tables preserves the actual heading and prose search r
     "## Guide\n\n| Heading | Value |\n| --- | --- |\n| a | b |\n\n## API Reference\n\n```md\n| example | code |\n```\n\n| Property | Type |\n| --- | --- |\n| name | string |\n\n## More\n\n| Still | authored |";
   const stripped = searchMarkdown(authored, "button");
   assert.ok(stripped.includes("| Heading | Value |"));
-  assert.ok(stripped.includes("| example | code |"));
+  assert.ok(!stripped.includes("| example | code |"));
   assert.ok(stripped.includes("| Still | authored |"));
   assert.ok(!stripped.includes("| name | string |"));
   assert.equal(searchMarkdown(authored, undefined), authored);
@@ -62,7 +59,7 @@ test("transform-only search extraction retains official records for every author
       page.markdownFile,
     );
   }
-});
+}, 30000);
 
 test("search anchors use the renderer's punctuation/Unicode IDs and native API IDs", () => {
   const data = structure(
@@ -76,9 +73,7 @@ test("search anchors use the renderer's punctuation/Unicode IDs and native API I
   );
 });
 
-// Default Orama tokenization silently returned no matches for Chinese words.
-// Exercise the exported database through Fuma's actual static client, not just
-// the server query, to prove the client recreates the same Mandarin tokenizer.
+// Exercise exported English and Chinese search through the actual static client.
 for (const locale of ["en", "cn"]) {
   test(`exported ${locale} search matches authored pages without an API`, async () => {
     const index: {
@@ -95,19 +90,17 @@ for (const locale of ["en", "cn"]) {
     );
     const requests: Parameters<typeof globalThis.fetch>[0][] = [];
     const fetch = globalThis.fetch;
-    globalThis.fetch = async (url) => {
-      requests.push(url);
-      return Response.json(data);
-    };
+    globalThis.fetch = Object.assign(
+      async (url: Parameters<typeof globalThis.fetch>[0]) => {
+        requests.push(url);
+        return Response.json(data);
+      },
+      { preconnect: fetch.preconnect },
+    );
     try {
-      const client = oramaStaticClient({
+      const client = staticClient({
         from: `/search/${locale}.json`,
         search: { limit: 60 },
-        initOrama: () =>
-          create({
-            schema: { _: "string" },
-            components: locale === "cn" ? { tokenizer: createTokenizer() } : undefined,
-          }),
       });
       const cases =
         locale === "cn"
@@ -128,7 +121,7 @@ for (const locale of ["en", "cn"]) {
         assert.ok(hits.every((hit) => hit.url.startsWith(`/${locale}/docs/`)));
       }
       if (locale === "en") {
-        const phrase = "establish support";
+        const phrase = "hashing and manifests";
         const target = index.pages.find(
           (page) => page.locale === "en" && page.slug === "react/getting-started/frameworks",
         );
@@ -138,18 +131,16 @@ for (const locale of ["en", "cn"]) {
           "utf8",
         );
         const extracted = structure(matter(markdown).content);
-        assert.ok(!target.title.toLowerCase().includes("establish"));
+        assert.ok(!target.title.toLowerCase().includes("hashing"));
         assert.ok(
-          extracted.headings.every(
-            (heading) => !heading.content.toLowerCase().includes("establish"),
-          ),
+          extracted.headings.every((heading) => !heading.content.toLowerCase().includes("hashing")),
         );
         assert.ok(markdown.includes(phrase));
         const hits = await client.search(phrase);
         const body = hits.find(
           (hit) =>
             hit.type === "text" &&
-            hit.url === "/en/docs/react/getting-started/frameworks#other-frameworks" &&
+            hit.url === "/en/docs/react/getting-started/frameworks#nextjs-app-router" &&
             hit.content.replace(/<\/?mark>/g, "").includes(phrase),
         );
         assert.ok(

@@ -1,8 +1,7 @@
-// HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 // Modified: native Base UI focus/hover Trigger, Portal/Positioner/Popup/Arrow.
 import type { Meta } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Card, Tooltip } from "@lenso/ui";
+import { GlassButton, Card, Tooltip } from "@lenso/ui";
 import { overlayStyles as s } from "./overlay.stylex";
 import { OverlayIcon } from "./overlay.fixtures";
 import { position, positionControls, type OverlayPositionArgs } from "./overlay-position.fixtures";
@@ -21,7 +20,7 @@ function Template(props: Args) {
       <Tooltip.Root>
         <Tooltip.Trigger
           delay={0}
-          render={<Button isIconOnly aria-label="Information" variant="tertiary" />}
+          render={<GlassButton isIconOnly aria-label="Information" variant="default" />}
         >
           <OverlayIcon name="circle-info" />
         </Tooltip.Trigger>
@@ -69,12 +68,12 @@ function CardWithTooltipTemplate(props: Args) {
             delay={0}
             aria-label="Attach a file"
             render={
-              <Button
+              <GlassButton
                 isIconOnly
                 aria-label="Attach file"
                 xstyle={s.round}
                 size="lg"
-                variant="secondary"
+                variant="default"
               />
             }
           >

@@ -1,14 +1,24 @@
 # Rendered review
 
-Serve the actual built application when delivery or production styling is part
-of the change. Capture candidate and reference with matching viewport, theme,
+For daily visual review in this repository, use `bun run dev:docs` and keep its
+hot-reloading server running. Use a production artifact when acceptance depends
+on production behavior, following the repository's `CONTRIBUTING.md`.
+Record whether each check used dev or production.
+Capture candidate and reference with matching viewport, theme,
 direction and state. Wait for fonts and overlays to settle; use reduced motion
 or disabled screenshot animations for stable geometry.
 
-Compare frame and pane boundaries first, then information density, type and
+Confirm the primary task is visible and usable. Compare frame and pane boundaries,
+then information density, type and
 spacing, then surfaces/icons/focus treatment. Record discrepancies with their
 location and cause. Fix the shared rule when several pages show the same error.
 Avoid a pixel-diff claim when the reference, fonts or content do not match.
+
+For alignment changes, measure the relevant text starts, icon bounds, baselines
+or shared tracks. For spacing changes, identify the parent that owns each gap.
+Check longer labels and larger text before accepting a compact arrangement.
+Use `docs/design/apple-guidance.md` in the Lenso UI checkout to distinguish a
+platform recommendation from a Lenso-specific value or a verified browser state.
 
 For each affected page, review:
 

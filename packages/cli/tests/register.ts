@@ -1,21 +1,14 @@
-import { registerHooks } from "node:module";
+import { plugin } from "bun";
 
-// Isolated clones may not have root workspace installs. Redirect only the shared parser's test import.
-registerHooks({
-  resolve(specifier, context, nextResolve) {
-    if (
-      specifier.endsWith("/tooling/lenso-contracts/index.ts") &&
-      process.env["LENSO_TEST_CONTRACT_CORE"]
-    )
-      return nextResolve(
-        new URL(`file://${process.env["LENSO_TEST_CONTRACT_CORE"]}`).href,
-        context,
-      );
-    if (specifier === "@babel/parser")
-      return nextResolve(
-        new URL("../node_modules/@babel/parser/lib/index.js", import.meta.url).href,
-        context,
-      );
-    return nextResolve(specifier, context);
+plugin({
+  name: "lenso-test-inputs",
+  setup(build) {
+    build.onResolve(
+      { filter: /(?:^@lenso\/ui-devtools\/contract$|^\.\/contract\/index\.ts$)/ },
+      () => {
+        if (process.env["LENSO_TEST_CONTRACT_CORE"])
+          return { path: process.env["LENSO_TEST_CONTRACT_CORE"] };
+      },
+    );
   },
 });

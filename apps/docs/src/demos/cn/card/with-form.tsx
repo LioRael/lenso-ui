@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Button, Card, Form, Input, Label, Link, TextField } from "@lenso/ui";
 import type { FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";

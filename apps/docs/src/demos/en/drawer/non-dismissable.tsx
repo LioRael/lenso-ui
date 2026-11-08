@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 drawer-non-dismissable (Apache-2.0).
 import { Button, Drawer } from "@lenso/ui";
 
 export function NonDismissable() {
@@ -12,7 +11,7 @@ export function NonDismissable() {
           if (details.reason === "outside-press" || details.reason === "swipe") details.cancel();
         }}
       >
-        <Drawer.Trigger render={<Button variant="secondary" />}>Important Action</Drawer.Trigger>
+        <Drawer.Trigger render={<Button />}>Important Action</Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Backdrop />
           <Drawer.Viewport>
@@ -28,7 +27,7 @@ export function NonDismissable() {
                   </p>
                 </Drawer.Body>
                 <Drawer.Footer>
-                  <Drawer.Close render={<Button variant="secondary" />}>Cancel</Drawer.Close>
+                  <Drawer.Close render={<Button variant="bordered" />}>Cancel</Drawer.Close>
                   <Drawer.Close render={<Button />}>Confirm</Drawer.Close>
                 </Drawer.Footer>
               </Drawer.Content>

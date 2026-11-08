@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 modal-controlled (Apache-2.0).
 // The second controller uses a reducer instead of the React Aria overlay-state hook.
 import { CircleCheck } from "@gravity-ui/icons";
 import { useReducer, useState } from "react";
@@ -9,24 +8,35 @@ import { Button, Modal } from "@lenso/ui";
 const styles = stylex.create({
   column: { display: "flex", maxWidth: 448, flexDirection: "column", gap: 32 },
   section: { display: "flex", flexDirection: "column", gap: 12 },
-  heading: { fontSize: 18, fontWeight: 600, color: "var(--foreground)" },
-  caption: { fontSize: 14, lineHeight: 1.625, textWrap: "pretty", color: "var(--muted)" },
+  heading: { fontSize: 18, fontWeight: 600, color: "var(--lenso-label-primary)" },
+  caption: {
+    fontSize: 14,
+    lineHeight: 1.625,
+    textWrap: "pretty",
+    color: "var(--lenso-label-secondary)",
+  },
   panel: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 12,
     borderRadius: 16,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
-    boxShadow: "var(--shadow-sm)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
-  status: { fontSize: 12, color: "var(--muted)" },
-  value: { fontFamily: "monospace", fontWeight: 500, color: "var(--foreground)" },
+  status: { fontSize: 12, color: "var(--lenso-label-secondary)" },
+  value: { fontFamily: "monospace", fontWeight: 500, color: "var(--lenso-label-primary)" },
   actions: { display: "flex", gap: 8 },
   popup: { maxWidth: 360 },
-  accent: { backgroundColor: "var(--accent-soft)", color: "var(--accent-soft-foreground)" },
-  success: { backgroundColor: "var(--success-soft)", color: "var(--success-soft-foreground)" },
+  accent: {
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
+  },
+  success: {
+    backgroundColor: "var(--lenso-control-status-success-soft-fill)",
+    color: "var(--lenso-status-success-text)",
+  },
   circle: { width: 20, height: 20 },
 });
 
@@ -63,12 +73,11 @@ export function Controlled() {
                 Status: <span {...stylex.props(styles.value)}>{open ? "open" : "closed"}</span>
               </p>
               <div {...stylex.props(styles.actions)}>
-                <Button size="sm" variant="secondary" onClick={() => setOpen(true)}>
+                <Button size="sm" onClick={() => setOpen(true)}>
                   Open Modal
                 </Button>
                 <Button
                   size="sm"
-                  variant="tertiary"
                   onClick={() => (reducer ? dispatch("toggle") : setIsOpen((value) => !value))}
                 >
                   Toggle
@@ -103,7 +112,7 @@ export function Controlled() {
                       </Modal.Description>
                     </Modal.Body>
                     <Modal.Footer>
-                      <Modal.Close render={<Button variant="secondary" />}>Cancel</Modal.Close>
+                      <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
                       <Modal.Close render={<Button />}>Confirm</Modal.Close>
                     </Modal.Footer>
                   </Modal.Popup>

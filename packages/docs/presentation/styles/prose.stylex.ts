@@ -1,7 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 
-// Fumadocs 16.9.0 / @fumadocs/tailwind 0.0.5 (MIT), resolved with HeroUI
-// e385ac2 global.css (Apache-2.0). Adapted to shared native HTML/StyleX rules.
+// Adapted prose styles use native HTML and StyleX; see THIRD_PARTY_NOTICES.md.
 // Original MIT notice: ../../LICENSE.FUMADOCS.
 export const prose = stylex.create({
   scroll: {
@@ -9,7 +8,7 @@ export const prose = stylex.create({
     maxWidth: "100%",
     overflow: "auto",
     marginBlock: 24,
-    ":focus-visible": { outline: "2px solid var(--focus)", outlineOffset: 3 },
+    ":focus-visible": { outline: "2px solid var(--lenso-focus-ring)", outlineOffset: 3 },
   },
   table: {
     width: "100%",
@@ -32,10 +31,10 @@ export const prose = stylex.create({
   },
   header: {
     fontWeight: 600,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
     backgroundColor: {
-      default: "var(--default)",
-      ":is(.dark *)": "color-mix(in oklab, var(--default) 50%, transparent)",
+      default: "var(--lenso-control-fill)",
+      ":is(.dark *)": "color-mix(in oklab, var(--lenso-control-fill) 50%, transparent)",
     },
     ":first-child": { borderStartStartRadius: 12, borderEndStartRadius: 12 },
     ":last-child": { borderStartEndRadius: 12, borderEndEndRadius: 12 },
@@ -48,13 +47,13 @@ export const prose = stylex.create({
     color: "inherit",
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "var(--separator)",
+    borderColor: "var(--lenso-separator)",
     borderRadius: 5,
     backgroundColor: "transparent",
     padding: 3,
   },
   link: {
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
     fontWeight: 500,
     textDecoration: "underline",
     textUnderlineOffset: 3.5,
@@ -63,7 +62,7 @@ export const prose = stylex.create({
     transitionProperty: "opacity",
     transitionDuration: "200ms",
     ":hover": { opacity: 0.8 },
-    ":focus-visible": { outline: "2px solid var(--focus)", outlineOffset: 3 },
+    ":focus-visible": { outline: "2px solid var(--lenso-focus-ring)", outlineOffset: 3 },
     "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0ms" },
   },
 });

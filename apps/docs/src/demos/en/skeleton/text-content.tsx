@@ -1,10 +1,9 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
 import { Skeleton } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   text: { width: "100%", maxWidth: 448, display: "flex", flexDirection: "column", gap: 12 },
-  line: { height: 16, borderRadius: "var(--radius)" },
+  line: { height: 16, borderRadius: "var(--lenso-shape-content)" },
   full: { width: "100%" },
   five: { width: "83.333333%" },
   four: { width: "66.666667%" },

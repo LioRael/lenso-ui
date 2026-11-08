@@ -1,5 +1,5 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0. Local state actions render native buttons; navigation examples retain anchors.
+// Local state actions render native buttons; navigation examples retain anchors.
 import { Pagination } from "@lenso/ui";
 import { Icon } from "@iconify/react";
 import { useState } from "react";

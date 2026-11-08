@@ -7,18 +7,25 @@ navigationOrder: 1
 
 ## Requirements
 
-Use React and React DOM versions that satisfy `@lenso/ui`'s published peer ranges, and a bundler supported by `@lenso/stylex-build`. Lenso does not require Tailwind.
+Use React and React DOM versions that satisfy `@lenso/ui`'s published peer ranges, and the official StyleX integration for your framework. Lenso does not require Tailwind.
+
+Choose the build integration for [Vite or Rolldown](./frameworks#vite-and-rolldown), or [Next.js App Router](./frameworks#nextjs-app-router). The steps below show the shared setup and a Vite configuration.
 
 ## Packages
 
 The React package is `@lenso/ui`; its theme and component style maps come from `@lenso/tokens`. Use a matching Lenso UI/tokens release. React and React DOM must satisfy the React package's published peer ranges.
 
 ```sh
-pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex
-pnpm add -D @lenso/stylex-build
+bun add @lenso/ui @lenso/tokens @stylexjs/stylex
+bun add -d @stylexjs/unplugin
 ```
 
-These are consumer instructions, not evidence that a candidate has been published. For an unpublished candidate, use the repository workspace or the candidate's packed artifacts instead of expecting the registry command to resolve it. Check the build package's supported compiler and bundler versions before installing.
+<details>
+<DisclosureSummary>Using an unpublished candidate</DisclosureSummary>
+
+Use the repository workspace or packed artifacts for an unpublished candidate. Check the contract's StyleX and framework versions before installing; these instructions do not establish publication.
+
+</details>
 
 ## Theme stylesheet
 
@@ -30,15 +37,30 @@ import "@lenso/tokens/styles.css";
 
 Use the theme's `light` or `dark` scope on the document or containing surface. Portalled components need the same theme scope; Lenso's native portal wrappers preserve it unless you provide your own container. A stylesheet loaded only by a sibling layout does not style this document.
 
+The first screen can be a single native action:
+
+```tsx
+import { Button } from "@lenso/ui";
+
+export function App() {
+  return <Button onClick={() => console.log("Saved")}>Save changes</Button>;
+}
+```
+
+Complete the build integration below before relying on the component's production styling.
+
 ## Application StyleX
 
-The build adapter combines Lenso's precompiled metadata with your application declarations. Do not configure another independent StyleX compiler alongside it.
+Compile Lenso's shipped declarations and your application styles together with the official StyleX plugin:
 
 ```ts
-import stylex from "@lenso/stylex-build";
+import stylex from "@stylexjs/unplugin";
 
 const options = {
-  metadata: [import.meta.resolve("@lenso/tokens/stylex-rules.json")],
+  dev: false,
+  runtimeInjection: false,
+  useCSSLayers: false,
+  lightningcssOptions: { exclude: 4 },
   unstable_moduleResolution: {
     type: "commonJS" as const,
     rootDir: import.meta.dirname,
@@ -49,17 +71,7 @@ const options = {
 const plugins = [stylex.vite(options)];
 ```
 
-The build tool also provides `rolldown` and `webpack` adapters. Next.js support is specifically the guarded App Router Webpack integration, not a general Turbopack or Pages Router integration. Follow the build package's version limits and stylesheet-delivery requirements; an emitted CSS asset alone is not proof that the document loads it.
-
-## Use components
-
-```tsx
-import { Button } from "@lenso/ui";
-
-export function App() {
-  return <Button>My button</Button>;
-}
-```
+Use the official Rolldown integration or Next Babel/PostCSS configuration for those frameworks. See [Frameworks](/docs/react/getting-started/frameworks) for source scanning, SSR and stylesheet ownership.
 
 ## Verify a consumer
 

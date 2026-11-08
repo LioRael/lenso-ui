@@ -1,11 +1,10 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** Adapted from the pinned HeroUI v3.2.6 date-picker examples. Copyright NextUI Inc. Apache-2.0. */
-import { Button, DatePicker, Form } from "@lenso/ui";
+// Copyright NextUI Inc. Apache-2.0.
+import { GlassButton, Button, DatePicker, Form } from "@lenso/ui";
 import { Icon } from "@iconify/react";
 import { getLocalTimeZone, today, type DateValue } from "@internationalized/date";
-import { I18nProvider } from "react-aria-components/I18nProvider";
+import { I18nProvider } from "@lenso/ui";
 import { useState, type FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { PickerCalendar, PickerInput, styles } from "./form-example--parts";
@@ -80,12 +79,12 @@ export function Controlled() {
         Current value: {value ? value.toString() : "(empty)"}
       </p>
       <div {...stylex.props(styles.actions)}>
-        <Button variant="tertiary" onClick={() => setValue(today(getLocalTimeZone()))}>
+        <GlassButton variant="default" onClick={() => setValue(today(getLocalTimeZone()))}>
           Set today
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue(null)}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue(null)}>
           Clear
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

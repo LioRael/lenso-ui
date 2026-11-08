@@ -13,14 +13,14 @@ navigationOrder: 22
 {
   "mcpServers": {
     "lenso-ui": {
-      "command": "npx",
-      "args": ["--yes", "--package=@lenso/ui-mcp@<matching-version>", "lenso-ui-mcp"],
+      "command": "bunx",
+      "args": ["--bun", "--package=@lenso/ui-mcp@<matching-version>", "lenso-ui-mcp"],
     },
   },
 }
 ```
 
-Node 应满足匹配契约报告的范围；当前工具链要求 Node 26.10.0 或更新的 Node 26 版本。此配置启动 stdio 服务，而非交互提示。Stdout 传输 JSON-RPC，诊断使用 stderr。已安装服务不需要仓库检出、React、Next 或 TypeScript/StyleX 编译器。官方 MCP TypeScript SDK 仍是运行时依赖。源码生成和构建仅供维护者使用，参见软件包维护者指南。
+使用 Bun 1.4.4 或更高版本，具体范围以匹配契约为准。此配置启动 stdio 服务，而非交互提示。Stdout 传输 JSON-RPC，诊断使用 stderr。已安装服务不需要仓库检出、React、Next 或 TypeScript/StyleX 编译器。官方 MCP TypeScript SDK 仍是运行时依赖。源码生成和构建仅供维护者使用，参见软件包维护者指南。
 
 ## 发现八个工具
 

@@ -1,5 +1,4 @@
 /**
- * Data from HeroUI v3.2.6, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
  */
 export interface SelectionItem {
@@ -105,37 +104,37 @@ export const users: SelectionItem[] = [
   {
     id: "1",
     name: "Bob",
-    email: "bob@heroui.com",
+    email: "bob@example.com",
     fallback: "B",
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg",
+    avatarUrl: "/assets/demo/avatars/blue.svg",
   },
   {
     id: "2",
     name: "Fred",
-    email: "fred@heroui.com",
+    email: "fred@example.com",
     fallback: "F",
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg",
+    avatarUrl: "/assets/demo/avatars/green.svg",
   },
   {
     id: "3",
     name: "Martha",
-    email: "martha@heroui.com",
+    email: "martha@example.com",
     fallback: "M",
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg",
+    avatarUrl: "/assets/demo/avatars/purple.svg",
   },
   {
     id: "4",
     name: "John",
-    email: "john@heroui.com",
+    email: "john@example.com",
     fallback: "J",
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg",
+    avatarUrl: "/assets/demo/avatars/red.svg",
   },
   {
     id: "5",
     name: "Jane",
-    email: "jane@heroui.com",
+    email: "jane@example.com",
     fallback: "J",
-    avatarUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg",
+    avatarUrl: "/assets/demo/avatars/orange.svg",
   },
 ];
 export const cities: SelectionItem[] = [

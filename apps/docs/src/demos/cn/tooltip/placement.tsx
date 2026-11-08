@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 tooltip-placement (Apache-2.0).
 import { Button, Tooltip } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";
@@ -19,7 +17,7 @@ const styles = stylex.create({
   },
   caption: {
     fontSize: 14,
-    color: tokens.muted,
+    color: tokens.labelSecondary,
   },
   button: {
     width: "100%",
@@ -29,11 +27,7 @@ function Placement({ side, label }: { side: "top" | "left" | "right" | "bottom";
   const id = useId();
   return (
     <Tooltip>
-      <Tooltip.Trigger
-        delay={0}
-        aria-describedby={id}
-        render={<Button variant="tertiary" xstyle={styles.button} />}
-      >
+      <Tooltip.Trigger delay={0} aria-describedby={id} render={<Button xstyle={styles.button} />}>
         {label}
       </Tooltip.Trigger>
       <Tooltip.Portal>

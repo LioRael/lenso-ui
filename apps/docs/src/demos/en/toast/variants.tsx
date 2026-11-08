@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 variants, Apache-2.0.
 import { HardDrive, Persons } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
@@ -14,11 +13,20 @@ function Messages() {
         <div {...stylex.props(styles.buttons)}>
           <Button
             size="sm"
-            variant="tertiary"
+
+            onClick={() =>
+              manager.add({ title: "Solid notification", data: { variant: "default" } })
+            }
+          >
+            Solid toast
+          </Button>
+          <Button
+            size="sm"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have been invited to join a team",
-                description: "Bob sent you an invitation to join HeroUI team",
+                description: "Bob sent you an invitation to join the team",
                 type: "default",
                 data: { indicator: <Persons />, actionStyle: "tertiary" },
                 actionProps: { children: "Dismiss", onClick: () => manager.close(id) },
@@ -29,7 +37,7 @@ function Messages() {
           </Button>
           <Button
             size="sm"
-            variant="secondary"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have 2 credits left",
@@ -44,11 +52,11 @@ function Messages() {
           <Button
             xstyle={styles.successText}
             size="sm"
-            variant="tertiary"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have upgraded your plan",
-                description: "You can continue using HeroUI Chat",
+                description: "You can continue using the chat",
                 type: "success",
                 data: { actionStyle: "success" },
                 actionProps: { children: "Billing", onClick: () => manager.close(id) },
@@ -60,7 +68,7 @@ function Messages() {
           <Button
             xstyle={styles.warningText}
             size="sm"
-            variant="tertiary"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "You have no credits left",
@@ -74,8 +82,9 @@ function Messages() {
             Warning toast
           </Button>
           <Button
+            destructive
             size="sm"
-            variant="danger-soft"
+            variant="bordered"
             onClick={() => {
               const id = manager.add({
                 title: "Storage is full",

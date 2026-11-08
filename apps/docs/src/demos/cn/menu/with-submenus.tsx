@@ -1,14 +1,12 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-submenus, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu, IconChevronRight, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu, IconChevronRight } from "@lenso/ui";
 import { ActionItem, Popup, styles } from "../../en/menu/_shared";
 export function WithSubmenus() {
   return (
     <Menu>
-      <Menu.Trigger render={<Button aria-label="菜单" variant="secondary" />}>分享</Menu.Trigger>
+      <Menu.Trigger render={<GlassButton aria-label="菜单" variant="default" />}>分享</Menu.Trigger>
       <Popup>
         <ActionItem label="复制链接" onClick={() => console.log("Selected: copy-link")} />
         <ActionItem label="Facebook" onClick={() => console.log("Selected: facebook")} />
@@ -19,10 +17,10 @@ export function WithSubmenus() {
         />
         <Menu.SubmenuRoot>
           <Menu.SubmenuTrigger label="分享">
-            <MenuItem.Label>其他</MenuItem.Label>
-            <MenuItem.SubmenuIndicator>
+            <Menu.Item.Label>其他</Menu.Item.Label>
+            <Menu.Item.SubmenuIndicator>
               <IconChevronRight {...stylex.props(styles.smallIcon)} />
-            </MenuItem.SubmenuIndicator>
+            </Menu.Item.SubmenuIndicator>
           </Menu.SubmenuTrigger>
           <Popup>
             <ActionItem label="WhatsApp" />
@@ -30,10 +28,10 @@ export function WithSubmenus() {
             <ActionItem label="Discord" />
             <Menu.SubmenuRoot>
               <Menu.SubmenuTrigger>
-                <MenuItem.Label>邮件</MenuItem.Label>
-                <MenuItem.SubmenuIndicator>
+                <Menu.Item.Label>邮件</Menu.Item.Label>
+                <Menu.Item.SubmenuIndicator>
                   <IconChevronRight {...stylex.props(styles.smallIcon)} />
-                </MenuItem.SubmenuIndicator>
+                </Menu.Item.SubmenuIndicator>
               </Menu.SubmenuTrigger>
               <Popup>
                 <ActionItem label="工作邮箱" />

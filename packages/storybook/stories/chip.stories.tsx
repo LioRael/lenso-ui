@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 chip.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Fragment } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -10,12 +9,17 @@ const styles = stylex.create({
   samples: { display: "flex", flexDirection: "column", gap: 16 },
   sections: { display: "flex", flexDirection: "column", gap: 32 },
   rows: { display: "flex", flexDirection: "column", gap: 12 },
-  heading: { fontSize: 14, fontWeight: 600, color: "var(--muted)", textTransform: "capitalize" },
+  heading: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: "var(--lenso-label-secondary)",
+    textTransform: "capitalize",
+  },
   label: {
     width: 96,
     flexShrink: 0,
     fontSize: 14,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
     textTransform: "capitalize",
   },
   spacer: { width: 96, flexShrink: 0 },
@@ -26,7 +30,7 @@ const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  color: { fontSize: 12, color: "var(--muted)", textTransform: "capitalize" },
+  color: { fontSize: 12, color: "var(--lenso-label-secondary)", textTransform: "capitalize" },
 });
 const meta = {
   title: "Components/Data Display/Chip",

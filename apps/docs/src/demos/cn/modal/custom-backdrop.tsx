@@ -1,18 +1,12 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 modal-custom-backdrop (Apache-2.0).
 import { Sparkles } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
 const styles = stylex.create({
   backdrop: {
     backgroundColor: "transparent",
-    backgroundImage: {
-      default: "linear-gradient(to top, rgb(0 0 0 / 80%), rgb(0 0 0 / 40%), transparent)",
-      ':where([data-theme="dark"]) &':
-        "linear-gradient(to top, rgb(39 39 42 / 80%), rgb(39 39 42 / 40%), transparent)",
-    },
+    backgroundImage: "linear-gradient(to top, var(--lenso-scrim), var(--lenso-scrim), transparent)",
   },
   popup: {
     maxWidth: 360,
@@ -22,8 +16,8 @@ const styles = stylex.create({
     textAlign: "center",
   },
   icon: {
-    backgroundColor: "var(--accent-soft)",
-    color: "var(--accent-soft-foreground)",
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
   },
   sparkles: {
     width: 20,
@@ -39,7 +33,7 @@ const styles = stylex.create({
 export function CustomBackdrop() {
   return (
     <Modal>
-      <Modal.Trigger render={<Button variant="secondary" />}>自定义背景</Modal.Trigger>
+      <Modal.Trigger render={<Button />}>自定义背景</Modal.Trigger>
       <Modal.Portal>
         <Modal.Backdrop variant="blur" xstyle={styles.backdrop} />
         <Modal.Viewport>
@@ -57,7 +51,7 @@ export function CustomBackdrop() {
             </Modal.Body>
             <Modal.Footer xstyle={styles.footer}>
               <Modal.Close render={<Button xstyle={styles.action} />}>Amazing!</Modal.Close>
-              <Modal.Close render={<Button variant="secondary" xstyle={styles.action} />}>
+              <Modal.Close render={<Button variant="bordered" xstyle={styles.action} />}>
                 关闭
               </Modal.Close>
             </Modal.Footer>

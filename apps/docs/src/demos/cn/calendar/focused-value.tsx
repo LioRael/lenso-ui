@@ -1,8 +1,7 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button. */
-import { Button, Calendar } from "@lenso/ui";
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button.
+import { GlassButton, Calendar } from "@lenso/ui";
 import { parseDate, type DateValue } from "@internationalized/date";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -17,27 +16,27 @@ export function FocusedValue() {
       </Calendar>
       <CalendarNote>聚焦：{focusedDate.toString()}</CalendarNote>
       <div {...stylex.props(layout.controls)}>
-        <Button
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() => setFocusedDate(parseDate("2025-01-01"))}
         >
           跳转到一月
-        </Button>
-        <Button
+        </GlassButton>
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() => setFocusedDate(parseDate("2025-06-15"))}
         >
           跳转到六月
-        </Button>
-        <Button
+        </GlassButton>
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() => setFocusedDate(parseDate("2025-12-25"))}
         >
           跳转到圣诞节
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

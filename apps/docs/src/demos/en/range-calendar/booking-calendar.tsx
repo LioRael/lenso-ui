@@ -1,9 +1,9 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button. */
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button.
 import { Button, RangeCalendar } from "@lenso/ui";
 import { getLocalTimeZone, isWeekend, today, type DateValue } from "@internationalized/date";
 import { useState } from "react";
-import { useLocale } from "react-aria-components/I18nProvider";
+import { useLocale } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { layout } from "../calendar/demo-parts";
 import { RangeHeader, RangeGrid } from "./demo-parts";
@@ -48,7 +48,7 @@ export function BookingCalendar() {
           </span>
         </div>
         {selectedRange ? (
-          <Button size="sm" variant="primary">
+          <Button size="sm" variant="prominent">
             Book {selectedRange.start.toString()} {"->"} {selectedRange.end.toString()}
           </Button>
         ) : null}

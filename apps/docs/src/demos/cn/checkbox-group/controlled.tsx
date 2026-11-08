@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Checkbox, CheckboxGroup, TextField } from "@lenso/ui";
 import { labelStyles } from "@lenso/tokens/label";
 import { useId, useState } from "react";
@@ -13,7 +11,7 @@ const styles = stylex.create({
   summary: {
     marginBlock: "1rem",
     fontSize: ".875rem",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
 });
 export function Controlled() {

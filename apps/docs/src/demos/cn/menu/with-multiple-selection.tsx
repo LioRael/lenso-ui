@@ -1,9 +1,7 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-multiple-selection, Apache-2.0.
 import { useState } from "react";
-import { Button, Menu, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { Checkmark, Popup, styles } from "../../en/menu/_shared";
 export function WithMultipleSelection() {
   const [selected, setSelected] = useState(new Set(["apple"]));
@@ -28,21 +26,21 @@ export function WithMultipleSelection() {
       <Menu.CheckboxItemIndicator keepMounted xstyle={styles.selectionIndicator}>
         <Checkmark />
       </Menu.CheckboxItemIndicator>
-      <MenuItem.Label>{label}</MenuItem.Label>
+      <Menu.Item.Label>{label}</Menu.Item.Label>
     </Menu.CheckboxItem>
   );
   return (
     <Menu open={open} onOpenChange={setOpen}>
-      <Menu.Trigger render={<Button aria-label="菜单" variant="secondary" />}>
+      <Menu.Trigger render={<GlassButton aria-label="菜单" variant="default" />}>
         喜爱的水果
       </Menu.Trigger>
       <Popup xstyle={styles.wide}>
-        <Menu.Section>
-          <Menu.Section.Label>选择水果</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>选择水果</Menu.Group.Label>
           {fruit("apple", "Apple")}
           {fruit("banana", "Banana")}
           {fruit("cherry", "Cherry")}
-        </Menu.Section>
+        </Menu.Group>
         {fruit("orange", "Orange")}
         {fruit("pear", "Pear")}
       </Popup>

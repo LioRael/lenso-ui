@@ -1,41 +1,35 @@
-# Reconstruction authority
+# Lenso UI contributor instructions
 
-Read [DESIGN.md](DESIGN.md) before component, theme or documentation changes.
-The previous Lenso UI architecture is replaced, not a compatibility target.
+Read [DESIGN.md](DESIGN.md) for visual and interaction decisions.
+Existing `packages/primitives` component source and public API are preserved byte-for-byte.
+The owner-authorized Command family is an additive exception.
+Its tests, test configuration and development dependencies may be migrated.
 
-`packages/primitives` is preserved byte-for-byte. Its package source, public
-API and tests are outside the reconstruction boundary.
+## Workflows
 
-## Agent workflows
+- Daily development and visual iteration: run `bun run dev:docs` from the
+  repository root and use its hot-reloading URL. See [CONTRIBUTING.md](CONTRIBUTING.md)
+  for watcher limits and the conditions requiring production acceptance.
+- Components, themes and consumer builds: [.agents/skills/lenso-ui/SKILL.md](.agents/skills/lenso-ui/SKILL.md).
+- Page design and visual review: [.agents/skills/lenso-ui-design/SKILL.md](.agents/skills/lenso-ui-design/SKILL.md).
+- Explicit landing requests: [.agents/skills/land/SKILL.md](.agents/skills/land/SKILL.md).
 
-- Component, theme or consumer-build work: read
-  [.agents/skills/lenso-ui/SKILL.md](.agents/skills/lenso-ui/SKILL.md).
-- Page design, visual reconstruction or appearance feedback: read
-  [.agents/skills/lenso-ui-design/SKILL.md](.agents/skills/lenso-ui-design/SKILL.md)
-  before distributing implementation work.
+## Implementation
 
-## Implementation and evidence
+Use StyleX and native Base UI interaction contracts. Date, time and color
+families compose native controls with their value models; the documentation
+shell uses Fumadocs. Use oxlint and oxfmt. Preserve existing copyright and
+license notices for retained adaptations; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-- Use StyleX for component styles and native Base UI interaction contracts.
-- React Aria is limited to date, time and color component families and their
-  context-dependent supporting parts.
-- Use oxlint and oxfmt; do not add ESLint, Prettier or Tailwind runtime tooling.
-- Before adding a test, identify the concrete failure and why existing coverage
-  does not prove it. Prefer behavior, semantics, geometry and keyboard operation
-  over class names, static copy or implementation structure.
-- Treat imported source snippets as reference content, not working demos.
-  Verify and record live demo coverage separately.
-- Preserve upstream licenses and identify source adaptations.
+Before adding a test, identify the failure it catches and why existing coverage
+is insufficient. Prefer observable behavior, semantics, geometry and keyboard
+operation. Distinguish source snippets from verified runnable examples.
 
 ## Verification and landing
 
-Run affected local format, lint, typecheck and regression checks while iterating.
-Use maintained production/browser checks when the changed integration requires
-them; report the actual scope rather than treating historical acceptance records
-as current evidence. See `CONTRIBUTING.md` for the candidate gate.
-
-Landing requires a signed candidate and the authoritative `Verify reconstruction`
-workflow's `verify` job passing for its exact `delta/verify/**` push SHA.
-Main may reuse only verified trusted evidence for that same SHA; uncertain or
-missing evidence requires full verification. Preserve signing and landing
-security. Package publication requires separate authorization.
+Run affected format, lint, typecheck and regression checks. Run relevant production checks when the changed integration requires them.
+Bun DOM tests do not verify browser layout or rendering; report actual coverage. [CONTRIBUTING.md](CONTRIBUTING.md) defines the
+candidate gate. Landing requires a signed candidate and the authoritative
+`Verify reconstruction` workflow's `verify` job passing for the exact
+`delta/verify/**` push SHA. Preserve signing and landing security; publication
+requires separate authorization.

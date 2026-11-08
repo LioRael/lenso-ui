@@ -1,6 +1,6 @@
 # Authored documentation projection
 
-`docs-projection.mjs` owns public documentation placement. It combines handwritten
+`docs-projection.ts` owns public documentation placement. It combines handwritten
 `content/lenso/{en,cn}/react` guides, current public component exports, generated
 native TypeScript API and canonical local runnable modules.
 
@@ -22,16 +22,15 @@ and source capture are separate explicit operations.
 
 Rendering, root section navigation, page navigation, search, sitemap, copied
 Markdown and maintained example-proof planning consume that index. The active
-release comes from `packages/react/package.json`.
+release comes from `packages/ui/package.json`.
 
-The explicit source-family map collapses historical `dropdown` into public
-`menu`. `canonicalExampleName` also makes scenario IDs public `menu-*` names.
-Raw source references remain in the imported `content/source-index.json`;
-there is no runtime Dropdown alias.
-
-The preserved `content/docs`, `content/examples` and `source-index.json` retain
-import-time hashes as provenance, not normal-build gates. Their release and
-migration pages never enter the authored index.
+`content/example-catalog.json` is the maintained inventory of local example
+names, paths and component placements. The live registry, projection and browser
+proofs use this catalog. Historical page/example mirrors and their import index
+are retired; retained adaptation provenance is recorded in `THIRD_PARTY_NOTICES.md`.
+The source-family map
+keeps old names canonical where they are explicitly supplied; there is no runtime
+Dropdown alias.
 
 ## Generated output
 
@@ -41,7 +40,7 @@ generated component pages point at the authoritative projection module.
 
 `generate-lenso-contract.ts` supplies exact authored Markdown, the current API,
 actual demo entry bytes and ordered relative helpers, actual component style-map
-source, active package versions and the build package's `buildSupport`.
+source, active package versions and the workspace's installed upstream StyleX and framework versions.
 
 The typed shared contract core owns format 3's lossless Markdown-line and source-file
 pools, including actual library implementation graphs and theme CSS declarations.
@@ -57,20 +56,16 @@ including symlinks, fail rather than substitute archived snippets.
 
 ## Evidence boundaries
 
-The maintained full source inventory contains 682 references per locale.
-Canonical public placements retain all of them, including the Chip palette
+The catalog supplies canonical public placements, including the Chip palette
 formerly placed on an archived release page. Registration is not browser parity
 or accessibility certification.
 
-Current native extraction yields 84 families; 72 have dedicated source
-scenarios. Twelve supporting families have API documentation but no standalone
-scenario. Pages and coverage report that limitation explicitly.
+Some supporting families have API documentation but no standalone scenario.
+Pages and coverage report that limitation explicitly.
 
-`authored-docs.browser.mjs` proves core/tool guides, Menu, navigation, search,
-sitemap and exact copied Markdown in both locales, both themes and desktop/mobile
-viewports. `authored-geometry.browser.mjs` records real native-control geometry
-before and after the reviewed docs styles. Neither replaces the complete
-maintained example matrix.
+`test/browser/authored-docs.test.ts` checks core/tool guides, Menu, navigation,
+search, sitemap and exact copied Markdown in English desktop light and Chinese
+mobile dark. This does not replace the complete maintained example matrix.
 
 The former migration mirror validator and automatic Chinese-source projection
 are retired. Current sources and ordinary generation are the authority; browser

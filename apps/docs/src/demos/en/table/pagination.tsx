@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 pagination adaptation (Apache-2.0).
 import { useState } from "react";
 import { Table } from "@lenso/ui";
 import { Headers, Pages, Rows, styles, users } from "./data";

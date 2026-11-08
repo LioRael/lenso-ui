@@ -1,12 +1,12 @@
 // Production-consumer contract proof; deliberately not a source-story export.
 import { useRef, useState, type CSSProperties } from "react";
-import { Button, Disclosure, Link, Tabs } from "@lenso/ui";
+import { GlassButton, Button, Disclosure, Link, Tabs } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { navigation as s } from "./navigation.stylex";
 
 export function NavigationContractFixture() {
   const anchor = useRef<HTMLAnchorElement>(null);
-  const trigger = useRef<HTMLElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
   const renderedButton = useRef<HTMLElement>(null);
   const tab = useRef<HTMLElement>(null);
   const [proof, setProof] = useState("Not checked");
@@ -24,7 +24,7 @@ export function NavigationContractFixture() {
       <Disclosure>
         <Disclosure.Trigger
           ref={trigger}
-          render={<Button ref={renderedButton} variant="secondary" />}
+          render={<GlassButton ref={renderedButton} variant="default" />}
           xstyle={[s.trigger, s.contractWidth(280)]}
           style={(state: { open: boolean }): CSSProperties => ({
             borderTopWidth: state.open ? 3 : 1,

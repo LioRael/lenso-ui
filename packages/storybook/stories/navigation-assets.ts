@@ -1,4 +1,4 @@
-// HeroUI e385ac2 source fixtures, Apache-2.0. Remote Apple assets remain Apple's.
+// Remote Apple assets remain Apple's.
 const product = "https://www.apple.com/v/iphone-17-pro/a/images/overview/product-viewer/";
 export const productItems = [
   {

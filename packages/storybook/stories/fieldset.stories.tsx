@@ -1,7 +1,7 @@
-// Adapted from HeroUI v3.2.6 fieldset.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import {
+  GlassButton,
   Fieldset,
   Form,
   TextField,
@@ -70,9 +70,9 @@ export const Default: Story = {
             <SourceIcon name="floppy-disk" />
             Save changes
           </Button>
-          <Button type="reset" variant="tertiary">
+          <GlassButton type="reset" variant="default">
             Cancel
-          </Button>
+          </GlassButton>
         </Fieldset.Actions>
       </Fieldset>
     </Form>

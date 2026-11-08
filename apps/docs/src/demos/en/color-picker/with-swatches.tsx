@@ -1,5 +1,4 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. Apache-2.0. */
 import { ColorArea, ColorPicker, ColorSlider, ColorSwatch, ColorSwatchPicker } from "@lenso/ui";
 import { styles } from "./source.stylex";
 const presets = [

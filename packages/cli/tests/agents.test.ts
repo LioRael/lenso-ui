@@ -1,26 +1,32 @@
 import assert from "node:assert/strict";
-import { mkdir, mkdtemp, readFile, readdir, rm, writeFile, symlink } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, writeFile, symlink } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-import test, { type TestContext } from "node:test";
+import { tmpdir } from "node:os";
+import { afterEach, test } from "bun:test";
 import { planAgentDocs, planSkills } from "../src/agents.ts";
 import { applyPlan } from "../src/project.ts";
-import { fixture, authoredMarkdown } from "./fixture.ts";
+import { fixture, authoredMarkdown } from "@lenso/ui-devtools/testing";
 
-const repository = fileURLToPath(new URL("../../../", import.meta.url));
-async function consumer(t: TestContext) {
-  const directory = path.join(repository, "test-results/cli-agents");
-  await mkdir(directory, { recursive: true });
-  const cwd = await mkdtemp(path.join(directory, "consumer-"));
-  t.after(() => rm(cwd, { recursive: true, force: true }));
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
+});
+
+async function consumer() {
+  const cwd = await mkdtemp(path.join(tmpdir(), "lenso-cli-consumer-"));
+  temporaryDirectories.push(cwd);
   await writeFile(path.join(cwd, "package.json"), '{"name":"consumer","private":true}\n');
   return cwd;
 }
 
 // The previous repo-local skills were not delivered by the installed CLI.
 // Prove its plans preserve authored files and materialize exact portable data.
-test("agent docs are dry-run, preserve authored text and materialize exact contract Markdown", async (t) => {
-  const cwd = await consumer(t);
+test("agent docs are dry-run, preserve authored text and materialize exact contract Markdown", async () => {
+  const cwd = await consumer();
   const contract = await fixture();
   const authored = "# Project instructions\n\nKeep my conventions.\n";
   await writeFile(path.join(cwd, "AGENTS.md"), authored);
@@ -43,8 +49,8 @@ test("agent docs are dry-run, preserve authored text and materialize exact contr
   assert.deepEqual((await planAgentDocs(cwd, contract)).changes, []);
 });
 
-test("agent reference ownership permits outside edits but refuses changed blocks and documents", async (t) => {
-  const cwd = await consumer(t);
+test("agent reference ownership permits outside edits but refuses changed blocks and documents", async () => {
+  const cwd = await consumer();
   const contract = await fixture();
   await applyPlan(await planAgentDocs(cwd, contract));
   const document = contract.docs.find((entry) => entry.locale === "en");
@@ -68,8 +74,8 @@ test("agent reference ownership permits outside edits but refuses changed blocks
   );
 });
 
-test("malformed agent blocks, stale plans and linked inputs refuse writes", async (t) => {
-  const cwd = await consumer(t);
+test("malformed agent blocks, stale plans and linked inputs refuse writes", async () => {
+  const cwd = await consumer();
   const contract = await fixture();
   await writeFile(path.join(cwd, "AGENTS.md"), "<!-- lenso-ui:begin -->\nMissing end");
   await assert.rejects(planAgentDocs(cwd, contract), /Malformed/);
@@ -82,8 +88,8 @@ test("malformed agent blocks, stale plans and linked inputs refuse writes", asyn
   await assert.rejects(planAgentDocs(cwd, contract), /linked/);
 });
 
-test("skill planning includes both sibling workflows and licenses and never overwrites authored skills", async (t) => {
-  const cwd = await consumer(t);
+test("skill planning includes both sibling workflows and licenses and never overwrites authored skills", async () => {
+  const cwd = await consumer();
   const contract = await fixture();
   const skillsRoot = new URL("../../../.agents/skills/", import.meta.url);
   const plan = await planSkills(cwd, contract, { skillsRoot });

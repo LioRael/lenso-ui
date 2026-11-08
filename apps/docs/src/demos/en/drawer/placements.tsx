@@ -1,8 +1,7 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 drawer-placements (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
-import { Button, CloseIcon, Drawer } from "@lenso/ui";
+import { Button, Drawer } from "@lenso/ui";
 import { styles } from "./styles";
 
 export function Placements() {
@@ -16,7 +15,7 @@ export function Placements() {
               placement === "bottom" ? "down" : placement === "top" ? "up" : placement
             }
           >
-            <Drawer.Trigger render={<Button variant="secondary" />}>
+            <Drawer.Trigger render={<Button />}>
               {placement.charAt(0).toUpperCase() + placement.slice(1)}
             </Drawer.Trigger>
             <Drawer.Portal>
@@ -24,19 +23,7 @@ export function Placements() {
               <Drawer.Viewport>
                 <Drawer.Popup>
                   <Drawer.Content>
-                    <Drawer.Close
-                      aria-label="Close drawer"
-                      render={
-                        <Button
-                          isIconOnly
-                          size="sm"
-                          variant="tertiary"
-                          xstyle={styles.cornerClose}
-                        />
-                      }
-                    >
-                      <CloseIcon />
-                    </Drawer.Close>
+                    <Drawer.Close aria-label="Close drawer" />
                     {placement === "bottom" && <Drawer.Handle />}
                     <Drawer.Header>
                       <Drawer.Title>
@@ -50,7 +37,7 @@ export function Placements() {
                       </p>
                     </Drawer.Body>
                     <Drawer.Footer>
-                      <Drawer.Close render={<Button variant="secondary" />}>Cancel</Drawer.Close>
+                      <Drawer.Close render={<Button variant="bordered" />}>Cancel</Drawer.Close>
                       <Drawer.Close render={<Button />}>Done</Drawer.Close>
                     </Drawer.Footer>
                     {placement === "top" && <Drawer.Handle />}

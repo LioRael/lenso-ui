@@ -1,29 +1,28 @@
 node_modules/
 .next/
 .lenso/
+apps/docs/.lenso-*/
 **/.content-collections/
 .turbo/
+.cache/
+.swc/
+/.artifacts/
+/output/
 dist/
 out/
 storybook-static/
 coverage/
 !**/src/**/coverage/
 !**/src/**/coverage/**
-playwright-report/
-test-results/
-durabletest-results/
 apps/docs/src/generated/lenso-contract.json
 apps/docs/src/generated/documents/
 apps/docs/content/lenso/*/react/components/
 apps/docs/public/search/
-apps/docs/.cache/
-packages/docs/.cache/
-.vitest-attachments/
-**/__screenshots__/
 *.tsbuildinfo
 .DS_Store
 .env*
 !.env.example
 
-# Per-checkout tools and disposable fixtures; never sync credentials.
-/.agents/state/
+apps/docs/.source/
+apps/docs/.tanstack/
+apps/docs/public/_redirects

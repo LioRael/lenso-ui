@@ -1,19 +1,26 @@
 import assert from "node:assert/strict";
-import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { pathToFileURL } from "node:url";
+import { tmpdir } from "node:os";
 import path from "node:path";
-import test from "node:test";
-import { buildDistribution } from "../scripts/distribution.ts";
-import { fixture } from "./fixture.ts";
+import { afterEach, test } from "bun:test";
+import { buildDistribution } from "@lenso/ui-devtools/build";
+import { fixture } from "@lenso/ui-devtools/testing";
+
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
+});
 
 // Copying source folders directly cannot prove a warm production build drops
 // obsolete skill references that would otherwise reach consumer plans.
-test("distribution rebuild replaces portable skill trees rather than overlaying stale files", async (t) => {
-  const repository = fileURLToPath(new URL("../../../", import.meta.url));
-  const parent = path.join(repository, "test-results/tool-distribution");
-  await mkdir(parent, { recursive: true });
-  const directory = await mkdtemp(path.join(parent, "build-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+test("distribution rebuild replaces portable skill trees rather than overlaying stale files", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-tool-distribution-"));
+  temporaryDirectories.push(directory);
   const artifact = path.join(directory, "contract.json");
   await writeFile(artifact, JSON.stringify(await fixture()));
   const distUrl = pathToFileURL(`${path.join(directory, "dist")}/`);

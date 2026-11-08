@@ -1,4 +1,3 @@
-// HeroUI v3.2.6 story geometry, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 
 const historyEnter = stylex.keyframes({
@@ -52,16 +51,22 @@ export const menuToast = stylex.create({
   popup256: { minWidth: 256 },
   popup220: { minWidth: 220 },
   controlled: { minWidth: 384, display: "flex", flexDirection: "column", gap: 16 },
-  muted: { color: "var(--muted)", fontSize: 14 },
-  success: { color: "var(--success)" },
-  warning: { color: "var(--warning)" },
-  accent: { color: "var(--accent)" },
-  danger: { color: "var(--danger)" },
-  successAction: { backgroundColor: "var(--success)", color: "var(--success-foreground)" },
-  warningAction: { backgroundColor: "var(--warning)", color: "var(--warning-foreground)" },
+  muted: { color: "var(--lenso-label-secondary)", fontSize: 14 },
+  success: { color: "var(--lenso-status-success-indicator)" },
+  warning: { color: "var(--lenso-status-warning-indicator)" },
+  accent: { color: "var(--lenso-tint)" },
+  danger: { color: "var(--lenso-status-error-indicator)" },
+  successAction: {
+    backgroundColor: "var(--lenso-status-success-indicator)",
+    color: "var(--lenso-status-success-on-fill)",
+  },
+  warningAction: {
+    backgroundColor: "var(--lenso-status-warning-indicator)",
+    color: "var(--lenso-status-warning-on-fill)",
+  },
   shortcut: { marginInlineStart: "auto" },
   icon: { width: 16, height: 16, flexShrink: 0 },
-  mutedIcon: { color: "var(--muted)" },
+  mutedIcon: { color: "var(--lenso-label-secondary)" },
   smallIcon: { width: 14, height: 14 },
   largeIcon: { width: 20, height: 20 },
   iconBox: {
@@ -74,7 +79,7 @@ export const menuToast = stylex.create({
   rounded: { borderRadius: 999 },
   profile: { paddingInline: 12, paddingTop: 12, paddingBottom: 4 },
   profileName: { fontSize: 14, lineHeight: "20px", fontWeight: 500 },
-  profileEmail: { fontSize: 12, lineHeight: 1, color: "var(--muted)" },
+  profileEmail: { fontSize: 12, lineHeight: 1, color: "var(--lenso-label-secondary)" },
   history: { width: "100%", display: "flex", flexDirection: "column", gap: 8 },
   historyPanel: {
     minHeight: 120,
@@ -82,8 +87,8 @@ export const menuToast = stylex.create({
     flexDirection: "column",
     gap: 8,
     borderRadius: 8,
-    border: "1px solid var(--border)",
-    backgroundColor: "var(--surface)",
+    border: "1px solid var(--lenso-control-border)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
   },
   historyItem: {
@@ -92,8 +97,8 @@ export const menuToast = stylex.create({
     justifyContent: "space-between",
     gap: 12,
     borderRadius: 6,
-    border: "1px solid var(--border)",
-    backgroundColor: "var(--default)",
+    border: "1px solid var(--lenso-control-border)",
+    backgroundColor: "var(--lenso-control-fill)",
     paddingBlock: 8,
     paddingInline: 12,
     fontSize: 14,
@@ -106,7 +111,7 @@ export const menuToast = stylex.create({
   historyMessage: { fontWeight: 500 },
   historyClear: { height: 24, fontSize: 12 },
   historyHeading: { fontSize: 14, fontWeight: 500 },
-  historyTime: { marginInlineStart: 8, fontSize: 12, color: "var(--muted)" },
+  historyTime: { marginInlineStart: 8, fontSize: 12, color: "var(--lenso-label-secondary)" },
   historyCheck: {
     display: "flex",
     alignItems: "center",
@@ -115,10 +120,10 @@ export const menuToast = stylex.create({
     height: 20,
     flexShrink: 0,
     borderRadius: 999,
-    backgroundColor: "color-mix(in oklch, var(--success) 10%, transparent)",
-    color: "var(--success)",
+    backgroundColor: "color-mix(in oklch, var(--lenso-status-success-indicator) 10%, transparent)",
+    color: "var(--lenso-status-success-indicator)",
   },
-  customToast: { borderRadius: 12, border: "1px solid var(--border)" },
+  customToast: { borderRadius: 12, border: "1px solid var(--lenso-control-border)" },
   toastViewport: { "--toast-width": "460px" },
   mobileAction: {
     display: { default: "inline-flex", "@media (min-width: 640px)": "none" },
@@ -140,6 +145,6 @@ export const menuToast = stylex.create({
     pointerEvents: "auto",
   },
   modal: { maxWidth: 360 },
-  modalIcon: { backgroundColor: "var(--default)", color: "var(--foreground)" },
+  modalIcon: { backgroundColor: "var(--lenso-control-fill)", color: "var(--lenso-label-primary)" },
   fullWidth: { width: "100%" },
 });

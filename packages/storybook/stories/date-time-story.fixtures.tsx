@@ -1,13 +1,11 @@
 /**
- * Date/time story support adapted from HeroUI v3.2.6, commit
- * e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
  * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
  * Gravity UI icons: Copyright YANDEX LLC, MIT; see GRAVITY-ICONS-LICENSE.txt.
  */
 import type { Decorator } from "@storybook/react-vite";
 import type { FormEvent, ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { I18nProvider, isRTL } from "react-aria-components/I18nProvider";
+import { I18nProvider, isRTL } from "@lenso/ui";
 import { descriptionStyles } from "@lenso/tokens/description";
 import { dateTimeStoryStyles as s } from "./date-time-story.stylex";
 

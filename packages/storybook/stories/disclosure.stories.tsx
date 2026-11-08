@@ -1,7 +1,5 @@
-// Adapted from HeroUI e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
-// HeroUI Native text is source fixture content, not a Lenso runtime claim.
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, Chip, Disclosure } from "@lenso/ui";
+import { GlassButton, Button, Chip, Disclosure } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { navigation as s } from "./navigation.stylex";
@@ -26,27 +24,15 @@ function Template({ isDisabled, isExpanded, ...props }: Args) {
     <div {...stylex.props(s.width)}>
       <Disclosure {...props} disabled={isDisabled} open={open} onOpenChange={setOpen}>
         <Disclosure.Heading>
-          <Disclosure.Trigger render={<Button variant="secondary" />}>
+          <Disclosure.Trigger render={<GlassButton variant="default" />}>
             <NavigationIcon icon="gravity-ui:qr-code" />
-            Preview HeroUI Native
+            Preview details
             <Disclosure.Indicator />
           </Disclosure.Trigger>
         </Disclosure.Heading>
         <Disclosure.Content>
           <Disclosure.Body xstyle={s.standaloneBody}>
-            <p {...stylex.props(s.muted)}>
-              Scan this QR code with your camera app to preview the HeroUI native components.
-            </p>
-            <img
-              alt="Expo Go QR Code"
-              {...stylex.props(s.qr)}
-              src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/images/qr-code-native.png"
-            />
-            <p {...stylex.props(s.muted)}>Expo must be installed on your device.</p>
-            <Button xstyle={s.action} variant="primary">
-              <NavigationIcon icon="tabler:brand-apple-filled" />
-              Download on App Store
-            </Button>
+            <p {...stylex.props(s.muted)}>Explore the component details and available options.</p>
           </Disclosure.Body>
         </Disclosure.Content>
       </Disclosure>
@@ -58,7 +44,7 @@ function ControlledTemplate({ isDisabled, isExpanded: _isExpanded, ...props }: A
   return (
     <div {...stylex.props(s.width, s.column)}>
       <div {...stylex.props(s.row)}>
-        <Button variant="primary" onClick={() => setOpen(!open)}>
+        <Button variant="prominent" onClick={() => setOpen(!open)}>
           {open ? "Collapse" : "Expand"} from outside
         </Button>
         <Chip color={open ? "success" : "default"}>State: {open ? "Expanded" : "Collapsed"}</Chip>

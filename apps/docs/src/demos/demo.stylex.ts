@@ -6,6 +6,6 @@ export const demoStyles = stylex.create({
   wideColumn: { display: "flex", flexDirection: "column", gap: 16, width: "100%", maxWidth: 384 },
   field: { width: 256, maxWidth: "100%" },
   card: { width: 400, maxWidth: "100%" },
-  muted: { color: "var(--muted)", fontSize: 14 },
+  muted: { color: "var(--lenso-label-secondary)", fontSize: 14 },
   icon: { width: 24, height: 24 },
 });

@@ -1,7 +1,5 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 modal-dismiss-behavior (Apache-2.0).
 import { CircleInfo } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
@@ -24,14 +22,14 @@ const styles = stylex.create({
   caption: {
     fontSize: 14,
     lineHeight: "20px",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   popup: {
     maxWidth: 360,
   },
   icon: {
-    backgroundColor: "var(--default)",
-    color: "var(--foreground)",
+    backgroundColor: "var(--lenso-control-fill)",
+    color: "var(--lenso-label-primary)",
   },
   circle: {
     width: 20,
@@ -59,7 +57,7 @@ export function DismissBehavior() {
               if (!open && details.reason === blockedReason) details.cancel();
             }}
           >
-            <Modal.Trigger render={<Button variant="secondary" />}>打开模态框</Modal.Trigger>
+            <Modal.Trigger render={<Button />}>打开模态框</Modal.Trigger>
             <Modal.Portal>
               <Modal.Backdrop />
               <Modal.Viewport>

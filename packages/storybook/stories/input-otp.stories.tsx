@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 at e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e (Apache-2.0).
 // Story-only controls retain upstream names; actual OTP slots use native Base UI props.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useId, useRef, useState, type ComponentProps } from "react";
@@ -260,7 +259,7 @@ function AsyncCode({ args, complete = false }: { args: Args; complete?: boolean 
         disabled={complete ? !isComplete : value.length !== 6}
         isLoading={submitting}
         type="submit"
-        variant="primary"
+        variant="prominent"
       >
         {submitting ? (
           <>

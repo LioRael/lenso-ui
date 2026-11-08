@@ -1,15 +1,26 @@
 "use client";
-// Adapted from HeroUI v3.2.6 alert-dialog-statuses (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { AlertDialog, Button } from "@lenso/ui";
 
 const styles = stylex.create({
   row: { display: "flex", flexWrap: "wrap", gap: 16 },
   popup: { maxWidth: 400 },
-  accent: { backgroundColor: "var(--accent-soft)", color: "var(--accent-soft-foreground)" },
-  success: { backgroundColor: "var(--success-soft)", color: "var(--success-soft-foreground)" },
-  warning: { backgroundColor: "var(--warning-soft)", color: "var(--warning-soft-foreground)" },
-  danger: { backgroundColor: "var(--danger-soft)", color: "var(--danger-soft-foreground)" },
+  accent: {
+    backgroundColor: "var(--lenso-control-tint-subtle-fill)",
+    color: "var(--lenso-tint-text)",
+  },
+  success: {
+    backgroundColor: "var(--lenso-control-status-success-soft-fill)",
+    color: "var(--lenso-status-success-text)",
+  },
+  warning: {
+    backgroundColor: "var(--lenso-control-status-warning-soft-fill)",
+    color: "var(--lenso-status-warning-text)",
+  },
+  danger: {
+    backgroundColor: "var(--lenso-control-status-error-soft-fill)",
+    color: "var(--lenso-status-error-text)",
+  },
 });
 
 export function Statuses() {
@@ -67,14 +78,10 @@ export function Statuses() {
                   <AlertDialog.Description>{body}</AlertDialog.Description>
                 </AlertDialog.Body>
                 <AlertDialog.Footer>
-                  <AlertDialog.Close render={<Button variant="tertiary" />}>
-                    {cancel}
-                  </AlertDialog.Close>
-                  <AlertDialog.Close
-                    render={<Button variant={status === "danger" ? "danger" : "primary"} />}
-                  >
+                  <AlertDialog.Action variant="cancel">{cancel}</AlertDialog.Action>
+                  <AlertDialog.Action variant={status === "danger" ? "destructive" : "default"}>
                     {confirm}
-                  </AlertDialog.Close>
+                  </AlertDialog.Action>
                 </AlertDialog.Footer>
               </AlertDialog.Popup>
             </AlertDialog.Viewport>

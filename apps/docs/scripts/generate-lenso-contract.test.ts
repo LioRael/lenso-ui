@@ -1,22 +1,29 @@
 import assert from "node:assert/strict";
-import test, { type TestContext } from "node:test";
+import { afterEach, test } from "bun:test";
 import { mkdir, mkdtemp, readFile, writeFile, rm, symlink } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { tmpdir } from "node:os";
 import { collectContractInputs } from "./generate-lenso-contract.ts";
-import { fixtureSource } from "../../../packages/cli/tests/fixture.ts";
+import { fixtureSource } from "@lenso/ui-devtools/testing";
 import {
   buildLensoContract,
   resolveSource,
   resolveTheme,
   type ApiReference,
-} from "../../../tooling/lenso-contracts/index.ts";
+} from "@lenso/ui-devtools/contract";
 
-const root = fileURLToPath(new URL("../../../", import.meta.url));
-async function fixture(t: TestContext) {
-  await mkdir(path.join(root, "test-results/lenso-docs-projection"), { recursive: true });
-  const directory = await mkdtemp(path.join(root, "test-results/lenso-docs-projection/producer-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
+const temporaryDirectories: string[] = [];
+afterEach(async () => {
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
+});
+
+async function fixture() {
+  const directory = await mkdtemp(path.join(tmpdir(), "lenso-docs-producer-"));
+  temporaryDirectories.push(directory);
   const write = async (file: string, content: unknown) => {
     await mkdir(path.dirname(path.join(directory, file)), { recursive: true });
     await writeFile(
@@ -25,13 +32,12 @@ async function fixture(t: TestContext) {
     );
   };
   for (const [folder, name] of [
-    ["react", "@lenso/ui"],
-    ["styles", "@lenso/tokens"],
-    ["stylex-build", "@lenso/stylex-build"],
+    ["ui", "@lenso/ui"],
+    ["tokens", "@lenso/tokens"],
   ])
     await write(`packages/${folder}/package.json`, {
       name,
-      version: folder === "stylex-build" ? "0.1.0" : "0.9.0",
+      version: "0.9.0",
       dependencies: { "@stylexjs/stylex": "catalog:" },
     });
   await write("apps/docs/node_modules/@stylexjs/stylex/package.json", {
@@ -56,7 +62,7 @@ async function fixture(t: TestContext) {
       },
     ],
   };
-  const implementation = "packages/react/src/components/menu/menu.tsx";
+  const implementation = "packages/ui/src/components/menu/menu.tsx";
   const source = { path: implementation, line: 1 };
   const api: ApiReference = {
     upstream: {},
@@ -100,28 +106,28 @@ async function fixture(t: TestContext) {
     "export function Shared() { return null; }\n",
   );
   await write(
-    "packages/styles/src/components/menu/menu.styles.ts",
+    "packages/tokens/src/components/menu/menu.styles.ts",
     "export const menuStyles = { popup: { padding: 4 } };\n",
   );
   await write(
     implementation,
     'import { helper } from "../../utils/helper.js";\nexport const Menu = () => helper;\r\n',
   );
-  await write("packages/react/src/utils/helper.ts", "export const helper = null;\n");
+  await write("packages/ui/src/utils/helper.ts", "export const helper = null;\n");
   await write(
-    "packages/styles/themes/default/index.css",
+    "packages/tokens/themes/default/index.css",
     '@import "../shared/theme.css";\n@import "./variables.css";\n',
   );
   await write(
-    "packages/styles/themes/default/variables.css",
-    '@layer base { :root { --accent: oklch(0.62 0.195 253.83); } [data-theme="dark"] { --accent: var(--snow); } }\n',
+    "packages/tokens/themes/default/variables.css",
+    '@layer base { :root { --lenso-tint: oklch(0.62 0.195 253.83); } [data-theme="dark"] { --lenso-tint: var(--lenso-constant-white); } }\n',
   );
   await write(
-    "packages/styles/themes/shared/theme.css",
-    ":root { --accent-hover: color-mix(in oklch, var(--accent) 90%, transparent); }\n",
+    "packages/tokens/themes/shared/theme.css",
+    ":root { --lenso-control-tint-hover-fill: color-mix(in oklch, var(--lenso-tint) 90%, transparent); }\n",
   );
   await write(
-    "packages/styles/src/theme.ts",
+    "packages/tokens/src/theme.ts",
     'export const themeTokens = [{ key: "accent", label: "Accent", category: "color" }];\n',
   );
   const compatibility = (await fixtureSource()).compatibility;
@@ -129,15 +135,14 @@ async function fixture(t: TestContext) {
 }
 
 // Core digest tests cannot prove that the producer reads the same files as Copy Markdown and the source pane.
-test("produces exact authored Markdown, canonical local helper graph, actual style source and active package versions", async (t) => {
-  const { directory, index, api, markdown, compatibility } = await fixture(t);
+test("produces exact authored Markdown, canonical local helper graph, actual style source and active package versions", async () => {
+  const { directory, index, api, markdown, compatibility } = await fixture();
   const input = await collectContractInputs(directory, index, compatibility);
   assert.equal(input.compatibility, compatibility);
   assert.deepEqual(input.apiReference, api);
   assert.deepEqual(input.packageVersions, {
     "@lenso/ui": "0.9.0",
     "@lenso/tokens": "0.9.0",
-    "@lenso/stylex-build": "0.1.0",
     "@stylexjs/stylex": "0.19.1",
   });
   assert.equal(input.docs[0].markdown, markdown);
@@ -157,8 +162,17 @@ test("produces exact authored Markdown, canonical local helper graph, actual sty
   assert.equal(input.styles[0].family, "menu");
 });
 
-test("refuses stale runtime/compiler versions and ambiguous style-map sources", async (t) => {
-  const { directory, write, index, compatibility } = await fixture(t);
+test("retains implementation source for an unstyled family without inventing a style map", async () => {
+  const { directory, index, compatibility } = await fixture();
+  await rm(path.join(directory, "packages/tokens/src/components/menu"), { recursive: true });
+  const input = await collectContractInputs(directory, index, compatibility);
+  assert.equal(input.styles.length, 0);
+  assert.equal(input.sources.length, 1);
+  assert.equal(buildLensoContract(input).sources.length, 1);
+});
+
+test("refuses stale runtime/compiler versions and ambiguous style-map sources", async () => {
+  const { directory, write, index, compatibility } = await fixture();
   await assert.rejects(
     collectContractInputs(directory, index, {
       ...compatibility,
@@ -166,7 +180,7 @@ test("refuses stale runtime/compiler versions and ambiguous style-map sources", 
     }),
     /Installed StyleX runtime differs/,
   );
-  await write("packages/styles/src/components/menu/other.stylex.ts", "export const other = {};");
+  await write("packages/tokens/src/components/menu/other.stylex.ts", "export const other = {};");
   await assert.rejects(
     collectContractInputs(directory, index, compatibility),
     /Expected one actual style-map source/,
@@ -179,8 +193,8 @@ test("refuses stale runtime/compiler versions and ambiguous style-map sources", 
 });
 
 // Lexical prefixes do not constrain a symlink's target; reject both file and directory links before reading.
-test("rejects authored Markdown symlinks even when their targets stay inside docs", async (t) => {
-  const { directory, index, compatibility, write } = await fixture(t);
+test("rejects authored Markdown symlinks even when their targets stay inside docs", async () => {
+  const { directory, index, compatibility, write } = await fixture();
   const markdownFile = index.pages[0]!.markdownFile;
   await write("apps/docs/content/lenso/en/real.mdx", "authored target");
   await rm(path.join(directory, "apps/docs", markdownFile));
@@ -200,33 +214,35 @@ test("rejects authored Markdown symlinks even when their targets stay inside doc
   await assert.rejects(collectContractInputs(directory, index, compatibility), /symlink/);
 });
 
-test("reads exact actual implementation/helper graphs, CSS scopes and editor metadata without resolved colors", async (t) => {
-  const { directory, index, compatibility, implementation, write } = await fixture(t);
+test("reads exact actual implementation/helper graphs, CSS scopes and editor metadata without resolved colors", async () => {
+  const { directory, index, compatibility, implementation, write } = await fixture();
   const first = await collectContractInputs(directory, index, compatibility);
   assert.equal(first.sources[0].file, implementation);
   assert.equal(first.sources[0].code, await readFile(path.join(directory, implementation), "utf8"));
   assert.deepEqual(
     first.sources[0].files.map((source) => source.file),
-    ["packages/react/src/utils/helper.ts"],
+    ["packages/ui/src/utils/helper.ts"],
   );
   assert.deepEqual(first.theme.editableTokens, [
     { key: "accent", label: "Accent", category: "color" },
   ]);
   assert.equal(
-    first.theme.declarations.find((declaration) => declaration.name === "--accent-hover")?.value,
-    "color-mix(in oklch, var(--accent) 90%, transparent)",
+    first.theme.declarations.find(
+      (declaration) => declaration.name === "--lenso-control-tint-hover-fill",
+    )?.value,
+    "color-mix(in oklch, var(--lenso-tint) 90%, transparent)",
   );
   assert.deepEqual(first.theme.declarations.at(-1)?.scope, ["@layer base", '[data-theme="dark"]']);
   const contract = buildLensoContract(first);
   assert.deepEqual(resolveSource(contract, contract.sources[0]), first.sources[0]);
   assert.deepEqual(resolveTheme(contract), first.theme);
-  await write("packages/react/src/utils/helper.ts", "export const helper = 'changed';\n");
+  await write("packages/ui/src/utils/helper.ts", "export const helper = 'changed';\n");
   await write(
-    "packages/styles/themes/default/variables.css",
-    ":root { --accent: var(--changed); }\n",
+    "packages/tokens/themes/default/variables.css",
+    ":root { --lenso-tint: var(--changed); }\n",
   );
   await write(
-    "packages/styles/src/theme.ts",
+    "packages/tokens/src/theme.ts",
     'export const themeTokens = [{ key: "accent", label: "Changed accent", category: "color" }];\n',
   );
   const changedInput = await collectContractInputs(directory, index, compatibility);
@@ -235,30 +251,30 @@ test("reads exact actual implementation/helper graphs, CSS scopes and editor met
   assert.notEqual(changed.digest, contract.digest);
 });
 
-test("rejects local helpers outside the implementation root and any source symlink, including internal targets", async (t) => {
-  const { directory, index, compatibility, implementation, write } = await fixture(t);
+test("rejects local helpers outside the implementation root and any source symlink, including internal targets", async () => {
+  const { directory, index, compatibility, implementation, write } = await fixture();
   await write(implementation, 'export { value } from "../../../../outside";\n');
   await assert.rejects(
     collectContractInputs(directory, index, compatibility),
-    /outside packages\/react\/src/,
+    /outside packages\/ui\/src/,
   );
   await write(implementation, 'export { value } from "./link";\n');
-  await write("packages/react/src/components/menu/real.ts", "export const value = 1;\n");
-  await symlink("real.ts", path.join(directory, "packages/react/src/components/menu/link.ts"));
+  await write("packages/ui/src/components/menu/real.ts", "export const value = 1;\n");
+  await symlink("real.ts", path.join(directory, "packages/ui/src/components/menu/link.ts"));
   await assert.rejects(collectContractInputs(directory, index, compatibility), /symlink/);
   await write(implementation, "export const Menu = () => null;\n");
-  await rm(path.join(directory, "packages/styles/themes/default/variables.css"));
+  await rm(path.join(directory, "packages/tokens/themes/default/variables.css"));
   await symlink(
     "../shared/theme.css",
-    path.join(directory, "packages/styles/themes/default/variables.css"),
+    path.join(directory, "packages/tokens/themes/default/variables.css"),
   );
   await assert.rejects(collectContractInputs(directory, index, compatibility), /symlink/);
 });
 
 // Compound API assembly has distinct provenance; choosing the first API path returned index.ts for Autocomplete.
-test("chooses the actual canonical implementation rather than compound index assembly and includes both", async (t) => {
-  const { directory, index, api, compatibility, write, implementation } = await fixture(t);
-  const assembly = "packages/react/src/components/menu/index.ts";
+test("chooses the actual canonical implementation rather than compound index assembly and includes both", async () => {
+  const { directory, index, api, compatibility, write, implementation } = await fixture();
+  const assembly = "packages/ui/src/components/menu/index.ts";
   api.families["menu"]!.parts.unshift({
     ...api.families["menu"]!.parts[0]!,
     name: "MenuCompound",

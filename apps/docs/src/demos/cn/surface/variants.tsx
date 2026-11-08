@@ -1,11 +1,14 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Surface } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { s } from "../../en/card/display.stylex";
 const variants = [
+  {
+    variant: "glass",
+    label: "玻璃",
+    description: "复用 Popover 背景的 Thick 模糊材料，不运行折射计算。",
+  },
   {
     variant: "default",
     label: "默认",
@@ -31,9 +34,19 @@ export function Variants() {
   return (
     <div {...stylex.props(s.column4)}>
       {variants.map(({ variant, label, description }) => (
-        <div key={variant} {...stylex.props(s.column2)}>
+        <div key={variant} {...stylex.props(s.column2, variant === "glass" && s.glassScene)}>
+          {variant === "glass" && (
+            <div data-lenso-backdrop aria-hidden="true" {...stylex.props(s.glassBackdrop)} />
+          )}
           <p {...stylex.props(s.textSm, s.medium, s.muted)}>{label}</p>
-          <Surface xstyle={[s.surface, variant === "transparent" && s.border]} variant={variant}>
+          <Surface
+            xstyle={[
+              s.surface,
+              variant === "transparent" && s.border,
+              variant === "glass" && s.glassCard,
+            ]}
+            variant={variant}
+          >
             <h3 {...stylex.props(s.textBase, s.semibold, s.foreground)}>表面内容</h3>
             <p {...stylex.props(s.textSm, s.muted)}>{description}</p>
           </Surface>

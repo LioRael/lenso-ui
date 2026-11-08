@@ -1,8 +1,7 @@
-// Adapted from HeroUI v3.2.6 e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
 // SPDX-License-Identifier: Apache-2.0. Ordinary interactions use native Base UI.
 import React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Modal, Button, Input, Label, TextField } from "@lenso/ui";
+import { GlassButton, AlertDialog, Modal, Button, Input, Label, TextField } from "@lenso/ui";
 import { useOverlayState } from "@lenso/ui/hooks";
 import { overlayStyles as s } from "./overlay.stylex";
 
@@ -58,7 +57,9 @@ export function AlertExample({
 }: CommonExample) {
   return (
     <AlertDialog.Root>
-      <AlertDialog.Trigger render={<Button variant={danger ? "danger" : "secondary"} />}>
+      <AlertDialog.Trigger
+        render={<Button destructive={danger} variant={danger ? "prominent" : "bordered"} />}
+      >
         {trigger}
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
@@ -72,8 +73,14 @@ export function AlertExample({
             </AlertDialog.Header>
             <AlertDialog.Body>{children}</AlertDialog.Body>
             <AlertDialog.Footer>
-              <AlertDialog.Close render={<Button variant="tertiary" />}>{cancel}</AlertDialog.Close>
-              <AlertDialog.Close render={<Button variant={danger ? "danger" : "primary"} />}>
+              <AlertDialog.Close render={<GlassButton variant="default" />}>
+                {cancel}
+              </AlertDialog.Close>
+              <AlertDialog.Close
+                render={
+                  <Button destructive={danger} variant={danger ? "prominent" : "prominent"} />
+                }
+              >
                 {confirm}
               </AlertDialog.Close>
             </AlertDialog.Footer>
@@ -96,7 +103,7 @@ export function ModalExample({
 }: Omit<CommonExample, "size"> & { size?: CommonExample["size"] | "full" }) {
   return (
     <Modal.Root>
-      <Modal.Trigger render={<Button variant="secondary" />}>{trigger}</Modal.Trigger>
+      <Modal.Trigger render={<GlassButton variant="default" />}>{trigger}</Modal.Trigger>
       <Modal.Portal>
         <Modal.Backdrop variant={backdrop} />
         <Modal.Viewport>
@@ -111,7 +118,7 @@ export function ModalExample({
             <Modal.Body>{children}</Modal.Body>
             <Modal.Footer>
               {cancel && (
-                <Modal.Close render={<Button variant="secondary" />}>{cancel}</Modal.Close>
+                <Modal.Close render={<GlassButton variant="default" />}>{cancel}</Modal.Close>
               )}
               <Modal.Close render={<Button xstyle={!cancel && s.full} />}>{confirm}</Modal.Close>
             </Modal.Footer>
@@ -202,12 +209,12 @@ function ControlledExample({
             Status: <span>{open ? "open" : "closed"}</span>
           </p>
           <div {...stylex.props(s.compactRow)}>
-            <O.Trigger render={<Button size="sm" variant="secondary" />}>
+            <O.Trigger render={<GlassButton size="sm" variant="default" />}>
               Open {alert ? "Dialog" : "Modal"}
             </O.Trigger>
-            <Button size="sm" variant="tertiary" onClick={() => setOpen(!open)}>
+            <GlassButton size="sm" variant="default" onClick={() => setOpen(!open)}>
               Toggle
-            </Button>
+            </GlassButton>
           </div>
         </div>
         <O.Portal>
@@ -244,7 +251,7 @@ function ControlledExample({
                 </p>
               </O.Body>
               <O.Footer>
-                <O.Close render={<Button variant={alert ? "tertiary" : "secondary"} />}>
+                <O.Close render={<Button variant={alert ? "borderless" : "bordered"} />}>
                   Cancel
                 </O.Close>
                 <O.Close render={<Button />}>Confirm</O.Close>
@@ -298,7 +305,7 @@ function CloseExample({
         )}
       </p>
       <O.Root open={open} onOpenChange={setOpen}>
-        <O.Trigger render={<Button variant="secondary" />}>
+        <O.Trigger render={<GlassButton variant="default" />}>
           Open {alert ? "Dialog" : "Modal"}
         </O.Trigger>
         <O.Portal>
@@ -334,7 +341,7 @@ function CloseExample({
                 {controlled ? (
                   <>
                     <Button
-                      variant={alert ? "tertiary" : "secondary"}
+                      variant={alert ? "borderless" : "bordered"}
                       onClick={() => setOpen(false)}
                     >
                       Cancel
@@ -343,7 +350,7 @@ function CloseExample({
                   </>
                 ) : (
                   <>
-                    <O.Close render={<Button variant={alert ? "tertiary" : "secondary"} />}>
+                    <O.Close render={<Button variant={alert ? "borderless" : "bordered"} />}>
                       Cancel
                     </O.Close>
                     <O.Close render={<Button />}>Confirm</O.Close>
@@ -406,7 +413,7 @@ export function DismissExamples({ alert = false }: { alert?: boolean }) {
                 details.cancel();
             }}
           >
-            <O.Trigger render={<Button variant="secondary" />}>
+            <O.Trigger render={<GlassButton variant="default" />}>
               Open {alert ? "Alert Dialog" : "Modal"}
             </O.Trigger>
             <O.Portal>
@@ -441,7 +448,7 @@ export function DismissExamples({ alert = false }: { alert?: boolean }) {
                     </p>
                   </O.Body>
                   <O.Footer>
-                    {alert && <O.Close render={<Button variant="tertiary" />}>Cancel</O.Close>}
+                    {alert && <O.Close render={<GlassButton variant="default" />}>Cancel</O.Close>}
                     <O.Close render={<Button xstyle={!alert && s.full} />}>
                       {alert ? "Confirm" : "Close"}
                     </O.Close>
@@ -478,7 +485,7 @@ export function AnimationExamples({ alert = false }: { alert?: boolean }) {
     <div {...stylex.props(s.row)}>
       {animations.map(({ name, description, icon, motion, backdropMotion }) => (
         <O.Root key={name}>
-          <O.Trigger render={<Button variant="secondary" />}>{name}</O.Trigger>
+          <O.Trigger render={<GlassButton variant="default" />}>{name}</O.Trigger>
           <O.Portal>
             <O.Backdrop xstyle={backdropMotion} />
             <O.Viewport>
@@ -500,7 +507,7 @@ export function AnimationExamples({ alert = false }: { alert?: boolean }) {
                   <p>{description}</p>
                 </O.Body>
                 <O.Footer>
-                  <O.Close render={<Button variant="tertiary" />}>Close</O.Close>
+                  <O.Close render={<GlassButton variant="default" />}>Close</O.Close>
                   <O.Close render={<Button />}>Try Again</O.Close>
                 </O.Footer>
               </O.Popup>
@@ -547,8 +554,8 @@ export function PortalExample({ alert = false }: { alert?: boolean }) {
                     ))}
                   </O.Body>
                   <O.Footer>
-                    {alert && <O.Close render={<Button variant="tertiary" />}>Cancel</O.Close>}
-                    <O.Close render={<Button variant={alert ? "primary" : "secondary"} />}>
+                    {alert && <O.Close render={<GlassButton variant="default" />}>Cancel</O.Close>}
+                    <O.Close render={<Button variant={alert ? "prominent" : "bordered"} />}>
                       {alert ? "Confirm" : "Close"}
                     </O.Close>
                   </O.Footer>

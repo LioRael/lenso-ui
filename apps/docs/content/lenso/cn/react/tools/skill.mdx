@@ -9,10 +9,10 @@ navigationOrder: 23
 
 源码候选包含两个工作流：
 
-| 工作流 | 使用场景 |
-| --- | --- |
-| `.agents/skills/lenso-ui/SKILL.md` | 组件、原生 API 与组合、主题、消费者构建配置 |
-| `.agents/skills/lenso-ui-design/SKILL.md` | 页面设计、视觉参考重建、样式反馈 |
+| 工作流                                    | 使用场景                                    |
+| ----------------------------------------- | ------------------------------------------- |
+| `.agents/skills/lenso-ui/SKILL.md`        | 组件、原生 API 与组合、主题、消费者构建配置 |
+| `.agents/skills/lenso-ui-design/SKILL.md` | 页面设计、视觉参考重建、样式反馈            |
 
 通过 agent 宿主支持的本地 skill 机制加载。复制时保留两个相邻目录、全部参考文件和许可证。宿主专属加载命令不是 Lenso API；工作流不会激活工具，也不会安装 CLI 或 MCP 包。本仓库的 `AGENTS.md` 已把相关任务指向这些文件，其他宿主仍需通过自己的加载机制启用。
 
@@ -38,9 +38,9 @@ navigationOrder: 23
 
 ## 上游适配
 
-实现工作流借鉴固定版本 HeroUI React skill 的文档优先、组合结构、语义变体和 CSS 变量主题方法。上游网络脚本由 Lenso 的版本/digest 匹配 CLI/MCP 替代；Tailwind 样式改为 StyleX；全局 React Aria 假设改为 Lenso 的原生交互边界。
+实现工作流依据匹配的 Lenso 契约处理组件组合、StyleX、语义主题与原生交互。CLI 和 MCP 使用同一份带版本的组件信息。
 
-视觉设计工作流是 Lenso 自己的扩展，不是上游美术设计 skill，也不是 HeroUI Pro 模板。来源、修改说明和原始许可证随 skill 目录保留。Native/mobile 和 v2 到 v3 迁移 skill 不描述 Lenso 当前支持的 Web 契约，因此不引入。
+视觉设计工作流指导布局、响应式行为和实际渲染检查。来源说明与适用许可证随 skill 目录保留。
 
 本候选暂不提供公共 skill 压缩包、发现端点或 shell 安装器。这里没有下载并执行上游 skill 的安装命令。
 

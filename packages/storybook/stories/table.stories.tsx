@@ -1,9 +1,18 @@
-// HeroUI v3.2.6 stories adaptation, Apache-2.0. Native public Table composition.
+// Native public Table composition.
 // oxlint-disable jsx-a11y/prefer-tag-over-role -- Public Table.Cell is a td without render composition; role preserves upstream row-header semantics.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Avatar, Button, Chip, EmptyState, Pagination, Spinner, Table } from "@lenso/ui";
+import {
+  GlassButton,
+  Avatar,
+  Button,
+  Chip,
+  EmptyState,
+  Pagination,
+  Spinner,
+  Table,
+} from "@lenso/ui";
 import type { SortDescriptor } from "@lenso/ui/table";
 import { collectionStyles as s } from "./collection.stylex";
 import { CollectionIcon } from "./collection-icons.fixtures";
@@ -175,7 +184,12 @@ function DefaultTableTemplate({ variant = "primary" }: { variant?: "primary" | "
                   <Table.Cell role="rowheader" xstyle={s.weight}>
                     <div {...stylex.props(s.row2)}>
                       #{user.id.toString()}{" "}
-                      <Button aria-label={`Copy ${user.id}`} isIconOnly size="sm" variant="ghost">
+                      <Button
+                        aria-label={`Copy ${user.id}`}
+                        isIconOnly
+                        size="sm"
+                        variant="borderless"
+                      >
                         <CollectionIcon name="copy" {...stylex.props(s.mutedIcon)} />
                       </Button>
                     </div>
@@ -203,30 +217,31 @@ function DefaultTableTemplate({ variant = "primary" }: { variant?: "primary" | "
                   </Table.Cell>
                   <Table.Cell>
                     <div {...stylex.props(s.row1)}>
-                      <Button
+                      <GlassButton
                         aria-label={`View ${user.name}`}
                         isIconOnly
                         size="sm"
-                        variant="tertiary"
+                        variant="default"
                       >
                         <CollectionIcon name="eye" />
-                      </Button>
-                      <Button
+                      </GlassButton>
+                      <GlassButton
                         aria-label={`Edit ${user.name}`}
                         isIconOnly
                         size="sm"
-                        variant="tertiary"
+                        variant="default"
                       >
                         <CollectionIcon name="pencil" />
-                      </Button>
-                      <Button
+                      </GlassButton>
+                      <GlassButton
+                        destructive
                         aria-label={`Delete ${user.name}`}
                         isIconOnly
                         size="sm"
-                        variant="danger-soft"
+                        variant="default"
                       >
                         <CollectionIcon name="trash-bin" />
-                      </Button>
+                      </GlassButton>
                     </div>
                   </Table.Cell>
                 </Table.Row>

@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import {
   ArrowsRotateLeft,
   Box,
@@ -14,7 +13,7 @@ import {
   Receipt,
   ShoppingBag,
 } from "@gravity-ui/icons";
-import { Accordion, Button } from "@lenso/ui";
+import { GlassButton, Accordion } from "@lenso/ui";
 import { useState, type ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "./source.stylex";
@@ -66,13 +65,13 @@ const concepts = [
     id: "getting-started",
     title: "Getting Started",
     content:
-      "Learn the basics of HeroUI and how to integrate it into your React project. This section covers installation, setup, and your first component.",
+      "Learn the basics of Lenso UI and how to integrate it into your React project. This section covers installation, setup, and your first component.",
   },
   {
     id: "core-concepts",
     title: "Core Concepts",
     content:
-      "Understand the fundamental concepts behind HeroUI, including the compound component pattern, styling with Tailwind CSS, and accessibility features.",
+      "Understand the fundamental concepts behind Lenso UI, including the compound component pattern, styling with StyleX, and accessibility features.",
   },
   {
     id: "advanced-usage",
@@ -84,7 +83,7 @@ const concepts = [
     id: "best-practices",
     title: "Best Practices",
     content:
-      "Follow our recommended best practices for building performant, accessible, and maintainable applications with HeroUI components.",
+      "Follow our recommended best practices for building performant, accessible, and maintainable applications with Lenso UI components.",
   },
 ];
 function OrderAccordion({
@@ -176,24 +175,24 @@ export function Controlled() {
           Expanded: <strong>{expanded.join(", ") || "none"}</strong>
         </p>
         <div {...stylex.props(styles.buttons)}>
-          <Button
+          <GlassButton
             aria-label="Previous item"
             disabled={index <= 0}
             size="sm"
-            variant="secondary"
+            variant="default"
             onClick={() => setExpanded([items[index - 1]!.id])}
           >
             <ChevronUp {...stylex.props(styles.smallIcon)} />
-          </Button>
-          <Button
+          </GlassButton>
+          <GlassButton
             aria-label="Next item"
             disabled={index >= items.length - 1}
             size="sm"
-            variant="secondary"
+            variant="default"
             onClick={() => setExpanded([items[index + 1]!.id])}
           >
             <ChevronDown {...stylex.props(styles.smallIcon)} />
-          </Button>
+          </GlassButton>
         </div>
       </div>
       <Accordion value={expanded} onValueChange={setExpanded}>
@@ -387,22 +386,20 @@ export function CustomStyles() {
       title: "Set Up Notifications",
       subtitle: "Receive account activity updates",
       content: "Stay informed about your account activity with real-time notifications.",
-      iconUrl: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/bell-small.png",
+      iconUrl: "/assets/demo/illustrations/bell-small.svg",
     },
     {
       title: "Set up Browser Extension",
       subtitle: "Connect your browser to your account",
       content: "Enhance your browsing experience by installing our official browser extension",
-      iconUrl:
-        "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/compass-small.png",
+      iconUrl: "/assets/demo/illustrations/compass-small.svg",
     },
     {
       title: "Mint Collectible",
       subtitle: "Create your first collectible",
       content:
         "Begin your journey into the world of digital collectibles by creating your first NFT. ",
-      iconUrl:
-        "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/3dicons/mint-collective-small.png",
+      iconUrl: "/assets/demo/illustrations/mint-collective-small.svg",
     },
   ];
   return (

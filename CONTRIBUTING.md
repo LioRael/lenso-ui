@@ -1,20 +1,19 @@
-# Contributing to the reconstruction
+# Contributing to Lenso UI
 
-Read `AGENTS.md` and `DESIGN.md` before changing source. HeroUI v3.2.6 at
-`e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e` is the reconstruction authority.
-The former Lenso UI architecture is not a compatibility target.
-`packages/primitives` remains outside the reconstruction boundary and must
-remain byte-for-byte unchanged.
+Read `AGENTS.md` and `DESIGN.md` before changing source. `DESIGN.md` records the design direction and component contracts.
+Existing `packages/primitives` component source and public API remain unchanged; its tests and development tooling may evolve. The owner-authorized Command family is an additive exception.
 
 ## Implementation and evidence
 
 Use compiled StyleX for component styling and native Base UI contracts for
-ordinary interactions. React Aria is limited to date, time and color families
-and supporting parts that depend on those contexts. Use oxlint and oxfmt.
+all interactions. Date, time and color families compose native Base UI parts
+around pure internationalized value/state models; do not restore React Aria
+interaction imports. Use oxlint and oxfmt.
 
-Preserve HeroUI Apache-2.0 notices and identify adaptations. Preserve the MIT
-terms of the unchanged primitives. Treat imported snippets as reference
-material, not proof of a runnable local example.
+Preserve applicable copyright, license and modification notices for retained
+adaptations; see `THIRD_PARTY_NOTICES.md`. Preserve the MIT terms of the
+unchanged primitives. Treat imported snippets as reference material, not proof
+of a runnable local example.
 
 For changed behavior, identify the concrete failure and exercise the relevant
 semantics, geometry, focus and keyboard operation. Record theme, responsive,
@@ -25,81 +24,106 @@ their sources by running their maintained generators.
 
 Public API, import, CSS or behavior changes need migration notes explaining
 what consumers must change. Material visual changes need the affected themes
-and states recorded. This wholesale reconstruction replaces the former
-packages, registry and token-generation graph; its README and family evidence
-documents must state the replacement and its remaining limitations.
+and states recorded. Document supported behavior and remaining limitations
+against the current implementation.
 
 ## Verification
 
-Use Node 26.10.0 and pnpm 12.9.1, as configured in `.mise.toml` and the root
-`package.json`. Install from the lockfile:
+Use Bun 1.4.4, as configured in `.mise.toml` and the root `package.json`.
+Documentation hosts, preserved primitives and npm publishing tooling use Node 26.10.0.
+Install from the lockfile:
 
 ```sh
-pnpm install --frozen-lockfile
+bun install --frozen-lockfile
 ```
 
 Common entrypoints:
 
 ```sh
-pnpm build                 # workspace production builds and their generated inputs
-pnpm dev:docs              # prepare necessary packages/data, then start docs
-pnpm dev:storybook         # prepare package builds, then start Storybook
-pnpm --filter @lenso/ui test src/components/button
-pnpm --filter @lenso/ui typecheck
+bun run dev:docs              # generate metadata, then serve workspace sources with HMR
+bun run dev:storybook         # prepare package builds, then start Storybook
+bun run --filter @lenso/ui test
+bun run --filter @lenso/ui typecheck
 ```
 
+Start daily component, docs and visual iteration with `bun run dev:docs` from
+the repository root. Keep that server running and review changes at its printed
+URL. It generates metadata once and starts TanStack Start/Vite against workspace
+sources; invoking bare Vite in `apps/docs` skips generation. Reuse a
+healthy existing dev server. If it fails, inspect its output and fix the dev
+failure before continuing the hot-reloading workflow.
+
 The last two commands are a normal component iteration, after the initial
-package build. They do not build the docs site. The root dev entrypoints
-start UI/tokens watchers alongside the selected app, rather than watching
-only an app that imports stale package output. Public API/documentation
-changes additionally need the explicit generator below; no new generator
-watch service is maintained. Theme CSS or declaration changes still need
-`pnpm build:packages`; the dev watchers cover component implementation and
-StyleX maps, not CSS copying or declaration emission. Docs generation uses
-`pnpm --filter @lenso/ui-docs generate`; developer-tool builds request only
-`generate:contract`. Direct docs dev/typecheck/build commands use the same
-incremental generator. Upstream import/sync is an explicit maintenance task,
+package build. They do not build the docs site. Docs development resolves UI,
+tokens, glass and documentation modules directly to source. Story controls use
+`apps/docs/tsconfig.story.json` to read component source types. Production builds
+continue to consume package output and declarations. The Story panel uses
+the headless provider with StyleX, without adding Tailwind tooling.
+Docs development needs no package build watchers. Another session may clean or
+rebuild package output for static acceptance while docs development continues.
+Each Vite process owns its dependency and MDX caches. Generated files are replaced
+atomically and unchanged content keeps its timestamp; publishing the generated
+index does not restart the Vite configuration. Turbo generation tasks use the
+incremental generators instead of restoring source artifacts from its cache,
+which would bypass atomic publication. Static output directories are excluded
+from development watching. The official Fumadocs MDX plugin tracks authored content, and Vite tracks
+page-local examples and their raw source. Component edits do not trigger API
+extraction or an additional documentation compiler. Run `generate:api` and
+restart dev after changing the public prop contract.
+Theme CSS, StyleX maps and component implementation changes reload from source.
+Build packages when validating distribution or emitted declarations. Docs generation uses
+`bun run --filter @lenso/ui-docs generate` when complete generated artifacts are
+needed; developer-tool builds request only
+`generate:contract`. Docs dev/build commands run the incremental generator once before Vite;
+typecheck reads existing generated artifacts. Upstream import/sync is an explicit maintenance task,
 not a normal development prerequisite.
 
 While iterating, run format and lint on affected paths, the affected package's
 typecheck, and the maintained regression tests for the change. Root script
-changes also require `pnpm exec tsc -p scripts/tsconfig.json` and their narrow
-Node tests. Inspect current package scripts before choosing commands.
+changes also require `bun check --no-script -p tests/tsconfig.json` and their narrow
+tests. Inspect current package scripts before choosing commands.
 
-Run production docs or Storybook builds when their build integration changes,
-not as a blanket requirement for documentation or policy-only edits. The
+For the maintained docs browser check, keep dev running and use
+`bun run --filter @lenso/ui-docs test:browser`. Set `DOCS_URL` to its printed
+URL and `DOCS_HMR=1` to include a temporary, restored example edit.
+
+For development stylesheet continuity, run
+`DOCS_URL=<dev-url> bun run --filter @lenso/ui-docs test:hmr` against the running
+server. It temporarily edits and restores homepage sources, slows stylesheet
+requests, and checks every frame in Chromium and WebKit. It also verifies that
+unchanged CSS does not rewrite active stylesheets and a failed request retains the old
+styles. Run it without simultaneous edits to those homepage files.
+
+Tests print their results to the console and do not retain screenshots or
+reports. Temporary build fixtures are removed after each run. If a
+visual investigation needs an image, capture it as a separate explicit task
+rather than adding a persistent output path to a test.
+
+Run `bun run --filter @lenso/ui-docs test:dev-isolation` for development/build
+isolation and bilingual code highlighting. It rejects development imports from
+package `dist` directories, verifies Chromium and WebKit hydration, copying and code colors, and exercises index
+publication and static HTML output while the server stays running.
+Run `bun run --filter @lenso/ui-docs test:canvas-navigation` for the WebKit
+PNG encoding regression: a pending encoding runs while document replacement is
+held, then the test verifies exact pixels and the absence of resource errors.
+Run `bun run --filter @lenso/ui-docs test:first-paint` for Tabs and glass control
+geometry before and during hydration in Chromium and WebKit, in both themes.
+It serves an isolated fixture through the docs development pipeline.
+Run `bun run --filter @lenso/ui-docs test:tabs-overflow` for the horizontal Tabs
+overflow menu, keyboard navigation, focus return, resizing and controlled state.
+
+Run production builds for acceptance that depends on production behavior:
+changed build/CSS delivery integration, static export or distribution, a
+production-only regression, an explicitly requested production proof, or the
+final candidate gate. State the reason and use the smallest relevant build or
+fixture. Ordinary component, content and visual iteration uses dev;
+documentation or policy-only edits need no production build. The
 authoritative candidate workflow runs the complete repository gate and consumer
 verification for the exact candidate SHA.
 
-For Next explicit CSS integration changes, use
-`pnpm --filter @lenso/stylex-build test:next`: the maintained small production
-and browser fixture checks `prepareNext` delivery, including custom global
-error styling on cold root-layout failure. The older `next-delivery.mjs` runner
-is retired. This proof is pinned to Next `16.3.8` production/non-watch builds;
-it does not certify dev/HMR or the docs application's full SSG build.
+For generated docs StyleX assets, run `bun run --filter @lenso/ui-docs test:stylex-artifacts` after building docs. `bun run test:production` also validates already-built packages in an isolated installed consumer: exports, types, server rendering and emitted assets.
 
-`pnpm test:production` builds one Storybook artifact, checks native RTL keyboard
-geometry, installs already-built local tarballs, and runs the small Next CSS fixture.
-These checks target production focus, themes and CSS delivery;
-component behavior matrices belong to the component and docs integration suites.
-Other family proofs remain available with
-`pnpm --filter @lenso/storybook test:browser calendar` (or another suite name).
-Calling that runner without suite names runs all retained scenarios, including
-network-dependent source asset replay; it is not a normal iteration or CI gate.
-Do not invoke the retired family fixture builders. The installed consumer
-catches distribution/exports/CSS faults that workspace imports cannot expose.
-
-Playwright proof children and the locale browser script use Node 26's native
-type erasure: transpiler function-name helpers cannot cross Playwright's
-browser-function serialization boundary. Their script TypeScript projects
-enforce erasable syntax. Other typed scripts reuse the existing `tsx` runner.
-
-For changed documentation interactions, start the built docs application using
-`pnpm --filter @lenso/ui-docs start` and run
-`pnpm --filter @lenso/ui-docs test:browser` against it. Set
-`LENSO_DOCS_TEST_URL` when using a different address. Full live-example coverage
-claims additionally require `pnpm --filter @lenso/ui-docs test:examples`; scoped
-or partial runs must be reported as scoped or partial.
+Automated tests use Bun and a simulated DOM. They do not establish real browser layout, painting, cross-browser compatibility or visual parity. For visual acceptance, inspect the affected states manually and describe the environment and scope of that inspection.
 
 Use the narrowest useful checks while iterating, but require all applicable
 checks to pass for the final candidate. Do not substitute a previous revision's
@@ -137,3 +161,21 @@ publication. See `RELEASE.md` for the migration and deferred scope. The manual
 requires successful verification of its exact main commit. It publishes only
 `@lenso/tokens` and `@lenso/ui`; it does not restore Changesets or the former
 fixed-group automatic release process.
+
+### Running ordinary tests
+
+`bun run test` runs Bun tests without building dependencies or regenerating source files. DOM tests use the shared preload in `tests/setup/dom.ts`; server tests run separately without browser globals. Tests do not retain screenshots or reports.
+
+On a fresh checkout, first run `bun run build:packages` and `bun run --filter @lenso/ui-docs generate`; repeat the appropriate build or generation step after changing its inputs.
+
+The production suite also builds `apps/docs-starter` through its real Next host.
+This checks the independent documentation framework alongside the product docs;
+unit tests of generated source alone do not verify that host's prerendering.
+
+### Preserved primitive React interop
+
+The two exact-file `react/refs` overrides in `.oxlintrc.json` cover preserved
+Base UI `mergeProps` event callbacks and `composeRefs` commit callbacks. Neither
+reads `ref.current` during render. They do not exempt other files or permit ref
+reads in JSX. Other exceptions keep their concrete integration reason beside
+the affected statement.

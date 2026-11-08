@@ -1,6 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
 
-// HeroUI v3.2.6 component-item/category geometry, translated to StyleX.
 // Apache-2.0. One native link per card preserves a single keyboard stop.
 export const gallery = stylex.create({
   grid: {
@@ -18,10 +17,10 @@ export const gallery = stylex.create({
     flexDirection: "column",
     gap: 9,
     minWidth: 0,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
     textDecoration: "none",
     borderRadius: 12,
-    ":focus-visible": { outline: "2px solid var(--focus)", outlineOffset: 4 },
+    ":focus-visible": { outline: "2px solid var(--lenso-focus-ring)", outlineOffset: 4 },
   },
   title: {
     order: { default: 1, "@media (min-width: 640px)": 2 },
@@ -37,7 +36,7 @@ export const gallery = stylex.create({
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "var(--separator)",
+    borderColor: "var(--lenso-separator)",
   },
   image: {
     position: "absolute",
@@ -48,5 +47,10 @@ export const gallery = stylex.create({
   },
   light: { display: { default: "block", ":is(.dark *)": "none" } },
   dark: { display: { default: "none", ":is(.dark *)": "block" } },
-  description: { order: 2, color: "var(--muted)", fontSize: 14, lineHeight: "24px" },
+  description: {
+    order: 2,
+    color: "var(--docs-label-secondary, var(--lenso-label-secondary))",
+    fontSize: 14,
+    lineHeight: "24px",
+  },
 });

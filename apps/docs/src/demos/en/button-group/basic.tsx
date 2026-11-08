@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0.
 import {
   ChevronDown,
   ChevronLeft,
@@ -74,7 +73,7 @@ export function Basic() {
       </div>
       <div {...stylex.props(styles.section)}>
         <div {...stylex.props(styles.row)}>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <CodeFork {...stylex.props(styles.smallIcon)} />
               Fork
@@ -89,7 +88,7 @@ export function Basic() {
               </Button.Icon>
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button isIconOnly aria-label="Show QR code">
               <Button.Icon>
                 <QrCode />
@@ -100,7 +99,7 @@ export function Basic() {
               Scan to pay
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <Button.Icon>
                 <ThumbsUp />
@@ -114,7 +113,7 @@ export function Basic() {
               </Button.Icon>
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <Star {...stylex.props(styles.smallIcon)} />
               Star
@@ -126,7 +125,7 @@ export function Basic() {
               </Chip>
             </Button>
           </ButtonGroup>
-          <ButtonGroup variant="tertiary">
+          <ButtonGroup variant="bordered">
             <Button>
               <Button.Icon>
                 <Pin />
@@ -143,7 +142,7 @@ export function Basic() {
         </div>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>
             <Button.Icon>
               <ChevronLeft />
@@ -160,7 +159,7 @@ export function Basic() {
         </ButtonGroup>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>
             <Button.Icon>
               <Picture />
@@ -183,7 +182,7 @@ export function Basic() {
         </ButtonGroup>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           <Button>Left</Button>
           <Button>
             <ButtonGroup.Separator />
@@ -196,7 +195,7 @@ export function Basic() {
         </ButtonGroup>
       </div>
       <div {...stylex.props(styles.section)}>
-        <ButtonGroup variant="tertiary">
+        <ButtonGroup variant="bordered">
           {[
             { label: "Align left", icon: <TextAlignLeft /> },
             { label: "Align center", icon: <TextAlignCenter /> },

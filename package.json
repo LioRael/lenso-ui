@@ -2,43 +2,80 @@
   "name": "lenso-ui-workspace",
   "version": "0.1.0",
   "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*",
+      "experiments"
+    ],
+    "catalog": {
+      "@base-ui/react": "1.9.0",
+      "@stylexjs/stylex": "0.19.1",
+      "@stylexjs/unplugin": "0.19.1",
+      "@tanstack/react-table": "9.3.1",
+      "@types/node": "26.6.6",
+      "@types/mdx": "2.0.14",
+      "@types/react": "19.3.0",
+      "@types/react-dom": "19.3.0",
+      "next": "16.4.3",
+      "oxfmt": "0.75.0",
+      "oxlint": "1.90.0",
+      "react": "19.3.1",
+      "react-dom": "19.3.1",
+      "tsdown": "0.23.3",
+      "turbo": "2.11.10",
+      "typescript": "7.0.2",
+      "vite": "8.3.5"
+    }
+  },
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "build:packages": "turbo run build --filter=@lenso/tokens --filter=@lenso/ui --filter=@lenso/primitives",
-    "check": "pnpm format:check && pnpm lint && pnpm source:check && pnpm build:packages && pnpm typecheck && pnpm test && pnpm --filter @lenso/testing test:browser && pnpm --filter @lenso/testing test:integration",
-    "source:check": "tsx scripts/interaction-boundaries.ts",
+    "build:packages": "turbo run build --filter=@lenso/tokens --filter=@lenso/glass --filter=@lenso/ui --filter=@lenso/primitives",
+    "check": "bun run format:check && bun run lint && bun run source:check && bun run build:packages && bun run typecheck && bun run test && bun run --filter @lenso/ui-docs test:dev",
+    "source:check": "bun scripts/interaction-boundaries.ts",
     "dev": "turbo run dev",
-    "dev:docs": "turbo run build:dev --filter=@lenso/ui --filter=@lenso/tokens --filter=@lenso/docs --output-logs=errors-only && LENSO_DOCS_PACKAGES_READY=1 turbo run dev --filter=@lenso/ui-docs...",
-    "dev:docs-starter": "turbo run build:dev --filter=@lenso/tokens --filter=@lenso/docs --output-logs=errors-only && pnpm --filter @lenso/docs-starter dev",
-    "dev:storybook": "turbo run build --filter=@lenso/ui --filter=@lenso/tokens --output-logs=errors-only && turbo run dev --filter=@lenso/storybook...",
-    "format": "oxfmt --config packages/standard/oxfmt.json --ignore-path .oxfmtignore .",
-    "format:check": "oxfmt --config packages/standard/oxfmt.json --ignore-path .oxfmtignore --check .",
-    "lint": "oxlint --config packages/standard/oxlint.json --ignore-path .oxlintignore --deny-warnings .",
-    "test": "pnpm test:scripts && pnpm test:ci && turbo run test",
-    "test:docs-framework": "pnpm --filter @lenso/tokens build && pnpm --filter @lenso/docs build && pnpm --filter @lenso/docs test && pnpm --filter create-lenso-docs test && pnpm --filter @lenso/docs test:dev && pnpm --filter @lenso/docs test:browser",
-    "test:scripts": "tsx --test scripts/*.test.ts scripts/publish-packages.test.mjs",
-    "test:ci": "node --test .github/scripts/*.test.ts",
-    "test:production": "turbo run build --filter=@lenso/storybook && pnpm --filter @lenso/storybook test:browser rtl && pnpm --filter @lenso/testing test:package && pnpm --filter @lenso/stylex-build test:next",
-    "typecheck": "pnpm typecheck:scripts && pnpm typecheck:ci && turbo run typecheck",
-    "typecheck:scripts": "tsc -p scripts/tsconfig.json",
-    "typecheck:ci": "tsc -p .github/scripts/tsconfig.json"
+    "dev:docs": "bun run --filter @lenso/ui-docs dev",
+    "dev:docs-starter": "turbo run build:dev --filter=@lenso/tokens --filter=@lenso/docs --output-logs=errors-only && bun run --filter @lenso/docs-starter dev",
+    "dev:storybook": "bun run --filter @lenso/storybook dev",
+    "format": "bun --bun oxfmt --config .oxfmtrc.json --ignore-path .oxfmtignore .",
+    "format:check": "bun --bun oxfmt --config .oxfmtrc.json --ignore-path .oxfmtignore --check .",
+    "lint": "bun --bun oxlint --config .oxlintrc.json --ignore-path .oxlintignore --deny-warnings .",
+    "test": "bun run test:repo && turbo run test --concurrency=1 --cache=",
+    "test:docs-framework": "turbo run build --filter=@lenso/docs-starter --filter=create-lenso-docs && bun run --filter @lenso/docs test && bun run --filter create-lenso-docs test",
+    "test:production": "bun test --timeout 180000 tests/consumer/*.test.ts && bun run --filter @lenso/ui-docs test:stylex-artifacts && turbo run build --filter=@lenso/docs-starter",
+    "typecheck": "bun run typecheck:repo && bun run typecheck:ci && turbo run typecheck",
+    "typecheck:ci": "bun check --no-script -p .github/scripts/tsconfig.json",
+    "test:repo": "bun test tests/*.test.ts ./.github/scripts/*.test.ts",
+    "typecheck:repo": "bun check --no-script -p tests/tsconfig.json"
   },
   "devDependencies": {
+    "@babel/core": "7.29.7",
     "@babel/parser": "7.29.9",
     "@babel/types": "7.29.8",
-    "@lenso/stylex-build": "workspace:*",
+    "@happy-dom/global-registrator": "21.0.4",
+    "@lenso/ui-devtools": "workspace:*",
+    "@stylexjs/babel-plugin": "0.19.1",
     "@stylexjs/stylex": "catalog:",
     "@stylexjs/unplugin": "catalog:",
+    "@types/babel__core": "7.20.5",
+    "@types/bun": "^1.4.4",
     "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
-    "tsx": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "turbo": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  },
+  "overrides": {
+    "@types/node": "26.6.6"
   },
   "engines": {
-    "node": "^26.10.0"
+    "bun": ">=1.4.4"
   },
-  "packageManager": "pnpm@12.9.1+sha512.06b055fff5cd20dc12781de173ced3310ce0951bf2ec620211a16045d5444d5c93a663210764ef29a653a610459ba0368f0e74f84d80c54723cf95aae7bc0d6d"
+  "packageManager": "bun@1.4.4"
 }

@@ -1,4 +1,3 @@
-// Shared formatting/alignment anatomy from HeroUI v3.2.6 source stories, Apache-2.0.
 import type { ComponentProps } from "react";
 import { ToggleButton, ToggleButtonGroup } from "@lenso/ui";
 import { ActionIcon } from "./actions-icons.fixtures";

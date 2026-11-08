@@ -1,19 +1,17 @@
 import { readFileSync } from "node:fs";
-import stylex from "@lenso/stylex-build";
 import { defineConfig } from "tsdown";
+import preserveWatchOutput from "../../scripts/preserve-watch-output.js";
 
 const presentation = defineConfig({
-  entry: {
-    presentation: "scripts/presentation.ts",
-    tabs: "scripts/tabs.ts",
-    highlight: "scripts/highlight.ts",
-    toc: "scripts/toc.ts",
-  },
+  entry: ["presentation/**/*.{ts,tsx}"],
+  root: ".",
+  unbundle: true,
   tsconfig: "tsconfig.presentation.json",
   outDir: "dist",
   format: "esm",
   outExtensions: () => ({ js: ".js" }),
   dts: false,
+  plugins: [preserveWatchOutput()],
   deps: {
     neverBundle: [
       "@stylexjs/stylex",
@@ -26,13 +24,6 @@ const presentation = defineConfig({
       "shiki",
     ],
   },
-  plugins: [
-    stylex.rolldown({
-      emitMetadata: "stylex-rules.json",
-      devMode: "off",
-      lightningcssOptions: { exclude: 4 },
-    }),
-  ],
   clean: true,
 });
 
@@ -61,6 +52,7 @@ const framework = defineConfig({
           : null;
       },
     },
+    preserveWatchOutput(),
   ],
   suppressWarnings: [/Module level directives cause errors/],
 });

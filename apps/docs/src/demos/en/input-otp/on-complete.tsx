@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Button, Form, InputOTP, Label, Spinner, TextField } from "@lenso/ui";
 import { useState, type FormEvent } from "react";
 import { Slots, styles } from "./parts";
@@ -42,7 +41,7 @@ export function OnComplete() {
         disabled={!isComplete}
         isLoading={isSubmitting}
         type="submit"
-        variant="primary"
+        variant="prominent"
       >
         {isSubmitting ? (
           <>

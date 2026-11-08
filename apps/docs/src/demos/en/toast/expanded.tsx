@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 expanded, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "./_shared";
@@ -15,7 +14,7 @@ export function Expanded() {
       </Toast.Provider>
       <Button
         size="sm"
-        variant="secondary"
+        variant="bordered"
         onClick={() => {
           queue.add({ title: "Simple message", type: "default" });
           setTimeout(() => queue.add({ title: "Operation completed", type: "success" }), 400);

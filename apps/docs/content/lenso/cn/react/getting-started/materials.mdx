@@ -1,0 +1,69 @@
+---
+title: "材料"
+description: "Apple 材料的主题变量与共享样式配置。"
+navigationGroup: "手册"
+navigationOrder: 11
+---
+
+Materials 属于设计基础，不是公开的 React 组件。通过 `@lenso/tokens/materials` 使用样式配置与类型，通过 `@lenso/tokens/theme.css` 加载主题变量。组件保留自己的结构和原生交互，内部渲染器负责装饰层与缓存光学贴图。
+
+## 材料家族
+
+| 家族                                        | 用途                     |
+| ------------------------------------------- | ------------------------ |
+| Ultrathin / Thin / Regular / Thick / Chrome | CSS 模糊、颜色和混合配置 |
+| Small / Medium / Large / Clear              | Liquid Glass 光学配置    |
+| Vibrant labels / fills                      | 前景颜色与混合角色       |
+| Scroll edges                                | Soft / Hard 滚动边缘配置 |
+
+## 组件使用
+
+[GlassButton](../components/glass-button) 使用 Small；[Card](../components/card) 的玻璃款使用 Medium；[Surface](../components/surface) 使用 Thick；[Toast](../components/toast) 默认使用 Clear。普通内容变体保持不透明。
+
+## 统一透明度与工具栏
+
+在应用根部放置 `GlassProvider`，通过 `useGlassPreferences()` 读取和修改全局外观。`tint` 从 0（更清透）、0.5（默认参考材质）到 1（更浓染，仍保留玻璃效果）。Regular / Clear 是材质类型，不是滑杆中点。文档站的主题菜单会保存该偏好，并跨页面应用。
+
+嵌套的 `ThemeScope glassTint={0.2}` 仅覆盖内部组件及其 Portal；也可嵌套 `GlassProvider defaultTint={0.2}` 创建局部偏好控制。对应 CSS 变量为 `--lenso-glass-tint-amount`，文字不会变透明。此 Web 曲线不声称与 Apple 原生设置精确一致。系统的降低透明度、增强对比度和强制颜色优先，并暂停折射资源。旧 `glassTransparency` API 保留独立的 0（实色）到 1（原配方）语义。
+
+```tsx
+<GlassProvider defaultTint={0.5}>
+  <App />
+  <ThemeScope glassTint={0.2}>
+    <Glass>局部更清透</Glass>
+  </ThemeScope>
+</GlassProvider>
+// App 内：const { tint, setTint } = useGlassPreferences();
+// 受控应用可向 GlassProvider 传入 tint 和 onTintChange。
+```
+
+将 `Toolbar edge="uniform" scrollRef={scrollRef}` 放在滚动视口内部，可以得到吸附在顶部、随滚动显示背景带的工具栏。`soft` 使用现有渐进边缘，`none` 保留普通工具栏布局，也是默认值。分组共用一块玻璃；`scrollRef` 必须指向真正滚动的元素。
+
+<ComponentPreview name="toolbar-scrolling" />
+
+## 滚动边缘配方
+
+Soft 对下方的实时内容叠加六层带遮罩的模糊，名义累计半径从 0.2125 到 4.2 CSS 像素；每层只补足目标高斯方差，避免重复叠加完整半径造成过度模糊。前五层在边缘长度的 87.5% 范围内相互重叠，第六层只增强最靠近工具栏的 25% 区域，使用两端斜率趋零的余弦遮罩，替代狭窄的线性截断。越靠近边界越模糊，独立染色在整个边缘范围内平滑淡出，叠加于现有主题染色上的余弦遮罩取 1.35 次幂以加快中段淡出，默认不透明度为浅色 0.42、深色 0.81。这组值依据受控 iOS 27.2 soft edge 校准，原生效果仍可能随内容和工具栏配置变化。这是对空间可变模糊的近似，不是原生的可变模糊着色器。Hard 使用均匀的 3 像素模糊与更明显的主题染色。现有调用无需修改属性。内部工具栏可通过 `--material-edge-tint` 与 `--material-edge-tint-opacity` 调整染色；底色应放在这层遮罩内，不要额外叠加没有渐隐的背景。
+
+内部渲染器可以绑定滚动视口：内容经过边缘时逐步显现，到达对应边界时消失；内容不足以滚动时不显示边缘。水平方向遵循逻辑起止方向。增强对比度和降低透明度模式使用不透明表面替代滤镜层。
+
+下方用同一份内容比较两种配置，可以滚动或切换短内容。实现参考了 [Linear 的 Liquid Glass 文章](https://linear.app/now/linear-liquid-glass) 对模糊与染色的分离方式，但浏览器效果仍不等同于 Apple 原生渲染。
+
+## 渲染边界
+
+Token 是参数，不是渲染器。液态玻璃还需要内部背景采样与缓存贴图；需要采样时，为有边界的装饰背景标记 `data-lenso-backdrop`。普通模糊材质和没有背景标记的 Medium / Large / Clear 表面，使用原生模糊与按源顺序组合的完整颜色混合层，前景、轮廓和动画分别保留。这不表示 Safari 能对任意未标记 DOM 进行折射。组件包不公开导出 Material、MaterialLabel、MaterialFill 或 ScrollEdge。
+
+Dark 轮廓使用 Linear Burn 混合，而不是半透明黑色描边。源参数与 Web 几何差异记录在仓库的 Apple 材料证据文档中，不宣称与 Figma 原生着色器像素完全一致。
+
+## Material appearance
+
+Liquid Glass uses the iOS 27 recipe in both light and dark appearance. Use `ThemeScope` to scope appearance and glass tint; overlays inherit these settings.
+
+```tsx
+<ThemeScope theme="dark" glassTint={0.5}>
+  <GlassButton>Continue</GlassButton>
+  <Card variant="glass">Content</Card>
+</ThemeScope>
+```
+
+The iOS 26 recipe and material version selection have been removed. Remove `materialVersion`, `data-material-version` and `--lenso-material-version` from existing integrations. No replacement version setting is needed. Light/dark appearance, Clear/Tinted preferences, custom optical settings and accessibility adaptations remain available.

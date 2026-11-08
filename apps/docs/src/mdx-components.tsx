@@ -1,16 +1,16 @@
+import Link from "fumadocs-core/link";
 import type { MDXComponents } from "mdx/types";
 import type { ComponentProps, ReactNode } from "react";
 import fumaMDX from "fumadocs-ui/mdx";
 import * as stylex from "@stylexjs/stylex";
-import { HandPointUp } from "@gravity-ui/icons";
+import { ChevronDown, HandPointUp } from "@gravity-ui/icons";
 import { source, pageUrl, type Locale } from "@/lib/source";
-import { styles } from "@/styles/docs.stylex";
-import { prose } from "@/styles/prose.stylex";
+import { styles, prose } from "@lenso/docs/presentation";
 import { getRelatedComponents } from "@/components-registry";
 import { Tab, Tabs } from "@/mdx-components/tabs";
 import { MDXCodeBlock } from "@/mdx-components/code";
-import { headingId } from "@/lib/heading-id.mjs";
-export { headingId } from "@/lib/heading-id.mjs";
+import { headingId } from "@/lib/heading-id.ts";
+export { headingId } from "@/lib/heading-id.ts";
 
 function plainText(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
@@ -34,13 +34,11 @@ function DocLink({ href = "", children, ...props }: ComponentProps<"a"> & { loca
       ? `/${locale}/docs/react/components${href.slice("/docs/components".length)}`
       : href.startsWith("/docs/getting-started")
         ? `/${locale}/docs/react/getting-started${href.slice("/docs/getting-started".length)}`
-        : /^\/(?:themes|showcase|blog|native|skills|install|contact)/.test(href)
-          ? `https://www.heroui.com${href}`
-          : href;
+        : href;
   return (
-    <a {...rest} href={local} {...stylex.props(prose.link)}>
+    <Link {...rest} href={local} {...stylex.props(prose.link)}>
       {children}
-    </a>
+    </Link>
   );
 }
 
@@ -48,10 +46,10 @@ function PageCards({ pages }: { pages: { title: string; description: string; hre
   return (
     <div {...stylex.props(styles.grid)}>
       {pages.map((page) => (
-        <a key={page.href} href={page.href} {...stylex.props(styles.link, styles.callout)}>
+        <Link key={page.href} href={page.href} {...stylex.props(styles.link, styles.callout)}>
           <strong>{page.title}</strong>
           <p {...stylex.props(styles.muted)}>{page.description}</p>
-        </a>
+        </Link>
       ))}
     </div>
   );
@@ -63,41 +61,52 @@ export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}):
   );
   return {
     ...fumaMDX,
+    DisclosureSummary: ({ children, ...props }: ComponentProps<"summary">) => (
+      <summary {...props} {...stylex.props(styles.disclosureFocus, styles.disclosureSummary)}>
+        <ChevronDown
+          width={16}
+          height={16}
+          aria-hidden="true"
+          {...stylex.props(styles.disclosureChevron)}
+        />
+        {children}
+      </summary>
+    ),
     h1: ({ children, id }) => (
-      <fumaMDX.h2
+      <h2
         id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h2)}
       >
         {children}
-      </fumaMDX.h2>
+      </h2>
     ),
     h2: ({ children, id }) => (
-      <fumaMDX.h2
+      <h2
         id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h2)}
       >
         {children}
-      </fumaMDX.h2>
+      </h2>
     ),
     h3: ({ children, id }) => (
-      <fumaMDX.h3
+      <h3
         id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h3)}
       >
         {children}
-      </fumaMDX.h3>
+      </h3>
     ),
     h4: ({ children, id }) => (
-      <fumaMDX.h4
+      <h4
         id={id ?? headingId(plainText(children))}
         aria-label={plainText(children)}
         {...stylex.props(styles.h3)}
       >
         {children}
-      </fumaMDX.h4>
+      </h4>
     ),
     p: ({ children }) => <p {...stylex.props(styles.paragraph)}>{children}</p>,
     a: (props) => <DocLink {...props} locale={locale} />,
@@ -155,18 +164,6 @@ export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}):
         />
       );
     },
-    RelatedShowcases: ({ component }: { component: string }) => (
-      <p {...stylex.props(styles.muted)}>
-        See{" "}
-        <a
-          href={`https://www.heroui.com/showcase?component=${encodeURIComponent(component)}`}
-          {...stylex.props(styles.proseLink)}
-        >
-          upstream {component} showcases
-        </a>
-        . Product showcases are not part of the local component runtime.
-      </p>
-    ),
     DocsImage: ({
       src,
       alt,
@@ -211,18 +208,10 @@ export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}):
         Watch the upstream demonstration recording
       </a>
     ),
-    PRContributors: () => (
-      <a
-        href="https://github.com/heroui-inc/heroui/graphs/contributors"
-        {...stylex.props(styles.proseLink)}
-      >
-        HeroUI contributors
-      </a>
-    ),
     HandPointUp,
     CollapsibleCode: ({ children }: { children?: ReactNode }) => (
       <details>
-        <summary {...stylex.props(styles.sourceSummary)}>View code</summary>
+        <summary {...stylex.props(styles.sourceSummary, styles.disclosureFocus)}>View code</summary>
         {children}
       </details>
     ),
@@ -234,7 +223,9 @@ export function getMDXComponents(locale: Locale, overrides: MDXComponents = {}):
           runtime.
         </p>
         <details>
-          <summary {...stylex.props(styles.sourceSummary)}>Read the historical prompt</summary>
+          <summary {...stylex.props(styles.sourceSummary, styles.disclosureFocus)}>
+            Read the historical prompt
+          </summary>
           <pre {...stylex.props(styles.pre)}>
             <code>{prompt}</code>
           </pre>

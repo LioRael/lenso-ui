@@ -1,27 +1,31 @@
 "use client";
-// Adapted from HeroUI v3.2.6 alert-dialog-controlled (Apache-2.0).
 // The second controller uses a reducer instead of the React Aria overlay-state hook.
 import { useReducer, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 
 const styles = stylex.create({
   column: { display: "flex", maxWidth: 448, flexDirection: "column", gap: 32 },
   section: { display: "flex", flexDirection: "column", gap: 12 },
-  heading: { fontSize: 18, fontWeight: 600, color: "var(--foreground)" },
-  caption: { fontSize: 14, lineHeight: 1.625, textWrap: "pretty", color: "var(--muted)" },
+  heading: { fontSize: 18, fontWeight: 600, color: "var(--lenso-label-primary)" },
+  caption: {
+    fontSize: 14,
+    lineHeight: 1.625,
+    textWrap: "pretty",
+    color: "var(--lenso-label-secondary)",
+  },
   panel: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 12,
     borderRadius: 16,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
-    boxShadow: "var(--shadow-sm)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
-  status: { fontSize: 12, color: "var(--muted)" },
-  value: { fontFamily: "monospace", fontWeight: 500, color: "var(--foreground)" },
+  status: { fontSize: 12, color: "var(--lenso-label-secondary)" },
+  value: { fontFamily: "monospace", fontWeight: 500, color: "var(--lenso-label-primary)" },
   actions: { display: "flex", gap: 8 },
   popup: { maxWidth: 400 },
 });
@@ -59,12 +63,11 @@ export function Controlled() {
                 Status: <span {...stylex.props(styles.value)}>{open ? "open" : "closed"}</span>
               </p>
               <div {...stylex.props(styles.actions)}>
-                <Button size="sm" variant="secondary" onClick={() => setOpen(true)}>
+                <Button size="sm" onClick={() => setOpen(true)}>
                   Open Dialog
                 </Button>
                 <Button
                   size="sm"
-                  variant="tertiary"
                   onClick={() => (reducer ? dispatch("toggle") : setIsOpen((value) => !value))}
                 >
                   Toggle
@@ -97,10 +100,8 @@ export function Controlled() {
                       </AlertDialog.Description>
                     </AlertDialog.Body>
                     <AlertDialog.Footer>
-                      <AlertDialog.Close render={<Button variant="tertiary" />}>
-                        Cancel
-                      </AlertDialog.Close>
-                      <AlertDialog.Close render={<Button />}>Confirm</AlertDialog.Close>
+                      <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+                      <AlertDialog.Action>Confirm</AlertDialog.Action>
                     </AlertDialog.Footer>
                   </AlertDialog.Popup>
                 </AlertDialog.Viewport>

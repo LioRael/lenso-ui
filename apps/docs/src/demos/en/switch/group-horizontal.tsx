@@ -1,11 +1,9 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
-import { Switch, SwitchGroup } from "@lenso/ui";
+import { Switch } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-const styles = stylex.create({ root: { overflowX: "auto" } });
 export function GroupHorizontal() {
   return (
-    <SwitchGroup xstyle={styles.root} orientation="horizontal">
+    <fieldset {...stylex.props(switchGrouping.root)} aria-label="Notification preferences">
       <Switch name="notifications">
         <Switch.Content>
           <Switch.Control>
@@ -30,6 +28,19 @@ export function GroupHorizontal() {
           Social
         </Switch.Content>
       </Switch>
-    </SwitchGroup>
+    </fieldset>
   );
 }
+
+const switchGrouping = stylex.create({
+  root: {
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+    minWidth: 0,
+    display: "flex",
+    gap: 12,
+    flexDirection: "row",
+    overflowX: "auto",
+  },
+});

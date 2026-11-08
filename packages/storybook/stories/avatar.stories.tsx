@@ -1,6 +1,6 @@
-// Adapted from HeroUI v3.2.6 avatar.stories.tsx (Apache-2.0).
 // Base UI Fallback uses delay rather than the source delayMs.
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Avatar, Separator } from "@lenso/ui";
 import { SourceIcon } from "./source-icons";
@@ -18,8 +18,8 @@ const styles = stylex.create({
     justifyContent: "center",
   },
   spacer: { width: 96, flexShrink: 0 },
-  label: { width: 96, flexShrink: 0, fontSize: 14, color: "var(--muted)" },
-  caption: { fontSize: 12, color: "var(--muted)", textTransform: "capitalize" },
+  label: { width: 96, flexShrink: 0, fontSize: 14, color: "var(--lenso-label-secondary)" },
+  caption: { fontSize: 12, color: "var(--lenso-label-secondary)", textTransform: "capitalize" },
   gradient: {
     borderStyle: "none",
     backgroundImage:
@@ -37,9 +37,9 @@ const meta = {
 } satisfies Meta<typeof Avatar>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-const image = (user: number) => `https://img.heroui.chat/image/avatar?w=400&h=400&u=${user}`;
-const circle = (color: string) =>
-  `https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/${color}.jpg`;
+const image = (user: number) =>
+  `/assets/demo/avatars/${["blue", "green", "purple", "red", "orange"][user % 5]}.svg`;
+const circle = (color: string) => `/assets/demo/avatars/${color}.svg`;
 export const Default: Story = {
   render: ({ color, size }) => (
     <div {...stylex.props(styles.columns)}>
@@ -87,17 +87,23 @@ export const Default: Story = {
     </div>
   ),
 };
-export const WithDelay: StoryObj<Avatar["RootProps"] & { delay?: number }> = {
-  render: ({ color, size, delay = 300 }) => (
+function DelayedAvatar({ color, size, delay = 300 }: Avatar["RootProps"] & { delay?: number }) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setReady(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+  return (
     <div {...stylex.props(styles.column)}>
       <Avatar color={color} size={size}>
-        <Avatar.Image
-          alt="Delayed avatar"
-          src={`https://app.requestly.io/delay/${delay}/${image(3)}`}
-        />
+        {ready && <Avatar.Image alt="Delayed avatar" src={image(3)} />}
+        <Avatar.Fallback>JD</Avatar.Fallback>
       </Avatar>
     </div>
-  ),
+  );
+}
+export const WithDelay: StoryObj<Avatar["RootProps"] & { delay?: number }> = {
+  render: (args) => <DelayedAvatar key={args.delay} {...args} />,
 };
 const colors = ["accent", "default", "success", "warning", "danger"] as const;
 export const WithColors: Story = {

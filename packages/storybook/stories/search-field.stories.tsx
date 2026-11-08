@@ -1,9 +1,18 @@
-// Adapted from HeroUI v3.2.6 at e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
 // Apache-2.0; source scenarios retained, Base Field/Input own native state.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { SearchField, Label, Description, FieldError, Form, Button, Kbd, Spinner } from "@lenso/ui";
+import {
+  GlassButton,
+  SearchField,
+  Label,
+  Description,
+  FieldError,
+  Form,
+  Button,
+  Kbd,
+  Spinner,
+} from "@lenso/ui";
 import { formWorkflowStyles as s } from "./form-workflow.stylex";
 
 const meta = {
@@ -173,12 +182,12 @@ function ControlledSearch() {
         description={`Current value: ${value || "(empty)"}`}
       />
       <div {...stylex.props(s.row)}>
-        <Button variant="tertiary" onClick={() => setValue("")}>
+        <GlassButton variant="default" onClick={() => setValue("")}>
           Clear
-        </Button>
-        <Button variant="tertiary" onClick={() => setValue("example query")}>
+        </GlassButton>
+        <GlassButton variant="default" onClick={() => setValue("example query")}>
           Set example
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );
@@ -231,7 +240,7 @@ function ValidatedSearch({ form = false }: { form?: boolean }) {
         disabled={value.length < 3}
         isLoading={submitting}
         type="submit"
-        variant="primary"
+        variant="prominent"
       >
         {submitting ? (
           <>

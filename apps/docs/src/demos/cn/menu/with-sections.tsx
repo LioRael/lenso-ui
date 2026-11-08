@@ -1,20 +1,18 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 with-sections, Apache-2.0.
 import { EllipsisVertical, Pencil, SquarePlus, TrashBin } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { ActionItem, Popup, Shortcut, styles } from "../../en/menu/_shared";
 export function WithSections() {
   return (
     <Menu>
-      <Menu.Trigger render={<Button isIconOnly aria-label="菜单" variant="secondary" />}>
+      <Menu.Trigger render={<GlassButton isIconOnly aria-label="菜单" variant="default" />}>
         <EllipsisVertical />
       </Menu.Trigger>
       <Popup>
-        <Menu.Section>
-          <Menu.Section.Label>操作</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>操作</Menu.Group.Label>
           <ActionItem
             label="新建文件"
             description="创建新文件"
@@ -29,10 +27,10 @@ export function WithSections() {
             shortcut={<Shortcut letter="E" />}
             onClick={() => console.log("Selected: edit-file")}
           />
-        </Menu.Section>
+        </Menu.Group>
         <Menu.Separator />
-        <Menu.Section>
-          <Menu.Section.Label>危险区域</Menu.Section.Label>
+        <Menu.Group>
+          <Menu.Group.Label>危险区域</Menu.Group.Label>
           <ActionItem
             label="删除文件"
             description="移至废纸篓"
@@ -41,7 +39,7 @@ export function WithSections() {
             shortcut={<Shortcut letter="D" shift />}
             onClick={() => console.log("Selected: delete-file")}
           />
-        </Menu.Section>
+        </Menu.Group>
       </Popup>
     </Menu>
   );

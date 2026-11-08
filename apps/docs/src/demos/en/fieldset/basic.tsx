@@ -1,11 +1,10 @@
 "use client";
-// Adapted from HeroUI v3.2.6, Apache-2.0.
 import { FloppyDisk } from "@gravity-ui/icons";
 import {
+  GlassButton,
   Button,
   Description,
   FieldError,
-  FieldGroup,
   Fieldset,
   Form,
   Input,
@@ -27,7 +26,7 @@ export function Basic() {
       <Fieldset aria-describedby={descriptionId}>
         <Fieldset.Legend>Profile Settings</Fieldset.Legend>
         <Description id={descriptionId}>Update your profile information.</Description>
-        <FieldGroup>
+        <Fieldset.Group>
           <TextField
             name="name"
             validate={(value) =>
@@ -45,6 +44,7 @@ export function Basic() {
           </TextField>
           <TextField
             name="bio"
+            layout="stacked"
             validate={(value) =>
               String(value).length < 10 ? "Bio must be at least 10 characters" : null
             }
@@ -54,15 +54,15 @@ export function Basic() {
             <Description>Minimum 10 characters</Description>
             <FieldError />
           </TextField>
-        </FieldGroup>
+        </Fieldset.Group>
         <Fieldset.Actions>
           <Button type="submit">
             <FloppyDisk aria-hidden="true" />
             Save changes
           </Button>
-          <Button type="reset" variant="secondary">
+          <GlassButton type="reset" variant="default">
             Cancel
-          </Button>
+          </GlassButton>
         </Fieldset.Actions>
       </Fieldset>
     </Form>

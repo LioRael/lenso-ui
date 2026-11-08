@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 table-basic (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { Table } from "@lenso/ui";
 

@@ -20,7 +20,7 @@ export function Default() {
       <Typography color="muted" type="body-sm">
         Smaller muted body copy for secondary descriptions.
       </Typography>
-      <Typography type="code">pnpm add @lenso/ui</Typography>
+      <Typography type="code">bun add @lenso/ui</Typography>
     </div>
   );
 }

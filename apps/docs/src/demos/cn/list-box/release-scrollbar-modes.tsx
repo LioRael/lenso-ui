@@ -1,9 +1,7 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// HeroUI v3.2.6 release-scrollbar-modes adaptation (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
-import { ListBox, ListBoxItem } from "@lenso/ui";
+import { ListBox } from "@lenso/ui";
 const animals = [
   "Aardvark",
   "Alpaca",
@@ -43,13 +41,13 @@ const styles = stylex.create({
     paddingInline: 4,
     fontSize: 14,
     fontWeight: 600,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   surface: {
     overflow: "hidden",
     borderRadius: 24,
-    backgroundColor: "var(--surface)",
-    boxShadow: "var(--surface-shadow)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   viewport: {
     height: 208,
@@ -68,9 +66,7 @@ export function ScrollbarModes() {
     <div {...stylex.props(styles.root)}>
       {(["thin", "default", "none"] as const).map((mode, index) => (
         <div key={mode} {...stylex.props(styles.group)}>
-          <h3 {...stylex.props(styles.title)}>
-            {["HeroUI thin", "Browser default", "Hidden"][index]}
-          </h3>
+          <h3 {...stylex.props(styles.title)}>{["Thin", "Browser default", "Hidden"][index]}</h3>
           <div data-scrollbar={mode} {...stylex.props(styles.surface)}>
             <div
               {...stylex.props(
@@ -80,17 +76,17 @@ export function ScrollbarModes() {
               )}
             >
               <ListBox
-                aria-label={`${["HeroUI 纤细", "浏览器默认", "隐藏"][index]}动物列表`}
+                aria-label={`${["纤细", "浏览器默认", "隐藏"][index]}动物列表`}
                 selectionMode="single"
               >
                 {animals.map((name) => (
-                  <ListBoxItem
+                  <ListBox.Item
                     key={name}
                     itemKey={`${mode}-${name.toLowerCase()}`}
                     textValue={name}
                   >
                     {name}
-                  </ListBoxItem>
+                  </ListBox.Item>
                 ))}
               </ListBox>
             </div>

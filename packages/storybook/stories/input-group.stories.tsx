@@ -1,9 +1,9 @@
-// Adapted from HeroUI v3.2.6 input-group.stories.tsx (Apache-2.0).
 // Native controls own defaultValue/type/required; Tooltip uses explicit Base UI composition.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useRef, useState, type ReactElement, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import {
+  GlassButton,
   InputGroup,
   TextField,
   Label,
@@ -22,7 +22,7 @@ const styles = stylex.create({
   input: { width: 280 },
   price: { width: 200 },
   icon: { width: 16, height: 16 },
-  muted: { color: "var(--muted)" },
+  muted: { color: "var(--lenso-label-secondary)" },
   stack: { display: "flex", flexDirection: "column", gap: 16 },
   variations: { display: "flex", flexDirection: "column", gap: 24 },
   full: { width: 400 },
@@ -186,7 +186,7 @@ function Website({
                 isIconOnly
                 aria-label="Copy"
                 size="sm"
-                variant="ghost"
+                variant="borderless"
                 xstyle={compactCopy && styles.compactCopy}
               >
                 <SourceIcon name="copy" {...stylex.props(styles.icon)} />
@@ -250,15 +250,17 @@ export const WithSuffixIcon: Story = {
 };
 export const WithPrefixAndSuffix: Story = { render: () => <Price value="10" /> };
 export const WithTextPrefix: Story = {
-  render: () => <Website value="heroui.com" prefix="https://" />,
+  render: () => <Website value="example.com" prefix="https://" />,
 };
-export const WithTextSuffix: Story = { render: () => <Website value="heroui" suffix=".com" /> };
+export const WithTextSuffix: Story = { render: () => <Website value="example" suffix=".com" /> };
 export const WithIconPrefixAndTextSuffix: Story = {
-  render: () => <Website value="heroui" prefix="globe" suffix=".com" />,
+  render: () => <Website value="example" prefix="globe" suffix=".com" />,
 };
-export const WithCopySuffix: Story = { render: () => <Website value="heroui.com" suffix="copy" /> };
+export const WithCopySuffix: Story = {
+  render: () => <Website value="example.com" suffix="copy" />,
+};
 export const WithIconPrefixAndCopySuffix: Story = {
-  render: () => <Website value="heroui.com" prefix="globe" suffix="copy" />,
+  render: () => <Website value="example.com" prefix="globe" suffix="copy" />,
 };
 function Password() {
   const [visible, setVisible] = useState(false);
@@ -276,7 +278,7 @@ function Password() {
             isIconOnly
             aria-label={visible ? "Hide password" : "Show password"}
             size="sm"
-            variant="ghost"
+            variant="borderless"
             onClick={() => setVisible(!visible)}
           >
             <SourceIcon name={visible ? "eye" : "eye-slash"} {...stylex.props(styles.icon)} />
@@ -399,7 +401,7 @@ function Composer() {
       <TextField fullWidth name="prompt" xstyle={styles.composer}>
         <InputGroup fullWidth xstyle={styles.composerGroup}>
           <InputGroup.Prefix xstyle={styles.composerPrefix}>
-            <Button aria-label="Add context" size="sm" variant="outline">
+            <Button aria-label="Add context" size="sm" variant="borderless">
               <SourceIcon name="at" />
               Add Context
             </Button>
@@ -415,18 +417,18 @@ function Composer() {
           <InputGroup.Suffix xstyle={styles.composerSuffix}>
             <Hint
               button={
-                <Button isIconOnly aria-label="Attach file" size="sm" variant="tertiary">
+                <GlassButton isIconOnly aria-label="Attach file" size="sm" variant="default">
                   <SourceIcon name="plus" />
-                </Button>
+                </GlassButton>
               }
             >
               <p {...stylex.props(styles.tooltipText)}>Add a files and more</p>
             </Hint>
             <Hint
               button={
-                <Button isIconOnly aria-label="Connect Apps" size="sm" variant="tertiary">
+                <GlassButton isIconOnly aria-label="Connect Apps" size="sm" variant="default">
                   <SourceIcon name="plug-connection" />
-                </Button>
+                </GlassButton>
               }
             >
               <p {...stylex.props(styles.tooltipText)}>Connect apps</p>
@@ -434,7 +436,7 @@ function Composer() {
             <div {...stylex.props(styles.sendControls)}>
               <Hint
                 button={
-                  <Button isIconOnly aria-label="Voice input" size="sm" variant="ghost">
+                  <Button isIconOnly aria-label="Voice input" size="sm" variant="borderless">
                     <SourceIcon name="microphone" />
                   </Button>
                 }
@@ -489,11 +491,11 @@ export const AllVariations: Story = {
           description="We don't send spam"
         />
         <Price value="10" />
-        <Website name="website1" value="heroui.com" prefix="https://" />
-        <Website name="website2" value="heroui" suffix=".com" />
-        <Website name="website3" value="heroui" prefix="globe" suffix=".com" />
-        <Website name="website4" value="heroui.com" suffix="copy" compactCopy />
-        <Website name="website5" value="heroui.com" prefix="globe" suffix="copy" compactCopy />
+        <Website name="website1" value="example.com" prefix="https://" />
+        <Website name="website2" value="example" suffix=".com" />
+        <Website name="website3" value="example" prefix="globe" suffix=".com" />
+        <Website name="website4" value="example.com" suffix="copy" compactCopy />
+        <Website name="website5" value="example.com" prefix="globe" suffix="copy" compactCopy />
       </div>
     </div>
   ),

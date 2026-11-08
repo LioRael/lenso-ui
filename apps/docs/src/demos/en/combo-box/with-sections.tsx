@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6, Apache-2.0. Native grouped collection filters without losing section semantics.
+// Native grouped collection filters without losing section semantics.
 import { ComboBox } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";

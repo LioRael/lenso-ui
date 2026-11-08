@@ -1,32 +1,30 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 import { Avatar, AvatarGroup } from "@lenso/ui";
 const users = [
   {
     id: 1,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg",
+    image: "/assets/demo/avatars/blue.svg",
     name: "张明",
   },
   {
     id: 2,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg",
+    image: "/assets/demo/avatars/green.svg",
     name: "李华",
   },
   {
     id: 3,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg",
+    image: "/assets/demo/avatars/purple.svg",
     name: "王芳",
   },
   {
     id: 4,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg",
+    image: "/assets/demo/avatars/orange.svg",
     name: "刘洋",
   },
   {
     id: 5,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg",
+    image: "/assets/demo/avatars/red.svg",
     name: "陈静",
   },
 ];

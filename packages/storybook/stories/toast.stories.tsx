@@ -1,6 +1,5 @@
-// Adapted from HeroUI e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, Modal, Toast } from "@lenso/ui";
+import { GlassButton, Button, Modal, Toast } from "@lenso/ui";
 import { useState, type ComponentProps, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { menuToast as s } from "./menu-toast.stylex";
@@ -26,7 +25,7 @@ type Story = StoryObj<ToastStoryProps>;
 type Data = {
   indicator?: ReactNode;
   actionTone?: "success" | "warning";
-  actionVariant?: "tertiary" | "danger";
+  actionVariant?: "borderless" | "prominent";
 };
 type Manager = ReturnType<typeof Toast.createToastManager<Data>>;
 type ToastItem = ReturnType<typeof Toast.useToastManager<Data>>["toasts"][number];
@@ -36,7 +35,8 @@ function Action({ item, mobile = false }: { item: ToastItem; mobile?: boolean })
       {...item.actionProps}
       render={
         <Button
-          variant={item.data?.actionVariant ?? "primary"}
+          variant={item.data?.actionVariant ?? "prominent"}
+          destructive={item.type === "danger"}
           xstyle={[
             mobile ? s.mobileAction : s.desktopAction,
             item.data?.actionTone === "success"
@@ -123,11 +123,11 @@ function DefaultButtons() {
   function invitation() {
     const id = manager.add({
       title: "You have been invited to join a team",
-      description: "Bob sent you an invitation to join HeroUI team",
+      description: "Bob sent you an invitation to join your team",
       type: "default",
       data: {
         indicator: <MenuToastIcon name="persons" muted={false} />,
-        actionVariant: "tertiary",
+        actionVariant: "borderless",
       },
       actionProps: { children: "Dismiss", onClick: () => manager.close(id) },
     });
@@ -143,7 +143,7 @@ function DefaultButtons() {
   function success() {
     const id = manager.add({
       title: "You have upgraded your plan",
-      description: "You can continue using HeroUI Chat",
+      description: "You can continue using the chat",
       type: "success",
       data: { actionTone: "success" },
       actionProps: { children: "Billing", onClick: () => manager.close(id) },
@@ -166,28 +166,28 @@ function DefaultButtons() {
       type: "danger",
       data: {
         indicator: <MenuToastIcon name="hard-drive" muted={false} />,
-        actionVariant: "danger",
+        actionVariant: "prominent",
       },
       actionProps: { children: "Remove", onClick: () => manager.close(id) },
     });
   }
   return (
     <div {...stylex.props(s.buttons)}>
-      <Button size="sm" variant="tertiary" xstyle={s.muted} onClick={invitation}>
+      <GlassButton size="sm" variant="default" xstyle={s.muted} onClick={invitation}>
         Default toast
-      </Button>
-      <Button size="sm" variant="secondary" onClick={credits}>
+      </GlassButton>
+      <GlassButton size="sm" variant="default" onClick={credits}>
         Accent toast
-      </Button>
-      <Button size="sm" variant="tertiary" xstyle={s.success} onClick={success}>
+      </GlassButton>
+      <GlassButton size="sm" variant="default" xstyle={s.success} onClick={success}>
         Success toast
-      </Button>
-      <Button size="sm" variant="tertiary" xstyle={s.warning} onClick={warning}>
+      </GlassButton>
+      <GlassButton size="sm" variant="default" xstyle={s.warning} onClick={warning}>
         Warning toast
-      </Button>
-      <Button size="sm" variant="danger-soft" onClick={danger}>
+      </GlassButton>
+      <GlassButton destructive size="sm" variant="default" onClick={danger}>
         Danger toast
-      </Button>
+      </GlassButton>
     </div>
   );
 }
@@ -217,10 +217,10 @@ function PlacementsTemplate(args: ToastStoryProps) {
       ))}
       <div {...stylex.props(s.placements)}>
         {placements.map((placement, index) => (
-          <Button
+          <GlassButton
             key={placement}
             size="sm"
-            variant="secondary"
+            variant="default"
             onClick={() =>
               managers[index]!.add({
                 title: "Event created",
@@ -230,7 +230,7 @@ function PlacementsTemplate(args: ToastStoryProps) {
             }
           >
             {placement}
-          </Button>
+          </GlassButton>
         ))}
       </div>
     </div>
@@ -240,9 +240,9 @@ export const Placements: Story = { render: (args) => <PlacementsTemplate {...arg
 function ExpandedButton() {
   const manager = Toast.useToastManager();
   return (
-    <Button
+    <GlassButton
       size="sm"
-      variant="secondary"
+      variant="default"
       onClick={() => {
         manager.add({ title: "Simple message", type: "default" });
         setTimeout(() => manager.add({ title: "Operation completed", type: "success" }), 400);
@@ -250,7 +250,7 @@ function ExpandedButton() {
       }}
     >
       Show 3 toasts
-    </Button>
+    </GlassButton>
   );
 }
 export const Expanded: Story = {
@@ -273,14 +273,14 @@ function SimpleButtons() {
         { label: "Warning", title: "Please check your settings", type: "warning" },
         { label: "Error", title: "Something went wrong", type: "danger" },
       ].map((item) => (
-        <Button
+        <GlassButton
           key={item.label}
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() => manager.add({ title: item.title, type: item.type })}
         >
           {item.label}
-        </Button>
+        </GlassButton>
       ))}
     </div>
   );
@@ -317,9 +317,9 @@ function PromiseButtons() {
     );
   return (
     <div {...stylex.props(s.buttons)}>
-      <Button
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() => {
           void manager
             .promise(uploadFile(), {
@@ -331,10 +331,10 @@ function PromiseButtons() {
         }}
       >
         Upload file
-      </Button>
-      <Button
+      </GlassButton>
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() => {
           void manager
             .promise(createEvent(), {
@@ -346,10 +346,10 @@ function PromiseButtons() {
         }}
       >
         Create event (error)
-      </Button>
-      <Button
+      </GlassButton>
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() => {
           void manager
             .promise(saveData(), {
@@ -361,10 +361,10 @@ function PromiseButtons() {
         }}
       >
         Save data (random)
-      </Button>
-      <Button
+      </GlassButton>
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() => {
           void manager
             .promise(fetchUser(), {
@@ -376,7 +376,7 @@ function PromiseButtons() {
         }}
       >
         Fetch user
-      </Button>
+      </GlassButton>
     </div>
   );
 }
@@ -392,9 +392,9 @@ export const PromiseToast: Story = {
 function IndicatorButton() {
   const manager = Toast.useToastManager<Data>();
   return (
-    <Button
+    <GlassButton
       size="sm"
-      variant="secondary"
+      variant="default"
       onClick={() =>
         manager.add({
           title: "Custom icon indicator",
@@ -403,7 +403,7 @@ function IndicatorButton() {
       }
     >
       Custom indicator
-    </Button>
+    </GlassButton>
   );
 }
 export const CustomIndicator: Story = {
@@ -439,9 +439,9 @@ function LoadingButtons() {
   }
   return (
     <div {...stylex.props(s.buttons)}>
-      <Button
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() =>
           start(
             "Uploading file...",
@@ -453,10 +453,10 @@ function LoadingButtons() {
         }
       >
         Upload with loading
-      </Button>
-      <Button
+      </GlassButton>
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() =>
           start(
             "Processing payment...",
@@ -468,16 +468,16 @@ function LoadingButtons() {
         }
       >
         Payment processing
-      </Button>
-      <Button
+      </GlassButton>
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() =>
           start("Saving changes...", undefined, "Failed to save", "Please try again", 2000, true)
         }
       >
         Loading to error
-      </Button>
+      </GlassButton>
     </div>
   );
 }
@@ -501,9 +501,9 @@ function CallbacksButtons() {
   return (
     <>
       <div {...stylex.props(s.buttons)}>
-        <Button
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() =>
             manager.add({
               title: "File saved",
@@ -513,10 +513,10 @@ function CallbacksButtons() {
           }
         >
           Custom timeout (3s)
-        </Button>
-        <Button
+        </GlassButton>
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() =>
             manager.add({
               title: "Changes saved",
@@ -526,10 +526,10 @@ function CallbacksButtons() {
           }
         >
           Custom timeout (10s)
-        </Button>
-        <Button
+        </GlassButton>
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() =>
             manager.add({
               title: "Event created",
@@ -539,10 +539,10 @@ function CallbacksButtons() {
           }
         >
           With onClose callback
-        </Button>
-        <Button
+        </GlassButton>
+        <GlassButton
           size="sm"
-          variant="secondary"
+          variant="default"
           onClick={() =>
             manager.add({
               title: "Important notification",
@@ -553,20 +553,20 @@ function CallbacksButtons() {
           }
         >
           Persistent toast
-        </Button>
+        </GlassButton>
       </div>
       <div {...stylex.props(s.history)}>
         <div {...stylex.props(s.between)}>
           <h3 {...stylex.props(s.historyHeading)}>Closed History</h3>
           {history.length > 0 && (
-            <Button
+            <GlassButton
               size="sm"
-              variant="tertiary"
+              variant="default"
               xstyle={s.historyClear}
               onClick={() => setHistory([])}
             >
               Clear
-            </Button>
+            </GlassButton>
           )}
         </div>
         <div {...stylex.props(s.historyPanel)}>
@@ -611,9 +611,9 @@ export const WithCallbacks: Story = {
 function CustomButton() {
   const manager = Toast.useToastManager();
   return (
-    <Button
+    <GlassButton
       size="sm"
-      variant="secondary"
+      variant="default"
       onClick={() =>
         manager.add({
           title: "Custom layout toast",
@@ -623,7 +623,7 @@ function CustomButton() {
       }
     >
       Custom toast
-    </Button>
+    </GlassButton>
   );
 }
 export const CustomToast: Story = {
@@ -644,9 +644,9 @@ function CustomQueues(args: ToastStoryProps) {
       <Provider {...args} manager={notification} placement="bottom" limit={2} />
       <Provider {...args} manager={error} placement="top" limit={3} />
       <Provider {...args} manager={success} placement="bottom end" limit={1} />
-      <Button
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         onClick={() =>
           notification.add({
             title: "New notification",
@@ -656,10 +656,11 @@ function CustomQueues(args: ToastStoryProps) {
         }
       >
         Add notification (max 2)
-      </Button>
-      <Button
+      </GlassButton>
+      <GlassButton
+        destructive
         size="sm"
-        variant="danger-soft"
+        variant="default"
         onClick={() =>
           error.add({
             title: "Error occurred",
@@ -669,10 +670,10 @@ function CustomQueues(args: ToastStoryProps) {
         }
       >
         Add error (max 3)
-      </Button>
-      <Button
+      </GlassButton>
+      <GlassButton
         size="sm"
-        variant="secondary"
+        variant="default"
         xstyle={s.success}
         onClick={() =>
           success.add({
@@ -683,7 +684,7 @@ function CustomQueues(args: ToastStoryProps) {
         }
       >
         Add success (max 1)
-      </Button>
+      </GlassButton>
     </div>
   );
 }
@@ -692,7 +693,7 @@ function ModalExample() {
   const manager = Toast.useToastManager();
   return (
     <Modal>
-      <Modal.Trigger render={<Button size="sm" variant="secondary" />}>Open modal</Modal.Trigger>
+      <Modal.Trigger render={<GlassButton size="sm" variant="default" />}>Open modal</Modal.Trigger>
       <Modal.Portal>
         <Modal.Backdrop />
         <Modal.Viewport>
@@ -708,8 +709,8 @@ function ModalExample() {
               <p>Trigger a toast from inside the modal to see it render above the backdrop.</p>
             </Modal.Body>
             <Modal.Footer>
-              <Button
-                variant="secondary"
+              <GlassButton
+                variant="default"
                 xstyle={s.fullWidth}
                 onClick={() =>
                   manager.add({
@@ -720,7 +721,7 @@ function ModalExample() {
                 }
               >
                 Show toast
-              </Button>
+              </GlassButton>
             </Modal.Footer>
           </Modal.Popup>
         </Modal.Viewport>

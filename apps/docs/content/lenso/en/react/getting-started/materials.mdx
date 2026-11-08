@@ -1,0 +1,69 @@
+---
+title: "Materials"
+description: "Theme variables and shared presentation recipes for Apple materials."
+navigationGroup: "Handbook"
+navigationOrder: 11
+---
+
+Materials are a design foundation, not public React components. Import style recipes and types from `@lenso/tokens/materials`; load `@lenso/tokens/theme.css` for the theme variables. Components retain their own structure and native behavior. The internal renderer supplies decorative layers and cached optical maps.
+
+## Material families
+
+| Family                                      | Usage                                |
+| ------------------------------------------- | ------------------------------------ |
+| Ultrathin / Thin / Regular / Thick / Chrome | CSS blur, paint and blending recipes |
+| Small / Medium / Large / Clear              | Liquid Glass optical profiles        |
+| Vibrant labels / fills                      | Foreground paint and blend roles     |
+| Scroll edges                                | Soft and hard edge recipes           |
+
+## Consumers
+
+[GlassButton](../components/glass-button) uses Small. [Card](../components/card) uses Medium for its glass variant. [Surface](../components/surface) uses Thick. [Toast](../components/toast) uses Clear by default. Solid variants stay opaque.
+
+## Glass preferences and toolbars
+
+Use `GlassProvider` at the app root and `useGlassPreferences()` for a global setting. `tint` ranges from 0 (more clear), through 0.5 (default reference material), to 1 (more tinted, still glass). Regular / Clear describe material variants, not the slider midpoint. The Docs Theme menu persists this preference across pages.
+
+A nested `ThemeScope glassTint={0.2}` overrides only that subtree and its portals; a nested `GlassProvider defaultTint={0.2}` also supplies a local preference owner. The inherited CSS property is `--lenso-glass-tint-amount`. Text opacity is unchanged. This Web curve does not claim native Apple calibration. System reduced transparency, increased contrast and forced colors take precedence and suspend optics. The older `glassTransparency` API controls a separate opacity layer: 0 is solid and 1 retains the selected appearance. It composes with `glassTint`; for example, `glassTransparency={1}` with `glassTint={0}` remains clear. Intermediate opacity covers that appearance with the semantic solid rather than resetting its blur or color transfer.
+
+```tsx
+<GlassProvider defaultTint={0.5}>
+  <App />
+  <ThemeScope glassTint={0.2}>
+    <Glass>Locally clearer</Glass>
+  </ThemeScope>
+</GlassProvider>
+// Inside App: const { tint, setTint } = useGlassPreferences();
+// Controlled apps can pass tint and onTintChange to GlassProvider.
+```
+
+Use `Toolbar edge="uniform" scrollRef={scrollRef}` inside the scrolling viewport for a sticky bar whose background band appears as content scrolls underneath. `soft` uses the existing progressive edge; `none` preserves the ordinary toolbar layout and is the default. Groups share one glass surface. The ref must point to the element that scrolls.
+
+<ComponentPreview name="toolbar-scrolling" />
+
+## Scroll edge recipes
+
+Soft edges filter the live content underneath through six masked blur layers, with nominal accumulated radii from 0.2125 to 4.2 CSS pixels. Each layer adds only the remaining Gaussian variance, avoiding cumulative overblur. Five broad bands overlap across 87.5% of the edge extent; a sixth strengthens only the bar-adjacent 25%, using a raised-cosine mask with gentle endpoints instead of narrow linear cutoffs. Blur increases toward the boundary while a separate tint fades across the entire edge. Its cosine falloff is raised to 1.35 to clear the middle sooner. Its default opacity is 0.42 in light mode and 0.81 in dark mode, over the existing theme tint. These values were calibrated against a controlled iOS 27.2 soft edge; content-dependent native behavior can still differ. This approximates spatially varying blur; it is not a native variable-blur shader. Hard edges use a uniform 3-pixel blur and a stronger theme tint. Existing consumers need no prop changes. Internal bar compositions may set `--material-edge-tint` and `--material-edge-tint-opacity`; keep all color inside this masked tint rather than adding an unmasked bar background.
+
+The internal renderer can bind to a scroll viewport: an edge fades in as content passes beneath it and disappears at its corresponding boundary. Content that fits needs no edge. Logical horizontal edges follow the writing direction. Increased contrast and reduced transparency replace the filtered layers with an opaque surface.
+
+The comparison below uses the same content for both recipes. Try scrolling and switching to short content. This approach follows the separation of blur and color described in [Linear’s Liquid Glass article](https://linear.app/now/linear-liquid-glass); browser rendering remains different from Apple’s native effect.
+
+## Rendering boundary
+
+A token is a parameter, not a renderer. Liquid Glass needs internal background sampling and cached maps. Mark a bounded decorative background with `data-lenso-backdrop` where sampling is needed; ordinary blur surfaces and unmarked Medium / Large / Clear surfaces use native blur with the complete source-order paint stack. Their foreground, contour and motion stay separate. Unmarked Safari backgrounds do not gain arbitrary DOM refraction. No public Material, MaterialLabel, MaterialFill or ScrollEdge component is exported.
+
+Dark contour paints use Linear Burn, not alpha-black borders. Source values and Web geometry differences are recorded in the repository's Apple material evidence. This is a Web translation, not a pixel-identical Figma shader.
+
+## Material appearance
+
+Liquid Glass uses the iOS 27 recipe in both light and dark appearance. Use `ThemeScope` to scope appearance and glass tint; overlays inherit these settings.
+
+```tsx
+<ThemeScope theme="dark" glassTint={0.5}>
+  <GlassButton>Continue</GlassButton>
+  <Card variant="glass">Content</Card>
+</ThemeScope>
+```
+
+The iOS 26 recipe and material version selection have been removed. Remove `materialVersion`, `data-material-version` and `--lenso-material-version` from existing integrations. No replacement version setting is needed. Light/dark appearance, Clear/Tinted preferences, custom optical settings and accessibility adaptations remain available.

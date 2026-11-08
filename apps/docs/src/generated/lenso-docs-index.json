@@ -1,62 +1,70 @@
 {
   "formatVersion": 1,
-  "lensoVersion": "0.9.2",
+  "lensoVersion": "0.9.1",
   "sourceFamilyMapping": {
-    "dropdown": "menu"
+    "dropdown": "menu",
+    "disclosure-group": "accordion"
   },
   "families": {
     "accordion": {
-      "source": "packages/react/src/components/accordion/accordion.tsx",
+      "source": "packages/ui/src/components/accordion/accordion.tsx",
       "native": [
         "@base-ui/react/accordion"
       ],
       "related": []
     },
+    "action-sheet": {
+      "source": "packages/ui/src/components/action-sheet/action-sheet.tsx",
+      "native": [
+        "@base-ui/react/dialog"
+      ],
+      "related": []
+    },
     "alert": {
-      "source": "packages/react/src/components/alert/alert.tsx",
+      "source": "packages/ui/src/components/alert/alert.tsx",
       "native": [],
       "related": []
     },
     "alert-dialog": {
-      "source": "packages/react/src/components/alert-dialog/alert-dialog.tsx",
+      "source": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
       "native": [
         "@base-ui/react/alert-dialog"
       ],
       "related": []
     },
     "autocomplete": {
-      "source": "packages/react/src/components/autocomplete/index.ts",
+      "source": "packages/ui/src/components/autocomplete/autocomplete.tsx",
       "native": [
         "@base-ui/react/combobox"
       ],
       "related": []
     },
     "avatar": {
-      "source": "packages/react/src/components/avatar/avatar.tsx",
+      "source": "packages/ui/src/components/avatar/avatar.tsx",
       "native": [
         "@base-ui/react/avatar"
       ],
       "related": []
     },
     "avatar-group": {
-      "source": "packages/react/src/components/avatar-group/avatar-group.tsx",
+      "source": "packages/ui/src/components/avatar-group/avatar-group.tsx",
       "native": [],
       "related": []
     },
     "badge": {
-      "source": "packages/react/src/components/badge/badge.tsx",
+      "source": "packages/ui/src/components/badge/badge.tsx",
       "native": [],
       "related": []
     },
     "breadcrumbs": {
-      "source": "packages/react/src/components/breadcrumbs/breadcrumbs.tsx",
+      "source": "packages/ui/src/components/breadcrumbs/breadcrumbs.tsx",
       "native": [
         "@base-ui/react/use-render"
       ],
       "related": []
     },
     "button": {
-      "source": "packages/react/src/components/button/button.tsx",
+      "source": "packages/ui/src/components/button/button.tsx",
       "native": [
         "@base-ui/react/button",
         "@base-ui/react/merge-props"
@@ -64,176 +72,178 @@
       "related": []
     },
     "button-group": {
-      "source": "packages/react/src/components/button-group/button-group.tsx",
+      "source": "packages/ui/src/components/button-group/button-group.tsx",
       "native": [],
       "related": []
     },
     "calendar": {
-      "source": "packages/react/src/components/calendar/calendar.tsx",
+      "source": "packages/ui/src/components/calendar/calendar.tsx",
       "native": [
-        "react-aria-components/Calendar",
-        "react-aria-components/Button",
-        "react-aria-components/I18nProvider"
+        "@base-ui/react/button",
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": [
         "calendar-year-picker"
       ]
     },
     "calendar-year-picker": {
-      "source": "packages/react/src/components/calendar-year-picker/calendar-year-picker.tsx",
+      "source": "packages/ui/src/components/calendar-year-picker/calendar-year-picker.tsx",
       "native": [
-        "react-aria-components/Button",
-        "react-aria-components/Group",
-        "react-aria-components/I18nProvider"
+        "@base-ui/react/button",
+        "@base-ui/react/use-render"
       ],
       "related": []
     },
     "card": {
-      "source": "packages/react/src/components/card/card.tsx",
+      "source": "packages/ui/src/components/card/card.tsx",
       "native": [],
       "related": []
     },
     "checkbox": {
-      "source": "packages/react/src/components/checkbox/index.ts",
+      "source": "packages/ui/src/components/checkbox/checkbox.tsx",
       "native": [
         "@base-ui/react/checkbox"
       ],
       "related": []
     },
     "checkbox-group": {
-      "source": "packages/react/src/components/checkbox-group/index.ts",
+      "source": "packages/ui/src/components/checkbox-group/checkbox-group.tsx",
       "native": [
         "@base-ui/react/checkbox-group"
       ],
       "related": []
     },
     "chip": {
-      "source": "packages/react/src/components/chip/chip.tsx",
+      "source": "packages/ui/src/components/chip/chip.tsx",
       "native": [],
       "related": []
     },
     "close-button": {
-      "source": "packages/react/src/components/close-button/close-button.tsx",
+      "source": "packages/ui/src/components/close-button/close-button.tsx",
       "native": [],
       "related": []
     },
     "color-area": {
-      "source": "packages/react/src/components/color-area/color-area.tsx",
+      "source": "packages/ui/src/components/color-area/color-area.tsx",
       "native": [
-        "react-aria-components/ColorArea"
+        "@base-ui/react/slider",
+        "@base-ui/react/use-render",
+        "@base-ui/react/direction-provider"
       ],
       "related": []
     },
     "color-field": {
-      "source": "packages/react/src/components/color-field/color-field.tsx",
+      "source": "packages/ui/src/components/color-field/color-field.tsx",
       "native": [
-        "react-aria-components/ColorField",
-        "react-aria-components/Label",
-        "react-aria-components/Text",
-        "react-aria-components/FieldError"
+        "@base-ui/react/use-render",
+        "@base-ui/react/field",
+        "@base-ui/react/number-field"
       ],
       "related": []
     },
     "color-input-group": {
-      "source": "packages/react/src/components/color-input-group/color-input-group.tsx",
+      "source": "packages/ui/src/components/color-input-group/color-input-group.tsx",
       "native": [
-        "react-aria-components/Group",
-        "react-aria-components/Input"
+        "@base-ui/react/input",
+        "@base-ui/react/number-field",
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "color-picker": {
-      "source": "packages/react/src/components/color-picker/color-picker.tsx",
+      "source": "packages/ui/src/components/color-picker/color-picker.tsx",
       "native": [
-        "react-aria-components/ColorPicker",
-        "react-aria-components/Popover",
-        "react-aria-components/Dialog",
-        "react-aria-components/Button"
+        "@base-ui/react/popover",
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "color-slider": {
-      "source": "packages/react/src/components/color-slider/color-slider.tsx",
+      "source": "packages/ui/src/components/color-slider/color-slider.tsx",
       "native": [
-        "react-aria-components/ColorSlider",
-        "react-aria-components/Label"
+        "@base-ui/react/slider",
+        "@base-ui/react/use-render",
+        "@base-ui/react/direction-provider"
       ],
       "related": []
     },
     "color-swatch": {
-      "source": "packages/react/src/components/color-swatch/color-swatch.tsx",
+      "source": "packages/ui/src/components/color-swatch/color-swatch.tsx",
       "native": [
-        "react-aria-components/ColorSwatch"
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "color-swatch-picker": {
-      "source": "packages/react/src/components/color-swatch-picker/color-swatch-picker.tsx",
+      "source": "packages/ui/src/components/color-swatch-picker/color-swatch-picker.tsx",
       "native": [
-        "react-aria-components/ColorSwatchPicker"
+        "@base-ui/react/radio-group",
+        "@base-ui/react/radio"
       ],
       "related": []
     },
     "combo-box": {
-      "source": "packages/react/src/components/combo-box/index.ts",
+      "source": "packages/ui/src/components/combo-box/combo-box.tsx",
       "native": [
         "@base-ui/react/combobox"
       ],
       "related": []
     },
-    "date-field": {
-      "source": "packages/react/src/components/date-field/date-field.tsx",
+    "command": {
+      "source": "packages/ui/src/components/command/command.tsx",
+      "native": [],
+      "related": []
+    },
+    "context-menu": {
+      "source": "packages/ui/src/components/context-menu/context-menu.tsx",
       "native": [
-        "react-aria-components/Calendar",
-        "react-aria-components/DateField",
-        "react-aria-components/DatePicker",
-        "react-aria-components/DateRangePicker",
-        "react-aria-components/Label",
-        "react-aria-components/Text",
-        "react-aria-components/FieldError"
+        "@base-ui/react/context-menu"
+      ],
+      "related": []
+    },
+    "date-field": {
+      "source": "packages/ui/src/components/date-field/date-field.tsx",
+      "native": [
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "date-input-group": {
-      "source": "packages/react/src/components/date-input-group/date-input-group.tsx",
+      "source": "packages/ui/src/components/date-input-group/date-input-group.tsx",
       "native": [
-        "react-aria-components/DateField",
-        "react-aria-components/Group"
+        "@base-ui/react/input",
+        "@base-ui/react/field",
+        "@base-ui/react/number-field",
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "date-picker": {
-      "source": "packages/react/src/components/date-picker/date-picker.tsx",
+      "source": "packages/ui/src/components/date-picker/date-picker.tsx",
       "native": [
-        "react-aria-components/DatePicker",
-        "react-aria-components/Calendar",
-        "react-aria-components/Button",
-        "react-aria-components/Dialog",
-        "react-aria-components/DateField",
-        "react-aria-components/DateRangePicker",
-        "react-aria-components/Label",
-        "react-aria-components/Text",
-        "react-aria-components/FieldError"
+        "@base-ui/react/popover",
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "date-range-picker": {
-      "source": "packages/react/src/components/date-range-picker/date-range-picker.tsx",
+      "source": "packages/ui/src/components/date-range-picker/date-range-picker.tsx",
       "native": [
-        "react-aria-components/DateRangePicker",
-        "react-aria-components/Calendar",
-        "react-aria-components/DatePicker",
-        "react-aria-components/Button",
-        "react-aria-components/Dialog",
-        "react-aria-components/DateField",
-        "react-aria-components/Label",
-        "react-aria-components/Text",
-        "react-aria-components/FieldError"
+        "@base-ui/react/popover",
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "description": {
-      "source": "packages/react/src/components/description/description.tsx",
+      "source": "packages/ui/src/components/description/description.tsx",
       "native": [
         "@base-ui/react/field",
         "@base-ui/react/use-render"
@@ -241,91 +251,111 @@
       "related": []
     },
     "disclosure": {
-      "source": "packages/react/src/components/disclosure/disclosure.tsx",
+      "source": "packages/ui/src/components/disclosure/disclosure.tsx",
       "native": [
-        "@base-ui/react/collapsible",
-        "@base-ui/react/accordion"
-      ],
-      "related": []
-    },
-    "disclosure-group": {
-      "source": "packages/react/src/components/disclosure-group/disclosure-group.tsx",
-      "native": [
-        "@base-ui/react/accordion"
+        "@base-ui/react/collapsible"
       ],
       "related": []
     },
     "drawer": {
-      "source": "packages/react/src/components/drawer/drawer.tsx",
+      "source": "packages/ui/src/components/drawer/drawer.tsx",
       "native": [
         "@base-ui/react/drawer"
       ],
       "related": []
     },
     "empty-state": {
-      "source": "packages/react/src/components/empty-state/empty-state.tsx",
-      "native": [],
-      "related": []
-    },
-    "error-message": {
-      "source": "packages/react/src/components/error-message/error-message.tsx",
+      "source": "packages/ui/src/components/empty-state/empty-state.tsx",
       "native": [],
       "related": []
     },
     "field-error": {
-      "source": "packages/react/src/components/field-error/field-error.tsx",
+      "source": "packages/ui/src/components/field-error/field-error.tsx",
       "native": [
         "@base-ui/react/field"
       ],
       "related": []
     },
     "fieldset": {
-      "source": "packages/react/src/components/fieldset/fieldset.tsx",
+      "source": "packages/ui/src/components/fieldset/fieldset.tsx",
       "native": [
-        "@base-ui/react/fieldset"
+        "@base-ui/react/fieldset",
+        "@base-ui/react/field"
       ],
       "related": []
     },
     "form": {
-      "source": "packages/react/src/components/form/form.tsx",
+      "source": "packages/ui/src/components/form/form.tsx",
       "native": [
         "@base-ui/react/form"
       ],
       "related": []
     },
-    "header": {
-      "source": "packages/react/src/components/header/header.tsx",
+    "glass": {
+      "source": "packages/ui/src/components/glass/glass.tsx",
+      "native": [
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
+      ],
+      "related": []
+    },
+    "glass-button": {
+      "source": "packages/ui/src/components/glass-button/glass-button.tsx",
+      "native": [
+        "@base-ui/react/button",
+        "@base-ui/react/merge-props"
+      ],
+      "related": []
+    },
+    "glass-container": {
+      "source": "packages/ui/src/components/glass-container/glass-container.tsx",
+      "native": [
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
+      ],
+      "related": []
+    },
+    "glass-magnifier": {
+      "source": "packages/ui/src/components/glass-magnifier/glass-magnifier.tsx",
       "native": [],
       "related": []
     },
+    "glass-toggle-button": {
+      "source": "packages/ui/src/components/glass-toggle-button/glass-toggle-button.tsx",
+      "native": [
+        "@base-ui/react/toggle",
+        "@base-ui/react/merge-props"
+      ],
+      "related": []
+    },
     "input": {
-      "source": "packages/react/src/components/input/input.tsx",
+      "source": "packages/ui/src/components/input/input.tsx",
       "native": [
         "@base-ui/react/input"
       ],
       "related": []
     },
     "input-group": {
-      "source": "packages/react/src/components/input-group/input-group.tsx",
+      "source": "packages/ui/src/components/input-group/input-group.tsx",
       "native": [
         "@base-ui/react/input"
       ],
       "related": []
     },
     "input-otp": {
-      "source": "packages/react/src/components/input-otp/input-otp.tsx",
+      "source": "packages/ui/src/components/input-otp/input-otp.tsx",
       "native": [
         "@base-ui/react/otp-field"
       ],
       "related": []
     },
     "kbd": {
-      "source": "packages/react/src/components/kbd/kbd.tsx",
+      "source": "packages/ui/src/components/kbd/kbd.tsx",
       "native": [],
       "related": []
     },
     "label": {
-      "source": "packages/react/src/components/label/label.tsx",
+      "source": "packages/ui/src/components/label/label.tsx",
       "native": [
         "@base-ui/react/field",
         "@base-ui/react/use-render"
@@ -333,130 +363,142 @@
       "related": []
     },
     "link": {
-      "source": "packages/react/src/components/link/link.tsx",
+      "source": "packages/ui/src/components/link/link.tsx",
       "native": [
         "@base-ui/react/use-render"
       ],
       "related": []
     },
+    "list": {
+      "source": "packages/ui/src/components/list/list.tsx",
+      "native": [],
+      "related": []
+    },
     "list-box": {
-      "source": "packages/react/src/components/list-box/list-box.tsx",
-      "native": [],
-      "related": []
-    },
-    "list-box-item": {
-      "source": "packages/react/src/components/list-box-item/list-box-item.tsx",
-      "native": [],
-      "related": []
-    },
-    "list-box-section": {
-      "source": "packages/react/src/components/list-box-section/list-box-section.tsx",
+      "source": "packages/ui/src/components/list-box/list-box.tsx",
       "native": [],
       "related": []
     },
     "menu": {
-      "source": "packages/react/src/components/menu/menu.tsx",
+      "source": "packages/ui/src/components/menu/menu.tsx",
       "native": [
-        "@base-ui/react/menu"
-      ],
-      "related": [
-        "menu-item",
-        "menu-section"
-      ]
-    },
-    "menu-item": {
-      "source": "packages/react/src/components/menu-item/menu-item.tsx",
-      "native": [
-        "@base-ui/react/menu"
-      ],
-      "related": []
-    },
-    "menu-section": {
-      "source": "packages/react/src/components/menu-section/menu-section.tsx",
-      "native": [
+        "@base-ui/react/button",
+        "@base-ui/react/context-menu",
         "@base-ui/react/menu"
       ],
       "related": []
     },
     "meter": {
-      "source": "packages/react/src/components/meter/meter.tsx",
+      "source": "packages/ui/src/components/meter/meter.tsx",
       "native": [
         "@base-ui/react/meter"
       ],
       "related": []
     },
     "modal": {
-      "source": "packages/react/src/components/modal/modal.tsx",
+      "source": "packages/ui/src/components/modal/modal.tsx",
       "native": [
         "@base-ui/react/dialog"
       ],
       "related": []
     },
+    "navigation-bar": {
+      "source": "packages/ui/src/components/navigation-bar/navigation-bar.tsx",
+      "native": [
+        "@base-ui/react/direction-provider"
+      ],
+      "related": []
+    },
+    "notification": {
+      "source": "packages/ui/src/components/notification/notification.tsx",
+      "native": [
+        "@base-ui/react/collapsible"
+      ],
+      "related": []
+    },
     "number-field": {
-      "source": "packages/react/src/components/number-field/number-field.tsx",
+      "source": "packages/ui/src/components/number-field/number-field.tsx",
       "native": [
         "@base-ui/react/number-field"
       ],
       "related": []
     },
+    "page-control": {
+      "source": "packages/ui/src/components/page-control/page-control.tsx",
+      "native": [
+        "@base-ui/react/button",
+        "@base-ui/react/direction-provider"
+      ],
+      "related": []
+    },
     "pagination": {
-      "source": "packages/react/src/components/pagination/pagination.tsx",
+      "source": "packages/ui/src/components/pagination/pagination.tsx",
       "native": [],
       "related": []
     },
     "popover": {
-      "source": "packages/react/src/components/popover/popover.tsx",
+      "source": "packages/ui/src/components/popover/popover.tsx",
       "native": [
         "@base-ui/react/popover",
         "@base-ui/react/direction-provider"
       ],
       "related": []
     },
+    "popup-button": {
+      "source": "packages/ui/src/components/popup-button/popup-button.tsx",
+      "native": [
+        "@base-ui/react/button",
+        "@base-ui/react/merge-props"
+      ],
+      "related": []
+    },
     "progress-bar": {
-      "source": "packages/react/src/components/progress-bar/progress-bar.tsx",
+      "source": "packages/ui/src/components/progress-bar/progress-bar.tsx",
       "native": [
         "@base-ui/react/progress"
       ],
       "related": []
     },
     "progress-circle": {
-      "source": "packages/react/src/components/progress-circle/progress-circle.tsx",
+      "source": "packages/ui/src/components/progress-circle/progress-circle.tsx",
       "native": [
         "@base-ui/react/progress"
       ],
       "related": []
     },
     "radio": {
-      "source": "packages/react/src/components/radio/index.ts",
+      "source": "packages/ui/src/components/radio/radio.tsx",
       "native": [
         "@base-ui/react/radio"
       ],
       "related": []
     },
     "radio-group": {
-      "source": "packages/react/src/components/radio-group/index.ts",
+      "source": "packages/ui/src/components/radio-group/radio-group.tsx",
       "native": [
         "@base-ui/react/radio-group"
       ],
       "related": []
     },
     "range-calendar": {
-      "source": "packages/react/src/components/range-calendar/range-calendar.tsx",
+      "source": "packages/ui/src/components/range-calendar/range-calendar.tsx",
       "native": [
-        "react-aria-components/RangeCalendar",
-        "react-aria-components/Calendar",
-        "react-aria-components/Button",
-        "react-aria-components/I18nProvider"
+        "@base-ui/react/button",
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "scroll-shadow": {
-      "source": "packages/react/src/components/scroll-shadow/scroll-shadow.tsx",
-      "native": [],
+      "source": "packages/ui/src/components/scroll-shadow/scroll-shadow.tsx",
+      "native": [
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
+      ],
       "related": []
     },
     "search-field": {
-      "source": "packages/react/src/components/search-field/search-field.tsx",
+      "source": "packages/ui/src/components/search-field/search-field.tsx",
       "native": [
         "@base-ui/react/field",
         "@base-ui/react/input",
@@ -464,131 +506,181 @@
       ],
       "related": []
     },
+    "section-index": {
+      "source": "packages/ui/src/components/section-index/section-index.tsx",
+      "native": [],
+      "related": []
+    },
+    "segmented-control": {
+      "source": "packages/ui/src/components/segmented-control/segmented-control.tsx",
+      "native": [
+        "@base-ui/react/radio-group",
+        "@base-ui/react/radio"
+      ],
+      "related": []
+    },
     "select": {
-      "source": "packages/react/src/components/select/index.ts",
+      "source": "packages/ui/src/components/select/select.tsx",
       "native": [
         "@base-ui/react/select"
       ],
       "related": []
     },
     "separator": {
-      "source": "packages/react/src/components/separator/separator.tsx",
+      "source": "packages/ui/src/components/separator/separator.tsx",
       "native": [
         "@base-ui/react/separator"
       ],
       "related": []
     },
+    "share-sheet": {
+      "source": "packages/ui/src/components/share-sheet/share-sheet.tsx",
+      "native": [],
+      "related": []
+    },
+    "sheet": {
+      "source": "packages/ui/src/components/sheet/sheet.tsx",
+      "native": [
+        "@base-ui/react/drawer"
+      ],
+      "related": []
+    },
+    "sidebar": {
+      "source": "packages/ui/src/components/sidebar/sidebar.tsx",
+      "native": [
+        "@base-ui/react/collapsible"
+      ],
+      "related": []
+    },
     "skeleton": {
-      "source": "packages/react/src/components/skeleton/skeleton.tsx",
+      "source": "packages/ui/src/components/skeleton/skeleton.tsx",
       "native": [],
       "related": []
     },
     "slider": {
-      "source": "packages/react/src/components/slider/index.ts",
+      "source": "packages/ui/src/components/slider/slider.tsx",
       "native": [
         "@base-ui/react/slider"
       ],
       "related": []
     },
     "spinner": {
-      "source": "packages/react/src/components/spinner/spinner.tsx",
+      "source": "packages/ui/src/components/spinner/spinner.tsx",
       "native": [],
+      "related": []
+    },
+    "stepper": {
+      "source": "packages/ui/src/components/stepper/stepper.tsx",
+      "native": [
+        "@base-ui/react/number-field"
+      ],
       "related": []
     },
     "surface": {
-      "source": "packages/react/src/components/surface/surface.tsx",
+      "source": "packages/ui/src/components/surface/surface.tsx",
       "native": [],
       "related": []
     },
+    "swipe-actions": {
+      "source": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
+      "native": [
+        "@base-ui/react/button",
+        "@base-ui/react/direction-provider",
+        "@base-ui/react/use-render"
+      ],
+      "related": []
+    },
     "switch": {
-      "source": "packages/react/src/components/switch/index.ts",
+      "source": "packages/ui/src/components/switch/switch.tsx",
       "native": [
         "@base-ui/react/switch"
       ],
       "related": []
     },
-    "switch-group": {
-      "source": "packages/react/src/components/switch-group/index.ts",
-      "native": [],
+    "tab-bar": {
+      "source": "packages/ui/src/components/tab-bar/tab-bar.tsx",
+      "native": [
+        "@base-ui/react/button",
+        "@base-ui/react/use-render"
+      ],
       "related": []
     },
     "table": {
-      "source": "packages/react/src/components/table/table.tsx",
+      "source": "packages/ui/src/components/table/table.tsx",
       "native": [],
       "related": []
     },
     "tabs": {
-      "source": "packages/react/src/components/tabs/tabs.tsx",
+      "source": "packages/ui/src/components/tabs/tabs.tsx",
       "native": [
         "@base-ui/react/tabs"
       ],
       "related": []
     },
     "tag": {
-      "source": "packages/react/src/components/tag/tag.tsx",
+      "source": "packages/ui/src/components/tag/tag.tsx",
       "native": [],
       "related": []
     },
     "tag-group": {
-      "source": "packages/react/src/components/tag-group/tag-group.tsx",
+      "source": "packages/ui/src/components/tag-group/tag-group.tsx",
       "native": [],
       "related": []
     },
     "textarea": {
-      "source": "packages/react/src/components/textarea/textarea.tsx",
+      "source": "packages/ui/src/components/textarea/textarea.tsx",
       "native": [
         "@base-ui/react/field"
       ],
       "related": []
     },
     "textfield": {
-      "source": "packages/react/src/components/textfield/textfield.tsx",
+      "source": "packages/ui/src/components/textfield/textfield.tsx",
       "native": [
+        "@base-ui/react/button",
         "@base-ui/react/field"
       ],
       "related": []
     },
     "time-field": {
-      "source": "packages/react/src/components/time-field/time-field.tsx",
+      "source": "packages/ui/src/components/time-field/time-field.tsx",
       "native": [
-        "react-aria-components/TimeField",
-        "react-aria-components/Label",
-        "react-aria-components/Text",
-        "react-aria-components/FieldError"
+        "@base-ui/react/use-render",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "toast": {
-      "source": "packages/react/src/components/toast/toast.tsx",
+      "source": "packages/ui/src/components/toast/toast.tsx",
       "native": [
         "@base-ui/react/toast"
       ],
       "related": []
     },
     "toggle-button": {
-      "source": "packages/react/src/components/toggle-button/toggle-button.tsx",
+      "source": "packages/ui/src/components/toggle-button/toggle-button.tsx",
       "native": [
-        "@base-ui/react/toggle"
+        "@base-ui/react/toggle",
+        "@base-ui/react/merge-props"
       ],
       "related": []
     },
     "toggle-button-group": {
-      "source": "packages/react/src/components/toggle-button-group/toggle-button-group.tsx",
+      "source": "packages/ui/src/components/toggle-button-group/toggle-button-group.tsx",
       "native": [
         "@base-ui/react/toggle-group"
       ],
       "related": []
     },
     "toolbar": {
-      "source": "packages/react/src/components/toolbar/toolbar.tsx",
+      "source": "packages/ui/src/components/toolbar/toolbar.tsx",
       "native": [
-        "@base-ui/react/toolbar",
-        "@base-ui/react/merge-props"
+        "@base-ui/react/toolbar"
       ],
       "related": []
     },
     "tooltip": {
-      "source": "packages/react/src/components/tooltip/tooltip.tsx",
+      "source": "packages/ui/src/components/tooltip/tooltip.tsx",
       "native": [
         "@base-ui/react/tooltip",
         "@base-ui/react/direction-provider"
@@ -596,10 +688,15 @@
       "related": []
     },
     "typography": {
-      "source": "packages/react/src/components/typography/typography.tsx",
+      "source": "packages/ui/src/components/typography/typography.tsx",
       "native": [
         "@base-ui/react/use-render"
       ],
+      "related": []
+    },
+    "wheel-picker": {
+      "source": "packages/ui/src/components/wheel-picker/wheel-picker.tsx",
+      "native": [],
       "related": []
     }
   },
@@ -638,7 +735,7 @@
       "locale": "en",
       "slug": "react/getting-started/colors",
       "title": "Colors",
-      "description": "Use semantic theme colors for text, surfaces, actions and feedback.",
+      "description": "Semantic colors for content, controls, feedback and materials.",
       "navigationGroup": "Handbook",
       "navigationOrder": 10,
       "markdownFile": "content/lenso/en/react/getting-started/colors.mdx",
@@ -658,7 +755,7 @@
       "locale": "en",
       "slug": "react/getting-started/design-principles",
       "title": "Design principles",
-      "description": "Keep presentation consistent, composition explicit and native interactions intact.",
+      "description": "Design around the task, make relationships clear and preserve familiar interaction.",
       "navigationGroup": "Overview",
       "navigationOrder": 2,
       "markdownFile": "content/lenso/en/react/getting-started/design-principles.mdx",
@@ -686,6 +783,16 @@
     },
     {
       "locale": "en",
+      "slug": "react/getting-started/materials",
+      "title": "Materials",
+      "description": "Theme variables and shared presentation recipes for Apple materials.",
+      "navigationGroup": "Handbook",
+      "navigationOrder": 11,
+      "markdownFile": "content/lenso/en/react/getting-started/materials.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
       "slug": "react/getting-started/stylex",
       "title": "Styling",
       "description": "Compose typed styles without losing native state callbacks or runtime custom properties.",
@@ -698,7 +805,7 @@
       "locale": "en",
       "slug": "react/getting-started/theming",
       "title": "Theming",
-      "description": "Customize shared CSS variables without replacing component style maps.",
+      "description": "One Apple semantic theme, with explicit Web extensions.",
       "navigationGroup": "Handbook",
       "navigationOrder": 11,
       "markdownFile": "content/lenso/en/react/getting-started/theming.mdx",
@@ -806,12 +913,24 @@
           "file": "en/accordion/faq.tsx"
         },
         {
-          "name": "accordion-custom-styles",
-          "file": "en/accordion/custom-styles.tsx"
+          "name": "accordion-native-basic",
+          "file": "en/accordion/native-basic.tsx"
+        },
+        {
+          "name": "accordion-native-controlled",
+          "file": "en/accordion/native-controlled.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "accordion"
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/action-sheet",
+      "title": "ActionSheet",
+      "description": "A focused choice of actions with a title, optional message and cancellation.",
+      "markdownFile": "content/lenso/en/react/components/action-sheet.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -823,14 +942,9 @@
         {
           "name": "alert-basic",
           "file": "en/alert/basic.tsx"
-        },
-        {
-          "name": "alert-custom-styles",
-          "file": "en/alert/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "alert"
+      "componentCategory": "feedback"
     },
     {
       "locale": "en",
@@ -890,14 +1004,9 @@
         {
           "name": "alert-dialog-custom-portal",
           "file": "en/alert-dialog/custom-portal.tsx"
-        },
-        {
-          "name": "alert-dialog-custom-styles",
-          "file": "en/alert-dialog/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "alertdialog"
+      "componentCategory": "overlays"
     },
     {
       "locale": "en",
@@ -997,14 +1106,9 @@
         {
           "name": "autocomplete-email-recipients",
           "file": "en/autocomplete/email-recipients.tsx"
-        },
-        {
-          "name": "autocomplete-custom-styles",
-          "file": "en/autocomplete/custom-styles.tsx"
         }
       ],
-      "componentCategory": "pickers",
-      "componentThumbnail": "autocomplete"
+      "componentCategory": "pickers"
     },
     {
       "locale": "en",
@@ -1034,16 +1138,11 @@
           "file": "en/avatar/fallback.tsx"
         },
         {
-          "name": "avatar-custom-styles",
-          "file": "en/avatar/custom-styles.tsx"
-        },
-        {
           "name": "avatar-custom-image-component",
           "file": "en/avatar/custom-image-component.tsx"
         }
       ],
-      "componentCategory": "media",
-      "componentThumbnail": "avatar"
+      "componentCategory": "media"
     },
     {
       "locale": "en",
@@ -1073,16 +1172,11 @@
           "file": "en/avatar-group/grid.tsx"
         },
         {
-          "name": "avatar-group-custom-styles",
-          "file": "en/avatar-group/custom-styles.tsx"
-        },
-        {
           "name": "avatar-group-overlap",
           "file": "en/avatar-group/overlap.tsx"
         }
       ],
-      "componentCategory": "media",
-      "componentThumbnail": "avatargroup"
+      "componentCategory": "media"
     },
     {
       "locale": "en",
@@ -1118,14 +1212,9 @@
         {
           "name": "badge-with-content",
           "file": "en/badge/with-content.tsx"
-        },
-        {
-          "name": "badge-custom-styles",
-          "file": "en/badge/custom-styles.tsx"
         }
       ],
-      "componentCategory": "data-display",
-      "componentThumbnail": "badge"
+      "componentCategory": "data-display"
     },
     {
       "locale": "en",
@@ -1157,20 +1246,15 @@
         {
           "name": "breadcrumbs-render-function",
           "file": "en/breadcrumbs/render-function.tsx"
-        },
-        {
-          "name": "breadcrumbs-custom-styles",
-          "file": "en/breadcrumbs/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "breadcrumbs"
+      "componentCategory": "navigation"
     },
     {
       "locale": "en",
       "slug": "react/components/button",
       "title": "Button",
-      "description": "An action control with native activation, loading and icon composition.",
+      "description": "Content-area actions with ordinary fill, tint and native activation.",
       "markdownFile": "content/lenso/en/react/components/button.mdx",
       "examples": [
         {
@@ -1226,16 +1310,11 @@
           "file": "en/button/ripple-effect.tsx"
         },
         {
-          "name": "button-custom-styles",
-          "file": "en/button/custom-styles.tsx"
-        },
-        {
           "name": "release-button-outline-variant",
           "file": "en/button/release-outline-variant.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "button"
+      "componentCategory": "buttons"
     },
     {
       "locale": "en",
@@ -1275,14 +1354,9 @@
         {
           "name": "button-group-without-separator",
           "file": "en/button-group/without-separator.tsx"
-        },
-        {
-          "name": "button-group-custom-styles",
-          "file": "en/button-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "buttongroup"
+      "componentCategory": "buttons"
     },
     {
       "locale": "en",
@@ -1362,14 +1436,9 @@
         {
           "name": "calendar-international-calendar",
           "file": "en/calendar/international-calendar.tsx"
-        },
-        {
-          "name": "calendar-custom-styles",
-          "file": "en/calendar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "calendar"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "en",
@@ -1412,12 +1481,11 @@
           "file": "en/card/with-form.tsx"
         },
         {
-          "name": "card-custom-styles",
-          "file": "en/card/custom-styles.tsx"
+          "name": "card-materials",
+          "file": "en/card/materials.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "card"
+      "componentCategory": "layout"
     },
     {
       "locale": "en",
@@ -1481,14 +1549,9 @@
         {
           "name": "checkbox-custom-indicator",
           "file": "en/checkbox/custom-indicator.tsx"
-        },
-        {
-          "name": "checkbox-custom-styles",
-          "file": "en/checkbox/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "checkbox"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -1532,14 +1595,9 @@
         {
           "name": "checkbox-group-render-function",
           "file": "en/checkbox-group/render-function.tsx"
-        },
-        {
-          "name": "checkbox-group-custom-styles",
-          "file": "en/checkbox-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "checkboxgroup"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -1565,16 +1623,11 @@
           "file": "en/chip/with-icon.tsx"
         },
         {
-          "name": "chip-custom-styles",
-          "file": "en/chip/custom-styles.tsx"
-        },
-        {
           "name": "release-chip-vibrant-palette",
           "file": "en/chip/release-vibrant-palette.tsx"
         }
       ],
-      "componentCategory": "data-display",
-      "componentThumbnail": "chip"
+      "componentCategory": "data-display"
     },
     {
       "locale": "en",
@@ -1594,14 +1647,9 @@
         {
           "name": "close-button-with-custom-icon",
           "file": "en/close-button/with-custom-icon.tsx"
-        },
-        {
-          "name": "close-button-custom-styles",
-          "file": "en/close-button/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "closebutton"
+      "componentCategory": "buttons"
     },
     {
       "locale": "en",
@@ -1633,14 +1681,9 @@
         {
           "name": "color-area-render-function",
           "file": "en/color-area/render-function.tsx"
-        },
-        {
-          "name": "color-area-custom-styles",
-          "file": "en/color-area/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorarea"
+      "componentCategory": "colors"
     },
     {
       "locale": "en",
@@ -1696,14 +1739,9 @@
         {
           "name": "color-field-render-function",
           "file": "en/color-field/render-function.tsx"
-        },
-        {
-          "name": "color-field-custom-styles",
-          "file": "en/color-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorfield"
+      "componentCategory": "colors"
     },
     {
       "locale": "en",
@@ -1740,14 +1778,9 @@
         {
           "name": "color-picker-with-sliders",
           "file": "en/color-picker/with-sliders.tsx"
-        },
-        {
-          "name": "color-picker-custom-styles",
-          "file": "en/color-picker/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorpicker"
+      "componentCategory": "colors"
     },
     {
       "locale": "en",
@@ -1787,14 +1820,9 @@
         {
           "name": "color-slider-render-function",
           "file": "en/color-slider/render-function.tsx"
-        },
-        {
-          "name": "color-slider-custom-styles",
-          "file": "en/color-slider/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorslider"
+      "componentCategory": "colors"
     },
     {
       "locale": "en",
@@ -1826,14 +1854,9 @@
         {
           "name": "color-swatch-accessibility",
           "file": "en/color-swatch/accessibility.tsx"
-        },
-        {
-          "name": "color-swatch-custom-styles",
-          "file": "en/color-swatch/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorswatch"
+      "componentCategory": "colors"
     },
     {
       "locale": "en",
@@ -1877,14 +1900,9 @@
         {
           "name": "color-swatch-picker-render-function",
           "file": "en/color-swatch-picker/render-function.tsx"
-        },
-        {
-          "name": "color-swatch-picker-custom-styles",
-          "file": "en/color-swatch-picker/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorswatchpicker"
+      "componentCategory": "colors"
     },
     {
       "locale": "en",
@@ -1968,14 +1986,27 @@
         {
           "name": "combo-box-on-surface",
           "file": "en/combo-box/on-surface.tsx"
-        },
-        {
-          "name": "combo-box-custom-styles",
-          "file": "en/combo-box/custom-styles.tsx"
         }
       ],
-      "componentCategory": "pickers",
-      "componentThumbnail": "combobox"
+      "componentCategory": "pickers"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/command",
+      "title": "Command",
+      "description": "A command list with query filtering, keyboard navigation and Lenso presentation.",
+      "markdownFile": "content/lenso/en/react/components/command.mdx",
+      "examples": [],
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/context-menu",
+      "title": "ContextMenu",
+      "description": "Contextual actions opened by right click or long press, with an optional content preview.",
+      "markdownFile": "content/lenso/en/react/components/context-menu.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -2047,14 +2078,9 @@
         {
           "name": "date-field-render-function",
           "file": "en/date-field/render-function.tsx"
-        },
-        {
-          "name": "date-field-custom-styles",
-          "file": "en/date-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "datefield"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "en",
@@ -2107,14 +2133,9 @@
         {
           "name": "date-picker-international-calendar",
           "file": "en/date-picker/international-calendar.tsx"
-        },
-        {
-          "name": "date-picker-custom-styles",
-          "file": "en/date-picker/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "datepicker"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "en",
@@ -2160,16 +2181,11 @@
           "file": "en/date-range-picker/international-calendar.tsx"
         },
         {
-          "name": "date-range-picker-custom-styles",
-          "file": "en/date-range-picker/custom-styles.tsx"
-        },
-        {
           "name": "release-date-range-picker-input-container",
           "file": "en/date-range-picker/release-input-container.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "daterangepicker"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "en",
@@ -2181,14 +2197,9 @@
         {
           "name": "description-basic",
           "file": "en/description/basic.tsx"
-        },
-        {
-          "name": "description-custom-styles",
-          "file": "en/description/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "description"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -2204,43 +2215,15 @@
         {
           "name": "disclosure-render-function",
           "file": "en/disclosure/render-function.tsx"
-        },
-        {
-          "name": "disclosure-custom-styles",
-          "file": "en/disclosure/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "disclosure"
-    },
-    {
-      "locale": "en",
-      "slug": "react/components/disclosure-group",
-      "title": "DisclosureGroup",
-      "description": "A group of disclosure panels with coordinated expansion.",
-      "markdownFile": "content/lenso/en/react/components/disclosure-group.mdx",
-      "examples": [
-        {
-          "name": "disclosure-group-basic",
-          "file": "en/disclosure-group/basic.tsx"
-        },
-        {
-          "name": "disclosure-group-controlled",
-          "file": "en/disclosure-group/controlled.tsx"
-        },
-        {
-          "name": "disclosure-group-custom-styles",
-          "file": "en/disclosure-group/custom-styles.tsx"
-        }
-      ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "disclosuregroup"
+      "componentCategory": "navigation"
     },
     {
       "locale": "en",
       "slug": "react/components/drawer",
       "title": "Drawer",
-      "description": "A modal panel attached to an edge, with dismissal and focus management.",
+      "description": "A side panel for supporting content, navigation and preferences.",
       "markdownFile": "content/lenso/en/react/components/drawer.mdx",
       "examples": [
         {
@@ -2274,14 +2257,9 @@
         {
           "name": "drawer-backdrop-variants",
           "file": "en/drawer/backdrop-variants.tsx"
-        },
-        {
-          "name": "drawer-custom-styles",
-          "file": "en/drawer/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "drawer"
+      "componentCategory": "overlays"
     },
     {
       "locale": "en",
@@ -2294,25 +2272,6 @@
     },
     {
       "locale": "en",
-      "slug": "react/components/error-message",
-      "title": "ErrorMessage",
-      "description": "An error description adjacent to the affected input.",
-      "markdownFile": "content/lenso/en/react/components/error-message.mdx",
-      "examples": [
-        {
-          "name": "error-message-basic",
-          "file": "en/error-message/basic.tsx"
-        },
-        {
-          "name": "error-message-custom-styles",
-          "file": "en/error-message/custom-styles.tsx"
-        }
-      ],
-      "componentCategory": "forms",
-      "componentThumbnail": "errormessage"
-    },
-    {
-      "locale": "en",
       "slug": "react/components/field-error",
       "title": "FieldError",
       "description": "Validation messages from the enclosing native field context.",
@@ -2321,14 +2280,9 @@
         {
           "name": "field-error-basic",
           "file": "en/field-error/basic.tsx"
-        },
-        {
-          "name": "field-error-custom-styles",
-          "file": "en/field-error/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "fielderror"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -2344,14 +2298,9 @@
         {
           "name": "fieldset-on-surface",
           "file": "en/fieldset/on-surface.tsx"
-        },
-        {
-          "name": "fieldset-custom-styles",
-          "file": "en/fieldset/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "fieldset"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -2367,23 +2316,71 @@
         {
           "name": "form-render-function",
           "file": "en/form/render-function.tsx"
-        },
-        {
-          "name": "form-custom-styles",
-          "file": "en/form/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "form"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
-      "slug": "react/components/header",
-      "title": "Header",
-      "description": "A structural heading region for a page or section.",
-      "markdownFile": "content/lenso/en/react/components/header.mdx",
+      "slug": "react/components/glass",
+      "title": "Glass",
+      "description": "A refracting glass surface. Use GlassMagnifier for the interactive lens.",
+      "markdownFile": "content/lenso/en/react/components/glass.mdx",
       "examples": [],
       "componentCategory": "additional"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/glass-button",
+      "title": "GlassButton",
+      "description": "Glass action controls for navigation and floating toolbars.",
+      "markdownFile": "content/lenso/en/react/components/glass-button.mdx",
+      "examples": [
+        {
+          "name": "glass-button-basic",
+          "file": "en/glass-button/basic.tsx"
+        },
+        {
+          "name": "glass-button-sizes",
+          "file": "en/glass-button/sizes.tsx"
+        },
+        {
+          "name": "glass-button-states",
+          "file": "en/glass-button/states.tsx"
+        },
+        {
+          "name": "glass-button-material-reference",
+          "file": "en/glass-button/material-reference.tsx"
+        }
+      ],
+      "componentCategory": "buttons"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/glass-container",
+      "title": "GlassContainer",
+      "description": "Nearby glass surfaces merge and separate while content stays clear.",
+      "markdownFile": "content/lenso/en/react/components/glass-container.mdx",
+      "examples": [],
+      "componentCategory": "layout"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/glass-magnifier",
+      "title": "GlassMagnifier",
+      "description": "An interactive glass lens with independent dragging and spring motion controls.",
+      "markdownFile": "content/lenso/en/react/components/glass-magnifier.mdx",
+      "examples": [],
+      "componentCategory": "additional"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/glass-toggle-button",
+      "title": "GlassToggleButton",
+      "description": "A glass button with a persistent pressed state for floating controls.",
+      "markdownFile": "content/lenso/en/react/components/glass-toggle-button.mdx",
+      "examples": [],
+      "componentCategory": "buttons"
     },
     {
       "locale": "en",
@@ -2417,12 +2414,11 @@
           "file": "en/input/controlled.tsx"
         },
         {
-          "name": "input-custom-styles",
-          "file": "en/input/custom-styles.tsx"
+          "name": "input-elastic",
+          "file": "en/input/elastic.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "input"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -2512,12 +2508,11 @@
           "file": "en/input-group/with-textarea.tsx"
         },
         {
-          "name": "input-group-custom-styles",
-          "file": "en/input-group/custom-styles.tsx"
+          "name": "input-group-glass",
+          "file": "en/input-group/glass.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "inputgroup"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -2565,14 +2560,9 @@
         {
           "name": "input-otp-with-validation",
           "file": "en/input-otp/with-validation.tsx"
-        },
-        {
-          "name": "input-otp-custom-styles",
-          "file": "en/input-otp/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "inputotp"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -2604,14 +2594,9 @@
         {
           "name": "kbd-special-keys",
           "file": "en/kbd/special.tsx"
-        },
-        {
-          "name": "kbd-custom-styles",
-          "file": "en/kbd/custom-styles.tsx"
         }
       ],
-      "componentCategory": "typography",
-      "componentThumbnail": "kbd"
+      "componentCategory": "typography"
     },
     {
       "locale": "en",
@@ -2623,14 +2608,9 @@
         {
           "name": "label-basic",
           "file": "en/label/basic.tsx"
-        },
-        {
-          "name": "label-custom-styles",
-          "file": "en/label/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "label"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -2658,14 +2638,18 @@
         {
           "name": "link-render-function",
           "file": "en/link/render-function.tsx"
-        },
-        {
-          "name": "link-custom-styles",
-          "file": "en/link/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "link"
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/list",
+      "title": "List",
+      "description": "Content rows with regular and tall layouts, accessories and inline controls.",
+      "markdownFile": "content/lenso/en/react/components/list.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -2707,34 +2691,11 @@
           "file": "en/list-box/render-function.tsx"
         },
         {
-          "name": "list-box-custom-styles",
-          "file": "en/list-box/custom-styles.tsx"
-        },
-        {
           "name": "release-list-box-scrollbar-modes",
           "file": "en/list-box/release-scrollbar-modes.tsx"
         }
       ],
-      "componentCategory": "collections",
-      "componentThumbnail": "listbox"
-    },
-    {
-      "locale": "en",
-      "slug": "react/components/list-box-item",
-      "title": "ListBoxItem",
-      "description": "An option participating in the enclosing list box's selection model.",
-      "markdownFile": "content/lenso/en/react/components/list-box-item.mdx",
-      "examples": [],
-      "componentCategory": "additional"
-    },
-    {
-      "locale": "en",
-      "slug": "react/components/list-box-section",
-      "title": "ListBoxSection",
-      "description": "A labelled option group within a list box collection.",
-      "markdownFile": "content/lenso/en/react/components/list-box-section.mdx",
-      "examples": [],
-      "componentCategory": "additional"
+      "componentCategory": "collections"
     },
     {
       "locale": "en",
@@ -2806,32 +2767,9 @@
         {
           "name": "menu-long-press-trigger",
           "file": "en/menu/long-press-trigger.tsx"
-        },
-        {
-          "name": "menu-custom-styles",
-          "file": "en/menu/custom-styles.tsx"
         }
       ],
-      "componentCategory": "collections",
-      "componentThumbnail": "dropdown"
-    },
-    {
-      "locale": "en",
-      "slug": "react/components/menu-item",
-      "title": "MenuItem",
-      "description": "A command, checkbox or radio item in the enclosing Menu context.",
-      "markdownFile": "content/lenso/en/react/components/menu-item.mdx",
-      "examples": [],
-      "componentCategory": "additional"
-    },
-    {
-      "locale": "en",
-      "slug": "react/components/menu-section",
-      "title": "MenuSection",
-      "description": "A labelled command group within a Menu popup.",
-      "markdownFile": "content/lenso/en/react/components/menu-section.mdx",
-      "examples": [],
-      "componentCategory": "additional"
+      "componentCategory": "collections"
     },
     {
       "locale": "en",
@@ -2859,20 +2797,15 @@
         {
           "name": "meter-custom-value",
           "file": "en/meter/custom-value.tsx"
-        },
-        {
-          "name": "meter-custom-styles",
-          "file": "en/meter/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "meter"
+      "componentCategory": "feedback"
     },
     {
       "locale": "en",
       "slug": "react/components/modal",
       "title": "Modal",
-      "description": "A dialog surface with controlled visibility, focus trapping and dismissal.",
+      "description": "A general-purpose dialog for focused content, forms and full-screen tasks.",
       "markdownFile": "content/lenso/en/react/components/modal.mdx",
       "examples": [
         {
@@ -2926,14 +2859,27 @@
         {
           "name": "modal-custom-portal",
           "file": "en/modal/custom-portal.tsx"
-        },
-        {
-          "name": "modal-custom-styles",
-          "file": "en/modal/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "modal"
+      "componentCategory": "overlays"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/navigation-bar",
+      "title": "NavigationBar",
+      "description": "Screen navigation and actions with a large title that collapses on scroll.",
+      "markdownFile": "content/lenso/en/react/components/navigation-bar.mdx",
+      "examples": [],
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/notification",
+      "title": "Notification",
+      "description": "An app notification with source identity, time, optional stacking and expandable content.",
+      "markdownFile": "content/lenso/en/react/components/notification.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -3005,14 +2951,18 @@
         {
           "name": "number-field-render-function",
           "file": "en/number-field/render-function.tsx"
-        },
-        {
-          "name": "number-field-custom-styles",
-          "file": "en/number-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "numberfield"
+      "componentCategory": "forms"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/page-control",
+      "title": "PageControl",
+      "description": "Page indicators for a carousel or a small sequence of views.",
+      "markdownFile": "content/lenso/en/react/components/page-control.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -3052,14 +3002,9 @@
         {
           "name": "pagination-custom-icons",
           "file": "en/pagination/custom-icons.tsx"
-        },
-        {
-          "name": "pagination-custom-styles",
-          "file": "en/pagination/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "pagination"
+      "componentCategory": "navigation"
     },
     {
       "locale": "en",
@@ -3087,14 +3032,18 @@
         {
           "name": "popover-render-function",
           "file": "en/popover/render-function.tsx"
-        },
-        {
-          "name": "popover-custom-styles",
-          "file": "en/popover/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "popover"
+      "componentCategory": "overlays"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/popup-button",
+      "title": "PopupButton",
+      "description": "A compact Apple-style button with a label and decorative double chevron.",
+      "markdownFile": "content/lenso/en/react/components/popup-button.mdx",
+      "examples": [],
+      "componentCategory": "buttons"
     },
     {
       "locale": "en",
@@ -3126,14 +3075,9 @@
         {
           "name": "progress-bar-custom-value",
           "file": "en/progress-bar/custom-value.tsx"
-        },
-        {
-          "name": "progress-bar-custom-styles",
-          "file": "en/progress-bar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "progressbar"
+      "componentCategory": "feedback"
     },
     {
       "locale": "en",
@@ -3165,14 +3109,9 @@
         {
           "name": "progress-circle-custom-svg",
           "file": "en/progress-circle/custom-svg.tsx"
-        },
-        {
-          "name": "progress-circle-custom-styles",
-          "file": "en/progress-circle/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "progresscircle"
+      "componentCategory": "feedback"
     },
     {
       "locale": "en",
@@ -3233,14 +3172,9 @@
         {
           "name": "radio-group-render-function",
           "file": "en/radio-group/render-function.tsx"
-        },
-        {
-          "name": "radio-group-custom-styles",
-          "file": "en/radio-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "radiogroup"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -3324,14 +3258,9 @@
         {
           "name": "range-calendar-international-calendar",
           "file": "en/range-calendar/international-calendar.tsx"
-        },
-        {
-          "name": "range-calendar-custom-styles",
-          "file": "en/range-calendar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "rangecalendar"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "en",
@@ -3363,14 +3292,9 @@
         {
           "name": "scroll-shadow-visibility-change",
           "file": "en/scroll-shadow/visibility-change.tsx"
-        },
-        {
-          "name": "scroll-shadow-custom-styles",
-          "file": "en/scroll-shadow/custom-styles.tsx"
         }
       ],
-      "componentCategory": "utilities",
-      "componentThumbnail": "scrollshadow"
+      "componentCategory": "utilities"
     },
     {
       "locale": "en",
@@ -3434,14 +3358,27 @@
         {
           "name": "search-field-render-function",
           "file": "en/search-field/render-function.tsx"
-        },
-        {
-          "name": "search-field-custom-styles",
-          "file": "en/search-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "searchfield"
+      "componentCategory": "forms"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/section-index",
+      "title": "SectionIndex",
+      "description": "A vertical section index with fragment links, keyboard navigation and touch scrubbing.",
+      "markdownFile": "content/lenso/en/react/components/section-index.mdx",
+      "examples": [],
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/segmented-control",
+      "title": "SegmentedControl",
+      "description": "A compact radio group for choosing one filter or form value.",
+      "markdownFile": "content/lenso/en/react/components/segmented-control.mdx",
+      "examples": [],
+      "componentCategory": "controls"
     },
     {
       "locale": "en",
@@ -3521,14 +3458,9 @@
         {
           "name": "select-on-surface",
           "file": "en/select/on-surface.tsx"
-        },
-        {
-          "name": "select-custom-styles",
-          "file": "en/select/custom-styles.tsx"
         }
       ],
-      "componentCategory": "pickers",
-      "componentThumbnail": "select"
+      "componentCategory": "pickers"
     },
     {
       "locale": "en",
@@ -3560,14 +3492,45 @@
         {
           "name": "separator-render-function",
           "file": "en/separator/render-function.tsx"
-        },
-        {
-          "name": "separator-custom-styles",
-          "file": "en/separator/custom-styles.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "separator"
+      "componentCategory": "layout"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/share-sheet",
+      "title": "ShareSheet",
+      "description": "A sharing surface composing Sheet, target rows and grouped actions.",
+      "markdownFile": "content/lenso/en/react/components/share-sheet.mdx",
+      "examples": [],
+      "componentCategory": "additional"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/sheet",
+      "title": "Sheet",
+      "description": "A focused task presented in a resizable sheet above the current context.",
+      "markdownFile": "content/lenso/en/react/components/sheet.mdx",
+      "examples": [
+        {
+          "name": "sheet-basic",
+          "file": "en/sheet/basic.tsx"
+        },
+        {
+          "name": "sheet-scrolling",
+          "file": "en/sheet/scrolling.tsx"
+        }
+      ],
+      "componentCategory": "overlays"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/sidebar",
+      "title": "Sidebar",
+      "description": "Sectioned application navigation with current-page links and collapsible groups.",
+      "markdownFile": "content/lenso/en/react/components/sidebar.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -3603,14 +3566,9 @@
         {
           "name": "skeleton-animation-types",
           "file": "en/skeleton/animation-types.tsx"
-        },
-        {
-          "name": "skeleton-custom-styles",
-          "file": "en/skeleton/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "skeleton"
+      "componentCategory": "feedback"
     },
     {
       "locale": "en",
@@ -3638,14 +3596,9 @@
         {
           "name": "slider-render-function",
           "file": "en/slider/render-function.tsx"
-        },
-        {
-          "name": "slider-custom-styles",
-          "file": "en/slider/custom-styles.tsx"
         }
       ],
-      "componentCategory": "controls",
-      "componentThumbnail": "slider"
+      "componentCategory": "controls"
     },
     {
       "locale": "en",
@@ -3669,14 +3622,18 @@
         {
           "name": "spinner-speed",
           "file": "en/spinner/speed.tsx"
-        },
-        {
-          "name": "spinner-custom-styles",
-          "file": "en/spinner/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "spinner"
+      "componentCategory": "feedback"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/stepper",
+      "title": "Stepper",
+      "description": "A compact increment and decrement control sharing the native number-field model.",
+      "markdownFile": "content/lenso/en/react/components/stepper.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "en",
@@ -3698,12 +3655,20 @@
           "file": "en/surface/with-form-components.tsx"
         },
         {
-          "name": "surface-custom-styles",
-          "file": "en/surface/custom-styles.tsx"
+          "name": "surface-materials",
+          "file": "en/surface/materials.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "surface"
+      "componentCategory": "layout"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/swipe-actions",
+      "title": "SwipeActions",
+      "description": "Reveal row actions with a horizontal swipe or accessible action buttons.",
+      "markdownFile": "content/lenso/en/react/components/swipe-actions.mdx",
+      "examples": [],
+      "componentCategory": "collections"
     },
     {
       "locale": "en",
@@ -3749,14 +3714,6 @@
           "file": "en/switch/label-position.tsx"
         },
         {
-          "name": "switch-group",
-          "file": "en/switch/group.tsx"
-        },
-        {
-          "name": "switch-group-horizontal",
-          "file": "en/switch/group-horizontal.tsx"
-        },
-        {
           "name": "switch-form",
           "file": "en/switch/form.tsx"
         },
@@ -3767,23 +3724,27 @@
         {
           "name": "switch-render-function",
           "file": "en/switch/render-function.tsx"
-        },
-        {
-          "name": "switch-custom-styles",
-          "file": "en/switch/custom-styles.tsx"
         }
       ],
-      "componentCategory": "controls",
-      "componentThumbnail": "switch"
+      "componentCategory": "controls"
     },
     {
       "locale": "en",
-      "slug": "react/components/switch-group",
-      "title": "SwitchGroup",
-      "description": "Related switches grouped with a shared label and description.",
-      "markdownFile": "content/lenso/en/react/components/switch-group.mdx",
-      "examples": [],
-      "componentCategory": "additional"
+      "slug": "react/components/tab-bar",
+      "title": "TabBar",
+      "description": "A glass navigation bar for major application destinations.",
+      "markdownFile": "content/lenso/en/react/components/tab-bar.mdx",
+      "examples": [
+        {
+          "name": "tab-bar-basic",
+          "file": "en/tab-bar/basic.tsx"
+        },
+        {
+          "name": "tab-bar-tablet",
+          "file": "en/tab-bar/tablet.tsx"
+        }
+      ],
+      "componentCategory": "navigation"
     },
     {
       "locale": "en",
@@ -3839,14 +3800,9 @@
         {
           "name": "table-custom-cells",
           "file": "en/table/custom-cells.tsx"
-        },
-        {
-          "name": "table-custom-styles",
-          "file": "en/table/custom-styles.tsx"
         }
       ],
-      "componentCategory": "data-display",
-      "componentThumbnail": "table"
+      "componentCategory": "data-display"
     },
     {
       "locale": "en",
@@ -3876,28 +3832,15 @@
           "file": "en/tabs/with-separator.tsx"
         },
         {
-          "name": "tabs-secondary",
-          "file": "en/tabs/secondary.tsx"
-        },
-        {
-          "name": "tabs-secondary-vertical",
-          "file": "en/tabs/secondary-vertical.tsx"
-        },
-        {
           "name": "tabs-vertical-alignment",
           "file": "en/tabs/vertical-alignment.tsx"
         },
         {
           "name": "tabs-render-function",
           "file": "en/tabs/render-function.tsx"
-        },
-        {
-          "name": "tabs-custom-styles",
-          "file": "en/tabs/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "tabs"
+      "componentCategory": "navigation"
     },
     {
       "locale": "en",
@@ -3958,14 +3901,9 @@
         {
           "name": "tag-group-render-function",
           "file": "en/tag-group/render-function.tsx"
-        },
-        {
-          "name": "tag-group-custom-styles",
-          "file": "en/tag-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "collections",
-      "componentThumbnail": "taggroup"
+      "componentCategory": "collections"
     },
     {
       "locale": "en",
@@ -3997,14 +3935,9 @@
         {
           "name": "textarea-rows",
           "file": "en/textarea/rows.tsx"
-        },
-        {
-          "name": "text-area-custom-styles",
-          "file": "en/textarea/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "textarea"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -4062,16 +3995,11 @@
           "file": "en/textfield/render-function.tsx"
         },
         {
-          "name": "text-field-custom-styles",
-          "file": "en/textfield/custom-styles.tsx"
-        },
-        {
           "name": "text-field-basic",
           "file": "en/textfield/basic.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "textfield"
+      "componentCategory": "forms"
     },
     {
       "locale": "en",
@@ -4135,14 +4063,9 @@
         {
           "name": "time-field-render-function",
           "file": "en/time-field/render-function.tsx"
-        },
-        {
-          "name": "time-field-custom-styles",
-          "file": "en/time-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "timefield"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "en",
@@ -4154,6 +4077,10 @@
         {
           "name": "toast-default",
           "file": "en/toast/default.tsx"
+        },
+        {
+          "name": "toast-pill",
+          "file": "en/toast/pill.tsx"
         },
         {
           "name": "toast-variants",
@@ -4192,12 +4119,11 @@
           "file": "en/toast/custom-queue.tsx"
         },
         {
-          "name": "toast-custom-styles",
-          "file": "en/toast/custom-styles.tsx"
+          "name": "toast-materials",
+          "file": "en/toast/materials.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "toast"
+      "componentCategory": "overlays"
     },
     {
       "locale": "en",
@@ -4229,14 +4155,9 @@
         {
           "name": "toggle-button-controlled",
           "file": "en/toggle-button/controlled.tsx"
-        },
-        {
-          "name": "toggle-button-custom-styles",
-          "file": "en/toggle-button/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "togglebutton"
+      "componentCategory": "buttons"
     },
     {
       "locale": "en",
@@ -4280,14 +4201,9 @@
         {
           "name": "toggle-button-group-controlled",
           "file": "en/toggle-button-group/controlled.tsx"
-        },
-        {
-          "name": "toggle-button-group-custom-styles",
-          "file": "en/toggle-button-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "togglebuttongroup"
+      "componentCategory": "buttons"
     },
     {
       "locale": "en",
@@ -4301,6 +4217,10 @@
           "file": "en/toolbar/basic.tsx"
         },
         {
+          "name": "toolbar-scrolling",
+          "file": "en/toolbar/scrolling.tsx"
+        },
+        {
           "name": "toolbar-vertical",
           "file": "en/toolbar/vertical.tsx"
         },
@@ -4311,14 +4231,9 @@
         {
           "name": "toolbar-with-button-group",
           "file": "en/toolbar/with-button-group.tsx"
-        },
-        {
-          "name": "toolbar-custom-styles",
-          "file": "en/toolbar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "toolbar"
+      "componentCategory": "layout"
     },
     {
       "locale": "en",
@@ -4346,14 +4261,9 @@
         {
           "name": "tooltip-render-function",
           "file": "en/tooltip/render-function.tsx"
-        },
-        {
-          "name": "tooltip-custom-styles",
-          "file": "en/tooltip/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "tooltip"
+      "componentCategory": "overlays"
     },
     {
       "locale": "en",
@@ -4381,14 +4291,18 @@
         {
           "name": "typography-render-props",
           "file": "en/typography/render-props.tsx"
-        },
-        {
-          "name": "typography-custom-styles",
-          "file": "en/typography/custom-styles.tsx"
         }
       ],
-      "componentCategory": "typography",
-      "componentThumbnail": "typography"
+      "componentCategory": "typography"
+    },
+    {
+      "locale": "en",
+      "slug": "react/components/wheel-picker",
+      "title": "WheelPicker",
+      "description": "A scroll-snapping wheel with single selection, keyboard navigation and form values.",
+      "markdownFile": "content/lenso/en/react/components/wheel-picker.mdx",
+      "examples": [],
+      "componentCategory": "pickers"
     },
     {
       "locale": "cn",
@@ -4424,7 +4338,7 @@
       "locale": "cn",
       "slug": "react/getting-started/colors",
       "title": "颜色",
-      "description": "使用语义主题颜色设置文本、表面、操作和反馈。",
+      "description": "内容、控件、反馈与材质共用的语义颜色体系。",
       "navigationGroup": "手册",
       "navigationOrder": 10,
       "markdownFile": "content/lenso/cn/react/getting-started/colors.mdx",
@@ -4444,7 +4358,7 @@
       "locale": "cn",
       "slug": "react/getting-started/design-principles",
       "title": "设计原则",
-      "description": "保持视觉一致、显式组合，并保留原生交互。",
+      "description": "围绕任务建立层级、对齐和材质关系，并保留原生交互。",
       "navigationGroup": "概览",
       "navigationOrder": 2,
       "markdownFile": "content/lenso/cn/react/getting-started/design-principles.mdx",
@@ -4472,6 +4386,16 @@
     },
     {
       "locale": "cn",
+      "slug": "react/getting-started/materials",
+      "title": "材料",
+      "description": "Apple 材料的主题变量与共享样式配置。",
+      "navigationGroup": "手册",
+      "navigationOrder": 11,
+      "markdownFile": "content/lenso/cn/react/getting-started/materials.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
       "slug": "react/getting-started/stylex",
       "title": "样式",
       "description": "组合类型化样式，同时保留原生状态回调与运行时自定义属性。",
@@ -4484,7 +4408,7 @@
       "locale": "cn",
       "slug": "react/getting-started/theming",
       "title": "主题",
-      "description": "自定义共享 CSS 变量，而不替换组件样式映射。",
+      "description": "统一采用 Apple 语义颜色，并明确 Web 扩展。",
       "navigationGroup": "手册",
       "navigationOrder": 11,
       "markdownFile": "content/lenso/cn/react/getting-started/theming.mdx",
@@ -4592,12 +4516,24 @@
           "file": "cn/accordion/faq.tsx"
         },
         {
-          "name": "accordion-custom-styles",
-          "file": "cn/accordion/custom-styles.tsx"
+          "name": "accordion-native-basic",
+          "file": "cn/accordion/native-basic.tsx"
+        },
+        {
+          "name": "accordion-native-controlled",
+          "file": "cn/accordion/native-controlled.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "accordion"
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/action-sheet",
+      "title": "ActionSheet",
+      "description": "带有标题、可选说明与取消操作的独立操作面板。",
+      "markdownFile": "content/lenso/cn/react/components/action-sheet.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -4609,14 +4545,9 @@
         {
           "name": "alert-basic",
           "file": "cn/alert/basic.tsx"
-        },
-        {
-          "name": "alert-custom-styles",
-          "file": "cn/alert/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "alert"
+      "componentCategory": "feedback"
     },
     {
       "locale": "cn",
@@ -4676,14 +4607,9 @@
         {
           "name": "alert-dialog-custom-portal",
           "file": "cn/alert-dialog/custom-portal.tsx"
-        },
-        {
-          "name": "alert-dialog-custom-styles",
-          "file": "cn/alert-dialog/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "alertdialog"
+      "componentCategory": "overlays"
     },
     {
       "locale": "cn",
@@ -4783,14 +4709,9 @@
         {
           "name": "autocomplete-email-recipients",
           "file": "cn/autocomplete/email-recipients.tsx"
-        },
-        {
-          "name": "autocomplete-custom-styles",
-          "file": "cn/autocomplete/custom-styles.tsx"
         }
       ],
-      "componentCategory": "pickers",
-      "componentThumbnail": "autocomplete"
+      "componentCategory": "pickers"
     },
     {
       "locale": "cn",
@@ -4820,16 +4741,11 @@
           "file": "cn/avatar/fallback.tsx"
         },
         {
-          "name": "avatar-custom-styles",
-          "file": "cn/avatar/custom-styles.tsx"
-        },
-        {
           "name": "avatar-custom-image-component",
           "file": "cn/avatar/custom-image-component.tsx"
         }
       ],
-      "componentCategory": "media",
-      "componentThumbnail": "avatar"
+      "componentCategory": "media"
     },
     {
       "locale": "cn",
@@ -4859,16 +4775,11 @@
           "file": "cn/avatar-group/grid.tsx"
         },
         {
-          "name": "avatar-group-custom-styles",
-          "file": "cn/avatar-group/custom-styles.tsx"
-        },
-        {
           "name": "avatar-group-overlap",
           "file": "en/avatar-group/overlap.tsx"
         }
       ],
-      "componentCategory": "media",
-      "componentThumbnail": "avatargroup"
+      "componentCategory": "media"
     },
     {
       "locale": "cn",
@@ -4904,14 +4815,9 @@
         {
           "name": "badge-with-content",
           "file": "cn/badge/with-content.tsx"
-        },
-        {
-          "name": "badge-custom-styles",
-          "file": "cn/badge/custom-styles.tsx"
         }
       ],
-      "componentCategory": "data-display",
-      "componentThumbnail": "badge"
+      "componentCategory": "data-display"
     },
     {
       "locale": "cn",
@@ -4943,20 +4849,15 @@
         {
           "name": "breadcrumbs-render-function",
           "file": "cn/breadcrumbs/render-function.tsx"
-        },
-        {
-          "name": "breadcrumbs-custom-styles",
-          "file": "cn/breadcrumbs/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "breadcrumbs"
+      "componentCategory": "navigation"
     },
     {
       "locale": "cn",
       "slug": "react/components/button",
       "title": "Button",
-      "description": "具有原生激活、加载状态和图标组合的操作控件。",
+      "description": "内容区域的普通操作按钮，支持填充、着色和原生交互。",
       "markdownFile": "content/lenso/cn/react/components/button.mdx",
       "examples": [
         {
@@ -5012,16 +4913,11 @@
           "file": "cn/button/ripple-effect.tsx"
         },
         {
-          "name": "button-custom-styles",
-          "file": "cn/button/custom-styles.tsx"
-        },
-        {
           "name": "release-button-outline-variant",
           "file": "cn/button/release-outline-variant.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "button"
+      "componentCategory": "buttons"
     },
     {
       "locale": "cn",
@@ -5061,14 +4957,9 @@
         {
           "name": "button-group-without-separator",
           "file": "cn/button-group/without-separator.tsx"
-        },
-        {
-          "name": "button-group-custom-styles",
-          "file": "cn/button-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "buttongroup"
+      "componentCategory": "buttons"
     },
     {
       "locale": "cn",
@@ -5148,14 +5039,9 @@
         {
           "name": "calendar-international-calendar",
           "file": "cn/calendar/international-calendar.tsx"
-        },
-        {
-          "name": "calendar-custom-styles",
-          "file": "cn/calendar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "calendar"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "cn",
@@ -5198,12 +5084,11 @@
           "file": "cn/card/with-form.tsx"
         },
         {
-          "name": "card-custom-styles",
-          "file": "cn/card/custom-styles.tsx"
+          "name": "card-materials",
+          "file": "cn/card/materials.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "card"
+      "componentCategory": "layout"
     },
     {
       "locale": "cn",
@@ -5267,14 +5152,9 @@
         {
           "name": "checkbox-custom-indicator",
           "file": "cn/checkbox/custom-indicator.tsx"
-        },
-        {
-          "name": "checkbox-custom-styles",
-          "file": "cn/checkbox/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "checkbox"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -5318,14 +5198,9 @@
         {
           "name": "checkbox-group-render-function",
           "file": "cn/checkbox-group/render-function.tsx"
-        },
-        {
-          "name": "checkbox-group-custom-styles",
-          "file": "cn/checkbox-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "checkboxgroup"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -5351,16 +5226,11 @@
           "file": "cn/chip/with-icon.tsx"
         },
         {
-          "name": "chip-custom-styles",
-          "file": "cn/chip/custom-styles.tsx"
-        },
-        {
           "name": "release-chip-vibrant-palette",
           "file": "cn/chip/release-vibrant-palette.tsx"
         }
       ],
-      "componentCategory": "data-display",
-      "componentThumbnail": "chip"
+      "componentCategory": "data-display"
     },
     {
       "locale": "cn",
@@ -5380,14 +5250,9 @@
         {
           "name": "close-button-with-custom-icon",
           "file": "cn/close-button/with-custom-icon.tsx"
-        },
-        {
-          "name": "close-button-custom-styles",
-          "file": "cn/close-button/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "closebutton"
+      "componentCategory": "buttons"
     },
     {
       "locale": "cn",
@@ -5419,14 +5284,9 @@
         {
           "name": "color-area-render-function",
           "file": "en/color-area/render-function.tsx"
-        },
-        {
-          "name": "color-area-custom-styles",
-          "file": "en/color-area/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorarea"
+      "componentCategory": "colors"
     },
     {
       "locale": "cn",
@@ -5482,14 +5342,9 @@
         {
           "name": "color-field-render-function",
           "file": "cn/color-field/render-function.tsx"
-        },
-        {
-          "name": "color-field-custom-styles",
-          "file": "cn/color-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorfield"
+      "componentCategory": "colors"
     },
     {
       "locale": "cn",
@@ -5526,14 +5381,9 @@
         {
           "name": "color-picker-with-sliders",
           "file": "cn/color-picker/with-sliders.tsx"
-        },
-        {
-          "name": "color-picker-custom-styles",
-          "file": "cn/color-picker/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorpicker"
+      "componentCategory": "colors"
     },
     {
       "locale": "cn",
@@ -5573,14 +5423,9 @@
         {
           "name": "color-slider-render-function",
           "file": "cn/color-slider/render-function.tsx"
-        },
-        {
-          "name": "color-slider-custom-styles",
-          "file": "cn/color-slider/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorslider"
+      "componentCategory": "colors"
     },
     {
       "locale": "cn",
@@ -5612,14 +5457,9 @@
         {
           "name": "color-swatch-accessibility",
           "file": "cn/color-swatch/accessibility.tsx"
-        },
-        {
-          "name": "color-swatch-custom-styles",
-          "file": "cn/color-swatch/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorswatch"
+      "componentCategory": "colors"
     },
     {
       "locale": "cn",
@@ -5663,14 +5503,9 @@
         {
           "name": "color-swatch-picker-render-function",
           "file": "en/color-swatch-picker/render-function.tsx"
-        },
-        {
-          "name": "color-swatch-picker-custom-styles",
-          "file": "en/color-swatch-picker/custom-styles.tsx"
         }
       ],
-      "componentCategory": "colors",
-      "componentThumbnail": "colorswatchpicker"
+      "componentCategory": "colors"
     },
     {
       "locale": "cn",
@@ -5754,14 +5589,27 @@
         {
           "name": "combo-box-on-surface",
           "file": "cn/combo-box/on-surface.tsx"
-        },
-        {
-          "name": "combo-box-custom-styles",
-          "file": "cn/combo-box/custom-styles.tsx"
         }
       ],
-      "componentCategory": "pickers",
-      "componentThumbnail": "combobox"
+      "componentCategory": "pickers"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/command",
+      "title": "Command",
+      "description": "支持查询过滤、键盘导航和 Lenso 样式的命令列表。",
+      "markdownFile": "content/lenso/cn/react/components/command.mdx",
+      "examples": [],
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/context-menu",
+      "title": "ContextMenu",
+      "description": "通过右键或长按打开的上下文操作菜单，可搭配内容预览。",
+      "markdownFile": "content/lenso/cn/react/components/context-menu.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -5833,14 +5681,9 @@
         {
           "name": "date-field-render-function",
           "file": "cn/date-field/render-function.tsx"
-        },
-        {
-          "name": "date-field-custom-styles",
-          "file": "cn/date-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "datefield"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "cn",
@@ -5893,14 +5736,9 @@
         {
           "name": "date-picker-international-calendar",
           "file": "cn/date-picker/international-calendar.tsx"
-        },
-        {
-          "name": "date-picker-custom-styles",
-          "file": "cn/date-picker/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "datepicker"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "cn",
@@ -5946,16 +5784,11 @@
           "file": "cn/date-range-picker/international-calendar.tsx"
         },
         {
-          "name": "date-range-picker-custom-styles",
-          "file": "cn/date-range-picker/custom-styles.tsx"
-        },
-        {
           "name": "release-date-range-picker-input-container",
           "file": "cn/date-range-picker/release-input-container.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "daterangepicker"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "cn",
@@ -5967,14 +5800,9 @@
         {
           "name": "description-basic",
           "file": "cn/description/basic.tsx"
-        },
-        {
-          "name": "description-custom-styles",
-          "file": "cn/description/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "description"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -5990,37 +5818,9 @@
         {
           "name": "disclosure-render-function",
           "file": "cn/disclosure/render-function.tsx"
-        },
-        {
-          "name": "disclosure-custom-styles",
-          "file": "cn/disclosure/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "disclosure"
-    },
-    {
-      "locale": "cn",
-      "slug": "react/components/disclosure-group",
-      "title": "DisclosureGroup",
-      "description": "协调展开状态的折叠面板集合。",
-      "markdownFile": "content/lenso/cn/react/components/disclosure-group.mdx",
-      "examples": [
-        {
-          "name": "disclosure-group-basic",
-          "file": "cn/disclosure-group/basic.tsx"
-        },
-        {
-          "name": "disclosure-group-controlled",
-          "file": "cn/disclosure-group/controlled.tsx"
-        },
-        {
-          "name": "disclosure-group-custom-styles",
-          "file": "cn/disclosure-group/custom-styles.tsx"
-        }
-      ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "disclosuregroup"
+      "componentCategory": "navigation"
     },
     {
       "locale": "cn",
@@ -6060,14 +5860,9 @@
         {
           "name": "drawer-backdrop-variants",
           "file": "cn/drawer/backdrop-variants.tsx"
-        },
-        {
-          "name": "drawer-custom-styles",
-          "file": "cn/drawer/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "drawer"
+      "componentCategory": "overlays"
     },
     {
       "locale": "cn",
@@ -6080,25 +5875,6 @@
     },
     {
       "locale": "cn",
-      "slug": "react/components/error-message",
-      "title": "ErrorMessage",
-      "description": "位于受影响输入旁的错误说明。",
-      "markdownFile": "content/lenso/cn/react/components/error-message.mdx",
-      "examples": [
-        {
-          "name": "error-message-basic",
-          "file": "cn/error-message/basic.tsx"
-        },
-        {
-          "name": "error-message-custom-styles",
-          "file": "cn/error-message/custom-styles.tsx"
-        }
-      ],
-      "componentCategory": "forms",
-      "componentThumbnail": "errormessage"
-    },
-    {
-      "locale": "cn",
       "slug": "react/components/field-error",
       "title": "FieldError",
       "description": "来自所在原生字段上下文的验证消息。",
@@ -6107,14 +5883,9 @@
         {
           "name": "field-error-basic",
           "file": "cn/field-error/basic.tsx"
-        },
-        {
-          "name": "field-error-custom-styles",
-          "file": "cn/field-error/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "fielderror"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -6130,14 +5901,9 @@
         {
           "name": "fieldset-on-surface",
           "file": "cn/fieldset/on-surface.tsx"
-        },
-        {
-          "name": "fieldset-custom-styles",
-          "file": "cn/fieldset/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "fieldset"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -6153,23 +5919,71 @@
         {
           "name": "form-render-function",
           "file": "cn/form/render-function.tsx"
-        },
-        {
-          "name": "form-custom-styles",
-          "file": "cn/form/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "form"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
-      "slug": "react/components/header",
-      "title": "Header",
-      "description": "页面或章节的结构化标题区域。",
-      "markdownFile": "content/lenso/cn/react/components/header.mdx",
+      "slug": "react/components/glass",
+      "title": "Glass",
+      "description": "折射玻璃表面。交互式放大镜请使用 GlassMagnifier。",
+      "markdownFile": "content/lenso/cn/react/components/glass.mdx",
       "examples": [],
       "componentCategory": "additional"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/glass-button",
+      "title": "GlassButton",
+      "description": "用于导航和悬浮工具栏的玻璃操作按钮。",
+      "markdownFile": "content/lenso/cn/react/components/glass-button.mdx",
+      "examples": [
+        {
+          "name": "glass-button-basic",
+          "file": "cn/glass-button/basic.tsx"
+        },
+        {
+          "name": "glass-button-sizes",
+          "file": "cn/glass-button/sizes.tsx"
+        },
+        {
+          "name": "glass-button-states",
+          "file": "cn/glass-button/states.tsx"
+        },
+        {
+          "name": "glass-button-material-reference",
+          "file": "cn/glass-button/material-reference.tsx"
+        }
+      ],
+      "componentCategory": "buttons"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/glass-container",
+      "title": "GlassContainer",
+      "description": "相邻玻璃表面随距离融合与分离，内容保持清晰。",
+      "markdownFile": "content/lenso/cn/react/components/glass-container.mdx",
+      "examples": [],
+      "componentCategory": "layout"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/glass-magnifier",
+      "title": "GlassMagnifier",
+      "description": "支持独立控制拖动与弹簧动效的交互式玻璃放大镜。",
+      "markdownFile": "content/lenso/cn/react/components/glass-magnifier.mdx",
+      "examples": [],
+      "componentCategory": "additional"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/glass-toggle-button",
+      "title": "GlassToggleButton",
+      "description": "用于悬浮控件、具有持久选中状态的玻璃切换按钮。",
+      "markdownFile": "content/lenso/cn/react/components/glass-toggle-button.mdx",
+      "examples": [],
+      "componentCategory": "buttons"
     },
     {
       "locale": "cn",
@@ -6203,12 +6017,11 @@
           "file": "cn/input/controlled.tsx"
         },
         {
-          "name": "input-custom-styles",
-          "file": "cn/input/custom-styles.tsx"
+          "name": "input-elastic",
+          "file": "cn/input/elastic.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "input"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -6298,12 +6111,11 @@
           "file": "cn/input-group/with-textarea.tsx"
         },
         {
-          "name": "input-group-custom-styles",
-          "file": "cn/input-group/custom-styles.tsx"
+          "name": "input-group-glass",
+          "file": "cn/input-group/glass.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "inputgroup"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -6351,14 +6163,9 @@
         {
           "name": "input-otp-with-validation",
           "file": "cn/input-otp/with-validation.tsx"
-        },
-        {
-          "name": "input-otp-custom-styles",
-          "file": "cn/input-otp/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "inputotp"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -6390,14 +6197,9 @@
         {
           "name": "kbd-special-keys",
           "file": "cn/kbd/special.tsx"
-        },
-        {
-          "name": "kbd-custom-styles",
-          "file": "en/kbd/custom-styles.tsx"
         }
       ],
-      "componentCategory": "typography",
-      "componentThumbnail": "kbd"
+      "componentCategory": "typography"
     },
     {
       "locale": "cn",
@@ -6409,14 +6211,9 @@
         {
           "name": "label-basic",
           "file": "cn/label/basic.tsx"
-        },
-        {
-          "name": "label-custom-styles",
-          "file": "cn/label/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "label"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -6444,14 +6241,18 @@
         {
           "name": "link-render-function",
           "file": "cn/link/render-function.tsx"
-        },
-        {
-          "name": "link-custom-styles",
-          "file": "cn/link/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "link"
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/list",
+      "title": "List",
+      "description": "具有普通与双行布局、附件和行内控件的内容列表。",
+      "markdownFile": "content/lenso/cn/react/components/list.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -6493,34 +6294,11 @@
           "file": "cn/list-box/render-function.tsx"
         },
         {
-          "name": "list-box-custom-styles",
-          "file": "cn/list-box/custom-styles.tsx"
-        },
-        {
           "name": "release-list-box-scrollbar-modes",
           "file": "cn/list-box/release-scrollbar-modes.tsx"
         }
       ],
-      "componentCategory": "collections",
-      "componentThumbnail": "listbox"
-    },
-    {
-      "locale": "cn",
-      "slug": "react/components/list-box-item",
-      "title": "ListBoxItem",
-      "description": "参与所在列表框选择模型的选项。",
-      "markdownFile": "content/lenso/cn/react/components/list-box-item.mdx",
-      "examples": [],
-      "componentCategory": "additional"
-    },
-    {
-      "locale": "cn",
-      "slug": "react/components/list-box-section",
-      "title": "ListBoxSection",
-      "description": "列表框集合中的带标签选项分组。",
-      "markdownFile": "content/lenso/cn/react/components/list-box-section.mdx",
-      "examples": [],
-      "componentCategory": "additional"
+      "componentCategory": "collections"
     },
     {
       "locale": "cn",
@@ -6592,32 +6370,9 @@
         {
           "name": "menu-long-press-trigger",
           "file": "cn/menu/long-press-trigger.tsx"
-        },
-        {
-          "name": "menu-custom-styles",
-          "file": "cn/menu/custom-styles.tsx"
         }
       ],
-      "componentCategory": "collections",
-      "componentThumbnail": "dropdown"
-    },
-    {
-      "locale": "cn",
-      "slug": "react/components/menu-item",
-      "title": "MenuItem",
-      "description": "所在 Menu 上下文中的命令、复选框或单选项。",
-      "markdownFile": "content/lenso/cn/react/components/menu-item.mdx",
-      "examples": [],
-      "componentCategory": "additional"
-    },
-    {
-      "locale": "cn",
-      "slug": "react/components/menu-section",
-      "title": "MenuSection",
-      "description": "Menu 弹出层中的带标签命令分组。",
-      "markdownFile": "content/lenso/cn/react/components/menu-section.mdx",
-      "examples": [],
-      "componentCategory": "additional"
+      "componentCategory": "collections"
     },
     {
       "locale": "cn",
@@ -6645,14 +6400,9 @@
         {
           "name": "meter-custom-value",
           "file": "cn/meter/custom-value.tsx"
-        },
-        {
-          "name": "meter-custom-styles",
-          "file": "cn/meter/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "meter"
+      "componentCategory": "feedback"
     },
     {
       "locale": "cn",
@@ -6712,14 +6462,27 @@
         {
           "name": "modal-custom-portal",
           "file": "cn/modal/custom-portal.tsx"
-        },
-        {
-          "name": "modal-custom-styles",
-          "file": "cn/modal/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "modal"
+      "componentCategory": "overlays"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/navigation-bar",
+      "title": "NavigationBar",
+      "description": "Screen navigation and actions with a large title that collapses on scroll.",
+      "markdownFile": "content/lenso/cn/react/components/navigation-bar.mdx",
+      "examples": [],
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/notification",
+      "title": "Notification",
+      "description": "包含来源、时间、可选堆叠与展开内容的应用通知。",
+      "markdownFile": "content/lenso/cn/react/components/notification.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -6791,14 +6554,18 @@
         {
           "name": "number-field-render-function",
           "file": "cn/number-field/render-function.tsx"
-        },
-        {
-          "name": "number-field-custom-styles",
-          "file": "cn/number-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "numberfield"
+      "componentCategory": "forms"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/page-control",
+      "title": "PageControl",
+      "description": "用于轮播或连续视图的分页圆点指示器。",
+      "markdownFile": "content/lenso/cn/react/components/page-control.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -6838,14 +6605,9 @@
         {
           "name": "pagination-custom-icons",
           "file": "cn/pagination/custom-icons.tsx"
-        },
-        {
-          "name": "pagination-custom-styles",
-          "file": "en/pagination/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "pagination"
+      "componentCategory": "navigation"
     },
     {
       "locale": "cn",
@@ -6873,14 +6635,18 @@
         {
           "name": "popover-render-function",
           "file": "cn/popover/render-function.tsx"
-        },
-        {
-          "name": "popover-custom-styles",
-          "file": "cn/popover/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "popover"
+      "componentCategory": "overlays"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/popup-button",
+      "title": "PopupButton",
+      "description": "带有文字与装饰性双箭头的紧凑 Apple 风格按钮。",
+      "markdownFile": "content/lenso/cn/react/components/popup-button.mdx",
+      "examples": [],
+      "componentCategory": "buttons"
     },
     {
       "locale": "cn",
@@ -6912,14 +6678,9 @@
         {
           "name": "progress-bar-custom-value",
           "file": "cn/progress-bar/custom-value.tsx"
-        },
-        {
-          "name": "progress-bar-custom-styles",
-          "file": "cn/progress-bar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "progressbar"
+      "componentCategory": "feedback"
     },
     {
       "locale": "cn",
@@ -6951,14 +6712,9 @@
         {
           "name": "progress-circle-custom-svg",
           "file": "cn/progress-circle/custom-svg.tsx"
-        },
-        {
-          "name": "progress-circle-custom-styles",
-          "file": "cn/progress-circle/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "progresscircle"
+      "componentCategory": "feedback"
     },
     {
       "locale": "cn",
@@ -7019,14 +6775,9 @@
         {
           "name": "radio-group-render-function",
           "file": "cn/radio-group/render-function.tsx"
-        },
-        {
-          "name": "radio-group-custom-styles",
-          "file": "cn/radio-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "radiogroup"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -7110,14 +6861,9 @@
         {
           "name": "range-calendar-international-calendar",
           "file": "cn/range-calendar/international-calendar.tsx"
-        },
-        {
-          "name": "range-calendar-custom-styles",
-          "file": "cn/range-calendar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "rangecalendar"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "cn",
@@ -7149,14 +6895,9 @@
         {
           "name": "scroll-shadow-visibility-change",
           "file": "cn/scroll-shadow/visibility-change.tsx"
-        },
-        {
-          "name": "scroll-shadow-custom-styles",
-          "file": "cn/scroll-shadow/custom-styles.tsx"
         }
       ],
-      "componentCategory": "utilities",
-      "componentThumbnail": "scrollshadow"
+      "componentCategory": "utilities"
     },
     {
       "locale": "cn",
@@ -7220,14 +6961,27 @@
         {
           "name": "search-field-render-function",
           "file": "cn/search-field/render-function.tsx"
-        },
-        {
-          "name": "search-field-custom-styles",
-          "file": "cn/search-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "searchfield"
+      "componentCategory": "forms"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/section-index",
+      "title": "SectionIndex",
+      "description": "支持锚点链接、键盘导航和触摸拖选的垂直分组索引。",
+      "markdownFile": "content/lenso/cn/react/components/section-index.mdx",
+      "examples": [],
+      "componentCategory": "navigation"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/segmented-control",
+      "title": "SegmentedControl",
+      "description": "用于选择单个筛选条件或表单值的紧凑分段单选控件。",
+      "markdownFile": "content/lenso/cn/react/components/segmented-control.mdx",
+      "examples": [],
+      "componentCategory": "controls"
     },
     {
       "locale": "cn",
@@ -7307,14 +7061,9 @@
         {
           "name": "select-on-surface",
           "file": "cn/select/on-surface.tsx"
-        },
-        {
-          "name": "select-custom-styles",
-          "file": "cn/select/custom-styles.tsx"
         }
       ],
-      "componentCategory": "pickers",
-      "componentThumbnail": "select"
+      "componentCategory": "pickers"
     },
     {
       "locale": "cn",
@@ -7346,14 +7095,45 @@
         {
           "name": "separator-render-function",
           "file": "cn/separator/render-function.tsx"
-        },
-        {
-          "name": "separator-custom-styles",
-          "file": "cn/separator/custom-styles.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "separator"
+      "componentCategory": "layout"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/share-sheet",
+      "title": "ShareSheet",
+      "description": "复用 Sheet 的分享面板，包含目标横列和分组操作。",
+      "markdownFile": "content/lenso/cn/react/components/share-sheet.mdx",
+      "examples": [],
+      "componentCategory": "additional"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/sheet",
+      "title": "Sheet",
+      "description": "在当前内容上方呈现、可调整高度的任务面板。",
+      "markdownFile": "content/lenso/cn/react/components/sheet.mdx",
+      "examples": [
+        {
+          "name": "sheet-basic",
+          "file": "cn/sheet/basic.tsx"
+        },
+        {
+          "name": "sheet-scrolling",
+          "file": "cn/sheet/scrolling.tsx"
+        }
+      ],
+      "componentCategory": "overlays"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/sidebar",
+      "title": "Sidebar",
+      "description": "具有当前页面链接和可折叠分组的应用导航。",
+      "markdownFile": "content/lenso/cn/react/components/sidebar.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -7389,14 +7169,9 @@
         {
           "name": "skeleton-animation-types",
           "file": "cn/skeleton/animation-types.tsx"
-        },
-        {
-          "name": "skeleton-custom-styles",
-          "file": "en/skeleton/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "skeleton"
+      "componentCategory": "feedback"
     },
     {
       "locale": "cn",
@@ -7424,14 +7199,9 @@
         {
           "name": "slider-render-function",
           "file": "cn/slider/render-function.tsx"
-        },
-        {
-          "name": "slider-custom-styles",
-          "file": "cn/slider/custom-styles.tsx"
         }
       ],
-      "componentCategory": "controls",
-      "componentThumbnail": "slider"
+      "componentCategory": "controls"
     },
     {
       "locale": "cn",
@@ -7455,14 +7225,18 @@
         {
           "name": "spinner-speed",
           "file": "cn/spinner/speed.tsx"
-        },
-        {
-          "name": "spinner-custom-styles",
-          "file": "en/spinner/custom-styles.tsx"
         }
       ],
-      "componentCategory": "feedback",
-      "componentThumbnail": "spinner"
+      "componentCategory": "feedback"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/stepper",
+      "title": "Stepper",
+      "description": "复用原生数值字段模型的紧凑增减控件。",
+      "markdownFile": "content/lenso/cn/react/components/stepper.mdx",
+      "examples": [],
+      "componentCategory": "additional"
     },
     {
       "locale": "cn",
@@ -7484,12 +7258,20 @@
           "file": "cn/surface/with-form-components.tsx"
         },
         {
-          "name": "surface-custom-styles",
-          "file": "cn/surface/custom-styles.tsx"
+          "name": "surface-materials",
+          "file": "cn/surface/materials.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "surface"
+      "componentCategory": "layout"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/swipe-actions",
+      "title": "SwipeActions",
+      "description": "Reveal row actions with a horizontal swipe or accessible action buttons.",
+      "markdownFile": "content/lenso/cn/react/components/swipe-actions.mdx",
+      "examples": [],
+      "componentCategory": "collections"
     },
     {
       "locale": "cn",
@@ -7535,14 +7317,6 @@
           "file": "cn/switch/label-position.tsx"
         },
         {
-          "name": "switch-group",
-          "file": "cn/switch/group.tsx"
-        },
-        {
-          "name": "switch-group-horizontal",
-          "file": "cn/switch/group-horizontal.tsx"
-        },
-        {
           "name": "switch-form",
           "file": "cn/switch/form.tsx"
         },
@@ -7553,23 +7327,27 @@
         {
           "name": "switch-render-function",
           "file": "cn/switch/render-function.tsx"
-        },
-        {
-          "name": "switch-custom-styles",
-          "file": "cn/switch/custom-styles.tsx"
         }
       ],
-      "componentCategory": "controls",
-      "componentThumbnail": "switch"
+      "componentCategory": "controls"
     },
     {
       "locale": "cn",
-      "slug": "react/components/switch-group",
-      "title": "SwitchGroup",
-      "description": "由共享标签和说明组织的相关开关集合。",
-      "markdownFile": "content/lenso/cn/react/components/switch-group.mdx",
-      "examples": [],
-      "componentCategory": "additional"
+      "slug": "react/components/tab-bar",
+      "title": "TabBar",
+      "description": "用于应用主要目标位置的玻璃导航栏。",
+      "markdownFile": "content/lenso/cn/react/components/tab-bar.mdx",
+      "examples": [
+        {
+          "name": "tab-bar-basic",
+          "file": "cn/tab-bar/basic.tsx"
+        },
+        {
+          "name": "tab-bar-tablet",
+          "file": "cn/tab-bar/tablet.tsx"
+        }
+      ],
+      "componentCategory": "navigation"
     },
     {
       "locale": "cn",
@@ -7625,14 +7403,9 @@
         {
           "name": "table-custom-cells",
           "file": "cn/table/custom-cells.tsx"
-        },
-        {
-          "name": "table-custom-styles",
-          "file": "cn/table/custom-styles.tsx"
         }
       ],
-      "componentCategory": "data-display",
-      "componentThumbnail": "table"
+      "componentCategory": "data-display"
     },
     {
       "locale": "cn",
@@ -7662,28 +7435,15 @@
           "file": "cn/tabs/with-separator.tsx"
         },
         {
-          "name": "tabs-secondary",
-          "file": "cn/tabs/secondary.tsx"
-        },
-        {
-          "name": "tabs-secondary-vertical",
-          "file": "cn/tabs/secondary-vertical.tsx"
-        },
-        {
           "name": "tabs-vertical-alignment",
           "file": "cn/tabs/vertical-alignment.tsx"
         },
         {
           "name": "tabs-render-function",
           "file": "cn/tabs/render-function.tsx"
-        },
-        {
-          "name": "tabs-custom-styles",
-          "file": "cn/tabs/custom-styles.tsx"
         }
       ],
-      "componentCategory": "navigation",
-      "componentThumbnail": "tabs"
+      "componentCategory": "navigation"
     },
     {
       "locale": "cn",
@@ -7744,14 +7504,9 @@
         {
           "name": "tag-group-render-function",
           "file": "cn/tag-group/render-function.tsx"
-        },
-        {
-          "name": "tag-group-custom-styles",
-          "file": "cn/tag-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "collections",
-      "componentThumbnail": "taggroup"
+      "componentCategory": "collections"
     },
     {
       "locale": "cn",
@@ -7783,14 +7538,9 @@
         {
           "name": "textarea-rows",
           "file": "cn/textarea/rows.tsx"
-        },
-        {
-          "name": "text-area-custom-styles",
-          "file": "cn/textarea/custom-styles.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "textarea"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -7848,16 +7598,11 @@
           "file": "cn/textfield/render-function.tsx"
         },
         {
-          "name": "text-field-custom-styles",
-          "file": "cn/textfield/custom-styles.tsx"
-        },
-        {
           "name": "text-field-basic",
           "file": "cn/textfield/basic.tsx"
         }
       ],
-      "componentCategory": "forms",
-      "componentThumbnail": "textfield"
+      "componentCategory": "forms"
     },
     {
       "locale": "cn",
@@ -7921,14 +7666,9 @@
         {
           "name": "time-field-render-function",
           "file": "cn/time-field/render-function.tsx"
-        },
-        {
-          "name": "time-field-custom-styles",
-          "file": "cn/time-field/custom-styles.tsx"
         }
       ],
-      "componentCategory": "date-and-time",
-      "componentThumbnail": "timefield"
+      "componentCategory": "date-and-time"
     },
     {
       "locale": "cn",
@@ -7940,6 +7680,10 @@
         {
           "name": "toast-default",
           "file": "cn/toast/default.tsx"
+        },
+        {
+          "name": "toast-pill",
+          "file": "cn/toast/pill.tsx"
         },
         {
           "name": "toast-variants",
@@ -7978,12 +7722,11 @@
           "file": "cn/toast/custom-queue.tsx"
         },
         {
-          "name": "toast-custom-styles",
-          "file": "cn/toast/custom-styles.tsx"
+          "name": "toast-materials",
+          "file": "cn/toast/materials.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "toast"
+      "componentCategory": "overlays"
     },
     {
       "locale": "cn",
@@ -8015,14 +7758,9 @@
         {
           "name": "toggle-button-controlled",
           "file": "cn/toggle-button/controlled.tsx"
-        },
-        {
-          "name": "toggle-button-custom-styles",
-          "file": "cn/toggle-button/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "togglebutton"
+      "componentCategory": "buttons"
     },
     {
       "locale": "cn",
@@ -8066,14 +7804,9 @@
         {
           "name": "toggle-button-group-controlled",
           "file": "cn/toggle-button-group/controlled.tsx"
-        },
-        {
-          "name": "toggle-button-group-custom-styles",
-          "file": "cn/toggle-button-group/custom-styles.tsx"
         }
       ],
-      "componentCategory": "buttons",
-      "componentThumbnail": "togglebuttongroup"
+      "componentCategory": "buttons"
     },
     {
       "locale": "cn",
@@ -8087,6 +7820,10 @@
           "file": "cn/toolbar/basic.tsx"
         },
         {
+          "name": "toolbar-scrolling",
+          "file": "cn/toolbar/scrolling.tsx"
+        },
+        {
           "name": "toolbar-vertical",
           "file": "cn/toolbar/vertical.tsx"
         },
@@ -8097,14 +7834,9 @@
         {
           "name": "toolbar-with-button-group",
           "file": "cn/toolbar/with-button-group.tsx"
-        },
-        {
-          "name": "toolbar-custom-styles",
-          "file": "cn/toolbar/custom-styles.tsx"
         }
       ],
-      "componentCategory": "layout",
-      "componentThumbnail": "toolbar"
+      "componentCategory": "layout"
     },
     {
       "locale": "cn",
@@ -8132,14 +7864,9 @@
         {
           "name": "tooltip-render-function",
           "file": "cn/tooltip/render-function.tsx"
-        },
-        {
-          "name": "tooltip-custom-styles",
-          "file": "cn/tooltip/custom-styles.tsx"
         }
       ],
-      "componentCategory": "overlays",
-      "componentThumbnail": "tooltip"
+      "componentCategory": "overlays"
     },
     {
       "locale": "cn",
@@ -8167,14 +7894,18 @@
         {
           "name": "typography-render-props",
           "file": "cn/typography/render-props.tsx"
-        },
-        {
-          "name": "typography-custom-styles",
-          "file": "cn/typography/custom-styles.tsx"
         }
       ],
-      "componentCategory": "typography",
-      "componentThumbnail": "typography"
+      "componentCategory": "typography"
+    },
+    {
+      "locale": "cn",
+      "slug": "react/components/wheel-picker",
+      "title": "WheelPicker",
+      "description": "A scroll-snapping wheel with single selection, keyboard navigation and form values.",
+      "markdownFile": "content/lenso/cn/react/components/wheel-picker.mdx",
+      "examples": [],
+      "componentCategory": "pickers"
     }
   ]
 }

@@ -3,7 +3,7 @@ import { promisify } from "node:util";
 import { readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { validateToolContract } from "./contract.ts";
+import { validateToolContract } from "@lenso/ui-devtools/queries";
 import {
   checkProject,
   dependencies,
@@ -19,16 +19,21 @@ export interface DependencyPlan extends ProjectPlan {
   action: DependencyAction;
 }
 
-const executeNode = promisify(execFile);
+const executeBun = promisify(execFile);
 async function resolveEntry(specifier: string, directory: string): Promise<string> {
-  // A fresh built-in resolver uses the consumer's ESM conditions without
-  // importing its package code or loading caller-provided Node hooks.
+  // Resolve consumer exports without executing package code or installing dependencies.
   const env = Object.fromEntries(
     Object.entries(process.env).filter(([key]) => key !== "NODE_OPTIONS" && key !== "NODE_PATH"),
   );
-  const { stdout } = await executeNode(
+  const { stdout } = await executeBun(
     process.execPath,
-    ["--input-type=module", "-e", "console.log(import.meta.resolve(process.argv[1]))", specifier],
+    [
+      "--no-install",
+      "--input-type=module",
+      "-e",
+      "console.log(import.meta.resolve(process.argv[1]))",
+      specifier,
+    ],
     { cwd: directory, env, timeout: 5000, maxBuffer: 1024 * 1024 },
   );
   const url = new URL(stdout.trim());
@@ -50,9 +55,12 @@ export async function planDependencies(
   const original = await fileAt(root, "package.json");
   if (original === null) throw new Error("Project needs package.json");
   const pkg = parsePackage(original);
-  const desired = dependencies(contract);
+  const desired = dependencies(
+    contract,
+    pkg.dependencies?.["next"] || pkg.devDependencies?.["next"] ? "next" : "vite",
+  );
   const conflicts: string[] = [];
-  const managedLenso = new Set(["@lenso/ui", "@lenso/tokens", "@lenso/stylex-build"]);
+  const managedLenso = new Set(["@lenso/ui", "@lenso/tokens"]);
   for (const section of ["dependencies", "devDependencies"] as const) {
     for (const [name, version] of Object.entries(desired[section])) {
       const locations = (["dependencies", "devDependencies"] as const).filter(
@@ -103,23 +111,16 @@ export async function planDependencies(
   };
 }
 
-// The supported descriptor currently uses a pinned caret range. Unknown range
-// syntax remains skipped rather than being optimistically declared compatible.
-export function nodeCompatibility(version: string, range: string): boolean | null {
-  const actual = /^v?(\d+)\.(\d+)\.(\d+)$/.exec(version);
-  const expected = /^(\^?)(\d+)\.(\d+)\.(\d+)$/.exec(range);
-  if (!actual || !expected) return null;
-  const major = Number(actual[1]);
-  const minor = Number(actual[2]);
-  const patch = Number(actual[3]);
-  const targetMajor = Number(expected[2]);
-  const targetMinor = Number(expected[3]);
-  const targetPatch = Number(expected[4]);
-  if (!expected[1]) return major === targetMajor && minor === targetMinor && patch === targetPatch;
-  if (major !== targetMajor) return false;
-  if (targetMajor === 0 && minor !== targetMinor) return false;
-  if (targetMajor === 0 && targetMinor === 0) return patch === targetPatch;
-  return minor > targetMinor || (minor === targetMinor && patch >= targetPatch);
+// Unknown range syntax is reported as skipped rather than as compatible.
+export function bunCompatibility(version: string, range: string): boolean | null {
+  const actual = /^(\d+)\.(\d+)\.(\d+)$/.exec(version);
+  const minimum = /^>=(\d+)\.(\d+)\.(\d+)$/.exec(range);
+  if (!actual || !minimum) return null;
+  for (let index = 1; index <= 3; index++) {
+    const delta = Number(actual[index]) - Number(minimum[index]);
+    if (delta !== 0) return delta > 0;
+  }
+  return true;
 }
 
 export interface DoctorEvidence {
@@ -147,7 +148,7 @@ export async function doctorProject(directory: string, input: unknown): Promise<
         "Static source, manifest and configuration checks only; skipped analysis is not a passing verdict.",
     },
   ];
-  const supported = nodeCompatibility(process.version, integration(contract).node.range);
+  const supported = bunCompatibility(Bun.version, integration(contract).bun.range);
   const diagnostics = [...check.diagnostics];
   const report = (ruleId: string, message: string) =>
     diagnostics.push({
@@ -158,16 +159,20 @@ export async function doctorProject(directory: string, input: unknown): Promise<
       column: 1,
       message,
     });
-  const nodeMessage = `Node ${process.version}; contract requires ${integration(contract).node.range}`;
+  const bunMessage = `Bun ${Bun.version}; contract requires ${integration(contract).bun.range}`;
   evidence.push({
     kind: "environment",
     status: supported === null ? "skipped" : supported ? "pass" : "error",
-    subject: "node",
+    subject: "bun",
     message:
-      supported === null ? `${nodeMessage}; range syntax cannot be checked locally` : nodeMessage,
+      supported === null ? `${bunMessage}; range syntax cannot be checked locally` : bunMessage,
   });
-  if (supported === false) report("lenso/node-version", nodeMessage);
-  const wanted = dependencies(contract);
+  if (supported === false) report("lenso/bun-version", bunMessage);
+  const pkg = parsePackage((await fileAt(root, "package.json"))!);
+  const wanted = dependencies(
+    contract,
+    pkg.dependencies?.["next"] || pkg.devDependencies?.["next"] ? "next" : "vite",
+  );
   for (const [name, version] of Object.entries({
     ...wanted.dependencies,
     ...wanted.devDependencies,
@@ -193,7 +198,6 @@ export async function doctorProject(directory: string, input: unknown): Promise<
       }
       if (name === "@lenso/tokens") {
         await resolveEntry("@lenso/tokens/styles.css", root);
-        await resolveEntry("@lenso/tokens/stylex-rules.json", root);
       }
       const value: unknown = JSON.parse(await readFile(manifest, "utf8"));
       if (
@@ -205,7 +209,7 @@ export async function doctorProject(directory: string, input: unknown): Promise<
         typeof value.version !== "string"
       )
         throw new Error("Resolved package manifest is invalid");
-      const message = `${name}: resolved ESM entry ${entry}, version ${value.version}; contract expects ${version}${name === "@lenso/tokens" ? "; theme CSS and StyleX metadata files exist" : ""}`;
+      const message = `${name}: resolved ESM entry ${entry}, version ${value.version}; contract expects ${version}${name === "@lenso/tokens" ? "; theme CSS exists" : ""}`;
       evidence.push({
         kind: "resolution",
         status: value.version === version ? "pass" : "error",
@@ -226,7 +230,7 @@ export async function doctorProject(directory: string, input: unknown): Promise<
     automaticRepair: false,
     limits: [
       ...check.limits,
-      "Doctor uses Node's default ESM resolution without executing package entries or custom loaders; it does not install, repair or certify browser/CSS/keyboard behavior.",
+      "Doctor uses Bun's default ESM resolution without executing package entries or custom loaders; it does not install, repair or certify browser/CSS/keyboard behavior.",
     ],
   };
 }

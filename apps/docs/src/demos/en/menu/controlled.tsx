@@ -1,9 +1,8 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 controlled, Apache-2.0.
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Menu, MenuItem } from "@lenso/ui";
+import { GlassButton, Menu } from "@lenso/ui";
 import { Checkmark, Popup, styles } from "./_shared";
 
 export function Controlled() {
@@ -16,7 +15,7 @@ export function Controlled() {
         Selected: {selectedItems.length > 0 ? selectedItems.join(", ") : "None"}
       </p>
       <Menu open={open} onOpenChange={setOpen}>
-        <Menu.Trigger render={<Button aria-label="Menu" variant="secondary" />}>
+        <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
           Actions
         </Menu.Trigger>
         <Popup>
@@ -37,7 +36,7 @@ export function Controlled() {
                 })
               }
             >
-              <MenuItem.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</MenuItem.Label>
+              <Menu.Item.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</Menu.Item.Label>
               <Menu.CheckboxItemIndicator keepMounted xstyle={styles.selectionIndicator}>
                 <Checkmark />
               </Menu.CheckboxItemIndicator>

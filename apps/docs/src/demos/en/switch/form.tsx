@@ -1,6 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
-import { Button, Switch, SwitchGroup } from "@lenso/ui";
+import { Button, Switch } from "@lenso/ui";
 import type { FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
@@ -19,7 +18,7 @@ export function Form() {
   };
   return (
     <form {...stylex.props(styles.form)} onSubmit={handleSubmit}>
-      <SwitchGroup>
+      <fieldset {...stylex.props(switchGrouping.root)} aria-label="Notification preferences">
         <Switch name="notifications" value="on">
           <Switch.Content>
             <Switch.Control>
@@ -44,10 +43,22 @@ export function Form() {
             Receive marketing updates
           </Switch.Content>
         </Switch>
-      </SwitchGroup>
-      <Button xstyle={styles.submit} size="sm" type="submit" variant="primary">
+      </fieldset>
+      <Button xstyle={styles.submit} size="sm" type="submit" variant="prominent">
         Submit
       </Button>
     </form>
   );
 }
+
+const switchGrouping = stylex.create({
+  root: {
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+    minWidth: 0,
+    display: "flex",
+    gap: 12,
+    flexDirection: "column",
+  },
+});

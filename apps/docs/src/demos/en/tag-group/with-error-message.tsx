@@ -1,5 +1,4 @@
 "use client";
-// HeroUI v3.2.6 with-error-message adaptation (Apache-2.0).
 import { useState, type Key } from "react";
 import { Tag, TagGroup } from "@lenso/ui";
 import { Description, ErrorMessage, Label } from "./text";

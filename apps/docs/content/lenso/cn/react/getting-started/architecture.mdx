@@ -51,7 +51,7 @@ React 公开导出决定组件系列清单。原生属性、ref、状态属性�
 
 ## 样式交付
 
-`@lenso/tokens` 提供主题和类型化映射。`@lenso/stylex-build` 编译应用声明，并与包元数据合并。应用必须向每个实际渲染文档交付合并规则。构建时工具不应进入生产浏览器 JavaScript。
+`@lenso/tokens` 提供主题和可供编译器读取的 StyleX 声明。官方 StyleX 集成统一编译库与应用的声明。每个渲染文档都应导入主题 CSS；编译工具不会进入浏览器 JavaScript。
 
 ## 文档投影
 

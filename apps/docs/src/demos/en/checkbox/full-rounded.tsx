@@ -1,12 +1,11 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. SPDX-License-Identifier: Apache-2.0 */
 import { Checkbox } from "@lenso/ui";
 import { labelStyles } from "@lenso/tokens/label";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   root: { display: "flex", flexDirection: "column", gap: "1.5rem" },
   section: { display: "flex", flexDirection: "column", gap: ".75rem" },
-  label: { color: "var(--muted)" },
+  label: { color: "var(--lenso-label-secondary)" },
   smallIndicator: { "--checkbox-checkmark-size": ".5rem" },
   extraLargeIndicator: { "--checkbox-checkmark-size": "1rem" },
   small: {

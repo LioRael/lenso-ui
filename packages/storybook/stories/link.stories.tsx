@@ -1,4 +1,3 @@
-// Adapted from HeroUI e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, Apache-2.0.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Link } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -25,12 +24,12 @@ export const Default: Story = {
         <Link.Icon />
       </Link>
       <Link
-        href="https://heroui.com"
+        href="/"
         rel="noopener noreferrer"
         target="_blank"
-        xstyle={[buttonStyles.root, buttonSizes.md, buttonVariants.tertiary, s.linkButton]}
+        xstyle={[buttonStyles.root, buttonSizes.md, buttonVariants.borderless, s.linkButton]}
       >
-        HeroUI
+        Lenso UI
         <Link.Icon xstyle={s.icon8} />
       </Link>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. Apache-2.0. Native RAC render state replaces DOM render interception. */
+// Native RAC render state replaces DOM render interception.
 import { ColorField, ColorSwatch, parseColor } from "@lenso/ui";
 import type { Color } from "@lenso/ui";
 import { useState } from "react";

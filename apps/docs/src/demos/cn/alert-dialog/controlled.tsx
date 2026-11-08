@@ -1,11 +1,9 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 alert-dialog-controlled (Apache-2.0).
 // The second controller uses a reducer instead of the React Aria overlay-state hook.
 import { useReducer, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { Button, AlertDialog } from "@lenso/ui";
 const styles = stylex.create({
   column: {
     display: "flex",
@@ -21,13 +19,13 @@ const styles = stylex.create({
   heading: {
     fontSize: 18,
     fontWeight: 600,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
   },
   caption: {
     fontSize: 14,
     lineHeight: 1.625,
     textWrap: "pretty",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   panel: {
     display: "flex",
@@ -35,18 +33,18 @@ const styles = stylex.create({
     alignItems: "flex-start",
     gap: 12,
     borderRadius: 16,
-    backgroundColor: "var(--surface)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 16,
-    boxShadow: "var(--shadow-sm)",
+    boxShadow: "var(--lenso-surface-shadow)",
   },
   status: {
     fontSize: 12,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   value: {
     fontFamily: "monospace",
     fontWeight: 500,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
   },
   actions: {
     display: "flex",
@@ -88,12 +86,11 @@ export function Controlled() {
                 状态：<span {...stylex.props(styles.value)}>{open ? "打开" : "关闭"}</span>
               </p>
               <div {...stylex.props(styles.actions)}>
-                <Button size="sm" variant="secondary" onClick={() => setOpen(true)}>
+                <Button size="sm" onClick={() => setOpen(true)}>
                   打开对话框
                 </Button>
                 <Button
                   size="sm"
-                  variant="tertiary"
                   onClick={() => (reducer ? dispatch("toggle") : setIsOpen((value) => !value))}
                 >
                   切换
@@ -126,10 +123,8 @@ export function Controlled() {
                       </AlertDialog.Description>
                     </AlertDialog.Body>
                     <AlertDialog.Footer>
-                      <AlertDialog.Close render={<Button variant="tertiary" />}>
-                        取消
-                      </AlertDialog.Close>
-                      <AlertDialog.Close render={<Button />}>确认</AlertDialog.Close>
+                      <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+                      <AlertDialog.Action>确认</AlertDialog.Action>
                     </AlertDialog.Footer>
                   </AlertDialog.Popup>
                 </AlertDialog.Viewport>

@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 meter.stories.tsx (Apache-2.0).
 // Use the native Base UI label and min/max bounds.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ComponentProps } from "react";

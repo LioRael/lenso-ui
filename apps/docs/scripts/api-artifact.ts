@@ -42,41 +42,12 @@ export async function apiSourceInputs(directory: string): Promise<string[]> {
       .sort()
       .map((file) => path.join(relative, file));
   return [
-    "pnpm-lock.yaml",
-    "apps/docs/scripts/generate-api-reference.mjs",
+    "bun.lock",
+    "apps/docs/scripts/generate-api-reference.ts",
     "apps/docs/scripts/api-artifact.ts",
-    "packages/standard/oxfmt.json",
-    ...(await typedSources("packages/react/src")),
-    "packages/react/package.json",
-    ...(await typedSources("packages/styles/src")),
+    ".oxfmtrc.json",
+    ...(await typedSources("packages/ui/src")),
+    "packages/ui/package.json",
+    ...(await typedSources("packages/tokens/src")),
   ];
-}
-
-export function apiSnapshotDigest(reference: {
-  upstream?: unknown;
-  properties?: unknown;
-  families?: unknown;
-}): string {
-  return createHash("sha256")
-    .update(
-      JSON.stringify({
-        upstream: reference.upstream,
-        properties: reference.properties,
-        families: reference.families,
-      }),
-    )
-    .digest("hex");
-}
-
-export function apiSnapshotCurrent(reference: unknown, inputs: string): boolean {
-  if (!reference || typeof reference !== "object") return false;
-  const record = reference as Record<string, unknown>;
-  const proof = record.sourceFingerprint as { inputs?: string; contents?: string } | undefined;
-  return Boolean(
-    proof?.inputs === inputs &&
-    Array.isArray(record.properties) &&
-    record.families &&
-    typeof record.families === "object" &&
-    proof.contents === apiSnapshotDigest(record),
-  );
 }

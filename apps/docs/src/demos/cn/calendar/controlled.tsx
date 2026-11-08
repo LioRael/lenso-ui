@@ -1,8 +1,7 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button. */
-import { Button, ButtonGroup, Calendar } from "@lenso/ui";
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Button.
+import { GlassButton, Button, ButtonGroup, Calendar } from "@lenso/ui";
 import {
   getLocalTimeZone,
   parseDate,
@@ -12,7 +11,7 @@ import {
   type CalendarDate,
 } from "@internationalized/date";
 import { useState } from "react";
-import { useLocale } from "react-aria-components/I18nProvider";
+import { useLocale } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { CalendarHeader, CalendarGrid, CalendarNote, layout } from "../../en/calendar/demo-parts";
 export function Controlled() {
@@ -25,7 +24,7 @@ export function Controlled() {
   };
   return (
     <div {...stylex.props(layout.stack)}>
-      <ButtonGroup fullWidth size="sm" variant="tertiary">
+      <ButtonGroup fullWidth size="sm" variant="bordered">
         <Button onClick={() => select(today(getLocalTimeZone()))}>今天</Button>
         <Button onClick={() => select(startOfWeek(today(getLocalTimeZone()), locale))}>本周</Button>
         <Button onClick={() => select(startOfMonth(today(getLocalTimeZone())))}>本月</Button>
@@ -42,15 +41,15 @@ export function Controlled() {
       </Calendar>
       <CalendarNote>已选日期：{value ? value.toString() : "（未选）"}</CalendarNote>
       <div {...stylex.props(layout.controls)}>
-        <Button size="sm" variant="secondary" onClick={() => select(today(getLocalTimeZone()))}>
+        <GlassButton size="sm" variant="default" onClick={() => select(today(getLocalTimeZone()))}>
           设为今天
-        </Button>
-        <Button size="sm" variant="secondary" onClick={() => select(parseDate("2025-12-25"))}>
+        </GlassButton>
+        <GlassButton size="sm" variant="default" onClick={() => select(parseDate("2025-12-25"))}>
           设为圣诞节
-        </Button>
-        <Button size="sm" variant="tertiary" onClick={() => setValue(null)}>
+        </GlassButton>
+        <GlassButton size="sm" variant="default" onClick={() => setValue(null)}>
           清空
-        </Button>
+        </GlassButton>
       </div>
     </div>
   );

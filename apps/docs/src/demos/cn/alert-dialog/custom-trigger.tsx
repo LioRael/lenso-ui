@@ -1,10 +1,8 @@
-// Generated from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-// Adapted from HeroUI v3.2.6 alert-dialog-custom-trigger (Apache-2.0).
 import { TrashBin } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog, Button } from "@lenso/ui";
+import { AlertDialog } from "@lenso/ui";
 const styles = stylex.create({
   trigger: {
     display: "flex",
@@ -12,11 +10,11 @@ const styles = stylex.create({
     gap: 12,
     borderRadius: 16,
     backgroundColor: {
-      default: "var(--surface)",
-      ":hover": "var(--surface-secondary)",
+      default: "var(--lenso-background-grouped-secondary)",
+      ":hover": "var(--lenso-background-secondary)",
     },
     padding: 16,
-    boxShadow: "var(--shadow-xs)",
+    boxShadow: "var(--lenso-surface-shadow)",
     userSelect: "none",
   },
   iconBox: {
@@ -27,8 +25,8 @@ const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 12,
-    backgroundColor: "var(--danger-soft)",
-    color: "var(--danger-soft-foreground)",
+    backgroundColor: "var(--lenso-control-status-error-soft-fill)",
+    color: "var(--lenso-status-error-text)",
   },
   copy: {
     display: "flex",
@@ -43,7 +41,7 @@ const styles = stylex.create({
   },
   caption: {
     fontSize: 12,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   popup: {
     maxWidth: 400,
@@ -88,8 +86,8 @@ export function CustomTrigger() {
               </AlertDialog.Description>
             </AlertDialog.Body>
             <AlertDialog.Footer>
-              <AlertDialog.Close render={<Button variant="tertiary" />}>取消</AlertDialog.Close>
-              <AlertDialog.Close render={<Button variant="danger" />}>删除条目</AlertDialog.Close>
+              <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+              <AlertDialog.Action variant="destructive">删除条目</AlertDialog.Action>
             </AlertDialog.Footer>
           </AlertDialog.Popup>
         </AlertDialog.Viewport>

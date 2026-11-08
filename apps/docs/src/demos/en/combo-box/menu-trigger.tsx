@@ -1,5 +1,5 @@
 "use client";
-// HeroUI v3.2.6, Apache-2.0. Opening policies use native controlled open events.
+// Opening policies use native controlled open events.
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { AnimalPicker } from "./shared";

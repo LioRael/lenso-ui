@@ -1,7 +1,7 @@
 import { readFile, stat, realpath } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "@babel/parser";
-import { docsDirectory } from "./docs-directory.mjs";
+import { docsDirectory } from "./docs-directory.ts";
 
 const docsRoot = docsDirectory();
 

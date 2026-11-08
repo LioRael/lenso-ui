@@ -1,6 +1,5 @@
 "use client";
 /**
- * Adapted from HeroUI v3.2.6, e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e.
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
  * Modified: native Base UI value, collection, portal and validation contracts.
  */
@@ -22,20 +21,20 @@ export const exampleStyles = stylex.create({
     maxWidth: "100%",
     borderRadius: 24,
     padding: 24,
-    backgroundColor: "var(--surface)",
-    color: "var(--surface-foreground)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
+    color: "var(--lenso-label-primary)",
   },
-  note: { margin: 0, fontSize: 14, color: "var(--muted)" },
-  error: { fontSize: 14, color: "var(--danger)" },
+  note: { margin: 0, fontSize: 14, color: "var(--lenso-label-secondary)" },
+  error: { fontSize: 14, color: "var(--lenso-status-error-indicator)" },
   action: {
     border: 0,
     borderRadius: 12,
     paddingBlock: 8,
     paddingInline: 16,
-    backgroundColor: "var(--accent)",
-    color: "var(--accent-foreground)",
+    backgroundColor: "var(--lenso-tint)",
+    color: "var(--lenso-label-on-tint)",
     cursor: "pointer",
-    outline: { default: "none", ":focus-visible": "2px solid var(--focus)" },
+    outline: { default: "none", ":focus-visible": "2px solid var(--lenso-focus-ring)" },
     outlineOffset: 2,
   },
   triggerGroup: { position: "relative", display: "flex" },
@@ -46,33 +45,33 @@ export const exampleStyles = stylex.create({
     transform: "translateY(-50%)",
     border: 0,
     backgroundColor: "transparent",
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
     width: 24,
     height: 24,
     cursor: "pointer",
-    outline: { default: "none", ":focus-visible": "2px solid var(--focus)" },
+    outline: { default: "none", ":focus-visible": "2px solid var(--lenso-focus-ring)" },
     borderRadius: 6,
   },
   clearTrigger: { paddingInlineEnd: 56 },
   smallIndicator: { width: 12, height: 12 },
   customField: { width: 224 },
-  customTrigger: { borderRadius: 12, backgroundColor: "var(--default)" },
+  customTrigger: { borderRadius: 12, backgroundColor: "var(--lenso-control-fill)" },
   customPopover: {
     borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "var(--border)",
-    backgroundColor: "var(--surface)",
+    borderColor: "var(--lenso-control-border)",
+    backgroundColor: "var(--lenso-background-grouped-secondary)",
     padding: 4,
-    boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+    boxShadow: "var(--lenso-overlay-shadow)",
   },
   customItem: {
     borderRadius: 8,
     backgroundColor: {
       default: "transparent",
-      ":is([data-highlighted])": "color-mix(in oklab, var(--accent) 10%, transparent)",
+      ":is([data-highlighted])": "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
     },
-    color: { default: "inherit", ":is([data-selected])": "var(--foreground)" },
+    color: { default: "inherit", ":is([data-selected])": "var(--lenso-label-primary)" },
   },
   row: { display: "flex", alignItems: "center", gap: 8 },
   avatar: { width: 32, height: 32, borderRadius: "50%", objectFit: "cover" },
@@ -170,8 +169,9 @@ type FieldProps<Multiple extends boolean | undefined> = Omit<
   fluid?: boolean;
   footer?: ReactNode;
   listRef?: ComponentProps<typeof Select.List>["ref"];
-  onPopoverScroll?: ComponentProps<typeof Select.Popover>["onScroll"];
+  onListScroll?: ComponentProps<typeof Select.List>["onScroll"];
   customRender?: boolean;
+  alignItemWithTrigger?: boolean;
 };
 
 export function SelectExample<Multiple extends boolean | undefined = false>({
@@ -187,8 +187,9 @@ export function SelectExample<Multiple extends boolean | undefined = false>({
   fluid = false,
   footer,
   listRef,
-  onPopoverScroll,
+  onListScroll,
   customRender = false,
+  alignItemWithTrigger = true,
   ...props
 }: FieldProps<Multiple>) {
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -244,12 +245,9 @@ export function SelectExample<Multiple extends boolean | undefined = false>({
           )}
         </div>
         <Select.Portal>
-          <Select.Positioner alignItemWithTrigger={false} sideOffset={4}>
-            <Select.Popover
-              xstyle={custom && exampleStyles.customPopover}
-              onScroll={onPopoverScroll}
-            >
-              <Select.List ref={listRef}>
+          <Select.Positioner alignItemWithTrigger={alignItemWithTrigger} sideOffset={4}>
+            <Select.Popover xstyle={custom && exampleStyles.customPopover}>
+              <Select.List ref={listRef} onScroll={onListScroll}>
                 {sections
                   ? sections.map((section, index) => (
                       <div key={section.label}>

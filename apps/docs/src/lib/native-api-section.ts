@@ -1,12 +1,12 @@
-import { headingText as documentHeadingText } from "@lenso/docs/source";
+import { headingText as documentHeadingText } from "../../../../packages/docs/src/heading-utils.ts";
 
 type Node = {
   type: string;
   depth?: number;
   value?: string;
   children?: Node[];
-  name?: string;
-  attributes?: { type: string; name: string; value: string }[];
+  name?: string | null;
+  attributes?: { type: string; name?: string; value?: unknown }[];
   position?: { start: { offset?: number }; end: { offset?: number } };
 };
 

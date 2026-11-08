@@ -1,4 +1,3 @@
-/** HeroUI v3.2.6 story geometry. SPDX-License-Identifier: Apache-2.0 */
 import * as stylex from "@stylexjs/stylex";
 
 export const dateTimeStoryStyles = stylex.create({
@@ -17,5 +16,5 @@ export const dateTimeStoryStyles = stylex.create({
   width110: { width: 110 },
   full: { width: "100%" },
   icon: { width: 16, height: 16, flexShrink: 0 },
-  muted: { color: "var(--muted)" },
+  muted: { color: "var(--lenso-label-secondary)" },
 });

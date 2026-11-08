@@ -1,5 +1,5 @@
 /**
- * Exact Iconify data for the pinned HeroUI delivery-and-payment example.
+ * Iconify data for the delivery-and-payment example.
  * uim:master-card: Iconscout Unicons, Apache-2.0.
  * streamline-logos:visa-logo-solid: Streamline, CC BY 4.0.
  * ic:baseline-paypal: Google Material Icons, Apache-2.0.

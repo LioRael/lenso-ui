@@ -1,29 +1,23 @@
 "use client";
+import { themeToCSS } from "@lenso/tokens";
+import { GlassProvider } from "@lenso/ui";
 
-// Adapted from HeroUI v3.2.6 design-theme.ts and DesignThemeSelector, Apache-2.0.
 // Modified: one shared preference owner, guarded storage and model-generated scoped CSS.
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useSyncExternalStore,
-  type ReactNode,
-} from "react";
-import {
-  builderVariables,
-  getBuilderFont,
-  themeIds,
-  themeValuesById,
-  type ThemeId,
-} from "@/lib/theme-builder-model";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import { docsPresetTheme, type ThemeId } from "@/lib/docs-theme-presets";
 
-export const DESIGN_THEME_STORAGE_KEY = "lenso:docs:design-theme";
-export const VIBRANT_STORAGE_KEY = "lenso:docs:vibrant-palette";
+import {
+  DesignThemeContext,
+  DESIGN_THEME_STORAGE_KEY,
+  GLASS_TINT_STORAGE_KEY,
+  isDocsDesignTheme,
+  type DesignPreference,
+} from "./docs-design-theme-context";
 
-export function isDocsDesignTheme(value: unknown): value is ThemeId {
-  return typeof value === "string" && themeIds.some((id) => id === value);
-}
+const validTint = (value: string | number | null): number => {
+  const number = value === null || value === "" ? NaN : Number(value);
+  return Number.isFinite(number) ? Math.max(0, Math.min(1, number)) : 0.5;
+};
 
 function readPreference(key: string) {
   try {
@@ -47,65 +41,54 @@ function storedTheme() {
 }
 
 /** Only trusted catalog entries reach CSS; user preferences select an existing rule. */
-function designThemeCSS() {
-  return themeIds
-    .flatMap((id) =>
-      (["light", "dark"] as const).flatMap((mode) =>
-        [false, true].map((vibrant) => {
-          if (id === "default" && !vibrant) return "";
-          const settings = themeValuesById[id];
-          const plain = builderVariables({ ...settings, vibrantPalette: false }, mode);
-          const variables = builderVariables({ ...settings, vibrantPalette: vibrant }, mode);
-          const declarations = Object.entries(variables)
-            .filter(([key, value]) => id !== "default" || value !== plain[key])
-            .map(([key, value]) => `${key}:${value};`)
-            .join("");
-          const preset =
-            id === "default"
-              ? ":not([data-lenso-design-theme])"
-              : `[data-lenso-design-theme="${id}"]`;
-          const palette = vibrant
-            ? '[data-lenso-vibrant-palette="true"]'
-            : ":not([data-lenso-vibrant-palette])";
-          return `:root${preset}${mode === "dark" ? ".dark" : ":not(.dark)"}${palette}{${declarations}}`;
-        }),
-      ),
-    )
-    .join("\n");
+function designThemeCSS(active: ThemeId) {
+  if (active === "default") return "";
+  const theme = docsPresetTheme(active);
+  return themeToCSS(theme)
+    .replaceAll(`[data-lenso-theme="${theme.name}"]`, `[data-lenso-design-theme="${active}"]`)
+    .replace(
+      /\[data-theme="(light|dark)"\]/g,
+      (_, mode: string) => `:is(.${mode}, [data-theme="${mode}"])`,
+    );
 }
 
-const presetCSS = designThemeCSS();
-interface DesignPreference {
-  active: ThemeId;
-  vibrant: boolean;
+const presetCSS = new Map<ThemeId, string>();
+function activePresetCSS(active: ThemeId) {
+  let css = presetCSS.get(active);
+  if (css === undefined) {
+    css = designThemeCSS(active);
+    presetCSS.set(active, css);
+  }
+  return css;
 }
-interface DocsDesignTheme extends DesignPreference {
-  setActive: (id: ThemeId) => void;
-  setVibrant: (value: boolean) => void;
-}
-const DesignThemeContext = createContext<DocsDesignTheme | null>(null);
-const defaultPreference: DesignPreference = { active: "default", vibrant: false };
+const defaultPreference: DesignPreference = {
+  active: "default",
+  glassTint: 0.5,
+};
 
 function createPreferenceStore() {
   let preference = defaultPreference;
   const listeners = new Set<() => void>();
   function update(next: DesignPreference) {
-    if (next.active === preference.active && next.vibrant === preference.vibrant) return;
+    if (next.active === preference.active && next.glassTint === preference.glassTint) return;
     preference = next;
     listeners.forEach((listener) => listener());
   }
   function readStored() {
-    update({ active: storedTheme(), vibrant: readPreference(VIBRANT_STORAGE_KEY) === "true" });
+    update({
+      active: storedTheme(),
+      glassTint: validTint(readPreference(GLASS_TINT_STORAGE_KEY)),
+    });
   }
   function syncStorage(event: StorageEvent) {
     if (event.key === null) readStored();
+    else if (event.key === GLASS_TINT_STORAGE_KEY)
+      update({ ...preference, glassTint: validTint(event.newValue) });
     else if (event.key === DESIGN_THEME_STORAGE_KEY)
       update({
         ...preference,
         active: isDocsDesignTheme(event.newValue) ? event.newValue : "default",
       });
-    else if (event.key === VIBRANT_STORAGE_KEY)
-      update({ ...preference, vibrant: event.newValue === "true" });
   }
   return {
     getSnapshot: () => preference,
@@ -121,21 +104,22 @@ function createPreferenceStore() {
         if (!listeners.size) window.removeEventListener("storage", syncStorage);
       };
     },
+    setGlassTint(value: number) {
+      const glassTint = validTint(value);
+      update({ ...preference, glassTint });
+      writePreference(GLASS_TINT_STORAGE_KEY, String(glassTint));
+    },
     setActive(id: ThemeId) {
       if (!isDocsDesignTheme(id)) return;
       update({ ...preference, active: id });
       writePreference(DESIGN_THEME_STORAGE_KEY, id);
-    },
-    setVibrant(value: boolean) {
-      update({ ...preference, vibrant: value });
-      writePreference(VIBRANT_STORAGE_KEY, String(value));
     },
   };
 }
 
 export function DocsDesignThemeProvider({ children }: { children: ReactNode }) {
   const [store] = useState(createPreferenceStore);
-  const { active, vibrant } = useSyncExternalStore(
+  const { active, glassTint } = useSyncExternalStore(
     store.subscribe,
     store.getSnapshot,
     store.getServerSnapshot,
@@ -145,37 +129,24 @@ export function DocsDesignThemeProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     if (active === "default") root.removeAttribute("data-lenso-design-theme");
     else root.setAttribute("data-lenso-design-theme", active);
-    if (vibrant) root.setAttribute("data-lenso-vibrant-palette", "true");
-    else root.removeAttribute("data-lenso-vibrant-palette");
     return () => {
       root.removeAttribute("data-lenso-design-theme");
-      root.removeAttribute("data-lenso-vibrant-palette");
     };
-  }, [active, vibrant]);
-
-  useEffect(() => {
-    if (active === "default") return;
-    const font = getBuilderFont(themeValuesById[active].fontFamily);
-    if (font.id === "inter") return;
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = font.cdnUrl;
-    document.head.append(link);
-    return () => link.remove();
   }, [active]);
 
   return (
     <DesignThemeContext
-      value={{ active, vibrant, setActive: store.setActive, setVibrant: store.setVibrant }}
+      value={{
+        active,
+        setActive: store.setActive,
+        glassTint,
+        setGlassTint: store.setGlassTint,
+      }}
     >
-      <style data-lenso-docs-design-theme="">{presetCSS}</style>
-      {children}
+      <GlassProvider tint={glassTint} onTintChange={store.setGlassTint}>
+        <style data-lenso-docs-design-theme="">{activePresetCSS(active)}</style>
+        {children}
+      </GlassProvider>
     </DesignThemeContext>
   );
-}
-
-export function useDocsDesignTheme() {
-  const context = useContext(DesignThemeContext);
-  if (!context) throw new Error("DocsThemePicker requires DocsDesignThemeProvider");
-  return context;
 }

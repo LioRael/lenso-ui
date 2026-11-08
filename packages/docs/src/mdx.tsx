@@ -4,8 +4,8 @@ import fumaMDX from "fumadocs-ui/mdx";
 import { Tab, Tabs } from "@lenso/docs/tabs";
 import { Step, Steps } from "fumadocs-ui/components/steps";
 import * as stylex from "@stylexjs/stylex";
+import { ChevronDown } from "@gravity-ui/icons";
 import { styles, prose } from "@lenso/docs/presentation";
-import { highlightSource } from "@lenso/docs/highlight";
 import { DocumentationCodeBlock } from "./code-block";
 import { ComponentExample, ReferenceTable, ApiOperation, ApiResponses } from "./reference";
 
@@ -20,24 +20,11 @@ function text(node: ReactNode): string {
   return "";
 }
 
-async function DocumentationPre({ children }: ComponentProps<"pre">): Promise<ReactNode> {
-  const node = isValidElement<{
-    children?: ReactNode;
-    className?: string;
-    "data-language"?: string;
-  }>(children)
-    ? children
-    : undefined;
-  const code = text(children);
-  const language =
-    node?.props["data-language"] ??
-    node?.props.className?.match(/language-([^\s]+)/)?.[1] ??
-    "text";
-  return (
-    <DocumentationCodeBlock code={code}>
-      {await highlightSource(code, language)}
-    </DocumentationCodeBlock>
-  );
+function DocumentationPre({ children }: ComponentProps<"pre">): ReactNode {
+  const content = isValidElement<{ children?: ReactNode }>(children)
+    ? children.props.children
+    : children;
+  return <DocumentationCodeBlock code={text(children)}>{content}</DocumentationCodeBlock>;
 }
 
 export function getDocumentationComponents(
@@ -56,6 +43,17 @@ export function getDocumentationComponents(
     Steps,
     Step,
     ComponentExample,
+    DisclosureSummary: ({ children, ...props }: ComponentProps<"summary">) => (
+      <summary {...props} {...stylex.props(styles.disclosureFocus, styles.disclosureSummary)}>
+        <ChevronDown
+          width={16}
+          height={16}
+          aria-hidden="true"
+          {...stylex.props(styles.disclosureChevron)}
+        />
+        {children}
+      </summary>
+    ),
     ReferenceTable,
     ApiOperation,
     ApiResponses,

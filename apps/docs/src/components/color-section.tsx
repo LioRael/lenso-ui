@@ -1,13 +1,12 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 color-section.tsx (Apache-2.0).
 import * as stylex from "@stylexjs/stylex";
 import { Gear } from "@gravity-ui/icons";
 import { Tooltip } from "@lenso/ui";
 import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
 import { useState, type ReactNode, type ReactElement } from "react";
 import { colors as styles } from "@/styles/color-handbook.stylex";
-import { notebook } from "@/styles/notebook.stylex";
+import { notebook } from "@lenso/docs/presentation";
 
 interface ColorSample {
   label: string;

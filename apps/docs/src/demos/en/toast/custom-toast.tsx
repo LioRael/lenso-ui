@@ -1,6 +1,5 @@
 "use client";
 
-// Adapted from HeroUI v3.2.6 custom-toast, Apache-2.0.
 import * as stylex from "@stylexjs/stylex";
 import { Button, CloseIcon, Toast } from "@lenso/ui";
 import { styles } from "./_shared";
@@ -31,7 +30,7 @@ function CustomLayout() {
       </Toast.Portal>
       <Button
         size="sm"
-        variant="secondary"
+        variant="bordered"
         onClick={() =>
           manager.add({
             description: "This uses a custom render function",

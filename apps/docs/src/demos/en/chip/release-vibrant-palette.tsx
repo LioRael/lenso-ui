@@ -1,5 +1,4 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e), Apache-2.0.
 // oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Native horizontal overflow needs an explicit keyboard focus target.
 import { Chip, Separator } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";

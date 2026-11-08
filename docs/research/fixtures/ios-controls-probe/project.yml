@@ -1,0 +1,24 @@
+name: IOSControlsProbe
+options:
+  deploymentTarget:
+    iOS: "27.0"
+targets:
+  IOSControlsProbe:
+    type: application
+    platform: iOS
+    sources: [Probe.swift]
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: iOS Controls Probe
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSLocalNetworkUsageDescription: Compare local Lenso controls with native iOS controls.
+        LensoPreviewURL: $(LENSO_PREVIEW_URL)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: local.lenso.IOSControlsProbe
+        CODE_SIGN_STYLE: Automatic
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        SWIFT_VERSION: "6.0"

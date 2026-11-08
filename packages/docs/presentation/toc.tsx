@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { TOCItem as Anchor, useActiveAnchor, useActiveAnchors } from "fumadocs-core/toc";
 import { TOCProvider, TOCScrollArea } from "fumadocs-ui/components/toc";
 import * as stylex from "@stylexjs/stylex";
@@ -13,15 +14,31 @@ import {
 import { styles } from "./styles/docs.stylex";
 import { notebook } from "./styles/notebook.stylex";
 
+const HeaderTOCContext = createContext<HTMLElement | null>(null);
+const HeaderTOCRefContext = createContext<((element: HTMLDivElement | null) => void) | null>(null);
+
+export function HeaderTOCProvider({ children }: { children: ReactNode }) {
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  return (
+    <HeaderTOCContext.Provider value={container}>
+      <HeaderTOCRefContext.Provider value={setContainer}>{children}</HeaderTOCRefContext.Provider>
+    </HeaderTOCContext.Provider>
+  );
+}
+
+export function HeaderTOCSlot() {
+  const ref = useContext(HeaderTOCRefContext);
+  return <div ref={ref} data-docs-header-toc="" />;
+}
+
 export interface TOCItem {
   title: string;
   id: string;
   depth: number;
 }
 
-// HeroUI e385ac2 notebook/page (Apache-2.0) and Fumadocs core/UI 16.9.0
-// (MIT; ../LICENSE.FUMADOCS). Fuma owns heading observation and anchor state;
-// the retained visual rail/resize adapter keeps HeroUI's responsive geometry.
+// Fumadocs owns heading observation and anchor state; Lenso supplies rail and resize styles.
+// Adaptation licenses: ../LICENSE.FUMADOCS and THIRD_PARTY_NOTICES.md.
 function TOCLinks({
   items,
   active,
@@ -146,6 +163,7 @@ export function PageTableOfContents({
 }
 
 function PageTOC({ items, locale, title }: { items: TOCItem[]; locale: string; title: string }) {
+  const header = useContext(HeaderTOCContext);
   const active = useActiveAnchors();
   const current = useActiveAnchor();
   const [open, setOpen] = useState(false);
@@ -174,44 +192,51 @@ function PageTOC({ items, locale, title }: { items: TOCItem[]; locale: string; t
     items.findIndex((item) => item.id === current),
   );
   const circumference = 2 * Math.PI * 11;
+  const mobileTOC = (
+    <Collapsible
+      ref={mobile}
+      open={open}
+      onOpenChange={setOpen}
+      data-docs-toc-mobile=""
+      {...stylex.props(notebook.tocMobile, header != null && notebook.tocInHeader)}
+    >
+      <div {...stylex.props(notebook.tocHeader, header != null && notebook.tocHeaderShared)}>
+        <CollapsibleTrigger aria-label={label} {...stylex.props(notebook.tocTrigger)}>
+          <svg width={16} height={16} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx={12} cy={12} r={11} stroke="currentColor" strokeWidth={2} opacity={0.25} />
+            <circle
+              cx={12}
+              cy={12}
+              r={11}
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeDasharray={circumference}
+              strokeDashoffset={circumference * (1 - (selected + 1) / items.length)}
+              strokeLinecap="round"
+              transform="rotate(-90 12 12)"
+            />
+          </svg>
+          <span {...stylex.props(notebook.searchLabel)}>
+            {open ? title : items[selected]?.title}
+          </span>
+          <ChevronDown
+            width={16}
+            height={16}
+            aria-hidden="true"
+            {...stylex.props(notebook.tocChevron, open && notebook.tocChevronOpen)}
+          />
+        </CollapsibleTrigger>
+      </div>
+      <CollapsibleContent
+        {...stylex.props(notebook.tocContent, header != null && notebook.tocSharedSurface)}
+      >
+        {links}
+      </CollapsibleContent>
+    </Collapsible>
+  );
   return (
     <>
-      <Collapsible
-        ref={mobile}
-        open={open}
-        onOpenChange={setOpen}
-        data-docs-toc-mobile=""
-        {...stylex.props(notebook.tocMobile)}
-      >
-        <div {...stylex.props(notebook.tocHeader)}>
-          <CollapsibleTrigger aria-label={label} {...stylex.props(notebook.tocTrigger)}>
-            <svg width={16} height={16} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx={12} cy={12} r={11} stroke="currentColor" strokeWidth={2} opacity={0.25} />
-              <circle
-                cx={12}
-                cy={12}
-                r={11}
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeDasharray={circumference}
-                strokeDashoffset={circumference * (1 - (selected + 1) / items.length)}
-                strokeLinecap="round"
-                transform="rotate(-90 12 12)"
-              />
-            </svg>
-            <span {...stylex.props(notebook.searchLabel)}>
-              {open ? title : items[selected]?.title}
-            </span>
-            <ChevronDown
-              width={16}
-              height={16}
-              aria-hidden="true"
-              {...stylex.props(notebook.tocChevron, open && notebook.tocChevronOpen)}
-            />
-          </CollapsibleTrigger>
-        </div>
-        <CollapsibleContent {...stylex.props(notebook.tocContent)}>{links}</CollapsibleContent>
-      </Collapsible>
+      {header ? createPortal(mobileTOC, header) : mobileTOC}
       <aside id="nd-toc" aria-label={label} {...stylex.props(styles.toc)}>
         <h3 {...stylex.props(notebook.tocTitle)}>
           <TextAlignLeft width={16} height={16} aria-hidden="true" /> {label}

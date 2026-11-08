@@ -1,5 +1,5 @@
 /**
- * HeroUI v3.2.6 story layout adaptation. Copyright 2026 HeroUI.
+ * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
  */
 import * as stylex from "@stylexjs/stylex";
@@ -13,7 +13,7 @@ export const selectionStyles = stylex.create({
   row: { display: "flex", alignItems: "center", gap: 8 },
   itemRow: { gap: 12, width: "100%" },
   column: { display: "flex", flexDirection: "column", minWidth: 0 },
-  muted: { fontSize: 14, lineHeight: "20px", color: "var(--muted)" },
+  muted: { fontSize: 14, lineHeight: "20px", color: "var(--lenso-label-secondary)" },
   smallAvatar: { width: 16, height: 16 },
   value: { display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, minWidth: 0 },
   trigger: { width: "100%" },
@@ -21,7 +21,12 @@ export const selectionStyles = stylex.create({
   popup: { maxWidth: "calc(100vw - 32px)" },
   search: { position: "sticky", top: 0, zIndex: 1, width: "100%" },
   list: { maxHeight: 420, overflowY: "auto" },
-  surface: { width: 256, maxWidth: "100%", borderRadius: 24, boxShadow: "var(--surface-shadow)" },
+  surface: {
+    width: 256,
+    maxWidth: "100%",
+    borderRadius: 24,
+    boxShadow: "var(--lenso-surface-shadow)",
+  },
   actionList: { padding: 8 },
   form: { width: 256, maxWidth: "calc(100vw - 32px)" },
   autocompleteSurface: {
@@ -31,7 +36,7 @@ export const selectionStyles = stylex.create({
     padding: 24,
   },
   smallList: { width: 220, maxWidth: "100%" },
-  callback: { border: "1px solid var(--border)", borderRadius: 12, padding: 16 },
+  callback: { border: "1px solid var(--lenso-control-border)", borderRadius: 12, padding: 16 },
   heading: { fontSize: 18, fontWeight: 600 },
   loadMore: {
     display: "flex",
@@ -42,9 +47,9 @@ export const selectionStyles = stylex.create({
   },
   shortcut: { marginInlineStart: "auto" },
   icon: { width: 16, height: 16, flexShrink: 0 },
-  actionIcon: { width: 16, height: 16, flexShrink: 0, color: "var(--muted)" },
-  dangerIcon: { color: "var(--danger)" },
-  accentIcon: { color: "var(--accent)" },
-  requiredIndicator: { color: "var(--danger)", marginInlineStart: 2 },
+  actionIcon: { width: 16, height: 16, flexShrink: 0, color: "var(--lenso-label-secondary)" },
+  dangerIcon: { color: "var(--lenso-status-error-indicator)" },
+  accentIcon: { color: "var(--lenso-tint)" },
+  requiredIndicator: { color: "var(--lenso-status-error-indicator)", marginInlineStart: 2 },
   indicator: { width: 12, height: 12 },
 });

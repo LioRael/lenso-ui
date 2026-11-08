@@ -1,5 +1,4 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. Apache-2.0. */
 import { ColorField, ColorSwatch, parseColor } from "@lenso/ui";
 import type { Color } from "@lenso/ui";
 import { useState } from "react";

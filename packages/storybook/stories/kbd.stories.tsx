@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 kbd.stories.tsx (Apache-2.0).
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import { Kbd, type KbdKey } from "@lenso/ui";

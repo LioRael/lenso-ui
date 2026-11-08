@@ -1,4 +1,3 @@
-// Adapted from HeroUI v3.2.6 typography.stories.tsx (Apache-2.0).
 // Upstream prose is fixture content, not a description of Lenso's native implementation.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
@@ -27,7 +26,7 @@ const meta = {
 } satisfies Meta<typeof Typography>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Default: Story = { args: { children: "HeroUI Typography", type: "body" } };
+export const Default: Story = { args: { children: "Lenso UI Typography", type: "body" } };
 export const HeadingScale: Story = {
   render: () => (
     <div {...stylex.props(styles.scale)}>
@@ -78,8 +77,8 @@ export const InlineCode: Story = {
   render: () => (
     <div {...stylex.props(styles.stack)}>
       <Typography.Paragraph>
-        Install the package with <Typography.Code>pnpm add @heroui/react</Typography.Code> and
-        import <Typography.Code>{"<Typography>"}</Typography.Code> from the library.
+        Install the package with <Typography.Code>bun add @lenso/ui</Typography.Code> and import{" "}
+        <Typography.Code>{"<Typography>"}</Typography.Code> from the library.
       </Typography.Paragraph>
       <Typography.Paragraph size="sm">
         The <Typography.Code>typographyVariants</Typography.Code> function accepts{" "}
@@ -195,7 +194,7 @@ export const ArticleExample: Story = {
       <Typography.Heading level={3}>Building the Scale</Typography.Heading>
       <Typography.Paragraph>
         Start with a base size — <Typography.Code>16px</Typography.Code> (1rem) is the industry
-        standard — and derive heading sizes using a consistent ratio. HeroUI uses a tracking-tight
+        standard — and derive heading sizes using a consistent ratio. Lenso UI uses a tracking-tight
         heading stack from <Typography.Code>text-base</Typography.Code> through{" "}
         <Typography.Code>text-4xl</Typography.Code>, giving six levels of hierarchy.
       </Typography.Paragraph>
@@ -207,7 +206,7 @@ export const ArticleExample: Story = {
       </Typography.Paragraph>
       <Typography.Paragraph color="muted" size="sm">
         Shorter paragraphs, generous whitespace, and intentional weight contrast all contribute to
-        readability. These defaults work out of the box with HeroUI's Typography primitive.
+        readability. These defaults work out of the box with the Typography primitive.
       </Typography.Paragraph>
     </article>
   ),
@@ -215,19 +214,19 @@ export const ArticleExample: Story = {
 export const ProseBlock: Story = {
   render: () => (
     <Typography.Prose xstyle={styles.prose}>
-      <h1>Getting Started with HeroUI</h1>
+      <h1>Getting Started with Lenso UI</h1>
       <p>
-        HeroUI is a modern React component library built on top of <strong>Tailwind CSS v4</strong>{" "}
-        and <strong>React Aria</strong>. It provides accessible, customizable primitives that you
-        can compose into complex interfaces.
+        Lenso UI is a React component library built with <strong>StyleX</strong> and{" "}
+        <strong>React Aria</strong>. It provides accessible, customizable primitives that you can
+        compose into complex interfaces.
       </p>
       <h2>Installation</h2>
       <p>
         Add the library to your project using your preferred package manager. The{" "}
-        <code>@heroui/react</code> package includes every component:
+        <code>@lenso/ui</code> package includes every component:
       </p>
       <pre>
-        <code>pnpm add @heroui/react</code>
+        <code>bun add @lenso/ui</code>
       </pre>
       <h3>Quick Setup</h3>
       <p>
@@ -266,9 +265,9 @@ export const ProseBlock: Story = {
       <hr />
       <h2>Next Steps</h2>
       <p>
-        Explore the <a href="https://heroui.com">component stories</a> in Storybook to see every
-        variant and composition in action. Each component ships with comprehensive documentation and
-        live examples.
+        Explore the <a href="/">component stories</a> in Storybook to see every variant and
+        composition in action. Each component ships with comprehensive documentation and live
+        examples.
       </p>
     </Typography.Prose>
   ),

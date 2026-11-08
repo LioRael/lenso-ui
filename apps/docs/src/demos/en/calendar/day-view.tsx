@@ -1,5 +1,5 @@
 "use client";
-/** HeroUI v3.2.6 derived work. Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Select. */
+// Copyright NextUI Inc. Apache-2.0. Modified for StyleX and native Base UI Select.
 import { Calendar } from "@lenso/ui";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";

@@ -1,5 +1,5 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (e385ac2), Apache-2.0. Variant composition uses StyleX, not tailwind-variants.
+// Variant composition uses StyleX, not tailwind-variants.
 import { Button, type ButtonRootProps } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "./source.stylex";

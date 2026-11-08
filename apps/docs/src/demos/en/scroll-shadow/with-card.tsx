@@ -1,6 +1,5 @@
 "use client";
-// Adapted from HeroUI v3.2.6 (Apache-2.0).
-import { Button, Card, ScrollShadow } from "@lenso/ui";
+import { GlassButton, Button, Card, ScrollShadow } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   card: { maxWidth: 400 },
@@ -36,9 +35,9 @@ export default function WithCard() {
         </ScrollShadow>
       </Card.Content>
       <Card.Footer xstyle={styles.footer}>
-        <Button xstyle={styles.button} variant="secondary">
+        <GlassButton xstyle={styles.button} variant="default">
           Cancel
-        </Button>
+        </GlassButton>
         <Button xstyle={styles.button}>Accept</Button>
       </Card.Footer>
     </Card>

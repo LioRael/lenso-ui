@@ -1,5 +1,5 @@
 "use client";
-/** Adapted from HeroUI v3.2.6. Apache-2.0. Native form and Base UI button retain the source submit workflow. */
+// Native form and Base UI button retain the source submit workflow.
 import { Button, ColorField, ColorSwatch } from "@lenso/ui";
 import type { Color } from "@lenso/ui";
 import { useState, type FormEvent } from "react";
@@ -41,7 +41,7 @@ export function FormExample() {
         disabled={!value}
         isLoading={isSubmitting}
         type="submit"
-        variant="primary"
+        variant="prominent"
       >
         {isSubmitting ? "Saving..." : "Save Color"}
       </Button>

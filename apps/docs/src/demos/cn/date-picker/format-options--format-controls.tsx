@@ -1,7 +1,6 @@
-// Generated source-backed helper adaptation from HeroUI v3.2.6 (e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e); Apache-2.0.
 "use client";
 
-/** HeroUI v3.2.6 adapted example controls. Copyright NextUI Inc. Apache-2.0. Base UI owns select and switch interaction. */
+// Copyright NextUI Inc. Apache-2.0. Base UI owns select and switch interaction.
 import { Select, Switch } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import { useId } from "react";
@@ -88,7 +87,7 @@ export const formatStyles = stylex.create({
   selected: {
     marginTop: 4,
     fontSize: 12,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   separator: {
     marginTop: 20,
@@ -97,13 +96,13 @@ export const formatStyles = stylex.create({
   heading: {
     fontSize: 12,
     fontWeight: 500,
-    color: "var(--muted)",
+    color: "var(--lenso-label-secondary)",
   },
   label: {
     fontSize: 14,
     lineHeight: "20px",
     fontWeight: 500,
-    color: "var(--foreground)",
+    color: "var(--lenso-label-primary)",
   },
 });
 const granularityOptions: {
