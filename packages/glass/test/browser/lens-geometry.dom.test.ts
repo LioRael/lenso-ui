@@ -1,6 +1,120 @@
 import { expect, test } from "bun:test";
-import { createControlLens } from "../../src/control-lens.js";
+import { createControlLens, lensMap } from "../../src/control-lens.js";
 import { observeGlassPreferences } from "../../src/preferences.js";
+
+// Channel packing must preserve both displacement bytes and mask coverage;
+// a refit must not reuse the packed cache entry for spectral rays.
+test.each([
+  ["AppleWebKit/605.1.15", 1],
+  ["AppleWebKit/605.1.15", 2],
+  ["Chrome/156", 1],
+  ["Chrome/156", 2],
+] as const)("%s ink fields preserve their bytes at DPR %s", (agent, density) => {
+  const userAgent = Object.getOwnPropertyDescriptor(navigator, "userAgent");
+  Object.defineProperty(navigator, "userAgent", { configurable: true, value: agent });
+  const combined = agent.startsWith("AppleWebKit");
+  const count = combined ? 2 : 3;
+  const ratio = Object.getOwnPropertyDescriptor(globalThis, "devicePixelRatio");
+  Object.defineProperty(globalThis, "devicePixelRatio", { configurable: true, value: density });
+  const context = HTMLCanvasElement.prototype.getContext,
+    url = HTMLCanvasElement.prototype.toDataURL;
+  const images: Uint8ClampedArray[] = [];
+  HTMLCanvasElement.prototype.getContext = (() => ({
+    createImageData: (width: number, height: number) => ({
+      data: new Uint8ClampedArray(width * height * 4),
+    }),
+    putImageData(image: ImageData) {
+      images.push(image.data.slice());
+    },
+  })) as unknown as typeof context;
+  HTMLCanvasElement.prototype.toDataURL = () => `data:image/png;base64,packed${images.length}`;
+  const glass = document.createElement("div"),
+    content = document.createElement("div");
+  glass.style.cssText = "border-radius:5px;--test-packed-dispersion:0";
+  document.body.append(glass, content);
+  for (const node of [glass, content])
+    Object.defineProperties(node, {
+      offsetWidth: { value: 17 },
+      offsetHeight: { value: 29 },
+    });
+  const options = {
+    strength: 0.16,
+    dispersion: 0,
+    dispersionProperty: "--test-packed-dispersion",
+    depth: 0.12,
+    dome: 0.05,
+    splay: 0.7,
+    relative: true,
+    ink: true,
+    paintsLight: true,
+  };
+  let lens: ReturnType<typeof createControlLens> | undefined;
+  try {
+    const reference = lensMap(
+      { width: 17, height: 29, radius: 5 },
+      options,
+      {
+        angle: 45,
+        glow: 0.4,
+        spread: 0.5,
+        glowPower: 1.5,
+        edge: 0.5,
+        edgeWidth: 2,
+        edgePower: 1.5,
+      },
+      density,
+    );
+    const field = new Uint8ClampedArray(reference.across.length),
+      mask = new Uint8ClampedArray(reference.light.length);
+    for (let i = 0; i < field.length; i += 4) {
+      field[i] = reference.across[i]!;
+      field[i + 1] = reference.down[i]!;
+      field[i + 3] = 255;
+      mask[i + 3] = reference.light[i + 3]!;
+    }
+    lens = createControlLens(glass, content, options);
+    lens.update(1, { contentWidth: 17, contentHeight: 29, x: 0, y: 0, width: 17, height: 29 });
+    lens.setActive(true);
+    expect(images).toHaveLength(count);
+    if (combined) expect(images[0]).toEqual(field);
+    else {
+      expect(images[0]).toEqual(reference.across);
+      expect(images[1]).toEqual(reference.down);
+    }
+    expect(images[count - 1]).toEqual(mask);
+    const graph = () => document.querySelector("[data-lenso-control-lenses] filter")!;
+    expect(graph().querySelectorAll("feImage")).toHaveLength(count);
+    expect(graph().querySelectorAll("feComponentTransfer")).toHaveLength(combined ? 1 : 2);
+    expect(
+      [...graph().querySelectorAll("feDisplacementMap")].map((node) => [
+        node.getAttribute("xChannelSelector"),
+        node.getAttribute("yChannelSelector"),
+      ]),
+    ).toEqual([
+      ["R", "A"],
+      ["A", combined ? "G" : "R"],
+    ]);
+    glass.style.setProperty("--test-packed-dispersion", "1");
+    lens.refit();
+    const afterRefit = images.length;
+    expect(graph().querySelectorAll("feImage")).toHaveLength(3);
+    expect(graph().querySelectorAll("feDisplacementMap")).toHaveLength(6);
+    glass.style.setProperty("--test-packed-dispersion", "0");
+    lens.refit();
+    expect(images).toHaveLength(afterRefit);
+    expect(graph().querySelectorAll("feImage")).toHaveLength(count);
+  } finally {
+    lens?.destroy();
+    glass.remove();
+    content.remove();
+    HTMLCanvasElement.prototype.getContext = context;
+    HTMLCanvasElement.prototype.toDataURL = url;
+    if (ratio) Object.defineProperty(globalThis, "devicePixelRatio", ratio);
+    else Reflect.deleteProperty(globalThis, "devicePixelRatio");
+    if (userAgent) Object.defineProperty(navigator, "userAgent", userAgent);
+    else Reflect.deleteProperty(navigator, "userAgent");
+  }
+});
 
 test.each(["Chrome/130", "AppleWebKit/605.1.15"])(
   "%s owner geometry avoids layout reads and redundant bounds writes",

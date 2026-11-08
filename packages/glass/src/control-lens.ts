@@ -218,16 +218,49 @@ export function lensMap(
   light: Light,
   density: number,
 ): LensMap {
+  return drawMap(shape, options, light, density, false);
+}
+
+interface PackedMap {
+  columns: number;
+  rows: number;
+  /** Opaque R/G displacement keeps the original byte precision through resampling. */
+  field: Uint8ClampedArray;
+  light: Uint8ClampedArray;
+}
+
+function drawMap(
+  shape: Shape,
+  options: ControlLensOptions,
+  light: Light,
+  density: number,
+  packed: true,
+): PackedMap;
+function drawMap(
+  shape: Shape,
+  options: ControlLensOptions,
+  light: Light,
+  density: number,
+  packed: false,
+): LensMap;
+function drawMap(
+  shape: Shape,
+  options: ControlLensOptions,
+  light: Light,
+  density: number,
+  packed: boolean,
+): LensMap | PackedMap {
   const { width, height } = shape;
   const halfWidth = width / 2;
   const halfHeight = height / 2;
   const radius = clamp(shape.radius, 0, Math.min(halfWidth, halfHeight));
   const columns = Math.max(1, Math.round(width * density));
   const rows = Math.max(1, Math.round(height * density));
-  const pullAcross = new Uint8ClampedArray(columns * rows * 4);
-  const pullDown = new Uint8ClampedArray(columns * rows * 4);
+  const pullAcross = packed ? undefined : new Uint8ClampedArray(columns * rows * 4);
+  const pullDown = packed ? undefined : new Uint8ClampedArray(columns * rows * 4);
   const caught = new Uint8ClampedArray(columns * rows * 4);
-  const shapeMask = new Uint8ClampedArray(columns * rows * 4);
+  const shapeMask = packed ? undefined : new Uint8ClampedArray(columns * rows * 4);
+  const field = packed ? new Uint8ClampedArray(columns * rows * 4) : undefined;
   const grey = (data: Uint8ClampedArray, i: number, value: number, alpha = 255) => {
     data[i] = data[i + 1] = data[i + 2] = value;
     data[i + 3] = alpha;
@@ -273,11 +306,16 @@ export function lensMap(
       const edge = distance(x, y, halfWidth, halfHeight, radius);
       // Smoothed over the last pixel at the edge.
       const inside = Math.round(255 * clamp(-edge, 0, 1));
-      grey(shapeMask, i, 0, inside);
+      if (shapeMask) grey(shapeMask, i, 0, inside);
       if (edge >= 0) {
-        grey(pullAcross, i, 128);
-        grey(pullDown, i, 128);
-        grey(caught, i, 128, 0);
+        if (field) {
+          field[i] = field[i + 1] = 128;
+          field[i + 3] = 255;
+        } else {
+          grey(pullAcross!, i, 128);
+          grey(pullDown!, i, 128);
+          grey(caught, i, 128, 0);
+        }
         continue;
       }
 
@@ -301,9 +339,17 @@ export function lensMap(
       }
 
       const falloff = 0.5 * (1 + erf(distance(x, y, innerWidth, innerHeight, innerRadius) * ramp));
-      grey(shapeMask, i, Math.round(255 * falloff), inside);
-      grey(pullAcross, i, Math.round((0.5 - 0.5 * dx * falloff) * 255));
-      grey(pullDown, i, Math.round((0.5 - 0.5 * dy * falloff) * 255));
+      if (field) {
+        field[i] = Math.round((0.5 - 0.5 * dx * falloff) * 255);
+        field[i + 1] = Math.round((0.5 - 0.5 * dy * falloff) * 255);
+        field[i + 3] = 255;
+        // Ink that paints its own light only consumes the coverage, not its colour.
+        caught[i + 3] = Math.round(255 * Math.min(1, falloff * 20, -edge));
+        continue;
+      }
+      grey(shapeMask!, i, Math.round(255 * falloff), inside);
+      grey(pullAcross!, i, Math.round((0.5 - 0.5 * dx * falloff) * 255));
+      grey(pullDown!, i, Math.round((0.5 - 0.5 * dy * falloff) * 255));
 
       const facing = Math.abs(axis.facing + facingY);
       const glow =
@@ -318,16 +364,15 @@ export function lensMap(
       grey(caught, i, Math.round(127 * amount + 128), Math.round(255 * bends));
     }
   }
-  return { columns, rows, across: pullAcross, down: pullDown, light: caught, shape: shapeMask };
+  return field
+    ? { columns, rows, field, light: caught }
+    : { columns, rows, across: pullAcross!, down: pullDown!, light: caught, shape: shapeMask! };
 }
 
 /** PNG data URLs of a lens's map. */
-interface Encoded {
-  across: string;
-  down: string;
-  light: string;
-  shape?: string;
-}
+type Encoded =
+  | { field: string; light: string; shape?: never }
+  | { across: string; down: string; light: string; shape?: string };
 
 const encoded = new Map<string, { maps: Encoded; bytes: number }>();
 // A DPR 2 main menu and tall menu need roughly 12 MB of decoded fields.
@@ -335,7 +380,12 @@ const encoded = new Map<string, { maps: Encoded; bytes: number }>();
 const CACHE_BYTES = 16 * 1024 * 1024;
 let encodedBytes = 0;
 
-function encode(key: string, draw: () => LensMap, mask: boolean): Encoded | null {
+function encode(
+  key: string,
+  draw: () => LensMap | PackedMap,
+  mask: boolean,
+  combined: boolean,
+): Encoded | null {
   const cached = encoded.get(key);
   if (cached) {
     encoded.delete(key);
@@ -354,12 +404,26 @@ function encode(key: string, draw: () => LensMap, mask: boolean): Encoded | null
     context.putImageData(image, 0, 0);
     return canvas.toDataURL();
   };
-  const result = {
-    across: png(map.across),
-    down: png(map.down),
-    light: png(map.light),
-    ...(mask ? { shape: png(map.shape) } : {}),
-  };
+  let result: Encoded;
+  if ("field" in map) {
+    if (combined) result = { field: png(map.field), light: png(map.light) };
+    else {
+      // Chromium colour-matches coloured feImage inputs on wide-gamut displays.
+      // Keep both pulls grey there, including when generation shares a buffer.
+      const down = map.field.slice();
+      for (let i = 0; i < down.length; i += 4) {
+        map.field[i + 1] = map.field[i + 2] = map.field[i]!;
+        down[i] = down[i + 2] = down[i + 1]!;
+      }
+      result = { across: png(map.field), down: png(down), light: png(map.light) };
+    }
+  } else
+    result = {
+      across: png(map.across),
+      down: png(map.down),
+      light: png(map.light),
+      ...(mask ? { shape: png(map.shape) } : {}),
+    };
   const bytes =
     map.columns * map.rows * 4 * Object.keys(result).length +
     Object.values(result).reduce((sum, value) => sum + value.length * 2, 0);
@@ -528,48 +592,68 @@ function graph(lenses: Bend[], box: boolean, standIn: boolean): Graph {
     const merged = (name: string) => (single ? name : `${name}-${k}`);
     const image = (href: string, result: string) =>
       svg("feImage", { href, preserveAspectRatio: "none", result });
-    const boxed = [
-      image(maps.across, `across-${k}`),
-      image(maps.down, `down-${k}`),
-      image(maps.light, merged("raw")),
-      svg("feFlood", { "flood-color": "rgb(128, 128, 128)", result: `neutral-${k}` }),
-    ];
-    if (standIn) boxed.push(image(maps.shape!, merged("shape")));
+    const packed = "field" in maps;
+    const boxed = packed
+      ? [
+          image(maps.field, `field-${k}`),
+          image(maps.light, merged("raw")),
+          svg("feFlood", { "flood-color": "rgb(128, 128, 0)", result: `neutral-${k}` }),
+        ]
+      : [
+          image(maps.across, `across-${k}`),
+          image(maps.down, `down-${k}`),
+          image(maps.light, merged("raw")),
+          svg("feFlood", { "flood-color": "rgb(128, 128, 128)", result: `neutral-${k}` }),
+        ];
+    if (standIn && !packed) boxed.push(image(maps.shape!, merged("shape")));
     filter.append(...boxed);
 
     // Each pull, with an alpha of one half for the direction it doesn't pull in.
-    for (const pull of ["across", "down"]) {
-      const half = svg("feComponentTransfer", {
-        in: `${pull}-grey-${k}`,
-        result: `${pull}-pull-${k}`,
-      });
-      half.append(svg("feFuncA", { type: "linear", slope: 0, intercept: 0.5 }));
+    if (packed) {
       filter.append(
         svg("feComposite", {
-          in: `${pull}-${k}`,
+          in: `field-${k}`,
           in2: `neutral-${k}`,
           operator: "over",
-          result: `${pull}-grey-${k}`,
+          result: `field-grey-${k}`,
         }),
-        half,
       );
-    }
+      const half = svg("feComponentTransfer", { in: `field-grey-${k}`, result: `pull-${k}` });
+      half.append(svg("feFuncA", { type: "linear", slope: 0, intercept: 0.5 }));
+      filter.append(half);
+    } else
+      for (const pull of ["across", "down"]) {
+        const half = svg("feComponentTransfer", {
+          in: `${pull}-grey-${k}`,
+          result: `${pull}-pull-${k}`,
+        });
+        half.append(svg("feFuncA", { type: "linear", slope: 0, intercept: 0.5 }));
+        filter.append(
+          svg("feComposite", {
+            in: `${pull}-${k}`,
+            in2: `neutral-${k}`,
+            operator: "over",
+            result: `${pull}-grey-${k}`,
+          }),
+          half,
+        );
+      }
     // Each colour's ray: the content displaced as far as that colour bends.
     // The first pass reads the whole content, so it's kept to the box
     // outright; what follows from it stays there.
     const rays = (dispersion === 0 ? [0] : CHANNELS).map((_, i): [SVGElement, SVGElement] => {
       const across = svg("feDisplacementMap", {
         in: "SourceGraphic",
-        in2: `across-pull-${k}`,
+        in2: packed ? `pull-${k}` : `across-pull-${k}`,
         xChannelSelector: "R",
         yChannelSelector: "A",
         result: `across-${k}-${i}`,
       });
       const down = svg("feDisplacementMap", {
         in: `across-${k}-${i}`,
-        in2: `down-pull-${k}`,
+        in2: packed ? `pull-${k}` : `down-pull-${k}`,
         xChannelSelector: "A",
-        yChannelSelector: "R",
+        yChannelSelector: packed ? "G" : "R",
         result: `ray-${k}-${i}`,
       });
       boxed.push(across);
@@ -578,24 +662,26 @@ function graph(lenses: Bend[], box: boolean, standIn: boolean): Graph {
     });
     // Identical spectral rays preserve the original premultiplied colour and
     // alpha directly. Splitting and recombining them adds no optical information.
-    filter.append(
-      ...(dispersion === 0
-        ? [
-            svg("feComposite", {
-              in: `ray-${k}-0`,
-              operator: "arithmetic",
-              k2: 1,
-              result: `bent-${k}`,
-            }),
-          ]
-        : ink
-          ? inked(k, ink)
-          : spread(k)),
-    );
+    if (!packed)
+      filter.append(
+        ...(dispersion === 0
+          ? [
+              svg("feComposite", {
+                in: `ray-${k}-0`,
+                operator: "arithmetic",
+                k2: 1,
+                result: `bent-${k}`,
+              }),
+            ]
+          : ink
+            ? inked(k, ink)
+            : spread(k)),
+      );
+    const bentResult = packed ? `ray-${k}-0` : `bent-${k}`;
     // The blur, laid on as far as the rim bends: from the shape map's grey.
     let soften: SVGElement | undefined;
-    if (blur) {
-      soften = svg("feGaussianBlur", { in: `bent-${k}`, result: `soft-${k}` });
+    if (blur && !packed) {
+      soften = svg("feGaussianBlur", { in: bentResult, result: `soft-${k}` });
       const weight = image(maps.shape!, `weight-${k}`);
       boxed.push(weight);
       filter.append(
@@ -614,7 +700,7 @@ function graph(lenses: Bend[], box: boolean, standIn: boolean): Graph {
           result: `soft-in-${k}`,
         }),
         svg("feComposite", {
-          in: `bent-${k}`,
+          in: bentResult,
           in2: `bends-${k}`,
           operator: "out",
           result: `sharp-${k}`,
@@ -629,7 +715,7 @@ function graph(lenses: Bend[], box: boolean, standIn: boolean): Graph {
         }),
       );
     }
-    const bent = blur ? `softened-${k}` : `bent-${k}`;
+    const bent = blur ? `softened-${k}` : bentResult;
     // The light on the rim, from its grey: added as white, or on a light page
     // as shade multiplied in.
     let lit = bent;
@@ -820,7 +906,11 @@ function fit(glass: HTMLElement, options: ControlLensOptions, mask: boolean): Fi
   const theme = page < 0 && !options.paintsLight ? LIGHT : DARK;
   const light =
     options.edgeWidth === undefined ? theme : { ...theme, edgeWidth: options.edgeWidth };
+  const packed = !!options.ink && !!options.paintsLight && dispersion === 0 && !mask;
+  const combined = packed && boxUnits();
   const key = [
+    packed,
+    combined,
     width,
     height,
     radius,
@@ -829,7 +919,15 @@ function fit(glass: HTMLElement, options: ControlLensOptions, mask: boolean): Fi
     JSON.stringify(options),
     mask,
   ].join("|");
-  const maps = encode(key, () => lensMap(shape, options, light, density), mask);
+  const maps = encode(
+    key,
+    () =>
+      packed
+        ? drawMap(shape, options, light, density, true)
+        : lensMap(shape, options, light, density),
+    mask,
+    combined,
+  );
   const blur = options.blur ?? 0;
   // The page's shine is negative on a light page.
   const ink: Ink | undefined = options.ink ? (page < 0 ? "light" : "dark") : undefined;
