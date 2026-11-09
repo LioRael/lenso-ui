@@ -1,0 +1,37 @@
+RELEASE.md
+  s_10c7d362cf24b2::t_f73856e11d9878 10-14
+packages/glass/src/backdrop-paints.ts
+  s_10c7d362cf24b2::t_7456ef80d574ab 81,88-89,241-242
+packages/glass/src/panel-backdrop.ts
+  s_10c7d362cf24b2::t_abf683760d0137 15,20-21,51-56,73-76
+packages/glass/src/react/refraction.ts
+  s_10c7d362cf24b2::t_e96d32061158a3 20,42,44-52,54-65,69-72
+packages/glass/test/browser/native-paint-updates.dom.test.ts
+  s_10c7d362cf24b2::t_12b9f6cae0b118 1-90
+packages/ui/src/components/menu/menu.tsx
+  s_10c7d362cf24b2::t_e51c2252d8647e 417-422
+packages/ui/src/components/select/select.tsx
+  s_10c7d362cf24b2::t_4d747da52c42e7 229-234
+packages/ui/src/utils/interaction/menu.ts
+  s_10c7d362cf24b2::t_2c0af204b3e705 175,293,334,371,401-404
+packages/ui/src/utils/interaction/submenu-cascade.ts
+  s_10c7d362cf24b2::t_f5ef5594876be9 96,137
+packages/ui/test/submenu-cascade.dom.test.tsx
+  s_10c7d362cf24b2::t_bb1ef8e9eea776 66,94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bcc82b8caf6058d36d9d0655b6f9ab94a591ae2b",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
