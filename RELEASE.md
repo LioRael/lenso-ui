@@ -7,6 +7,11 @@ These are source changes; use the migration details for the version you consume.
   removed from these transitions; the existing fitted panel material returns
   after opening settles. Existing props, selection, focus and motion trajectories
   require no migration. Review custom optical overrides in both themes.
+  Invisible closing tails and retained closed Select panels release their
+  background paints; reopening restores the current material pose.
+  Native paint stacks omit unused calibrated layers; WebKit also omits transparent
+  normal tint layers. Geometry updates no longer rewrite an unchanged native-paint
+  marker.
 
 - Replace `FieldGroup` with `Fieldset.Group`, and `TextField.Group` with a labelled
   `Fieldset` containing `Fieldset.Group`. Compatibility entries remain, but groups

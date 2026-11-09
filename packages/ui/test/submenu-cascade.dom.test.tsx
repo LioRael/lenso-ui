@@ -63,6 +63,7 @@ test.each(["left", "right"])(
       expect(content.style.filter).toContain("blur(");
       expect(content.style.filter).not.toContain("url(");
       expect(surface.hasAttribute("data-material-resting")).toBe(false);
+      expect(surface.hasAttribute("data-material-hidden")).toBe(false);
       expect(surface.style.transform).not.toContain("NaN");
       const geometry = [...surface.style.transform.matchAll(/-?\d+(?:\.\d+)?/g)].map((value) =>
         Number(value[0]),
@@ -90,6 +91,7 @@ test.each(["left", "right"])(
       Object.defineProperty(reduced, "matches", { configurable: true, value: true });
       reduced.dispatchEvent(new Event("change"));
       expect(closed).toBe(1);
+      expect(surface.hasAttribute("data-material-hidden")).toBe(true);
       expect(parent.hasAttribute("data-menu-child-count")).toBe(false);
       expect(source.style.opacity).toBe("");
       expect(source.style.transform).toBe("");

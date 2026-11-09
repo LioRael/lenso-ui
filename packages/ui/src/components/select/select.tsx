@@ -226,7 +226,12 @@ export function SelectPopover({
       data-material="glass-medium"
       data-menu-elastic="false"
     >
-      <div aria-hidden="true" data-slot="select-surface" {...stylex.props(menuStyles.surface)}>
+      <div
+        aria-hidden="true"
+        data-material-hidden=""
+        data-slot="select-surface"
+        {...stylex.props(menuStyles.surface)}
+      >
         <MaterialBackground
           variant="glass-medium"
           sourceAnchor={motion.trigger}

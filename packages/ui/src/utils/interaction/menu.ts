@@ -172,6 +172,7 @@ function present(
         : 0;
     const local = (edge: number, centre: number, shift = 0) =>
       centre + (edge - centre - shift) / scale;
+    surface.toggleAttribute("data-material-hidden", leaving && liquid?.opacity === 0);
     surface.style.transform = settled
       ? ""
       : `translate(${left}px, ${top}px) scale(${width / to.width}, ${height / to.height})`;
@@ -289,6 +290,7 @@ function present(
     card.removeAttribute("data-menu-plate-active");
     card.removeAttribute("data-menu-motion");
     shape.stop();
+    surface.setAttribute("data-material-hidden", "");
     surface.removeAttribute("data-material-resting");
     if (sourceMasks.get(trigger) === mask) {
       sourceMasks.delete(trigger);
@@ -329,6 +331,7 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
     }
     const t = clamp(value);
     const transform = t === 1 ? "" : `scale(${0.5 + 0.5 * t})`;
+    surface.toggleAttribute("data-material-hidden", leaving && value === 0);
     surface.style.transform = transform;
     surface.style.setProperty("--lg-menu-surface-opacity", String(clamp(t / 0.2)));
     content.style.transform = transform;
@@ -365,6 +368,7 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
       for (const property of ["transform", "transform-origin", "opacity", "filter"])
         node.style.removeProperty(property);
     card.removeAttribute("data-menu-morphing");
+    surface.setAttribute("data-material-hidden", "");
     surface.removeAttribute("data-material-resting");
   };
 }
@@ -394,7 +398,10 @@ export function useMenuPopupRef(
       const content = part(element, family, family === "select" ? "list" : "content");
       const surface = part(element, family, "surface");
       if (content) content.style.opacity = "0";
-      if (surface) surface.style.setProperty("--lg-menu-surface-opacity", "0");
+      if (surface) {
+        surface.style.setProperty("--lg-menu-surface-opacity", "0");
+        surface.setAttribute("data-material-hidden", "");
+      }
       cancelPlacement = afterMenuPlacement(element, () => {
         cleanup = owner
           ? present(element, owner, unmount, family, morph)

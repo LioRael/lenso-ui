@@ -93,6 +93,7 @@ export function presentCascadingSubmenu(
           height: h / scale,
         };
         content.style.filter = finished || pose.items <= 0 ? "" : `blur(${pose.blur}px)`;
+        surface.toggleAttribute("data-material-hidden", !open && pose.opacity === 0);
         surface.toggleAttribute("data-material-resting", settled);
         content.style.clipPath = settled
           ? ""
@@ -133,6 +134,7 @@ export function presentCascadingSubmenu(
     cancelPlacement();
     observer?.disconnect();
     timeline?.stop();
+    surface.setAttribute("data-material-hidden", "");
     surface.removeAttribute("data-material-resting");
     element.removeAttribute("data-menu-morphing");
     element.removeAttribute("data-menu-motion");

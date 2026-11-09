@@ -414,7 +414,12 @@ export function MenuPopup({
       data-menu-elastic={elastic ? "true" : "false"}
       data-material={presentationMaterials.compact}
     >
-      <div data-slot="menu-surface" aria-hidden="true" {...stylex.props(s.surface)}>
+      <div
+        data-slot="menu-surface"
+        data-material-hidden={!!motion || (!!submenu && !submenu.stacked) ? "" : undefined}
+        aria-hidden="true"
+        {...stylex.props(s.surface)}
+      >
         <MaterialBackground
           variant={presentationMaterials.compact}
           sourceAnchor={sourceAnchor}

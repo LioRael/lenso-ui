@@ -56162,7 +56162,7 @@
       "expandedType": "undefined | \"auto\" | \"cascade\" | \"stacked\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 557 },
+      "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 563 },
       "default": "\"auto\""
     },
     {
@@ -61535,7 +61535,7 @@
       "expandedType": "undefined | \"primary\" | \"secondary\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 417 },
+      "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 427 },
       "default": "\"primary\""
     },
     {
@@ -61544,7 +61544,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 418 },
+      "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 428 },
       "default": "false"
     },
     {
@@ -61553,7 +61553,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Keep the trigger visible and animate the popup independently when false.",
-      "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 420 },
+      "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 430 },
       "default": "true"
     },
     {
@@ -82524,7 +82524,7 @@
           "name": "MenuSeparator",
           "signature": "({ xstyle, style, ...props }: StyleXProps<Omit<Base.Separator.Props, \"ref\">> & Pick<React.ComponentPropsWithRef<typeof Base.Separator>, \"ref\">): React.JSX.Element",
           "props": "Omit<Omit<SeparatorProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & Pick<Omit<SeparatorProps, \"ref\"> & React.RefAttributes<HTMLDivElement>, \"ref\">",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 453 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 459 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {
@@ -82554,7 +82554,7 @@
           "name": "MenuArrow",
           "signature": "({ xstyle, style, ...props }: StyleXProps<Omit<Base.Arrow.Props, \"ref\">> & Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, \"ref\">): React.JSX.Element",
           "props": "Omit<Omit<MenuArrowProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & Pick<Omit<MenuArrowProps, \"ref\"> & React.RefAttributes<HTMLDivElement>, \"ref\">",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 469 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 475 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {
@@ -82589,7 +82589,7 @@
           "name": "MenuBackdrop",
           "signature": "({ xstyle, style, ...props }: StyleXProps<Omit<Base.Backdrop.Props, \"ref\">> & Pick<React.ComponentPropsWithRef<typeof Base.Backdrop>, \"ref\">): React.JSX.Element",
           "props": "Omit<Omit<MenuBackdropProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & Pick<Omit<MenuBackdropProps, \"ref\"> & React.RefAttributes<HTMLDivElement>, \"ref\">",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 485 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 491 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {
@@ -82622,7 +82622,7 @@
           "name": "MenuSubmenuTrigger",
           "signature": "({ xstyle, style, ref, children, ...props }: StyleXProps<Omit<Base.SubmenuTrigger.Props, \"ref\">> & Pick<React.ComponentPropsWithRef<typeof Base.SubmenuTrigger>, \"ref\">): React.JSX.Element",
           "props": "Omit<Omit<MenuSubmenuTriggerProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & Pick<Omit<MenuSubmenuTriggerProps, \"ref\"> & React.RefAttributes<HTMLElement>, \"ref\">",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 501 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 507 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {
@@ -82656,7 +82656,7 @@
           "name": "MenuSubmenuRoot",
           "signature": "({ presentation, actionsRef, onOpenChange, onOpenChangeComplete, ...props }: React.ComponentProps<typeof Base.SubmenuRoot> & {\n    presentation?: \"auto\" | \"stacked\" | \"cascade\";\n}): React.JSX.Element",
           "props": "MenuSubmenuRootProps & { presentation?: \"auto\" | \"stacked\" | \"cascade\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 550 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 556 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {},
@@ -82668,7 +82668,7 @@
           "name": "MenuActionGroup",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentPropsWithRef<typeof Base.Group>>): React.JSX.Element",
           "props": "StyleXProps<Omit<MenuGroupProps, \"ref\"> & React.RefAttributes<HTMLDivElement>>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 612 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 618 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {},
@@ -82696,7 +82696,7 @@
           "name": "MenuAction",
           "signature": "({ xstyle, ...props }: React.ComponentProps<typeof MenuItem>): React.JSX.Element",
           "props": "Omit<Omit<MenuItemProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & Pick<Omit<MenuItemProps, \"ref\"> & React.RefAttributes<HTMLElement>, \"ref\"> & { variant?: \"default\" | \"danger\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 627 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 633 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {
@@ -82729,7 +82729,7 @@
           "name": "MenuRadioGroup",
           "signature": "(props: Omit<MenuRadioGroupProps, \"ref\"> & React.RefAttributes<HTMLDivElement>): React.ReactNode",
           "props": "Omit<MenuRadioGroupProps, \"ref\"> & RefAttributes<HTMLDivElement>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 630 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 636 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {
@@ -82761,7 +82761,7 @@
           "name": "MenuViewport",
           "signature": "({ xstyle, style, ...props }: StyleXProps<Omit<Base.Viewport.Props, \"ref\">> & Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, \"ref\">): React.JSX.Element",
           "props": "Omit<Omit<MenuViewportProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & Pick<Omit<MenuViewportProps, \"ref\"> & React.RefAttributes<HTMLDivElement>, \"ref\">",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 631 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 637 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [],
           "states": {
@@ -82799,7 +82799,7 @@
           "name": "Menu",
           "signature": "<Payload = unknown>({ morphTrigger, elastic, actionsRef, onOpenChange, onOpenChangeComplete, ...props }: MenuRootProps<Payload>): React.JSX.Element",
           "props": "MenuRootProps<Payload>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 647 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 653 },
           "native": ["@base-ui/react/button", "@base-ui/react/context-menu", "@base-ui/react/menu"],
           "members": [
             "Root",
@@ -87008,7 +87008,7 @@
           "name": "SelectList",
           "signature": "({ children, xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseSelect.List.Props> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<SelectListProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 237 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 247 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {},
@@ -87036,7 +87036,7 @@
           "name": "SelectItem",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<Omit<BaseSelect.Item.Props, \"ref\"> & React.RefAttributes<HTMLElement>> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<Omit<SelectItemProps, \"ref\"> & React.RefAttributes<HTMLElement>, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 258 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 268 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {
@@ -87070,7 +87070,7 @@
           "name": "SelectItemText",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseSelect.ItemText.Props> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<SelectItemTextProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 282 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 292 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {},
@@ -87098,7 +87098,7 @@
           "name": "SelectItemIndicator",
           "signature": "({ children, xstyle, style, \"data-slot\": slot, ...props }: SelectItemIndicatorProps): React.JSX.Element",
           "props": "SelectItemIndicatorProps",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 301 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 311 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {
@@ -87133,7 +87133,7 @@
           "name": "SelectLabel",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseSelect.Label.Props> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<SelectLabelProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 330 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 340 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {
@@ -87170,7 +87170,7 @@
           "name": "SelectGroup",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseSelect.Group.Props> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<SelectGroupProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 346 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 356 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {},
@@ -87198,7 +87198,7 @@
           "name": "SelectGroupLabel",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseSelect.GroupLabel.Props> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<SelectGroupLabelProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 362 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 372 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {},
@@ -87226,7 +87226,7 @@
           "name": "SelectSeparator",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseSelect.Separator.Props> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<SelectSeparatorProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 378 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 388 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {
@@ -87258,7 +87258,7 @@
           "name": "SelectArrow",
           "signature": "({ xstyle, style, \"data-slot\": slot, ...props }: StyleXProps<BaseSelect.Arrow.Props> & {\n    \"data-slot\"?: unknown;\n}): React.JSX.Element",
           "props": "Omit<SelectArrowProps, \"className\"> & { xstyle?: XStyle; \"data-slot\"?: unknown; } & { \"data-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 394 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 404 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {
@@ -87293,7 +87293,7 @@
           "name": "SelectScrollUpArrow",
           "signature": "(props: Omit<SelectScrollUpArrowProps, \"ref\"> & React.RefAttributes<HTMLDivElement>): React.ReactNode",
           "props": "Omit<SelectScrollUpArrowProps, \"ref\"> & RefAttributes<HTMLDivElement>",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 410 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 420 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {},
@@ -87323,7 +87323,7 @@
           "name": "SelectScrollDownArrow",
           "signature": "(props: Omit<SelectScrollDownArrowProps, \"ref\"> & React.RefAttributes<HTMLDivElement>): React.ReactNode",
           "props": "Omit<SelectScrollDownArrowProps, \"ref\"> & RefAttributes<HTMLDivElement>",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 411 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 421 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {},
@@ -87353,7 +87353,7 @@
           "name": "SelectBackdrop",
           "signature": "(props: Omit<SelectBackdropProps, \"ref\"> & React.RefAttributes<HTMLDivElement>): React.ReactNode",
           "props": "Omit<SelectBackdropProps, \"ref\"> & RefAttributes<HTMLDivElement>",
-          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 412 },
+          "source": { "path": "packages/ui/src/components/select/select.tsx", "line": 422 },
           "native": ["@base-ui/react/select"],
           "members": [],
           "states": {

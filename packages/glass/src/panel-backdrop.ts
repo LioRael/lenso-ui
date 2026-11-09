@@ -12,12 +12,13 @@ export function paintBackdrop(
   container.setAttribute("data-material-live-paints", "");
   container.className = stylex.props(liquidMaterialStyles.livePaintContainer).className ?? "";
   // WebKit drops backdrop blur when the same layer also uses a blend mode.
-  const layers = [0, 1, 2, 3].map(() => {
+  const createLayer = () => {
     const layer = document.createElement("div");
     layer.className = stylex.props(liquidMaterialStyles.livePaint).className ?? "";
     container.append(layer);
     return layer;
-  });
+  };
+  const layers = [createLayer()];
   // Nested Base UI portals are siblings of the parent positioner. Keep the
   // child paints after that positioner, or its content paints over the child.
   let portal = element.closest<HTMLElement>("[data-base-ui-portal]") ?? element;
@@ -47,10 +48,12 @@ export function paintBackdrop(
         if (at.zIndex !== "auto") zIndex = at.zIndex;
       }
       const blur = style.getPropertyValue("--lg-blur").trim() || "8px";
-      const colors = [1, 2, 3].map((index) => [
-        style.getPropertyValue(`--lenso-panel-paint-${index}`).trim(),
-        style.getPropertyValue(`--lenso-panel-blend-${index}`).trim(),
-      ]);
+      const colors = [1, 2, 3]
+        .map((index) => [
+          style.getPropertyValue(`--lenso-panel-paint-${index}`).trim(),
+          style.getPropertyValue(`--lenso-panel-blend-${index}`).trim(),
+        ])
+        .filter(([color, blend]) => color !== "transparent" || blend !== "normal");
       const radius = style.borderRadius;
       const visibility = style.visibility;
       const transform = `translate(${box.left}px, ${box.top}px) scale(${box.width / (size.width || 1)}, ${box.height / (size.height || 1)})`;
@@ -67,7 +70,10 @@ export function paintBackdrop(
       return () => {
         if (signature === previous) return;
         previous = signature;
-        element.setAttribute("data-material-paints", "");
+        if (element.getAttribute("data-material-paints") !== "")
+          element.setAttribute("data-material-paints", "");
+        while (layers.length > colors.length + 1) layers.pop()!.remove();
+        while (layers.length < colors.length + 1) layers.push(createLayer());
         layers.forEach((layer, index) => {
           const values = {
             display: "block",

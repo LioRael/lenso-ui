@@ -78,14 +78,15 @@ export function paintMaterialBackdrop(
   // Fixed and pinned sticky surfaces keep their paints in viewport coordinates.
   // Document-positioned paints otherwise trail compositor scrolling until JS catches up.
   const fixed = ["fixed", "sticky"].includes(getComputedStyle(anchor).position);
-  const layers = Array.from({ length: 4 }, () => {
+  const createLayer = () => {
     const layer = document.createElement("div");
     layer.className =
       stylex.props(fixed ? liquidMaterialStyles.livePaint : liquidMaterialStyles.localPaint)
         .className ?? "";
     container.append(layer);
     return layer;
-  });
+  };
+  const layers = [createLayer()];
   anchor.before(container);
   let previous = "";
   let stopped = false;
@@ -237,6 +238,8 @@ export function paintMaterialBackdrop(
         previous = signature;
         if (element.getAttribute("data-material-paints") !== paintId)
           element.setAttribute("data-material-paints", paintId);
+        while (layers.length > paints.length + 1) layers.pop()!.remove();
+        while (layers.length < paints.length + 1) layers.push(createLayer());
         layers.forEach((layer, index) => {
           const paint = paints[index - 1];
           const properties = {

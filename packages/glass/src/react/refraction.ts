@@ -17,7 +17,7 @@ import { paintMaterialBackdrop } from "../backdrop-paints.js";
 import { paintBackdrop } from "../panel-backdrop.js";
 import { trackPressHighlight } from "../press-highlight.js";
 
-/** Bind shared optics; deferred owners mark their surface with data-material-resting. */
+/** Bind shared optics; deferred owners mark their surface as resting or hidden. */
 export function useGlassRef<T extends HTMLElement>(
   ref: Ref<T> | undefined,
   enabled: boolean,
@@ -39,30 +39,37 @@ export function useGlassRef<T extends HTMLElement>(
     if (!element || !enabled) return;
     let stop: (() => void) | undefined;
     const surface = element.parentElement;
-    let resting: boolean | undefined;
+    let state: "resting" | "moving" | "hidden" | undefined;
     const sync = () => {
-      const active = !deferOptics || !!surface?.hasAttribute("data-material-resting");
-      if (active === resting) return;
-      resting = active;
+      const next = !deferOptics
+        ? "resting"
+        : surface?.hasAttribute("data-material-hidden")
+          ? "hidden"
+          : surface?.hasAttribute("data-material-resting")
+            ? "resting"
+            : "moving";
+      if (next === state) return;
+      state = next;
       stop?.();
-      stop = active
-        ? attachGlass(element, {
-            selection,
-            profileKey,
-            sourceAnchor: sourceAnchor?.current,
-            liveBackdrop,
-            liveGeometry,
-            backdropSource,
-          })
-        : liveBackdrop
-          ? refractsBackdrop()
-            ? paintMaterialBackdrop(element, true)
-            : paintBackdrop(element)
-          : undefined;
+      stop = undefined;
+      if (next === "resting")
+        stop = attachGlass(element, {
+          selection,
+          profileKey,
+          sourceAnchor: sourceAnchor?.current,
+          liveBackdrop,
+          liveGeometry,
+          backdropSource,
+        });
+      else if (next === "moving" && liveBackdrop)
+        stop = refractsBackdrop() ? paintMaterialBackdrop(element, true) : paintBackdrop(element);
     };
     const observer = deferOptics ? new MutationObserver(sync) : undefined;
     if (surface)
-      observer?.observe(surface, { attributes: true, attributeFilter: ["data-material-resting"] });
+      observer?.observe(surface, {
+        attributes: true,
+        attributeFilter: ["data-material-resting", "data-material-hidden"],
+      });
     sync();
     return () => {
       observer?.disconnect();
