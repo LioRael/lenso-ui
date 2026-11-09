@@ -12,6 +12,8 @@ try {
       for (const [route, budget, byteBudget, gzipBudget] of [
         ["/en", 85, 1_250_000, 430_000],
         ["/en/docs/react/components/tabs", 125, 2_100_000, 580_000],
+        // Cloudflare redirects direct document visits to the directory URL.
+        ["/en/docs/react/components/tabs/", 125, 2_100_000, 580_000],
       ]) {
         const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
         const errors = [];

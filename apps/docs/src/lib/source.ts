@@ -45,6 +45,7 @@ export const source = {
 export const pageUrl = (page: Pick<DocPage, "locale" | "slug">) =>
   `/${page.locale}/docs/${page.slug}`;
 export function canonicalSlug(slug: string) {
+  slug = slug.replace(/\/+$/, "");
   const match = /^react\/components\/([^/]+)$/.exec(slug);
   return match && docsIndex.sourceFamilyMapping[match[1]!]
     ? `react/components/${docsIndex.sourceFamilyMapping[match[1]!]!}`
