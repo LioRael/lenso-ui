@@ -106,6 +106,11 @@ publication and static HTML output while the server stays running.
 Run `bun run --filter @lenso/ui-docs test:canvas-navigation` for the WebKit
 PNG encoding regression: a pending encoding runs while document replacement is
 held, then the test verifies exact pixels and the absence of resource errors.
+Run `DOCS_URL=<dev-url> bun run --filter @lenso/ui-docs test:moving-glass-preferences`
+for Menu, Select and cascading-menu transparency/tint during motion in Chromium
+and WebKit. It covers dynamic settings, closing, focus restoration and root
+popup reversal/reduced motion. Glass package tests also run the native-paint DOM
+regressions; these do not replace the rendered browser check.
 Run `bun run --filter @lenso/ui-docs test:first-paint` for Tabs and glass control
 geometry before and during hydration in Chromium and WebKit, in both themes.
 It serves an isolated fixture through the docs development pipeline.

@@ -43,6 +43,11 @@ export const liquidMaterialStyles = stylex.create({
       backdropFilter: "none",
     },
   },
+  movingPreferences: {
+    ":is([data-lenso-glass-preferences]):is(:not([data-material-resting]) > *)": {
+      backgroundImage: "var(--lenso-glass-preference-paint, none)",
+    },
+  },
   small: {
     "--lenso-glass-default-active-fill": {
       default: "rgb(255 255 255 / .34)",

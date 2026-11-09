@@ -34,7 +34,7 @@
     "build:dev": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts && bun scripts/copy-notices.ts",
     "dev": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts --watch --no-clean",
     "typecheck": "bun check --no-script --noEmit",
-    "test": "bun test test/*.test.ts",
+    "test": "bun test test/*.test.ts && bun test --preload ../../tests/setup/dom.ts test/browser/*.dom.test.ts",
     "generate:shaders": "bun scripts/generate-shaders.ts"
   },
   "dependencies": {

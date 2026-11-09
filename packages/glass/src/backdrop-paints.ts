@@ -1,3 +1,4 @@
+import { createNativePreferences } from "./native-preferences.js";
 import { toneCSS } from "./material-tone.js";
 import * as stylex from "@stylexjs/stylex";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
@@ -11,6 +12,21 @@ export function paintMaterialBackdrop(
   liquid = false,
   clipMask = false,
   onReady?: () => void,
+): () => void {
+  return createMaterialBackdrop(element, liquid, clipMask, onReady);
+}
+
+/** Moving surfaces use native paints while their fitted optics are deferred. */
+export function paintMovingMaterialBackdrop(element: HTMLElement): () => void {
+  return createMaterialBackdrop(element, true, false, undefined, createNativePreferences(element));
+}
+
+function createMaterialBackdrop(
+  element: HTMLElement,
+  liquid: boolean,
+  clipMask: boolean,
+  onReady?: () => void,
+  preference?: ReturnType<typeof createNativePreferences>,
 ): () => void {
   const foreground =
     liquid && element.hasAttribute("data-material-lens") ? element.parentElement! : element;
@@ -101,6 +117,17 @@ export function paintMaterialBackdrop(
     prepare() {},
     read(_change, reads) {
       const style = reads.style(element);
+      const preferred = preference?.read(style);
+      if (preferred?.opaque)
+        return () => {
+          if (stopped) return;
+          preference!.apply(preferred);
+          if (element.getAttribute("data-material-paints") !== paintId)
+            element.setAttribute("data-material-paints", paintId);
+          for (const layer of layers)
+            if (layer.style.display !== "none") layer.style.display = "none";
+          previous = "";
+        };
       const rootStyle = reads.style(foreground);
       const anchorStyle = reads.style(anchor);
       const value = (name: string) => style.getPropertyValue(name).trim();
@@ -147,7 +174,10 @@ export function paintMaterialBackdrop(
                   : (Math.min(size.width, size.height) - 60) / 60,
               ),
             ),
-            clarity: profile === "clear" ? 1 : Number(value("--lenso-glass-clarity")) || 0,
+            clarity:
+              profile === "clear"
+                ? 1
+                : (preferred?.clarity ?? (Number(value("--lenso-glass-clarity")) || 0)),
           })
         : "";
       if (calibrated) paints = [];
@@ -171,7 +201,7 @@ export function paintMaterialBackdrop(
           ? (box.top - parentBox.top) / sy + parent.scrollTop - parent.clientTop
           : box.top + (fixed && !anchored ? 0 : window.scrollY);
       const transform = `translate(${x}px, ${y}px) scale(${box.width / sx / (size.width || 1)}, ${box.height / sy / (size.height || 1)})`;
-      const blur = value(liquid ? "--lg-blur" : "--material-blur");
+      const blur = preferred?.blur ?? value(liquid ? "--lg-blur" : "--material-blur");
       let opacity =
         Number(rootStyle.opacity) * (liquid && foreground !== element ? Number(style.opacity) : 1);
       if (liquid)
@@ -237,6 +267,7 @@ export function paintMaterialBackdrop(
       const signature = JSON.stringify([paints, blur, tone, values]);
       return () => {
         if (stopped) return;
+        preference?.apply(preferred);
         if (signature === previous) return;
         previous = signature;
         if (element.getAttribute("data-material-paints") !== paintId)
@@ -275,6 +306,7 @@ export function paintMaterialBackdrop(
     stopped = true;
     stopVisibility();
     subscription.stop();
+    preference?.destroy();
     container.remove();
     element.removeAttribute("data-material-paints");
   };

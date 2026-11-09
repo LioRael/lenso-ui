@@ -2,6 +2,11 @@
 
 These are source changes; use the migration details for the version you consume.
 
+- Menu, Select and cascading menus preserve `glassTransparency` and `glassTint`
+  during opening and closing. Moving opaque surfaces hide native backdrop paints;
+  clear and tinted appearances keep their selected blur and wash. Default motion
+  and public APIs are unchanged; no consumer migration is required.
+
 - TabBar minimization caches expanded geometry and suspends indicator work during
   contraction and expansion. Moving groups retain native glass blur and refit
   optical detail after settling. Reversals, reduced motion and focus restoration

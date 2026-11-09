@@ -13,8 +13,8 @@ import { GlassBackdropSourceContext } from "./backdrop-source.js";
 import { GlassFusionContext } from "./fusion.js";
 import { attachGlass, attachContentRefraction, refractsBackdrop } from "../refraction.js";
 import { assignRef } from "./ref.js";
-import { paintMaterialBackdrop } from "../backdrop-paints.js";
-import { paintBackdrop } from "../panel-backdrop.js";
+import { paintMovingMaterialBackdrop } from "../backdrop-paints.js";
+import { paintMovingBackdrop } from "../panel-backdrop.js";
 import { trackPressHighlight } from "../press-highlight.js";
 
 /** Bind shared optics; deferred owners mark their surface as resting or hidden. */
@@ -62,7 +62,9 @@ export function useGlassRef<T extends HTMLElement>(
           backdropSource,
         });
       else if (next === "moving" && liveBackdrop)
-        stop = refractsBackdrop() ? paintMaterialBackdrop(element, true) : paintBackdrop(element);
+        stop = refractsBackdrop()
+          ? paintMovingMaterialBackdrop(element)
+          : paintMovingBackdrop(element);
     };
     const observer = deferOptics ? new MutationObserver(sync) : undefined;
     if (surface)

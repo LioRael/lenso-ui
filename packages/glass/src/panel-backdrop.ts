@@ -1,10 +1,20 @@
+import { createNativePreferences } from "./native-preferences.js";
 import * as stylex from "@stylexjs/stylex";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { observeBackdrop } from "./backdrop-scheduler.js";
 
 /** Native backdrop paints must blend with the page, outside isolated foreground groups. */
-export function paintBackdrop(
+export function paintBackdrop(element: HTMLElement) {
+  return createBackdrop(element);
+}
+
+export function paintMovingBackdrop(element: HTMLElement) {
+  return createBackdrop(element, createNativePreferences(element));
+}
+
+function createBackdrop(
   element: HTMLElement,
+  preference?: ReturnType<typeof createNativePreferences>,
 ): (() => void) & { setVisible(visible: boolean): void } {
   const container = document.createElement("div");
   container.setAttribute("aria-hidden", "true");
@@ -26,7 +36,8 @@ export function paintBackdrop(
     while (portal.parentElement && portal.parentElement !== document.body)
       portal = portal.parentElement;
   portal.before(container);
-  let previous = "";
+  let previous = "",
+    stopped = false;
   const subscription = observeBackdrop({
     element,
     source: element,
@@ -34,6 +45,17 @@ export function paintBackdrop(
     prepare() {},
     read(_change, reads) {
       const style = reads.style(element);
+      const preferred = preference?.read(style);
+      if (preferred?.opaque)
+        return () => {
+          if (stopped) return;
+          preference!.apply(preferred);
+          if (!element.hasAttribute("data-material-paints"))
+            element.setAttribute("data-material-paints", "");
+          for (const layer of layers)
+            if (layer.style.display !== "none") layer.style.display = "none";
+          previous = "";
+        };
       const box = reads.box(element);
       const size = reads.size(element);
       let opacity = 1;
@@ -47,7 +69,7 @@ export function paintBackdrop(
         opacity *= Number(at.opacity);
         if (at.zIndex !== "auto") zIndex = at.zIndex;
       }
-      const blur = style.getPropertyValue("--lg-blur").trim() || "8px";
+      const blur = preferred?.blur ?? (style.getPropertyValue("--lg-blur").trim() || "8px");
       const colors = [1, 2, 3]
         .map((index) => [
           style.getPropertyValue(`--lenso-panel-paint-${index}`).trim(),
@@ -68,6 +90,8 @@ export function paintBackdrop(
         visibility,
       ]);
       return () => {
+        if (stopped) return;
+        preference?.apply(preferred);
         if (signature === previous) return;
         previous = signature;
         if (element.getAttribute("data-material-paints") !== "")
@@ -97,7 +121,9 @@ export function paintBackdrop(
   });
   return Object.assign(
     () => {
+      stopped = true;
       subscription.stop();
+      preference?.destroy();
       container.remove();
       element.removeAttribute("data-material-paints");
     },
