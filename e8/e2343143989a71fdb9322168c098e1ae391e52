@@ -1,0 +1,23 @@
+apps/docs/test/production-loading.mjs
+  s_10c7d362cf24b2::t_cefb2110d7060b 15-16
+apps/docs/src/lib/source.ts
+  s_10c7d362cf24b2::t_a591a5fbe027bd 48
+RELEASE.md
+  s_10c7d362cf24b2::t_a591a5fbe027bd 5-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e8e2343143989a71fdb9322168c098e1ae391e52",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
