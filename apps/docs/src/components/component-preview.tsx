@@ -5,6 +5,7 @@ import { styles, codeStyles } from "@lenso/docs/presentation";
 import liveManifest from "@/demos/live-manifest.json";
 import { DeferredExampleSource, type ExampleSourceFile } from "./deferred-example-source";
 import { ClientPreview } from "./client-preview";
+import { VisiblePreview } from "./visible-preview";
 import { resolveDemo, type DemoManifest } from "@/lib/demo-locale";
 import { ComponentExampleFrame, ScrollableExampleScene } from "./component-example-frame";
 
@@ -144,7 +145,12 @@ export function ComponentPreview({
         }
         source={
           loadFiles && !hideCode ? (
-            <DeferredExampleSource load={loadFiles} locale={locale} initialFile={sourceFile} />
+            <VisiblePreview
+              rootMargin="0px"
+              fallback={<output>{locale === "cn" ? "正在加载源码…" : "Loading source…"}</output>}
+            >
+              <DeferredExampleSource load={loadFiles} locale={locale} initialFile={sourceFile} />
+            </VisiblePreview>
           ) : undefined
         }
       />

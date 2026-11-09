@@ -63,9 +63,7 @@ export function createLensoSiteOptions({
     navigation: navigation(entries),
     slots: {
       headerBackdrop: <DocsHeaderBackdrop />,
-      headerNavigation: (
-        <HeaderNavigation locale={locale} sections={sections} activeSection={activeSection} />
-      ),
+      headerNavigation: <HeaderNavigation locale={locale} />,
       desktopActions: <DesktopActions locale={locale} slug={slug} repository={repository} />,
       mobileActions: <MobileActions locale={locale} />,
       drawerActions: <DrawerActions locale={locale} slug={slug} />,

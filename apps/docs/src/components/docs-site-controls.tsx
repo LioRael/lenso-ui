@@ -1,8 +1,6 @@
 "use client";
 
 import * as stylex from "@stylexjs/stylex";
-import { useSyncExternalStore } from "react";
-import { createPortal } from "react-dom";
 
 import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { TabBar } from "@lenso/ui/tab-bar";
@@ -94,89 +92,66 @@ export function ReactWebDrawerLabel() {
   );
 }
 
-export function HeaderNavigation({
-  locale,
-  sections,
-  activeSection,
-}: {
-  locale: Locale;
-  sections: DocumentationSiteLayoutProps["sections"];
-  activeSection: string;
-}) {
+export function HeaderNavigation({ locale }: { locale: Locale }) {
+  const { setOpenSearch } = useSearchContext();
+  const searchLabel = locale === "cn" ? "搜索文档" : "Search documentation";
   return (
-    <SearchDialog locale={locale}>
-      <HeaderNavigationControls locale={locale} sections={sections} activeSection={activeSection} />
-    </SearchDialog>
+    <GlassButton
+      isIconOnly
+      aria-label={searchLabel}
+      aria-keyshortcuts="Meta+K Control+K"
+      data-docs-search-trigger=""
+      onClick={() => setOpenSearch(true)}
+      xstyle={[s.control, s.icon, s.navigation]}
+    >
+      <Magnifier width={16} height={16} aria-hidden="true" />
+    </GlassButton>
   );
 }
 
-const subscribePortal = () => () => {};
-
-function HeaderNavigationControls({
+export function MobileNavigation({
   locale,
   sections,
   activeSection,
 }: {
   locale: Locale;
   sections: DocumentationSiteLayoutProps["sections"];
-  activeSection: string;
+  activeSection?: string;
 }) {
   const { setOpenSearch } = useSearchContext();
-  const portal = useSyncExternalStore(
-    subscribePortal,
-    () => document.body,
-    () => null,
-  );
   const searchLabel = locale === "cn" ? "搜索文档" : "Search documentation";
   return (
-    <>
-      <GlassButton
-        isIconOnly
-        aria-label={searchLabel}
-        aria-keyshortcuts="Meta+K Control+K"
-        data-docs-search-trigger=""
-        onClick={() => setOpenSearch(true)}
-        xstyle={[s.control, s.icon, s.navigation]}
-      >
-        <Magnifier width={16} height={16} aria-hidden="true" />
-      </GlassButton>
-      {portal &&
-        createPortal(
-          <TabBar
-            layout="phone"
-            autoMinimize
-            expandLabel={locale === "cn" ? "展开导航" : "Expand navigation"}
-            aria-label={locale === "cn" ? "文档导航" : "Documentation navigation"}
-            xstyle={s.phoneNavigation}
+    <TabBar
+      layout="phone"
+      autoMinimize
+      expandLabel={locale === "cn" ? "展开导航" : "Expand navigation"}
+      aria-label={locale === "cn" ? "文档导航" : "Documentation navigation"}
+      xstyle={s.phoneNavigation}
+    >
+      <TabBar.Group>
+        {sections.map((section) => (
+          <TabBar.Link
+            key={section.id}
+            render={<Link href={section.url} />}
+            isCurrent={section.id === activeSection}
+            icon={section.icon}
+            xstyle={s.phoneDestination}
           >
-            <TabBar.Group xstyle={s.phoneDestinations}>
-              {sections.map((section) => (
-                <TabBar.Link
-                  key={section.id}
-                  render={<Link href={section.url} />}
-                  isCurrent={section.id === activeSection}
-                  icon={section.icon}
-                  xstyle={s.phoneDestination}
-                >
-                  {section.title}
-                </TabBar.Link>
-              ))}
-            </TabBar.Group>
-            <TabBar.Group separate>
-              <TabBar.Button
-                icon={<Magnifier aria-hidden="true" />}
-                aria-label={searchLabel}
-                aria-keyshortcuts="Meta+K Control+K"
-                data-docs-search-trigger=""
-                onClick={() => setOpenSearch(true)}
-              >
-                {searchLabel}
-              </TabBar.Button>
-            </TabBar.Group>
-          </TabBar>,
-          portal,
-          "phone",
-        )}
-    </>
+            {section.title}
+          </TabBar.Link>
+        ))}
+      </TabBar.Group>
+      <TabBar.Group separate>
+        <TabBar.Button
+          icon={<Magnifier aria-hidden="true" />}
+          aria-label={searchLabel}
+          aria-keyshortcuts="Meta+K Control+K"
+          data-docs-search-trigger=""
+          onClick={() => setOpenSearch(true)}
+        >
+          {searchLabel}
+        </TabBar.Button>
+      </TabBar.Group>
+    </TabBar>
   );
 }

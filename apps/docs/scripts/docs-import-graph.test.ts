@@ -81,6 +81,15 @@ test("component preview infrastructure does not own a global demo dispatcher", a
   assert.ok(!graph.has(allDemos), "A page must supply only its own example references.");
 });
 
+test("Tabs playground does not import other material playground implementations", async () => {
+  const graph = await localGraph([path.join(root, "src/stories/tabs.story.tsx")]);
+  for (const family of ["input", "search-field", "slider", "menu", "glass", "glass-magnifier"])
+    assert.ok(
+      !graph.has(path.join(root, `src/stories/previews/${family}.tsx`)),
+      `${family} belongs to its own document`,
+    );
+});
+
 test("ordinary document and navigation modules do not statically reach the full API contract", async () => {
   const graph = await localGraph([
     path.join(root, "src/components/docs-page-options.tsx"),

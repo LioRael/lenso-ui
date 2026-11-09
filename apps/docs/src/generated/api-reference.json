@@ -62873,7 +62873,7 @@
       "expandedType": "ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 312 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 314 },
       "default": null
     },
     {
@@ -62882,7 +62882,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 312 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 314 },
       "default": null
     },
     {
@@ -62891,7 +62891,7 @@
       "expandedType": "ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 312 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 314 },
       "default": null
     },
     {
@@ -62900,7 +62900,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Marks the current destination and supplies aria-current=\"page\" by default.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 343 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 345 },
       "default": null
     },
     {
@@ -90222,7 +90222,7 @@
           "name": "TabBarLink",
           "signature": "({ icon, iconOnly: ownIconOnly, children, isCurrent: ownCurrent, disabled, render, xstyle, ...props }: TabBarLinkProps): React.JSX.Element",
           "props": "TabBarLinkProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 355 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 357 },
           "native": ["@base-ui/react/button", "@base-ui/react/use-render"],
           "members": [],
           "states": {},
@@ -90253,7 +90253,7 @@
           "name": "TabBarButton",
           "signature": "({ icon, iconOnly: ownIconOnly, children, xstyle, style, ...props }: TabBarButtonProps): React.JSX.Element",
           "props": "TabBarButtonProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 425 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 427 },
           "native": ["@base-ui/react/button", "@base-ui/react/use-render"],
           "members": [],
           "states": {
@@ -90284,7 +90284,7 @@
           "name": "TabBar",
           "signature": "({ layout, elastic, lift, minimized: controlledMinimized, defaultMinimized, onMinimizedChange, autoMinimize, scrollTarget, expandLabel, render, ref, xstyle, style, ...props }: TabBarRootProps): React.JSX.Element",
           "props": "TabBarRootProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 465 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 467 },
           "native": ["@base-ui/react/button", "@base-ui/react/use-render"],
           "members": ["Root", "Group", "Link", "Button"],
           "states": {},

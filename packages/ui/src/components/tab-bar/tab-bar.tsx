@@ -225,6 +225,8 @@ export function TabBarGroup({
         aria-hidden="true"
         variant="glass-small"
         liveGeometry
+        deferOptics
+        data-material-resting=""
         xstyle={[tabBarStyles.material, layout === "tablet" && tabBarStyles.tabletMaterial]}
       />
       {!separate && (

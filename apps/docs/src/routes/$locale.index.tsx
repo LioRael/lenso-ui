@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomePage } from "../components/home-page";
-import { isLocale } from "../lib/source";
+import { isLocale } from "../lib/locale";
 import { homeHead } from "../lib/route-head";
 export const Route = createFileRoute("/$locale/")({
   head: ({ params }) => homeHead(isLocale(params.locale) ? params.locale : "en"),

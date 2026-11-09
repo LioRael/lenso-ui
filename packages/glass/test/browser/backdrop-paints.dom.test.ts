@@ -22,8 +22,8 @@ test("floating material paints stay above content inside an isolated scroll cont
   const stop = paintMaterialBackdrop(material);
   try {
     const paint = surface.querySelector("[data-material-local-paints]")!;
-    expect(paint.parentElement === scroller).toBe(true);
-    expect(paint.nextElementSibling === navigation).toBe(true);
+    expect(paint.parentElement === navigation).toBe(true);
+    expect(paint.nextElementSibling === material).toBe(true);
   } finally {
     stop();
     if (replaceFonts) {

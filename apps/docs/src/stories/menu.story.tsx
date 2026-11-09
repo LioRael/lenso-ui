@@ -1,5 +1,5 @@
 import { defineStory } from "./story";
-import { MenuStory } from "./materials";
+import { MenuStory } from "./previews/menu";
 export const story = defineStory({
   displayName: "Menu",
   Component: MenuStory,

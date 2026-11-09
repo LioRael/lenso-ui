@@ -1,6 +1,7 @@
 import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
-import { StartClient } from "@tanstack/react-start/client";
+import { hydrateStart, StartClient } from "@tanstack/react-start/client";
+import { RouterProvider, type AnyRouter } from "@tanstack/react-router";
 
 async function prepareDocument(pathname: string) {
   const match = /^\/([^/]+)\/docs\/(.*)$/.exec(pathname);
@@ -13,17 +14,18 @@ async function prepareDocument(pathname: string) {
   if (page) await documents.getPage(page.markdownFile.slice("content/lenso/".length))?.preload();
 }
 
-function hydrate() {
+function hydrate(router?: AnyRouter) {
   startTransition(() => {
     hydrateRoot(
       document,
-      <StrictMode>
-        <StartClient />
-      </StrictMode>,
+      <StrictMode>{router ? <RouterProvider router={router} /> : <StartClient />}</StrictMode>,
     );
   });
 }
 
-// Keep the server-rendered article while its browser module loads. A rejected
-// module is still handled by the route's error boundary during hydration.
-void prepareDocument(window.location.pathname).then(hydrate, hydrate);
+// Prepare routes and the article in parallel before React touches the server HTML.
+// The regular client still owns error handling if either preparation fails.
+void Promise.all([hydrateStart(), prepareDocument(window.location.pathname)]).then(
+  ([router]) => hydrate(router),
+  () => hydrate(),
+);

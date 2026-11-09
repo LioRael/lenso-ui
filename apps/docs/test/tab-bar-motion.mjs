@@ -9,8 +9,7 @@ export async function assertTabBarMotion(page, base, appearance = "light") {
   await navigation.locator("[data-minimize-ready]").first().waitFor();
   if (appearance === "dark") {
     await page.getByRole("button", { name: "Sort and filter", exact: true }).click();
-    await page.getByRole("menuitem", { name: "View Options", exact: true }).focus();
-    await page.keyboard.press("ArrowRight");
+    await page.getByRole("menuitem", { name: "View Options", exact: true }).click();
     await page.getByRole("menuitem", { name: "Dark appearance", exact: true }).click();
   }
   await page.waitForFunction(
@@ -141,6 +140,39 @@ export async function assertTabBarMotion(page, base, appearance = "light") {
   return result.samples;
 }
 
+export async function assertTabletMinimize(page, base) {
+  await page.goto(`${base}/en/docs/react/components/tab-bar`);
+  await page.locator("summary").filter({ hasText: "Composition and actions (1)" }).click();
+  const example = page.locator('[data-example-name="tab-bar-tablet"]');
+  await example.scrollIntoViewIfNeeded();
+  const nav = example.getByRole("navigation", { name: "Main navigation", exact: true });
+  const group = nav.locator("[data-tab-bar-group]");
+  // Nearby deferred previews can move this scene after the first scroll.
+  for (let attempt = 0; attempt < 12 && !(await group.count()); attempt++) {
+    await example.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(250);
+  }
+  await group.locator("[data-tab-bar-list]").waitFor();
+  await page.waitForLoadState("networkidle");
+  const expanded = await group.boundingBox();
+  const selected = nav.getByRole("link", { name: "Search", exact: true });
+  await selected.click();
+  const element = await group.elementHandle();
+  await example.getByRole("button", { name: "Minimize navigation", exact: true }).click();
+  await page.waitForFunction(
+    (node) => node.style.getPropertyValue("--tab-bar-collapse") === "1",
+    element,
+  );
+  assert.ok(Math.abs((await group.boundingBox()).width - 44) < 1);
+  await nav.getByRole("button", { name: "Expand navigation", exact: true }).click();
+  await page.waitForFunction(
+    (node) => node.style.getPropertyValue("--tab-bar-collapse") === "0",
+    element,
+  );
+  assert.ok(Math.abs((await group.boundingBox()).width - expanded.width) < 1);
+  assert.ok(await selected.evaluate((node) => node === document.activeElement));
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   for (const [name, engine] of [
     ["chromium", chromium],
@@ -148,6 +180,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   ]) {
     const browser = await engine.launch();
     try {
+      const tablet = await browser.newPage({ viewport: { width: 1100, height: 900 } });
+      await assertTabletMinimize(tablet, process.env.DOCS_URL ?? "http://127.0.0.1:3000");
+      await tablet.close();
+      console.log(`${name}: tablet selected destination, minimization and focus passed`);
       for (const colorScheme of ["light", "dark"]) {
         for (const width of [390, 590]) {
           const page = await browser.newPage({

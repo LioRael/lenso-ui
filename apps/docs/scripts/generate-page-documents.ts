@@ -276,8 +276,8 @@ export async function generatePageDocuments(
       if (storyEntry) playgroundSources = await sourcesFor(storyEntry);
       storyClient = `import { story as pageStory } from ${JSON.stringify(relativeImport(client, `src/stories/${family}.story`))};
 import { StoryLanguage, type StoryFile } from ${JSON.stringify(relativeImport(client, "src/stories/story-panel"))};
-export function PageStory({locale, files}: {locale: "en" | "cn"; files?: StoryFile[]}) {
-  return <StoryLanguage locale={locale} files={files}><pageStory.WithControl /></StoryLanguage>;
+export function PageStory({locale, loadFiles}: {locale: "en" | "cn"; loadFiles?: () => Promise<StoryFile[]>}) {
+  return <StoryLanguage locale={locale} loadFiles={loadFiles}><pageStory.WithControl /></StoryLanguage>;
 }`;
       imports.push(
         `import { PageStory } from ${JSON.stringify(relativeImport(server, client.slice(0, -4)))};`,
@@ -323,7 +323,7 @@ export function PageStory({locale, files}: {locale: "en" | "cn"; files?: StoryFi
     return createElement(Fragment, null, createElement(Component), createElement("span", { hidden: true, "data-example-mounted": ${JSON.stringify(file)} }));
   }};
 }));
-export function Demo${id}(){ return <ClientPreview><Suspense fallback={null}><Demo${id}Component/></Suspense></ClientPreview> }`);
+export function Demo${id}(){ return <VisiblePreview><Suspense fallback={null}><Demo${id}Component/></Suspense></VisiblePreview> }`);
       }
       entries.push(`${JSON.stringify(name)}: Demo${id}`);
     }
@@ -365,7 +365,7 @@ export function Demo${id}(){ return <ClientPreview><Suspense fallback={null}><De
       outputs.set(
         client,
         `"use client";
-${wrappers.length ? `import {lazy,Suspense,createElement,Fragment} from "react";\nimport {ClientPreview} from ${JSON.stringify(relativeImport(client, "src/components/client-preview"))};` : ""}
+${wrappers.length ? `import {lazy,Suspense,createElement,Fragment} from "react";\nimport {VisiblePreview} from ${JSON.stringify(relativeImport(client, "src/components/visible-preview"))};` : ""}
 ${storyClient}
 ${wrappers.join("\n")}
 `,

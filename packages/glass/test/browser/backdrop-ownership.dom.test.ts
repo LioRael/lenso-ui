@@ -32,7 +32,8 @@ test.each([true, false])("Safari uses a single backdrop owner (accepted: %s)", (
       accepted ? { source: root, ready: () => false, prepare: async () => undefined } : undefined,
   });
   try {
-    expect(lens.hasAttribute("data-copy")).toBe(!accepted);
+    // Selecting a copy must not disable native blur before its first paint.
+    expect(lens.hasAttribute("data-copy")).toBe(false);
   } finally {
     stop();
     root.remove();

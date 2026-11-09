@@ -110,6 +110,14 @@ placement. A constrained page's item widths must account for both list padding
 and inter-item gaps. Align neighboring controls by their visible material bounds,
 which can extend beyond their hit areas.
 
+After hydration, the selected-label layer stays above the indicator surface in
+Tabs and SegmentedControl. Validate painted text as well as bounds: WebKit can
+retain correct label geometry while the indicator covers its pixels.
+Before measurement, capsule corners clamp to the rendered indicator height;
+custom tab heights must not retain a radius derived from the default height.
+Native glass blur remains active until a replacement backdrop has painted.
+Loading optical detail must not temporarily remove the existing material.
+
 Horizontal Tabs use a trailing chevron menu for items that do not fit, rather
 than an internal scroll viewport. Keep the selected tab visible after a menu
 selection or resize, and leave hidden tabs out of indicator optics and pointer
@@ -125,6 +133,17 @@ spring from its current position and velocity. Keep collapsed links inert and
 transfer keyboard focus through the expand control. Reduced motion settles
 immediately, including when enabled during a transition. Initial minimized markup
 must retain a collapsed CSS presentation before client measurement.
+Consumers must retain the group's flex sizing so the material contracts with
+the current destination. Floating fallback paints live inside their fixed or
+sticky positioning owner; browser-chrome movement must not depend on a script
+updating a separate viewport-positioned paint.
+Cache expanded geometry and the current icon's local centre before resizing;
+animation frames only write the spring's interpolated values. Root height
+changes caused by contraction must not trigger expanded-width measurement.
+While resizing, keep the selected icon mounted, hide the indicator and suspend
+its copied-label measurement and springs. Refit it after expansion. The group
+uses its normal native blur and CSS contour during motion, restoring fitted
+optics only when its size settles; preserve the action material recipe.
 
 While the TabBar lens is lifted or moving between destinations, the original
 current link uses the ordinary secondary label color. Only content inside the
@@ -232,6 +251,10 @@ again before the closing or reversed morph. Reduced motion reaches the resting
 material directly. Cascading submenus use the same policy. This adopts the
 upstream Menu's motion-time rendering strategy without changing Base UI
 interaction ownership or Lenso's motion profiles.
+Once the glass becomes invisible during closing, stop its background painter and
+leave only the source's remaining rebound. Closed Select items may stay mounted
+for label resolution; their hidden material must not retain background paints.
+Resume painting at the current pose when an interrupted return opens again.
 
 With `morphTrigger={false}`, Menu and Select keep their trigger visible and
 stationary. Their popups unfold from a compact source near that trigger with

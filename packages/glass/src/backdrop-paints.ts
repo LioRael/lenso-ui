@@ -75,19 +75,22 @@ export function paintMaterialBackdrop(
   container.setAttribute("inert", "");
   container.setAttribute("data-material-local-paints", paintId);
   container.className = stylex.props(liquidMaterialStyles.livePaintContainer).className ?? "";
-  // Fixed and pinned sticky surfaces keep their paints in viewport coordinates.
-  // Document-positioned paints otherwise trail compositor scrolling until JS catches up.
+  // Keep floating paints in their positioning owner so Safari's browser chrome
+  // and compositor scrolling move the paint and controls together, without a JS handoff.
   const fixed = ["fixed", "sticky"].includes(getComputedStyle(anchor).position);
+  const anchored = anchor !== foreground && fixed;
   const createLayer = () => {
     const layer = document.createElement("div");
     layer.className =
-      stylex.props(fixed ? liquidMaterialStyles.livePaint : liquidMaterialStyles.localPaint)
-        .className ?? "";
+      stylex.props(
+        fixed && !anchored ? liquidMaterialStyles.livePaint : liquidMaterialStyles.localPaint,
+      ).className ?? "";
     container.append(layer);
     return layer;
   };
   const layers = [createLayer()];
-  anchor.before(container);
+  if (anchored) anchor.prepend(container);
+  else anchor.before(container);
   let previous = "";
   let stopped = false;
   let notified = false;
@@ -162,11 +165,11 @@ export function paintMaterialBackdrop(
       const x =
         parent && parentBox
           ? (box.left - parentBox.left) / sx + parent.scrollLeft - parent.clientLeft
-          : box.left + (fixed ? 0 : window.scrollX);
+          : box.left + (fixed && !anchored ? 0 : window.scrollX);
       const y =
         parent && parentBox
           ? (box.top - parentBox.top) / sy + parent.scrollTop - parent.clientTop
-          : box.top + (fixed ? 0 : window.scrollY);
+          : box.top + (fixed && !anchored ? 0 : window.scrollY);
       const transform = `translate(${x}px, ${y}px) scale(${box.width / sx / (size.width || 1)}, ${box.height / sy / (size.height || 1)})`;
       const blur = value(liquid ? "--lg-blur" : "--material-blur");
       let opacity =
@@ -222,7 +225,7 @@ export function paintMaterialBackdrop(
             : "auto",
         "mask-repeat": "no-repeat",
         "color-scheme": style.colorScheme,
-        "z-index": clipMask ? rootStyle.zIndex : anchorStyle.zIndex,
+        "z-index": anchored ? "-1" : clipMask ? rootStyle.zIndex : anchorStyle.zIndex,
         "clip-path": vectorClip
           ? style.clipPath
           : !clipped

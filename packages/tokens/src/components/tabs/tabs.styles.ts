@@ -139,6 +139,7 @@ export const tabsStyles = stylex.create({
     },
   },
   initialIndicator: {
+    borderRadius: 1000,
     positionAnchor: "--lenso-tabs-active",
     left: {
       default: "calc(2px + var(--lg-tabs-indicator-inset, 0px))",
@@ -175,6 +176,7 @@ export const tabsStyles = stylex.create({
     zIndex: {
       default: 2,
       ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)": 0,
+      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control'])[data-ready] > :is([data-slot='tabs-tint'], [data-slot='segmented-control-tint']))": 3,
     },
     opacity: {
       default: 0,

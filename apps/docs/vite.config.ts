@@ -9,6 +9,7 @@ import { fumadocsMdx } from "fumadocs-mdx/vite";
 import story from "@fumadocs/story/vite";
 import stylex from "@stylexjs/unplugin/vite";
 import { workspaceAliases } from "./scripts/workspace-aliases.ts";
+import { sourceImports } from "./scripts/source-imports.ts";
 const site = process.env["LENSO_DOCS_SITE"] ?? "http://localhost:3000";
 export default defineConfig(({ command }) => {
   const development = command === "serve";
@@ -71,6 +72,7 @@ export default defineConfig(({ command }) => {
         "@base-ui/react/*",
         "@internationalized/date",
         "react-stately/*",
+        "@lenso/ui > react-stately",
         "@base-ui/react",
         "@stylexjs/stylex",
         "culori",
@@ -79,7 +81,22 @@ export default defineConfig(({ command }) => {
         "nuqs/server",
         "@iconify/react",
         "m3-ripple",
-        "@gravity-ui/icons",
+        "fumadocs-ui/provider/tanstack",
+        "fumadocs-ui/provider/base",
+        "fumadocs-ui/contexts/search",
+        "fumadocs-ui/contexts/i18n",
+        "fumadocs-ui/contexts/tree",
+        "fumadocs-ui/layouts/notebook/page",
+        "fumadocs-ui/components/toc",
+        "fumadocs-ui/components/ui/collapsible",
+        "fumadocs-ui/mdx",
+        "fumadocs-core/framework",
+        "fumadocs-core/framework/tanstack",
+        "fumadocs-core/link",
+        "fumadocs-core/toc",
+        "@fumadocs/story",
+        "@fumadocs/story/vite/client",
+        "@fumari/stf",
         "nuqs",
         "nuqs/adapters/tanstack-router",
       ],
@@ -94,8 +111,48 @@ export default defineConfig(({ command }) => {
         "@fumari/stf",
       ],
     },
-    environments: { client: { build: { outDir: "out" } } },
+    environments: {
+      client: {
+        build: {
+          outDir: "out",
+          rolldownOptions: {
+            output: {
+              codeSplitting: {
+                groups: [
+                  {
+                    name: "react-runtime",
+                    test: /node_modules[\\/](?:react|react-dom|scheduler)[\\/]/,
+                    priority: 20,
+                  },
+                  {
+                    name: "router-runtime",
+                    test: /node_modules[\\/]@tanstack[\\/](?:history|router-core|react-router|react-store|store)[\\/]/,
+                    priority: 10,
+                  },
+                  {
+                    name: "control-runtime",
+                    test: /node_modules[\\/](?:@base-ui[\\/](?:utils[\\/]|react[\\/](?:esm[\\/])?(?:utils|internals|store|floating-ui-react)[\\/])|@floating-ui[\\/])/,
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
     plugins: [
+      sourceImports({
+        "@gravity-ui/icons": path.join(
+          path.dirname(require.resolve("@gravity-ui/icons/package.json")),
+          "esm/index.js",
+        ),
+        "@lenso/ui": path.resolve(import.meta.dirname, "../../packages/ui/src/index.ts"),
+        "@lenso/docs/client": path.resolve(
+          import.meta.dirname,
+          "../../packages/docs/src/client.ts",
+        ),
+        "@lenso/docs/react": path.resolve(import.meta.dirname, "../../packages/docs/src/react.ts"),
+      }),
       fumadocsMdx({ outDir: path.join(cache, "mdx") }),
       tanstackStart({
         sitemap: { enabled: true, host: site, outputPath: "sitemap.xml" },

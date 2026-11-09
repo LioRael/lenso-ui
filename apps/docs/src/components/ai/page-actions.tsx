@@ -8,11 +8,11 @@ import * as stylex from "@stylexjs/stylex";
 import { notebook } from "@lenso/docs/presentation";
 
 export function ViewOptions({
-  markdown,
+  loadMarkdown,
   sourceUrl,
   locale = "en",
 }: {
-  markdown: string;
+  loadMarkdown: () => Promise<string>;
   sourceUrl: string;
   locale?: string;
 }) {
@@ -23,7 +23,14 @@ export function ViewOptions({
   const [status, setStatus] = useState("");
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(markdown);
+      // Start the write in the click's activation; Safari accepts the pending Blob.
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          "text/plain": loadMarkdown().then(
+            (markdown) => new Blob([markdown], { type: "text/plain" }),
+          ),
+        }),
+      ]);
       setStatus(copiedLabel);
     } catch {
       setStatus(

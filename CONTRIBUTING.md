@@ -111,6 +111,48 @@ geometry before and during hydration in Chromium and WebKit, in both themes.
 It serves an isolated fixture through the docs development pipeline.
 Run `bun run --filter @lenso/ui-docs test:tabs-overflow` for the horizontal Tabs
 overflow menu, keyboard navigation, focus return, resizing and controlled state.
+Run `bun run --filter @lenso/ui-docs test:mobile-navigation` against docs dev for
+painted selected-tab text, docs TabBar minimization, expansion and fallback
+paint ownership during scrolling and viewport resizing in Chromium and WebKit.
+It also checks native blur and the current icon's trajectory during interrupted
+motion, and focus restoration when reduced motion is enabled mid-transition.
+Run `test:tab-bar-performance` separately from builds and other browser tests
+for the docs composition at 390px and 4× Chromium CPU slowdown. It checks six
+transition endpoints and a geometry-read budget, and reports layout/style work
+and frame intervals. These timings are a local simulation, not iPhone FPS.
+Run `bun run --filter @lenso/ui-docs test:document-loading` against docs dev for
+page-local MDX requests, delayed-module hydration and article continuity during
+navigation and browser history. The generated index owns metadata; compiled MDX
+bodies load on demand and the route must preload them before rendering.
+Run `bun run --filter @lenso/ui-docs test:loading-budget` against docs dev for
+script and decoded-JavaScript budgets (including development source maps),
+unused-component isolation, deferred search, and on-demand code highlighting.
+Development narrows named imports from known source barrels to their owning
+modules, retaining aliases, initialization side effects and HMR. Production
+continues to consume the built packages. Keep search closed and source panes
+offscreen when comparing initial loading; record later interaction separately.
+
+After building docs, run
+`bun run --filter @lenso/ui-docs test:production-loading` to check the static
+export's JavaScript request, decoded-byte and gzip-byte budgets in Chromium and
+WebKit. The test also checks homepage document-index isolation, interactive Tabs,
+client navigation, search and source highlighting. Production groups shared
+runtime helpers while keeping the application bootstrap outside those groups;
+document loaders and bodies remain together in their lazy route. See the
+[loading review](docs/research/docs-loading-tanstack-start-2026-11-09.md) for the
+framework guidance, measurements and tradeoffs.
+
+`test:deferred-content` checks development requests and first use of closed
+examples, code, Markdown copying and appearance controls in Chromium and WebKit.
+It also verifies that the API table remains present through hydration.
+`test:loading-timing` measures a completed static export in three fresh Chromium
+pages at 200,000 download bytes/second, 80 ms latency and 4× CPU slowdown. It
+reports median first contentful paint, largest contentful paint before the first
+interaction, Playground readiness and the first tab interaction. Run timing
+comparisons separately from builds and other browser checks; these are local
+simulations, not physical-device or public-CDN measurements. `DOCS_OUTPUT` can
+select a separately saved export for a baseline comparison. The regular loading
+regression enforces payload budgets rather than host-dependent millisecond limits.
 
 Run production builds for acceptance that depends on production behavior:
 changed build/CSS delivery integration, static export or distribution, a

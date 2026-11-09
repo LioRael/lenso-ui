@@ -1,10 +1,15 @@
 import { nativeApiFamily } from "../lib/native-api-section";
-import { docsIndex, getNavigation, isLocale } from "../lib/source";
+import { docsIndex, getNavigation, isLocale, readPage } from "../lib/source";
 import { ComponentLinks } from "./component-links";
 import { ViewOptions } from "./ai/page-actions";
 import { DocsFooter } from "./docs-footer";
-import { MaterialsPreview } from "./materials-preview";
-import { SemanticColorExamples } from "./semantic-color-examples";
+import { lazy, Suspense } from "react";
+const MaterialsPreview = lazy(() =>
+  import("./materials-preview").then((module) => ({ default: module.MaterialsPreview })),
+);
+const SemanticColorExamples = lazy(() =>
+  import("./semantic-color-examples").then((module) => ({ default: module.SemanticColorExamples })),
+);
 import { product } from "../lib/product";
 
 function localeOf(code: string) {
@@ -24,7 +29,7 @@ export function getPageOptions({
     locale: string;
     slug: string;
     url: string;
-    markdown: string;
+    markdownFile: string;
     metadata?: Record<string, unknown>;
   };
 }) {
@@ -39,16 +44,20 @@ export function getPageOptions({
   return {
     beforeContent:
       page.slug === "react/getting-started/materials" ? (
-        <MaterialsPreview chinese={locale === "cn"} />
+        <Suspense fallback={null}>
+          <MaterialsPreview chinese={locale === "cn"} />
+        </Suspense>
       ) : page.slug === "react/getting-started/colors" ? (
-        <SemanticColorExamples chinese={locale === "cn"} />
+        <Suspense fallback={null}>
+          <SemanticColorExamples chinese={locale === "cn"} />
+        </Suspense>
       ) : (
         <ComponentLinks family={familyOf(page.slug)} locale={locale} />
       ),
     actions: (
       <ViewOptions
         locale={locale}
-        markdown={page.markdown}
+        loadMarkdown={() => readPage(page)}
         sourceUrl={`${product.repository}/blob/main/apps/docs/${page.slug.startsWith("react/components") ? "scripts/docs-projection.ts" : markdownFile}`}
       />
     ),

@@ -21,11 +21,13 @@ import type { MaterialVariant } from "@lenso/tokens/materials";
 export type MaterialProps = StyleXProps<useRender.ComponentProps<"div">> & {
   variant?: MaterialVariant;
   liveGeometry?: boolean;
+  deferOptics?: boolean;
 };
 /** A material surface. Geometry and interactive behavior belong to its consumer. */
 export function Material({
   variant = "regular",
   liveGeometry = false,
+  deferOptics = false,
   children,
   ref,
   render,
@@ -50,7 +52,11 @@ export function Material({
       style: mergeStyle(compiled.style, style),
       children: (
         <>
-          <MaterialBackground variant={variant} liveGeometry={liveGeometry} />
+          <MaterialBackground
+            variant={variant}
+            liveGeometry={liveGeometry}
+            deferOptics={deferOptics}
+          />
           {children}
         </>
       ),
@@ -133,7 +139,7 @@ export function MaterialBackground({
             panel && liquidMaterialStyles.medium,
             variant === "glass-large" && liquidMaterialStyles.large,
             variant === "glass-clear" && liquidMaterialStyles.clear,
-            deferOptics && liquidMaterialStyles.menuMoving,
+            deferOptics && panel && liquidMaterialStyles.menuMoving,
             layerXstyle,
           )}
         />

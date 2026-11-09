@@ -159,7 +159,10 @@ test("emits only authored page targets with locale resolution, export selection 
   );
   const clientCode = await read("cn/react/components/field.examples.tsx");
   assert.ok(clientCode.includes('"data-example-mounted"'));
-  assert.ok(clientCode.includes("<ClientPreview>"));
+  assert.ok(clientCode.includes("<VisiblePreview>"));
+  assert.ok(
+    (await read("en/react/components/field.examples.tsx")).includes("loadFiles={loadFiles}"),
+  );
   const before = await stat(path.join(directory, outputs[0]));
   await generatePageDocuments(directory);
   assert.equal((await stat(path.join(directory, outputs[0]))).mtimeMs, before.mtimeMs);

@@ -1,5 +1,5 @@
 import { defineStory } from "./story";
-import { GlassMagnifierStory } from "./materials";
+import { GlassMagnifierStory } from "./previews/glass-magnifier";
 export const story = defineStory({
   displayName: "GlassMagnifier",
   Component: GlassMagnifierStory,

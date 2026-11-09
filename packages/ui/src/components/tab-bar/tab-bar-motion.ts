@@ -169,6 +169,9 @@ function present(group: HTMLElement) {
   let opticalHeight = 0;
   let settledBox: ReturnType<typeof box> | undefined;
   let copies: { item: HTMLElement; copy: HTMLElement; centre: HTMLElement }[] = [];
+  let batching = false;
+  const minimized = () =>
+    group.hasAttribute("data-tab-bar-resizing") || group.hasAttribute("data-minimized");
 
   const layoutCopies = () => {
     const { outer, scaleX, scaleY } = metrics();
@@ -208,7 +211,7 @@ function present(group: HTMLElement) {
   };
 
   const paint = () => {
-    if (state.width <= 0 || state.height <= 0) return;
+    if (batching || state.width <= 0 || state.height <= 0) return;
     if (opticalHeight !== state.height) {
       opticalHeight = state.height;
       contentOptics?.style.setProperty("--lg-bezel", (state.height * 0.2).toFixed(3));
@@ -291,7 +294,7 @@ function present(group: HTMLElement) {
     previousTime = now;
     previousX = value;
     state.x = value;
-    deformation.set(prefersReducedMotion() ? 0 : velocityDeformation(speed, 0.12));
+    if (!batching) deformation.set(prefersReducedMotion() ? 0 : velocityDeformation(speed, 0.12));
     paint();
   });
   const width = createSpring(0, REST[0], REST[1], (value) => {
@@ -309,16 +312,23 @@ function present(group: HTMLElement) {
     lift.tune(liftStiffness, liftDamping);
     state.y = target.y;
     state.height = target.height;
-    if (instant) {
-      previousTime = 0;
-      previousX = target.x;
-      deformation.set(0, true);
+    batching = instant;
+    try {
+      if (instant) {
+        previousTime = 0;
+        previousX = target.x;
+        deformation.set(0, true);
+      }
+      width.set(target.width, instant);
+      position.set(target.x, instant);
+      lift.set(lifted ? 1 : 0, instant);
+    } finally {
+      batching = false;
     }
-    width.set(target.width, instant);
-    position.set(target.x, instant);
-    lift.set(lifted ? 1 : 0, instant);
+    if (instant) paint();
   };
   const sync = (instant = false) => {
+    if (minimized()) return;
     const all = items();
     list.toggleAttribute("data-overflow", list.scrollWidth > list.clientWidth + 1);
     layoutCopies();
@@ -374,6 +384,7 @@ function present(group: HTMLElement) {
         : null;
     if (
       !event.isPrimary ||
+      minimized() ||
       event.button !== 0 ||
       gesture ||
       !item ||
@@ -492,7 +503,7 @@ function present(group: HTMLElement) {
   };
   let resizeFrame = 0;
   const resize = new ResizeObserver(() => {
-    if (resizeFrame) return;
+    if (resizeFrame || minimized()) return;
     resizeFrame = requestAnimationFrame(() => {
       resizeFrame = 0;
       sync(true);
@@ -516,6 +527,7 @@ function present(group: HTMLElement) {
   };
   const mutation = new MutationObserver((records) => {
     if (records.some((record) => record.type === "childList")) observeItems();
+    if (minimized()) return;
     updateCopies();
     sync();
   });
@@ -530,10 +542,27 @@ function present(group: HTMLElement) {
     const changed = next !== groupAppearance;
     groupAppearance = next;
     if (
-      changed ||
-      records.some((record) => record.target !== group || record.attributeName !== "style")
+      !minimized() &&
+      (changed ||
+        records.some((record) => record.target !== group || record.attributeName !== "style"))
     )
       updateCopies();
+  });
+  const minimize = new MutationObserver(() => {
+    if (minimized()) {
+      end();
+      for (const spring of [position, width, lift, deformation]) spring.stop();
+      refraction?.setActive(false);
+      delete group.dataset["highlightActive"];
+      delete group.dataset["refracting"];
+    } else {
+      updateCopies();
+      sync(true);
+    }
+  });
+  minimize.observe(group, {
+    attributes: true,
+    attributeFilter: ["data-tab-bar-resizing", "data-minimized"],
   });
   scopeMutation.observe(group, {
     attributes: true,
@@ -591,6 +620,7 @@ function present(group: HTMLElement) {
     resize.disconnect();
     mutation.disconnect();
     scopeMutation.disconnect();
+    minimize.disconnect();
     list.removeEventListener("scroll", reset);
     group.removeEventListener("pointerdown", down);
     group.removeEventListener("click", click, true);

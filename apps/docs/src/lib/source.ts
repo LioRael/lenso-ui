@@ -1,8 +1,9 @@
 import { componentCategories } from "./component-categories";
 import { createDocumentationSource } from "@lenso/docs/source";
 import authoredIndex from "../generated/lenso-docs-index.json";
+import type { Locale } from "./locale";
 
-export type Locale = "en" | "cn";
+export { isLocale, type Locale } from "./locale";
 export interface DocPage {
   locale: Locale;
   slug: string;
@@ -41,7 +42,6 @@ export const source = {
     Object.entries(docsIndex.families).map(([family, metadata]) => [family, metadata.related]),
   ) as Record<string, string[]>,
 };
-export const isLocale = (value: string): value is Locale => value === "en" || value === "cn";
 export const pageUrl = (page: Pick<DocPage, "locale" | "slug">) =>
   `/${page.locale}/docs/${page.slug}`;
 export function canonicalSlug(slug: string) {
@@ -50,12 +50,9 @@ export function canonicalSlug(slug: string) {
     ? `react/components/${docsIndex.sourceFamilyMapping[match[1]!]!}`
     : slug;
 }
-export function readPage(page: DocPage) {
-  const files = import.meta.glob<string>("../../content/lenso/**/*.mdx", {
-    query: "?raw",
-    import: "default",
-  });
-  return files[`../../${page.markdownFile}`]!();
+export async function readPage(page: Pick<DocPage, "markdownFile">) {
+  const { readMarkdown } = await import("./page-markdown");
+  return readMarkdown(page.markdownFile);
 }
 
 export const documentationSource = createDocumentationSource({

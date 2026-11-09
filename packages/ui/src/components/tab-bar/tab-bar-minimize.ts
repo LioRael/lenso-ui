@@ -16,6 +16,8 @@ export function useTabBarMinimize(
     if (!group || !root || !list) return;
     let progress = group.hasAttribute("data-minimized") ? 1 : 0;
     let expandedWidth = 0;
+    let selectedShift = 0;
+    const material = group.querySelector<HTMLElement>(":scope > [data-material]");
     const expandedHeight = layout === "phone" ? 54 : 44;
     group.setAttribute("data-minimize-ready", "");
     const paint = (value: number) => {
@@ -30,18 +32,10 @@ export function useTabBarMinimize(
       group.style.setProperty("--tab-bar-collapse", String(progress));
       group.style.setProperty("--tab-bar-content-opacity", String(Math.max(0, 1 - 3 * progress)));
       group.toggleAttribute("data-minimize-moving", progress > 0);
-      group.style.setProperty("--tab-bar-expanded-width", `${separate ? width : expandedWidth}px`);
-      const current = list.querySelector<HTMLElement>("[data-tab-bar-item][data-current]");
-      if (current) {
-        const content = current.querySelector<HTMLElement>("[data-tab-bar-content]") ?? current;
-        const rect = content.getBoundingClientRect();
-        const origin = list.getBoundingClientRect();
-        const scale =
-          group.getBoundingClientRect().width / parseFloat(getComputedStyle(group).width) || 1;
-        const shift = parseFloat(getComputedStyle(current.parentElement!).translate) || 0;
-        const center = (rect.left - origin.left + rect.width / 2) / scale - shift;
-        group.style.setProperty("--tab-bar-selected-shift", `${22 - center}px`);
-      }
+      const settled = value === (group.hasAttribute("data-minimized") ? 1 : 0);
+      group.toggleAttribute("data-tab-bar-resizing", !settled);
+      material?.toggleAttribute("data-material-resting", settled);
+      if (separate) group.style.setProperty("--tab-bar-expanded-width", `${width}px`);
     };
     const measure = () => {
       // Measure the normal flex layout, never an intermediate shrinking row.
@@ -54,20 +48,35 @@ export function useTabBarMinimize(
         node.style.removeProperty("--tab-bar-width");
         node.style.removeProperty("--tab-bar-expanded-width");
       }
-      expandedWidth =
-        group.getBoundingClientRect().width / (parseFloat(getComputedStyle(group).scale) || 1);
+      group.style.setProperty("--tab-bar-collapse", "0");
+      group.style.removeProperty("--tab-bar-height");
+      const scale = parseFloat(getComputedStyle(group).scale) || 1;
+      expandedWidth = group.getBoundingClientRect().width / scale;
+      const current = list.querySelector<HTMLElement>("[data-tab-bar-item][data-current]");
+      if (current) {
+        const content = current.querySelector<HTMLElement>("[data-tab-bar-content]") ?? current;
+        const rect = content.getBoundingClientRect();
+        const origin = list.getBoundingClientRect();
+        selectedShift = 22 - (rect.left - origin.left + rect.width / 2) / scale;
+      } else selectedShift = 0;
       for (const [node, style] of saved) node.style.cssText = style;
+      group.style.setProperty("--tab-bar-expanded-width", `${expandedWidth}px`);
+      group.style.setProperty("--tab-bar-selected-shift", `${selectedShift}px`);
       paint(progress);
     };
     measure();
     const spring = createSpring(progress, 400, 40, paint);
     motion.current = spring;
-    const resize = new ResizeObserver(measure);
-    resize.observe(root);
-    const mutation = new MutationObserver((records) => {
-      if (records.some((record) => record.type !== "attributes")) measure();
-      else paint(progress);
+    let rootWidth: number | undefined;
+    const resize = new ResizeObserver(([entry]) => {
+      if (!entry) return;
+      const width = entry.contentRect.width;
+      const changed = rootWidth === undefined || Math.abs(width - rootWidth) > 0.1;
+      rootWidth = width;
+      if (changed) measure();
     });
+    resize.observe(root);
+    const mutation = new MutationObserver(measure);
     mutation.observe(list, {
       subtree: true,
       childList: true,
@@ -90,6 +99,8 @@ export function useTabBarMinimize(
       groups.disconnect();
       group.removeAttribute("data-minimize-moving");
       group.removeAttribute("data-minimize-ready");
+      group.removeAttribute("data-tab-bar-resizing");
+      material?.setAttribute("data-material-resting", "");
       reduced.removeEventListener("change", finish);
       for (const name of [
         "--tab-bar-flex",
@@ -105,6 +116,14 @@ export function useTabBarMinimize(
     // The spring survives direction changes so reversals retain position and velocity.
   }, [ref, separate, layout]);
   useLayoutEffect(() => {
+    const group = ref.current;
+    if (
+      group &&
+      Number(group.style.getPropertyValue("--tab-bar-collapse")) !== (minimized ? 1 : 0)
+    ) {
+      group.setAttribute("data-tab-bar-resizing", "");
+      group.querySelector(":scope > [data-material]")?.removeAttribute("data-material-resting");
+    }
     motion.current?.set(minimized ? 1 : 0);
-  }, [minimized]);
+  }, [ref, minimized]);
 }

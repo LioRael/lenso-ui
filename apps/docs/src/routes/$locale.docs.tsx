@@ -4,6 +4,7 @@ import { SearchDialog } from "../components/fumadocs/ui/search-dialog";
 import { createLensoSiteOptions } from "../components/docs-site-options";
 import { getNavigation, getSectionEntries, isLocale } from "../lib/source";
 import { product } from "../lib/product";
+import { MobileNavigation } from "../components/docs-site-controls";
 export const Route = createFileRoute("/$locale/docs")({ component: DocsShell });
 function DocsShell() {
   const { locale } = Route.useParams();
@@ -25,6 +26,11 @@ function DocsShell() {
       <DocumentationSiteLayout {...options}>
         <Outlet />
       </DocumentationSiteLayout>
+      <MobileNavigation
+        locale={locale}
+        sections={options.sections}
+        activeSection={options.activeSection}
+      />
     </SearchDialog>
   );
 }

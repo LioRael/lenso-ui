@@ -1,5 +1,5 @@
 import { defineStory } from "./story";
-import { SearchFieldStory } from "./materials";
+import { SearchFieldStory } from "./previews/search-field";
 export const story = defineStory({
   displayName: "SearchField",
   Component: SearchFieldStory,

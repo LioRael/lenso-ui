@@ -2,6 +2,35 @@
 
 These are source changes; use the migration details for the version you consume.
 
+- TabBar minimization caches expanded geometry and suspends indicator work during
+  contraction and expansion. Moving groups retain native glass blur and refit
+  optical detail after settling. Reversals, reduced motion and focus restoration
+  keep their existing contracts; no API migration is required.
+
+- Documentation examples in closed disclosures and distant scenes load on demand.
+  Playground source, appearance-panel controls and the original Markdown are
+  deferred until use. Document route preparation runs concurrently with article
+  preparation; the rendered article and API remain present through hydration.
+  Material Playgrounds import their own implementation modules, so a Tabs visit
+  does not load sibling Input, Slider or GlassMagnifier Playgrounds.
+
+- Documentation search now loads its dialog and engine on first use. Live source
+  highlighting starts when code becomes visible and loads only the requested
+  language. Plain source remains selectable and copyable while highlighting
+  loads. Development narrows source-barrel imports and prebundles the used
+  third-party entrypoints; component imports and public APIs are unchanged.
+
+- Documentation loads only the current MDX body and prepares it before rendering
+  the article. Development prebundles the transitive icon library to avoid its
+  per-icon request waterfall. Glass retains native blur until its replacement
+  backdrop paints, and Tabs uses capsule corners before client measurement.
+  Existing component props and imports require no migration.
+
+- Tabs and SegmentedControl keep selected labels above the indicator in WebKit.
+  Floating glass fallback paints follow their navigation owner during scrolling
+  and browser-chrome changes. No API migration is required. Custom TabBar group
+  styles must preserve the component's flex sizing for minimization to contract.
+
 - Menu, Select and cascading submenu morphs now use native backdrop blur and
   simple CSS edges during motion. Content refraction and live rim painting are
   removed from these transitions; the existing fitted panel material returns

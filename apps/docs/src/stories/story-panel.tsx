@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, createContext, useContext, useId, useState, type ReactNode } from "react";
+import { Component, lazy, Suspense, useId, useState, type ReactNode } from "react";
 import { StoryProvider, useStory, type WithControlProps } from "@fumadocs/story";
 import type { TypeNode } from "@fumadocs/story/type-tree";
 import { useFieldValue } from "@fumari/stf";
@@ -9,30 +9,12 @@ import * as stylex from "@stylexjs/stylex";
 import { panel as s } from "./story-panel.stylex";
 import { ScrollableExampleScene } from "@/components/component-example-frame";
 import { ClientPreview } from "@/components/client-preview";
-import { storyUsage } from "./usage";
-import { ComponentSource } from "@/components/component-source";
 import { useLiveArgs } from "./use-live-args";
 import { groupParameters } from "./parameter-groups";
 
-const Language = createContext<"en" | "cn">("en");
-export const useStoryLocale = () => useContext(Language);
-export type StoryFile = { file: string; code: string };
-const Sources = createContext<StoryFile[] | undefined>(undefined);
-export function StoryLanguage({
-  locale,
-  files,
-  children,
-}: {
-  locale: "en" | "cn";
-  files?: StoryFile[];
-  children: ReactNode;
-}) {
-  return (
-    <Language value={locale}>
-      <Sources value={files}>{children}</Sources>
-    </Language>
-  );
-}
+export { StoryLanguage, type StoryFile, useStoryLocale } from "./story-context";
+import { useStoryLocale } from "./story-context";
+const StorySource = lazy(() => import("./story-source"));
 
 function Choice({
   label,
@@ -228,33 +210,6 @@ function LivePreview() {
   );
 }
 
-function StorySource({ active }: { active: boolean }) {
-  const cn = useStoryLocale() === "cn";
-  const { displayName } = useStory();
-  const args = useLiveArgs();
-  const files = useContext(Sources);
-  const sourceFiles = files?.map((file) => ({
-    name: file.file,
-    code: file.code.replace(
-      /\/\* story-args:start \*\/[\s\S]*?\/\* story-args:end \*\//,
-      JSON.stringify(args, null, 2),
-    ),
-  }));
-  const code =
-    sourceFiles === undefined ? "" : (sourceFiles[0]?.code ?? storyUsage(displayName ?? "", args));
-  return (
-    <ComponentSource
-      code={code}
-      local
-      files={sourceFiles}
-      standalone
-      live
-      active={active}
-      locale={cn ? "cn" : "en"}
-    />
-  );
-}
-
 function Content() {
   const cn = useStoryLocale() === "cn";
   const { presets, preset, variant, setVariant, displayName } = useStory();
@@ -445,7 +400,9 @@ function Content() {
         </div>
       </Tabs.Panel>
       <Tabs.Panel value="source" data-story-source xstyle={s.panel}>
-        <StorySource active={view === "source"} />
+        <Suspense fallback={null}>
+          <StorySource active={view === "source"} />
+        </Suspense>
       </Tabs.Panel>
     </Tabs>
   );

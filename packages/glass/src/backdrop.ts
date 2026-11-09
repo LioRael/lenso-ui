@@ -197,8 +197,7 @@ export function copyBackdrop(
     layer.append(optics);
   } else layer.append(frame);
   element.before(layer);
-  if (!nativeFallback) element.setAttribute("data-copy", "");
-  else optics.style.display = "none";
+  if (nativeFallback) optics.style.display = "none";
 
   let styled = "";
   let notified = false;
@@ -378,6 +377,7 @@ export function copyBackdrop(
           frame.style.transform = inputTransform;
         }
         if (!notified && (currentCopy || updateShared?.native === false)) {
+          if (!nativeFallback) element.setAttribute("data-copy", "");
           notified = true;
           onReady?.();
         }

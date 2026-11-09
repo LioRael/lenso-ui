@@ -1,5 +1,5 @@
 import { defineStory } from "./story";
-import { GlassStory } from "./materials";
+import { GlassStory } from "./previews/glass";
 export const story = defineStory({
   displayName: "Glass",
   Component: GlassStory,

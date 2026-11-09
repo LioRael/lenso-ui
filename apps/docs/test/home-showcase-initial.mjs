@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { chromium, webkit } from "playwright";
+import { assertSelectionInk } from "./selection-ink.mjs";
 
 const base = process.env.DOCS_URL ?? "http://127.0.0.1:3000";
 for (const [name, engine] of [
@@ -22,7 +23,11 @@ for (const [name, engine] of [
         return {
           tabHeight: tab.height,
           tintHeight: tint.height,
+          radius: parseFloat(
+            getComputedStyle(list.querySelector('[data-slot="tabs-tint"]')).borderTopLeftRadius,
+          ),
           centerOffset: tint.y + tint.height / 2 - tab.y - tab.height / 2,
+          backdrop: getComputedStyle(list.querySelector("[data-material-lens]")).backdropFilter,
         };
       });
     assert.ok(
@@ -32,6 +37,14 @@ for (const [name, engine] of [
     assert.ok(
       Math.abs(initialGeometry.centerOffset) < 1,
       `${name}: first paint indicator is not centered`,
+    );
+    assert.ok(
+      initialGeometry.radius >= initialGeometry.tintHeight / 2,
+      `${name}: first paint indicator must retain capsule end caps: ${JSON.stringify(initialGeometry)}`,
+    );
+    assert.ok(
+      initialGeometry.backdrop.includes("blur("),
+      `${name}: glass must be visible before JavaScript loads`,
     );
     await initialPage.close();
     const page = await browser.newPage({
@@ -121,6 +134,7 @@ for (const [name, engine] of [
       }, png);
     };
     const before = await sample();
+    await assertSelectionInk(page, list, `${name}: initial Alpine`);
     await page.getByRole("tab", { name: "Forest", exact: true }).click();
     if (name === "webkit")
       await page.waitForFunction(() => {
@@ -135,6 +149,7 @@ for (const [name, engine] of [
     await page.mouse.move(0, 0);
     await page.waitForTimeout(1800);
     const after = await sample();
+    await assertSelectionInk(page, list, `${name}: returning Alpine`);
     assert.ok(
       before.every((channel, index) => Math.abs(channel - after[index]) < 12),
       `${name}: initial backdrop ${before} differs from the same scene after switching back ${after}`,
