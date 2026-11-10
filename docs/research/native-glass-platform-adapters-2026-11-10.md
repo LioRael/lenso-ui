@@ -1,0 +1,66 @@
+# Native glass platform adapters
+
+Date: 2026-11-10. Source inspection of onlymoein/liquidglass pinned to `a2d26488ce8656901d088d10a69ec4e82fca37f4` and the current local Lenso checkout. This is an architectural recommendation, not runtime or visual acceptance evidence.
+
+## Required platform contract
+
+iOS must offer both actual Apple glass and actual system controls, with native as the recommended automatic choice when supported. A custom React Native switch inside a native glass surface would satisfy only the material requirement. Android should retain Lenso's appearance and optical behavior. Share semantic state, material intent, geometry and motion models where useful; preserve platform ownership of rendering and interaction. Share supported component style declarations, variables and themes through StyleX/RSD, with platform-specific view and rendering adapters.
+
+The existing [Space architecture discussion](https://chatgpt.com/space/page_aeb51ecee0948191a6570e61e4a2e9a9), dated November 6, keeps appearance separate from automatic/system/custom rendering and allows iOS to select custom rendering too. Preserve that choice: the new requirement establishes a native-control option and platform defaults, not a restriction against Lenso rendering on iOS. Material rendering and whole-control implementation have different capabilities and should be resolved per component. The prior discussion treats Rust/Wasm and the graphics abstraction as candidates; the current Web adapter does not make them prerequisites for Android.
+
+## What the pinned native implementation actually does
+
+### iOS: two separate native integrations
+
+[ControlView.swift](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/ios/ControlView.swift) hosts `UISwitch`, `UISlider`, `UIStepper`, `UISegmentedControl`, `UITabBar` and `UIButton`. Buttons select `.glass()` or `.prominentGlass()` on iOS 26+, and ordinary system configurations earlier. Menus are `UIMenu`/`UIAction` attached to the native button. This is a useful precedent for the user's system-control requirement, rather than merely an imitation of Apple styling.
+
+The host measures with UIKit `sizeThatFits`, reports dimensions to JavaScript, and centers intrinsic-size controls while allowing others to fill their host. [controls.ios.tsx](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/src/controls.ios.tsx) applies those dimensions and translates controlled values/events. The native slider avoids overwriting its value during tracking. The segmented control explicitly restores the authoritative selection before emitting its change. These ownership decisions should be specified per Lenso control rather than hidden inside a generic view wrapper.
+
+Independent glass surfaces use `expo-glass-effect`'s `GlassView` and `GlassContainer`; iOS `Backdrop` is a plain view. The pinned repository delegates the native glass implementation to that dependency, so inspection of this repository alone does not establish its internals. Earlier/unavailable glass falls back to a translucent view. See [glass.tsx](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/src/glass.tsx).
+
+The sizing bridge retries every 100 ms until the host matches the measured dimensions. A caller's incompatible explicit dimensions can therefore keep it retrying. Lenso should define intrinsic versus constrained sizing and use native measurement integration or bounded, change-driven notifications. The inspected file does not supply a complete Dynamic Type, focus, accessibility or controller-navigation integration. A standalone `UITabBar` also does not establish navigation-controller ownership or all system tab behavior.
+
+### Android: explicit source ownership and display-list replay
+
+[BackdropView.kt](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/android/src/main/java/expo/modules/liquidglass/BackdropView.kt) records its background and descendants into a `RenderNode`, draws that node normally, then invalidates weakly held glass consumers. Glass must remain outside its own source subtree to avoid recursive drawing. This captures a declared view subtree, not arbitrary pixels behind a window. The path does not establish support for separately composited video, camera or other external surfaces.
+
+[Backdrops.kt](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/android/src/main/java/expo/modules/liquidglass/Backdrops.kt) searches earlier siblings, including siblings of ancestors, for a backdrop covering the glass center. It maps source coordinates into consumer coordinates through global matrices and inversion. This is useful discovery convenience, but center containment is not full sample-region coverage or complete compositing order. Lenso should expose an explicit source identity with optional discovery, define portal/window boundaries and prohibit source cycles.
+
+[GlassView.kt](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/android/src/main/java/expo/modules/liquidglass/GlassView.kt) replays the source into a padded render node and applies blur followed by a runtime shader. Padding includes refraction reach and blur support. Pre-draw checks update the coordinate transform; source drawing invalidates consumers; property/size changes invalidate cached effects. Detachment removes listeners and source subscriptions. The implementation discovers its source only while its cached source is null, so moving across candidate sources does not itself trigger reselection.
+
+Full optics require API 33 and hardware rendering. API 31–32 applies the blur effect and clips the shape. Despite a comment describing blur and tone, that branch does not apply the runtime shader's tone or tint transfer. Older devices, missing sources and software canvases receive a solid/translucent fallback path. Lenso should specify actual degraded output and expose capability state rather than infer behavior from API availability alone.
+
+[GlassGroupView.kt](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/android/src/main/java/expo/modules/liquidglass/GlassGroupView.kt) owns one fused optical surface for at most eight direct, visible, untinted, non-lens glass children. Other pieces draw independently. The first member supplies group material settings. Geometry changes are detected before drawing using an integer-rounded key. This demonstrates group ownership, but Lenso needs explicit material compatibility, overflow behavior and geometry precision instead of silently inheriting those constraints.
+
+[GlassShader.kt](https://github.com/onlymoein/liquidglass/blob/a2d26488ce8656901d088d10a69ec4e82fca37f4/native/android/src/main/java/expo/modules/liquidglass/GlassShader.kt) implements distance fields, normals, rim light, refraction, tone, tint, lens dispersion and smooth union in AGSL. These are the reference author's approximations, not Apple's native glass algorithm. Its equations are also not automatically identical to Lenso's current fitted material model.
+
+## What Lenso can actually share
+
+Current local source separates some mathematics, but `packages/glass` is still a Web rendering package:
+
+| Existing source                                        | Reuse boundary                                                                                                                                                                                |
+| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/motion/spring-state.ts`                           | Pure analytical spring stepping already separates state from scheduling/painting.                                                                                                             |
+| `src/material-tone.ts`                                 | Numerical tone tables and transfers are portable; shader generation currently targets GLSL/WGSL, requiring an AGSL target or equivalent native implementation.                                |
+| `src/fusion-geometry.ts`                               | Numerical geometry is a candidate shared module; its public types still refer to Web-facing modules.                                                                                          |
+| `src/optical-fields.ts`, `src/apple-material.ts`       | Contain reusable optics/material mathematics mixed with canvas encoding, SVG construction and browser-oriented output. Extract numerical functions before reuse.                              |
+| `src/shared-core/webgl.ts`, `src/shared-core/batch.ts` | WebGL2, HTML canvas, DOM lifecycle, texture allocation and browser capture plumbing. The directory name does not make this a native renderer.                                                 |
+| `src/core-optics.ts`, `src/backdrop-scheduler.ts`      | DOM registration and discovery, computed styles, element bounds and browser invalidation belong to the Web adapter.                                                                           |
+| `src/motion/spring.ts`, `src/motion/glass-motion.ts`   | Browser clock, media queries, document visibility, pointer events and element styles remain platform drivers. Even `velocity-deformation.ts` combines a pure formula with browser scheduling. |
+
+Do not route iOS system controls through Lenso's fitted optics or layer a second custom press deformation over their native interaction. Shared material roles should map to native configurations on iOS and to Lenso optical parameters on Android/Web. Shared motion applies to Lenso-owned surfaces and Android custom controls where the interaction contract agrees.
+
+## Recommended adapter boundary
+
+1. **Shared contract:** controlled values, action identities, accessibility intent, material role, appearance, group identity, logical geometry and motion parameters. Keep browser nodes, GPU objects and UIKit controls out of it. Separate system control APIs from decorative glass surfaces.
+2. **iOS adapter:** native control hosts plus a native Apple glass/container integration for standalone surfaces. UIKit owns intrinsic measurement, editing, tracking, menus and system animation. Define older-OS behavior explicitly; native ordinary controls remain native when glass is unavailable.
+3. **Android adapter:** Lenso control composition plus a native backdrop/render driver. Start from explicit source/consumer ownership, stable transforms and immutable frame inputs; implement current Lenso material/geometry equations in the selected native shader backend. Reuse the pinned reference's architecture where appropriate without adopting its visual coefficients wholesale.
+4. **StyleX/RSD boundary:** share supported component style declarations, layout, typography, variables and themes. Map semantic tint, control size and material role through component props. A host's padding/background/radius must not accidentally cover a system control's material or force its internal geometry. Record which style properties each native host accepts. See the [RSD compatibility table](https://react.github.io/react-strict-dom/api/css/) and [styling guide](https://react.github.io/react-strict-dom/learn/styles/).
+
+On Android, native view recording and listener mutation should remain on the owning UI thread, with GPU execution delegated to the platform rendering pipeline. The pinned code uses native draw/pre-draw callbacks, not a JavaScript screenshot loop; this does not remove UI-thread recording and invalidation cost. Do not move view-tree traversal into an arbitrary worker. Native/worklet scheduling of shared numeric motion needs a defined clock and ownership rather than assuming ordinary React JavaScript runs on the rendering thread.
+
+Use source revisions and separately tracked geometry/material revisions, coalesce invalidation and pause invisible/detached consumers. Invalidate source selection after reparenting, source removal or identity changes. Bound padded render area, source count and group complexity. Release subscriptions and display-list resources on lifecycle transitions, and rebuild after rendering-resource failure. The pinned reference caches effect keys, but individual glass constructs a new runtime shader when that key changes; touch/light animation and large source trees therefore deserve explicit resource policies.
+
+Expose a small capability/degradation contract such as native-system glass, Lenso refractive glass, blurred material and opaque fallback. Account for unsupported capture sources, missing hardware acceleration, accessibility settings and allocation/shader failure. These are architectural requirements still to implement and verify, not behavior established by this source review.
+
+Any retained upstream implementation requires its license/copyright notices. Lenso's existing package has mixed MIT/LGPL notices; extraction or native translation requires reviewing the exact reused files rather than assuming all glass code shares one license.

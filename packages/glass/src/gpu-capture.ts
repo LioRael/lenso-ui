@@ -318,6 +318,19 @@ export function createBackdropAtlas(shape: CaptureShape) {
     previousTime = "";
   let captures = 0;
   let previousBounds: DOMRect | undefined;
+  let retained:
+    | {
+        revision: number;
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+        image: ReturnType<typeof capture>;
+      }
+    | undefined;
+  const output = document.createElement("canvas");
+  output.width = output.height = 1;
+  const outputContext = output.getContext("2d", { willReadFrequently: true })!;
   function makePack(capacityColumns: number, paint: Paint, staticOnly: boolean, overlay: boolean) {
     const root = document.createElement("div");
     root.style.cssText = `position:relative;width:${capacityColumns * strideX}px;height:${rows * strideY}px`;
@@ -408,6 +421,9 @@ export function createBackdropAtlas(shape: CaptureShape) {
     packs.clear();
     base?.capture.dispose();
     base = undefined;
+    retained?.image.dispose();
+    retained = undefined;
+    output.width = output.height = 1;
   }
   return {
     columns,
@@ -420,6 +436,101 @@ export function createBackdropAtlas(shape: CaptureShape) {
     async update(state: ReturnType<BackdropPaint["snapshot"]>, tiles: CaptureTile[]) {
       const { paint } = state;
       if (!paint) throw new Error("Backdrop is no longer self-contained paint");
+      // Retain source pixels around stationary paint. Moving the lens or scrolling
+      // its source then needs only a canvas crop, without SVG serialization/decode.
+      const reusable =
+        !paint.moving &&
+        tiles.every(
+          (tile) =>
+            (tile.scaleX ?? 1) === 1 &&
+            (tile.scaleY ?? 1) === 1 &&
+            Number.isInteger(tile.x * dpr) &&
+            Number.isInteger(tile.y * dpr),
+        );
+      const left = Math.min(...tiles.map((tile) => tile.x)) - margin;
+      const top = Math.min(...tiles.map((tile) => tile.y)) - margin;
+      const right = Math.max(...tiles.map((tile) => tile.x)) + width + margin;
+      const bottom = Math.max(...tiles.map((tile) => tile.y)) + height + margin;
+      const gutter = 96;
+      const cacheWidth = Math.ceil(right - left + 2 * gutter);
+      const cacheHeight = Math.ceil(bottom - top + 2 * gutter);
+      // Bound retained RGBA pixels to 16 MiB per atlas; larger spans keep tiled capture.
+      if (
+        reusable &&
+        cacheWidth * cacheHeight * dpr * dpr <= 4 * 1024 * 1024 &&
+        Math.max(cacheWidth, cacheHeight) * dpr <= 4096
+      ) {
+        const unchanged =
+          retained?.revision === state.revision &&
+          left >= retained.x &&
+          top >= retained.y &&
+          right <= retained.x + retained.width &&
+          bottom <= retained.y + retained.height;
+        if (!unchanged) {
+          clear();
+          const x = Math.floor(left) - gutter;
+          const y = Math.floor(top) - gutter;
+          const root = document.createElement("div");
+          root.style.cssText = `position:relative;width:${cacheWidth}px;height:${cacheHeight}px;overflow:hidden`;
+          const copy = paint.root.cloneNode(true) as HTMLElement;
+          copy.style.left = `${-x}px`;
+          copy.style.top = `${-y}px`;
+          root.append(copy);
+          const image = capture(root, cacheWidth, cacheHeight, dpr);
+          retained = {
+            revision: state.revision,
+            x,
+            y,
+            width: cacheWidth,
+            height: cacheHeight,
+            image,
+          };
+          await image.update(cacheWidth);
+          if (retained?.image !== image) return;
+          captures++;
+        } else if (placement === tiles.map((tile) => `${tile.x},${tile.y},1,1`).join(";")) {
+          return;
+        }
+        placement = tiles.map((tile) => `${tile.x},${tile.y},1,1`).join(";");
+        const cached = retained!;
+        if (output.width !== columns * strideX * dpr || output.height !== rows * strideY * dpr) {
+          output.width = columns * strideX * dpr;
+          output.height = rows * strideY * dpr;
+        }
+        outputContext.clearRect(0, 0, output.width, output.height);
+        tiles.forEach((tile, index) =>
+          outputContext.drawImage(
+            cached.image.canvas,
+            (tile.x - margin - cached.x) * dpr,
+            (tile.y - margin - cached.y) * dpr,
+            (width + 2 * margin) * dpr,
+            (height + 2 * margin) * dpr,
+            (index % columns) * strideX * dpr,
+            Math.floor(index / columns) * strideY * dpr,
+            (width + 2 * margin) * dpr,
+            (height + 2 * margin) * dpr,
+          ),
+        );
+        return {
+          indices: tiles.map((_, index) => index),
+          columns,
+          pixels:
+            paint.opaque &&
+            tiles.every(
+              (tile) =>
+                tile.x >= sampleMargin &&
+                tile.y >= sampleMargin &&
+                tile.x + width + sampleMargin <= paint.width &&
+                tile.y + height + sampleMargin <= paint.height,
+            )
+              ? { canvas: output, width: output.width, height: output.height }
+              : outputContext.getImageData(0, 0, output.width, output.height),
+        };
+      }
+      if (retained) {
+        clear();
+        revision = -1;
+      }
       const nextPlacement = tiles
         .map((tile) => `${tile.x},${tile.y},${tile.scaleX ?? 1},${tile.scaleY ?? 1}`)
         .join(";");

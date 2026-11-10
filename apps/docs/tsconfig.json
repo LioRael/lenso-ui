@@ -26,7 +26,8 @@
     "test/navigation-controls-fixture*.tsx",
     "test/swipe-wheel-fixture*.tsx",
     "test/ios-controls.client.tsx",
-    "test/segmented-section-fixture.tsx"
+    "test/segmented-section-fixture.tsx",
+    "test/upstream-glass-fixture.tsx"
   ],
   "exclude": ["node_modules"]
 }

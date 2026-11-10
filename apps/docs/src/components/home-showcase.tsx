@@ -3,7 +3,7 @@
 // Copyright 2025 NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 // Modified: a focused photo example using Lenso glass controls and native tabs.
 // License: THIRD_PARTY_NOTICES.md.
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { GlassToggleButton, Tabs, ThemeScope } from "@lenso/ui";
 import { Heart } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
@@ -42,7 +42,7 @@ const scenes = [
   },
 ] as const;
 
-export function HomeShowcase({ locale }: { locale: "en" | "cn" }) {
+export function HomeShowcase({ locale, children }: { locale: "en" | "cn"; children?: ReactNode }) {
   const cn = locale === "cn";
   const [favorites, setFavorites] = useState<string[]>([]);
   return (
@@ -59,35 +59,32 @@ export function HomeShowcase({ locale }: { locale: "en" | "cn" }) {
                   {...stylex.props(s.photo)}
                 />
                 <div {...stylex.props(s.shade)} aria-hidden="true" />
-                <div {...stylex.props(s.photoHeading)}>
-                  <span {...stylex.props(s.photoLabel)}>
-                    {cn ? "风景集" : "The landscape collection"}
-                  </span>
-                  <GlassToggleButton
-                    size="lg"
-                    isIconOnly
-                    aria-label={cn ? `收藏${scene[locale]}照片` : `Favorite ${scene.en} photo`}
-                    pressed={favorites.includes(scene.id)}
-                    onPressedChange={(pressed) =>
-                      setFavorites((current) =>
-                        pressed ? [...current, scene.id] : current.filter((id) => id !== scene.id),
-                      )
-                    }
-                  >
-                    <Heart
-                      width={20}
-                      height={20}
-                      fill={favorites.includes(scene.id) ? "currentColor" : "none"}
-                      aria-hidden="true"
-                    />
-                  </GlassToggleButton>
-                </div>
+                <GlassToggleButton
+                  xstyle={s.favorite}
+                  size="lg"
+                  isIconOnly
+                  aria-label={cn ? `收藏${scene[locale]}照片` : `Favorite ${scene.en} photo`}
+                  pressed={favorites.includes(scene.id)}
+                  onPressedChange={(pressed) =>
+                    setFavorites((current) =>
+                      pressed ? [...current, scene.id] : current.filter((id) => id !== scene.id),
+                    )
+                  }
+                >
+                  <Heart
+                    width={20}
+                    height={20}
+                    fill={favorites.includes(scene.id) ? "currentColor" : "none"}
+                    aria-hidden="true"
+                  />
+                </GlassToggleButton>
                 <div {...stylex.props(s.photoCopy)}>
                   <p {...stylex.props(s.photoTitle)}>{cn ? scene.titleCn : scene.title}</p>
                 </div>
               </Tabs.Panel>
             ))}
           </div>
+          <div {...stylex.props(s.productIntro)}>{children}</div>
           <Tabs.ListContainer
             xstyle={s.navigation}
             overflowLabel={cn ? "更多风景" : "More landscapes"}

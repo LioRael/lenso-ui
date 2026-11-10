@@ -1,0 +1,231 @@
+// Adapted from onlymoein/liquidglass a2d26488 (MIT).
+// Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz.
+// Modified: explicit sources, Lenso material calibration and native lifecycle.
+package expo.modules.lensoglass
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.RectF
+import android.graphics.RenderEffect
+import android.graphics.RenderNode
+import android.graphics.RuntimeShader
+import android.graphics.Shader
+import android.os.Build
+import android.view.View
+import android.view.ViewTreeObserver
+import androidx.annotation.RequiresApi
+import expo.modules.kotlin.AppContext
+import expo.modules.kotlin.views.ExpoView
+import kotlin.math.max
+import kotlin.math.min
+
+/**
+ * Glass that flows together, as in an iOS glass container. The group draws the glass of the
+ * pieces directly inside it as one surface, and pieces that come within `spacing` of each other
+ * merge, then part again as they move away. Each piece still draws what's on it.
+ *
+ * Tinted glass and lenses draw themselves, as does every piece before Android 13, since the
+ * surface needs the shader.
+ */
+class GlassGroupView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
+  private val density = resources.displayMetrics.density
+
+  /** Glass closer together than this flows into one shape, in points. */
+  var spacing = 20f
+    set(value) { field = value; invalidate() }
+
+  var sourceID = ""
+    set(value) { field = value; invalidate() }
+
+  private var backdrop: BackdropView? = null
+  private val node: RenderNode? = if (Build.VERSION.SDK_INT >= 33) RenderNode("lenso-glass-group") else null
+  private var shader: RuntimeShader? = null
+  private var effectFor = ""
+  private val fromBackdrop = Matrix()
+  private val step = Matrix()
+  private val box = RectF()
+  private val rects = FloatArray(MAX * 4)
+  private val radii = FloatArray(MAX)
+  private var count = 0
+  private var placed = ""
+
+  private val follow = ViewTreeObserver.OnPreDrawListener {
+    if (isLaidOut) {
+      val next = Backdrops.behind(this, sourceID)
+      if (next !== backdrop) {
+        backdrop?.unwatch(this)
+        backdrop = next
+        next?.watch(this)
+        invalidate()
+      }
+    }
+    val source = backdrop
+    if (source != null && Backdrops.mapping(source, this, step) && step != fromBackdrop) {
+      fromBackdrop.set(step)
+      invalidate()
+    }
+    // The pieces can move without the group knowing, as a pressed one swells, so their places
+    // are checked before every frame.
+    if (source != null && place() != placed) invalidate()
+    true
+  }
+
+  init {
+    setWillNotDraw(false)
+    clipChildren = false
+  }
+
+  /** Whether this group draws the glass of this piece. */
+  internal fun carries(glass: GlassView): Boolean = active && members().contains(glass)
+
+  private val active: Boolean
+    get() = Build.VERSION.SDK_INT >= 33 && backdrop != null && isHardwareAccelerated
+
+  private fun members(): List<GlassView> {
+    val list = ArrayList<GlassView>(childCount)
+    for (i in 0 until childCount) {
+      val child = getChildAt(i)
+      if (child is GlassView && child.visibility == View.VISIBLE && child.tint == null && !child.lens &&
+        child.rotation == 0f && child.rotationX == 0f && child.rotationY == 0f && child.scaleX > 0f && child.scaleX == child.scaleY &&
+        child.sourceID == sourceID && list.size < MAX &&
+        (list.isEmpty() || (list[0].clear == child.clear && list[0].dark == child.dark && list[0].held == child.held))) list.add(child)
+    }
+    return list
+  }
+
+
+
+  private val outline = android.graphics.Path()
+
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+    viewTreeObserver.addOnPreDrawListener(follow)
+  }
+
+  override fun onDetachedFromWindow() {
+    viewTreeObserver.removeOnPreDrawListener(follow)
+    backdrop?.unwatch(this)
+    backdrop = null
+    node?.discardDisplayList()
+    shader = null
+    effectFor = ""
+    super.onDetachedFromWindow()
+  }
+
+  // React Native sizes and places the children itself. Expo's views are LinearLayouts
+  // underneath, which would otherwise measure them again, squeezing text, and stack them.
+  override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.getSize(heightMeasureSpec))
+  }
+
+  override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) = Unit
+
+  override fun dispatchDraw(canvas: Canvas) {
+    if (Build.VERSION.SDK_INT >= 33 && canvas.isHardwareAccelerated && width > 0 && height > 0) drawSurface(canvas)
+    super.dispatchDraw(canvas)
+  }
+
+  /** Where each piece is now, in the group's own pixels, with a key that says if that changed. */
+  private fun place(): String {
+    val pieces = members()
+    count = pieces.size
+    val key = StringBuilder()
+    for ((i, piece) in pieces.withIndex()) {
+      box.set(0f, 0f, piece.width.toFloat(), piece.height.toFloat())
+      piece.matrix.mapRect(box)
+      box.offset(piece.left.toFloat(), piece.top.toFloat())
+      rects[i * 4] = box.left
+      rects[i * 4 + 1] = box.top
+      rects[i * 4 + 2] = box.width()
+      rects[i * 4 + 3] = box.height()
+      radii[i] = min(piece.radiusPx * piece.scaleX, min(box.width(), box.height()) / 2f)
+      key.append(box.left).append(',').append(box.top).append(',')
+        .append(box.width()).append(',').append(box.height()).append(',').append(radii[i]).append(';')
+    }
+    return key.toString()
+  }
+
+  @RequiresApi(33)
+  private fun drawSurface(canvas: Canvas) {
+    val source = backdrop?.content ?: return
+    val surface = node ?: return
+    placed = place()
+    if (count == 0) return
+    val pieces = members()
+
+    // Room round the pieces for the rim to reach into and the blur to spread, and for a piece
+    // to swell beyond the group as it's pressed.
+    val shortest = pieces.minOf { min(it.width, it.height) } / density
+    val bezel = (shortest * 0.12f).coerceIn(4f, 10f)
+    val reach = min(shortest * 0.33f, 48f)
+    val first = pieces[0]
+    val blur = if (first.clear) 1.3f else 15.3f
+    val margin = ((reach + blur * 3f + 24f) * density).toInt()
+
+    surface.setPosition(0, 0, width + margin * 2, height + margin * 2)
+    updateEffect(surface, margin, shortest, bezel, blur, first)
+    val recording = surface.beginRecording()
+    recording.translate(margin.toFloat(), margin.toFloat())
+    recording.concat(fromBackdrop)
+    recording.drawRenderNode(source)
+    surface.endRecording()
+
+    // The pieces' shadows go under the surface, so one piece's doesn't fall on its neighbour.
+    for (piece in pieces) {
+      Shapes.outline(outline, piece.width.toFloat(), piece.height.toFloat(), piece.radiusPx)
+      canvas.save()
+      canvas.translate(piece.left.toFloat(), piece.top.toFloat())
+      canvas.concat(piece.matrix)
+      Shapes.drawShadow(canvas, outline, piece.width.toFloat(), piece.height.toFloat(), piece.radiusPx, piece.short, density, piece.dark)
+      canvas.restore()
+    }
+
+    canvas.save()
+    canvas.translate(-margin.toFloat(), -margin.toFloat())
+    canvas.drawRenderNode(surface)
+    canvas.restore()
+  }
+
+  @RequiresApi(33)
+  private fun updateEffect(surface: RenderNode, margin: Int, shortest: Float, bezel: Float, blur: Float, first: GlassView) {
+    val key = "$width-$height-$margin-$placed-$spacing-${first.clear}-${first.dark}-${first.held}"
+    if (key == effectFor) return
+    effectFor = key
+
+    val size = ((shortest - 60f) / 60f).coerceIn(0f, 1f)
+    val placedRects = FloatArray(MAX * 4)
+    for (i in 0 until count) {
+      placedRects[i * 4] = rects[i * 4] + margin
+      placedRects[i * 4 + 1] = rects[i * 4 + 1] + margin
+      placedRects[i * 4 + 2] = rects[i * 4 + 2]
+      placedRects[i * 4 + 3] = rects[i * 4 + 3]
+    }
+    val s = shader ?: RuntimeShader(GROUP_SHADER).also { shader = it }
+    s.setFloatUniform("rects", placedRects)
+    s.setFloatUniform("radii", radii)
+    s.setFloatUniform("count", count.toFloat())
+    s.setFloatUniform("spacing", spacing * density)
+    s.setFloatUniform("bezel", bezel * density)
+    s.setFloatUniform("thickness", (shortest * 0.2f).coerceIn(8f, 24f) * density)
+    s.setFloatUniform("density", density)
+    s.setFloatUniform("materialSize", size)
+    s.setFloatUniform("materialClarity", if (first.clear) 1f else 0f)
+    s.setFloatUniform("darkMode", if (first.dark) 1f else 0f)
+    s.setFloatUniform("shine", 1f)
+    s.setFloatUniform("clear", if (first.clear || first.held) 1f else 0f)
+    if (first.dark) s.setFloatUniform("base", 0f, 0f, 0f) else s.setFloatUniform("base", 1f, 1f, 1f)
+    s.setFloatUniform("light", 0f, -1f)
+
+    // The effect takes a copy of the shader's values, so it's made again whenever they change.
+    val radius = max(0f, (blur * density - 0.5f) / 0.57735f)
+    val bent = RenderEffect.createRuntimeShaderEffect(s, "content")
+    val blurred = RenderEffect.createBlurEffect(radius, radius, Shader.TileMode.CLAMP)
+    surface.setRenderEffect(RenderEffect.createChainEffect(bent, blurred))
+  }
+
+  private companion object {
+    /** The most pieces one group draws as one surface; any more draw themselves. */
+    const val MAX = 8
+  }
+}

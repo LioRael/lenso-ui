@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "customConditions": ["react-native"],
+    "moduleSuffixes": [".ios", ".android", ".native", ""]
+  },
+  "include": ["App.tsx"]
+}

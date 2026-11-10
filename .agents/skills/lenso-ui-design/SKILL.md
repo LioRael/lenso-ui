@@ -1,29 +1,51 @@
 ---
 name: lenso-ui-design
-description: Design or visually review Lenso UI pages, including responsive layout, reference reconstruction and rendered comparison.
+description: Design or visually review pages built with @lenso/ui. Use for new screens, responsive layout, screenshot reconstruction, page polish and rendered comparison; component API, theme wiring and build failures use lenso-ui.
 ---
 
 # Design with Lenso UI
 
-1. Read the project's `DESIGN.md` and inspect the existing surface. Establish
-   the audience, primary task, content, visual direction and relevant states.
-   For Apple-inspired layout, typography, color, material, motion, forms or
-   navigation, read the matching topics in
-   `docs/design/apple-guidance.md` in the Lenso UI checkout. Identify which
-   decisions come from Apple, which are Lenso conventions and which are verified.
-   When a reference is supplied, use [reference.md](references/reference.md).
-2. Choose the page's hierarchy, layout, typography, semantic colors, material
-   roles and responsive behavior. Establish shared alignment guides and assign
-   each gap and surface an owner. For a substantial redesign, compare viable
-   structural arrangements before choosing component variants. Resolve actual
-   component contracts through
-   the sibling [Lenso UI skill](../lenso-ui/SKILL.md); avoid inventing a second
-   token system. For grouped forms, focus, materials and docs navigation, read
-   `docs/design/component-conventions.md` in the Lenso UI checkout.
-   If work is delegated, use [handoff.md](references/handoff.md).
-3. Implement a representative slice with real content and a working primary
-   interaction. Render it in the actual application and adjust before expanding.
-4. Review appearance and behavior separately using [review.md](references/review.md).
-   Repair the highest-impact shared defect and render again. Finish when the
-   intended task works and no known material defect remains in the reviewed scope.
-   Report viewports, states, comparison evidence and any remaining gaps.
+## Establish the intended screen
+
+Read the application's design direction and existing screen. Identify the
+primary task, real content, next action and states that affect the layout.
+A small correction follows the established direction. A new screen or substantial
+redesign benefits from comparing viable structures before choosing variants.
+When supplied a screenshot or live reference, use
+[reference.md](references/reference.md).
+
+In the Lenso source checkout, `DESIGN.md` owns visual decisions;
+`docs/design/component-conventions.md` owns exact component rules. For an
+Apple-inspired decision read the relevant topic in `docs/design/apple-guidance.md`.
+In a consumer without those files, use the project's direction and the portable
+[page patterns](references/patterns.md); no Lenso checkout is required.
+
+## Compose the page
+
+Resolve actual public components with the sibling
+[Lenso UI skill](../lenso-ui/SKILL.md). Choose hierarchy, reading order and shared
+alignment before colors, radii or motion. Assign each gap one owner and each
+surface a task. Use semantic theme roles and existing material recipes.
+
+Read [patterns.md](references/patterns.md) for settings/forms, collections,
+navigation and narrow-screen adaptations. Preserve real content, longer labels
+and usable controls while choosing density. Native HTML owns static structure;
+interactive components keep their native parts and behavior.
+
+Implement one representative section with a working primary interaction. Render
+it in the actual application and adjust before expanding. If implementation is
+already delegated, use [handoff.md](references/handoff.md) to keep shared decisions
+and acceptance states consistent.
+
+## Review the rendered result
+
+Use [review.md](references/review.md) to inspect task, structure, alignment,
+hierarchy, interaction and adaptation. Repair the highest-impact shared defect,
+then render again. Review behavior separately from appearance: a working form
+does not establish visual fidelity, and a screenshot does not establish focus
+restoration or validation.
+
+Finish when the requested task works and no known material defect remains in
+the reviewed scope. Report the rendering environment, relevant viewports/states,
+comparison evidence and remaining gaps. Source review alone supports a proposal,
+not a claim that the screen was visually verified.

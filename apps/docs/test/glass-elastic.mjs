@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { chromium, webkit } from "playwright";
+import { keepDevFixture } from "./keep-dev-fixture.mjs";
 
 const base = process.env.DOCS_URL ?? "http://127.0.0.1:4337";
 // Runtime checks catch component overrides that bypass the shared press model.
@@ -12,18 +13,26 @@ for (const [name, engine] of [
   );
   try {
     const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    page.setDefaultTimeout(30000);
+    await keepDevFixture(page, base);
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(`${base}/cn/docs/react/components/glass-button`, {
       waitUntil: "domcontentloaded",
     });
+    await page.waitForLoadState("networkidle");
+    // Exercise the real size demo without depending on deferred article layout.
+    await page.evaluate(async () => {
+      const { mountElastic } = await import("/test/upstream-glass-fixture.tsx");
+      for (const child of document.body.children)
+        if (child instanceof HTMLElement) child.hidden = true;
+      const host = document.createElement("div");
+      document.body.append(host);
+      mountElastic(host);
+    });
     const sample = (label) =>
       page.locator('[data-slot="glass-button"]').filter({ hasText: new RegExp(`^${label}$`) });
     await sample("Small").waitFor({ state: "attached" });
-    const sizes = sample("Small").locator("xpath=ancestor::details[1]");
-    // Closed disclosures retain stale layout bounds for their examples.
-    if (!(await sizes.evaluate((element) => element.open)))
-      await sizes.locator(":scope > summary").click();
     for (const label of ["Small", "Medium", "Large"]) {
       const button = sample(label);
       await button.scrollIntoViewIfNeeded();
@@ -121,11 +130,9 @@ for (const [name, engine] of [
     assert.ok(["0px", "0px 0px"].includes(reduced.translate), JSON.stringify(reduced));
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.waitForFunction(() => !matchMedia("(prefers-reduced-motion: reduce)").matches);
-    await page.goto(`${base}/cn/docs/react/components/glass-toggle-button`, {
-      waitUntil: "domcontentloaded",
-    });
     const toggle = page.locator('[data-slot="glass-toggle-button"]').first();
     await toggle.waitFor();
+    await toggle.scrollIntoViewIfNeeded();
     await page.waitForFunction(() =>
       Boolean(
         document

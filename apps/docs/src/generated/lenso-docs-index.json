@@ -805,6 +805,16 @@
     },
     {
       "locale": "en",
+      "slug": "react/getting-started/skills",
+      "title": "Agent skills",
+      "description": "Install portable Lenso skills for components, themes, integration and page design.",
+      "navigationGroup": "Overview",
+      "navigationOrder": 5,
+      "markdownFile": "content/lenso/en/react/getting-started/skills.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
       "slug": "react/getting-started/stylex",
       "title": "Styling",
       "description": "Compose typed styles without losing native state callbacks or runtime custom properties.",
@@ -876,46 +886,6 @@
       "description": "A responsive photo library built with Lenso UI.",
       "navigationOrder": 1,
       "markdownFile": "content/lenso/en/react/templates/photos.mdx",
-      "examples": []
-    },
-    {
-      "locale": "en",
-      "slug": "react/tools",
-      "title": "Tools overview",
-      "description": "Query the same Lenso contract through the CLI, read-only MCP server and repo-local agent skill.",
-      "navigationGroup": "UI for Agents",
-      "navigationOrder": 20,
-      "markdownFile": "content/lenso/en/react/tools/index.mdx",
-      "examples": []
-    },
-    {
-      "locale": "en",
-      "slug": "react/tools/cli",
-      "title": "CLI",
-      "description": "Use the source candidate to inspect contracts and review safe consumer setup plans.",
-      "navigationGroup": "UI for Agents",
-      "navigationOrder": 21,
-      "markdownFile": "content/lenso/en/react/tools/cli.mdx",
-      "examples": []
-    },
-    {
-      "locale": "en",
-      "slug": "react/tools/mcp",
-      "title": "MCP server",
-      "description": "Expose the matching contract to an MCP client through a read-only stdio server.",
-      "navigationGroup": "UI for Agents",
-      "navigationOrder": 22,
-      "markdownFile": "content/lenso/en/react/tools/mcp.mdx",
-      "examples": []
-    },
-    {
-      "locale": "en",
-      "slug": "react/tools/skill",
-      "title": "Agent skill",
-      "description": "Load Lenso implementation and visual-design workflows backed by the matching release contract.",
-      "navigationGroup": "UI for Agents",
-      "navigationOrder": 23,
-      "markdownFile": "content/lenso/en/react/tools/skill.mdx",
       "examples": []
     },
     {
@@ -4462,6 +4432,16 @@
     },
     {
       "locale": "cn",
+      "slug": "react/getting-started/skills",
+      "title": "Agent skills",
+      "description": "Install portable Lenso skills for components, themes, integration and page design.",
+      "navigationGroup": "Overview",
+      "navigationOrder": 5,
+      "markdownFile": "content/lenso/cn/react/getting-started/skills.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
       "slug": "react/getting-started/stylex",
       "title": "样式",
       "description": "组合类型化样式，同时保留原生状态回调与运行时自定义属性。",
@@ -4533,46 +4513,6 @@
       "description": "使用 Lenso UI 构建的响应式照片库。",
       "navigationOrder": 1,
       "markdownFile": "content/lenso/cn/react/templates/photos.mdx",
-      "examples": []
-    },
-    {
-      "locale": "cn",
-      "slug": "react/tools",
-      "title": "工具概览",
-      "description": "通过 CLI、只读 MCP 服务和仓库内 agent skill 查询同一 Lenso 契约。",
-      "navigationGroup": "面向代理的 UI",
-      "navigationOrder": 20,
-      "markdownFile": "content/lenso/cn/react/tools/index.mdx",
-      "examples": []
-    },
-    {
-      "locale": "cn",
-      "slug": "react/tools/cli",
-      "title": "CLI",
-      "description": "使用源码候选检查契约，并审阅安全的消费者配置计划。",
-      "navigationGroup": "面向代理的 UI",
-      "navigationOrder": 21,
-      "markdownFile": "content/lenso/cn/react/tools/cli.mdx",
-      "examples": []
-    },
-    {
-      "locale": "cn",
-      "slug": "react/tools/mcp",
-      "title": "MCP 服务",
-      "description": "通过只读 stdio 服务向 MCP 客户端提供匹配契约。",
-      "navigationGroup": "面向代理的 UI",
-      "navigationOrder": 22,
-      "markdownFile": "content/lenso/cn/react/tools/mcp.mdx",
-      "examples": []
-    },
-    {
-      "locale": "cn",
-      "slug": "react/tools/skill",
-      "title": "Agent skill",
-      "description": "加载 Lenso 实现与视觉设计工作流，统一使用匹配发布的组件契约。",
-      "navigationGroup": "面向代理的 UI",
-      "navigationOrder": 23,
-      "markdownFile": "content/lenso/cn/react/tools/skill.mdx",
       "examples": []
     },
     {

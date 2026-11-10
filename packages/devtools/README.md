@@ -1,10 +1,10 @@
 # Shared developer-tool implementation
 
-This private workspace module serves the product docs, CLI and MCP. `contract`
-owns encoding and source resolution; `queries` implements read-only queries;
-`parser` and `policy` analyze source. `build` packages the two transports and
-stages their required notices. `testing` supplies their shared contract fixture.
-Consumers use the package entrypoints rather than another transport's source.
+This private workspace module supports documentation generation and repository
+checks. `contract` owns encoding and source resolution; `parser` and `policy`
+analyze source. `testing` supplies documentation-generator contract fixtures.
+These are internal build and verification modules. Agent integration is provided
+by the portable skills in `.agents/skills`.
 
 ## Design policy
 

@@ -43,7 +43,7 @@ export function createLensoSiteOptions({
   entries,
   sectionEntries,
 }: OptionsProps): Omit<DocumentationSiteLayoutProps, "children"> {
-  const section = slug.startsWith("react/tools") ? "getting-started" : slug.split("/")[1];
+  const section = slug.split("/")[1];
   const sections = sectionEntries.map(({ slug: id, title, href: url }) => {
     const Icon = sectionIcons[id] ?? BookOpen;
     return { id, title, url, icon: <Icon key={id} width={16} height={16} aria-hidden="true" /> };

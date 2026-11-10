@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "Lenso Native",
+    "slug": "lenso-native-example",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": { "bundleIdentifier": "dev.lenso.nativeexample", "supportsTablet": true },
+    "android": { "package": "dev.lenso.nativeexample" },
+    "plugins": ["expo-dev-client"]
+  }
+}

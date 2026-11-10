@@ -13,10 +13,10 @@ Modified by Lenso contributors:
 
 - Replaced HeroUI packages, Tailwind/BEM styling and global React Aria assumptions
   with actual `@lenso/ui` / `@lenso/tokens` contracts, StyleX and native ownership.
-- Replaced network fetch scripts and mutable upstream fallback with the existing
-  version/digest-matched Lenso CLI/MCP and authored source contract.
-- Added progressive component, theme and setup references, explicit tooling
-  availability, and repository/consumer verification distinctions.
+- Replaced network fetch scripts and mutable upstream fallback with direct
+  installed-package inspection and matching authored source documentation.
+- Added progressive component, forms, overlays, theme, setup and debugging
+  references, and repository/consumer verification distinctions.
 - Linked a separate first-party Lenso visual-design workflow.
 
 Upstream installation and public archive discovery are reference mechanisms,

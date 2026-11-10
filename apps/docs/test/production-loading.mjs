@@ -89,7 +89,10 @@ try {
               (tab) => tab.textContent === "Forest" && tab.getAttribute("aria-selected") === "true",
             ),
           );
-          await page.getByRole("link", { name: "Browse components", exact: true }).click();
+          await page
+            .locator("#main-content")
+            .getByRole("link", { name: "Components", exact: true })
+            .click();
           await page.getByRole("heading", { name: "Components", exact: true }).waitFor();
         } else {
           await page.getByRole("tab", { name: "Code", exact: true }).first().click();

@@ -1,4 +1,5 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
+// Copyright (c) 2026 Moein Saharkhiz.
 // Adapted for variable-width navigation links and native link activation.
 import { useCallback, useEffect, useState, type Ref } from "react";
 import { assignRef } from "../../utils/interaction/ref.js";
@@ -10,7 +11,8 @@ import {
   velocityDeformation,
 } from "@lenso/glass/motion";
 
-const REST = [1024, 58.9, 676, 47.8] as const;
+// A tap can swing past its destination; direct manipulation must keep up without overshoot.
+const REST = [225, 21, 676, 47.8] as const;
 const DRAG = [2500, 94, 576, 44.2] as const;
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 const pixels = (value: string) => parseFloat(value) || 0;
@@ -306,7 +308,8 @@ function present(group: HTMLElement) {
     paint();
   });
   const move = (target: ReturnType<typeof box>, lifted: boolean, instant = false) => {
-    const [slideStiffness, slideDamping, liftStiffness, liftDamping] = gesture ? DRAG : REST;
+    const [slideStiffness, slideDamping] = gesture?.moved ? DRAG : REST;
+    const [, , liftStiffness, liftDamping] = gesture ? DRAG : REST;
     position.tune(slideStiffness, slideDamping);
     width.tune(slideStiffness, slideDamping);
     lift.tune(liftStiffness, liftDamping);
@@ -506,6 +509,17 @@ function present(group: HTMLElement) {
     if (resizeFrame || minimized()) return;
     resizeFrame = requestAnimationFrame(() => {
       resizeFrame = 0;
+      const target = active ? box(active) : undefined;
+      // Subpixel flex rounding during press scale must not snap a moving lens to rest.
+      if (
+        target &&
+        settledBox &&
+        Math.abs(target.x - settledBox.x) < 0.1 &&
+        Math.abs(target.y - settledBox.y) < 0.1 &&
+        Math.abs(target.width - settledBox.width) < 0.1 &&
+        Math.abs(target.height - settledBox.height) < 0.1
+      )
+        return;
       sync(true);
     });
   });

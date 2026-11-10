@@ -3,14 +3,15 @@
  * Adapted: presentation variables leave native activation and caller CSS intact.
  */
 import { createSpring, prefersReducedMotion } from "./spring.js";
+import { pointerPress, touchPress } from "./press-model.js";
 
 interface Feel {
   grow: number;
   press: readonly [number, number];
   release: readonly [number, number];
 }
-const POINTER: Feel = { grow: 6, press: [417.6, 29.2], release: [230, 23.7] };
-const TOUCH: Feel = { grow: 16, press: [795, 38], release: [342, 13.5] };
+const POINTER: Feel = pointerPress;
+const TOUCH: Feel = touchPress;
 
 export interface PressOptions {
   grow?: number;

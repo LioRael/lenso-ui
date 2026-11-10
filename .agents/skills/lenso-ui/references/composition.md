@@ -57,3 +57,47 @@ rectangles and scroll regions in both themes and relevant widths.
 
 Keep component correctness and page design separate: this reference proves the
 parts behave coherently, not that a composed screen matches a visual target.
+
+## Concrete API differences
+
+These examples illustrate the current source API. Resolve the installed version
+before copying them; they are source snippets, not browser verification.
+
+```tsx
+import { Button } from "@lenso/ui";
+
+<Button type="submit" variant="prominent" isLoading={saving}>
+  Save changes
+</Button>;
+```
+
+Use `destructive` for destructive meaning; `variant="destructive"` is not a
+Button variant. Likewise, Lenso Button supports `isLoading`; rules written for
+another library's Button cannot establish this contract.
+
+```tsx
+import { Button, Modal } from "@lenso/ui";
+
+<Modal.Root>
+  <Modal.Trigger render={<Button />}>Edit profile</Modal.Trigger>
+  <Modal.Portal>
+    <Modal.Backdrop />
+    <Modal.Viewport>
+      <Modal.Popup>
+        <Modal.Header>
+          <Modal.Title>Edit profile</Modal.Title>
+          <Modal.Description>Update your profile details.</Modal.Description>
+        </Modal.Header>
+        <Modal.Body>{/* The actual editing form belongs here. */}</Modal.Body>
+        <Modal.Footer>
+          <Modal.Close render={<Button />}>Cancel</Modal.Close>
+        </Modal.Footer>
+      </Modal.Popup>
+    </Modal.Viewport>
+  </Modal.Portal>
+</Modal.Root>;
+```
+
+`Modal.Popup`, the accessible title and the native portal/viewport structure
+carry behavior and presentation. Renaming them to another library's Dialog
+parts loses the Lenso contract.

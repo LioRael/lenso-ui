@@ -753,12 +753,30 @@ function refract(
   let resized: ReturnType<typeof createResizableFilter> | undefined;
   let fittedSize = "";
   let fittedAppearance = "";
-  const liveRim = liveGeometry && !selection ? createLiveRim(element) : undefined;
+  const liveRim = !selection ? createLiveRim(element) : undefined;
   const paintRim = () => {
     if (!liveRim || !nearViewport) return;
+    const pressed = element.matches("[data-lenso-light-pressed], [data-lenso-key-pressed]");
+    if ((!liveGeometry && !pressed) || element.hasAttribute("data-lenso-glass-fused")) {
+      liveRim.destroy();
+      return;
+    }
     const geometry = readLens(element);
-    if (geometry) liveRim.paint(geometry.width, geometry.height, geometry.radius, geometry.shape);
+    if (geometry) {
+      // Brighten only the foreground; pressing must not invalidate backdrop optics or tone.
+      if (pressed) geometry.shape.materialClarity = 1;
+      liveRim.paint(geometry.width, geometry.height, geometry.radius, geometry.shape);
+    }
   };
+  const pressedRim = !selection ? new MutationObserver(paintRim) : undefined;
+  pressedRim?.observe(element, {
+    attributes: true,
+    attributeFilter: [
+      "data-lenso-light-pressed",
+      "data-lenso-key-pressed",
+      "data-lenso-glass-fused",
+    ],
+  });
   const resizeFitted = (force = false) => {
     if (!fitted || selection || fittedAppearance !== appearance) return;
     const geometry = readLens(element);
@@ -776,7 +794,8 @@ function refract(
       if (filtered) {
         material ??= createMaterialLens({
           ...geometry.shape,
-          materialForeground: liveRim !== undefined && hasForegroundRim(geometry.shape),
+          materialForeground:
+            liveGeometry && liveRim !== undefined && hasForegroundRim(geometry.shape),
         });
         element.style.setProperty("--lg-filter", material.filter);
       }
@@ -810,7 +829,7 @@ function refract(
     const previous = material;
     material = createMaterialLens({
       ...shape,
-      materialForeground: liveRim !== undefined && hasForegroundRim(shape),
+      materialForeground: liveGeometry && liveRim !== undefined && hasForegroundRim(shape),
     });
     // Color transfer is synchronous; decoded geometry can replace it later.
     element.style.setProperty("--lg-filter", material.filter);
@@ -934,6 +953,7 @@ function refract(
     generation++;
     stopWaiting();
     themes?.disconnect();
+    pressedRim?.disconnect();
     if (frame !== undefined) cancelAnimationFrame(frame);
     if (rimFrame !== undefined) cancelAnimationFrame(rimFrame);
     liveRim?.destroy();

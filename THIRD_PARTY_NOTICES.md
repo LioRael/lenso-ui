@@ -41,6 +41,14 @@ under MIT, Copyright (c) 2026 Kelvin Zhang and Copyright (c) 2026 Moein Saharkhi
 Lenso retains Base UI controls, StyleX, shared scroll-edge materials and its
 existing pagination API, adding RTL keys and focus across the indicator window.
 
+TabBar's tap/drag spring tuning follows
+[onlymoein/liquidglass commit 33ade2a](https://github.com/onlymoein/liquidglass/commit/33ade2a251d0125577249380a746df6859b2d8e3).
+Pressed foreground rim brightening follows the clear-rim response in
+[commit ae8d914](https://github.com/onlymoein/liquidglass/commit/ae8d914020cad1d6aef33f965881bce7e11f2e0c).
+Both are MIT, Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz. Lenso retains
+its existing velocity deformation, foreground renderer and native interaction
+contracts; only foreground clarity changes during a press.
+
 The incremental Gaussian variance calculation in
 `packages/ui/src/utils/materials/soft-edge.ts` follows
 [MyGo progressive blur](https://github.com/egoist/mygo/blob/main/plugins/glass/blur.go),

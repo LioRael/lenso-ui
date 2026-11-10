@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ESNext"],
+    "types": ["react"],
+    "moduleSuffixes": [".ios", ".android", ".native", ""],
+    "customConditions": ["react-native"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

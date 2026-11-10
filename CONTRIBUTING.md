@@ -125,6 +125,10 @@ Run `test:tab-bar-performance` separately from builds and other browser tests
 for the docs composition at 390px and 4× Chromium CPU slowdown. It checks six
 transition endpoints and a geometry-read budget, and reports layout/style work
 and frame intervals. These timings are a local simulation, not iPhone FPS.
+Run `test:upstream-glass` against docs dev for TabBar tap rebound, pressed
+foreground rims and retained Base UI Sheet scroll/gesture ownership. It checks
+Chromium/WebKit light/dark, keyboard and reduced motion, desktop RTL, and
+Chromium native touch arbitration. It does not establish physical-device parity.
 Run `bun run --filter @lenso/ui-docs test:document-loading` against docs dev for
 page-local MDX requests, delayed-module hydration and article continuity during
 navigation and browser history. The generated index owns metadata; compiled MDX

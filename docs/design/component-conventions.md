@@ -151,6 +151,13 @@ lens receives the selected tint; `aria-current` follows navigation activation.
 Consumers should use `isCurrent` rather than adding a second selected text color
 that overrides this transient state.
 
+TabBar taps and keyboard activation use a lightly underdamped position/width
+spring (225/21); an actual drag uses the stiff 2500/94 spring. A pointer down
+without movement remains a tap. Ignore target-box changes below 0.1 CSS px from
+press-scale layout rounding so they cannot interrupt the slide. These values
+are a Lenso choice adapted from the upstream Web reference, not a measured native
+spring fit. Reduced motion settles immediately.
+
 Decoded glass filters have geometry-specific pixel fields. When a material
 resizes, update its filter region and decoded field bounds before paint instead
 of displaying the previous circular region on an expanding capsule. Resize an
@@ -198,6 +205,11 @@ continue beyond the original hit box without changing native activation rules.
 Re-pressing during release measures the resting dimensions and carries spring
 velocity into the new target. Reduced motion keeps scale/translation neutral,
 including when the preference changes during a gesture; pressed light remains.
+Eligible standalone glass foreground rims also brighten while held by pointer or
+keyboard, including when elastic motion is disabled. The rim uses clear-profile
+light strength without changing backdrop optics, material tone or the saved
+clarity preference. Release and cancellation restore the resting rim. Fused
+surfaces retain their shared contour and lighting owner.
 The generic touch response is faster than the mouse response. Disabled members can deform an
 enabled shared surface without becoming actionable. Menu pointer activation
 waits for release and rejects a drag, while keyboard/assistive activation stays
@@ -423,6 +435,13 @@ primarily a supporting side panel; Sheet owns bottom presentations with vertical
 dragging and detents. ActionSheet presents a focused choice of operations, while
 ShareSheet composes Sheet for sharing targets and grouped actions. Keep those
 semantic roles distinct; there is no separate public Dialog alias.
+
+Sheet delegates drag and scroll arbitration to Base UI. A scrollable body can
+scroll upward at a partial detent; it does not expand the sheet before scrolling.
+At full height, downward drags scroll existing content toward its top before the
+sheet can move from the scroll edge. Keep horizontal scrollers and Slider/text
+editing gestures native. Do not layer a second pointer-capture or manual
+scroll-handoff implementation over Drawer.Viewport.
 
 Modal and side Drawer share the desktop Sheet content surface: primary in light
 appearance, secondary in dark appearance, 32px corners and the same panel shadow.

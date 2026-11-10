@@ -326,23 +326,29 @@ test("generation is cwd-independent and derives version from the active package"
   assert.equal((await generateDocsProjection(directory)).index.lensoVersion, "0.9.1-next.2");
 });
 
-test("discovers authored tool sections in the same index without a maintained page list", async () => {
+test("discovers authored skill sections in the same index without a maintained page list", async () => {
   const { directory, write } = await fixture();
   for (const locale of ["en", "cn"]) {
     await write(
-      `apps/docs/content/lenso/${locale}/react/tools/index.mdx`,
-      '---\ntitle: "Tools"\ndescription: "Candidate tools"\n---\n\nSource candidate.\n',
+      `apps/docs/content/lenso/${locale}/react/getting-started/skills.mdx`,
+      '---\ntitle: "Agent skills"\ndescription: "Portable skills"\n---\n\nSource candidate.\n',
     );
     await write(
-      `apps/docs/content/lenso/${locale}/react/tools/cli.mdx`,
-      '---\ntitle: "CLI"\ndescription: "Contract queries"\n---\n\nUnpublished candidate.\n',
+      `apps/docs/content/lenso/${locale}/react/getting-started/skills-usage.mdx`,
+      '---\ntitle: "Usage"\ndescription: "Skill usage"\n---\n\nLoad the local skill.\n',
     );
   }
   const { index } = await generateDocsProjection(directory);
   for (const locale of ["en", "cn"]) {
-    assert.ok(index.pages.some((page) => page.locale === locale && page.slug === "react/tools"));
     assert.ok(
-      index.pages.some((page) => page.locale === locale && page.slug === "react/tools/cli"),
+      index.pages.some(
+        (page) => page.locale === locale && page.slug === "react/getting-started/skills",
+      ),
+    );
+    assert.ok(
+      index.pages.some(
+        (page) => page.locale === locale && page.slug === "react/getting-started/skills-usage",
+      ),
     );
     assert.equal(
       index.pages.filter((page) => page.locale === locale).flatMap((page) => page.examples).length,

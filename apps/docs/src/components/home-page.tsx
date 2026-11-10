@@ -6,7 +6,7 @@
 // Modified: Apple-inspired hierarchy, live glass example and Lenso documentation paths.
 import NextLink from "fumadocs-core/link";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Link } from "@lenso/ui";
+import { Button, GlassButton, Link } from "@lenso/ui";
 import { HomeShell } from "./home-layout";
 import { HomeShowcase } from "./home-showcase";
 import { home as s } from "@/styles/home.stylex";
@@ -52,42 +52,48 @@ export function HomePage({ locale }: { locale: Locale }) {
     <HomeShell locale={locale}>
       <main id="main-content" {...stylex.props(s.main)}>
         <section aria-labelledby="home-title" {...stylex.props(s.hero)}>
-          <div {...stylex.props(s.heroContent)}>
-            <p {...stylex.props(s.eyebrow)}>React. StyleX. Liquid Glass.</p>
-            <h1 id="home-title" {...stylex.props(s.title)}>
-              {cn ? "熟悉的感觉。" : "Feels familiar."}
-              <br />
-              <span {...stylex.props(s.titleMuted)}>
-                {cn ? "全新的可能。" : "A fresh perspective."}
-              </span>
-            </h1>
-            <p {...stylex.props(s.description)}>
-              {cn
-                ? "遵循 Apple 设计理念的 React 组件库。清晰的层级、自然的交互，还有恰到好处的 Liquid Glass。"
-                : "React components with an Apple-inspired point of view. Clear hierarchy, natural interaction, and Liquid Glass where it belongs."}
-            </p>
-            <div {...stylex.props(s.ctas)}>
-              <Button
-                nativeButton={false}
-                role="link"
-                size="lg"
-                variant="prominent"
-                render={<NextLink href={`/${locale}/docs/react/getting-started`} />}
-              >
-                {cn ? "构建你的界面" : "Build with Lenso"}
-              </Button>
-              <Button
-                nativeButton={false}
-                role="link"
-                size="lg"
-                variant="bordered"
-                render={<NextLink href={`/${locale}/docs/react/components`} />}
-              >
-                {cn ? "浏览组件" : "Browse components"}
-              </Button>
+          <HomeShowcase locale={locale}>
+            <div {...stylex.props(s.heroContent)}>
+              <div {...stylex.props(s.heroHeading)}>
+                <p {...stylex.props(s.eyebrow, s.heroEyebrow)}>React. StyleX. Liquid Glass.</p>
+                <h1 id="home-title" {...stylex.props(s.title)}>
+                  {cn ? "熟悉的感觉。" : "Feels familiar."}
+                  <br />
+                  <span {...stylex.props(s.titleMuted)}>
+                    {cn ? "全新的可能。" : "A fresh perspective."}
+                  </span>
+                </h1>
+              </div>
+              <div {...stylex.props(s.heroIntroduction)}>
+                <p {...stylex.props(s.description)}>
+                  {cn
+                    ? "遵循 Apple 设计理念的 React 组件库。"
+                    : "React components with an Apple-inspired point of view."}
+                </p>
+                <div {...stylex.props(s.ctas)}>
+                  <Button
+                    nativeButton={false}
+                    role="link"
+                    size="lg"
+                    variant="prominent"
+                    xstyle={s.heroAction}
+                    render={<NextLink href={`/${locale}/docs/react/getting-started`} />}
+                  >
+                    {cn ? "阅读文档" : "Read the docs"}
+                  </Button>
+                  <GlassButton
+                    xstyle={s.heroAction}
+                    nativeButton={false}
+                    role="link"
+                    size="lg"
+                    render={<NextLink href={`/${locale}/docs/react/components`} />}
+                  >
+                    {cn ? "浏览组件" : "Components"}
+                  </GlassButton>
+                </div>
+              </div>
             </div>
-          </div>
-          <HomeShowcase locale={locale} />
+          </HomeShowcase>
         </section>
         <section aria-labelledby="foundations-title" {...stylex.props(s.foundations)}>
           <div {...stylex.props(s.sectionHeading)}>

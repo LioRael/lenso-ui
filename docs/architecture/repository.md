@@ -15,9 +15,7 @@ packages/
   primitives/           Preserved headless source and public API
   docs/                 @lenso/docs framework
   create-docs/          create-lenso-docs initializer and template
-  cli/                  Command-line transport
-  mcp/                  MCP transport
-  devtools/             Private contracts, queries, analysis and tool packaging
+  devtools/             Private docs contracts and source analysis
   storybook/            Isolated stories and interactive accessibility diagnostics
 scripts/                Repository-wide verification and release operations
 tests/                  Repository and installed-consumer checks; shared DOM setup
@@ -36,10 +34,10 @@ that span packages or install the actual distribution. Its shared setup supports
 multiple package suites; it is not a separate testing product.
 
 `packages/devtools` is private. Docs generates product API/content projections;
-the shared module owns contract encoding, queries, source analysis and policy.
-CLI and MCP depend on that implementation, rather than each other's internals.
-Packaging has a separate entrypoint so queries do not load build machinery.
-The distributable transports bundle this implementation and its required notices.
+the shared module owns contract encoding, source analysis and policy. Agent
+integration lives in `.agents/skills/lenso-ui` and `lenso-ui-design`, with
+portable references and licenses; see [agent integration](agent-skills.md). Repository setup, preview and landing skills
+remain local contributor workflows.
 
 `@lenso/docs` and `create-lenso-docs` retain their own packaging and verification.
 `apps/docs-starter` checks the framework from an independent application. It

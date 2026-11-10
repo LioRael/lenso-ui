@@ -15,9 +15,7 @@ semantic themes and shared glass materials. Its design principles are in
 | `packages/docs`        | Content-only MDX documentation framework           |
 | `packages/create-docs` | Documentation project initializer                  |
 | `packages/primitives`  | Preserved headless package, unchanged              |
-| `packages/cli`         | Command-line developer tools                       |
-| `packages/mcp`         | MCP developer tools                                |
-| `packages/devtools`    | Private shared developer-tool implementation       |
+| `packages/devtools`    | Private docs contracts and source analysis         |
 | `tests`                | Repository and installed-consumer verification     |
 | `packages/storybook`   | Isolated stories and accessibility diagnostics     |
 | `apps/docs`            | Authored Lenso documentation and runnable examples |
@@ -25,6 +23,21 @@ semantic themes and shared glass materials. Its design principles are in
 
 The maintained ownership and file-placement rules are in
 [Repository structure](docs/architecture/repository.md).
+
+## Agent skills
+
+Lenso's agent integration consists of two portable skills:
+
+- [lenso-ui](.agents/skills/lenso-ui/SKILL.md): component selection, composition,
+  themes, consumer setup and debugging.
+- [lenso-ui-design](.agents/skills/lenso-ui-design/SKILL.md): page structure,
+  visual references, responsive layout and rendered review.
+
+Install both with your agent host's skill loader, or copy both directories into
+its project-local skills directory, preserving references and licenses. They
+read installed package declarations and matching documentation directly.
+See the [skills guide](apps/docs/content/lenso/en/react/getting-started/skills.mdx)
+for installation and example requests.
 
 ## Development
 

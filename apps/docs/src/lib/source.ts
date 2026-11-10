@@ -65,9 +65,7 @@ export const documentationSource = createDocumentationSource({
     ...page,
     url: pageUrl(page),
     kind: page.slug.startsWith("react/components/") ? ("component" as const) : ("docs" as const),
-    collection: /^react\/(?:getting-started|tools)(?:\/|$)/.test(page.slug)
-      ? "getting-started"
-      : (page.slug.split("/")[1] ?? "getting-started"),
+    collection: page.slug.split("/")[1] ?? "getting-started",
     navigation: {
       order: page.navigationOrder ?? 0,
       ...(page.navigationGroup ? { group: page.navigationGroup } : {}),
@@ -83,10 +81,7 @@ export type DocSection = Pick<DocPage, "locale" | "slug" | "title"> & { href: st
 export function getSectionEntries(locale: Locale): DocSection[] {
   const order = ["getting-started", "components", "primitives", "templates"];
   const sections = source.pages
-    .filter(
-      (page) =>
-        page.locale === locale && /^react\/[^/]+$/.test(page.slug) && page.slug !== "react/tools",
-    )
+    .filter((page) => page.locale === locale && /^react\/[^/]+$/.test(page.slug))
     .map((page) => ({ locale, slug: page.slug, title: page.title, href: pageUrl(page) }));
   for (const [section, title] of [
     ["primitives", "Primitives"],
@@ -116,11 +111,9 @@ export function getNavigation(locale: Locale, section: string) {
       }),
     ];
   }
-  return documentationSource
-    .getNavigation(locale, section === "tools" ? "getting-started" : section)
-    .map(({ title, url, description }) => ({
-      label: title,
-      ...(url ? { href: url } : {}),
-      ...(description !== undefined ? { description } : {}),
-    }));
+  return documentationSource.getNavigation(locale, section).map(({ title, url, description }) => ({
+    label: title,
+    ...(url ? { href: url } : {}),
+    ...(description !== undefined ? { description } : {}),
+  }));
 }

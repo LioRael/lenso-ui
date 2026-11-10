@@ -1,0 +1,69 @@
+---
+title: "Agent skills"
+description: "Install portable Lenso skills for components, themes, integration and page design."
+navigationGroup: "Overview"
+navigationOrder: 5
+---
+
+## Choose a skill
+
+Lenso's agent integration consists of two skills. They read installed package
+exports, types, source and matching documentation directly.
+
+| Skill | Use it for |
+| --- | --- |
+| `lenso-ui` | Component selection, native composition, forms, overlays, semantic themes, Vite/Next setup and debugging |
+| `lenso-ui-design` | Page structure, responsive layout, screenshot reconstruction and rendered visual review |
+
+## Install
+
+With a host that supports the open-source Skills installer, select both skills:
+
+```sh
+npx skills add LioRael/lenso-ui --skill lenso-ui --skill lenso-ui-design
+```
+
+The [external Skills installer](https://github.com/vercel-labs/skills) requires
+Node.js 22.20 or later; it is not a Lenso executable. Choose the target
+agent and project scope using its prompts. Inspect the installed files before
+using them. For a reproducible source candidate, copy from the intended checkout
+instead of assuming the repository's default branch contains that candidate.
+
+For manual installation, copy both `.agents/skills/lenso-ui` and
+`.agents/skills/lenso-ui-design` directories into your host's supported local
+skills directory. Keep their sibling names, references, notices and licenses.
+Load them using that host's skill mechanism; installation and explicit invocation
+syntax depend on the host. No Lenso server configuration is needed.
+
+The source repository also has contributor-only setup, preview and landing
+skills. Consumer applications need only the two skills above.
+
+## Try a task
+
+- “Use lenso-ui to add a profile form with validation and a loading Save action.”
+- “Use lenso-ui to investigate why my Next production build loses component styles.”
+- “Use lenso-ui to theme this application and check the dialog's portal.”
+- “Use lenso-ui-design to adapt this settings screen for narrow viewports.”
+- “Use lenso-ui-design to compare this page with the supplied screenshot.”
+
+The implementation skill first identifies installed versions, framework, public
+parts and StyleX delivery. Its references cover API lookup, composition, forms,
+overlays, theming, setup and symptom-driven debugging. Existing project choices
+remain authoritative; a current website example does not silently upgrade an
+older consumer API.
+
+The design skill establishes the task and real content, chooses a structure,
+implements a representative section, then reviews the rendered result. It can
+operate in a consumer without access to this source repository.
+
+## Verify the result
+
+Use the application's existing typecheck, lint and build scripts. Exercise
+relevant editing, selection, submission, dismissal and focus restoration. For
+style changes inspect the rendered app, including affected themes, portals and
+narrow layouts. The agent should distinguish source review, browser observation
+and production verification, and report meaningful untested behavior.
+
+Skills contain workflow guidance rather than a frozen copy of every component
+API. Public declarations and matching source remain the contract. Applicable
+licenses and provenance accompany each skill directory.
