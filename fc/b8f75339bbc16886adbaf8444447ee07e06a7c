@@ -1,0 +1,121 @@
+docs/research/evidence/native-glass-2026-11-10/ios/final/NativeQA.swift
+  s_10c7d362cf24b2::t_ca01d92812632b 1-156
+docs/research/evidence/native-glass-2026-11-10/android/results.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-12
+docs/research/evidence/native-glass-2026-11-10/android/slider-accepted.xml
+  s_10c7d362cf24b2::t_ca01d92812632b 1
+apps/native-example/package.json
+  s_10c7d362cf24b2::t_ca01d92812632b 20,27
+docs/research/evidence/native-glass-2026-11-10/build-tools/fetch.py
+  s_10c7d362cf24b2::t_ca01d92812632b 1-47
+docs/research/evidence/native-glass-2026-11-10/ios/final/final-default-sanity3.log
+  s_10c7d362cf24b2::t_ca01d92812632b 1-1279
+docs/research/evidence/native-glass-2026-11-10/ios/probe/runtime-colors.log
+  s_10c7d362cf24b2::t_ca01d92812632b 1-23
+docs/research/evidence/native-glass-2026-11-10/ios/interaction/NativeQA.swift
+  s_10c7d362cf24b2::t_ca01d92812632b 1-197
+docs/research/evidence/native-glass-2026-11-10/android/backdrop-scrolled.xml
+  s_10c7d362cf24b2::t_ca01d92812632b 1
+docs/research/evidence/native-glass-2026-11-10/build-tools/maven-proxy.py
+  s_10c7d362cf24b2::t_ca01d92812632b 1-46
+docs/research/evidence/native-glass-2026-11-10/ios/probe/Probe.swift
+  s_10c7d362cf24b2::t_ca01d92812632b 1-118
+docs/research/evidence/native-glass-2026-11-10/ios/interaction/RESULTS.md
+  s_10c7d362cf24b2::t_ca01d92812632b 1-49
+docs/research/evidence/native-glass-2026-11-10/ios/interaction/test.log
+  s_10c7d362cf24b2::t_ca01d92812632b 1-1983
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-final-restored-light-classifier.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-18
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-opaque-hierarchy.txt
+  s_10c7d362cf24b2::t_ca01d92812632b 1-149
+packages/ui-native/README.md
+  s_10c7d362cf24b2::t_ca01d92812632b 77-84
+  s_10c7d362cf24b2::t_9ece90eca7037e 85
+docs/research/native-source-delivery-2026-11-10.md
+  s_10c7d362cf24b2::t_ca01d92812632b 3-81
+docs/research/evidence/native-glass-2026-11-10/android/slider-rejected.xml
+  s_10c7d362cf24b2::t_ca01d92812632b 1
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-final-restored-light-hierarchy.txt
+  s_10c7d362cf24b2::t_ca01d92812632b 1-153
+docs/research/native-glass-runtime-validation-2026-11-10.md
+  s_10c7d362cf24b2::t_ca01d92812632b 3-6,50-88
+docs/research/evidence/native-glass-2026-11-10/android/final-light.xml
+  s_10c7d362cf24b2::t_ca01d92812632b 1
+docs/research/evidence/native-glass-2026-11-10/ios/probe2/Probe.swift
+  s_10c7d362cf24b2::t_ca01d92812632b 1-113
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-hierarchy.txt
+  s_10c7d362cf24b2::t_ca01d92812632b 1-153
+docs/research/evidence/native-glass-2026-11-10/ios/compiler/attribute-scope.ast
+  s_10c7d362cf24b2::t_ca01d92812632b 1-68
+docs/research/evidence/native-glass-2026-11-10/ios/probe2/runtime-colors.log
+  s_10c7d362cf24b2::t_ca01d92812632b 1-17
+docs/research/evidence/native-glass-2026-11-10/android/rsd-singleton.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-3
+docs/research/evidence/native-glass-2026-11-10/ios/probe/matrix.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-282
+docs/research/evidence/native-glass-2026-11-10/build-tools/android-build-tail.log
+  s_10c7d362cf24b2::t_ca01d92812632b 1-50
+docs/research/evidence/native-glass-2026-11-10/README.md
+  s_10c7d362cf24b2::t_ca01d92812632b 1-72
+docs/research/evidence/native-glass-2026-11-10/ios/probe2/matrix.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-202
+docs/research/expo-native-setup-2026-11-10.md
+  s_10c7d362cf24b2::t_ca01d92812632b 3-7
+apps/native-example/README.md
+  s_10c7d362cf24b2::t_ca01d92812632b 10-16
+  s_10c7d362cf24b2::t_ecf4e7493922dc 17
+docs/research/evidence/native-glass-2026-11-10/manifest.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-430
+docs/research/evidence/native-glass-2026-11-10/ios/final/installed-provenance.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-18
+docs/research/evidence/native-glass-2026-11-10/android/final-dark.xml
+  s_10c7d362cf24b2::t_ca01d92812632b 1
+docs/research/evidence/native-glass-2026-11-10/build-tools/repositories.init.gradle
+  s_10c7d362cf24b2::t_ca01d92812632b 1-29
+docs/research/evidence/native-glass-2026-11-10/ios/classify-title.py
+  s_10c7d362cf24b2::t_ca01d92812632b 1-38
+docs/research/stylex-react-native-2026-11-10.md
+  s_10c7d362cf24b2::t_ca01d92812632b 5-9
+docs/research/evidence/native-glass-2026-11-10/android/final-opaque.xml
+  s_10c7d362cf24b2::t_ca01d92812632b 1
+docs/research/native-glass-implementation-2026-11-10.md
+  s_10c7d362cf24b2::t_ca01d92812632b 11-14
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-opaque-classifier.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-18
+docs/research/ios-glass-button-color-2026-11-10.md
+  s_10c7d362cf24b2::t_ca01d92812632b 3-6
+docs/research/evidence/native-glass-2026-11-10/ios/compiler/attribute-scope.swift
+  s_10c7d362cf24b2::t_ca01d92812632b 1-11
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-classifier.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-18
+docs/research/evidence/native-glass-2026-11-10/android/qa.py
+  s_10c7d362cf24b2::t_ca01d92812632b 1-27
+docs/research/evidence/native-glass-2026-11-10/android/final-visual.py
+  s_10c7d362cf24b2::t_ca01d92812632b 1-8
+docs/research/evidence/native-glass-2026-11-10/android/glass-backdrop-sampling.json
+  s_10c7d362cf24b2::t_ca01d92812632b 1-22
+docs/research/evidence/native-glass-2026-11-10/build-tools/installed-toolchain.init.gradle
+  s_10c7d362cf24b2::t_ca01d92812632b 1-12
+docs/research/evidence/native-glass-2026-11-10/build-tools/ios-build-tail.log
+  s_10c7d362cf24b2::t_ca01d92812632b 1-49
+docs/research/evidence/native-glass-2026-11-10/android/foreground-scrolled.xml
+  s_10c7d362cf24b2::t_ca01d92812632b 1
+bun.lock
+  s_10c7d362cf24b2::t_98d311e4160804 105,112,2541-2544,2565-2566
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fcb8f75339bbc16886adbaf8444447ee07e06a7c",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
