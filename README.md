@@ -2,127 +2,118 @@
 
 [![Lenso UI: real React components, glass materials, light and dark themes, menu and color controls](docs/assets/readme-bento.png)](https://ui.lenso.dev)
 
-A React interface system built with **StyleX**, native **Base UI** interactions,
-semantic themes and shared glass materials. Its design principles are in
-[DESIGN.md](DESIGN.md); retained third-party adaptations are documented in
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+**Feels familiar. A fresh perspective.**
 
-## Repository
+React components with an Apple-inspired point of view. Lenso UI brings familiar
+controls, purposeful glass materials and light and dark themes to the Web,
+built with **StyleX** and **Base UI**.
 
-| Location               | Responsibility                                     |
-| ---------------------- | -------------------------------------------------- |
-| `packages/ui`          | `@lenso/ui` component families                     |
-| `packages/glass`       | `@lenso/glass` shared rendering and motion         |
-| `packages/tokens`      | `@lenso/tokens` themes and StyleX maps             |
-| `packages/docs`        | Content-only MDX documentation framework           |
-| `packages/create-docs` | Documentation project initializer                  |
-| `packages/primitives`  | Preserved headless package, unchanged              |
-| `packages/devtools`    | Private docs contracts and source analysis         |
-| `tests`                | Repository and installed-consumer verification     |
-| `packages/storybook`   | Isolated stories and accessibility diagnostics     |
-| `apps/docs`            | Authored Lenso documentation and runnable examples |
-| `apps/docs-starter`    | Independent framework consumer example             |
+[Documentation](https://ui.lenso.dev/en/docs/react/getting-started) ·
+[Components](https://ui.lenso.dev/en/docs/react/components) ·
+[Photos demo](https://ui.lenso.dev/en/photos)
 
-The maintained ownership and file-placement rules are in
-[Repository structure](docs/architecture/repository.md).
+## Built around the details
 
-## Agent skills
+- **Familiar interaction.** Buttons, fields, menus and navigation compose Base UI
+  contracts for keyboard input, focus and dismissal. Date, time and color controls
+  pair native controls with their specialized value models.
+- **Materials with a purpose.** Glass gives floating controls and navigation a
+  shared visual language, with refraction, connected surfaces and responsive
+  motion. Ordinary form surfaces keep reading and editing clear.
+- **A theme that carries through.** Semantic colors connect controls, content and
+  overlays across light and dark appearances. Theme scopes carry appearance and
+  material settings into portalled components.
+- **Parts you can compose.** Use component variants, arrange public parts and
+  customize presentation through typed StyleX `xstyle` maps.
 
-Lenso's agent integration consists of two portable skills:
+## Start building
 
-- [lenso-ui](.agents/skills/lenso-ui/SKILL.md): component selection, composition,
-  themes, consumer setup and debugging.
-- [lenso-ui-design](.agents/skills/lenso-ui-design/SKILL.md): page structure,
-  visual references, responsive layout and rendered review.
+Follow the [quick start](https://ui.lenso.dev/en/docs/react/getting-started/installation)
+to install matching packages, load the theme stylesheet and configure StyleX for
+[Vite or Next.js](https://ui.lenso.dev/en/docs/react/getting-started/frameworks).
+With that setup in place, render your first component:
 
-Install both with your agent host's skill loader, or copy both directories into
-its project-local skills directory, preserving references and licenses. They
-read installed package declarations and matching documentation directly.
-See the [skills guide](apps/docs/content/lenso/en/react/getting-started/skills.mdx)
-for installation and example requests.
+```tsx
+import "@lenso/tokens/styles.css";
+import { Button } from "@lenso/ui";
 
-## Development
+export function App() {
+  return <Button onClick={() => console.log("Saved")}>Save changes</Button>;
+}
+```
 
-Use the Bun version pinned in `.mise.toml` and `package.json`. Documentation hosts, preserved primitives and npm publishing tooling use the pinned Node version.
+Learn how to [compose component parts](https://ui.lenso.dev/en/docs/react/getting-started/architecture),
+[customize styles](https://ui.lenso.dev/en/docs/react/getting-started/stylex)
+and [shape a theme](https://ui.lenso.dev/en/docs/react/getting-started/theming).
+The component reference includes examples, prop types and callback signatures.
+
+This checkout includes the shared [`@lenso/glass`](packages/glass/README.md)
+runtime, which is not yet published. To use this source revision, work from the
+workspace or packed artifacts that include it. See [release notes](RELEASE.md)
+for package availability and migration details.
+
+## Build with an agent
+
+Two portable skills help coding agents work with Lenso's installed components
+and matching documentation:
+
+- [lenso-ui](.agents/skills/lenso-ui/SKILL.md) guides component selection,
+  composition, themes, framework setup and debugging.
+- [lenso-ui-design](.agents/skills/lenso-ui-design/SKILL.md) guides page layout,
+  responsive design and visual review.
+
+See the [agent skills guide](https://ui.lenso.dev/en/docs/react/getting-started/skills)
+for installation and example tasks.
+
+## Develop locally
+
+Use the Bun and Node versions pinned in [.mise.toml](.mise.toml), then start the
+documentation app from the repository root:
 
 ```sh
 bun install --frozen-lockfile
 bun run dev:docs
-bun run dev:docs-starter
-bun run dev:storybook
 ```
 
-For daily component, docs and visual iteration, default to `bun run dev:docs`
-and keep its hot-reloading server running. Its initial dependency builds prepare
-the dev environment. Production builds are acceptance checks for the conditions
-in [CONTRIBUTING.md](CONTRIBUTING.md), rather than the normal preview loop.
+Open the URL printed by the command. The documentation app includes interactive
+examples and reads workspace source directly, with hot reload for component and
+style changes. English and Chinese documentation are available at
+`/en/docs/react/getting-started` and `/cn/docs/react/getting-started`.
 
-Choose one development server:
+For isolated component stories, run `bun run dev:storybook`. To work on the
+independent documentation framework, run `bun run dev:docs-starter`. The two docs
+servers default to port 3000; stop one before starting the other.
 
-- `bun run dev:docs`: the Lenso UI product documentation, at
-  `/en/docs/react/getting-started` or `/cn/docs/react/getting-started`.
-- `bun run dev:docs-starter`: the content-only framework example, at `/` and
-  `/guides/`. These routes do not exist in the product documentation.
+## Inside the repository
 
-Use the URL printed by the command. Both docs servers default to port 3000;
-stop the first before switching. The product app permits `localhost` and
-`127.0.0.1` for development resources. Unknown routes return 404 in development;
-production still exports static pages.
+| Package                                     | Role                                  |
+| ------------------------------------------- | ------------------------------------- |
+| [`@lenso/ui`](packages/ui)                  | React components and composable parts |
+| [`@lenso/tokens`](packages/tokens)          | Semantic themes and StyleX maps       |
+| [`@lenso/glass`](packages/glass)            | Shared glass rendering and motion     |
+| [`@lenso/primitives`](packages/primitives)  | Preserved headless components         |
+| [`@lenso/docs`](packages/docs)              | MDX documentation framework           |
+| [`create-lenso-docs`](packages/create-docs) | Documentation project initializer     |
 
-Product documentation runs on TanStack Start with official Fumadocs MDX and
-StyleX Vite plugins. `@lenso/docs` supplies the shared layout, search and article
-components; product controls and content/API projection remain in `apps/docs`.
-Bun manages packages and scripts, and Node runs Vite. The content-only starter
-exercises the documentation CLI, described in the
-[framework guide](packages/docs/README.md).
+[Repository structure](docs/architecture/repository.md) covers the applications,
+packages and verification tools in more detail.
 
-Run affected local checks as described in [CONTRIBUTING.md](CONTRIBUTING.md).
-The authoritative candidate CI verifies the exact commit before landing;
-historical acceptance capsules are not a second gate.
+## Contributing
 
-Theme CSS supplies semantic color roles and dynamic color relationships. Import
-`@lenso/tokens/styles.css` and follow the supported consumer integration in the
-authored documentation. Concrete components compose typed StyleX maps with
-native interaction props. The generated API reference describes current
-exports rather than upstream prop aliases.
+Read [DESIGN.md](DESIGN.md) for visual and interaction principles, and
+[CONTRIBUTING.md](CONTRIBUTING.md) for development checks and the signed landing
+workflow. Keep changes focused and verify the behavior they affect.
 
-## Scope and evidence
+Native component semantics are a foundation; applications still own labels,
+content, contrast and custom compositions. Check these together in the rendered
+interface. Imported reference snippets and automated tests have different
+coverage from runnable examples and browser review.
 
-The previous registry, DTCG token graph, compatibility adapters and Console
-templates are replaced. This is not a drop-in upgrade. Public package names
-remain `@lenso/ui` and `@lenso/tokens`, with the new workspace package
-[`@lenso/glass`](packages/glass/README.md) providing their shared glass runtime;
-`packages/primitives` remains unchanged. The glass package is not yet published.
-See [DESIGN.md](DESIGN.md) for architecture and acceptance expectations.
-
-Imported snippets are reference content, not working demos. Maintained tests
-cover concrete regressions; Storybook registration, a passing build or a mounted
-default does not establish exhaustive upstream parity. Report unverified themes,
-keyboard workflows, responsive geometry, RTL and reduced-motion coverage.
-Source-exact colors can fall below WCAG AA normal-text contrast.
-
-## Landing, deployment and release
-
-The signed exact-SHA landing workflow is documented in
-[CONTRIBUTING.md](CONTRIBUTING.md). `Verify reconstruction` / `verify` remains
-the authoritative candidate check. Main either validates trusted same-SHA
-candidate evidence and its docs artifact or runs full verification.
-Candidate branches and pull requests never deploy.
-
-Docs export to `apps/docs/out`. After main verification, the workflow deploys
-the verified artifact to the existing Cloudflare Pages project `lenso-ui` at
-https://ui.lenso.dev. `bun run --filter @lenso/ui-docs start` previews the static
-export locally. Production configuration uses `LENSO_DOCS_SITE` for canonical
-metadata and the protected `docs-production` environment's existing Cloudflare
-credentials. Do not put credentials in source.
-
-Landing is not authorization to publish packages or create release tags.
-The manual `Release` workflow and current release scope are documented in
-[RELEASE.md](RELEASE.md); publication remains separately authorized.
+Package publication is separate from source changes. [RELEASE.md](RELEASE.md)
+describes the release process and current scope.
 
 ## License
 
-Original Lenso work and primitives retain their MIT terms. Retained third-party
-adaptations keep their applicable licenses and
-[attribution](THIRD_PARTY_NOTICES.md). Distributions include the original license
-texts and adaptation notices.
+Original Lenso work and preserved primitives retain their [MIT terms](LICENSE).
+Adapted components retain their applicable licenses. See
+[third-party notices](THIRD_PARTY_NOTICES.md) for attribution and license texts.
