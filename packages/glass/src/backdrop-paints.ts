@@ -116,6 +116,16 @@ function createMaterialBackdrop(
     layer: container,
     prepare() {},
     read(_change, reads) {
+      // A copied photo owns the face only while it still covers this lens.
+      // Keep the live-page material ready for fixed controls scrolling past it.
+      if (element.hasAttribute("data-copy"))
+        return () => {
+          if (stopped) return;
+          container.style.display = "none";
+          if (element.getAttribute("data-material-paints") === paintId)
+            element.removeAttribute("data-material-paints");
+          previous = "";
+        };
       const style = reads.style(element);
       const preferred = preference?.read(style);
       if (preferred?.opaque)
@@ -180,7 +190,19 @@ function createMaterialBackdrop(
                 : (preferred?.clarity ?? (Number(value("--lenso-glass-clarity")) || 0)),
           })
         : "";
-      if (calibrated) paints = [];
+      if (calibrated && profile !== "small") paints = [];
+      else if (calibrated) {
+        // A native filter transforms the live backdrop but supplies no backing
+        // paint of its own. Retain the material recipe when a photo copy retires.
+        const clarity =
+          profile === "clear"
+            ? 1
+            : (preferred?.clarity ?? (Number(value("--lenso-glass-clarity")) || 0));
+        paints = paints.map(([color, blend]) => [
+          `color-mix(in srgb, ${color} ${(1 - clarity) * 100}%, transparent)`,
+          blend ?? "normal",
+        ]);
+      }
 
       let parent = layers[0]!.offsetParent as HTMLElement | null;
       if (parent === document.body) {
@@ -267,6 +289,7 @@ function createMaterialBackdrop(
       const signature = JSON.stringify([paints, blur, tone, values]);
       return () => {
         if (stopped) return;
+        container.style.display = "";
         preference?.apply(preferred);
         if (signature === previous) return;
         previous = signature;

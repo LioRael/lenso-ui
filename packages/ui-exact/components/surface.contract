@@ -1,0 +1,8 @@
+component Surface
+  props
+    id: string
+    variant: string
+  slot
+  view
+    column id=id testId=id hatch="lenso-ui" data-lenso-kind="surface" data-lenso-variant=variant data-slot="surface"
+      children

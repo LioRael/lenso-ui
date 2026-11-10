@@ -1,0 +1,131 @@
+shape DocsLink
+  title: string
+  href: string
+
+shape DocsHeading
+  title: string
+  id: string
+  level: number
+
+shape DocsGroup
+  id: string
+  title: string
+  items: DocsLink[]
+
+shape DocsChoice
+  id: string
+  label: string
+  href: string
+  current: bool
+  exact: bool
+
+shape DocsLabels
+  skipContent: string
+  navigation: string
+  search: string
+  noResults: string
+  pageActions: string
+  copyMarkdown: string
+  openMarkdown: string
+  pagination: string
+  previous: string
+  next: string
+  toc: string
+  language: string
+  version: string
+  unavailable: string
+  archivedVersion: string
+  deprecatedVersion: string
+
+component DocsLayout
+  props
+    siteName: string
+    pageTitle: string
+    currentPath: string
+    navigation: DocsLink[]
+    toc: DocsHeading[]
+    query: string
+    search: action
+    results: DocsLink[]
+  inject
+    docsGroups: DocsGroup[]
+    docsPrevious: option<DocsLink>
+    docsNext: option<DocsLink>
+    docsDescription: string
+    docsMarkdown: string
+    docsMarkdownUrl: string
+    docsLocales: DocsChoice[]
+    docsVersions: DocsChoice[]
+    docsLabels: DocsLabels
+    docsVersionStatus: string
+  slot
+  action copyMarkdown
+    copyText(docsMarkdown)
+  view
+    view data-docs-part="root"
+      link href=`${currentPath}#docs-content`
+        text docsLabels.skipContent
+      header data-docs-part="header"
+        text siteName
+      if docsLocales.length > 1
+        nav aria-label=docsLabels.language data-docs-part="locales"
+          for item in docsLocales key=item.id
+            if item.href != ""
+              link href=item.href aria-current=(item.current ? "true" : "false")
+                text item.label
+            else
+              text `${item.label} (${docsLabels.unavailable})`
+      if docsVersions.length > 1
+        nav aria-label=docsLabels.version data-docs-part="versions"
+          for item in docsVersions key=item.id
+            if item.href != ""
+              link href=item.href aria-current=(item.current ? "true" : "false")
+                text item.label
+            else
+              text `${item.label} (${docsLabels.unavailable})`
+      if docsVersionStatus == "archived" or docsVersionStatus == "deprecated"
+        text (docsVersionStatus == "archived" ? docsLabels.archivedVersion : docsLabels.deprecatedVersion) role="status" data-docs-part="version-notice"
+      nav aria-label=docsLabels.navigation data-docs-part="navigation"
+        for group in docsGroups key=group.id
+          section data-docs-part="navigation-group" aria-label=group.title
+            if group.title != ""
+              h2
+                text group.title
+            for item in group.items key=item.href
+              link href=item.href aria-current=(item.href == currentPath ? "page" : "false")
+                text item.title
+      section aria-label=docsLabels.search data-docs-part="search"
+        input type="search" aria-label=docsLabels.search value=query input=search
+        if query != ""
+          if results.length == 0
+            text docsLabels.noResults role="status"
+          for item in results key=item.href
+            link href=item.href
+              text item.title
+      main id="docs-content" data-docs-part="content" tabindex=-1
+        if docsDescription != ""
+          text docsDescription data-docs-part="description"
+        if docsMarkdownUrl != ""
+          section aria-label=docsLabels.pageActions data-docs-part="page-actions"
+            button press=copyMarkdown testId="copy-markdown"
+              text docsLabels.copyMarkdown
+            link href=docsMarkdownUrl target="_blank"
+              text docsLabels.openMarkdown
+        children
+        nav aria-label=docsLabels.pagination data-docs-part="pagination"
+          match docsPrevious
+            case some(item)
+              link href=item.href aria-label=`${docsLabels.previous}: ${item.title}`
+                text `${docsLabels.previous}: ${item.title}`
+            case none
+              view
+          match docsNext
+            case some(item)
+              link href=item.href aria-label=`${docsLabels.next}: ${item.title}`
+                text `${docsLabels.next}: ${item.title}`
+            case none
+              view
+      nav aria-label=docsLabels.toc data-docs-part="toc"
+        for item in toc key=item.id
+          link href=`${currentPath}#${item.id}`
+            text item.title

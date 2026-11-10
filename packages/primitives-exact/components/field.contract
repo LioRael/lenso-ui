@@ -1,0 +1,67 @@
+component Field
+  props
+    id: string
+    label: string
+  slot
+  view
+    column id=id testId=id role="group" aria-label=label
+      children
+
+component Fieldset
+  props
+    id: string
+    label: string
+  slot
+  view
+    column id=id testId=id role="group" aria-labelledby=`${id}-legend`
+      text label id=`${id}-legend`
+      children
+
+component FieldDescription
+  props
+    id: string
+    message: string
+  view
+    text message id=id testId=id
+
+component FieldError
+  props
+    id: string
+    message: string
+  view
+    text message id=id testId=id role="status" aria-live="polite" aria-atomic=true
+
+component Input
+  props
+    id: string
+    label: string
+    description: string
+    value: string
+    type: string
+    placeholder: string
+    disabled: bool
+    readOnly: bool
+    invalid: bool
+    input: action
+    change: action
+    submit: action
+  view
+    input id=id testId=id aria-label=label aria-describedby=description aria-invalid=invalid
+      value=value type=type placeholder=placeholder disabled=disabled readonly=readOnly
+      input=input change=change submit=submit
+
+component Textarea
+  props
+    id: string
+    label: string
+    description: string
+    value: string
+    placeholder: string
+    disabled: bool
+    readOnly: bool
+    invalid: bool
+    input: action
+    change: action
+  view
+    textarea id=id testId=id aria-label=label aria-describedby=description aria-invalid=invalid
+      value=value placeholder=placeholder disabled=disabled readonly=readOnly input=input change=change

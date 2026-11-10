@@ -1,0 +1,11 @@
+component Playground
+  state count = 0
+  action increment
+    count = count + 1
+  view
+    article
+      h1
+        text "Exact playground"
+      text "This page owns its Exact state and actions."
+      button press=increment testId="counter"
+        text `Count: ${count}`

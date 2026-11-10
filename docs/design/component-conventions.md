@@ -610,6 +610,10 @@ The dark SVG tone graph evaluates straight RGB on opaque backdrop input; blur
 coverage must not multiply through its arithmetic stages. The lens owns the
 finished material's clipping. Verify partially covered input as well as opaque
 color samples to catch black bands and cross-engine material differences.
+When a marked photo no longer covers a copied lens, retire that copy and restore
+the native page material, including the small material's backing paints. Retain
+the input for scrolling back into the photo, hide the fallback while the copy
+owns the face, and fade the regular backing with the existing clarity preference.
 
 Untinted standalone iOS 27 glass paints its fitted directional rim above the
 preference wash, with a 1px outside hairline. Inner depth must survive maximum

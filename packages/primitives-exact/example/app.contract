@@ -1,0 +1,178 @@
+use Toggle, Link, Field, FieldDescription, FieldError, Fieldset, Input, Textarea, Checkbox, Switch, RadioGroup, Radio, Select, SelectOption, Slider, Disclosure, DisclosureTrigger, DisclosurePanel, Accordion, AccordionItem, AccordionTrigger, AccordionPanel, Dialog, AlertDialog, DialogTrigger, DialogClose, DialogAction, Popover, PopoverTrigger, PopoverClose, Menu, MenuItem, MenuSubmenuTrigger, TabsList, Tab, TabPanel, Progress, Status, Separator from "@lenso/primitives-exact"
+use DisclosureState, AccordionState, AccordionItemState from "@lenso/primitives-exact"
+
+component App
+  state count = 0
+  state disabled = false
+  state readOnly = false
+  state visible = true
+  state draft = ""
+  state notes = ""
+  state committed = ""
+  state subscribed = false
+  state notifications = false
+  state plan = "free"
+  state region = "eu"
+  state volume = 25
+  state pinned = false
+  state details = false
+  state expanded: string[] = []
+  state multiple = false
+  state active = "profile"
+  derive disclosure = DisclosureState(id="details", open=details, disabled=disabled)
+  derive accordion = AccordionState(id="questions", value=expanded, multiple=multiple, disabled=disabled)
+  derive firstItem = AccordionItemState(id="first", value="first", disabled=false)
+  derive secondItem = AccordionItemState(id="second", value="second", disabled=false)
+  derive lockedItem = AccordionItemState(id="locked", value="locked", disabled=true)
+  action increment
+    count = count + 1
+  action toggleDisabled
+    disabled = not disabled
+  action toggleReadOnly
+    readOnly = not readOnly
+  action toggleVisible
+    visible = not visible
+  action edit(value: string)
+    draft = value
+  action commit(value: string)
+    committed = value
+  action save
+    committed = draft
+  action editNotes(value: string)
+    notes = value
+  action setSubscribed(value: bool)
+    subscribed = value
+  action setNotifications(value: bool)
+    notifications = value
+  action setPlan(value: string)
+    plan = value
+  action setRegion(value: string)
+    region = value
+  action setVolume(value: number)
+    volume = value
+  action setPinned(value: bool)
+    pinned = value
+  action setDetails(value: bool)
+    details = value
+  action setExpanded(value: string[])
+    expanded = value
+  action toggleMultiple
+    multiple = not multiple
+    expanded = []
+  action setActive(value: string)
+    active = value
+  view
+    scroll role="main" height="100%" padding=16 box-sizing="border-box"
+      column gap=12
+        text "Exact primitives" role="heading" aria-level=1
+        row gap=8 flex-wrap="wrap"
+          button id="disable" testId="disable" press=toggleDisabled
+            text "Toggle disabled"
+          button id="readonly" testId="readonly" press=toggleReadOnly
+            text "Toggle read only"
+          button id="visibility" testId="visibility" press=toggleVisible
+            text "Toggle controls"
+        if visible
+          Fieldset(id="profile", label="Profile")
+            column gap=8
+              Field(id="name-field", label="Name")
+                text "Name"
+                Input(id="name", label="Name", description="name-hint name-error", value=draft, type="text", placeholder="Enter a name", disabled=disabled, readOnly=readOnly, invalid=(draft == ""), input=edit, change=commit, submit=save)
+                FieldDescription(id="name-hint", message="Use your full name.")
+                FieldError(id="name-error", message=(draft == "" ? "A name is needed to save." : ""))
+              Textarea(id="notes", label="Notes", description="", value=notes, placeholder="Notes", disabled=disabled, readOnly=readOnly, invalid=false, input=editNotes, change=editNotes)
+              Checkbox(id="subscribe", label="Subscribe", description="", checked=subscribed, disabled=disabled, change=setSubscribed)
+              Switch(id="notifications", label="Notifications", description="", checked=notifications, disabled=disabled, change=setNotifications)
+              RadioGroup(id="plans", label="Plan")
+                Radio(id="free", name="plan", label="Free", value="free", selected=plan, disabled=disabled, change=setPlan)
+                Radio(id="pro", name="plan", label="Pro", value="pro", selected=plan, disabled=disabled, change=setPlan)
+              Select(id="region", label="Region", description="", value=region, disabled=disabled, change=setRegion)
+                SelectOption(label="Europe", value="eu", disabled=false)
+                SelectOption(label="Americas", value="us", disabled=false)
+                SelectOption(label="Unavailable", value="locked", disabled=true)
+              Slider(id="volume", label="Volume", description="", value=volume, min=0, max=100, step=5, disabled=disabled, input=setVolume, change=setVolume)
+              button id="increment" testId="increment" disabled=disabled press=increment buttonStyle="filled"
+                text "Increment"
+              Toggle(id="pin", label="Pin", pressed=pinned, disabled=disabled, change=setPinned)
+                text "Pin"
+        Status(id="count", message=`Count: ${count}`)
+        text committed testId="committed"
+        Progress(id="progress", label="Volume progress", value=volume, max=100)
+        Separator(id="separator")
+        Disclosure(state=disclosure)
+          DisclosureTrigger(state=disclosure, label="Details", change=setDetails)
+            text "Details"
+          DisclosurePanel(state=disclosure)
+            text "Additional information"
+            button id="details-action" testId="details-action" press=increment
+              text "Details action"
+        button id="multiple" testId="multiple" press=toggleMultiple
+          text "Toggle multiple"
+        Accordion(state=accordion)
+          AccordionItem(item=firstItem)
+            text "First question" role="heading" aria-level=2
+            AccordionTrigger(state=accordion, item=firstItem, label="First question", change=setExpanded)
+              text "First question"
+            AccordionPanel(state=accordion, item=firstItem)
+              text "First answer"
+          AccordionItem(item=secondItem)
+            AccordionTrigger(state=accordion, item=secondItem, label="Second question", change=setExpanded)
+              text "Second question"
+            AccordionPanel(state=accordion, item=secondItem)
+              text "Second answer"
+          AccordionItem(item=lockedItem)
+            AccordionTrigger(state=accordion, item=lockedItem, label="Unavailable question", change=setExpanded)
+              text "Unavailable question"
+            AccordionPanel(state=accordion, item=lockedItem)
+              text "Unavailable answer"
+        TabsList(id="tabs", label="Account", orientation="horizontal")
+          Tab(id="profile-tab", label="Profile tab", panel="profile-panel", value="profile", selected=active, disabled=false, change=setActive)
+            text "Profile"
+          Tab(id="locked-tab", label="Unavailable tab", panel="locked-tab-panel", value="locked", selected=active, disabled=true, change=setActive)
+            text "Unavailable"
+          Tab(id="settings-tab", label="Settings tab", panel="settings-panel", value="settings", selected=active, disabled=false, change=setActive)
+            text "Settings"
+        TabPanel(id="profile-panel", tab="profile-tab", value="profile", selected=active)
+          text "Profile content"
+        TabPanel(id="locked-tab-panel", tab="locked-tab", value="locked", selected=active)
+          text "Unavailable content"
+        TabPanel(id="settings-panel", tab="settings-tab", value="settings", selected=active)
+          text "Settings content"
+        button id="open-dialog" testId="open-dialog" commandfor="edit-dialog" command="show-modal"
+          disabled=disabled title="Edit profile settings" buttonStyle="bordered"
+          text "Edit profile"
+        Dialog(id="edit-dialog", label="Edit profile", description="edit-hint")
+          text "Edit profile" role="heading" aria-level=2
+          FieldDescription(id="edit-hint", message="Close returns to the invoking control.")
+          button id="dialog-increment" testId="dialog-increment" aria-label="Increment in dialog" press=increment
+            text "Increment"
+          button id="close-dialog" testId="close-dialog" commandfor="edit-dialog" command="close"
+            text "Close"
+        DialogTrigger(id="open-alert", label="Confirm increment", target="confirm-dialog", disabled=disabled)
+          text "Confirm increment"
+        AlertDialog(id="confirm-dialog", label="Increment count?", description="confirm-hint")
+          FieldDescription(id="confirm-hint", message="This adds one to the counter.")
+          DialogAction(id="confirm", label="Confirm", target="confirm-dialog", disabled=disabled, destructive=false, press=increment)
+            text "Confirm"
+          DialogClose(id="cancel", label="Cancel", target="confirm-dialog")
+            text "Cancel"
+        PopoverTrigger(id="open-popover", label="More information", target="info", disabled=disabled)
+          text "More information"
+        Popover(id="info", label="Information")
+          text "Native popover content"
+          PopoverClose(id="close-popover", label="Close information", target="info")
+            text "Close information"
+        PopoverTrigger(id="open-menu", label="Actions", target="actions", disabled=disabled)
+          text "Actions"
+        Menu(id="actions", label="Actions")
+          MenuItem(id="menu-increment", label="Increment", target="actions", disabled=false, press=increment)
+            text "Increment"
+          MenuItem(id="menu-disabled", label="Unavailable", target="actions", disabled=true, press=increment)
+            text "Unavailable"
+          MenuSubmenuTrigger(id="more-actions", label="More actions", target="more-menu", disabled=false)
+            text "More actions"
+          Menu(id="more-menu", label="More actions")
+            MenuItem(id="nested-increment", label="Nested increment", target="actions", disabled=false, press=increment)
+              text "Nested increment"
+        Link(id="docs", label="Exact documentation", href="https://github.com/expo/exact")
+          text "Exact documentation"

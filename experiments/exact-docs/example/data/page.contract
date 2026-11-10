@@ -1,0 +1,38 @@
+component DataPage
+  inject
+    counterValue: number
+    counterLoading: bool
+    counterFailed: bool
+    saveLoading: bool
+    saveFailed: bool
+    ticks: number
+    timerPaused: bool
+    pauseTimer: action
+    saveCounter: action
+    rejectSave: action
+    breakRead: action
+    recoverRead: action
+  view
+    article
+      h1
+        text "Root data"
+      text `Counter: ${counterValue}` testId="data-counter"
+      if counterLoading
+        text "Reading counter" role="status"
+      if counterFailed
+        text "Counter read failed" role="alert"
+      if saveLoading
+        text "Saving counter" role="status"
+      if saveFailed
+        text "Counter update refused" role="alert"
+      button press=saveCounter disabled=saveLoading testId="data-save"
+        text "Increment saved counter"
+      button press=rejectSave testId="data-reject"
+        text "Try a refused update"
+      button press=breakRead testId="data-break-read"
+        text "Fail the next read"
+      button press=recoverRead testId="data-recover-read"
+        text "Recover the read"
+      text `Ticks: ${ticks}` testId="data-ticks"
+      button press=pauseTimer testId="data-pause"
+        text (timerPaused ? "Resume timer" : "Pause timer")

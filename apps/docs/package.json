@@ -23,6 +23,7 @@
     "test:canvas-navigation": "node test/glass-canvas-navigation.mjs",
     "test:moving-glass-preferences": "node test/moving-glass-preferences.mjs",
     "test:home-showcase": "node test/home-showcase-initial.mjs",
+    "test:home-scroll-material": "node test/home-scroll-material.mjs",
     "test:material-tone-alpha": "node test/material-tone-alpha.mjs",
     "test:mobile-navigation": "node test/mobile-navigation.mjs",
     "test:tab-bar-performance": "node test/tab-bar-performance.mjs",

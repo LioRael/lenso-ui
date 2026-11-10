@@ -1,0 +1,21 @@
+component Toggle
+  props
+    id: string
+    label: string
+    pressed: bool
+    disabled: bool
+    change: action
+  slot
+  view
+    button id=id testId=id aria-label=label aria-pressed=pressed disabled=disabled press=change(not pressed)
+      children
+
+component Link
+  props
+    id: string
+    label: string
+    href: string
+  slot
+  view
+    link id=id testId=id aria-label=label href=href
+      children

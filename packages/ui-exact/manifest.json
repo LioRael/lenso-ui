@@ -1,0 +1,28 @@
+{
+  "hatches": {
+    "lenso-ui": ["web"]
+  },
+  "data": [
+    "lenso-backdrop",
+    "lenso-checked",
+    "lenso-disabled",
+    "lenso-for",
+    "lenso-hide-separator",
+    "lenso-indeterminate",
+    "lenso-invalid",
+    "lenso-kind",
+    "lenso-loop-focus",
+    "lenso-name",
+    "lenso-open",
+    "lenso-panel-measure",
+    "lenso-panel-open",
+    "lenso-required",
+    "lenso-rows",
+    "lenso-size",
+    "lenso-trigger",
+    "lenso-variant",
+    "orientation",
+    "slot",
+    "theme"
+  ]
+}

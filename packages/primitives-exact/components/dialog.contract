@@ -1,0 +1,54 @@
+component Dialog
+  props
+    id: string
+    label: string
+    description: string
+  slot
+  view
+    dialog id=id testId=id aria-label=label aria-describedby=description closedby="closerequest"
+      children
+
+component AlertDialog
+  props
+    id: string
+    label: string
+    description: string
+  slot
+  view
+    dialog id=id testId=id role="alertdialog" aria-label=label aria-describedby=description
+      children
+
+component DialogTrigger
+  props
+    id: string
+    label: string
+    target: string
+    disabled: bool
+  slot
+  view
+    button id=id testId=id aria-label=label disabled=disabled commandfor=target command="show-modal"
+      children
+
+component DialogClose
+  props
+    id: string
+    label: string
+    target: string
+  slot
+  view
+    button id=id testId=id aria-label=label commandfor=target command="close"
+      children
+
+component DialogAction
+  props
+    id: string
+    label: string
+    target: string
+    disabled: bool
+    destructive: bool
+    press: action
+  slot
+  view
+    button id=id testId=id aria-label=label disabled=disabled destructive=destructive
+      press=press commandfor=target command="close"
+      children

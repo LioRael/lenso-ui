@@ -1,0 +1,34 @@
+{
+  "name": "@lenso/primitives-exact",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Accessible, platform-native Contract primitives for Expo Exact.",
+  "license": "MIT",
+  "files": [
+    "index.contract",
+    "components",
+    "COMPOSITION.md",
+    "patches",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./index.contract",
+    "./button": "./components/button.contract",
+    "./field": "./components/field.contract",
+    "./choice": "./components/choice.contract",
+    "./disclosure": "./components/disclosure.contract",
+    "./dialog": "./components/dialog.contract",
+    "./popover": "./components/popover.contract",
+    "./tabs": "./components/tabs.contract",
+    "./feedback": "./components/feedback.contract"
+  },
+  "scripts": {
+    "example:build": "bun scripts/example.ts",
+    "typecheck": "bun check --no-script -p tsconfig.json",
+    "test:browser": "bun test/browser.mjs",
+    "test:agent": "bun scripts/agent.ts web",
+    "test:native": "bun scripts/native.ts"
+  }
+}

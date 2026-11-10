@@ -6,6 +6,8 @@ and the existing glass renderer. There is no React runtime in this adapter.
 
 Validated against Exact commit `956ae33a35ffa5313d7be3cebc55ed84f9480e0a`.
 This package does not yet implement an Exact iOS or Android adapter.
+The target is the complete Lenso Web component catalog. [COMPONENTS.md](COMPONENTS.md)
+tracks all 99 source families and their remaining acceptance work.
 
 ## Components
 
@@ -18,6 +20,20 @@ Exact currently requires every declared prop at a call site.
 | `Button`      | `label`, `press`, `disabled`, `size`, `variant`, `testId` | No       |
 | `Glass`       | `testId`                                                  | Yes      |
 | `GlassButton` | `label`, `press`, `disabled`, `size`, `variant`, `testId` | No       |
+
+The initial form API adds `Input`, `TextArea`, `TextField`, `InputGroup`,
+`InputGroupPrefix`, `InputGroupSuffix`, `Label`, `Description`, `FieldError`,
+`Fieldset`, `Checkbox`, `CheckboxGroup`, `Radio`, and `RadioGroup`. `Surface`
+currently supports the ordinary `default`, `secondary`, `tertiary` and
+`transparent` variants. These are partial family implementations; see the
+[form API](FORMS.md) and the [compiled consumer example](example/forms.contract).
+`Surface(id="page", variant="secondary")` accepts children; `id` supplies its
+DOM and Exact test id.
+
+Expandable content adds `Disclosure` and `Accordion` with heading, trigger,
+indicator, body and panel parts. See [composition and state models](DISCLOSURE.md)
+and the [runnable example](example/disclosure.contract). These use explicit shared
+state shapes because Exact's slots retain the caller's provider scope.
 
 Both buttons accept `sm`, `md` and `lg` sizes. Button variants are `prominent`,
 `bordered` and `borderless`; GlassButton variants are `default` and `prominent`.
@@ -52,21 +68,26 @@ component App
       Button(label=`Count: ${count}`, press=increment, disabled=false, size="md", variant="prominent", testId="count")
 ```
 
-Merge these declarations into the application's `app.json`:
-
-```json
-{
-  "hatches": { "lenso-ui": ["web"] },
-  "data": ["theme", "lenso-backdrop", "lenso-kind", "lenso-size", "lenso-variant", "lenso-disabled"]
-}
-```
-
-Before the Exact build, stage the built browser assets from a Bun build script:
+Before the Exact build, merge the package's declarations and stage its browser
+assets from a Bun build script:
 
 ```ts
-import { stageWeb } from "@lenso/ui-exact/stage";
+import { stageWeb, withLensoWeb } from "@lenso/ui-exact/stage";
 
-await stageWeb("/absolute/path/to/exact-app");
+const app = "/absolute/path/to/exact-app";
+const file = Bun.file(`${app}/app.json`);
+const configured = withLensoWeb(await file.json());
+await Bun.write(file, JSON.stringify(configured, null, 2) + "\n");
+await stageWeb(app);
+```
+
+After the normal Exact Web build, link the generated stylesheet before serving
+the output:
+
+```ts
+import { linkWebStyles } from "@lenso/ui-exact/stage";
+
+await linkWebStyles("/absolute/path/to/build-output");
 ```
 
 Exact copies page modules without resolving browser package imports. In
@@ -78,17 +99,23 @@ export { element, elementEnded } from "./lenso-ui/browser.js";
 
 If the app already exports hatch callbacks, dispatch `lenso-ui` handles to these
 functions and keep the existing callbacks for other hatch words. Restage after
-rebuilding this package. The staging helper only writes `modules/web/lenso-ui`.
+rebuilding this package. `withLensoWeb` is a pure merge; existing app fields,
+data words and other hatch declarations are retained. `stageWeb` only writes
+`modules/web/lenso-ui`. The raw declarations are exported as `webRequirements`
+and `@lenso/ui-exact/manifest` for other build integrations.
 
-The browser entry waits for its stylesheet before exposing hatch callbacks.
-Exact loads page modules after first paint, so this does not promise a styled
-first frame. An application needing that should also link the staged
-`modules/web/lenso-ui/web.css` in its HTML delivery layer.
+The build also generates attribute selectors from the same compiled StyleX
+recipes used by the hatch. `linkWebStyles` inserts blocking CSS after each
+generated page's base URL; existing components can therefore render styled
+before the post-paint hatch attaches classes. The hatch reuses that stylesheet
+and retires the attribute fallback after initialization. See
+[initial style delivery](INITIAL_STYLES.md) for scope and verification.
 
 ## Verification
 
 ```sh
 bun run --cwd packages/ui-exact typecheck
+bun run --cwd packages/ui-exact test
 bun run --cwd packages/ui-exact build
 EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/ui-exact test:browser
 ```
@@ -103,16 +130,25 @@ builds, which require no Rust toolchain.
 `PLAYWRIGHT_MODULE` can point to an installed Playwright package with matching
 browser binaries when the Docs dependency has changed locally.
 
-The check builds a real consumer using the distributable Contract and browser
-assets. It covers keyboard/click activation, reactive labels, disabled behavior,
-size and theme changes, and glass disposal/recreation. Screenshots are written
-under `.cache/example`. Browser layout checks are not physical-device or GPU
-performance qualification.
+The browser check rebuilds the library and a real consumer using its distributable
+Contract and browser assets. It covers keyboard/click activation, native text
+editing and selection, field associations, validation hints, required/read-only/
+disabled behavior, checkbox mixed state, radio arrow navigation, size and theme
+changes, and disposal/recreation. Rendered forms are captured at 390 and 820 px
+in light and dark appearances. Screenshots and a browser/version/asset-hash receipt
+are written under `.cache/example`. Browser layout checks are not physical-device
+or GPU performance qualification. `example:build` builds the same consumer without
+starting a browser.
+
+Disclosure/Accordion checks also cover single/multiple selection, nested and RTL
+keyboard navigation, disabled skipping, dynamic panel height, animation reversal,
+live Reduced Motion changes and unmounting during animation. Their screenshots
+and per-frame samples are included in the same evidence directory.
 
 ## Current boundary
 
 This is an initial integration slice, not the full Lenso React component API.
-It does not yet include elastic motion, icons, loading state, groups, overlays,
-or native controls. Shared glass rendering retains its existing browser
+It does not yet include the full family catalog, elastic motion, icons, loading
+state, glass groups, overlays, or native adapters. Shared glass rendering retains its existing browser
 limitations; using Exact Web does not bypass WebKit or establish a performance
 improvement. Generated assets include the repository's third-party notices.

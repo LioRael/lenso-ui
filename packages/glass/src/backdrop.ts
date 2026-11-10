@@ -35,17 +35,17 @@ export function watchCopy(element: HTMLElement, update: (active: boolean) => voi
 
 // The part of an element that can be seen, cut down by every ancestor that
 // clips its overflow (a large image inside a small scroller shows only the scroller).
-function visibleBox(element: HTMLElement): DOMRect {
-  let { left, top, right, bottom } = element.getBoundingClientRect();
+function visibleBox(element: HTMLElement, reads?: BackdropReads): DOMRect {
+  let { left, top, right, bottom } = reads?.box(element) ?? element.getBoundingClientRect();
   for (
     let node = element.parentElement;
     node && node !== document.body;
     node = node.parentElement
   ) {
-    const style = getComputedStyle(node);
+    const style = reads?.style(node) ?? getComputedStyle(node);
     if (!/hidden|clip|auto|scroll/.test(`${style.overflow} ${style.overflowX} ${style.overflowY}`))
       continue;
-    const clip = node.getBoundingClientRect();
+    const clip = reads?.box(node) ?? node.getBoundingClientRect();
     left = Math.max(left, clip.left);
     top = Math.max(top, clip.top);
     right = Math.min(right, clip.right);
@@ -213,6 +213,7 @@ export function copyBackdrop(
   let version = 0;
   let shared: SharedBackdropRegistration | undefined;
   let nativeStylesStale = false;
+  let sourceVisible = true;
 
   const subscription = observeBackdrop({
     element,
@@ -222,6 +223,25 @@ export function copyBackdrop(
       if (layer.style.display) layer.style.display = "";
     },
     read(change, reads, geometry) {
+      if (!nativeFallback && (geometry || change.styles || !sourceVisible)) {
+        const box = reads.box(element);
+        const visible = visibleBox(source, reads);
+        const covered =
+          visible.left <= box.left + 1 &&
+          visible.top <= box.top + 1 &&
+          visible.right >= box.right - 1 &&
+          visible.bottom >= box.bottom - 1;
+        if (!covered) {
+          stale ||= change.content || change.styles;
+          return () => {
+            if (stopped) return;
+            if (sourceVisible) shared?.visible(false);
+            sourceVisible = false;
+            layer.style.display = "none";
+            element.removeAttribute("data-copy");
+          };
+        }
+      }
       if (!geometry && !change.content && !change.styles) {
         const updateSource = shared?.updateSource(change, reads);
         if (updateSource) {
@@ -333,6 +353,8 @@ export function copyBackdrop(
       const currentCopy = copy;
       return () => {
         if (!active || stopped) return;
+        if (!sourceVisible) shared?.visible(true);
+        sourceVisible = true;
         if (currentCopy && currentCopy.root.parentElement !== frame)
           frame.replaceChildren(currentCopy.root);
         for (const update of updates) update();
@@ -376,10 +398,13 @@ export function copyBackdrop(
           layer.style.transform = transform;
           frame.style.transform = inputTransform;
         }
-        if (!notified && (currentCopy || updateShared?.native === false)) {
-          if (!nativeFallback) element.setAttribute("data-copy", "");
-          notified = true;
-          onReady?.();
+        if (currentCopy || updateShared?.native === false) {
+          if (!nativeFallback && !element.hasAttribute("data-copy"))
+            element.setAttribute("data-copy", "");
+          if (!notified) {
+            notified = true;
+            onReady?.();
+          }
         }
       };
     },

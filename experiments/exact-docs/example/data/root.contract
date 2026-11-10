@@ -1,0 +1,32 @@
+state ticks = 0
+state timerPaused = false
+state failReads = false
+resource counter = readCounter(failReads) as shape Counter else empty(value=0)
+mutation saved as shape Counter refreshes counter
+task ticker when docsPath == "/data" and not timerPaused
+  every(250, tick)
+action tick
+  ticks = ticks + 1
+action pauseTimer
+  timerPaused = not timerPaused
+action saveCounter
+  send saved = incrementCounter()
+action rejectSave
+  send saved = rejectCounter()
+action breakRead
+  failReads = true
+action recoverRead
+  failReads = false
+provide
+  counterValue = counter.value
+  counterLoading = pending(counter)
+  counterFailed = failed(counter)
+  saveLoading = pending(saved)
+  saveFailed = failed(saved)
+  ticks
+  timerPaused
+  pauseTimer
+  saveCounter
+  rejectSave
+  breakRead
+  recoverRead

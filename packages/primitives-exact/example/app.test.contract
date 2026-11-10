@@ -1,0 +1,114 @@
+test "native fields report values to their owner"
+  type "name" "Ada"
+  expect state draft == "Ada"
+  type "name" key "Enter"
+  expect text "committed" == "Ada"
+  type "notes" "A note"
+  expect state notes == "A note"
+  type "subscribe" "true"
+  expect state subscribed == true
+  type "notifications" "true"
+  expect state notifications == true
+  type "pro" "true"
+  expect state plan == "pro"
+  type "region" "us"
+  expect state region == "us"
+  type "volume" "60"
+  expect state volume == 60
+
+test "controlled buttons and remounting preserve app state"
+  tap "increment"
+  expect text "count" == "Count: 1"
+  tap "pin"
+  expect state pinned == true
+  tap "disable"
+  expect disabled "increment"
+  expect disabled "name"
+  expect disabled "subscribe"
+  expect disabled "region"
+  tap "disable"
+  tap "visibility"
+  expect tree missing "name"
+  tap "visibility"
+  expect tree has "name"
+  expect state pinned == true
+  expect text "count" == "Count: 1"
+
+test "disclosure and single and multiple accordion selection"
+  tap "details-trigger"
+  expect state details == true
+  tap "details-action"
+  expect text "count" == "Count: 1"
+  tap "details-trigger"
+  expect state details == false
+  tap "first-trigger"
+  expect state expanded.0 == "first"
+  tap "second-trigger"
+  expect state expanded.0 == "second"
+  expect disabled "locked-trigger"
+  tap "second-trigger"
+  expect state expanded.length == 0
+  tap "multiple"
+  tap "first-trigger"
+  tap "second-trigger"
+  expect state expanded.0 == "first"
+  expect state expanded.1 == "second"
+  tap "first-trigger"
+  expect state expanded.0 == "second"
+
+test "tabs select their associated content"
+  tap "settings-tab"
+  expect state active == "settings"
+  expect disabled "locked-tab"
+  tap "profile-tab"
+  expect state active == "profile"
+
+test "native keyboard activation and tab navigation"
+  type "increment" key "Space"
+  expect text "count" == "Count: 1"
+  type "profile-tab" key "ArrowRight"
+  type "settings-tab" key "Space"
+  expect state active == "settings"
+  type "details-trigger" key "Space"
+  expect state details == true
+  type "open-dialog" key "Space"
+  clock settle
+  type "close-dialog" key "Escape"
+  clock settle
+  expect text "count" == "Count: 1"
+
+test "dialog cancel and confirmed actions"
+  tap "open-dialog"
+  clock settle
+  tap "dialog-increment"
+  tap "close-dialog"
+  clock settle
+  expect text "count" == "Count: 1"
+  tap "open-alert"
+  clock settle
+  tap "cancel"
+  clock settle
+  expect text "count" == "Count: 1"
+  tap "open-alert"
+  clock settle
+  tap "confirm"
+  clock settle
+  expect text "count" == "Count: 2"
+
+test "popover and menu commands"
+  tap "open-popover"
+  clock settle
+  tap "close-popover"
+  tap "open-menu"
+  clock settle
+  expect disabled "menu-disabled"
+  tap "menu-increment"
+  clock settle
+  expect text "count" == "Count: 1"
+  tap "open-menu"
+  clock settle
+  tap "more-actions"
+  clock settle
+  tap "nested-increment"
+  clock settle
+  expect text "count" == "Count: 2"

@@ -1,0 +1,104 @@
+--- a/host/apple/Sources/ExactKit/Mac/NativeButtonsMac.swift
++++ b/host/apple/Sources/ExactKit/Mac/NativeButtonsMac.swift
+@@ -44,7 +44,33 @@
+     }
+     override func accessibilityAttributeValue(_ attribute: NSAccessibility.Attribute) -> Any? {
+         if attribute.rawValue == "AXEnabled", owner?.ariaUnavailable == true { return false }
++        if let owner {
++            switch attribute {
++            case .role:
++                return owner.pressedState != nil ? NSAccessibility.Role.checkBox.rawValue : owner.buttonRole.rawValue
++            case .subrole:
++                if owner.pressedState != nil { return NSAccessibility.Subrole.toggle.rawValue }
++                if owner.props["accessibilityRole"] == "tab" { return "AXTabButton" }
++            case .expanded:
++                if let value = owner.props["accessibilityExpanded"] { return value == "true" }
++            case .selected:
++                if let value = owner.props["accessibilitySelected"] { return value == "true" }
++            case .value:
++                if let value = owner.pressedState { return value == "mixed" ? 2 : value == "true" ? 1 : 0 }
++            default: break
++            }
++            if let value = owner.ariaAttribute(attribute.rawValue) { return value }
++        }
+         return super.accessibilityAttributeValue(attribute)
++    }
++    override func accessibilityAttributeNames() -> [NSAccessibility.Attribute] {
++        var names = super.accessibilityAttributeNames()
++        var authored: [NSAccessibility.Attribute] = []
++        if owner?.pressedState != nil || owner?.props["accessibilityRole"] == "tab" { authored += [.subrole, .value] }
++        if owner?.props["accessibilityExpanded"] != nil { authored.append(.expanded) }
++        if owner?.props["accessibilitySelected"] != nil { authored.append(.selected) }
++        for attribute in authored where !names.contains(attribute) { names.append(attribute) }
++        return names
+     }
+     /// An assistive app's press (VoiceOver's VO-Space, Switch Control)
+     /// clicks once AppKit's request has returned, as an inline run's press
+--- a/host/apple/Sources/ExactKit/Accessibility.swift
++++ b/host/apple/Sources/ExactKit/Accessibility.swift
+@@ -186,7 +186,7 @@
+     /// landmark only with a name (without one it is generic).
+     static let groupSubroles = ["status": "AXApplicationStatus", "alert": "AXApplicationAlert",
+                                 "dialog": "AXApplicationDialog", "alertdialog": "AXApplicationAlertDialog",
+-                                "region": "AXLandmarkRegion"]
++                                "region": "AXLandmarkRegion", "tabpanel": "AXTabPanel"]
+     var groupSubrole: String? {
+         let role = props["accessibilityRole"] ?? (props["semanticTag"] == "dialog" ? "dialog" : nil)
+         if role == "region", authoredLabel == nil { return nil }
+@@ -195,9 +195,9 @@
+     /// The ARIA roles that make a box an AppKit container of its own
+     /// (Core-AAM): a `menu` is `AXMenu`, as WebKit serves one, so VoiceOver
+     /// says "menu" as it does for AppKit's.
+-    static let containerRoles: [String: NSAccessibility.Role] = ["group": .group, "radiogroup": .radioGroup, "menu": .menu, "menubar": .menuBar]
++    static let containerRoles: [String: NSAccessibility.Role] = ["group": .group, "radiogroup": .radioGroup, "menu": .menu, "menubar": .menuBar, "tablist": .tabGroup]
+     /// A pressable's AppKit role when it is no toggle: a link, a menu item, else a button.
+-    var buttonRole: NSAccessibility.Role { props["accessibilityRole"] == "link" ? .link : isMenuItem ? .menuItem : .button }
++    var buttonRole: NSAccessibility.Role { props["accessibilityRole"] == "link" ? .link : props["accessibilityRole"] == "tab" ? .radioButton : isMenuItem ? .menuItem : .button }
+     var isMenu: Bool { ["menu", "menubar"].contains(props["accessibilityRole"] ?? "") }
+     /// The `menu` or `menubar` this node is in, the nearest.
+     var owningMenu: NodeView? {
+@@ -425,6 +425,7 @@
+             setAccessibilityElement(true)
+             if let checked = checkedRole { setAccessibilityChecked(checked.role, checked.checked) }
+             else { setAccessibilityToggle(pressedState, else: buttonRole) }
++            if role == "tab" { setAccessibilitySubrole(.init(rawValue: "AXTabButton")) }
+             // A link's `AXURL` is its `href`, as a run's is (X78).
+             let url = role == "link" ? props["href"].flatMap { URL(string: $0) } : nil
+             if accessibilityURL() != url { setAccessibilityURL(url) }
+--- a/host/apple/Sources/ExactKit/AgentAccessibility.swift
++++ b/host/apple/Sources/ExactKit/AgentAccessibility.swift
+@@ -518,14 +518,19 @@
+         let r = f.role ?? "AXUnknown"
+         let mapped = ["AXButton": "button", "AXLink": "link", "AXHeading": "heading", "AXTextField": "textbox", "AXTextArea": "textbox",
+                       "AXCheckBox": f.subrole == "AXSwitch" ? "switch" : "checkbox", "AXRadioButton": "radio", "AXRadioGroup": "radiogroup",
+-                      "AXSlider": "slider", "AXPopUpButton": "combobox", "AXStaticText": "text", "AXImage": "image", "AXList": "list",
++                      "AXSlider": "slider", "AXPopUpButton": "combobox", "AXStaticText": "text", "AXImage": "image", "AXList": "list", "AXTabGroup": "tablist",
+                       "AXMenu": "menu", "AXMenuBar": "menubar", "AXMenuItem": "menuitem",
+                       // A live-region, dialog or region role is a group by its subrole, as WebKit serves one.
+                       "AXGroup": ["AXApplicationStatus": "status", "AXApplicationAlert": "alert", "AXApplicationDialog": "dialog",
+-                                  "AXApplicationAlertDialog": "alertdialog", "AXLandmarkRegion": "region"][f.subrole ?? ""] ?? "group",
++                                  "AXApplicationAlertDialog": "alertdialog", "AXLandmarkRegion": "region", "AXTabPanel": "tabpanel"][f.subrole ?? ""] ?? "group",
+                       "AXBusyIndicator": "progressbar", "AXProgressIndicator": "progressbar",
+                       "AXLevelIndicator": "meter", "AXScrollBar": "scrollbar", "AXIncrementor": "spinbutton"][r]
+         e["role"] = forced ?? mapped ?? r
++        if forced == nil, f.subrole == "AXTabButton" { e["role"] = "tab" }
++        if forced == nil, f.subrole == "AXSwitch" {
++            e["role"] = "switch"
++            if let value = f.value as? Int { states["checked"] = value == 1 }
++        }
+         if r == "AXHeading", let level = f.value as? Int { states["level"] = level }
+         // A spinning indicator is AppKit's busy one (LLP 1069.001, amended 2026-10-07).
+         if r == "AXBusyIndicator" { states["busy"] = true }
+--- a/scripts/agent-ax.mjs
++++ b/scripts/agent-ax.mjs
+@@ -323,7 +323,9 @@
+       const raw = e.native?.role;
+       // An aria-pressed toggle is AXCheckBox/AXToggle on AppKit, a `button` on the web.
+       if (raw === 'AXCheckBox' && e.native?.subrole === 'AXToggle') return 'button';
+-      if (raw === 'AXCheckBox' && e.native?.subrole === 'AXSwitch') return 'switch';
++      if (e.native?.subrole === 'AXSwitch') return 'switch';
++      if (raw === 'AXRadioButton' && e.native?.subrole === 'AXTabButton') return 'tab';
++      if (raw === 'AXTabGroup') return 'tablist';
+       return { AXButton: 'button', AXLink: 'link', AXHeading: 'heading', AXTextField: 'textbox', AXTextArea: 'textbox', AXCheckBox: 'checkbox', AXRadioButton: 'radio', AXSlider: 'slider', AXPopUpButton: 'combobox' }[raw] ?? e.role;
+     },
+     checked: e => e.states?.checked,

@@ -64,6 +64,8 @@ export const glassStyles = stylex.create({
     margin: 0,
     transformOrigin: "0 0",
     pointerEvents: "none",
+    // The overscanned filter input must not enlarge WebKit's document scroll bounds.
+    overflow: "clip",
     willChange: "transform",
   },
   copySurface: { width: "100%", height: "100%" },

@@ -1,0 +1,148 @@
+shape DisclosureState
+  id: string
+  open: bool
+  disabled: bool
+
+shape AccordionState
+  id: string
+  value: string[]
+  multiple: bool
+  disabled: bool
+  orientation: string
+  loopFocus: bool
+  variant: string
+  hideSeparator: bool
+
+shape AccordionItemState
+  id: string
+  value: string
+  disabled: bool
+
+component Disclosure
+  props
+    state: DisclosureState
+  slot
+  view
+    column id=state.id testId=state.id hatch="lenso-ui" data-lenso-kind="disclosure" data-slot="disclosure"
+      children
+
+component DisclosureHeading
+  props
+    level: number
+  slot
+  view
+    box role="heading" aria-level=level hatch="lenso-ui" data-lenso-kind="disclosure-heading"
+      children
+
+component DisclosureTrigger
+  props
+    state: DisclosureState
+    change: action
+  slot
+  view
+    button appearance="none" tabindex=0 id=`${state.id}-trigger` testId=`${state.id}-trigger`
+      press=change(not state.open) disabled=state.disabled
+      aria-expanded=state.open aria-controls=`${state.id}-content`
+      hatch="lenso-ui" data-lenso-kind="disclosure-trigger" data-slot="disclosure-trigger"
+      data-lenso-panel-open=state.open
+      children
+
+component DisclosureIndicator
+  view
+    svg viewBox="0 0 16 16" fill="none" aria-hidden=true
+      hatch="lenso-ui" data-lenso-kind="disclosure-indicator"
+      path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width=1.5 stroke-linecap="round" stroke-linejoin="round"
+
+component DisclosureContent
+  props
+    state: DisclosureState
+  slot
+  view
+    column id=`${state.id}-content` testId=`${state.id}-content` role="region"
+      aria-labelledby=`${state.id}-trigger` aria-hidden=(not state.open) inert=(not state.open)
+      height=(state.open ? "auto" : "0px") overflow="clip"
+      hatch="lenso-ui" data-lenso-kind="disclosure-content" data-lenso-open=state.open
+      data-lenso-trigger=`${state.id}-trigger`
+      column flex-shrink=0 box-sizing="border-box" data-lenso-panel-measure=""
+        children
+
+component DisclosureBody
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="disclosure-body"
+      children
+
+component Accordion
+  props
+    state: AccordionState
+  slot
+  view
+    column id=state.id testId=state.id hatch="lenso-ui" data-lenso-kind="accordion" data-slot="accordion"
+      data-orientation=state.orientation data-lenso-loop-focus=state.loopFocus data-lenso-variant=state.variant
+      children
+
+component AccordionItem
+  props
+    state: AccordionState
+    item: AccordionItemState
+  slot
+  view
+    column id=item.id testId=item.id hatch="lenso-ui" data-lenso-kind="accordion-item" data-slot="accordion-item"
+      data-lenso-hide-separator=state.hideSeparator
+      children
+
+component AccordionHeading
+  props
+    level: number
+  slot
+  view
+    box role="heading" aria-level=level hatch="lenso-ui" data-lenso-kind="accordion-heading"
+      children
+
+component AccordionTrigger
+  props
+    state: AccordionState
+    item: AccordionItemState
+    change: action
+  derive expanded = state.value.includes(item.value)
+  action toggle
+    if not state.disabled and not item.disabled
+      if expanded
+        change(state.value.filter(entry => entry != item.value))
+      else
+        change(state.multiple ? state.value.concat([item.value]) : [item.value])
+  slot
+  view
+    button appearance="none" tabindex=0 id=`${item.id}-trigger` testId=`${item.id}-trigger`
+      press=toggle disabled=(state.disabled or item.disabled)
+      aria-expanded=expanded aria-controls=`${item.id}-content`
+      hatch="lenso-ui" data-lenso-kind="accordion-trigger" data-slot="accordion-trigger"
+      data-lenso-panel-open=expanded data-lenso-variant=state.variant
+      children
+
+component AccordionIndicator
+  view
+    svg viewBox="0 0 16 16" fill="none" aria-hidden=true
+      hatch="lenso-ui" data-lenso-kind="accordion-indicator"
+      path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width=1.5 stroke-linecap="round" stroke-linejoin="round"
+
+component AccordionPanel
+  props
+    state: AccordionState
+    item: AccordionItemState
+  derive expanded = state.value.includes(item.value)
+  slot
+  view
+    column id=`${item.id}-content` testId=`${item.id}-content` role="region"
+      aria-labelledby=`${item.id}-trigger` aria-hidden=(not expanded) inert=(not expanded)
+      height=(expanded ? "auto" : "0px") overflow="clip"
+      hatch="lenso-ui" data-lenso-kind="accordion-panel" data-lenso-open=expanded
+      data-lenso-trigger=`${item.id}-trigger`
+      column flex-shrink=0 box-sizing="border-box" data-lenso-panel-measure=""
+        children
+
+component AccordionBody
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="accordion-body"
+      children

@@ -1031,7 +1031,7 @@ function attachOptics(
   const needsPaint = !filtered && !source;
   const panelPaint = needsPaint && liveBackdrop ? paintBackdrop(element) : undefined;
   let stopPaint: (() => void) | undefined =
-    panelPaint ?? (needsPaint && material ? paintMaterialBackdrop(element, true) : undefined);
+    panelPaint ?? (!filtered && material ? paintMaterialBackdrop(element, true) : undefined);
   const ownedGeometry = ownedBackdrop ? readLens(element) : undefined;
   const ownedFilter =
     !!ownedBackdrop &&
@@ -1056,8 +1056,10 @@ function attachOptics(
     const found = findBackdrop(sourceAnchor ?? element);
     if (!found) return;
     source = found;
-    stopPaint?.();
-    stopPaint = undefined;
+    if (!material) {
+      stopPaint?.();
+      stopPaint = undefined;
+    }
     stopCopy = copyBackdrop(element, source, false, undefined, 0, native);
     if (!native) {
       stopLens();

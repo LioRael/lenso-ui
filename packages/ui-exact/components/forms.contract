@@ -1,0 +1,185 @@
+component Input
+  props
+    id: string
+    name: string
+    label: string
+    labelledBy: string
+    describedBy: string
+    value: string
+    input: action
+    change: action
+    submit: action
+    placeholder: string
+    type: string
+    autocomplete: string
+    disabled: bool
+    readOnly: bool
+    required: bool
+    invalid: bool
+    variant: string
+  view
+    input id=id testId=id data-lenso-name=name aria-label=label aria-labelledby=labelledBy aria-describedby=describedBy
+      value=value input=input change=change submit=submit placeholder=placeholder type=type
+      autocomplete=autocomplete disabled=disabled readonly=readOnly data-lenso-required=required aria-required=required aria-invalid=invalid
+      hatch="lenso-ui" data-lenso-kind="input" data-lenso-variant=variant data-lenso-invalid=invalid
+
+component TextArea
+  props
+    id: string
+    name: string
+    label: string
+    labelledBy: string
+    describedBy: string
+    value: string
+    input: action
+    change: action
+    placeholder: string
+    rows: number
+    disabled: bool
+    readOnly: bool
+    required: bool
+    invalid: bool
+    variant: string
+  view
+    textarea id=id testId=id data-lenso-name=name aria-label=label aria-labelledby=labelledBy aria-describedby=describedBy
+      value=value input=input change=change placeholder=placeholder rows=rows
+      disabled=disabled readonly=readOnly data-lenso-required=required aria-required=required aria-invalid=invalid
+      hatch="lenso-ui" data-lenso-kind="textarea" data-lenso-variant=variant data-lenso-invalid=invalid data-lenso-rows=rows
+
+component TextField
+  props
+    id: string
+    invalid: bool
+    disabled: bool
+  slot
+  view
+    column id=id testId=id hatch="lenso-ui" data-lenso-kind="text-field" data-slot="text-field"
+      data-lenso-invalid=invalid data-lenso-disabled=disabled
+      children
+
+component InputGroup
+  props
+    id: string
+    variant: string
+  slot
+  view
+    row id=id testId=id hatch="lenso-ui" data-lenso-kind="input-group" data-slot="input-group" data-lenso-variant=variant
+      children
+
+component InputGroupPrefix
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="input-adornment" data-slot="input-group-prefix"
+      children
+
+component InputGroupSuffix
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="input-adornment" data-slot="input-group-suffix"
+      children
+
+component Label
+  props
+    id: string
+    controlId: string
+    label: string
+    required: bool
+  view
+    text label id=id testId=id hatch="lenso-ui" data-lenso-kind="label" data-slot="label"
+      data-lenso-for=controlId data-lenso-required=required
+
+component Description
+  props
+    id: string
+    label: string
+  view
+    text label id=id testId=id hatch="lenso-ui" data-lenso-kind="description" data-slot="description"
+
+component FieldError
+  props
+    id: string
+    message: string
+  view
+    if message != ""
+      text message id=id testId=id role="alert" hatch="lenso-ui" data-lenso-kind="field-error"
+
+component Fieldset
+  props
+    id: string
+    label: string
+  slot
+  view
+    column role="group" aria-labelledby=`${id}-legend` testId=id hatch="lenso-ui" data-lenso-kind="fieldset"
+      text label id=`${id}-legend` hatch="lenso-ui" data-lenso-kind="legend"
+      children
+
+component Checkbox
+  props
+    id: string
+    name: string
+    label: string
+    describedBy: string
+    checked: bool
+    indeterminate: bool
+    change: action
+    disabled: bool
+    required: bool
+    invalid: bool
+  view
+    column position="relative" hatch="lenso-ui" data-lenso-kind="checkbox" data-slot="checkbox"
+      data-lenso-checked=checked data-lenso-indeterminate=indeterminate data-lenso-invalid=invalid data-lenso-disabled=disabled
+      input type="checkbox" id=id testId=id data-lenso-name=name checked=checked change=change disabled=disabled data-lenso-required=required aria-required=required
+        aria-label=label aria-describedby=describedBy aria-invalid=invalid
+        hatch="lenso-ui" data-lenso-kind="choice-input" data-lenso-indeterminate=indeterminate
+      row aria-hidden=true hatch="lenso-ui" data-lenso-kind="checkbox-content"
+        box hatch="lenso-ui" data-lenso-kind="checkbox-control"
+          box hatch="lenso-ui" data-lenso-kind="checkbox-indicator"
+            svg viewBox="0 0 17 18" fill="none" stroke="currentColor" stroke-dasharray="22"
+              stroke-linecap="round" stroke-linejoin="round" hatch="lenso-ui" data-lenso-kind="checkbox-checkmark"
+              polyline points="1 9 7 14 15 4"
+            svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=3
+              stroke-linecap="round" hatch="lenso-ui" data-lenso-kind="checkbox-mixed"
+              line x1=4 y1=12 x2=20 y2=12
+        text label
+
+component CheckboxGroup
+  props
+    label: string
+    describedBy: string
+  slot
+  view
+    column role="group" aria-label=label aria-describedby=describedBy hatch="lenso-ui" data-lenso-kind="checkbox-group"
+      children
+
+component Radio
+  props
+    id: string
+    name: string
+    label: string
+    describedBy: string
+    value: string
+    checked: bool
+    change: action
+    disabled: bool
+    required: bool
+    invalid: bool
+  view
+    column position="relative" hatch="lenso-ui" data-lenso-kind="radio" data-slot="radio"
+      data-lenso-checked=checked data-lenso-invalid=invalid data-lenso-disabled=disabled
+      input type="radio" id=id testId=id name=name value=value checked=checked change=change disabled=disabled data-lenso-required=required aria-required=required
+        aria-label=label aria-describedby=describedBy aria-invalid=invalid hatch="lenso-ui" data-lenso-kind="choice-input"
+      row aria-hidden=true hatch="lenso-ui" data-lenso-kind="radio-content"
+        box hatch="lenso-ui" data-lenso-kind="radio-control"
+          box hatch="lenso-ui" data-lenso-kind="radio-indicator" data-lenso-checked=checked
+        text label
+
+component RadioGroup
+  props
+    label: string
+    describedBy: string
+    orientation: string
+  slot
+  view
+    column role="radiogroup" aria-label=label aria-describedby=describedBy aria-orientation=orientation
+      hatch="lenso-ui" data-lenso-kind="radio-group" data-orientation=orientation
+      children

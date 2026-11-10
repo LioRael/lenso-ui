@@ -1,3 +1,7 @@
+use DisclosureState, AccordionState, AccordionItemState, Disclosure, DisclosureHeading, DisclosureTrigger, DisclosureIndicator, DisclosureContent, DisclosureBody, Accordion, AccordionItem, AccordionHeading, AccordionTrigger, AccordionIndicator, AccordionPanel, AccordionBody from "./components/disclosure.contract"
+use Input, TextArea, TextField, InputGroup, InputGroupPrefix, InputGroupSuffix, Label, Description, FieldError, Fieldset, Checkbox, CheckboxGroup, Radio, RadioGroup from "./components/forms.contract"
+use Surface from "./components/surface.contract"
+
 component Theme
   props
     appearance: string
@@ -21,7 +25,7 @@ component Button
     variant: string
     testId: string
   view
-    button press=press disabled=disabled testId=testId hatch="lenso-ui"
+    button appearance="none" press=press disabled=disabled testId=testId hatch="lenso-ui"
       data-lenso-kind="button" data-lenso-size=size data-lenso-variant=variant
       text label
 
@@ -42,7 +46,7 @@ component GlassButton
     variant: string
     testId: string
   view
-    button press=press disabled=disabled testId=testId hatch="lenso-ui"
+    button appearance="none" press=press disabled=disabled testId=testId hatch="lenso-ui"
       data-lenso-kind="glass-button" data-lenso-size=size data-lenso-variant=variant
       data-lenso-disabled=disabled
       text label

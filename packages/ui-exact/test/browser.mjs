@@ -1,11 +1,17 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { buildExample } from "../scripts/example.ts";
+import { checkForms } from "./forms.mjs";
+import { checkDisclosure } from "./disclosure.mjs";
+import { checkInitialStyles } from "./initial-styles.mjs";
+import { checkPresentationCases } from "./presentation-cases.mjs";
 
 const require = createRequire(new URL("../../../apps/docs/package.json", import.meta.url));
 const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE ?? "playwright");
 const dist = await buildExample();
+const verifiedBrowsers = [];
 const server = Bun.serve({
   hostname: "127.0.0.1",
   port: 0,
@@ -35,13 +41,16 @@ try {
       page.on("console", (message) => {
         if (message.type() === "error") errors.push(message.text());
       });
-      await page.goto(server.url.href);
+      await checkInitialStyles(page, server.url.href, name);
+      const presentationCount = await checkPresentationCases(page);
       const button = page.getByTestId("glass-action");
       await page.waitForFunction(() => {
         const node = document.querySelector('[data-testid="glass-action"]');
         return node && getComputedStyle(node).borderRadius === "1000px";
       });
       assert.equal(await button.evaluate((node) => node.tagName), "BUTTON");
+      assert.equal(await button.evaluate((node) => getComputedStyle(node).appearance), "none");
+      assert.equal(await button.evaluate((node) => getComputedStyle(node).borderTopWidth), "0px");
       await button.focus();
       await page.keyboard.press("Enter");
       assert.equal(await page.getByTestId("count").textContent(), "Count: 1");
@@ -82,17 +91,66 @@ try {
       );
       await page.getByTestId("glass-action").click();
       assert.equal(await page.getByTestId("count").textContent(), "Count: 4");
+      await checkForms(page);
+      await checkDisclosure(page, name);
+      for (const width of [390, 820]) {
+        await page.setViewportSize({ width, height: 844 });
+        for (const appearance of ["dark", "light"]) {
+          if (!(await page.locator(`[data-theme="${appearance}"]`).count()))
+            await page.getByTestId("theme").click();
+          const profile = page.getByRole("group", { name: "Profile", exact: true });
+          await profile.screenshot({
+            path: path.resolve(
+              import.meta.dirname,
+              `../.cache/example/${name}-forms-${appearance}-${width}.png`,
+            ),
+          });
+          await page.locator("#disclosure-examples").screenshot({
+            path: path.resolve(
+              import.meta.dirname,
+              `../.cache/example/${name}-disclosure-${appearance}-${width}.png`,
+            ),
+          });
+          const overflow = await page.evaluate(() => ({
+            width: innerWidth,
+            scrollWidth: document.documentElement.scrollWidth,
+            boxes: [...document.querySelectorAll("#exact-root *")]
+              .map((node) => ({
+                tag: node.tagName,
+                id: node.id,
+                kind: node.getAttribute("data-lenso-kind"),
+                style: node.getAttribute("style"),
+                html: node.outerHTML.slice(0, 500),
+                left: node.getBoundingClientRect().left,
+                right: node.getBoundingClientRect().right,
+              }))
+              .filter((box) => box.right > innerWidth + 1),
+          }));
+          assert.equal(overflow.scrollWidth <= overflow.width, true, JSON.stringify(overflow));
+        }
+      }
       assert.deepEqual(errors, []);
       const capture = path.resolve(import.meta.dirname, `../.cache/example/${name}.png`);
       await page.screenshot({ path: capture });
       console.log(
-        `${name} ${browser.version()}: native activation, disabled updates, size, theme and disposal passed`,
+        `${name} ${browser.version()}: actions, forms, disclosure, accordion, keyboard, motion, theme and disposal passed`,
       );
+      verifiedBrowsers.push({ engine: name, version: browser.version(), presentationCount });
       await page.close();
     } finally {
       await browser.close();
     }
   }
+  if (!verifiedBrowsers.length) throw new Error("TEST_BROWSER must select chromium or webkit");
+  const assets = {};
+  for (const file of [...new Bun.Glob("**/*").scanSync(dist)].sort())
+    assets[file] = createHash("sha256")
+      .update(new Uint8Array(await Bun.file(path.join(dist, file)).arrayBuffer()))
+      .digest("hex");
+  await Bun.write(
+    path.resolve(import.meta.dirname, "../.cache/example/verification.json"),
+    `${JSON.stringify({ completedAt: new Date().toISOString(), browsers: verifiedBrowsers, viewports: [390, 820], themes: ["light", "dark"], assets }, null, 2)}\n`,
+  );
 } finally {
   server.stop(true);
 }

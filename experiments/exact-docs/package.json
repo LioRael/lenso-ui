@@ -1,0 +1,27 @@
+{
+  "name": "@lenso/exact-docs",
+  "version": "0.0.1",
+  "private": true,
+  "bin": {
+    "exact-docs": "./src/cli.ts"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./contract": "./contract/index.contract"
+  },
+  "scripts": {
+    "test": "bun test test/*.test.ts",
+    "typecheck": "bun check --no-script -p tsconfig.json",
+    "dev": "bun src/cli.ts dev example",
+    "build": "bun src/cli.ts build example",
+    "validate": "bun src/cli.ts validate example",
+    "test:browser": "bun test/browser.mjs"
+  },
+  "engines": {
+    "bun": ">=1.4.4"
+  },
+  "dependencies": {
+    "shiki": "4.6.0"
+  }
+}

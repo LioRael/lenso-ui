@@ -2,6 +2,7 @@ import { cp, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { build } from "vite";
 import stylex from "@stylexjs/unplugin/vite";
+import { initialCSS, type PresentationCase } from "./initial-css.js";
 
 const root = path.resolve(import.meta.dirname, "..");
 const source = (file: string) => path.resolve(root, "..", file);
@@ -31,13 +32,34 @@ await build({
   build: {
     outDir: "dist",
     lib: {
-      entry: path.join(root, "src/entry.ts"),
+      entry: {
+        web: path.join(root, "src/entry.ts"),
+        presentation: path.join(root, "src/presentation.ts"),
+      },
       formats: ["es"],
-      fileName: () => "web.js",
+      fileName: (_format, name) => `${name}.js`,
       cssFileName: "web",
     },
   },
 });
+const compiled: { presentationCases(): PresentationCase[] } = await import(
+  path.join(root, "dist/presentation.js")
+);
+const cases = compiled.presentationCases();
+const registered = new Set(cases.map((entry) => entry.kind));
+for (const file of ["index.contract", ...new Bun.Glob("components/**/*.contract").scanSync(root)]) {
+  for (const match of (await Bun.file(path.join(root, file)).text()).matchAll(
+    /data-lenso-kind="([a-z-]+)"/g,
+  ))
+    if (!registered.has(match[1] ?? ""))
+      throw new Error(`Missing initial Lenso presentation: ${match[1]}`);
+}
+const css = Bun.file(path.join(root, "dist/web.css"));
+const initial = initialCSS(await css.text(), cases);
+await Bun.write(css, initial);
+console.log(
+  `Initial styles: ${cases.length} recipes, ${Buffer.byteLength(initial)} bytes (${Bun.gzipSync(initial).length} gzip)`,
+);
 const declarations = Bun.spawn(["bun", "run", "--bun", "tsc", "-p", "tsconfig.build.json"], {
   cwd: root,
   stdout: "inherit",
