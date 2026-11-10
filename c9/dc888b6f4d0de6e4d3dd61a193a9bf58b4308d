@@ -1,0 +1,618 @@
+docs/research/evidence/native-navigation-2026-11-11/build-tools/android-build-tail.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-60
+docs/research/evidence/native-navigation-2026-11-11/android/diagnostics/startup-anr-app-trace.txt
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-1188
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/navigation-added-note-badge-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/held-red1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-1029
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/navigation-before-query-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/acceptance1-source-hashes.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-8
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/case-25.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/NavigationExample.tsx.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-374
+docs/research/evidence/native-navigation-2026-11-11/android/case-24.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+packages/ui-native/src/navigation-model.ts
+  s_ab5c95a3492695::t_23eb230a19e158 4-5,11,14-19
+  s_ab5c95a3492695::t_e31fc43d94495f 1-3,6-10,12-13,20
+packages/ui-native/src/tab-bar.android.tsx
+  s_ab5c95a3492695::t_e31fc43d94495f 1-7,32,102
+  s_ab5c95a3492695::t_188276063c3b0c 15,22,29,33
+  s_ab5c95a3492695::t_23eb230a19e158 8-14,16-21,23-28,30-31,34-101
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/footer-dark-transparent-underlay-a-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/typed-Recent-draft.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+packages/ui-native/src/use-tab-bar.ts
+  s_ab5c95a3492695::t_e31fc43d94495f 1-2,9-10,21,33-37,39
+  s_ab5c95a3492695::t_23eb230a19e158 4-8,11-17,19,22-32
+  s_ab5c95a3492695::t_188276063c3b0c 3,18,20,38
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/chrome-light-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/held-candidate1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-1029
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-944
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/footer-dark-opaque-underlay-a-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/navigation-reselected-scroll-restored-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/navigation-reversed-renamed-stable-value-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-traits-probe/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-26
+docs/research/evidence/native-navigation-2026-11-11/android/final7.log
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1-30
+docs/research/evidence/native-navigation-2026-11-11/ios/foundation-regression/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-44
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/glass-navigation-returned-once-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-164
+docs/research/evidence/native-navigation-2026-11-11/android/case-21.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/checks/react-doctor-example.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 2-35
+  s_ab5c95a3492695::t_298d9e122b6ef4 1
+packages/ui-native/src/icon-xml.ts
+  s_ab5c95a3492695::t_23eb230a19e158 4-16
+  s_ab5c95a3492695::t_50218ac78d0ab3 1-3,17
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/tabs-outside-focus-preserved-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-193
+docs/research/evidence/native-navigation-2026-11-11/android/tools-moved.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/checks/package-typecheck.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-2
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/source-hashes.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-6
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/NavigationView.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-177
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/navigation-globally-disabled-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-controller-probe/build-controller.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-125
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/dark-opaque-residual-location.json
+  s_ab5c95a3492695::t_f6377ec0115c00 6
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-5,7-8
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/NavigationQA.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-231
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/chrome-light-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/source-hashes.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-5
+docs/research/evidence/native-navigation-2026-11-11/ios/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-14,31-40,44-66
+  s_ab5c95a3492695::t_f6377ec0115c00 15-30,41-43
+docs/research/evidence/native-navigation-2026-11-11/android/case-22.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/footer-opaque-underlay-a-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+packages/ui-native/src/tab-bar.ios.tsx
+  s_ab5c95a3492695::t_23eb230a19e158 11-32,34-40,42-47,49-54,56-66,70-89
+  s_ab5c95a3492695::t_188276063c3b0c 41,48,55,69
+  s_ab5c95a3492695::t_e31fc43d94495f 1-10,33,67-68,90
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/chrome-dark-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-80
+docs/research/evidence/native-navigation-2026-11-11/checks/hermes-ios.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-14
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/held-home-after-library-touch-red-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/NavigationQA.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-321
+docs/research/evidence/native-navigation-2026-11-11/android/tools-relocation.json
+  s_ab5c95a3492695::t_f6377ec0115c00 2-3
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1,4
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/source-hashes.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-9
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/final-fixture-panel-restored-footer-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-141
+docs/research/evidence/native-navigation-2026-11-11/android/typed-Workspace-note.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/chrome-light-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/held-null-before-touch-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-103
+docs/research/evidence/native-navigation-2026-11-11/archive-manifest.json
+  s_ab5c95a3492695::t_763746ae86a263 1-393
+packages/ui-native/src/navigation-bar.ios.tsx
+  s_ab5c95a3492695::t_23eb230a19e158 11-32,35-47,49-56,59-87
+  s_ab5c95a3492695::t_67dc87c7ffdeed 1-10,33-34,48,57-58,88
+docs/research/evidence/native-navigation-2026-11-11/ios/standalone-icons/standalone-native-symbols-light-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+packages/ui-native/src/icon-names.ts
+  s_ab5c95a3492695::t_e31fc43d94495f 1-12
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/tabs-controlled-null-held-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-128
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/tabs-controlled-null-held-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-128
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/acceptance1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-3868
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/ChoiceView.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-106
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-controller-probe/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-26
+docs/research/evidence/native-navigation-2026-11-11/checks/hermes-android.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-14
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/opaque-scroll-sensitivity.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-4,7-8,11-13,15-18,21-22,25-28,30-32
+  s_ab5c95a3492695::t_f6377ec0115c00 5-6,9-10,14,19-20,23-24,29
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/disabled1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-1088
+docs/research/evidence/native-navigation-2026-11-11/ios/chrome-material-before/chrome-dark-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/case-28.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/navigation-reselected-scroll-restored-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/final-fixture-focused-recent-before-hide-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-180
+docs/research/evidence/native-navigation-2026-11-11/android/case-10.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_ea348452a95529 17,53-56
+  s_ab5c95a3492695::t_c24cc518a6cc4a 58-59
+  s_10c7d362cf24b2::t_6f59b199487648 61-70,74-82,126-129
+  s_ab5c95a3492695::t_192f65a463a773 57,60
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/tab-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-90
+apps/native-example/README.md
+  s_ab5c95a3492695::t_bd97f488739999 33-41
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-80
+docs/research/evidence/native-navigation-2026-11-11/android/case-13.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/tabs-focused-inside-before-hide-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-180
+docs/research/evidence/native-navigation-2026-11-11/source-and-build-hashes.json
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-53
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/tabs-focused-inside-hidden-and-blurred-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-133
+docs/research/evidence/native-navigation-2026-11-11/android/case-17.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/held-home-after-library-touch-red-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_ae153e01a6c9e9 10-16
+  s_ab5c95a3492695::t_cc44329101a250 1-9,17-41
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-traits-probe/Probe-item-only.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-32
+docs/research/evidence/native-navigation-2026-11-11/android/case-6.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/checks/react-doctor-package.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 2-40
+  s_ab5c95a3492695::t_e8976d526ae755 1
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-controller-probe/Probe.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-39
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/chrome-restored-light-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/case-4.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/glass-navigation-returned-once-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-161
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/final5-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/final-fixture1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-1500
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/NavigationQA.acceptance1.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-215
+docs/research/evidence/native-navigation-2026-11-11/android/case-16.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/chrome-dark-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/foundation-regression/existing-foundation-segmented-accepted-and-held-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-180
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/use-keyboard-visible.ts.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-18
+docs/research/native-navigation-2026-11-11.md
+  s_ab5c95a3492695::t_5909b8976b869a 4,20,23-24,43,50,54-55,57-58,62,66-79
+  s_ab5c95a3492695::t_bd97f488739999 1-3,6-19,21-22,25-42,44-49,51-53,56,59-61,63-65,141-145
+  s_ab5c95a3492695::t_05d3c62e9c78ae 103
+  s_ab5c95a3492695::t_4cc018337d5628 5,80-102,104-140
+docs/research/evidence/native-navigation-2026-11-11/build-tools/ios-build5-tail.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-59
+docs/research/evidence/native-navigation-2026-11-11/checks/generation.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-9
+packages/ui-native/test/navigation-model.test.ts
+  s_ab5c95a3492695::t_23eb230a19e158 2-6
+  s_ab5c95a3492695::t_7edece647ea45c 1,7-8,10-22,28-30
+  s_ab5c95a3492695::t_9389b88b5e282c 9
+  s_ab5c95a3492695::t_9ebb6056d36758 23-27
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/navigation-held-proposals-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-116
+docs/research/evidence/native-navigation-2026-11-11/android/case-19.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/final5-source-hashes.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-9
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/dark-final1-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+bun.lock
+  s_ab5c95a3492695::t_44411c45e596e9 108,323,1436-1437,1534-1539,1582-1589,1944-1945,2102-2103,2204-2205,2652-2655
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/final-fixture1-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+docs/research/evidence/native-navigation-2026-11-11/README.md
+  s_ab5c95a3492695::t_cc44329101a250 1-32
+docs/research/evidence/native-navigation-2026-11-11/android/case-9.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/chrome-material-before/chrome-light-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/README.md
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1-41
+docs/research/evidence/native-navigation-2026-11-11/ios/standalone-icons/standalone-native-symbols-dark-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/results-final.json
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1-115
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/tabs-outside-before-panel-change-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-201
+docs/research/evidence/native-navigation-2026-11-11/android/case-26.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-197
+docs/research/evidence/native-navigation-2026-11-11/android/case-7.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-854
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/dark-final1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-1497
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/acceptance1-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+packages/ui-native/test/value.test.ts
+  s_ab5c95a3492695::t_460660718f2233 17,24
+apps/native-example/NavigationExample.tsx
+  s_ab5c95a3492695::t_ea348452a95529 1,16,34,37-43,52-53,91,233-236,239-252,260-264,374
+  s_ab5c95a3492695::t_b6e1420670c2ae 54-56,89-90
+  s_ab5c95a3492695::t_9389b88b5e282c 10-15,17-23,25-33,44-51,92-95,232,238,253-259,265-269,271-272,274-282,287-289,320,322-343,345-360,367-373
+  s_ab5c95a3492695::t_e7a77579955db6 35-36,96-231,237,273,285,290-319,321,363
+  s_ab5c95a3492695::t_f060c50aaec349 270,283-284,286,361-362,364-366
+  s_ab5c95a3492695::t_81ec78e8ff3f9f 57-88
+  s_ab5c95a3492695::t_dc2311109724ba 2-9
+  s_ab5c95a3492695::t_244fde9c328064 344
+  s_ab5c95a3492695::t_26133fc60c42bf 24
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/PARTIAL.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/disabled-shared-after-touch-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/tabs-focused-inside-before-hide-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-180
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/android/case-12.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/acceptance2-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/chrome-restored-light-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+packages/ui-native/ios/ChoiceView.swift
+  s_ab5c95a3492695::t_51e31cb8a09c49 51,61,70
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/pixel-comparison.json
+  s_ab5c95a3492695::t_f6377ec0115c00 4-7,14-17
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-3,8-13,18-22
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/tabs-focused-inside-before-hide-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-210
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/NavigationExample.tsx.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-281
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/chrome-dark-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/footer-dark-opaque-underlay-b-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/NavigationView.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-175
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/footer-opaque-underlay-b-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/acceptance2.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-4305
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/NavigationQA.final5.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-304
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-traits-probe/public-tab-traits-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-66
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/navigation-held-proposals-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/final-fixture1-source-hashes.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-8
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/NavigationExample.tsx.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-290
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/NavigationQA.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-63
+docs/research/evidence/native-navigation-2026-11-11/checks/format.log
+  s_ab5c95a3492695::t_763746ae86a263 1-4
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/held-null-after-library-touch-red-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-103
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/dark-final1-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+packages/ui-native/src/choice.ios.tsx
+  s_ab5c95a3492695::t_f060c50aaec349 98-99
+packages/ui-native/src/icon.android.tsx
+  s_ab5c95a3492695::t_e31fc43d94495f 1-7,18-19,41
+  s_ab5c95a3492695::t_23eb230a19e158 8-17,20-40
+docs/design/native-components.md
+  s_ab5c95a3492695::t_bd97f488739999 49-69
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/NavigationQA.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-353
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/tabs.tsx.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-93
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/chrome-dark-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/held-final5.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-638
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/NavigationQA.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-321
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/case-11.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/opaque-scroll-sensitivity.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-4,7-8,11,13-14,16-19,22-23,26,28-30,32-34
+  s_ab5c95a3492695::t_f6377ec0115c00 5-6,9-10,12,15,20-21,24-25,27,31
+apps/native-example/package.json
+  s_ab5c95a3492695::t_b6763c38dbb4a4 23
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/glass-navigation-returned-once-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-161
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/navigation-before-query-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+packages/ui-native/src/tabs.tsx
+  s_ab5c95a3492695::t_dd342f43b9700e 6-10,74-76
+  s_ab5c95a3492695::t_67dc87c7ffdeed 3,5,11-12,54,66,93
+  s_ab5c95a3492695::t_7edece647ea45c 1-2,22-27,40-41
+  s_ab5c95a3492695::t_f060c50aaec349 4,71
+  s_ab5c95a3492695::t_23eb230a19e158 13-21,28-39,42-53,55-65,67-70,72-73,77-92
+docs/research/evidence/native-navigation-2026-11-11/ios/chrome-material-before/chrome-light-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/NavigationView.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-173
+docs/research/evidence/native-navigation-2026-11-11/android/case-27.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-80
+docs/research/evidence/native-navigation-2026-11-11/android/diagnostics/launcher-contrast.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-7
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/chrome-light-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_bd97f488739999 776,788,920
+  s_ab5c95a3492695::t_677e7fb78c0d08 777-778,783,789-790,795,921-922,927
+  s_ab5c95a3492695::t_ae153e01a6c9e9 780-781,792-793,924-925
+docs/research/evidence/native-navigation-2026-11-11/checks/test-typecheck.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1
+docs/research/evidence/native-navigation-2026-11-11/ios/foundation-regression/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/footer-transparent-underlay-a-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+packages/ui-native/ICON_LICENSE
+  s_ab5c95a3492695::t_50218ac78d0ab3 1-43
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/tab-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-90
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/footer-dark-transparent-underlay-b-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/chrome-light-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/chrome-material-before/pixel-comparison.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-4,7-13,16-22,25-31,34-38
+  s_ab5c95a3492695::t_f6377ec0115c00 5-6,14-15,23-24,32-33
+packages/ui-native/package.json
+  s_ab5c95a3492695::t_23eb230a19e158 6
+  s_ab5c95a3492695::t_1646b69df15579 17
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/held-red1-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/held-home-after-library-touch-red-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/standalone-native-symbols-dark-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-traits-probe/ax-probe1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-501
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-9
+docs/research/evidence/native-navigation-2026-11-11/android/case-15.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-controller-probe/controller-probe1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-640
+docs/research/evidence/native-navigation-2026-11-11/android/entry.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/chrome-light-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/chrome-material-before/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-controller-probe/controller-tab-model-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-96
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/PARTIAL.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+packages/ui-native/src/use-keyboard-visible.ts
+  s_ab5c95a3492695::t_188276063c3b0c 1-10,16-18
+  s_ab5c95a3492695::t_244fde9c328064 11-15
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-red/held-null-after-library-touch-red-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-113
+packages/ui-native/ios/NavigationView.swift
+  s_ab5c95a3492695::t_67dc87c7ffdeed 1-27,29-39,42-108,110-127,129-132,134-142,144,147-177
+  s_ab5c95a3492695::t_9389b88b5e282c 133,145
+  s_ab5c95a3492695::t_a5ad9c4e1a8c96 28,40-41,109,128,143,146
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/NavigationQA.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-253
+docs/research/evidence/native-navigation-2026-11-11/ios/foundation-regression/foundation-final1.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-933
+"docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/Crash Log 2026-11-11 at 12.12.46 上午.ips.ips"
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-2
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/NavigationQA.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-244
+docs/research/evidence/native-navigation-2026-11-11/android/case-18.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/glass-navigation-returned-once-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-161
+docs/research/evidence/native-navigation-2026-11-11/android/NavigationQA.py.txt
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-144
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/tabbar-controlled-null-held-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-103
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/held-candidate1-provenance.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-34
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_67dc87c7ffdeed 14-18
+docs/research/evidence/native-navigation-2026-11-11/android/case-2.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/checks/boundaries.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1
+docs/research/evidence/native-navigation-2026-11-11/ios/chrome-material-before/chrome-dark-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/case-5.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/acceptance2-source-hashes.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-7
+docs/research/evidence/native-navigation-2026-11-11/ios/foundation-regression/NavigationQA.foundation-final1.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-308
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-traits-probe/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/android/provenance.json
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-11
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/tabs-keepmounted-draft-retained-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-141
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/tabs-focused-inside-hidden-and-blurred-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-133
+docs/research/evidence/native-navigation-2026-11-11/android/case-8.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/checks/example-typecheck.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-2
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/navigation-added-note-badge-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-116
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/chrome-dark-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/foundation-regression/foundation-before-open-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-159
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/chrome-dark-transparent-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/held-null-before-touch-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-103
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/tabs-focused-inside-hidden-and-blurred-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-133
+docs/research/evidence/native-navigation-2026-11-11/android/case-1.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/android/case-3.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/final5.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-4264
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/NavigationView.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-176
+docs/research/evidence/native-navigation-2026-11-11/ios/uikit-traits-probe/build.log
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-388
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_2f8cae5c26ab91 21,33,91
+  s_ab5c95a3492695::t_7edece647ea45c 9-20,22-32,34-36
+docs/research/evidence/native-navigation-2026-11-11/android/diagnostics/startup-anr-later-app-trace.txt
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-1851
+docs/research/evidence/native-navigation-2026-11-11/ios/final-source/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-106
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance1/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/glass-navigation-returned-once-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-161
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/final-fixture-workspace-retained-after-destination-return-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-141
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_bd97f488739999 17-19,25-26,135-153,158-160,162-163
+  s_ab5c95a3492695::t_5909b8976b869a 154-157,161
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/NavigationExample.tsx.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-282
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/navigation-added-note-badge-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/footer-transparent-underlay-b-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/original-capture-manifest.json
+  s_ab5c95a3492695::t_f6377ec0115c00 1-413
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/ios/held-final5/held-null-before-touch-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-103
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/navigation-entry-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+THIRD_PARTY_NOTICES.md
+  s_ab5c95a3492695::t_ea348452a95529 1174-1179
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/tabs-uncontrolled-default-disabled-and-content-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+packages/ui-native/src/navigation-bar.android.tsx
+  s_ab5c95a3492695::t_71bab0078dc4b1 105-106
+  s_ab5c95a3492695::t_23eb230a19e158 9-21,27-67,71-98,100-103
+  s_ab5c95a3492695::t_d26a20f741d8e7 1,24-25,68-70,99
+  s_ab5c95a3492695::t_67dc87c7ffdeed 2-8,22-23,26,104
+docs/research/evidence/native-navigation-2026-11-11/ios/standalone-icons/glyph-receipts.json
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-4,6-11,13-18,20-25,27-32,34-39,41-46,48-53,55-58
+  s_ab5c95a3492695::t_f6377ec0115c00 5,12,19,26,33,40,47,54
+docs/research/evidence/native-navigation-2026-11-11/ios/partial-acceptance2/standalone-native-symbols-light-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/opaque-candidate4/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+docs/research/evidence/native-navigation-2026-11-11/android/tools-restored.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/ios/final-fixture-smoke/final-fixture-entry-gutters-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/ios/held-tabbar-green/held-null-after-library-touch-red-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-103
+docs/research/evidence/native-navigation-2026-11-11/ios/dark-final/README.md
+  s_ab5c95a3492695::t_4d29cd8097df1d 1
+packages/ui-native/src/types.ts
+  s_ab5c95a3492695::t_e31fc43d94495f 3,138-160,163-195
+  s_ab5c95a3492695::t_188276063c3b0c 161-162
+docs/research/evidence/native-navigation-2026-11-11/android/case-20.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+packages/ui-native/NOTICE.md
+  s_ab5c95a3492695::t_23eb230a19e158 20-30
+docs/research/evidence/native-navigation-2026-11-11/ios/disabled-ax-before/disabled-navigation-after-touch-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+docs/research/evidence/native-navigation-2026-11-11/android/case-14.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+packages/ui-native/src/choice.android.tsx
+  s_ab5c95a3492695::t_f060c50aaec349 70-79,89,101,110,112-114
+packages/ui-native/test/choice-model.test.ts
+  s_ab5c95a3492695::t_460660718f2233 40
+docs/research/evidence/native-navigation-2026-11-11/checks/tests.log
+  s_ab5c95a3492695::t_ee23f64a9a7118 1-27
+docs/research/evidence/native-navigation-2026-11-11/ios/final5-scoped/navigation-reselected-scroll-restored-hierarchy.txt
+  s_ab5c95a3492695::t_4d29cd8097df1d 1-138
+packages/ui-native/src/icon.ios.tsx
+  s_ab5c95a3492695::t_e31fc43d94495f 1-7,11,22-23,41
+  s_ab5c95a3492695::t_23eb230a19e158 8-10,12-21,24-40
+docs/research/evidence/native-navigation-2026-11-11/android/case-23.xml
+  s_ab5c95a3492695::t_ae153e01a6c9e9 1
+docs/research/evidence/native-navigation-2026-11-11/checks/lint.log
+  s_ab5c95a3492695::t_60077d27adc6f0 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c9dc888b6f4d0de6e4d3dd61a193a9bf58b4308d",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
