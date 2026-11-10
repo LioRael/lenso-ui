@@ -1,0 +1,275 @@
+bun.lock
+  s_10c7d362cf24b2::t_551c2d6708a704 312-313
+experiments/exact-docs/.gitignore
+  s_10c7d362cf24b2::t_2338adf0ab7b98 3-4
+experiments/exact-docs/ACCEPTANCE.md
+  s_10c7d362cf24b2::t_b0424933ada61a 1-103
+experiments/exact-docs/CONTENT_LOADING.md
+  s_10c7d362cf24b2::t_a02e51139dfaa1 1-96
+experiments/exact-docs/PERFORMANCE.md
+  s_10c7d362cf24b2::t_48b25be1307635 1-51
+experiments/exact-docs/README.md
+  s_10c7d362cf24b2::t_579ab1cbbd24f4 9-11,22,27-29,57-60,115-120,255-256,282-373,386,402-403,418-433,471-478,495-496,520-521,524-528,543-546,550-619
+experiments/exact-docs/SCALE.md
+  s_10c7d362cf24b2::t_dd5ab48435e8c9 1-22
+experiments/exact-docs/bench/astro/bun.lock
+  s_10c7d362cf24b2::t_c0a33e6dee86ef 1-533
+experiments/exact-docs/bench/astro/package.json
+  s_10c7d362cf24b2::t_360eebfa5ab818 1-8
+experiments/exact-docs/bench/astro/src/pages/[...slug].astro
+  s_10c7d362cf24b2::t_91ba150a303010 1-41
+experiments/exact-docs/bench/baseline.json
+  s_10c7d362cf24b2::t_f03169c0cc3787 1-218
+experiments/exact-docs/bench/performance.mjs
+  s_10c7d362cf24b2::t_ecd2764ff77f98 1-360
+experiments/exact-docs/bench/profile.mjs
+  s_10c7d362cf24b2::t_046c9eacd614cf 1-115
+experiments/exact-docs/bench/scale.mjs
+  s_10c7d362cf24b2::t_42ab4b93fc4207 1-394
+experiments/exact-docs/contract/index.contract
+  s_10c7d362cf24b2::t_c38af428bf6222 27-30,59-60,67-68,108-118,123
+experiments/exact-docs/example/authoring.md
+  s_10c7d362cf24b2::t_3dd88a8f5307b1 42-55
+experiments/exact-docs/example/docs.json
+  s_10c7d362cf24b2::t_cfa9838b1b6308 3
+experiments/exact-docs/example/layouts/reader.contract
+  s_10c7d362cf24b2::t_f04e3cc3864174 1-104
+experiments/exact-docs/example/widgets/counter.contract
+  s_10c7d362cf24b2::t_e2aa2a4fd5c6c8 1-13
+experiments/exact-docs/package.json
+  s_10c7d362cf24b2::t_f07ea8e30e5799 11-15,23-28
+experiments/exact-docs/src/body.ts
+  s_10c7d362cf24b2::t_5e8186c4e31c1e 1-85
+experiments/exact-docs/src/delivery.ts
+  s_10c7d362cf24b2::t_346bbdde633d46 1-7,10-11,22-27
+experiments/exact-docs/src/highlight.ts
+  s_10c7d362cf24b2::t_da418ab79e8041 1,33
+experiments/exact-docs/src/index.ts
+  s_10c7d362cf24b2::t_2e67821d820374 5,7-8,361-363,369-370,372-377,380-388,397-428,430-433,439,441-451,454-458,460-462,464-468,479-482,484-488,499-503,505-513,515,522-523,526,543,561,597-614,625-629,632-644,646,688-692
+experiments/exact-docs/src/renderers/exact.ts
+  s_10c7d362cf24b2::t_1545a3467af5a9 3-7,12,15-43,46-47,53,56,74,76,84,86
+experiments/exact-docs/src/search.ts
+  s_10c7d362cf24b2::t_15a985ca38ef1a 4,6-7,12-16,31-40,44-45,51-69,82
+experiments/exact-docs/src/seo.ts
+  s_10c7d362cf24b2::t_365652c641ad4d 1-82
+experiments/exact-docs/src/server.ts
+  s_10c7d362cf24b2::t_20041827629a13 60
+experiments/exact-docs/src/variants.ts
+  s_10c7d362cf24b2::t_6e70b1229b4efb 6-9
+experiments/exact-docs/src/web/interaction.ts
+  s_10c7d362cf24b2::t_c91a7e62a3c2ab 1-28
+experiments/exact-docs/src/web/metadata.ts
+  s_10c7d362cf24b2::t_f1fea13902ff2a 1-51
+experiments/exact-docs/src/web/reading.ts
+  s_10c7d362cf24b2::t_13a70614161a96 1-48
+experiments/exact-docs/test/acceptance.mjs
+  s_10c7d362cf24b2::t_5bacc696c25ec2 1-267
+experiments/exact-docs/test/body.test.ts
+  s_10c7d362cf24b2::t_02706250e01e28 1-48
+experiments/exact-docs/test/browser.mjs
+  s_10c7d362cf24b2::t_e4e73f819c325a 16-27,41-42,59-68,92,94-96,111,124-136,145-146,181-185,206-207,241-243
+experiments/exact-docs/test/content-loading.mjs
+  s_10c7d362cf24b2::t_11e550fb542a98 1-203
+experiments/exact-docs/test/content.test.ts
+  s_10c7d362cf24b2::t_e5a677cca7af65 1-117
+experiments/exact-docs/test/core.test.ts
+  s_10c7d362cf24b2::t_ee380f907206a0 56-58,122
+experiments/exact-docs/test/production.mjs
+  s_10c7d362cf24b2::t_5307482117c667 1-109
+packages/glass/src/backdrop-scheduler.ts
+  s_10c7d362cf24b2::t_b54192c3b454a2 259,263,266,268-269
+packages/glass/src/backdrop.ts
+  s_10c7d362cf24b2::t_facde5be579345 424,437
+packages/glass/test/browser/backdrop-scheduler.dom.test.ts
+  s_10c7d362cf24b2::t_6ab2b75e0874fa 106-162
+packages/glass/test/browser/backdrop-visibility.dom.test.ts
+  s_10c7d362cf24b2::t_f16432d8e4988f 1-123
+packages/primitives-exact/API.md
+  s_10c7d362cf24b2::t_41f1569a43c569 1-81
+packages/primitives-exact/COMPOSITION.md
+  s_10c7d362cf24b2::t_c90a3fcfb35e9d 6-8,10,12-33,36-40,43-143
+packages/primitives-exact/README.md
+  s_10c7d362cf24b2::t_3eeb3f8a259f6d 11,55-65,113,137-139,161-173,185,199-217,220,222-223
+packages/primitives-exact/TOOLTIP.md
+  s_10c7d362cf24b2::t_15ca35ece0485b 1-113
+packages/primitives-exact/VERIFICATION.md
+  s_10c7d362cf24b2::t_6f3ece9550a3bc 1-202
+packages/primitives-exact/components/dialog.contract
+  s_10c7d362cf24b2::t_2c8c958cd86a39 37,40
+packages/primitives-exact/components/field.contract
+  s_10c7d362cf24b2::t_5ff4b9ce92785e 40,50-51
+packages/primitives-exact/components/popover.contract
+  s_10c7d362cf24b2::t_1bbcd08bc3ac8e 26,29
+packages/primitives-exact/components/tabs.contract
+  s_10c7d362cf24b2::t_cceecd5ca5b3d2 5,9
+packages/primitives-exact/components/tooltip.contract
+  s_10c7d362cf24b2::t_5ec014ba7d9c97 1-95
+packages/primitives-exact/example/app.contract
+  s_10c7d362cf24b2::t_c502cba639e70d 1,5-8,10-83,101-103,112-118,122-126,157-361
+packages/primitives-exact/example/app.test.contract
+  s_10c7d362cf24b2::t_e16ed207d4074b 78-79,84,103,118-309
+packages/primitives-exact/index.contract
+  s_10c7d362cf24b2::t_82fecfbbde1309 9
+packages/primitives-exact/package.json
+  s_10c7d362cf24b2::t_578fc59551176b 11-12,15-16,28-29,36-38
+packages/primitives-exact/patches/README.md
+  s_10c7d362cf24b2::t_0a9e530658a255 1-124
+packages/primitives-exact/patches/exact-agent-dialog-escape.patch
+  s_10c7d362cf24b2::t_8ac958bd314742 1-14
+packages/primitives-exact/patches/exact-dialog-lifecycle.patch
+  s_10c7d362cf24b2::t_65f22e8e4271e3 1-301
+packages/primitives-exact/patches/exact-nested-dialogs.patch
+  s_10c7d362cf24b2::t_809655295cbc36 1-144
+packages/primitives-exact/patches/series.json
+  s_10c7d362cf24b2::t_ca15f0b9870a86 1-56
+packages/primitives-exact/scripts/agent.ts
+  s_10c7d362cf24b2::t_3e150922c43323 16
+packages/primitives-exact/scripts/contracts.ts
+  s_10c7d362cf24b2::t_f6af9405c8cf8b 1-337
+packages/primitives-exact/scripts/host-patches.ts
+  s_10c7d362cf24b2::t_535799113a45c1 1-125
+packages/primitives-exact/scripts/native.ts
+  s_10c7d362cf24b2::t_48a5ed6e04e792 48-56
+packages/primitives-exact/test/accessibility.mjs
+  s_10c7d362cf24b2::t_5b5559f3a05eeb 7-12,14-17,21-23,26,29,31,34-35,41,63-66,77,88-106,134,140-180,186-307,310-314
+packages/primitives-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_a772d7576c4f8d 35-84,185-210,213,215,234-242,247-261,279-281,302-413
+packages/ui-exact/ALERT_DIALOG.md
+  s_10c7d362cf24b2::t_df8ba36e2ccfe2 1-122
+packages/ui-exact/COMPONENTS.md
+  s_10c7d362cf24b2::t_08ffa2a5f17368 20-120,177-178,181-293
+packages/ui-exact/FEEDBACK.md
+  s_10c7d362cf24b2::t_cf8e5255b6c97a 1-120
+packages/ui-exact/INITIAL_STYLES.md
+  s_10c7d362cf24b2::t_71214e72f650c4 11-13,18-21,29-34,38-39,70-72,74-76,85-86
+packages/ui-exact/MODAL.md
+  s_10c7d362cf24b2::t_e8aa7627bbb590 1-95
+packages/ui-exact/NAVIGATION.md
+  s_10c7d362cf24b2::t_a098c72fa032ba 1-91
+packages/ui-exact/NOTICES.md
+  s_10c7d362cf24b2::t_af7f97f2210699 1-27
+packages/ui-exact/README.md
+  s_10c7d362cf24b2::t_9c85e24a1b1877 38-62,73-80,188-194
+packages/ui-exact/STYLING.md
+  s_10c7d362cf24b2::t_a4abe609abde4b 1-126
+packages/ui-exact/TOGGLES.md
+  s_10c7d362cf24b2::t_64f9bd37e27920 1-110
+packages/ui-exact/VISUAL_CAPTURE.md
+  s_10c7d362cf24b2::t_f9f2f2ecc5a4ea 1-59
+packages/ui-exact/components/alert-dialog.contract
+  s_10c7d362cf24b2::t_d5af1036443b0b 1-156
+packages/ui-exact/components/feedback.contract
+  s_10c7d362cf24b2::t_c53e91e07c33b9 1-214
+packages/ui-exact/components/modal.contract
+  s_10c7d362cf24b2::t_2b5f297db259d2 1-144
+packages/ui-exact/components/navigation.contract
+  s_10c7d362cf24b2::t_383618b2913c0f 1-88
+packages/ui-exact/components/toggle.contract
+  s_10c7d362cf24b2::t_2a323ccd98b9f5 1-82
+packages/ui-exact/example/alert-dialog.contract
+  s_10c7d362cf24b2::t_6483f4b570e0d9 1-85
+packages/ui-exact/example/app.contract
+  s_10c7d362cf24b2::t_b8de037bf9cdb3 5-14,58-62
+packages/ui-exact/example/feedback.contract
+  s_10c7d362cf24b2::t_07b172d524913a 1-86
+packages/ui-exact/example/modal.contract
+  s_10c7d362cf24b2::t_e1dc86b8e26aa6 1-101
+packages/ui-exact/example/modules/web/index.js
+  s_10c7d362cf24b2::t_144e7d1e5b8da6 1-4
+packages/ui-exact/example/navigation.contract
+  s_10c7d362cf24b2::t_2c49212061d1d6 1-54
+packages/ui-exact/example/styles.ts
+  s_10c7d362cf24b2::t_a932699a74757e 1-36
+packages/ui-exact/example/toggle.contract
+  s_10c7d362cf24b2::t_fc1cc7ca043ad5 1-98
+packages/ui-exact/index.contract
+  s_10c7d362cf24b2::t_1810e0a33414c9 1-5
+packages/ui-exact/manifest.json
+  s_10c7d362cf24b2::t_f786943cf681be 6,9-12,14,16-17,19,30,34-35,37-39,41-42
+packages/ui-exact/package.json
+  s_10c7d362cf24b2::t_c22b1093f4a640 12,14,16-20,24-26,37-42,49-50,55-57
+packages/ui-exact/scripts/build.ts
+  s_10c7d362cf24b2::t_684fa2c441a7a9 15,59-61,78-79
+packages/ui-exact/scripts/example.ts
+  s_10c7d362cf24b2::t_9d0ff1bb89b49f 4-5,25-45,51-52,55-58
+packages/ui-exact/scripts/initial-css.ts
+  s_10c7d362cf24b2::t_efa01890f791c8 10-60,71-80,109,120-129
+packages/ui-exact/scripts/stage.ts
+  s_10c7d362cf24b2::t_549c59700d1e5b 3-4,111-156
+packages/ui-exact/src/alert-dialog-material.ts
+  s_10c7d362cf24b2::t_5bddaf5e9b7a8e 1-67
+packages/ui-exact/src/alert-dialog-presentation.ts
+  s_10c7d362cf24b2::t_f04b6809d8151e 1-118
+packages/ui-exact/src/browser.js
+  s_10c7d362cf24b2::t_6bfe528ff8e640 20
+packages/ui-exact/src/disclosure-presentation.ts
+  s_10c7d362cf24b2::t_1209a5387337a0 1,14-24,37,40,43,45,48
+packages/ui-exact/src/entry.ts
+  s_10c7d362cf24b2::t_4d8195c6033e26 2
+packages/ui-exact/src/feedback-presentation.ts
+  s_10c7d362cf24b2::t_f4c79c9c184584 1-102
+packages/ui-exact/src/forms.ts
+  s_10c7d362cf24b2::t_f3a082ff7429f6 1,36-42,45-64,72,74,81,84,88
+packages/ui-exact/src/modal-focus.ts
+  s_10c7d362cf24b2::t_2f3d1b93a9a002 1-118
+packages/ui-exact/src/modal-presentation.ts
+  s_10c7d362cf24b2::t_e49c052947f851 1-131
+packages/ui-exact/src/modal.ts
+  s_10c7d362cf24b2::t_87f7afd945282b 1-195
+packages/ui-exact/src/native.ts
+  s_10c7d362cf24b2::t_bf27aa3fb66740 4-5,81-99
+packages/ui-exact/src/navigation-presentation.ts
+  s_10c7d362cf24b2::t_7cf7315d08dd01 1-47
+packages/ui-exact/src/presentation.ts
+  s_10c7d362cf24b2::t_6e7752cbb01f76 1,15-23,30,41,45,47,51,55,62,65-72,79-104,111,125-134,185-355
+packages/ui-exact/src/style-types.ts
+  s_10c7d362cf24b2::t_7b8c31d63720ab 1-7
+packages/ui-exact/src/toggle-group.ts
+  s_10c7d362cf24b2::t_5f21ca638547a5 1-118
+packages/ui-exact/src/toggle-presentation.ts
+  s_10c7d362cf24b2::t_269a917b0df060 1-65
+packages/ui-exact/src/web.ts
+  s_10c7d362cf24b2::t_00a6005e19403d 1-3,5-6,21,25-31,53-55,63-65,70-89
+packages/ui-exact/test/alert-dialog.mjs
+  s_10c7d362cf24b2::t_c6c7d3e72d1e2d 1-317
+packages/ui-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_11bc48ef8a7769 1-2,8-12,45-49,106-110,112,132-149,172,174-181
+packages/ui-exact/test/caller-styles.mjs
+  s_10c7d362cf24b2::t_e699d82650ab75 1-120
+packages/ui-exact/test/feedback.mjs
+  s_10c7d362cf24b2::t_1641c51dca7e9f 1-244
+packages/ui-exact/test/initial-css.test.ts
+  s_10c7d362cf24b2::t_fefb4069960b3b 38-79
+packages/ui-exact/test/initial-styles.mjs
+  s_10c7d362cf24b2::t_9d6dd4e99733d0 19-28,30-44,77,82,98-204
+packages/ui-exact/test/modal.mjs
+  s_10c7d362cf24b2::t_cc693309aeaa0d 1-362
+packages/ui-exact/test/navigation.mjs
+  s_10c7d362cf24b2::t_ea2302f6cbd73d 1-137
+packages/ui-exact/test/presentation-cases.mjs
+  s_10c7d362cf24b2::t_76a2b4dfdb9f75 9-11,19,27-32,42-45,48-49,57-60,97
+packages/ui-exact/test/stage.test.ts
+  s_10c7d362cf24b2::t_c8930e5dc8658b 3,90-120
+packages/ui-exact/test/toggle.mjs
+  s_10c7d362cf24b2::t_97ec31b73b1561 1-168
+packages/ui-exact/test/visual-capabilities.mjs
+  s_10c7d362cf24b2::t_459b98420dd82b 1-101
+packages/ui-exact/tsconfig.json
+  s_10c7d362cf24b2::t_c33f7ac3348b10 3-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9350024f268da62882d48e6ccc7670988b98f6c6",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
