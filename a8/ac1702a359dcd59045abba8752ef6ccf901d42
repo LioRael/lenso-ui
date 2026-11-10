@@ -1,0 +1,210 @@
+packages/ui-native/README.md
+  s_10c7d362cf24b2::t_10cffef5ed3c4a 74-76
+  s_10c7d362cf24b2::t_01482c67a450ab 1-73,77-83
+apps/docs/test/production-loading.mjs
+  s_10c7d362cf24b2::t_2459ff94be6597 92-95
+docs/research/native-source-delivery-2026-11-10.md
+  s_10c7d362cf24b2::t_10cffef5ed3c4a 1-24
+.agents/skills/lenso-ui-design/SKILL.md
+  s_10c7d362cf24b2::t_dec1b3816fa034 3,8-51
+.agents/skills/lenso-ui-design/references/patterns.md
+  s_10c7d362cf24b2::t_fa1019be76ef53 1-57
+.agents/skills/lenso-ui/NOTICE.md
+  s_10c7d362cf24b2::t_92f90001f9a2bf 16-19
+.agents/skills/lenso-ui/SKILL.md
+  s_10c7d362cf24b2::t_2581b05e80b440 3,6-76
+.agents/skills/lenso-ui/references/composition.md
+  s_10c7d362cf24b2::t_6f8004b7389209 60-103
+.agents/skills/lenso-ui/references/debugging.md
+  s_10c7d362cf24b2::t_274aa280eceaba 1-29
+.agents/skills/lenso-ui/references/forms.md
+  s_10c7d362cf24b2::t_840ff3a09a198e 1-44
+.agents/skills/lenso-ui/references/overlays.md
+  s_10c7d362cf24b2::t_88c0c0b09fcdd0 1-40
+.agents/skills/lenso-ui/references/query.md
+  s_10c7d362cf24b2::t_e08efb163c88ff 1-26,29-30,33-59
+.agents/skills/lenso-ui/references/setup.md
+  s_10c7d362cf24b2::t_14f98faa361b9f 1-57
+CONTRIBUTING.md
+  s_10c7d362cf24b2::t_e15d223317082d 128-131
+README.md
+  s_10c7d362cf24b2::t_cf8ed2c131ae8e 18,27-41
+THIRD_PARTY_NOTICES.md
+  s_10c7d362cf24b2::t_38a6e682099fb6 44-51
+apps/docs/content/lenso/cn/react/getting-started/index.mdx
+  s_10c7d362cf24b2::t_d58f9da574c6c9 33,35
+apps/docs/content/lenso/cn/react/getting-started/skills.mdx
+  s_10c7d362cf24b2::t_8b40ee673ede91 1-69
+apps/docs/content/lenso/en/react/getting-started/index.mdx
+  s_10c7d362cf24b2::t_61d13f8554ed50 33,35
+apps/docs/content/lenso/en/react/getting-started/skills.mdx
+  s_10c7d362cf24b2::t_1bedb7cd4e6c0d 1-69
+apps/docs/package.json
+  s_10c7d362cf24b2::t_38accfd19b0484 21,27
+apps/docs/scripts/docs-projection.test.ts
+  s_10c7d362cf24b2::t_6ea3fe0ff601ef 329,333-334,337-338,344-351
+apps/docs/src/components/docs-site-options.tsx
+  s_10c7d362cf24b2::t_1e6ced55b722bb 46
+apps/docs/src/components/home-layout.tsx
+  s_10c7d362cf24b2::t_307edcffdcdfe1 4-5,8-10,14,20-46,50,60-75,77-139,141-143
+apps/docs/src/components/home-page.tsx
+  s_10c7d362cf24b2::t_ab654c43a690fd 9,55-94,96
+apps/docs/src/components/home-showcase.tsx
+  s_10c7d362cf24b2::t_9f9971997a8398 6,45,62-80,87
+apps/docs/src/generated/lenso-docs-index.json
+  s_10c7d362cf24b2::t_2391976d2a5f92 806-815,4433-4442
+apps/docs/src/lib/source.ts
+  s_10c7d362cf24b2::t_5549c06e512ee2 68,84,114-118
+apps/docs/src/styles/home-layout.stylex.ts
+  s_10c7d362cf24b2::t_ae7e4f2b82ef20 2,7,16-22,27-33,38-46,50-60,66-76,81-84,90-91,95-98,110-144
+apps/docs/src/styles/home-showcase.stylex.ts
+  s_10c7d362cf24b2::t_a377776a80cd33 10,18,36,38-39,41-49,53-55,61-65,69-72
+apps/docs/src/styles/home.stylex.ts
+  s_10c7d362cf24b2::t_c1c3935805d405 14,17-40,43,47,51-55,61,63,65-72,75-93,147
+apps/docs/test/backdrop-cache.mjs
+  s_10c7d362cf24b2::t_c37a0ef13150eb 2,4-12,14-48,50-171,173-174,176-210,212-215,217-218,220-228,230,232
+apps/docs/test/glass-elastic.mjs
+  s_10c7d362cf24b2::t_6d9877b1e53283 3,16-17,23-32,135
+apps/docs/test/upstream-glass-fixture.tsx
+  s_10c7d362cf24b2::t_b320753f43b839 1-102
+apps/docs/test/upstream-glass.mjs
+  s_10c7d362cf24b2::t_049b5673c879ff 2-3,5-7,9-20,22-82,84-86,88-110,112-216,218-244,246-253,255,257,259-260,262-289,291-294,296-299,301-303,305
+apps/docs/tsconfig.json
+  s_10c7d362cf24b2::t_9a82f65190c4e6 29-30
+apps/native-example/.gitignore
+  s_10c7d362cf24b2::t_bb80d7d3b2f8ae 1-4
+apps/native-example/App.tsx
+  s_10c7d362cf24b2::t_6f59b199487648 1-173
+apps/native-example/README.md
+  s_10c7d362cf24b2::t_4a2cf817679c65 1-14
+apps/native-example/app.json
+  s_10c7d362cf24b2::t_0be7b6a60d4473 1-12
+apps/native-example/babel.config.cjs
+  s_10c7d362cf24b2::t_a4d0132dd2e899 1-6
+apps/native-example/index.js
+  s_10c7d362cf24b2::t_0161d22ff77825 1-4
+apps/native-example/metro.config.cjs
+  s_10c7d362cf24b2::t_1b9620fd2ff88e 1-11
+apps/native-example/package.json
+  s_10c7d362cf24b2::t_f3febc9aee075c 2,5,7-11,14-22,24-27
+apps/native-example/tsconfig.json
+  s_10c7d362cf24b2::t_88f70ef0955aee 2,4,6-7,9
+bun.lock
+  s_10c7d362cf24b2::t_f83ab2f133b662 95-113,300-316,341-342,353-354,357-362,365-366,371-372,375-380,387-388,393-402,407-410,413-468,541-612,699-704,713-714,727-728,741,773-788,1023-1044,1097-1098,1217-1222,1243-1246,1305-1306,1333,1339-1341,1343-1345,1353-1354,1361-1362,1373-1388,1393-1394,1397-1401,1409-1412,1423,1431-1432,1445-1446,1449-1452,1455-1458,1465-1468,1471-1476,1479,1481,1487,1511-1512,1521-1522,1531-1532,1543-1544,1551,1589-1599,1601,1603,1605-1629,1641-1644,1647-1648,1653-1655,1657-1659,1663,1677,1683-1684,1691,1697,1715-1719,1723-1724,1729-1731,1757-1758,1775-1783,1785,1791,1793,1801-1806,1831-1836,1853-1854,1891,1893,1897-1924,1999-2003,2005,2023-2024,2027,2035-2038,2041-2044,2047,2049,2051,2057-2059,2067-2068,2079-2080,2101-2104,2107-2108,2113,2115-2117,2119,2121-2123,2129,2133-2134,2141-2145,2153-2154,2171-2176,2183-2188,2203,2209-2210,2213-2216,2227-2231,2241-2243,2249,2259-2260,2263,2265,2267,2269,2275-2276,2283-2286,2291-2294,2297-2298,2305-2306,2315-2318,2321-2326,2339-2340,2345-2346,2363,2373-2380,2411-2414,2429-2434,2439-2440,2443-2444,2447,2449,2453-2458,2461-2462,2467-2470,2487-2518,2523-2524,2529-2534,2545-2546,2551-2565,2569-2576,2579-2586,2589-2609,2611-2613,2617-2622,2629-2638,2643-2644,2647-2648,2651-2655,2659-2664,2667-2696,2739-2744,2749-2784,2789-2798,2800-2819
+docs/architecture/agent-skills.md
+  s_10c7d362cf24b2::t_49fab234e405e9 1-53
+docs/architecture/repository.md
+  s_10c7d362cf24b2::t_7540cb0d2f0627 18,37-40
+docs/design/component-conventions.md
+  s_10c7d362cf24b2::t_3dd6abea17a862 154-160,208-212,439-445
+docs/research/expo-native-setup-2026-11-10.md
+  s_10c7d362cf24b2::t_9f0d2f669ac8ec 1-111
+docs/research/home-header-redesign-2026-11-10.md
+  s_10c7d362cf24b2::t_0a91446f3be910 1-89
+docs/research/native-glass-platform-adapters-2026-11-10.md
+  s_10c7d362cf24b2::t_a46a75234ceb8e 1-66
+docs/research/stylex-react-native-2026-11-10.md
+  s_10c7d362cf24b2::t_efa1ba30f881d7 1-33
+docs/research/upstream-liquidglass-follow-up-2026-11-10.md
+  s_10c7d362cf24b2::t_791610aaa9ec64 1-86
+docs/research/webkit-backdrop-cache-2026-11-10.md
+  s_10c7d362cf24b2::t_7b950c8d91ad1c 1,3,5-9,11-16,18-24,26,28,31,34-94
+packages/devtools/README.md
+  s_10c7d362cf24b2::t_3f72468db1f36e 3-7
+packages/devtools/package.json
+  s_10c7d362cf24b2::t_1340838c56cd82 5
+packages/glass/src/gpu-capture.ts
+  s_10c7d362cf24b2::t_a121934ba5e4d5 321-333,424-426,439-533
+packages/glass/src/motion/press-model.ts
+  s_10c7d362cf24b2::t_9d6eda44f47411 1-4
+packages/glass/src/motion/press.ts
+  s_10c7d362cf24b2::t_b8b5f892a3a865 6,13-14
+packages/glass/src/refraction.ts
+  s_10c7d362cf24b2::t_4ed68abece0da4 756,759-763,765-769,771-779,797-798,832,956
+packages/ui-native/LICENSE
+  s_10c7d362cf24b2::t_bb2312cd12ab0f 3-4
+packages/ui-native/NOTICE.md
+  s_10c7d362cf24b2::t_e200841e0defcb 1-19
+packages/ui-native/android/build.gradle
+  s_10c7d362cf24b2::t_65135ec5cd9d4c 1-3,6-14
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/BackdropView.kt
+  s_10c7d362cf24b2::t_facc63872e852a 1-4,6-14,16-34,36-40,42-43,45-48,50-56,58-62,64,66-82
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/Backdrops.kt
+  s_10c7d362cf24b2::t_fe34ff3fb4406a 1-51
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassGroupView.kt
+  s_10c7d362cf24b2::t_9cb9d8d025be16 1-4,6-51,53-60,63-71,74-76,79-80,82-144,146-229
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassShader.kt
+  s_10c7d362cf24b2::t_d0e3d0b83ad792 1-4,6-43,45,47-70,72-77,80-90,92-143,146-153,155-170,172-206,209-233,235
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassView.kt
+  s_10c7d362cf24b2::t_f4cc7d3c57db39 1-243
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt
+  s_10c7d362cf24b2::t_03ca96366d95ad 1,3-7,9-35,38
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoTone.kt
+  s_10c7d362cf24b2::t_7737b1bdd4fec1 1-42
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/Shapes.kt
+  s_10c7d362cf24b2::t_f3dc9c01507813 1-110
+packages/ui-native/expo-module.config.json
+  s_10c7d362cf24b2::t_13d9c7bb27dc4c 2-4
+packages/ui-native/ios/ControlView.swift
+  s_10c7d362cf24b2::t_31db947c9b9103 1-127
+packages/ui-native/ios/LensoGlass.podspec
+  s_10c7d362cf24b2::t_c3d3ac19538664 1-18
+packages/ui-native/ios/LensoGlassModule.swift
+  s_10c7d362cf24b2::t_71507ed98cc0b0 1-43
+packages/ui-native/package.json
+  s_10c7d362cf24b2::t_e4652a1f17d59b 2,5-8,10-13,16-17,20-21,23-26
+packages/ui-native/scripts/generate-material.ts
+  s_10c7d362cf24b2::t_45a686d9bead6f 1-46
+packages/ui-native/scripts/generate-theme.ts
+  s_10c7d362cf24b2::t_db9e01474b82b4 1-3,5-40,42-59
+packages/ui-native/src/controls.android.tsx
+  s_10c7d362cf24b2::t_9ba2a28e62da4a 1-282
+packages/ui-native/src/controls.ios.tsx
+  s_10c7d362cf24b2::t_75ef183312be1b 1-8,10-42,44-113,115-150,152
+packages/ui-native/src/glass.android.tsx
+  s_10c7d362cf24b2::t_64bf3483e20866 1-7,9-19,21-28,30-35,37-69,71-73,75-77,79-81,84-127
+packages/ui-native/src/glass.ios.tsx
+  s_10c7d362cf24b2::t_45dae618ba8014 1-69
+packages/ui-native/src/index.ts
+  s_10c7d362cf24b2::t_84c62577341591 1-6
+packages/ui-native/src/module.ts
+  s_10c7d362cf24b2::t_1b3e3d94bc0c87 1-10
+packages/ui-native/src/palette.ts
+  s_10c7d362cf24b2::t_76aa327537cc3e 1-25
+packages/ui-native/src/provider.tsx
+  s_10c7d362cf24b2::t_9de390df723994 1-63
+packages/ui-native/src/styles.tsx
+  s_10c7d362cf24b2::t_336327094b6494 1-18
+packages/ui-native/src/theme.css.ts
+  s_10c7d362cf24b2::t_a5b1cbb740557a 1-40
+packages/ui-native/src/types.ts
+  s_10c7d362cf24b2::t_ca55cea6bf3ec3 1-52
+packages/ui-native/src/use-press.ts
+  s_10c7d362cf24b2::t_c5a7bf490a2904 1-27
+packages/ui-native/src/use-value.ts
+  s_10c7d362cf24b2::t_1fbef76ac013f6 1-12
+packages/ui-native/src/value.ts
+  s_10c7d362cf24b2::t_bb17583252a0ef 1-7
+packages/ui-native/test/value.test.ts
+  s_10c7d362cf24b2::t_3bd846c314835b 1-2,4-9,11-14,16,18-29
+packages/ui-native/tsconfig.json
+  s_10c7d362cf24b2::t_582fcfb954ff27 4-8,10
+packages/ui/src/components/tab-bar/tab-bar-motion.ts
+  s_10c7d362cf24b2::t_a0ba7502452a44 2,14-15,311-312,512-522
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a8ac1702a359dcd59045abba8752ef6ccf901d42",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
