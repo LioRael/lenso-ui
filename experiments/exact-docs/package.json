@@ -18,10 +18,10 @@
     "validate": "bun src/cli.ts validate example",
     "test:browser": "bun test/browser.mjs"
   },
-  "engines": {
-    "bun": ">=1.4.4"
-  },
   "dependencies": {
     "shiki": "4.6.0"
+  },
+  "engines": {
+    "bun": ">=1.4.4"
   }
 }

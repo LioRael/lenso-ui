@@ -5,7 +5,8 @@ import path from "node:path";
 import { main } from "../src/cli.ts";
 import { generateApp, loadSite, navigationGroups, parseConfig } from "../src/index.ts";
 import { frontmatter } from "../src/metadata.ts";
-import { compileMarkdown } from "../src/markdown.ts";
+import { parseMarkdown } from "../src/markdown.ts";
+import { renderContract } from "../src/renderers/exact.ts";
 import { staticResponse } from "../src/server.ts";
 
 const temporary: string[] = [];
@@ -47,15 +48,15 @@ test("rejects duplicate routes, unsafe source paths and untyped Exact exports", 
 });
 
 test("Markdown escapes Contract syntax and gives repeated headings distinct anchors", () => {
-  const compiled = compileMarkdown(
+  const compiled = parseMarkdown(
     '# Hello\n\n## Hello\n\nText "quoted" ${count}\n\n```contract\ncomponent Bad\n```',
     (href) => href,
   );
   expect(compiled.headings.map((heading) => heading.id)).toEqual(["hello", "hello-2"]);
-  expect(compiled.contract).toContain('text "Text \\"quoted\\" ${count}"');
-  expect(compiled.contract).not.toContain("\ncomponent Bad");
-  expect(() => compileMarkdown("<script>alert(1)</script>", (href) => href)).toThrow("Raw HTML");
-  expect(() => compileMarkdown("[bad](javascript:alert)", (href) => href)).toThrow(
+  expect(renderContract(compiled.nodes)).toContain('text "Text \\"quoted\\" ${count}"');
+  expect(renderContract(compiled.nodes)).not.toContain("\ncomponent Bad");
+  expect(() => parseMarkdown("<script>alert(1)</script>", (href) => href)).toThrow("Raw HTML");
+  expect(() => parseMarkdown("[bad](javascript:alert)", (href) => href)).toThrow(
     "Unsupported link",
   );
 });
@@ -117,7 +118,9 @@ test("new creates an independent project, preserves existing directories, and re
   );
   await Bun.write(configFile, JSON.stringify(withoutData));
   await generateApp(await loadSite(root));
-  expect(await Bun.file(path.join(app, "app.ts")).exists()).toBe(false);
+  const dataEntry = await Bun.file(path.join(app, "app.ts")).text();
+  expect(dataEntry).toContain("docsSearchPages");
+  expect(dataEntry).not.toContain("import * as user");
   await Bun.write(path.join(root, "index.md"), "# Home\n\n[Missing](/authoring#unknown)");
   await expect(loadSite(root)).rejects.toThrow("missing heading");
 });

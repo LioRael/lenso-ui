@@ -65,7 +65,7 @@ The [root data example](/data) reads a counter, submits updates, recovers from f
 
 > A page can own its state while the documentation framework owns its route.
 
-| Source | Rendering |
-| --- | --- |
+| Source   | Rendering               |
+| -------- | ----------------------- |
 | Markdown | Compiled document nodes |
-| Contract | Your Exact component |
+| Contract | Your Exact component    |

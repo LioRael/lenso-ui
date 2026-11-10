@@ -4,6 +4,7 @@ import { parseMarkdown } from "./markdown.ts";
 import { walk, type DocumentNode, type Heading } from "./content.ts";
 import { renderContract } from "./renderers/exact.ts";
 import { highlightDocuments } from "./highlight.ts";
+import { writeDataEntry } from "./search.ts";
 import { frontmatter, pageMetadata, type PageMetadata } from "./metadata.ts";
 import { preparePageHtml } from "./delivery.ts";
 import {
@@ -28,7 +29,7 @@ export type DocsConfig = VariantConfig & {
   pages: Page[];
   layout?: { source: string; component: string };
   root?: RootExtension;
-  components: Record<string,{source:string;component:string}>;
+  components: Record<string, { source: string; component: string }>;
   origin?: string;
 };
 export type Document = Page & {
@@ -91,20 +92,40 @@ export function parseConfig(value: unknown): DocsConfig {
   const paths = new Set<string>();
   const variants = parseVariants(value);
   const identities = new Set<string>();
-  const components: DocsConfig["components"]={};
-  if(value["components"]!==undefined) {
-    if(!record(value["components"])) throw new Error("components must be a name-to-module mapping");
-    for(const [name,entry] of Object.entries(value["components"])) {
-      if(!component(name)||!record(entry)||!sourcePath(entry["source"])||!entry["source"].endsWith(".contract")||(entry["component"]!==undefined&&!component(entry["component"]))) throw new Error(`Invalid component registration: ${name}`);
-      components[name]={source:entry["source"],component:typeof entry["component"]==="string"?entry["component"]:name};
+  const components: DocsConfig["components"] = {};
+  if (value["components"] !== undefined) {
+    if (!record(value["components"]))
+      throw new Error("components must be a name-to-module mapping");
+    for (const [name, entry] of Object.entries(value["components"])) {
+      if (
+        !component(name) ||
+        !record(entry) ||
+        !sourcePath(entry["source"]) ||
+        !entry["source"].endsWith(".contract") ||
+        (entry["component"] !== undefined && !component(entry["component"]))
+      )
+        throw new Error(`Invalid component registration: ${name}`);
+      components[name] = {
+        source: entry["source"],
+        component: typeof entry["component"] === "string" ? entry["component"] : name,
+      };
     }
   }
-  let origin:string|undefined;
-  if(value["origin"]!==undefined) {
-    if(typeof value["origin"]!=="string") throw new Error("origin must be an absolute HTTP(S) origin");
-    const url=new URL(value["origin"]);
-    if(!["http:","https:"].includes(url.protocol)||url.pathname!=="/"||url.search||url.hash||url.username||url.password) throw new Error("origin must be an absolute HTTP(S) origin without a path or credentials");
-    origin=url.origin;
+  let origin: string | undefined;
+  if (value["origin"] !== undefined) {
+    if (typeof value["origin"] !== "string")
+      throw new Error("origin must be an absolute HTTP(S) origin");
+    const url = new URL(value["origin"]);
+    if (
+      !["http:", "https:"].includes(url.protocol) ||
+      url.pathname !== "/" ||
+      url.search ||
+      url.hash ||
+      url.username ||
+      url.password
+    )
+      throw new Error("origin must be an absolute HTTP(S) origin without a path or credentials");
+    origin = url.origin;
   }
   const pages = value["pages"].map((page: unknown): Page => {
     if (
@@ -185,7 +206,7 @@ export function parseConfig(value: unknown): DocsConfig {
   return {
     ...variants,
     components,
-    ...(origin?{origin}:{}),
+    ...(origin ? { origin } : {}),
     name: value["name"],
     pages,
     ...(layout ? { layout } : {}),
@@ -203,7 +224,8 @@ export async function loadSite(directory: string): Promise<Site> {
   const root = await realpath(directory);
   const config = parseConfig(JSON.parse(await readFile(path.join(root, "docs.json"), "utf8")));
   if (config.layout) await localFile(root, config.layout.source);
-  for(const registration of Object.values(config.components)) await localFile(root,registration.source);
+  for (const registration of Object.values(config.components))
+    await localFile(root, registration.source);
   if (config.root) {
     for (const source of [
       config.root.source,
@@ -245,7 +267,9 @@ export async function loadSite(directory: string): Promise<Site> {
         );
       return targets[0]!.path + suffix;
     });
-    for(const node of walk(compiled.nodes)) if(node.kind==="component"&&!config.components[node.name]) throw new Error(`${page.source}: unregistered component ${node.name}`);
+    for (const node of walk(compiled.nodes))
+      if (node.kind === "component" && !config.components[node.name])
+        throw new Error(`${page.source}: unregistered component ${node.name}`);
     const title =
       page.title ??
       metadata.title ??
@@ -255,7 +279,9 @@ export async function loadSite(directory: string): Promise<Site> {
       ...metadata,
       ...page,
       title,
-      headings:compiled.headings,links:compiled.links,body:compiled.nodes,
+      headings: compiled.headings,
+      links: compiled.links,
+      body: compiled.nodes,
       text: `${title} ${page.description ?? metadata.description ?? ""} ${compiled.text}`,
       markdown: source,
     });
@@ -305,10 +331,13 @@ export async function generateApp(site: Site) {
   const imports = [
     'use DocsLayout, DocsLink, DocsHeading, DocsGroup, DocsChoice, DocsLabels from "@lenso/exact-docs/contract"',
   ];
-  const embedded:Record<string,string>={};
-  for(const [name,registration] of Object.entries(site.config.components)) {
-    const alias=`DocsEmbed${Object.keys(embedded).length}`;embedded[name]=alias;
-    imports.push(`use ${registration.component} as ${alias} from ${quote(`./site/${registration.source}`)}`);
+  const embedded: Record<string, string> = {};
+  for (const [name, registration] of Object.entries(site.config.components)) {
+    const alias = `DocsEmbed${Object.keys(embedded).length}`;
+    embedded[name] = alias;
+    imports.push(
+      `use ${registration.component} as ${alias} from ${quote(`./site/${registration.source}`)}`,
+    );
   }
   const extension = site.config.root;
   for (const use of extension?.imports ?? [])
@@ -336,7 +365,7 @@ export async function generateApp(site: Site) {
       );
     return `        if entry.name == "page${i}"
           view navigationKey=entry.id.toString()
-            head title=${quote(`${doc.title} | ${site.config.name}`)} description=${quote(doc.description ?? "")} canonical=${quote(site.config.origin?new URL(doc.path,site.config.origin).href:"")} robots=${quote(doc.noindex?"noindex,follow":"index,follow")}
+            head title=${quote(`${doc.title} | ${site.config.name}`)} description=${quote(doc.description ?? "")} canonical=${quote(site.config.origin ? new URL(doc.path, site.config.origin).href : "")} robots=${quote(doc.noindex ? "noindex,follow" : "index,follow")}
             DocsContext${i}(query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))`;
   });
   const contexts = site.documents.map((doc, i) => {
@@ -398,7 +427,7 @@ export async function generateApp(site: Site) {
     .map((doc) => {
       const i = site.documents.indexOf(doc);
       return `component DocsPage${i}\n  view\n    article data-docs-part="article"\n${(
-        renderContract(doc.body??[],embedded) || 'text ""\n'
+        renderContract(doc.body ?? [], embedded) || 'text ""\n'
       )
         .split("\n")
         .filter(Boolean)
@@ -443,7 +472,7 @@ ${contexts.join("\n\n")}
 ${bodies.join("\n\n")}
 `;
   await Bun.write(path.join(app, "app.contract"), source);
-  await writeDataEntry(site,app);
+  await writeDataEntry(site, app);
   const manifestFile = Bun.file(path.join(site.root, "app.json"));
   const manifest = (await manifestFile.exists()) ? await manifestFile.json() : {};
   if (!record(manifest)) throw new Error("app.json must be an object");
