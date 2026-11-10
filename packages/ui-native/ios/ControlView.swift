@@ -9,6 +9,7 @@ class ControlView: ExpoView {
   var hosted: UIView { fatalError("ControlView subclasses must provide their native control") }
   var sizeEvent: EventDispatcher { fatalError("ControlView subclasses must provide onSize") }
   var fillsWidth: Bool { false }
+  var minimumHeight: CGFloat { 0 }
   private var reported: CGSize = .zero
 
   func attach() { clipsToBounds = false; addSubview(hosted) }
@@ -17,7 +18,7 @@ class ControlView: ExpoView {
     super.layoutSubviews()
     let constraint = CGSize(width: fillsWidth ? bounds.width : .greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
     let fitting = hosted.sizeThatFits(constraint)
-    let size = CGSize(width: ceil(fitting.width), height: ceil(fitting.height))
+    let size = CGSize(width: ceil(fitting.width), height: max(minimumHeight, ceil(fitting.height)))
     hosted.frame = fillsWidth ? bounds : CGRect(x: (bounds.width-size.width)/2, y: (bounds.height-size.height)/2, width: size.width, height: size.height)
     if size != reported && size.width.isFinite && size.height.isFinite && size.height > 0 {
       reported = size
@@ -32,11 +33,15 @@ final class ButtonView: ControlView {
   let onTrigger = EventDispatcher()
   override var hosted: UIView { button }
   override var sizeEvent: EventDispatcher { onSize }
+  override var minimumHeight: CGFloat { 44 }
   var label = ""
   var prominent = false
   var size = "lg"
   var tint: UIColor?
   var prefersOpaque = false
+  var usesGlass = true
+  var borderless = false
+  var loading = false
 
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
@@ -47,12 +52,15 @@ final class ButtonView: ControlView {
   @objc private func trigger() { onTrigger() }
   func update() {
     var config: UIButton.Configuration
-    if #available(iOS 26.0, *) {
+    if !usesGlass {
+      config = prominent ? .filled() : borderless ? .plain() : .gray()
+    } else if #available(iOS 26.0, *) {
       config = prefersOpaque ? (prominent ? .filled() : .gray()) : (prominent ? .prominentGlass() : .glass())
     } else {
       config = prominent ? .filled() : .gray()
     }
     config.title = label
+    config.showsActivityIndicator = loading
     config.buttonSize = size == "sm" ? .small : size == "md" ? .medium : .large
     if let tint {
       if prominent {

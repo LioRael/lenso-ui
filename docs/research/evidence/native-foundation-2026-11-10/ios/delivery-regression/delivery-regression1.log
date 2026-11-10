@@ -1,0 +1,2001 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild clean test -project /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj -scheme CatalogQA -destination "platform=iOS Simulator,id=A143ED5B-921E-4FAF-BFA8-084F7D4046FF" -derivedDataPath /tmp/lenso-native-catalog-qa/DerivedDataDelivery -resultBundlePath /tmp/lenso-native-catalog-qa/delivery-regression1.xcresult "-only-testing:CatalogQA/CatalogQATests/testDeliveryValueCallbackRegression20261110" CODE_SIGNING_ALLOWED=NO
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Writing result bundle at path:
+	/tmp/lenso-native-catalog-qa/delivery-regression1.xcresult
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+
+Result bundle written to path:
+	/tmp/lenso-native-catalog-qa/delivery-regression1.xcresult
+
+** CLEAN SUCCEEDED **
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'CatalogQA' in project 'CatalogQA' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 0fe5bbdcd008ebc7a9bed2378e600bd5
+Build description path: /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/XCBuildData/0fe5bbdcd008ebc7a9bed2378e600bd5.xcbuilddata
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/CompilationCache.noindex
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/CompilationCache.noindex
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-cc78df9d8a9de6526dea716b1c70fd8e.sdkstatcache
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -o /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-cc78df9d8a9de6526dea716b1c70fd8e.sdkstatcache
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/PrecompiledHeaders
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/PrecompiledHeaders
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA-25a61321641abec02387631363f8f0b2-VFS-iphonesimulator/all-product-headers.yaml
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA-25a61321641abec02387631363f8f0b2-VFS-iphonesimulator/all-product-headers.yaml
+
+CreateBuildDirectory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator
+    cd /tmp/lenso-native-catalog-qa/CatalogQA.xcodeproj
+    builtin-create-build-directory /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-project-headers.hmap (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-project-headers.hmap
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/empty-CatalogQA.plist (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/empty-CatalogQA.plist
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-own-target-headers.hmap (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-own-target-headers.hmap
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/ProductTypeInfoPlistAdditions.plist (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/ProductTypeInfoPlistAdditions.plist
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.hmap (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.hmap
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftFileList (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftFileList
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-OutputFileMap.json (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-OutputFileMap.json
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_const_extract_protocols.json (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_const_extract_protocols.json
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftConstValuesFileList (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.LinkFileList (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.LinkFileList
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.DependencyStaticMetadataFileList (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-generated-files.hmap (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-generated-files.hmap
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.DependencyMetadataFileList (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.DependencyMetadataFileList
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-all-target-headers.hmap (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-all-target-headers.hmap
+
+WriteAuxiliaryFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-all-non-framework-target-headers.hmap (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    write-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-all-non-framework-target-headers.hmap
+
+MkDir /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    /bin/mkdir -p /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest
+
+ProcessInfoPlistFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Info.plist /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/empty-CatalogQA.plist (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-infoPlistUtility /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/empty-CatalogQA.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/ProductTypeInfoPlistAdditions.plist -o /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Info.plist
+
+SwiftDriver CatalogQA normal arm64 com.apple.xcode.tools.swift.compiler (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CatalogQA -Onone @/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios26.0-simulator -g -module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk/Developer/Library/Frameworks -parse-as-library -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-cc78df9d8a9de6526dea716b1c70fd8e.sdkstatcache -output-file-map /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex -sdk-module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-generated-files.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-own-target-headers.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-project-headers.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources-normal/arm64 -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources/arm64 -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-Swift.h -working-directory /tmp/lenso-native-catalog-qa -experimental-emit-module-separately -disable-cmo
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/SwiftShims-2TZKEF1I0ZHCSVXRPF4R6FP8M.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/ptrauth-AWQHXC8IHHXMHPCE5G9IKBL8Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/ptrcheck-4ASUGCOMT3MMEFQM8E9820X7M.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_AvailabilityInternal-8CWKHILH9RVA5CZC773GKQ7HZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/DeveloperToolsSupport-DBJTCMJO94418V1YD59H4PN4C.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_stdbool-CPDX335IZI02DPIY13MZ1HNWC.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_stddef-1S57DW8KD65D3R0YH5UWHIZ78.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_float-61Q3NEWI0O18T0P83HW7Q9C90.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_SwiftConcurrencyShims-A79883QEZDSKOV0QH0IMYCGVZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_stdarg-48E1ZY9HVTOONSAKMNZFMFWJK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_DarwinFoundation1-4DFWJCCPEFU7U0NIOXVPPKGKB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_DarwinFoundation2-577WV13P5UK3DZT8X2B47B8CH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_limits-DZTOEJP1IX39958J74L04R3AI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_stdint-ELPE4RDYT2125S4L2IJUQ7LUV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_tgmath-C55HK31V5KVD2GC7UN4WGZIVL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/string_h-2ME7HKOT5WXEHBLQVHLSPN20Y.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/sys_types-1DYD2JTAD8DT0PCZ9FTJKAJWN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_DarwinFoundation3-1JZJ3C5JGNZ7CU10W7W3CW10Q.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_intrinsics-BBT33R8EG35IKRVHLSG10MH25.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_stdatomic-DOBKJ4C7QFKM5J7IPSJ7S38SV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_Builtin_inttypes-8ZWK2ZJU8E0UTD5WYB5E2OK5N.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Darwin-A6UKX71YWYSQIT815OZJ9BLB3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/simd-5U8VTAOLK7XOT4A7PWN42DQU0.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/MachO-803WYVGZASW8UHRYQJZFKV9T6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/ObjectiveC-Y894C2KYPDQPP6TVVF3U06BO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/os_object-CT0ADM4K0MWHMQXOGBE3NJESW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Spatial-1HVQHQT9AWCPUQ7MNCCYM4YY9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/os_workgroup-95DQYMJ0VCIVOYZOM5DGTEBY5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Dispatch-5F1PSOXPH25OZ6L1XAJP793UC.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/XPC-AWE2DGV669CLAQUGI17Y6855V.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreFoundation-5RD3SO9EPRBHS18XMMR74MD3S.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/os-74RZ0KA5AS89GH63D4GR9D2HI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreGraphics-78DW6L644J6MZBMDYVRR8B6ZK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Security-5ELVCLGB66E4Q93J6DY39AH6A.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CFNetwork-9GY9P4RGO0VZLB4NGZZOD61EX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Foundation-6ATG15JWEVL4SG6ZW4V2L6U3O.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/ImageIO-XPA7LTGD0QH1MG805FHNKVLQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreText-1EGS6OO94HYO3P54YVXLBDTHO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/OSLog-AJ2X4Q32Z89IFMQXDOMXOGD76.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/OpenGLES-BEL3XLQECZ8FLUJ66LOQZ30V8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Accessibility-YBVLWOUGY1TVX0IJNK9D4R2T.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/DataDetection-6CYFG2L37JABFO3YIOT7G5ORM.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/_LocationEssentials-8X0JT0ETVB9IHI0T158HHM5RB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/UniformTypeIdentifiers-E5K5SDVU7AZ1LP3VXJ9XO48XN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/UserNotifications-3DL4B75UII5R0E5Q49YLMLC0.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/FileProvider-DKX2Q3UGIB6OZ7ANRU8Z48CEN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreTransferable-BBQVBQJVU5YWK28B49DKSXFOG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/UIUtilities-D5003UEWW14QCVVAJNTGA38PR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Symbols-BG4TJUSJWK9MO9LP1XU9Z3Q31.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/IOSurface-E0M3II5ZY3HF6KZDAFXDARTW3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreLocation-2I3EYYO6QOEQ2VRC8Y9JW0Y.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/Metal-9NZZEHK8P5VE5JEXFX45RFZQ4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreMotion-692UY81DK798YMHV71PPCPT8L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreVideo-5ETYWNZ98VXQW3IUCOX7Y8ZKA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/QuartzCore-9Q4WPTYXONAMNSAT0V0MKRB4Q.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/CoreImage-9Y2VRWPNAG0CY6VQ4GX1BO5SA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/SwiftUICore-4TSA4TQ35A3T267RS9AXGUZ5Q.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules/UIKit-CWFL6WCJMZO3K84J5UPHGRGT7.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-HQTM2B3OMURW0UZU4NTZL8WM.pcm
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-13AOVL9NL0F9T.swiftmodule
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-1V9C61MIFHPZDYBBBKP69N0EO.pcm
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-1UDWTA5KNTLO3.swiftmodule
+
+SwiftCompile normal arm64 Compiling\ CatalogQA.swift /tmp/lenso-native-catalog-qa/CatalogQA.swift (in target 'CatalogQA' from project 'CatalogQA')
+
+SwiftCompile normal arm64 /tmp/lenso-native-catalog-qa/CatalogQA.swift (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-SwiftPerFileCompile CatalogQA.swift
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ CatalogQA (in target 'CatalogQA' from project 'CatalogQA')
+
+SwiftCompile normal arm64 (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for CatalogQA (in target 'CatalogQA' from project 'CatalogQA')
+
+SwiftDriver\ Compilation\ Requirements CatalogQA normal arm64 com.apple.xcode.tools.swift.compiler (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CatalogQA -Onone @/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios26.0-simulator -g -module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk/Developer/Library/Frameworks -parse-as-library -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-cc78df9d8a9de6526dea716b1c70fd8e.sdkstatcache -output-file-map /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex -sdk-module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-generated-files.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-own-target-headers.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-project-headers.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources-normal/arm64 -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources/arm64 -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-Swift.h -working-directory /tmp/lenso-native-catalog-qa -experimental-emit-module-separately -disable-cmo
+
+SwiftMergeGeneratedHeaders /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources/CatalogQA-Swift.h /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-Swift.h (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-swiftHeaderTool -arch arm64 /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-Swift.h -o /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources/CatalogQA-Swift.h
+
+Copy /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.abi.json (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.abi.json /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/arm64-apple-ios-simulator.swiftmodule /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftmodule (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftmodule /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftsourceinfo (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftsourceinfo /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/arm64-apple-ios-simulator.swiftdoc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftdoc (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftdoc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+SwiftDriverJobDiscovery normal arm64 Compiling CatalogQA.swift (in target 'CatalogQA' from project 'CatalogQA')
+
+SwiftDriver\ Compilation CatalogQA normal arm64 com.apple.xcode.tools.swift.compiler (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CatalogQA -Onone @/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios26.0-simulator -g -module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk/Developer/Library/Frameworks -parse-as-library -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-cc78df9d8a9de6526dea716b1c70fd8e.sdkstatcache -output-file-map /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex -sdk-module-cache-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-generated-files.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-own-target-headers.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA-project-headers.hmap -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources-normal/arm64 -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources/arm64 -Xcc -I/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA-Swift.h -working-directory /tmp/lenso-native-catalog-qa -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/CatalogQA normal (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios26.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk/Developer/Library/Frameworks -filelist /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.LinkFileList -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.swiftmodule -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -framework Foundation -o /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/CatalogQA
+
+CopySwiftLibs /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/CatalogQA --scan-folder /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Frameworks --scan-folder /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/PlugIns --scan-folder /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/SystemExtensions --scan-folder /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Extensions --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+ExtractAppIntentsMetadata (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name CatalogQA --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk --xcode-version 27B52 --platform-family iOS --deployment-target 26.0 --bundle-identifier dev.lenso.catalogqa --output /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest --target-triple arm64-apple-ios26.0-simulator --binary-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/CatalogQA --dependency-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA_dependency_info.dat --stringsdata-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftFileList --metadata-file-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.DependencyMetadataFileList --static-metadata-file-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/Objects-normal/arm64/CatalogQA.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-11-10 23:01:12.992 appintentsmetadataprocessor[73163:15606713] Starting App Intents metadata extraction
+2026-11-10 23:01:13.001 appintentsmetadataprocessor[73163:15606713] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+AppIntentsSSUTraining (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Info.plist --temp-dir-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/ssu --bundle-id dev.lenso.catalogqa --product-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest --extracted-metadata-path /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Metadata.appintents --metadata-file-list /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/CatalogQA.build/Debug-iphonesimulator/CatalogQA.build/CatalogQA.DependencyMetadataFileList --source-file /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Info.plist --archive-ssu-assets
+2026-11-10 23:01:13.031 appintentsnltrainingprocessor[73164:15606714] Parsing options for appintentsnltrainingprocessor
+2026-11-10 23:01:13.031 appintentsnltrainingprocessor[73164:15606714] Starting AppIntents SSU YAML Generation
+2026-11-10 23:01:13.033 appintentsnltrainingprocessor[73164:15606714] No AppShortcuts found - Skipping.
+
+CopyPlistFile /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/Info.plist /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/Info.plist (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-copyPlist --validate --convert xml1 --macro-expansion WRAPPEDPRODUCTNAME CatalogQA-Runner --macro-expansion WRAPPEDPRODUCTBUNDLEIDENTIFIER dev.lenso.catalogqa.xctrunner --macro-expansion TESTPRODUCTNAME CatalogQA --macro-expansion TESTPRODUCTBUNDLEIDENTIFIER dev.lenso.catalogqa --copy-value UIDeviceFamily /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/Info.plist --outdir /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app -- /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/Info.plist
+
+MkDir /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    /bin/mkdir -p /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app
+
+CopyAndPreserveArchs /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/CatalogQA-Runner (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/XCTRunner -output /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/CatalogQA-Runner -extract arm64
+
+Copy /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PkgInfo /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/PkgInfo (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/PkgInfo /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app
+
+RegisterExecutionPolicyException /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    builtin-RegisterExecutionPolicyException /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest
+
+Touch /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest (in target 'CatalogQA' from project 'CatalogQA')
+    cd /tmp/lenso-native-catalog-qa
+    /usr/bin/touch -c /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest
+
+PruneExplicitPrecompiledModules /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/lenso-native-catalog-qa/DerivedDataDelivery/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+2026-11-10 23:01:24.019387+0800 CatalogQA-Runner[73206:15607358] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-10 23:01:25.197.
+Test Suite 'CatalogQA.xctest' started at 2026-11-10 23:01:25.197.
+Test Suite 'CatalogQATests' started at 2026-11-10 23:01:25.197.
+Test Case '-[CatalogQA.CatalogQATests testDeliveryValueCallbackRegression20261110]' started.
+    t =     0.00s Start Test at 2026-11-10 23:01:25.198
+    t =     0.18s Set Up
+    t =     0.19s Terminate dev.lenso.nativeexample:60114
+objc[73206]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x10557c310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1054dc398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     1.19s Open dev.lenso.nativeexample
+    t =     1.19s     Launch dev.lenso.nativeexample
+    t =     1.30s         Setting up automation session
+    t =     2.09s         Wait for dev.lenso.nativeexample to idle
+    t =     4.19s Checking existence of `"Close" Button`
+    t =     4.29s Find the "Close" Button
+    t =     4.35s Tap "Close" Button
+    t =     4.35s     Wait for dev.lenso.nativeexample to idle
+    t =     4.59s     Find the "Close" Button
+    t =     4.63s     Check for interrupting elements affecting "xmark" Button
+    t =     4.71s     Synthesize event
+    t =     5.11s     Wait for dev.lenso.nativeexample to idle
+    t =     5.48s Waiting 20.0s for "Open native catalog" Button to exist
+    t =     6.51s     Checking `Expect predicate `existsNoRetry == 1` for object "Open native catalog" Button`
+    t =     6.51s         Checking existence of `"Open native catalog" Button`
+    t =     6.56s Find the "Open native catalog" Button
+    t =     6.60s Get all elements bound by index for: Descendants matching type ScrollView
+    t =     6.63s Find the ScrollView (Element at index 0)
+    t =     6.66s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =     6.69s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =     6.74s Find the ScrollView
+    t =     6.77s Checking existence of `Keyboard (First Match)`
+    t =     6.82s Checking existence of `"Open native catalog" Button`
+    t =     6.85s Find the "Open native catalog" Button
+    t =     6.90s Tap "Open native catalog" Button
+    t =     6.90s     Wait for dev.lenso.nativeexample to idle
+    t =     6.90s     Find the "Open native catalog" Button
+    t =     6.94s     Check for interrupting elements affecting "Open native catalog" Button
+    t =     6.98s     Synthesize event
+    t =     7.27s     Wait for dev.lenso.nativeexample to idle
+    t =     7.39s Waiting 20.0s for "Native controls" StaticText to exist
+    t =     8.42s     Checking `Expect predicate `existsNoRetry == 1` for object "Native controls" StaticText`
+    t =     8.42s         Checking existence of `"Native controls" StaticText`
+    t =     8.46s Requesting snapshot of accessibility hierarchy for app with pid 73264
+    t =     8.79s Requesting snapshot of accessibility hierarchy for app with pid 73264
+CATALOG_SCENE catalog-entry
+Attributes: Application, 0x108bc4000, pid: 73264, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x108bc4000, pid: 73264, label: 'Lenso Native'
+    Window (Main), 0x108bc4140, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x108bc7840, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x108bc7980, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x108bc7ac0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x108bc7c00, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x108bc7d40, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x108bc7e80, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x108bc4280, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x108bc61c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x108bc6300, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x108bc5540, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x108bc5680, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x108bc57c0, {{0.0, 62.0}, {402.0, 778.0}}
+                            ScrollView, 0x108bc5900, {{0.0, 62.0}, {402.0, 778.0}}
+                              Other, 0x108bc5a40, {{0.0, 62.0}, {402.0, 2588.0}}
+                                Other, 0x108bc5b80, {{0.0, 62.0}, {402.0, 2588.0}}
+                                  Other, 0x108bc5cc0, {{0.0, 78.0}, {402.0, 2508.0}}
+                                  Other, 0x108bc5e00, {{24.0, 102.0}, {128.0, 44.0}}
+                                    Button, 0x108bc5f40, {{24.0, 102.0}, {128.0, 44.0}}, label: 'Back to Glass'
+                                      StaticText, 0x108bc6080, {{36.0, 113.7}, {103.7, 20.3}}, label: 'Back to Glass'
+                                  Other, 0x108bc7340, {{160.0, 102.0}, {187.0, 44.0}}
+                                    Button, 0x108bc7480, {{160.0, 102.0}, {187.0, 44.0}}, label: 'Use dark appearance'
+                                      StaticText, 0x108bc75c0, {{172.0, 113.7}, {162.3, 20.3}}, label: 'Use dark appearance'
+                                  Other, 0x108bc7700, {{24.0, 154.0}, {113.0, 44.0}}
+                                    Button, 0x105a42f80, {{24.0, 154.0}, {113.0, 44.0}}, label: 'Hold values'
+                                      StaticText, 0x105a430c0, {{36.0, 165.7}, {88.7, 20.3}}, label: 'Hold values'
+                                  StaticText, 0x105a43200, {{24.0, 218.0}, {354.0, 40.7}}, label: 'Native controls'
+                                    StaticText, 0x105a43340, {{24.0, 218.0}, {354.0, 40.7}}, label: 'Native controls'
+                                  StaticText, 0x105a43480, {{24.0, 278.7}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                    StaticText, 0x105a435c0, {{24.0, 278.7}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                  StaticText, 0x105a43700, {{24.0, 339.3}, {354.0, 18.0}}, label: 'Owner values: accepting'
+                                    StaticText, 0x105a43840, {{24.0, 339.3}, {354.0, 18.0}}, label: 'Owner values: accepting'
+                                  Other, 0x105a43980, {{24.0, 377.3}, {354.0, 254.3}}, identifier: 'actions-card'
+                                  StaticText, 0x105a43ac0, {{44.0, 397.3}, {314.0, 20.3}}, label: 'Actions'
+                                    StaticText, 0x105a43c00, {{44.0, 397.3}, {314.0, 20.3}}, label: 'Actions'
+                                  Other, 0x105a43d40, {{44.0, 429.7}, {126.0, 44.0}}
+                                    Button, 0x105a43e80, {{44.0, 429.7}, {126.0, 44.0}}, label: 'Save settings'
+                                      StaticText, 0x1144e8000, {{56.0, 441.3}, {102.0, 20.3}}, label: 'Save settings'
+                                  Other, 0x1144e8140, {{178.0, 429.7}, {142.0, 44.0}}
+                                    Button, 0x1144e8280, {{178.0, 429.7}, {142.0, 44.0}}, label: 'Disabled action', Disabled
+                                      StaticText, 0x1144e83c0, {{190.0, 441.3}, {117.7, 20.3}}, label: 'Disabled action'
+                                  Other, 0x1144e8500, {{44.0, 481.7}, {136.0, 44.0}}
+                                    Button, 0x1144e8640, {{44.0, 481.7}, {136.0, 44.0}}, label: 'Loading action'
+                                      StaticText, 0x1144e8780, {{56.0, 493.3}, {112.0, 20.3}}, label: 'Loading action'
+                                  Other, 0x1144e88c0, {{44.0, 537.7}, {122.0, 44.0}}
+                                    Button, 0x1144e8a00, {{44.0, 537.7}, {122.0, 44.0}}, label: 'Start loading'
+                                      StaticText, 0x1144e8b40, {{56.3, 549.3}, {97.3, 20.3}}, label: 'Start loading'
+                                  StaticText, 0x1144e8c80, {{44.0, 593.7}, {314.0, 18.0}}, label: 'Actions 0'
+                                    StaticText, 0x1144e8dc0, {{44.0, 593.7}, {314.0, 18.0}}, label: 'Actions 0'
+                                  Other, 0x1144e8f00, {{24.0, 651.7}, {354.0, 737.7}}, identifier: 'fields-card'
+                                  StaticText, 0x1144e9040, {{44.0, 671.7}, {314.0, 20.3}}, label: 'Profile'
+                                    StaticText, 0x1144e9180, {{44.0, 671.7}, {314.0, 20.3}}, label: 'Profile'
+                                  Other, 0x1144e92c0, {{44.0, 704.0}, {117.0, 44.0}}
+                                    Button, 0x1144e9400, {{44.0, 704.0}, {117.0, 44.0}}, label: 'Focus name'
+                                      StaticText, 0x1144e9540, {{56.0, 715.7}, {92.7, 20.3}}, label: 'Focus name'
+                                  StaticText, 0x1144e9680, {{44.0, 760.0}, {314.0, 18.0}}, label: 'Name'
+                                    StaticText, 0x1144e97c0, {{44.0, 760.0}, {314.0, 18.0}}, label: 'Name'
+                                  Other, 0x1144e9900, {{44.0, 784.0}, {314.0, 44.0}}
+                                    TextField, 0x1144e9a40, {{45.0, 785.0}, {312.0, 42.0}}, label: 'Name', value: Ada
+                                  StaticText, 0x1144e9b80, {{44.0, 834.0}, {314.0, 15.7}}, label: 'Your display name'
+                                    StaticText, 0x1144e9cc0, {{44.0, 834.0}, {314.0, 15.7}}, label: 'Your display name'
+                                  Other, 0x1144e9e00, {{44.0, 861.7}, {314.0, 100.0}}
+                                    TextView, 0x1144e9f40, {{44.0, 861.7}, {314.0, 100.0}}, label: 'Notes', value: Bring notes
+                                      Other, 0x1144ea080, {{325.0, 861.7}, {30.0, 87.7}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x1144ea1c0, {{352.0, 943.7}, {3.0, 15.0}}
+                                      Other, 0x1144ea300, {{56.3, 928.7}, {289.3, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                        Other, 0x1144ea440, {{47.0, 955.7}, {308.0, 3.0}}
+                                  Other, 0x1144ea580, {{44.0, 973.7}, {314.0, 44.0}}
+                                    SearchField, 0x1144ea6c0, {{44.0, 973.7}, {314.0, 44.0}}, label: 'Search notes', placeholderValue: 'Search notes'
+                                  StaticText, 0x1144ea800, {{44.0, 1029.7}, {314.0, 18.0}}, label: 'Read only'
+                                    StaticText, 0x1144ea940, {{44.0, 1029.7}, {314.0, 18.0}}, label: 'Read only'
+                                  Other, 0x1144eaa80, {{44.0, 1053.7}, {314.0, 44.0}}
+                                    TextField, 0x1144eabc0, {{44.0, 1053.7}, {314.0, 44.0}}, label: 'Read only', value: Reference, Disabled
+                                  StaticText, 0x1144ead00, {{44.0, 1109.7}, {314.0, 18.0}}, label: 'Disabled field'
+                                    StaticText, 0x1144eae40, {{44.0, 1109.7}, {314.0, 18.0}}, label: 'Disabled field'
+                                  Other, 0x1144eaf80, {{44.0, 1133.7}, {314.0, 44.0}}
+                                    TextField, 0x1144eb0c0, {{44.0, 1133.7}, {314.0, 44.0}}, label: 'Disabled field', value: Unavailable, Disabled
+                                  StaticText, 0x1144eb200, {{44.0, 1189.7}, {314.0, 18.0}}, label: 'Validation example'
+                                    StaticText, 0x1144eb340, {{44.0, 1189.7}, {314.0, 18.0}}, label: 'Validation example'
+                                  Other, 0x1144eb480, {{44.0, 1213.7}, {314.0, 44.0}}
+                                    TextField, 0x1144eb5c0, {{45.0, 1214.7}, {312.0, 42.0}}, label: 'Validation example', placeholderValue: 'Required'
+                                  StaticText, 0x1144eb700, {{44.0, 1263.7}, {314.0, 15.7}}, label: 'Enter a value'
+                                    StaticText, 0x1144eb840, {{44.0, 1263.7}, {314.0, 15.7}}, label: 'Enter a value'
+                                  StaticText, 0x1144eb980, {{44.0, 1291.3}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                    StaticText, 0x1144ebac0, {{44.0, 1291.3}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                  StaticText, 0x1144ebc00, {{44.0, 1321.3}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                    StaticText, 0x1144ebd40, {{44.0, 1321.3}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                  StaticText, 0x1144ebe80, {{44.0, 1351.3}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                    StaticText, 0x1144f0000, {{44.0, 1351.3}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                  Other, 0x1144f0140, {{24.0, 1409.3}, {354.0, 527.3}}, identifier: 'choices-card'
+                                  StaticText, 0x1144f0280, {{44.0, 1429.3}, {314.0, 20.3}}, label: 'Choices'
+                                    StaticText, 0x1144f03c0, {{44.0, 1429.3}, {314.0, 20.3}}, label: 'Choices'
+                                  Other, 0x1144f0500, {{44.0, 1461.7}, {138.0, 44.0}}
+                                    Button, 0x1144f0640, {{44.0, 1461.7}, {138.0, 44.0}}, label: 'Disable groups'
+                                      StaticText, 0x1144f0780, {{56.0, 1473.3}, {114.0, 20.3}}, label: 'Disable groups'
+                                  StaticText, 0x1144f08c0, {{44.0, 1517.7}, {314.0, 18.0}}, label: 'Delivery'
+                                    StaticText, 0x1144f0a00, {{44.0, 1517.7}, {314.0, 18.0}}, label: 'Delivery'
+                                  Other, 0x1144f0b40, {{44.0, 1543.7}, {148.0, 44.0}}
+                                    Button, 0x1144f0c80, {{44.0, 1543.7}, {148.0, 44.0}}, label: 'Email updates', Selected
+                                      StaticText, 0x1144f0dc0, {{81.0, 1555.3}, {107.0, 20.3}}, label: 'Email updates'
+                                  Other, 0x1144f0f00, {{44.0, 1591.7}, {146.0, 44.0}}
+                                    Button, 0x1144f1040, {{44.0, 1591.7}, {146.0, 44.0}}, label: 'Push updates'
+                                      StaticText, 0x1144f1180, {{81.3, 1603.3}, {104.3, 20.3}}, label: 'Push updates'
+                                  StaticText, 0x1144f12c0, {{44.0, 1643.7}, {314.0, 18.0}}, label: 'Delivery email'
+                                    StaticText, 0x1144f1400, {{44.0, 1643.7}, {314.0, 18.0}}, label: 'Delivery email'
+                                  Other, 0x1144f1540, {{44.0, 1673.7}, {314.0, 1.0}}
+                                  StaticText, 0x1144f1680, {{44.0, 1686.7}, {314.0, 18.0}}, label: 'Plan'
+                                    StaticText, 0x1144f17c0, {{44.0, 1686.7}, {314.0, 18.0}}, label: 'Plan'
+                                  Other, 0x1144f1900, {{44.0, 1712.7}, {144.0, 44.0}}
+                                    Button, 0x1144f1a40, {{44.0, 1712.7}, {144.0, 44.0}}, label: 'Personal plan', Selected
+                                      StaticText, 0x1144f1b80, {{81.7, 1724.3}, {102.3, 20.3}}, label: 'Personal plan'
+                                  Other, 0x1144f1cc0, {{44.0, 1760.7}, {147.0, 44.0}}
+                                    Button, 0x1144f1e00, {{44.0, 1760.7}, {147.0, 44.0}}, label: 'Business plan'
+                                      StaticText, 0x1144f1f40, {{81.7, 1772.3}, {104.7, 20.3}}, label: 'Business plan'
+                                  StaticText, 0x1144f2080, {{44.0, 1812.7}, {314.0, 18.0}}, label: 'Plan personal'
+                                    StaticText, 0x1144f21c0, {{44.0, 1812.7}, {314.0, 18.0}}, label: 'Plan personal'
+                                  Other, 0x1144f2300, {{44.0, 1842.7}, {43.0, 44.0}}
+                                    Button, 0x1144f2440, {{44.0, 1842.7}, {43.0, 44.0}}, label: 'Bold', Selected
+                                      StaticText, 0x1144f2580, {{48.0, 1854.3}, {34.3, 20.3}}, label: 'Bold'
+                                  Other, 0x1144f26c0, {{91.0, 1842.7}, {44.0, 44.0}}
+                                    Button, 0x1144f2800, {{91.0, 1842.7}, {44.0, 44.0}}, label: 'Italic'
+                                      StaticText, 0x1144f2940, {{95.0, 1854.3}, {35.7, 20.3}}, label: 'Italic'
+                                  StaticText, 0x1144f2a80, {{44.0, 1898.7}, {314.0, 18.0}}, label: 'Format bold'
+                                    StaticText, 0x1144f2bc0, {{44.0, 1898.7}, {314.0, 18.0}}, label: 'Format bold'
+                                  Other, 0x1144f2d00, {{24.0, 1956.7}, {354.0, 232.3}}, identifier: 'system-controls-card'
+                                  StaticText, 0x1144f2e40, {{44.0, 1976.7}, {314.0, 20.3}}, label: 'System controls'
+                                    StaticText, 0x1144f2f80, {{44.0, 1976.7}, {314.0, 20.3}}, label: 'System controls'
+                                  Other, 0x1144f30c0, {{44.0, 2009.0}, {314.0, 44.0}}, label: 'Audience'
+                                    SegmentedControl, 0x1144f3200, {{44.0, 2009.0}, {314.0, 44.0}}, label: 'Audience'
+                                      Button, 0x1144f3340, {{44.0, 2009.0}, {104.0, 44.0}}, label: 'Personal', Selected
+                                      Button, 0x1144f3480, {{148.0, 2009.0}, {105.0, 44.0}}, label: 'Business'
+                                      Button, 0x1144f35c0, {{253.0, 2009.0}, {105.0, 44.0}}, label: 'Unavailable', Disabled
+                                  StaticText, 0x1144f3700, {{44.0, 2065.0}, {314.0, 18.0}}, label: 'Audience personal'
+                                    StaticText, 0x1144f3840, {{44.0, 2065.0}, {314.0, 18.0}}, label: 'Audience personal'
+                                  Other, 0x1144f3980, {{44.0, 2095.0}, {94.0, 44.0}}, label: 'Guests'
+                                    Stepper, 0x1144f3ac0, {{44.0, 2095.0}, {94.0, 32.0}}, label: 'Guests'
+                                      Button, 0x1144f3c00, {{44.0, 2095.0}, {47.0, 32.0}}, identifier: 'Decrement', label: 'Guests, Decrement'
+                                      Button, 0x1144f3d40, {{91.0, 2095.0}, {47.0, 32.0}}, identifier: 'Increment', label: 'Guests, Increment'
+                                  StaticText, 0x1144f3e80, {{44.0, 2151.0}, {314.0, 18.0}}, label: 'Guests 2'
+                                    StaticText, 0x1144f8000, {{44.0, 2151.0}, {314.0, 18.0}}, label: 'Guests 2'
+                                  Other, 0x1144f8140, {{24.0, 2209.0}, {354.0, 353.0}}
+                                  StaticText, 0x1144f8280, {{44.0, 2229.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                    StaticText, 0x1144f83c0, {{44.0, 2229.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                  StaticText, 0x1144f8500, {{44.0, 2261.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                    StaticText, 0x1144f8640, {{44.0, 2261.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                  Other, 0x1144f8780, {{44.0, 2293.7}, {72.0, 21.7}}
+                                  StaticText, 0x1144f88c0, {{52.0, 2296.7}, {56.0, 15.7}}, label: '3 unread'
+                                    StaticText, 0x1144f8a00, {{52.0, 2296.7}, {56.0, 15.7}}, label: '3 unread'
+                                  Other, 0x1144f8b40, {{44.0, 2327.3}, {314.0, 76.3}}
+                                  StaticText, 0x1144f8c80, {{60.0, 2343.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                    StaticText, 0x1144f8dc0, {{60.0, 2343.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                  StaticText, 0x1144f8f00, {{60.0, 2369.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                    StaticText, 0x1144f9040, {{60.0, 2369.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                  StaticText, 0x1144f9180, {{137.3, 2439.7}, {127.0, 20.3}}, label: 'No attachments'
+                                    StaticText, 0x1144f92c0, {{137.3, 2439.7}, {127.0, 20.3}}, label: 'No attachments'
+                                  StaticText, 0x1144f9400, {{69.0, 2468.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                    StaticText, 0x1144f9540, {{69.0, 2468.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                  Other, 0x1144f9680, {{44.0, 2522.0}, {20.0, 20.0}}, label: 'Loading'
+                                    ActivityIndicator, 0x1144f97c0, {{44.0, 2522.0}, {20.0, 20.0}}, label: 'In progress', value: 1
+                              Other, 0x1144f9900, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 0%
+                                Other, 0x1144f9a40, {{396.0, 111.0}, {3.0, 204.3}}
+                              Other, 0x1144f9b80, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x1144f9cc0, {{49.0, 834.0}, {304.0, 3.0}}
+                              Other, 0x1144f9e00, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 0%
+                                Other, 0x1144f9f40, {{396.0, 111.0}, {3.0, 204.3}}
+                              Other, 0x1144fa080, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x1144fa1c0, {{49.0, 834.0}, {304.0, 3.0}}
+                  Other, 0x1144fa300, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1144fa440, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1144fa580, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x108bc4000, pid: 73264, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x1144fa6c0, pid: 73264, label: 'Lenso Native'
+  }
+
+    t =     8.86s Added attachment named 'catalog-entry-hierarchy'
+    t =     8.86s Find the Application 'dev.lenso.nativeexample'
+    t =     9.00s Added attachment named 'catalog-entry'
+    t =     9.00s Find the "Push updates" Button
+    t =     9.04s Get all elements bound by index for: Descendants matching type ScrollView
+    t =     9.08s Find the ScrollView (Element at index 0)
+    t =     9.12s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =     9.16s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =     9.19s Find the ScrollView
+    t =     9.22s Checking existence of `Keyboard (First Match)`
+    t =     9.27s Checking existence of `"Push updates" Button`
+    t =     9.31s Find the "Push updates" Button
+    t =     9.35s Get all elements bound by index for: Descendants matching type ScrollView
+    t =     9.39s Find the ScrollView (Element at index 0)
+    t =     9.42s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =     9.46s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =     9.49s Swipe up ScrollView
+    t =     9.49s     Wait for dev.lenso.nativeexample to idle
+    t =     9.50s     Find the ScrollView
+    t =     9.53s     Check for interrupting elements affecting ScrollView
+    t =     9.57s     Synthesize event
+    t =    10.01s     Wait for dev.lenso.nativeexample to idle
+    t =    12.12s Find the "Push updates" Button
+    t =    12.17s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    12.20s Find the ScrollView (Element at index 0)
+    t =    12.24s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    12.28s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    12.32s Find the ScrollView
+    t =    12.35s Checking existence of `Keyboard (First Match)`
+    t =    12.40s Checking existence of `"Push updates" Button`
+    t =    12.44s Find the "Push updates" Button
+    t =    12.49s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    12.52s Find the ScrollView (Element at index 0)
+    t =    12.56s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    12.60s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    12.63s Swipe up ScrollView
+    t =    12.63s     Wait for dev.lenso.nativeexample to idle
+    t =    12.64s     Find the ScrollView
+    t =    12.67s     Check for interrupting elements affecting ScrollView
+    t =    12.71s     Synthesize event
+    t =    13.16s     Wait for dev.lenso.nativeexample to idle
+    t =    15.25s Find the "Push updates" Button
+    t =    15.30s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    15.34s Find the ScrollView (Element at index 0)
+    t =    15.38s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    15.42s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    15.45s Find the ScrollView
+    t =    15.49s Checking existence of `Keyboard (First Match)`
+    t =    15.54s Checking existence of `"Push updates" Button`
+    t =    15.57s Find the "Push updates" Button
+    t =    15.62s Tap "Push updates" Button
+    t =    15.62s     Wait for dev.lenso.nativeexample to idle
+    t =    15.62s     Find the "Push updates" Button
+    t =    15.66s     Check for interrupting elements affecting "Push updates" Button
+    t =    15.70s     Synthesize event
+    t =    16.00s     Wait for dev.lenso.nativeexample to idle
+    t =    17.14s Find the "Push updates" Button
+    t =    17.20s Checking existence of `"Delivery email,push" StaticText`
+    t =    17.24s Find the "Business plan" Button
+    t =    17.28s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    17.31s Find the ScrollView (Element at index 0)
+    t =    17.35s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    17.39s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    17.43s Find the ScrollView
+    t =    17.46s Checking existence of `Keyboard (First Match)`
+    t =    17.51s Checking existence of `"Business plan" Button`
+    t =    17.55s Find the "Business plan" Button
+    t =    17.60s Tap "Business plan" Button
+    t =    17.60s     Wait for dev.lenso.nativeexample to idle
+    t =    17.60s     Find the "Business plan" Button
+    t =    17.64s     Check for interrupting elements affecting "Business plan" Button
+    t =    17.68s     Synthesize event
+    t =    17.97s     Wait for dev.lenso.nativeexample to idle
+    t =    19.09s Find the "Business plan" Button
+    t =    19.15s Checking existence of `"Plan business" StaticText`
+    t =    19.19s Find the "Italic" Button
+    t =    19.23s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    19.26s Find the ScrollView (Element at index 0)
+    t =    19.30s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    19.34s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    19.38s Find the ScrollView
+    t =    19.41s Checking existence of `Keyboard (First Match)`
+    t =    19.46s Checking existence of `"Italic" Button`
+    t =    19.50s Find the "Italic" Button
+    t =    19.55s Tap "Italic" Button
+    t =    19.55s     Wait for dev.lenso.nativeexample to idle
+    t =    19.55s     Find the "Italic" Button
+    t =    19.60s     Check for interrupting elements affecting "Italic" Button
+    t =    19.63s     Synthesize event
+    t =    19.92s     Wait for dev.lenso.nativeexample to idle
+    t =    21.05s Find the "Italic" Button
+    t =    21.11s Checking existence of `"Format bold,italic" StaticText`
+    t =    21.14s Find the "Audience" SegmentedControl
+    t =    21.19s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    21.23s Find the ScrollView (Element at index 0)
+    t =    21.26s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    21.31s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    21.34s Find the ScrollView
+    t =    21.38s Checking existence of `Keyboard (First Match)`
+    t =    21.43s Checking existence of `"Audience" SegmentedControl`
+    t =    21.47s Find the "Audience" SegmentedControl
+    t =    21.52s Tap "Business" Button
+    t =    21.52s     Wait for dev.lenso.nativeexample to idle
+    t =    21.52s     Find the "Business" Button
+    t =    21.56s     Check for interrupting elements affecting "Business" Button
+    t =    21.60s     Synthesize event
+    t =    21.89s     Wait for dev.lenso.nativeexample to idle
+    t =    23.99s Find the "Business" Button
+    t =    24.05s Checking existence of `"Audience business" StaticText`
+    t =    24.09s Find the "Guests" Stepper
+    t =    24.14s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    24.21s Find the ScrollView (Element at index 0)
+    t =    24.37s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    24.50s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    24.55s Find the ScrollView
+    t =    24.59s Checking existence of `Keyboard (First Match)`
+    t =    24.65s Checking existence of `"Guests" Stepper`
+    t =    24.69s Find the "Guests" Stepper
+    t =    24.74s Tap "Increment" Button
+    t =    24.74s     Wait for dev.lenso.nativeexample to idle
+    t =    24.74s     Find the "Increment" Button
+    t =    24.79s     Check for interrupting elements affecting "Increment" Button
+    t =    24.83s     Synthesize event
+    t =    25.13s     Wait for dev.lenso.nativeexample to idle
+    t =    26.17s Checking existence of `"Guests 3" StaticText`
+    t =    26.22s Requesting snapshot of accessibility hierarchy for app with pid 73264
+    t =    26.46s Requesting snapshot of accessibility hierarchy for app with pid 73264
+CATALOG_SCENE delivery-catalog-accepted
+Attributes: Application, 0x114d0a6c0, pid: 73264, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x114d0a6c0, pid: 73264, label: 'Lenso Native'
+    Window (Main), 0x114d0a1c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x114d08140, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x114d08000, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x114d09400, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x114d09540, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x114d09680, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114d097c0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x114d09900, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x114d09a40, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x114d09b80, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x114d09cc0, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x114d09e00, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x114d09f40, {{0.0, 62.0}, {402.0, 778.0}}
+                            ScrollView, 0x114d0a080, {{0.0, 62.0}, {402.0, 778.0}}
+                              Other, 0x114d0a300, {{0.0, -1300.0}, {402.0, 2588.0}}
+                                Other, 0x114d0a440, {{0.0, -1300.0}, {402.0, 2588.0}}
+                                  Other, 0x114d0a580, {{0.0, -1284.0}, {402.0, 2508.0}}
+                                  Other, 0x114d0de00, {{24.0, -1260.0}, {128.0, 44.0}}
+                                    Button, 0x114d0cdc0, {{24.0, -1260.0}, {128.0, 44.0}}, label: 'Back to Glass'
+                                      StaticText, 0x114d0cf00, {{36.0, -1248.3}, {103.7, 20.3}}, label: 'Back to Glass'
+                                  Other, 0x114d0d040, {{160.0, -1260.0}, {187.0, 44.0}}
+                                    Button, 0x114d0d180, {{160.0, -1260.0}, {187.0, 44.0}}, label: 'Use dark appearance'
+                                      StaticText, 0x114d0d2c0, {{172.0, -1248.3}, {162.3, 20.3}}, label: 'Use dark appearance'
+                                  Other, 0x114d0d400, {{24.0, -1208.0}, {113.0, 44.0}}
+                                    Button, 0x114d0d540, {{24.0, -1208.0}, {113.0, 44.0}}, label: 'Hold values'
+                                      StaticText, 0x114d0d680, {{36.0, -1196.3}, {88.7, 20.3}}, label: 'Hold values'
+                                  StaticText, 0x114d0d7c0, {{24.0, -1144.0}, {354.0, 40.7}}, label: 'Native controls'
+                                    StaticText, 0x114d0d900, {{24.0, -1144.0}, {354.0, 40.7}}, label: 'Native controls'
+                                  StaticText, 0x114d0da40, {{24.0, -1083.3}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                    StaticText, 0x114d0db80, {{24.0, -1083.3}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                  StaticText, 0x114d0dcc0, {{24.0, -1022.7}, {354.0, 18.0}}, label: 'Owner values: accepting'
+                                    StaticText, 0x114d0e300, {{24.0, -1022.7}, {354.0, 18.0}}, label: 'Owner values: accepting'
+                                  Other, 0x114d0e440, {{24.0, -984.7}, {354.0, 254.3}}, identifier: 'actions-card'
+                                  StaticText, 0x114d0e580, {{44.0, -964.7}, {314.0, 20.3}}, label: 'Actions'
+                                    StaticText, 0x114d0e6c0, {{44.0, -964.7}, {314.0, 20.3}}, label: 'Actions'
+                                  Other, 0x114d0fe80, {{44.0, -932.3}, {126.0, 44.0}}
+                                    Button, 0x114d07d40, {{44.0, -932.3}, {126.0, 44.0}}, label: 'Save settings'
+                                      StaticText, 0x114d07700, {{56.0, -920.7}, {102.0, 20.3}}, label: 'Save settings'
+                                  Other, 0x114d07840, {{178.0, -932.3}, {142.0, 44.0}}
+                                    Button, 0x114d07980, {{178.0, -932.3}, {142.0, 44.0}}, label: 'Disabled action', Disabled
+                                      StaticText, 0x114d07ac0, {{190.0, -920.7}, {117.7, 20.3}}, label: 'Disabled action'
+                                  Other, 0x1144f8f00, {{44.0, -880.3}, {136.0, 44.0}}
+                                    Button, 0x1144fa1c0, {{44.0, -880.3}, {136.0, 44.0}}, label: 'Loading action'
+                                      StaticText, 0x1144faa80, {{56.0, -868.7}, {112.0, 20.3}}, label: 'Loading action'
+                                  Other, 0x1144f92c0, {{44.0, -824.3}, {122.0, 44.0}}
+                                    Button, 0x1144fabc0, {{44.0, -824.3}, {122.0, 44.0}}, label: 'Start loading'
+                                      StaticText, 0x1144fad00, {{56.3, -812.7}, {97.3, 20.3}}, label: 'Start loading'
+                                  StaticText, 0x1144fae40, {{44.0, -768.3}, {314.0, 18.0}}, label: 'Actions 0'
+                                    StaticText, 0x1144f9540, {{44.0, -768.3}, {314.0, 18.0}}, label: 'Actions 0'
+                                  Other, 0x1144faf80, {{24.0, -710.3}, {354.0, 737.7}}, identifier: 'fields-card'
+                                  StaticText, 0x1144f9a40, {{44.0, -690.3}, {314.0, 20.3}}, label: 'Profile'
+                                    StaticText, 0x1144f9180, {{44.0, -690.3}, {314.0, 20.3}}, label: 'Profile'
+                                  Other, 0x1144f9680, {{44.0, -658.0}, {117.0, 44.0}}
+                                    Button, 0x114e00000, {{44.0, -658.0}, {117.0, 44.0}}, label: 'Focus name'
+                                      StaticText, 0x114e00140, {{56.0, -646.3}, {92.7, 20.3}}, label: 'Focus name'
+                                  StaticText, 0x114e00280, {{44.0, -602.0}, {314.0, 18.0}}, label: 'Name'
+                                    StaticText, 0x114e003c0, {{44.0, -602.0}, {314.0, 18.0}}, label: 'Name'
+                                  Other, 0x114e00500, {{44.0, -578.0}, {314.0, 44.0}}
+                                    TextField, 0x114e00640, {{45.0, -577.0}, {312.0, 42.0}}, label: 'Name', value: Ada
+                                  StaticText, 0x114e00780, {{44.0, -528.0}, {314.0, 15.7}}, label: 'Your display name'
+                                    StaticText, 0x114e008c0, {{44.0, -528.0}, {314.0, 15.7}}, label: 'Your display name'
+                                  Other, 0x114e00a00, {{44.0, -500.3}, {314.0, 100.0}}
+                                    TextView, 0x114e00b40, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Notes', value: Bring notes
+                                      Other, 0x114e00c80, {{325.0, -500.3}, {30.0, 87.7}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x114e00dc0, {{352.0, -418.3}, {3.0, 15.0}}
+                                      Other, 0x114e00f00, {{56.3, -433.3}, {289.3, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                        Other, 0x114e01040, {{47.0, -406.3}, {308.0, 3.0}}
+                                  Other, 0x114e01180, {{44.0, -388.3}, {314.0, 44.0}}
+                                    SearchField, 0x114e012c0, {{44.0, -388.3}, {314.0, 44.0}}, label: 'Search notes', placeholderValue: 'Search notes'
+                                  StaticText, 0x114e01400, {{44.0, -332.3}, {314.0, 18.0}}, label: 'Read only'
+                                    StaticText, 0x114e01540, {{44.0, -332.3}, {314.0, 18.0}}, label: 'Read only'
+                                  Other, 0x114e01680, {{44.0, -308.3}, {314.0, 44.0}}
+                                    TextField, 0x114e017c0, {{44.0, -308.3}, {314.0, 44.0}}, label: 'Read only', value: Reference, Disabled
+                                  StaticText, 0x114e01900, {{44.0, -252.3}, {314.0, 18.0}}, label: 'Disabled field'
+                                    StaticText, 0x114e01a40, {{44.0, -252.3}, {314.0, 18.0}}, label: 'Disabled field'
+                                  Other, 0x114e01b80, {{44.0, -228.3}, {314.0, 44.0}}
+                                    TextField, 0x114e01cc0, {{44.0, -228.3}, {314.0, 44.0}}, label: 'Disabled field', value: Unavailable, Disabled
+                                  StaticText, 0x114e01e00, {{44.0, -172.3}, {314.0, 18.0}}, label: 'Validation example'
+                                    StaticText, 0x114e01f40, {{44.0, -172.3}, {314.0, 18.0}}, label: 'Validation example'
+                                  Other, 0x114e02080, {{44.0, -148.3}, {314.0, 44.0}}
+                                    TextField, 0x114e021c0, {{45.0, -147.3}, {312.0, 42.0}}, label: 'Validation example', placeholderValue: 'Required'
+                                  StaticText, 0x114e02300, {{44.0, -98.3}, {314.0, 15.7}}, label: 'Enter a value'
+                                    StaticText, 0x114e02440, {{44.0, -98.3}, {314.0, 15.7}}, label: 'Enter a value'
+                                  StaticText, 0x114e02580, {{44.0, -70.7}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                    StaticText, 0x114e026c0, {{44.0, -70.7}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                  StaticText, 0x114e02800, {{44.0, -40.7}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                    StaticText, 0x114e02940, {{44.0, -40.7}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                  StaticText, 0x114e02a80, {{44.0, -10.7}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                    StaticText, 0x114e02bc0, {{44.0, -10.7}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                  Other, 0x114e02d00, {{24.0, 47.3}, {354.0, 527.3}}, identifier: 'choices-card'
+                                  StaticText, 0x114e02e40, {{44.0, 67.3}, {314.0, 20.3}}, label: 'Choices'
+                                    StaticText, 0x114e02f80, {{44.0, 67.3}, {314.0, 20.3}}, label: 'Choices'
+                                  Other, 0x114e030c0, {{44.0, 99.7}, {138.0, 44.0}}
+                                    Button, 0x114e03200, {{44.0, 99.7}, {138.0, 44.0}}, label: 'Disable groups'
+                                      StaticText, 0x114e03340, {{56.0, 111.3}, {114.0, 20.3}}, label: 'Disable groups'
+                                  StaticText, 0x114e03480, {{44.0, 155.7}, {314.0, 18.0}}, label: 'Delivery'
+                                    StaticText, 0x114e035c0, {{44.0, 155.7}, {314.0, 18.0}}, label: 'Delivery'
+                                  Other, 0x114e03700, {{44.0, 181.7}, {148.0, 44.0}}
+                                    Button, 0x114e03840, {{44.0, 181.7}, {148.0, 44.0}}, label: 'Email updates', Selected
+                                      StaticText, 0x114e03980, {{81.0, 193.3}, {107.0, 20.3}}, label: 'Email updates'
+                                  Other, 0x114e03ac0, {{44.0, 229.7}, {146.0, 44.0}}
+                                    Button, 0x114e03c00, {{44.0, 229.7}, {146.0, 44.0}}, label: 'Push updates', Selected
+                                      StaticText, 0x114e03d40, {{81.3, 241.3}, {104.3, 20.3}}, label: 'Push updates'
+                                  StaticText, 0x114e03e80, {{44.0, 281.7}, {314.0, 18.0}}, label: 'Delivery email,push'
+                                    StaticText, 0x114e08000, {{44.0, 281.7}, {314.0, 18.0}}, label: 'Delivery email,push'
+                                  Other, 0x114e08140, {{44.0, 311.7}, {314.0, 1.0}}
+                                  StaticText, 0x114e08280, {{44.0, 324.7}, {314.0, 18.0}}, label: 'Plan'
+                                    StaticText, 0x114e083c0, {{44.0, 324.7}, {314.0, 18.0}}, label: 'Plan'
+                                  Other, 0x114e08500, {{44.0, 350.7}, {144.0, 44.0}}
+                                    Button, 0x114e08640, {{44.0, 350.7}, {144.0, 44.0}}, label: 'Personal plan'
+                                      StaticText, 0x114e08780, {{81.7, 362.3}, {102.3, 20.3}}, label: 'Personal plan'
+                                  Other, 0x114e088c0, {{44.0, 398.7}, {147.0, 44.0}}
+                                    Button, 0x114e08a00, {{44.0, 398.7}, {147.0, 44.0}}, label: 'Business plan', Selected
+                                      StaticText, 0x114e08b40, {{81.7, 410.3}, {104.7, 20.3}}, label: 'Business plan'
+                                  StaticText, 0x114e08c80, {{44.0, 450.7}, {314.0, 18.0}}, label: 'Plan business'
+                                    StaticText, 0x114e08dc0, {{44.0, 450.7}, {314.0, 18.0}}, label: 'Plan business'
+                                  Other, 0x114e08f00, {{44.0, 480.7}, {43.0, 44.0}}
+                                    Button, 0x114e09040, {{44.0, 480.7}, {43.0, 44.0}}, label: 'Bold', Selected
+                                      StaticText, 0x114e09180, {{48.0, 492.3}, {34.3, 20.3}}, label: 'Bold'
+                                  Other, 0x114e092c0, {{91.0, 480.7}, {44.0, 44.0}}
+                                    Button, 0x114e09400, {{91.0, 480.7}, {44.0, 44.0}}, label: 'Italic', Selected
+                                      StaticText, 0x114e09540, {{95.0, 492.3}, {35.7, 20.3}}, label: 'Italic'
+                                  StaticText, 0x114e09680, {{44.0, 536.7}, {314.0, 18.0}}, label: 'Format bold,italic'
+                                    StaticText, 0x114e097c0, {{44.0, 536.7}, {314.0, 18.0}}, label: 'Format bold,italic'
+                                  Other, 0x114e09900, {{24.0, 594.7}, {354.0, 232.3}}, identifier: 'system-controls-card'
+                                  StaticText, 0x114e09a40, {{44.0, 614.7}, {314.0, 20.3}}, label: 'System controls'
+                                    StaticText, 0x114e09b80, {{44.0, 614.7}, {314.0, 20.3}}, label: 'System controls'
+                                  Other, 0x114e09cc0, {{44.0, 647.0}, {314.0, 44.0}}, label: 'Audience'
+                                    SegmentedControl, 0x114e09e00, {{44.0, 647.0}, {314.0, 44.0}}, label: 'Audience'
+                                      Button, 0x114e09f40, {{44.0, 647.0}, {104.0, 44.0}}, label: 'Personal'
+                                      Button, 0x114e0a080, {{148.0, 647.0}, {105.0, 44.0}}, label: 'Business', Selected
+                                      Button, 0x114e0a1c0, {{253.0, 647.0}, {105.0, 44.0}}, label: 'Unavailable', Disabled
+                                  StaticText, 0x114e0a300, {{44.0, 703.0}, {314.0, 18.0}}, label: 'Audience business'
+                                    StaticText, 0x114e0a440, {{44.0, 703.0}, {314.0, 18.0}}, label: 'Audience business'
+                                  Other, 0x114e0a580, {{44.0, 733.0}, {94.0, 44.0}}, label: 'Guests'
+                                    Stepper, 0x114e0a6c0, {{44.0, 733.0}, {94.0, 32.0}}, label: 'Guests'
+                                      Button, 0x114e0a800, {{44.0, 733.0}, {47.0, 32.0}}, identifier: 'Decrement', label: 'Guests, Decrement'
+                                      Button, 0x114e0a940, {{91.0, 733.0}, {47.0, 32.0}}, identifier: 'Increment', label: 'Guests, Increment'
+                                  StaticText, 0x114e0aa80, {{44.0, 789.0}, {314.0, 18.0}}, label: 'Guests 3'
+                                    StaticText, 0x114e0abc0, {{44.0, 789.0}, {314.0, 18.0}}, label: 'Guests 3'
+                                  Other, 0x114e0ad00, {{24.0, 847.0}, {354.0, 353.0}}
+                                  StaticText, 0x114e0ae40, {{44.0, 867.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                    StaticText, 0x114e0af80, {{44.0, 867.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                  StaticText, 0x114e0b0c0, {{44.0, 899.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                    StaticText, 0x114e0b200, {{44.0, 899.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                  Other, 0x114e0b340, {{44.0, 931.7}, {72.0, 21.7}}
+                                  StaticText, 0x114e0b480, {{52.0, 934.7}, {56.0, 15.7}}, label: '3 unread'
+                                    StaticText, 0x114e0b5c0, {{52.0, 934.7}, {56.0, 15.7}}, label: '3 unread'
+                                  Other, 0x114e0b700, {{44.0, 965.3}, {314.0, 76.3}}
+                                  StaticText, 0x114e0b840, {{60.0, 981.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                    StaticText, 0x114e0b980, {{60.0, 981.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                  StaticText, 0x114e0bac0, {{60.0, 1007.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                    StaticText, 0x114e0bc00, {{60.0, 1007.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                  StaticText, 0x114e0bd40, {{137.3, 1077.7}, {127.0, 20.3}}, label: 'No attachments'
+                                    StaticText, 0x114e0be80, {{137.3, 1077.7}, {127.0, 20.3}}, label: 'No attachments'
+                                  StaticText, 0x114e24000, {{69.0, 1106.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                    StaticText, 0x114e24140, {{69.0, 1106.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                  Other, 0x114e24280, {{44.0, 1160.0}, {20.0, 20.0}}, label: 'Loading'
+                                    ActivityIndicator, 0x114e243c0, {{44.0, 1160.0}, {20.0, 20.0}}, label: 'In progress', value: 1
+                              Other, 0x114e24500, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 75%
+                                Other, 0x114e24640, {{396.0, 456.7}, {3.0, 223.7}}
+                              Other, 0x114e24780, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x114e248c0, {{31.0, 834.0}, {340.0, 3.0}}
+                              Other, 0x114e24a00, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 75%
+                                Other, 0x114e24b40, {{396.0, 456.7}, {3.0, 223.7}}
+                              Other, 0x114e24c80, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x114e24dc0, {{31.0, 834.0}, {340.0, 3.0}}
+                  Other, 0x114e24f00, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x114e25040, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x114e25180, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x114d0a6c0, pid: 73264, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x114e252c0, pid: 73264, label: 'Lenso Native'
+  }
+
+    t =    26.54s Added attachment named 'delivery-catalog-accepted-hierarchy'
+    t =    26.54s Find the Application 'dev.lenso.nativeexample'
+    t =    26.69s Added attachment named 'delivery-catalog-accepted'
+    t =    26.69s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    26.73s Find the ScrollView (Element at index 0)
+    t =    26.76s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    26.81s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    26.85s Swipe down ScrollView
+    t =    26.85s     Wait for dev.lenso.nativeexample to idle
+    t =    26.85s     Find the ScrollView
+    t =    26.88s     Check for interrupting elements affecting ScrollView
+    t =    26.93s     Synthesize event
+    t =    27.39s     Wait for dev.lenso.nativeexample to idle
+    t =    29.49s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    29.53s Find the ScrollView (Element at index 0)
+    t =    29.58s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    29.61s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    29.65s Swipe down ScrollView
+    t =    29.65s     Wait for dev.lenso.nativeexample to idle
+    t =    29.65s     Find the ScrollView
+    t =    29.69s     Check for interrupting elements affecting ScrollView
+    t =    29.73s     Synthesize event
+    t =    30.18s     Wait for dev.lenso.nativeexample to idle
+    t =    32.29s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    32.32s Find the ScrollView (Element at index 0)
+    t =    32.36s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    32.40s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    32.44s Swipe down ScrollView
+    t =    32.44s     Wait for dev.lenso.nativeexample to idle
+    t =    32.44s     Find the ScrollView
+    t =    32.48s     Check for interrupting elements affecting ScrollView
+    t =    32.52s     Synthesize event
+    t =    32.99s     Wait for dev.lenso.nativeexample to idle
+    t =    33.48s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    33.52s Find the ScrollView (Element at index 0)
+    t =    33.56s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    33.60s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    33.64s Swipe down ScrollView
+    t =    33.64s     Wait for dev.lenso.nativeexample to idle
+    t =    33.64s     Find the ScrollView
+    t =    33.68s     Check for interrupting elements affecting ScrollView
+    t =    33.72s     Synthesize event
+    t =    34.16s     Wait for dev.lenso.nativeexample to idle
+    t =    34.66s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    34.69s Find the ScrollView (Element at index 0)
+    t =    34.73s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    34.77s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    34.80s Swipe down ScrollView
+    t =    34.80s     Wait for dev.lenso.nativeexample to idle
+    t =    34.81s     Find the ScrollView
+    t =    34.84s     Check for interrupting elements affecting ScrollView
+    t =    34.88s     Synthesize event
+    t =    35.33s     Wait for dev.lenso.nativeexample to idle
+    t =    35.84s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    35.93s Find the ScrollView (Element at index 0)
+    t =    36.00s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    36.05s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    36.09s Swipe down ScrollView
+    t =    36.09s     Wait for dev.lenso.nativeexample to idle
+    t =    36.09s     Find the ScrollView
+    t =    36.13s     Check for interrupting elements affecting ScrollView
+    t =    36.18s     Synthesize event
+    t =    36.64s     Wait for dev.lenso.nativeexample to idle
+    t =    37.12s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    37.15s Find the ScrollView (Element at index 0)
+    t =    37.19s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    37.23s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    37.27s Swipe down ScrollView
+    t =    37.27s     Wait for dev.lenso.nativeexample to idle
+    t =    37.28s     Find the ScrollView
+    t =    37.32s     Check for interrupting elements affecting ScrollView
+    t =    37.36s     Synthesize event
+    t =    37.81s     Wait for dev.lenso.nativeexample to idle
+    t =    38.30s Tap "Hold values" Button
+    t =    38.30s     Wait for dev.lenso.nativeexample to idle
+    t =    38.30s     Find the "Hold values" Button
+    t =    38.34s     Check for interrupting elements affecting "Hold values" Button
+    t =    38.39s     Synthesize event
+    t =    38.70s     Wait for dev.lenso.nativeexample to idle
+    t =    38.82s Find the "Push updates" Button
+    t =    38.87s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    38.90s Find the ScrollView (Element at index 0)
+    t =    38.94s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    38.98s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    39.02s Find the ScrollView
+    t =    39.06s Checking existence of `Keyboard (First Match)`
+    t =    39.11s Checking existence of `"Push updates" Button`
+    t =    39.14s Find the "Push updates" Button
+    t =    39.19s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    39.23s Find the ScrollView (Element at index 0)
+    t =    39.27s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    39.31s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    39.34s Swipe up ScrollView
+    t =    39.34s     Wait for dev.lenso.nativeexample to idle
+    t =    39.35s     Find the ScrollView
+    t =    39.38s     Check for interrupting elements affecting ScrollView
+    t =    39.43s     Synthesize event
+    t =    39.88s     Wait for dev.lenso.nativeexample to idle
+    t =    41.99s Find the "Push updates" Button
+    t =    42.04s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    42.08s Find the ScrollView (Element at index 0)
+    t =    42.12s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    42.16s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    42.20s Find the ScrollView
+    t =    42.23s Checking existence of `Keyboard (First Match)`
+    t =    42.30s Checking existence of `"Push updates" Button`
+    t =    42.34s Find the "Push updates" Button
+    t =    42.39s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    42.42s Find the ScrollView (Element at index 0)
+    t =    42.46s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    42.50s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    42.53s Swipe up ScrollView
+    t =    42.53s     Wait for dev.lenso.nativeexample to idle
+    t =    42.54s     Find the ScrollView
+    t =    42.57s     Check for interrupting elements affecting ScrollView
+    t =    42.61s     Synthesize event
+    t =    43.06s     Wait for dev.lenso.nativeexample to idle
+    t =    45.18s Find the "Push updates" Button
+    t =    45.24s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    45.27s Find the ScrollView (Element at index 0)
+    t =    45.31s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    45.35s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    45.38s Find the ScrollView
+    t =    45.42s Checking existence of `Keyboard (First Match)`
+    t =    45.47s Checking existence of `"Push updates" Button`
+    t =    45.51s Find the "Push updates" Button
+    t =    45.56s Tap "Push updates" Button
+    t =    45.56s     Wait for dev.lenso.nativeexample to idle
+    t =    45.56s     Find the "Push updates" Button
+    t =    45.60s     Check for interrupting elements affecting "Push updates" Button
+    t =    45.64s     Synthesize event
+    t =    45.93s     Wait for dev.lenso.nativeexample to idle
+    t =    47.02s Find the "Push updates" Button
+    t =    47.06s Checking existence of `"Delivery email,push" StaticText`
+    t =    47.10s Find the "Personal plan" Button
+    t =    47.15s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    47.18s Find the ScrollView (Element at index 0)
+    t =    47.22s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    47.26s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    47.30s Find the ScrollView
+    t =    47.33s Checking existence of `Keyboard (First Match)`
+    t =    47.39s Checking existence of `"Personal plan" Button`
+    t =    47.43s Find the "Personal plan" Button
+    t =    47.47s Tap "Personal plan" Button
+    t =    47.47s     Wait for dev.lenso.nativeexample to idle
+    t =    47.48s     Find the "Personal plan" Button
+    t =    47.52s     Check for interrupting elements affecting "Personal plan" Button
+    t =    47.55s     Synthesize event
+    t =    47.85s     Wait for dev.lenso.nativeexample to idle
+    t =    48.94s Find the "Business plan" Button
+    t =    48.98s Checking existence of `"Plan business" StaticText`
+    t =    49.01s Find the "Italic" Button
+    t =    49.06s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    49.10s Find the ScrollView (Element at index 0)
+    t =    49.13s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    49.17s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    49.21s Find the ScrollView
+    t =    49.24s Checking existence of `Keyboard (First Match)`
+    t =    49.30s Checking existence of `"Italic" Button`
+    t =    49.34s Find the "Italic" Button
+    t =    49.39s Tap "Italic" Button
+    t =    49.39s     Wait for dev.lenso.nativeexample to idle
+    t =    49.39s     Find the "Italic" Button
+    t =    49.44s     Check for interrupting elements affecting "Italic" Button
+    t =    49.48s     Synthesize event
+    t =    49.77s     Wait for dev.lenso.nativeexample to idle
+    t =    50.85s Find the "Italic" Button
+    t =    50.90s Checking existence of `"Format bold,italic" StaticText`
+    t =    50.93s Find the "Audience" SegmentedControl
+    t =    50.98s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    51.02s Find the ScrollView (Element at index 0)
+    t =    51.06s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    51.10s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    51.13s Find the ScrollView
+    t =    51.17s Checking existence of `Keyboard (First Match)`
+    t =    51.22s Checking existence of `"Audience" SegmentedControl`
+    t =    51.27s Find the "Audience" SegmentedControl
+    t =    51.32s Tap "Personal" Button
+    t =    51.32s     Wait for dev.lenso.nativeexample to idle
+    t =    51.33s     Find the "Personal" Button
+    t =    51.37s     Check for interrupting elements affecting "Personal" Button
+    t =    51.41s     Synthesize event
+    t =    51.70s     Wait for dev.lenso.nativeexample to idle
+    t =    53.57s Find the "Business" Button
+    t =    53.62s Checking existence of `"Audience business" StaticText`
+    t =    53.65s Find the "Guests" Stepper
+    t =    53.70s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    53.73s Find the ScrollView (Element at index 0)
+    t =    53.77s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    53.81s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    53.85s Find the ScrollView
+    t =    53.89s Checking existence of `Keyboard (First Match)`
+    t =    53.94s Checking existence of `"Guests" Stepper`
+    t =    53.98s Find the "Guests" Stepper
+    t =    54.03s Tap "Decrement" Button
+    t =    54.03s     Wait for dev.lenso.nativeexample to idle
+    t =    54.03s     Find the "Decrement" Button
+    t =    54.08s     Check for interrupting elements affecting "Decrement" Button
+    t =    54.13s     Synthesize event
+    t =    54.43s     Wait for dev.lenso.nativeexample to idle
+    t =    55.46s Checking existence of `"Guests 3" StaticText`
+    t =    55.58s Requesting snapshot of accessibility hierarchy for app with pid 73264
+    t =    55.84s Requesting snapshot of accessibility hierarchy for app with pid 73264
+CATALOG_SCENE delivery-catalog-held
+Attributes: Application, 0x116268000, pid: 73264, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x116268000, pid: 73264, label: 'Lenso Native'
+    Window (Main), 0x116268140, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x116268280, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1162683c0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x116269b80, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x116269cc0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x116269e00, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x116269f40, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11626a080, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11626a1c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11626a300, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x11626a440, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x11626a580, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11626a6c0, {{0.0, 62.0}, {402.0, 778.0}}
+                            ScrollView, 0x11626a800, {{0.0, 62.0}, {402.0, 778.0}}
+                              Other, 0x11626a940, {{0.0, -1310.0}, {402.0, 2588.0}}
+                                Other, 0x11626aa80, {{0.0, -1310.0}, {402.0, 2588.0}}
+                                  Other, 0x11626abc0, {{0.0, -1294.0}, {402.0, 2508.0}}
+                                  Other, 0x11626ad00, {{24.0, -1270.0}, {128.0, 44.0}}
+                                    Button, 0x11626ae40, {{24.0, -1270.0}, {128.0, 44.0}}, label: 'Back to Glass'
+                                      StaticText, 0x11626af80, {{36.0, -1258.3}, {103.7, 20.3}}, label: 'Back to Glass'
+                                  Other, 0x11626b0c0, {{160.0, -1270.0}, {187.0, 44.0}}
+                                    Button, 0x11626b200, {{160.0, -1270.0}, {187.0, 44.0}}, label: 'Use dark appearance'
+                                      StaticText, 0x11626b340, {{172.0, -1258.3}, {162.3, 20.3}}, label: 'Use dark appearance'
+                                  Other, 0x11626b480, {{24.0, -1218.0}, {118.0, 44.0}}
+                                    Button, 0x11626b5c0, {{24.0, -1218.0}, {118.0, 44.0}}, label: 'Allow values'
+                                      StaticText, 0x11626b700, {{36.0, -1206.3}, {93.7, 20.3}}, label: 'Allow values'
+                                  StaticText, 0x11626b840, {{24.0, -1154.0}, {354.0, 40.7}}, label: 'Native controls'
+                                    StaticText, 0x11626b980, {{24.0, -1154.0}, {354.0, 40.7}}, label: 'Native controls'
+                                  StaticText, 0x11626bac0, {{24.0, -1093.3}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                    StaticText, 0x11626bc00, {{24.0, -1093.3}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                  StaticText, 0x11626bd40, {{24.0, -1032.7}, {354.0, 18.0}}, label: 'Owner values: held'
+                                    StaticText, 0x11626be80, {{24.0, -1032.7}, {354.0, 18.0}}, label: 'Owner values: held'
+                                  Other, 0x11518fc00, {{24.0, -994.7}, {354.0, 254.3}}, identifier: 'actions-card'
+                                  StaticText, 0x114d0f200, {{44.0, -974.7}, {314.0, 20.3}}, label: 'Actions'
+                                    StaticText, 0x114d0f340, {{44.0, -974.7}, {314.0, 20.3}}, label: 'Actions'
+                                  Other, 0x114d0f480, {{44.0, -942.3}, {126.0, 44.0}}
+                                    Button, 0x114d0f5c0, {{44.0, -942.3}, {126.0, 44.0}}, label: 'Save settings'
+                                      StaticText, 0x114d0f700, {{56.0, -930.7}, {102.0, 20.3}}, label: 'Save settings'
+                                  Other, 0x114d0f840, {{178.0, -942.3}, {142.0, 44.0}}
+                                    Button, 0x114d0f980, {{178.0, -942.3}, {142.0, 44.0}}, label: 'Disabled action', Disabled
+                                      StaticText, 0x114d0fac0, {{190.0, -930.7}, {117.7, 20.3}}, label: 'Disabled action'
+                                  Other, 0x114d0fc00, {{44.0, -890.3}, {136.0, 44.0}}
+                                    Button, 0x1153970c0, {{44.0, -890.3}, {136.0, 44.0}}, label: 'Loading action'
+                                      StaticText, 0x115396d00, {{56.0, -878.7}, {112.0, 20.3}}, label: 'Loading action'
+                                  Other, 0x115396e40, {{44.0, -834.3}, {122.0, 44.0}}
+                                    Button, 0x115396f80, {{44.0, -834.3}, {122.0, 44.0}}, label: 'Start loading'
+                                      StaticText, 0x114d0b840, {{56.3, -822.7}, {97.3, 20.3}}, label: 'Start loading'
+                                  StaticText, 0x114d0b980, {{44.0, -778.3}, {314.0, 18.0}}, label: 'Actions 0'
+                                    StaticText, 0x114d0bac0, {{44.0, -778.3}, {314.0, 18.0}}, label: 'Actions 0'
+                                  Other, 0x114d0bc00, {{24.0, -720.3}, {354.0, 737.7}}, identifier: 'fields-card'
+                                  StaticText, 0x114d0b0c0, {{44.0, -700.3}, {314.0, 20.3}}, label: 'Profile'
+                                    StaticText, 0x114d0bd40, {{44.0, -700.3}, {314.0, 20.3}}, label: 'Profile'
+                                  Other, 0x114d0a800, {{44.0, -668.0}, {117.0, 44.0}}
+                                    Button, 0x114d0a940, {{44.0, -668.0}, {117.0, 44.0}}, label: 'Focus name'
+                                      StaticText, 0x114d0aa80, {{56.0, -656.3}, {92.7, 20.3}}, label: 'Focus name'
+                                  StaticText, 0x114d0abc0, {{44.0, -612.0}, {314.0, 18.0}}, label: 'Name'
+                                    StaticText, 0x114d0ad00, {{44.0, -612.0}, {314.0, 18.0}}, label: 'Name'
+                                  Other, 0x114d0ae40, {{44.0, -588.0}, {314.0, 44.0}}
+                                    TextField, 0x114d0af80, {{45.0, -587.0}, {312.0, 42.0}}, label: 'Name', value: Ada
+                                  StaticText, 0x1160475c0, {{44.0, -538.0}, {314.0, 15.7}}, label: 'Your display name'
+                                    StaticText, 0x116047d40, {{44.0, -538.0}, {314.0, 15.7}}, label: 'Your display name'
+                                  Other, 0x116046300, {{44.0, -510.3}, {314.0, 100.0}}
+                                    TextView, 0x116047340, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Notes', value: Bring notes
+                                      Other, 0x116047480, {{325.0, -510.3}, {30.0, 87.7}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x1162f0000, {{352.0, -428.3}, {3.0, 15.0}}
+                                      Other, 0x1162f0140, {{56.3, -443.3}, {289.3, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                        Other, 0x1162f0280, {{47.0, -416.3}, {308.0, 3.0}}
+                                  Other, 0x1162f03c0, {{44.0, -398.3}, {314.0, 44.0}}
+                                    SearchField, 0x1162f0500, {{44.0, -398.3}, {314.0, 44.0}}, label: 'Search notes', placeholderValue: 'Search notes'
+                                  StaticText, 0x1162f0640, {{44.0, -342.3}, {314.0, 18.0}}, label: 'Read only'
+                                    StaticText, 0x1162f0780, {{44.0, -342.3}, {314.0, 18.0}}, label: 'Read only'
+                                  Other, 0x1162f08c0, {{44.0, -318.3}, {314.0, 44.0}}
+                                    TextField, 0x1162f0a00, {{44.0, -318.3}, {314.0, 44.0}}, label: 'Read only', value: Reference, Disabled
+                                  StaticText, 0x1162f0b40, {{44.0, -262.3}, {314.0, 18.0}}, label: 'Disabled field'
+                                    StaticText, 0x1162f0c80, {{44.0, -262.3}, {314.0, 18.0}}, label: 'Disabled field'
+                                  Other, 0x1162f0dc0, {{44.0, -238.3}, {314.0, 44.0}}
+                                    TextField, 0x1162f0f00, {{44.0, -238.3}, {314.0, 44.0}}, label: 'Disabled field', value: Unavailable, Disabled
+                                  StaticText, 0x1162f1040, {{44.0, -182.3}, {314.0, 18.0}}, label: 'Validation example'
+                                    StaticText, 0x1162f1180, {{44.0, -182.3}, {314.0, 18.0}}, label: 'Validation example'
+                                  Other, 0x1162f12c0, {{44.0, -158.3}, {314.0, 44.0}}
+                                    TextField, 0x1162f1400, {{45.0, -157.3}, {312.0, 42.0}}, label: 'Validation example', placeholderValue: 'Required'
+                                  StaticText, 0x1162f1540, {{44.0, -108.3}, {314.0, 15.7}}, label: 'Enter a value'
+                                    StaticText, 0x1162f1680, {{44.0, -108.3}, {314.0, 15.7}}, label: 'Enter a value'
+                                  StaticText, 0x1162f17c0, {{44.0, -80.7}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                    StaticText, 0x1162f1900, {{44.0, -80.7}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                  StaticText, 0x1162f1a40, {{44.0, -50.7}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                    StaticText, 0x1162f1b80, {{44.0, -50.7}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                  StaticText, 0x1162f1cc0, {{44.0, -20.7}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                    StaticText, 0x1162f1e00, {{44.0, -20.7}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                  Other, 0x1162f1f40, {{24.0, 37.3}, {354.0, 527.3}}, identifier: 'choices-card'
+                                  StaticText, 0x1162f2080, {{44.0, 57.3}, {314.0, 20.3}}, label: 'Choices'
+                                    StaticText, 0x1162f21c0, {{44.0, 57.3}, {314.0, 20.3}}, label: 'Choices'
+                                  Other, 0x1162f2300, {{44.0, 89.7}, {138.0, 44.0}}
+                                    Button, 0x1162f2440, {{44.0, 89.7}, {138.0, 44.0}}, label: 'Disable groups'
+                                      StaticText, 0x1162f2580, {{56.0, 101.3}, {114.0, 20.3}}, label: 'Disable groups'
+                                  StaticText, 0x1162f26c0, {{44.0, 145.7}, {314.0, 18.0}}, label: 'Delivery'
+                                    StaticText, 0x1162f2800, {{44.0, 145.7}, {314.0, 18.0}}, label: 'Delivery'
+                                  Other, 0x1162f2940, {{44.0, 171.7}, {148.0, 44.0}}
+                                    Button, 0x1162f2a80, {{44.0, 171.7}, {148.0, 44.0}}, label: 'Email updates', Selected
+                                      StaticText, 0x1162f2bc0, {{81.0, 183.3}, {107.0, 20.3}}, label: 'Email updates'
+                                  Other, 0x1162f2d00, {{44.0, 219.7}, {146.0, 44.0}}
+                                    Button, 0x1162f2e40, {{44.0, 219.7}, {146.0, 44.0}}, label: 'Push updates', Selected
+                                      StaticText, 0x1162f2f80, {{81.3, 231.3}, {104.3, 20.3}}, label: 'Push updates'
+                                  StaticText, 0x1162f30c0, {{44.0, 271.7}, {314.0, 18.0}}, label: 'Delivery email,push'
+                                    StaticText, 0x1162f3200, {{44.0, 271.7}, {314.0, 18.0}}, label: 'Delivery email,push'
+                                  Other, 0x1162f3340, {{44.0, 301.7}, {314.0, 1.0}}
+                                  StaticText, 0x1162f3480, {{44.0, 314.7}, {314.0, 18.0}}, label: 'Plan'
+                                    StaticText, 0x1162f35c0, {{44.0, 314.7}, {314.0, 18.0}}, label: 'Plan'
+                                  Other, 0x1162f3700, {{44.0, 340.7}, {144.0, 44.0}}
+                                    Button, 0x1162f3840, {{44.0, 340.7}, {144.0, 44.0}}, label: 'Personal plan'
+                                      StaticText, 0x1162f3980, {{81.7, 352.3}, {102.3, 20.3}}, label: 'Personal plan'
+                                  Other, 0x1162f3ac0, {{44.0, 388.7}, {147.0, 44.0}}
+                                    Button, 0x1162f3c00, {{44.0, 388.7}, {147.0, 44.0}}, label: 'Business plan', Selected
+                                      StaticText, 0x1162f3d40, {{81.7, 400.3}, {104.7, 20.3}}, label: 'Business plan'
+                                  StaticText, 0x1162f3e80, {{44.0, 440.7}, {314.0, 18.0}}, label: 'Plan business'
+                                    StaticText, 0x116300000, {{44.0, 440.7}, {314.0, 18.0}}, label: 'Plan business'
+                                  Other, 0x116300140, {{44.0, 470.7}, {43.0, 44.0}}
+                                    Button, 0x116300280, {{44.0, 470.7}, {43.0, 44.0}}, label: 'Bold', Selected
+                                      StaticText, 0x1163003c0, {{48.0, 482.3}, {34.3, 20.3}}, label: 'Bold'
+                                  Other, 0x116300500, {{91.0, 470.7}, {44.0, 44.0}}
+                                    Button, 0x116300640, {{91.0, 470.7}, {44.0, 44.0}}, label: 'Italic', Selected
+                                      StaticText, 0x116300780, {{95.0, 482.3}, {35.7, 20.3}}, label: 'Italic'
+                                  StaticText, 0x1163008c0, {{44.0, 526.7}, {314.0, 18.0}}, label: 'Format bold,italic'
+                                    StaticText, 0x116300a00, {{44.0, 526.7}, {314.0, 18.0}}, label: 'Format bold,italic'
+                                  Other, 0x116300b40, {{24.0, 584.7}, {354.0, 232.3}}, identifier: 'system-controls-card'
+                                  StaticText, 0x116300c80, {{44.0, 604.7}, {314.0, 20.3}}, label: 'System controls'
+                                    StaticText, 0x116300dc0, {{44.0, 604.7}, {314.0, 20.3}}, label: 'System controls'
+                                  Other, 0x116300f00, {{44.0, 637.0}, {314.0, 44.0}}, label: 'Audience'
+                                    SegmentedControl, 0x116301040, {{44.0, 637.0}, {314.0, 44.0}}, label: 'Audience'
+                                      Button, 0x116301180, {{44.0, 637.0}, {104.0, 44.0}}, label: 'Personal'
+                                      Button, 0x1163012c0, {{148.0, 637.0}, {105.0, 44.0}}, label: 'Business', Selected
+                                      Button, 0x116301400, {{253.0, 637.0}, {105.0, 44.0}}, label: 'Unavailable', Disabled
+                                  StaticText, 0x116301540, {{44.0, 693.0}, {314.0, 18.0}}, label: 'Audience business'
+                                    StaticText, 0x116301680, {{44.0, 693.0}, {314.0, 18.0}}, label: 'Audience business'
+                                  Other, 0x1163017c0, {{44.0, 723.0}, {94.0, 44.0}}, label: 'Guests'
+                                    Stepper, 0x116301900, {{44.0, 723.0}, {94.0, 32.0}}, label: 'Guests'
+                                      Button, 0x116301a40, {{44.0, 723.0}, {47.0, 32.0}}, identifier: 'Decrement', label: 'Guests, Decrement'
+                                      Button, 0x116301b80, {{91.0, 723.0}, {47.0, 32.0}}, identifier: 'Increment', label: 'Guests, Increment'
+                                  StaticText, 0x116301cc0, {{44.0, 779.0}, {314.0, 18.0}}, label: 'Guests 3'
+                                    StaticText, 0x116301e00, {{44.0, 779.0}, {314.0, 18.0}}, label: 'Guests 3'
+                                  Other, 0x116301f40, {{24.0, 837.0}, {354.0, 353.0}}
+                                  StaticText, 0x116302080, {{44.0, 857.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                    StaticText, 0x1163021c0, {{44.0, 857.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                  StaticText, 0x116302300, {{44.0, 889.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                    StaticText, 0x116302440, {{44.0, 889.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                  Other, 0x116302580, {{44.0, 921.7}, {72.0, 21.7}}
+                                  StaticText, 0x1163026c0, {{52.0, 924.7}, {56.0, 15.7}}, label: '3 unread'
+                                    StaticText, 0x116302800, {{52.0, 924.7}, {56.0, 15.7}}, label: '3 unread'
+                                  Other, 0x116302940, {{44.0, 955.3}, {314.0, 76.3}}
+                                  StaticText, 0x116302a80, {{60.0, 971.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                    StaticText, 0x116302bc0, {{60.0, 971.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                  StaticText, 0x116302d00, {{60.0, 997.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                    StaticText, 0x116302e40, {{60.0, 997.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                  StaticText, 0x116302f80, {{137.3, 1067.7}, {127.0, 20.3}}, label: 'No attachments'
+                                    StaticText, 0x1163030c0, {{137.3, 1067.7}, {127.0, 20.3}}, label: 'No attachments'
+                                  StaticText, 0x116303200, {{69.0, 1096.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                    StaticText, 0x116303340, {{69.0, 1096.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                  Other, 0x116303480, {{44.0, 1150.0}, {20.0, 20.0}}, label: 'Loading'
+                                    ActivityIndicator, 0x1163035c0, {{44.0, 1150.0}, {20.0, 20.0}}, label: 'In progress', value: 1
+                              Other, 0x116303700, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 76%
+                                Other, 0x116303840, {{396.0, 459.3}, {3.0, 223.7}}
+                              Other, 0x116303980, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x116303ac0, {{31.0, 834.0}, {340.0, 3.0}}
+                              Other, 0x116303c00, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 76%
+                                Other, 0x116303d40, {{396.0, 459.3}, {3.0, 223.7}}
+                              Other, 0x116303e80, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x11630c000, {{31.0, 834.0}, {340.0, 3.0}}
+                  Other, 0x11630c140, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11630c280, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11630c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x116268000, pid: 73264, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x11630c500, pid: 73264, label: 'Lenso Native'
+  }
+
+    t =    55.91s Added attachment named 'delivery-catalog-held-hierarchy'
+    t =    55.91s Find the Application 'dev.lenso.nativeexample'
+    t =    56.06s Added attachment named 'delivery-catalog-held'
+    t =    56.06s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    56.09s Find the ScrollView (Element at index 0)
+    t =    56.13s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    56.17s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    56.21s Swipe down ScrollView
+    t =    56.21s     Wait for dev.lenso.nativeexample to idle
+    t =    56.21s     Find the ScrollView
+    t =    56.25s     Check for interrupting elements affecting ScrollView
+    t =    56.29s     Synthesize event
+    t =    56.74s     Wait for dev.lenso.nativeexample to idle
+    t =    58.84s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    58.88s Find the ScrollView (Element at index 0)
+    t =    58.92s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    58.96s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    59.00s Swipe down ScrollView
+    t =    59.00s     Wait for dev.lenso.nativeexample to idle
+    t =    59.00s     Find the ScrollView
+    t =    59.03s     Check for interrupting elements affecting ScrollView
+    t =    59.08s     Synthesize event
+    t =    59.53s     Wait for dev.lenso.nativeexample to idle
+    t =    61.62s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    61.67s Find the ScrollView (Element at index 0)
+    t =    61.72s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    61.76s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    61.79s Swipe down ScrollView
+    t =    61.79s     Wait for dev.lenso.nativeexample to idle
+    t =    61.80s     Find the ScrollView
+    t =    61.83s     Check for interrupting elements affecting ScrollView
+    t =    61.87s     Synthesize event
+    t =    62.33s     Wait for dev.lenso.nativeexample to idle
+    t =    62.79s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    62.84s Find the ScrollView (Element at index 0)
+    t =    62.88s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    62.92s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    62.96s Swipe down ScrollView
+    t =    62.96s     Wait for dev.lenso.nativeexample to idle
+    t =    62.96s     Find the ScrollView
+    t =    63.00s     Check for interrupting elements affecting ScrollView
+    t =    63.04s     Synthesize event
+    t =    63.49s     Wait for dev.lenso.nativeexample to idle
+    t =    63.98s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    64.01s Find the ScrollView (Element at index 0)
+    t =    64.06s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    64.10s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    64.13s Swipe down ScrollView
+    t =    64.13s     Wait for dev.lenso.nativeexample to idle
+    t =    64.14s     Find the ScrollView
+    t =    64.17s     Check for interrupting elements affecting ScrollView
+    t =    64.21s     Synthesize event
+    t =    64.66s     Wait for dev.lenso.nativeexample to idle
+    t =    65.16s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    65.20s Find the ScrollView (Element at index 0)
+    t =    65.24s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    65.28s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    65.32s Swipe down ScrollView
+    t =    65.32s     Wait for dev.lenso.nativeexample to idle
+    t =    65.32s     Find the ScrollView
+    t =    65.36s     Check for interrupting elements affecting ScrollView
+    t =    65.39s     Synthesize event
+    t =    65.84s     Wait for dev.lenso.nativeexample to idle
+    t =    66.33s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    66.37s Find the ScrollView (Element at index 0)
+    t =    66.42s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    66.46s Find the ScrollView at {{0.0, 62.0}, {402.0, 778.0}}
+    t =    66.49s Swipe down ScrollView
+    t =    66.49s     Wait for dev.lenso.nativeexample to idle
+    t =    66.50s     Find the ScrollView
+    t =    66.56s     Check for interrupting elements affecting ScrollView
+    t =    66.60s     Synthesize event
+    t =    67.06s     Wait for dev.lenso.nativeexample to idle
+    t =    67.54s Tap "Allow values" Button
+    t =    67.54s     Wait for dev.lenso.nativeexample to idle
+    t =    67.54s     Find the "Allow values" Button
+    t =    67.60s     Check for interrupting elements affecting "Allow values" Button
+    t =    67.65s     Synthesize event
+    t =    67.95s     Wait for dev.lenso.nativeexample to idle
+    t =    68.07s Tap "Back to Glass" Button
+    t =    68.07s     Wait for dev.lenso.nativeexample to idle
+    t =    68.08s     Find the "Back to Glass" Button
+    t =    68.11s     Check for interrupting elements affecting "Back to Glass" Button
+    t =    68.16s     Synthesize event
+    t =    68.45s     Wait for dev.lenso.nativeexample to idle
+    t =    68.45s Waiting 10.0s for "Notifications" Switch to exist
+    t =    69.46s     Checking `Expect predicate `existsNoRetry == 1` for object "Notifications" Switch`
+    t =    69.47s         Checking existence of `"Notifications" Switch`
+    t =    69.53s Find the "Notifications" Switch
+    t =    69.57s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    69.60s Find the ScrollView (Element at index 0)
+    t =    69.64s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    69.67s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    69.72s Find the ScrollView
+    t =    69.76s Checking existence of `Keyboard (First Match)`
+    t =    69.83s Checking existence of `"Notifications" Switch`
+    t =    69.86s Find the "Notifications" Switch
+    t =    69.91s Tap "Notifications" Switch
+    t =    69.91s     Wait for dev.lenso.nativeexample to idle
+    t =    70.19s     Find the "Notifications" Switch
+    t =    70.23s     Check for interrupting elements affecting "Notifications" Switch
+    t =    70.27s     Synthesize event
+    t =    70.56s     Wait for dev.lenso.nativeexample to idle
+    t =    72.38s Find the "Notifications" Switch
+    t =    72.43s Find the "Level" Slider
+    t =    72.47s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    72.50s Find the ScrollView (Element at index 0)
+    t =    72.53s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    72.57s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    72.60s Find the ScrollView
+    t =    72.63s Checking existence of `Keyboard (First Match)`
+    t =    72.69s Checking existence of `"Level" Slider`
+    t =    72.72s Find the "Level" Slider
+    t =    72.78s Set normalized position of "Level" Slider to 0.70
+    t =    72.78s     Wait for dev.lenso.nativeexample to idle
+    t =    72.78s     Find the "Level" Slider
+    t =    72.81s     Check for interrupting elements affecting "Level" Slider
+    t =    72.85s     Synthesize event
+    t =    73.51s     Wait for dev.lenso.nativeexample to idle
+    t =    75.55s Find the StaticText (First Match)
+    t =    75.60s Find the "Level 74" StaticText
+    t =    75.64s Find the "Level" Slider
+    t =    75.67s Requesting snapshot of accessibility hierarchy for app with pid 73264
+    t =    75.92s Requesting snapshot of accessibility hierarchy for app with pid 73264
+CATALOG_SCENE delivery-glass-accepted
+Attributes: Application, 0x1167a3840, pid: 73264, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x1167a3840, pid: 73264, label: 'Lenso Native'
+    Window (Main), 0x1167a0000, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1167a0140, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1167a0280, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1167a03c0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1167a0500, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1167a0640, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1167a0780, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1167a08c0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1167a0a00, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1167a0b40, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1167a1e00, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x1167a1f40, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1167a2080, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x1167a21c0, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x1167a3700, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a2bc0, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x1167a2d00, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x1167a2e40, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a2f80, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x1167a30c0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x1167a3200, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x1163026c0, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x1167a4000, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x1167a4140, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a4280, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x1167a43c0, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x1167a4500, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a4640, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x1167a4780, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x1167a48c0, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a4a00, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x1167a4b40, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x1167a4c80, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a4dc0, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x1167a4f00, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x1167a5040, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5180, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x1167a52c0, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x1167a5400, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5540, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x1167a5680, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x1167a57c0, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5900, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x1167a5a40, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x1167a5b80, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5cc0, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x1167a5e00, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x1167a5f40, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a6080, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x1167a61c0, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x1167a6300, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a6440, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x1167a6580, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x1167a66c0, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a6800, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x1167a6940, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x1167a6a80, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a6bc0, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x1167a6d00, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x1167a6e40, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a6f80, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1167a70c0, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x1167a7200, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a7340, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1167a7480, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1167a75c0, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a7700, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x1167a7840, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x1167a7980, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a7ac0, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x1167a7c00, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x1167a7d40, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a7e80, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x116824000, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x116824140, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x116824280, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x1168243c0, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x116824500, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x116824640, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x116824780, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x1168248c0, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x116824a00, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x116824b40, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x116824c80, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x116824dc0, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x116824f00, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x116825040, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x116825180, {{396.0, 58.7}, {3.0, 262.3}}
+                          Other, 0x1168252c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116825400, {{59.0, 868.0}, {284.0, 3.0}}
+                          Other, 0x116825540, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x116825680, {{396.0, 58.7}, {3.0, 262.3}}
+                          Other, 0x1168257c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116825900, {{59.0, 868.0}, {284.0, 3.0}}
+                      Other, 0x116825a40, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x116825b80, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x116825cc0, {{16.0, 0.0}, {370.0, 867.0}}
+                            Other, 0x116825e00, {{16.0, 0.0}, {370.0, 867.0}}
+                              StaticText, 0x116825f40, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x116826080, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x1168261c0, {{24.0, 68.0}, {354.0, 103.7}}
+                              StaticText, 0x116826300, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x116826440, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x116826580, {{24.0, 127.7}, {176.0, 44.0}}
+                                Button, 0x1168266c0, {{24.0, 127.7}, {176.0, 44.0}}, label: 'Open native catalog'
+                                  StaticText, 0x116826800, {{36.0, 139.3}, {152.0, 20.3}}, label: 'Open native catalog'
+                              Other, 0x116826940, {{24.0, 195.7}, {354.0, 88.0}}
+                                Other, 0x116826a80, {{24.0, 195.7}, {354.0, 88.0}}
+                                  Other, 0x116826bc0, {{24.0, 195.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x116826d00, {{24.0, 195.7}, {173.0, 88.0}}
+                                      StaticText, 0x116826e40, {{88.3, 229.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x116826f80, {{88.3, 229.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x1168270c0, {{205.0, 195.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x116827200, {{205.0, 195.7}, {173.0, 88.0}}
+                                      StaticText, 0x116827340, {{255.7, 229.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x116827480, {{255.7, 229.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x1168275c0, {{24.0, 307.7}, {354.0, 218.3}}
+                              StaticText, 0x116827700, {{44.0, 331.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x116827840, {{44.0, 331.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x116827980, {{295.0, 327.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x116827ac0, {{295.0, 327.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x116827c00, {{44.0, 375.7}, {314.0, 20.3}}, label: 'Level 74'
+                                StaticText, 0x116827d40, {{44.0, 375.7}, {314.0, 20.3}}, label: 'Level 74'
+                              Other, 0x116827e80, {{44.0, 416.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x116844000, {{44.0, 416.0}, {314.0, 44.0}}, label: 'Level', value: 74%
+                              StaticText, 0x116844140, {{44.0, 488.0}, {314.0, 18.0}}, label: 'Actions 0'
+                                StaticText, 0x116844280, {{44.0, 488.0}, {314.0, 18.0}}, label: 'Actions 0'
+                              Other, 0x1168443c0, {{24.0, 550.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x116844500, {{24.0, 550.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x116844640, {{44.0, 565.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x116844780, {{24.0, 625.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x1168448c0, {{24.0, 673.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x116844a00, {{24.0, 721.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x116844b40, {{24.0, 793.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x116844c80, {{24.0, 793.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x116844dc0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x116844f00, {{380.0, 65.0}, {3.0, 742.3}}
+                          Other, 0x116845040, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116845180, {{81.0, 868.0}, {240.0, 3.0}}
+                          Other, 0x1168452c0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x116845400, {{380.0, 65.0}, {3.0, 742.3}}
+                          Other, 0x116845540, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116845680, {{81.0, 868.0}, {240.0, 3.0}}
+                  Other, 0x1168457c0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x116845900, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x116845a40, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1167a3840, pid: 73264, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x116845b80, pid: 73264, label: 'Lenso Native'
+  }
+
+    t =    75.98s Added attachment named 'delivery-glass-accepted-hierarchy'
+    t =    75.98s Find the Application 'dev.lenso.nativeexample'
+    t =    76.15s Added attachment named 'delivery-glass-accepted'
+    t =    76.15s Find the "Hold controlled values" Button
+    t =    76.18s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    76.21s Find the ScrollView (Element at index 0)
+    t =    76.24s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    76.27s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    76.30s Find the ScrollView
+    t =    76.33s Checking existence of `Keyboard (First Match)`
+    t =    76.37s Checking existence of `"Hold controlled values" Button`
+    t =    76.40s Find the "Hold controlled values" Button
+    t =    76.44s Tap "Hold controlled values" Button
+    t =    76.44s     Wait for dev.lenso.nativeexample to idle
+    t =    76.44s     Find the "Hold controlled values" Button
+    t =    76.46s     Check for interrupting elements affecting "Hold controlled values" Button
+    t =    76.50s     Synthesize event
+    t =    76.79s     Wait for dev.lenso.nativeexample to idle
+    t =    76.80s Find the "Notifications" Switch
+    t =    76.85s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    76.88s Find the ScrollView (Element at index 0)
+    t =    76.91s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    76.95s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    76.98s Find the ScrollView
+    t =    77.01s Checking existence of `Keyboard (First Match)`
+    t =    77.05s Checking existence of `"Notifications" Switch`
+    t =    77.08s Find the "Notifications" Switch
+    t =    77.12s Tap "Notifications" Switch
+    t =    77.12s     Wait for dev.lenso.nativeexample to idle
+    t =    77.13s     Find the "Notifications" Switch
+    t =    77.16s     Check for interrupting elements affecting "Notifications" Switch
+    t =    77.19s     Synthesize event
+    t =    77.48s     Wait for dev.lenso.nativeexample to idle
+    t =    79.32s Find the "Notifications" Switch
+    t =    79.36s Find the "Level" Slider
+    t =    79.39s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    79.42s Find the ScrollView (Element at index 0)
+    t =    79.45s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    79.48s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    79.50s Find the ScrollView
+    t =    79.53s Checking existence of `Keyboard (First Match)`
+    t =    79.57s Checking existence of `"Level" Slider`
+    t =    79.60s Find the "Level" Slider
+    t =    79.64s Set normalized position of "Level" Slider to 0.20
+    t =    79.64s     Wait for dev.lenso.nativeexample to idle
+    t =    79.64s     Find the "Level" Slider
+    t =    79.67s     Check for interrupting elements affecting "Level" Slider
+    t =    79.70s     Synthesize event
+    t =    80.51s     Wait for dev.lenso.nativeexample to idle
+    t =    82.87s Find the "Level 74" StaticText
+    t =    82.90s Find the "Level" Slider
+    t =    82.93s Requesting snapshot of accessibility hierarchy for app with pid 73264
+    t =    83.17s Requesting snapshot of accessibility hierarchy for app with pid 73264
+CATALOG_SCENE delivery-glass-held
+Attributes: Application, 0x116847ac0, pid: 73264, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x116847ac0, pid: 73264, label: 'Lenso Native'
+    Window (Main), 0x116847d40, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x116847c00, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1167a61c0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1167a5cc0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1167a43c0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1167a4000, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1167a4140, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1167a4280, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1167a5400, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1167a5540, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1167a5680, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x1167a57c0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1167a5900, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x1167a5a40, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x1167a5b80, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5e00, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x1167a5f40, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x1167a6080, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x11679ea80, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11679e580, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11679fc00, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x11679cb40, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11679c000, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11679c8c0, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x11679fe80, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11679ca00, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x1167a3480, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a3980, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x1167a3ac0, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x1167a3c00, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a3d40, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x1167a3e80, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x1167a0280, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a03c0, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x1167a0500, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x1167a0640, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a0780, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x1167a08c0, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x1167a3340, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a35c0, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x1167a2300, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x1167a2440, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a2580, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x1167a26c0, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x1167a2800, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a2940, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x116824000, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x116824140, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x116824280, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x1168243c0, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x116824500, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x116824640, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x116824780, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x1168248c0, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x116824a00, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x116824b40, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x116824c80, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x116824dc0, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x116824f00, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x116825040, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x116825180, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1168252c0, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x116825400, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x116825540, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x116825680, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1168257c0, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x116825900, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x116825a40, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x116825b80, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x116825cc0, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x116825e00, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x116825f40, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x116826080, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x1168261c0, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x116826300, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x116826440, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x116826580, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x1168266c0, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x116826800, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x116826940, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x116826a80, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x116826bc0, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x116826d00, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x116826e40, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x116826f80, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x1168270c0, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x116827200, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x116827340, {{396.0, 58.7}, {3.0, 262.3}}
+                          Other, 0x116827480, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x1168275c0, {{59.0, 868.0}, {284.0, 3.0}}
+                          Other, 0x116827700, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x116827840, {{396.0, 58.7}, {3.0, 262.3}}
+                          Other, 0x116827980, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116827ac0, {{59.0, 868.0}, {284.0, 3.0}}
+                      Other, 0x116827c00, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x116827d40, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x116827e80, {{16.0, 0.0}, {370.0, 867.0}}
+                            Other, 0x116ec8000, {{16.0, 0.0}, {370.0, 867.0}}
+                              StaticText, 0x116ec8140, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x116ec8280, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x116ec83c0, {{24.0, 68.0}, {354.0, 103.7}}
+                              StaticText, 0x116ec8500, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x116ec8640, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x116ec8780, {{24.0, 127.7}, {176.0, 44.0}}
+                                Button, 0x116ec88c0, {{24.0, 127.7}, {176.0, 44.0}}, label: 'Open native catalog'
+                                  StaticText, 0x116ec8a00, {{36.0, 139.3}, {152.0, 20.3}}, label: 'Open native catalog'
+                              Other, 0x116ec8b40, {{24.0, 195.7}, {354.0, 88.0}}
+                                Other, 0x116ec8c80, {{24.0, 195.7}, {354.0, 88.0}}
+                                  Other, 0x116ec8dc0, {{24.0, 195.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x116ec8f00, {{24.0, 195.7}, {173.0, 88.0}}
+                                      StaticText, 0x116ec9040, {{88.3, 229.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x116ec9180, {{88.3, 229.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x116ec92c0, {{205.0, 195.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x116ec9400, {{205.0, 195.7}, {173.0, 88.0}}
+                                      StaticText, 0x116ec9540, {{255.7, 229.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x116ec9680, {{255.7, 229.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x116ec97c0, {{24.0, 307.7}, {354.0, 218.3}}
+                              StaticText, 0x116ec9900, {{44.0, 331.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x116ec9a40, {{44.0, 331.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x116ec9b80, {{295.0, 327.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x116ec9cc0, {{295.0, 327.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x116ec9e00, {{44.0, 375.7}, {314.0, 20.3}}, label: 'Level 74'
+                                StaticText, 0x116ec9f40, {{44.0, 375.7}, {314.0, 20.3}}, label: 'Level 74'
+                              Other, 0x116eca080, {{44.0, 416.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x116eca1c0, {{44.0, 416.0}, {314.0, 44.0}}, label: 'Level', value: 74%
+                              StaticText, 0x116eca300, {{44.0, 488.0}, {314.0, 18.0}}, label: 'Actions 0'
+                                StaticText, 0x116eca440, {{44.0, 488.0}, {314.0, 18.0}}, label: 'Actions 0'
+                              Other, 0x116eca580, {{24.0, 550.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x116eca6c0, {{24.0, 550.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x116eca800, {{44.0, 565.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x116eca940, {{24.0, 625.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x116ecaa80, {{24.0, 673.0}, {354.0, 40.0}}, label: 'Allow value changes'
+                              Button, 0x116ecabc0, {{24.0, 721.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x116ecad00, {{24.0, 793.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x116ecae40, {{24.0, 793.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x116ecaf80, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x116ecb0c0, {{380.0, 65.0}, {3.0, 742.3}}
+                          Other, 0x116ecb200, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116ecb340, {{81.0, 868.0}, {240.0, 3.0}}
+                          Other, 0x116ecb480, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x116ecb5c0, {{380.0, 65.0}, {3.0, 742.3}}
+                          Other, 0x116ecb700, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116ecb840, {{81.0, 868.0}, {240.0, 3.0}}
+                  Other, 0x116ecb980, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x116ecbac0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x116ecbc00, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x116847ac0, pid: 73264, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x116ecbd40, pid: 73264, label: 'Lenso Native'
+  }
+
+    t =    83.22s Added attachment named 'delivery-glass-held-hierarchy'
+    t =    83.22s Find the Application 'dev.lenso.nativeexample'
+    t =    83.35s Added attachment named 'delivery-glass-held'
+    t =    83.35s Find the "Allow value changes" Button
+    t =    83.38s Get all elements bound by index for: Descendants matching type ScrollView
+    t =    83.41s Find the ScrollView (Element at index 0)
+    t =    83.44s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    83.47s Find the ScrollView at {{0.0, 0.0}, {402.0, 874.0}}
+    t =    83.50s Find the ScrollView
+    t =    83.54s Checking existence of `Keyboard (First Match)`
+    t =    83.58s Checking existence of `"Allow value changes" Button`
+    t =    83.60s Find the "Allow value changes" Button
+    t =    83.64s Tap "Allow value changes" Button
+    t =    83.64s     Wait for dev.lenso.nativeexample to idle
+    t =    83.64s     Find the "Allow value changes" Button
+    t =    83.67s     Check for interrupting elements affecting "Allow value changes" Button
+    t =    83.70s     Synthesize event
+    t =    83.99s     Wait for dev.lenso.nativeexample to idle
+    t =    84.00s Requesting snapshot of accessibility hierarchy for app with pid 73264
+    t =    84.26s Requesting snapshot of accessibility hierarchy for app with pid 73264
+CATALOG_SCENE delivery-glass-unlocked
+Attributes: Application, 0x1167a26c0, pid: 73264, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x1167a26c0, pid: 73264, label: 'Lenso Native'
+    Window (Main), 0x1167a2440, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1167a35c0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1167a2300, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1167a3340, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1167a0780, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1167a08c0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1167a0640, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1167a03c0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1167a0500, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1167a0280, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1167a3d40, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x1167a3e80, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1167a3c00, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x1167a3980, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x1167a2940, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a2800, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x1167a2580, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x1167a3ac0, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a3480, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x116ecabc0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x116ec9040, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x116ec9180, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x116ec9a40, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x116ec97c0, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x116ec8b40, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x116ec8c80, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x116ec92c0, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x116ec9400, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x116ec9540, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x116ec9680, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x116ec8dc0, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x116ec8f00, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x116ecb980, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecbac0, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x116ecbc00, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x116ecb700, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecb840, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x116ecb480, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x116ecb5c0, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecb200, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x116ecb340, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x116ecaf80, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecb0c0, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x116ec8000, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x116ecad00, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecae40, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11679fe80, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x11679ca00, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x11679c8c0, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x11679cb40, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x11679c000, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x11679fc00, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x11679ea80, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x11679e580, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a61c0, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x1167a5cc0, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x1167a43c0, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a4000, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x1167a4140, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x1167a4280, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5400, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1167a5680, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x1167a57c0, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5900, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1167a5a40, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1167a6080, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5e00, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x1167a5f40, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x1167a5b80, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x1167a5540, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x1144fa6c0, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x116ecc000, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecc140, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x116ecc280, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x116ecc3c0, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecc500, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x116ecc640, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x116ecc780, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecc8c0, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x116ecca00, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x116eccb40, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x116eccc80, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x116eccdc0, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x116eccf00, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x116ecd040, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x116ecd180, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x116ecd2c0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x116ecd400, {{396.0, 58.7}, {3.0, 262.3}}
+                          Other, 0x116ecd540, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116ecd680, {{59.0, 868.0}, {284.0, 3.0}}
+                          Other, 0x116ecd7c0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x116ecd900, {{396.0, 58.7}, {3.0, 262.3}}
+                          Other, 0x116ecda40, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116ecdb80, {{59.0, 868.0}, {284.0, 3.0}}
+                      Other, 0x116ecdcc0, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x116ecde00, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x116ecdf40, {{16.0, 0.0}, {370.0, 867.0}}
+                            Other, 0x116ece080, {{16.0, 0.0}, {370.0, 867.0}}
+                              StaticText, 0x116ece1c0, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x116ece300, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x116ece440, {{24.0, 68.0}, {354.0, 103.7}}
+                              StaticText, 0x116ece580, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x116ece6c0, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x116ece800, {{24.0, 127.7}, {176.0, 44.0}}
+                                Button, 0x116ece940, {{24.0, 127.7}, {176.0, 44.0}}, label: 'Open native catalog'
+                                  StaticText, 0x116ecea80, {{36.0, 139.3}, {152.0, 20.3}}, label: 'Open native catalog'
+                              Other, 0x116ecebc0, {{24.0, 195.7}, {354.0, 88.0}}
+                                Other, 0x116eced00, {{24.0, 195.7}, {354.0, 88.0}}
+                                  Other, 0x116ecee40, {{24.0, 195.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x116ecef80, {{24.0, 195.7}, {173.0, 88.0}}
+                                      StaticText, 0x116ecf0c0, {{88.3, 229.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x116ecf200, {{88.3, 229.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x116ecf340, {{205.0, 195.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x116ecf480, {{205.0, 195.7}, {173.0, 88.0}}
+                                      StaticText, 0x116ecf5c0, {{255.7, 229.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x116ecf700, {{255.7, 229.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x116ecf840, {{24.0, 307.7}, {354.0, 218.3}}
+                              StaticText, 0x116ecf980, {{44.0, 331.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x116ecfac0, {{44.0, 331.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x116ecfc00, {{295.0, 327.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x116ecfd40, {{295.0, 327.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x116ecfe80, {{44.0, 375.7}, {314.0, 20.3}}, label: 'Level 74'
+                                StaticText, 0x116ed0000, {{44.0, 375.7}, {314.0, 20.3}}, label: 'Level 74'
+                              Other, 0x116ed0140, {{44.0, 416.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x116ed0280, {{44.0, 416.0}, {314.0, 44.0}}, label: 'Level', value: 74%
+                              StaticText, 0x116ed03c0, {{44.0, 488.0}, {314.0, 18.0}}, label: 'Actions 0'
+                                StaticText, 0x116ed0500, {{44.0, 488.0}, {314.0, 18.0}}, label: 'Actions 0'
+                              Other, 0x116ed0640, {{24.0, 550.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x116ed0780, {{24.0, 550.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x116ed08c0, {{44.0, 565.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x116ed0a00, {{24.0, 625.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x116ed0b40, {{24.0, 673.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x116ed0c80, {{24.0, 721.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x116ed0dc0, {{24.0, 793.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x116ed0f00, {{24.0, 793.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x116ed1040, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x116ed1180, {{380.0, 65.0}, {3.0, 742.3}}
+                          Other, 0x116ed12c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116ed1400, {{81.0, 868.0}, {240.0, 3.0}}
+                          Other, 0x116ed1540, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x116ed1680, {{380.0, 65.0}, {3.0, 742.3}}
+                          Other, 0x116ed17c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x116ed1900, {{81.0, 868.0}, {240.0, 3.0}}
+                  Other, 0x116ed1a40, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x116ed1b80, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x116ed1cc0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1167a26c0, pid: 73264, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x116ed1e00, pid: 73264, label: 'Lenso Native'
+  }
+
+    t =    84.31s Added attachment named 'delivery-glass-unlocked-hierarchy'
+    t =    84.31s Find the Application 'dev.lenso.nativeexample'
+    t =    84.43s Added attachment named 'delivery-glass-unlocked'
+    t =    84.45s Tear Down
+Test Case '-[CatalogQA.CatalogQATests testDeliveryValueCallbackRegression20261110]' passed (85.084 seconds).
+Test Suite 'CatalogQATests' passed at 2026-11-10 23:02:50.283.
+	 Executed 1 test, with 0 failures (0 unexpected) in 85.084 (85.086) seconds
+Test Suite 'CatalogQA.xctest' passed at 2026-11-10 23:02:50.284.
+	 Executed 1 test, with 0 failures (0 unexpected) in 85.084 (85.087) seconds
+Test Suite 'Selected tests' passed at 2026-11-10 23:02:50.285.
+	 Executed 1 test, with 0 failures (0 unexpected) in 85.084 (85.089) seconds
+2026-11-10 23:02:50.650 xcodebuild[72991:15606128] [MT] IDETestOperationsObserverDebug: 97.573 elapsed -- Testing started completed.
+2026-11-10 23:02:50.650 xcodebuild[72991:15606128] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-10 23:02:50.650 xcodebuild[72991:15606128] [MT] IDETestOperationsObserverDebug: 97.573 sec, +97.573 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/lenso-native-catalog-qa/delivery-regression1.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

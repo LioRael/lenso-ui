@@ -1,0 +1,1 @@
+$ bun --bun oxlint --config .oxlintrc.json --ignore-path .oxlintignore --deny-warnings .

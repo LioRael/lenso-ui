@@ -1,0 +1,27 @@
+{'case': 'ordinary button invokes once', 'passed': True}
+{'case': 'disabled button blocks callback', 'passed': True}
+{'case': 'loading blocks callback and retains label', 'passed': True}
+{'case': 'native single-line editing accepted', 'passed': True}
+{'case': 'native multiline editing accepted', 'passed': True}
+{'case': 'native search submission', 'passed': True}
+{'case': 'read-only field rejects edits', 'passed': True}
+{'case': 'disabled field rejects edits', 'passed': True}
+{'case': 'checkbox group accepts a value', 'passed': True}
+{'case': 'radio group accepts a value', 'passed': True}
+{'case': 'toggle group accepts a value and native checked state', 'passed': True}
+{'case': 'controlled native text rejects proposal', 'passed': True, 'ownerValue': 'AdaXZZ'}
+{'case': 'controlled checkbox rejects proposal', 'passed': True}
+{'case': 'controlled radio rejects proposal', 'passed': True}
+{'case': 'controlled toggle rejects proposal', 'passed': True}
+{'case': 'controlled segmented choice rejects proposal', 'passed': True}
+{'case': 'controlled stepper rejects proposal', 'passed': True}
+{'case': 'segmented choice accepts proposal', 'passed': True}
+{'case': 'disabled segment cannot select', 'passed': True}
+{'case': 'stepper accepts maximum and disables increment', 'passed': True}
+{'case': 'stepper accepts minimum and disables decrement', 'passed': True}
+{'case': 'parent disabled dominates explicit child false', 'passed': True}
+{'case': 'dark native fields rendered', 'passed': True}
+{'case': 'dark system controls rendered', 'passed': True}
+{'case': 'caller StyleX and feedback rendered', 'passed': True}
+{'case': 'return to original Glass fixture', 'passed': True}
+PASS 26 actual Android interaction assertions

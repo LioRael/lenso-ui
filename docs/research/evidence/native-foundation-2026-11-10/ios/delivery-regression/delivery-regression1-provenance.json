@@ -1,0 +1,34 @@
+{
+  "binaries": [
+    {
+      "bundle": "dev.lenso.nativeexample",
+      "files": [
+        {
+          "path": "/Users/leosouthey/Library/Developer/CoreSimulator/Devices/A143ED5B-921E-4FAF-BFA8-084F7D4046FF/data/Containers/Bundle/Application/5235CF4A-1675-4D0D-9B5C-F2E8CC17AEF5/LensoNative.app/LensoNative.debug.dylib",
+          "sha256": "2b5b501bb720ac53a0aa1d1fa959e7a95a59ebc82a487ef7d77ac2f6cc435149"
+        },
+        {
+          "path": "/tmp/lenso-native-catalog-ios-build/Build/Products/Debug-iphonesimulator/LensoNative.app/LensoNative.debug.dylib",
+          "sha256": "2b5b501bb720ac53a0aa1d1fa959e7a95a59ebc82a487ef7d77ac2f6cc435149"
+        }
+      ],
+      "matches": true
+    },
+    {
+      "bundle": "dev.lenso.catalogqa.xctrunner",
+      "files": [
+        {
+          "path": "/Users/leosouthey/Library/Developer/CoreSimulator/Devices/A143ED5B-921E-4FAF-BFA8-084F7D4046FF/data/Containers/Bundle/Application/C72852F6-9A58-4CC4-906A-A60E297596E4/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/CatalogQA",
+          "sha256": "b1f5e3dfd3a0453370d93162a501c29b2e531ef9499307d800b1ec5c3c311bb9"
+        },
+        {
+          "path": "/tmp/lenso-native-catalog-qa/DerivedDataDelivery/Build/Products/Debug-iphonesimulator/CatalogQA-Runner.app/PlugIns/CatalogQA.xctest/CatalogQA",
+          "sha256": "b1f5e3dfd3a0453370d93162a501c29b2e531ef9499307d800b1ec5c3c311bb9"
+        }
+      ],
+      "matches": true
+    }
+  ],
+  "fixture_source_sha256": "31393ab180d604ece8772e2345abdc183410e921bf3d2b1801eb0b530936794b",
+  "fixture_source_path": "/Users/leosouthey/.codex/worktrees/native-glass-delivery/lenso-ui/apps/native-example/ControlsExample.tsx"
+}

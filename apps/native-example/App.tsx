@@ -11,7 +11,9 @@ import {
   Switch,
   colors,
   glassCapabilities,
+  Button,
 } from "@lenso/ui-native";
+import { ControlsExample } from "./ControlsExample";
 
 const styles = css.create({
   root: { display: "flex", flexDirection: "column", flex: 1, backgroundColor: colors.background },
@@ -47,6 +49,15 @@ const styles = css.create({
 });
 
 export default function App() {
+  const [catalog, setCatalog] = useState(false);
+  return catalog ? (
+    <ControlsExample onBack={() => setCatalog(false)} />
+  ) : (
+    <GlassExample onCatalog={() => setCatalog(true)} />
+  );
+}
+
+function GlassExample({ onCatalog }: { onCatalog: () => void }) {
   const [dark, setDark] = useState(false);
   const [checked, setChecked] = useState(true);
   const [level, setLevel] = useState(42);
@@ -89,6 +100,7 @@ export default function App() {
                   ? "Apple system controls and Glass"
                   : "Lenso controls and native Glass rendering"}
               </html.p>
+              <Button onPress={onCatalog}>Open native catalog</Button>
             </html.div>
             <GlassGroup sourceID="page" spacing={20} xstyle={styles.glassRow}>
               <Glass sourceID="page" xstyle={styles.glass} testID="glass-first">

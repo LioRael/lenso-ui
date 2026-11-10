@@ -1,0 +1,6 @@
+{
+  "packages/ui-native/src/use-value.ts": "db9df6276ea3b5c5f0a23648e18a4322a74bbb690a2462ad19522ab04667cd97",
+  "packages/ui-native/src/selection.tsx": "1677e1d00cc4aabaaa65f30dda1a5d259bfd441e16632bec427543c429833066",
+  "apps/native-example/ControlsExample.tsx": "31393ab180d604ece8772e2345abdc183410e921bf3d2b1801eb0b530936794b",
+  "apps/native-example/App.tsx": "7cd56746a62130296f284e6e77ee632dc9fb104863fc07519e803178c280e5b7"
+}

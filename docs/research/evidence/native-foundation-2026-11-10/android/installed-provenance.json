@@ -1,0 +1,11 @@
+{
+  "package": "dev.lenso.nativeexample",
+  "emulator": "emulator-5554",
+  "android": "14",
+  "metro": "http://127.0.0.1:8085",
+  "apk": "apps/native-example/android/app/build/outputs/apk/debug/app-debug.apk",
+  "built_sha256": "8d258fe8b64366cbefca0076648a3c10ef585ecf631b14e42318184739e1edc4",
+  "installed_path": "/data/app/~~3_ayL3lsA1WDxNSNcgdoZQ==/dev.lenso.nativeexample-ejORXFZdZt-S0kR1Tl1cpw==/base.apk",
+  "installed_sha256": "8d258fe8b64366cbefca0076648a3c10ef585ecf631b14e42318184739e1edc4",
+  "matches": true
+}

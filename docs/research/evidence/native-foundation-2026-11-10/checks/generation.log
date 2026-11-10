@@ -1,0 +1,9 @@
+@lenso/ui-native generate:check: 7 |     "moduleSuffixes": [".ios", ".android", ".native", ""],
+@lenso/ui-native generate:check:         ^
+@lenso/ui-native generate:check: warn: moduleSuffixes is not supported yet
+@lenso/ui-native generate:check:    at /Users/leosouthey/.codex/worktrees/native-glass-delivery/lenso-ui/packages/ui-native/tsconfig.json:7:5
+@lenso/ui-native generate:check: 7 |     "moduleSuffixes": [".ios", ".android", ".native", ""],
+@lenso/ui-native generate:check:         ^
+@lenso/ui-native generate:check: warn: moduleSuffixes is not supported yet
+@lenso/ui-native generate:check:    at /Users/leosouthey/.codex/worktrees/native-glass-delivery/lenso-ui/packages/ui-native/tsconfig.json:7:5
+@lenso/ui-native generate:check: Exited with code 0

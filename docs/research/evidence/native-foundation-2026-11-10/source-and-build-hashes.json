@@ -1,0 +1,103 @@
+{
+  "ios": {
+    "path": "/tmp/lenso-native-catalog-ios-build4.log",
+    "sha256": "324291602dd2c90c04f8437223853e0b49057101241f337e2377ef46c17a04f0"
+  },
+  "android": {
+    "path": "/tmp/lenso-native-catalog-android-build.log",
+    "sha256": "ab813a12af639b9bbba6c955781f1d0103a1cae349c815e979c33fc4547ba2f3"
+  },
+  "packages/ui-native/src/selection.tsx": {
+    "sha256": "1677e1d00cc4aabaaa65f30dda1a5d259bfd441e16632bec427543c429833066"
+  },
+  "packages/ui-native/src/glass.android.tsx": {
+    "sha256": "d111c6070e6ea691f25ad8b23a7a2767e595fdf7b76b3106306aa8ca6446ecc4"
+  },
+  "packages/ui-native/src/use-value.ts": {
+    "sha256": "db9df6276ea3b5c5f0a23648e18a4322a74bbb690a2462ad19522ab04667cd97"
+  },
+  "packages/ui-native/src/native-size.ios.ts": {
+    "sha256": "b2db2c975f6e32fcf26c9aa09fe2d4a7073a95c77402c79986df250242e93112"
+  },
+  "packages/ui-native/src/controls.ios.tsx": {
+    "sha256": "cea2ba15fd75708ecd3949b868316c69b539c3b09c4b398cb59c09acc9f9c95f"
+  },
+  "packages/ui-native/src/module.ts": {
+    "sha256": "102b9050ff79e9b3986498153581430872c2eb49a1cf98c6dcb0b96ce303acb5"
+  },
+  "packages/ui-native/src/value.ts": {
+    "sha256": "4dbdec61fa0f7dfe6a2705f76b6bd991a334b36b47f3b2637e033580252958e4"
+  },
+  "packages/ui-native/src/theme.css.ts": {
+    "sha256": "d1560a93996314e69a15e9328e49268f6e3fbef2cd72e4ab4543491ef8c04a00"
+  },
+  "packages/ui-native/src/button.ios.tsx": {
+    "sha256": "9672a430e217394fb662cb7635ec2a8f38683a20c3665d692b7a3a21c6ac275d"
+  },
+  "packages/ui-native/src/styles.tsx": {
+    "sha256": "948af349552afdd71d6d44de90683b15e269ac2bbe3ceb64c3ca29b842d3cb70"
+  },
+  "packages/ui-native/src/choice.android.tsx": {
+    "sha256": "e0d8c53ae632bfaf1e91b87583da930eade60dcdb329378a08cab4528e7eb3f9"
+  },
+  "packages/ui-native/src/use-press.ts": {
+    "sha256": "4a1f7380a957c1f25e0eda9670700b5dddd5080ea2f41b9d4a4eef0f5ac88a2d"
+  },
+  "packages/ui-native/src/selection-control.ios.tsx": {
+    "sha256": "06d4304633623b686499d0c4104021e422c478b72257aeccbc59af2c415bf285"
+  },
+  "packages/ui-native/src/choice.ios.tsx": {
+    "sha256": "2170a4b3d7c91c82159f30bc4fa7b0eee8bc0cd36350a49ce18ad144c3c0d1a3"
+  },
+  "packages/ui-native/src/presentation.tsx": {
+    "sha256": "f506c9716a75f64dc24a5a3c7d898eab3926d6451723745f68c508973e6bd67f"
+  },
+  "packages/ui-native/src/palette.ts": {
+    "sha256": "41e2f614fabdd00cb21a71e7290731363c3c135af95257b6c42c5693586e20ba"
+  },
+  "packages/ui-native/src/types.ts": {
+    "sha256": "41b71dceef4b312546a257db583032445b70fbed29516e01aee685dc6af5d81c"
+  },
+  "packages/ui-native/src/glass.ios.tsx": {
+    "sha256": "f9f6bcf3c82ea548107ee2c3fb1d1dea412022c767f27bcc32d1b6309dee93ce"
+  },
+  "packages/ui-native/src/selection-control.android.tsx": {
+    "sha256": "a54daf31de4656f7a0d387c5925549e0115964b92906cce83484cacc501347f0"
+  },
+  "packages/ui-native/src/choice-model.ts": {
+    "sha256": "d14248c429497c274cdcb5c96ede7a59a8d1ccdf2b45a3b14f10e0e0cd2783e5"
+  },
+  "packages/ui-native/src/controls.android.tsx": {
+    "sha256": "d968b3dd5da00f3a755740cbe5583e4de7448b5a735a0eb9109f5ff78c7b5608"
+  },
+  "packages/ui-native/src/index.ts": {
+    "sha256": "aa6713b08351ed3c326ccf20b5443ed0bcd4738e7dcd85fe1aa826339a33aeb0"
+  },
+  "packages/ui-native/src/button.android.tsx": {
+    "sha256": "97eed97a861d380e1091fd49e730eeb4f6c82fdf89c0efd428745e509b6268f4"
+  },
+  "packages/ui-native/src/input.tsx": {
+    "sha256": "94d73646668b8b67c33316e534376b5bf5759ef795bcccbcc9d5fc35a975e9d6"
+  },
+  "packages/ui-native/src/provider.tsx": {
+    "sha256": "c16a849aedf27bedaf4a83dc3e68c93c047c8c801e3b0a94568a99a744c8e950"
+  },
+  "packages/ui-native/ios/LensoGlassModule.swift": {
+    "sha256": "ecf88cc0c7ccdb43829e9ac8c4a5e2ddc1f186cc2a44a0fddb5720a7020e769c"
+  },
+  "packages/ui-native/ios/ChoiceView.swift": {
+    "sha256": "28871d9057ba5d1189a9e8ef1ec4bdbaa6abbd6f93cbd990a461bf0bdde23e32"
+  },
+  "packages/ui-native/ios/ControlView.swift": {
+    "sha256": "60c5cf1608a46391e9b47d7958a48d9c3c2ef326f7c40a0e3c2f4e23e8468d89"
+  },
+  "apps/native-example/ControlsExample.tsx": {
+    "sha256": "31393ab180d604ece8772e2345abdc183410e921bf3d2b1801eb0b530936794b"
+  },
+  "apps/native-example/App.tsx": {
+    "sha256": "7cd56746a62130296f284e6e77ee632dc9fb104863fc07519e803178c280e5b7"
+  },
+  "bun.lock": {
+    "sha256": "3bf4e191e4826f42ddb786672f47fa677f2a2c4e940abe3f2a1eeb0271fbf2b6"
+  }
+}
