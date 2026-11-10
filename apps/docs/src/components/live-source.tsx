@@ -1,19 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { HighlighterCore, ThemedTokenWithVariants } from "shiki";
+import type { codeToTokens } from "@pierre/highlights";
+type SourceTokens = ReturnType<typeof codeToTokens>["tokens"];
 import * as stylex from "@stylexjs/stylex";
 import { notebook, codeStyles } from "@lenso/docs/presentation";
 
-let highlighter: Promise<HighlighterCore> | undefined;
-const languages = {
-  tsx: () => import("shiki/langs/tsx.mjs"),
-  typescript: () => import("shiki/langs/typescript.mjs"),
-  javascript: () => import("shiki/langs/javascript.mjs"),
-  css: () => import("shiki/langs/css.mjs"),
-  json: () => import("shiki/langs/json.mjs"),
-};
-const loadedLanguages = new Map<string, Promise<void>>();
+let highlighter: Promise<typeof import("@pierre/highlights")> | undefined;
+let themes:
+  | Promise<{
+      light: typeof import("@pierre/highlights/themes/github-light").default;
+      dark: typeof import("@pierre/highlights/themes/github-dark").default;
+    }>
+  | undefined;
 
 export function LiveSource({
   code,
@@ -29,7 +28,7 @@ export function LiveSource({
   const [highlighted, setHighlighted] = useState<{
     code: string;
     file: string | undefined;
-    lines: ThemedTokenWithVariants[][];
+    lines: SourceTokens;
   }>();
   useEffect(() => {
     if (!active || near || !root.current) return;
@@ -45,18 +44,11 @@ export function LiveSource({
   useEffect(() => {
     if (!active || !near) return;
     let current = true;
-    highlighter ??= Promise.all([
-      import("shiki/core"),
-      import("shiki/engine/oniguruma"),
-      import("shiki/themes/github-light.mjs"),
-      import("shiki/themes/github-dark.mjs"),
-    ]).then(([{ createHighlighterCore }, { createOnigurumaEngine }, light, dark]) =>
-      createHighlighterCore({
-        engine: createOnigurumaEngine(() => import("shiki/wasm")),
-        langs: [],
-        themes: [light.default, dark.default],
-      }),
-    );
+    highlighter ??= import("@pierre/highlights");
+    themes ??= Promise.all([
+      import("@pierre/highlights/themes/github-light"),
+      import("@pierre/highlights/themes/github-dark"),
+    ]).then(([light, dark]) => ({ light: light.default, dark: dark.default }));
     const extension = file?.split(".").at(-1);
     const lang =
       extension === "css" || extension === "json"
@@ -66,19 +58,13 @@ export function LiveSource({
           : extension === "js"
             ? "javascript"
             : "tsx";
-    let loaded = loadedLanguages.get(lang);
-    if (!loaded) {
-      loaded = highlighter.then(async (instance) => {
-        const grammar = await languages[lang]();
-        await instance.loadLanguage(grammar.default);
-      });
-      loadedLanguages.set(lang, loaded);
-    }
-    void Promise.all([highlighter, loaded])
-      .then(([instance]) => {
-        const lines = instance.codeToTokensWithThemes(code, {
+    void Promise.all([highlighter, themes])
+      .then(([instance, themes]) => {
+        const { tokens: lines } = instance.codeToTokens(code, {
           lang,
-          themes: { light: "github-light", dark: "github-dark" },
+          themes,
+          defaultColor: false,
+          cssVariablePrefix: "--shiki-",
         });
         if (current) setHighlighted({ code, file, lines });
       })
@@ -91,8 +77,8 @@ export function LiveSource({
   }, [active, near, code, file]);
   const lines =
     highlighted?.code === code && highlighted.file === file ? highlighted.lines : undefined;
-  const sourceLines: ThemedTokenWithVariants[][] =
-    lines ?? code.split("\n").map((content) => [{ content, offset: 0, variants: {} }]);
+  const sourceLines: SourceTokens =
+    lines ?? code.split("\n").map((content) => [{ content, offset: 0, htmlStyle: {} }]);
   return (
     <span ref={root} data-highlighted={lines ? "" : undefined}>
       {sourceLines.map((line, row) => (
@@ -105,8 +91,8 @@ export function LiveSource({
               key={column}
               {...stylex.props(
                 codeStyles.token(
-                  token.variants["light"]?.color ?? "inherit",
-                  token.variants["dark"]?.color ?? "inherit",
+                  token.htmlStyle?.["--shiki-light"] ?? "inherit",
+                  token.htmlStyle?.["--shiki-dark"] ?? "inherit",
                 ),
               )}
             >

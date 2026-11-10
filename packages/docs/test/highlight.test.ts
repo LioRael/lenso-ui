@@ -12,6 +12,7 @@ test("highlights authored languages and aliases with both theme colors", async (
 
     assert.match(markup, /const/);
     assert.match(markup, />1</);
+    assert.match(markup, /#(?:[0-9a-f]{3}){1,2}/i);
   }
 });
 

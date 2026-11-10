@@ -21,7 +21,7 @@ const presentation = defineConfig({
       "fumadocs-ui",
       "react",
       "react-dom",
-      "shiki",
+      "@pierre/highlights",
     ],
   },
   clean: true,

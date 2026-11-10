@@ -1,26 +1,9 @@
-import { createHighlighterCore } from "shiki/core";
-import { createOnigurumaEngine } from "shiki/engine/oniguruma";
-import bash from "@shikijs/langs/bash";
-import css from "@shikijs/langs/css";
-import html from "@shikijs/langs/html";
-import javascript from "@shikijs/langs/javascript";
-import jsonc from "@shikijs/langs/jsonc";
-import json from "@shikijs/langs/json";
-import yaml from "@shikijs/langs/yaml";
-import tsx from "@shikijs/langs/tsx";
-import typescript from "@shikijs/langs/typescript";
-import githubDark from "@shikijs/themes/github-dark";
-import githubLight from "@shikijs/themes/github-light";
+import { codeToTokens, isSupportedLanguage } from "@pierre/highlights";
+import githubLight from "@pierre/highlights/themes/github-light";
+import githubDark from "@pierre/highlights/themes/github-dark";
 import * as stylex from "@stylexjs/stylex";
 import { notebook } from "./styles/notebook.stylex";
 import { codeStyles } from "./styles/code.stylex";
-
-// Fumadocs' pinned default themes; tokenization stays on the server.
-const highlighter = createHighlighterCore({
-  engine: createOnigurumaEngine(() => import("shiki/wasm")),
-  langs: [bash, css, html, javascript, json, jsonc, yaml, tsx, typescript],
-  themes: [githubLight, githubDark],
-});
 
 const languageAliases: Record<string, string> = {
   bash: "bash",
@@ -41,11 +24,13 @@ const languageAliases: Record<string, string> = {
 };
 
 export async function highlightSource(code: string, language = "tsx") {
-  const lang = languageAliases[language.toLowerCase()] ?? "text";
-  const instance = await highlighter;
-  const tokens = instance.codeToTokensWithThemes(code.endsWith("\n") ? code.slice(0, -1) : code, {
+  const alias = languageAliases[language.toLowerCase()] ?? "text";
+  const lang = isSupportedLanguage(alias) ? alias : "text";
+  const { tokens } = codeToTokens(code.endsWith("\n") ? code.slice(0, -1) : code, {
     lang,
-    themes: { light: "github-light", dark: "github-dark" },
+    themes: { light: githubLight, dark: githubDark },
+    defaultColor: false,
+    cssVariablePrefix: "--shiki-",
   });
   return tokens.map((line, index) => (
     <span key={index} {...stylex.props(notebook.codeLine)}>
@@ -58,8 +43,8 @@ export async function highlightSource(code: string, language = "tsx") {
               key={tokenIndex}
               {...stylex.props(
                 codeStyles.token(
-                  token.variants?.["light"]?.color ?? "#24292e",
-                  token.variants?.["dark"]?.color ?? "#e1e4e8",
+                  token.htmlStyle?.["--shiki-light"] ?? "#24292e",
+                  token.htmlStyle?.["--shiki-dark"] ?? "#e1e4e8",
                 ),
               )}
             >

@@ -1,3 +1,17 @@
 import { defineConfig } from "fumadocs-mdx/config";
 import { remarkLensoDocument } from "./scripts/remark-lenso-document";
-export default defineConfig({ mdxOptions: { remarkPlugins: [remarkLensoDocument] } });
+import { createHighlights } from "fumadocs-core/highlight/highlights";
+import { rehypeCodeFromHighlighter } from "fumadocs-core/mdx-plugins/rehype-code.core";
+
+export default defineConfig({
+  mdxOptions: {
+    remarkPlugins: [remarkLensoDocument],
+    rehypeCodeOptions: false,
+    rehypePlugins: [
+      () =>
+        rehypeCodeFromHighlighter(({ transformers }) =>
+          createHighlights({ shikiTransformers: transformers }),
+        ),
+    ],
+  },
+});

@@ -18,7 +18,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         if (collecting && request.resourceType() === "script") scripts.push(request.url());
       });
       page.on("response", (response) => {
-        if (collecting && response.request().resourceType() === "script")
+        if (collecting && response.ok() && response.request().resourceType() === "script")
           bodies.push(response.body().then((body) => body.length));
       });
       page.on("pageerror", (error) => errors.push(error.message));
@@ -47,7 +47,11 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         "Closed search must not download its dialog or search engine",
       );
       assert.deepEqual(
-        scripts.filter((url) => /engine-oniguruma|\/langs\/dist\//.test(url)),
+        scripts.filter((url) =>
+          /engine-oniguruma|\/langs\/dist\/|@pierre_highlights|@pierre\/highlights|highlights\/dist\//.test(
+            url,
+          ),
+        ),
         [],
         "Offscreen source must not load the browser highlighter",
       );
