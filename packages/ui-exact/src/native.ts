@@ -1,6 +1,26 @@
 /** Presence selectors in shared tokens must not see data-invalid="false". */
 export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap) {
   const restores: Array<() => void> = [];
+  if (data["lensoKind"] === "card") {
+    const original = node.getAttribute("data-material");
+    if (data["lensoVariant"] === "glass") node.setAttribute("data-material", "glass-medium");
+    else node.removeAttribute("data-material");
+    restores.push(() => {
+      if (original === null) node.removeAttribute("data-material");
+      else node.setAttribute("data-material", original);
+    });
+  }
+  if (data["lensoKind"] === "switch") {
+    const original = node.getAttribute("aria-readonly");
+    if (data["lensoReadonly"] === "true") node.setAttribute("aria-readonly", "true");
+    else node.removeAttribute("aria-readonly");
+    restores.push(() => {
+      if (original === null) node.removeAttribute("aria-readonly");
+      else node.setAttribute("aria-readonly", original);
+    });
+  }
+  const disconnectSwitchInput = connectSwitchInput(node, data);
+  if (disconnectSwitchInput) restores.push(disconnectSwitchInput);
   const disconnectLink = connectLink(node, data);
   if (disconnectLink) restores.push(disconnectLink);
   for (const [key, attribute, boolean] of [
@@ -24,6 +44,7 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
   for (const [key, attribute] of [
     ["lensoInvalid", "data-invalid"],
     ["lensoDisabled", "data-disabled"],
+    ["lensoReadonly", "data-readonly"],
     ["lensoChecked", "data-checked"],
     ["lensoIndeterminate", "data-indeterminate"],
     ["lensoOpen", "data-open"],
@@ -95,5 +116,25 @@ export function connectLink(node: HTMLElement | SVGElement, data: DOMStringMap) 
     node.removeEventListener("click", guard, true);
     node.removeEventListener("auxclick", guard, true);
     node.removeEventListener("keydown", guard, true);
+  };
+}
+
+function connectSwitchInput(node: HTMLElement | SVGElement, data: DOMStringMap) {
+  if (!(node instanceof HTMLInputElement) || data["lensoKind"] !== "switch-input") return;
+  const root = () => document.getElementById(data["lensoFor"] ?? "");
+  const guard = (event: Event) => {
+    if (data["lensoReadonly"] !== "true") return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  };
+  const invalid = (event: Event) => {
+    event.preventDefault();
+    root()?.focus();
+  };
+  node.addEventListener("click", guard, true);
+  node.addEventListener("invalid", invalid);
+  return () => {
+    node.removeEventListener("click", guard, true);
+    node.removeEventListener("invalid", invalid);
   };
 }

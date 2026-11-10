@@ -1,0 +1,63 @@
+shape SwitchState
+  id: string
+  label: string
+  describedBy: string
+  checked: bool
+  disabled: bool
+  readOnly: bool
+  required: bool
+  invalid: bool
+  size: string
+  name: string
+  value: string
+
+component Switch
+  props
+    state: SwitchState
+    change: action
+  action activate
+    if not state.disabled and not state.readOnly
+      change(not state.checked)
+  action inputChange(next: bool)
+    if not state.disabled and not state.readOnly
+      change(next)
+  slot
+  view
+    column gap=0
+      button id=state.id testId=state.id appearance="none" role="switch" aria-label=state.label aria-describedby=state.describedBy aria-checked=state.checked aria-required=state.required aria-invalid=state.invalid
+        press=activate disabled=state.disabled hatch="lenso-ui" data-lenso-kind="switch" data-slot="switch" data-lenso-size=state.size data-lenso-checked=state.checked data-lenso-disabled=state.disabled data-lenso-readonly=state.readOnly
+        children
+      input type="checkbox" id=`${state.id}-input` testId=`${state.id}-input` data-lenso-name=state.name value=state.value checked=state.checked change=inputChange disabled=state.disabled tabindex=-1 aria-hidden=true
+        data-lenso-required=state.required data-lenso-readonly=state.readOnly data-lenso-for=state.id hatch="lenso-ui" data-lenso-kind="switch-input"
+
+component SwitchContent
+  slot
+  view
+    row hatch="lenso-ui" data-lenso-kind="switch-content" data-slot="switch-content"
+      children
+
+component SwitchControl
+  props
+    size: string
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="switch-control" data-slot="switch-control" data-lenso-size=size
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="switch-track" data-slot="switch-track"
+      children
+
+component SwitchThumb
+  props
+    size: string
+    checked: bool
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="switch-thumb" data-slot="switch-thumb" data-lenso-size=size data-lenso-checked=checked
+      box hatch="lenso-ui" data-lenso-kind="switch-knob-lens" data-knob-material="toggle"
+      box hatch="lenso-ui" data-lenso-kind="switch-knob-face"
+      children
+
+component SwitchIcon
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="switch-icon" data-slot="switch-icon"
+      children

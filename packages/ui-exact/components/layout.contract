@@ -1,0 +1,108 @@
+shape CardState
+  id: string
+  variant: string
+  role: string
+  label: string
+  labelledBy: string
+  describedBy: string
+
+component Card
+  props
+    state: CardState
+  slot
+  view
+    column id=state.id testId=state.id role=state.role aria-label=state.label aria-labelledby=state.labelledBy aria-describedby=state.describedBy
+      hatch="lenso-ui" data-lenso-kind="card" data-slot="card" data-lenso-variant=state.variant data-variant=state.variant
+      if state.variant == "glass"
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="card-lens" data-material-lens=""
+      children
+
+component CardHeader
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="card-header" data-slot="card-header"
+      children
+
+component CardTitle
+  props
+    id: string
+    level: number
+  slot
+  view
+    text id=id testId=id role="heading" aria-level=level hatch="lenso-ui" data-lenso-kind="card-title" data-slot="card-title"
+      children
+
+component CardDescription
+  props
+    id: string
+  slot
+  view
+    box id=id testId=id role="paragraph" hatch="lenso-ui" data-lenso-kind="card-description" data-slot="card-description"
+      children
+
+component CardContent
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="card-content" data-slot="card-content"
+      children
+
+component CardFooter
+  slot
+  view
+    row hatch="lenso-ui" data-lenso-kind="card-footer" data-slot="card-footer"
+      children
+
+component EmptyState
+  props
+    id: string
+    label: string
+    labelledBy: string
+    describedBy: string
+  slot
+  view
+    column id=id testId=id role="region" aria-label=label aria-labelledby=labelledBy aria-describedby=describedBy
+      hatch="lenso-ui" data-lenso-kind="empty-state" data-slot="empty-state"
+      children
+
+component EmptyStateContent
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="empty-state-content" data-slot="empty-state-content"
+      children
+
+component EmptyStateIcon
+  props
+    variant: string
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="empty-state-icon" data-slot="empty-state-icon" data-variant=variant
+      children
+
+component EmptyStateMessage
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="empty-state-message" data-slot="empty-state-message"
+      children
+
+component EmptyStateTitle
+  props
+    id: string
+    level: number
+  slot
+  view
+    text id=id testId=id role="heading" aria-level=level hatch="lenso-ui" data-lenso-kind="empty-state-title" data-slot="empty-state-title"
+      children
+
+component EmptyStateDescription
+  props
+    id: string
+  slot
+  view
+    box id=id testId=id role="paragraph" hatch="lenso-ui" data-lenso-kind="empty-state-description" data-slot="empty-state-description"
+      children
+
+component EmptyStateActions
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="empty-state-actions" data-slot="empty-state-actions"
+      children

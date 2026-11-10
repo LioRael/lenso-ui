@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { cp, mkdir, rm, symlink } from "node:fs/promises";
+import { cp, mkdir, readdir, rm, symlink } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { gzipSync } from "node:zlib";
 import path from "node:path";
@@ -128,7 +128,10 @@ const pages = built.site.documents.map((doc) => {
   };
 });
 await Bun.write(path.join(astro, ".cache/pages.json"), JSON.stringify(pages));
-const outputs = { exact: built.out },
+const baseline = process.env.EXACT_BASELINE_DIR;
+if (baseline && !(await Bun.file(path.join(baseline, "app.js")).exists()))
+  throw Error("EXACT_BASELINE_DIR must contain the saved comparison fixture output");
+const outputs = { ...(baseline ? { exactBefore: path.resolve(baseline) } : {}), exact: built.out },
   buildTimes = { exact: exactBuildMs };
 for (const [name, client] of [
   ["astroStatic", false],
@@ -282,9 +285,12 @@ async function setup(server) {
   return { context, page, cdp, errors, requests, fcp, bytes: () => bytes, measure };
 }
 try {
-  for (const [name, server] of Object.entries(servers)) {
-    const samples = [];
-    for (let run = 0; run < runs; run++) {
+  const sampleSets = Object.fromEntries(Object.keys(servers).map((name) => [name, []]));
+  for (let run = 0; run < runs; run++) {
+    const order = Object.entries(servers);
+    if (run % 2) order.reverse();
+    for (const [name, server] of order) {
+      const samples = sampleSets[name];
       const t = await setup(server);
       try {
         assert.equal(
@@ -321,12 +327,6 @@ try {
             value,
           ]),
         );
-        assert.deepEqual(
-          await t.page
-            .locator('[data-docs-part="search"] a')
-            .evaluateAll((links) => links.map((link) => link.getAttribute("href"))),
-          ["/guide-001"],
-        );
         await t.page.waitForLoadState("networkidle");
         const firstSearchBytes = t.bytes() - initialBytes;
         const repeatSearchMs = await t.measure(
@@ -337,6 +337,12 @@ try {
             t.page
               .getByRole("searchbox", { name: "Search documentation" })
               .fill("acceptance-target-001"),
+        );
+        assert.deepEqual(
+          await t.page
+            .locator('[data-docs-part="search"] a')
+            .evaluateAll((links) => links.map((link) => link.getAttribute("href"))),
+          ["/guide-001"],
         );
         await t.page.waitForLoadState("networkidle");
         const repeatBytes = t.bytes() - initialBytes - firstSearchBytes;
@@ -409,6 +415,8 @@ try {
         await tCounter.context.close();
       }
     }
+  }
+  for (const [name, samples] of Object.entries(sampleSets)) {
     const median = (key) => {
       const values = samples.map((sample) => sample[key]).toSorted((a, b) => a - b);
       return values[Math.floor(values.length / 2)];
@@ -420,6 +428,23 @@ try {
           .filter((key) => typeof samples[0][key] === "number")
           .map((key) => [key, median(key)]),
       ),
+    };
+  }
+  const entries = {};
+  for (const name of baseline ? ["exactBefore", "exact"] : ["exact"]) {
+    const app = await Bun.file(path.join(outputs[name], "app.js")).bytes();
+    const generated = await Bun.file(path.join(outputs[name], ".gen/app.js")).bytes();
+    const input = (await readdir(outputs[name])).find((file) =>
+      /^input-glue-[\w-]+\.js$/.test(file),
+    );
+    assert.ok(input, "The fixture must contain its native input bridge");
+    entries[name] = {
+      raw: app.length,
+      gzip: gzipSync(app).length,
+      generatedRaw: generated.length,
+      generatedGzip: gzipSync(generated).length,
+      inputGzip: gzipSync(await Bun.file(path.join(outputs[name], input)).bytes()).length,
+      styleGzip: gzipSync(await Bun.file(path.join(outputs[name], "style.css")).bytes()).length,
     };
   }
   const report = {
@@ -442,6 +467,7 @@ try {
       cacheDisabled: true,
     },
     buildTimes,
+    entries,
     results,
   };
   await Bun.write(path.join(cache, "results.json"), JSON.stringify(report, null, 2));
@@ -463,12 +489,12 @@ try {
   const rows = metrics
     .map(
       ([key, label]) =>
-        `| ${label} | ${results.exact.median[key]} | ${results.astroStatic.median[key]} | ${results.astroRouter.median[key]} |`,
+        `| ${label} | ${baseline ? `${results.exactBefore.median[key]} | ` : ""}${results.exact.median[key]} | ${results.astroStatic.median[key]} | ${results.astroRouter.median[key]} |`,
     )
     .join("\n");
   await Bun.write(
     path.join(root, "ASTRO_COMPARISON.md"),
-    `# 300-page Astro comparison\n\nMeasured ${report.date}. Astro ${report.versions.astro}, Bun ${report.versions.bun}, Chromium ${report.versions.chromium}.\n\nSame 300 authored URLs: English/Chinese × v2/v1 × 75 topics, 24 paragraphs and one code block per page. Both render the same document IR and build-time syntax tokens. Both expose grouped scope navigation, language/version links, TOC, pagination, descriptions, raw-source actions, lazily imported per-scope substring search and a counter. Exact uses its normal page-data compiler plus a fixture-only root counter/layout; Astro uses semantic HTML, a small vanilla client script, and optionally its official ClientRouter with a persisted counter element. Neither product styling nor Exact's default theme is changed.\n\nValues are medians of ${runs} fresh-context runs: gzip delivery from the same Bun static server, cache disabled, 80 ms latency, 200,000 download bytes/second and 4× CPU slowdown. Animations are disabled/reduced; link prefetch is explicitly disabled. No reading delay or idle application warmup is inserted. Search/counter trials start separately in fresh contexts. Render timing comes from observed DOM changes and two animation frames, reported through a binding that survives full-page navigation; it excludes locator-polling overshoot. Destination body readiness does not measure theme layout or viewport-specific meaningful paint.\n\n| Metric | Exact Docs | Astro static navigation | Astro ClientRouter |\n| --- | ---: | ---: | ---: |\n${rows}\n\n## State and functional checks\n\nThe forward-navigation counter is ${results.exact.samples[0].counterAfterNav} for Exact, ${results.astroStatic.samples[0].counterAfterNav} for static Astro, and ${results.astroRouter.samples[0].counterAfterNav} for ClientRouter. Static Astro replaces the document; its counter resets on the destination. ClientRouter uses \`transition:persist\` and keeps its counter's memory; Exact retains its root state. These observations are asserted, not inferred from framework names. Each search returns only its scope, repeat search changes the result, counter changes once, destination/Back headings match, and uncaught browser errors fail the harness.\n\n## Limits\n\nThis is a controlled reading/search/state fixture, not Starlight or a comparison of complete documentation products. Exact additionally carries its typed resource/mutation/task model and native control/runtime contracts. The Astro client only implements the stated controls; it does not reproduce those systems. Generated DOM and host CSS differ, despite approximately aligned benchmark typography. Both retain pre-rendered body HTML. Static versus client routing is shown separately because navigation and state semantics differ. No conclusion about general Astro parity, native targets, real devices or future Lenso UI appearance follows from these samples.\n\nAstro receives HTML rendered from the common parsed/highlighted IR, so the recorded build durations are not comparable end-to-end Markdown pipeline timings and are excluded from the table. Runtime samples and build details are in [.cache/comparison/results.json](.cache/comparison/results.json). Build dependencies are isolated under bench/astro and pinned by its lockfile.\n\n## Reproduce\n\nWith the Exact/Playwright setup documented in README, generate the corpus first if absent: \`SCALE_PAGES=300 PERF_RUNS=1 bun run test:scale\`. Install bench/astro from its existing frozen lockfile, then run \`bun run test:compare\`. \`PERF_RUNS\` accepts 1–10 (default 3). The harness creates disposable comparison projects under .cache/comparison and does not edit the source corpus or product example.\n\nAstro navigation and persistence are configured according to its [official view-transitions documentation](https://docs.astro.build/en/guides/view-transitions/).\n`,
+    `# 300-page Astro comparison\n\nMeasured ${report.date}. Astro ${report.versions.astro}, Bun ${report.versions.bun}, Chromium ${report.versions.chromium}.\n\nSame 300 authored URLs: English/Chinese × v2/v1 × 75 topics, 24 paragraphs and one code block per page. Both render the same document IR and build-time syntax tokens. Both expose grouped scope navigation, language/version links, TOC, pagination, descriptions, raw-source actions, lazily imported per-scope substring search and a counter. Exact uses its normal page-data compiler plus a fixture-only root counter/layout; Astro uses semantic HTML, a small vanilla client script, and optionally its official ClientRouter with a persisted counter element. Neither product styling nor Exact's default theme is changed.\n\nValues are medians of ${runs} fresh-context runs, interleaved across implementations with reversed order on alternate rounds: gzip delivery from the same Bun static server, cache disabled, 80 ms latency, 200,000 download bytes/second and 4× CPU slowdown. Animations are disabled/reduced; link prefetch is explicitly disabled. No reading delay or idle application warmup is inserted. Search/counter trials start separately in fresh contexts. Render timing comes from observed DOM changes and two animation frames, reported through a binding that survives full-page navigation; it excludes locator-polling overshoot. Destination body readiness does not measure theme layout or viewport-specific meaningful paint.\n\n| Metric | ${baseline ? "Exact before | " : ""}Exact Docs | Astro static navigation | Astro ClientRouter |\n| --- | ${baseline ? "---: | " : ""}---: | ---: | ---: |\n${rows}\n\n## State and functional checks\n\nThe forward-navigation counter is ${results.exact.samples[0].counterAfterNav} for Exact, ${results.astroStatic.samples[0].counterAfterNav} for static Astro, and ${results.astroRouter.samples[0].counterAfterNav} for ClientRouter. Static Astro replaces the document; its counter resets on the destination. ClientRouter uses \`transition:persist\` and keeps its counter's memory; Exact retains its root state. These observations are asserted, not inferred from framework names. Each search returns only its scope, repeat search changes the result, counter changes once, destination/Back headings match, and uncaught browser errors fail the harness.\n\n## Shared entry\n\n${baseline ? `The saved pre-change output is served unchanged in this run, without rebuilding it. Shared app.js raw/gzip bytes: ${entries.exactBefore.raw}/${entries.exactBefore.gzip} before, ${entries.exact.raw}/${entries.exact.gzip} after. Generated native application code before bundling: ${entries.exactBefore.generatedRaw} → ${entries.exact.generatedRaw} raw bytes (${entries.exactBefore.generatedGzip} → ${entries.exact.generatedGzip} independently gzipped). Those generated-file gzip values are diagnostic and not additive portions of the final entry.` : `Shared app.js is ${entries.exact.raw} raw bytes, ${entries.exact.gzip} gzip bytes.`} TOC, descriptions, canonical/robots/alternate SEO and locale/version counterpart choices now travel in the same lazy module as each page body, including custom Exact pages. Initial activation reuses the checkpoint; no new metadata request is added. Route identity, shared scope navigation, adjacent links, layouts, templates and root state remain in the single application. See [STARTUP.md](STARTUP.md) for entry attribution, regression checks and the remaining activation gap.\n\n## Limits\n\nThis is a controlled reading/search/state fixture, not Starlight or a comparison of complete documentation products. Exact additionally carries its typed resource/mutation/task model and native control/runtime contracts. The Astro client only implements the stated controls; it does not reproduce those systems. Generated DOM and host CSS differ, despite approximately aligned benchmark typography. Both retain pre-rendered body HTML. Static versus client routing is shown separately because navigation and state semantics differ. No conclusion about general Astro parity, native targets, real devices or future Lenso UI appearance follows from these samples.\n\nAstro receives HTML rendered from the common parsed/highlighted IR, so the recorded build durations are not comparable end-to-end Markdown pipeline timings and are excluded from the table. Runtime samples and build details are in [.cache/comparison/results.json](.cache/comparison/results.json). Build dependencies are isolated under bench/astro and pinned by its lockfile.\n\n## Reproduce\n\nWith the Exact/Playwright setup documented in README, generate the corpus first if absent: \`SCALE_PAGES=300 PERF_RUNS=1 bun run test:scale\`. Install bench/astro from its existing frozen lockfile, then run \`bun run test:compare\`. \`PERF_RUNS\` accepts 1–10 (default 3). \`EXACT_BASELINE_DIR\` optionally points to an unchanged output of this same fixture saved before compiler changes; it must be outside .cache/comparison. The harness creates disposable comparison projects under .cache/comparison and does not edit the source corpus or product example.\n\nAstro navigation and persistence are configured according to its [official view-transitions documentation](https://docs.astro.build/en/guides/view-transitions/).\n`,
   );
 } finally {
   await browser.close();

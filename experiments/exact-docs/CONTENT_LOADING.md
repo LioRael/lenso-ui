@@ -1,5 +1,11 @@
 # Page data loading
 
+This table records the earlier body-only extraction. Page modules now also carry
+TOC, descriptions, canonical/robots/alternate SEO and locale/version switch
+targets, including metadata for custom Exact pages. [STARTUP.md](STARTUP.md)
+records that follow-up and its same-run Astro comparison. Custom executable code
+still stays in the single application.
+
 Measured 2026-11-10T19:32:56.885Z with Bun 1.4.4 and Chromium 156.0.8078.4.
 The original saved 300-page output and the new output were served unchanged in one
 benchmark run. Both use the same corpus: two languages × two versions × 75 logical
@@ -39,9 +45,16 @@ renderer is added.
 
 Every static route still contains its complete rendered body and current-page
 checkpoint. On activation, Exact uses that checkpoint: no current or unvisited
-page module is requested. Navigation imports only the destination's data. The
-300-page fixture emits 300 body modules, averaging about 1.35 KB gzip each; this is
-specific to the synthetic corpus. The tested initial activation downloads zero
+page module is requested. Navigation imports only the destination's data. Metadata
+uses the same request and cache as the body; no separate metadata request is added.
+During a pending or failed destination, old TOC and switch targets are cleared,
+canonical/alternate metadata is removed and robots becomes `noindex,follow` until
+the new metadata arrives. Route language/direction remain available immediately.
+Custom Exact pages use the same loading/error boundary for their metadata; their
+code is still compiled into the shared application. The
+earlier body-only 300-page fixture emitted 300 body modules, averaging about
+1.35 KB gzip each. Current modules also include metadata; their transfer tradeoff
+is measured in STARTUP.md. The tested initial activation downloads zero
 body modules, and the subsequent three distinct destinations download exactly
 three modules. Returning to a known page makes no further body request.
 

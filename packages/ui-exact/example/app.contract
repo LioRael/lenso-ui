@@ -1,3 +1,5 @@
+use SwitchExample from "./switch.contract"
+use AvatarExample from "./avatar.contract"
 use Theme, Button, Backdrop, Glass, GlassButton, Surface from "@lenso/ui-exact"
 use FormExample from "./forms.contract"
 use DisclosureExample from "./disclosure.contract"
@@ -13,6 +15,8 @@ use ModalExample from "./modal.contract"
 use AlertDialogExample from "./alert-dialog.contract"
 
 use ContentExample from "./content.contract"
+
+use LayoutExample from "./layout.contract"
 
 component App
   state count = 0
@@ -63,3 +67,6 @@ component App
           ModalExample()
           AlertDialogExample()
           ContentExample()
+          LayoutExample()
+          AvatarExample()
+          SwitchExample()

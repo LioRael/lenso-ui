@@ -27,6 +27,11 @@ export async function checkInitialStyles(page, url, engine) {
     );
     return page.evaluate(() => {
       const ids = [
+        "layout-card",
+        "layout-card-title",
+        "layout-empty",
+        "layout-empty-title",
+        "layout-create",
         "content-chip",
         "content-close",
         "content-alert",

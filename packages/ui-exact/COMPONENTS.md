@@ -23,15 +23,15 @@ Publication and repository landing require separate user instructions.
 | `alert-dialog`         | Partial               | Native confirmation/material verified; optical, focus/portal/control and device gates remain open (ALERT_DIALOG.md)     |
 | `alert`                | Partial               | Native status composition/material and browser behavior verified; glass capture/device gates remain (CONTENT.md)        |
 | `autocomplete`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `avatar`               | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `avatar-group`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
+| `avatar`               | Partial               | Image/fallback and shared variants implemented; delay/callback/render parity remains (AVATAR.md)                        |
+| `avatar-group`         | Partial               | Explicit stack/grid/count composition; inheritance and automatic max/count remain (AVATAR.md)                           |
 | `badge`                | Partial               | Placement, variants, accessible counts and lifecycle verified; glass capture/device gates remain (CONTENT.md)           |
 | `breadcrumbs`          | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                |
 | `button`               | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                              |
 | `button-group`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `calendar`             | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `calendar-year-picker` | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `card`                 | Pending               | Implementation, runnable example, browser acceptance                                                                    |
+| `card`                 | Partial               | All variants, composition, actions and cleanup verified; glass optical/device gates remain (LAYOUT.md)                  |
 | `checkbox`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `checkbox-group`       | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `chip`                 | Web behavior verified | Ordinary composition, variants, caller styles and browser behavior verified; broader delivery gates remain (CONTENT.md) |
@@ -51,14 +51,14 @@ Publication and repository landing require separate user instructions.
 | `description`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `disclosure`           | Web behavior verified | Linked-page initial styles and behavior verified; broader delivery gates remain                                         |
 | `drawer`               | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `empty-state`          | Pending               | Implementation, runnable example, browser acceptance                                                                    |
+| `empty-state`          | Web behavior verified | Composition, actions, names, themes and RTL verified; native paragraph-tag gap retained (LAYOUT.md, SEMANTIC_GAPS.md)   |
 | `field-error`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `fieldset`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `form`                 | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `input`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `input-group`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `input-otp`            | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `kbd`                  | Pending               | Implementation, runnable example, browser acceptance                                                                    |
+| `kbd`                  | Pending               | Native kbd/abbr declaration path absent in pinned upstream; retained gap per owner choice (SEMANTIC_GAPS.md)            |
 | `label`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
 | `link`                 | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                |
 | `list-box`             | Pending               | Implementation, runnable example, browser acceptance                                                                    |
@@ -81,7 +81,7 @@ Publication and repository landing require separate user instructions.
 | `slider`               | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `spinner`              | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                             |
 | `surface`              | Partial               | Ordinary variants implemented; thick glass background and variant matrix remain                                         |
-| `switch`               | Pending               | Implementation, runnable example, browser acceptance                                                                    |
+| `switch`               | Partial               | State, forms, keyboard and source motion implemented; optical, touch and extended API gates remain (SWITCH.md)          |
 | `table`                | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `tab-bar`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `tabs`                 | Pending               | Implementation, runnable example, browser acceptance                                                                    |
@@ -99,7 +99,7 @@ Publication and repository landing require separate user instructions.
 | `swipe-actions`        | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `wheel-picker`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `tooltip`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `typography`           | Pending               | Implementation, runnable example, browser acceptance                                                                    |
+| `typography`           | Pending               | Native paragraph/code and full Prose/polymorphic semantics remain open on unchanged upstream (SEMANTIC_GAPS.md)         |
 | `glass`                | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                              |
 | `glass-container`      | Pending               | Implementation, runnable example, browser acceptance                                                                    |
 | `glass-magnifier`      | Pending               | Implementation, runnable example, browser acceptance                                                                    |
@@ -174,7 +174,7 @@ and observers when removed. Per-frame samples accompany the screenshots.
 
 Linked-page initial styles are now supplied by attribute alternatives generated
 from the same StyleX recipes. The browser test blocks the page module through
-rendered frames and compares pre-hatch and initialized presentation. Core generation retains 881 recipes. The styled consumer compares 1017
+rendered frames and compares pre-hatch and initialized presentation. Core generation retains 900 recipes. The styled consumer compares 1055
 composed cases with their class branches in Chromium and WebKit. See
 INITIAL_STYLES.md for the verified scope. Server response integration and native
 attributes that require the hatch remain separate delivery boundaries.
@@ -208,7 +208,7 @@ meters retain their determinate measurement.
 `Skeleton` retains the shared shimmer/pulse/none animations and nested parent
 overlay, with an inert, accessibility-hidden placeholder subtree. Both browsers
 verify Reduced Motion and removal/recreation, including released CSS animations.
-Core generation retains 881 recipes; the styled consumer checks 1017 composed cases; screenshots include
+Core generation retains 900 recipes; the styled consumer checks 1055 composed cases; screenshots include
 light/dark at 390/820 px and RTL. Circle leaves use documented reserved ID
 suffixes for declarative styles because Exact refuses hatches/data words on SVG
 leaves. These checks do not establish native support. Registered caller styles are
@@ -237,8 +237,8 @@ retaining the same combinations, rule order and declarations. That checkpoint
 emitted 392,990 CSS bytes / 30,840 gzip bytes for 469 recipes before the
 reserved library class prefix was added. At that historical checkpoint the
 prefixed core emitted 404,324 bytes / 31,104 gzip bytes with the same 469 recipes.
-These byte counts predate the modal recipes. The current 881-recipe core emits
-550,369 CSS bytes / 38,985 gzip bytes; the styled consumer emits 581,287 CSS bytes.
+These byte counts predate the modal recipes. The current 900-recipe core emits
+561,843 CSS bytes / 39,928 gzip bytes; the styled consumer emits 600,456 CSS bytes.
 Unit cases guard against widening diagonal combinations; both browsers compare every recipe
 with its class branch, alongside all existing behavior regressions. These are
 asset-size observations, not startup-time, frame-rate or device benchmarks.
@@ -253,7 +253,7 @@ unaliased stylesheet. The core uses a reserved class prefix to avoid independent
 compilation conflicts. Missing CSS definitions and class collisions fail before
 staged CSS is replaced.
 
-Chromium and WebKit pass 1017 composed recipe comparisons, blocked-hatch style
+Chromium and WebKit pass 1055 composed recipe comparisons, blocked-hatch style
 parity, responsive radius, hover states, ordered global/instance maps, null
 removal of background/radius, custom toggle tint after pointer feedback and
 styled SVG leaves. Target identifiers containing quotes, slashes and newlines
@@ -308,3 +308,19 @@ motion, removal/remount and long-message line bounds. Caller Chip styles work
 before and after hatching. Screenshots cover light/dark at 390/820 px; material
 optical acceptance still requires a qualified capture (VISUAL_CAPTURE.md).
 CloseButton retains broader Button-family integration gates; see CONTENT.md.
+
+## Card and EmptyState verification
+
+Card supports all five source variants, with a medium lens only in glass mode.
+Header/title/description/content/footer compose caller-owned content. EmptyState
+supports its complete content/message/title/description/action anatomy and both
+icon treatments. The consumer performs document creation/import, focuses the new
+link and resets to empty content through Exact actions. Registered caller maps
+provide wide action buttons and a title weight override.
+
+Checks cover named regions and heading levels, ordinary/glass switching without
+replacing existing card/empty-state nodes, lens disposal, contrast/forced colors,
+long text, LTR/RTL and light/dark at 390/820 px. Card's glass optical gate remains
+open. Description boxes expose the paragraph role; literal native paragraph tags
+and Typography/Kbd native HTML support remain upstream gaps retained by owner
+choice (SEMANTIC_GAPS.md). The full catalog target is unchanged.

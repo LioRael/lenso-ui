@@ -243,6 +243,18 @@ component App
     diagnostic: "analyze-command-kind",
   },
   {
+    name: "native-empty-invoker-targets",
+    source: `component App
+  view
+    column
+      button commandfor="" command="show-modal"
+        text "Unbound dialog"
+      button popovertarget=""
+        text "Unbound popover"
+`,
+    result: "accepted",
+  },
+  {
     name: "host-action-missing-target",
     source: `component App
   action open

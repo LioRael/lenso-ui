@@ -1,6 +1,7 @@
 # Exact Docs
 
-An independent, private **Web-only prototype** of a headless documentation framework
+An independent, private prototype of a headless documentation framework for Web,
+macOS and iOS
 on [Expo Exact](https://github.com/expo/exact). It does not replace this repository's
 Fumadocs site or depend on React, StyleX, Tailwind or Lenso UI.
 
@@ -54,12 +55,43 @@ There is no published npm package or global installation yet. A content project
 does not need to be added to the Lenso workspace.
 
 `validate` checks configuration, source existence, Markdown syntax, internal page
-links and Markdown heading targets. `build` uses Exact's production mode, which
+links and Markdown heading targets. Web `build` uses Exact's production mode, which
 omits development instrumentation and agent support. Local `dev` explicitly
 retains development mode. `build` additionally invokes Exact's compiler and static
 renderer, which check custom Contract pages. Output replacement is
 limited to empty directories or output previously marked by Exact Docs. Generated
 files live under `.exact-docs/` and `dist/`.
+
+## Native Apple applications
+
+On macOS with Xcode and an initialized Exact Apple toolchain:
+
+```sh
+bun docs.ts build --platform macos
+bun docs.ts build --platform ios
+bun docs.ts build --platform ios --run --sim "<existing simulator name or UDID>"
+```
+
+Native builds use Exact's AppKit/UIKit host directly. They package page values,
+metadata and search indexes offline, with the same Contract templates, root
+resources/mutations/tasks, custom pages and registered components. Web retains its
+lazy page/search imports. Native generation is isolated under
+`.exact-docs/app-macos` or `.exact-docs/app-ios`; it does not replace the Web app or
+`dist/`. Exact manages the `.app` location, printed after a successful build.
+Without `--run`, iOS builds do not install or boot a simulator. Native bundles use
+Exact's local development configuration; these commands do not publish an app.
+
+`app.json` may set `app.id`, `app.name` and `host.macos`/`host.ios` options; existing
+host settings are preserved. Custom layouts/pages can inject `docsPlatform: string`
+(`web`, `macos`, `ios`). Native generation adds only a scrolling root, without a
+theme. The reference layout offers native Markdown copying; the static raw-source
+URL is Web-only. SEO, sitemap and HTML metadata synchronization remain Web features.
+Custom data modules still need native-compatible dependencies and grants.
+
+`dev` remains the Web watcher. Re-run a native build to incorporate content edits.
+Native data is bundled together; the Web startup measurements do not characterize
+native loading or memory use. [NATIVE.md](NATIVE.md) records platform verification
+and current limits.
 
 ## Markdown and Exact pages
 
@@ -470,11 +502,12 @@ component also provides optional native injection bindings for custom layouts:
 
 | Injected binding                        | Type               | Meaning                                                                 |
 | --------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
+| `docsPlatform`                          | `string`           | `web`, `macos`, or `ios`                                                |
 | `docsGroups`                            | `DocsGroup[]`      | Ordered groups with `id`, `title` and `items: DocsLink[]`               |
 | `docsPrevious`, `docsNext`              | `option<DocsLink>` | Adjacent visible pages, or `none`                                       |
 | `docsDescription`                       | `string`           | Resolved page description                                               |
 | `docsMarkdown`                          | `string`           | Current ready Markdown, empty for Exact pages or pending/failed content |
-| `docsMarkdownUrl`                       | `string`           | Static raw-source URL, or an empty string for Exact pages               |
+| `docsMarkdownUrl`                       | `string`           | Static raw-source URL on Web, empty for native targets and Exact pages  |
 | `docsSearchPending`, `docsSearchFailed` | `bool`             | Current search resource status                                          |
 
 Multilingual/versioned contexts additionally provide:
@@ -485,7 +518,7 @@ Multilingual/versioned contexts additionally provide:
 | `docsLocales`, `docsVersions`             | `DocsChoice[]` | Ordered `{id, label, href, current, exact}` switch choices               |
 | `docsVersionStatus`                       | `string`       | `current`, `archived`, `deprecated`, or empty when versioning is omitted |
 | `docsLabels`                              | `DocsLabels`   | Locale labels merged with English defaults                               |
-| `docsSearchIndexUrl`                      | `string`       | Current scope's static search index                                      |
+| `docsSearchIndexUrl`                      | `string`       | Current scope's static search index on Web; empty on native              |
 
 Import `DocsChoice` and `DocsLabels` from `@lenso/exact-docs/contract` as needed.
 The original layout props remain unchanged; custom layouts opt into injections.
@@ -543,7 +576,8 @@ invalid defaults and relative links when source files are reused across scopes.
 Both engines also check embedded-component keyboard interaction, syntax token
 markers, lazy scope-module requests and language metadata after navigation. Unit
 checks cover portable rendering, token text preservation, component boundaries
-and SEO scope selection. These checks do not establish native-platform support.
+and SEO scope selection. These browser checks do not establish native behavior;
+see NATIVE.md for the Apple verification scope.
 
 Exact is pre-1.0. This adapter currently targets `host/web-js/build.mjs` with
 `--render js`; upstream interface changes may require changes here.
@@ -567,6 +601,19 @@ bun run test:compare
 
 The comparison writes disposable builds and samples under `.cache/comparison/`.
 It does not edit the product example, source corpus, or default theme.
+
+[STARTUP.md](STARTUP.md) records the shared-entry analysis and page-metadata
+extraction. To measure a compiler change against the same comparison fixture,
+save its output outside `.cache/comparison` before editing, then run:
+
+```sh
+cp -R .cache/comparison/exact/dist .cache/startup-before-dist
+EXACT_BASELINE_DIR="$PWD/.cache/startup-before-dist" bun run test:compare
+```
+
+The saved output is served unchanged alongside the new build and both Astro
+modes. Trials alternate implementation order between rounds; transferred bytes
+and script durations accompany the timing samples.
 
 [PERFORMANCE.md](PERFORMANCE.md) records a local Exact/Astro comparison of the same
 nine-document reading/search workload before page-data splitting. It is a small Astro static fixture, not
@@ -626,7 +673,7 @@ its focus behavior.
 
 Route selection uses a balanced expression, so adding pages does not create a
 linear chain beyond Exact's expression-depth limit. Navigation/groups/labels are
-shared once per scope; page metadata is derived for the active route. Page data loads individually while the root application remains mounted.
+shared once per scope; metadata loads with the active page's body data. Page data loads individually while the root application remains mounted.
 
 [CONTENT_LOADING.md](CONTENT_LOADING.md) explains page data delivery and the
 same-run 300-page comparison. `bun run test:content-loading` checks cold SSR,

@@ -331,9 +331,17 @@ try {
     await Bun.write(rootSource, `${members}\ntask broken\n`);
     await page.getByRole("alert").filter({ hasText: "Exact build failed" }).waitFor();
     assert.equal(await page.getByTestId("data-counter").textContent(), "Counter: 11");
-    await Bun.write(rootSource, members.replace("state ticks = 0", "state ticks = 20"));
+    // The old ticker can also reach 20 while the replacement is still building.
+    const recovered = page.waitForEvent("framenavigated", (frame) => frame === page.mainFrame());
+    await Bun.write(
+      rootSource,
+      members
+        .replace("state ticks = 0", "state ticks = 20")
+        .replace("state timerPaused = false", "state timerPaused = true"),
+    );
+    await recovered;
     await page.getByTestId("data-ticks").filter({ hasText: "Ticks: 20" }).waitFor();
-    assert.equal(await page.getByRole("alert").count(), 0);
+    assert.deepEqual(await page.getByRole("alert").allTextContents(), []);
     await navigation.getByRole("link", { name: "Introduction", exact: true }).click();
     await Bun.write(
       path.join(root, "index.md"),
@@ -348,7 +356,7 @@ try {
       "# Recovered documentation\n\nThe next valid edit is published.",
     );
     await page.getByRole("heading", { name: "Recovered documentation" }).waitFor();
-    assert.equal(await page.getByRole("alert").count(), 0);
+    assert.deepEqual(await page.getByRole("alert").allTextContents(), []);
     console.log(
       "chromium: custom layout, data-module/root-member live reload, failed-build preservation and recovery passed",
     );

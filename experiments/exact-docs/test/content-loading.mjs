@@ -44,6 +44,10 @@ export function kept(source: string, args: unknown[], value: unknown) {
 `,
   );
   const config = await Bun.file(path.join(root, "docs.json")).json();
+  config.origin = "https://docs.example.test";
+  config.locales.push({ id: "ar", label: "العربية", dir: "rtl" });
+  config.pages.push({ path: "/arabic", locale: "ar", title: "Arabic page", source: "arabic.md" });
+  await Bun.write(path.join(root, "arabic.md"), "# Arabic page\n\nArabic body.");
   config.layout = { source: "layouts/reader.contract", component: "ReaderLayout" };
   for (const name of ["Delayed", "Fast", "Fragment", "Failure"]) {
     const id = name.toLowerCase();
@@ -63,6 +67,9 @@ export function kept(source: string, args: unknown[], value: unknown) {
   const entry = await Bun.file(path.join(out, "app.js")).text();
   assert.equal(entry.includes("Delayed unique body content."), false);
   assert.equal(entry.includes("# Authoring"), false);
+  assert.equal(entry.includes("deferred-heading"), false);
+  assert.equal(entry.includes("https://docs.example.test/delayed"), false);
+  assert.equal(entry.includes("简体中文"), false);
   server = Bun.serve({
     hostname: "127.0.0.1",
     port: 0,
@@ -111,6 +118,10 @@ export function kept(source: string, args: unknown[], value: unknown) {
       await nav.getByRole("link", { name: "Root data", exact: true }).click();
       await page.getByTestId("data-save").click();
       await page.getByTestId("data-counter").filter({ hasText: "Counter: 8" }).waitFor();
+      assert.equal(
+        await page.locator('link[rel="canonical"]').getAttribute("href"),
+        "https://docs.example.test/data",
+      );
       const delayed = contentFiles.get("/delayed");
       release = hold(delayed);
       const delayedRequest = page.waitForRequest(
@@ -128,6 +139,11 @@ export function kept(source: string, args: unknown[], value: unknown) {
         true,
       );
       assert.equal(await page.locator('[data-docs-part="article"]').count(), 0);
+      assert.equal(await page.locator('[data-docs-part="toc"] a').count(), 0);
+      assert.equal(await page.locator('[data-docs-part="locales"] a').count(), 0);
+      assert.equal(await page.locator('[data-docs-part="versions"] a').count(), 0);
+      assert.equal(await page.locator('link[rel="canonical"]').count(), 0);
+      assert.equal(await page.locator("[data-docs-alternate]").count(), 0);
       await nav.getByRole("link", { name: "Fast page", exact: true }).click();
       await page.getByText("Fast unique body content.", { exact: true }).waitFor();
       release();
@@ -135,11 +151,30 @@ export function kept(source: string, args: unknown[], value: unknown) {
       await page.waitForLoadState("networkidle");
       assert.equal(new URL(page.url()).pathname, "/fast");
       assert.equal(
+        await page.locator('link[rel="canonical"]').getAttribute("href"),
+        "https://docs.example.test/fast",
+      );
+      assert.equal(
+        await page
+          .locator('[data-docs-part="toc"]')
+          .getByRole("link", { name: "Deferred heading", exact: true })
+          .getAttribute("href"),
+        "/fast#deferred-heading",
+      );
+      await page
+        .locator('[data-docs-part="locales"]')
+        .getByRole("link", { name: "简体中文", exact: true })
+        .waitFor();
+      assert.equal(
         await page.getByText("Delayed unique body content.", { exact: true }).count(),
         0,
       );
       await nav.getByRole("link", { name: "Delayed page", exact: true }).click();
       await page.getByText("Delayed unique body content.", { exact: true }).waitFor();
+      assert.equal(
+        await page.locator('link[rel="canonical"]').getAttribute("href"),
+        "https://docs.example.test/delayed",
+      );
       assert.equal(bodies.filter((file) => file === delayed).length, 1);
       release = hold(contentFiles.get("/fragment"));
       const fragmentRequest = page.waitForRequest(
@@ -160,6 +195,28 @@ export function kept(source: string, args: unknown[], value: unknown) {
       await nav.getByRole("link", { name: "Root data", exact: true }).click();
       await page.getByTestId("data-counter").filter({ hasText: "Counter: 8" }).waitFor();
       assert.equal(documents.length, 1);
+      release = hold(contentFiles.get("/arabic"));
+      const arabicRequest = page.waitForRequest(
+        (request) => new URL(request.url()).pathname === contentFiles.get("/arabic"),
+      );
+      await page
+        .locator('[data-docs-part="locales"]')
+        .getByRole("link", { name: "العربية", exact: true })
+        .click();
+      await arabicRequest;
+      await page.waitForFunction(
+        () => document.documentElement.lang === "ar" && document.documentElement.dir === "rtl",
+      );
+      assert.equal(await page.locator('link[rel="canonical"]').count(), 0);
+      release();
+      release = undefined;
+      await page.getByRole("heading", { name: "Arabic page", exact: true }).waitFor();
+      assert.equal(await page.evaluate(() => document.documentElement.dir), "rtl");
+      await page
+        .locator('[data-docs-part="locales"]')
+        .getByRole("link", { name: "English", exact: true })
+        .click();
+      await page.getByRole("heading", { name: "Exact Docs", exact: true }).waitFor();
       const failed = contentFiles.get("/failure");
       failures.add(failed);
       await nav.getByRole("link", { name: "Failure page", exact: true }).click();

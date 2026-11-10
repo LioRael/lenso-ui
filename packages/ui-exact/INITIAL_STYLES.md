@@ -67,8 +67,8 @@ Lenso hatches. It then releases the module and compares computed geometry and
 ordinary presentation before and after initialization. The native hatch reuses
 the early stylesheet without making a second stylesheet request.
 
-Core generation retains 881 recipe combinations. The consumer with registered
-caller styles compares 1017 composed cases against their compiled class branches
+Core generation retains 900 recipe combinations. The consumer with registered
+caller styles compares 1055 composed cases against their compiled class branches
 in both browsers. The comparison includes button sizes/variants,
 ordinary Surface variants, field variants, single/multiline text areas,
 input-group composition, labels, expandable-content presentation and navigation/separator variants, range indicators, spinners, skeleton animations, ordinary toggle/group presentation and Modal parts. Native

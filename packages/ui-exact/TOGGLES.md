@@ -104,7 +104,7 @@ COMPONENTS.md rather than declaring the complete source family API delivered.
 
 The installed-consumer browser suite passes in Chromium 156 and Playwright
 WebKit 27.2. It verifies the behaviors above, blocked-hatch selection styling,
-all 1017 composed consumer cases (881 core recipes), light/dark at 390/820 px and RTL
+all 1055 composed consumer cases (900 core recipes), light/dark at 390/820 px and RTL
 screenshots. It also runs the existing forms, disclosure, navigation, progress
 and material regressions. This is Web evidence; native adapters and physical
 Safari/iPhone acceptance remain outstanding.

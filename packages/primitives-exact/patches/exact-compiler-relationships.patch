@@ -21,7 +21,7 @@ diff --git a/contract/analyze/src/relationships.rs b/contract/analyze/src/relati
 new file mode 100644
 --- /dev/null
 +++ b/contract/analyze/src/relationships.rs
-@@ -0,0 +1,372 @@
+@@ -0,0 +1,376 @@
 +//! Statically decidable command and accessibility edges in the expanded view.
 +
 +use super::{AnalyzeError, Related};
@@ -257,6 +257,10 @@ new file mode 100644
 +                continue;
 +            };
 +            let command = matches!(reference.name.as_str(), "commandfor" | "popovertarget");
++            // An empty native invoker target is deliberately unbound, not a missing edge.
++            if command && value.is_empty() {
++                continue;
++            }
 +            if command && (value.trim().is_empty() || value.split_whitespace().count() != 1) {
 +                errors.push(finding(
 +                    "analyze-command-target",
@@ -441,7 +445,7 @@ diff --git a/contract/cli/tests/relationships.rs b/contract/cli/tests/relationsh
 new file mode 100644
 --- /dev/null
 +++ b/contract/cli/tests/relationships.rs
-@@ -0,0 +1,151 @@
+@@ -0,0 +1,166 @@
 +//! Expanded command/ARIA edges fail before any Host runs.
 +
 +#[path = "it/alert_parts.rs"]
@@ -485,11 +489,26 @@ new file mode 100644
 +        "analyze-command-kind",
 +    );
 +    refuses(
-+        "      button commandfor=\"\" command=\"close\"\n",
++        "      button commandfor=\"two ids\" command=\"close\"\n",
 +        "analyze-command-target",
 +    );
 +    let errors = compile("component App\n  action open\n    showModal(\"missing\")\n  view\n    button press=open\n      text \"Open\"\n").unwrap_err();
 +    assert!(errors.iter().any(|e| e.id == "analyze-command-target"));
++}
++
++#[test]
++fn native_empty_targets_remain_unbound() {
++    compile(
++        r#"component App
++  view
++    column
++      button commandfor="" command="show-modal"
++        text "Unbound dialog"
++      button popovertarget=""
++        text "Unbound popover"
++"#,
++    )
++    .unwrap();
 +}
 +
 +#[test]
@@ -834,3 +853,303 @@ diff --git a/contract/cli/tests/it/top_layer_inheritance.rs b/contract/cli/tests
            button id="dialog-button" width=100 height=40
              text "dialog"
            column id="menu" popover="auto" position="absolute" left=0 top=100 width=100 height=40
+diff --git a/contract/cli/tests/it/aria.rs b/contract/cli/tests/it/aria.rs
+--- a/contract/cli/tests/it/aria.rs
++++ b/contract/cli/tests/it/aria.rs
+@@ -112,7 +112,7 @@
+ #[test]
+ fn a_bool_aria_state_takes_its_token_in_quotes() {
+     let r = boot(
+-        "component App\n  view\n    column\n      view aria-hidden=\"true\" testId=\"hidden\"\n      view aria-hidden=\"false\" testId=\"shown\"\n      column role=\"dialog\" aria-modal=\"true\" testId=\"sheet\"\n",
++        "component App\n  view\n    column\n      view aria-hidden=\"true\" testId=\"hidden\"\n      view aria-hidden=\"false\" testId=\"shown\"\n      column role=\"dialog\" aria-label=\"Dialog\" aria-modal=\"true\" testId=\"sheet\"\n",
+     );
+     let prop = |id: &str, prop| r.kernel().node(view_of(&r, id)).unwrap().props.bool(prop);
+     assert_eq!(
+@@ -131,7 +131,7 @@
+ #[test]
+ fn aria_modal_lowers_and_follows_state() {
+     let mut r = boot(
+-        "component App\n  state open = true\n  action close\n    open = false\n  view\n    column\n      column role=\"dialog\" aria-modal=open testId=\"sheet\"\n        button press=close testId=\"close\"\n          text \"Close\"\n      column testId=\"plain\"\n",
++        "component App\n  state open = true\n  action close\n    open = false\n  view\n    column\n      column role=\"dialog\" aria-label=\"Dialog\" aria-modal=open testId=\"sheet\"\n        button press=close testId=\"close\"\n          text \"Close\"\n      column testId=\"plain\"\n",
+     );
+     let modal = |r: &Runner<NoData>, id: &str| {
+         let node = r.kernel().node(view_of(r, id)).unwrap();
+diff --git a/contract/cli/tests/it/control_roles.rs b/contract/cli/tests/it/control_roles.rs
+--- a/contract/cli/tests/it/control_roles.rs
++++ b/contract/cli/tests/it/control_roles.rs
+@@ -330,7 +330,7 @@
+     let mut view = String::from("component App\n  state on = true\n  action check(checked: bool)\n    on = checked\n  view\n    column accent-color=\"accent.brand\"\n      input type=\"checkbox\" switch checked=on change=check aria-label=\"S\"\n");
+     for i in 0..25 {
+         view.push_str(&format!(
+-            "      column role=\"dialog\" testId=\"d{i}\"\n        text \"d\"\n"
++            "      column role=\"dialog\" aria-label=\"Dialog\" testId=\"d{i}\"\n        text \"d\"\n"
+         ));
+     }
+     let said = unreachable(&app(
+diff --git a/contract/cli/tests/it/native_buttons.rs b/contract/cli/tests/it/native_buttons.rs
+--- a/contract/cli/tests/it/native_buttons.rs
++++ b/contract/cli/tests/it/native_buttons.rs
+@@ -354,15 +354,15 @@
+         "button appearance=\"auto\" press=go aria-keyshortcuts=\"Meta+S\"\n  text \"Save\"",
+         "column id=\"menu\" popover=\"auto\" role=\"menu\"\n  button appearance=\"auto\" role=\"menuitem\" press=go\n    image \"symbol:send\"\n    text \"Send\"\n  if busy\n    button appearance=\"auto\" press=go\n      text \"Wait\"",
+         "scroll swipeContent=\"body\" swipeTrailing=\"mute\" overflow-x=\"scroll\" width=200 height=40\n  row id=\"body\" width=200 height=40\n    button appearance=\"auto\" press=go\n      text \"Open\"\n  button id=\"mute\" appearance=\"auto\" press=go aria-label=\"Mute\"\n    image \"symbol:send\"",
+-        "column id=\"confirm\" popover=\"auto\" role=\"alertdialog\"\n  text \"Delete it?\"\n  button appearance=\"auto\" popovertarget=\"confirm\" popovertargetaction=\"hide\" press=go destructive=true\n    text \"Delete\"\n  button appearance=\"auto\" popovertarget=\"confirm\" popovertargetaction=\"hide\"\n    text \"Cancel\"",
+-        "dialog id=\"ask\" closedby=\"any\"\n  button appearance=\"auto\" commandfor=\"ask\" command=\"close\" press=go\n    text \"Send\"",
++        "column id=\"confirm\" popover=\"auto\" role=\"alertdialog\" aria-label=\"Confirmation\"\n  text \"Delete it?\"\n  button appearance=\"auto\" popovertarget=\"confirm\" popovertargetaction=\"hide\" press=go destructive=true\n    text \"Delete\"\n  button appearance=\"auto\" popovertarget=\"confirm\" popovertargetaction=\"hide\"\n    text \"Cancel\"",
++        "dialog id=\"ask\" aria-label=\"Dialog\" closedby=\"any\"\n  button appearance=\"auto\" commandfor=\"ask\" command=\"close\" press=go\n    text \"Send\"",
+     ] {
+         contract::compile(&app(body)).unwrap_or_else(|e| panic!("{body}: {e}"));
+     }
+     for body in [
+-        "button appearance=\"auto\" press=go commandfor=\"menu\"\n  text \"More\"",
++        "button appearance=\"auto\" press=go commandfor=\"menu\"\n  text \"More\"\ncolumn id=\"menu\" popover=\"auto\"\n  text \"Menu\"",
+         "button appearance=\"auto\" press=go href=\"/x\"\n  text \"Open\"",
+-        "button appearance=\"auto\" press=go role=\"dialog\"\n  text \"Go\"",
++        "button appearance=\"auto\" press=go role=\"dialog\" aria-label=\"Dialog\"\n  text \"Go\"",
+         "button appearance=\"auto\" press=go type=\"submit\"\n  text \"Go\"",
+         "column id=\"menu\" popover=\"auto\"\n  row\n    button appearance=\"auto\" press=go\n      text \"Deep\"",
+         // A projection makes one item of a custom button, dropping what it holds.
+@@ -609,8 +609,13 @@
+         "popovertarget=\"ask\" popovertargetaction=(busy ? \"hide\" : \"show\")",
+         "commandfor=\"ask\" command=(busy ? \"show-popover\" : \"toggle-popover\")",
+     ] {
++        let target = if attrs.contains("show-modal") {
++            "dialog id=\"ask\" aria-label=\"Ask\""
++        } else {
++            "column id=\"ask\" popover=\"auto\""
++        };
+         contract::compile(&app(&format!(
+-            "button appearance=\"auto\" {attrs}\n  text \"Open\""
++            "button appearance=\"auto\" {attrs}\n  text \"Open\"\n{target}\n  text \"Target\""
+         )))
+         .unwrap_or_else(|e| panic!("{attrs}: {e}"));
+     }
+@@ -624,7 +629,7 @@
+         "commandfor=\"ask\" command=\"hide-popover\"",
+     ] {
+         let (id, message) = refused(&format!(
+-            "button appearance=\"auto\" {attrs}\n  text \"Go\""
++            "button appearance=\"auto\" {attrs}\n  text \"Go\"\ncolumn id=\"ask\" popover=\"auto\"\n  text \"Target\""
+         ));
+         assert_eq!(
+             id,
+@@ -685,7 +690,7 @@
+     contract::compile(&app("row role=\"radiogroup\"\n  button appearance=\"auto\" role=\"radio\" aria-checked=true press=go\n    text \"15%\"")).unwrap();
+     assert_eq!(
+         appearance_of(&app(
+-            "button role=\"dialog\" press=go testId=\"b\"\n  text \"Go\""
++            "button role=\"dialog\" aria-label=\"Dialog\" press=go testId=\"b\"\n  text \"Go\""
+         )),
+         (NodeType::Pressable, exact_kernel::Appearance::None)
+     );
+@@ -768,7 +773,7 @@
+         "animation=\"flash 300ms\"",
+         "display=\"grid\"",
+         "href=\"/x\"",
+-        "role=\"dialog\"",
++        "role=\"dialog\" aria-label=\"Dialog\"",
+         "type=\"submit\"",
+         "backgroundMaterial=\"glass\"",
+         "glassGroup=8",
+diff --git a/contract/cli/tests/it/warnings.rs b/contract/cli/tests/it/warnings.rs
+--- a/contract/cli/tests/it/warnings.rs
++++ b/contract/cli/tests/it/warnings.rs
+@@ -23,7 +23,7 @@
+ fn route(header: &str) -> String {
+     let header: String = header.lines().map(|l| format!("          {l}\n")).collect();
+     format!(
+-        "routes nav\n  home \"/\"\ncomponent App\n  state q = \"\"\n  action go\n    q = \"x\"\n  view\n    main navigationKey=`${{top(nav).id}}` navigationBack=\"back\" width=\"100%\" height=\"100%\"\n      for e in stack(nav) key=e.id\n        column navigationKey=`${{e.id}}` position=\"absolute\" inset=0\n          header display=\"flex\"\n{header}          scroll flex=1\n            text \"body\"\n"
++        "routes nav\n  home \"/\"\ncomponent App\n  state q = \"\"\n  action go\n    q = \"x\"\n  view\n    main navigationKey=`${{top(nav).id}}` navigationBack=\"back\" width=\"100%\" height=\"100%\"\n      for e in stack(nav) key=e.id\n        column navigationKey=`${{e.id}}` position=\"absolute\" inset=0\n          header display=\"flex\"\n{header}          scroll flex=1\n            text \"body\"\n          column id=\"menu\" popover=\"auto\"\n            text \"Menu\"\n"
+     )
+ }
+ 
+@@ -710,7 +710,7 @@
+         // An icon button named, by itself or by its image.
+         "button press=go aria-label=\"Add\"\n  image \"symbol:add\"",
+         "button press=go aria-label=label\n  image \"symbol:add\"",
+-        "button press=go aria-labelledby=\"caption\" width=44 height=44",
++        "button press=go aria-labelledby=\"caption\" width=44 height=44\ntext \"Caption\" id=\"caption\" display=\"none\"",
+         "button press=go\n  image \"symbol:add\" alt=\"Add\"",
+         "button press=go\n  svg viewBox=\"0 0 10 10\" width=10 height=10 aria-label=\"Add\"\n    circle cx=5 cy=5 r=4",
+         // A bare box keeps its words; one hidden from VoiceOver is no button to it.
+@@ -756,7 +756,7 @@
+     for view in [
+         // The `dialog` element, as a confirmation or laid out.
+         "dialog id=\"remove\" role=\"alertdialog\" aria-label=\"Delete?\"\n  text \"Gone for good.\"\n  button press=go commandfor=\"remove\" command=\"close\"\n    text \"Delete\"\n  button commandfor=\"remove\" command=\"close\"\n    text \"Cancel\"",
+-        "dialog id=\"edit\" role=\"dialog\" closedby=\"any\"\n  text \"Edit\"",
++        "dialog id=\"edit\" role=\"dialog\" aria-label=\"Dialog\" closedby=\"any\"\n  text \"Edit\"",
+         // A popover: light dismiss and Escape; as an alertdialog, the
+         // native confirmation.
+         "column id=\"pick\" popover=\"auto\" role=\"dialog\" aria-label=\"Theme\"\n  text \"Light\"",
+@@ -768,7 +768,7 @@
+         assert_eq!(warned(&buttons(view)), [], "{view}");
+     }
+     // A route the router presents as a sheet.
+-    let sheet = "routes nav\n  home \"/\"\n    add \"/add\"\ncomponent App\n  action back\n    nav = back(nav)\n  view\n    main navigationKey=`${top(nav).id}` navigationBack=\"back\" width=\"100%\" height=\"100%\"\n      for e in stack(nav) key=e.id\n        column navigationKey=`${e.id}` navigationPresentation=(e.name == \"add\" ? \"modal\" : \"push\") role=\"dialog\" position=\"absolute\" inset=0\n          text e.name\n";
++    let sheet = "routes nav\n  home \"/\"\n    add \"/add\"\ncomponent App\n  action back\n    nav = back(nav)\n  view\n    main navigationKey=`${top(nav).id}` navigationBack=\"back\" width=\"100%\" height=\"100%\"\n      for e in stack(nav) key=e.id\n        column navigationKey=`${e.id}` navigationPresentation=(e.name == \"add\" ? \"modal\" : \"push\") role=\"dialog\" aria-label=\"Dialog\" position=\"absolute\" inset=0\n          text e.name\n";
+     assert_eq!(warned(sheet), []);
+ }
+ 
+diff --git a/contract/cli/tests/it/routeless_header.rs b/contract/cli/tests/it/routeless_header.rs
+--- a/contract/cli/tests/it/routeless_header.rs
++++ b/contract/cli/tests/it/routeless_header.rs
+@@ -171,7 +171,7 @@
+         screen(HEADER).replacen("column", "column id=\"info\" popover=\"auto\"", 1),
+         screen(&HEADER.replacen("header", "header id=\"info\" popover=\"auto\"", 1)),
+         screen(&screen(HEADER).replacen("column", "column id=\"info\" popover=\"auto\"", 1)),
+-        screen(HEADER).replacen("column", "dialog id=\"info\"", 1),
++        screen(HEADER).replacen("column", "dialog id=\"info\" aria-label=\"Dialog\"", 1),
+     ] {
+         let src = app(&view);
+         assert!(warnings(&src).is_empty(), "{src}");
+diff --git a/contract/cli/tests/it/text_px_width.rs b/contract/cli/tests/it/text_px_width.rs
+--- a/contract/cli/tests/it/text_px_width.rs
++++ b/contract/cli/tests/it/text_px_width.rs
+@@ -320,7 +320,10 @@
+ #[test]
+ fn text_width_stops_at_separate_presentations() {
+     let mut failures = Vec::new();
+-    for presentation in ["box id=\"p\" popover=\"auto\"", "dialog id=\"p\""] {
++    for presentation in [
++        "box id=\"p\" popover=\"auto\"",
++        "dialog id=\"p\" aria-label=\"Dialog\"",
++    ] {
+         for (width, content, expected) in [
+             ("20rem", "text \"Mon\"", vec![]),
+             ("20rem", "text \"Mon\" width=48", vec![5]),
+diff --git a/contract/cli/tests/it/warnings_screens.rs b/contract/cli/tests/it/warnings_screens.rs
+--- a/contract/cli/tests/it/warnings_screens.rs
++++ b/contract/cli/tests/it/warnings_screens.rs
+@@ -97,7 +97,7 @@
+         ("unmoved", format!("if showingDetail\n  for m in chosen key=m.id\n{}else\n{}", detail.replace("press=back", "press=share(m)"), LIST.replace("press=open(m)", "press=share(m)"))),
+         // Inside a row, a dialog or a popover: theirs.
+         ("row", format!("for n in meals key=n.id\n  {}", swap.replace('\n', "\n  "))),
+-        ("dialog", format!("dialog id=\"d\" closedby=\"any\"\n  {}", swap.replace('\n', "\n  "))),
++        ("dialog", format!("dialog id=\"d\" aria-label=\"Dialog\" closedby=\"any\"\n  {}", swap.replace('\n', "\n  "))),
+         ("popover", format!("column id=\"p\" popover=\"auto\"\n  {}", swap.replace('\n', "\n  "))),
+     ] {
+         let src = finder(&choice);
+@@ -177,7 +177,7 @@
+     let pair = format!("if showingDetail\n{LIST}if not showingDetail\n{LIST}");
+     for choice in [
+         format!(
+-            "dialog id=\"d\" closedby=\"any\"\n  {}",
++            "dialog id=\"d\" aria-label=\"Dialog\" closedby=\"any\"\n  {}",
+             pair.replace('\n', "\n  ")
+         ),
+         format!("column role=\"tabpanel\"\n  {}", pair.replace('\n', "\n  ")),
+diff --git a/apps/harness/terminal.contract b/apps/harness/terminal.contract
+--- a/apps/harness/terminal.contract
++++ b/apps/harness/terminal.contract
+@@ -305,7 +305,7 @@
+       // Inline, the host anchors an open dialog to the bottom of the live
+       // region (above it is the terminal's scrollback); full screen, it
+       // centres it.
+-      dialog id="models" closedby="any" left="2ch" border="thin solid #87afff" border-radius="1ch" padding="0 1ch" background-color="#1c1c1c" width="64ch" max-height=`${max(8, animRows - 2)}lh` display="flex" flex-direction="column" testId="model-dialog"
++      dialog id="models" aria-label="Choose a model" closedby="any" left="2ch" border="thin solid #87afff" border-radius="1ch" padding="0 1ch" background-color="#1c1c1c" width="64ch" max-height=`${max(8, animRows - 2)}lh` display="flex" flex-direction="column" testId="model-dialog"
+         text "Choose a model" font-weight=700 color="#87afff"
+         text "↑/↓ to move · enter or click to choose · esc to cancel" color="#6c6c6c" margin-bottom="1lh"
+         scroll flex=1 min-height=0 testId="model-list"
+@@ -314,7 +314,7 @@
+               text (m.id == session.model ? "●" : "○") color=(m.available ? "#87afff" : "#585858")
+               text m.label color=(m.available ? "inherit" : "#585858") flex-grow=1
+               text (m.available ? m.provider : `${m.provider} · no key`) color="#6c6c6c"
+-      dialog id="keys" closedby="any" cancel=dropKey left="2ch" right="2ch" border="thin solid #5fd75f" border-radius="1ch" padding="0 1ch" background-color="#1c1c1c" testId="key-dialog"
++      dialog id="keys" aria-label="Add an API key" closedby="any" cancel=dropKey left="2ch" right="2ch" border="thin solid #5fd75f" border-radius="1ch" padding="0 1ch" background-color="#1c1c1c" testId="key-dialog"
+         text "Add an API key" font-weight=700 color="#5fd75f"
+         text "Saved to ~/.config/exact-harness/keys, readable only by you. It never enters the transcript." color="#6c6c6c"
+         row gap="2ch" margin-top="1lh"
+diff --git a/apps/llp/terminal.contract b/apps/llp/terminal.contract
+--- a/apps/llp/terminal.contract
++++ b/apps/llp/terminal.contract
+@@ -282,9 +282,9 @@
+       // The corpus, in number order, sub-documents under their parents.
+       // The open document has the focus when it opens; `/` filters over
+       // every document's text.
+-      dialog id="tree" closedby="any" top="1lh" bottom="2lh" left="4ch" right="4ch" border="thin solid #87afff" border-radius="1ch" padding="0 1ch" background-color="#121212" display="flex" flex-direction="column" testId="tree"
++      dialog id="tree" aria-labelledby="tree-title" closedby="any" top="1lh" bottom="2lh" left="4ch" right="4ch" border="thin solid #87afff" border-radius="1ch" padding="0 1ch" background-color="#121212" display="flex" flex-direction="column" testId="tree"
+         row gap="2ch" flex-shrink=0
+-          text (index.project != "" ? `Documents — ${index.project}` : "Documents") font-weight=700 color="#87afff"
++          text (index.project != "" ? `Documents — ${index.project}` : "Documents") id="tree-title" font-weight=700 color="#87afff"
+           text (filter == "" ? `${index.total}` : `${index.shown} of ${index.total} contain “${filter}”`) color="#8a8a8a" margin-left="auto"
+         row gap="1ch" flex-shrink=0 margin-bottom="1lh"
+           text "/" color="#ffd700" flex-shrink=0
+@@ -303,7 +303,7 @@
+         text "↑/↓ move · enter open · / filter · esc close" color="#6c6c6c" flex-shrink=0
+ 
+       // The headings; Enter goes to one.
+-      dialog id="outline" closedby="any" top="1lh" bottom="2lh" right="2ch" width="60ch" border="thin solid #ffaf5f" border-radius="1ch" padding="0 1ch" background-color="#121212" display="flex" flex-direction="column" testId="outline"
++      dialog id="outline" aria-label="Outline" closedby="any" top="1lh" bottom="2lh" right="2ch" width="60ch" border="thin solid #ffaf5f" border-radius="1ch" padding="0 1ch" background-color="#121212" display="flex" flex-direction="column" testId="outline"
+         text "Outline" font-weight=700 color="#ffaf5f" flex-shrink=0
+         scroll flex=1 min-height=0 margin-top="1lh"
+           if page.outline.isEmpty()
+@@ -314,8 +314,8 @@
+ 
+       // Every link in the page: a document of this corpus opens here;
+       // anything else is shown, to open from the terminal (⌘-click).
+-      dialog id="links" closedby="any" top="1lh" bottom="2lh" left="4ch" right="4ch" border="thin solid #5fafff" border-radius="1ch" padding="0 1ch" background-color="#121212" display="flex" flex-direction="column" testId="links"
+-        text `Links (${page.links.length})` font-weight=700 color="#5fafff" flex-shrink=0
++      dialog id="links" aria-labelledby="links-title" closedby="any" top="1lh" bottom="2lh" left="4ch" right="4ch" border="thin solid #5fafff" border-radius="1ch" padding="0 1ch" background-color="#121212" display="flex" flex-direction="column" testId="links"
++        text `Links (${page.links.length})` id="links-title" font-weight=700 color="#5fafff" flex-shrink=0
+         scroll flex=1 min-height=0 margin-top="1lh"
+           if page.links.isEmpty()
+             text "No links in this document" color="#6c6c6c"
+diff --git a/apps/native-fixture/app.contract b/apps/native-fixture/app.contract
+--- a/apps/native-fixture/app.contract
++++ b/apps/native-fixture/app.contract
+@@ -652,7 +652,7 @@
+                           exact-plain id="native-input" testId="native-input" customInput=true width=240 height=48 disabled=blocked change=inputChange focus=inputFocus blur=inputBlur key=inputKey
+                           button "Input command" testId="input-command" press=inputCommand aria-keyshortcuts="Meta+Shift+Enter Meta+Plus c"
+                       button "Open native dialog" testId="open-native-dialog" commandfor="native-dialog" command="show-modal"
+-                      dialog id="native-dialog" width=320 padding=16 closedby="any"
++                      dialog id="native-dialog" aria-label="Native dialog" width=320 padding=16 closedby="any"
+                         column gap=8
+                           exact-plain id="dialog-input" testId="dialog-input" customInput=true natural=false width=280 height=48 change=dialogChange
+                           button "Dialog command" testId="dialog-command" press=dialogCommand aria-keyshortcuts="Meta+Shift+Enter"
+diff --git a/apps/orientation-fixture/app.contract b/apps/orientation-fixture/app.contract
+--- a/apps/orientation-fixture/app.contract
++++ b/apps/orientation-fixture/app.contract
+@@ -73,7 +73,7 @@
+                     text "Sheet"
+                   button commandfor="dialog" command="show-modal" testId="open-dialog"
+                     text "Dialog"
+-              dialog id="dialog" testId="dialog"
++              dialog id="dialog" aria-label="Screen lock" testId="dialog"
+                 column padding=16 gap=8 wakelock="screen" testId="dialog-wakelock"
+                   text "A dialog over the page leaves its lock."
+                   button commandfor="dialog" command="close" testId="close-dialog"
+diff --git a/contract/cli/tests/it/typescript.rs b/contract/cli/tests/it/typescript.rs
+--- a/contract/cli/tests/it/typescript.rs
++++ b/contract/cli/tests/it/typescript.rs
+@@ -72,7 +72,7 @@
+   const lossy: number = batch[0].lastInsertRowid;
+   // `fs.compressImage` as the docs give it (LLP 1069.002 A1): options in, the record out.
+   const image = await storage.fs.compressImage(path, storage.fs.directories.cache + '/out.jpg', {maxDimension: 1024, maxBytes: 1_000_000});
+-  const shrunk: {path: string; type: 'image/jpeg'; size: number; width: number; height: number} = image;
++  const shrunk: {path: string; type: 'image/jpeg' | 'image/png'; size: number; width: number; height: number} = image;
+   // @ts-expect-error the engine's positional binding is not the app interface
+   await storage.fs.compressImage(path, path, 1024, 1_000_000);
+   // `fs.transformImage` (LLP 1133.019 D14): the edit in, what was written out.
+diff --git a/docs/contract-for-agents.md b/docs/contract-for-agents.md
+--- a/docs/contract-for-agents.md
++++ b/docs/contract-for-agents.md
+@@ -1079,9 +1079,16 @@
+ few thousand items in a parse or tree walk:
+ 
+ ```ts
+-for (let i = 0; i < nodes.length; i++) {
+-  if (i % 2000 === 1999) await scheduler.yield();
+-  comments.push(toComment(nodes[i]));
++export async function mapComments<Node, Comment>(
++  nodes: readonly Node[],
++  toComment: (node: Node) => Comment,
++): Promise<Comment[]> {
++  const comments: Comment[] = [];
++  for (let i = 0; i < nodes.length; i++) {
++    if (i % 2000 === 1999) await scheduler.yield();
++    comments.push(toComment(nodes[i]));
++  }
++  return comments;
+ }
+ ```
+ 

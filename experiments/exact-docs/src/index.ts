@@ -4,7 +4,7 @@ import { parseMarkdown } from "./markdown.ts";
 import { walk, type DocumentNode, type Heading } from "./content.ts";
 import { compileBodies } from "./body.ts";
 import { highlightDocuments } from "./highlight.ts";
-import { searchScopes, writeDataEntry } from "./search.ts";
+import { searchScopes, writeDataEntry, type PageData } from "./search.ts";
 import { pageSeo, decoratePageHtml, writeSeo } from "./seo.ts";
 import { frontmatter, pageMetadata, type PageMetadata } from "./metadata.ts";
 import { preparePageHtml } from "./delivery.ts";
@@ -305,8 +305,10 @@ export async function loadSite(directory: string): Promise<Site> {
 }
 
 /** Produces an ordinary Exact app; consumers can replace the layout, not the compiler. */
-export async function generateApp(site: Site) {
-  const app = path.join(site.root, ".exact-docs/app");
+export type DocsPlatform = "web" | "macos" | "ios";
+
+export async function generateApp(site: Site, platform: DocsPlatform = "web") {
+  const app = path.join(site.root, ".exact-docs", platform === "web" ? "app" : `app-${platform}`);
   await rm(app, { recursive: true, force: true });
   await mkdir(app, { recursive: true });
   for (const entry of await readdir(site.root)) {
@@ -356,7 +358,7 @@ export async function generateApp(site: Site) {
       `use ${layout.component} as DocsCustomLayout from ${quote(`./site/${layout.source}`)}`,
     );
   const routes = site.documents
-    .map((doc, i) => `  page${i} ${quote(doc.path)} render=build`)
+    .map((doc, i) => `  page${i} ${quote(doc.path)}${platform === "web" ? " render=build" : ""}`)
     .join("\n");
   const content = compileBodies(site.documents, embedded);
   const branches = site.documents.flatMap((doc, i) => {
@@ -366,8 +368,8 @@ export async function generateApp(site: Site) {
       imports.push(
         `use ${doc.component} as ${componentName} from ${quote(`./site/${doc.source}`)}`,
       );
-    return `                if page.route == "page${i}"
-                  DocsCustomPage${i}()`;
+    return `                  if page.route == "page${i}"
+                    DocsCustomPage${i}()`;
   });
   const scopePages = searchScopes(site);
   const scopes = scopePages.map((scope, i) => {
@@ -381,6 +383,7 @@ export async function generateApp(site: Site) {
       site.config.locales.find((locale) => locale.id === scope.locale)?.labels ?? defaultLabels;
     return `  state docsScope${i}: DocsScopeData = DocsScopeData(navigation=${records("DocsLink", navigation)}, groups=${groupValues}, labels=${constructor("DocsLabels", labels)})`;
   });
+  const pageData = new Map<string, PageData>();
   const pages = site.documents.map((doc, i) => {
     const scoped = site.documents.filter((candidate) => sameScope(candidate, doc));
     const visible = scoped.filter((candidate) => candidate.nav !== false);
@@ -394,7 +397,17 @@ export async function generateApp(site: Site) {
         ? `some(DocsLink(title=${quote(other.title)}, href=${quote(other.path)}))`
         : "none";
     };
-    return `DocsPageData(route="page${i}", path=${quote(doc.path)}, title=${quote(doc.title)}, description=${quote(doc.description ?? "")}, canonical=${quote(seo.canonical)}, robots=${quote(seo.robots)}, locale=${quote(doc.locale)}, language=${quote(seo.lang)}, direction=${quote(seo.dir)}, version=${quote(doc.version)}, pageId=${quote(doc.id)}, versionStatus=${quote(version?.status ?? "")}, searchIndexUrl=${quote(searchIndexUrl(doc))}, custom=${Boolean(doc.component)}, markdownUrl=${quote(markdownUrl(doc))}, seo=${quote(JSON.stringify(seo))}, scope=docsScope${scope}, toc=${records("DocsHeading", doc.headings)}, previous=${neighbor(-1)}, next=${neighbor(1)}, locales=${records("DocsChoice", choices(site.documents, doc, "locale", site.config.locales))}, versions=${records("DocsChoice", choices(site.documents, doc, "version", site.config.versions))})`;
+    pageData.set(doc.path, {
+      ...content.pages.get(doc.path)!,
+      description: doc.description ?? "",
+      canonical: seo.canonical,
+      robots: seo.robots,
+      seo: JSON.stringify(seo),
+      toc: doc.headings,
+      locales: choices(site.documents, doc, "locale", site.config.locales),
+      versions: choices(site.documents, doc, "version", site.config.versions),
+    });
+    return `DocsPageData(route="page${i}", path=${quote(doc.path)}, title=${quote(doc.title)}, locale=${quote(doc.locale)}, language=${quote(seo.lang)}, direction=${quote(seo.dir)}, version=${quote(doc.version)}, pageId=${quote(doc.id)}, versionStatus=${quote(version?.status ?? "")}, searchIndexUrl=${quote(platform === "web" ? searchIndexUrl(doc) : "")}, custom=${Boolean(doc.component)}, markdownUrl=${quote(platform === "web" ? markdownUrl(doc) : "")}, scope=docsScope${scope}, previous=${neighbor(-1)}, next=${neighbor(1)})`;
   });
   const context = `shape DocsScopeData
   navigation: DocsLink[]
@@ -405,9 +418,6 @@ shape DocsPageData
   route: string
   path: string
   title: string
-  description: string
-  canonical: string
-  robots: string
   locale: string
   language: string
   direction: string
@@ -417,13 +427,9 @@ shape DocsPageData
   searchIndexUrl: string
   custom: bool
   markdownUrl: string
-  seo: string
   scope: DocsScopeData
-  toc: DocsHeading[]
   previous: option<DocsLink>
   next: option<DocsLink>
-  locales: DocsChoice[]
-  versions: DocsChoice[]
 
 component DocsContext
   props
@@ -437,12 +443,14 @@ component DocsContext
     pending: bool
     failed: bool
   slot
+  derive current = content.path == page.path
   provide
+    docsPlatform = ${quote(platform)}
     docsGroups = page.scope.groups
     docsPrevious = page.previous
     docsNext = page.next
-    docsLocales = page.locales
-    docsVersions = page.versions
+    docsLocales = current ? content.locales : []
+    docsVersions = current ? content.versions : []
     docsLabels = page.scope.labels
     docsLocale = page.locale
     docsVersion = page.version
@@ -451,14 +459,14 @@ component DocsContext
     docsSearchIndexUrl = page.searchIndexUrl
     docsSearchPending = pending
     docsSearchFailed = failed
-    docsDescription = page.description
+    docsDescription = current ? content.description : ""
     docsMarkdown = content.path == page.path ? content.markdown : ""
     docsContentPending = contentPending
     docsContentFailed = contentFailed
     docsMarkdownUrl = page.markdownUrl
   view
-    view lang=page.language direction=page.direction data-docs-part="context" data-docs-seo=page.seo
-      ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=page.toc, query=query, search=search, results=results)
+    view lang=page.language direction=page.direction data-docs-part="context" data-docs-seo=(current ? content.seo : "")
+      ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=(current ? content.toc : []), query=query, search=search, results=results)
         children
 `;
   function selectPage(start: number, end: number): string {
@@ -470,7 +478,7 @@ component DocsContext
 
 routes docsNav
 ${routes}
-  notfound render=build
+  notfound${platform === "web" ? " render=build" : ""}
 
 shape DocsSearchReply
   items: DocsLink[]
@@ -491,24 +499,31 @@ ${scopes.join("\n")}
   action docsSearch(value: string)
     docsQuery = value
   action docsFollow(url: string)
-    docsNav = go(docsNav, url)
+${
+  platform === "web"
+    ? "    docsNav = go(docsNav, url)"
+    : `    if stack(docsNav).filter(entry => entry.url == url).length > 0
+      docsNav = go(docsNav, url)
+    else
+      docsNav = push(docsNav, url)`
+}
 ${rootMembers}
   view
-    view navigationKey=top(docsNav).id.toString() navigate=docsFollow
+    ${platform === "web" ? "view" : 'scroll flex=1 min-height=0 height="100%" navigationBack=""'} navigationKey=top(docsNav).id.toString() navigate=docsFollow testId="docs-app"
       for entry in stack(docsNav).filter(item => item.id == top(docsNav).id) key=entry.id
         match docsPage
           case some(page)
             view navigationKey=entry.id.toString()
-              head title=(page.title + ${quote(` | ${site.config.name}`)}) description=page.description canonical=page.canonical robots=page.robots
-              DocsContext(page=page, content=docsContent, contentPending=(not page.custom and docsContent.path != page.path and not failed(docsContent)), contentFailed=(not page.custom and docsContent.path != page.path and failed(docsContent)), query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))
+              head title=(page.title + ${quote(` | ${site.config.name}`)}) description=(docsContent.path == page.path ? docsContent.description : "") canonical=(docsContent.path == page.path ? docsContent.canonical : "") robots=(docsContent.path == page.path ? docsContent.robots : "noindex,follow")
+              DocsContext(page=page, content=docsContent, contentPending=(docsContent.path != page.path and not failed(docsContent)), contentFailed=(docsContent.path != page.path and failed(docsContent)), query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))
+                if docsContent.path == page.path
 ${branches.join("\n")}
-                if not page.custom
-                  if docsContent.path == page.path
+                  if not page.custom
                     DocsBody(body=docsContent)
-                  else if failed(docsContent)
-                    text page.scope.labels.contentError role="alert" data-docs-part="content-error"
-                  else
-                    text page.scope.labels.contentLoading role="status" data-docs-part="content-loading"
+                else if failed(docsContent)
+                  text page.scope.labels.contentError role="alert" data-docs-part="content-error"
+                else
+                  text page.scope.labels.contentLoading role="status" data-docs-part="content-loading"
           case none
             view
         if entry.name == "notfound"
@@ -523,12 +538,14 @@ ${context}
 ${content.contract}
 `;
   await Bun.write(path.join(app, "app.contract"), source);
-  await writeDataEntry(site, app, content.pages);
+  await writeDataEntry(site, app, pageData, platform);
   const manifestFile = Bun.file(path.join(site.root, "app.json"));
   const manifest = (await manifestFile.exists()) ? await manifestFile.json() : {};
   if (!record(manifest)) throw new Error("app.json must be an object");
   const application = manifest["app"] ?? {};
   if (!record(application)) throw new Error("app.json app must be an object");
+  const host = manifest["host"] ?? {};
+  if (!record(host)) throw new Error("app.json host must be an object");
   const data = manifest["data"] ?? [];
   if (!Array.isArray(data) || !data.every((word: unknown) => typeof word === "string"))
     throw new Error("app.json data must be a string array");
@@ -539,7 +556,7 @@ ${content.contract}
         ...manifest,
         name: site.config.name,
         app: { id: "dev.lenso.exactdocs", name: site.config.name, ...application },
-        host: { web: {} },
+        host: { ...host, [platform]: host[platform] ?? {} },
         data: [...new Set([...data, "docs-part", "docs-language", "docs-token", "docs-seo"])],
       },
       null,
@@ -696,3 +713,5 @@ export async function buildSite(
   await rename(staging, out);
   return { site, out };
 }
+
+export { buildNative } from "./native.ts";

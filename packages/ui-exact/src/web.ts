@@ -1,3 +1,6 @@
+import { updateSwitchForm, endSwitchForm } from "./switch-form.js";
+import { updateSwitch, endSwitch } from "./switch.js";
+import { updateAvatar, endAvatar } from "./avatar.js";
 import { updateMaterial, endMaterial } from "./material.js";
 import { updateModal, endModal } from "./modal.js";
 import { updateToggleGroup, endToggleGroup } from "./toggle-group.js";
@@ -29,7 +32,10 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   );
   if (compiled.style && Object.keys(compiled.style).length)
     throw new Error("Lenso caller styles need a declarative adapter for inline values");
-  const optics = kind === "glass" || (kind === "glass-button" && !node.matches(":disabled"));
+  const optics =
+    kind === "switch-knob-lens" ||
+    kind === "glass" ||
+    (kind === "glass-button" && !node.matches(":disabled"));
   const profileKey = kind === "glass-button" ? variant : "glass-small";
 
   owners.get(node)?.();
@@ -41,7 +47,10 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   let stop: (() => void) | undefined;
   if (optics) {
     if (!(node instanceof HTMLElement)) throw new TypeError("Lenso Glass requires an HTML element");
-    stop = attachGlass(node, { profileKey, liveBackdrop: true });
+    stop = attachGlass(node, {
+      profileKey: kind === "switch-knob-lens" ? undefined : profileKey,
+      liveBackdrop: kind !== "switch-knob-lens",
+    });
   }
   owners.set(node, () => {
     stop?.();
@@ -49,6 +58,9 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     disconnectAccordion?.();
     node.classList.remove(...classes);
   });
+  updateSwitchForm(node, handle.data);
+  updateSwitch(node, handle.data);
+  updateAvatar(node, handle.data);
   updatePanel(node, handle.data);
   updateToggleGroup(node, handle.data);
   updateModal(node, handle.data);
@@ -59,6 +71,9 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
 /** Called before Exact removes or recycles a node. */
 export function elementEnded(handle: ExactElement) {
   if (handle.hatch !== "lenso-ui") return;
+  endSwitchForm(handle.element);
+  endSwitch(handle.element);
+  endAvatar(handle.element);
   endPanel(handle.element);
   endToggleGroup(handle.element);
   endModal(handle.element);

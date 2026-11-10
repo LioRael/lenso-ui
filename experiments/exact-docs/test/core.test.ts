@@ -2,6 +2,7 @@ import { afterEach, expect, test } from "bun:test";
 import { mkdtemp, rm, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { main } from "../src/cli.ts";
 import { generateApp, loadSite, navigationGroups, parseConfig } from "../src/index.ts";
 import { frontmatter } from "../src/metadata.ts";
@@ -134,6 +135,44 @@ test("page symlinks cannot read outside the content project", async () => {
     JSON.stringify({ name: "Docs", pages: [{ path: "/", title: "Home", source: "index.md" }] }),
   );
   await expect(loadSite(root)).rejects.toThrow("escapes project");
+});
+
+// Web generation cannot catch native manifests, offline imports or file-URL actions leaking across targets.
+test("Apple targets retain host settings and bundle offline pages/search with the user's data module", async () => {
+  const parent = await fixture();
+  const root = path.join(parent, "docs");
+  await main(["new", root]);
+  await Bun.write(
+    path.join(root, "app.json"),
+    JSON.stringify({ host: { macos: { minimumOS: "15.0" }, ios: { minimumOS: "18.0" } } }),
+  );
+  const site = await loadSite(root);
+  const web = await generateApp(site);
+  const webSource = await Bun.file(path.join(web, "app.ts")).text();
+  expect(webSource).toContain('import("./docs-content/body-');
+  for (const platform of ["macos", "ios"] as const) {
+    const app = await generateApp(site, platform);
+    expect(app).not.toBe(web);
+    const manifest = await Bun.file(path.join(app, "app.json")).json();
+    expect(manifest.host[platform].minimumOS).toBe(platform === "macos" ? "15.0" : "18.0");
+    const contract = await Bun.file(path.join(app, "app.contract")).text();
+    expect(contract).not.toContain("render=build");
+    expect(contract).not.toContain("/_docs/");
+    expect(contract).toContain("scroll flex=1 min-height=0");
+    const entry = await Bun.file(path.join(app, "app.ts")).text();
+    expect(entry).not.toContain("import(");
+    const data = await import(pathToFileURL(path.join(app, "app.ts")).href);
+    const body = await data.answer("docsReadPage", ["/authoring"]);
+    expect(body.markdown).toContain("# Authoring");
+    expect(body.toc.length).toBeGreaterThan(0);
+    const search = await data.answer("docsSearchPages", ["root data", "en", "v2"]);
+    expect(search.items).toEqual([
+      { title: "Authoring", href: "/authoring" },
+      { title: "Root data", href: "/data" },
+    ]);
+    expect(await data.answer("readCounter", [false])).toEqual({ value: 7 });
+  }
+  expect(await Bun.file(path.join(web, "app.ts")).text()).toBe(webSource);
 });
 
 test("static delivery returns rendered pages, real 404 statuses and no internal build files", async () => {

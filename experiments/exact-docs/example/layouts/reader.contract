@@ -82,12 +82,13 @@ component ReaderLayout
       main id="docs-content" data-docs-part="content" tabindex=-1 aria-busy=docsContentPending
         if docsDescription != ""
           text docsDescription data-docs-part="description"
-        if docsMarkdownUrl != ""
+        if docsMarkdownUrl != "" or docsMarkdown != ""
           section aria-label=docsLabels.pageActions data-docs-part="page-actions"
             button press=copyMarkdown disabled=(docsContentPending or docsContentFailed) testId="copy-markdown"
               text docsLabels.copyMarkdown
-            link href=docsMarkdownUrl target="_blank"
-              text docsLabels.openMarkdown
+            if docsMarkdownUrl != ""
+              link href=docsMarkdownUrl target="_blank"
+                text docsLabels.openMarkdown
         children
         nav aria-label=docsLabels.pagination data-docs-part="pagination"
           match docsPrevious

@@ -1,0 +1,63 @@
+use CardState, Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, EmptyState, EmptyStateContent, EmptyStateIcon, EmptyStateMessage, EmptyStateTitle, EmptyStateDescription, EmptyStateActions, Button, Link from "@lenso/ui-exact"
+
+component LayoutExample
+  state variant = "default"
+  state icon = "symbol"
+  state loaded = false
+  state long = false
+  state rtl = false
+  state count = 0
+  derive card = CardState(id="layout-card", variant=variant, role="region", label="", labelledBy="layout-card-title", describedBy="layout-card-description")
+  action cycleVariant
+    variant = variant == "default" ? "secondary" : (variant == "secondary" ? "tertiary" : (variant == "tertiary" ? "transparent" : (variant == "transparent" ? "glass" : "default")))
+  action cycleIcon
+    icon = icon == "symbol" ? "circle" : "symbol"
+  action toggleLong
+    long = not long
+  action toggleRtl
+    rtl = not rtl
+  action load
+    loaded = true
+    count = count + 1
+    focus("layout-link")
+  action reset
+    loaded = false
+  action increment
+    count = count + 1
+  view
+    column id="layout-examples" gap=16 direction=(rtl ? "rtl" : "ltr")
+      text "Cards and empty states" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Card variant", press=cycleVariant, disabled=false, size="sm", variant="bordered", testId="layout-variant")
+        Button(label="Empty icon", press=cycleIcon, disabled=false, size="sm", variant="bordered", testId="layout-icon")
+        Button(label="Long layout text", press=toggleLong, disabled=false, size="sm", variant="bordered", testId="layout-long")
+        Button(label="Layout direction", press=toggleRtl, disabled=false, size="sm", variant="bordered", testId="layout-rtl")
+        Button(label="Reset empty", press=reset, disabled=false, size="sm", variant="bordered", testId="layout-reset")
+      text `Actions: ${count}` testId="layout-count"
+      Card(state=card)
+        CardHeader()
+          CardTitle(id="layout-card-title", level=3)
+            text (long ? "ThisIsAnUnbrokenCardHeadingThatMustWrapWithinItsOwnSurface" : "Workspace")
+          CardDescription(id="layout-card-description")
+            text (long ? "ThisIsAnUnbrokenCardDescriptionThatMustWrapWithoutCreatingHorizontalScrollingOnSmallScreens" : "Shared documents and activity.")
+        CardContent()
+          if loaded
+            text "Your first document is ready." testId="layout-loaded"
+            Link(id="layout-link", href="#layout-examples", target="_self", label="Read your document", disabled=false)
+              text "Read your document"
+          else
+            EmptyState(id="layout-empty", label="", labelledBy="layout-empty-title", describedBy="layout-empty-description")
+              EmptyStateContent()
+                EmptyStateIcon(variant=icon)
+                  svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" aria-hidden=true
+                    path d="M7 3h7l4 4v14H6V3h1m7 0v5h4M9 12h6m-6 4h4" stroke="currentColor" stroke-width=1.5 stroke-linecap="round" stroke-linejoin="round"
+                EmptyStateMessage()
+                  EmptyStateTitle(id="layout-empty-title", level=3)
+                    text (long ? "NothingHereYetButThisHeadingMustStayInsideTheEmptyState" : "No documents")
+                  EmptyStateDescription(id="layout-empty-description")
+                    text (long ? "CreateYourFirstDocumentToStartCollaboratingWithYourTeamWithoutOverflowingTheAvailableSpace" : "Create your first document.")
+              EmptyStateActions()
+                Button(label="Create document", press=load, disabled=false, size="md", variant="prominent", testId="layout-create")
+                Button(label="Import document", press=load, disabled=false, size="md", variant="bordered", testId="layout-import")
+        CardFooter()
+          Button(label="View activity", press=increment, disabled=false, size="sm", variant="borderless", testId="layout-activity")

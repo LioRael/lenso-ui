@@ -16,11 +16,18 @@ const custom = stylex.create({
   square: { borderRadius: null },
   skeleton: { borderRadius: 16 },
   clear: { backgroundColor: null, borderRadius: 0 },
+  wideAction: { width: "100%" },
+  cardTitle: { fontWeight: 600 },
+  switchIcon: { color: "#151515" },
   chip: { borderRadius: 8 },
   ring: { stroke: "var(--lenso-label-tertiary)" },
 });
 
 export const styleRules = [
+  { kind: "switch-icon", xstyle: custom.switchIcon },
+  { kind: "button", testId: "layout-create", xstyle: custom.wideAction },
+  { kind: "button", testId: "layout-import", xstyle: custom.wideAction },
+  { kind: "card-title", testId: "layout-card-title", xstyle: custom.cardTitle },
   { kind: "chip", testId: "content-chip", xstyle: custom.chip },
   { kind: "button", testId: "action", xstyle: custom.count },
   { kind: "toggle-button", xstyle: custom.toggles },

@@ -1,3 +1,6 @@
+import { checkSwitch } from "./switch.mjs";
+import { checkAvatar } from "./avatar.mjs";
+import { checkLayout } from "./layout.mjs";
 import { checkContent } from "./content.mjs";
 import { checkVisualCapabilities } from "./visual-capabilities.mjs";
 import { checkAlertDialog } from "./alert-dialog.mjs";
@@ -107,6 +110,9 @@ try {
       const modalMotion = await checkModal(page, name);
       const alertDialogMotion = await checkAlertDialog(page, name);
       await checkContent(page, name);
+      const layoutSemantics = await checkLayout(page, name);
+      await checkAvatar(page, name);
+      await checkSwitch(page, name);
       await checkCallerStyles(page);
       await checkToggle(page, name);
       await checkFeedback(page, name);
@@ -171,7 +177,7 @@ try {
       const capture = path.resolve(import.meta.dirname, `../.cache/example/${name}.png`);
       await page.screenshot({ path: capture });
       console.log(
-        `${name} ${browser.version()}: actions, modal, alert dialog, content, toggles, feedback, forms, navigation, disclosure, accordion, keyboard, motion, theme and disposal passed`,
+        `${name} ${browser.version()}: actions, modal, alert dialog, content, layout, avatars, switches, toggles, feedback, forms, navigation, disclosure, accordion, keyboard, motion, theme and disposal passed`,
       );
       verifiedBrowsers.push({
         engine: name,
@@ -180,6 +186,7 @@ try {
         modalMotion,
         alertDialogMotion,
         visualCapture,
+        layoutSemantics,
       });
       await page.close();
     } finally {

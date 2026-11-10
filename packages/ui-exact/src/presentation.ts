@@ -1,3 +1,6 @@
+import { switchPresentation, switchKinds } from "./switch-presentation.js";
+import { avatarPresentation } from "./avatar-presentation.js";
+import { layoutPresentation, layoutKinds } from "./layout-presentation.js";
 import { contentPresentation, contentKinds } from "./content-presentation.js";
 import type { StyleInput } from "./style-types.js";
 import * as stylex from "@stylexjs/stylex";
@@ -71,7 +74,10 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           togglePresentation(kind, data) ??
           modalPresentation(kind, data) ??
           alertDialogPresentation(kind, data) ??
-          contentPresentation(kind, data));
+          contentPresentation(kind, data) ??
+          layoutPresentation(kind, data) ??
+          avatarPresentation(kind, data) ??
+          switchPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -132,9 +138,46 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     ...modalKinds,
     ...alertDialogKinds,
     ...contentKinds,
+    ...layoutKinds,
+    ...switchKinds,
     "glass",
   ])
     add(kind);
+  for (const kind of ["switch", "switch-control", "switch-thumb"])
+    for (const size of ["sm", "md", "lg"])
+      add(kind, { lensoSize: size }, `[data-lenso-size="${size}"]`);
+  add("avatar-image");
+  for (const grid of [false, true])
+    add("avatar-group", { lensoGrid: String(grid) }, `[data-lenso-grid="${grid}"]`);
+  for (const overlap of [false, true])
+    for (const ring of [false, true])
+      for (const clipped of [false, true])
+        for (const size of ["sm", "md", "lg"])
+          add(
+            "avatar-group-item",
+            {
+              lensoSize: size,
+              lensoOverlap: String(overlap),
+              lensoRing: String(ring),
+              lensoClipped: String(clipped),
+            },
+            `[data-lenso-size="${size}"][data-lenso-overlap="${overlap}"][data-lenso-ring="${ring}"][data-lenso-clipped="${clipped}"]`,
+          );
+  for (const kind of ["avatar", "avatar-fallback"])
+    for (const size of ["sm", "md", "lg"])
+      for (const color of ["default", "accent", "success", "warning", "danger"])
+        for (const variant of ["default", "soft"])
+          for (const clipped of [false, true])
+            add(
+              kind,
+              {
+                lensoSize: size,
+                lensoColor: color,
+                lensoVariant: variant,
+                lensoClipped: String(clipped),
+              },
+              `[data-lenso-size="${size}"][data-lenso-color="${color}"][data-lenso-variant="${variant}"]${kind === "avatar-fallback" ? `[data-lenso-clipped="${clipped}"]` : ""}`,
+            );
   for (const kind of ["button", "glass-button"])
     for (const size of ["sm", "md", "lg"])
       for (const variant of kind === "button"
@@ -340,6 +383,10 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
         { lensoLoading: String(loading), lensoDestructive: String(destructive) },
         `[data-lenso-loading="${loading}"][data-lenso-destructive="${destructive}"]`,
       );
+  for (const variant of ["default", "secondary", "tertiary", "transparent", "glass"])
+    add("card", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const variant of ["symbol", "circle"])
+    add("empty-state-icon", { variant }, `[data-variant="${variant}"]`);
   const kinds = new Set(cases.map((entry) => entry.kind));
   for (const rule of rules) {
     if (!kinds.has(rule.kind)) throw new RangeError(`Unknown Lenso style kind: ${rule.kind}`);

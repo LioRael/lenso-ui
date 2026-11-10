@@ -65,6 +65,12 @@ positioned counters, rich labels and guarded loading actions. See
 [content component APIs and acceptance](CONTENT.md) and the
 [compiled example](example/content.contract).
 
+`Card` and `EmptyState` add ordinary/glass card variants, named sections,
+heading/message anatomy and caller-owned creation/retry actions. See
+[layout composition](LAYOUT.md) and the [compiled example](example/layout.contract).
+The pinned upstream compiler remains unchanged; [native text-tag gaps](SEMANTIC_GAPS.md)
+for Typography/Kbd are retained explicitly.
+
 Both buttons accept `sm`, `md` and `lg` sizes. Button variants are `prominent`,
 `bordered` and `borderless`; GlassButton variants are `default` and `prominent`.
 `press` takes an Exact action. These are native HTML buttons, including keyboard
@@ -197,3 +203,7 @@ Run `test:glass-capture` before judging glass from screenshots. The browser suit
 records capture eligibility separately from behavior. The current macOS WebKit
 Playwright image omits backdrop blur that native-window capture shows; see
 [the probe and proof boundaries](VISUAL_CAPTURE.md).
+
+See [Avatar and AvatarGroup](AVATAR.md) for image fallback behavior and explicit group composition.
+
+See [Switch](SWITCH.md) for state, native forms, source motion and remaining acceptance gates.

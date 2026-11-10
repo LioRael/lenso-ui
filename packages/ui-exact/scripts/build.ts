@@ -21,6 +21,7 @@ await build({
   ],
   resolve: {
     alias: [
+      { find: /^@lenso\/glass\/motion$/, replacement: source("glass/src/motion/index.ts") },
       { find: /^@lenso\/glass$/, replacement: source("glass/src/index.ts") },
       { find: /^@lenso\/tokens\/styles\.css$/, replacement: source("tokens/styles.css") },
       { find: /^@lenso\/tokens\/materials$/, replacement: source("tokens/src/materials/index.ts") },

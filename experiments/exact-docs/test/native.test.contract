@@ -1,0 +1,35 @@
+test "native documentation retains root reads, writes and tasks between pages"
+  clock data
+  type "docs-app" "/data"
+  clock data
+  expect text "data-counter" == "Counter: 7"
+  tap "data-save"
+  clock data
+  expect text "data-counter" == "Counter: 8"
+  clock +1000
+  expect text "data-ticks" == "Ticks: 4"
+  tap "data-pause"
+  type "docs-app" "/authoring"
+  clock data
+  expect tree has "embedded-counter"
+  tap "embedded-counter"
+  expect text "embedded-counter" == "Count: 3"
+  back
+  clock data
+  expect text "data-counter" == "Counter: 8"
+  expect text "data-ticks" == "Ticks: 4"
+  type "docs-search" "root data"
+  clock data
+  expect state docsQuery == "root data"
+  expect state docsResults.0 .href == "/authoring"
+  expect state docsResults.1 .href == "/data"
+  type "docs-app" "/zh/authoring"
+  clock data
+  expect state docsLocale == "zh-CN"
+  expect state docsContent.path == "/zh/authoring"
+  type "docs-app" "/zh/v1"
+  clock data
+  expect state docsVersion == "v1"
+  type "docs-app" "/data"
+  clock data
+  expect text "data-counter" == "Counter: 8"

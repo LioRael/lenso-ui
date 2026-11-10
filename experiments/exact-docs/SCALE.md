@@ -1,5 +1,9 @@
 # Scale acceptance measurements
 
+These measurements predate page-metadata extraction. See [STARTUP.md](STARTUP.md)
+for the newer shared-entry measurements and [ASTRO_COMPARISON.md](ASTRO_COMPARISON.md)
+for the current 300-page comparison; the historical scale samples below are retained.
+
 Measured 2026-11-10T19:32:56.885Z. Bun 1.4.4, Chromium 156.0.8078.4.
 
 Page counts are total registered URLs: two languages (English/Chinese) × two independently authored versions. The fixtures contain 25/50/75 logical topics per scope, respectively. Each page has 24 paragraphs, four sections, inline markup, source links, a code block and deterministic per-paragraph configuration identifiers. Build times include validation, tokenization, compilation and all-route static rendering, measured once per size. Browser values are medians of 3 fresh-context samples with cache disabled, gzip delivery, 80 ms latency, 200,000 download bytes/second and 4× CPU slowdown.

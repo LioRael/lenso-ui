@@ -8,14 +8,22 @@ const reading = prepareReading();
 type Metadata = ReturnType<typeof pageSeo>;
 const root = document.getElementById("exact-root");
 let previous: Element | null | undefined;
+let previousRaw: string | null | undefined;
 function sync() {
   const context = root?.querySelector("[data-docs-seo]") ?? null;
-  if (context === previous) return;
-  previous = context;
   const raw = context?.getAttribute("data-docs-seo");
+  if (context === previous && raw === previousRaw) return;
+  previous = context;
+  previousRaw = raw;
   const meta: Metadata = raw
     ? JSON.parse(raw)
-    : { lang: "en", dir: "ltr", alternates: [], canonical: "", robots: "noindex,follow" };
+    : {
+        lang: context?.getAttribute("lang") || "en",
+        dir: context instanceof HTMLElement ? context.style.direction || "ltr" : "ltr",
+        alternates: [],
+        canonical: "",
+        robots: "noindex,follow",
+      };
   document.documentElement.lang = meta.lang;
   document.documentElement.dir = meta.dir;
   let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -47,5 +55,10 @@ function sync() {
 }
 if (root) {
   sync();
-  new MutationObserver(sync).observe(root, { childList: true, subtree: true });
+  new MutationObserver(sync).observe(root, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-docs-seo"],
+  });
 }

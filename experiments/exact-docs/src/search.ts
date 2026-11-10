@@ -1,7 +1,19 @@
 import path from "node:path";
-import type { Site } from "./index.ts";
+import type { DocsPlatform, Site } from "./index.ts";
 import { sameScope } from "./variants.ts";
 import type { PageContent } from "./body.ts";
+import type { Heading } from "./content.ts";
+import type { Choice } from "./variants.ts";
+
+export type PageData = PageContent & {
+  description: string;
+  canonical: string;
+  robots: string;
+  seo: string;
+  toc: Heading[];
+  locales: Choice[];
+  versions: Choice[];
+};
 
 export function searchScopes(site: Site) {
   return [
@@ -12,9 +24,15 @@ export function searchScopes(site: Site) {
 }
 
 /** Literal imports give Exact's bundler a separate, lazily fetched module per scope. */
-export async function writeDataEntry(site: Site, app: string, pages: Map<string, PageContent>) {
+export async function writeDataEntry(
+  site: Site,
+  app: string,
+  pages: Map<string, PageData>,
+  platform: DocsPlatform = "web",
+) {
   const scopes = searchScopes(site);
   const branches: string[] = [];
+  const imports: string[] = [];
   for (const [i, scope] of scopes.entries()) {
     const index = site.documents
       .filter((doc) => doc.search !== false && sameScope(doc, scope))
@@ -23,8 +41,9 @@ export async function writeDataEntry(site: Site, app: string, pages: Map<string,
       path.join(app, `docs-search/scope-${i}.ts`),
       `export default ${JSON.stringify(index)};\n`,
     );
+    if (platform !== "web") imports.push(`import scope${i} from "./docs-search/scope-${i}.ts";`);
     branches.push(
-      `  if(locale === ${JSON.stringify(scope.locale)} && version === ${JSON.stringify(scope.version)}) index = (await import("./docs-search/scope-${i}.ts")).default;`,
+      `  if(locale === ${JSON.stringify(scope.locale)} && version === ${JSON.stringify(scope.version)}) index = ${platform === "web" ? `(await import("./docs-search/scope-${i}.ts")).default` : `scope${i}`};`,
     );
   }
   const module = site.config.root?.data;
@@ -34,8 +53,9 @@ export async function writeDataEntry(site: Site, app: string, pages: Map<string,
       path.join(app, `docs-content/body-${i}.ts`),
       `export default ${JSON.stringify(content)};\n`,
     );
+    if (platform !== "web") imports.push(`import body${i} from "./docs-content/body-${i}.ts";`);
     bodies.push(
-      `[${JSON.stringify(url)}, () => import("./docs-content/body-${i}.ts").then(module => module.default)]`,
+      `[${JSON.stringify(url)}, () => ${platform === "web" ? `import("./docs-content/body-${i}.ts").then(module => module.default)` : `Promise.resolve(body${i})`}]`,
     );
   }
   const user = module
@@ -48,6 +68,7 @@ const userKept: unknown = Reflect.get(user, "kept");`
     path.join(app, "app.ts"),
     `import type { Answer, Source, Args, Result } from "./app.contract.d.ts";
 ${user}
+${imports.join("\n")}
 type KeptArgs = {[S in Source]: [source:S,args:Args<S>,value:Result<S>]}[Source];
 const contentCache = new Map<string,Result<"docsReadPage">>();
 const contentLoads = new Map<string,()=>Promise<Result<"docsReadPage">>>([
@@ -61,10 +82,11 @@ export function kept(...args:KeptArgs) {
 function readPage(args: unknown[]) {
   const [path] = args;
   if(typeof path!=="string") throw new Error("Invalid documentation content arguments");
+  if(path === "") return {path,markdown:"",blocks:[],description:"",canonical:"",robots:"noindex,follow",seo:"",toc:[],locales:[],versions:[]};
   const cached = contentCache.get(path);
   if(cached) return cached;
   const load = contentLoads.get(path);
-  if(!load) return {path,markdown:"",blocks:[]};
+  if(!load) throw new Error("Unknown documentation page: " + path);
   return load().then(value => {contentCache.set(path,value);return value;});
 }
 async function search(args: unknown[]) {

@@ -6,7 +6,9 @@ const materials = new WeakMap<HTMLElement, () => void>();
 export function updateMaterial(node: HTMLElement | SVGElement, data: DOMStringMap) {
   if (
     !(node instanceof HTMLElement) ||
-    !["alert-dialog-lens", "alert-lens", "badge-lens"].includes(data["lensoKind"] ?? "") ||
+    !["alert-dialog-lens", "alert-lens", "badge-lens", "card-lens"].includes(
+      data["lensoKind"] ?? "",
+    ) ||
     materials.has(node)
   )
     return;

@@ -14,7 +14,6 @@ export function compileBodies(
     indices = new Map<string, number>();
   const pages = new Map<string, PageContent>();
   for (const doc of documents) {
-    if (doc.markdown === undefined) continue;
     const blocks = (doc.body ?? []).map((node, id): Block => {
       const strings: string[] = [],
         tokens: CodeToken[] = [];
@@ -40,7 +39,7 @@ export function compileBodies(
       }
       return { id, template, strings, tokens };
     });
-    pages.set(doc.path, { path: doc.path, markdown: doc.markdown, blocks });
+    pages.set(doc.path, { path: doc.path, markdown: doc.markdown ?? "", blocks });
   }
   function renderTemplates(start: number, end: number, depth: number): string {
     const indent = "  ".repeat(depth);
@@ -70,6 +69,13 @@ shape DocsContent
   path: string
   markdown: string
   blocks: DocsBlock[]
+  description: string
+  canonical: string
+  robots: string
+  seo: string
+  toc: DocsHeading[]
+  locales: DocsChoice[]
+  versions: DocsChoice[]
 
 fn docsString(values: string[], index: number): string = match values.at(index) { case some(value) => value, case none => "" }
 

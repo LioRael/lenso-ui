@@ -24,7 +24,11 @@
     "scripts/stage.ts",
     "README.md",
     "scripts/initial-css.ts",
-    "NOTICES.md"
+    "NOTICES.md",
+    "LAYOUT.md",
+    "SEMANTIC_GAPS.md",
+    "AVATAR.md",
+    "SWITCH.md"
   ],
   "type": "module",
   "exports": {

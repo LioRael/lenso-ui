@@ -15,7 +15,7 @@ locations. They participate in the compiler's existing multi-error reporting.
 
 | Diagnostic               | Statically rejected                                                                                                                                        |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `analyze-command-target` | Empty/multiple command target IDs, a missing literal target, or a target declared only in an incompatible `if`/`match` arm                                 |
+| `analyze-command-target` | Whitespace-only/multiple command target IDs, a missing literal target, or a target declared only in an incompatible `if`/`match` arm                       |
 | `analyze-command-kind`   | `show-modal`/`close` targeting a non-`dialog`, or popover commands targeting an element without `popover`                                                  |
 | `analyze-aria-reference` | An unresolved token in a literal `aria-labelledby`, `aria-describedby` or `aria-controls` list                                                             |
 | `analyze-dialog-name`    | Native `dialog`, `role="dialog"` or `role="alertdialog"` with no name source, a whitespace-only label, or a label reference whose text is statically empty |
@@ -23,8 +23,10 @@ locations. They participate in the compiler's existing multi-error reporting.
 Commands include `commandfor`/`command`, `popovertarget`, and literal first
 arguments of action calls to `showModal`, `close`, `showPopover`, `hidePopover`
 and `togglePopover`. `close()` without a target retains its window semantics.
-Custom/unknown command names receive identity checking, not invented target-kind
-rules. The checker does not execute actions, resources or application functions.
+An empty `commandfor` or `popovertarget` keeps Exact's native unbound/no-op
+behavior; it is not reported as a dangling reference. Whitespace-only and
+multiple-ID command targets are still rejected. Custom/unknown command names
+receive identity checking, not invented target-kind rules. The checker does not execute actions, resources or application functions.
 
 Forward references are allowed. Every ARIA list token is checked, not only the
 first. An empty `aria-describedby`/`aria-controls` list is allowed. Dialog body
@@ -62,6 +64,32 @@ The regression suite labels dynamic cases `runtime-obligation`, distinct from a
 verified static connection. The fixture's existing trigger removal, modal
 subtree removal and route disposal remain supported runtime tests.
 
+## Compatibility found by the full SDK suite
+
+Empty native invocation attributes remain unbound/no-op, matching Exact's
+existing admission tests. A nonempty missing target or incompatible target kind
+still fails. The regression suite now covers both paths explicitly.
+
+Existing role, warning and layout fixtures supply names and real referenced
+nodes so those tests continue exercising their original assertions. Native
+invocation examples declare a Dialog for modal commands and a popover for
+popover commands. The SDK's terminal harness, document reader, native fixture
+and orientation fixture also declare names; the reader connects dynamic visible
+titles with `aria-labelledby`.
+
+The separately invoked async checks also exposed two pre-existing input errors:
+the yielding guide snippet lacked its function arguments/local result, and a
+valid-provider fixture narrowed `CompressedImage.type` to JPEG although the
+existing declaration admits JPEG or PNG. The guide is now a self-contained
+generic async function; the provider fixture accepts the declared MIME union.
+The storage API and the negative provider assertions are unchanged. These
+validation-input fixes are included in the compiler patch for reproducibility;
+they do not change the relationship checker or runtime behavior.
+
+The complete suite requires the pinned tracked fonts, sounds, app design files,
+TypeScript inputs and editor grammar. Those original inputs were restored into
+the local archive; their contents are not compiler patch changes.
+
 ## Regressions
 
 `test:contracts` builds correct and incorrect imported/local compositions using
@@ -73,7 +101,7 @@ wrong command kinds, empty imported labels/headings and incompatible branches.
 
 The SDK integration tests in `contract/cli/tests/relationships.rs` also verify
 multiple independent diagnostics from one compilation. That focused target
-contains 64 tests, grouping the new graph cases with the existing alert/menu,
+contains 65 tests, grouping the new graph cases with the existing alert/menu,
 geometry and top-layer cases without duplicating them in the large test target. Existing compiler tests
 must provide valid names and targets when those are not the subject under test.
 No primitive-side source scanner or JavaScript runtime shim supplies these rules.
@@ -83,9 +111,24 @@ EXACT_ROOT=/absolute/path/to/patched-exact bun run test:contracts
 # From Exact, using its pinned toolchain:
 cargo test -p contract --test relationships --no-fail-fast
 cargo check -p contract -p contract-analyze --all-targets --keep-going
-cargo test -p contract --tests --no-fail-fast
+cargo test -p contract -p contract-analyze --tests --no-fail-fast
 cargo clippy -p contract -p contract-analyze --all-targets --keep-going -- -D warnings
 ```
+
+On a memory-constrained machine, the complete test scope can use invocation-local
+build settings without changing optimization level, assertions or test filters:
+
+```sh
+CARGO_INCREMENTAL=0 CARGO_PROFILE_TEST_DEBUG=0 CARGO_PROFILE_TEST_CODEGEN_UNITS=256 CARGO_BUILD_JOBS=1 \
+  cargo test -p contract -p contract-analyze --tests --no-fail-fast
+cargo run -p contract-difftest -- quick
+```
+
+The semantic differential check needs the pinned `semantics/lean-toolchain`
+and Git metadata identifying the real base and working changes. The local
+archive used a separate temporary Git directory backed by the pinned original
+objects, with absent archive files marked sparse; SDK source files were not
+rewritten to establish that comparison.
 
 Linux OS and AT-SPI validation remain unchanged and unverified by these compiler
 checks. No new Host fix is required for static diagnostics.

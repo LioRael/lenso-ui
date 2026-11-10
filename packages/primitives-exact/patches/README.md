@@ -103,7 +103,11 @@ The compiler regression command verifies the selected SDK checkpoint and then
 runs the actual compiler probes, not an agent/OS test. Native Dialog behavior
 still depends on the preceding Host fixes. The focused Rust target also groups
 existing alert/menu, geometry and top-layer tests without duplicating them in
-the large integration target.
+the large integration target. The patch also migrates existing relationship
+fixtures and names the affected SDK app dialogs. Full validation additionally
+corrects two pre-existing async input errors: the yielding guide example is
+self-contained, and a provider fixture accepts the existing JPEG/PNG result
+union. No storage API or negative type assertion is changed.
 
 ## Run and review
 

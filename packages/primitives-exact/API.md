@@ -11,7 +11,8 @@ It is still private; this is not a promise of compatibility with newer Exact.
 - `id` is a stable, unique mounted Host ID and agent `testId`. A `label` is a
   nonempty accessible name. `description` contains referenced element IDs,
   separated by spaces; it is not prose. `message` is visible text.
-- `target` names a native command target. Tab `panel` and panel `tab` name the
+- `target` names a native command target. Exact's explicitly empty native
+  invocation attributes retain their unbound/no-op behavior. Tab `panel` and panel `tab` name the
   reciprocal IDs; `value` is the application selection key, not a Host ID.
 - `change` receives the next value; `input` receives live edits; `press` is a
   zero-argument action. The app writes controlled values through its actions.
