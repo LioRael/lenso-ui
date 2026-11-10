@@ -606,6 +606,10 @@ endpoint jump. Keep source blur, refraction, tone and foreground light enabled.
 Standalone untinted iOS 27 materials interpolate fitted tone by control size
 (60–120 CSS pixels). SVG and GPU renderers share the dark luminance/chroma tables;
 the CSS fallback uses an approximate contrast/brightness/saturation chain.
+The dark SVG tone graph evaluates straight RGB on opaque backdrop input; blur
+coverage must not multiply through its arithmetic stages. The lens owns the
+finished material's clipping. Verify partially covered input as well as opaque
+color samples to catch black bands and cross-engine material differences.
 
 Untinted standalone iOS 27 glass paints its fitted directional rim above the
 preference wash, with a 1px outside hairline. Inner depth must survive maximum

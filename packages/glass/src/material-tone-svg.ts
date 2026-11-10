@@ -44,6 +44,13 @@ export function appendMaterialTone(
     linear("material-face", tone.clarity);
     return;
   }
+  // This is a backdrop material, clipped by its lens rather than input alpha.
+  // Blur can leave partial coverage at the sampling boundary; multiplying that
+  // alpha through the fitted RGB arithmetic produces opaque black bands.
+  const opaque = node("feComponentTransfer", { in: source, result: "tone-input" });
+  opaque.append(node("feFuncA", { type: "linear", slope: 0, intercept: 1 }));
+  filter.append(opaque);
+  source = "tone-input";
   const tables = toneTables(tone.size),
     range = 1.3;
   const [r, g, b] = [0.2126, 0.7152, 0.0722];

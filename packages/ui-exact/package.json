@@ -1,0 +1,40 @@
+{
+  "name": "@lenso/ui-exact",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lenso Contract components and Web materials for Exact.",
+  "license": "(MIT AND LGPL-2.0-or-later)",
+  "files": [
+    "index.contract",
+    "dist",
+    "scripts/stage.ts",
+    "README.md"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./index.contract",
+    "./web": {
+      "types": "./dist/web.d.ts",
+      "import": "./dist/browser.js"
+    },
+    "./stage": "./scripts/stage.ts",
+    "./styles.css": "./dist/web.css"
+  },
+  "scripts": {
+    "build": "bun scripts/build.ts",
+    "typecheck": "bun check --no-script -p tsconfig.json",
+    "test:browser": "bun test/browser.mjs"
+  },
+  "dependencies": {
+    "@lenso/glass": "workspace:*",
+    "@lenso/tokens": "workspace:*",
+    "@stylexjs/stylex": "catalog:"
+  },
+  "devDependencies": {
+    "@stylexjs/unplugin": "catalog:",
+    "@types/bun": "^1.4.4",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

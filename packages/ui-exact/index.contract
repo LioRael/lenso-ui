@@ -1,0 +1,48 @@
+component Theme
+  props
+    appearance: string
+  slot
+  view
+    column data-theme=appearance
+      children
+
+component Backdrop
+  slot
+  view
+    column data-lenso-backdrop=""
+      children
+
+component Button
+  props
+    label: string
+    press: action
+    disabled: bool
+    size: string
+    variant: string
+    testId: string
+  view
+    button press=press disabled=disabled testId=testId hatch="lenso-ui"
+      data-lenso-kind="button" data-lenso-size=size data-lenso-variant=variant
+      text label
+
+component Glass
+  props
+    testId: string
+  slot
+  view
+    column testId=testId hatch="lenso-ui" data-lenso-kind="glass" padding=16 border-radius=24
+      children
+
+component GlassButton
+  props
+    label: string
+    press: action
+    disabled: bool
+    size: string
+    variant: string
+    testId: string
+  view
+    button press=press disabled=disabled testId=testId hatch="lenso-ui"
+      data-lenso-kind="glass-button" data-lenso-size=size data-lenso-variant=variant
+      data-lenso-disabled=disabled
+      text label

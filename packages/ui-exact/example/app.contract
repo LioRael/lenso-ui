@@ -1,0 +1,42 @@
+use Theme, Button, Backdrop, Glass, GlassButton from "@lenso/ui-exact"
+
+component App
+  state count = 0
+  state disabled = false
+  state visible = true
+  state appearance = "light"
+  state size = "md"
+  action increment
+    count = count + 1
+  action toggleDisabled
+    disabled = not disabled
+  action toggleVisible
+    visible = not visible
+  action toggleTheme
+    appearance = appearance == "light" ? "dark" : "light"
+  action toggleSize
+    size = size == "md" ? "lg" : "md"
+  view
+    Theme(appearance=appearance)
+      column padding=24 gap=20 max-width="42.5rem" margin="0 auto"
+        text "Lenso for Exact" role="heading" aria-level=1
+        text "Shared Lenso materials, Exact state and native button semantics."
+        text `Count: ${count}` testId="count"
+        row gap=8 flex-wrap="wrap"
+          Button(label="Count", press=increment, disabled=false, size="md", variant="prominent", testId="action")
+          Button(label="Disable glass", press=toggleDisabled, disabled=false, size="md", variant="bordered", testId="disable")
+          Button(label="Toggle surfaces", press=toggleVisible, disabled=false, size="md", variant="bordered", testId="visibility")
+          Button(label="Toggle size", press=toggleSize, disabled=false, size="md", variant="borderless", testId="size")
+          Button(label="Toggle theme", press=toggleTheme, disabled=false, size="md", variant="borderless", testId="theme")
+        column position="relative" height=320
+          Backdrop()
+            box height=110 background-color="-exact-system-blue"
+            box height=110 background-color="-exact-system-green"
+            box height=100 background-color="-exact-system-orange"
+          if visible
+            column position="absolute" left=16 right=16 top=24
+              Glass(testId="glass-panel")
+                text "A floating material surface"
+                text "The content stays owned by its caller."
+            column position="absolute" left=24 top=200
+              GlassButton(label=`Add ${count}`, press=increment, disabled=disabled, size=size, variant="default", testId="glass-action")

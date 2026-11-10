@@ -297,6 +297,22 @@
         "react-dom": ">=19.2.0 <20.0.0",
       },
     },
+    "packages/ui-exact": {
+      "name": "@lenso/ui-exact",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lenso/glass": "workspace:*",
+        "@lenso/tokens": "workspace:*",
+        "@stylexjs/stylex": "catalog:",
+      },
+      "devDependencies": {
+        "@stylexjs/unplugin": "catalog:",
+        "@types/bun": "^1.4.4",
+        "@types/node": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:",
+      },
+    },
     "packages/ui-native": {
       "name": "@lenso/ui-native",
       "version": "0.1.0",
@@ -737,6 +753,8 @@
     "@lenso/ui-devtools": ["@lenso/ui-devtools@workspace:packages/devtools"],
 
     "@lenso/ui-docs": ["@lenso/ui-docs@workspace:apps/docs"],
+
+    "@lenso/ui-exact": ["@lenso/ui-exact@workspace:packages/ui-exact"],
 
     "@lenso/ui-native": ["@lenso/ui-native@workspace:packages/ui-native"],
 

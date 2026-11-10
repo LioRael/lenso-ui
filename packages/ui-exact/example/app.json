@@ -1,0 +1,9 @@
+{
+  "name": "Lenso Exact components",
+  "start_url": "/",
+  "display": "standalone",
+  "app": { "id": "dev.lenso.exactcomponents", "name": "Lenso Exact components" },
+  "host": { "web": {} },
+  "hatches": { "lenso-ui": ["web"] },
+  "data": ["theme", "lenso-backdrop", "lenso-kind", "lenso-size", "lenso-variant", "lenso-disabled"]
+}
