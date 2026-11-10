@@ -1,26 +1,26 @@
 # 300-page Astro comparison
 
-Measured 2026-11-10T20:04:15.254Z. Astro 7.4.8, Bun 1.4.4, Chromium 156.0.8078.4.
+Measured 2026-11-10T20:25:33.102Z. Astro 7.4.8, Bun 1.4.4, Chromium 156.0.8078.4.
 
 Same 300 authored URLs: English/Chinese × v2/v1 × 75 topics, 24 paragraphs and one code block per page. Both render the same document IR and build-time syntax tokens. Both expose grouped scope navigation, language/version links, TOC, pagination, descriptions, raw-source actions, lazily imported per-scope substring search and a counter. Exact uses its normal page-data compiler plus a fixture-only root counter/layout; Astro uses semantic HTML, a small vanilla client script, and optionally its official ClientRouter with a persisted counter element. Neither product styling nor Exact's default theme is changed.
 
-Values are medians of 1 fresh-context runs: gzip delivery from the same Bun static server, cache disabled, 80 ms latency, 200,000 download bytes/second and 4× CPU slowdown. Animations are disabled/reduced; link prefetch is explicitly disabled. No reading delay or idle application warmup is inserted. Search/counter trials start separately in fresh contexts. Render timing comes from observed DOM changes and two animation frames, reported through a binding that survives full-page navigation; it excludes locator-polling overshoot. Destination body readiness does not measure theme layout or viewport-specific meaningful paint.
+Values are medians of 3 fresh-context runs: gzip delivery from the same Bun static server, cache disabled, 80 ms latency, 200,000 download bytes/second and 4× CPU slowdown. Animations are disabled/reduced; link prefetch is explicitly disabled. No reading delay or idle application warmup is inserted. Search/counter trials start separately in fresh contexts. Render timing comes from observed DOM changes and two animation frames, reported through a binding that survives full-page navigation; it excludes locator-polling overshoot. Destination body readiness does not measure theme layout or viewport-specific meaningful paint.
 
-| Metric | Exact Docs | Astro static navigation | Astro ClientRouter |
-| --- | ---: | ---: | ---: |
-| First contentful paint (ms) | 436 | 224 | 176 |
-| Transfer before interaction (bytes) | 11239 | 4843 | 10723 |
-| First search rendered (ms) | 1195.3 | 275.3 | 259.6 |
-| Additional first-search transfer (bytes) | 172832 | 27963 | 27963 |
-| Script during first search (ms) | 67.8 | 2.5 | 5.2 |
-| Repeat search rendered (ms) | 33.4 | 46.5 | 32.3 |
-| Additional repeat-search transfer (bytes) | 0 | 0 | 0 |
-| First counter interaction (ms) | 1055.2 | 89.9 | 71.6 |
-| Additional first-counter transfer (bytes) | 144869 | 0 | 0 |
-| Cold destination body ready (ms) | 167.8 | 177.5 | 225.3 |
-| Additional cold-navigation transfer (bytes) | 1473 | 4874 | 3208 |
-| Back body ready (ms) | 49 | 142.8 | 160.6 |
-| Additional Back transfer (bytes) | 0 | 4843 | 3177 |
+| Metric                                      | Exact Docs | Astro static navigation | Astro ClientRouter |
+| ------------------------------------------- | ---------: | ----------------------: | -----------------: |
+| First contentful paint (ms)                 |        264 |                     244 |                220 |
+| Transfer before interaction (bytes)         |      11239 |                    4843 |              10723 |
+| First search rendered (ms)                  |     1249.5 |                   253.6 |              254.7 |
+| Additional first-search transfer (bytes)    |     172832 |                   27963 |              27963 |
+| Script during first search (ms)             |       89.9 |                     2.6 |                  4 |
+| Repeat search rendered (ms)                 |       44.5 |                      46 |               41.7 |
+| Additional repeat-search transfer (bytes)   |          0 |                       0 |                  0 |
+| First counter interaction (ms)              |       1040 |                    93.4 |               94.6 |
+| Additional first-counter transfer (bytes)   |     144869 |                       0 |                  0 |
+| Cold destination body ready (ms)            |      220.4 |                   161.1 |              248.7 |
+| Additional cold-navigation transfer (bytes) |       1473 |                    4874 |               3208 |
+| Back body ready (ms)                        |       59.6 |                   138.3 |              175.8 |
+| Additional Back transfer (bytes)            |          0 |                    4843 |               3177 |
 
 ## State and functional checks
 
