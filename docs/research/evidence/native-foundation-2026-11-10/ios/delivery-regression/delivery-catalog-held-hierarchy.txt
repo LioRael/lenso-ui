@@ -1,0 +1,180 @@
+Attributes: Application, 0x116268000, pid: 73264, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x116268000, pid: 73264, label: 'Lenso Native'
+    Window (Main), 0x116268140, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x116268280, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1162683c0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x116269b80, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x116269cc0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x116269e00, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x116269f40, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11626a080, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11626a1c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11626a300, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x11626a440, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x11626a580, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11626a6c0, {{0.0, 62.0}, {402.0, 778.0}}
+                            ScrollView, 0x11626a800, {{0.0, 62.0}, {402.0, 778.0}}
+                              Other, 0x11626a940, {{0.0, -1310.0}, {402.0, 2588.0}}
+                                Other, 0x11626aa80, {{0.0, -1310.0}, {402.0, 2588.0}}
+                                  Other, 0x11626abc0, {{0.0, -1294.0}, {402.0, 2508.0}}
+                                  Other, 0x11626ad00, {{24.0, -1270.0}, {128.0, 44.0}}
+                                    Button, 0x11626ae40, {{24.0, -1270.0}, {128.0, 44.0}}, label: 'Back to Glass'
+                                      StaticText, 0x11626af80, {{36.0, -1258.3}, {103.7, 20.3}}, label: 'Back to Glass'
+                                  Other, 0x11626b0c0, {{160.0, -1270.0}, {187.0, 44.0}}
+                                    Button, 0x11626b200, {{160.0, -1270.0}, {187.0, 44.0}}, label: 'Use dark appearance'
+                                      StaticText, 0x11626b340, {{172.0, -1258.3}, {162.3, 20.3}}, label: 'Use dark appearance'
+                                  Other, 0x11626b480, {{24.0, -1218.0}, {118.0, 44.0}}
+                                    Button, 0x11626b5c0, {{24.0, -1218.0}, {118.0, 44.0}}, label: 'Allow values'
+                                      StaticText, 0x11626b700, {{36.0, -1206.3}, {93.7, 20.3}}, label: 'Allow values'
+                                  StaticText, 0x11626b840, {{24.0, -1154.0}, {354.0, 40.7}}, label: 'Native controls'
+                                    StaticText, 0x11626b980, {{24.0, -1154.0}, {354.0, 40.7}}, label: 'Native controls'
+                                  StaticText, 0x11626bac0, {{24.0, -1093.3}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                    StaticText, 0x11626bc00, {{24.0, -1093.3}, {354.0, 40.7}}, label: 'Form fields, choices and actions with platform-owned input.'
+                                  StaticText, 0x11626bd40, {{24.0, -1032.7}, {354.0, 18.0}}, label: 'Owner values: held'
+                                    StaticText, 0x11626be80, {{24.0, -1032.7}, {354.0, 18.0}}, label: 'Owner values: held'
+                                  Other, 0x11518fc00, {{24.0, -994.7}, {354.0, 254.3}}, identifier: 'actions-card'
+                                  StaticText, 0x114d0f200, {{44.0, -974.7}, {314.0, 20.3}}, label: 'Actions'
+                                    StaticText, 0x114d0f340, {{44.0, -974.7}, {314.0, 20.3}}, label: 'Actions'
+                                  Other, 0x114d0f480, {{44.0, -942.3}, {126.0, 44.0}}
+                                    Button, 0x114d0f5c0, {{44.0, -942.3}, {126.0, 44.0}}, label: 'Save settings'
+                                      StaticText, 0x114d0f700, {{56.0, -930.7}, {102.0, 20.3}}, label: 'Save settings'
+                                  Other, 0x114d0f840, {{178.0, -942.3}, {142.0, 44.0}}
+                                    Button, 0x114d0f980, {{178.0, -942.3}, {142.0, 44.0}}, label: 'Disabled action', Disabled
+                                      StaticText, 0x114d0fac0, {{190.0, -930.7}, {117.7, 20.3}}, label: 'Disabled action'
+                                  Other, 0x114d0fc00, {{44.0, -890.3}, {136.0, 44.0}}
+                                    Button, 0x1153970c0, {{44.0, -890.3}, {136.0, 44.0}}, label: 'Loading action'
+                                      StaticText, 0x115396d00, {{56.0, -878.7}, {112.0, 20.3}}, label: 'Loading action'
+                                  Other, 0x115396e40, {{44.0, -834.3}, {122.0, 44.0}}
+                                    Button, 0x115396f80, {{44.0, -834.3}, {122.0, 44.0}}, label: 'Start loading'
+                                      StaticText, 0x114d0b840, {{56.3, -822.7}, {97.3, 20.3}}, label: 'Start loading'
+                                  StaticText, 0x114d0b980, {{44.0, -778.3}, {314.0, 18.0}}, label: 'Actions 0'
+                                    StaticText, 0x114d0bac0, {{44.0, -778.3}, {314.0, 18.0}}, label: 'Actions 0'
+                                  Other, 0x114d0bc00, {{24.0, -720.3}, {354.0, 737.7}}, identifier: 'fields-card'
+                                  StaticText, 0x114d0b0c0, {{44.0, -700.3}, {314.0, 20.3}}, label: 'Profile'
+                                    StaticText, 0x114d0bd40, {{44.0, -700.3}, {314.0, 20.3}}, label: 'Profile'
+                                  Other, 0x114d0a800, {{44.0, -668.0}, {117.0, 44.0}}
+                                    Button, 0x114d0a940, {{44.0, -668.0}, {117.0, 44.0}}, label: 'Focus name'
+                                      StaticText, 0x114d0aa80, {{56.0, -656.3}, {92.7, 20.3}}, label: 'Focus name'
+                                  StaticText, 0x114d0abc0, {{44.0, -612.0}, {314.0, 18.0}}, label: 'Name'
+                                    StaticText, 0x114d0ad00, {{44.0, -612.0}, {314.0, 18.0}}, label: 'Name'
+                                  Other, 0x114d0ae40, {{44.0, -588.0}, {314.0, 44.0}}
+                                    TextField, 0x114d0af80, {{45.0, -587.0}, {312.0, 42.0}}, label: 'Name', value: Ada
+                                  StaticText, 0x1160475c0, {{44.0, -538.0}, {314.0, 15.7}}, label: 'Your display name'
+                                    StaticText, 0x116047d40, {{44.0, -538.0}, {314.0, 15.7}}, label: 'Your display name'
+                                  Other, 0x116046300, {{44.0, -510.3}, {314.0, 100.0}}
+                                    TextView, 0x116047340, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Notes', value: Bring notes
+                                      Other, 0x116047480, {{325.0, -510.3}, {30.0, 87.7}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x1162f0000, {{352.0, -428.3}, {3.0, 15.0}}
+                                      Other, 0x1162f0140, {{56.3, -443.3}, {289.3, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                        Other, 0x1162f0280, {{47.0, -416.3}, {308.0, 3.0}}
+                                  Other, 0x1162f03c0, {{44.0, -398.3}, {314.0, 44.0}}
+                                    SearchField, 0x1162f0500, {{44.0, -398.3}, {314.0, 44.0}}, label: 'Search notes', placeholderValue: 'Search notes'
+                                  StaticText, 0x1162f0640, {{44.0, -342.3}, {314.0, 18.0}}, label: 'Read only'
+                                    StaticText, 0x1162f0780, {{44.0, -342.3}, {314.0, 18.0}}, label: 'Read only'
+                                  Other, 0x1162f08c0, {{44.0, -318.3}, {314.0, 44.0}}
+                                    TextField, 0x1162f0a00, {{44.0, -318.3}, {314.0, 44.0}}, label: 'Read only', value: Reference, Disabled
+                                  StaticText, 0x1162f0b40, {{44.0, -262.3}, {314.0, 18.0}}, label: 'Disabled field'
+                                    StaticText, 0x1162f0c80, {{44.0, -262.3}, {314.0, 18.0}}, label: 'Disabled field'
+                                  Other, 0x1162f0dc0, {{44.0, -238.3}, {314.0, 44.0}}
+                                    TextField, 0x1162f0f00, {{44.0, -238.3}, {314.0, 44.0}}, label: 'Disabled field', value: Unavailable, Disabled
+                                  StaticText, 0x1162f1040, {{44.0, -182.3}, {314.0, 18.0}}, label: 'Validation example'
+                                    StaticText, 0x1162f1180, {{44.0, -182.3}, {314.0, 18.0}}, label: 'Validation example'
+                                  Other, 0x1162f12c0, {{44.0, -158.3}, {314.0, 44.0}}
+                                    TextField, 0x1162f1400, {{45.0, -157.3}, {312.0, 42.0}}, label: 'Validation example', placeholderValue: 'Required'
+                                  StaticText, 0x1162f1540, {{44.0, -108.3}, {314.0, 15.7}}, label: 'Enter a value'
+                                    StaticText, 0x1162f1680, {{44.0, -108.3}, {314.0, 15.7}}, label: 'Enter a value'
+                                  StaticText, 0x1162f17c0, {{44.0, -80.7}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                    StaticText, 0x1162f1900, {{44.0, -80.7}, {314.0, 18.0}}, label: 'Name value: Ada'
+                                  StaticText, 0x1162f1a40, {{44.0, -50.7}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                    StaticText, 0x1162f1b80, {{44.0, -50.7}, {314.0, 18.0}}, label: 'Notes value: Bring notes'
+                                  StaticText, 0x1162f1cc0, {{44.0, -20.7}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                    StaticText, 0x1162f1e00, {{44.0, -20.7}, {314.0, 18.0}}, label: 'Search submitted: none'
+                                  Other, 0x1162f1f40, {{24.0, 37.3}, {354.0, 527.3}}, identifier: 'choices-card'
+                                  StaticText, 0x1162f2080, {{44.0, 57.3}, {314.0, 20.3}}, label: 'Choices'
+                                    StaticText, 0x1162f21c0, {{44.0, 57.3}, {314.0, 20.3}}, label: 'Choices'
+                                  Other, 0x1162f2300, {{44.0, 89.7}, {138.0, 44.0}}
+                                    Button, 0x1162f2440, {{44.0, 89.7}, {138.0, 44.0}}, label: 'Disable groups'
+                                      StaticText, 0x1162f2580, {{56.0, 101.3}, {114.0, 20.3}}, label: 'Disable groups'
+                                  StaticText, 0x1162f26c0, {{44.0, 145.7}, {314.0, 18.0}}, label: 'Delivery'
+                                    StaticText, 0x1162f2800, {{44.0, 145.7}, {314.0, 18.0}}, label: 'Delivery'
+                                  Other, 0x1162f2940, {{44.0, 171.7}, {148.0, 44.0}}
+                                    Button, 0x1162f2a80, {{44.0, 171.7}, {148.0, 44.0}}, label: 'Email updates', Selected
+                                      StaticText, 0x1162f2bc0, {{81.0, 183.3}, {107.0, 20.3}}, label: 'Email updates'
+                                  Other, 0x1162f2d00, {{44.0, 219.7}, {146.0, 44.0}}
+                                    Button, 0x1162f2e40, {{44.0, 219.7}, {146.0, 44.0}}, label: 'Push updates', Selected
+                                      StaticText, 0x1162f2f80, {{81.3, 231.3}, {104.3, 20.3}}, label: 'Push updates'
+                                  StaticText, 0x1162f30c0, {{44.0, 271.7}, {314.0, 18.0}}, label: 'Delivery email,push'
+                                    StaticText, 0x1162f3200, {{44.0, 271.7}, {314.0, 18.0}}, label: 'Delivery email,push'
+                                  Other, 0x1162f3340, {{44.0, 301.7}, {314.0, 1.0}}
+                                  StaticText, 0x1162f3480, {{44.0, 314.7}, {314.0, 18.0}}, label: 'Plan'
+                                    StaticText, 0x1162f35c0, {{44.0, 314.7}, {314.0, 18.0}}, label: 'Plan'
+                                  Other, 0x1162f3700, {{44.0, 340.7}, {144.0, 44.0}}
+                                    Button, 0x1162f3840, {{44.0, 340.7}, {144.0, 44.0}}, label: 'Personal plan'
+                                      StaticText, 0x1162f3980, {{81.7, 352.3}, {102.3, 20.3}}, label: 'Personal plan'
+                                  Other, 0x1162f3ac0, {{44.0, 388.7}, {147.0, 44.0}}
+                                    Button, 0x1162f3c00, {{44.0, 388.7}, {147.0, 44.0}}, label: 'Business plan', Selected
+                                      StaticText, 0x1162f3d40, {{81.7, 400.3}, {104.7, 20.3}}, label: 'Business plan'
+                                  StaticText, 0x1162f3e80, {{44.0, 440.7}, {314.0, 18.0}}, label: 'Plan business'
+                                    StaticText, 0x116300000, {{44.0, 440.7}, {314.0, 18.0}}, label: 'Plan business'
+                                  Other, 0x116300140, {{44.0, 470.7}, {43.0, 44.0}}
+                                    Button, 0x116300280, {{44.0, 470.7}, {43.0, 44.0}}, label: 'Bold', Selected
+                                      StaticText, 0x1163003c0, {{48.0, 482.3}, {34.3, 20.3}}, label: 'Bold'
+                                  Other, 0x116300500, {{91.0, 470.7}, {44.0, 44.0}}
+                                    Button, 0x116300640, {{91.0, 470.7}, {44.0, 44.0}}, label: 'Italic', Selected
+                                      StaticText, 0x116300780, {{95.0, 482.3}, {35.7, 20.3}}, label: 'Italic'
+                                  StaticText, 0x1163008c0, {{44.0, 526.7}, {314.0, 18.0}}, label: 'Format bold,italic'
+                                    StaticText, 0x116300a00, {{44.0, 526.7}, {314.0, 18.0}}, label: 'Format bold,italic'
+                                  Other, 0x116300b40, {{24.0, 584.7}, {354.0, 232.3}}, identifier: 'system-controls-card'
+                                  StaticText, 0x116300c80, {{44.0, 604.7}, {314.0, 20.3}}, label: 'System controls'
+                                    StaticText, 0x116300dc0, {{44.0, 604.7}, {314.0, 20.3}}, label: 'System controls'
+                                  Other, 0x116300f00, {{44.0, 637.0}, {314.0, 44.0}}, label: 'Audience'
+                                    SegmentedControl, 0x116301040, {{44.0, 637.0}, {314.0, 44.0}}, label: 'Audience'
+                                      Button, 0x116301180, {{44.0, 637.0}, {104.0, 44.0}}, label: 'Personal'
+                                      Button, 0x1163012c0, {{148.0, 637.0}, {105.0, 44.0}}, label: 'Business', Selected
+                                      Button, 0x116301400, {{253.0, 637.0}, {105.0, 44.0}}, label: 'Unavailable', Disabled
+                                  StaticText, 0x116301540, {{44.0, 693.0}, {314.0, 18.0}}, label: 'Audience business'
+                                    StaticText, 0x116301680, {{44.0, 693.0}, {314.0, 18.0}}, label: 'Audience business'
+                                  Other, 0x1163017c0, {{44.0, 723.0}, {94.0, 44.0}}, label: 'Guests'
+                                    Stepper, 0x116301900, {{44.0, 723.0}, {94.0, 32.0}}, label: 'Guests'
+                                      Button, 0x116301a40, {{44.0, 723.0}, {47.0, 32.0}}, identifier: 'Decrement', label: 'Guests, Decrement'
+                                      Button, 0x116301b80, {{91.0, 723.0}, {47.0, 32.0}}, identifier: 'Increment', label: 'Guests, Increment'
+                                  StaticText, 0x116301cc0, {{44.0, 779.0}, {314.0, 18.0}}, label: 'Guests 3'
+                                    StaticText, 0x116301e00, {{44.0, 779.0}, {314.0, 18.0}}, label: 'Guests 3'
+                                  Other, 0x116301f40, {{24.0, 837.0}, {354.0, 353.0}}
+                                  StaticText, 0x116302080, {{44.0, 857.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                    StaticText, 0x1163021c0, {{44.0, 857.0}, {314.0, 20.3}}, label: 'Content and feedback'
+                                  StaticText, 0x116302300, {{44.0, 889.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                    StaticText, 0x116302440, {{44.0, 889.3}, {314.0, 20.3}}, label: 'Caller StyleX color'
+                                  Other, 0x116302580, {{44.0, 921.7}, {72.0, 21.7}}
+                                  StaticText, 0x1163026c0, {{52.0, 924.7}, {56.0, 15.7}}, label: '3 unread'
+                                    StaticText, 0x116302800, {{52.0, 924.7}, {56.0, 15.7}}, label: '3 unread'
+                                  Other, 0x116302940, {{44.0, 955.3}, {314.0, 76.3}}
+                                  StaticText, 0x116302a80, {{60.0, 971.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                    StaticText, 0x116302bc0, {{60.0, 971.3}, {282.0, 20.3}}, label: 'Saved locally'
+                                  StaticText, 0x116302d00, {{60.0, 997.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                    StaticText, 0x116302e40, {{60.0, 997.7}, {282.0, 18.0}}, label: 'This example keeps its state in memory.'
+                                  StaticText, 0x116302f80, {{137.3, 1067.7}, {127.0, 20.3}}, label: 'No attachments'
+                                    StaticText, 0x1163030c0, {{137.3, 1067.7}, {127.0, 20.3}}, label: 'No attachments'
+                                  StaticText, 0x116303200, {{69.0, 1096.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                    StaticText, 0x116303340, {{69.0, 1096.0}, {263.7, 18.0}}, label: 'Add an attachment in your application.'
+                                  Other, 0x116303480, {{44.0, 1150.0}, {20.0, 20.0}}, label: 'Loading'
+                                    ActivityIndicator, 0x1163035c0, {{44.0, 1150.0}, {20.0, 20.0}}, label: 'In progress', value: 1
+                              Other, 0x116303700, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 76%
+                                Other, 0x116303840, {{396.0, 459.3}, {3.0, 223.7}}
+                              Other, 0x116303980, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x116303ac0, {{31.0, 834.0}, {340.0, 3.0}}
+                              Other, 0x116303c00, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 4 pages', value: 76%
+                                Other, 0x116303d40, {{396.0, 459.3}, {3.0, 223.7}}
+                              Other, 0x116303e80, {{28.0, 807.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                                Other, 0x11630c000, {{31.0, 834.0}, {340.0, 3.0}}
+                  Other, 0x11630c140, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11630c280, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11630c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x116268000, pid: 73264, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x11630c500, pid: 73264, label: 'Lenso Native'
+  }

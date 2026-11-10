@@ -1,0 +1,107 @@
+[
+  {
+    "case": "ordinary button invokes once",
+    "passed": true
+  },
+  {
+    "case": "disabled button blocks callback",
+    "passed": true
+  },
+  {
+    "case": "loading blocks callback and retains label",
+    "passed": true
+  },
+  {
+    "case": "native single-line editing accepted",
+    "passed": true
+  },
+  {
+    "case": "native multiline editing accepted",
+    "passed": true
+  },
+  {
+    "case": "native search submission",
+    "passed": true
+  },
+  {
+    "case": "read-only field rejects edits",
+    "passed": true
+  },
+  {
+    "case": "disabled field rejects edits",
+    "passed": true
+  },
+  {
+    "case": "checkbox group accepts a value",
+    "passed": true
+  },
+  {
+    "case": "radio group accepts a value",
+    "passed": true
+  },
+  {
+    "case": "toggle group accepts a value and native checked state",
+    "passed": true
+  },
+  {
+    "case": "controlled native text rejects proposal",
+    "passed": true,
+    "ownerValue": "AdaXZZ"
+  },
+  {
+    "case": "controlled checkbox rejects proposal",
+    "passed": true
+  },
+  {
+    "case": "controlled radio rejects proposal",
+    "passed": true
+  },
+  {
+    "case": "controlled toggle rejects proposal",
+    "passed": true
+  },
+  {
+    "case": "controlled segmented choice rejects proposal",
+    "passed": true
+  },
+  {
+    "case": "controlled stepper rejects proposal",
+    "passed": true
+  },
+  {
+    "case": "segmented choice accepts proposal",
+    "passed": true
+  },
+  {
+    "case": "disabled segment cannot select",
+    "passed": true
+  },
+  {
+    "case": "stepper accepts maximum and disables increment",
+    "passed": true
+  },
+  {
+    "case": "stepper accepts minimum and disables decrement",
+    "passed": true
+  },
+  {
+    "case": "parent disabled dominates explicit child false",
+    "passed": true
+  },
+  {
+    "case": "dark native fields rendered",
+    "passed": true
+  },
+  {
+    "case": "dark system controls rendered",
+    "passed": true
+  },
+  {
+    "case": "caller StyleX and feedback rendered",
+    "passed": true
+  },
+  {
+    "case": "return to original Glass fixture",
+    "passed": true
+  }
+]

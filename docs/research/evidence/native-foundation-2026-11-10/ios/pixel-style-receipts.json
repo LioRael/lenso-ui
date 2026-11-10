@@ -1,0 +1,23 @@
+[
+  {
+    "capture": "output/native-catalog-2026-11-10/ios/partial-final6/catalog-forwarded-ref-focus.png",
+    "observed_AX_frame": [45.0, 219.3, 312.0, 42.0],
+    "expected_RGB": [0, 136, 255],
+    "exact_pixel_count": 512,
+    "passes": true
+  },
+  {
+    "capture": "output/native-catalog-2026-11-10/ios/remaining-final/catalog-caller-stylex-light.png",
+    "observed_AX_frame": [44.0, 451.3, 314.0, 20.3],
+    "expected_RGB": [179, 75, 0],
+    "exact_pixel_count": 3084,
+    "passes": true
+  },
+  {
+    "capture": "output/native-catalog-2026-11-10/ios/remaining-final/catalog-dark-feedback.png",
+    "observed_AX_frame": [44.0, 451.3, 314.0, 20.3],
+    "expected_RGB": [179, 75, 0],
+    "exact_pixel_count": 3084,
+    "passes": true
+  }
+]

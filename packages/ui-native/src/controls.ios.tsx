@@ -1,10 +1,11 @@
 import { requireNativeView } from "expo";
-import { useState, type ComponentType } from "react";
+import { type ComponentType } from "react";
 import type { ColorValue, NativeSyntheticEvent, ViewProps } from "react-native";
 import { NativeStyle } from "./styles";
 import { useLensoAppearance } from "./provider";
 import { useValue } from "./use-value";
 import { sliderValue } from "./value";
+import { useNativeSize as useSize } from "./native-size.ios";
 import type { GlassButtonProps, SliderProps, SwitchProps } from "./types";
 
 type Size = { width: number; height: number };
@@ -41,13 +42,6 @@ const NativeSlider: ComponentType<NativeControlProps<number>> = requireNativeVie
   "SliderView",
 );
 
-function useSize(initial: Size, fill = false) {
-  const [size, setSize] = useState(initial);
-  return {
-    style: fill ? { height: Math.max(44, size.height), alignSelf: "stretch" as const } : size,
-    onSize: (event: NativeSyntheticEvent<Size>) => setSize(event.nativeEvent),
-  };
-}
 export function GlassButton({
   sourceID: _sourceID,
   children,

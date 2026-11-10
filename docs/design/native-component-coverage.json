@@ -1,0 +1,1194 @@
+{
+  "objective": "\u5c3d\u53ef\u80fd\u628a\u5168\u5957\u7ec4\u4ef6\u90fd\u505a\u597d native \u7248\u672c",
+  "baseline": "All exported Web component families; aliases/static facades do not establish parity.",
+  "families": [
+    {
+      "family": "accordion",
+      "webSource": "packages/ui/src/components/accordion/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "alert-dialog",
+      "webSource": "packages/ui/src/components/alert-dialog/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "alert",
+      "webSource": "packages/ui/src/components/alert/index.ts",
+      "nativeExports": ["Alert"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Native alert container; tone/actions and announcement acceptance remain open"
+    },
+    {
+      "family": "autocomplete",
+      "webSource": "packages/ui/src/components/autocomplete/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "avatar",
+      "webSource": "packages/ui/src/components/avatar/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "avatar-group",
+      "webSource": "packages/ui/src/components/avatar-group/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "badge",
+      "webSource": "packages/ui/src/components/badge/index.ts",
+      "nativeExports": ["Badge"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Static text/count; full variants remain open"
+    },
+    {
+      "family": "breadcrumbs",
+      "webSource": "packages/ui/src/components/breadcrumbs/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "button",
+      "webSource": "packages/ui/src/components/button/index.ts",
+      "nativeExports": ["Button"],
+      "implementation": "packages/ui-native/src/button.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Platform state/interaction verification pending; icon/ref API parity remains open"
+    },
+    {
+      "family": "button-group",
+      "webSource": "packages/ui/src/components/button-group/index.ts",
+      "nativeExports": ["ButtonGroup"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Layout only; shared size/disabled/variant contracts remain open"
+    },
+    {
+      "family": "calendar",
+      "webSource": "packages/ui/src/components/calendar/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "calendar-year-picker",
+      "webSource": "packages/ui/src/components/calendar-year-picker/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "card",
+      "webSource": "packages/ui/src/components/card/index.ts",
+      "nativeExports": ["Card"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Root/Header/Body/Footer/Title/Description; action/variant coverage remains open"
+    },
+    {
+      "family": "checkbox",
+      "webSource": "packages/ui/src/components/checkbox/index.ts",
+      "nativeExports": ["Checkbox"],
+      "implementation": "packages/ui-native/src/selection.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Binary only; indeterminate, form association and accessibility parity remain open"
+    },
+    {
+      "family": "checkbox-group",
+      "webSource": "packages/ui/src/components/checkbox-group/index.ts",
+      "nativeExports": ["CheckboxGroup"],
+      "implementation": "packages/ui-native/src/selection.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Controlled multiple selection; validation and full group API remain open"
+    },
+    {
+      "family": "chip",
+      "webSource": "packages/ui/src/components/chip/index.ts",
+      "nativeExports": ["Chip"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Static presentation only; action/dismissal variants remain open"
+    },
+    {
+      "family": "close-button",
+      "webSource": "packages/ui/src/components/close-button/index.ts",
+      "nativeExports": ["CloseButton"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Native ordinary button; icon/size contracts remain open"
+    },
+    {
+      "family": "color-area",
+      "webSource": "packages/ui/src/components/color-area/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "color-field",
+      "webSource": "packages/ui/src/components/color-field/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "color-input-group",
+      "webSource": "packages/ui/src/components/color-input-group/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "color-picker",
+      "webSource": "packages/ui/src/components/color-picker/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "color-slider",
+      "webSource": "packages/ui/src/components/color-slider/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "color-swatch",
+      "webSource": "packages/ui/src/components/color-swatch/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "color-swatch-picker",
+      "webSource": "packages/ui/src/components/color-swatch-picker/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "combo-box",
+      "webSource": "packages/ui/src/components/combo-box/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "date-field",
+      "webSource": "packages/ui/src/components/date-field/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "date-input-group",
+      "webSource": "packages/ui/src/components/date-input-group/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "date-picker",
+      "webSource": "packages/ui/src/components/date-picker/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "date-range-picker",
+      "webSource": "packages/ui/src/components/date-range-picker/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "description",
+      "webSource": "packages/ui/src/components/description/index.ts",
+      "nativeExports": ["Description"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Text role only; full field association remains open"
+    },
+    {
+      "family": "disclosure",
+      "webSource": "packages/ui/src/components/disclosure/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "drawer",
+      "webSource": "packages/ui/src/components/drawer/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "empty-state",
+      "webSource": "packages/ui/src/components/empty-state/index.ts",
+      "nativeExports": ["EmptyState"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Native content slots; full layout variants remain open"
+    },
+    {
+      "family": "field-error",
+      "webSource": "packages/ui/src/components/field-error/index.ts",
+      "nativeExports": ["FieldError"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Alert text only; validation/group association remains open"
+    },
+    {
+      "family": "fieldset",
+      "webSource": "packages/ui/src/components/fieldset/index.ts",
+      "nativeExports": ["Fieldset"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Legend and stacking only; disabled/readOnly/validation propagation remains open"
+    },
+    {
+      "family": "form",
+      "webSource": "packages/ui/src/components/form/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "input",
+      "webSource": "packages/ui/src/components/input/index.ts",
+      "nativeExports": ["Input"],
+      "implementation": "packages/ui-native/src/input.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Native editing; focus/selection/composition/RTL verification remains open"
+    },
+    {
+      "family": "input-group",
+      "webSource": "packages/ui/src/components/input-group/index.ts",
+      "nativeExports": ["InputGroup"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Basic stacking only; adornment and shared state composition remain open"
+    },
+    {
+      "family": "input-otp",
+      "webSource": "packages/ui/src/components/input-otp/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "kbd",
+      "webSource": "packages/ui/src/components/kbd/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "label",
+      "webSource": "packages/ui/src/components/label/index.ts",
+      "nativeExports": ["Label"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Text role only; compound control association remains open"
+    },
+    {
+      "family": "link",
+      "webSource": "packages/ui/src/components/link/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "list-box",
+      "webSource": "packages/ui/src/components/list-box/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "menu",
+      "webSource": "packages/ui/src/components/menu/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "meter",
+      "webSource": "packages/ui/src/components/meter/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "modal",
+      "webSource": "packages/ui/src/components/modal/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "number-field",
+      "webSource": "packages/ui/src/components/number-field/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "pagination",
+      "webSource": "packages/ui/src/components/pagination/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "popover",
+      "webSource": "packages/ui/src/components/popover/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "progress-bar",
+      "webSource": "packages/ui/src/components/progress-bar/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "progress-circle",
+      "webSource": "packages/ui/src/components/progress-circle/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "radio",
+      "webSource": "packages/ui/src/components/radio/index.ts",
+      "nativeExports": ["Radio"],
+      "implementation": "packages/ui-native/src/selection.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Group-owned native choice; keyboard/accessibility parity remains open"
+    },
+    {
+      "family": "radio-group",
+      "webSource": "packages/ui/src/components/radio-group/index.ts",
+      "nativeExports": ["RadioGroup"],
+      "implementation": "packages/ui-native/src/selection.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Controlled single choice; full form/validation API remains open"
+    },
+    {
+      "family": "range-calendar",
+      "webSource": "packages/ui/src/components/range-calendar/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "scroll-shadow",
+      "webSource": "packages/ui/src/components/scroll-shadow/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "search-field",
+      "webSource": "packages/ui/src/components/search-field/index.ts",
+      "nativeExports": ["SearchField"],
+      "implementation": "packages/ui-native/src/input.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Native search input; platform clear affordances and full search API remain open"
+    },
+    {
+      "family": "select",
+      "webSource": "packages/ui/src/components/select/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "separator",
+      "webSource": "packages/ui/src/components/separator/index.ts",
+      "nativeExports": ["Separator"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Native divider; vertical geometry/RTL verification remains open"
+    },
+    {
+      "family": "skeleton",
+      "webSource": "packages/ui/src/components/skeleton/index.ts",
+      "nativeExports": ["Skeleton"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Static accessible-hidden placeholder; animation/preferences acceptance remains open"
+    },
+    {
+      "family": "slider",
+      "webSource": "packages/ui/src/components/slider/index.ts",
+      "nativeExports": ["Slider"],
+      "implementation": "packages/ui-native/src/controls.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "historical-simulator",
+        "android": "historical-emulator"
+      },
+      "remaining": "Single-value only; range/multiple-thumb and keyboard/API parity remain open"
+    },
+    {
+      "family": "spinner",
+      "webSource": "packages/ui/src/components/spinner/index.ts",
+      "nativeExports": ["Spinner"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Native ActivityIndicator; full appearance/accessibility acceptance remains open"
+    },
+    {
+      "family": "surface",
+      "webSource": "packages/ui/src/components/surface/index.ts",
+      "nativeExports": ["Surface"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Basic semantic surfaces; full variant coverage remains open"
+    },
+    {
+      "family": "switch",
+      "webSource": "packages/ui/src/components/switch/index.ts",
+      "nativeExports": ["Switch"],
+      "implementation": "packages/ui-native/src/controls.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "historical-simulator",
+        "android": "historical-emulator"
+      },
+      "remaining": "Indeterminate, form association and full accessibility acceptance remain open"
+    },
+    {
+      "family": "table",
+      "webSource": "packages/ui/src/components/table/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "tab-bar",
+      "webSource": "packages/ui/src/components/tab-bar/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "tabs",
+      "webSource": "packages/ui/src/components/tabs/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "tag",
+      "webSource": "packages/ui/src/components/tag/index.ts",
+      "nativeExports": ["Tag"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Static presentation only; removal/selection variants remain open"
+    },
+    {
+      "family": "tag-group",
+      "webSource": "packages/ui/src/components/tag-group/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "textarea",
+      "webSource": "packages/ui/src/components/textarea/index.ts",
+      "nativeExports": ["Textarea"],
+      "implementation": "packages/ui-native/src/input.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Native multiline editing; selection/IME and keyboard acceptance remain open"
+    },
+    {
+      "family": "textfield",
+      "webSource": "packages/ui/src/components/textfield/index.ts",
+      "nativeExports": ["TextField"],
+      "implementation": "packages/ui-native/src/input.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Labeled native input; compound parts/group layout and validation contracts remain open"
+    },
+    {
+      "family": "time-field",
+      "webSource": "packages/ui/src/components/time-field/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "toast",
+      "webSource": "packages/ui/src/components/toast/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "toggle-button",
+      "webSource": "packages/ui/src/components/toggle-button/index.ts",
+      "nativeExports": ["ToggleButton"],
+      "implementation": "packages/ui-native/src/selection.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Native selected state; ordinary variants and full API remain open"
+    },
+    {
+      "family": "glass-toggle-button",
+      "webSource": "packages/ui/src/components/glass-toggle-button/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "toggle-button-group",
+      "webSource": "packages/ui/src/components/toggle-button-group/index.ts",
+      "nativeExports": ["ToggleButtonGroup"],
+      "implementation": "packages/ui-native/src/selection.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Multiple selection only; single mode and full group API remain open"
+    },
+    {
+      "family": "toolbar",
+      "webSource": "packages/ui/src/components/toolbar/index.ts",
+      "nativeExports": ["Toolbar"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Action layout only; full keyboard/group contracts remain open"
+    },
+    {
+      "family": "navigation-bar",
+      "webSource": "packages/ui/src/components/navigation-bar/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "swipe-actions",
+      "webSource": "packages/ui/src/components/swipe-actions/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "wheel-picker",
+      "webSource": "packages/ui/src/components/wheel-picker/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "tooltip",
+      "webSource": "packages/ui/src/components/tooltip/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "typography",
+      "webSource": "packages/ui/src/components/typography/index.ts",
+      "nativeExports": ["Typography"],
+      "implementation": "packages/ui-native/src/presentation.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-rendered-subset",
+        "android": "emulator-rendered-subset"
+      },
+      "remaining": "Native text roles; full scales/prose/RTL/larger-text acceptance remains open"
+    },
+    {
+      "family": "glass",
+      "webSource": "packages/ui/src/components/glass/index.ts",
+      "nativeExports": ["Glass"],
+      "implementation": "packages/ui-native/src/glass.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "historical-simulator",
+        "android": "historical-emulator"
+      },
+      "remaining": "System Glass / Android Lenso renderer; broad Web prop parity remains open"
+    },
+    {
+      "family": "glass-container",
+      "webSource": "packages/ui/src/components/glass-container/index.ts",
+      "nativeExports": ["GlassGroup"],
+      "implementation": "packages/ui-native/src/glass.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "historical-simulator",
+        "android": "historical-emulator"
+      },
+      "remaining": "Native group API differs from Web; fusion/child edge cases remain open"
+    },
+    {
+      "family": "glass-magnifier",
+      "webSource": "packages/ui/src/components/glass-magnifier/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "glass-button",
+      "webSource": "packages/ui/src/components/glass-button/index.ts",
+      "nativeExports": ["GlassButton"],
+      "implementation": "packages/ui-native/src/controls.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "historical-simulator",
+        "android": "historical-emulator"
+      },
+      "remaining": "Prominent title color and accessibility/size parity remain open"
+    },
+    {
+      "family": "context-menu",
+      "webSource": "packages/ui/src/components/context-menu/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "action-sheet",
+      "webSource": "packages/ui/src/components/action-sheet/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "sheet",
+      "webSource": "packages/ui/src/components/sheet/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "stepper",
+      "webSource": "packages/ui/src/components/stepper/index.ts",
+      "nativeExports": ["Stepper"],
+      "implementation": "packages/ui-native/src/choice.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Native stepper plus controlled values; Web compound/input composition remains open"
+    },
+    {
+      "family": "list",
+      "webSource": "packages/ui/src/components/list/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "page-control",
+      "webSource": "packages/ui/src/components/page-control/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "popup-button",
+      "webSource": "packages/ui/src/components/popup-button/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "sidebar",
+      "webSource": "packages/ui/src/components/sidebar/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "notification",
+      "webSource": "packages/ui/src/components/notification/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "share-sheet",
+      "webSource": "packages/ui/src/components/share-sheet/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "segmented-control",
+      "webSource": "packages/ui/src/components/segmented-control/index.ts",
+      "nativeExports": ["SegmentedControl"],
+      "implementation": "packages/ui-native/src/choice.ios.tsx",
+      "status": "partial",
+      "verification": {
+        "ios": "simulator-subset",
+        "android": "emulator-subset"
+      },
+      "remaining": "Native keyed choices; glass/custom-renderer and full API parity remain open"
+    },
+    {
+      "family": "section-index",
+      "webSource": "packages/ui/src/components/section-index/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "refresh-control",
+      "webSource": "packages/ui/src/components/refresh-control/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    },
+    {
+      "family": "command",
+      "webSource": "packages/ui/src/components/command/index.ts",
+      "nativeExports": [],
+      "implementation": null,
+      "status": "missing",
+      "verification": {
+        "ios": "pending",
+        "android": "pending"
+      },
+      "remaining": "Implement the actual native component behavior and platform presentation, then verify it."
+    }
+  ]
+}

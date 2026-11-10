@@ -5,12 +5,16 @@ not a published package or a claim of native visual acceptance.
 
 ## Platform contract
 
-| Feature            | iOS                                                                       | Android                                                                                  |
-| ------------------ | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Glass / GlassGroup | Expo's system `GlassView` / `GlassContainer` on supported iOS 26+ devices | Explicit backdrop replay, RenderEffect blur, AGSL refraction on API 33+                  |
-| GlassButton        | UIKit `UIButton`, `.glass()` / `.prominentGlass()` on iOS 26+             | React Native Pressable with Lenso material and shared press springs                      |
-| Switch / Slider    | UIKit `UISwitch` / `UISlider`                                             | Lenso controls using native views, accessibility actions and glass thumbs                |
-| Earlier systems    | Standard UIKit controls and opaque surface fallback                       | API 31–32 blur only; earlier versions or unavailable backdrop use a translucent fallback |
+| Feature                                    | iOS                                                                       | Android                                                                                  |
+| ------------------------------------------ | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Glass / GlassGroup                         | Expo's system `GlassView` / `GlassContainer` on supported iOS 26+ devices | Explicit backdrop replay, RenderEffect blur, AGSL refraction on API 33+                  |
+| GlassButton                                | UIKit `UIButton`, `.glass()` / `.prominentGlass()` on iOS 26+             | React Native Pressable with Lenso material and shared press springs                      |
+| Switch / Slider                            | UIKit `UISwitch` / `UISlider`                                             | Lenso controls using native views, accessibility actions and glass thumbs                |
+| Button                                     | Ordinary UIKit `UIButton` configurations, including native loading        | Lenso Pressable with disabled/loading state                                              |
+| Stepper / SegmentedControl                 | UIKit `UIStepper` / `UISegmentedControl`                                  | Bounded increment/decrement and keyed radio selection                                    |
+| Checkbox / Radio / ToggleButton            | UIKit selection buttons with system symbols                               | Lenso choice controls with native accessibility state                                    |
+| Input / Textarea / TextField / SearchField | React Native system text editing                                          | React Native system text editing                                                         |
+| Earlier systems                            | Standard UIKit controls and opaque surface fallback                       | API 31–32 blur only; earlier versions or unavailable backdrop use a translucent fallback |
 
 Reduce Transparency selects opaque surfaces. Reduce Motion disables custom press springs.
 System UIKit controls retain system behavior. `glassCapabilities` reports platform API
@@ -18,6 +22,37 @@ support, not whether a particular backdrop was captured or a GPU render succeede
 The first slice selects the platform renderer automatically; iOS custom rendering,
 TabBar, Menu and Sheet are not implemented here yet. Web Base UI components and
 `packages/primitives` remain separately owned.
+
+The expansion also supplies native content/feedback parts and grouped selections.
+Track the full 99-family objective in the
+[native inventory](../../docs/design/native-component-coverage.json) and
+[component migration contract](../../docs/design/native-components.md). Every new
+adapter is currently marked partial; an export is not complete Web API parity or
+runtime acceptance. TextField currently uses `label`, `description`, `errorMessage`
+and native Input props; it does not yet expose the Web compound field API.
+
+```tsx
+const [name, setName] = useState("");
+const [audience, setAudience] = useState<string | null>("personal");
+
+<Card>
+  <TextField label="Name" value={name} onChangeText={setName} />
+  <SegmentedControl
+    value={audience}
+    onValueChange={setAudience}
+    items={[
+      { value: "personal", label: "Personal" },
+      { value: "business", label: "Business" },
+    ]}
+  />
+  <Button variant="prominent" onPress={save}>
+    Save settings
+  </Button>
+</Card>;
+```
+
+The snippet illustrates composition, not a standalone application. Use the example
+catalog for the runnable fixture and its controlled-value rejection controls.
 
 ## Styles and themes
 
@@ -82,6 +117,11 @@ should adopt the example's React/RSD singleton resolver to avoid lost theme valu
 No public prop migration is required. The prominent iOS Glass title remains cyan
 in the tested iOS 26.5 simulator; see the
 [color investigation](../../docs/research/ios-glass-button-color-2026-11-10.md).
+
+The [foundation expansion delivery](../../docs/research/native-foundation-2026-11-10.md)
+records the newer ordinary controls, fields, choice groups and content primitives,
+with their separate native-build and interaction evidence. Rebuild both native
+hosts for the catalog's SafeArea dependency and new UIKit view registrations.
 
 ## Attribution
 
