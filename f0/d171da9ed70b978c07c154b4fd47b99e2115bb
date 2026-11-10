@@ -1,0 +1,177 @@
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-opaque-hierarchy.txt
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-149
+packages/ui-native/src/glass.android.tsx
+  s_ab5c95a3492695::t_0920c25493dd06 33-35,88,91,102,127-134
+docs/research/evidence/native-glass-2026-11-10/android/results.json
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-11
+  s_ab5c95a3492695::t_8477b7d9cd01c4 12
+packages/ui-native/src/controls.ios.tsx
+  s_ab5c95a3492695::t_b55b49d64bb6dd 67,69,101,103,136,138
+docs/research/evidence/native-glass-2026-11-10/ios/final/final-default-sanity3.log
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-1279
+docs/research/evidence/native-glass-2026-11-10/README.md
+  s_ab5c95a3492695::t_8477b7d9cd01c4 1-69
+  s_ab5c95a3492695::t_0f3ba71bba2621 70-72
+docs/research/native-glass-runtime-validation-2026-11-10.md
+  s_ab5c95a3492695::t_9a5eaa82502497 10-46,92-170
+  s_ab5c95a3492695::t_182213a21de81b 1-2
+  s_ab5c95a3492695::t_43f4dfa19655a0 7-9,47-49
+  s_ab5c95a3492695::t_2935b5e44fe38d 89-91
+  s_ab5c95a3492695::t_8477b7d9cd01c4 3-6
+  s_ab5c95a3492695::t_ee3d4c6585b2a2 60-62
+  s_ab5c95a3492695::t_5785dd823957cc 50-59,63-88
+docs/research/evidence/native-glass-2026-11-10/android/foreground-scrolled.xml
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1
+docs/research/expo-native-setup-2026-11-10.md
+  s_ab5c95a3492695::t_4934f462758cb7 3-7
+  s_10c7d362cf24b2::t_b21699736f7838 20
+docs/research/evidence/native-glass-2026-11-10/android/final-light.xml
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1
+docs/research/evidence/native-glass-2026-11-10/ios/probe2/matrix.json
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-3,6-10,17-23,26-30,37-43,46-50,57-63,66-70,77-83,86-90,97-103,106-110,117-123,126-130,137-143,146-150,157-163,166-170,177-183,186-190,197-202
+  s_ab5c95a3492695::t_8477b7d9cd01c4 4-5,11-16,24-25,31-36,44-45,51-56,64-65,71-76,84-85,91-96,104-105,111-116,124-125,131-136,144-145,151-156,164-165,171-176,184-185,191-196
+docs/research/evidence/native-glass-2026-11-10/ios/probe/Probe.swift
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-118
+docs/research/evidence/native-glass-2026-11-10/ios/final/installed-provenance.json
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-18
+docs/research/evidence/native-glass-2026-11-10/android/slider-rejected.xml
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1
+packages/ui-native/src/styles.tsx
+  s_ab5c95a3492695::t_333773998e30f5 11,15
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-opaque-classifier.json
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-2,5-9,16-18
+  s_ab5c95a3492695::t_8477b7d9cd01c4 3-4,10-15
+docs/research/evidence/native-glass-2026-11-10/ios/probe2/runtime-colors.log
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-17
+docs/research/evidence/native-glass-2026-11-10/ios/interaction/NativeQA.swift
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-197
+docs/research/evidence/native-glass-2026-11-10/android/final-visual.py
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-8
+docs/research/evidence/native-glass-2026-11-10/android/rsd-singleton.json
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-2
+  s_ab5c95a3492695::t_8477b7d9cd01c4 3
+docs/research/evidence/native-glass-2026-11-10/ios/final/NativeQA.swift
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-156
+docs/research/native-source-delivery-2026-11-10.md
+  s_ab5c95a3492695::t_8477b7d9cd01c4 31-35,37-39
+  s_ab5c95a3492695::t_fecea3019618e5 3-30,36,40-81
+docs/research/evidence/native-glass-2026-11-10/android/backdrop-scrolled.xml
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1
+apps/native-example/metro.config.cjs
+  s_ab5c95a3492695::t_2dd8b6ecd03324 4,6-12
+docs/research/evidence/native-glass-2026-11-10/android/glass-backdrop-sampling.json
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-2,6-7,11-12,16-17,21
+  s_ab5c95a3492695::t_8477b7d9cd01c4 3-5,8-10,13-15,18-20,22
+docs/research/ios-glass-button-color-2026-11-10.md
+  s_ab5c95a3492695::t_ccb80663c5c62e 1-2,7-165
+  s_ab5c95a3492695::t_8477b7d9cd01c4 3-6
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-classifier.json
+  s_ab5c95a3492695::t_8477b7d9cd01c4 3-4,10-15
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-2,5-9,16-18
+docs/research/evidence/native-glass-2026-11-10/ios/probe2/Probe.swift
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-113
+docs/research/evidence/native-glass-2026-11-10/android/qa.py
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-27
+docs/research/stylex-react-native-2026-11-10.md
+  s_ab5c95a3492695::t_4934f462758cb7 5-9
+docs/research/evidence/native-glass-2026-11-10/android/final-dark.xml
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1
+docs/research/evidence/native-glass-2026-11-10/build-tools/fetch.py
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-47
+docs/research/evidence/native-glass-2026-11-10/ios/interaction/RESULTS.md
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-49
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_a9972c78c38d5d 17-22,26-27,41,85
+docs/research/evidence/native-glass-2026-11-10/build-tools/android-build-tail.log
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-50
+packages/ui-native/src/provider.tsx
+  s_ab5c95a3492695::t_719d924f61d4b1 1-3,9-13,20-22,55-68,70-77
+bun.lock
+  s_ab5c95a3492695::t_0655a1e1ee4220 105,112,2541-2544,2565-2566
+packages/ui-native/src/glass.ios.tsx
+  s_ab5c95a3492695::t_65bfefefba894d 15,32,35,44-48,65,67,69
+docs/research/evidence/native-glass-2026-11-10/ios/classify-title.py
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-38
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-dark-hierarchy.txt
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-153
+packages/ui-native/ios/ControlView.swift
+  s_ab5c95a3492695::t_0202d85caed59f 6-7,57-69,71
+docs/research/evidence/native-glass-2026-11-10/build-tools/repositories.init.gradle
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-29
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_4706ee2c8c6d82 6-8
+docs/research/evidence/native-glass-2026-11-10/build-tools/maven-proxy.py
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-46
+docs/research/evidence/native-glass-2026-11-10/ios/compiler/attribute-scope.ast
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-68
+docs/research/native-glass-implementation-2026-11-10.md
+  s_ab5c95a3492695::t_abf967ea3159a5 1-7,18-124
+  s_ab5c95a3492695::t_a75f9ab2eb6183 15-17
+  s_ab5c95a3492695::t_ee3d4c6585b2a2 11-14
+  s_ab5c95a3492695::t_e4df8ed16498d7 8-10
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-final-restored-light-classifier.json
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-2,5-9,16-18
+  s_ab5c95a3492695::t_8477b7d9cd01c4 3-4,10-15
+packages/ui-native/android/.gitignore
+  s_ab5c95a3492695::t_415b2e6c952f78 1-2
+apps/native-example/README.md
+  s_ab5c95a3492695::t_4934f462758cb7 10-16
+  s_10c7d362cf24b2::t_3e13ef17123d29 8-9
+docs/research/evidence/native-glass-2026-11-10/ios/final/prominent-final-restored-light-hierarchy.txt
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-153
+THIRD_PARTY_NOTICES.md
+  s_ab5c95a3492695::t_6df1e2c4e2d913 1167-1173
+packages/ui-native/README.md
+  s_10c7d362cf24b2::t_983982bf41262d 74-76
+  s_ab5c95a3492695::t_4934f462758cb7 77-84
+apps/native-example/package.json
+  s_ab5c95a3492695::t_64f3190dfc5075 20,27
+docs/research/evidence/native-glass-2026-11-10/ios/probe/matrix.json
+  s_ab5c95a3492695::t_8477b7d9cd01c4 4-5,11-16,24-25,31-36,44-45,51-56,64-65,71-76,84-85,91-96,104-105,111-116,124-125,131-136,144-145,151-156,164-165,171-176,184-185,191-196,204-205,211-216,224-225,231-236,244-245,251-256,264-265,271-276
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-3,6-10,17-23,26-30,37-43,46-50,57-63,66-70,77-83,86-90,97-103,106-110,117-123,126-130,137-143,146-150,157-163,166-170,177-183,186-190,197-203,206-210,217-223,226-230,237-243,246-250,257-263,266-270,277-282
+docs/research/evidence/native-glass-2026-11-10/ios/compiler/attribute-scope.swift
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-11
+docs/research/evidence/native-glass-2026-11-10/android/slider-accepted.xml
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1
+docs/research/evidence/native-glass-2026-11-10/ios/probe/runtime-colors.log
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-23
+docs/research/evidence/native-glass-2026-11-10/build-tools/installed-toolchain.init.gradle
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-12
+packages/ui-native/src/controls.android.tsx
+  s_ab5c95a3492695::t_c0e5272c9de8e5 1,32,34,38,97,99,124,181-183,185-206,210,212,279
+docs/research/evidence/native-glass-2026-11-10/android/final-opaque.xml
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1
+docs/research/evidence/native-glass-2026-11-10/manifest.json
+  s_ab5c95a3492695::t_d1ba4547485bb3 6,9-10,13-20,22-54,57-58,62-66,70,74,78,82,86-94,97-100,102,106,109-110,113-126,211-212,221-222,226-227,301-302,311-312,331-332,366-367,391-392,421-429
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-5,7-8,11-12,21,55-56,59-61,67-69,71-73,75-77,79-81,83-85,95-96,101,103-105,107-108,111-112,127-210,213-220,223-225,228-300,303-310,313-330,333-365,368-390,393-420,430
+docs/research/evidence/native-glass-2026-11-10/ios/interaction/test.log
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-1983
+packages/ui-native/android/src/main/AndroidManifest.xml
+  s_ab5c95a3492695::t_9e80f32d96c346 1
+docs/research/evidence/native-glass-2026-11-10/build-tools/ios-build-tail.log
+  s_ab5c95a3492695::t_8906bc13ee8ff5 1-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f0d171da9ed70b978c07c154b4fd47b99e2115bb",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
