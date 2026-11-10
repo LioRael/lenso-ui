@@ -1,28 +1,34 @@
 experiments/exact-docs/src/search.ts
-  s_10c7d362cf24b2::t_49104a29c8eed1 1-51
-experiments/exact-docs/src/highlight.ts
-  s_10c7d362cf24b2::t_49104a29c8eed1 1-6,9-20,25-38
-  s_10c7d362cf24b2::t_3e52570cc4e339 39,41-56,58,60,62-64
-experiments/exact-docs/src/index.ts
-  s_10c7d362cf24b2::t_49104a29c8eed1 7
-  s_10c7d362cf24b2::t_694c4dc2240346 32,95-111,114-128,209,227-228,270-272,282-284,334-340,368,430,475
-experiments/exact-docs/test/core.test.ts
-  s_10c7d362cf24b2::t_c97cd4857025ee 56-57,121-123
-  s_10c7d362cf24b2::t_49104a29c8eed1 8-9,51,58-59
-apps/docs/test/promo-stack-studio.tsx
-  s_10c7d362cf24b2::t_8767399d639240 10-29
-experiments/exact-docs/example/authoring.md
-  s_10c7d362cf24b2::t_319b66c253dc57 68-69,71
-experiments/exact-docs/package.json
-  s_10c7d362cf24b2::t_32f5eabad0a666 23-25
+  s_f68ad3a859106e::t_30c76b3cb482e0 1-5,24,28,34-46,48,51
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 6-23,25-27,29-33,47,49-50
 experiments/exact-docs/src/content.ts
-  s_10c7d362cf24b2::t_56423e3b504e1c 4-16,30-36,39-42
-experiments/exact-docs/src/markdown.ts
-  s_10c7d362cf24b2::t_5c9340270cc256 1-7,13-14,16-17,19-20,22-32,34-68,70-78,80-99,101-109,112-119
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 4-16,30-36,39-42
+experiments/exact-docs/package.json
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 23-25
+experiments/exact-docs/src/index.ts
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 32,95-111,114-128,209,227-228,270-272,282-284,334-340,368
+  s_f68ad3a859106e::t_3bc2e80906f767 430
+  s_f68ad3a859106e::t_8bfd28fb1e06a9 475
+  s_f68ad3a859106e::t_30c76b3cb482e0 7
 experiments/exact-docs/src/renderers/exact.ts
-  s_10c7d362cf24b2::t_55136b1ab983fa 4-18,20-22,24-48,50
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 4-18,20-22,24-48,50
+experiments/exact-docs/test/core.test.ts
+  s_f68ad3a859106e::t_70203c0302b0d0 121
+  s_f68ad3a859106e::t_e3e8ea46fbbb11 123
+  s_f68ad3a859106e::t_cc0c7abf17e344 8-9,51,57-59,122
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 56
+experiments/exact-docs/src/markdown.ts
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 1-7,13-14,16-17,19-20,22-32,34-68,70-78,80-99,101-104,106-109,112-119
+  s_f68ad3a859106e::t_57fa0fdd6a650d 105
+experiments/exact-docs/example/authoring.md
+  s_f68ad3a859106e::t_ebbd6c7d279e63 68
+  s_9f86fbdae2d09f::t_988a69ed40b355 69,71
+experiments/exact-docs/src/highlight.ts
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 4-6,9-15,20,25-34,36-39,41-51,53,55,58
+  s_f68ad3a859106e::t_ec382ca09bac83 1-3,16-19,35,52,54,56,60
+  s_f68ad3a859106e::t_3a2c14431c63f9 62-64
 experiments/exact-docs/src/renderers/html.ts
-  s_10c7d362cf24b2::t_b195ea6ef6d5e7 2-7,9-52
+  s_9f86fbdae2d09f::t_364ad4f52c20b8 2-7,9-52
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -30,11 +36,19 @@ experiments/exact-docs/src/renderers/html.ts
   "base_commit_sha": "d0a13f04547e6ef889f66d8044f62015351cc8db",
   "prompts": {},
   "sessions": {
-    "s_10c7d362cf24b2": {
+    "s_9f86fbdae2d09f": {
       "agent_id": {
         "tool": "codex",
-        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
-        "model": "gpt-6-astra"
+        "id": "01a1c474-4440-7663-9158-135122f4ec2c",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_f68ad3a859106e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c5d0-0baa-76d0-a79e-3ab02e1ed2a6",
+        "model": "gpt-6.1-sol"
       },
       "human_author": "LioRael <leo@lenso.dev>"
     }
