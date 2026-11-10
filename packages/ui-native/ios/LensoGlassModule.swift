@@ -3,6 +3,9 @@ import ExpoModulesCore
 public class LensoGlassModule: Module {
   public func definition() -> ModuleDefinition {
     Name("LensoGlass")
+    View(AppearanceView.self) {
+      Prop("dark") { (view: AppearanceView, value: Bool) in view.overrideUserInterfaceStyle = value ? .dark : .light }
+    }
     Constants {
       let available: Bool
       if #available(iOS 26.0, *) { available = true } else { available = false }

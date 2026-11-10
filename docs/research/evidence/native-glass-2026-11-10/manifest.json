@@ -1,0 +1,430 @@
+{
+  "scope": "Historical simulator Debug evidence; not Release, physical-device or universal visual acceptance",
+  "source_snapshot": [
+    {
+      "path": "apps/native-example/App.tsx",
+      "sha256": "2a60a06d130db01f010ba19414e5cbd36d31629aed0175be72984f8f72381116"
+    },
+    {
+      "path": "apps/native-example/app.json",
+      "sha256": "731a7115a39248decb30af4be995491aed57c9c970e302232994a4e3f5e61889"
+    },
+    {
+      "path": "apps/native-example/babel.config.cjs",
+      "sha256": "208752cde866de5b05bbc9b73a9d23f95044a7cfea76588461d443f5e9606566"
+    },
+    {
+      "path": "apps/native-example/index.js",
+      "sha256": "a5ee9fdfb4ecbbf7e862f1c23a4d73ddd8e55f3037f80e406bc3a2be6d7d928c"
+    },
+    {
+      "path": "apps/native-example/metro.config.cjs",
+      "sha256": "3a1036421a32ba4670e0ffa875d0a94920556dcb9264c4ef131f1bee01f20cfa"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/AndroidManifest.xml",
+      "sha256": "571f2735faf5e857752ee057ac8ef63425576a721616c60b86ee5d4c0a2d682f"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/BackdropView.kt",
+      "sha256": "ca2cc9784586fc71b008c2733e607c48a6ede0318ad4bd5dd4ec0a2c1bd5d787"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/Backdrops.kt",
+      "sha256": "bc9a970fbe9181c5ab98709d110b7da807f324ad2bb6b70e2a26e0d7476abe2c"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassGroupView.kt",
+      "sha256": "9fe5af2f47975ef41a767cb2804d8863f90bf0f83d99f37052224a3045980963"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassShader.kt",
+      "sha256": "87dcc1e077f907e83ce19c72bd068d4aece35baf75a1d3b8229e78b546b89849"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassView.kt",
+      "sha256": "758f45044185c28f674ac76f75825d31ef51a7aea33d381119812d5a0a4204f2"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt",
+      "sha256": "8c33f41aa7d7b4b9c39945d51437770f88bf459d0beeff31098e2b49942a4409"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoTone.kt",
+      "sha256": "d60e70f8d6bef1bba5c14604ca5a0a1b6df2e950f1ae12913ca2a85e208f1f6f"
+    },
+    {
+      "path": "packages/ui-native/android/src/main/java/expo/modules/lensoglass/Shapes.kt",
+      "sha256": "37866f523e73f32aff269ecb62833c7c6492a84b495f758ff8617bfc3af85c6d"
+    },
+    {
+      "path": "packages/ui-native/ios/ControlView.swift",
+      "sha256": "25aa5b0cfcdd5f3418cbf62aeb7d73a67166066f16c418deecc3616909301143"
+    },
+    {
+      "path": "packages/ui-native/ios/LensoGlass.podspec",
+      "sha256": "6f5f332c3fdb1ae6995bda28931060080d366b3f246323dc2b15e3f0619d25ef"
+    },
+    {
+      "path": "packages/ui-native/ios/LensoGlassModule.swift",
+      "sha256": "9f865004a909ceb16da6b286205051ab980c2d46322476900b6c1b893a76a54a"
+    },
+    {
+      "path": "packages/ui-native/src/controls.android.tsx",
+      "sha256": "d968b3dd5da00f3a755740cbe5583e4de7448b5a735a0eb9109f5ff78c7b5608"
+    },
+    {
+      "path": "packages/ui-native/src/controls.ios.tsx",
+      "sha256": "48341382c2e38e457f941b99ee54a83cf154f52f193246e6fcf5bb8553562044"
+    },
+    {
+      "path": "packages/ui-native/src/glass.android.tsx",
+      "sha256": "d111c6070e6ea691f25ad8b23a7a2767e595fdf7b76b3106306aa8ca6446ecc4"
+    },
+    {
+      "path": "packages/ui-native/src/glass.ios.tsx",
+      "sha256": "f9f6bcf3c82ea548107ee2c3fb1d1dea412022c767f27bcc32d1b6309dee93ce"
+    },
+    {
+      "path": "packages/ui-native/src/index.ts",
+      "sha256": "61bd47649a53d65353c2924f2b829f49ce95443cdba30577048989272ab347da"
+    },
+    {
+      "path": "packages/ui-native/src/module.ts",
+      "sha256": "102b9050ff79e9b3986498153581430872c2eb49a1cf98c6dcb0b96ce303acb5"
+    },
+    {
+      "path": "packages/ui-native/src/palette.ts",
+      "sha256": "41e2f614fabdd00cb21a71e7290731363c3c135af95257b6c42c5693586e20ba"
+    },
+    {
+      "path": "packages/ui-native/src/provider.tsx",
+      "sha256": "c16a849aedf27bedaf4a83dc3e68c93c047c8c801e3b0a94568a99a744c8e950"
+    },
+    {
+      "path": "packages/ui-native/src/styles.tsx",
+      "sha256": "312b6f795d71042c58a8b01d98ca9dd7ea34151de05852afdc8e5dffeab99156"
+    },
+    {
+      "path": "packages/ui-native/src/theme.css.ts",
+      "sha256": "d1560a93996314e69a15e9328e49268f6e3fbef2cd72e4ab4543491ef8c04a00"
+    },
+    {
+      "path": "packages/ui-native/src/types.ts",
+      "sha256": "843747595867a6694c93e8d2db602a2f46d5d45d912f2a428cb5bd45a47f30c6"
+    },
+    {
+      "path": "packages/ui-native/src/use-press.ts",
+      "sha256": "4a1f7380a957c1f25e0eda9670700b5dddd5080ea2f41b9d4a4eef0f5ac88a2d"
+    },
+    {
+      "path": "packages/ui-native/src/use-value.ts",
+      "sha256": "4b1c357ec48f9f58dea84183eea66721ac2196f8b08db28f58e8e2af46a7b65d"
+    },
+    {
+      "path": "packages/ui-native/src/value.ts",
+      "sha256": "4dbdec61fa0f7dfe6a2705f76b6bd991a334b36b47f3b2637e033580252958e4"
+    }
+  ],
+  "full_build_logs": [
+    {
+      "original_log": "/Users/leosouthey/Projects/framework/lenso-ui/output/native-glass-2026-11-10/ios/button-color-investigation/final-build.log",
+      "sha256": "da78775b296c65f74998bb883d0bbd8b9595df1b407798f323296993a33179fa",
+      "bytes": 746797,
+      "retained_tail": "build-tools/ios-build-tail.log"
+    },
+    {
+      "original_log": "/Users/leosouthey/Projects/framework/lenso-ui/output/native-glass-2026-11-10/android-build.log",
+      "sha256": "47fa4160a9f9eb1de4c88acd98e69217f7a23adcbe3414e77e7ec080cd3b5ffb",
+      "bytes": 47106,
+      "retained_tail": "build-tools/android-build-tail.log"
+    }
+  ],
+  "files": [
+    {
+      "path": "android/backdrop-scrolled.png",
+      "sha256": "e56c8f3fb9d46d989724386d5fb218751aa3c75125c73549c95dfeeac3ebd6a2",
+      "bytes": 236589
+    },
+    {
+      "path": "android/backdrop-scrolled.xml",
+      "sha256": "393dc6b981f72cbdb532f84e21d52004dc11a6a3eceea9e8f5a61aa438e97074",
+      "bytes": 24443
+    },
+    {
+      "path": "android/button-held.png",
+      "sha256": "9a8a17d4df400e9de1cbe9bb3dc86a127fbd028a9d2dbf52208e8a34353eef49",
+      "bytes": 233602
+    },
+    {
+      "path": "android/button-released.png",
+      "sha256": "66764eb8f46ff1505b04f212576d90cf68f7ae3ebd84f752244515b97f843586",
+      "bytes": 230776
+    },
+    {
+      "path": "android/final-dark.png",
+      "sha256": "49f69eac142e20071d5cabeb6b29ded9b1e9a54476f7565634f9cb696f9ce190",
+      "bytes": 229367
+    },
+    {
+      "path": "android/final-dark.xml",
+      "sha256": "2307cd4cf6040f36a7db12912f7493302a801eb59eec111809a099058e1b224d",
+      "bytes": 24773
+    },
+    {
+      "path": "android/final-light.png",
+      "sha256": "a8c1bb3a0f22cd048acf687784bc0f8bbf8f3090b31bb178b909c2fb9a6c1b23",
+      "bytes": 230344
+    },
+    {
+      "path": "android/final-light.xml",
+      "sha256": "9469049069df6b53713fe4fe707e92152865b36c0e0852e7af62c52df192e1c0",
+      "bytes": 24771
+    },
+    {
+      "path": "android/final-opaque.png",
+      "sha256": "d2fe69aec63181dfb17e7182694c2a6c551fec71564fda1139c9a798d6bd1ca5",
+      "bytes": 169339
+    },
+    {
+      "path": "android/final-opaque.xml",
+      "sha256": "bbfd902d1083b10c3e601cc3a9689276b382b60680a815af9e1ea7e0386d9284",
+      "bytes": 24750
+    },
+    {
+      "path": "android/final-visual.py",
+      "sha256": "90df97a0e1b8f374857819f3438c241b7ef69f7622af4b4d60179ad986d6ba27",
+      "bytes": 1004
+    },
+    {
+      "path": "android/foreground-scrolled.png",
+      "sha256": "9e7609dd7c156b2575d9278d19ba86f7ab28955916ddcf191df9330d748047df",
+      "bytes": 233612
+    },
+    {
+      "path": "android/foreground-scrolled.xml",
+      "sha256": "e3eafd214c549d3b0c1df2266af73002b085e38a36850b400f332d2d8b8eba14",
+      "bytes": 24438
+    },
+    {
+      "path": "android/glass-backdrop-sampling.json",
+      "sha256": "9ebd9bdf8966fc8eb18c004cf959e82d485f51e8aa4afe323ea24430b75661b9",
+      "bytes": 379
+    },
+    {
+      "path": "android/qa.py",
+      "sha256": "04d8f0ebd53c49da00b436268ce6825c7a7c1f928c593ff3db47a52dae083acc",
+      "bytes": 2572
+    },
+    {
+      "path": "android/results.json",
+      "sha256": "e82a2f9a8efde1680e02ab3f8e167b3d6ed40bbd860894d661d47b3c64c2e13d",
+      "bytes": 418
+    },
+    {
+      "path": "android/rsd-singleton.json",
+      "sha256": "8e07636405b615478f2e1b3d1df10eb072289579f1cc78c407111e698910f52f",
+      "bytes": 164
+    },
+    {
+      "path": "android/slider-accepted.xml",
+      "sha256": "35282bb654fa52149892fa47426a3d9dd8ac506c41f6380cdb901f74d4e50dcb",
+      "bytes": 23461
+    },
+    {
+      "path": "android/slider-rejected.xml",
+      "sha256": "5b7831cfdbbb4033622faa795212ea4a962d541b65b14c773cfe1365c830877a",
+      "bytes": 23455
+    },
+    {
+      "path": "build-tools/android-build-tail.log",
+      "sha256": "e62db3abf81bfd8262efc6f05446b65298e0c22c6de2deeaebf0a222afae13ae",
+      "bytes": 5953
+    },
+    {
+      "path": "build-tools/fetch.py",
+      "sha256": "0ae62b36ffe42b20602c6997b38662160d2e608283d7af1e768c8af750173409",
+      "bytes": 3057
+    },
+    {
+      "path": "build-tools/installed-toolchain.init.gradle",
+      "sha256": "b9503b42618215a2c03aee10eadc7a7b62055a7b6987cf725c982b63f790a8cd",
+      "bytes": 463
+    },
+    {
+      "path": "build-tools/ios-build-tail.log",
+      "sha256": "bc60a9169cd70352a7b908d0d1a605bf1ad38bbc9dc5f9ce40f7adb895e6260e",
+      "bytes": 15087
+    },
+    {
+      "path": "build-tools/maven-proxy.py",
+      "sha256": "2769d471790e6afeb17824c8d78c6e3a2b93afaf79272cf49c9d135c9171d732",
+      "bytes": 2601
+    },
+    {
+      "path": "build-tools/repositories.init.gradle",
+      "sha256": "4ee783e66c770691517c54ce98b4f8f7cdf78e4e6b989398d11021038eaefbe7",
+      "bytes": 1168
+    },
+    {
+      "path": "ios/classify-title.py",
+      "sha256": "aea5e004344a47507533d3319ce84b17a71ecd143581a2939b23fdb1dc1e686a",
+      "bytes": 1982
+    },
+    {
+      "path": "ios/compiler/attribute-scope.ast",
+      "sha256": "9f7e98976a895b8297fb2e9b100f66f8c9538c929491eabb9c24747f4936b491",
+      "bytes": 10856
+    },
+    {
+      "path": "ios/compiler/attribute-scope.swift",
+      "sha256": "35daa74525f87c9c3b8bc4c2dfc77733c474da82381ab52d5043316ef3c7ea0e",
+      "bytes": 336
+    },
+    {
+      "path": "ios/final/NativeQA.swift",
+      "sha256": "ab520b31620779319baefb2f6ac65f5dc90773ebda80a863a3b79ec52d966885",
+      "bytes": 6833
+    },
+    {
+      "path": "ios/final/final-default-sanity3.log",
+      "sha256": "c562b81f015f7f63e3aa826d6e655717d449bba3f9de4864dc6ce383f32847ac",
+      "bytes": 136536
+    },
+    {
+      "path": "ios/final/installed-provenance.json",
+      "sha256": "5e8d1284eeec8986796055f491586739980e6cf6fda5cffb2696b83218bacb78",
+      "bytes": 1087
+    },
+    {
+      "path": "ios/final/prominent-dark-classifier.json",
+      "sha256": "dd6a809ee4b26bf6aea527eadf5bbd4e4752c0334b4af22baca2f30483011674",
+      "bytes": 535
+    },
+    {
+      "path": "ios/final/prominent-dark-hierarchy.txt",
+      "sha256": "3209d2e2cbd61d74a1abf31beb327f454e0704656858e0b9416f740ab97f8f9a",
+      "bytes": 14495
+    },
+    {
+      "path": "ios/final/prominent-dark-opaque-classifier.json",
+      "sha256": "300f0e472833b645c2fa4bec10f3339a96ddb8f7498701974033d2acc930dc02",
+      "bytes": 556
+    },
+    {
+      "path": "ios/final/prominent-dark-opaque-hierarchy.txt",
+      "sha256": "79a67e2851e3c49c6e20913f5cd2228265903c887b5b3b1edd8a54f11501d4d8",
+      "bytes": 14117
+    },
+    {
+      "path": "ios/final/prominent-dark-opaque.png",
+      "sha256": "fc476e139cbf6c6a5adf36f8b00bbe67dd0abbd2949f210c0a9b6957314113c6",
+      "bytes": 204700
+    },
+    {
+      "path": "ios/final/prominent-dark.png",
+      "sha256": "8bf2955d844e895aeeb5c0cf2f3d2cd0ea77bdd76c26d059a1a3be792f37dec0",
+      "bytes": 318149
+    },
+    {
+      "path": "ios/final/prominent-final-restored-light-classifier.json",
+      "sha256": "90ca9d9ed160e98371684414529bcfe7cc271153520078826e81702153b06e85",
+      "bytes": 553
+    },
+    {
+      "path": "ios/final/prominent-final-restored-light-hierarchy.txt",
+      "sha256": "82c5d63c5021bf5cdbd354abe3efe9cd38dd24a90d35e8e306a2bede3d907d53",
+      "bytes": 14494
+    },
+    {
+      "path": "ios/final/prominent-final-restored-light.png",
+      "sha256": "073ac6515628c37d7b5074a74090be6f5e95bfa9c602c1c987add8a7aea0ee73",
+      "bytes": 331664
+    },
+    {
+      "path": "ios/interaction/NativeQA.swift",
+      "sha256": "ebb77a9483626fb955c28fc951899613faa88b66ab439f8216895ee76ebf0695",
+      "bytes": 8943
+    },
+    {
+      "path": "ios/interaction/RESULTS.md",
+      "sha256": "61b8cc712cd62301b526545abb0bca2a3d352b24665076c957b57880216d1273",
+      "bytes": 3049
+    },
+    {
+      "path": "ios/interaction/test.log",
+      "sha256": "e41ff64cda62bbf95391f63ba5313f50f543834dc71e565163ee4367ae5658f0",
+      "bytes": 179962
+    },
+    {
+      "path": "ios/probe/Probe.swift",
+      "sha256": "d896c2a14bc0724fbac22b3f266253a89d0603b4de12a3aae90dbe27d8b24b6e",
+      "bytes": 5158
+    },
+    {
+      "path": "ios/probe/matrix.json",
+      "sha256": "2e8d19f78d87cdb66f44e78bacd2e735b094ddd3705957451aec48ea8399e450",
+      "bytes": 8531
+    },
+    {
+      "path": "ios/probe/runtime-colors.log",
+      "sha256": "85ecc9bf99c4438ef27f97c36cae8572943539716e2340077aa1977f84319d36",
+      "bytes": 4658
+    },
+    {
+      "path": "ios/probe/uikit-probe-dark.png",
+      "sha256": "23ac46ba947fe02bc845f58e6dfcf061b3886d1c10c8ba2cd3c22a6a93b4609c",
+      "bytes": 363464
+    },
+    {
+      "path": "ios/probe/uikit-probe-light.png",
+      "sha256": "9d957ec08b11b29b32c9c14bfa2a2bb946895512a371ffaa1165b719fc2e9dac",
+      "bytes": 371298
+    },
+    {
+      "path": "ios/probe2/Probe.swift",
+      "sha256": "c31e77bbe9e162528be257d88fd774fd451a66222cae16e052fd51b1529111bd",
+      "bytes": 4974
+    },
+    {
+      "path": "ios/probe2/matrix.json",
+      "sha256": "798996c9b85896ec09015b202f72b0a3aa665a9e8737cf57a32c738e8548bf99",
+      "bytes": 6187
+    },
+    {
+      "path": "ios/probe2/runtime-colors.log",
+      "sha256": "fe2d8e348e5672d0ab68e89db4398497b151531354f9cd0972b7b7143d918567",
+      "bytes": 3265
+    },
+    {
+      "path": "ios/probe2/uikit-probe2-dark.png",
+      "sha256": "681ff56a44f349d3ee44ac1ff4ad8eef28cbe7e0b5cd33b6de1ecff5bee3fa9e",
+      "bytes": 258837
+    },
+    {
+      "path": "ios/probe2/uikit-probe2-light.png",
+      "sha256": "caaf39f70fb4b9b5c9b6f0f0c2eecfa27bc40388ca259844227d30f9d30383e8",
+      "bytes": 265158
+    }
+  ],
+  "native_binaries": [
+    {
+      "path": "/tmp/lenso-native-ios-build/Build/Products/Debug-iphonesimulator/LensoNative.app/LensoNative.debug.dylib",
+      "sha256": "ac8b2db4e817c25b5a7c0f2078b0e8368c39d21534d4003ec6be6f0893599dc0",
+      "bytes": 8615672
+    },
+    {
+      "path": "/Users/leosouthey/Projects/framework/lenso-ui/apps/native-example/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "54806e5d57e55edb53bd58aee1d39c959abd4b3b63899773ccb1a18841ec6970",
+      "bytes": 62988844
+    }
+  ],
+  "dependency_declarations": {
+    "expo": "58.0.23",
+    "react": "19.3.0",
+    "react_native": "0.88.1",
+    "react_strict_dom": "0.0.55",
+    "example_typescript": "6.0.3",
+    "note": "Delivery restores the native example pins; Web catalog remains unchanged."
+  }
+}

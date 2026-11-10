@@ -71,9 +71,17 @@ bun run --filter @lenso/native-example export:android
 ```
 
 Value-boundary tests cover snapping and overshoot; they do not establish touch,
-VoiceOver/TalkBack, rendering, fusion or performance correctness. See the
-[source delivery validation](../../docs/research/native-source-delivery-2026-11-10.md)
-for the verified build boundary and remaining native acceptance work.
+VoiceOver/TalkBack, rendering, fusion or performance correctness. See the native
+[validation report](../../docs/research/native-glass-runtime-validation-2026-11-10.md) for actual build and device coverage.
+
+The [delivery record](../../docs/research/native-source-delivery-2026-11-10.md)
+links the retained screenshots, interaction drivers and build receipts. Native iOS
+hosts must be rebuilt after the scoped appearance-host addition; a Metro reload
+alone cannot load the new native view. Consumers of the earlier private slice
+should adopt the example's React/RSD singleton resolver to avoid lost theme values.
+No public prop migration is required. The prominent iOS Glass title remains cyan
+in the tested iOS 26.5 simulator; see the
+[color investigation](../../docs/research/ios-glass-button-color-2026-11-10.md).
 
 ## Attribution
 

@@ -30,7 +30,9 @@ const NativeGroup: ComponentType<ViewProps & { sourceID: string; spacing: number
 export function Backdrop({ xstyle, style, ...props }: BackdropProps) {
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => <NativeBackdrop {...props} collapsable={false} style={resolved} />}
+      {(resolved, native) => (
+        <NativeBackdrop {...native} {...props} collapsable={false} style={resolved} />
+      )}
     </NativeStyle>
   );
 }
@@ -83,9 +85,10 @@ export function GlassSurface({
   };
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) =>
+      {(resolved, native) =>
         opaque ? (
           <Animated.View
+            {...native}
             {...props}
             {...events}
             style={[
@@ -96,6 +99,7 @@ export function GlassSurface({
           />
         ) : (
           <AnimatedGlass
+            {...native}
             {...props}
             {...events}
             sourceID={sourceID}
@@ -120,8 +124,14 @@ export const Glass = GlassSurface;
 export function GlassGroup({ spacing = 20, xstyle, style, ...props }: GlassGroupProps) {
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => (
-        <NativeGroup {...props} collapsable={false} spacing={spacing} style={resolved} />
+      {(resolved, native) => (
+        <NativeGroup
+          {...native}
+          {...props}
+          collapsable={false}
+          spacing={spacing}
+          style={resolved}
+        />
       )}
     </NativeStyle>
   );

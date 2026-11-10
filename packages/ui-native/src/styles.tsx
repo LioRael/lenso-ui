@@ -8,11 +8,11 @@ export function NativeStyle({
   style,
   children,
 }: NativeStyles & {
-  children: (style: StyleProp<ViewStyle>) => ReactNode;
+  children: (style: StyleProp<ViewStyle>, native: ViewProps) => ReactNode;
 }) {
   return (
     <compat.native as="div" style={xstyle}>
-      {(native: ViewProps) => children([native.style, style])}
+      {(native: ViewProps) => children([native.style, style], native)}
     </compat.native>
   );
 }

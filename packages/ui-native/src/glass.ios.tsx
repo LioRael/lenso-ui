@@ -12,7 +12,7 @@ import type { BackdropProps, GlassGroupProps, GlassProps } from "./types";
 export function Backdrop({ sourceID: _sourceID, xstyle, style, ...props }: BackdropProps) {
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => <View {...props} style={resolved} />}
+      {(resolved, native) => <View {...native} {...props} style={resolved} />}
     </NativeStyle>
   );
 }
@@ -29,9 +29,10 @@ export function Glass({
   const system = isLiquidGlassAvailable() && isGlassEffectAPIAvailable() && !opaque;
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) =>
+      {(resolved, native) =>
         system ? (
           <GlassView
+            {...native}
             {...props}
             style={resolved}
             glassEffectStyle={material}
@@ -40,7 +41,11 @@ export function Glass({
             colorScheme={dark ? "dark" : "light"}
           />
         ) : (
-          <View {...props} style={[{ backgroundColor: palette.secondaryBackground }, resolved]} />
+          <View
+            {...native}
+            {...props}
+            style={[{ backgroundColor: palette.secondaryBackground }, resolved]}
+          />
         )
       }
     </NativeStyle>
@@ -57,11 +62,11 @@ export function GlassGroup({
   const system = isLiquidGlassAvailable() && isGlassEffectAPIAvailable() && !opaque;
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) =>
+      {(resolved, native) =>
         system ? (
-          <GlassContainer {...props} spacing={spacing} style={resolved} />
+          <GlassContainer {...native} {...props} spacing={spacing} style={resolved} />
         ) : (
-          <View {...props} style={resolved} />
+          <View {...native} {...props} style={resolved} />
         )
       }
     </NativeStyle>

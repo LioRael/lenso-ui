@@ -2,6 +2,11 @@
 
 Reviewed: 2026-11-10. Scope: official documentation and source inspection; no native build or runtime experiment was performed.
 
+That scope describes this initial research checkpoint. Subsequent native builds
+and rendered RSD theme verification are recorded in the
+[runtime validation](native-glass-runtime-validation-2026-11-10.md); source and
+screenshots are indexed by the [delivery record](native-source-delivery-2026-11-10.md).
+
 ## Finding
 
 The claim that StyleX-based styling can only contribute tokens to a native implementation is too restrictive. React Strict DOM (RSD) provides a supported route for sharing component style declarations, variables, themes, and conditional styles between web and native. Its public interface is `css` and `html` from `react-strict-dom`; the web implementation uses StyleX. This establishes a reuse path through RSD, rather than proving that an existing `@stylexjs/stylex` web component library runs unchanged on React Native. [RSD overview](https://react.github.io/react-strict-dom/)

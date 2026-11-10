@@ -5,8 +5,15 @@ An Expo development-build fixture for `@lenso/ui-native`. See
 
 Run `bun run --filter @lenso/native-example ios` or the equivalent `android`
 script from the root. Both compile the custom Expo module; Expo Go is insufficient.
-The Metro configuration resolves all React entry points from this app to preserve
-Expo's pinned React version alongside the Web workspace's version.
+The Metro configuration resolves React and React Strict DOM from this app, preserving native export conditions. RSD must share one variable registry and theme context across the application and component package; duplicate peer-resolved copies can silently lose token styles.
+
+Keep this example's React 19.3.0 and TypeScript 6.0.3 pins separate from the Web
+workspace catalog. They preserve the Expo 58 stack used for native acceptance.
+Rebuild the iOS development host when changing the native module; Metro reload is
+only sufficient for JavaScript changes.
+
+See the [native delivery record](../../docs/research/native-source-delivery-2026-11-10.md)
+for full-build receipts, retained simulator screenshots and acceptance limits.
 
 Try changing Switch and Slider values, then enable **Hold controlled values** and
 repeat. The displayed value and the control should retain the owner value. Toggle

@@ -1,0 +1,282 @@
+[
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-light.png",
+    "observed_title_frame": [289.3, 143.0, 68.7, 20.3],
+    "pixel_box": [868, 429, 1074, 490],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": 0,
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-light.png",
+    "observed_title_frame": [289.3, 225.0, 68.7, 20.3],
+    "pixel_box": [868, 675, 1074, 736],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": 1,
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-light.png",
+    "observed_title_frame": [289.3, 307.0, 68.7, 20.3],
+    "pixel_box": [868, 921, 1074, 982],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": 2,
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-light.png",
+    "observed_title_frame": [289.3, 389.0, 68.7, 20.3],
+    "pixel_box": [868, 1167, 1074, 1228],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": 3,
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-light.png",
+    "observed_title_frame": [289.3, 471.0, 68.7, 20.3],
+    "pixel_box": [868, 1413, 1074, 1474],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": 4,
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-light.png",
+    "observed_title_frame": [289.3, 553.0, 68.7, 20.3],
+    "pixel_box": [868, 1659, 1074, 1720],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": 5,
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-light.png",
+    "observed_title_frame": [289.3, 635.0, 68.7, 20.3],
+    "pixel_box": [868, 1905, 1074, 1966],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": 6,
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-dark.png",
+    "observed_title_frame": [289.3, 143.0, 68.7, 20.3],
+    "pixel_box": [868, 429, 1074, 490],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": 0,
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-dark.png",
+    "observed_title_frame": [289.3, 225.0, 68.7, 20.3],
+    "pixel_box": [868, 675, 1074, 736],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": 1,
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-dark.png",
+    "observed_title_frame": [289.3, 307.0, 68.7, 20.3],
+    "pixel_box": [868, 921, 1074, 982],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": 2,
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-dark.png",
+    "observed_title_frame": [289.3, 389.0, 68.7, 20.3],
+    "pixel_box": [868, 1167, 1074, 1228],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": 3,
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-dark.png",
+    "observed_title_frame": [289.3, 471.0, 68.7, 20.3],
+    "pixel_box": [868, 1413, 1074, 1474],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": 4,
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-dark.png",
+    "observed_title_frame": [289.3, 553.0, 68.7, 20.3],
+    "pixel_box": [868, 1659, 1074, 1720],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": 5,
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe/uikit-probe-dark.png",
+    "observed_title_frame": [289.3, 635.0, 68.7, 20.3],
+    "pixel_box": [868, 1905, 1074, 1966],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": 6,
+    "appearance": "dark"
+  }
+]

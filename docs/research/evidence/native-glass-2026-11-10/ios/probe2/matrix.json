@@ -1,0 +1,202 @@
+[
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-light.png",
+    "observed_title_frame": [289.3, 143.0, 68.7, 20.3],
+    "pixel_box": [868, 429, 1074, 490],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": "H",
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-light.png",
+    "observed_title_frame": [289.3, 225.0, 68.7, 20.3],
+    "pixel_box": [868, 675, 1074, 736],
+    "core_pixel_count": 1903,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1903,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[138, 255, 255], 1530],
+      [[134, 255, 255], 61],
+      [[135, 255, 255], 42],
+      [[120, 249, 255], 30],
+      [[117, 246, 255], 29],
+      [[137, 255, 255], 22]
+    ],
+    "passes_neutral_white": false,
+    "case": "I",
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-light.png",
+    "observed_title_frame": [289.3, 307.0, 68.7, 20.3],
+    "pixel_box": [868, 921, 1074, 982],
+    "core_pixel_count": 1969,
+    "neutral_white_pixels": 1862,
+    "cyan_pixels": 0,
+    "neutral_white_fraction": 0.9456576942610462,
+    "dominant_core_colors": [
+      [[255, 255, 255], 1543],
+      [[252, 253, 253], 61],
+      [[252, 253, 254], 36],
+      [[225, 236, 238], 31],
+      [[240, 246, 247], 29],
+      [[238, 244, 245], 27]
+    ],
+    "passes_neutral_white": true,
+    "case": "J",
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-light.png",
+    "observed_title_frame": [289.3, 389.0, 68.7, 20.3],
+    "pixel_box": [868, 1167, 1074, 1228],
+    "core_pixel_count": 2472,
+    "neutral_white_pixels": 2072,
+    "cyan_pixels": 0,
+    "neutral_white_fraction": 0.8381877022653722,
+    "dominant_core_colors": [
+      [[255, 255, 255], 1552],
+      [[253, 254, 254], 71],
+      [[223, 239, 242], 47],
+      [[241, 248, 249], 42],
+      [[218, 237, 240], 42],
+      [[215, 235, 238], 42]
+    ],
+    "passes_neutral_white": true,
+    "case": "K",
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-light.png",
+    "observed_title_frame": [289.3, 471.0, 68.7, 20.3],
+    "pixel_box": [868, 1413, 1074, 1474],
+    "core_pixel_count": 1715,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1715,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[176, 249, 255], 1530],
+      [[170, 243, 255], 56],
+      [[171, 244, 255], 41],
+      [[174, 247, 255], 21],
+      [[167, 240, 255], 14],
+      [[175, 248, 255], 13]
+    ],
+    "passes_neutral_white": false,
+    "case": "L",
+    "appearance": "light"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-dark.png",
+    "observed_title_frame": [289.3, 143.0, 68.7, 20.3],
+    "pixel_box": [868, 429, 1074, 490],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": "H",
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-dark.png",
+    "observed_title_frame": [289.3, 225.0, 68.7, 20.3],
+    "pixel_box": [868, 675, 1074, 736],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1921,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[133, 255, 255], 1530],
+      [[128, 255, 255], 57],
+      [[129, 255, 255], 41],
+      [[115, 252, 255], 30],
+      [[112, 249, 255], 27],
+      [[109, 246, 255], 23]
+    ],
+    "passes_neutral_white": false,
+    "case": "I",
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-dark.png",
+    "observed_title_frame": [289.3, 307.0, 68.7, 20.3],
+    "pixel_box": [868, 921, 1074, 982],
+    "core_pixel_count": 1921,
+    "neutral_white_pixels": 1862,
+    "cyan_pixels": 0,
+    "neutral_white_fraction": 0.9692868297761582,
+    "dominant_core_colors": [
+      [[255, 255, 255], 1543],
+      [[252, 253, 253], 97],
+      [[240, 245, 246], 29],
+      [[238, 243, 244], 27],
+      [[254, 254, 254], 21],
+      [[236, 241, 243], 19]
+    ],
+    "passes_neutral_white": true,
+    "case": "J",
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-dark.png",
+    "observed_title_frame": [289.3, 389.0, 68.7, 20.3],
+    "pixel_box": [868, 1167, 1074, 1228],
+    "core_pixel_count": 2472,
+    "neutral_white_pixels": 2072,
+    "cyan_pixels": 0,
+    "neutral_white_fraction": 0.8381877022653722,
+    "dominant_core_colors": [
+      [[255, 255, 255], 1552],
+      [[253, 254, 254], 71],
+      [[223, 239, 242], 47],
+      [[241, 248, 249], 42],
+      [[218, 237, 240], 42],
+      [[215, 235, 238], 42]
+    ],
+    "passes_neutral_white": true,
+    "case": "K",
+    "appearance": "dark"
+  },
+  {
+    "image": "output/native-glass-2026-11-10/ios/color-diagnosis/probe2/uikit-probe2-dark.png",
+    "observed_title_frame": [289.3, 471.0, 68.7, 20.3],
+    "pixel_box": [868, 1413, 1074, 1474],
+    "core_pixel_count": 1723,
+    "neutral_white_pixels": 0,
+    "cyan_pixels": 1723,
+    "neutral_white_fraction": 0.0,
+    "dominant_core_colors": [
+      [[173, 250, 255], 1530],
+      [[167, 244, 255], 57],
+      [[169, 246, 255], 42],
+      [[172, 249, 255], 13],
+      [[171, 248, 255], 12],
+      [[165, 242, 255], 12]
+    ],
+    "passes_neutral_white": false,
+    "case": "L",
+    "appearance": "dark"
+  }
+]

@@ -1,0 +1,29 @@
+import org.gradle.api.artifacts.repositories.MavenArtifactRepository
+
+def rewrite = { repo ->
+  if (repo instanceof MavenArtifactRepository && repo.url?.scheme == 'https') {
+    def uri = repo.url
+    if (uri.host in ['repo.maven.apache.org','repo1.maven.org','dl.google.com','plugins.gradle.org','plugins-artifacts.gradle.org','repo.reactnative.dev','maven.google.com','central.sonatype.com','oss.sonatype.org']) {
+      repo.url = new URI("http://127.0.0.1:18791/${uri.host}${uri.path}")
+      repo.allowInsecureProtocol = true
+    }
+  }
+}
+gradle.beforeSettings { settings ->
+  settings.pluginManagement.repositories.gradlePluginPortal()
+  settings.pluginManagement.resolutionStrategy.eachPlugin {
+    settings.pluginManagement.repositories.each(rewrite)
+  }
+}
+gradle.settingsEvaluated { settings ->
+  settings.pluginManagement.repositories.each(rewrite)
+  settings.dependencyResolutionManagement.repositories.each(rewrite)
+}
+gradle.beforeProject { project ->
+  project.repositories.all(rewrite)
+  project.buildscript.repositories.all(rewrite)
+  project.afterEvaluate {
+    project.repositories.each(rewrite)
+    project.buildscript.repositories.each(rewrite)
+  }
+}

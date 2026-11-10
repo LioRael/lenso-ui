@@ -3,6 +3,8 @@
 // Modified: bounded change-driven measurement and explicit controlled-state restoration.
 import ExpoModulesCore
 
+final class AppearanceView: ExpoView {}
+
 class ControlView: ExpoView {
   var hosted: UIView { fatalError("ControlView subclasses must provide their native control") }
   var sizeEvent: EventDispatcher { fatalError("ControlView subclasses must provide onSize") }
@@ -52,9 +54,21 @@ final class ButtonView: ControlView {
     }
     config.title = label
     config.buttonSize = size == "sm" ? .small : size == "md" ? .medium : .large
-    config.baseForegroundColor = tint
-    if prominent { config.baseBackgroundColor = tint }
+    if let tint {
+      if prominent {
+        config.baseBackgroundColor = tint
+      } else {
+        config.baseForegroundColor = tint
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+          var outgoing = incoming
+          // Keep UIKit attributes explicit; `.white` can otherwise select a SwiftUI key.
+          outgoing.uiKit.foregroundColor = tint
+          return outgoing
+        }
+      }
+    }
     button.configuration = config
+    button.tintColor = tint
     setNeedsLayout()
   }
 }

@@ -14,12 +14,17 @@ import {
 } from "@lenso/ui-native";
 
 const styles = css.create({
-  root: { display: "flex", flex: 1, backgroundColor: colors.background },
+  root: { display: "flex", flexDirection: "column", flex: 1, backgroundColor: colors.background },
+  headingGroup: {
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: colors.background,
+  },
   background: { position: "absolute", inset: 0 },
   heading: { fontSize: 28, fontWeight: "700", color: colors.label },
   description: { fontSize: 15, color: colors.secondaryLabel, marginTop: 8 },
-  content: { display: "flex", padding: 8, paddingTop: 68, gap: 24 },
-  glassRow: { display: "flex", flexDirection: "row", gap: 12 },
+  content: { display: "flex", flexDirection: "column", padding: 8, paddingTop: 68, gap: 24 },
+  glassRow: { display: "flex", flexDirection: "row", gap: 8 },
   glass: {
     display: "flex",
     flexGrow: 1,
@@ -33,6 +38,7 @@ const styles = css.create({
   label: { color: colors.label, fontSize: 17, fontWeight: "600" },
   card: {
     display: "flex",
+    flexDirection: "column",
     padding: 20,
     gap: 20,
     borderRadius: 26,
@@ -76,7 +82,7 @@ export default function App() {
           contentContainerStyle={{ paddingBottom: 48 }}
         >
           <html.div style={styles.content}>
-            <html.div>
+            <html.div style={styles.headingGroup}>
               <html.h1 style={styles.heading}>Lenso Native</html.h1>
               <html.p style={styles.description}>
                 {Platform.OS === "ios"

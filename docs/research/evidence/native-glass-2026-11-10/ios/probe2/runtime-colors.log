@@ -1,0 +1,17 @@
+Timestamp               Ty Process[PID:TID]
+2026-11-10 19:02:59.267 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=0 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:02:59.267 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=1 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:02:59.267 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=2 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:02:59.267 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=3 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=0.0,0.5333333333333333,1.0,1.0 tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:02:59.267 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=4 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:03:01.840 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=0 dark=true highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5686274509803921,1.0,1.0
+2026-11-10 19:03:01.840 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=1 dark=true highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5686274509803921,1.0,1.0
+2026-11-10 19:03:01.840 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=2 dark=true highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5686274509803921,1.0,1.0
+2026-11-10 19:03:01.840 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=3 dark=true highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=0.0,0.5686274509803921,1.0,1.0 tint=0.0,0.5686274509803921,1.0,1.0
+2026-11-10 19:03:01.840 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=4 dark=true highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5686274509803921,1.0,1.0
+2026-11-10 19:03:03.771 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=0 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:03:03.771 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=1 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:03:03.771 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=2 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:03:03.771 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=3 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=0.0,0.5333333333333333,1.0,1.0 tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:03:03.771 Df ColorDiff[70971:e4ad45] (Foundation) LensoColorDiff case=4 dark=false highlighted=false label=1.0,1.0,1.0,1.0 baseFg=nil baseBg=nil tint=0.0,0.5333333333333333,1.0,1.0
+2026-11-10 19:03:14.558 Df log[71093:0] [com.apple.log:] log run noninteractively, parent: 40157 (launchd_sim), args: 'log' 'show' '--style' 'compact' '--last' '3m' '--predicate' 'eventMessage CONTAINS "LensoColorDiff"'

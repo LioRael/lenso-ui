@@ -1,0 +1,12 @@
+[
+  "switch accepted off",
+  "slider accepted Level 68",
+  "button callback once",
+  "switch rejected proposal restored",
+  "slider rejected proposal retained Level 68",
+  "dark appearance toggled",
+  "opaque fallback toggled",
+  "independent backdrop scroll performed",
+  "backdrop moved while foreground switch geometry remained fixed",
+  "foreground scrolled independently while backdrop geometry remained fixed"
+]
