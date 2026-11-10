@@ -1,0 +1,19 @@
+packages/ui-exact/scripts/stage.ts
+  s_10c7d362cf24b2::t_7f2ae516e92589 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2f7142b9bb3e35e5f6c1a5c2876b67d65c004fcf",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
