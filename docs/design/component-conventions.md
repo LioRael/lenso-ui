@@ -104,6 +104,10 @@ backdrop optics also apply to decorative material layers; a material background
 must not silently receive only a rim and a blurred paint stack. Other engines
 retain their supported fallback rather than claiming native backdrop refraction.
 
+Tabs and SegmentedControl's lifted selection lens samples the composited track.
+Its local live-backdrop boundary prevents a copied page image from bypassing
+the track's material and showing sharp content through the selected segment.
+
 Tabs motion measures fractional item bounds in list coordinates, compensating
 for the list's current elastic scale. Avoid integer offset widths for indicator
 placement. A constrained page's item widths must account for both list padding

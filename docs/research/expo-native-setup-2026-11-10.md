@@ -12,6 +12,7 @@ workspace React catalog:
 | `react-native`                           | `0.88.1`  |
 | `react-strict-dom`                       | `0.0.55`  |
 | `babel-preset-expo`                      | `58.0.24` |
+| `typescript` (example only)              | `6.0.3`   |
 | `@expo/metro-runtime`                    | `58.0.17` |
 | `expo-modules-core` (native module peer) | `58.0.30` |
 

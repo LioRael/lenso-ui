@@ -13,14 +13,26 @@ for (const [name, engine] of [
   try {
     const page = await browser.newPage({ deviceScaleFactor: 2 });
     if (baseline)
-      await page.route("**/gpu-capture.ts", async (route) => {
-        const response = await route.fetch();
-        const source = await response.text();
-        assert.match(source, /Retain source pixels/);
-        const body = source.replace(/\/\/ Retain source pixels[\s\S]*?(?=const nextPlacement)/, "");
-        await route.fulfill({ response, body });
-      });
-    await page.goto(base);
+      await page.route(
+        (url) => url.pathname.endsWith("/gpu-capture.ts"),
+        async (route) => {
+          const response = await route.fetch();
+          const source = await response.text();
+          assert.match(source, /Retain source pixels/);
+          const body = source.replace(
+            /\/\/ Retain source pixels[\s\S]*?(?=const nextPlacement)/,
+            "",
+          );
+          await route.fulfill({ response, body });
+        },
+      );
+    await page.route(`${base}/__backdrop-cache`, (route) =>
+      route.fulfill({
+        contentType: "text/html",
+        body: "<!doctype html><title>Backdrop cache</title>",
+      }),
+    );
+    await page.goto(`${base}/__backdrop-cache`);
     const result = await page.evaluate(async (moduleRoot) => {
       const { BackdropPaint, createBackdropAtlas } = await import(`${moduleRoot}gpu-capture.ts`);
       const { BackdropReads } = await import(`${moduleRoot}backdrop-scheduler.ts`);
@@ -224,8 +236,7 @@ for (const [name, engine] of [
       const fallback = item.label.includes("fallback");
       assert.equal(item.captures, baseline || fallback ? 2 : 1, item.label);
     }
-    if (!baseline)
-      assert.equal(result.captures, 1, "Scroll and drag must reuse the retained capture");
+    assert.equal(result.captures, baseline ? 49 : 1, "Unexpected scroll/drag capture count");
   } finally {
     await browser.close();
   }

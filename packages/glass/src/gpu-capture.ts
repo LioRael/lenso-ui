@@ -318,16 +318,41 @@ export function createBackdropAtlas(shape: CaptureShape) {
     previousTime = "";
   let captures = 0;
   let previousBounds: DOMRect | undefined;
-  let retained:
-    | {
-        revision: number;
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-        image: ReturnType<typeof capture>;
-      }
-    | undefined;
+  type Retained = {
+    revision: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    image: ReturnType<typeof capture>;
+  };
+  let retained: Retained | undefined;
+  type Preparation = { region: Retained; ready: boolean; timer?: ReturnType<typeof setTimeout> };
+  let preparing: Preparation | undefined;
+  let previousTiles: CaptureTile[] = [];
+  let presentedRevision = -1;
+  const releasePreparing = () => {
+    if (!preparing) return;
+    clearTimeout(preparing.timer);
+    preparing.region.image.dispose();
+    preparing = undefined;
+  };
+  function createRegion(
+    paint: Paint,
+    revision: number,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  ): Retained {
+    const root = document.createElement("div");
+    root.style.cssText = `position:relative;width:${width}px;height:${height}px;overflow:hidden`;
+    const copy = paint.root.cloneNode(true) as HTMLElement;
+    copy.style.left = `${-x}px`;
+    copy.style.top = `${-y}px`;
+    root.append(copy);
+    return { revision, x, y, width, height, image: capture(root, width, height, dpr) };
+  }
   const output = document.createElement("canvas");
   output.width = output.height = 1;
   const outputContext = output.getContext("2d", { willReadFrequently: true })!;
@@ -423,6 +448,7 @@ export function createBackdropAtlas(shape: CaptureShape) {
     base = undefined;
     retained?.image.dispose();
     retained = undefined;
+    releasePreparing();
     output.width = output.height = 1;
   }
   return {
@@ -460,60 +486,128 @@ export function createBackdropAtlas(shape: CaptureShape) {
         cacheWidth * cacheHeight * dpr * dpr <= 4 * 1024 * 1024 &&
         Math.max(cacheWidth, cacheHeight) * dpr <= 4096
       ) {
-        const unchanged =
-          retained?.revision === state.revision &&
-          left >= retained.x &&
-          top >= retained.y &&
-          right <= retained.x + retained.width &&
-          bottom <= retained.y + retained.height;
-        if (!unchanged) {
-          clear();
-          const x = Math.floor(left) - gutter;
-          const y = Math.floor(top) - gutter;
-          const root = document.createElement("div");
-          root.style.cssText = `position:relative;width:${cacheWidth}px;height:${cacheHeight}px;overflow:hidden`;
-          const copy = paint.root.cloneNode(true) as HTMLElement;
-          copy.style.left = `${-x}px`;
-          copy.style.top = `${-y}px`;
-          root.append(copy);
-          const image = capture(root, cacheWidth, cacheHeight, dpr);
-          retained = {
-            revision: state.revision,
-            x,
-            y,
-            width: cacheWidth,
-            height: cacheHeight,
-            image,
-          };
-          await image.update(cacheWidth);
-          if (retained?.image !== image) return;
-          captures++;
-        } else if (placement === tiles.map((tile) => `${tile.x},${tile.y},1,1`).join(";")) {
-          return;
+        const contains = (region: Retained) =>
+          region.revision === state.revision &&
+          left >= region.x &&
+          top >= region.y &&
+          right <= region.x + region.width &&
+          bottom <= region.y + region.height;
+        if (preparing && !contains(preparing.region)) releasePreparing();
+        if (preparing?.ready) {
+          retained?.image.dispose();
+          retained = preparing.region;
+          preparing = undefined;
         }
-        placement = tiles.map((tile) => `${tile.x},${tile.y},1,1`).join(";");
-        const cached = retained!;
-        if (output.width !== columns * strideX * dpr || output.height !== rows * strideY * dpr) {
-          output.width = columns * strideX * dpr;
+        if (!retained || !contains(retained)) {
+          clear();
+          const next = createRegion(
+            paint,
+            state.revision,
+            Math.floor(left) - gutter,
+            Math.floor(top) - gutter,
+            cacheWidth,
+            cacheHeight,
+          );
+          retained = next;
+          await next.image.update(cacheWidth);
+          if (retained !== next) return;
+          captures++;
+        }
+        const cached = retained;
+        const indices = tiles.flatMap((tile, index) => {
+          const previous = previousTiles[index];
+          return presentedRevision !== state.revision ||
+            !previous ||
+            tile.x !== previous.x ||
+            tile.y !== previous.y
+            ? [index]
+            : [];
+        });
+        const previousLeft = previousTiles.length
+          ? Math.min(...previousTiles.map((tile) => tile.x)) - margin
+          : left;
+        const previousTop = previousTiles.length
+          ? Math.min(...previousTiles.map((tile) => tile.y)) - margin
+          : top;
+        const previousRight = previousTiles.length
+          ? Math.max(...previousTiles.map((tile) => tile.x)) + width + margin
+          : right;
+        const previousBottom = previousTiles.length
+          ? Math.max(...previousTiles.map((tile) => tile.y)) + height + margin
+          : bottom;
+        const dx =
+          right > previousRight && cached.x + cached.width - right <= 32
+            ? 1
+            : left < previousLeft && left - cached.x <= 32
+              ? -1
+              : 0;
+        const dy =
+          bottom > previousBottom && cached.y + cached.height - bottom <= 32
+            ? 1
+            : top < previousTop && top - cached.y <= 32
+              ? -1
+              : 0;
+        // At most two retained canvases share the 16 MiB pixel budget.
+        // Serialize and decode after current presentation work.
+        if (
+          !preparing &&
+          (dx || dy) &&
+          (cacheWidth * cacheHeight + cached.width * cached.height) * dpr * dpr <= 4 * 1024 * 1024
+        ) {
+          const pending: Preparation = {
+            region: createRegion(
+              paint,
+              state.revision,
+              Math.floor(left) - gutter + (dx * gutter) / 2,
+              Math.floor(top) - gutter + (dy * gutter) / 2,
+              cacheWidth,
+              cacheHeight,
+            ),
+            ready: false,
+          };
+          preparing = pending;
+          pending.timer = setTimeout(() => {
+            void pending.region.image
+              .update(cacheWidth)
+              .then(() => {
+                if (preparing !== pending) return;
+                pending.ready = true;
+                captures++;
+              })
+              .catch(() => {
+                if (preparing === pending) releasePreparing();
+              });
+          }, 0);
+        }
+        previousTiles = tiles.map((tile) => ({ ...tile }));
+        presentedRevision = state.revision;
+        if (!indices.length) return;
+        const activeColumns = Math.ceil(indices.length / rows);
+        if (
+          output.width !== activeColumns * strideX * dpr ||
+          output.height !== rows * strideY * dpr
+        ) {
+          output.width = activeColumns * strideX * dpr;
           output.height = rows * strideY * dpr;
         }
         outputContext.clearRect(0, 0, output.width, output.height);
-        tiles.forEach((tile, index) =>
+        indices.forEach((index, at) => {
+          const tile = tiles[index]!;
           outputContext.drawImage(
             cached.image.canvas,
             (tile.x - margin - cached.x) * dpr,
             (tile.y - margin - cached.y) * dpr,
             (width + 2 * margin) * dpr,
             (height + 2 * margin) * dpr,
-            (index % columns) * strideX * dpr,
-            Math.floor(index / columns) * strideY * dpr,
+            (at % activeColumns) * strideX * dpr,
+            Math.floor(at / activeColumns) * strideY * dpr,
             (width + 2 * margin) * dpr,
             (height + 2 * margin) * dpr,
-          ),
-        );
+          );
+        });
         return {
-          indices: tiles.map((_, index) => index),
-          columns,
+          indices,
+          columns: activeColumns,
           pixels:
             paint.opaque &&
             tiles.every(
@@ -531,6 +625,8 @@ export function createBackdropAtlas(shape: CaptureShape) {
         clear();
         revision = -1;
       }
+      previousTiles = [];
+      presentedRevision = -1;
       const nextPlacement = tiles
         .map((tile) => `${tile.x},${tile.y},${tile.scaleX ?? 1},${tile.scaleY ?? 1}`)
         .join(";");
@@ -651,6 +747,9 @@ export function createBackdropAtlas(shape: CaptureShape) {
               ),
       };
     },
-    dispose: clear,
+    dispose() {
+      clear();
+      previousTiles = [];
+    },
   };
 }

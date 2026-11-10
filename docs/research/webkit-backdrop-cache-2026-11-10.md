@@ -61,22 +61,24 @@ Three alternating baseline/candidate pairs ran sequentially against the same
 local docs server, without concurrent builds or browser tests. Each run used a
 fresh browser page. Per-run medians and p95s, in milliseconds:
 
-| Metric                                                    | Baseline runs | Cached runs  |
-| --------------------------------------------------------- | ------------- | ------------ |
-| Captures for initial + 48 movements                       | 49 / 49 / 49  | 1 / 1 / 1    |
-| Input preparation median                                  | 2 / 2 / 5     | <1 / <1 / <1 |
-| Input preparation p95                                     | 9 / 10 / 22   | 1 / <1 / 1   |
-| Scroll to presentation-canvas submission median           | 17 / 18 / 18  | 17 / 18 / 18 |
-| Lens translation to presentation-canvas submission median | 2 / 2 / 2     | 2 / 1 / 2    |
-| Combined presentation-canvas submission p95               | 19 / 19 / 19  | 19 / 19 / 19 |
+| Metric                              | Baseline runs | Cached runs  |
+| ----------------------------------- | ------------- | ------------ |
+| Captures for initial + 48 movements | 49 / 49 / 49  | 1 / 1 / 1    |
+| Input preparation median            | 2 / 2 / 5     | <1 / <1 / <1 |
+| Input preparation p95               | 9 / 10 / 22   | 1 / <1 / 1   |
 
 WebKit's timer reported zero for values listed as <1; these are not zero-cost
-updates. Input preparation improves substantially. The end-to-end canvas result
-shows no consistent scroll latency reduction and only a small, noisy translation
-improvement. Scroll event delivery and the rest of rendering still dominate the
-roughly one-frame scroll result. No 60 fps or physical-device latency claim is
-made. Raw local logs are under
+updates. Input preparation improves substantially. Raw local logs are under
 `output/playwright/backdrop-cache-2026-11-10/` (untracked).
+
+Correction during the follow-up: the original baseline interceptor matched only
+module URLs without Vite timestamp queries. Direct atlas input measurements above
+used that exact URL and remain applicable. The presentation path could import a
+timestamped current module, so its earlier comparative timing rows are withdrawn.
+The interceptor now matches the URL pathname, including timestamped requests.
+See [the isolated follow-up](webkit-backdrop-prefetch-2026-11-10.md) for corrected
+presentation comparisons, with baseline/candidate redraw counts checked explicitly.
+No physical-device latency or frame-rate claim is made.
 
 ## Validation and migration
 

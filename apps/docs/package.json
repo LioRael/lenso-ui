@@ -18,6 +18,7 @@
     "test:stylex-artifacts": "bun test test/stylex-artifacts.test.ts test/static-export.test.ts",
     "test:dev": "node test/start-dev.mjs",
     "test:dev-isolation": "node test/start-dev-isolation.mjs",
+    "test:backdrop-prefetch": "node test/backdrop-prefetch.mjs",
     "test:backdrop-cache": "node test/backdrop-cache.mjs",
     "test:canvas-navigation": "node test/glass-canvas-navigation.mjs",
     "test:moving-glass-preferences": "node test/moving-glass-preferences.mjs",

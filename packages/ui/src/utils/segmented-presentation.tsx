@@ -63,7 +63,13 @@ export function SelectionHighlight({
 
 export function SelectionLensPaint({ kind }: { kind: SegmentedPresentationKind }) {
   return (
-    <span data-slot={`${kind}-refraction`} aria-hidden="true" {...stylex.props(s.refraction)}>
+    <span
+      data-slot={`${kind}-refraction`}
+      // Sample the composited track, not a fresh copy of the page's marked photo.
+      data-lenso-backdrop="live"
+      aria-hidden="true"
+      {...stylex.props(s.refraction)}
+    >
       <KnobMaterial kind="toggle" controlEdge />
     </span>
   );

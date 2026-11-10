@@ -6,7 +6,7 @@
 // Modified: Apple-inspired hierarchy, live glass example and Lenso documentation paths.
 import NextLink from "fumadocs-core/link";
 import * as stylex from "@stylexjs/stylex";
-import { Button, GlassButton, Link } from "@lenso/ui";
+import { Button, Link } from "@lenso/ui";
 import { HomeShell } from "./home-layout";
 import { HomeShowcase } from "./home-showcase";
 import { home as s } from "@/styles/home.stylex";
@@ -81,15 +81,16 @@ export function HomePage({ locale }: { locale: Locale }) {
                   >
                     {cn ? "阅读文档" : "Read the docs"}
                   </Button>
-                  <GlassButton
-                    xstyle={s.heroAction}
+                  <Button
+                    xstyle={[s.heroAction, s.secondaryAction]}
                     nativeButton={false}
                     role="link"
                     size="lg"
+                    variant="bordered"
                     render={<NextLink href={`/${locale}/docs/react/components`} />}
                   >
                     {cn ? "浏览组件" : "Components"}
-                  </GlassButton>
+                  </Button>
                 </div>
               </div>
             </div>

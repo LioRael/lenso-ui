@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useId, useLayoutEffect, useRef, useState } from "react";
 import { Animated, PanResponder, Pressable, StyleSheet, Text, View } from "react-native";
 import { Backdrop, GlassSurface } from "./glass.android";
 import { NativeStyle } from "./styles";
@@ -29,12 +29,13 @@ export function GlassButton({
   const color = destructive ? palette.destructive : (tint ?? palette.tint);
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => (
+      {(resolved, native) => (
         <Animated.View
+          {...native}
           style={[
             { alignSelf: "flex-start", opacity: disabled ? 0.4 : 1 },
-            resolved,
             { transform: [{ scale }] },
+            resolved,
           ]}
         >
           <Pressable
@@ -93,8 +94,9 @@ export function Switch({
   const { palette } = useLensoAppearance();
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => (
+      {(resolved, native) => (
         <Pressable
+          {...native}
           {...props}
           accessibilityRole="switch"
           accessibilityState={{ checked: current, disabled }}
@@ -119,6 +121,7 @@ export function Switch({
             sourceID={sourceID}
             pointerEvents="none"
             material="clear"
+            tint={held ? undefined : "white"}
             lens={held}
             held={held}
             style={{
@@ -175,28 +178,38 @@ export function Slider({
     setHeld(false);
     onValueChangeEnd?.(proposed.current);
   };
-  // PanResponder stores these handlers; it does not read gesture refs during render.
-  // eslint-disable-next-line react/refs
-  const responder = PanResponder.create({
-    onMoveShouldSetPanResponder: (_, gesture) =>
-      !disabled && Math.abs(gesture.dx) > 6 && Math.abs(gesture.dx) > Math.abs(gesture.dy),
-    onPanResponderGrant: (event) => {
-      dragged.current = true;
-      setHeld(true);
-      move(event.nativeEvent.locationX);
-    },
-    onPanResponderMove: (event) => move(event.nativeEvent.locationX),
-    onPanResponderRelease: finish,
-    onPanResponderTerminate: () => {
-      setHeld(false);
-    },
-    onPanResponderTerminationRequest: () => true,
+  const handlers = useRef({ disabled, move, finish });
+  useLayoutEffect(() => {
+    handlers.current = { disabled, move, finish };
   });
+  // Keep gesture ownership across controlled-value renders; callbacks use committed props.
+  // PanResponder registers these callbacks without invoking them during render.
+  // eslint-disable-next-line react/refs
+  const [responder] = useState(() =>
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gesture) =>
+        !handlers.current.disabled &&
+        Math.abs(gesture.dx) > 6 &&
+        Math.abs(gesture.dx) > Math.abs(gesture.dy),
+      onPanResponderGrant: (event) => {
+        dragged.current = true;
+        setHeld(true);
+        handlers.current.move(event.nativeEvent.locationX);
+      },
+      onPanResponderMove: (event) => handlers.current.move(event.nativeEvent.locationX),
+      onPanResponderRelease: () => handlers.current.finish(),
+      onPanResponderTerminate: () => {
+        setHeld(false);
+      },
+      onPanResponderTerminationRequest: () => true,
+    }),
+  );
   const fraction = Math.max(0, Math.min(1, (current - min) / (max - min)));
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => (
+      {(resolved, native) => (
         <View
+          {...native}
           {...props}
           {...responder.panHandlers}
           accessible
@@ -263,6 +276,7 @@ export function Slider({
             sourceID={sourceID}
             pointerEvents="none"
             material="clear"
+            tint={held ? undefined : "white"}
             lens={held}
             held={held}
             style={{

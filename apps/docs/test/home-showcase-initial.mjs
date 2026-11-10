@@ -164,6 +164,39 @@ for (const [name, engine] of [
         `${name}: switching scenes must not leave a disconnected backdrop copy`,
       );
     }
+    const selected = list.getByRole("tab", { name: "Alpine", exact: true });
+    const selectedBox = await selected.boundingBox();
+    await page.mouse.move(
+      selectedBox.x + selectedBox.width / 2,
+      selectedBox.y + selectedBox.height / 2,
+    );
+    await page.mouse.down();
+    try {
+      await page.waitForTimeout(300);
+      assert.equal(
+        await list
+          .locator('[data-lg-tabs-lens="native"] [data-slot="tabs-refraction"] img')
+          .count(),
+        0,
+        `${name}: a held indicator must not bypass its track by copying the page photo`,
+      );
+    } finally {
+      await page.mouse.up();
+    }
+    for (const label of ["Read the docs", "Components"]) {
+      assert.equal(
+        await page
+          .locator("#main-content")
+          .getByRole("link", { name: label, exact: true })
+          .getAttribute("data-glass"),
+        "false",
+      );
+    }
+    const favorite = page.getByRole("button", { name: "Favorite Alpine photo", exact: true });
+    await favorite.click();
+    assert.equal(await favorite.getAttribute("aria-pressed"), "true");
+    await favorite.click();
+    assert.equal(await favorite.getAttribute("aria-pressed"), "false");
     for (const width of [320, 390]) {
       await page.setViewportSize({ width, height: 900 });
       await page.waitForTimeout(150);

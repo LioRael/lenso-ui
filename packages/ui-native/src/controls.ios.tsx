@@ -64,8 +64,9 @@ export function GlassButton({
   const measured = useSize({ width: 160, height: 50 });
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => (
+      {(resolved, native) => (
         <NativeButton
+          {...native}
           {...props}
           {...measured}
           label={children}
@@ -97,8 +98,9 @@ export function Switch({
   const measured = useSize({ width: 64, height: 38 });
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => (
+      {(resolved, native) => (
         <NativeSwitch
+          {...native}
           {...props}
           {...measured}
           style={[measured.style, resolved]}
@@ -131,8 +133,9 @@ export function Slider({
   const measured = useSize({ width: 0, height: 44 }, true);
   return (
     <NativeStyle xstyle={xstyle} style={style}>
-      {(resolved) => (
+      {(resolved, native) => (
         <NativeSlider
+          {...native}
           {...props}
           {...measured}
           style={[measured.style, resolved]}

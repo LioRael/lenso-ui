@@ -71,9 +71,8 @@ bun run --filter @lenso/native-example export:android
 ```
 
 Value-boundary tests cover snapping and overshoot; they do not establish touch,
-VoiceOver/TalkBack, rendering, fusion or performance correctness. See the
-[source delivery validation](../../docs/research/native-source-delivery-2026-11-10.md)
-for the verified build boundary and remaining native acceptance work.
+VoiceOver/TalkBack, rendering, fusion or performance correctness. See the native
+[validation report](../../docs/research/native-glass-runtime-validation-2026-11-10.md) for actual build and device coverage.
 
 ## Attribution
 

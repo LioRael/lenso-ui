@@ -1164,3 +1164,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## React Native Glass adapters
+
+`packages/ui-native` retains MIT Android rendering and UIKit hosting from
+`onlymoein/liquidglass`, commit `a2d26488ce8656901d088d10a69ec4e82fca37f4`.
+Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz. Full MIT license and file-level
+adaptation details are in `packages/ui-native/LICENSE` and `packages/ui-native/NOTICE.md`.

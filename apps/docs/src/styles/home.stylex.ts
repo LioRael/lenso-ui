@@ -84,6 +84,13 @@ export const home = stylex.create({
     height: { default: 50, "@media (max-height: 600px) and (min-width: 640px)": 44 },
     paddingBlock: 0,
   },
+  secondaryAction: {
+    color: "var(--lenso-label-primary)",
+    backgroundColor: {
+      default: "var(--lenso-background-secondary)",
+      ":hover": "var(--lenso-background-tertiary)",
+    },
+  },
   foundations: {
     width: "100%",
     maxWidth: 1440,
