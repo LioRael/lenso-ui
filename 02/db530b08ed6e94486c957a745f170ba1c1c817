@@ -1,0 +1,137 @@
+packages/ui-exact/test/content.mjs
+  s_9f86fbdae2d09f::t_c53b6937d64e37 45-176
+  s_9f86fbdae2d09f::t_2814c740f38ef1 177-182
+  s_9f86fbdae2d09f::t_1dba7ebc2d078c 1-44,183-187
+packages/primitives-exact/COMPILER.md
+  s_bc7f547f67ab4c::t_7f627d3d60cc34 74,84
+  s_bc7f547f67ab4c::t_0d06b0d62a04d6 75-77
+  s_bc7f547f67ab4c::t_71ea091694a3d2 1-15,22-73,78-83,85-91
+  s_bc7f547f67ab4c::t_14d369eec24db8 16-21
+packages/ui-exact/COMPONENTS.md
+  s_9f86fbdae2d09f::t_c697f81288c505 20-120,177,211,240-241,256,294-310
+packages/ui-exact/TOGGLES.md
+  s_9f86fbdae2d09f::t_c697f81288c505 107
+packages/ui-exact/package.json
+  s_9f86fbdae2d09f::t_927f86bfc11f65 19
+packages/ui-exact/README.md
+  s_9f86fbdae2d09f::t_927f86bfc11f65 63-67
+packages/ui-exact/STYLING.md
+  s_9f86fbdae2d09f::t_c697f81288c505 124-125
+packages/primitives-exact/API.md
+  s_bc7f547f67ab4c::t_be4bce11b51309 80-82
+packages/primitives-exact/COMPOSITION.md
+  s_bc7f547f67ab4c::t_be4bce11b51309 90-98
+  s_bc7f547f67ab4c::t_14d369eec24db8 12-16,85-87
+packages/primitives-exact/README.md
+  s_bc7f547f67ab4c::t_be4bce11b51309 212-214,225-226
+packages/primitives-exact/scripts/host-patches.ts
+  s_bc7f547f67ab4c::t_e958496c8651b9 96-98
+  s_bc7f547f67ab4c::t_14d369eec24db8 99-106,108,110,112-122
+packages/primitives-exact/scripts/contracts.ts
+  s_bc7f547f67ab4c::t_71ea091694a3d2 336
+  s_bc7f547f67ab4c::t_5ca4b574e864fe 189,344-345
+  s_bc7f547f67ab4c::t_14d369eec24db8 330-335
+packages/ui-exact/FEEDBACK.md
+  s_9f86fbdae2d09f::t_c697f81288c505 118
+packages/ui-exact/INITIAL_STYLES.md
+  s_9f86fbdae2d09f::t_c697f81288c505 70-71
+experiments/exact-docs/README.md
+  s_f68ad3a859106e::t_9dac9588b9809a 553-570,572
+experiments/exact-docs/bench/compare.mjs
+  s_f68ad3a859106e::t_8f53a824025a0b 247,290,296,311-312,316-324,328-373,401
+  s_f68ad3a859106e::t_fa84c5ab51ffa7 313-315,325-327
+  s_f68ad3a859106e::t_e16de14e26e654 1-246,248-289,291-295,297-310,374-400,402-476
+packages/primitives-exact/package.json
+  s_bc7f547f67ab4c::t_71ea091694a3d2 16-17
+experiments/exact-docs/package.json
+  s_f68ad3a859106e::t_8f53a824025a0b 25
+packages/ui-exact/src/presentation.ts
+  s_9f86fbdae2d09f::t_b744e9e48651d5 342
+  s_9f86fbdae2d09f::t_da82b09ca926d8 1,73-74,134,322-341
+packages/primitives-exact/patches/series.json
+  s_bc7f547f67ab4c::t_e958496c8651b9 54-58,60-61
+  s_bc7f547f67ab4c::t_14d369eec24db8 59
+packages/primitives-exact/VERIFICATION.md
+  s_bc7f547f67ab4c::t_be4bce11b51309 4,49-52,166-168
+  s_bc7f547f67ab4c::t_0d06b0d62a04d6 74-101,105,110-116,180
+packages/primitives-exact/patches/README.md
+  s_bc7f547f67ab4c::t_e958496c8651b9 1,4,87-107,128-129
+packages/ui-exact/CONTENT.md
+  s_9f86fbdae2d09f::t_927f86bfc11f65 1-114
+packages/primitives-exact/patches/exact-compiler-relationships.patch
+  s_bc7f547f67ab4c::t_5ca4b574e864fe 24,180-182,264,288,315,350,400-440,443-444,447-457,459-464,587,589,596-836
+  s_bc7f547f67ab4c::t_d26867b5b63b37 1-23,25-179,183-263,265-287,289-314,316-349,351-399,442,445-446,458,465-586,588,590-595
+  s_bc7f547f67ab4c::t_f02483e7938a09 441
+experiments/exact-docs/ASTRO_COMPARISON.md
+  s_9f86fbdae2d09f::t_50b8b95908e5c0 1-39
+experiments/exact-docs/SCALE.md
+  s_f68ad3a859106e::t_1066ed399206c5 20
+experiments/exact-docs/bench/comparison/client.ts
+  s_9f86fbdae2d09f::t_69befff91cb501 1-57
+experiments/exact-docs/bench/comparison/page.astro
+  s_9f86fbdae2d09f::t_ffd1cc77bcb598 1-49
+experiments/exact-docs/bench/scale.mjs
+  s_f68ad3a859106e::t_f0f11c87708bdb 387
+packages/ui-exact/MODAL.md
+  s_9f86fbdae2d09f::t_1accfe85bf0565 96-104
+packages/ui-exact/components/content.contract
+  s_9f86fbdae2d09f::t_6c3a0b1cf5afd7 1-146
+packages/ui-exact/example/app.contract
+  s_f68ad3a859106e::t_8a858f504a5a12 15-16,65
+packages/ui-exact/example/content.contract
+  s_f68ad3a859106e::t_9157aa65523874 1-76
+packages/ui-exact/example/styles.ts
+  s_f68ad3a859106e::t_d912f8abc1eca6 19,24
+packages/ui-exact/index.contract
+  s_9f86fbdae2d09f::t_c2734d42150343 1
+packages/ui-exact/manifest.json
+  s_9f86fbdae2d09f::t_832f52433d72a1 11,24
+packages/ui-exact/src/content-presentation.ts
+  s_f68ad3a859106e::t_fa4abe477336eb 1-121
+packages/ui-exact/src/material.ts
+  s_9f86fbdae2d09f::t_8f95ccc039e69d 6,9,15,31-35,46,66
+packages/ui-exact/src/web.ts
+  s_9f86fbdae2d09f::t_55c3764198db11 1,55,65
+packages/ui-exact/test/browser.mjs
+  s_f68ad3a859106e::t_af9e0de0fdf39e 1,109,174
+packages/ui-exact/test/caller-styles.mjs
+  s_9f86fbdae2d09f::t_6de070845b4aa8 12-16
+packages/ui-exact/test/initial-styles.mjs
+  s_f68ad3a859106e::t_cd7234181e1b90 30-33
+packages/ui-exact/test/modal.mjs
+  s_9f86fbdae2d09f::t_00df73200dd215 294,306,309-319,325,327,329,333,343-346,371-377
+packages/ui-exact/test/presentation-cases.mjs
+  s_9f86fbdae2d09f::t_a99908753735fd 33-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "02db530b08ed6e94486c957a745f170ba1c1c817",
+  "prompts": {},
+  "sessions": {
+    "s_9f86fbdae2d09f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c474-4440-7663-9158-135122f4ec2c",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_bc7f547f67ab4c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c5e2-210b-7c01-a9cd-1ba4c5daf4dd",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_f68ad3a859106e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c5d0-0baa-76d0-a79e-3ab02e1ed2a6",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
