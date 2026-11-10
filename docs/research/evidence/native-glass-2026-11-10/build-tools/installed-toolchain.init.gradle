@@ -1,0 +1,12 @@
+gradle.beforeProject { project ->
+  if (project == project.rootProject) project.ext.ndkVersion = '30.0.16248370'
+  project.afterEvaluate {
+    def android = project.extensions.findByName('android')
+    if (android != null) {
+      android.ndkVersion = '30.0.16248370'
+      android.buildToolsVersion = '37.0.0'
+      android.compileSdkMinor = 2
+      if (android.externalNativeBuild?.cmake != null) android.externalNativeBuild.cmake.version = '4.1.2'
+    }
+  }
+}

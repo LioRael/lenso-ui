@@ -1,5 +1,9 @@
 # Native Glass full-build and runtime validation — 2026-11-10
 
+Versioned screenshots, drivers, pixel matrices and build receipts are indexed in
+the [retained evidence](evidence/native-glass-2026-11-10/README.md). Original
+`output/` and `/tmp/` paths below describe the historical capture environment.
+
 This report supersedes the build-blocked status of the initial implementation report.
 
 ## Full native builds
@@ -42,6 +46,45 @@ unmodified Expo default toolchain or all Android architectures.
 Metro runs offline on port 8084; Android uses `adb reverse tcp:8084 tcp:8084`.
 Offline mode avoids Expo CLI startup requests failing on the same network. It does
 not substitute a Web rendering surface for the native application.
+
+### Recorded build invocations
+
+These are the historical local commands after Expo prebuild and dependency
+recovery, not replacements for the normal example scripts. Paths identify this
+capture environment and must be adapted on another host. The recovery/init source
+is retained in the evidence directory; default toolchain downloads were not fixed
+by changing project SDK settings or disabling TLS.
+
+```sh
+# From apps/native-example/ios, after downloading and verifying the archives:
+export RCT_USE_LOCAL_RN_DEP=/tmp/lenso-native-rndeps-resume.tar.gz
+export RCT_TESTONLY_RNCORE_TARBALL_PATH=/tmp/lenso-native-rncore-debug.tar.gz
+export HERMES_ENGINE_TARBALL_PATH=/tmp/lenso-native-hermes-debug.tar.gz
+pod install
+
+# From the repository root, using pinned Node/Bun and Xcode:
+xcodebuild -workspace apps/native-example/ios/LensoNative.xcworkspace \
+  -scheme LensoNative -configuration Debug \
+  -destination id=A143ED5B-921E-4FAF-BFA8-084F7D4046FF \
+  -derivedDataPath /tmp/lenso-native-ios-build CODE_SIGNING_ALLOWED=NO
+
+# From apps/native-example/android; loopback Maven proxy already running:
+JAVA_HOME=/tmp/lenso-native-jdk/jdk-17.0.21+9/Contents/Home \
+./gradlew :app:assembleDebug --console=plain --no-daemon \
+  -I /tmp/lenso-native-net/repositories.init.gradle \
+  -I /tmp/lenso-native-net/installed-toolchain.init.gradle \
+  -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890 \
+  -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7890 \
+  '-Dhttp.nonProxyHosts=localhost|127.*' \
+  -Dorg.gradle.internal.http.connectionTimeout=20000 \
+  -Dorg.gradle.internal.http.socketTimeout=660000 \
+  -PreactNativeArchitectures=arm64-v8a
+```
+
+Verified official SHA1 sidecars: RN dependencies Debug
+`f2e2291d7c1ba66fab962541810e88236d62c810`, RN core Debug
+`9e3d9b5c56451f7452c48b5d70358a38100458b8`, Hermes Debug
+`d98ab1b5e1ee4564d9d692edecd00b3994cd43a1`.
 
 ## Runtime defects fixed
 

@@ -1,0 +1,18 @@
+{
+  "image": "output/native-glass-2026-11-10/ios/color-diagnosis/final-default/prominent-dark.png",
+  "observed_title_frame": [44.0, 521.3, 68.7, 20.3],
+  "pixel_box": [132, 1564, 338, 1625],
+  "core_pixel_count": 1921,
+  "neutral_white_pixels": 0,
+  "cyan_pixels": 1921,
+  "neutral_white_fraction": 0.0,
+  "dominant_core_colors": [
+    [[133, 255, 255], 1309],
+    [[136, 255, 255], 89],
+    [[134, 255, 255], 77],
+    [[135, 255, 255], 66],
+    [[128, 255, 255], 40],
+    [[129, 255, 255], 40]
+  ],
+  "passes_neutral_white": false
+}

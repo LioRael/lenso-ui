@@ -1,0 +1,50 @@
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo-dev-launcher@58.0.18+0cfa6a4d4999de95/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/react/DevLauncherBridgelessDevSupportManager.kt:48:38 This code uses error suppression for 'NOTHING_TO_OVERRIDE'. While it might compile and work, the compiler behavior is UNSPECIFIED and WILL NOT BE PRESERVED. Please report your use case to the Kotlin issue tracker instead: https://kotl.in/issue
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo-dev-launcher@58.0.18+0cfa6a4d4999de95/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/react/DevLauncherDevSupportManagerFactory.kt:18:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo-dev-launcher@58.0.18+0cfa6a4d4999de95/node_modules/expo-dev-launcher/android/src/main/java/expo/modules/devlauncher/DevLauncherPackage.kt:15:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+
+> Task :expo-dev-launcher:compileDebugJavaWithJavac
+> Task :expo-dev-launcher:processDebugJavaRes
+> Task :expo-dev-launcher:bundleLibCompileToJarDebug
+> Task :expo-dev-launcher:bundleLibRuntimeToJarDebug
+
+> Task :expo:compileDebugKotlin
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/ExpoModulesPackage.kt:34:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:22:8 'class ReactInstanceManager : Any' is deprecated. Deprecated in Java.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:103:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:103:43 'class ReactInstanceManager : Any' is deprecated. Deprecated in Java.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:104:21 'val reactInstanceManager: ReactInstanceManager' is deprecated. Deprecated in Java.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt:15:8 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt:33:39 'constructor(reactContext: ReactContext): ForwardingCookieHandler' is deprecated. Use the default constructor.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt:111:27 'constructor(byteBuffer: ByteBuffer): NativeArrayBuffer' is deprecated. Use ArrayBuffer instead.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/fetch/NativeResponse.kt:44:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/node_modules/.bun/expo@58.0.23+3353414a423e1884/node_modules/expo/android/src/main/java/expo/modules/fetch/NativeResponse.kt:46:11 'fun deallocate(): Unit' is deprecated. Use sharedObjectDidRelease() instead.
+
+> Task :expo:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo:processDebugJavaRes
+> Task :expo:bundleLibCompileToJarDebug
+> Task :expo:bundleLibRuntimeToJarDebug
+> Task :app:mergeLibDexDebug
+
+> Task :app:compileDebugKotlin
+w: file:///Users/leosouthey/Projects/framework/lenso-ui/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainActivity.kt:36:20 'constructor(activity: ReactActivity, mainComponentName: String, fabricEnabled: Boolean): DefaultReactActivityDelegate' is deprecated. Creating DefaultReactActivityDelegate with flags is deprecated.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:transformDebugClassesWithAsm
+> Task :app:dexBuilderDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+[Incubating] Problems report is available at: file:///Users/leosouthey/Projects/framework/lenso-ui/apps/native-example/android/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 6m 58s
+331 actionable tasks: 299 executed, 32 up-to-date

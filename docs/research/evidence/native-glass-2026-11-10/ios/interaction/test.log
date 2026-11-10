@@ -1,0 +1,1983 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild test -project /tmp/lenso-native-ios-qa/NativeQA.xcodeproj -scheme NativeQA -destination "platform=iOS Simulator,id=A143ED5B-921E-4FAF-BFA8-084F7D4046FF" -derivedDataPath /tmp/lenso-native-ios-qa/DerivedData -resultBundlePath /tmp/lenso-native-ios-qa/lenso-acceptance2.xcresult "-only-testing:NativeQA/NativeQATests/testNativeAcceptance" CODE_SIGNING_ALLOWED=NO
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Writing result bundle at path:
+	/tmp/lenso-native-ios-qa/lenso-acceptance2.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'NativeQA' in project 'NativeQA' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: b127a05e95dafa42b516f08998c4138b
+Build description path: /tmp/lenso-native-ios-qa/DerivedData/Build/Intermediates.noindex/XCBuildData/b127a05e95dafa42b516f08998c4138b.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk /tmp/lenso-native-ios-qa/DerivedData/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-cc78df9d8a9de6526dea716b1c70fd8e.sdkstatcache
+    cd /tmp/lenso-native-ios-qa/NativeQA.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -o /tmp/lenso-native-ios-qa/DerivedData/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-cc78df9d8a9de6526dea716b1c70fd8e.sdkstatcache
+
+ProcessInfoPlistFile /tmp/lenso-native-ios-qa/DerivedData/Build/Products/Debug-iphonesimulator/NativeQA-Runner.app/PlugIns/NativeQA.xctest/Info.plist /tmp/lenso-native-ios-qa/DerivedData/Build/Intermediates.noindex/NativeQA.build/Debug-iphonesimulator/NativeQA.build/empty-NativeQA.plist (in target 'NativeQA' from project 'NativeQA')
+    cd /tmp/lenso-native-ios-qa
+    builtin-infoPlistUtility /tmp/lenso-native-ios-qa/DerivedData/Build/Intermediates.noindex/NativeQA.build/Debug-iphonesimulator/NativeQA.build/empty-NativeQA.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /tmp/lenso-native-ios-qa/DerivedData/Build/Intermediates.noindex/NativeQA.build/Debug-iphonesimulator/NativeQA.build/ProductTypeInfoPlistAdditions.plist -o /tmp/lenso-native-ios-qa/DerivedData/Build/Products/Debug-iphonesimulator/NativeQA-Runner.app/PlugIns/NativeQA.xctest/Info.plist
+
+PruneExplicitPrecompiledModules /tmp/lenso-native-ios-qa/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/lenso-native-ios-qa/DerivedData/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/lenso-native-ios-qa/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+2026-11-10 18:07:55.543489+0800 NativeQA-Runner[32663:14779400] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-10 18:07:56.631.
+Test Suite 'NativeQA.xctest' started at 2026-11-10 18:07:56.631.
+Test Suite 'NativeQATests' started at 2026-11-10 18:07:56.632.
+Test Case '-[NativeQA.NativeQATests testNativeAcceptance]' started.
+    t =     0.00s Start Test at 2026-11-10 18:07:56.634
+    t =     0.06s Set Up
+    t =     0.07s Open dev.lenso.nativeexample
+    t =     0.07s     Activate dev.lenso.nativeexample
+    t =     0.11s         Wait for dev.lenso.nativeexample to idle
+    t =     0.12s Checking existence of `"Close" Button`
+    t =     0.23s Find the "Close" Button
+objc[32663]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x10695c310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1068bc398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     0.43s Tap "Close" Button
+    t =     0.43s     Wait for dev.lenso.nativeexample to idle
+    t =     0.43s     Find the "Close" Button
+    t =     0.49s     Check for interrupting elements affecting "xmark" Button
+    t =     0.55s     Synthesize event
+    t =     0.86s     Wait for dev.lenso.nativeexample to idle
+    t =     1.38s Waiting 20.0s for "Notifications" Switch to exist
+    t =     2.42s     Checking `Expect predicate `existsNoRetry == 1` for object "Notifications" Switch`
+    t =     2.42s         Checking existence of `"Notifications" Switch`
+    t =     2.46s Checking existence of `"Level" Slider`
+    t =     2.50s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     2.76s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     2.81s Added attachment named 'acceptance-light-initial-hierarchy'
+    t =     2.81s Find the Application 'dev.lenso.nativeexample'
+    t =     2.98s Added attachment named 'acceptance-light-initial'
+    t =     2.98s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     3.26s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-light-initial
+Attributes: Application, 0x11242ca00, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11242ca00, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11242cb40, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11242c640, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11242c780, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11242c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11242c500, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11242c140, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11242c280, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11242c000, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242cdc0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242cf00, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242d040, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11242d180, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11242d2c0, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x11242d400, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x11242d540, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d680, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11242d7c0, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11242da40, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x11242db80, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11242dcc0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11242de00, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x11242fe80, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11242fd40, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11242fac0, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x11242fc00, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11242f980, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11242f700, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f840, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11242f5c0, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11242f340, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f480, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11242f200, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11242ef80, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f0c0, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11242ee40, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11242ebc0, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x11242ed00, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11242ea80, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11242e800, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e940, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11242e6c0, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11242e440, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e580, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x11242e300, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x11242e080, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e1c0, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11242df40, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x11242d900, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c17c0, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x1067c1900, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x1067c1a40, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1b80, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x1067c1cc0, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x1067c1e00, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1f40, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x1067c2080, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x1067c21c0, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2300, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x1067c2580, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x1067c26c0, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2800, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1067c2940, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x1067c3e80, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3d40, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1067c3ac0, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1067c3c00, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3980, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x1067c3700, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x1067c3840, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c35c0, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x1067c3340, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x1067c3480, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3200, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x1067c2f80, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x1067c30c0, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2e40, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x1067c2bc0, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x1067c2d00, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2a80, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x1067c2440, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x11241c000, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x11241c140, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x11241c280, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x11241c3c0, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x11241c500, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x11241c640, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x11241c780, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x11241c8c0, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x11241ca00, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241cb40, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11241cc80, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x11241cdc0, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x11241cf00, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241d040, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x11241d180, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x11241d2c0, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x11241d400, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x11241d540, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x11241d680, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x11241d7c0, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x11241d900, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x11241da40, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x11241db80, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x11241dcc0, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x11241de00, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x11241df40, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x11241e080, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241e1c0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x11241e300, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x11241e440, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x11241e580, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241e6c0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x11241e800, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11241e940, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11241ea80, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x11241ebc0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x11241ed00, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x11241ee40, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 1
+                              StaticText, 0x11241ef80, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 42'
+                                StaticText, 0x11241f0c0, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 42'
+                              Other, 0x11241f200, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x11241f340, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 42%
+                              StaticText, 0x11241f480, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 0'
+                                StaticText, 0x11241f5c0, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 0'
+                              Other, 0x11241f700, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x11241f840, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x11241f980, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x11241fac0, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x11241fc00, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x11241fd40, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x11241fe80, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x112424000, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x112424140, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112424280, {{380.0, 91.0}, {3.0, 734.0}}
+                          Other, 0x1124243c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112424500, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x112424640, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112424780, {{380.0, 91.0}, {3.0, 734.0}}
+                          Other, 0x1124248c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112424a00, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x112424b40, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x112424c80, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x112424dc0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11242ca00, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x112424f00, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =     3.31s Find the "Notifications" Switch
+    t =     3.35s Tap "Notifications" Switch
+    t =     3.35s     Wait for dev.lenso.nativeexample to idle
+    t =     3.35s     Find the "Notifications" Switch
+    t =     3.39s     Check for interrupting elements affecting "Notifications" Switch
+    t =     3.42s     Synthesize event
+    t =     3.72s     Wait for dev.lenso.nativeexample to idle
+    t =     5.57s Find the "Notifications" Switch
+    t =     5.63s Find the "Notifications" Switch
+    t =     5.66s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     5.92s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     5.97s Added attachment named 'acceptance-switch-accepted-hierarchy'
+    t =     5.97s Find the Application 'dev.lenso.nativeexample'
+    t =     6.09s Added attachment named 'acceptance-switch-accepted'
+    t =     6.09s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     6.35s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-switch-accepted
+Attributes: Application, 0x11242cc80, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11242cc80, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11242c640, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11242c780, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11242d7c0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11242d540, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11242da40, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11242d680, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11242db80, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11242dcc0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242fd40, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242de00, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242c3c0, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11242c500, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11242fac0, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x11242fe80, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x11242f980, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x11242fc00, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11242f700, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11242f340, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f840, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11242f5c0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11242f480, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f200, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11242ee40, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11242ef80, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x11242ebc0, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11242f0c0, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11242ed00, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x11242ea80, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11242e6c0, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11242e800, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e940, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11242d180, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11242d2c0, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e080, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11242e580, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11242e300, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e440, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11242d400, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11242d900, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e1c0, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11242df40, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11242cdc0, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d040, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x11242c000, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x11242c140, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x11242c280, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11242ca00, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x11242cb40, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x10363bac0, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x10363b840, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x10363b980, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b700, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x10363b480, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x10363b5c0, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b340, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x10363b0c0, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x10363b200, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x10363af80, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x10363ad00, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x10363ae40, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x10363abc0, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1067c0280, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x1067c0000, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c0140, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1067c17c0, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1067c1900, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1cc0, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x1067c1a40, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x1067c1e00, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1b80, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x1067c1f40, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x1067c2080, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c21c0, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x1067c2300, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x1067c2580, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c26c0, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x1067c2800, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x1067c2940, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3e80, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x1067c3d40, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x1067c3ac0, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3c00, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x1067c3980, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x1067c3700, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3840, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x1067c35c0, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x1067c3340, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x1067c3480, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x1067c3200, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x1067c2f80, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x1067c30c0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x1067c2e40, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x1067c2bc0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x1067c2d00, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x1067c2a80, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x1067c2440, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x112426940, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x112427d40, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x112424f00, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x112425040, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x112425180, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x1124252c0, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x112425400, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x112425540, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x112425680, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x1124257c0, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x112425a40, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x112425cc0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x112425e00, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x112425f40, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x112425b80, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x1124261c0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x112426300, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x112426440, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x112426580, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x1124266c0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x112426800, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x112426080, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x112425900, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 42'
+                                StaticText, 0x112424000, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 42'
+                              Other, 0x112424140, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x112424280, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 42%
+                              StaticText, 0x112424500, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 0'
+                                StaticText, 0x112424780, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 0'
+                              Other, 0x1124243c0, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x112424640, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x1124248c0, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x112424a00, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x112424dc0, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x112424b40, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x112424c80, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x112ac4000, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x112ac4140, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112ac4280, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x112ac43c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac4500, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x112ac4640, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112ac4780, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x112ac48c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac4a00, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x112ac4b40, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x112ac4c80, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x112ac4dc0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11242cc80, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x112ac4f00, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =     6.40s Find the StaticText (First Match)
+    t =     6.43s Set normalized position of "Level" Slider to 0.75
+    t =     6.43s     Wait for dev.lenso.nativeexample to idle
+    t =     6.43s     Find the "Level" Slider
+    t =     6.47s     Check for interrupting elements affecting "Level" Slider
+    t =     6.50s     Synthesize event
+    t =     7.19s     Wait for dev.lenso.nativeexample to idle
+    t =     9.24s Find the "Level 42" StaticText
+    t =     9.28s Find the "Level 81" StaticText
+    t =     9.31s Find the "Level" Slider
+ACCEPTED_SLIDER owner=Level 81 native=81%
+    t =     9.34s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     9.59s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =     9.64s Added attachment named 'acceptance-slider-accepted-hierarchy'
+    t =     9.64s Find the Application 'dev.lenso.nativeexample'
+    t =     9.77s Added attachment named 'acceptance-slider-accepted'
+    t =     9.77s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    10.04s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-slider-accepted
+Attributes: Application, 0x11242c280, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11242c280, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11242ca00, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11242fac0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11242fe80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11242c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11242c500, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11242dcc0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11242fd40, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11242d680, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242db80, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242d540, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242da40, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11242d7c0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11242c780, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x11242c640, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x11242cc80, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x11242c140, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11242d040, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11242c000, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x11242cdc0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11242e1c0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11242df40, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d900, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11242e440, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11242d400, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e300, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11242e080, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11242e580, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d2c0, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11242e940, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11242d180, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e800, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11242ea80, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11242e6c0, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x11242ed00, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11242ebc0, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11242f0c0, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x11242ef80, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11242f200, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11242ee40, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f480, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11242f840, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11242f5c0, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f340, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x11242fc00, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x11242f700, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f980, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11242de00, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x10363bac0, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b840, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x10363b480, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x10363b980, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b5c0, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x10363b700, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x10363b340, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b0c0, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x10363ad00, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x10363b200, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x10363ae40, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x10363af80, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x10363abc0, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c03c0, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1067c0500, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x1067c0640, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c0780, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1067c08c0, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1067c0a00, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c0b40, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x1067c3e80, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x1067c3d40, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2940, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x1067c26c0, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x1067c1b80, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1f40, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x1067c0140, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x1067c17c0, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c0000, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x1067c0280, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x1067c1e00, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1cc0, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x1067c1a40, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x1067c1900, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2300, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x1067c2080, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x1067c21c0, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2800, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x1067c2580, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x1067c3980, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x1067c3ac0, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x1067c3700, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x1067c3c00, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x1067c3840, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x1067c35c0, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x1067c3340, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x1067c3480, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x1067c3200, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x1067c2f80, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x1067c2e40, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x1067c2d00, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x1067c30c0, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x1067c2bc0, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x1067c2a80, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x1067c2440, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x112425040, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x112425180, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x112424f00, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x112425400, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x112425e00, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x1124252c0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x112425cc0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x1124257c0, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x112425a40, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x112426300, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x112425b80, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x1124261c0, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x112425f40, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x112425540, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x112425680, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x112426440, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x112426580, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x1124266c0, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x112426080, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x112424000, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x112426800, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 0'
+                                StaticText, 0x112425900, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 0'
+                              Other, 0x112424140, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x112424280, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x112424780, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x1124248c0, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x112424500, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x112424640, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x112424a00, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x1124243c0, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x112424dc0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112424c80, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x112424b40, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112427d40, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x112426940, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112ac6940, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x112ac7c00, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac7980, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x112ac7840, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x112ac75c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x112ac7700, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11242c280, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x112ac7480, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    10.10s Find the StaticText (First Match)
+    t =    10.13s Tap "Continue" Button
+    t =    10.13s     Wait for dev.lenso.nativeexample to idle
+    t =    10.13s     Find the "Continue" Button
+    t =    10.16s     Check for interrupting elements affecting "Continue" Button
+    t =    10.21s     Synthesize event
+    t =    10.51s     Wait for dev.lenso.nativeexample to idle
+    t =    12.26s Find the "Actions 0" StaticText
+    t =    12.30s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    12.56s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    12.61s Added attachment named 'acceptance-button-hierarchy'
+    t =    12.61s Find the Application 'dev.lenso.nativeexample'
+    t =    12.74s Added attachment named 'acceptance-button'
+    t =    12.74s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    12.99s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-button
+Attributes: Application, 0x11242cb40, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11242cb40, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11242e800, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11242ea80, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11242ed00, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11242ebc0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11242f200, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11242f0c0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11242ee40, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11242ef80, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242f480, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242f840, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242fc00, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11242f5c0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11242f340, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x11242f700, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x11242de00, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x11242c780, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11242c640, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11242f980, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x11242da40, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11242d7c0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11242d680, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x11242db80, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11242dcc0, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11242fd40, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x11242c3c0, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11242c500, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11242fac0, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x11242fe80, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11242ca00, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11242c280, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d180, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11242d2c0, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11242e940, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e580, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11242e300, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11242e080, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d400, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11242d900, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11242e440, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x11242df40, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11242cdc0, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11242e1c0, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x11242c000, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x11242c140, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x11242d040, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x11242cc80, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11242d540, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x11241c8c0, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x11241ca00, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x11241cb40, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x11241cc80, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x11241cdc0, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x11241cf00, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x11241d040, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x11241d180, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x11241d2c0, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x11241d400, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x11241d680, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x11241d7c0, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x11241d900, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x11241da40, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x11241fe80, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x11241fd40, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x11241fac0, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x11241fc00, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x11241f980, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x11241f700, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x11241f840, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x11241f5c0, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x11241f340, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x11241f480, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x11241f200, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x11241ef80, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x11241f0c0, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x11241ee40, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x11241ebc0, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x11241ed00, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x11241ea80, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x11241e800, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x11241e940, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x11241e6c0, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x11241e440, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x11241e580, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x11241e300, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x11241e080, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x11241e1c0, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x11241df40, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x11241dcc0, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x11241de00, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241db80, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11241d540, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x10363b0c0, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x10363ad00, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x10363b840, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x10363b480, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x10363bac0, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x10363b340, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x10363b5c0, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x10363b700, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x10363b980, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x10363af80, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x10363b200, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x10363ae40, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x10363abc0, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x1067c0780, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x1067c08c0, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x1067c0640, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x1067c03c0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x1067c0500, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x1067c3e80, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x1067c0a00, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x1067c3d40, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x1067c0b40, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x1067c2940, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x1067c26c0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x1067c0140, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x1067c1b80, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x1067c17c0, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x1067c1f40, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x1067c0280, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x1067c1e00, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x1067c0000, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x1067c1a40, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x1067c1900, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x1067c1cc0, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x1067c2080, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x1067c21c0, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x1067c2300, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x1067c2580, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x1067c3ac0, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x1067c2800, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x1067c3980, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x1067c3700, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x1067c3c00, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x1067c35c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x1067c3480, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x1067c3840, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x1067c3340, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x1067c30c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x1067c2bc0, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x1067c2a80, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1067c2d00, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1067c2440, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11242cb40, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x1067c2e40, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    13.04s Tap "Hold controlled values" Button
+    t =    13.04s     Wait for dev.lenso.nativeexample to idle
+    t =    13.04s     Find the "Hold controlled values" Button
+    t =    13.08s     Check for interrupting elements affecting "Hold controlled values" Button
+    t =    13.11s     Synthesize event
+    t =    13.42s     Wait for dev.lenso.nativeexample to idle
+    t =    13.42s Waiting 5.0s for "Allow value changes" Button to exist
+    t =    14.45s     Checking `Expect predicate `existsNoRetry == 1` for object "Allow value changes" Button`
+    t =    14.46s         Checking existence of `"Allow value changes" Button`
+    t =    14.50s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    14.75s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    14.80s Added attachment named 'acceptance-controlled-lock-hierarchy'
+    t =    14.80s Find the Application 'dev.lenso.nativeexample'
+    t =    14.93s Added attachment named 'acceptance-controlled-lock'
+    t =    14.93s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    15.18s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-controlled-lock
+Attributes: Application, 0x11242e6c0, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11242e6c0, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11242d180, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11242d2c0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11242e580, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11242e300, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11242d900, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11242e080, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11242e440, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11242d400, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242df40, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242cdc0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242c140, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11242e1c0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11242c000, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x11242d040, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x11242d540, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f340, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11242f700, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11242cc80, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x11242fc00, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11242f5c0, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11242ef80, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f480, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11242f0c0, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11242ee40, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x11242ebc0, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11242f200, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11242ea80, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x11242ed00, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11242e800, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11242cb40, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x11242c280, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11242fe80, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11242ca00, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x11242fac0, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11242c3c0, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11242c500, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x11242fd40, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11242db80, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11242dcc0, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d680, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11242da40, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11242d7c0, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f980, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x11242c780, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x11242c640, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x11242de00, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11242f840, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x112426300, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x112425180, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x112425540, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x112426440, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x112425f40, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x112425680, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x112426580, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x1124266c0, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x112424000, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x112425900, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x112426080, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x112426800, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x112424280, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x112424780, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x112424140, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x112424500, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x1124248c0, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x112424640, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x112424a00, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x1124243c0, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x112424c80, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x112427d40, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x112424dc0, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x112424b40, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x112426940, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x1124261c0, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x112425a40, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x112424f00, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x1124257c0, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x112425b80, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x112425400, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x112425e00, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x1124252c0, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x112425cc0, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x112425040, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x112ac7840, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x112ac75c0, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x112ac7700, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x112ac7c00, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x112ac7980, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x112ac43c0, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x112ac6940, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac6bc0, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x112ac6a80, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x112ac7480, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x112ac6e40, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac6f80, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x112ac70c0, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x112ac7200, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x112ac4140, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x112ac7ac0, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x112ac4280, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x112ac4500, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x112ac7340, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x112ac6d00, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x11241fac0, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x11241fc00, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x11241fd40, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x11241da40, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x11241d180, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241d2c0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x11241ca00, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x11241cb40, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x11241c8c0, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241d040, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x11241cdc0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11241cf00, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11241cc80, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x11241d7c0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x11241d400, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x11241d680, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x11241fe80, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x11241d900, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x11241f840, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x11241f980, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x11241f5c0, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x11241f700, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x11241f340, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x11241f480, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x11241f0c0, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x11241f200, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x11241ee40, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Allow value changes'
+                              Button, 0x11241ef80, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x11241ed00, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x11241ea80, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x11241ebc0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11241e940, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11241e6c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241e800, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11241e580, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11241e300, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11241e440, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241e1c0, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x11241dcc0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11241e080, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241df40, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11242e6c0, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x11241de00, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    15.24s Tap "Notifications" Switch
+    t =    15.24s     Wait for dev.lenso.nativeexample to idle
+    t =    15.24s     Find the "Notifications" Switch
+    t =    15.27s     Check for interrupting elements affecting "Notifications" Switch
+    t =    15.31s     Synthesize event
+    t =    15.61s     Wait for dev.lenso.nativeexample to idle
+    t =    17.89s Find the "Notifications" Switch
+    t =    17.95s Set normalized position of "Level" Slider to 0.20
+    t =    17.95s     Wait for dev.lenso.nativeexample to idle
+    t =    17.95s     Find the "Level" Slider
+    t =    17.99s     Check for interrupting elements affecting "Level" Slider
+    t =    18.03s     Synthesize event
+    t =    18.99s     Wait for dev.lenso.nativeexample to idle
+    t =    21.22s Find the "Level 81" StaticText
+    t =    21.26s Find the "Level" Slider
+    t =    21.29s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    21.54s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    21.59s Added attachment named 'acceptance-controlled-rejected-hierarchy'
+    t =    21.59s Find the Application 'dev.lenso.nativeexample'
+    t =    21.72s Added attachment named 'acceptance-controlled-rejected'
+    t =    21.72s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    21.98s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-controlled-rejected
+Attributes: Application, 0x11242cf00, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11242cf00, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11242e940, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11242c280, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11242fe80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11242fac0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11242c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11242db80, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11242c500, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11242dcc0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242fd40, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242d680, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242da40, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11242c780, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11242d7c0, {{0.0, 0.0}, {402.0, 2520.0}}
+                            Other, 0x11242f980, {{0.0, 0.0}, {402.0, 2520.0}}
+                              Other, 0x11242c640, {{0.0, 96.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f840, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11242c000, {{16.0, 112.0}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11242d040, {{0.0, 192.0}, {402.0, 96.0}}
+                              StaticText, 0x11242de00, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11242c140, {{16.0, 208.0}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11242e1c0, {{0.0, 288.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d400, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11242df40, {{16.0, 304.0}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11242e080, {{0.0, 384.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e440, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11242e300, {{16.0, 400.0}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11242d900, {{0.0, 480.0}, {402.0, 96.0}}
+                              StaticText, 0x11242d2c0, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11242e580, {{16.0, 496.0}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11242d180, {{0.0, 576.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e6c0, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11242cb40, {{16.0, 592.0}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11242ed00, {{0.0, 672.0}, {402.0, 96.0}}
+                              StaticText, 0x11242e800, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11242ea80, {{16.0, 688.0}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11242ebc0, {{0.0, 768.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f200, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11242ee40, {{16.0, 784.0}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11242f480, {{0.0, 864.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f0c0, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11242ef80, {{16.0, 880.0}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11242fc00, {{0.0, 960.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f5c0, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x11242cc80, {{16.0, 976.0}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x11242f340, {{0.0, 1056.0}, {402.0, 96.0}}
+                              StaticText, 0x11242f700, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11242d540, {{16.0, 1072.0}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x11242cdc0, {{0.0, 1152.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b200, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x10363bac0, {{16.0, 1168.0}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x10363b5c0, {{0.0, 1248.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b480, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x10363b340, {{16.0, 1264.0}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x10363ae40, {{0.0, 1344.0}, {402.0, 96.0}}
+                              StaticText, 0x10363abc0, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x10363af80, {{16.0, 1360.0}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x10363b700, {{0.0, 1440.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b980, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x10363ad00, {{16.0, 1456.0}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x10363b840, {{0.0, 1536.0}, {402.0, 96.0}}
+                              StaticText, 0x10363b0c0, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1067c3e80, {{16.0, 1552.0}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x1067c2800, {{0.0, 1632.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c2a80, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1067c2d00, {{16.0, 1648.0}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1067c2440, {{0.0, 1728.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c30c0, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x1067c2bc0, {{16.0, 1744.0}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x1067c3840, {{0.0, 1824.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3340, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x1067c3480, {{16.0, 1840.0}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x1067c3700, {{0.0, 1920.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c3c00, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x1067c0140, {{16.0, 1936.0}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x1067c1680, {{0.0, 2016.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1400, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x1067c1540, {{16.0, 2032.0}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x1067c12c0, {{0.0, 2112.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c1040, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x1067c1180, {{16.0, 2128.0}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x1067c0f00, {{0.0, 2208.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c0780, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x1067c0dc0, {{16.0, 2224.0}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x1067c2940, {{0.0, 2304.0}, {402.0, 96.0}}
+                              StaticText, 0x1067c35c0, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x112ac5f40, {{16.0, 2320.0}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x112ac75c0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x112ac7840, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x112ac7c00, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac43c0, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x112ac7700, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                            Other, 0x112ac7980, {{396.0, 65.0}, {3.0, 258.0}}
+                          Other, 0x112ac6940, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac6bc0, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x112ac7480, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x112ac6f80, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x112ac6a80, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x112ac6e40, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x112ac4280, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x112ac4500, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x112ac7340, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x112ac7ac0, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x112ac6d00, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x112ac4140, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x112ac70c0, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x112ac7200, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x11241d540, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241de00, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x11241db80, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x11241fac0, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x11241d2c0, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241ca00, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x11241d180, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11241cdc0, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11241da40, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x11241d040, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x11241cb40, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x11241c8c0, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x11241fd40, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x11241cf00, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x11241fc00, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x11241d7c0, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x11241d680, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x11241cc80, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x11241d400, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x11241fe80, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x11241d900, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x11241f980, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x11241f700, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Allow value changes'
+                              Button, 0x11241f840, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x11241f5c0, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x11241f480, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x11241f0c0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11241f340, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11241ee40, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241f200, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11241ef80, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11241ed00, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11241ea80, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241e940, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x11241e800, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11241ebc0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241e6c0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11242cf00, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x11241e580, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    22.03s Tap "Allow value changes" Button
+    t =    22.03s     Wait for dev.lenso.nativeexample to idle
+    t =    22.03s     Find the "Allow value changes" Button
+    t =    22.07s     Check for interrupting elements affecting "Allow value changes" Button
+    t =    22.10s     Synthesize event
+    t =    22.40s     Wait for dev.lenso.nativeexample to idle
+    t =    22.41s Waiting 5.0s for "Hold controlled values" Button to exist
+    t =    23.45s     Checking `Expect predicate `existsNoRetry == 1` for object "Hold controlled values" Button`
+    t =    23.45s         Checking existence of `"Hold controlled values" Button`
+    t =    23.49s Find the "Apple system controls and Glass" StaticText
+    t =    23.53s Find the "Background 1" StaticText
+    t =    23.56s Find the Application 'dev.lenso.nativeexample'
+    t =    23.58s Press Application 'dev.lenso.nativeexample'[0.00, 0.00] -> (6.0, 629.3) for 0.1 seconds, then drag to Application 'dev.lenso.nativeexample'[0.00, 0.00] -> (6.0, 305.9) with velocity of 500.00 pixels per second, and then hold for 0.0 seconds
+    t =    23.58s     Wait for dev.lenso.nativeexample to idle
+    t =    23.59s     Find the Application 'dev.lenso.nativeexample'
+    t =    23.62s     Check for interrupting elements affecting "Lenso Native" Application
+    t =    23.65s     Synthesize event
+    t =    23.65s         Find the Application 'dev.lenso.nativeexample'
+    t =    23.68s         Find the Application 'dev.lenso.nativeexample'
+    t =    23.70s         Find the Application 'dev.lenso.nativeexample'
+    t =    23.73s         Find the Application 'dev.lenso.nativeexample'
+    t =    23.76s         Find the Application 'dev.lenso.nativeexample'
+    t =    24.72s     Wait for dev.lenso.nativeexample to idle
+    t =    27.33s Find the "Background 1" StaticText
+    t =    27.36s Find the "Apple system controls and Glass" StaticText
+    t =    27.41s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    27.64s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    27.80s Added attachment named 'acceptance-backdrop-scrolled-hierarchy'
+    t =    27.80s Find the Application 'dev.lenso.nativeexample'
+    t =    27.95s Added attachment named 'acceptance-backdrop-scrolled'
+    t =    27.95s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    28.19s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-backdrop-scrolled
+Attributes: Application, 0x112ac0780, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x112ac0780, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x112ac0000, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x112ac0140, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x112ac0280, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x112ac03c0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x112ac0500, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x112ac0640, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x112ac3200, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x112ac3340, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x112ac3480, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x112ac3700, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x112ac3840, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x112ac3980, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x112ac3ac0, {{0.0, -473.7}, {402.0, 2520.0}}
+                            Other, 0x112ac3d40, {{0.0, -473.7}, {402.0, 2520.0}}
+                              Other, 0x112ac3e80, {{0.0, -377.7}, {402.0, 96.0}}
+                              StaticText, 0x112ac3c00, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x112ac35c0, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x10363bac0, {{0.0, -281.7}, {402.0, 96.0}}
+                              StaticText, 0x10363b5c0, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x10363b200, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x10363b480, {{0.0, -185.7}, {402.0, 96.0}}
+                              StaticText, 0x10363b340, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x10363ae40, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x10363ad00, {{0.0, -89.7}, {402.0, 96.0}}
+                              StaticText, 0x10363b700, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x10363abc0, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x10363af80, {{0.0, 6.3}, {402.0, 96.0}}
+                              StaticText, 0x10363b0c0, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x10363b840, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x10363b980, {{0.0, 102.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c0140, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x1067c3700, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x1067c3340, {{0.0, 198.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c3480, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x1067c2d00, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x1067c2800, {{0.0, 294.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c3e80, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x1067c2440, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x1067c2a80, {{0.0, 390.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c2bc0, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x1067c3840, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x1067c30c0, {{0.0, 486.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c1680, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x1067c3c00, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x1067c1400, {{0.0, 582.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c1540, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x1067c1180, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x1067c12c0, {{0.0, 678.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c0f00, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x1067c1040, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x1067c0780, {{0.0, 774.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c0dc0, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x1067c2940, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x1067c35c0, {{0.0, 870.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac5f40, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x112ac7840, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x112ac43c0, {{0.0, 966.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac75c0, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x112ac7c00, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x112ac7700, {{0.0, 1062.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7980, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x112ac6bc0, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x112ac4500, {{0.0, 1158.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac6940, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x112ac4280, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x112ac6d00, {{0.0, 1254.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7340, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x112ac7ac0, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x112ac70c0, {{0.0, 1350.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7200, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x112ac4140, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x112ac6a80, {{0.0, 1446.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac6e40, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x112ac6f80, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x112ac7480, {{0.0, 1542.3}, {402.0, 96.0}}
+                              StaticText, 0x11241db80, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x11241de00, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x11241d180, {{0.0, 1638.3}, {402.0, 96.0}}
+                              StaticText, 0x11241d540, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x11241ca00, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x11241fac0, {{0.0, 1734.3}, {402.0, 96.0}}
+                              StaticText, 0x11241d2c0, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x11241cdc0, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x11241da40, {{0.0, 1830.3}, {402.0, 96.0}}
+                              StaticText, 0x11241d040, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x11241c8c0, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x11241cf00, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11241cb40, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11241fd40, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241fc00, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11241d7c0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11241cc80, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11241d900, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11241d680, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x11241fe80, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x11241f980, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x11241d400, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x11241f700, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x11241f480, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x11241f840, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x11241f5c0, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x11241f0c0, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x11241f340, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x11241f200, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x11241ed00, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x11241ee40, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x11241ef80, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241ea80, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x11241e940, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x11241e6c0, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x11241e800, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11241ebc0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x11241dcc0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11241e440, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11241e080, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x11241df40, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x11241e300, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x11241e1c0, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x11241e580, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x11242fc00, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x11242f0c0, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x11242ef80, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x11242f5c0, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x11242cc80, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x11242d540, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x11242f340, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x11242cdc0, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x11242f700, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x11242d7c0, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x11242f980, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x11242da40, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x11242c780, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x11242fd40, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11242dcc0, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11242c500, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242fac0, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11242c3c0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11242db80, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11242c280, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242fe80, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x11242cf00, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242e940, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242ca00, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x112ac0780, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x11242f480, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    28.24s Tap "Use dark appearance" Button
+    t =    28.24s     Wait for dev.lenso.nativeexample to idle
+    t =    28.24s     Find the "Use dark appearance" Button
+    t =    28.27s     Check for interrupting elements affecting "Use dark appearance" Button
+    t =    28.31s     Synthesize event
+    t =    28.61s     Wait for dev.lenso.nativeexample to idle
+    t =    28.72s Waiting 5.0s for "Use light appearance" Button to exist
+    t =    29.76s     Checking `Expect predicate `existsNoRetry == 1` for object "Use light appearance" Button`
+    t =    29.77s         Checking existence of `"Use light appearance" Button`
+    t =    29.83s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    30.06s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    30.11s Added attachment named 'acceptance-dark-hierarchy'
+    t =    30.11s Find the Application 'dev.lenso.nativeexample'
+    t =    30.25s Added attachment named 'acceptance-dark'
+    t =    30.25s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    30.48s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-dark
+Attributes: Application, 0x1067c2440, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x1067c2440, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x1067c2800, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1067c3840, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1067c2a80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1067c30c0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1067c2bc0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1067c1680, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1067c3c00, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1067c1180, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1067c1400, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1067c12c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1067c1540, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x1067c1040, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1067c0f00, {{0.0, -473.7}, {402.0, 2520.0}}
+                            Other, 0x1067c0780, {{0.0, -473.7}, {402.0, 2520.0}}
+                              Other, 0x1067c35c0, {{0.0, -377.7}, {402.0, 96.0}}
+                              StaticText, 0x1067c0dc0, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x1067c2940, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x1067c3480, {{0.0, -281.7}, {402.0, 96.0}}
+                              StaticText, 0x1067c2d00, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x1067c3340, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x1067c0140, {{0.0, -185.7}, {402.0, 96.0}}
+                              StaticText, 0x1067c3700, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x112ac5f40, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x112ac7840, {{0.0, -89.7}, {402.0, 96.0}}
+                              StaticText, 0x112ac7c00, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x112ac43c0, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x112ac7700, {{0.0, 6.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac75c0, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x112ac7980, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x112ac6bc0, {{0.0, 102.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac4280, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x112ac4500, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x112ac6940, {{0.0, 198.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7480, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x112ac6e40, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x112ac70c0, {{0.0, 294.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7340, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x112ac7ac0, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x112ac6d00, {{0.0, 390.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac6f80, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x112ac6a80, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x112ac7200, {{0.0, 486.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac4140, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x11241da40, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x11241d2c0, {{0.0, 582.3}, {402.0, 96.0}}
+                              StaticText, 0x11241cdc0, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x11241fac0, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x11241db80, {{0.0, 678.3}, {402.0, 96.0}}
+                              StaticText, 0x11241de00, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x11241d180, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x11241d540, {{0.0, 774.3}, {402.0, 96.0}}
+                              StaticText, 0x11241ca00, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x11241d040, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x11241c8c0, {{0.0, 870.3}, {402.0, 96.0}}
+                              StaticText, 0x11241cf00, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x11241cb40, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x11241fd40, {{0.0, 966.3}, {402.0, 96.0}}
+                              StaticText, 0x11241fc00, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x11241d7c0, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x11241cc80, {{0.0, 1062.3}, {402.0, 96.0}}
+                              StaticText, 0x11241d900, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x11241d680, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x11241f840, {{0.0, 1158.3}, {402.0, 96.0}}
+                              StaticText, 0x11241f5c0, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x11241f480, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x11241f340, {{0.0, 1254.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e940, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x11241f0c0, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x11241ea80, {{0.0, 1350.3}, {402.0, 96.0}}
+                              StaticText, 0x11241ee40, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x11241ef80, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x11241dcc0, {{0.0, 1446.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e800, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x11241ebc0, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x11241e6c0, {{0.0, 1542.3}, {402.0, 96.0}}
+                              StaticText, 0x11241f200, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x11241ed00, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x11241e440, {{0.0, 1638.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e080, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x11241df40, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x11241e1c0, {{0.0, 1734.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e580, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x11241e300, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x11241f700, {{0.0, 1830.3}, {402.0, 96.0}}
+                              StaticText, 0x11241f980, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x11241d400, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x11241fe80, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11242f480, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11242f200, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242ee40, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11242ebc0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11242e800, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11242ea80, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242ed00, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x11242e6c0, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x11242cb40, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x11242d180, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x11242e440, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x11242e300, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x11242d680, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x11242d2c0, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x11242e580, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x11242c640, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x11242f840, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x11242c000, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x11242d040, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x11242de00, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11242c140, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x11242e1c0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x11242d400, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x11242df40, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11242e080, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x11242d900, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11242ef80, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11242fc00, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x11242f0c0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x11242f5c0, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x11242cc80, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x11242cdc0, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x11242d540, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x11242f340, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x11242f700, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x11242f980, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x11242d7c0, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x11242c780, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x11242dcc0, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x11242da40, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x11242fd40, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use light appearance'
+                              Button, 0x11242c500, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x11242fac0, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x11242db80, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x11242fe80, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x11242c3c0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11242c280, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11242e940, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242ca00, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11242cf00, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x10363b980, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x10363b0c0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x10363b840, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x10363af80, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x10363b700, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x10363abc0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1067c2440, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x10363ad00, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    30.53s Tap "Reduce transparency" Button
+    t =    30.53s     Wait for dev.lenso.nativeexample to idle
+    t =    30.53s     Find the "Reduce transparency" Button
+    t =    30.57s     Check for interrupting elements affecting "Reduce transparency" Button
+    t =    30.60s     Synthesize event
+    t =    30.90s     Wait for dev.lenso.nativeexample to idle
+    t =    30.95s Waiting 5.0s for "Restore transparency" Button to exist
+    t =    31.98s     Checking `Expect predicate `existsNoRetry == 1` for object "Restore transparency" Button`
+    t =    31.98s         Checking existence of `"Restore transparency" Button`
+    t =    32.04s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    32.27s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    32.32s Added attachment named 'acceptance-dark-opaque-hierarchy'
+    t =    32.32s Find the Application 'dev.lenso.nativeexample'
+    t =    32.44s Added attachment named 'acceptance-dark-opaque'
+    t =    32.44s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    32.68s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-dark-opaque
+Attributes: Application, 0x11241d2c0, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11241d2c0, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11241da40, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11241fe80, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11241db80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11241cdc0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11241de00, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11241d180, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11241d040, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11241d540, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11241c8c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241ca00, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241f980, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11241d400, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11241cf00, {{0.0, -473.7}, {402.0, 2520.0}}
+                            Other, 0x11241cb40, {{0.0, -473.7}, {402.0, 2520.0}}
+                              Other, 0x11241fd40, {{0.0, -377.7}, {402.0, 96.0}}
+                              StaticText, 0x11241d7c0, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11241fc00, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11241d900, {{0.0, -281.7}, {402.0, 96.0}}
+                              StaticText, 0x11241d680, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11241cc80, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11241f480, {{0.0, -185.7}, {402.0, 96.0}}
+                              StaticText, 0x11241f840, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11241f340, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11241f5c0, {{0.0, -89.7}, {402.0, 96.0}}
+                              StaticText, 0x11241e940, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11241f0c0, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11241ef80, {{0.0, 6.3}, {402.0, 96.0}}
+                              StaticText, 0x11241ea80, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11241dcc0, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11241ee40, {{0.0, 102.3}, {402.0, 96.0}}
+                              StaticText, 0x11241ebc0, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11241e6c0, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11241e800, {{0.0, 198.3}, {402.0, 96.0}}
+                              StaticText, 0x11241f200, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11241ed00, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11241e440, {{0.0, 294.3}, {402.0, 96.0}}
+                              StaticText, 0x11241df40, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11241e1c0, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11241e080, {{0.0, 390.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e300, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11241f700, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11241e580, {{0.0, 486.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac1b80, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x112ac0780, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x112ac0140, {{0.0, 582.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac0280, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x112ac03c0, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x112ac0500, {{0.0, 678.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3e80, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x112ac3700, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x112ac35c0, {{0.0, 774.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3d40, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x112ac3ac0, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x112ac3840, {{0.0, 870.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3980, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x112ac3480, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x112ac0000, {{0.0, 966.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3340, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x112ac0640, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x112ac3200, {{0.0, 1062.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3c00, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x11242f480, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x11242f200, {{0.0, 1158.3}, {402.0, 96.0}}
+                              StaticText, 0x11242ee40, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x11242ebc0, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x11242e800, {{0.0, 1254.3}, {402.0, 96.0}}
+                              StaticText, 0x11242ea80, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x11242ed00, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x11242e300, {{0.0, 1350.3}, {402.0, 96.0}}
+                              StaticText, 0x11242d680, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x11242c640, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x11242d2c0, {{0.0, 1446.3}, {402.0, 96.0}}
+                              StaticText, 0x11242e580, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x11242c140, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x11242e1c0, {{0.0, 1542.3}, {402.0, 96.0}}
+                              StaticText, 0x11242de00, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x11242d900, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x11242d040, {{0.0, 1638.3}, {402.0, 96.0}}
+                              StaticText, 0x11242e080, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x11242d400, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x11242df40, {{0.0, 1734.3}, {402.0, 96.0}}
+                              StaticText, 0x11242c000, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x11242ef80, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x11242f840, {{0.0, 1830.3}, {402.0, 96.0}}
+                              StaticText, 0x11242f0c0, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x11242cc80, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x11242fc00, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11242f5c0, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11242cdc0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242d540, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11242f700, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11242d7c0, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11242f340, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242f980, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x11242dcc0, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x11242da40, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x11242c780, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x11242c500, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x11242fd40, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x11242fac0, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x11242db80, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x11242fe80, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x11242e440, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x11242c280, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                              Other, 0x11242d180, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                              StaticText, 0x11242c3c0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                StaticText, 0x11242e940, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                              StaticText, 0x11242ca00, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                StaticText, 0x11242cf00, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11242e6c0, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11242cb40, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x10363bac0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x10363b200, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x10363b480, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x10363b5c0, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x10363ae40, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x10363ad00, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x10363b340, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x10363b980, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x10363b0c0, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x10363b840, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x10363abc0, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x10363af80, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x10363b700, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use light appearance'
+                              Button, 0x112ac4140, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x112ac7200, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Restore transparency'
+                              StaticText, 0x112ac6f80, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x112ac6a80, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x112ac6d00, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112ac7340, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x112ac7ac0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac70c0, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x112ac7480, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x112ac6e40, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x112ac6940, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac4280, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x112ac4500, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x112ac6bc0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x112ac75c0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11241d2c0, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x112ac7980, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    32.73s Tap "Restore transparency" Button
+    t =    32.73s     Wait for dev.lenso.nativeexample to idle
+    t =    32.73s     Find the "Restore transparency" Button
+    t =    32.77s     Check for interrupting elements affecting "Restore transparency" Button
+    t =    32.80s     Synthesize event
+    t =    33.10s     Wait for dev.lenso.nativeexample to idle
+    t =    33.83s Waiting 5.0s for "Reduce transparency" Button to exist
+    t =    34.86s     Checking `Expect predicate `existsNoRetry == 1` for object "Reduce transparency" Button`
+    t =    34.87s         Checking existence of `"Reduce transparency" Button`
+    t =    34.91s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    35.15s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    35.20s Added attachment named 'acceptance-dark-restored-hierarchy'
+    t =    35.20s Find the Application 'dev.lenso.nativeexample'
+    t =    35.33s Added attachment named 'acceptance-dark-restored'
+    t =    35.33s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    35.57s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-dark-restored
+Attributes: Application, 0x11241fac0, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11241fac0, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11241de00, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11241d180, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11241fe80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11241db80, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11241d2c0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11241da40, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11241d040, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11241d540, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11241c8c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241f980, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241d400, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11241cf00, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11241cb40, {{0.0, -473.7}, {402.0, 2520.0}}
+                            Other, 0x11241e580, {{0.0, -473.7}, {402.0, 2520.0}}
+                              Other, 0x11241e300, {{0.0, -377.7}, {402.0, 96.0}}
+                              StaticText, 0x11241f700, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11241e080, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11241df40, {{0.0, -281.7}, {402.0, 96.0}}
+                              StaticText, 0x11241e1c0, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11241e440, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11241f200, {{0.0, -185.7}, {402.0, 96.0}}
+                              StaticText, 0x11241ed00, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11241e800, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11241ebc0, {{0.0, -89.7}, {402.0, 96.0}}
+                              StaticText, 0x11241e6c0, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11241ee40, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11241ea80, {{0.0, 6.3}, {402.0, 96.0}}
+                              StaticText, 0x11241dcc0, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11241ef80, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11241e940, {{0.0, 102.3}, {402.0, 96.0}}
+                              StaticText, 0x11241f0c0, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11241f5c0, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11241f840, {{0.0, 198.3}, {402.0, 96.0}}
+                              StaticText, 0x11241f340, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11241f480, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11241d680, {{0.0, 294.3}, {402.0, 96.0}}
+                              StaticText, 0x11241cc80, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11241d900, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11241d7c0, {{0.0, 390.3}, {402.0, 96.0}}
+                              StaticText, 0x11241fc00, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11241fd40, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11241ca00, {{0.0, 486.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c3e80, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x1067c2440, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x1067c2800, {{0.0, 582.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c2a80, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x1067c30c0, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x1067c2bc0, {{0.0, 678.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c1680, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x1067c12c0, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x1067c2940, {{0.0, 774.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c35c0, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x1067c3340, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x1067c3480, {{0.0, 870.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c2d00, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x1067c3700, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x1067c3c00, {{0.0, 966.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c3840, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x1067c1400, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x1067c1540, {{0.0, 1062.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c1180, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x1067c0f00, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x1067c0780, {{0.0, 1158.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c1040, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1067c0140, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1067c0dc0, {{0.0, 1254.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac1b80, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x112ac0780, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x112ac03c0, {{0.0, 1350.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac0140, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x112ac0500, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x112ac0280, {{0.0, 1446.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3700, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x112ac3e80, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x112ac35c0, {{0.0, 1542.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3840, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x112ac3d40, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x112ac3ac0, {{0.0, 1638.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3980, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x112ac3480, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x112ac0640, {{0.0, 1734.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac0000, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x112ac3200, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x112ac3340, {{0.0, 1830.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac3c00, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x11242f840, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x11242c000, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11242ef80, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11242df40, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242f480, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11242ebc0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x11242f200, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x11242ee40, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242e1c0, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x11242e580, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x11242e300, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x11242ea80, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x11242ed00, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x11242e800, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x11242c140, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x11242d2c0, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x11242d680, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x11242c640, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x11242de00, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x11242d900, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x11242d040, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x11242e080, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11242d400, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x11242f0c0, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x11242cc80, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x11242fc00, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11242f5c0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x11242cdc0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11242d540, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11242f700, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x11242d7c0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x11242f340, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x11242f980, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x11242fac0, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x11242db80, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x11242fd40, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x11242e440, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x11242c280, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x11242fe80, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x11242d180, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x11242c3c0, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x11242e940, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x11242cf00, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use light appearance'
+                              Button, 0x11242e6c0, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x11242ca00, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x11242cb40, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x11242c780, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x11242c500, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11242da40, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11242dcc0, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x10363bac0, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x10363b480, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x10363ae40, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x10363b200, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x10363b5c0, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x10363ad00, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x10363b340, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x10363b0c0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11241fac0, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x10363af80, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    35.63s Tap "Use light appearance" Button
+    t =    35.63s     Wait for dev.lenso.nativeexample to idle
+    t =    35.63s     Find the "Use light appearance" Button
+    t =    35.66s     Check for interrupting elements affecting "Use light appearance" Button
+    t =    35.70s     Synthesize event
+    t =    36.00s     Wait for dev.lenso.nativeexample to idle
+    t =    36.10s Waiting 5.0s for "Use dark appearance" Button to exist
+    t =    37.11s     Checking `Expect predicate `existsNoRetry == 1` for object "Use dark appearance" Button`
+    t =    37.11s         Checking existence of `"Use dark appearance" Button`
+    t =    37.17s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    37.40s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    37.45s Added attachment named 'acceptance-light-final-hierarchy'
+    t =    37.45s Find the Application 'dev.lenso.nativeexample'
+    t =    37.58s Added attachment named 'acceptance-light-final'
+    t =    37.58s Requesting snapshot of accessibility hierarchy for app with pid 32538
+    t =    37.81s Requesting snapshot of accessibility hierarchy for app with pid 32538
+NATIVE_QA_acceptance-light-final
+Attributes: Application, 0x11241cdc0, pid: 32538, label: 'Lenso Native'
+Element subtree:
+ →Application, 0x11241cdc0, pid: 32538, label: 'Lenso Native'
+    Window (Main), 0x11241d2c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11241da40, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11241d180, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11241fe80, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11241fac0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x11241de00, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11241d040, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11241d540, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11241c8c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241d400, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11241cf00, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'backdrop-scroll'
+                        ScrollView, 0x11241cb40, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x11241e580, {{0.0, -473.7}, {402.0, 2520.0}}
+                            Other, 0x11241ca00, {{0.0, -473.7}, {402.0, 2520.0}}
+                              Other, 0x11241fc00, {{0.0, -377.7}, {402.0, 96.0}}
+                              StaticText, 0x11241fd40, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                                StaticText, 0x11241d7c0, {{16.0, -361.7}, {187.0, 64.0}}, label: 'Background 1'
+                              Other, 0x11241cc80, {{0.0, -281.7}, {402.0, 96.0}}
+                              StaticText, 0x11241d900, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                                StaticText, 0x11241d680, {{16.0, -265.7}, {191.0, 64.0}}, label: 'Background 2'
+                              Other, 0x11241f340, {{0.0, -185.7}, {402.0, 96.0}}
+                              StaticText, 0x11241f480, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                                StaticText, 0x11241f840, {{16.0, -169.7}, {191.7, 64.0}}, label: 'Background 3'
+                              Other, 0x11241f0c0, {{0.0, -89.7}, {402.0, 96.0}}
+                              StaticText, 0x11241f5c0, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                                StaticText, 0x11241e940, {{16.0, -73.7}, {192.3, 64.0}}, label: 'Background 4'
+                              Other, 0x11241dcc0, {{0.0, 6.3}, {402.0, 96.0}}
+                              StaticText, 0x11241ef80, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                                StaticText, 0x11241ea80, {{16.0, 22.3}, {191.7, 64.0}}, label: 'Background 5'
+                              Other, 0x11241e6c0, {{0.0, 102.3}, {402.0, 96.0}}
+                              StaticText, 0x11241ee40, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                                StaticText, 0x11241ebc0, {{16.0, 118.3}, {192.7, 64.0}}, label: 'Background 6'
+                              Other, 0x11241ed00, {{0.0, 198.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e800, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                                StaticText, 0x11241f200, {{16.0, 214.3}, {190.3, 64.0}}, label: 'Background 7'
+                              Other, 0x11241e1c0, {{0.0, 294.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e440, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                                StaticText, 0x11241df40, {{16.0, 310.3}, {192.0, 64.0}}, label: 'Background 8'
+                              Other, 0x11241f700, {{0.0, 390.3}, {402.0, 96.0}}
+                              StaticText, 0x11241e080, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                                StaticText, 0x11241e300, {{16.0, 406.3}, {192.7, 64.0}}, label: 'Background 9'
+                              Other, 0x11241f980, {{0.0, 486.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7840, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                                StaticText, 0x112ac5f40, {{16.0, 502.3}, {207.0, 64.0}}, label: 'Background 10'
+                              Other, 0x112ac43c0, {{0.0, 582.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7700, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                                StaticText, 0x112ac7980, {{16.0, 598.3}, {201.7, 64.0}}, label: 'Background 11'
+                              Other, 0x112ac4140, {{0.0, 678.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac6a80, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                                StaticText, 0x112ac7200, {{16.0, 694.3}, {205.7, 64.0}}, label: 'Background 12'
+                              Other, 0x112ac4500, {{0.0, 774.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac6bc0, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                                StaticText, 0x112ac6940, {{16.0, 790.3}, {206.3, 64.0}}, label: 'Background 13'
+                              Other, 0x112ac4280, {{0.0, 870.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7480, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                                StaticText, 0x112ac6e40, {{16.0, 886.3}, {206.7, 64.0}}, label: 'Background 14'
+                              Other, 0x112ac6f80, {{0.0, 966.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac7c00, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                                StaticText, 0x112ac7340, {{16.0, 982.3}, {206.3, 64.0}}, label: 'Background 15'
+                              Other, 0x112ac70c0, {{0.0, 1062.3}, {402.0, 96.0}}
+                              StaticText, 0x112ac6d00, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                                StaticText, 0x112ac7ac0, {{16.0, 1078.3}, {207.3, 64.0}}, label: 'Background 16'
+                              Other, 0x112ac75c0, {{0.0, 1158.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c3e80, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                                StaticText, 0x1067c2440, {{16.0, 1174.3}, {205.0, 64.0}}, label: 'Background 17'
+                              Other, 0x1067c30c0, {{0.0, 1254.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c2800, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                                StaticText, 0x1067c2bc0, {{16.0, 1270.3}, {206.7, 64.0}}, label: 'Background 18'
+                              Other, 0x1067c2a80, {{0.0, 1350.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c12c0, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                                StaticText, 0x1067c1680, {{16.0, 1366.3}, {207.3, 64.0}}, label: 'Background 19'
+                              Other, 0x1067c2940, {{0.0, 1446.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c3480, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                                StaticText, 0x1067c35c0, {{16.0, 1462.3}, {210.7, 64.0}}, label: 'Background 20'
+                              Other, 0x1067c3340, {{0.0, 1542.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c2d00, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                                StaticText, 0x1067c3700, {{16.0, 1558.3}, {205.7, 64.0}}, label: 'Background 21'
+                              Other, 0x1067c1400, {{0.0, 1638.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c3c00, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                                StaticText, 0x1067c1540, {{16.0, 1654.3}, {209.3, 64.0}}, label: 'Background 22'
+                              Other, 0x1067c3840, {{0.0, 1734.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c1180, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                                StaticText, 0x1067c0f00, {{16.0, 1750.3}, {210.3, 64.0}}, label: 'Background 23'
+                              Other, 0x1067c0140, {{0.0, 1830.3}, {402.0, 96.0}}
+                              StaticText, 0x1067c0780, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                                StaticText, 0x1067c1040, {{16.0, 1846.3}, {210.0, 64.0}}, label: 'Background 24'
+                          Other, 0x1067c0dc0, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x112ac3340, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x112ac0000, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac3200, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x112ac0640, {{369.0, 62.0}, {30.0, 750.0}}, label: 'Vertical scroll bar, 3 pages', value: 29%
+                            Other, 0x112ac35c0, {{396.0, 205.0}, {3.0, 258.0}}
+                          Other, 0x112ac3700, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x112ac03c0, {{65.0, 868.0}, {272.0, 3.0}}
+                      Other, 0x112ac1b80, {{16.0, 0.0}, {370.0, 874.0}}
+                        ScrollView, 0x112ac0780, {{16.0, 0.0}, {370.0, 874.0}}
+                          Other, 0x112ac3e80, {{16.0, 0.0}, {370.0, 823.0}}
+                            Other, 0x112ac0280, {{16.0, 0.0}, {370.0, 823.0}}
+                              StaticText, 0x112ac0140, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                                StaticText, 0x112ac0500, {{24.0, 68.0}, {354.0, 33.7}}, label: 'Lenso Native'
+                              Other, 0x112ac3840, {{24.0, 68.0}, {354.0, 59.7}}
+                              StaticText, 0x112ac3d40, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                                StaticText, 0x112ac3ac0, {{24.0, 109.7}, {354.0, 18.0}}, label: 'Apple system controls and Glass'
+                              Other, 0x112ac3980, {{24.0, 151.7}, {354.0, 88.0}}
+                                Other, 0x112ac3480, {{24.0, 151.7}, {354.0, 88.0}}
+                                  Other, 0x112ac3c00, {{24.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-first'
+                                    Other, 0x11242f840, {{24.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11242c000, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                        StaticText, 0x11242ef80, {{88.3, 185.3}, {44.0, 20.3}}, label: 'Glass'
+                                  Other, 0x11242df40, {{205.0, 151.7}, {173.0, 88.0}}, identifier: 'glass-second'
+                                    Other, 0x11242f480, {{205.0, 151.7}, {173.0, 88.0}}
+                                      StaticText, 0x11242ebc0, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                                        StaticText, 0x11242f200, {{255.7, 185.3}, {71.7, 20.3}}, label: 'Together'
+                              Other, 0x11242ee40, {{24.0, 263.7}, {354.0, 218.3}}
+                              StaticText, 0x11242e1c0, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                                StaticText, 0x11242c140, {{44.0, 287.3}, {101.3, 20.3}}, label: 'Notifications'
+                              Other, 0x11242d2c0, {{295.0, 283.7}, {63.0, 28.0}}, identifier: 'notifications-switch', label: 'Notifications'
+                                Switch, 0x11242e800, {{295.0, 283.7}, {63.0, 28.0}}, label: 'Notifications', value: 0
+                              StaticText, 0x11242c640, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                                StaticText, 0x11242f0c0, {{44.0, 331.7}, {314.0, 20.3}}, label: 'Level 81'
+                              Other, 0x11242d680, {{44.0, 372.0}, {314.0, 44.0}}, identifier: 'level-slider', label: 'Level'
+                                Slider, 0x11242d400, {{44.0, 372.0}, {314.0, 44.0}}, label: 'Level', value: 81%
+                              StaticText, 0x11242d040, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                                StaticText, 0x11242e080, {{44.0, 444.0}, {314.0, 18.0}}, label: 'Actions 1'
+                              Other, 0x11242cdc0, {{24.0, 506.0}, {109.0, 51.0}}, identifier: 'primary-action'
+                                Button, 0x11242fc00, {{24.0, 506.0}, {109.0, 51.0}}, label: 'Continue'
+                                  StaticText, 0x11242f5c0, {{44.0, 521.3}, {68.7, 20.3}}, label: 'Continue'
+                              Button, 0x11242cc80, {{24.0, 581.0}, {354.0, 40.0}}, label: 'Use dark appearance'
+                              Button, 0x11242de00, {{24.0, 629.0}, {354.0, 40.0}}, label: 'Hold controlled values'
+                              Button, 0x11242d900, {{24.0, 677.0}, {354.0, 40.0}}, label: 'Reduce transparency'
+                              StaticText, 0x11242d540, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                                StaticText, 0x11242f700, {{24.0, 749.0}, {354.0, 18.0}}, label: 'System glass: true · Refraction: false'
+                          Other, 0x11242d7c0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11242f980, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11242db80, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242f340, {{65.0, 868.0}, {272.0, 3.0}}
+                          Other, 0x11242fac0, {{353.0, 46.0}, {30.0, 782.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x11242fd40, {{380.0, 100.0}, {3.0, 725.0}}
+                          Other, 0x11242e440, {{62.0, 841.0}, {278.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                            Other, 0x11242fe80, {{65.0, 868.0}, {272.0, 3.0}}
+                  Other, 0x11242e940, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11242c280, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x11242c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x11241cdc0, pid: 32538, label: 'Lenso Native'
+Query chain:
+ →Find: Application 'dev.lenso.nativeexample'
+  Output: {
+    Application, 0x11242cf00, pid: 32538, label: 'Lenso Native'
+  }
+
+    t =    37.87s Tear Down
+Test Case '-[NativeQA.NativeQATests testNativeAcceptance]' passed (38.128 seconds).
+Test Suite 'NativeQATests' passed at 2026-11-10 18:08:34.763.
+	 Executed 1 test, with 0 failures (0 unexpected) in 38.128 (38.131) seconds
+Test Suite 'NativeQA.xctest' passed at 2026-11-10 18:08:34.764.
+	 Executed 1 test, with 0 failures (0 unexpected) in 38.128 (38.132) seconds
+Test Suite 'Selected tests' passed at 2026-11-10 18:08:34.764.
+	 Executed 1 test, with 0 failures (0 unexpected) in 38.128 (38.134) seconds
+2026-11-10 18:08:35.125 xcodebuild[32652:14779063] [MT] IDETestOperationsObserverDebug: 42.284 elapsed -- Testing started completed.
+2026-11-10 18:08:35.125 xcodebuild[32652:14779063] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-10 18:08:35.125 xcodebuild[32652:14779063] [MT] IDETestOperationsObserverDebug: 42.284 sec, +42.284 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/lenso-native-ios-qa/lenso-acceptance2.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

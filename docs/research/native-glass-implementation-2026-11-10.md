@@ -8,9 +8,10 @@ Added the private `@lenso/ui-native` source package and an Expo development-buil
 example. The first slice contains Backdrop, Glass, GlassGroup, GlassButton, Switch,
 Slider, shared semantic themes and accessibility preference handling.
 
-This is an implemented candidate. Complete Expo native builds and native interaction
-acceptance have **not passed**. Do not present the example as a verified running Expo
-application. No release, commit, push or Space edit was performed.
+At this initial checkpoint, complete Expo native builds and native interaction
+acceptance had **not passed**. The probe results below did not establish a verified
+running Expo application. No release, commit, push or Space edit was performed at
+that checkpoint. Subsequent full-app evidence is in the linked runtime report.
 
 ## Platform ownership
 

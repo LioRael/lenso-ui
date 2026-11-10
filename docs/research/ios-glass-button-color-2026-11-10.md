@@ -1,5 +1,9 @@
 # iOS native Glass button title-color investigation — 2026-11-10
 
+Versioned screenshots, drivers, pixel matrices and build receipts are indexed in
+the [retained evidence](evidence/native-glass-2026-11-10/README.md). Original
+`output/` and `/tmp/` paths below describe the historical capture environment.
+
 ## Scope and reproduction
 
 Continue the title-color issue without replacing UIKit `.prominentGlass()` or

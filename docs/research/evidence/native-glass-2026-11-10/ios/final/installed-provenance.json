@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/Users/leosouthey/Library/Developer/CoreSimulator/Devices/A143ED5B-921E-4FAF-BFA8-084F7D4046FF/data/Containers/Bundle/Application/3A87EB9A-BB19-48F9-9C4E-9E54BEE837EE/LensoNative.app/LensoNative.debug.dylib",
+    "sha256": "ac8b2db4e817c25b5a7c0f2078b0e8368c39d21534d4003ec6be6f0893599dc0"
+  },
+  {
+    "path": "/tmp/lenso-native-ios-build/Build/Products/Debug-iphonesimulator/LensoNative.app/LensoNative.debug.dylib",
+    "sha256": "ac8b2db4e817c25b5a7c0f2078b0e8368c39d21534d4003ec6be6f0893599dc0"
+  },
+  {
+    "path": "/Users/leosouthey/Library/Developer/CoreSimulator/Devices/A143ED5B-921E-4FAF-BFA8-084F7D4046FF/data/Containers/Bundle/Application/51812930-F904-4EFF-8144-C1E225C0B2C8/NativeQA-Runner.app/PlugIns/NativeQA.xctest/NativeQA",
+    "sha256": "f86ccbab583ca4c8ae59e796e68f5b24da06c09bea839b0cbc8ac24ce2053a94"
+  },
+  {
+    "path": "/tmp/lenso-native-ios-qa/DerivedDataFinal/Build/Products/Debug-iphonesimulator/NativeQA-Runner.app/PlugIns/NativeQA.xctest/NativeQA",
+    "sha256": "f86ccbab583ca4c8ae59e796e68f5b24da06c09bea839b0cbc8ac24ce2053a94"
+  }
+]

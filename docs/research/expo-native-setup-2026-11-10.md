@@ -1,5 +1,10 @@
 # Expo native example setup — 2026-11-10
 
+This initial setup research is historical. See the
+[runtime validation](native-glass-runtime-validation-2026-11-10.md) and
+[source delivery record](native-source-delivery-2026-11-10.md) for completed native
+builds, actual singleton resolution and retained simulator evidence.
+
 ## Version decision
 
 Use the stable Expo SDK 58 stack, with explicit app dependencies rather than the

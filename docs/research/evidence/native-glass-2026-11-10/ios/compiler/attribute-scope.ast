@@ -1,0 +1,68 @@
+(source_file "/tmp/lenso-title-attribute-scope.swift"
+  (import_decl decl_context=0x7954060008 range=[/tmp/lenso-title-attribute-scope.swift:1:1 - line:1:8] module="UIKit")
+  (func_decl decl_context=0x7954060008 range=[/tmp/lenso-title-attribute-scope.swift:2:1 - line:6:1] "ambiguous(_:)" interface_type="(AttributeContainer) -> AttributeContainer" access=internal result="AttributeContainer" thrown_type="<null>"
+    (parameter_list range=[/tmp/lenso-title-attribute-scope.swift:2:15 - line:2:46]
+      (parameter "incoming" decl_context=0x7953a95080 interface_type="AttributeContainer"))
+    (brace_stmt range=[/tmp/lenso-title-attribute-scope.swift:2:70 - line:6:1]
+      (pattern_binding_decl decl_context=0x7953a95080 range=[/tmp/lenso-title-attribute-scope.swift:3:3 - line:3:18]
+        (pattern_entry
+          (pattern_named type="AttributeContainer" "outgoing")
+          (original_init=unresolved_decl_ref_expr type="<null>" name="incoming" function_ref=unapplied)
+          (processed_init=declref_expr type="AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:3:18 range=[/tmp/lenso-title-attribute-scope.swift:3:18 - line:3:18] decl="main.(file).ambiguous(_:).incoming@/tmp/lenso-title-attribute-scope.swift:2:18" function_ref=unapplied)))
+      (var_decl decl_context=0x7953a95080 range=[/tmp/lenso-title-attribute-scope.swift:3:7 - line:3:7] "outgoing" interface_type="AttributeContainer" access=private readImpl=stored writeImpl=stored readWriteImpl=stored
+        (has_initial_value_attr implicit)
+        (has_storage_attr implicit))
+      (assign_expr type="()" location=/tmp/lenso-title-attribute-scope.swift:4:28 range=[/tmp/lenso-title-attribute-scope.swift:4:3 - line:4:31]
+        (subscript_expr implicit type="@lvalue AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute.Value?" location=/tmp/lenso-title-attribute-scope.swift:4:11 range=[/tmp/lenso-title-attribute-scope.swift:4:3 - line:4:12] decl="Foundation.(file).AttributeContainer extension.subscript(dynamicMember:) [with (substitution_map generic_signature=<K where K : AttributedStringKey, K.Value : Sendable> K -> AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute)]"
+          (inout_expr implicit type="inout AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:4:3 range=[/tmp/lenso-title-attribute-scope.swift:4:3 - line:4:3]
+            (declref_expr type="@lvalue AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:4:3 range=[/tmp/lenso-title-attribute-scope.swift:4:3 - line:4:3] decl="main.(file).ambiguous(_:).outgoing@/tmp/lenso-title-attribute-scope.swift:3:7" function_ref=unapplied))
+          (argument_list implicit labels="dynamicMember:"
+            (argument label="dynamicMember"
+              (keypath_expr implicit type="KeyPath<AttributeDynamicLookup, AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute>" location=/tmp/lenso-title-attribute-scope.swift:4:11 range=[/tmp/lenso-title-attribute-scope.swift:4:11 - line:4:12]
+                (components
+                  (subscript decl="SwiftUICore.(file).AttributeDynamicLookup extension.subscript(dynamicMember:) [with (substitution_map generic_signature=<T where T : AttributedStringKey> T -> AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute)]" type="AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute"
+                    (argument_list implicit labels="dynamicMember:"
+                      (argument label="dynamicMember"
+                        (keypath_expr implicit type="KeyPath<AttributeScopes.SwiftUIAttributes, AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute>" location=/tmp/lenso-title-attribute-scope.swift:4:11 range=[/tmp/lenso-title-attribute-scope.swift:4:11 - line:4:12]
+                          (components
+                            (member decl="SwiftUICore.(file).AttributeScopes extension.SwiftUIAttributes.foregroundColor" type="AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute")))))))))))
+        (inject_into_optional implicit type="AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute.Value?" location=/tmp/lenso-title-attribute-scope.swift:4:31 range=[/tmp/lenso-title-attribute-scope.swift:4:30 - line:4:31]
+          (member_ref_expr type="Color" location=/tmp/lenso-title-attribute-scope.swift:4:31 range=[/tmp/lenso-title-attribute-scope.swift:4:30 - line:4:31] decl="SwiftUICore.(file).Color extension.white"
+            (type_expr implicit type="AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute.Value.Type" location=/tmp/lenso-title-attribute-scope.swift:4:30 range=[/tmp/lenso-title-attribute-scope.swift:4:30 - line:4:30] typerepr="AttributeScopes.SwiftUIAttributes.ForegroundColorAttribute.Value"))))
+      (return_stmt range=[/tmp/lenso-title-attribute-scope.swift:5:3 - line:5:10]
+        (load_expr implicit type="AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:5:10 range=[/tmp/lenso-title-attribute-scope.swift:5:10 - line:5:10]
+          (declref_expr type="@lvalue AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:5:10 range=[/tmp/lenso-title-attribute-scope.swift:5:10 - line:5:10] decl="main.(file).ambiguous(_:).outgoing@/tmp/lenso-title-attribute-scope.swift:3:7" function_ref=unapplied)))))
+  (func_decl decl_context=0x7954060008 range=[/tmp/lenso-title-attribute-scope.swift:7:1 - line:11:1] "explicitUIKit(_:)" interface_type="(AttributeContainer) -> AttributeContainer" access=internal result="AttributeContainer" thrown_type="<null>"
+    (parameter_list range=[/tmp/lenso-title-attribute-scope.swift:7:19 - line:7:50]
+      (parameter "incoming" decl_context=0x7953a95610 interface_type="AttributeContainer"))
+    (brace_stmt range=[/tmp/lenso-title-attribute-scope.swift:7:74 - line:11:1]
+      (pattern_binding_decl decl_context=0x7953a95610 range=[/tmp/lenso-title-attribute-scope.swift:8:3 - line:8:18]
+        (pattern_entry
+          (pattern_named type="AttributeContainer" "outgoing")
+          (original_init=unresolved_decl_ref_expr type="<null>" name="incoming" function_ref=unapplied)
+          (processed_init=declref_expr type="AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:8:18 range=[/tmp/lenso-title-attribute-scope.swift:8:18 - line:8:18] decl="main.(file).explicitUIKit(_:).incoming@/tmp/lenso-title-attribute-scope.swift:7:22" function_ref=unapplied)))
+      (var_decl decl_context=0x7953a95610 range=[/tmp/lenso-title-attribute-scope.swift:8:7 - line:8:7] "outgoing" interface_type="AttributeContainer" access=private readImpl=stored writeImpl=stored readWriteImpl=stored
+        (has_initial_value_attr implicit)
+        (has_storage_attr implicit))
+      (assign_expr type="()" location=/tmp/lenso-title-attribute-scope.swift:9:34 range=[/tmp/lenso-title-attribute-scope.swift:9:3 - line:9:44]
+        (subscript_expr implicit type="@lvalue AttributeScopes.UIKitAttributes.ForegroundColorAttribute.Value?" location=/tmp/lenso-title-attribute-scope.swift:9:17 range=[/tmp/lenso-title-attribute-scope.swift:9:3 - line:9:18] decl="Foundation.(file).ScopedAttributeContainer.subscript(dynamicMember:) [with (substitution_map generic_signature=<S, T where S : AttributeScope, T : AttributedStringKey, T.Value : Sendable> S -> AttributeScopes.UIKitAttributes T -> AttributeScopes.UIKitAttributes.ForegroundColorAttribute)]"
+          (inout_expr implicit type="inout ScopedAttributeContainer<AttributeScopes.UIKitAttributes>" location=/tmp/lenso-title-attribute-scope.swift:9:3 range=[/tmp/lenso-title-attribute-scope.swift:9:3 - line:9:12]
+            (subscript_expr implicit type="@lvalue ScopedAttributeContainer<AttributeScopes.UIKitAttributes>" location=/tmp/lenso-title-attribute-scope.swift:9:11 range=[/tmp/lenso-title-attribute-scope.swift:9:3 - line:9:12] decl="Foundation.(file).AttributeContainer extension.subscript(dynamicMember:) [with (substitution_map generic_signature=<S where S : AttributeScope> S -> AttributeScopes.UIKitAttributes)]"
+              (inout_expr implicit type="inout AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:9:3 range=[/tmp/lenso-title-attribute-scope.swift:9:3 - line:9:3]
+                (declref_expr type="@lvalue AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:9:3 range=[/tmp/lenso-title-attribute-scope.swift:9:3 - line:9:3] decl="main.(file).explicitUIKit(_:).outgoing@/tmp/lenso-title-attribute-scope.swift:8:7" function_ref=unapplied))
+              (argument_list implicit labels="dynamicMember:"
+                (argument label="dynamicMember"
+                  (keypath_expr implicit type="KeyPath<AttributeScopes, AttributeScopes.UIKitAttributes.Type>" location=/tmp/lenso-title-attribute-scope.swift:9:11 range=[/tmp/lenso-title-attribute-scope.swift:9:11 - line:9:12]
+                    (components
+                      (member decl="UIKit.(file).AttributeScopes extension.uiKit" type="AttributeScopes.UIKitAttributes.Type")))))))
+          (argument_list implicit labels="dynamicMember:"
+            (argument label="dynamicMember"
+              (keypath_expr implicit type="KeyPath<AttributeScopes.UIKitAttributes, AttributeScopes.UIKitAttributes.ForegroundColorAttribute>" location=/tmp/lenso-title-attribute-scope.swift:9:17 range=[/tmp/lenso-title-attribute-scope.swift:9:17 - line:9:18]
+                (components
+                  (member decl="UIKit.(file).AttributeScopes extension.UIKitAttributes.foregroundColor" type="AttributeScopes.UIKitAttributes.ForegroundColorAttribute"))))))
+        (inject_into_optional implicit type="AttributeScopes.UIKitAttributes.ForegroundColorAttribute.Value?" location=/tmp/lenso-title-attribute-scope.swift:9:44 range=[/tmp/lenso-title-attribute-scope.swift:9:36 - line:9:44]
+          (member_ref_expr type="UIColor" location=/tmp/lenso-title-attribute-scope.swift:9:44 range=[/tmp/lenso-title-attribute-scope.swift:9:36 - line:9:44] decl="UIKit.(file).UIColor.white@/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIColor.h:71:48"
+            (type_expr type="UIColor.Type" location=/tmp/lenso-title-attribute-scope.swift:9:36 range=[/tmp/lenso-title-attribute-scope.swift:9:36 - line:9:36] typerepr="UIColor"))))
+      (return_stmt range=[/tmp/lenso-title-attribute-scope.swift:10:3 - line:10:10]
+        (load_expr implicit type="AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:10:10 range=[/tmp/lenso-title-attribute-scope.swift:10:10 - line:10:10]
+          (declref_expr type="@lvalue AttributeContainer" location=/tmp/lenso-title-attribute-scope.swift:10:10 range=[/tmp/lenso-title-attribute-scope.swift:10:10 - line:10:10] decl="main.(file).explicitUIKit(_:).outgoing@/tmp/lenso-title-attribute-scope.swift:8:7" function_ref=unapplied))))))

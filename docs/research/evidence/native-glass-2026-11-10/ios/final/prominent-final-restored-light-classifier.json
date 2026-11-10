@@ -1,0 +1,18 @@
+{
+  "image": "output/native-glass-2026-11-10/ios/color-diagnosis/final-default/prominent-final-restored-light.png",
+  "observed_title_frame": [44.0, 521.3, 68.7, 20.3],
+  "pixel_box": [132, 1564, 338, 1625],
+  "core_pixel_count": 1902,
+  "neutral_white_pixels": 0,
+  "cyan_pixels": 1902,
+  "neutral_white_fraction": 0.0,
+  "dominant_core_colors": [
+    [[139, 255, 255], 1275],
+    [[140, 255, 255], 144],
+    [[141, 255, 255], 104],
+    [[134, 255, 255], 45],
+    [[135, 255, 255], 41],
+    [[120, 248, 255], 27]
+  ],
+  "passes_neutral_white": false
+}
