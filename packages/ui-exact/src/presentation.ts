@@ -1,3 +1,4 @@
+import { contentPresentation, contentKinds } from "./content-presentation.js";
 import type { StyleInput } from "./style-types.js";
 import * as stylex from "@stylexjs/stylex";
 import { buttonStyles, buttonSizes, buttonVariants } from "@lenso/tokens/button";
@@ -69,7 +70,8 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           feedbackPresentation(kind, data) ??
           togglePresentation(kind, data) ??
           modalPresentation(kind, data) ??
-          alertDialogPresentation(kind, data));
+          alertDialogPresentation(kind, data) ??
+          contentPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -129,6 +131,7 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     ...feedbackKinds,
     ...modalKinds,
     ...alertDialogKinds,
+    ...contentKinds,
     "glass",
   ])
     add(kind);
@@ -315,6 +318,27 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
         "alert-dialog-trigger",
         { lensoSize: size, lensoVariant: variant },
         `[data-lenso-size="${size}"][data-lenso-variant="${variant}"]`,
+      );
+  for (const color of ["default", "accent", "success", "warning", "danger"]) {
+    for (const kind of ["alert", "alert-title", "alert-indicator"])
+      add(kind, { lensoColor: color }, `[data-lenso-color="${color}"]`);
+    for (const size of ["sm", "md", "lg"]) {
+      for (const variant of ["primary", "secondary", "soft", "tertiary"]) {
+        const data = { lensoSize: size, lensoColor: color, lensoVariant: variant };
+        const suffix = `[data-lenso-size="${size}"][data-lenso-color="${color}"][data-lenso-variant="${variant}"]`;
+        add("chip", data, suffix);
+        if (variant !== "tertiary")
+          for (const placement of ["top-left", "top-right", "bottom-left", "bottom-right"])
+            add("badge", { ...data, placement }, `${suffix}[data-placement="${placement}"]`);
+      }
+    }
+  }
+  for (const loading of [false, true])
+    for (const destructive of [false, true])
+      add(
+        "close-button",
+        { lensoLoading: String(loading), lensoDestructive: String(destructive) },
+        `[data-lenso-loading="${loading}"][data-lenso-destructive="${destructive}"]`,
       );
   const kinds = new Set(cases.map((entry) => entry.kind));
   for (const rule of rules) {

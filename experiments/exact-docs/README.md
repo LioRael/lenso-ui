@@ -550,8 +550,26 @@ Exact is pre-1.0. This adapter currently targets `host/web-js/build.mjs` with
 
 ## Reproducible loading comparison
 
+[ASTRO_COMPARISON.md](ASTRO_COMPARISON.md) is the current 300-page comparison:
+Exact page-data loading, Astro static navigation, and Astro ClientRouter with a
+persisted counter. It measures cold search and a separate first counter action,
+then destination/Back body readiness and retained state under identical network
+and CPU limits. The Astro fixture implements the listed reading controls with
+vanilla JavaScript; it does not reproduce Exact's resource/mutation/task system.
+
+```sh
+# From experiments/exact-docs, with EXACT_ROOT and PLAYWRIGHT_MODULE set as above:
+(cd bench/astro && bun install --frozen-lockfile --ignore-scripts)
+# Generate the corpus if .cache/scale/300 is absent:
+SCALE_PAGES=300 PERF_RUNS=1 bun run test:scale
+bun run test:compare
+```
+
+The comparison writes disposable builds and samples under `.cache/comparison/`.
+It does not edit the product example, source corpus, or default theme.
+
 [PERFORMANCE.md](PERFORMANCE.md) records a local Exact/Astro comparison of the same
-nine-document reading/search workload. It is a small Astro static fixture, not
+nine-document reading/search workload before page-data splitting. It is a small Astro static fixture, not
 Starlight or a feature-complete framework comparison. It records first paint,
 transferred bytes, actual search-result paint and repeat search under stated
 network/CPU limits. Development and release builds with and without intent hints

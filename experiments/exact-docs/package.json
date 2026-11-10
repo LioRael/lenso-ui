@@ -22,6 +22,7 @@
     "validate": "bun src/cli.ts validate example",
     "test:browser": "bun test/browser.mjs",
     "test:performance": "bun bench/performance.mjs",
+    "test:compare": "bun bench/compare.mjs",
     "test:production": "bun test/production.mjs",
     "test:scale": "bun bench/scale.mjs",
     "test:acceptance": "bun test/acceptance.mjs",

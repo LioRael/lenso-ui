@@ -1,4 +1,4 @@
-import { updateAlertMaterial, endAlertMaterial } from "./alert-dialog-material.js";
+import { updateMaterial, endMaterial } from "./material.js";
 import { updateModal, endModal } from "./modal.js";
 import { updateToggleGroup, endToggleGroup } from "./toggle-group.js";
 import { attachGlass } from "@lenso/glass";
@@ -52,7 +52,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   updatePanel(node, handle.data);
   updateToggleGroup(node, handle.data);
   updateModal(node, handle.data);
-  updateAlertMaterial(node, handle.data);
+  updateMaterial(node, handle.data);
   node.setAttribute("data-lenso-ready", "");
 }
 
@@ -62,7 +62,7 @@ export function elementEnded(handle: ExactElement) {
   endPanel(handle.element);
   endToggleGroup(handle.element);
   endModal(handle.element);
-  endAlertMaterial(handle.element);
+  endMaterial(handle.element);
   owners.get(handle.element)?.();
   owners.delete(handle.element);
   handle.element.removeAttribute("data-lenso-ready");

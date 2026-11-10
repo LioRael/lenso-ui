@@ -60,6 +60,11 @@ and the [compiled example](example/modal.contract). WebKit exit animation remain
 actions, fields, icon tones and automatic footer layouts. See [confirmation API
 and acceptance limits](ALERT_DIALOG.md) and the [compiled example](example/alert-dialog.contract).
 
+`Alert`, `Badge`, ordinary `Chip` and native `CloseButton` add status messages,
+positioned counters, rich labels and guarded loading actions. See
+[content component APIs and acceptance](CONTENT.md) and the
+[compiled example](example/content.contract).
+
 Both buttons accept `sm`, `md` and `lg` sizes. Button variants are `prominent`,
 `bordered` and `borderless`; GlassButton variants are `default` and `prominent`.
 `press` takes an Exact action. These are native HTML buttons, including keyboard

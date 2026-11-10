@@ -1,7 +1,7 @@
-# Exact Host review series
+# Exact SDK review series
 
 Base: `956ae33a35ffa5313d7be3cebc55ed84f9480e0a`. These are local, unpublished
-patches. The primitive package never applies them during installation or tests.
+patches: four Host fixes and an independent compiler change. The primitive package never applies them during installation or tests.
 [series.json](series.json) owns the order, direct dependencies, supported hosts
 and named regressions. No Linux OS or AT-SPI acceptance is added here.
 
@@ -84,6 +84,27 @@ bun run test:host-patches regress dialog-lifecycle macos
 bun run test:host-patches regress dialog-lifecycle ios
 ```
 
+## 5. Static command, ARIA and Dialog relationships
+
+[exact-compiler-relationships.patch](exact-compiler-relationships.patch) adds the
+expanded-view graph pass in `contract-analyze`, wires it into `check_all`, and
+adds a focused compiler test target. Its source diff is independent of the four
+Host patches. [COMPILER.md](../COMPILER.md) lists diagnostics, positive/negative
+cases and dynamic boundaries. It changes the compiler, not primitive runtime
+state or platform presentation.
+
+```sh
+bun run test:host-patches regress compiler-relationships compiler
+# In Exact, using its pinned toolchain:
+cargo test -p contract --test relationships --no-fail-fast
+```
+
+The compiler regression command verifies the selected SDK checkpoint and then
+runs the actual compiler probes, not an agent/OS test. Native Dialog behavior
+still depends on the preceding Host fixes. The focused Rust target also groups
+existing alert/menu, geometry and top-layer tests without duplicating them in
+the large integration target.
+
 ## Run and review
 
 Run from `packages/primitives-exact`, with `EXACT_ROOT` pointing at the built SDK.
@@ -104,8 +125,8 @@ Git history, set `EXACT_BASE_GIT` to a local repository containing the pinned
 commit; source and object-store paths may be different.
 
 A focused `regress` command first checks that all reconstructed files match the
-SDK byte-for-byte, then extracts its named tests from the one shared Contract
-suite. It runs the same fixture and real agent, not a second test implementation.
+SDK byte-for-byte, then extracts a Host change's named tests from the one shared Contract
+suite. The compiler change runs `test:contracts` instead. It runs the same fixture and real agent, not a second test implementation.
 The default checkpoint is the complete series. For a prefix review, prepare an
 SDK containing exactly that prefix and set `EXACT_PATCH_THROUGH` to its last
 change ID. Source dependencies and any earlier fixes needed for that host's

@@ -9,11 +9,11 @@ check the remaining behavior against the host. This package adds no `behavior`,
 
 ## Three implemented probes
 
-| Probe   | Primitive                                                                                                     | Application                                                                                          | Compiler / Host                                                                                                                                    |
-| ------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tabs    | Tab/panel relationships, selected semantics, hidden/inert inactive panels, horizontal/vertical layout         | One selected value; ensure it names a mounted, enabled tab                                           | Compiler enforces the orientation enum; host owns roving focus, disabled skipping and key activation                                               |
-| Dialog  | Named `dialog`, description ID, `closedby="closerequest"`, optional command buttons                           | Content, trigger appearance and save actions                                                         | Host owns presentation, focus entry/containment/return, cancel/close and modal isolation; compiler does not validate the graph                     |
-| Tooltip | Pure intent/deadline transitions, optional native trigger, noninteractive hint content, described-by relation | Controlled state, gated root task, command projection, root Escape arbitration and lifecycle cleanup | Compiler forbids child tasks and computed `after`; host supplies input, monotonic clock, nonmodal popover, anchor/fallback placement and native AX |
+| Probe   | Primitive                                                                                                     | Application                                                                                          | Compiler / Host                                                                                                                                     |
+| ------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tabs    | Tab/panel relationships, selected semantics, hidden/inert inactive panels, horizontal/vertical layout         | One selected value; ensure it names a mounted, enabled tab                                           | Compiler enforces the orientation enum; host owns roving focus, disabled skipping and key activation                                                |
+| Dialog  | Named `dialog`, description ID, `closedby="closerequest"`, optional command buttons                           | Content, trigger appearance and save actions                                                         | Host owns presentation, focus entry/containment/return, cancel/close and modal isolation; compiler checks statically decidable names and references |
+| Tooltip | Pure intent/deadline transitions, optional native trigger, noninteractive hint content, described-by relation | Controlled state, gated root task, command projection, root Escape arbitration and lifecycle cleanup | Compiler forbids child tasks and computed `after`; host supplies input, monotonic clock, nonmodal popover, anchor/fallback placement and native AX  |
 
 [Tooltip](TOOLTIP.md) documents the complete connection. Tabs use manual
 activation: arrows move focus; Space/Enter selects. The horizontal and vertical
@@ -82,22 +82,20 @@ compiler and writes `.cache/contracts/results.json`:
 | Invalid Tabs orientation                                             | `type-prop`                     |
 | Task in a child component                                            | `type-child-resource`           |
 | Computed `after(delay, action)`                                      | `lower-timer-literal`           |
-| Dialog without an accessible name                                    | Accepted: semantic gap          |
-| Literal command target that does not exist                           | Accepted: graph gap             |
-| `aria-describedby` naming a missing ID                               | Accepted: graph gap             |
+| Dialog without an accessible name                                    | `analyze-dialog-name`           |
+| Literal command target that does not exist                           | `analyze-command-target`        |
+| `aria-describedby` naming a missing ID                               | `analyze-aria-reference`        |
 | Two invocations on the same button                                   | Accepted: conflict-checking gap |
 
-These accepted gaps are observations, not successful accessibility assertions.
-No library wrapper can manufacture the missing compiler guarantees. Dynamic
-labels/IDs also need runtime validation; declared string types cannot prove
-nonempty names or that a target survives a conditional branch.
+The [compiler relationship patch](COMPILER.md) adds these semantic checks after
+component expansion. Correct imports, slot titles, forward references and ARIA
+lists compile; missing references, wrong command kinds and empty names fail with
+stable diagnostics. The tests use the real compiler, not a library source linter.
 
-The next compiler work should validate statically resolvable command and ARIA
-edges and their target kinds, with a runnable fixture and expected diagnostic
-for each rule. A child scheduling capability, if added, must retain explicit
-ownership/cancellation on unmount; the current root scheduler is not hidden by
-a fake private component timer. The probes do not justify a new general behavior
-language yet.
+Dynamic IDs/names, conditional target lifetime, arbitrary action dataflow and
+competing invocations remain runtime obligations or accepted gaps. A successful
+compile does not prove these cases safe. The root Tooltip scheduler and native
+AX/focus tests remain necessary. No general behavior language is introduced.
 
 ## Verified modal stack
 

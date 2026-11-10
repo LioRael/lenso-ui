@@ -12,6 +12,8 @@ use ModalExample from "./modal.contract"
 
 use AlertDialogExample from "./alert-dialog.contract"
 
+use ContentExample from "./content.contract"
+
 component App
   state count = 0
   state disabled = false
@@ -60,3 +62,4 @@ component App
           ToggleExample()
           ModalExample()
           AlertDialogExample()
+          ContentExample()

@@ -51,6 +51,14 @@
         "navigation with source disposal removes the old stack without stealing arrival focus"
       ],
       "ax": "lifecycle"
+    },
+    {
+      "id": "compiler-relationships",
+      "patch": "exact-compiler-relationships.patch",
+      "requires": [],
+      "hosts": ["compiler"],
+      "tests": [],
+      "ax": "none"
     }
   ]
 }

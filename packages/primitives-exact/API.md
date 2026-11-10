@@ -77,5 +77,6 @@ re-exports `TooltipIntent`. [The complete connection](TOOLTIP.md) is compiled.
 No existing selection names or state shapes were renamed. `description` keeps
 its ID-list meaning. Compiler probes enforce the Input enum and compile the
 close-button subpath API; the copied consumer exercises every exported part.
-Missing names/targets and incompatible combined commands remain compiler gaps,
-recorded separately in [COMPOSITION.md](COMPOSITION.md).
+The [compiler patch](COMPILER.md) rejects statically missing names/targets and
+wrong command kinds. Dynamic references/lifetimes and incompatible combined
+commands still need runtime checks or further compiler work.

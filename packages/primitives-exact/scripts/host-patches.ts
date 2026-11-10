@@ -93,26 +93,33 @@ try {
   await rm(scratch, { recursive: true, force: true });
 }
 if (mode === "regress" && selected && host) {
-  const source = await Bun.file(path.join(root, "example/app.test.contract")).text();
-  const tests = source
-    .split(/(?=^test ")/m)
-    .filter((block) => selected.tests.includes(/^test "([^"]+)"/.exec(block)?.[1] ?? ""));
-  assert.equal(tests.length, selected.tests.length, "A named regression was removed or renamed");
-  const suite = path.join(evidence, `${selected.id}.test.contract`);
-  await Bun.write(suite, tests.join(""));
-  const env = { ...process.env, EXACT_AGENT_TEST: suite, EXACT_AX_SCOPE: selected.ax };
-  await command(
-    ["bun", host === "web" ? "scripts/agent.ts" : "scripts/native.ts", host],
-    root,
-    env,
-  );
-  if (host === "web") {
+  if (host === "compiler") {
+    await command(["bun", "scripts/contracts.ts"], root);
+  } else {
+    const source = await Bun.file(path.join(root, "example/app.test.contract")).text();
+    const tests = source
+      .split(/(?=^test ")/m)
+      .filter((block) => selected.tests.includes(/^test "([^"]+)"/.exec(block)?.[1] ?? ""));
+    assert.equal(tests.length, selected.tests.length, "A named regression was removed or renamed");
+    const suite = path.join(evidence, `${selected.id}.test.contract`);
+    await Bun.write(suite, tests.join(""));
+    const env = { ...process.env, EXACT_AGENT_TEST: suite, EXACT_AX_SCOPE: selected.ax };
     await command(
-      ["bun", "test/accessibility.mjs", host, path.join(root, ".cache/example/app")],
+      ["bun", host === "web" ? "scripts/agent.ts" : "scripts/native.ts", host],
       root,
-      { ...env, EXACT_WEB_DIST: path.join(root, ".cache/example/dist") },
+      env,
     );
-    await command(["bun", "test/browser.mjs"], root, { ...env, EXACT_BROWSER_SCOPE: selected.ax });
+    if (host === "web") {
+      await command(
+        ["bun", "test/accessibility.mjs", host, path.join(root, ".cache/example/app")],
+        root,
+        { ...env, EXACT_WEB_DIST: path.join(root, ".cache/example/dist") },
+      );
+      await command(["bun", "test/browser.mjs"], root, {
+        ...env,
+        EXACT_BROWSER_SCOPE: selected.ax,
+      });
+    }
   }
   await Bun.write(
     receipt!,

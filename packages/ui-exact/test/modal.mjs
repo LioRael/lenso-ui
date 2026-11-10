@@ -291,7 +291,7 @@ export async function checkModal(page, engine) {
     const original = host.getAttribute("style");
     host.style.transform = "translateZ(0)";
     host.style.overflow = "hidden";
-    const sample = (duration) =>
+    const sample = (duration, settle = false) =>
       new Promise((resolve) => {
         const start = performance.now();
         const frames = [];
@@ -303,24 +303,34 @@ export async function checkModal(page, engine) {
             modal: dialog.matches(":modal"),
             display: getComputedStyle(dialog).display,
             opacity: Number(getComputedStyle(popup).opacity),
+            starting: popup.hasAttribute("data-starting-style"),
             root: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
           });
-          if (performance.now() - start < duration) requestAnimationFrame(frame);
-          else resolve(frames);
+          const elapsed = performance.now() - start;
+          const running = [...dialog.getAnimations(), ...popup.getAnimations()].some(
+            (animation) => animation.playState === "running",
+          );
+          if (
+            (elapsed >= duration &&
+              (!settle || (!running && !popup.hasAttribute("data-starting-style")))) ||
+            elapsed > duration + 2000
+          )
+            resolve(frames);
+          else requestAnimationFrame(frame);
         };
         frame();
       });
     try {
       dialog.showModal();
-      const enter = await sample(340);
+      const enter = await sample(340, true);
       dialog.close();
-      const exit = await sample(180);
+      const exit = await sample(180, true);
       dialog.showModal();
-      await sample(340);
+      await sample(340, true);
       dialog.close();
       await sample(40);
       dialog.showModal();
-      const reopen = await sample(340);
+      const reopen = await sample(340, true);
       dialog.close();
       await sample(180);
       return { overlay: CSS.supports("overlay", "auto"), enter, exit, reopen };
@@ -330,6 +340,10 @@ export async function checkModal(page, engine) {
       else host.setAttribute("style", original);
     }
   });
+  await Bun.write(
+    path.resolve(import.meta.dirname, `../.cache/example/${engine}-modal-motion.json`),
+    JSON.stringify(motion, null, 2),
+  );
   const enterAnimated = motion.enter.some((frame) => frame.opacity > 0 && frame.opacity < 1);
   const exitAnimated = motion.exit.some(
     (frame) => frame.display !== "none" && frame.opacity > 0 && frame.opacity < 1,
@@ -350,13 +364,15 @@ export async function checkModal(page, engine) {
       "exit stays in viewport coordinates under a transformed clipping ancestor",
     );
   }
-  await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-modal-motion.json`),
-    JSON.stringify(motion, null, 2),
-  );
   assert.equal(
     await page.evaluate(() => document.documentElement.style.getPropertyPriority("overflow")),
     lock.priority,
   );
-  return { enterAnimated, exitAnimated, overlayTransitions: motion.overlay };
+  return {
+    enterAnimated,
+    exitAnimated,
+    overlayTransitions: motion.overlay,
+    entrySampleMs: motion.enter.at(-1).t,
+    timingAcceptance: "not-qualified-performance-benchmark",
+  };
 }

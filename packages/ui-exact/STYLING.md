@@ -121,6 +121,6 @@ separate Vite/StyleX build. Chromium and Playwright WebKit verify first-frame
 styles with the page hatch blocked, then class composition, responsive radius,
 hover feedback, ordered global/instance maps, null removal of background and
 radius, custom toggle tint after pointer release, and styled SVG leaves. The
-consumer compares all 689 composed cases, alongside the ordinary behavior,
-keyboard, motion and disposal suite. Core generation retains 613 recipes.
+consumer compares all 1017 composed cases, alongside the ordinary behavior,
+keyboard, motion and disposal suite. Core generation retains 881 recipes.
 These are Web integration checks, not native or device-performance acceptance.

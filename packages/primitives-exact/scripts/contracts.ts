@@ -186,6 +186,7 @@ component Surface
   },
   {
     name: "empty-imported-dialog-label",
+    diagnosticSource: true,
     source: `use Dialog from "@lenso/primitives-exact"
 component App
   view
@@ -326,7 +327,13 @@ for (const probe of cases) {
   ]);
   const diagnostics = stdout + stderr;
   results.push({ name: probe.name, expected: probe.result, status, diagnostics });
-  console.log(`${probe.name}: ${status === 0 ? probe.result : "rejected"}`);
+  const verdict =
+    status !== 0
+      ? "rejected"
+      : ["accepted-gap", "runtime-obligation"].includes(probe.result)
+        ? probe.result
+        : "accepted";
+  console.log(`${probe.name}: ${verdict}`);
 }
 await Bun.write(path.join(app, "results.json"), JSON.stringify(results, null, 2));
 for (const [index, probe] of cases.entries()) {
@@ -334,4 +341,6 @@ for (const [index, probe] of cases.entries()) {
   assert.equal(result.status === 0, probe.result !== "rejected", result.diagnostics || probe.name);
   if (probe.diagnostic)
     assert.ok(result.diagnostics.includes(probe.diagnostic), result.diagnostics);
+  if ("diagnosticSource" in probe && probe.diagnosticSource)
+    assert.ok(result.diagnostics.includes(`${probe.name}.contract:4:`), result.diagnostics);
 }

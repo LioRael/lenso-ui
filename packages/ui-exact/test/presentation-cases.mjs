@@ -30,6 +30,8 @@ export async function checkPresentationCases(page) {
           "progress-circle-fill-circle",
           "spinner-icon",
           "modal-close-glyph",
+          "alert-icon",
+          "close-button-icon",
         ].includes(entry.kind);
         const tag = entry.kind.includes("button")
           ? "button"

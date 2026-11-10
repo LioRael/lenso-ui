@@ -1,3 +1,4 @@
+import { checkContent } from "./content.mjs";
 import { checkVisualCapabilities } from "./visual-capabilities.mjs";
 import { checkAlertDialog } from "./alert-dialog.mjs";
 import assert from "node:assert/strict";
@@ -105,6 +106,7 @@ try {
       assert.equal(await page.getByTestId("count").textContent(), "Count: 4");
       const modalMotion = await checkModal(page, name);
       const alertDialogMotion = await checkAlertDialog(page, name);
+      await checkContent(page, name);
       await checkCallerStyles(page);
       await checkToggle(page, name);
       await checkFeedback(page, name);
@@ -169,7 +171,7 @@ try {
       const capture = path.resolve(import.meta.dirname, `../.cache/example/${name}.png`);
       await page.screenshot({ path: capture });
       console.log(
-        `${name} ${browser.version()}: actions, modal, alert dialog, toggles, feedback, forms, navigation, disclosure, accordion, keyboard, motion, theme and disposal passed`,
+        `${name} ${browser.version()}: actions, modal, alert dialog, content, toggles, feedback, forms, navigation, disclosure, accordion, keyboard, motion, theme and disposal passed`,
       );
       verifiedBrowsers.push({
         engine: name,

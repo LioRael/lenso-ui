@@ -115,6 +115,6 @@ The package consumer passes in Chromium 156 and Playwright WebKit 27.2. Checks
 cover normalized range semantics, determinate/indeterminate changes, output,
 track sizes and colors, SVG dash geometry, RTL fills, spinner geometry and sizes,
 nested skeleton composition, Reduced Motion and removal/recreation. Initial
-style comparisons include the new families among 689 composed consumer cases (613 core recipes).
+style comparisons include the new families among 1017 composed consumer cases (881 core recipes).
 Light/dark screenshots cover 390 and 820 px. Dynamic inline-value adapters and native
 platform acceptance remain open in COMPONENTS.md.

@@ -209,7 +209,9 @@ background isolation and return through four scopes, removed invokers, subtree
 unmount, navigation push/back and source route disposal. Chromium/WebKit
 browser checks and Chrome/AppKit/UIKit native AX observations passed. Browser
 regressions also check author-owned `inert` updates and cancelled openings.
-The compiler probes retain their rejected errors and accepted semantic gaps.
+The [compiler relationship patch](COMPILER.md) now rejects statically missing
+command/ARIA targets, wrong command kinds and absent/empty Dialog names.
+Dynamic relationships and competing invocations remain outside that proof.
 See the [report](VERIFICATION.md) for the required Host fixes, patch order and
 exact scope. Linux's earlier six-of-seven headless result is retained without
 claiming Tooltip, nested Dialog or Linux OS/AT-SPI acceptance. Spoken
@@ -220,4 +222,5 @@ This is an initial primitive catalog, not full Base UI parity. Combobox,
 autocomplete, context menu, number field, multi-thumb slider, mixed
 checkbox, drag/drop and advanced form validation need their own implementation
 and platform acceptance. No package publication or changes to the existing React primitives are part
-of this work. The four SDK patches have [separate review notes and regression commands](patches/README.md).
+of this work. The four Host patches and independent compiler relationship patch have
+[separate review notes and regression commands](patches/README.md).

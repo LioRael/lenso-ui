@@ -16,10 +16,12 @@ const custom = stylex.create({
   square: { borderRadius: null },
   skeleton: { borderRadius: 16 },
   clear: { backgroundColor: null, borderRadius: 0 },
+  chip: { borderRadius: 8 },
   ring: { stroke: "var(--lenso-label-tertiary)" },
 });
 
 export const styleRules = [
+  { kind: "chip", testId: "content-chip", xstyle: custom.chip },
   { kind: "button", testId: "action", xstyle: custom.count },
   { kind: "toggle-button", xstyle: custom.toggles },
   { kind: "toggle-button", testId: "favorite", xstyle: [custom.strong, false, custom.square] },

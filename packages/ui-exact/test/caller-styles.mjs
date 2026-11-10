@@ -9,7 +9,11 @@ export async function checkCallerStyles(page) {
       new URL("./modules/style-config/index.js", document.baseURI).href
     );
     const target = 'quote"\\line\nend';
-    const cases = presentationCases([{ ...styleRules[0], testId: target }]);
+    const buttonRule = styleRules.find(
+      (rule) => rule.kind === "button" && rule.testId === "action",
+    );
+    if (!buttonRule) throw new Error("The compiled consumer must register its action button style");
+    const cases = presentationCases([{ ...buttonRule, testId: target }]);
     const entry = cases.find(
       (item) =>
         item.attributes?.["data-testid"] === target &&

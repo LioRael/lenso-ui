@@ -93,3 +93,12 @@ classic-scrollbar compensation have not reached parity. Parent closing while
 its nested child remains open is not covered by the current nested acceptance.
 Playwright WebKit is not proof of physical Safari/iPhone acceptance. Native
 Exact adapters are outside this Web implementation.
+
+The functional motion sampler waits for finite native transitions and the
+starting marker to finish, with a bounded 2 s extension beyond its nominal
+sample interval. It retains actual per-frame elapsed times and records
+`entrySampleMs`; this is not a frame-time or interaction-latency acceptance gate.
+A fixed 340 ms sample ended at opacity 0.852531 in a WebKit consumer run, so that
+run did not prove completion within 340 ms. Functional endpoint completion must
+not be read as a performance pass. Traces are written before endpoint assertions
+so failures retain their evidence.

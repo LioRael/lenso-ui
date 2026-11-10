@@ -27,6 +27,10 @@ export async function checkInitialStyles(page, url, engine) {
     );
     return page.evaluate(() => {
       const ids = [
+        "content-chip",
+        "content-close",
+        "content-alert",
+        "content-badge",
         "modal-trigger",
         "alert-trigger",
         "feedback-skeleton-line-two",

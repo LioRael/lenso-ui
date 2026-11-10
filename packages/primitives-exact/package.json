@@ -13,7 +13,8 @@
     "patches",
     "README.md",
     "LICENSE",
-    "API.md"
+    "API.md",
+    "COMPILER.md"
   ],
   "type": "module",
   "exports": {
