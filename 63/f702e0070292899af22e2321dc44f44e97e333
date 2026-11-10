@@ -1,0 +1,51 @@
+packages/ui/package.json
+  s_fabf2ab98d9b30::t_f7e6137c233a67 3
+packages/primitives/package.json
+  s_fabf2ab98d9b30::t_b5c8a92371a493 13
+  s_fabf2ab98d9b30::t_f7e6137c233a67 3
+RELEASE.md
+  s_fabf2ab98d9b30::t_efdd910f883c0d 9-16
+  s_fabf2ab98d9b30::t_3bbec1a6d3d8e8 1-8,17-41
+tests/publish-packages.test.ts
+  s_fabf2ab98d9b30::t_b5c8a92371a493 252,255-260,263-272,274,276-279,281-284,286-288,290-298,302-304,306
+  s_fabf2ab98d9b30::t_f7e6137c233a67 115-119,131-138,149-156,187-191,225-229,241,244-251,317-321,408-412
+  s_fabf2ab98d9b30::t_631413768fe156 253-254,261-262,273,275,280,285,289,299-301,305,307
+packages/create-docs/src/cli.ts
+  s_fabf2ab98d9b30::t_f7e6137c233a67 6
+.github/workflows/release.yml
+  s_fabf2ab98d9b30::t_f7e6137c233a67 9
+packages/create-docs/package.json
+  s_fabf2ab98d9b30::t_f7e6137c233a67 3
+packages/create-docs/test/cli.test.ts
+  s_fabf2ab98d9b30::t_f7e6137c233a67 70,92
+packages/create-docs/template/package.json
+  s_fabf2ab98d9b30::t_f7e6137c233a67 11
+packages/primitives/LICENSE
+  s_fabf2ab98d9b30::t_f7e6137c233a67 1-21
+scripts/publish-packages.ts
+  s_fabf2ab98d9b30::t_8928b962163bec 12,49,51-52,158-163,193-197
+  s_fabf2ab98d9b30::t_b5c8a92371a493 188-192,227-231
+  s_fabf2ab98d9b30::t_1e1062282906fd 232
+packages/tokens/package.json
+  s_fabf2ab98d9b30::t_f7e6137c233a67 3
+packages/docs/package.json
+  s_fabf2ab98d9b30::t_f7e6137c233a67 3
+bun.lock
+  s_fabf2ab98d9b30::t_7f1bf90ef1bd18 130,150,213,265,278
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "63f702e0070292899af22e2321dc44f44e97e333",
+  "prompts": {},
+  "sessions": {
+    "s_fabf2ab98d9b30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c4d3-243e-7db1-aa3a-35781aad4814",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
