@@ -1,0 +1,25 @@
+RELEASE.md
+  s_ab5c95a3492695::t_c6e4125236ca17 32
+packages/primitives/src/command/index.ts
+  s_ab5c95a3492695::t_a4de7931186900 1-2
+scripts/publish-packages.ts
+  s_ab5c95a3492695::t_a755dcac9c9058 164-165,323
+tests/publish-packages.test.ts
+  s_ab5c95a3492695::t_db49e91634a2f9 265-267
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8993e1fb1010b2b96016fd1332fdc300412fc102",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
