@@ -1,0 +1,63 @@
+apps/docs/package.json
+  s_10c7d362cf24b2::t_ded8f50dfc2f92 26
+apps/docs/test/material-tone-alpha.mjs
+  s_10c7d362cf24b2::t_b7c6269558c740 1-100
+bun.lock
+  s_10c7d362cf24b2::t_6ffe0402d3af31 300-315,757-758
+docs/design/component-conventions.md
+  s_10c7d362cf24b2::t_118333a67729aa 609-612
+docs/research/glass-tone-alpha-2026-11-10.md
+  s_10c7d362cf24b2::t_dd4008d70de507 1-49
+packages/glass/src/material-tone-svg.ts
+  s_10c7d362cf24b2::t_b69c236b29c04c 47-53
+packages/ui-exact/README.md
+  s_10c7d362cf24b2::t_ebfaa50b051231 1-118
+packages/ui-exact/example/app.contract
+  s_10c7d362cf24b2::t_241e278ffea813 1-42
+packages/ui-exact/example/app.json
+  s_10c7d362cf24b2::t_81692528d5da3f 1-9
+packages/ui-exact/example/modules/web/index.js
+  s_10c7d362cf24b2::t_0c8092a85392c6 1
+packages/ui-exact/example/package.json
+  s_10c7d362cf24b2::t_fd042d5ca61d64 1-8
+packages/ui-exact/index.contract
+  s_10c7d362cf24b2::t_f3215c528f6147 1-48
+packages/ui-exact/package.json
+  s_10c7d362cf24b2::t_cb7dc616de37a1 1-40
+packages/ui-exact/scripts/build.ts
+  s_10c7d362cf24b2::t_c6fd4c29759301 1-52
+packages/ui-exact/scripts/example.ts
+  s_10c7d362cf24b2::t_9d9ad7d852318c 1-34
+packages/ui-exact/scripts/stage.ts
+  s_10c7d362cf24b2::t_ba129348335867 1-10
+packages/ui-exact/src/browser.js
+  s_10c7d362cf24b2::t_0a2ae63d1eb6b5 1-11
+packages/ui-exact/src/entry.ts
+  s_10c7d362cf24b2::t_0aa2dd90da2128 1-2
+packages/ui-exact/src/styles.d.ts
+  s_10c7d362cf24b2::t_1db4cca6687abb 1
+packages/ui-exact/src/web.ts
+  s_10c7d362cf24b2::t_e683b136ad32fd 1-83
+packages/ui-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_801aa95f58414f 1-98
+packages/ui-exact/tsconfig.build.json
+  s_10c7d362cf24b2::t_66c69d889298d0 1-11
+packages/ui-exact/tsconfig.json
+  s_10c7d362cf24b2::t_66d798990e389d 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9f41b3e92f0354b656a538f242edf971b80324bd",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
