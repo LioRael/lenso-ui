@@ -262,7 +262,9 @@ test("Command release requires distributable primitive entries and an exact UI d
     ]),
   ];
   const manifest = { name: item.name, version: item.version! };
-  assert.doesNotThrow(() => validatePackage(manifest, files, {}, item, item.version!));
+  const contents = { "package/dist/command/index.js": '"use client";' };
+  assert.doesNotThrow(() => validatePackage(manifest, files, contents, item, item.version!));
+  assert.throws(() => validatePackage(manifest, files, {}, item, item.version!), /use client/);
   assert.throws(
     () =>
       validatePackage(

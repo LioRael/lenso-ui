@@ -161,6 +161,8 @@ export function validatePackage(
       requireFile(`package/dist/${family}/index.js`);
       requireFile(`package/dist/${family}/index.d.ts`);
     }
+    if (!/^["']use client["'];/.test(contents["package/dist/command/index.js"] ?? ""))
+      throw new Error("Command entry must preserve its use client directive");
   } else if (item.kind === "docs") {
     for (const path of [
       "package/LICENSE",
@@ -318,6 +320,7 @@ async function publish() {
           "package/dist/tokens.stylex.const.js",
           "package/dist/THIRD_PARTY_NOTICES.md",
           "package/dist/react/index.js",
+          "package/dist/command/index.js",
           "package/dist/source/src/gpu-blur.ts",
           "package/dist/source/src/gpu-optics.ts",
         ]

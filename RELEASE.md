@@ -29,6 +29,7 @@ apply when upgrading from the older registry packages.
 
 The new Command implementation is published as `@lenso/primitives/command`;
 existing DataGrid, ResizeHandle and Sidebar component source is unchanged.
+The Command distribution entry explicitly retains its client boundary for Next.
 UI pins the new primitives version in addition to Glass and Tokens. Docs pins
 the matching UI, Glass and Tokens versions through the packed workspace manifests.
 
