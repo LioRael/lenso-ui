@@ -1,0 +1,20 @@
+experiments/exact-docs/ASTRO_COMPARISON.md
+  s_fabf2ab98d9b30::t_ab985f55163ff8 9-23
+  s_fabf2ab98d9b30::t_70691b14ad0d34 3,7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dd96f20cf755a5391c4a3be3ae6dad50eeb88c79",
+  "prompts": {},
+  "sessions": {
+    "s_fabf2ab98d9b30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c4d3-243e-7db1-aa3a-35781aad4814",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
