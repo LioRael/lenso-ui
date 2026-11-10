@@ -1,6 +1,6 @@
 import { cp, mkdir } from "node:fs/promises";
 import path from "node:path";
-import type { PresentationRule } from "../dist/presentation.js";
+import type { PresentationRule } from "@lenso/ui-exact/presentation";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import requirements from "../manifest.json" with { type: "json" };
