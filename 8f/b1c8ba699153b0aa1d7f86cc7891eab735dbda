@@ -1,0 +1,426 @@
+docs/research/evidence/native-collections-2026-11-11/checks/package-typecheck.log
+  s_ab5c95a3492695::t_c0f22807193fe4 2
+  s_ab5c95a3492695::t_661829cb4d9395 1
+packages/ui-native/src/refresh-control.tsx
+  s_ab5c95a3492695::t_4ace5193a33f00 1-14,21-25,42-47,53-68,78-89,93-102,108-114,116-120,122-128
+  s_ab5c95a3492695::t_a5e7c20f5343c2 15-20,26-41,48-52,69-77,90-92,103-107,115,121
+docs/research/evidence/native-collections-2026-11-11/checks/hermes-artifacts.json
+  s_ab5c95a3492695::t_092788b0ad9a00 1-16
+docs/research/evidence/native-collections-2026-11-11/ios/final-center1/CollectionQA.swift.txt
+  s_ab5c95a3492695::t_48597837abe410 1-292
+docs/research/evidence/native-collections-2026-11-11/log-normalization.json
+  s_ab5c95a3492695::t_2652e898ec8d47 1-4,7-10,13-18,31-32
+  s_ab5c95a3492695::t_cde4639dacda99 5-6,11-12,19-30
+docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/actual-list-top-ref-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-422
+"docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/after-7-tap-Save Designing Interfaces-hierarchy.txt"
+  s_ab5c95a3492695::t_48597837abe410 1-422
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/binary-provenance.json
+  s_ab5c95a3492695::t_48597837abe410 1-34
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/typed-Library-note.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/source/pre-stylex-hashes.json
+  s_ab5c95a3492695::t_c0f22807193fe4 1-7
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-7.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-11.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/README.md
+  s_ab5c95a3492695::t_48597837abe410 1
+"docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/before-10-center-Complete refresh-hierarchy.txt"
+  s_ab5c95a3492695::t_48597837abe410 1-422
+docs/research/evidence/native-collections-2026-11-11/checks/react-doctor-example.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-5,7-40
+  s_ab5c95a3492695::t_2652e898ec8d47 6
+docs/research/evidence/native-collections-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_48597837abe410 1-216
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-21.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/cohort.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-29
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/selection-partial.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-17
+docs/research/evidence/native-collections-2026-11-11/ios/center-delivery-final1/CollectionQA.swift.txt
+  s_ab5c95a3492695::t_48597837abe410 1-252
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-4.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/CollectionExample.tsx.txt
+  s_ab5c95a3492695::t_48597837abe410 1-377
+docs/research/evidence/native-collections-2026-11-11/source/final-source-hashes.json
+  s_ab5c95a3492695::t_092788b0ad9a00 1-10
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/disclosure-inside-blur-outside-focus-retention-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-410
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_d0a146aac4cd66 58
+  s_ab5c95a3492695::t_18a85c802285df 48-57,59-60
+docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/diagnostic-result.json
+  s_ab5c95a3492695::t_48597837abe410 1-40
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-19.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/failure.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/CollectionQA.py.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1-108
+packages/ui-native/test/collection-model.test.ts
+  s_ab5c95a3492695::t_c0ce307df1122a 1-14,20-21
+  s_ab5c95a3492695::t_7216755d954525 15-19
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-15.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-10.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-2.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/checks/react-doctor-package.log
+  s_ab5c95a3492695::t_2652e898ec8d47 6
+  s_ab5c95a3492695::t_c0f22807193fe4 1-5,7-38
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-1.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/cohort.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-17
+docs/research/evidence/native-collections-2026-11-11/ios/refresh-diagnostic1/CollectionQA.swift.txt
+  s_ab5c95a3492695::t_48597837abe410 1-225
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/refresh-control.tsx.txt
+  s_ab5c95a3492695::t_48597837abe410 1-128
+docs/research/evidence/native-collections-2026-11-11/android/final-source/failure.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/README.md
+  s_ab5c95a3492695::t_2652e898ec8d47 1-35
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-16.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-14.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-3.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-12.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/cohort.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-23
+docs/research/evidence/native-collections-2026-11-11/README.md
+  s_ab5c95a3492695::t_0059c399c35e05 1-22
+  s_ab5c95a3492695::t_1f31f7446a6982 23-27
+docs/research/evidence/native-collections-2026-11-11/android/final-source/failure.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/failure.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-7.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+"docs/research/evidence/native-collections-2026-11-11/ios/final-center1/before-10-center-Complete refresh-hierarchy.txt"
+  s_ab5c95a3492695::t_48597837abe410 1-422
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-6.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/README.md
+  s_ab5c95a3492695::t_0059c399c35e05 1-39
+docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/binary-provenance.json
+  s_ab5c95a3492695::t_48597837abe410 1-34
+"docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/after-10-tap-Select Designing Interfaces-hierarchy.txt"
+  s_ab5c95a3492695::t_48597837abe410 1-362
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/typed-Collection-memo.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/final-center1/keyed-selection-survives-real-prepend-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-366
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-3.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/final-center1/center-pending-survives-disable-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-481
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_127c11121cf52c 4,16,25-29,32-34
+  s_ab5c95a3492695::t_892685ed1ce359 15
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-11.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-9.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-2.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-8.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/manifest.json
+  s_ab5c95a3492695::t_cde4639dacda99 495-496,503-504,507-508,743-744,791-792
+  s_ab5c95a3492695::t_2652e898ec8d47 1-494,497-502,505-506,509-742,745-790,793-822
+docs/research/evidence/native-collections-2026-11-11/checks/lint.log
+  s_ab5c95a3492695::t_cde4639dacda99 1
+docs/research/evidence/native-collections-2026-11-11/ios/refresh-diagnostic1/binary-provenance.json
+  s_ab5c95a3492695::t_48597837abe410 1-34
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-8.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_7216755d954525 17,54,56,71,80,85,132
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-7.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/diagnostics/initial-fixture.tsx.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1-316
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-1.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-5.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/center-delivery-final1/native-complete-center-result-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-427
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/CollectionQA.swift.txt
+  s_ab5c95a3492695::t_48597837abe410 1-113
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/memo-keyboard-geometry-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-479
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-13.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/typed-Collection-memo.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-17.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/filters-held-disabled-reenabled-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-272
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/NavigationQA.py.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1-111
+docs/research/evidence/native-collections-2026-11-11/android/final-source/actual-pull.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/final-center1/native-pull-editing-disabled-reenabled-complete-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-427
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/failure.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/source-hashes.json
+  s_ab5c95a3492695::t_48597837abe410 1-6
+docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/metro-collection-diag.log
+  s_ab5c95a3492695::t_48597837abe410 1-22
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/collection-model.ts.txt
+  s_ab5c95a3492695::t_48597837abe410 1-11
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-6.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/CollectionQA.swift.txt
+  s_ab5c95a3492695::t_48597837abe410 1-175
+docs/research/evidence/native-collections-2026-11-11/android/final-source/results-final.json
+  s_ab5c95a3492695::t_c0f22807193fe4 1-50
+"docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/after-10-center-Complete refresh-hierarchy.txt"
+  s_ab5c95a3492695::t_48597837abe410 1-427
+docs/research/evidence/native-collections-2026-11-11/checks/generation.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-9
+docs/research/evidence/native-collections-2026-11-11/ios/final-center1/binary-provenance.json
+  s_ab5c95a3492695::t_48597837abe410 1-34
+packages/ui-native/src/list.tsx
+  s_ab5c95a3492695::t_3f28b1bb6032e2 1
+  s_ab5c95a3492695::t_2a8dab8a0bc0bc 4-5,15-29,77,86,138,140,222,233
+  s_ab5c95a3492695::t_d0a146aac4cd66 82,229,240,243
+  s_ab5c95a3492695::t_c0ce307df1122a 2-3,6-14,30-76,78-81,83-85,87-137,139,141-221,223-228,230-232,234-239,241-242,244-282
+docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/CollectionQA.swift.txt
+  s_ab5c95a3492695::t_48597837abe410 1-293
+docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/actual-list-last-title-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-422
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-12.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/results-final.json
+  s_ab5c95a3492695::t_c0f22807193fe4 1-86
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/list.tsx.txt
+  s_ab5c95a3492695::t_48597837abe410 1-282
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/disclosure.tsx.txt
+  s_ab5c95a3492695::t_48597837abe410 1-215
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/CollectionQA.py.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1-111
+docs/design/native-components.md
+  s_ab5c95a3492695::t_1b513442bac001 70-86
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/CollectionQA.py.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1-102
+docs/research/evidence/native-collections-2026-11-11/checks/example-typecheck.log
+  s_ab5c95a3492695::t_c0f22807193fe4 2
+  s_b0a7a8f0806a46::t_0859f3243e11e8 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-18.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-8.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/final-source1.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-23
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/source-hashes.json
+  s_ab5c95a3492695::t_48597837abe410 1-7
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-10.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/behavior.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1-29
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/results-final.json
+  s_ab5c95a3492695::t_c0f22807193fe4 1-42
+docs/research/evidence/native-collections-2026-11-11/ios/final-center1/center-async-error-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-422
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-20.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/center-delivery-final1/binary-provenance.json
+  s_ab5c95a3492695::t_48597837abe410 1-34
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/failure.txt
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/results.log
+  s_ab5c95a3492695::t_48597837abe410 1-34
+docs/research/native-collections-2026-11-11.md
+  s_ab5c95a3492695::t_768ddf6f0a10f7 1-31,33-37,44-48,56-65,67-69,71-72,100-108
+  s_ab5c95a3492695::t_60c5c50e4c0995 38-43,49-55
+  s_ab5c95a3492695::t_33faf621634b8b 70
+  s_ab5c95a3492695::t_127c11121cf52c 66,76-79,84-99
+  s_ab5c95a3492695::t_4a0065c0f3cc7d 32,73-75
+  s_ab5c95a3492695::t_892685ed1ce359 80-83
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_4a0065c0f3cc7d 168-170
+  s_ab5c95a3492695::t_1b513442bac001 164-167,171-196
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-3.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-9.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-5.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-2.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-10.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/behaviors-final1/dark-accordion-native-indicators-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-412
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-4.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/collection-ready-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-407
+docs/research/evidence/native-collections-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_48597837abe410 1-114
+packages/ui-native/src/disclosure.tsx
+  s_ab5c95a3492695::t_2a8dab8a0bc0bc 2-11,21-34,53-61,63-72,90,92-115,120-122,124-130,139,141-148,174-186,189-190,193,195,197-200,204-206
+  s_ab5c95a3492695::t_a5e7c20f5343c2 1,12-20,35-52,62,73-89,91,116-119,123,131-138,140,149-173,187-188,191-192,194,196,201-203,207-215
+apps/native-example/CollectionExample.tsx
+  s_ab5c95a3492695::t_b08deae1a064d2 87-89,93-95,168-170,180-187,203-207
+  s_ab5c95a3492695::t_8c0d11add06516 68-86,90-92,96-98,140-141,171,215
+  s_ab5c95a3492695::t_7a88b4e0048360 1,118,128,220-223,308,314-335
+  s_ab5c95a3492695::t_8774eb240a1707 344-345
+  s_ab5c95a3492695::t_7216755d954525 2-20,23-67,99-117,119-127,129-139,142-167,172-179,188-202,208-214,216-219,224-246,248-277,280-307,309-313,336-343,346-362,364-372,375-377
+  s_ab5c95a3492695::t_862b78b327207b 21-22,247,278-279,363,373-374
+docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/CollectionExample.tsx.txt
+  s_ab5c95a3492695::t_48597837abe410 1-415
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_892685ed1ce359 8,368,512,1076,1172
+  s_ab5c95a3492695::t_127c11121cf52c 12-13,372-373,516-517,1080-1081,1176-1177,1179
+  s_ab5c95a3492695::t_1b513442bac001 9-10,15,369-370,375,513-514,519,1077-1078,1083,1173-1174
+docs/research/evidence/native-collections-2026-11-11/ios/refresh-diagnostic1/held-disabled-sections-reenabled-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-412
+docs/research/evidence/native-collections-2026-11-11/ios/retry-diagnostic1/refresh-control.tsx.txt
+  s_ab5c95a3492695::t_48597837abe410 1-136
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-6.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-9.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+packages/ui-native/src/collection-model.ts
+  s_ab5c95a3492695::t_a5e7c20f5343c2 1-11
+docs/research/evidence/native-collections-2026-11-11/ios/keyboard-final1/folder-keyboard-geometry-hierarchy.txt
+  s_ab5c95a3492695::t_48597837abe410 1-479
+apps/native-example/README.md
+  s_ab5c95a3492695::t_4a0065c0f3cc7d 46
+  s_ab5c95a3492695::t_1b513442bac001 42-45,47-52
+docs/research/evidence/native-collections-2026-11-11/android/selection-partial/case-4.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/checks/boundaries.log
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/behavior-partial/case-1.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/android/final-source/case-5.xml
+  s_ab5c95a3492695::t_c0f22807193fe4 1
+docs/research/evidence/native-collections-2026-11-11/checks/tests.log
+  s_ab5c95a3492695::t_2652e898ec8d47 2,8,14,17,21,26
+  s_ab5c95a3492695::t_c0f22807193fe4 1,3,9,12,15,18,22,27-29,31
+  s_ab5c95a3492695::t_dd2b567fc6113c 4-7,10-11,13,16,19-20,23-25,30
+"docs/research/evidence/native-collections-2026-11-11/ios/final-center1/after-10-center-Complete refresh-hierarchy.txt"
+  s_ab5c95a3492695::t_48597837abe410 1-422
+docs/research/evidence/native-collections-2026-11-11/android/diagnostics/first-driver-interrupted.xml
+  s_ab5c95a3492695::t_38862167fbe6eb 1
+docs/research/evidence/native-collections-2026-11-11/android/diagnostics/raw-text-logbox.xml
+  s_ab5c95a3492695::t_54a95fab1624fd 1
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/CollectionQA.py.txt
+  s_ab5c95a3492695::t_aaeea525f517ab 1-106
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/case-1.xml
+  s_ab5c95a3492695::t_1ad0887e1a6198 1
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/case-2.xml
+  s_ab5c95a3492695::t_29cd18cb02823c 1
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/case-3.xml
+  s_ab5c95a3492695::t_60f72a786fd657 1
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/case-4.xml
+  s_ab5c95a3492695::t_cd895b53a9ba8d 1
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/case-5.xml
+  s_ab5c95a3492695::t_a474aa18efde11 1
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/case-6.xml
+  s_ab5c95a3492695::t_70bce06b7d342c 1
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/cohort.log
+  s_ab5c95a3492695::t_959427d4e262cd 1-8
+docs/research/evidence/native-collections-2026-11-11/android/disabled-refresh/results-final.json
+  s_ab5c95a3492695::t_3d6eead87b58bf 1-26
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/CollectionQA.py.txt
+  s_ab5c95a3492695::t_a9b3b66a33f6b3 1-103
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/case-1.xml
+  s_ab5c95a3492695::t_947483e815b106 1
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/case-2.xml
+  s_ab5c95a3492695::t_be282b7c31e2e2 1
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/case-3.xml
+  s_ab5c95a3492695::t_cfddc45497df33 1
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/case-4.xml
+  s_ab5c95a3492695::t_7f8f82b9cb1867 1
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/cohort.log
+  s_ab5c95a3492695::t_0e7dd08840bc1a 1-5
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/post-prepend-checkboxes.xml
+  s_ab5c95a3492695::t_fb50fc37aaed48 1
+docs/research/evidence/native-collections-2026-11-11/android/keyed-refresh/results-final.json
+  s_ab5c95a3492695::t_158104256ae4d4 1-18
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/CollectionQA.py.txt
+  s_ab5c95a3492695::t_570d15e18a7ed0 1-106
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/case-1.xml
+  s_ab5c95a3492695::t_dc73bbde2485f5 1
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/case-2.xml
+  s_ab5c95a3492695::t_5d651b761ad557 1
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/case-3.xml
+  s_ab5c95a3492695::t_06b36a492e8002 1
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/case-4.xml
+  s_ab5c95a3492695::t_608f56290fc710 1
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/case-5.xml
+  s_ab5c95a3492695::t_62157b70c1fd86 1
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/case-6.xml
+  s_ab5c95a3492695::t_6f134a4051bd89 1
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/cohort.log
+  s_ab5c95a3492695::t_99f08aba90f71d 1-7
+docs/research/evidence/native-collections-2026-11-11/android/pending-disable/results-final.json
+  s_ab5c95a3492695::t_063f154fcfb55a 1-26
+docs/research/evidence/native-collections-2026-11-11/android/provenance.json
+  s_7a75eff23b6779::t_90646bdbef7f43 1-17
+docs/research/evidence/native-collections-2026-11-11/checks/hermes-android.log
+  s_ab5c95a3492695::t_b4ebb37b75e5dd 1-20
+docs/research/evidence/native-collections-2026-11-11/checks/hermes-ios.log
+  s_ab5c95a3492695::t_c48ecedb969dc1 1-20
+docs/research/evidence/native-collections-2026-11-11/checks/results.json
+  s_7a75eff23b6779::t_96454b223cd206 1-100
+docs/research/evidence/native-collections-2026-11-11/checks/test-typecheck.log
+  s_b0a7a8f0806a46::t_f9bee797165e6b 1
+docs/research/evidence/native-collections-2026-11-11/source/pre-stylex/CollectionExample.tsx.txt
+  s_ab5c95a3492695::t_2296248bba49c3 1-377
+docs/research/evidence/native-collections-2026-11-11/source/pre-stylex/collection-model.ts.txt
+  s_ab5c95a3492695::t_90476923ebc8f5 1-11
+docs/research/evidence/native-collections-2026-11-11/source/pre-stylex/disclosure.tsx.txt
+  s_ab5c95a3492695::t_f4702ee5b1a133 1-219
+docs/research/evidence/native-collections-2026-11-11/source/pre-stylex/list.tsx.txt
+  s_ab5c95a3492695::t_9a5ec8bac52404 1-291
+docs/research/evidence/native-collections-2026-11-11/source/pre-stylex/refresh-control.tsx.txt
+  s_ab5c95a3492695::t_aec050295cd9e8 1-128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8fb1c8ba699153b0aa1d7f86cc7891eab735dbda",
+  "prompts": {},
+  "sessions": {
+    "s_7a75eff23b6779": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c606-4121-7502-8ada-d3ed906e4317",
+        "model": "gpt-6-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_b0a7a8f0806a46": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c6ea-10d2-7cb1-93b1-66f14a159501",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
