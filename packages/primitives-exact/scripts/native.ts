@@ -45,7 +45,14 @@ await stagePackage(app);
 const cli = path.join(app, "exact.mjs");
 await run([cli, host === "macos" ? "mac" : host]);
 if (!process.argv.includes("--build-only")) {
-  await run([cli, "test", host, "app.test.contract"]);
-  await run([path.join(root, "test/accessibility.mjs"), host, app]);
+  await run([
+    cli,
+    "test",
+    host,
+    process.env["EXACT_AGENT_TEST"] ?? "app.test.contract",
+    ...(host === "linux" ? [] : ["--chrome", "platform"]),
+  ]);
+  if (process.env["EXACT_AX_SCOPE"] !== "none")
+    await run([path.join(root, "test/accessibility.mjs"), host, app]);
 }
 console.log(`${host}: ${app}`);

@@ -6,3 +6,4 @@ use Dialog, AlertDialog, DialogTrigger, DialogClose, DialogAction from "./compon
 use Popover, PopoverTrigger, PopoverClose, Menu, MenuItem, MenuSubmenuTrigger from "./components/popover.contract"
 use TabsList, Tab, TabPanel from "./components/tabs.contract"
 use Progress, Status, Separator from "./components/feedback.contract"
+use TooltipState, TooltipInitial, TooltipHover, TooltipContentHover, TooltipFocus, TooltipDismiss, TooltipTick, TooltipTrigger, Tooltip from "./components/tooltip.contract"

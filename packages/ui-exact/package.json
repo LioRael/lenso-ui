@@ -9,12 +9,21 @@
     "components",
     "manifest.json",
     "COMPONENTS.md",
+    "FEEDBACK.md",
     "FORMS.md",
+    "TOGGLES.md",
     "DISCLOSURE.md",
+    "NAVIGATION.md",
+    "MODAL.md",
+    "ALERT_DIALOG.md",
+    "VISUAL_CAPTURE.md",
+    "STYLING.md",
     "INITIAL_STYLES.md",
     "dist",
     "scripts/stage.ts",
-    "README.md"
+    "README.md",
+    "scripts/initial-css.ts",
+    "NOTICES.md"
   ],
   "type": "module",
   "exports": {
@@ -25,26 +34,32 @@
     },
     "./stage": "./scripts/stage.ts",
     "./manifest": "./manifest.json",
-    "./styles.css": "./dist/web.css"
+    "./styles.css": "./dist/web.css",
+    "./presentation": {
+      "types": "./dist/presentation.d.ts",
+      "import": "./dist/presentation.js"
+    },
+    "./atomic.css": "./dist/web.atomic.css"
   },
   "scripts": {
     "build": "bun scripts/build.ts",
     "typecheck": "bun check --no-script -p tsconfig.json",
     "test": "bun test test/*.test.ts",
     "test:browser": "bun run build && bun test/browser.mjs",
-    "example:build": "bun run build && bun scripts/example.ts"
+    "example:build": "bun run build && bun scripts/example.ts",
+    "test:glass-capture": "bun test/visual-capabilities.mjs"
   },
   "dependencies": {
     "@lenso/glass": "workspace:*",
     "@lenso/tokens": "workspace:*",
-    "@stylexjs/stylex": "catalog:"
+    "@stylexjs/stylex": "catalog:",
+    "postcss": "8.5.32",
+    "postcss-selector-parser": "7.1.0"
   },
   "devDependencies": {
     "@stylexjs/unplugin": "catalog:",
     "@types/bun": "^1.4.4",
     "@types/node": "catalog:",
-    "postcss": "8.5.32",
-    "postcss-selector-parser": "7.1.0",
     "typescript": "catalog:",
     "vite": "catalog:"
   }

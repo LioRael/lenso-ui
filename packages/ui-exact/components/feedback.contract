@@ -1,0 +1,214 @@
+shape RangeState
+  id: string
+  label: string
+  value: number
+  min: number
+  max: number
+  valueText: string
+  size: string
+  color: string
+  disabled: bool
+
+shape ProgressState
+  range: RangeState
+  indeterminate: bool
+
+fn rangeMaximum(state: RangeState): number = max(state.min, state.max)
+fn rangeValue(state: RangeState): number = min(rangeMaximum(state), max(state.min, state.value))
+fn rangePercent(state: RangeState): number = rangeMaximum(state) > state.min ? (rangeValue(state) - state.min) / (rangeMaximum(state) - state.min) * 100 : 0
+fn rangeText(state: RangeState): string = state.valueText.length > 0 ? state.valueText : `${round(rangePercent(state))}%`
+
+component ProgressBar
+  props
+    state: ProgressState
+  slot
+  view
+    if state.indeterminate
+      box id=state.range.id testId=state.range.id role="progressbar" aria-label=state.range.label
+        aria-valuemin=`${state.range.min}` aria-valuemax=`${rangeMaximum(state.range)}`
+        aria-valuetext=state.range.valueText aria-disabled=state.range.disabled
+        hatch="lenso-ui" data-lenso-kind="progress-bar" data-slot="progress-bar" data-lenso-color=state.range.color
+        children
+    else
+      box id=state.range.id testId=state.range.id role="progressbar" aria-label=state.range.label
+        aria-valuemin=`${state.range.min}` aria-valuemax=`${rangeMaximum(state.range)}`
+        aria-valuenow=`${rangeValue(state.range)}` aria-valuetext=rangeText(state.range) aria-disabled=state.range.disabled
+        hatch="lenso-ui" data-lenso-kind="progress-bar" data-slot="progress-bar" data-lenso-color=state.range.color
+        children
+
+component ProgressCircle
+  props
+    state: ProgressState
+  slot
+  view
+    if state.indeterminate
+      box id=state.range.id testId=state.range.id role="progressbar" aria-label=state.range.label
+        aria-valuemin=`${state.range.min}` aria-valuemax=`${rangeMaximum(state.range)}`
+        aria-valuetext=state.range.valueText aria-disabled=state.range.disabled
+        hatch="lenso-ui" data-lenso-kind="progress-circle" data-slot="progress-circle" data-lenso-color=state.range.color
+        children
+    else
+      box id=state.range.id testId=state.range.id role="progressbar" aria-label=state.range.label
+        aria-valuemin=`${state.range.min}` aria-valuemax=`${rangeMaximum(state.range)}`
+        aria-valuenow=`${rangeValue(state.range)}` aria-valuetext=rangeText(state.range) aria-disabled=state.range.disabled
+        hatch="lenso-ui" data-lenso-kind="progress-circle" data-slot="progress-circle" data-lenso-color=state.range.color
+        children
+
+component Meter
+  props
+    state: RangeState
+  slot
+  view
+    box id=state.id testId=state.id role="meter" aria-label=state.label
+      aria-valuemin=`${state.min}` aria-valuemax=`${rangeMaximum(state)}`
+      aria-valuenow=`${rangeValue(state)}` aria-valuetext=rangeText(state) aria-disabled=state.disabled
+      hatch="lenso-ui" data-lenso-kind="meter" data-slot="meter" data-lenso-color=state.color
+      children
+
+component ProgressBarLabel
+  slot
+  view
+    text hatch="lenso-ui" data-lenso-kind="progress-bar-label" data-slot="label"
+      children
+
+component ProgressBarOutput
+  props
+    state: ProgressState
+  view
+    text state.indeterminate ? state.range.valueText : rangeText(state.range)
+      hatch="lenso-ui" data-lenso-kind="progress-bar-output" data-slot="progress-bar-output"
+
+component ProgressBarTrack
+  props
+    state: ProgressState
+  slot
+  view
+    box id=`${state.range.id}-track` testId=`${state.range.id}-track` aria-hidden=true
+      hatch="lenso-ui" data-lenso-kind="progress-bar-track" data-slot="progress-bar-track" data-lenso-size=state.range.size
+      children
+
+component ProgressBarFill
+  props
+    state: ProgressState
+  view
+    box id=`${state.range.id}-fill` testId=`${state.range.id}-fill` aria-hidden=true
+      width=state.indeterminate ? "40%" : `${rangePercent(state.range)}%`
+      hatch="lenso-ui" data-lenso-kind="progress-bar-fill" data-slot="progress-bar-fill" data-lenso-size=state.range.size
+      data-lenso-indeterminate=state.indeterminate
+
+component MeterLabel
+  slot
+  view
+    text hatch="lenso-ui" data-lenso-kind="meter-label" data-slot="label"
+      children
+
+component MeterOutput
+  props
+    state: RangeState
+  view
+    text rangeText(state)
+      hatch="lenso-ui" data-lenso-kind="meter-output" data-slot="meter-output"
+
+component MeterTrack
+  props
+    state: RangeState
+  slot
+  view
+    box id=`${state.id}-track` testId=`${state.id}-track` aria-hidden=true
+      hatch="lenso-ui" data-lenso-kind="meter-track" data-slot="meter-track" data-lenso-size=state.size
+      children
+
+component MeterFill
+  props
+    state: RangeState
+  view
+    box id=`${state.id}-fill` testId=`${state.id}-fill` aria-hidden=true
+      width=`${rangePercent(state)}%`
+      hatch="lenso-ui" data-lenso-kind="meter-fill" data-slot="meter-fill" data-lenso-size=state.size
+
+
+component ProgressCircleLabel
+  slot
+  view
+    text data-slot="label"
+      children
+
+component ProgressCircleTrack
+  props
+    state: ProgressState
+  slot
+  view
+    svg viewBox="0 0 36 36" fill="none" aria-hidden=true
+      id=`${state.range.id}-track` testId=`${state.range.id}-track`
+      hatch="lenso-ui" data-lenso-kind="progress-circle-track" data-slot="progress-circle-track"
+      data-lenso-size=state.range.size data-lenso-indeterminate=state.indeterminate
+      children
+
+component ProgressCircleTrackCircle
+  props
+    state: ProgressState
+    cx: number
+    cy: number
+    radius: number
+    thickness: number
+  view
+    circle cx=cx cy=cy r=radius stroke-width=thickness
+      id=`${state.range.id}--lenso-progress-track` testId=`${state.range.id}-track-circle`
+
+component ProgressCircleFillCircle
+  props
+    state: ProgressState
+    cx: number
+    cy: number
+    radius: number
+    thickness: number
+  derive circumference = 2 * 3.141592653589793 * radius
+  view
+    circle cx=cx cy=cy r=radius stroke-width=thickness stroke-linecap="round"
+      stroke-dasharray=`${circumference}`
+      stroke-dashoffset=(circumference * (state.indeterminate ? 0.75 : 1 - rangePercent(state.range) / 100))
+      transform=`rotate(-90 ${cx} ${cy})`
+      id=`${state.range.id}--lenso-progress-fill` testId=`${state.range.id}-fill`
+
+component Spinner
+  props
+    id: string
+    label: string
+    size: string
+    color: string
+  derive dimension = size == "sm" ? 22 : 30
+  derive thickness = size == "sm" ? 3 : 4
+  derive length = size == "sm" ? 7 : 10
+  view
+    box id=id testId=id role="status" aria-label=label
+      hatch="lenso-ui" data-lenso-kind="spinner" data-slot="spinner" data-lenso-size=size data-lenso-color=color
+      svg viewBox=`0 0 ${dimension} ${dimension}` aria-hidden=true
+        hatch="lenso-ui" data-lenso-kind="spinner-icon" data-slot="spinner-icon"
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=1.0 transform=`rotate(0 ${dimension / 2} ${dimension / 2})`
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=0.88 transform=`rotate(45 ${dimension / 2} ${dimension / 2})`
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=0.76 transform=`rotate(90 ${dimension / 2} ${dimension / 2})`
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=0.64 transform=`rotate(135 ${dimension / 2} ${dimension / 2})`
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=0.52 transform=`rotate(180 ${dimension / 2} ${dimension / 2})`
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=0.4 transform=`rotate(225 ${dimension / 2} ${dimension / 2})`
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=0.28 transform=`rotate(270 ${dimension / 2} ${dimension / 2})`
+        rect x=((dimension - thickness) / 2) y=0 width=thickness height=length rx=(thickness / 2)
+          fill="currentColor" opacity=0.16 transform=`rotate(315 ${dimension / 2} ${dimension / 2})`
+
+component Skeleton
+  props
+    id: string
+    width: string
+    height: string
+    animation: string
+  slot
+  view
+    box id=id testId=id aria-hidden=true inert=true width=width height=height
+      hatch="lenso-ui" data-lenso-kind="skeleton" data-slot="skeleton" data-skeleton-animation=animation
+      children

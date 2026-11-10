@@ -16,9 +16,32 @@ export async function checkInitialStyles(page, url, engine) {
       stylesheets.push(request.url());
   });
   await page.route("**/modules/index.js", hold);
-  const snapshot = () =>
-    page.evaluate(() => {
+  const snapshot = async () => {
+    await page.evaluate(() =>
+      Promise.all(
+        document
+          .getAnimations()
+          .filter((animation) => Number.isFinite(animation.effect?.getComputedTiming().endTime))
+          .map((animation) => animation.finished.catch(() => {})),
+      ),
+    );
+    return page.evaluate(() => {
       const ids = [
+        "modal-trigger",
+        "alert-trigger",
+        "feedback-skeleton-line-two",
+        "favorite",
+        "favorite-icon",
+        "format-italic",
+        "upload",
+        "storage",
+        "sync-track",
+        "feedback-spinner",
+        "feedback-skeleton",
+        "navigation-local",
+        "trail-current",
+        "navigation-horizontal",
+        "navigation-vertical",
         "action",
         "glass-action",
         "name",
@@ -51,11 +74,12 @@ export async function checkInitialStyles(page, url, engine) {
         }),
       );
     });
+  };
   try {
     await page.goto(url, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => {
       const node = document.querySelector('[data-testid="action"]');
-      return node && getComputedStyle(node).borderRadius === "1000px";
+      return node && getComputedStyle(node).borderRadius === "8px";
     });
     await page.evaluate(
       () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
@@ -70,6 +94,113 @@ export async function checkInitialStyles(page, url, engine) {
         .getByTestId("details-content")
         .evaluate((node) => node.getBoundingClientRect().height),
       0,
+    );
+    assert.equal(await page.getByTestId("trail-library").getAttribute("href"), null);
+    await page.getByTestId("navigation-disabled").click();
+    assert.equal(await page.getByTestId("navigation-local").getAttribute("href"), null);
+    assert.equal(await page.getByTestId("trail-home").getAttribute("href"), null);
+    await page.getByTestId("navigation-disabled").click();
+    await page.getByTestId("navigation-direction").click();
+    assert.match(
+      await page
+        .locator('[data-lenso-kind="breadcrumbs-chevron"]')
+        .evaluate((node) => getComputedStyle(node).transform),
+      /^matrix\(-1, 0, 0, -1,/,
+    );
+    await page.getByTestId("navigation-direction").click();
+    assert.equal(await page.getByTestId("upload").getAttribute("aria-valuenow"), "35");
+    await page.getByTestId("feedback-indeterminate").click();
+    assert.equal(await page.getByTestId("upload").getAttribute("aria-valuenow"), null);
+    assert.equal(await page.getByTestId("sync").getAttribute("aria-valuenow"), null);
+    await page.getByTestId("feedback-indeterminate").click();
+    await page.getByTestId("favorite").click();
+    assert.equal(await page.getByTestId("favorite").getAttribute("aria-pressed"), "true");
+    await page.evaluate(() =>
+      Promise.all(
+        document
+          .getAnimations()
+          .filter((a) => Number.isFinite(a.effect?.getComputedTiming().endTime))
+          .map((a) => a.finished.catch(() => {})),
+      ),
+    );
+    const selectedFill = await page
+      .getByTestId("favorite")
+      .evaluate((n) => getComputedStyle(n).backgroundColor);
+    await page.getByTestId("favorite").click();
+    await page.evaluate(() =>
+      Promise.all(
+        document
+          .getAnimations()
+          .filter((a) => Number.isFinite(a.effect?.getComputedTiming().endTime))
+          .map((a) => a.finished.catch(() => {})),
+      ),
+    );
+    assert.notEqual(
+      await page.getByTestId("favorite").evaluate((n) => getComputedStyle(n).backgroundColor),
+      selectedFill,
+    );
+    assert.equal(
+      await page.getByTestId("action").evaluate((n) => getComputedStyle(n).borderRadius),
+      "8px",
+    );
+    assert.equal(
+      await page.getByTestId("favorite").evaluate((n) => getComputedStyle(n).borderRadius),
+      "0px",
+    );
+    assert.equal(
+      await page.getByTestId("favorite").evaluate((n) => getComputedStyle(n).fontWeight),
+      "700",
+    );
+    assert.equal(
+      await page
+        .getByTestId("feedback-skeleton-line-two")
+        .evaluate((n) => getComputedStyle(n).backgroundColor),
+      "rgba(0, 0, 0, 0)",
+    );
+    await page.getByTestId("modal-trigger").click();
+    await page.waitForFunction(() => document.querySelector('[data-testid="settings-modal"]').open);
+    assert.equal(
+      await page.getByTestId("settings-modal").evaluate((n) => n.matches(":modal")),
+      true,
+    );
+    assert.equal(
+      await page.getByTestId("modal-name").evaluate((n) => document.activeElement === n),
+      true,
+    );
+    await page.getByTestId("modal-cancel").click();
+    await page.waitForFunction(
+      () =>
+        getComputedStyle(document.querySelector('[data-testid="settings-modal"]')).display ===
+        "none",
+    );
+    await page.getByTestId("alert-trigger").click();
+    assert.equal(await page.getByTestId("delete-alert").evaluate((n) => n.matches(":modal")), true);
+    assert.equal(
+      await page.getByTestId("alert-cancel").evaluate((n) => n === document.activeElement),
+      true,
+    );
+    assert.equal(
+      await page
+        .getByTestId("delete-alert-popup")
+        .evaluate((n) => getComputedStyle(n).borderRadius),
+      "34px",
+    );
+    assert.equal(
+      await page
+        .getByTestId("delete-alert")
+        .evaluate((n) => getComputedStyle(n, "::before").content),
+      "none",
+    );
+    assert.equal(
+      await page
+        .getByTestId("alert-confirmation")
+        .evaluate((n) => n.getBoundingClientRect().height),
+      52,
+    );
+    await page.getByTestId("alert-cancel").click();
+    await page.waitForFunction(
+      () =>
+        getComputedStyle(document.querySelector('[data-testid="delete-alert"]')).display === "none",
     );
     const initial = { light: await snapshot(), dark: null };
     await page.screenshot({

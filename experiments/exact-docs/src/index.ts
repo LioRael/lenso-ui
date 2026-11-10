@@ -2,9 +2,10 @@ import { cp, mkdir, readFile, readdir, realpath, rename, rm } from "node:fs/prom
 import path from "node:path";
 import { parseMarkdown } from "./markdown.ts";
 import { walk, type DocumentNode, type Heading } from "./content.ts";
-import { renderContract } from "./renderers/exact.ts";
+import { compileBodies } from "./body.ts";
 import { highlightDocuments } from "./highlight.ts";
-import { writeDataEntry } from "./search.ts";
+import { searchScopes, writeDataEntry } from "./search.ts";
+import { pageSeo, decoratePageHtml, writeSeo } from "./seo.ts";
 import { frontmatter, pageMetadata, type PageMetadata } from "./metadata.ts";
 import { preparePageHtml } from "./delivery.ts";
 import {
@@ -357,27 +358,34 @@ export async function generateApp(site: Site) {
   const routes = site.documents
     .map((doc, i) => `  page${i} ${quote(doc.path)} render=build`)
     .join("\n");
-  const branches = site.documents.map((doc, i) => {
+  const content = compileBodies(site.documents, embedded);
+  const branches = site.documents.flatMap((doc, i) => {
+    if (!doc.component) return [];
     const componentName = doc.component ? `DocsCustomPage${i}` : undefined;
     if (componentName)
       imports.push(
         `use ${doc.component} as ${componentName} from ${quote(`./site/${doc.source}`)}`,
       );
-    return `        if entry.name == "page${i}"
-          view navigationKey=entry.id.toString()
-            head title=${quote(`${doc.title} | ${site.config.name}`)} description=${quote(doc.description ?? "")} canonical=${quote(site.config.origin ? new URL(doc.path, site.config.origin).href : "")} robots=${quote(doc.noindex ? "noindex,follow" : "index,follow")}
-            DocsContext${i}(query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))`;
+    return `                if page.route == "page${i}"
+                  DocsCustomPage${i}()`;
   });
-  const contexts = site.documents.map((doc, i) => {
-    const scoped = site.documents.filter((candidate) => sameScope(candidate, doc));
-    const visible = scoped.filter((candidate) => candidate.nav !== false);
-    const navigation = visible.map((candidate) => ({
-      title: candidate.title,
-      href: candidate.path,
-    }));
+  const scopePages = searchScopes(site);
+  const scopes = scopePages.map((scope, i) => {
+    const scoped = site.documents.filter((candidate) => sameScope(candidate, scope));
+    const navigation = scoped
+      .filter((candidate) => candidate.nav !== false)
+      .map((candidate) => ({ title: candidate.title, href: candidate.path }));
     const groups = navigationGroups(scoped);
     const groupValues = `[${groups.map((group) => `DocsGroup(id=${quote(group.id)}, title=${quote(group.title)}, items=${records("DocsLink", group.items)})`).join(", ")}]`;
-    const locale = site.config.locales.find((item) => item.id === doc.locale);
+    const labels =
+      site.config.locales.find((locale) => locale.id === scope.locale)?.labels ?? defaultLabels;
+    return `  state docsScope${i}: DocsScopeData = DocsScopeData(navigation=${records("DocsLink", navigation)}, groups=${groupValues}, labels=${constructor("DocsLabels", labels)})`;
+  });
+  const pages = site.documents.map((doc, i) => {
+    const scoped = site.documents.filter((candidate) => sameScope(candidate, doc));
+    const visible = scoped.filter((candidate) => candidate.nav !== false);
+    const scope = scopePages.findIndex((candidate) => sameScope(candidate, doc));
+    const seo = pageSeo(doc, site);
     const version = site.config.versions.find((item) => item.id === doc.version);
     const position = visible.indexOf(doc);
     const neighbor = (offset: number) => {
@@ -386,54 +394,78 @@ export async function generateApp(site: Site) {
         ? `some(DocsLink(title=${quote(other.title)}, href=${quote(other.path)}))`
         : "none";
     };
-    return `component DocsContext${i}
+    return `DocsPageData(route="page${i}", path=${quote(doc.path)}, title=${quote(doc.title)}, description=${quote(doc.description ?? "")}, canonical=${quote(seo.canonical)}, robots=${quote(seo.robots)}, locale=${quote(doc.locale)}, language=${quote(seo.lang)}, direction=${quote(seo.dir)}, version=${quote(doc.version)}, pageId=${quote(doc.id)}, versionStatus=${quote(version?.status ?? "")}, searchIndexUrl=${quote(searchIndexUrl(doc))}, custom=${Boolean(doc.component)}, markdownUrl=${quote(markdownUrl(doc))}, seo=${quote(JSON.stringify(seo))}, scope=docsScope${scope}, toc=${records("DocsHeading", doc.headings)}, previous=${neighbor(-1)}, next=${neighbor(1)}, locales=${records("DocsChoice", choices(site.documents, doc, "locale", site.config.locales))}, versions=${records("DocsChoice", choices(site.documents, doc, "version", site.config.versions))})`;
+  });
+  const context = `shape DocsScopeData
+  navigation: DocsLink[]
+  groups: DocsGroup[]
+  labels: DocsLabels
+
+shape DocsPageData
+  route: string
+  path: string
+  title: string
+  description: string
+  canonical: string
+  robots: string
+  locale: string
+  language: string
+  direction: string
+  version: string
+  pageId: string
+  versionStatus: string
+  searchIndexUrl: string
+  custom: bool
+  markdownUrl: string
+  seo: string
+  scope: DocsScopeData
+  toc: DocsHeading[]
+  previous: option<DocsLink>
+  next: option<DocsLink>
+  locales: DocsChoice[]
+  versions: DocsChoice[]
+
+component DocsContext
   props
+    page: DocsPageData
+    content: DocsContent
+    contentPending: bool
+    contentFailed: bool
     query: string
     search: action
     results: DocsLink[]
     pending: bool
     failed: bool
-  state docsGroups: DocsGroup[] = ${groupValues}
-  state docsPrevious: option<DocsLink> = ${neighbor(-1)}
-  state docsNext: option<DocsLink> = ${neighbor(1)}
-  state docsLocales: DocsChoice[] = ${records("DocsChoice", choices(site.documents, doc, "locale", site.config.locales))}
-  state docsVersions: DocsChoice[] = ${records("DocsChoice", choices(site.documents, doc, "version", site.config.versions))}
-  state docsLabels: DocsLabels = ${constructor("DocsLabels", locale?.labels ?? defaultLabels)}
+  slot
   provide
-    docsGroups
-    docsPrevious
-    docsNext
-    docsLocales
-    docsVersions
-    docsLabels
-    docsLocale = ${quote(doc.locale)}
-    docsVersion = ${quote(doc.version)}
-    docsPageId = ${quote(doc.id)}
-    docsVersionStatus = ${quote(version?.status ?? "")}
-    docsSearchIndexUrl = ${quote(searchIndexUrl(doc))}
+    docsGroups = page.scope.groups
+    docsPrevious = page.previous
+    docsNext = page.next
+    docsLocales = page.locales
+    docsVersions = page.versions
+    docsLabels = page.scope.labels
+    docsLocale = page.locale
+    docsVersion = page.version
+    docsPageId = page.pageId
+    docsVersionStatus = page.versionStatus
+    docsSearchIndexUrl = page.searchIndexUrl
     docsSearchPending = pending
     docsSearchFailed = failed
-    docsDescription = ${quote(doc.description ?? "")}
-    docsMarkdown = ${quote(doc.markdown ?? "")}
-    docsMarkdownUrl = ${quote(markdownUrl(doc))}
+    docsDescription = page.description
+    docsMarkdown = content.path == page.path ? content.markdown : ""
+    docsContentPending = contentPending
+    docsContentFailed = contentFailed
+    docsMarkdownUrl = page.markdownUrl
   view
-    view lang=${quote(doc.locale || "en")} direction=${quote(locale?.dir ?? "ltr")} data-docs-part="context"
-      ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=${quote(doc.title)}, currentPath=${quote(doc.path)}, navigation=${records("DocsLink", navigation)}, toc=${records("DocsHeading", doc.headings)}, query=query, search=search, results=results)
-        ${doc.component ? `DocsCustomPage${i}()` : `DocsPage${i}()`}
+    view lang=page.language direction=page.direction data-docs-part="context" data-docs-seo=page.seo
+      ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=page.toc, query=query, search=search, results=results)
+        children
 `;
-  });
-  const bodies = site.documents
-    .filter((doc) => !doc.component)
-    .map((doc) => {
-      const i = site.documents.indexOf(doc);
-      return `component DocsPage${i}\n  view\n    article data-docs-part="article"\n${(
-        renderContract(doc.body ?? [], embedded) || 'text ""\n'
-      )
-        .split("\n")
-        .filter(Boolean)
-        .map((line) => `      ${line}`)
-        .join("\n")}`;
-    });
+  function selectPage(start: number, end: number): string {
+    if (end - start === 1) return `some(${pages[start]})`;
+    const middle = Math.floor((start + end) / 2);
+    return `(docsPageIndex < ${middle} ? ${selectPage(start, middle)} : ${selectPage(middle, end)})`;
+  }
   const source = `${imports.join("\n")}
 
 routes docsNav
@@ -444,11 +476,16 @@ shape DocsSearchReply
   items: DocsLink[]
 
 component DocsApp
+${scopes.join("\n")}
+  state docsRouteNames: string[] = ${quote(site.documents.map((_, i) => `page${i}`))}
+  derive docsPageIndex = docsRouteNames.indexOf(top(docsNav).name)
+  derive docsPage = docsPageIndex < 0 ? none : ${selectPage(0, pages.length)}
   state docsQuery = ""
-  derive docsPath = ${site.documents.map((doc, i) => `top(docsNav).name == "page${i}" ? ${quote(doc.path)} : `).join("")} ""
-  derive docsLocale = ${site.documents.map((doc, i) => `top(docsNav).name == "page${i}" ? ${quote(doc.locale)} : `).join("")} ""
-  derive docsVersion = ${site.documents.map((doc, i) => `top(docsNav).name == "page${i}" ? ${quote(doc.version)} : `).join("")} ""
-  derive docsPageId = ${site.documents.map((doc, i) => `top(docsNav).name == "page${i}" ? ${quote(doc.id)} : `).join("")} ""
+  derive docsPath = match docsPage { case some(page) => page.path, case none => "" }
+  derive docsLocale = match docsPage { case some(page) => page.locale, case none => "" }
+  derive docsVersion = match docsPage { case some(page) => page.version, case none => "" }
+  derive docsPageId = match docsPage { case some(page) => page.pageId, case none => "" }
+  resource docsContent = docsReadPage(docsPath) as shape DocsContent else empty()
   resource docsSearchReply = docsSearchPages(docsQuery, docsLocale, docsVersion) as shape DocsSearchReply else empty()
   derive docsResults = docsSearchReply.items
   action docsSearch(value: string)
@@ -459,20 +496,34 @@ ${rootMembers}
   view
     view navigationKey=top(docsNav).id.toString() navigate=docsFollow
       for entry in stack(docsNav).filter(item => item.id == top(docsNav).id) key=entry.id
+        match docsPage
+          case some(page)
+            view navigationKey=entry.id.toString()
+              head title=(page.title + ${quote(` | ${site.config.name}`)}) description=page.description canonical=page.canonical robots=page.robots
+              DocsContext(page=page, content=docsContent, contentPending=(not page.custom and docsContent.path != page.path and not failed(docsContent)), contentFailed=(not page.custom and docsContent.path != page.path and failed(docsContent)), query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))
 ${branches.join("\n")}
+                if not page.custom
+                  if docsContent.path == page.path
+                    DocsBody(body=docsContent)
+                  else if failed(docsContent)
+                    text page.scope.labels.contentError role="alert" data-docs-part="content-error"
+                  else
+                    text page.scope.labels.contentLoading role="status" data-docs-part="content-loading"
+          case none
+            view
         if entry.name == "notfound"
-          main navigationKey=entry.id.toString()
+          main navigationKey=entry.id.toString() data-docs-part="content" tabindex=-1 data-docs-seo=${quote(JSON.stringify(pageSeo(undefined, site)))}
             head title="Page not found" status=404 robots="noindex,follow"
             h1
               text "Page not found"
             link href=${quote(site.documents[0]!.path)}
               text "Documentation home"
 
-${contexts.join("\n\n")}
-${bodies.join("\n\n")}
+${context}
+${content.contract}
 `;
   await Bun.write(path.join(app, "app.contract"), source);
-  await writeDataEntry(site, app);
+  await writeDataEntry(site, app, content.pages);
   const manifestFile = Bun.file(path.join(site.root, "app.json"));
   const manifest = (await manifestFile.exists()) ? await manifestFile.json() : {};
   if (!record(manifest)) throw new Error("app.json must be an object");
@@ -489,7 +540,7 @@ ${bodies.join("\n\n")}
         name: site.config.name,
         app: { id: "dev.lenso.exactdocs", name: site.config.name, ...application },
         host: { web: {} },
-        data: [...new Set([...data, "docs-part", "docs-language", "docs-token"])],
+        data: [...new Set([...data, "docs-part", "docs-language", "docs-token", "docs-seo"])],
       },
       null,
       2,
@@ -507,7 +558,7 @@ ${bodies.join("\n\n")}
 
 export async function buildSite(
   directory: string,
-  options: { exactRoot?: string; out?: string } = {},
+  options: { exactRoot?: string; out?: string; development?: boolean } = {},
 ) {
   const site = await loadSite(directory);
   await highlightDocuments(site.documents);
@@ -543,12 +594,24 @@ export async function buildSite(
   }
   const app = await generateApp(site);
   const staging = path.join(site.root, ".exact-docs", `build-${crypto.randomUUID()}`);
-  const child = Bun.spawn([process.execPath, builder, app, "--out", staging, "--render", "js"], {
-    cwd: exactRoot,
-    env: { ...process.env, EXACT_FEEDBACK: "0" },
-    stdout: "inherit",
-    stderr: "inherit",
-  });
+  const child = Bun.spawn(
+    [
+      process.execPath,
+      builder,
+      app,
+      "--out",
+      staging,
+      "--render",
+      "js",
+      ...(options.development ? [] : ["--production"]),
+    ],
+    {
+      cwd: exactRoot,
+      env: { ...process.env, EXACT_FEEDBACK: "0" },
+      stdout: "inherit",
+      stderr: "inherit",
+    },
+  );
   if ((await child.exited) !== 0) {
     await rm(staging, { recursive: true, force: true });
     throw new Error("Exact build failed; see compiler diagnostics above");
@@ -559,10 +622,28 @@ export async function buildSite(
     "shell.html",
     ...site.documents.map((doc) => path.join(doc.path.slice(1), "index.html")),
   ]);
+  const files = await readdir(staging);
+  const modules = files
+    .filter((file) => /^(app|input-glue-[\w-]+|frames-[\w-]+)\.js$/.test(file))
+    .map((file) => `./${file}`);
+  const styles = files.includes("style.css") ? ["./style.css"] : [];
   for (const name of htmlFiles) {
     const file = Bun.file(path.join(staging, name));
-    if (await file.exists()) await Bun.write(file, preparePageHtml(await file.text()));
+    const doc = site.documents.find((item) => path.join(item.path.slice(1), "index.html") === name);
+    if (await file.exists())
+      await Bun.write(
+        file,
+        decoratePageHtml(
+          preparePageHtml(await file.text(), {
+            modules,
+            styles,
+          }),
+          doc,
+          site,
+        ),
+      );
   }
+  await writeSeo(site, staging);
   const index = site.documents
     .filter((doc) => doc.search !== false)
     .map((doc) => ({
@@ -604,6 +685,11 @@ export async function buildSite(
   for (const doc of site.documents) {
     if (doc.markdown !== undefined)
       await Bun.write(path.join(staging, markdownUrl(doc).slice(1)), doc.markdown);
+    if (doc.body)
+      await Bun.write(
+        path.join(staging, `_docs/content${doc.path === "/" ? "" : doc.path}/index.json`),
+        JSON.stringify({ schemaVersion: 1, nodes: doc.body }),
+      );
   }
   await Bun.write(path.join(staging, ".exact-docs-output"), "Exact Docs generated output\n");
   await rm(out, { recursive: true, force: true });

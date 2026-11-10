@@ -1,2 +1,2 @@
 import "@lenso/tokens/styles.css";
-export { element, elementEnded } from "./web.js";
+export { element, elementEnded, createWebHatch } from "./web.js";

@@ -421,7 +421,7 @@ export function copyBackdrop(
           subscription.invalidate,
           nativeFallback,
         );
-        shared?.visible(active);
+        shared?.visible(active && sourceVisible);
         subscription.invalidate();
       })
       .catch(() => {
@@ -434,7 +434,7 @@ export function copyBackdrop(
         active = visible;
         // The viewport already clips this sibling output. Pause its updates,
         // retaining decoded input and paint until an actual source edit arrives.
-        shared?.visible(visible);
+        shared?.visible(visible && sourceVisible);
         subscription.visible(visible);
       })
     : undefined;

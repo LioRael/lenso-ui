@@ -1,0 +1,13 @@
+component CounterDemo
+  props
+    label: string
+    initial: number
+  state count = initial
+  slot
+  action increment
+    count = count + 1
+  view
+    section aria-label=label data-docs-part="embedded-example"
+      children
+      button press=increment testId="embedded-counter"
+        text `${label}: ${count}`

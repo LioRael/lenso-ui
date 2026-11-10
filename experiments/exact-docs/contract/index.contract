@@ -24,6 +24,10 @@ shape DocsLabels
   navigation: string
   search: string
   noResults: string
+  contentLoading: string
+  contentError: string
+  searchLoading: string
+  searchError: string
   pageActions: string
   copyMarkdown: string
   openMarkdown: string
@@ -52,12 +56,16 @@ component DocsLayout
     docsPrevious: option<DocsLink>
     docsNext: option<DocsLink>
     docsDescription: string
+    docsContentPending: bool
+    docsContentFailed: bool
     docsMarkdown: string
     docsMarkdownUrl: string
     docsLocales: DocsChoice[]
     docsVersions: DocsChoice[]
     docsLabels: DocsLabels
     docsVersionStatus: string
+    docsSearchPending: bool
+    docsSearchFailed: bool
   slot
   action copyMarkdown
     copyText(docsMarkdown)
@@ -97,17 +105,22 @@ component DocsLayout
       section aria-label=docsLabels.search data-docs-part="search"
         input type="search" aria-label=docsLabels.search value=query input=search
         if query != ""
-          if results.length == 0
-            text docsLabels.noResults role="status"
-          for item in results key=item.href
-            link href=item.href
-              text item.title
-      main id="docs-content" data-docs-part="content" tabindex=-1
+          if docsSearchPending
+            text docsLabels.searchLoading role="status"
+          else if docsSearchFailed
+            text docsLabels.searchError role="alert"
+          else
+            if results.length == 0
+              text docsLabels.noResults role="status"
+            for item in results key=item.href
+              link href=item.href
+                text item.title
+      main id="docs-content" data-docs-part="content" tabindex=-1 aria-busy=docsContentPending
         if docsDescription != ""
           text docsDescription data-docs-part="description"
         if docsMarkdownUrl != ""
           section aria-label=docsLabels.pageActions data-docs-part="page-actions"
-            button press=copyMarkdown testId="copy-markdown"
+            button press=copyMarkdown disabled=(docsContentPending or docsContentFailed) testId="copy-markdown"
               text docsLabels.copyMarkdown
             link href=docsMarkdownUrl target="_blank"
               text docsLabels.openMarkdown

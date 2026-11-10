@@ -103,3 +103,60 @@ test("optical resource updates do not invalidate backdrop consumers", async () =
     else Reflect.deleteProperty(document, "fonts");
   }
 });
+
+// Native paints and copied optics share a lens but register separately. Existing
+// tests use distinct lens elements and cannot catch a skipped second owner.
+test("press mutations update every owner of the lens without updating unrelated lenses", async () => {
+  const fonts = Object.getOwnPropertyDescriptor(document, "fonts");
+  Object.defineProperty(document, "fonts", { configurable: true, value: new EventTarget() });
+  const raf = globalThis.requestAnimationFrame;
+  globalThis.requestAnimationFrame = () => 1;
+  const source = document.createElement("div"),
+    lens = document.createElement("button"),
+    other = document.createElement("button");
+  const layers = Array.from({ length: 3 }, () => document.createElement("div"));
+  document.body.append(source, lens, other, ...layers);
+  const reads = [0, 0, 0],
+    geometry = [false, false, false];
+  const clients = layers.map((layer, index) =>
+    observeBackdrop({
+      source,
+      element: index < 2 ? lens : other,
+      layer,
+      prepare() {},
+      read(_change: unknown, _reads: unknown, moved: boolean) {
+        reads[index]!++;
+        geometry[index] = moved;
+        return () => {};
+      },
+    }),
+  );
+  const settle = () => new Promise((resolve) => setTimeout(resolve, 15));
+  try {
+    await settle();
+    reads.fill(0);
+    geometry.fill(false);
+    lens.style.setProperty("--lg-press-scale", ".8");
+    await settle();
+    expect(reads).toEqual([1, 1, 0]);
+    expect(geometry).toEqual([true, true, false]);
+    clients[1]!.visible(false);
+    await settle();
+    reads.fill(0);
+    lens.style.setProperty("--lg-press-scale", ".9");
+    await settle();
+    expect(reads).toEqual([1, 0, 0]);
+    clients[1]!.visible(true);
+    await settle();
+    expect(reads).toEqual([1, 1, 0]);
+  } finally {
+    clients.forEach((c) => c.stop());
+    source.remove();
+    lens.remove();
+    other.remove();
+    layers.forEach((e) => e.remove());
+    globalThis.requestAnimationFrame = raf;
+    if (fonts) Object.defineProperty(document, "fonts", fonts);
+    else Reflect.deleteProperty(document, "fonts");
+  }
+});

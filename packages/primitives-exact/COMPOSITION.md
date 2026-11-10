@@ -3,108 +3,141 @@
 Exact Primitives: composable behaviors, native semantics, verified contracts.
 
 Composition is the authoring model. Contract describes the semantic boundary.
-The compiler can verify only relationships represented in its input model;
-tests must check everything else against the real host.
+The compiler verifies only relationships represented in its input model; tests
+check the remaining behavior against the host. This package adds no `behavior`,
+`attach`, `focusScope`, `overlay` or `semanticRole` syntax.
 
-## Use an authored native element for a behavior
+## Three implemented probes
 
-The current Exact command protocol already separates an invoker from its
-target. A dialog trigger does not need a wrapper or an extra visual node:
+| Probe   | Primitive                                                                                                     | Application                                                                                          | Compiler / Host                                                                                                                                    |
+| ------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tabs    | Tab/panel relationships, selected semantics, hidden/inert inactive panels, horizontal/vertical layout         | One selected value; ensure it names a mounted, enabled tab                                           | Compiler enforces the orientation enum; host owns roving focus, disabled skipping and key activation                                               |
+| Dialog  | Named `dialog`, description ID, `closedby="closerequest"`, optional command buttons                           | Content, trigger appearance and save actions                                                         | Host owns presentation, focus entry/containment/return, cancel/close and modal isolation; compiler does not validate the graph                     |
+| Tooltip | Pure intent/deadline transitions, optional native trigger, noninteractive hint content, described-by relation | Controlled state, gated root task, command projection, root Escape arbitration and lifecycle cleanup | Compiler forbids child tasks and computed `after`; host supplies input, monotonic clock, nonmodal popover, anchor/fallback placement and native AX |
+
+[Tooltip](TOOLTIP.md) documents the complete connection. Tabs use manual
+activation: arrows move focus; Space/Enter selects. The horizontal and vertical
+fixtures have independent owners, skip disabled items and keep inactive panels
+out of focus. The host also owns locale/direction-specific navigation; RTL and
+removing the selected tab need further acceptance before being promised.
+
+Dialog deliberately uses close requests rather than outside-click dismissal.
+For a different dismissal policy, author Exact's native `dialog closedby="any"`
+or `closedby="none"`; the convenience wrapper does not forward arbitrary
+attributes. AppKit sheets and UIKit sheets/alerts keep their platform behavior.
+For a save that must remain open on failure, use a native button with its action
+and issue `close(id)` only when the app accepts the result.
+
+## Compose on one authored native element
+
+A Dialog invoker does not need another visual node:
 
 ```contract
-use Dialog, DialogClose from "@lenso/primitives-exact"
-
-component App
-  view
-    column
-      button id="settings-trigger" testId="settings-trigger"
-        commandfor="settings" command="show-modal" buttonStyle="filled"
-        text "Settings"
-      Dialog(id="settings", label="Settings", description="settings-description")
-        text "Settings" role="heading" aria-level=2
-        text "Manage your preferences." id="settings-description"
-        button commandfor="settings" command="close"
-          text "Done"
+button id="settings-trigger" testId="settings-trigger" buttonStyle="filled"
+  commandfor="settings" command="show-modal"
+  aria-describedby="settings-help" hover=helpHover focus=helpFocus blur=helpBlur
+  key=helpKey press=dismissHelp
+  text "Settings"
 ```
 
-The developer controls the invoker's content and native attributes. Exact owns
-activation and the dialog's platform presentation. The library's DialogTrigger
-and DialogClose remain conveniences for their declared props, not a required
-composition boundary. An app can use its own button component if that component
-explicitly exposes the native command props it needs.
+The runnable fixture supplies these typed actions, the Tooltip state, its root
+task and both target surfaces. It verifies that Tooltip focus does not activate
+the Dialog, Space dismisses the hint and opens the Dialog once, and returning
+from the Dialog restores its invoker. The library's specialized triggers are
+conveniences, not mandatory composition boundaries.
 
-This is declarative binding through existing Contract attributes. It does not
-introduce `behavior`, `attach`, `focusScope`, `overlay` or `semanticRole` syntax.
-Contract's `slot` and `provide/inject` are not generic attribute forwarding:
-slot content retains the caller's bindings and providers. A wrapping Root must
-not assume it can inject its private state into arbitrary caller-authored parts.
+Use native `button` for ordinary actions; its full API remains available.
+Contract's `slot` is not an attribute spread, and slot content retains the
+caller's bindings/providers. A wrapping Root cannot silently inject its private
+state into arbitrary caller-authored parts. The explicit state/ID/action model
+keeps that ownership visible without depending on React context or ref merging.
 
-## State and event ownership
+## Event and state ownership
 
-| Concern                                                   | Owner in this version                                                     |
-| --------------------------------------------------------- | ------------------------------------------------------------------------- |
-| Editable values, selected tab, disclosure/accordion value | Application state and typed actions                                       |
-| Modal/popover open state and presentation                 | Exact host command protocol                                               |
-| Activation and disabled suppression                       | Native control and host                                                   |
-| Focus movement, modality and dismissal                    | Exact host; verify its platform implementation                            |
-| Accessible names and ID relationships                     | Authored Contract; library derives only the relationships its parts share |
-| Visual layout and appearance                              | Author styles and platform defaults                                       |
+Keep one owner for each editable value and selection. Overlays use the host's
+open state except Tooltip, whose one controlled record determines both intent
+and projected visibility. Do not add a second independent boolean or combine a
+state toggle and a native toggle for the same overlay.
 
-Do not add a second `open` boolean for an overlay whose host already owns it.
-Do not combine a `press` action that changes overlay state with a native command
-that changes it independently. A native command and an unrelated action can
-share a button only when their order and cancellation behavior are established
-by Exact's contract. A tooltip must not steal the dialog trigger's focus or
-activation. Those are acceptance requirements, not automatic consequences of
-having typed attributes.
+For Tooltip, hover/focus update the controlled record; expiry is root-owned;
+Escape cancels it before ancestors or native Dialog cancellation; activation
+dismisses it before the native command proceeds. The shared root handles Escape
+when a pointer tooltip is open and keyboard focus is elsewhere. These rules are
+implemented and tested, not inferred from having typed attributes. Arbitrary
+combinations of keyboard handlers still require one explicit arbiter; the
+compiler cannot prove their cancellation compatibility.
 
-## Three probes before a behavior abstraction
+## What the compiler verifies today
 
-| Probe   | What is implemented                                                                         | What still needs proof or upstream capability                                                                           |
-| ------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Tabs    | Explicit selected value, tab/panel IDs, inactive panels hidden and inert; host roving focus | Native focus/selection exposure; compiler validation of the complete tab graph                                          |
-| Dialog  | Native command invoker and modal target, accessible label and description; host lifecycle   | Native modal isolation, entry/return focus, cancel paths and nested modal stacks                                        |
-| Tooltip | Exact's advisory `title` is available on native elements                                    | A full tooltip contract: keyboard focus, delays, hover persistence, Escape, positioning, composed trigger, touch policy |
+The supported API and callback payloads are documented in [API.md](API.md).
+`test:contracts` compiles retained positive and negative probes against the real
+compiler and writes `.cache/contracts/results.json`:
 
-Exact documents `title` as browser advisory text on Web and `toolTip` on
-macOS; touch hosts show none. It is not a complete Tooltip primitive. This
-package therefore does not export a Tooltip wrapper that silently claims those
-behaviors. A future tooltip needs a generic scheduling/lifecycle seam usable by
-library components and a host-supported relationship to its trigger. Its
-minimum implementation must pass focus, pointer, clock and accessibility tests
-before becoming a public primitive.
+| Probe                                                                | Pinned compiler result          |
+| -------------------------------------------------------------------- | ------------------------------- |
+| Tooltip state/actions, root scheduler and popover command connection | Accepted                        |
+| Input using checkbox `type`                                          | `type-prop`                     |
+| Disabled close controls through named subpaths                       | Accepted                        |
+| Root import of internal TooltipIntent                                | `contract-use-unknown`          |
+| Invalid Tabs orientation                                             | `type-prop`                     |
+| Task in a child component                                            | `type-child-resource`           |
+| Computed `after(delay, action)`                                      | `lower-timer-literal`           |
+| Dialog without an accessible name                                    | Accepted: semantic gap          |
+| Literal command target that does not exist                           | Accepted: graph gap             |
+| `aria-describedby` naming a missing ID                               | Accepted: graph gap             |
+| Two invocations on the same button                                   | Accepted: conflict-checking gap |
 
-A compiler probe on 2026-11-11 confirmed that a timer inside a child component
-is rejected with `type-child-resource`. Root-owned timing can support an
-application composition, but is not an encapsulated Tooltip implementation.
+These accepted gaps are observations, not successful accessibility assertions.
+No library wrapper can manufacture the missing compiler guarantees. Dynamic
+labels/IDs also need runtime validation; declared string types cannot prove
+nonempty names or that a target survives a conditional branch.
 
-Nested modals are not inherently invalid. A valid stack must keep only the
-active scope interactive, restore focus to the preceding scope when popped,
-and finally return to its invoker. Compiler checks should identify unsupported
-or conflicting arrangements rather than rejecting every nested dialog.
+The next compiler work should validate statically resolvable command and ARIA
+edges and their target kinds, with a runnable fixture and expected diagnostic
+for each rule. A child scheduling capability, if added, must retain explicit
+ownership/cancellation on unmount; the current root scheduler is not hidden by
+a fake private component timer. The probes do not justify a new general behavior
+language yet.
 
-## Compiler evidence versus host evidence
+## Verified modal stack
 
-Current compiler guarantees include declared prop types, action boundaries,
-known element/attribute vocabulary and native control restrictions. Those do
-not prove that arbitrary dynamic IDs resolve, labels are nonempty in every
-runtime state, a custom trigger is focusable, or two composed behaviors have
-compatible event ownership. Wrapper exports cannot add those compiler proofs.
+Two- and four-level Dialog stacks now run in the default suite, with no optional flag or
+host-specific skips. The same Contract tests cover inner Escape, explicit close,
+reopening, parent activation after the child closes, and page activation after
+the parent closes. Browser checks additionally reject parent programmatic focus,
+verify return to each invoker, preserve current authored `inert` values and keep
+a cancelled opening from locking its parent. Native AX observations require only
+the active Dialog to be exposed, then its parent after closing the child.
 
-The same probe accepted an unnamed normal dialog and a button whose literal
-`commandfor` names no target. It also accepted a native button combining
-`buttonStyle`, advisory `title` and a dialog command. These are observed
-boundaries of the pinned compiler, not proposed compiler guarantees.
+The required fixes belong to Exact, not to extra state in the Dialog primitive:
 
-For a compiler proposal, first retain a runnable positive fixture and a
-negative fixture with an expected diagnostic for each new guarantee. Prefer
-checks over existing command targets, semantic roles and accessibility
-relationships before adding a new behavior language. Dynamic relationships
-need an explicit runtime verification strategy.
+| Exact owner                                | Required change                                                                                                                                                                                                                   |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AppKit `NodeViewMac.swift`                 | `isAccessibilityElement()` must respect the host's existing `accessibilityHiddenWritten` flag. The covered outer Dialog had no exposed children but still exposed its own Dialog element.                                         |
+| Web `dialog-modality.js` / `navigation.js` | Keep covered modal Dialogs inert in opening order. Release the preceding scope before native close restores focus; project the completed opening on `toggle` and app commits. The browser still owns focus entry, Tab and return. |
+| JS `rt.js` / Wasm `glue.js`                | Combine authored inert with the Host's modal gate. An app update cannot unlock a covered Dialog; uncovering restores the current authored value.                                                                                  |
+| Web staging `glue.mjs`                     | Include the shared modality module in generated runtime copies and source receipts.                                                                                                                                               |
+| Agent `agent-ax.mjs`                       | An observed modal escapes inert ancestors. Preserve the separate `aria-hidden` ancestor diagnostic. Chrome's real AX tree exposed the valid inner modal while the old diagnostic falsely called it hidden.                        |
+| iOS `AgentIOS.swift`                       | The previously supplied Escape patch routes recognized keys to existing sheet cancellation; UIKit hardware-key behavior is unchanged.                                                                                             |
 
-The same Contract interaction tests run on each available host. Separately,
-read `tree --ax` for the platform's own accessibility facts: names, roles,
-disabled/checked/pressed/expanded states and modal/hidden exposure. A plain
-runner tree is semantic intent, not proof that assistive technology sees it.
-The pinned Linux host explicitly exposes no AT-SPI tree; this remains an
-upstream accessibility gap even when its interaction tests pass headlessly.
+The AppKit fix changes actual accessibility exposure, not the observer's root
+selection. The Web correction also reproduces in a minimal HTML button-command
+fixture on WebKit 27.2; it is not a reason to reject nested Dialog contracts at
+compile time. The [verification report](VERIFICATION.md) lists the patch order
+and the tested engines/OS versions. The Wasm setter is kept consistent but has
+not had a separate Wasm consumer acceptance run.
+
+The lifecycle probes also remove child/page invokers, unmount the two deepest
+surfaces together, push away from a retained source route and return, or dispose
+the source while pushing. Only the front scope may be exposed in AX; restoration
+must choose a live eligible target and preserve destination autofocus after the
+old stack retires. These use the same Contract tests on each platform, backed by
+real browser focus and native AX/current responder checks.
+
+The [lifecycle Host patch](patches/exact-dialog-lifecycle.patch) handles authored
+route ownership, sheet dismissal completion, missing-invoker fallback, native
+focus-event propagation and empty navigation focus. Primitives supply native
+commands and named slotted content; apps own route/mounting state and Tooltip
+cleanup. The compiler's existing semantic gaps remain separate from these Host
+corrections. Four levels are verified, not unbounded depth or interactive
+navigation cancellation. Linux OS and AT-SPI gaps remain unchanged.

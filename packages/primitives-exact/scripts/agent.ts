@@ -13,7 +13,7 @@ const child = Bun.spawn(
     path.join(exact, "scripts/agent.mjs"),
     host,
     "--test",
-    path.join(app, "app.test.contract"),
+    process.env["EXACT_AGENT_TEST"] ?? path.join(app, "app.test.contract"),
   ],
   {
     cwd: exact,

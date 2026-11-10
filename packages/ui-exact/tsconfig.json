@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": { "lib": ["ESNext", "DOM", "DOM.Iterable"], "types": ["bun"] },
-  "include": ["src/**/*.ts", "scripts/**/*.ts", "test/**/*.ts"]
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["bun"],
+    "paths": {
+      "@lenso/ui-exact/presentation": ["./src/presentation.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "scripts/**/*.ts", "test/**/*.ts", "example/**/*.ts"]
 }

@@ -23,9 +23,10 @@ component PopoverClose
     id: string
     label: string
     target: string
+    disabled: bool
   slot
   view
-    button id=id testId=id aria-label=label commandfor=target command="hide-popover"
+    button id=id testId=id aria-label=label disabled=disabled commandfor=target command="hide-popover"
       children
 
 component Menu

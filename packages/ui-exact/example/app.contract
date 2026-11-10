@@ -2,6 +2,16 @@ use Theme, Button, Backdrop, Glass, GlassButton, Surface from "@lenso/ui-exact"
 use FormExample from "./forms.contract"
 use DisclosureExample from "./disclosure.contract"
 
+use NavigationExample from "./navigation.contract"
+
+use FeedbackExample from "./feedback.contract"
+
+use ToggleExample from "./toggle.contract"
+
+use ModalExample from "./modal.contract"
+
+use AlertDialogExample from "./alert-dialog.contract"
+
 component App
   state count = 0
   state disabled = false
@@ -45,3 +55,8 @@ component App
                 GlassButton(label=`Add ${count}`, press=increment, disabled=disabled, size=size, variant="default", testId="glass-action")
           FormExample()
           DisclosureExample()
+          NavigationExample()
+          FeedbackExample()
+          ToggleExample()
+          ModalExample()
+          AlertDialogExample()

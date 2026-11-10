@@ -1,5 +1,7 @@
 import { cp, mkdir } from "node:fs/promises";
 import path from "node:path";
+import type { PresentationRule } from "../dist/presentation.js";
+import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import requirements from "../manifest.json" with { type: "json" };
 
@@ -105,4 +107,50 @@ export async function linkWebStyles(buildDirectory: string) {
   if (!pages) throw new Error("No generated Exact HTML pages found for initial styles");
   for (const { file, html } of changes) await Bun.write(file, html);
   return changes.map(({ file }) => file);
+}
+
+/** Replace staged CSS with rules composed from the staged package's own maps. */
+export async function styleWeb(
+  directory: string,
+  options: { css: string; rules: readonly PresentationRule[] },
+) {
+  const root = path.resolve(directory);
+  const entry = await Bun.file(path.join(root, "presentation.js")).text();
+  const version = createHash("sha256").update(entry).digest("hex");
+  const url = pathToFileURL(path.join(root, "presentation.js"));
+  url.searchParams.set("v", version);
+  const compiled: {
+    presentationCases(
+      rules: readonly PresentationRule[],
+    ): import("./initial-css.js").PresentationCase[];
+  } = await import(url.href);
+  const cases = compiled.presentationCases(options.rules);
+  const { initialCSS } = await import("./initial-css.js");
+  const atomic = await Bun.file(path.join(root, "web.atomic.css")).text();
+  const { default: postcss } = await import("postcss");
+  const { default: selectorParser } = await import("postcss-selector-parser");
+  const classNames = (css: string) => {
+    const names = new Set<string>();
+    postcss.parse(css).walkRules((rule) => {
+      selectorParser()
+        .astSync(rule.selector)
+        .walkClasses((node) => {
+          names.add(node.value);
+        });
+    });
+    return names;
+  };
+  const libraryClasses = classNames(atomic);
+  for (const name of classNames(options.css))
+    if (libraryClasses.has(name))
+      throw new Error(`Caller CSS redefines library class ${name}; use a separate classNamePrefix`);
+  const css = initialCSS(`${atomic}\n${options.css}`, cases);
+  const output = path.join(root, "web.css");
+  await Bun.write(output, css);
+  return {
+    output,
+    recipes: cases.length,
+    bytes: Buffer.byteLength(css),
+    gzipBytes: Bun.gzipSync(css).length,
+  };
 }

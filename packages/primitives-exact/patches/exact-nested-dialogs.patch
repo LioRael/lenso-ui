@@ -1,0 +1,144 @@
+--- a/host/apple/Sources/ExactKit/Mac/NodeViewMac.swift
++++ b/host/apple/Sources/ExactKit/Mac/NodeViewMac.swift
+@@ -449,7 +449,7 @@
+     /// `aria-hidden` takes the node and its subtree off the tree, as the
+     /// web's does (onboarding F16: a checkbox's visible label stayed exposed).
+     package override func isAccessibilityElement() -> Bool {
+-        accessibilityExposed && props["accessibilityElementsHidden"] != "true" && super.isAccessibilityElement()
++        !accessibilityHiddenWritten && accessibilityExposed && props["accessibilityElementsHidden"] != "true" && super.isAccessibilityElement()
+     }
+     /// Where an image source resolves, as a page resolves `src`: an `http(s)`
+     /// URL as is; a relative path under the asset root (`EXACT_ASSETS`, else
+--- a/host/web/navigation.js
++++ b/host/web/navigation.js
+@@ -1,3 +1,5 @@
++import { syncDialogInert } from './dialog-modality.js';
++export { modalLayers } from './dialog-modality.js';
+ // @ref LLP 1038 D6/D7/D11 — host projection and the last committed URL.
+ const AGENT_ADMITTED = true; // false in a production bake: host/web/build.mjs rewrites this line (LLP 1069.007 D2)
+ let last = null, refused = new WeakMap();
+@@ -6,7 +8,7 @@
+ let written = [], gone = new Set(), cursor = 0, first = null, originIndex = null, echo = null, pop = null, draining = false;
+ const queue = [], waiters = new Set();
+ let root, navigate, log, hostBack, hostGo, routeMatches = () => false;
+-const routesIn = node => viewChildren(node).filter(r => r.hasAttribute("navigationKey") && !r.hasAttribute("data-exiting")); const setInert = (el, on) => { if (el.inert !== on) el.inert = on; }; export const liveById = (id, root = document) => { const el = document.getElementById(id), live = n => !n.closest("[data-exiting]"); return !el ? null : live(el) && root.contains(el) ? el : [...root.querySelectorAll("[id]")].find(n => n.id === id && live(n)) ?? null; }; // a command by id means the live element: one leaving keeps its ids for its own references
++const routesIn = node => viewChildren(node).filter(r => r.hasAttribute("navigationKey") && !r.hasAttribute("data-exiting")); const setInert = (el, on) => { on ||= !!el.exactModalInert; if (el.inert !== on) el.inert = on; }; export const liveById = (id, root = document) => { const el = document.getElementById(id), live = n => !n.closest("[data-exiting]"); return !el ? null : live(el) && root.contains(el) ? el : [...root.querySelectorAll("[id]")].find(n => n.id === id && live(n)) ?? null; }; // a command by id means the live element: one leaving keeps its ids for its own references
+ const leavingSheets = new Set(), shownRoutes = new WeakMap(); export function sheetLeaves(el) { if (typeof matchMedia !== "function" || typeof HTMLTextAreaElement !== "function" || el.nodeType !== 1 || el.getAttribute("navigationPresentation") !== "modal" || el.hasAttribute("data-exiting") || !el.isConnected || el.querySelector("audio, video, dialog[open], :popover-open") || ("createValueRange" in HTMLTextAreaElement.prototype && el.querySelector("textarea[data-decorations]")) || getComputedStyle(el).position !== "fixed" || matchMedia("(prefers-reduced-motion: reduce)").matches) return false; if (el.parentElement?.hasAttribute("data-exact-list-item")) unwrapListItem(el.parentElement); if (el.contains(document.activeElement)) document.activeElement.blur(); el.setAttribute("navigationKey", ""); el.setAttribute("data-exiting", ""); el.setAttribute("aria-hidden", "true"); el.inert = true; const now = getComputedStyle(el), from = now.translate === "none" ? "0 0" : now.translate, shadow = now.boxShadow; Object.assign(el.style, { transition: "none", pointerEvents: "none" }); const slide = el.animate([{ translate: from, boxShadow: shadow }, { translate: "0 100vh", boxShadow: shadow.replace(/rgba?\([^)]*\)|color\([^)]*\)|#[\da-f]+\b/gi, "transparent") }], { duration: 400, easing: "cubic-bezier(.32, .72, 0, 1)" }), done = () => { leavingSheets.delete(slide); el.remove(); }; leavingSheets.add(slide); slide.finished.then(done, done); return true; } // @ref LLP 1115.000 D4.8 — a sheet the look draws (fixed to the window) slides back down as it closes, as it slid up (neutral.css), unless the person asks for less motion. A runtime asks this before it removes a modal route (glue.js's `destroy`; rt.js's `clear`, `each` and presence's `Leave`); a sheet that leaves stays whole until it is off the window, from where it stands, out of input, accessibility and the routes as presence-glue.js's leaving views are (LLP 1063), the focus leaving it as a removed one's would (input-glue.js's `arrive` takes one a blur does not reach). One holding media or a field whose decorations the browser paints closes at once, as its runtime empties those with the commit, and so does one holding an open dialog or popover, which the top layer would leave frozen on the window; a native view slides, showing what its module left in it. It keeps its ids for what it draws, though a command by id passes over it (`liveById`), and its stack's projection ends it on showing a sheet that was not beneath it, which may share them (compared as elements: a replace keeps its key).
+ // @ref LLP 1075.003 §3.7 — tabs name their kept panels with aria-controls; each panel holds a route stack.
+ // Attribute and parent walks also work in the server renderer's DOM, which has no selector engine.
+@@ -406,6 +408,7 @@
+     });
+   },
+   project(root, log) {
++    syncDialogInert();
+     if (activationRequired.has(root) && !activated.has(root)) return; for (const route of root.querySelectorAll("[navigationKey]")) markSites(route); // site headers, under a root with no `navigationBack` too
+     for (const nav of root.querySelectorAll("[navigationBack]")) {
+       let key = nav.getAttribute("navigationKey"), [list, panels] = tabsOf(nav);
+@@ -862,13 +865,6 @@
+   }
+   opening.push(e);
+ }, true);
+-// Structural reads retain the front modal and presentations opened after it.
+-export function modalLayers() {
+-  const top = [...document.querySelectorAll('dialog:modal,:popover-open')];
+-  const modals = top.filter(el => el.matches('dialog:modal'));
+-  const front = Math.max(0, ...modals.map(el => el.exactOpened ?? 0));
+-  return modals.length ? top.filter(el => (el.exactOpened ?? 0) >= front) : null;
+-}
+ // The nearest inert ancestor (a modal dialog ends the search: its subtree is live).
+ export function inertAncestor(el) {
+   for (let node = el; node; node = node.parentElement) {
+--- /dev/null
++++ b/host/web/dialog-modality.js
+@@ -0,0 +1,32 @@
++// WebKit's command invokers leave controls in a covered dialog focusable.
++// A modal escapes an inert ancestor; block only the other open dialogs and
++// restore the author's value when they become the front scope or close.
++const coveredDialogs = new Set();
++export function syncDialogInert(closing) {
++  if (!globalThis.document) return;
++  const dialogs = [...document.querySelectorAll('dialog:modal')].filter(el => el !== closing);
++  const front = dialogs.reduce((top, el) => !top || (el.exactOpened ?? 0) >= (top.exactOpened ?? 0) ? el : top, null);
++  const covered = new Set(dialogs.filter(el => el !== front));
++  for (const el of new Set([...coveredDialogs, ...covered])) {
++    el.authoredInert ??= el.inert;
++    el.exactModalInert = covered.has(el);
++    const inert = !!el.authoredInert || el.exactModalInert;
++    if (el.inert !== inert) el.inert = inert;
++  }
++  coveredDialogs.clear();
++  for (const el of covered) coveredDialogs.add(el);
++}
++globalThis.addEventListener?.('toggle', e => {
++  if (e.target.localName === 'dialog') syncDialogInert();
++}, true);
++globalThis.addEventListener?.('beforetoggle', e => {
++  // Release the preceding scope before close() restores its focus.
++  if (e.target.localName === 'dialog' && e.newState === 'closed') syncDialogInert(e.target);
++}, true);
++// Structural reads retain the front modal and presentations opened after it.
++export function modalLayers() {
++  const top = [...document.querySelectorAll('dialog:modal,:popover-open')];
++  const modals = top.filter(el => el.matches('dialog:modal'));
++  const front = Math.max(0, ...modals.map(el => el.exactOpened ?? 0));
++  return modals.length ? top.filter(el => (el.exactOpened ?? 0) >= front) : null;
++}
+--- a/host/web-js/rt.js
++++ b/host/web-js/rt.js
+@@ -695,7 +695,7 @@
+     if (name === "text") { e.$unset = v == null; if (!e.childElementCount && e.textContent !== (v ?? "")) e.textContent = v ?? ""; } // `$unset`: no text, as the runner's cleared row, not an empty one (difftest's drive.mjs)
+     else if (name === "value") { if (e.localName === "select") { Selects.add(e); e.$value = v ?? ""; e.$set = true; } writeValue(e, v ?? ""); e.exactDecorations?.sync(); }
+     else if (name === "scrollTop" || name === "scrollLeft") { if (v != null) (Scrolls.get(e) ?? Scrolls.set(e, {}).get(e))[name] = Number(v); }
+-    else if (BOOL.test(name)) { if (name === "inert") e.authoredInert = v === "true"; e.toggleAttribute(name, v === "true"); if (name === "disabled" && v === "true" && document.activeElement === e && e.matches(":disabled")) e.blur(); /* HTML focus fixup, now, for a control only (glue.js) */ if (name === "checked") e.checked = e.$checked = v === "true"; if (name === "muted") e.muted = v === "true"; if (name === "autofocus") { if (v === "true") e.removeAttribute("data-autofocus"); else e.setAttribute("data-autofocus", "false"); } }
++    else if (BOOL.test(name)) { if (name === "inert") e.authoredInert = v === "true"; e.toggleAttribute(name, v === "true" || name === "inert" && !!e.exactModalInert); if (name === "disabled" && v === "true" && document.activeElement === e && e.matches(":disabled")) e.blur(); /* HTML focus fixup, now, for a control only (glue.js) */ if (name === "checked") e.checked = e.$checked = v === "true"; if (name === "muted") e.muted = v === "true"; if (name === "autofocus") { if (v === "true") e.removeAttribute("data-autofocus"); else e.setAttribute("data-autofocus", "false"); } }
+     else if (v == null) { if (e.hasAttribute(name) || suppressedInvocation(e, name)) { e.removeAttribute(name); if (name.startsWith("data-exact-")) Paint?.facts(e); } }
+     else if (e.getAttribute(name) !== v) { e.setAttribute(name, v); if (name.startsWith("data-exact-")) Paint?.facts(e); }
+     if (name === "role") syncListItemRoles(e); else if (name === "popover" && e.parentElement?.hasAttribute("data-exact-list-item")) listItem(e);
+--- a/host/web/glue.js
++++ b/host/web/glue.js
+@@ -437,7 +437,7 @@
+     else if (name === "checked") { el.exactChecked = undefined; el.checked = false; }
+     else if (name === "data-action") { el.removeAttribute(name); el.style.touchAction = ""; }
+     else if (name === "autofocus") { el.exactAutofocus = false; el.removeAttribute(name); }
+-    else if (name === "inert") { el.authoredInert = false; el.inert = false; }
++    else if (name === "inert") { el.authoredInert = false; el.inert = !!el.exactModalInert; }
+     else el.removeAttribute(name);
+   }
+   for (const [name, value] of Object.entries(set || {})) {
+@@ -456,7 +456,7 @@
+     } else if (name === "checked") {
+       el.exactChecked = value === "true"; el.checked = el.exactChecked;
+     } else if (name === "inert") {
+-      el.authoredInert = value === "true"; el.inert = el.authoredInert;
++      el.authoredInert = value === "true"; el.inert = el.authoredInert || !!el.exactModalInert;
+     } else if (name === "autofocus") { el.exactAutofocus = value === "true"; if (!el.exactAutofocus) el.removeAttribute(name);
+     } else if (name === "disabled" || name === "readonly" || name === "multiple" || (el instanceof HTMLMediaElement && ["autoplay","controls","loop","muted","playsinline","disablepictureinpicture","disableremoteplayback"].includes(name))) {
+       if (value === "true") { el.setAttribute(name, ""); if (name === "disabled" && el === document.activeElement && el.matches(":disabled")) el.blur(); } else el.removeAttribute(name); // a focused control that is disabled loses the focus now, not at the browser's next frame (HTML focus fixup); a box keeps it, as `disabled` means nothing on a div
+--- a/host/web-js/glue.mjs
++++ b/host/web-js/glue.mjs
+@@ -19,7 +19,7 @@
+   // Sign-in, storage, request bodies, injected faults and the local network's spaces (ts-data.js, auth.js, admission.js, agent.js, modules.js).
+   'auth-glue.js', 'storage-environment.js', 'http-body.js', 'faults.js', 'address-space.js',
+   // The scroll to a location's fragment, at its first (router.js; LLP 1153 D5).
+-  'fragment.js',
++  'fragment.js', 'dialog-modality.js',
+ ];
+ 
+ /** Copy the host/web glue from the repository at `root` into `dir`. */
+--- a/scripts/agent-ax.mjs
++++ b/scripts/agent-ax.mjs
+@@ -242,10 +242,13 @@
+   const intent = ax.intent ?? {};
+   const hiddenBy = e => {
+     if (e.id == null) return null;
++    let escapedInert = false;
+     for (let id = e.id, seen = new Set(); id != null && !seen.has(id);) {
+       seen.add(id);
+       const f = intent[id];
+-      if (f?.inert || f?.ariaHidden) return { id, why: f.inert ? 'inert' : 'aria-hidden' };
++      if ((!escapedInert && f?.inert) || f?.ariaHidden) return { id, why: !escapedInert && f.inert ? 'inert' : 'aria-hidden' };
++      // An observed modal escapes inert ancestors, but never aria-hidden.
++      if (ax.modal?.present && id === ax.modal.id) escapedInert = true;
+       id = intent[id]?.parent ?? null;
+     }
+     return null;

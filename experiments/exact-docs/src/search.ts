@@ -1,14 +1,19 @@
 import path from "node:path";
 import type { Site } from "./index.ts";
 import { sameScope } from "./variants.ts";
+import type { PageContent } from "./body.ts";
 
-/** Literal imports give Exact's bundler a separate, lazily fetched module per scope. */
-export async function writeDataEntry(site: Site, app: string) {
-  const scopes = [
+export function searchScopes(site: Site) {
+  return [
     ...new Map(
       site.documents.map((doc) => [JSON.stringify([doc.locale, doc.version]), doc]),
     ).values(),
   ];
+}
+
+/** Literal imports give Exact's bundler a separate, lazily fetched module per scope. */
+export async function writeDataEntry(site: Site, app: string, pages: Map<string, PageContent>) {
+  const scopes = searchScopes(site);
   const branches: string[] = [];
   for (const [i, scope] of scopes.entries()) {
     const index = site.documents
@@ -23,15 +28,45 @@ export async function writeDataEntry(site: Site, app: string) {
     );
   }
   const module = site.config.root?.data;
+  const bodies: string[] = [];
+  for (const [i, [url, content]] of [...pages].entries()) {
+    await Bun.write(
+      path.join(app, `docs-content/body-${i}.ts`),
+      `export default ${JSON.stringify(content)};\n`,
+    );
+    bodies.push(
+      `[${JSON.stringify(url)}, () => import("./docs-content/body-${i}.ts").then(module => module.default)]`,
+    );
+  }
   const user = module
     ? `import * as user from ${JSON.stringify(`./site/${module}`)};
 export * from ${JSON.stringify(`./site/${module}`)};
-const delegate: (...args: Parameters<Answer>) => ReturnType<Answer> = user.answer;`
+const delegate: (...args: Parameters<Answer>) => ReturnType<Answer> = user.answer;
+const userKept: unknown = Reflect.get(user, "kept");`
     : 'export const grants = "";';
   await Bun.write(
     path.join(app, "app.ts"),
     `import type { Answer, Source, Args, Result } from "./app.contract.d.ts";
 ${user}
+type KeptArgs = {[S in Source]: [source:S,args:Args<S>,value:Result<S>]}[Source];
+const contentCache = new Map<string,Result<"docsReadPage">>();
+const contentLoads = new Map<string,()=>Promise<Result<"docsReadPage">>>([
+${bodies.join(",\n")}
+]);
+export function kept(...args:KeptArgs) {
+  const [source,,value] = args;
+  if(source === "docsReadPage") contentCache.set(value.path,value);
+  ${module ? 'if(typeof userKept === "function") userKept(...args);' : ""}
+}
+function readPage(args: unknown[]) {
+  const [path] = args;
+  if(typeof path!=="string") throw new Error("Invalid documentation content arguments");
+  const cached = contentCache.get(path);
+  if(cached) return cached;
+  const load = contentLoads.get(path);
+  if(!load) return {path,markdown:"",blocks:[]};
+  return load().then(value => {contentCache.set(path,value);return value;});
+}
 async function search(args: unknown[]) {
   const [query,locale,version]=args;
   if(typeof query!=="string"||typeof locale!=="string"||typeof version!=="string") throw new Error("Invalid documentation search arguments");
@@ -44,6 +79,7 @@ ${branches.join("\n")}
 export function answer<S extends Source>(source:S,args:Args<S>,store:Parameters<Answer>[2],storage:Parameters<Answer>[3],native?:Parameters<Answer>[4]):Result<S>|Promise<Result<S>>;
 export function answer(...args:Parameters<Answer>):ReturnType<Answer> {
   if(args[0] === "docsSearchPages") return search(args[1]);
+  if(args[0] === "docsReadPage") return readPage(args[1]);
   ${module ? "return delegate(...args);" : "throw new Error(`Unknown source: ${args[0]}`);"}
 }
 `,

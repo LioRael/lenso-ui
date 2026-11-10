@@ -1,3 +1,4 @@
+import type { StyleInput } from "./style-types.js";
 import * as stylex from "@stylexjs/stylex";
 import { buttonStyles, buttonSizes, buttonVariants } from "@lenso/tokens/button";
 import { glassStyles } from "@lenso/tokens/glass";
@@ -11,13 +12,22 @@ import { groupStyles, surfaceStyles, surfaceVariants } from "@lenso/tokens/surfa
 import { formPresentation, formKinds } from "./forms.js";
 import { disclosurePresentation, disclosureKinds } from "./disclosure-presentation.js";
 
+import { navigationPresentation, navigationKinds } from "./navigation-presentation.js";
+
+import { feedbackPresentation, feedbackKinds } from "./feedback-presentation.js";
+
+import { togglePresentation } from "./toggle-presentation.js";
+
+import { alertDialogPresentation, alertDialogKinds } from "./alert-dialog-presentation.js";
+import { modalPresentation, modalKinds } from "./modal-presentation.js";
+
 function sizeOf(value: string | undefined) {
   if (value === "sm" || value === "md" || value === "lg") return value;
   throw new RangeError(`Lenso size must be sm, md or lg; received ${value}`);
 }
 
 /** Used by both the hatch and build-time attribute selectors. No DOM is needed. */
-export function presentation(data: DOMStringMap, inputGroup = false) {
+function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
   const { lensoKind: kind, lensoVariant: variant } = data;
   switch (kind) {
     case "surface":
@@ -28,48 +38,77 @@ export function presentation(data: DOMStringMap, inputGroup = false) {
         variant !== "transparent"
       )
         throw new RangeError(`Unknown Lenso Surface variant: ${variant}`);
-      return stylex.props(
+      return [
         surfaceStyles.root,
         variant === "default" && groupStyles.surface,
         surfaceVariants[variant],
-      );
+      ];
     case "glass":
-      return stylex.props(glassStyles.root, glassStyles.optics, glassStyles.foreground);
+      return [glassStyles.root, glassStyles.optics, glassStyles.foreground];
     case "button":
       if (variant !== "prominent" && variant !== "bordered" && variant !== "borderless")
         throw new RangeError(`Unknown Lenso Button variant: ${variant}`);
-      return stylex.props(
-        buttonStyles.root,
-        buttonSizes[sizeOf(data["lensoSize"])],
-        buttonVariants[variant],
-      );
+      return [buttonStyles.root, buttonSizes[sizeOf(data["lensoSize"])], buttonVariants[variant]];
     case "glass-button":
       if (variant !== "default" && variant !== "prominent")
         throw new RangeError(`Unknown Lenso GlassButton variant: ${variant}`);
-      return stylex.props(
+      return [
         glassButtonStyles.root,
         liquidMaterialStyles.small,
         glassButtonStyles.backdrop,
         glassButtonSizes[sizeOf(data["lensoSize"])],
         glassButtonVariants[variant],
         glassButtonStyles.interaction,
-      );
+      ];
     default: {
       const result =
-        kind && (formPresentation(kind, data, inputGroup) ?? disclosurePresentation(kind, data));
+        kind &&
+        (formPresentation(kind, data, inputGroup) ??
+          disclosurePresentation(kind, data) ??
+          navigationPresentation(kind, data) ??
+          feedbackPresentation(kind, data) ??
+          togglePresentation(kind, data) ??
+          modalPresentation(kind, data) ??
+          alertDialogPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
   }
 }
 
-export function presentationCases() {
+export interface PresentationRule {
+  kind: string;
+  /** A stable Exact testId; omitted rules apply to all instances of the kind. */
+  testId?: string;
+  xstyle: StyleInput;
+}
+
+/** Compose caller maps last so StyleX can remove conflicting base properties. */
+export function presentation(data: DOMStringMap, inputGroup = false, xstyle?: StyleInput) {
+  return stylex.props(basePresentation(data, inputGroup), xstyle);
+}
+
+function cssString(value: string) {
+  let escaped = "";
+  for (const character of value) {
+    const code = character.charCodeAt(0);
+    if (code === 0) throw new TypeError("A style target cannot contain a null character");
+    escaped +=
+      code < 32 || code === 127 || character === '"' || character === "\\"
+        ? `\\${code.toString(16)} `
+        : character;
+  }
+  return `"${escaped}"`;
+}
+
+export function presentationCases(rules: readonly PresentationRule[] = []) {
   const cases: Array<{
     kind: string;
     selector: string;
     classes: string[];
     data: DOMStringMap;
     inputGroup: boolean;
+    attributes?: Record<string, string>;
   }> = [];
   const add = (kind: string, data: DOMStringMap = {}, suffix = "", inputGroup = false) => {
     const compiled = presentation({ ...data, lensoKind: kind }, inputGroup);
@@ -83,7 +122,16 @@ export function presentationCases() {
       inputGroup,
     });
   };
-  for (const kind of [...formKinds, ...disclosureKinds, "glass"]) add(kind);
+  for (const kind of [
+    ...formKinds,
+    ...disclosureKinds,
+    ...navigationKinds,
+    ...feedbackKinds,
+    ...modalKinds,
+    ...alertDialogKinds,
+    "glass",
+  ])
+    add(kind);
   for (const kind of ["button", "glass-button"])
     for (const size of ["sm", "md", "lg"])
       for (const variant of kind === "button"
@@ -134,5 +182,175 @@ export function presentationCases() {
       { lensoHideSeparator: String(hidden) },
       `[data-lenso-hide-separator="${hidden}"]`,
     );
-  return cases;
+  for (const current of [false, true])
+    add("breadcrumbs-link", { lensoCurrent: String(current) }, `[data-lenso-current="${current}"]`);
+  for (const orientation of ["horizontal", "vertical"])
+    for (const variant of ["default", "secondary", "tertiary"])
+      add(
+        "separator",
+        { orientation, lensoVariant: variant },
+        `[data-orientation="${orientation}"][data-lenso-variant="${variant}"]`,
+      );
+  for (const kind of ["progress-bar", "meter", "progress-circle"])
+    for (const color of ["default", "accent", "success", "warning", "danger"])
+      add(kind, { lensoColor: color }, `[data-lenso-color="${color}"]`);
+  for (const kind of [
+    "progress-bar-track",
+    "progress-bar-fill",
+    "meter-track",
+    "meter-fill",
+    "progress-circle-track",
+  ])
+    for (const size of ["sm", "md", "lg"])
+      for (const indeterminate of kind === "progress-bar-fill" || kind === "progress-circle-track"
+        ? [false, true]
+        : [false]) {
+        const state =
+          kind === "progress-bar-fill" || kind === "progress-circle-track"
+            ? `[data-lenso-indeterminate="${indeterminate}"]`
+            : "";
+        add(
+          kind,
+          { lensoSize: size, lensoIndeterminate: String(indeterminate) },
+          `[data-lenso-size="${size}"]${state}`,
+        );
+      }
+  for (const size of ["sm", "md", "lg", "xl"])
+    for (const color of ["secondary", "current", "accent", "success", "warning", "danger"])
+      add(
+        "spinner",
+        { lensoSize: size, lensoColor: color },
+        `[data-lenso-size="${size}"][data-lenso-color="${color}"]`,
+      );
+  for (const animation of ["none", "pulse", "shimmer"])
+    add("skeleton", { skeletonAnimation: animation }, `[data-skeleton-animation="${animation}"]`);
+  // Exact allows id/testId on SVG leaves, but no hatches or data words.
+  // Their shared token styles remain declarative through these owned suffixes.
+  for (const [kind, suffix] of [
+    ["progress-circle-track-circle", "track"],
+    ["progress-circle-fill-circle", "fill"],
+  ]) {
+    if (!kind || !suffix) continue;
+    add(kind);
+    const entry = cases.at(-1);
+    if (!entry) throw new Error("Missing SVG circle presentation");
+    entry.selector = `circle[id$="--lenso-progress-${suffix}"]`;
+    entry.attributes = { id: `sample--lenso-progress-${suffix}` };
+  }
+  add("toggle-button-icon");
+  for (const orientation of ["horizontal", "vertical"])
+    for (const detached of [false, true]) {
+      add(
+        "toggle-button-group-separator",
+        { orientation, lensoDetached: String(detached) },
+        `[data-orientation="${orientation}"][data-lenso-detached="${detached}"]`,
+      );
+      for (const fullWidth of [false, true])
+        add(
+          "toggle-button-group",
+          { orientation, lensoDetached: String(detached), lensoFullWidth: String(fullWidth) },
+          `[data-orientation="${orientation}"][data-lenso-detached="${detached}"][data-lenso-full-width="${fullWidth}"]`,
+        );
+    }
+  for (const size of ["sm", "md", "lg"])
+    for (const variant of ["prominent", "bordered", "borderless", "default", "ghost"])
+      for (const iconOnly of [false, true])
+        for (const fullWidth of [false, true]) {
+          const common = {
+            lensoSize: size,
+            lensoVariant: variant,
+            lensoIconOnly: String(iconOnly),
+            lensoFullWidth: String(fullWidth),
+          };
+          const suffix = `[data-lenso-size="${size}"][data-lenso-variant="${variant}"][data-lenso-icon-only="${iconOnly}"][data-lenso-full-width="${fullWidth}"]`;
+          add("toggle-button", common, suffix);
+          for (const orientation of ["horizontal", "vertical"])
+            for (const detached of [false, true])
+              add(
+                "toggle-button-group-item",
+                { ...common, orientation, lensoDetached: String(detached), lensoGroupItem: "" },
+                `${suffix}[data-orientation="${orientation}"][data-lenso-detached="${detached}"]`,
+              );
+        }
+  for (const dismiss of ["any", "closerequest", "none"])
+    add("modal", { lensoDismiss: dismiss }, `[data-lenso-dismiss="${dismiss}"]`);
+  for (const variant of ["transparent", "opaque", "blur"])
+    add("modal-backdrop", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const scroll of ["inside", "outside"])
+    add("modal-body", { lensoScroll: scroll }, `[data-lenso-scroll="${scroll}"]`);
+  for (const size of ["xs", "sm", "md", "lg", "cover", "full"])
+    for (const scroll of ["inside", "outside"])
+      for (const placement of ["auto", "top", "center", "bottom"])
+        add(
+          "modal-popup",
+          { size, lensoScroll: scroll, placement },
+          `[data-size="${size}"][data-lenso-scroll="${scroll}"][data-placement="${placement}"]`,
+        );
+  for (const kind of ["modal-trigger", "modal-close", "modal-action"])
+    for (const size of ["sm", "md", "lg"])
+      for (const variant of ["prominent", "bordered", "borderless"])
+        add(
+          kind,
+          { lensoSize: size, lensoVariant: variant },
+          `[data-lenso-size="${size}"][data-lenso-variant="${variant}"]`,
+        );
+  for (const variant of ["transparent", "opaque", "blur"])
+    add("alert-dialog-backdrop", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const size of ["xs", "sm", "md", "lg", "cover"])
+    for (const placement of ["auto", "top", "center", "bottom"])
+      add(
+        "alert-dialog-popup",
+        { size, placement },
+        `[data-size="${size}"][data-placement="${placement}"]`,
+      );
+  for (const layout of ["auto", "side-by-side", "stacked"])
+    add("alert-dialog-footer", { layout }, `[data-layout="${layout}"]`);
+  for (const variant of ["default", "accent", "success", "warning", "danger"])
+    add("alert-dialog-icon", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const variant of ["default", "cancel", "destructive"])
+    add("alert-dialog-action", { variant }, `[data-variant="${variant}"]`);
+  for (const size of ["sm", "md", "lg"])
+    for (const variant of ["prominent", "bordered", "borderless"])
+      add(
+        "alert-dialog-trigger",
+        { lensoSize: size, lensoVariant: variant },
+        `[data-lenso-size="${size}"][data-lenso-variant="${variant}"]`,
+      );
+  const kinds = new Set(cases.map((entry) => entry.kind));
+  for (const rule of rules) {
+    if (!kinds.has(rule.kind)) throw new RangeError(`Unknown Lenso style kind: ${rule.kind}`);
+    if (rule.testId !== undefined) cssString(rule.testId);
+  }
+  if (!rules.length) return cases;
+  return cases.flatMap((entry) => {
+    const applicable = rules.filter((rule) => rule.kind === entry.kind);
+    if (!applicable.length) return [entry];
+    const targets = [
+      ...new Set(applicable.flatMap((rule) => (rule.testId === undefined ? [] : [rule.testId]))),
+    ];
+    return [undefined, ...targets].map((target) => {
+      const styles = applicable
+        .filter((rule) => rule.testId === undefined || rule.testId === target)
+        .map((rule) => rule.xstyle);
+      const compiled = presentation(entry.data, entry.inputGroup, styles);
+      if (compiled.style && Object.keys(compiled.style).length)
+        throw new Error(
+          `Lenso ${entry.kind} caller styles need a declarative adapter for inline values`,
+        );
+      const attributes = { ...entry.attributes };
+      if (target !== undefined) attributes["data-testid"] = target;
+      const condition =
+        target === undefined
+          ? targets.length
+            ? `:not(:where(${targets.map((id) => `[data-testid=${cssString(id)}]`).join(",")}))`
+            : ""
+          : `[data-testid=${cssString(target)}]`;
+      return {
+        ...entry,
+        attributes,
+        selector: entry.selector + condition,
+        classes: compiled.className?.split(" ").filter(Boolean) ?? [],
+      };
+    });
+  });
 }

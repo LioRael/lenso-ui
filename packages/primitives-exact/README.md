@@ -8,6 +8,7 @@ interaction from application styling, using Exact's own controls and host
 interactions. It has no React, JavaScript runtime, CSS bundle, hatch, theme,
 or dependency on `@lenso/ui-exact`. Unspecified appearance belongs to the host.
 
+The [API boundary](API.md) lists supported names, payloads and migration steps.
 The [composition contract](COMPOSITION.md) defines behavior ownership and the
 Tabs, Dialog and Tooltip probes. Component count is not a composition guarantee.
 
@@ -51,16 +52,17 @@ decides validation and when to save. See [the compiled example](example/app.cont
 
 ## Components
 
-| Entry        | Public parts                                                                                               | Interaction owner                                                         |
-| ------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `button`     | Toggle, Link                                                                                               | Host activation, navigation; app owns toggle value                        |
-| `field`      | Field, Fieldset, FieldDescription, FieldError, Input, Textarea                                             | Host editor, selection and readonly; app owns value and validation        |
-| `choice`     | Checkbox, Switch, RadioGroup, Radio, Select, SelectOption, Slider                                          | Native control; app owns selection/value                                  |
-| `disclosure` | Disclosure, DisclosureTrigger, DisclosurePanel; Accordion, AccordionItem, AccordionTrigger, AccordionPanel | App owns open/selection; library derives relationships and next selection |
-| `dialog`     | Dialog, AlertDialog, DialogTrigger, DialogClose, DialogAction                                              | Host modal presentation, focus containment and return                     |
-| `popover`    | Popover, PopoverTrigger, PopoverClose, Menu, MenuItem, MenuSubmenuTrigger                                  | Host top layer, dismissal, menu keys and native menu projection           |
-| `tabs`       | TabsList, Tab, TabPanel                                                                                    | Host roving focus; app owns selected value; explicit activation           |
-| `feedback`   | Progress, Status, Separator                                                                                | Host progress, live region and separator semantics                        |
+| Entry        | Public parts                                                                                               | Interaction owner                                                                |
+| ------------ | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `button`     | Toggle, Link                                                                                               | Host activation, navigation; app owns toggle value                               |
+| `field`      | Field, Fieldset, FieldDescription, FieldError, Input, Textarea                                             | Host editor, selection and readonly; app owns value and validation               |
+| `choice`     | Checkbox, Switch, RadioGroup, Radio, Select, SelectOption, Slider                                          | Native control; app owns selection/value                                         |
+| `disclosure` | Disclosure, DisclosureTrigger, DisclosurePanel; Accordion, AccordionItem, AccordionTrigger, AccordionPanel | App owns open/selection; library derives relationships and next selection        |
+| `dialog`     | Dialog, AlertDialog, DialogTrigger, DialogClose, DialogAction                                              | Host modal presentation, focus containment and return                            |
+| `popover`    | Popover, PopoverTrigger, PopoverClose, Menu, MenuItem, MenuSubmenuTrigger                                  | Host top layer, dismissal, menu keys and native menu projection                  |
+| `tabs`       | TabsList, Tab, TabPanel                                                                                    | Host roving focus; app owns selected value; explicit activation                  |
+| `tooltip`    | TooltipTrigger, Tooltip                                                                                    | Primitive intent transitions; app root scheduler; host nonmodal anchored popover |
+| `feedback`   | Progress, Status, Separator                                                                                | Host progress, live region and separator semantics                               |
 
 All parts can be imported from the package root or their named entry. Components
 with `slot` accept Contract children; the source is the complete typed API.
@@ -108,7 +110,7 @@ supplied to Input's `description`; FieldError stays mounted so its polite live
 region can announce later errors. Clear its message with `""`. It does not
 implement async validation or native required constraint validation. Input's
 `invalid` reports the app's validation state. No hidden Web-only input mirrors
-are used. Use text-compatible `type` values with Input; choices and numeric
+are used. Input accepts `text`, `search`, `email`, `url`, `tel` and `password`; choices and numeric
 ranges have their own components.
 
 Radios in one group must share a unique `name`, distinct from other groups, and
@@ -132,7 +134,9 @@ is not implemented. State changes are immediate and contain no library timers.
 
 Keep Dialog/AlertDialog mounted. DialogTrigger names their `id` in `target`;
 the host opens them with `show-modal`. DialogClose closes without an app
-action. DialogAction runs `press` and closes: use it for synchronous confirmed
+action. DialogClose and PopoverClose require an explicit `disabled` prop.
+Disabling a close button does not block Escape or other dismissal paths.
+DialogAction runs `press` and closes: use it for synchronous confirmed
 actions. For async saves that must remain open on failure, use a native `button` inside
 Dialog and call Exact's `close(id)` only after success. Dialog permits platform
 cancel; AlertDialog preserves the native Cancel/Escape path. AlertDialog's title and message
@@ -154,6 +158,19 @@ move focus; Enter/Space activates. Inactive panels are mounted but hidden and
 inert. Use TabsList for in-page content. Application destinations should use
 Exact routes and navigation rather than replacing routes with tab state.
 
+### Tooltip composition
+
+Tooltip now supplies delayed hover, immediate focus, hoverable text content,
+Escape dismissal and single activation without taking focus. It composes on the
+same native button as a Dialog command. Its state transitions are reusable pure
+Contract functions; the app connects one controlled record, a gated root task,
+popover commands and root Escape arbitration. Reset it before disabling or
+unmounting its trigger. Read the [complete Tooltip connection](TOOLTIP.md),
+which is compiled by `test:contracts`.
+
+This explicit root scheduling is required by the pinned Exact compiler; the
+library does not hide a timer in a child component or add a runtime hatch.
+
 ## Verification
 
 The fixture instantiates every exported component through a copied package
@@ -165,6 +182,7 @@ are not acceptance for these interactions.
 
 ```sh
 bun run --cwd packages/primitives-exact typecheck
+EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:contracts
 EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact example:build
 EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:browser
 EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:agent
@@ -178,22 +196,28 @@ The source-only package needs no asset build. These optional integration
 commands are separate from the repository's ordinary build and test loops.
 
 Native hosts consume the same Contract package without hatches or a Web bridge.
-To qualify a native host, install the package in an app created with `exact new`,
-copy this fixture's Contract and tests, build that host with the app's `exact.mjs`,
-then run `bun exact.mjs test macos` / `test ios` / `test linux` as applicable.
-Passing Web tests does not establish VoiceOver, UIKit/AppKit rendering, physical
-touch, Linux accessibility, Android or Windows acceptance.
+`test:native macos`, `test:native ios` and `test:native linux` create a native
+consumer, build it, run the same seventeen agent tests, and inspect native
+accessibility where the host supports it. Set `EXACT_SIM` to a dedicated iOS
+simulator. See [platform verification](VERIFICATION.md) for setup, the required
+AppKit accessibility, iOS agent Escape, nested Dialog and lifecycle patches, and the exact acceptance limits.
 
-Verified on 2026-11-10 against the pinned Exact revision: the copied consumer
-compiled with zero warnings, all six Exact Web agent tests passed, and the
-browser suite passed on Chromium 156.0.8078.4 and Playwright WebKit 27.2. Package
-format, lint and tooling typecheck passed. Browser evidence covers keyboard,
-DOM semantics and layout; screen-reader speech and native host runs remain
-unverified. The local browser run used Playwright 1.64.1 with its matching
-installed engines through `PLAYWRIGHT_MODULE`.
+Verified on 2026-11-11 against the pinned SDK plus the supplied patches:
+seventeen shared agent tests passed on Chrome, WebKit, macOS and iOS Simulator.
+Nested Dialog checks now run by default: Escape, explicit close, reopen,
+background isolation and return through four scopes, removed invokers, subtree
+unmount, navigation push/back and source route disposal. Chromium/WebKit
+browser checks and Chrome/AppKit/UIKit native AX observations passed. Browser
+regressions also check author-owned `inert` updates and cancelled openings.
+The compiler probes retain their rejected errors and accepted semantic gaps.
+See the [report](VERIFICATION.md) for the required Host fixes, patch order and
+exact scope. Linux's earlier six-of-seven headless result is retained without
+claiming Tooltip, nested Dialog or Linux OS/AT-SPI acceptance. Spoken
+announcements and physical-device acceptance remain unverified. Local browsers
+use Playwright 1.64.1 through `PLAYWRIGHT_MODULE` with matching installed engines.
 
 This is an initial primitive catalog, not full Base UI parity. Combobox,
-autocomplete, tooltip, context menu, number field, multi-thumb slider, mixed
+autocomplete, context menu, number field, multi-thumb slider, mixed
 checkbox, drag/drop and advanced form validation need their own implementation
-and platform acceptance. No package publication, upstream modification or
-changes to the existing React primitives are part of this package.
+and platform acceptance. No package publication or changes to the existing React primitives are part
+of this work. The four SDK patches have [separate review notes and regression commands](patches/README.md).

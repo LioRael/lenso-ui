@@ -2,10 +2,11 @@ component TabsList
   props
     id: string
     label: string
-    orientation: string
+    orientation: enum<"horizontal", "vertical">
   slot
   view
     row id=id testId=id role="tablist" aria-label=label aria-orientation=orientation
+      flex-direction=(orientation == "vertical" ? "column" : "row")
       children
 
 component Tab

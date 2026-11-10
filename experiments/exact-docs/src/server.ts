@@ -57,6 +57,7 @@ export async function startDev(directory: string, port = 3000) {
       requested = false;
       try {
         const result = await buildSite(root, {
+          development: true,
           out: path.join(root, ".exact-docs/previews", String(++revision)),
         });
         const previous = current;

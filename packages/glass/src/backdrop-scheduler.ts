@@ -256,16 +256,17 @@ function start(): void {
         [...record.addedNodes, ...record.removedNodes].every(isCopy)
       )
         continue;
-      const own = [...clients].find((client) => client.element === record.target);
+      const own = [...clients].filter((client) => client.element === record.target);
       // Only the press transform is local to one lens. Other attribute edits
       // can move siblings without resizing them (for example a margin change).
       if (
-        own &&
+        own.length &&
         record.attributeName === "style" &&
         (record.oldValue ?? "").replace(pressProperties, "").trim() ===
-          own.element.style.cssText.replace(pressProperties, "").trim()
+          own[0]!.element.style.cssText.replace(pressProperties, "").trim()
       ) {
-        own.dirty = own.geometry = true;
+        // Native paints and copied optics can share the same moving lens.
+        for (const client of own) client.dirty = client.geometry = true;
         continue;
       }
       for (const client of clients) client.dirty = client.geometry = true;

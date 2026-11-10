@@ -75,11 +75,13 @@ test "native keyboard activation and tab navigation"
   clock settle
   type "close-dialog" key "Escape"
   clock settle
-  expect text "count" == "Count: 1"
+  tap "increment"
+  expect text "count" == "Count: 2"
 
 test "dialog cancel and confirmed actions"
   tap "open-dialog"
   clock settle
+  expect disabled "locked-dialog-close"
   tap "dialog-increment"
   tap "close-dialog"
   clock settle
@@ -98,6 +100,7 @@ test "dialog cancel and confirmed actions"
 test "popover and menu commands"
   tap "open-popover"
   clock settle
+  expect disabled "locked-popover-close"
   tap "close-popover"
   tap "open-menu"
   clock settle
@@ -112,3 +115,195 @@ test "popover and menu commands"
   tap "nested-increment"
   clock settle
   expect text "count" == "Count: 2"
+
+test "tooltip deadlines, hover persistence, dismissal and activation"
+  tap "help-trigger" hover
+  clock +240
+  tap "increment" hover
+  clock +600
+  expect state help.open == false
+  expect state help.due == -1
+  tap "help-trigger" hover
+  clock +480
+  expect state help.open == false
+  clock +32
+  expect state help.open == true
+  tap "help-tip" hover
+  clock +200
+  expect state help.open == true
+  tap "increment" hover
+  clock +160
+  expect state help.open == false
+  type "help-trigger" key "ArrowDown"
+  expect state help.open == true
+  type "help-trigger" key "Escape"
+  expect state help.open == false
+  clock +700
+  expect state help.open == false
+  type "open-dialog" key "ArrowDown"
+  expect state tip.open == true
+  type "open-dialog" key "Escape"
+  expect state tip.open == false
+  type "increment" key "ArrowDown"
+  type "help-trigger" key "ArrowDown"
+  expect state help.open == true
+  type "help-trigger" key "Space"
+  expect state help.open == false
+  expect text "count" == "Count: 1"
+  tap "disable"
+  clock +600
+  expect state help.open == false
+  expect state help.due == -1
+  expect disabled "help-trigger"
+  tap "disable"
+  type "help-trigger" key "ArrowDown"
+  expect state help.open == true
+  tap "visibility"
+  clock +600
+  expect state help.open == false
+  expect state help.due == -1
+  expect tree missing "help-trigger"
+  tap "visibility"
+  expect tree has "help-trigger"
+  expect state help.open == false
+
+test "vertical tabs have independent explicit selection"
+  type "overview-tab" key "ArrowDown"
+  expect state vertical == "overview"
+  type "history-tab" key "Space"
+  expect state vertical == "history"
+  expect state active == "profile"
+  expect disabled "vertical-locked"
+
+test "nested modal dismissal returns to its parent scope"
+  type "open-dialog" key "Space"
+  clock settle
+  type "open-nested" key "Space"
+  clock settle
+  type "close-nested" key "Escape"
+  clock settle
+  tap "dialog-increment"
+  expect text "count" == "Count: 1"
+  tap "close-dialog"
+  clock settle
+  tap "increment"
+  expect text "count" == "Count: 2"
+
+test "nested modal close buttons release the preceding scope on reopen"
+  tap "open-dialog"
+  clock settle
+  tap "open-nested"
+  clock settle
+  tap "close-nested"
+  clock settle
+  tap "dialog-increment"
+  expect text "count" == "Count: 1"
+  tap "open-nested"
+  clock settle
+  tap "close-nested"
+  clock settle
+  type "close-dialog" key "Escape"
+  clock settle
+  tap "increment"
+  expect text "count" == "Count: 2"
+
+test "four modal levels restore focus one scope at a time"
+  type "open-dialog" key "Space"
+  clock settle
+  type "open-nested" key "Space"
+  clock settle
+  type "open-third" key "Space"
+  clock settle
+  type "open-fourth" key "Space"
+  clock settle
+  type "close-fourth" key "Escape"
+  clock settle
+  expect state lastFocus == "open-fourth"
+  type "close-third" key "Escape"
+  clock settle
+  expect state lastFocus == "open-third"
+  type "close-nested" key "Escape"
+  clock settle
+  expect state lastFocus == "open-nested"
+  type "close-dialog" key "Escape"
+  clock settle
+  expect state lastFocus == "open-dialog"
+
+test "a removed child invoker falls back inside the parent modal"
+  type "open-dialog" key "Space"
+  clock settle
+  type "open-nested" key "Space"
+  clock settle
+  type "open-third" key "Space"
+  clock settle
+  tap "remove-third-trigger"
+  clock settle
+  expect tree missing "open-third"
+  expect state focusInParent == true
+  tap "close-nested"
+  clock settle
+  tap "close-dialog"
+  clock settle
+
+test "a removed page invoker falls back to the live page"
+  type "open-dialog" key "Space"
+  clock settle
+  tap "remove-page-trigger"
+  clock settle
+  expect tree missing "open-dialog"
+  expect state focusOnPage == true
+
+test "removing an active modal subtree returns to its surviving invoker"
+  type "open-dialog" key "Space"
+  clock settle
+  type "open-nested" key "Space"
+  clock settle
+  type "open-third" key "Space"
+  clock settle
+  type "open-fourth" key "Space"
+  clock settle
+  tap "remove-third-surface"
+  clock settle
+  expect tree missing "third-dialog"
+  expect tree missing "fourth-dialog"
+  expect state lastFocus == "open-third"
+  tap "close-nested"
+  clock settle
+  tap "close-dialog"
+  clock settle
+
+test "navigation push dismisses the old modal stack and preserves arrival focus"
+  type "open-dialog" key "Space"
+  clock settle
+  type "open-nested" key "Space"
+  clock settle
+  type "open-third" key "Space"
+  clock settle
+  type "open-fourth" key "Space"
+  clock settle
+  tap "navigate-push"
+  clock settle
+  expect state lastFocus == "next-focus"
+  clock +500
+  expect state lastFocus == "next-focus"
+  tap "return-home"
+  clock settle
+  expect state focusOnPage == true
+  tap "increment"
+  expect text "count" == "Count: 1"
+
+test "navigation with source disposal removes the old stack without stealing arrival focus"
+  type "open-dialog" key "Space"
+  clock settle
+  type "open-nested" key "Space"
+  clock settle
+  type "open-third" key "Space"
+  clock settle
+  type "open-fourth" key "Space"
+  clock settle
+  tap "navigate-dispose"
+  clock settle
+  expect tree missing "home-route"
+  expect state lastFocus == "next-focus"
+  clock +500
+  expect state lastFocus == "next-focus"

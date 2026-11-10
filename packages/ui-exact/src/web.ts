@@ -1,4 +1,9 @@
+import { updateAlertMaterial, endAlertMaterial } from "./alert-dialog-material.js";
+import { updateModal, endModal } from "./modal.js";
+import { updateToggleGroup, endToggleGroup } from "./toggle-group.js";
 import { attachGlass } from "@lenso/glass";
+import type { StyleInput } from "./style-types.js";
+import { presentationCases, type PresentationRule } from "./presentation.js";
 import { presentation } from "./presentation.js";
 import { connectNative } from "./native.js";
 import { connectAccordion, endPanel, updatePanel } from "./disclosure.js";
@@ -13,11 +18,17 @@ export interface ExactElement {
 const owners = new WeakMap<HTMLElement | SVGElement, () => void>();
 
 /** Decorate the existing node; Exact keeps ownership of its events and state. */
-export function element(handle: ExactElement) {
+export function element(handle: ExactElement, options?: { xstyle?: StyleInput }) {
   if (handle.hatch !== "lenso-ui") return;
   const node = handle.element;
   const { lensoKind: kind, lensoVariant: variant } = handle.data;
-  const compiled = presentation(handle.data, node.closest('[data-slot="input-group"]') !== null);
+  const compiled = presentation(
+    handle.data,
+    node.closest('[data-slot="input-group"]') !== null,
+    options?.xstyle,
+  );
+  if (compiled.style && Object.keys(compiled.style).length)
+    throw new Error("Lenso caller styles need a declarative adapter for inline values");
   const optics = kind === "glass" || (kind === "glass-button" && !node.matches(":disabled"));
   const profileKey = kind === "glass-button" ? variant : "glass-small";
 
@@ -39,6 +50,9 @@ export function element(handle: ExactElement) {
     node.classList.remove(...classes);
   });
   updatePanel(node, handle.data);
+  updateToggleGroup(node, handle.data);
+  updateModal(node, handle.data);
+  updateAlertMaterial(node, handle.data);
   node.setAttribute("data-lenso-ready", "");
 }
 
@@ -46,7 +60,30 @@ export function element(handle: ExactElement) {
 export function elementEnded(handle: ExactElement) {
   if (handle.hatch !== "lenso-ui") return;
   endPanel(handle.element);
+  endToggleGroup(handle.element);
+  endModal(handle.element);
+  endAlertMaterial(handle.element);
   owners.get(handle.element)?.();
   owners.delete(handle.element);
   handle.element.removeAttribute("data-lenso-ready");
+}
+
+/** Use the same compiled rules supplied to styleWeb at build time. */
+export function createWebHatch(rules: readonly PresentationRule[]) {
+  presentationCases(rules);
+  return {
+    element(handle: ExactElement) {
+      if (handle.hatch !== "lenso-ui") return;
+      const xstyle = rules
+        .filter(
+          (rule) =>
+            rule.kind === handle.data["lensoKind"] &&
+            (rule.testId === undefined ||
+              rule.testId === handle.element.getAttribute("data-testid")),
+        )
+        .map((rule) => rule.xstyle);
+      element(handle, { xstyle });
+    },
+    elementEnded,
+  };
 }

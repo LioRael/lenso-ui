@@ -13,7 +13,18 @@ const parent = await mkdtemp(path.join(tmpdir(), "exact-docs-browser-"));
 const root = path.join(parent, "docs");
 await main(["new", root]);
 const initialConfig = await Bun.file(path.join(root, "docs.json")).json();
-initialConfig.pages.push({ path: "/reference", source: "reference.md", nav: false, search: false });
+initialConfig.origin = "https://docs.example.test";
+initialConfig.pages.push({
+  path: "/reference",
+  source: "reference.md",
+  nav: false,
+  search: false,
+  noindex: true,
+});
+await Bun.write(
+  path.join(root, "authoring.md"),
+  (await Bun.file(path.join(root, "authoring.md")).text()) + "\nMiXeDSeArChSentinel\n",
+);
 initialConfig.locales.push({
   id: "ar",
   label: "العربية",
@@ -27,7 +38,8 @@ await Bun.write(path.join(root, "docs.json"), JSON.stringify(initialConfig));
 let server;
 let dev;
 try {
-  const { out } = await buildSite(root);
+  // Virtual-clock checks below use Exact's development-only agent.
+  const { out } = await buildSite(root, { development: true });
   const html = await Bun.file(path.join(out, "playground/index.html")).text();
   assert.match(html, /Exact playground/);
   assert.match(html, /Count: 0/);
@@ -44,6 +56,16 @@ try {
     false,
   );
   const originalMarkdown = await Bun.file(path.join(root, "authoring.md")).text();
+  assert.equal(
+    (await Bun.file(path.join(out, "app.js")).text()).includes("mixedsearchsentinel"),
+    false,
+  );
+  const sitemap = await (await fetch(new URL("/sitemap.xml", server.url))).text();
+  assert.ok(sitemap.includes("https://docs.example.test/zh/authoring"));
+  assert.equal(sitemap.includes("/reference"), false);
+  const ir = await (await fetch(new URL("/_docs/content/authoring/index.json", server.url))).json();
+  assert.equal(ir.schemaVersion, 1);
+  assert.ok(ir.nodes.some((node) => node.kind === "component" && node.name === "CounterDemo"));
   assert.equal(
     await (await fetch(new URL("/_docs/markdown/authoring/index.md", server.url))).text(),
     originalMarkdown,
@@ -67,7 +89,11 @@ try {
     try {
       const page = await browser.newPage();
       const errors = [];
+      const scopeRequests = [];
       page.on("pageerror", (error) => errors.push(String(error)));
+      page.on("request", (request) => {
+        if (/\/scope-\d+-[^/]+\.js/.test(request.url())) scopeRequests.push(request.url());
+      });
       await page.goto(server.url.href);
       await page.getByRole("heading", { name: "Exact Docs", exact: true }).waitFor();
       await page.getByRole("region", { name: "Documentation", exact: true }).waitFor();
@@ -82,6 +108,7 @@ try {
         "Author Markdown, interactive pages and root data extensions.",
       );
       await page.evaluate(() => {
+        // Keep clipboard verification inside the fixture rather than the system pasteboard.
         Object.defineProperty(navigator, "clipboard", {
           configurable: true,
           value: {
@@ -95,6 +122,19 @@ try {
       await page.waitForFunction(() => typeof globalThis.__copiedMarkdown === "string");
       assert.equal(await page.evaluate(() => globalThis.__copiedMarkdown), originalMarkdown);
       assert.equal(
+        await page.locator('link[rel="canonical"]').getAttribute("href"),
+        "https://docs.example.test/authoring",
+      );
+      assert.equal((await page.locator('[data-docs-token="keyword"]').count()) > 0, true);
+      assert.equal(
+        await page.getByRole("heading", { name: "Embedded counter", exact: true }).count(),
+        1,
+      );
+      await page.getByTestId("embedded-counter").focus();
+      await page.keyboard.press("Enter");
+      assert.equal(await page.getByTestId("embedded-counter").textContent(), "Count: 3");
+      assert.deepEqual(scopeRequests, []);
+      assert.equal(
         await page.getByRole("link", { name: "Open Markdown", exact: true }).getAttribute("href"),
         "/_docs/markdown/authoring/index.md",
       );
@@ -102,6 +142,8 @@ try {
       await page.getByRole("searchbox", { name: "Search documentation" }).fill("headings");
       const results = page.locator('[data-docs-part="search"]');
       await results.getByRole("link", { name: "Authoring", exact: true }).waitFor();
+      assert.equal(new Set(scopeRequests).size, 1);
+      assert.ok(scopeRequests[0].includes("/scope-0-"));
       await page.getByRole("searchbox").fill("referenceonly");
       await page.getByRole("status").filter({ hasText: "No pages found" }).waitFor();
       await page.getByRole("searchbox").fill("");
@@ -136,6 +178,11 @@ try {
       await page.getByRole("heading", { name: "编写指南", exact: true }).waitFor();
       assert.equal(new URL(page.url()).pathname, "/zh/authoring");
       assert.equal(await page.locator('[data-docs-part="context"]').getAttribute("lang"), "zh-CN");
+      await page.waitForFunction(() => document.documentElement.lang === "zh-CN");
+      assert.equal(
+        await page.locator('link[rel="alternate"][hreflang="en"]').getAttribute("href"),
+        "https://docs.example.test/authoring",
+      );
       const scopedNav = page.locator('[data-docs-part="navigation"]');
       assert.deepEqual(
         await scopedNav
@@ -156,6 +203,8 @@ try {
         "/zh",
       );
       await page.getByRole("searchbox", { name: "搜索文档" }).fill("");
+      assert.equal(new Set(scopeRequests).size, 2);
+      assert.ok(scopeRequests.some((url) => url.includes("/scope-1-")));
       await page
         .locator('[data-docs-part="versions"]')
         .getByRole("link", { name: "v1", exact: true })
@@ -189,6 +238,9 @@ try {
       await page.goto(new URL("/ar", server.url).href);
       await page.getByRole("heading", { name: "دليل التوثيق", exact: true }).waitFor();
       assert.equal(await page.locator('[data-docs-part="context"]').getAttribute("lang"), "ar");
+      await page.waitForFunction(
+        () => document.documentElement.lang === "ar" && document.documentElement.dir === "rtl",
+      );
       assert.equal(
         await page
           .locator('[data-docs-part="context"]')

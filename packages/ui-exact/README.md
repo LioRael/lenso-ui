@@ -35,6 +35,31 @@ indicator, body and panel parts. See [composition and state models](DISCLOSURE.m
 and the [runnable example](example/disclosure.contract). These use explicit shared
 state shapes because Exact's slots retain the caller's provider scope.
 
+Content navigation adds `Link`, rich-content icon parts, `Breadcrumbs` with
+explicit trail state and item/link/separator parts, and semantic/decorative
+`Separator`. See [navigation API](NAVIGATION.md) and the
+[compiled example](example/navigation.contract).
+
+Progress and loading feedback adds `ProgressBar`, `Meter`, `ProgressCircle`,
+`Spinner` and `Skeleton`. Range state drives both accessible values and visual
+geometry, with composable labels/tracks/fills. See [feedback API](FEEDBACK.md)
+and the [compiled example](example/feedback.contract).
+
+Ordinary `ToggleButton` and `ToggleButtonGroup` add persistent selection with
+explicit Exact state, rich children and native button activation. Groups support
+single/multiple selection, joined/detached layouts and roving keyboard focus.
+See [toggle composition](TOGGLES.md) and the [compiled example](example/toggle.contract).
+Registered caller maps support custom tint and StyleX composition; see [caller styling](STYLING.md).
+
+Native `Modal` adds composable backdrop, viewport, popup, header/body/footer,
+icon, title/description and action/close parts. Browser commands own opening;
+Exact actions own validation and save. See [modal API and acceptance limits](MODAL.md)
+and the [compiled example](example/modal.contract). WebKit exit animation remains open.
+
+`AlertDialog` adds native confirmation semantics, medium glass material, rich
+actions, fields, icon tones and automatic footer layouts. See [confirmation API
+and acceptance limits](ALERT_DIALOG.md) and the [compiled example](example/alert-dialog.contract).
+
 Both buttons accept `sm`, `md` and `lg` sizes. Button variants are `prominent`,
 `bordered` and `borderless`; GlassButton variants are `default` and `prominent`.
 `press` takes an Exact action. These are native HTML buttons, including keyboard
@@ -44,6 +69,14 @@ activation and disabled behavior. Button content is currently a text label.
 Use Contract layout containers around it to place or size the surface.
 `Backdrop` marks content eligible for the shared renderer's backdrop collection;
 it does not guarantee that arbitrary DOM content can be replayed on WebKit.
+
+## Caller styling
+
+`styleWeb` composes compiled caller StyleX maps with the staged package's own
+recipes, and `createWebHatch` uses the same rules in the browser. Registered
+kind/instance rules support property removal, media and pseudo states, custom
+properties and existing class cleanup without changing Contract component props.
+See [the setup and verified boundaries](STYLING.md).
 
 ## Consumer setup
 
@@ -152,3 +185,10 @@ It does not yet include the full family catalog, elastic motion, icons, loading
 state, glass groups, overlays, or native adapters. Shared glass rendering retains its existing browser
 limitations; using Exact Web does not bypass WebKit or establish a performance
 improvement. Generated assets include the repository's third-party notices.
+
+## Glass screenshot acceptance
+
+Run `test:glass-capture` before judging glass from screenshots. The browser suite
+records capture eligibility separately from behavior. The current macOS WebKit
+Playwright image omits backdrop blur that native-window capture shows; see
+[the probe and proof boundaries](VISUAL_CAPTURE.md).

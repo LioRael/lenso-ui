@@ -1,6 +1,8 @@
 import { cp, mkdir, rm } from "node:fs/promises";
 import path from "node:path";
 import library from "../package.json" with { type: "json" };
+import { build } from "vite";
+import stylex from "@stylexjs/unplugin/vite";
 import { linkWebStyles } from "./stage.js";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -20,15 +22,40 @@ export async function buildExample() {
     await mkdir(path.dirname(path.join(installed, name)), { recursive: true });
     await cp(path.join(root, name), path.join(installed, name), { recursive: true });
   }
+  await build({
+    configFile: false,
+    root: app,
+    plugins: [
+      stylex({
+        dev: false,
+        runtimeInjection: false,
+        useCSSLayers: false,
+        unstable_moduleResolution: { type: "commonJS" },
+      }),
+    ],
+    build: {
+      outDir: path.join(app, "modules/web/style-config"),
+      lib: {
+        entry: path.join(app, "styles.ts"),
+        formats: ["es"],
+        fileName: () => "index.js",
+        cssFileName: "index",
+      },
+    },
+  });
   const prepare = Bun.spawn(
     [
       "bun",
       "-e",
       `
-      import { stageWeb, withLensoWeb } from "@lenso/ui-exact/stage";
+      import { stageWeb, withLensoWeb, styleWeb } from "@lenso/ui-exact/stage";
+      const { styleRules } = await import("./modules/web/style-config/index.js");
       const file = Bun.file("app.json");
       await Bun.write(file, JSON.stringify(withLensoWeb(await file.json()), null, 2) + "\\n");
-      await stageWeb(process.cwd());
+      const web = await stageWeb(process.cwd());
+      const css = await Bun.file("./modules/web/style-config/assets/stylex.css").text();
+      const report = await styleWeb(web, { css, rules: styleRules });
+      console.log("Consumer styles:", report.recipes, "recipes,", report.bytes, "bytes");
     `,
     ],
     { cwd: app, stdout: "inherit", stderr: "inherit" },

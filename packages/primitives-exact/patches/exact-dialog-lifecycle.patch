@@ -1,0 +1,301 @@
+diff --git a/host/apple/Sources/ExactKit/Accessibility.swift b/host/apple/Sources/ExactKit/Accessibility.swift
+--- a/host/apple/Sources/ExactKit/Accessibility.swift
++++ b/host/apple/Sources/ExactKit/Accessibility.swift
+@@ -825,7 +825,11 @@
+             // view holding it for its shortcuts (ShortcutsIOS), a surface control's from its touch, which the
+             // author did not ask for, and the focus a press left on its control while that press's work runs,
+             // which an autofocus the work mounts takes (PressHandoffIOS).
+-            func yields(_ view: UIView) -> Bool { (view as? NodeView)?.focusedBySurfaceTouch == true || pressHandsOff(view, to: node) }
++            func yields(_ view: UIView) -> Bool {
++                if let current = view as? NodeView,
++                   current.props["navigationKey"] != nil || navigation.isInactiveRoute(containing: current) { return true }
++                return (view as? NodeView)?.focusedBySurfaceTouch == true || pressHandsOff(view, to: node)
++            }
+             func hasFocus(_ view: UIView) -> Bool { (view.isFirstResponder && (view as? NodeView)?.canvasInput == nil && !yields(view) && !(view is ExactView)) || view.subviews.contains(where: hasFocus) }
+             // A header's search field is the bar's (NavigationBarIOS), its own node hidden: it takes the focus
+             // as `focus()` gives it, once the push that mounted it settles.
+diff --git a/host/apple/Sources/ExactKit/IOS/DialogSheetIOS.swift b/host/apple/Sources/ExactKit/IOS/DialogSheetIOS.swift
+--- a/host/apple/Sources/ExactKit/IOS/DialogSheetIOS.swift
++++ b/host/apple/Sources/ExactKit/IOS/DialogSheetIOS.swift
+@@ -420,7 +420,7 @@
+         for above in entries where above !== entry && !above.closing
+             && sequence(first: above.controller.presentingViewController, next: { $0?.presentingViewController }).contains(where: { $0 === entry.controller }) {
+             above.closing = true
+-            ended(above, cancelled: false)
++            ended(above, cancelled: false, restoreFocus: false)
+         }
+         entry.dialog.endEditing(true)
+         let controller = entry.controller
+@@ -431,10 +431,9 @@
+         // presenter can have a window before UIKit attaches the sheet, and
+         // without a scene that presentation may never complete.
+         guard animated, controller.viewIfLoaded?.window?.windowScene != nil, controller.presentingViewController != nil else {
+-            ended(entry, cancelled: cancelled)
+             if controller.presentingViewController != nil {
+-                leave { owner?.dismiss(animated: false) { [weak self] in self?.presenter?.menus.resumeAfterRouteDismissal() } }
+-            }
++                leave { owner?.dismiss(animated: false) { [weak self] in self?.ended(entry, cancelled: cancelled) } }
++            } else { ended(entry, cancelled: cancelled) }
+             return
+         }
+         leave { owner?.dismiss(animated: animated) { [weak self] in self?.ended(entry, cancelled: cancelled) } }
+@@ -472,12 +471,11 @@
+         presenter?.menus.coverClosed()
+         guard let presenter else { return }
+         // Unless the closing action sent the keyboard somewhere itself.
+-        if restoreFocus, let previous = entry.previous, previous.window != nil, presenter.focusedNode == nil {
+-            previous.becomeFirstResponder()
+-        }
++        if restoreFocus { restoreKeyboardFocus(entry) }
+         presenter.syncAccessibility()
+         // VoiceOver goes back to what opened it, as a closed dialog's focus does.
+-        if restoreFocus, let source = entry.source, live(source), source.window != nil {
++        if restoreFocus, let source = entry.source, live(source), source.window != nil,
++           !presenter.navigation.isInactiveRoute(containing: source) {
+             let element: UIView = source.isNativeButton ? presenter.controls.controls[source.id] ?? source : source
+             UIAccessibility.post(notification: .screenChanged, argument: element)
+         }
+@@ -486,6 +484,26 @@
+             if let onCancel { onCancel(dialog.id) }
+             else if let session = presenter.session { session.applyInput(session.runtime.pickerCancel(dialog.id, now: session.now())) }
+         }
++    }
++
++    private func restoreKeyboardFocus(_ entry: Entry) {
++        guard let presenter else { return }
++        let modal = entries.last(where: { !$0.closing })?.dialog
++        func eligible(_ view: UIView) -> Bool {
++            guard view.window != nil, !sequence(first: view, next: { $0.superview }).contains(where: { $0.isHidden }),
++                  modal.map({ presenter.authored(view, inside: $0) }) ?? true else { return false }
++            if let node = view as? NodeView {
++                return live(node) && !node.inert && !node.formDisabled && !presenter.navigation.isInactiveRoute(containing: node)
++            }
++            return true
++        }
++        // Native route placeholders yield to the saved invoker; an arriving editor does not.
++        if let current = presenter.focusedNode, eligible(current), current.props["navigationKey"] == nil { return }
++        if let source = entry.source, eligible(source), source.becomeFirstResponder() { return }
++        if let previous = entry.previous, eligible(previous), previous.becomeFirstResponder() { return }
++        guard presenter.pendingFocusNode == nil, !presenter.navigation.defersFocus else { return }
++        if let modal, let target = Self.autofocus(in: modal) { presenter.focusNode(target) }
++        else { _ = presenter.moveFocus(backward: false) }
+     }
+ 
+     /// A tap on the dimmed page closes only a `closedby="any"` dialog.
+@@ -614,7 +632,12 @@
+         for entry in entries where !entry.closing {
+             let dialog = entry.dialog
+             let parent = entry.parent
+-            let shown = parent?.window != nil && parent.map { !presenter.navigation.isInactiveRoute(containing: $0) } == true
++            let shown = parent?.window != nil && parent.map { parent in
++                sequence(first: parent, next: presenter.listenerParent).allSatisfy { view in
++                    guard let node = view as? NodeView else { return true }
++                    return live(node) && (node.props["navigationKey"] == nil || !presenter.navigation.isInactiveRoute(containing: node))
++                }
++            } == true
+             if !live(dialog) || dialog.props["semanticTag"] != "dialog" || dialog.props["popover"] != nil || !shown {
+                 dismiss(entry, animated: false, cancelled: false)
+             } else {
+diff --git a/host/apple/Sources/ExactKit/IOS/NavigationIOS.swift b/host/apple/Sources/ExactKit/IOS/NavigationIOS.swift
+--- a/host/apple/Sources/ExactKit/IOS/NavigationIOS.swift
++++ b/host/apple/Sources/ExactKit/IOS/NavigationIOS.swift
+@@ -1369,6 +1369,9 @@
+             // left a band of it unpainted, or a cancelled pop the source).
+             presenter.paintVisibleText()
+             presenter.flushPendingFocus()
++            if presenter.focusedNode == nil, presenter.pendingFocusNode == nil, presenter.menus.sheets.top == nil,
++               let route = (navigationController.topViewController as? RouteController)?.node,
++               !isInactiveRoute(containing: route) { presenter.focusNode(route) }
+             presenter.elementScrolls.flush()
+             #if os(iOS)
+             presenter.syncScrollsToTop() // the route now on top owns the status-bar tap
+diff --git a/host/apple/Sources/ExactKit/KeyEvents.swift b/host/apple/Sources/ExactKit/KeyEvents.swift
+--- a/host/apple/Sources/ExactKit/KeyEvents.swift
++++ b/host/apple/Sources/ExactKit/KeyEvents.swift
+@@ -138,6 +138,7 @@
+         #if os(macOS)
+         if let node = view as? NodeView { return menus.authoredParent(of: node) ?? dialogs.authoredParent(of: node) ?? blocks.parent(of: node) }
+         #else
++        if let node = view as? NodeView, let parent = menus.sheets.authoredParent(of: node) { return parent }
+         if let node = view as? NodeView, navigation.controllers[node.id]?.node === node,
+            let parent = navigation.logicalParent(of: node) ?? navigation.container {
+             return parent
+diff --git a/host/apple/Sources/ExactKit/Mac/DialogsMac.swift b/host/apple/Sources/ExactKit/Mac/DialogsMac.swift
+--- a/host/apple/Sources/ExactKit/Mac/DialogsMac.swift
++++ b/host/apple/Sources/ExactKit/Mac/DialogsMac.swift
+@@ -197,7 +197,15 @@
+                 window.makeFirstResponder(previous)
+                 if let range = entry.selection, let editor = window.firstResponder as? NSTextView { editor.setSelectedRange(range) }
+             } else if active != nil { enterFocus() }
+-            else { window.makeFirstResponder(presenter?.viewport) }
++            else if let presenter, let selection = presenter.navigation.selection,
++                    selection.stack.indices.contains(selection.at), let route = presenter.views[selection.stack[selection.at]],
++                    route.window === window, !route.inert, !route.isHiddenOrHasHiddenAncestor {
++                let arrival = presenter.carrying("autofocus").first {
++                    ($0 === route || $0.isDescendant(of: route)) && $0.props["autofocus"] == "true"
++                        && !$0.inert && !$0.disabled && !$0.isHiddenOrHasHiddenAncestor
++                } ?? route
++                window.makeFirstResponder(presenter.keyView(of: arrival))
++            } else { window.makeFirstResponder(presenter?.initialKeyView ?? presenter?.viewport) }
+         }
+         presenter?.syncAccessibility()
+         presenter?.shortcuts.sync()
+@@ -235,7 +243,13 @@
+             let parent = entry.parent
+             let connected = parent === presenter.root || parent?.isDescendant(of: presenter.root) == true
+                 || entries.contains { other in other !== entry && (parent === other.dialog || parent?.isDescendant(of: other.dialog) == true) }
+-            if !live(entry.dialog) || entry.dialog.props["semanticTag"] != "dialog" || !connected || presenter.viewport.window == nil {
++            let inactiveRoute = parent.map { parent in
++                presenter.logicalAncestry(of: parent).contains { view in
++                    guard let node = view as? NodeView, node.props["navigationKey"] != nil else { return false }
++                    return node.routeInert || node.isHiddenOrHasHiddenAncestor
++                }
++            } ?? true
++            if !live(entry.dialog) || entry.dialog.props["semanticTag"] != "dialog" || !connected || inactiveRoute || presenter.viewport.window == nil {
+                 close(entry.dialog, notify: false)
+             }
+         }
+diff --git a/host/apple/Sources/ExactKit/Mac/NavigationMac.swift b/host/apple/Sources/ExactKit/Mac/NavigationMac.swift
+--- a/host/apple/Sources/ExactKit/Mac/NavigationMac.swift
++++ b/host/apple/Sources/ExactKit/Mac/NavigationMac.swift
+@@ -90,6 +90,7 @@
+     }
+ 
+     func sync(_ batch: Batch, reparented: Set<UInt32> = [], concerned: Bool? = nil) {
++        let previousRoute = selection.flatMap { $0.stack.indices.contains($0.at) ? $0.stack[$0.at] : nil }
+         var touched = Set<UInt32>()
+         var subtrees = reparented
+         // Whether a header can have changed: what the window's bar reads again for.
+@@ -220,6 +221,16 @@
+             gates[id] = [node.isHidden, node.routeInert, node.props["inert"] == "true", node.props["accessibilityElementsHidden"] == "true"]
+         }
+         refreshInputGates(touched.compactMap { presenter.views[$0] })
++        if let selection, selection.stack.indices.contains(selection.at), previousRoute != selection.stack[selection.at] {
++            let id = selection.stack[selection.at]
++            presenter.afterBatch { [weak self] in
++                guard let self, presenter.dialogs.active == nil, let route = presenter.views[id],
++                      !route.inert, !route.isHiddenOrHasHiddenAncestor, let window = route.window else { return }
++                if let current = window.firstResponder as? NSView, current !== presenter.viewport,
++                   current !== presenter.root, !current.isHiddenOrHasHiddenAncestor { return }
++                window.makeFirstResponder(presenter.keyView(of: route))
++            }
++        }
+     }
+ 
+     /// Top-layer ownership changes the same native input/AX gates as inert.
+diff --git a/host/apple/Sources/ExactKit/Mac/SheetsMac.swift b/host/apple/Sources/ExactKit/Mac/SheetsMac.swift
+--- a/host/apple/Sources/ExactKit/Mac/SheetsMac.swift
++++ b/host/apple/Sources/ExactKit/Mac/SheetsMac.swift
+@@ -283,9 +283,9 @@
+     /// What stands on `dialog`'s sheet goes before it does: an alert shown
+     /// over it, and the dialogs opened over it.
+     func clear(above dialog: NodeView) {
+-        guard let window = entries.first(where: { $0.dialog === dialog })?.sheet?.window else { return }
+-        if presenter?.alerts.presented?.window === window { presenter?.alerts.reset() }
+-        while let top = entries.last, top.dialog !== dialog, top.sheet != nil, entries.contains(where: { $0.dialog === dialog }) {
++        guard let entry = entries.first(where: { $0.dialog === dialog }) else { return }
++        if let window = entry.sheet?.window, presenter?.alerts.presented?.window === window { presenter?.alerts.reset() }
++        while let top = entries.last, top.dialog !== dialog, entries.contains(where: { $0.dialog === dialog }) {
+             close(top.dialog, restoreFocus: false)
+         }
+     }
+diff --git a/host/web/dialog-modality.js b/host/web/dialog-modality.js
+--- a/host/web/dialog-modality.js
++++ b/host/web/dialog-modality.js
+@@ -1,12 +1,52 @@
+-// WebKit's command invokers leave controls in a covered dialog focusable.
+-// A modal escapes an inert ancestor; block only the other open dialogs and
+-// restore the author's value when they become the front scope or close.
+-const coveredDialogs = new Set();
++const coveredDialogs = new Set(), openDialogs = new Map(), openings = new WeakMap();
++let reconciling = false, restoreQueued = false, released = [];
++const frontOf = dialogs => dialogs.reduce((top, el) => !top || (el.exactOpened ?? 0) >= (top.exactOpened ?? 0) ? el : top, null);
++const routeGone = route => route && (!route.isConnected || route.inert || route.closest('[data-exiting]') || getComputedStyle(route).visibility === 'hidden');
++function eligible(el, modal) {
++  if (!(el instanceof HTMLElement) || el === document.body || !el.isConnected || el.closest('[data-exiting]') || el.matches(':disabled') || !el.getClientRects().length || getComputedStyle(el).visibility !== 'visible') return false;
++  for (let at = el; at; at = at.parentElement) {
++    if (at.inert) return false;
++    if (at.matches('dialog:modal')) break;
++  }
++  return !modal || modal.contains(el) || (modalLayers() ?? []).some(layer => layer !== modal && layer.contains(el));
++}
++function restore() {
++  restoreQueued = false;
++  const closed = released; released = [];
++  const modal = frontOf([...document.querySelectorAll('dialog:modal')]);
++  const nav = closed.map(entry => entry.navigation).find(el => el?.isConnected);
++  const route = nav && [...nav.querySelectorAll('[navigationKey]')].find(el => el.getAttribute('navigationKey') === nav.getAttribute('navigationKey') && !routeGone(el));
++  const scope = modal ?? route ?? document.getElementById('exact-root');
++  if (!scope || eligible(document.activeElement, modal) && document.activeElement !== scope) return;
++  const candidates = [...closed.reverse().map(entry => entry.previous), ...scope.querySelectorAll('[autofocus]'), ...(scope.hasAttribute('tabindex') ? [scope] : []), ...scope.querySelectorAll('button, input, select, textarea, a[href], [tabindex]'), scope];
++  for (const target of candidates) {
++    if (!eligible(target, modal)) continue;
++    if (target === scope && !target.hasAttribute('tabindex')) target.tabIndex = -1;
++    target.focus({ preventScroll: true });
++    if (document.activeElement === target) return;
++  }
++}
++// A modal escapes inert ancestors; WebKit also needs an explicit gate on covered dialogs.
+ export function syncDialogInert(closing) {
+   if (!globalThis.document) return;
+-  const dialogs = [...document.querySelectorAll('dialog:modal')].filter(el => el !== closing);
+-  const front = dialogs.reduce((top, el) => !top || (el.exactOpened ?? 0) >= (top.exactOpened ?? 0) ? el : top, null);
+-  const covered = new Set(dialogs.filter(el => el !== front));
++  let dialogs = [...document.querySelectorAll('dialog:modal')].filter(el => el !== closing);
++  if (!closing && !reconciling) {
++    reconciling = true;
++    try {
++      for (const dialog of dialogs) if (!openDialogs.has(dialog)) {
++        const route = dialog.closest('[navigationKey]');
++        openDialogs.set(dialog, openings.get(dialog) ?? { previous: null, route, navigation: route?.closest('[navigationBack]') });
++      }
++      // Rehosting into the top layer must not outlive the authored route.
++      for (const dialog of [...dialogs].reverse()) if (routeGone(openDialogs.get(dialog)?.route)) dialog.close();
++      dialogs = [...document.querySelectorAll('dialog:modal')];
++      for (const [dialog, entry] of openDialogs) if (!dialogs.includes(dialog)) {
++        released.push(entry); openDialogs.delete(dialog);
++      }
++    } finally { reconciling = false; }
++    if (released.length && !restoreQueued) { restoreQueued = true; queueMicrotask(restore); }
++  }
++  const front = frontOf(dialogs), covered = new Set(dialogs.filter(el => el !== front));
+   for (const el of new Set([...coveredDialogs, ...covered])) {
+     el.authoredInert ??= el.inert;
+     el.exactModalInert = covered.has(el);
+@@ -20,10 +60,13 @@
+   if (e.target.localName === 'dialog') syncDialogInert();
+ }, true);
+ globalThis.addEventListener?.('beforetoggle', e => {
+-  // Release the preceding scope before close() restores its focus.
+-  if (e.target.localName === 'dialog' && e.newState === 'closed') syncDialogInert(e.target);
++  if (e.target.localName !== 'dialog') return;
++  if (e.newState === 'open') {
++    const route = e.target.closest('[navigationKey]');
++    openings.set(e.target, { previous: e.source ?? document.activeElement, route, navigation: route?.closest('[navigationBack]') });
++    openDialogs.delete(e.target);
++  } else syncDialogInert(e.target); // Before native close restores the preceding scope.
+ }, true);
+-// Structural reads retain the front modal and presentations opened after it.
+ export function modalLayers() {
+   const top = [...document.querySelectorAll('dialog:modal,:popover-open')];
+   const modals = top.filter(el => el.matches('dialog:modal'));
+diff --git a/host/web/navigation.js b/host/web/navigation.js
+--- a/host/web/navigation.js
++++ b/host/web/navigation.js
+@@ -408,7 +408,6 @@
+     });
+   },
+   project(root, log) {
+-    syncDialogInert();
+     if (activationRequired.has(root) && !activated.has(root)) return; for (const route of root.querySelectorAll("[navigationKey]")) markSites(route); // site headers, under a root with no `navigationBack` too
+     for (const nav of root.querySelectorAll("[navigationBack]")) {
+       let key = nav.getAttribute("navigationKey"), [list, panels] = tabsOf(nav);
+@@ -466,7 +465,7 @@
+         if (empty) { box.style.setProperty("--exact-split", `${split}px`); own && routes[0].style.setProperty("--exact-split-pane", `${(routes[0].offsetParent ?? box).clientWidth - split}px`); }
+       }
+     }
+-    pendingRow = null;
++    pendingRow = null; syncDialogInert();
+     // The page module's container hatches, when it has them (LLP 1075.003.000 §3.7); the wake lock, which follows what shows (LLP 1125 D11).
+     globalThis.exact?.onProject?.(root); globalThis.exact?.wakeLockGlue?.projected(root); globalThis.exact?.orientationLockGlue?.projected(root); pageTitle();
+   },

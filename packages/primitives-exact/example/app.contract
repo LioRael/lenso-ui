@@ -1,7 +1,86 @@
+use TooltipState, TooltipInitial, TooltipHover, TooltipFocus, TooltipDismiss, TooltipTick, TooltipTrigger, Tooltip from "@lenso/primitives-exact"
 use Toggle, Link, Field, FieldDescription, FieldError, Fieldset, Input, Textarea, Checkbox, Switch, RadioGroup, Radio, Select, SelectOption, Slider, Disclosure, DisclosureTrigger, DisclosurePanel, Accordion, AccordionItem, AccordionTrigger, AccordionPanel, Dialog, AlertDialog, DialogTrigger, DialogClose, DialogAction, Popover, PopoverTrigger, PopoverClose, Menu, MenuItem, MenuSubmenuTrigger, TabsList, Tab, TabPanel, Progress, Status, Separator from "@lenso/primitives-exact"
 use DisclosureState, AccordionState, AccordionItemState from "@lenso/primitives-exact"
 
+routes nav
+  home "/"
+  next "/next"
+
 component App
+  state tip = TooltipInitial()
+  state help = TooltipInitial()
+  task tooltipDeadlines when tip.due >= 0 or help.due >= 0
+    every(16, tooltipTimeouts)
+  action tooltipTimeouts
+    if tip.due >= 0 and performanceNow() >= tip.due
+      setTip(TooltipTick(tip, performanceNow()))
+    if help.due >= 0 and performanceNow() >= help.due
+      setHelp(TooltipTick(help, performanceNow()))
+  action tooltipKeys(name: string)
+    if name == "Escape" and (tip.open or tip.due >= 0 or help.open or help.due >= 0)
+      preventDefault()
+      stopPropagation()
+      setTip(TooltipDismiss(tip))
+      setHelp(TooltipDismiss(help))
+  action setTip(next: TooltipState)
+    tip = next
+    if next.open
+      showPopover("settings-tip", source="open-dialog")
+    else
+      hidePopover("settings-tip")
+  action tipHover(on: bool)
+    setTip(TooltipHover(tip, on, performanceNow(), 500, 150))
+  action tipFocus
+    markFocus("open-dialog")
+    setTip(TooltipFocus(tip, true, performanceNow(), 500, 150))
+  action tipBlur
+    setTip(TooltipFocus(tip, false, performanceNow(), 500, 150))
+  action dismissTip
+    setTip(TooltipDismiss(tip))
+  action tipKey(name: string)
+    if name == "Escape" and (tip.open or tip.due >= 0)
+      preventDefault()
+      stopPropagation()
+      dismissTip()
+  action setHelp(next: TooltipState)
+    help = next
+    if next.open
+      showPopover("help-tip", source="help-trigger")
+    else
+      hidePopover("help-tip")
+  state hostInert = false
+  action blockHostDialog
+    hostInert = true
+  action unblockHostDialog
+    hostInert = false
+  state lastFocus = ""
+  action observedFocus(event: FocusEvent)
+    lastFocus = event.target
+  state showHome = true
+  state pageTrigger = true
+  state thirdTrigger = true
+  state mountedThird = true
+  derive focusInParent = lastFocus == "nested-fallback" or lastFocus == "nested-dialog"
+  derive focusOnPage = lastFocus == "page-fallback" or lastFocus == "home-route"
+  action markFocus(id: string)
+    lastFocus = id
+  action dropPageTrigger
+    pageTrigger = false
+  action dropThirdTrigger
+    thirdTrigger = false
+  action removeThirdSurface
+    mountedThird = false
+  action navigatePush
+    setTip(TooltipInitial())
+    setHelp(TooltipInitial())
+    nav = push(nav, "/next")
+  action navigateDispose
+    setTip(TooltipInitial())
+    setHelp(TooltipInitial())
+    showHome = false
+    nav = push(nav, "/next")
+  action goBack
+    nav = back(nav)
   state count = 0
   state disabled = false
   state readOnly = false
@@ -19,6 +98,9 @@ component App
   state expanded: string[] = []
   state multiple = false
   state active = "profile"
+  state vertical = "overview"
+  action setVertical(value: string)
+    vertical = value
   derive disclosure = DisclosureState(id="details", open=details, disabled=disabled)
   derive accordion = AccordionState(id="questions", value=expanded, multiple=multiple, disabled=disabled)
   derive firstItem = AccordionItemState(id="first", value="first", disabled=false)
@@ -27,11 +109,21 @@ component App
   action increment
     count = count + 1
   action toggleDisabled
-    disabled = not disabled
+    let next = not disabled
+    disabled = next
+    if next
+      blur("help-trigger")
+      blur("open-dialog")
+      setTip(TooltipInitial())
+      setHelp(TooltipInitial())
   action toggleReadOnly
     readOnly = not readOnly
   action toggleVisible
-    visible = not visible
+    let next = not visible
+    visible = next
+    if not next
+      blur("help-trigger")
+      setHelp(TooltipInitial())
   action edit(value: string)
     draft = value
   action commit(value: string)
@@ -62,117 +154,208 @@ component App
   action setActive(value: string)
     active = value
   view
-    scroll role="main" height="100%" padding=16 box-sizing="border-box"
-      column gap=12
-        text "Exact primitives" role="heading" aria-level=1
-        row gap=8 flex-wrap="wrap"
-          button id="disable" testId="disable" press=toggleDisabled
-            text "Toggle disabled"
-          button id="readonly" testId="readonly" press=toggleReadOnly
-            text "Toggle read only"
-          button id="visibility" testId="visibility" press=toggleVisible
-            text "Toggle controls"
-        if visible
-          Fieldset(id="profile", label="Profile")
-            column gap=8
-              Field(id="name-field", label="Name")
-                text "Name"
-                Input(id="name", label="Name", description="name-hint name-error", value=draft, type="text", placeholder="Enter a name", disabled=disabled, readOnly=readOnly, invalid=(draft == ""), input=edit, change=commit, submit=save)
-                FieldDescription(id="name-hint", message="Use your full name.")
-                FieldError(id="name-error", message=(draft == "" ? "A name is needed to save." : ""))
-              Textarea(id="notes", label="Notes", description="", value=notes, placeholder="Notes", disabled=disabled, readOnly=readOnly, invalid=false, input=editNotes, change=editNotes)
-              Checkbox(id="subscribe", label="Subscribe", description="", checked=subscribed, disabled=disabled, change=setSubscribed)
-              Switch(id="notifications", label="Notifications", description="", checked=notifications, disabled=disabled, change=setNotifications)
-              RadioGroup(id="plans", label="Plan")
-                Radio(id="free", name="plan", label="Free", value="free", selected=plan, disabled=disabled, change=setPlan)
-                Radio(id="pro", name="plan", label="Pro", value="pro", selected=plan, disabled=disabled, change=setPlan)
-              Select(id="region", label="Region", description="", value=region, disabled=disabled, change=setRegion)
-                SelectOption(label="Europe", value="eu", disabled=false)
-                SelectOption(label="Americas", value="us", disabled=false)
-                SelectOption(label="Unavailable", value="locked", disabled=true)
-              Slider(id="volume", label="Volume", description="", value=volume, min=0, max=100, step=5, disabled=disabled, input=setVolume, change=setVolume)
-              button id="increment" testId="increment" disabled=disabled press=increment buttonStyle="filled"
-                text "Increment"
-              Toggle(id="pin", label="Pin", pressed=pinned, disabled=disabled, change=setPinned)
-                text "Pin"
-        Status(id="count", message=`Count: ${count}`)
-        text committed testId="committed"
-        Progress(id="progress", label="Volume progress", value=volume, max=100)
-        Separator(id="separator")
-        Disclosure(state=disclosure)
-          DisclosureTrigger(state=disclosure, label="Details", change=setDetails)
-            text "Details"
-          DisclosurePanel(state=disclosure)
-            text "Additional information"
-            button id="details-action" testId="details-action" press=increment
-              text "Details action"
-        button id="multiple" testId="multiple" press=toggleMultiple
-          text "Toggle multiple"
-        Accordion(state=accordion)
-          AccordionItem(item=firstItem)
-            text "First question" role="heading" aria-level=2
-            AccordionTrigger(state=accordion, item=firstItem, label="First question", change=setExpanded)
-              text "First question"
-            AccordionPanel(state=accordion, item=firstItem)
-              text "First answer"
-          AccordionItem(item=secondItem)
-            AccordionTrigger(state=accordion, item=secondItem, label="Second question", change=setExpanded)
-              text "Second question"
-            AccordionPanel(state=accordion, item=secondItem)
-              text "Second answer"
-          AccordionItem(item=lockedItem)
-            AccordionTrigger(state=accordion, item=lockedItem, label="Unavailable question", change=setExpanded)
-              text "Unavailable question"
-            AccordionPanel(state=accordion, item=lockedItem)
-              text "Unavailable answer"
-        TabsList(id="tabs", label="Account", orientation="horizontal")
-          Tab(id="profile-tab", label="Profile tab", panel="profile-panel", value="profile", selected=active, disabled=false, change=setActive)
-            text "Profile"
-          Tab(id="locked-tab", label="Unavailable tab", panel="locked-tab-panel", value="locked", selected=active, disabled=true, change=setActive)
-            text "Unavailable"
-          Tab(id="settings-tab", label="Settings tab", panel="settings-panel", value="settings", selected=active, disabled=false, change=setActive)
-            text "Settings"
-        TabPanel(id="profile-panel", tab="profile-tab", value="profile", selected=active)
-          text "Profile content"
-        TabPanel(id="locked-tab-panel", tab="locked-tab", value="locked", selected=active)
-          text "Unavailable content"
-        TabPanel(id="settings-panel", tab="settings-tab", value="settings", selected=active)
-          text "Settings content"
-        button id="open-dialog" testId="open-dialog" commandfor="edit-dialog" command="show-modal"
-          disabled=disabled title="Edit profile settings" buttonStyle="bordered"
-          text "Edit profile"
-        Dialog(id="edit-dialog", label="Edit profile", description="edit-hint")
-          text "Edit profile" role="heading" aria-level=2
-          FieldDescription(id="edit-hint", message="Close returns to the invoking control.")
-          button id="dialog-increment" testId="dialog-increment" aria-label="Increment in dialog" press=increment
-            text "Increment"
-          button id="close-dialog" testId="close-dialog" commandfor="edit-dialog" command="close"
-            text "Close"
-        DialogTrigger(id="open-alert", label="Confirm increment", target="confirm-dialog", disabled=disabled)
-          text "Confirm increment"
-        AlertDialog(id="confirm-dialog", label="Increment count?", description="confirm-hint")
-          FieldDescription(id="confirm-hint", message="This adds one to the counter.")
-          DialogAction(id="confirm", label="Confirm", target="confirm-dialog", disabled=disabled, destructive=false, press=increment)
-            text "Confirm"
-          DialogClose(id="cancel", label="Cancel", target="confirm-dialog")
-            text "Cancel"
-        PopoverTrigger(id="open-popover", label="More information", target="info", disabled=disabled)
-          text "More information"
-        Popover(id="info", label="Information")
-          text "Native popover content"
-          PopoverClose(id="close-popover", label="Close information", target="info")
-            text "Close information"
-        PopoverTrigger(id="open-menu", label="Actions", target="actions", disabled=disabled)
-          text "Actions"
-        Menu(id="actions", label="Actions")
-          MenuItem(id="menu-increment", label="Increment", target="actions", disabled=false, press=increment)
-            text "Increment"
-          MenuItem(id="menu-disabled", label="Unavailable", target="actions", disabled=true, press=increment)
-            text "Unavailable"
-          MenuSubmenuTrigger(id="more-actions", label="More actions", target="more-menu", disabled=false)
-            text "More actions"
-          Menu(id="more-menu", label="More actions")
-            MenuItem(id="nested-increment", label="Nested increment", target="actions", disabled=false, press=increment)
-              text "Nested increment"
-        Link(id="docs", label="Exact documentation", href="https://github.com/expo/exact")
-          text "Exact documentation"
+    main id="navigation-root" testId="navigation-root" focusin=observedFocus navigationKey=`${top(nav).id}` navigationBack="return-home" width="100%" height="100%"
+      for route in stack(nav) key=route.id
+        if route.name == "home"
+          if showHome
+            scroll id="home-route" testId="home-route" navigationKey=`${route.id}` tabindex=-1 focus=markFocus("home-route") role="main" keycapture=tooltipKeys height="100%" width="100%" position="absolute" inset=0 padding=16 box-sizing="border-box"
+              column gap=12
+                text "Exact primitives" role="heading" aria-level=1
+                button id="page-fallback" testId="page-fallback" focus=markFocus("page-fallback")
+                  text "Page focus fallback"
+                if visible
+                  TooltipTrigger(id="help-trigger", label="Help", target="help-tip", description="", state=help, delay=500, closeDelay=150, disabled=disabled, change=setHelp, press=increment)
+                    text "Help"
+                  Tooltip(id="help-tip", message="Increment without changing your settings.", state=help, delay=500, closeDelay=150, change=setHelp)
+                Tooltip(id="settings-tip", message="Edit your profile preferences.", state=tip, delay=500, closeDelay=150, change=setTip)
+                row gap=8 flex-wrap="wrap"
+                  button id="disable" testId="disable" press=toggleDisabled
+                    text "Toggle disabled"
+                  button id="readonly" testId="readonly" press=toggleReadOnly
+                    text "Toggle read only"
+                  button id="visibility" testId="visibility" press=toggleVisible
+                    text "Toggle controls"
+                if visible
+                  Fieldset(id="profile", label="Profile")
+                    column gap=8
+                      Field(id="name-field", label="Name")
+                        text "Name"
+                        Input(id="name", label="Name", description="name-hint name-error", value=draft, type="text", placeholder="Enter a name", disabled=disabled, readOnly=readOnly, invalid=(draft == ""), input=edit, change=commit, submit=save)
+                        FieldDescription(id="name-hint", message="Use your full name.")
+                        FieldError(id="name-error", message=(draft == "" ? "A name is needed to save." : ""))
+                      Textarea(id="notes", label="Notes", description="", value=notes, placeholder="Notes", disabled=disabled, readOnly=readOnly, invalid=false, input=editNotes, change=editNotes)
+                      Checkbox(id="subscribe", label="Subscribe", description="", checked=subscribed, disabled=disabled, change=setSubscribed)
+                      Switch(id="notifications", label="Notifications", description="", checked=notifications, disabled=disabled, change=setNotifications)
+                      RadioGroup(id="plans", label="Plan")
+                        Radio(id="free", name="plan", label="Free", value="free", selected=plan, disabled=disabled, change=setPlan)
+                        Radio(id="pro", name="plan", label="Pro", value="pro", selected=plan, disabled=disabled, change=setPlan)
+                      Select(id="region", label="Region", description="", value=region, disabled=disabled, change=setRegion)
+                        SelectOption(label="Europe", value="eu", disabled=false)
+                        SelectOption(label="Americas", value="us", disabled=false)
+                        SelectOption(label="Unavailable", value="locked", disabled=true)
+                      Slider(id="volume", label="Volume", description="", value=volume, min=0, max=100, step=5, disabled=disabled, input=setVolume, change=setVolume)
+                      button id="increment" testId="increment" disabled=disabled press=increment buttonStyle="filled"
+                        text "Increment"
+                      Toggle(id="pin", label="Pin", pressed=pinned, disabled=disabled, change=setPinned)
+                        text "Pin"
+                Status(id="count", message=`Count: ${count}`)
+                text committed testId="committed"
+                Progress(id="progress", label="Volume progress", value=volume, max=100)
+                Separator(id="separator")
+                Disclosure(state=disclosure)
+                  DisclosureTrigger(state=disclosure, label="Details", change=setDetails)
+                    text "Details"
+                  DisclosurePanel(state=disclosure)
+                    text "Additional information"
+                    button id="details-action" testId="details-action" press=increment
+                      text "Details action"
+                button id="multiple" testId="multiple" press=toggleMultiple
+                  text "Toggle multiple"
+                Accordion(state=accordion)
+                  AccordionItem(item=firstItem)
+                    text "First question" role="heading" aria-level=2
+                    AccordionTrigger(state=accordion, item=firstItem, label="First question", change=setExpanded)
+                      text "First question"
+                    AccordionPanel(state=accordion, item=firstItem)
+                      text "First answer"
+                  AccordionItem(item=secondItem)
+                    AccordionTrigger(state=accordion, item=secondItem, label="Second question", change=setExpanded)
+                      text "Second question"
+                    AccordionPanel(state=accordion, item=secondItem)
+                      text "Second answer"
+                  AccordionItem(item=lockedItem)
+                    AccordionTrigger(state=accordion, item=lockedItem, label="Unavailable question", change=setExpanded)
+                      text "Unavailable question"
+                    AccordionPanel(state=accordion, item=lockedItem)
+                      text "Unavailable answer"
+                TabsList(id="tabs", label="Account", orientation="horizontal")
+                  Tab(id="profile-tab", label="Profile tab", panel="profile-panel", value="profile", selected=active, disabled=false, change=setActive)
+                    text "Profile"
+                  Tab(id="locked-tab", label="Unavailable tab", panel="locked-tab-panel", value="locked", selected=active, disabled=true, change=setActive)
+                    text "Unavailable"
+                  Tab(id="settings-tab", label="Settings tab", panel="settings-panel", value="settings", selected=active, disabled=false, change=setActive)
+                    text "Settings"
+                TabPanel(id="profile-panel", tab="profile-tab", value="profile", selected=active)
+                  text "Profile content"
+                TabPanel(id="locked-tab-panel", tab="locked-tab", value="locked", selected=active)
+                  text "Unavailable content"
+                TabPanel(id="settings-panel", tab="settings-tab", value="settings", selected=active)
+                  text "Settings content"
+                TabsList(id="vertical-tabs", label="Details", orientation="vertical")
+                  Tab(id="overview-tab", label="Overview", panel="overview-panel", value="overview", selected=vertical, disabled=false, change=setVertical)
+                    text "Overview"
+                  Tab(id="vertical-locked", label="Unavailable details", panel="vertical-locked-panel", value="locked", selected=vertical, disabled=true, change=setVertical)
+                    text "Unavailable details"
+                  Tab(id="history-tab", label="History", panel="history-panel", value="history", selected=vertical, disabled=false, change=setVertical)
+                    text "History"
+                TabPanel(id="overview-panel", tab="overview-tab", value="overview", selected=vertical)
+                  text "Overview content"
+                TabPanel(id="vertical-locked-panel", tab="vertical-locked", value="locked", selected=vertical)
+                  text "Unavailable details content"
+                TabPanel(id="history-panel", tab="history-tab", value="history", selected=vertical)
+                  text "History content"
+                if pageTrigger
+                  button id="open-dialog" testId="open-dialog" commandfor="edit-dialog" command="show-modal"
+                    disabled=disabled aria-describedby="settings-tip" hover=tipHover focus=tipFocus blur=tipBlur key=tipKey press=dismissTip buttonStyle="bordered"
+                    text "Edit profile"
+                Dialog(id="edit-dialog", label="Edit profile", description="edit-hint")
+                  text "Edit profile" role="heading" aria-level=2
+                  FieldDescription(id="edit-hint", message="Close returns to the invoking control.")
+                  button id="dialog-increment" testId="dialog-increment" aria-label="Increment in dialog" press=increment focus=markFocus("dialog-increment")
+                    text "Increment"
+                  button id="open-nested" testId="open-nested" focus=markFocus("open-nested") commandfor="nested-dialog" command="show-modal"
+                    text "More settings"
+                  Dialog(id="nested-dialog", label="More settings", description="nested-hint")
+                    text "More settings" role="heading" aria-level=2
+                    text "Close returns to the parent dialog." id="nested-hint"
+                    button id="nested-fallback" testId="nested-fallback" focus=markFocus("nested-fallback")
+                      text "Parent focus fallback"
+                    if thirdTrigger
+                      button id="open-third" testId="open-third" focus=markFocus("open-third") commandfor="third-dialog" command="show-modal"
+                        text "Open third dialog"
+                    if mountedThird
+                      Dialog(id="third-dialog", label="Third dialog", description="third-hint")
+                        text "Third dialog" role="heading" aria-level=2
+                        text "Third modal level." id="third-hint"
+                        button id="third-fallback" testId="third-fallback" focus=markFocus("third-fallback")
+                          text "Third focus fallback"
+                        button id="open-fourth" testId="open-fourth" focus=markFocus("open-fourth") commandfor="fourth-dialog" command="show-modal"
+                          text "Open fourth dialog"
+                        button id="remove-third-trigger" testId="remove-third-trigger" press=dropThirdTrigger commandfor="third-dialog" command="close"
+                          text "Remove trigger and close"
+                        Dialog(id="fourth-dialog", label="Fourth dialog", description="fourth-hint")
+                          text "Fourth dialog" role="heading" aria-level=2
+                          text "Fourth modal level." id="fourth-hint"
+                          button id="fourth-fallback" testId="fourth-fallback" focus=markFocus("fourth-fallback")
+                            text "Fourth focus fallback"
+                          button id="remove-third-surface" testId="remove-third-surface" press=removeThirdSurface
+                            text "Remove active modal subtree"
+                          button id="navigate-push" testId="navigate-push" press=navigatePush
+                            text "Push next route"
+                          button id="navigate-dispose" testId="navigate-dispose" press=navigateDispose
+                            text "Navigate and dispose source route"
+                          button id="close-fourth" testId="close-fourth" commandfor="fourth-dialog" command="close"
+                            text "Close fourth dialog"
+                        button id="close-third" testId="close-third" commandfor="third-dialog" command="close"
+                          text "Close third dialog"
+                    button id="close-nested" testId="close-nested" commandfor="nested-dialog" command="close"
+                      text "Back to settings"
+                  button id="remove-page-trigger" testId="remove-page-trigger" press=dropPageTrigger commandfor="edit-dialog" command="close"
+                    text "Remove page trigger and close"
+                  DialogClose(id="locked-dialog-close", label="Unavailable close", target="edit-dialog", disabled=true)
+                    text "Unavailable close"
+                  button id="close-dialog" testId="close-dialog" commandfor="edit-dialog" command="close"
+                    text "Close"
+                DialogTrigger(id="open-alert", label="Confirm increment", target="confirm-dialog", disabled=disabled)
+                  text "Confirm increment"
+                AlertDialog(id="confirm-dialog", label="Increment count?", description="confirm-hint")
+                  FieldDescription(id="confirm-hint", message="This adds one to the counter.")
+                  DialogAction(id="confirm", label="Confirm", target="confirm-dialog", disabled=disabled, destructive=false, press=increment)
+                    text "Confirm"
+                  DialogClose(id="cancel", label="Cancel", target="confirm-dialog", disabled=false)
+                    text "Cancel"
+                PopoverTrigger(id="open-popover", label="More information", target="info", disabled=disabled)
+                  text "More information"
+                Popover(id="info", label="Information")
+                  text "Native popover content"
+                  PopoverClose(id="locked-popover-close", label="Unavailable popover close", target="info", disabled=true)
+                    text "Unavailable popover close"
+                  PopoverClose(id="close-popover", label="Close information", target="info", disabled=false)
+                    text "Close information"
+                PopoverTrigger(id="open-menu", label="Actions", target="actions", disabled=disabled)
+                  text "Actions"
+                Menu(id="actions", label="Actions")
+                  MenuItem(id="menu-increment", label="Increment", target="actions", disabled=false, press=increment)
+                    text "Increment"
+                  MenuItem(id="menu-disabled", label="Unavailable", target="actions", disabled=true, press=increment)
+                    text "Unavailable"
+                  MenuSubmenuTrigger(id="more-actions", label="More actions", target="more-menu", disabled=false)
+                    text "More actions"
+                  Menu(id="more-menu", label="More actions")
+                    MenuItem(id="nested-increment", label="Nested increment", target="actions", disabled=false, press=increment)
+                      text "Nested increment"
+                button id="open-inert-probe" testId="open-inert-probe" commandfor="inert-probe" command="show-modal"
+                  text "Open host inert probe"
+                button id="reset-inert-probe" testId="reset-inert-probe" press=unblockHostDialog
+                  text "Reset host inert probe"
+                dialog id="inert-probe" testId="inert-probe" aria-label="Host inert probe" inert=hostInert closedby="closerequest"
+                  button id="inert-parent" testId="inert-parent"
+                    text "Parent action"
+                  button id="open-inert-child" testId="open-inert-child" commandfor="inert-child" command="show-modal"
+                    text "Open host child"
+                  dialog id="inert-child" testId="inert-child" aria-label="Host inert child" closedby="closerequest"
+                    button id="author-inert-on" testId="author-inert-on" press=blockHostDialog
+                      text "Author inert on"
+                    button id="author-inert-off" testId="author-inert-off" press=unblockHostDialog
+                      text "Author inert off"
+                    button id="close-inert-child" testId="close-inert-child" commandfor="inert-child" command="close"
+                      text "Close host child"
+                Link(id="docs", label="Exact documentation", href="https://github.com/expo/exact")
+                  text "Exact documentation"
+        else
+          column id="next-route" testId="next-route" navigationBar="none" navigationKey=`${route.id}` width="100%" height="100%" position="absolute" inset=0 padding=16 gap=12 box-sizing="border-box"
+            text "Next route" role="heading" aria-level=1
+            button id="next-focus" testId="next-focus" autofocus=true focus=markFocus("next-focus")
+              text "Next route focus"
+            button id="return-home" testId="return-home" press=goBack
+              text "Return home"

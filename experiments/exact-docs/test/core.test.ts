@@ -53,8 +53,9 @@ test("Markdown escapes Contract syntax and gives repeated headings distinct anch
     (href) => href,
   );
   expect(compiled.headings.map((heading) => heading.id)).toEqual(["hello", "hello-2"]);
-  expect(renderContract(compiled.nodes)).toContain('text "Text \\"quoted\\" ${count}"');
-  expect(renderContract(compiled.nodes)).not.toContain("\ncomponent Bad");
+  const contract = renderContract(compiled.nodes);
+  expect(contract).toContain('text "Text \\"quoted\\" ${count}"');
+  expect(contract).not.toContain("\ncomponent Bad");
   expect(() => parseMarkdown("<script>alert(1)</script>", (href) => href)).toThrow("Raw HTML");
   expect(() => parseMarkdown("[bad](javascript:alert)", (href) => href)).toThrow(
     "Unsupported link",
@@ -118,9 +119,7 @@ test("new creates an independent project, preserves existing directories, and re
   );
   await Bun.write(configFile, JSON.stringify(withoutData));
   await generateApp(await loadSite(root));
-  const dataEntry = await Bun.file(path.join(app, "app.ts")).text();
-  expect(dataEntry).toContain("docsSearchPages");
-  expect(dataEntry).not.toContain("import * as user");
+  expect(await Bun.file(path.join(app, "app.ts")).text()).not.toContain("./site/data/source.ts");
   await Bun.write(path.join(root, "index.md"), "# Home\n\n[Missing](/authoring#unknown)");
   await expect(loadSite(root)).rejects.toThrow("missing heading");
 });

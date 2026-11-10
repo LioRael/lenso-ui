@@ -8,10 +8,16 @@ attached. The Lenso build supplies both paths from one presentation function.
 
 The build compiles the shared StyleX recipes, enumerates their supported
 metadata/variant combinations and adds attribute alternatives to the resulting
-atomic class selectors. It keeps the declarations, rule order, media queries,
+atomic class selectors. A compound-selector trie factors identical tails without
+introducing new combinations, avoiding Cartesian repetition in the output.
+Complex selectors remain unchanged by that factoring step. It keeps the declarations, rule order, media queries,
 and original class branch. Attribute alternatives live inside `:where`, so they
 do not increase specificity. State alternatives recognize declarative boolean
 metadata before the native state attributes have been attached.
+
+For toggle nodes, persistent selected predicates use `aria-pressed=true` instead
+of Exact's transient `data-pressed` marker. The scoped bridge preserves the
+original predicate specificity and is active before and after initialization.
 
 Only nodes without `data-lenso-ready` use this fallback. The normal hatch applies
 its classes and native state, initializes the relevant behavior, then marks the
@@ -20,10 +26,17 @@ selectors. The initial fallback therefore does not keep forcing default
 presentation over future class composition. Removing a hatch also removes its
 ready marker.
 
+SVG circle parts cannot receive a hatch or data words in the pinned Exact host.
+Their generated alternatives use the component-owned ID suffixes documented in
+FEEDBACK.md. Those declarative rules remain active after initialization; Exact
+continues to own the circle geometry. Other initialized parts retire the initial
+attribute path normally.
+
 The build refuses a Contract kind with no initial recipe. A recipe requiring
 inline runtime values needs a declarative value adapter before it can join this
 path; the build does not silently omit those values. Future components must add
-their recipe variants and acceptance evidence.
+their recipe variants and acceptance evidence. STYLING.md documents how compiled
+caller maps participate in the same generation and callback paths.
 
 ## Consumer integration
 
@@ -54,10 +67,13 @@ Lenso hatches. It then releases the module and compares computed geometry and
 ordinary presentation before and after initialization. The native hatch reuses
 the early stylesheet without making a second stylesheet request.
 
-All 71 current recipe combinations are also compared against their compiled
-class branches in both browsers. The comparison includes button sizes/variants,
+Core generation retains 613 recipe combinations. The consumer with registered
+caller styles compares 689 composed cases against their compiled class branches
+in both browsers. The comparison includes button sizes/variants,
 ordinary Surface variants, field variants, single/multiline text areas,
-input-group composition, labels and expandable-content presentation. Initialized
+input-group composition, labels, expandable-content presentation and navigation/separator variants, range indicators, spinners, skeleton animations, ordinary toggle/group presentation and Modal parts. Native
+Modal command opening/closing is also checked while the hatch is blocked; the
+initialized scroll lock and boundary Tab loop are separate checks. Initialized
 metadata without classes must stop receiving the initial fallback. These checks
 run with the existing keyboard, editing, motion and disposal regressions.
 
@@ -66,4 +82,6 @@ consumer pages. It is not a claim that all 99 component families exist, that
 request-rendered integration has been validated, or that optical detail is
 ready before the glass renderer initializes. Native attributes unsupported by
 Contract, such as field `required` and `name`, still arrive with the hatch.
+The current core uses the reserved `lenso-exact-` class prefix; caller CSS must
+not redefine those classes. Missing referenced class definitions fail the build.
 No startup-speed or device-performance improvement is claimed from style parity.

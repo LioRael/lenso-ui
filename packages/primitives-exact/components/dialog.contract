@@ -34,9 +34,10 @@ component DialogClose
     id: string
     label: string
     target: string
+    disabled: bool
   slot
   view
-    button id=id testId=id aria-label=label commandfor=target command="close"
+    button id=id testId=id aria-label=label disabled=disabled commandfor=target command="close"
       children
 
 component DialogAction

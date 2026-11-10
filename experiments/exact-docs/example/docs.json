@@ -1,5 +1,6 @@
 {
   "name": "Exact Docs prototype",
+  "components": { "CounterDemo": { "source": "widgets/counter.contract" } },
   "locales": [
     { "id": "en", "label": "English" },
     {

@@ -1,6 +1,8 @@
 /** Presence selectors in shared tokens must not see data-invalid="false". */
 export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap) {
   const restores: Array<() => void> = [];
+  const disconnectLink = connectLink(node, data);
+  if (disconnectLink) restores.push(disconnectLink);
   for (const [key, attribute, boolean] of [
     ["lensoName", "name", false],
     ["lensoRequired", "required", true],
@@ -74,5 +76,24 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
   }
   return () => {
     for (const restore of restores) restore();
+  };
+}
+
+/** ARIA-disabled anchors retain no href; suppress synthetic activation as well. */
+export function connectLink(node: HTMLElement | SVGElement, data: DOMStringMap) {
+  if (data["lensoKind"] !== "link" && data["lensoKind"] !== "breadcrumbs-link") return;
+  const guard = (event: Event) => {
+    if (node.getAttribute("aria-disabled") !== "true") return;
+    if (event instanceof KeyboardEvent && event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  };
+  node.addEventListener("click", guard, true);
+  node.addEventListener("auxclick", guard, true);
+  node.addEventListener("keydown", guard, true);
+  return () => {
+    node.removeEventListener("click", guard, true);
+    node.removeEventListener("auxclick", guard, true);
+    node.removeEventListener("keydown", guard, true);
   };
 }

@@ -6,7 +6,9 @@ Fumadocs site or depend on React, StyleX, Tailwind or Lenso UI.
 
 The content compiler and CLI run in Bun. The generated website is a real Exact
 application: Contract owns navigation, search and interactive pages. Markdown is
-parsed at build time with Bun's Markdown parser and emitted as Contract nodes.
+parsed into a portable content model with Bun's Markdown parser, then rendered as
+shared native Contract block templates and per-page content data. A separate
+semantic HTML renderer consumes the same model.
 Exact pre-renders every registered route and its 404 page.
 
 ## Try the example
@@ -17,12 +19,14 @@ dependencies. This prototype never installs Exact, changes toolchains or runs se
 ```sh
 cd experiments/exact-docs
 export EXACT_ROOT=/absolute/path/to/exact
+bun install --frozen-lockfile --ignore-scripts
 bun run validate
 bun run dev
 ```
 
-Open the printed local URL. The example has two Markdown pages, a local Contract
-counter and a root-data page with reads, mutations and a route-gated timer.
+Open the printed local URL. The example includes English and Chinese documents,
+an archived version, an embedded Contract counter and a root-data page with reads,
+mutations and a route-gated timer.
 `dev` watches project files, serializes rebuilds and reloads
 the browser after a successful build. An invalid edit displays an error while
 keeping the last successful preview; the next valid edit recovers automatically.
@@ -50,8 +54,10 @@ There is no published npm package or global installation yet. A content project
 does not need to be added to the Lenso workspace.
 
 `validate` checks configuration, source existence, Markdown syntax, internal page
-links and Markdown heading targets. `build` additionally invokes Exact's compiler
-and static renderer, which check custom Contract pages. Output replacement is
+links and Markdown heading targets. `build` uses Exact's production mode, which
+omits development instrumentation and agent support. Local `dev` explicitly
+retains development mode. `build` additionally invokes Exact's compiler and static
+renderer, which check custom Contract pages. Output replacement is
 limited to empty directories or output previously marked by Exact Docs. Generated
 files live under `.exact-docs/` and `dist/`.
 
@@ -106,7 +112,12 @@ Merge this key into `docs.json`. Paths are relative to the documentation project
 extensions that only need state and tasks. When present it must export `grants`
 and `answer`, following Exact's data-source interface; local TypeScript imports
 keep their relative paths. `appId` may also be exported. The generated application's
-data entry re-exports this module; Exact validates source arguments and reply shapes.
+data entry preserves this module's exports and forwards application source calls,
+including host arguments, while handling the reserved `docsSearchPages` and
+`docsReadPage` sources itself. The wrapper also uses Exact's `kept` hook to seed
+page data from the current HTML checkpoint and forwards any user `kept` hook.
+A generated data entry also exists without a root extension. Exact validates source
+arguments and reply shapes.
 
 `data/root.contract` is a **root-member fragment**, not a standalone component:
 write the root's `state`, `derive`, `resource`, `mutation`, `task`, `action` and
@@ -241,7 +252,8 @@ it does not disable custom-page actions.
 Set locale `dir` to `"rtl"` for right-to-left content (`"ltr"` is the default).
 The generated page-context element carries `lang` and CSS `direction`, including
 for custom layouts. Locale `labels` can override any reference-layout string:
-`skipContent`, `navigation`, `search`, `noResults`, `pageActions`, `copyMarkdown`,
+`skipContent`, `navigation`, `search`, `searchLoading`, `searchError`,
+`contentLoading`, `contentError`, `noResults`, `pageActions`, `copyMarkdown`,
 `openMarkdown`, `pagination`, `previous`, `next`, `toc`, `language`, `version`,
 `unavailable`, `archivedVersion`, `deprecatedVersion`. Missing labels use English.
 Document prose, group names, page titles and dimension labels are authored content.
@@ -267,7 +279,98 @@ Exact packages is not automated yet.
 Markdown supports headings with unique Unicode anchors, text, links, images,
 lists, quotations, code and tables. Relative links to registered `.md` or
 `.contract` files become route links. Use `assets/` or `/assets/` paths for local
-images. Raw HTML and MDX are rejected; use a Contract page for custom behavior.
+images. Raw HTML and MDX are rejected; use registered embedded components or a Contract page
+for custom behavior.
+
+## Portable content and embedded components
+
+`@lenso/exact-docs/content` exports the document node types, plain-text extraction
+and traversal. `@lenso/exact-docs/markdown` parses Markdown into JSON data without
+Contract syntax. The `renderers/exact` and `renderers/html` modules consume those
+nodes independently. Builds export each Markdown body at
+`/_docs/content/<route>/index.json` (the root is `/_docs/content/index.json`) with
+`schemaVersion: 1` and `nodes`. This is a renderer boundary, not a native reader.
+
+Code fences are tokenized at build time using Shiki grammars. Tokens retain their
+source text, semantic category and grammar scopes. Exact emits `data-docs-token`
+and `data-docs-language` markers; the HTML renderer emits equivalent markers.
+There is no token palette, runtime highlighter or browser grammar download.
+Unsupported languages retain plain code text.
+
+Register components in `docs.json`:
+
+```json
+{
+  "components": {
+    "CounterDemo": { "source": "widgets/counter.contract", "component": "CounterDemo" }
+  }
+}
+```
+
+Then insert a fenced block whose language is `exact-component`:
+
+````markdown
+```exact-component
+{"name":"CounterDemo","props":{"label":"Try it","initial":2},"children":"## Embedded counter\n\nThis Markdown becomes the native slot."}
+```
+````
+
+`component` defaults to the registered name. Props accept JSON strings, finite
+numbers and booleans; there are no executable expressions or event callbacks in
+Markdown. Components own their Exact actions and can inject root bindings.
+`children` is optional Markdown and contributes to headings, links and search.
+Unknown components fail validation; Exact checks native prop contracts at build.
+An alternate renderer must supply its own component adapter: the HTML renderer
+throws when a component has no adapter.
+
+## Search delivery and application state
+
+Control focus, pointer approach or pointer-down starts fetch hints for the shared
+application, input helper and full Exact host stylesheet in parallel. Hints do not
+evaluate application modules, start root tasks or apply additional styling. There
+is no idle prefetch. Reading without control intent does not fetch the application.
+Search indexes use native imports after a nonempty query, without speculative
+module preloads: a failed index preload prevented reload recovery in WebKit.
+
+Live search imports a separate JavaScript index module for the current
+`(locale, version)` only after a nonempty query. Empty queries load no index;
+subsequent queries reuse the imported module. The static JSON indexes described
+above remain available for external search adapters. The reference layout shows
+pending and failure feedback, and custom layouts can inject `docsSearchPending`
+and `docsSearchFailed` as booleans.
+
+The compiler shares one layout across routes and derives metadata for the active
+page. Markdown paragraphs, headings, links, tables, lists, code and component slots
+use native block templates shared by structure. Text and syntax-token values, plus
+the original Markdown, are emitted as separate page modules. There is no browser
+Markdown parser or HTML injection path.
+
+Each static URL still contains complete rendered Markdown and the current page's
+Exact checkpoint. The initial page reuses that checkpoint during activation, without
+requesting its page module. Later navigation imports only the destination page's
+data. Resolved page replies are cached in the same application's data module;
+Exact's `kept` hook seeds the initial reply. Cache hits return synchronously so
+Back/Forward can restore reading positions without an intermediate empty page.
+Neither page modules nor search indexes receive speculative module preloads.
+
+Layouts and root resources, mutations, tasks and memory remain in one Exact app.
+Custom Exact pages and embedded components' executable code remain compiled into
+that shared app; their code is not dynamically compiled or loaded as independent
+applications. Embedded component props stay literal in native templates to preserve
+Exact's type checking, including restricted prop types. Their Markdown slot text is
+page data. Template diversity and custom code can still increase the shared entry.
+
+A destination page waiting for data shows `contentLoading`; a failed import shows
+`contentError` and keeps navigation available. The prior page's prose and Markdown
+source are never presented as the destination's content. Custom layouts can inject
+`docsContentPending` and `docsContentFailed`; `docsMarkdown` is empty until the
+current page's reply is ready. The reference and reader layouts disable Copy
+Markdown while content is pending or failed. A normal reload recovers a failed
+page through its complete static HTML and checkpoint.
+
+The application runtime still has a first-activation cost. Page data splitting
+reduces that cost's dependence on total prose volume; route/TOC metadata, native
+runtime, templates and custom Exact code remain part of the shared entry.
 
 ## Document metadata and navigation
 
@@ -280,6 +383,7 @@ description: Write documentation and interactive Exact pages.
 group: Documentation
 nav: true
 search: true
+noindex: false
 ---
 ```
 
@@ -295,7 +399,8 @@ reference layout provides Previous and Next links in that same order, including
 links between Markdown and custom Exact pages. `nav: false` excludes a page from
 navigation and the Previous/Next sequence. `search: false` excludes it from both
 the live search and `search-index.json`. Neither flag changes direct access to its
-public route or raw Markdown export.
+public route or raw Markdown export. `noindex: true` excludes the page from the
+sitemap and emits `noindex,follow`; it does not hide public content or exclude search.
 
 The reference layout offers Copy Markdown and Open Markdown on Markdown pages.
 Copy uses Exact's native `copyText` command; no success message is claimed because
@@ -309,6 +414,22 @@ Custom Exact pages own their heading IDs; they currently receive no generated TO
 and are indexed by their configured title only. Markdown pages are indexed by
 their complete text. Search is a local case-insensitive substring search; the
 generated `search-index.json` also exposes content for another search adapter.
+
+## Search-engine metadata
+
+Set `origin` in `docs.json` to the production HTTP(S) origin, such as
+`https://docs.example.com`. It must have no path, credentials, query or fragment.
+With it, builds emit absolute self-canonical URLs, `sitemap.xml` and `robots.txt`.
+The sitemap includes indexable archived versions. Pages also emit robot directives
+and alternate-language links for indexable counterparts sharing the same logical
+ID and version, with `x-default` pointing to the default-language counterpart.
+Without an origin, absolute URLs and sitemap/robots files are omitted.
+
+The exported HTML sets document `lang` and `dir`. A small metadata bridge updates
+these attributes and alternate links after Exact navigation; the native route head
+owns titles and descriptions; the bridge also synchronizes canonical URLs and
+robots directives because this Exact host only updates those fields during export. Custom Exact pages
+participate using their configured metadata.
 
 ## Headless layout and future themes
 
@@ -347,13 +468,14 @@ The layout imports `DocsLink` and `DocsHeading` from
 The existing props remain unchanged. An intermediate generated page-context
 component also provides optional native injection bindings for custom layouts:
 
-| Injected binding           | Type               | Meaning                                                      |
-| -------------------------- | ------------------ | ------------------------------------------------------------ |
-| `docsGroups`               | `DocsGroup[]`      | Ordered groups with `id`, `title` and `items: DocsLink[]`    |
-| `docsPrevious`, `docsNext` | `option<DocsLink>` | Adjacent visible pages, or `none`                            |
-| `docsDescription`          | `string`           | Resolved page description                                    |
-| `docsMarkdown`             | `string`           | Original Markdown source, or an empty string for Exact pages |
-| `docsMarkdownUrl`          | `string`           | Static raw-source URL, or an empty string for Exact pages    |
+| Injected binding                        | Type               | Meaning                                                                 |
+| --------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
+| `docsGroups`                            | `DocsGroup[]`      | Ordered groups with `id`, `title` and `items: DocsLink[]`               |
+| `docsPrevious`, `docsNext`              | `option<DocsLink>` | Adjacent visible pages, or `none`                                       |
+| `docsDescription`                       | `string`           | Resolved page description                                               |
+| `docsMarkdown`                          | `string`           | Current ready Markdown, empty for Exact pages or pending/failed content |
+| `docsMarkdownUrl`                       | `string`           | Static raw-source URL, or an empty string for Exact pages               |
+| `docsSearchPending`, `docsSearchFailed` | `bool`             | Current search resource status                                          |
 
 Multilingual/versioned contexts additionally provide:
 
@@ -370,7 +492,8 @@ The original layout props remain unchanged; custom layouts opt into injections.
 
 Import `DocsGroup` from `@lenso/exact-docs/contract` when using grouped navigation.
 Layouts choose which bindings to inject. Existing layouts need no new props or
-injections. The context also preserves inherited root-extension bindings for
+injections. Content status is available as optional `docsContentPending` / `docsContentFailed`
+boolean injections. The context also preserves inherited root-extension bindings for
 custom pages. This supplies behavior for the future Lenso UI theme; this package
 continues to ship no default theme stylesheet.
 
@@ -394,9 +517,15 @@ From the repository root:
 bun test experiments/exact-docs/test/*.test.ts
 bun check --no-script -p experiments/exact-docs/tsconfig.json
 EXACT_ROOT=/absolute/path/to/exact bun experiments/exact-docs/test/browser.mjs
+EXACT_ROOT=/absolute/path/to/exact bun experiments/exact-docs/test/production.mjs
+EXACT_ROOT=/absolute/path/to/exact bun experiments/exact-docs/test/content-loading.mjs
 ```
 
-The browser script uses the docs workspace's Playwright installation. Set
+The browser scripts use the docs workspace's Playwright installation.
+`production.mjs` verifies that intent hints fetch once without activating the app,
+search indexes remain query-triggered on nested routes, and root mutations persist
+across navigation in Chromium and WebKit. `browser.mjs` retains development mode
+for its native virtual-clock tests. Set
 `PLAYWRIGHT_MODULE` to another installed package with matching browser binaries
 if necessary. It builds a fresh project, checks Chromium and WebKit content,
 search, keyboard activation, deep links, reload and history. Both engines verify
@@ -411,7 +540,80 @@ Both browsers also cover exact and fallback language/version switching, localize
 search and navigation, archived notices, missing content, deep links/history/reload,
 and a right-to-left Arabic fixture. Unit coverage checks duplicate scope identities,
 invalid defaults and relative links when source files are reused across scopes.
-It does not establish native-platform support or performance.
+Both engines also check embedded-component keyboard interaction, syntax token
+markers, lazy scope-module requests and language metadata after navigation. Unit
+checks cover portable rendering, token text preservation, component boundaries
+and SEO scope selection. These checks do not establish native-platform support.
 
 Exact is pre-1.0. This adapter currently targets `host/web-js/build.mjs` with
 `--render js`; upstream interface changes may require changes here.
+
+## Reproducible loading comparison
+
+[PERFORMANCE.md](PERFORMANCE.md) records a local Exact/Astro comparison of the same
+nine-document reading/search workload. It is a small Astro static fixture, not
+Starlight or a feature-complete framework comparison. It records first paint,
+transferred bytes, actual search-result paint and repeat search under stated
+network/CPU limits. Development and release builds with and without intent hints
+use the same measurement method; raw samples include request and long-task traces.
+
+```sh
+# From experiments/exact-docs, with EXACT_ROOT and PLAYWRIGHT_MODULE set as above:
+(cd bench/astro && bun install --frozen-lockfile --ignore-scripts)
+bun run test:performance
+```
+
+The benchmark uses its own pinned dependencies and lockfile. It writes generated
+fixtures and raw samples under `.cache/performance/` and refreshes the report.
+`PERF_RUNS` changes the number of samples (default 3, maximum 10). Benchmark-only
+CSS belongs to the Astro comparison fixture; it is not a product theme.
+
+To compare a future change against the current shared bundle, first run the benchmark
+and save its nine-document output before editing:
+
+```sh
+cp -R .cache/performance/docs/dist .cache/bundle-before
+BUNDLE_BASELINE_DIR="$PWD/.cache/bundle-before" bun run test:performance
+```
+
+Use a fresh snapshot directory for each comparison. `BUNDLE_BASELINE_DIR` must be
+an output of the same synthetic fixture, not an arbitrary documentation site. The
+extra column uses identical browser conditions and does not rebuild the snapshot.
+The report includes raw/gzip entry sizes and CDP script/main-thread task durations.
+
+## Framework acceptance
+
+[ACCEPTANCE.md](ACCEPTANCE.md) records framework findings and reader/layout checks;
+[SCALE.md](SCALE.md) records 100/200/300 total URLs across two languages and two
+versions, including the remaining single-application activation cost.
+
+```sh
+bun run test:acceptance
+bun run test:scale
+```
+
+Both use the same initialized Exact checkout and Playwright setup as the browser
+checks above. Scale timings use Chromium with stated throttling; the largest
+fixture also receives a WebKit functional check. These commands create disposable
+fixtures rather than modifying the example or the main Fumadocs website.
+
+`layouts/reader.contract` is a complete unstyled custom-layout example using the
+public props and injections for groups, search feedback, TOC, pagination, raw-source
+actions and language/version controls. Configure `layout` to use `ReaderLayout`.
+It introduces no stylesheet or theme dependency. Custom layouts can mark their
+focusable main region with `data-docs-part="content"`; keyboard page navigation
+moves focus there with scrolling left to Exact. Same-page fragments and history
+scroll restoration stay native. A layout without that marker retains ownership of
+its focus behavior.
+
+Route selection uses a balanced expression, so adding pages does not create a
+linear chain beyond Exact's expression-depth limit. Navigation/groups/labels are
+shared once per scope; page metadata is derived for the active route. Page data loads individually while the root application remains mounted.
+
+[CONTENT_LOADING.md](CONTENT_LOADING.md) explains page data delivery and the
+same-run 300-page comparison. `bun run test:content-loading` checks cold SSR,
+page-only requests, cached replies, delayed responses, widget/root state, user
+`kept` forwarding, deferred fragments and failure recovery in Chromium/WebKit.
+For a before/after scale comparison, retain the old 300-page output before changing
+the compiler, then set `SCALE_BASELINE_DIR` to that directory for `test:scale`.
+It must be the same synthetic fixture; the baseline is served without rebuilding.

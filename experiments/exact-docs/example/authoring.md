@@ -39,6 +39,20 @@ component Playground
 
 The [working playground](/playground) is compiled by Exact, rather than rendered as a source snippet.
 
+## Components inside Markdown
+
+Register a Contract component in `docs.json` under `components`, then use an `exact-component` fence with a JSON name, scalar props and optional Markdown children. The component owns its local Exact state and can inject root data.
+
+```exact-component
+{"name":"CounterDemo","props":{"label":"Count","initial":2},"children":"### Embedded counter\n\nThis paragraph is rendered through the component slot."}
+```
+
+Code blocks are tokenized at build time. Token categories are available to a future theme; no grammar is loaded by the browser and no palette is selected here.
+
+```ts
+const count = 42; // A build-time syntax-token example.
+```
+
 ## Languages and versions
 
 Declare `locales` and `versions` in `docs.json`. Pages can specify `locale` and `version`; omitted values use the configured defaults. Keep the same logical `id` across translated or versioned counterparts and give each variant its own concrete URL.

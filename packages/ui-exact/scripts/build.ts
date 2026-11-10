@@ -12,6 +12,7 @@ await build({
   root,
   plugins: [
     stylex({
+      classNamePrefix: "lenso-exact-",
       dev: false,
       runtimeInjection: false,
       useCSSLayers: false,
@@ -55,7 +56,9 @@ for (const file of ["index.contract", ...new Bun.Glob("components/**/*.contract"
       throw new Error(`Missing initial Lenso presentation: ${match[1]}`);
 }
 const css = Bun.file(path.join(root, "dist/web.css"));
-const initial = initialCSS(await css.text(), cases);
+const atomic = await css.text();
+await Bun.write(path.join(root, "dist/web.atomic.css"), atomic);
+const initial = initialCSS(atomic, cases);
 await Bun.write(css, initial);
 console.log(
   `Initial styles: ${cases.length} recipes, ${Buffer.byteLength(initial)} bytes (${Bun.gzipSync(initial).length} gzip)`,
@@ -72,3 +75,5 @@ await cp(
   source("../THIRD_PARTY_NOTICES.md"),
   path.join(root, "dist/notices/THIRD_PARTY_NOTICES.md"),
 );
+
+await cp(path.join(root, "NOTICES.md"), path.join(root, "dist/notices/EXACT_ADAPTATIONS.md"));

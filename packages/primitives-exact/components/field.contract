@@ -37,7 +37,7 @@ component Input
     label: string
     description: string
     value: string
-    type: string
+    type: enum<"text", "search", "email", "url", "tel", "password">
     placeholder: string
     disabled: bool
     readOnly: bool
@@ -47,7 +47,8 @@ component Input
     submit: action
   view
     input id=id testId=id aria-label=label aria-describedby=description aria-invalid=invalid
-      value=value type=type placeholder=placeholder disabled=disabled readonly=readOnly
+      value=value type=(type == "password" ? "password" : type == "search" ? "search" : type == "email" ? "email" : type == "url" ? "url" : type == "tel" ? "tel" : "text")
+      placeholder=placeholder disabled=disabled readonly=readOnly
       input=input change=change submit=submit
 
 component Textarea

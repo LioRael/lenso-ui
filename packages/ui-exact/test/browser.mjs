@@ -1,8 +1,15 @@
+import { checkVisualCapabilities } from "./visual-capabilities.mjs";
+import { checkAlertDialog } from "./alert-dialog.mjs";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { buildExample } from "../scripts/example.ts";
+import { checkModal } from "./modal.mjs";
+import { checkCallerStyles } from "./caller-styles.mjs";
+import { checkToggle } from "./toggle.mjs";
+import { checkFeedback } from "./feedback.mjs";
+import { checkNavigation } from "./navigation.mjs";
 import { checkForms } from "./forms.mjs";
 import { checkDisclosure } from "./disclosure.mjs";
 import { checkInitialStyles } from "./initial-styles.mjs";
@@ -35,6 +42,11 @@ try {
       channel: name === "chromium" ? process.env.CHROMIUM_CHANNEL : undefined,
     });
     try {
+      const visualCapture = await checkVisualCapabilities(browser, name);
+      if (!visualCapture.backdropBlurCaptured)
+        console.log(
+          `${name}: glass screenshot gate NOT QUALIFIED (backdrop blur missing from capture)`,
+        );
       const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
       const errors = [];
       page.on("pageerror", (error) => errors.push(String(error)));
@@ -91,7 +103,13 @@ try {
       );
       await page.getByTestId("glass-action").click();
       assert.equal(await page.getByTestId("count").textContent(), "Count: 4");
+      const modalMotion = await checkModal(page, name);
+      const alertDialogMotion = await checkAlertDialog(page, name);
+      await checkCallerStyles(page);
+      await checkToggle(page, name);
+      await checkFeedback(page, name);
       await checkForms(page);
+      await checkNavigation(page, name);
       await checkDisclosure(page, name);
       for (const width of [390, 820]) {
         await page.setViewportSize({ width, height: 844 });
@@ -109,6 +127,24 @@ try {
             path: path.resolve(
               import.meta.dirname,
               `../.cache/example/${name}-disclosure-${appearance}-${width}.png`,
+            ),
+          });
+          await page.locator("#navigation-examples").screenshot({
+            path: path.resolve(
+              import.meta.dirname,
+              `../.cache/example/${name}-navigation-${appearance}-${width}.png`,
+            ),
+          });
+          await page.locator("#feedback-examples").screenshot({
+            path: path.resolve(
+              import.meta.dirname,
+              `../.cache/example/${name}-feedback-${appearance}-${width}.png`,
+            ),
+          });
+          await page.locator("#toggle-examples").screenshot({
+            path: path.resolve(
+              import.meta.dirname,
+              `../.cache/example/${name}-toggle-${appearance}-${width}.png`,
             ),
           });
           const overflow = await page.evaluate(() => ({
@@ -133,9 +169,16 @@ try {
       const capture = path.resolve(import.meta.dirname, `../.cache/example/${name}.png`);
       await page.screenshot({ path: capture });
       console.log(
-        `${name} ${browser.version()}: actions, forms, disclosure, accordion, keyboard, motion, theme and disposal passed`,
+        `${name} ${browser.version()}: actions, modal, alert dialog, toggles, feedback, forms, navigation, disclosure, accordion, keyboard, motion, theme and disposal passed`,
       );
-      verifiedBrowsers.push({ engine: name, version: browser.version(), presentationCount });
+      verifiedBrowsers.push({
+        engine: name,
+        version: browser.version(),
+        presentationCount,
+        modalMotion,
+        alertDialogMotion,
+        visualCapture,
+      });
       await page.close();
     } finally {
       await browser.close();

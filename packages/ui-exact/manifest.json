@@ -3,11 +3,20 @@
     "lenso-ui": ["web"]
   },
   "data": [
+    "layout",
     "lenso-backdrop",
     "lenso-checked",
+    "lenso-color",
+    "lenso-current",
+    "lenso-detached",
+    "lenso-direction",
     "lenso-disabled",
+    "lenso-dismiss",
     "lenso-for",
+    "lenso-full-width",
+    "lenso-group-item",
     "lenso-hide-separator",
+    "lenso-icon-only",
     "lenso-indeterminate",
     "lenso-invalid",
     "lenso-kind",
@@ -18,11 +27,18 @@
     "lenso-panel-open",
     "lenso-required",
     "lenso-rows",
+    "lenso-scroll",
     "lenso-size",
     "lenso-trigger",
     "lenso-variant",
+    "material",
+    "material-lens",
     "orientation",
+    "placement",
+    "size",
+    "skeleton-animation",
     "slot",
-    "theme"
+    "theme",
+    "variant"
   ]
 }

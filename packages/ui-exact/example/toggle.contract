@@ -1,0 +1,98 @@
+use ToggleButton, ToggleButtonIcon, ToggleButtonGroupState, ToggleButtonGroup, ToggleButtonGroupItem, ToggleButtonGroupSeparator, Button from "@lenso/ui-exact"
+
+component ToggleExample
+  state pressed = false
+  state selected = ["italic"]
+  state nested = ["one"]
+  state disabled = false
+  state itemDisabled = false
+  state multiple = false
+  state visible = true
+  state orientation = "horizontal"
+  state loopFocus = true
+  state detached = false
+  state fullWidth = false
+  state size = "md"
+  state variant = "bordered"
+  state rtl = false
+  state extra = true
+  state showNested = false
+  derive options = ToggleButtonGroupState(id="formatting", label="Formatting", value=selected, multiple=multiple, disabled=disabled, size=size, variant=variant, fullWidth=fullWidth, detached=detached, orientation=orientation, loopFocus=loopFocus)
+  derive inner = ToggleButtonGroupState(id="nested-formatting", label="Nested formatting", value=nested, multiple=false, disabled=false, size="sm", variant="bordered", fullWidth=false, detached=true, orientation="horizontal", loopFocus=true)
+  action toggle(value: bool)
+    pressed = value
+  action select(value: string[])
+    selected = value
+  action selectNested(value: string[])
+    nested = value
+  action toggleDisabled
+    disabled = not disabled
+  action toggleItemDisabled
+    itemDisabled = not itemDisabled
+  action toggleMultiple
+    if multiple
+      selected = selected.slice(0, 1)
+    multiple = not multiple
+  action toggleVisible
+    visible = not visible
+  action toggleOrientation
+    orientation = orientation == "horizontal" ? "vertical" : "horizontal"
+  action toggleLoop
+    loopFocus = not loopFocus
+  action toggleDetached
+    detached = not detached
+  action toggleFullWidth
+    fullWidth = not fullWidth
+  action toggleSize
+    size = size == "md" ? "lg" : (size == "lg" ? "sm" : "md")
+  action toggleVariant
+    variant = variant == "bordered" ? "prominent" : (variant == "prominent" ? "borderless" : (variant == "borderless" ? "default" : (variant == "default" ? "ghost" : "bordered")))
+  action toggleDirection
+    rtl = not rtl
+  action toggleExtra
+    extra = not extra
+  action toggleNested
+    showNested = not showNested
+  view
+    column id="toggle-examples" gap=16 direction=(rtl ? "rtl" : "ltr")
+      text "Toggle controls" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable toggles", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="toggle-disabled")
+        Button(label="Disable bold", press=toggleItemDisabled, disabled=false, size="sm", variant="bordered", testId="toggle-item-disabled")
+        Button(label="Multiple selection", press=toggleMultiple, disabled=false, size="sm", variant="bordered", testId="toggle-multiple")
+        Button(label="Toggle controls", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="toggle-visible")
+        Button(label="Group orientation", press=toggleOrientation, disabled=false, size="sm", variant="bordered", testId="toggle-orientation")
+        Button(label="Loop focus", press=toggleLoop, disabled=false, size="sm", variant="bordered", testId="toggle-loop")
+        Button(label="Detach controls", press=toggleDetached, disabled=false, size="sm", variant="bordered", testId="toggle-detached")
+        Button(label="Full width", press=toggleFullWidth, disabled=false, size="sm", variant="bordered", testId="toggle-width")
+        Button(label="Toggle size", press=toggleSize, disabled=false, size="sm", variant="bordered", testId="toggle-size")
+        Button(label="Toggle variant", press=toggleVariant, disabled=false, size="sm", variant="bordered", testId="toggle-variant")
+        Button(label="Reverse toggles", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="toggle-direction")
+        Button(label="Toggle last item", press=toggleExtra, disabled=false, size="sm", variant="bordered", testId="toggle-extra")
+        Button(label="Nested controls", press=toggleNested, disabled=false, size="sm", variant="bordered", testId="toggle-nested")
+      if visible
+        row gap=12 align-items="center"
+          ToggleButton(id="favorite", label="Favorite", pressed=pressed, change=toggle, disabled=disabled, size=size, variant=variant, iconOnly=false, fullWidth=false)
+            text "Favorite"
+          ToggleButton(id="favorite-icon", label="Pin", pressed=pressed, change=toggle, disabled=disabled, size=size, variant=variant, iconOnly=true, fullWidth=false)
+            ToggleButtonIcon()
+              svg width=16 height=16 viewBox="0 0 24 24" fill="none" aria-hidden=true
+                path d="M9 3h6M10 3l-.5 6L6 13h12l-3.5-4L14 3M12 13v8" stroke="currentColor" stroke-width=1.5 stroke-linecap="round"
+        ToggleButtonGroup(state=options)
+          ToggleButtonGroupItem(state=options, id="format-bold", value="bold", label="Bold", disabled=itemDisabled, iconOnly=false, change=select)
+            text "Bold"
+          ToggleButtonGroupSeparator(state=options)
+          ToggleButtonGroupItem(state=options, id="format-locked", value="locked", label="Locked", disabled=true, iconOnly=false, change=select)
+            text "Locked"
+          ToggleButtonGroupItem(state=options, id="format-italic", value="italic", label="Italic", disabled=false, iconOnly=false, change=select)
+            text "Italic"
+          if extra
+            ToggleButtonGroupItem(state=options, id="format-underline", value="underline", label="Underline", disabled=false, iconOnly=false, change=select)
+              text "Underline"
+          if showNested
+            ToggleButtonGroup(state=inner)
+              ToggleButtonGroupItem(state=inner, id="inner-one", value="one", label="One", disabled=false, iconOnly=false, change=selectNested)
+                text "One"
+              ToggleButtonGroupItem(state=inner, id="inner-two", value="two", label="Two", disabled=false, iconOnly=false, change=selectNested)
+                text "Two"
+      text selected.join(", ") testId="format-value"

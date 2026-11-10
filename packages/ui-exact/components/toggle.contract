@@ -1,0 +1,82 @@
+component ToggleButton
+  props
+    id: string
+    label: string
+    pressed: bool
+    change: action
+    disabled: bool
+    size: string
+    variant: string
+    iconOnly: bool
+    fullWidth: bool
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=0 aria-label=label aria-pressed=pressed
+      press=change(not pressed) disabled=disabled
+      hatch="lenso-ui" data-lenso-kind="toggle-button" data-slot="toggle-button"
+      data-lenso-size=size data-lenso-variant=variant
+      data-lenso-icon-only=iconOnly data-lenso-full-width=fullWidth
+      children
+
+component ToggleButtonIcon
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="toggle-button-icon" data-slot="button-icon"
+      children
+
+shape ToggleButtonGroupState
+  id: string
+  label: string
+  value: string[]
+  multiple: bool
+  disabled: bool
+  size: string
+  variant: string
+  fullWidth: bool
+  detached: bool
+  orientation: string
+  loopFocus: bool
+
+component ToggleButtonGroup
+  props
+    state: ToggleButtonGroupState
+  slot
+  view
+    box id=state.id testId=state.id role="group" aria-label=state.label aria-disabled=state.disabled
+      hatch="lenso-ui" data-lenso-kind="toggle-button-group" data-slot="toggle-button-group"
+      data-orientation=state.orientation data-lenso-loop-focus=state.loopFocus
+      data-lenso-full-width=state.fullWidth data-lenso-detached=state.detached
+      children
+
+component ToggleButtonGroupItem
+  props
+    state: ToggleButtonGroupState
+    id: string
+    value: string
+    label: string
+    disabled: bool
+    iconOnly: bool
+    change: action
+  derive pressed = state.value.includes(value)
+  action toggle
+    if not disabled and not state.disabled
+      if pressed
+        change(state.value.filter(entry => entry != value))
+      else
+        change(state.multiple ? state.value.concat([value]) : [value])
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=((state.disabled or disabled) ? -1 : 0)
+      aria-label=label aria-pressed=pressed press=toggle disabled=(state.disabled or disabled)
+      hatch="lenso-ui" data-lenso-kind="toggle-button-group-item" data-slot="toggle-button"
+      data-lenso-group-item="" data-lenso-size=state.size data-lenso-variant=state.variant
+      data-lenso-full-width=state.fullWidth data-lenso-icon-only=iconOnly
+      data-orientation=state.orientation data-lenso-detached=state.detached
+      children
+
+component ToggleButtonGroupSeparator
+  props
+    state: ToggleButtonGroupState
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="toggle-button-group-separator"
+      data-slot="toggle-button-group-separator" data-orientation=state.orientation data-lenso-detached=state.detached

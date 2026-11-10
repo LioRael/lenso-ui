@@ -8,9 +8,12 @@
     "index.contract",
     "components",
     "COMPOSITION.md",
+    "TOOLTIP.md",
+    "VERIFICATION.md",
     "patches",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "API.md"
   ],
   "type": "module",
   "exports": {
@@ -22,13 +25,16 @@
     "./dialog": "./components/dialog.contract",
     "./popover": "./components/popover.contract",
     "./tabs": "./components/tabs.contract",
-    "./feedback": "./components/feedback.contract"
+    "./feedback": "./components/feedback.contract",
+    "./tooltip": "./components/tooltip.contract"
   },
   "scripts": {
     "example:build": "bun scripts/example.ts",
     "typecheck": "bun check --no-script -p tsconfig.json",
     "test:browser": "bun test/browser.mjs",
     "test:agent": "bun scripts/agent.ts web",
-    "test:native": "bun scripts/native.ts"
+    "test:native": "bun scripts/native.ts",
+    "test:contracts": "bun scripts/contracts.ts",
+    "test:host-patches": "bun scripts/host-patches.ts"
   }
 }

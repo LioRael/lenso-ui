@@ -35,3 +35,45 @@ test("keyframe steps remain outside selector aliasing", () => {
   expect(css).toContain("@keyframes turn { 0%, 50% { opacity:0 } to { opacity:1 } }");
   expect(css).toContain(':is(.xA,:where([data-lenso-kind="spinner"]:not([data-lenso-ready])))');
 });
+
+test("selector factoring reduces repeated tails without widening diagonal combinations", async () => {
+  const { compactSelectors } = await import("../scripts/initial-css.js");
+  const rectangle = compactSelectors([
+    '[data-kind="button"][data-size="sm"][data-full="true"]',
+    '[data-kind="button"][data-size="sm"][data-full="false"]',
+    '[data-kind="button"][data-size="lg"][data-full="true"]',
+    '[data-kind="button"][data-size="lg"][data-full="false"]',
+  ]);
+  expect(rectangle).toBe(
+    '[data-kind="button"]:is([data-size="sm"],[data-size="lg"]):is([data-full="true"],[data-full="false"])',
+  );
+  const diagonal = compactSelectors([
+    '[data-kind="button"][data-size="sm"][data-full="true"]',
+    '[data-kind="button"][data-size="lg"][data-full="false"]',
+  ]);
+  expect(diagonal).toBe(
+    '[data-kind="button"]:is([data-size="sm"][data-full="true"],[data-size="lg"][data-full="false"])',
+  );
+  expect(compactSelectors(['[data-kind="button"]', '[data-kind="button"][data-size="sm"]'])).toBe(
+    '[data-kind="button"]',
+  );
+  expect(compactSelectors(["[data-a] > [data-b]"])).toBe("[data-a] > [data-b]");
+});
+
+test("toggle selected styles use ARIA without claiming Exact's transient press marker", () => {
+  const css = initialCSS(".xA:is([data-pressed]) { color: red }", [
+    { kind: "toggle-button", selector: '[data-lenso-kind="toggle-button"]', classes: ["xA"] },
+  ]);
+  expect(css).toContain(
+    ':is([data-pressed]:not(:where([data-slot="toggle-button"])),:where([data-slot="toggle-button"])[aria-pressed="true"])',
+  );
+  expect(css).not.toContain("data-lenso-pressed");
+});
+
+test("missing compiled style definitions fail before an unstyled recipe can pass parity", () => {
+  expect(() =>
+    initialCSS(".present { color:red }", [
+      { kind: "button", selector: '[data-lenso-kind="button"]', classes: ["missing"] },
+    ]),
+  ).toThrow("Missing compiled StyleX CSS for missing");
+});

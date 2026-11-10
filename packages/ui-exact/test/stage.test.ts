@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import path from "node:path";
-import { webRequirements, withLensoWeb, linkWebStyles } from "../scripts/stage.js";
+import { webRequirements, withLensoWeb, linkWebStyles, styleWeb } from "../scripts/stage.js";
 import { mkdtemp, mkdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
@@ -83,6 +83,37 @@ test("blocking CSS links preserve Exact's base URL, update hashes and leave fore
     expect(await Bun.file(asset).text()).toBe(
       "<script>const example = 'id=\"exact-root\"';</script>",
     );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("consumer styles use staged maps, reject incomplete/colliding CSS and rebuild from atomic CSS", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "lenso-exact-caller-styles-"));
+  try {
+    await Bun.write(
+      path.join(root, "presentation.js"),
+      'export function presentationCases() { return [{kind:"sample",selector:"[data-lenso-kind=sample]",classes:["base","custom"]}]; }',
+    );
+    await Bun.write(path.join(root, "web.atomic.css"), ".base{color:red}");
+    const output = path.join(root, "web.css");
+    await Bun.write(output, "previous verified CSS");
+    await expect(styleWeb(root, { css: "", rules: [] })).rejects.toThrow(
+      "Missing compiled StyleX CSS for custom",
+    );
+    expect(await Bun.file(output).text()).toBe("previous verified CSS");
+    await expect(
+      styleWeb(root, { css: ".base{color:green}.custom{color:blue}", rules: [] }),
+    ).rejects.toThrow("Caller CSS redefines library class base");
+    expect(await Bun.file(output).text()).toBe("previous verified CSS");
+    const options = { css: ".custom{color:blue}", rules: [] };
+    const report = await styleWeb(root, options);
+    expect(report.recipes).toBe(1);
+    const initial = await Bun.file(output).text();
+    expect(initial).toContain(":where([data-lenso-kind=sample]:not([data-lenso-ready]))");
+    expect(report.bytes).toBe(Buffer.byteLength(initial));
+    await styleWeb(root, options);
+    expect(await Bun.file(output).text()).toBe(initial);
   } finally {
     await rm(root, { recursive: true, force: true });
   }

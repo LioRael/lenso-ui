@@ -1,9 +1,4 @@
-import {
-  createHighlighter,
-  bundledLanguages,
-  bundledLanguagesInfo,
-  type BundledLanguage,
-} from "shiki";
+import { createHighlighter, bundledLanguages, bundledLanguagesInfo } from "shiki";
 import { walk, type DocumentNode, type Token } from "./content.ts";
 
 const categories: [RegExp, string][] = [
@@ -35,7 +30,7 @@ export async function highlightDocuments(documents: { body?: DocumentNode[] }[])
   ];
   const highlighter = await createHighlighter({
     themes: [],
-    langs: ids.map((id) => bundledLanguages[id as BundledLanguage]),
+    langs: ids.map((id) => bundledLanguages[id as keyof typeof bundledLanguages]),
   });
   try {
     for (const block of blocks) {

@@ -6,6 +6,9 @@ export async function checkPresentationCases(page) {
     const { presentationCases } = await import(
       new URL("./modules/lenso-ui/presentation.js", document.baseURI).href
     );
+    const { styleRules } = await import(
+      new URL("./modules/style-config/index.js", document.baseURI).href
+    );
     const fixture = document.createElement("div");
     fixture.style.cssText = "position:fixed;left:-10000px;top:0;width:320px";
     fixture.setAttribute("aria-hidden", "true");
@@ -13,7 +16,7 @@ export async function checkPresentationCases(page) {
     document.getElementById("exact-root").append(fixture);
     const results = [];
     try {
-      for (const entry of presentationCases()) {
+      for (const entry of presentationCases(styleRules)) {
         const wrapper = document.createElement("div");
         if (entry.inputGroup) wrapper.dataset.slot = "input-group";
         const svg = [
@@ -21,6 +24,12 @@ export async function checkPresentationCases(page) {
           "checkbox-mixed",
           "disclosure-indicator",
           "accordion-indicator",
+          "breadcrumbs-chevron",
+          "progress-circle-track",
+          "progress-circle-track-circle",
+          "progress-circle-fill-circle",
+          "spinner-icon",
+          "modal-close-glyph",
         ].includes(entry.kind);
         const tag = entry.kind.includes("button")
           ? "button"
@@ -30,9 +39,14 @@ export async function checkPresentationCases(page) {
               ? "textarea"
               : "div";
         const node = svg
-          ? document.createElementNS("http://www.w3.org/2000/svg", "svg")
+          ? document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              entry.kind.endsWith("-circle") ? "circle" : "svg",
+            )
           : document.createElement(tag);
         for (const [key, value] of Object.entries(entry.data)) node.dataset[key] = value;
+        for (const [key, value] of Object.entries(entry.attributes ?? {}))
+          node.setAttribute(key, value);
         if (node instanceof HTMLTextAreaElement) node.rows = Number(entry.data.lensoRows);
         if (node instanceof HTMLInputElement) node.value = "Sample";
         else if (!svg) node.textContent = "Sample";
@@ -40,8 +54,10 @@ export async function checkPresentationCases(page) {
         reference.removeAttribute("data-lenso-kind");
         reference.dataset.lensoReady = "";
         reference.setAttribute("class", entry.classes.join(" "));
-        wrapper.append(node, reference);
-        fixture.append(wrapper);
+        const referenceWrapper = wrapper.cloneNode(false);
+        wrapper.append(node);
+        referenceWrapper.append(reference);
+        fixture.append(wrapper, referenceWrapper);
         const properties = [
           "width",
           "height",
@@ -78,6 +94,7 @@ export async function checkPresentationCases(page) {
         }
         results.push({ kind: entry.kind, selector: entry.selector, differences });
         wrapper.remove();
+        referenceWrapper.remove();
       }
     } finally {
       fixture.remove();

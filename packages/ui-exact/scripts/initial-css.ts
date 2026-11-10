@@ -7,6 +7,57 @@ export interface PresentationCase {
   classes: string[];
 }
 
+interface SelectorBranch {
+  terminal: boolean;
+  children: Map<string, SelectorBranch>;
+}
+
+/** Factor identical compound-selector tails without creating new combinations. */
+export function compactSelectors(selectors: string[]) {
+  const root: SelectorBranch = { terminal: false, children: new Map() };
+  const complex: string[] = [];
+  for (const selector of selectors) {
+    const parsed = selectorParser().astSync(selector);
+    const compound = parsed.first;
+    if (
+      parsed.nodes.length !== 1 ||
+      !compound ||
+      compound.nodes.some((node) => node.type === "combinator")
+    ) {
+      complex.push(selector);
+      continue;
+    }
+    let branch = root;
+    for (const node of compound.nodes) {
+      const token = node.toString();
+      let child = branch.children.get(token);
+      if (!child) {
+        child = { terminal: false, children: new Map() };
+        branch.children.set(token, child);
+      }
+      branch = child;
+    }
+    branch.terminal = true;
+  }
+  const alternatives = (values: string[]) =>
+    values.length === 1 ? values[0]! : `:is(${values.join(",")})`;
+  const render = (branch: SelectorBranch): string => {
+    if (branch.terminal) return "";
+    const tails = new Map<string, string[]>();
+    for (const [token, child] of branch.children) {
+      const suffix = render(child);
+      const prefixes = tails.get(suffix) ?? [];
+      prefixes.push(token);
+      tails.set(suffix, prefixes);
+    }
+    return alternatives(
+      [...tails].map(([suffix, prefixes]) => `${alternatives(prefixes)}${suffix}`),
+    );
+  };
+  const factored = root.children.size ? [render(root)] : [];
+  return [...factored, ...complex].join(",");
+}
+
 /** Alias the compiled atomic rules; their declarations and specificity stay shared. */
 export function initialCSS(css: string, cases: PresentationCase[]) {
   const aliases = new Map<string, Set<string>>();
@@ -17,6 +68,16 @@ export function initialCSS(css: string, cases: PresentationCase[]) {
       aliases.set(name, selectors);
     }
   const root = postcss.parse(css);
+  const definitions = new Set<string>();
+  root.walkRules((rule) => {
+    selectorParser()
+      .astSync(rule.selector)
+      .walkClasses((node) => {
+        definitions.add(node.value);
+      });
+  });
+  for (const name of aliases.keys())
+    if (!definitions.has(name)) throw new Error(`Missing compiled StyleX CSS for ${name}`);
   const parsedAliases = new Map<string, selectorParser.Node>();
   const compound = (selector: string) => {
     const node = selectorParser().astSync(selector).first?.first;
@@ -45,7 +106,7 @@ export function initialCSS(css: string, cases: PresentationCase[]) {
       changed = true;
       let alias = parsedAliases.get(node.value);
       if (!alias) {
-        alias = compound(`:is(${node.toString()},:where(${[...selectors].join(",")}))`);
+        alias = compound(`:is(${node.toString()},:where(${compactSelectors([...selectors])}))`);
         parsedAliases.set(node.value, alias);
       }
       node.replaceWith(alias.clone());
@@ -56,6 +117,16 @@ export function initialCSS(css: string, cases: PresentationCase[]) {
       attributes.push(node);
     });
     for (const node of attributes) {
+      // Exact owns data-pressed as transient pointer feedback. Toggle selection
+      // is already authored as aria-pressed and must survive pointer release.
+      if (node.attribute === "data-pressed" && !node.operator) {
+        node.replaceWith(
+          compound(
+            ':is([data-pressed]:not(:where([data-slot="toggle-button"])),:where([data-slot="toggle-button"])[aria-pressed="true"])',
+          ),
+        );
+        continue;
+      }
       const word = states.get(node.attribute);
       if (word && !node.operator)
         node.replaceWith(

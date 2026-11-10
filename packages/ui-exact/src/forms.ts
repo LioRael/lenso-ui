@@ -1,3 +1,4 @@
+import type { StyleInput } from "./style-types.js";
 import * as stylex from "@stylexjs/stylex";
 import { inputStyles } from "@lenso/tokens/input";
 import { textAreaStyles } from "@lenso/tokens/textarea";
@@ -32,28 +33,35 @@ const nativeStyles = stylex.create({
     outlineOffset: 3,
   },
   label: { cursor: "text" },
+  nativeAlertInput: {
+    // Exact's stock alert layout gives every input a 100% flex basis.
+    flexBasis: {
+      default: null,
+      ":is(#exact-root dialog[data-lenso-kind='alert-dialog'] input)": "auto",
+    },
+  },
 });
 
-const presentations = new Map([
-  ["text-field", stylex.props(textFieldStyles.root)],
-  ["input-adornment", stylex.props(inputGroupMaterialStyles.adornment)],
-  ["description", stylex.props(descriptionStyles.description)],
-  ["field-error", stylex.props(fieldErrorStyles.error)],
-  ["fieldset", stylex.props(fieldsetStyles.root)],
-  ["legend", stylex.props(fieldsetStyles.legend)],
-  ["checkbox", stylex.props(checkboxStyles.root)],
-  ["checkbox-content", stylex.props(checkboxStyles.content)],
-  ["checkbox-control", stylex.props(checkboxStyles.control, nativeStyles.choiceFocus)],
-  ["checkbox-indicator", stylex.props(checkboxStyles.indicator)],
-  ["checkbox-checkmark", stylex.props(checkboxStyles.checkmark)],
-  ["checkbox-mixed", stylex.props(checkboxStyles.indeterminate)],
-  ["checkbox-group", stylex.props(checkboxGroupStyles.root)],
-  ["choice-input", stylex.props(nativeStyles.choiceInput)],
-  ["radio", stylex.props(radioStyles.root)],
-  ["radio-content", stylex.props(radioStyles.content)],
-  ["radio-control", stylex.props(radioStyles.control, nativeStyles.choiceFocus)],
-  ["radio-indicator", stylex.props(radioStyles.indicator)],
-  ["radio-group", stylex.props(radioGroupStyles.root)],
+const presentations = new Map<string, StyleInput>([
+  ["text-field", [textFieldStyles.root]],
+  ["input-adornment", [inputGroupMaterialStyles.adornment]],
+  ["description", [descriptionStyles.description]],
+  ["field-error", [fieldErrorStyles.error]],
+  ["fieldset", [fieldsetStyles.root]],
+  ["legend", [fieldsetStyles.legend]],
+  ["checkbox", [checkboxStyles.root]],
+  ["checkbox-content", [checkboxStyles.content]],
+  ["checkbox-control", [checkboxStyles.control, nativeStyles.choiceFocus]],
+  ["checkbox-indicator", [checkboxStyles.indicator]],
+  ["checkbox-checkmark", [checkboxStyles.checkmark]],
+  ["checkbox-mixed", [checkboxStyles.indeterminate]],
+  ["checkbox-group", [checkboxGroupStyles.root]],
+  ["choice-input", [nativeStyles.choiceInput]],
+  ["radio", [radioStyles.root]],
+  ["radio-content", [radioStyles.content]],
+  ["radio-control", [radioStyles.control, nativeStyles.choiceFocus]],
+  ["radio-indicator", [radioStyles.indicator]],
+  ["radio-group", [radioGroupStyles.root]],
 ]);
 
 export function formPresentation(kind: string, data: DOMStringMap, inputGroup: boolean) {
@@ -61,22 +69,23 @@ export function formPresentation(kind: string, data: DOMStringMap, inputGroup: b
     const variant = data["lensoVariant"];
     if (variant !== "primary" && variant !== "secondary")
       throw new RangeError(`Unknown Lenso field variant: ${variant}`);
-    return stylex.props(
+    return [
       inputStyles.input,
+      kind === "input" && nativeStyles.nativeAlertInput,
       kind === "input-group" && inputStyles.group,
       variant === "secondary" && inputStyles.secondary,
       kind === "textarea" && textAreaStyles.textarea,
       kind !== "input-group" && inputGroup && inputStyles.groupedControl,
       kind === "textarea" && inputGroup && inputStyles.groupedTextArea,
       kind === "textarea" && data["lensoRows"] === "1" && textAreaStyles.singleLine,
-    );
+    ];
   }
   if (kind === "label")
-    return stylex.props(
+    return [
       labelStyles.label,
       nativeStyles.label,
       data["lensoRequired"] === "true" && labelStyles.required,
-    );
+    ];
   return presentations.get(kind);
 }
 
