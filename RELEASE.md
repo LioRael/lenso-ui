@@ -1,3 +1,44 @@
+# Prepared release: UI and Tokens 0.10.0
+
+This release is prepared for the current official StyleX integration and component
+architecture. It is not a patch over the registry's UI/Tokens 0.9.2: consumers
+must migrate the removed raw-rule CSS integration described below.
+
+Publish in dependency order:
+
+| Package             | Version  | Scope                                                                |
+| ------------------- | -------- | -------------------------------------------------------------------- |
+| `@lenso/tokens`     | `0.10.0` | Official StyleX declaration modules and current materials            |
+| `@lenso/glass`      | `0.1.0`  | First shared runtime distribution, including LGPL source and notices |
+| `@lenso/primitives` | `0.8.0`  | Additive Command entry; existing component source is preserved       |
+| `@lenso/ui`         | `0.10.0` | Current controls, Glass runtime and Command integration              |
+| `@lenso/docs`       | `0.2.0`  | Current documentation host and official StyleX integration           |
+| `create-lenso-docs` | `0.2.0`  | Template pinned to Docs 0.2.0                                        |
+
+The Exact packages and experiment remain private and are not part of npm release.
+The removed `@lenso/stylex-build` package is not restored or republished.
+
+Upgrade UI and Tokens together. Configure the official StyleX Vite/Rolldown
+plugin or Next Babel/PostCSS integration; remove imports of the retired
+`stylex-rules.json` exports and standalone atomic CSS. Keep importing the
+theme/base `styles.css` entry. Next applications must transpile the token and
+documentation presentation modules and include their declaration sources in
+StyleX scans. Existing projects using the retired integration require this
+migration before upgrading. The remaining component migrations below still
+apply when upgrading from the older registry packages.
+
+The new Command implementation is published as `@lenso/primitives/command`;
+existing DataGrid, ResizeHandle and Sidebar component source is unchanged.
+UI pins the new primitives version in addition to Glass and Tokens. Docs pins
+the matching UI, Glass and Tokens versions through the packed workspace manifests.
+
+Publication remains a manual `Release` dispatch on an exactly verified `main`
+commit, using input `0.10.0`, the protected `npm` environment, npm Trusted
+Publishing and provenance. Check the publisher configuration for every package,
+including the new Glass package, before approving the environment. The workflow
+does not create Git tags or GitHub Releases. No npm publication is implied by
+the prepared versions or by pushing the source commits.
+
 # Unreleased: control and layout compatibility
 
 These are source changes; use the migration details for the version you consume.

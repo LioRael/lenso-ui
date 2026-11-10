@@ -8,7 +8,7 @@
     "preview": "lenso-docs preview"
   },
   "dependencies": {
-    "@lenso/docs": "0.1.0",
+    "@lenso/docs": "0.2.0",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },

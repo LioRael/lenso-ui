@@ -112,7 +112,11 @@ test("validates packed exports, required files, dependency protocols and release
   const ui = {
     name: "@lenso/ui",
     version: "0.8.0",
-    dependencies: { "@lenso/tokens": "0.8.0", "@lenso/glass": "0.1.0" },
+    dependencies: {
+      "@lenso/tokens": "0.8.0",
+      "@lenso/glass": "0.1.0",
+      "@lenso/primitives": "0.8.0",
+    },
     exports: { ".": { types: "./dist/index.d.ts", import: "./dist/index.js" } },
   };
   const uiFiles = [
@@ -124,7 +128,14 @@ test("validates packed exports, required files, dependency protocols and release
   assert.throws(
     () =>
       validatePackage(
-        { ...ui, dependencies: { "@lenso/tokens": "workspace:*", "@lenso/glass": "0.1.0" } },
+        {
+          ...ui,
+          dependencies: {
+            "@lenso/tokens": "workspace:*",
+            "@lenso/glass": "0.1.0",
+            "@lenso/primitives": "0.8.0",
+          },
+        },
         uiFiles,
         {},
         uiEntry,
@@ -135,7 +146,14 @@ test("validates packed exports, required files, dependency protocols and release
   assert.throws(
     () =>
       validatePackage(
-        { ...ui, dependencies: { "@lenso/tokens": "0.7.0", "@lenso/glass": "0.1.0" } },
+        {
+          ...ui,
+          dependencies: {
+            "@lenso/tokens": "0.7.0",
+            "@lenso/glass": "0.1.0",
+            "@lenso/primitives": "0.8.0",
+          },
+        },
         uiFiles,
         {},
         uiEntry,
@@ -166,7 +184,11 @@ test("only skips an existing exact integrity and dependency pin", () => {
       "0.8.0": {
         version: "0.8.0",
         dist: { integrity: "sha512-exact" },
-        dependencies: { "@lenso/tokens": "0.8.0", "@lenso/glass": "0.1.0" },
+        dependencies: {
+          "@lenso/tokens": "0.8.0",
+          "@lenso/glass": "0.1.0",
+          "@lenso/primitives": "0.8.0",
+        },
       },
     },
   };
@@ -200,7 +222,11 @@ test("only skips an existing exact integrity and dependency pin", () => {
             "0.8.0": {
               version: "0.8.0",
               dist: { integrity: "sha512-exact" },
-              dependencies: { "@lenso/tokens": "0.7.0", "@lenso/glass": "0.1.0" },
+              dependencies: {
+                "@lenso/tokens": "0.7.0",
+                "@lenso/glass": "0.1.0",
+                "@lenso/primitives": "0.8.0",
+              },
             },
           },
         },
@@ -212,10 +238,73 @@ test("only skips an existing exact integrity and dependency pin", () => {
   );
 });
 
-test("release list orders public packages by dependencies and excludes primitives", () => {
+test("release list orders public packages by dependencies and excludes private experiments", () => {
   assert.deepEqual(
     entries.map(({ name }) => name),
-    ["@lenso/tokens", "@lenso/glass", "@lenso/ui", "@lenso/docs", "create-lenso-docs"],
+    [
+      "@lenso/tokens",
+      "@lenso/glass",
+      "@lenso/primitives",
+      "@lenso/ui",
+      "@lenso/docs",
+      "create-lenso-docs",
+    ],
+  );
+});
+
+test("Command release requires distributable primitive entries and an exact UI dependency", () => {
+  const item = entries.find((entry) => entry.kind === "primitives")!;
+  const files = [
+    "package/LICENSE",
+    ...["command", "data-grid", "resize-handle", "sidebar"].flatMap((family) => [
+      `package/dist/${family}/index.js`,
+      `package/dist/${family}/index.d.ts`,
+    ]),
+  ];
+  const manifest = { name: item.name, version: item.version! };
+  assert.doesNotThrow(() => validatePackage(manifest, files, {}, item, item.version!));
+  assert.throws(
+    () =>
+      validatePackage(
+        manifest,
+        files.filter((file) => !file.includes("/command/")),
+        {},
+        item,
+        item.version!,
+      ),
+    /command/,
+  );
+  const ui = {
+    name: uiEntry.name,
+    version: "0.10.0",
+    dependencies: { "@lenso/tokens": "0.10.0", "@lenso/glass": "0.1.0" },
+  };
+  const uiFiles = [
+    "package/dist/index.js",
+    "package/dist/index.d.ts",
+    "package/dist/THIRD_PARTY_NOTICES.md",
+  ];
+  assert.throws(
+    () => validatePackage(ui, uiFiles, {}, uiEntry, "0.10.0"),
+    /released @lenso\/primitives/,
+  );
+  assert.throws(
+    () =>
+      shouldSkipExisting(
+        {
+          versions: {
+            "0.10.0": {
+              version: "0.10.0",
+              dist: { integrity: "sha512-same" },
+              dependencies: ui.dependencies,
+            },
+          },
+        },
+        "0.10.0",
+        "sha512-same",
+        uiEntry,
+      ),
+    /dependency mismatch/,
   );
 });
 
@@ -225,7 +314,11 @@ test("accepted publication waits for registry version and latest without republi
   const version = {
     version: "0.8.0",
     dist: { integrity: "sha512-exact" },
-    dependencies: { "@lenso/tokens": "0.8.0", "@lenso/glass": "0.1.0" },
+    dependencies: {
+      "@lenso/tokens": "0.8.0",
+      "@lenso/glass": "0.1.0",
+      "@lenso/primitives": "0.8.0",
+    },
   };
   const snapshots: Array<{
     versions: Record<string, typeof version>;
@@ -312,7 +405,11 @@ test("waiting rejects wrong UI dependency and limits latest-tag lag to its deadl
           "0.8.0": {
             version: "0.8.0",
             dist: { integrity: "sha512-exact" },
-            dependencies: { "@lenso/tokens": "0.7.0", "@lenso/glass": "0.1.0" },
+            dependencies: {
+              "@lenso/tokens": "0.7.0",
+              "@lenso/glass": "0.1.0",
+              "@lenso/primitives": "0.8.0",
+            },
           },
         },
       }),

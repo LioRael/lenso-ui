@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 interface ReleasePackage {
   dir: string;
   name: string;
-  kind: "tokens" | "glass" | "ui" | "docs" | "initializer";
+  kind: "tokens" | "glass" | "primitives" | "ui" | "docs" | "initializer";
   version?: string;
 }
 interface PackageManifest {
@@ -46,9 +46,10 @@ const registry = "https://registry.npmjs.org/";
 export const packages: ReleasePackage[] = [
   { dir: "packages/tokens", name: "@lenso/tokens", kind: "tokens" },
   { dir: "packages/glass", name: "@lenso/glass", kind: "glass", version: "0.1.0" },
+  { dir: "packages/primitives", name: "@lenso/primitives", kind: "primitives", version: "0.8.0" },
   { dir: "packages/ui", name: "@lenso/ui", kind: "ui" },
-  { dir: "packages/docs", name: "@lenso/docs", kind: "docs", version: "0.1.0" },
-  { dir: "packages/create-docs", name: "create-lenso-docs", kind: "initializer", version: "0.1.0" },
+  { dir: "packages/docs", name: "@lenso/docs", kind: "docs", version: "0.2.0" },
+  { dir: "packages/create-docs", name: "create-lenso-docs", kind: "initializer", version: "0.2.0" },
 ];
 
 export function validateContext(
@@ -154,6 +155,12 @@ export function validatePackage(
     for (const file of ["gpu-blur.ts", "gpu-optics.ts"])
       if (!contents[`package/dist/source/src/${file}`]?.includes("LGPL-2.0-or-later"))
         throw new Error(`@lenso/glass must include the attributed source ${file}`);
+  } else if (item.kind === "primitives") {
+    requireFile("package/LICENSE");
+    for (const family of ["command", "data-grid", "resize-handle", "sidebar"]) {
+      requireFile(`package/dist/${family}/index.js`);
+      requireFile(`package/dist/${family}/index.d.ts`);
+    }
   } else if (item.kind === "docs") {
     for (const path of [
       "package/LICENSE",
@@ -178,6 +185,16 @@ export function validatePackage(
     if (manifest.dependencies?.["@lenso/tokens"] !== releaseVersion) {
       throw new Error("@lenso/ui must depend on the released @lenso/tokens version");
     }
+    if (
+      manifest.dependencies?.["@lenso/primitives"] !==
+      packages.find((entry) => entry.kind === "primitives")?.version
+    )
+      throw new Error("@lenso/ui must depend on the released @lenso/primitives version");
+  }
+  for (const dependency of packages) {
+    const actual = manifest.dependencies?.[dependency.name];
+    if (actual !== undefined && actual !== (dependency.version ?? releaseVersion))
+      throw new Error(`${item.name} must depend on the released ${dependency.name} version`);
   }
 }
 
@@ -205,6 +222,12 @@ export function shouldSkipExisting(
     item.kind === "ui" &&
     published.dependencies?.["@lenso/glass"] !==
       packages.find((entry) => entry.kind === "glass")?.version
+  )
+    throw new Error(`registry dependency mismatch for ${item.name}@${version}`);
+  if (
+    item.kind === "ui" &&
+    published.dependencies?.["@lenso/primitives"] !==
+      packages.find((entry) => entry.kind === "primitives")?.version
   )
     throw new Error(`registry dependency mismatch for ${item.name}@${version}`);
   return true;
