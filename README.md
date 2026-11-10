@@ -1,5 +1,7 @@
 # Lenso UI
 
+[![Lenso UI: real React components, glass materials, light and dark themes, menu and color controls](docs/assets/readme-bento.png)](https://ui.lenso.dev)
+
 A React interface system built with **StyleX**, native **Base UI** interactions,
 semantic themes and shared glass materials. Its design principles are in
 [DESIGN.md](DESIGN.md); retained third-party adaptations are documented in
