@@ -1,0 +1,145 @@
+experiments/exact-docs/ASTRO_COMPARISON.md
+  s_10c7d362cf24b2::t_a4b8449c61171b 3,7-23,29-32,41
+experiments/exact-docs/CONTENT_LOADING.md
+  s_10c7d362cf24b2::t_306efbd140bad5 3-8,48-57
+experiments/exact-docs/README.md
+  s_10c7d362cf24b2::t_987571d0371cec 3-4,58,65-95,505,510,521,579-580,605-617,676
+experiments/exact-docs/SCALE.md
+  s_10c7d362cf24b2::t_e06692e9a368b6 3-6
+experiments/exact-docs/STARTUP.md
+  s_10c7d362cf24b2::t_0b0e2716e09e72 1-61
+experiments/exact-docs/bench/compare.mjs
+  s_10c7d362cf24b2::t_6b8825eba14069 2,131-134,288-293,341-346,418-419,433-449,470,492,497
+experiments/exact-docs/contract/index.contract
+  s_10c7d362cf24b2::t_6f8f6561e021c2 106,121,125-127
+experiments/exact-docs/example/layouts/reader.contract
+  s_10c7d362cf24b2::t_1f4fcd4b86450d 85,89-91
+experiments/exact-docs/package.json
+  s_10c7d362cf24b2::t_c9c1236ffc3ffa 22-23,31-32
+experiments/exact-docs/src/body.ts
+  s_10c7d362cf24b2::t_d0a6fa577abf64 42,72-78
+experiments/exact-docs/src/cli.ts
+  s_10c7d362cf24b2::t_2fc53440c8d91c 5,12,15-16,29-31,40-41,64-65,82-92
+experiments/exact-docs/src/index.ts
+  s_10c7d362cf24b2::t_2f86c9356a1cda 7,308-311,361,371-372,386,400-410,446,448,452-453,462,468-469,481,502-509,512,517-519,521,523-526,541,547-548,559,716-717
+experiments/exact-docs/src/native.ts
+  s_10c7d362cf24b2::t_84b02452e96cd7 1-65
+experiments/exact-docs/src/search.ts
+  s_10c7d362cf24b2::t_b9384b0f2390b2 2,5-16,27-32,35,44,46,56,58,71,85,89
+experiments/exact-docs/src/web/metadata.ts
+  s_10c7d362cf24b2::t_99b4e7972cb253 11,15-17,20-26,58-63
+experiments/exact-docs/test/browser.mjs
+  s_10c7d362cf24b2::t_26e3ecf5f0cc11 334-342,344,359
+experiments/exact-docs/test/content-loading.mjs
+  s_10c7d362cf24b2::t_41c4bd6e7647ef 47-50,70-72,121-124,142-146,153-167,174-177,198-219
+experiments/exact-docs/test/core.test.ts
+  s_10c7d362cf24b2::t_4f47ffc843d3dd 5,140-177
+experiments/exact-docs/test/native.mjs
+  s_10c7d362cf24b2::t_d6f93556e80c5b 1-30
+experiments/exact-docs/test/native.test.contract
+  s_10c7d362cf24b2::t_87c780084249b5 1-35
+packages/primitives-exact/API.md
+  s_10c7d362cf24b2::t_18468e1be09dff 14-15
+packages/primitives-exact/COMPILER.md
+  s_10c7d362cf24b2::t_3d9b34f1973af5 18,26-29,67-92,104,114,118-132
+packages/primitives-exact/patches/README.md
+  s_10c7d362cf24b2::t_08dd2bfe4d986f 106-110
+packages/primitives-exact/patches/exact-compiler-relationships.patch
+  s_10c7d362cf24b2::t_0037b8f7280136 24,260-263,448,492,500-514,856-1155
+packages/primitives-exact/scripts/contracts.ts
+  s_10c7d362cf24b2::t_bb54d9d5712ca0 245-256
+packages/ui-exact/AVATAR.md
+  s_10c7d362cf24b2::t_61451638bc7177 1-38
+packages/ui-exact/COMPONENTS.md
+  s_10c7d362cf24b2::t_5fe3f7b7c769bd 26-27,34,54,61,84,102,177,211,240-241,256,311-326
+packages/ui-exact/FEEDBACK.md
+  s_10c7d362cf24b2::t_b591396b5ea77f 118
+packages/ui-exact/INITIAL_STYLES.md
+  s_10c7d362cf24b2::t_e1ed6faeab50e1 70-71
+packages/ui-exact/LAYOUT.md
+  s_10c7d362cf24b2::t_d8d4c1d11e73e9 1-78
+packages/ui-exact/NOTICES.md
+  s_10c7d362cf24b2::t_769ed7c621e0ce 3-7
+packages/ui-exact/README.md
+  s_10c7d362cf24b2::t_3861378f061acd 68-73,206-209
+packages/ui-exact/SEMANTIC_GAPS.md
+  s_10c7d362cf24b2::t_a2424e39bca7d3 1-55
+packages/ui-exact/STYLING.md
+  s_10c7d362cf24b2::t_4d54da04c2b12e 124-125
+packages/ui-exact/SWITCH.md
+  s_10c7d362cf24b2::t_9aad395a780c91 1-55
+packages/ui-exact/TOGGLES.md
+  s_10c7d362cf24b2::t_1f0ed6fdc67a27 107
+packages/ui-exact/components/avatar.contract
+  s_10c7d362cf24b2::t_7044b1fae1f5f3 1-50
+packages/ui-exact/components/layout.contract
+  s_10c7d362cf24b2::t_30139621282ea0 1-108
+packages/ui-exact/components/switch.contract
+  s_10c7d362cf24b2::t_9270423c545670 1-63
+packages/ui-exact/example/app.contract
+  s_10c7d362cf24b2::t_b140f5a2b69f21 1-2,19-20,70-72
+packages/ui-exact/example/avatar.contract
+  s_10c7d362cf24b2::t_f29c1b8a28686d 1-40
+packages/ui-exact/example/layout.contract
+  s_10c7d362cf24b2::t_16496fbf0a9537 1-63
+packages/ui-exact/example/styles.ts
+  s_10c7d362cf24b2::t_08acf9aaa66b94 19-21,27-30
+packages/ui-exact/example/switch.contract
+  s_10c7d362cf24b2::t_11d0fbb49b6808 1-46
+packages/ui-exact/index.contract
+  s_10c7d362cf24b2::t_0c95b8d774a626 1-3
+packages/ui-exact/manifest.json
+  s_10c7d362cf24b2::t_0879369b8c51a5 6,10,20,31,34,36
+packages/ui-exact/package.json
+  s_10c7d362cf24b2::t_edf98d7cb0d351 27-31
+packages/ui-exact/scripts/build.ts
+  s_10c7d362cf24b2::t_9c91c4b3e60a22 24
+packages/ui-exact/src/avatar-presentation.ts
+  s_10c7d362cf24b2::t_0d51bc1af47277 1-56
+packages/ui-exact/src/avatar.ts
+  s_10c7d362cf24b2::t_ee4a9f6e374b47 1-31
+packages/ui-exact/src/control-lens.ts
+  s_10c7d362cf24b2::t_330e2a33d1b2db 1-204
+packages/ui-exact/src/layout-presentation.ts
+  s_10c7d362cf24b2::t_cdfe296078a94c 1-60
+packages/ui-exact/src/material.ts
+  s_10c7d362cf24b2::t_7b00d077cb2b62 9-11
+packages/ui-exact/src/native.ts
+  s_10c7d362cf24b2::t_3eda90e2ed72a1 4-23,47,121-140
+packages/ui-exact/src/presentation.ts
+  s_10c7d362cf24b2::t_6fd5b1f50476a7 1-3,77-80,141-142,146-180,386-389
+packages/ui-exact/src/switch-form.ts
+  s_10c7d362cf24b2::t_4bfb0be150c2e2 1-43
+packages/ui-exact/src/switch-presentation.ts
+  s_10c7d362cf24b2::t_d6552107051d0b 1-66
+packages/ui-exact/src/switch.ts
+  s_10c7d362cf24b2::t_d51e493f17eb7f 1-203
+packages/ui-exact/src/web.ts
+  s_10c7d362cf24b2::t_45486002ef21bc 1-3,35-38,50-53,61-63,74-76
+packages/ui-exact/test/avatar.mjs
+  s_10c7d362cf24b2::t_29d67c8e643cbe 1-70
+packages/ui-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_413449d46de63e 1-3,113-115,180,189
+packages/ui-exact/test/initial-styles.mjs
+  s_10c7d362cf24b2::t_1a7a501b5b40ea 30-34
+packages/ui-exact/test/layout.mjs
+  s_10c7d362cf24b2::t_73405dd7d86f09 1-169
+packages/ui-exact/test/switch.mjs
+  s_10c7d362cf24b2::t_1e4f2f60c1e1b5 1-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f16b018fd0112c05020d8660db8366f6f9daf9f1",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
