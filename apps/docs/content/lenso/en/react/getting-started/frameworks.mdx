@@ -32,7 +32,16 @@ Include `@lenso/docs` when using the documentation framework. Plain Node imports
 
 ## Next.js App Router
 
-Use the official Babel and PostCSS plugins. Include tokens in `transpilePackages`.
+Run these commands from an existing TypeScript App Router project. This setup was verified with Next.js 16.4.6 (the default Turbopack build), React 19.3.1 and the package versions below. It uses the official StyleX Babel and PostCSS plugins.
+
+```sh
+bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+bun add -d @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
+```
+
+### Configure compilation
+
+Merge `transpilePackages` into your existing Next configuration. Save the Babel configuration as `babel.config.json` at the project root.
 
 ```ts
 // next.config.ts
@@ -51,11 +60,10 @@ export default { transpilePackages: ["@lenso/tokens"] };
 }
 ```
 
-Save this as `babel.config.json`. Generate CSS from application sources and shipped tokens modules:
+Save the following as `postcss.config.cjs` at the same root. Merge its plugin with any existing PostCSS plugins rather than keeping two PostCSS configuration files. The explicit package glob scans the installed declarations for every component.
 
 ```js
 // postcss.config.cjs
-const path = require("node:path");
 const babel = require("./babel.config.json");
 module.exports = {
   plugins: {
@@ -64,7 +72,7 @@ module.exports = {
         "./src/**/*.{js,jsx,ts,tsx}",
         "./app/**/*.{js,jsx,ts,tsx}",
         "./components/**/*.{js,jsx,ts,tsx}",
-        path.join(path.dirname(require.resolve("@lenso/tokens/package.json")), "dist/**/*.js"),
+        "./node_modules/@lenso/tokens/dist/**/*.js",
       ],
       babelConfig: {
         babelrc: false,
@@ -77,14 +85,85 @@ module.exports = {
 };
 ```
 
+Keep these globs relative to the application root containing `node_modules`. Extend them for other source directories, including server-only StyleX declarations. Do not derive this glob with `require.resolve("@lenso/tokens/package.json")`: that entry is not exported. Resolving `styles.css` is also unsuitable here because Turbopack can rewrite it into a virtual CSS-module identifier; the build may then succeed without emitting component styles.
+
+### Load CSS and the theme
+
+Create the global stylesheet and import it in the root layout. If the project uses `src/app`, put these files there instead. Keep the project's existing layout metadata and other providers.
+
 ```css
-/* globals.css */
+/* app/globals.css */
 @import "@lenso/tokens/styles.css";
 @stylex;
 ```
 
-Import this stylesheet from every root layout and custom `global-error` or `global-not-found` document that replaces the layout. Next owns CSS delivery, hashing and manifests. Extend `include` for other source directories and server-only declarations.
+```tsx
+// app/layout.tsx
+import "./globals.css";
 
-`init --framework next` generates these ordinary configuration files. Static `check` diagnostics are hints; verify your framework build and rendered pages. Repository dependency patches fix stale CSS after declaration removal and repeated Babel loading in upstream 0.19.1. Constant values and media-query keys use upstream invalidation without a local override. Independent installations must verify their upstream version.
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Keep the root layout as a Server Component. Place `ThemeScope` inside a client boundary, as in the page below; use `theme="dark"` for a dark scope. Lenso portals inherit their containing `ThemeScope`. Every root layout and custom `global-error` or `global-not-found` document that replaces the layout must import the stylesheet. Next owns CSS delivery, hashing and manifests.
+
+### Render and verify
+
+This client page exercises an application `xstyle` override, theme tokens, state and a portalled Glass menu. In StyleX declarations, import tokens directly from `@lenso/tokens/tokens.stylex.const` so the compiler can resolve constants.
+
+```tsx
+// app/page.tsx
+"use client";
+
+import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "@lenso/tokens/tokens.stylex.const";
+import { Button, GlassButton, Menu, ThemeScope } from "@lenso/ui";
+
+const styles = stylex.create({
+  page: {
+    minHeight: "100vh",
+    padding: 32,
+    backgroundColor: tokens.backgroundGroupedPrimary,
+    color: tokens.labelPrimary,
+  },
+  action: { minWidth: 180 },
+});
+
+export default function Page() {
+  const [count, setCount] = useState(0);
+  return (
+    <ThemeScope theme="light">
+      <main {...stylex.props(styles.page)}>
+        <Button variant="prominent" xstyle={styles.action} onClick={() => setCount(count + 1)}>
+          Count {count}
+        </Button>
+        <Menu.Root morphTrigger={false}>
+          <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
+          <Menu.Portal>
+            <Menu.Positioner>
+              <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.Root>
+      </main>
+    </ThemeScope>
+  );
+}
+```
+
+Run the production build and start the resulting application:
+
+```sh
+bun run build
+bun run start
+```
+
+The Count button should be blue, rounded and at least 180px wide. Clicking it increments the value; Actions opens a styled menu and Reset count resets it. An unstyled page is a failed setup even if the build succeeds: check the token CSS import and the PostCSS package glob. After correcting a failed StyleX compilation, if the next build still reports the old source, stop Next, remove only the generated `.next` directory, and rebuild.
 
 [Official Next.js integration](https://stylexjs.com/docs/learn/installation/nextjs/), [official Vite integration](https://stylexjs.com/docs/learn/installation/vite/).

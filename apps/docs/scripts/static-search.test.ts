@@ -140,7 +140,7 @@ for (const locale of ["en", "cn"]) {
         const body = hits.find(
           (hit) =>
             hit.type === "text" &&
-            hit.url === "/en/docs/react/getting-started/frameworks#nextjs-app-router" &&
+            hit.url === "/en/docs/react/getting-started/frameworks#load-css-and-the-theme" &&
             hit.content.replace(/<\/?mark>/g, "").includes(phrase),
         );
         assert.ok(
