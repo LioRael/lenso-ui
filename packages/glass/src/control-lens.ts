@@ -1044,9 +1044,10 @@ let made = 0;
 // same graph and update its parameters without rebuilding the CSS filter chain.
 function render(surface: Surface): void {
   const { content } = surface;
-  const geometry = surface.members[0]?.geometry;
-  const across = geometry?.contentWidth ?? content.offsetWidth;
-  const down = geometry?.contentHeight ?? content.offsetHeight;
+  const first = surface.members[0];
+  // Removing the last lens only clears its paint and any replacement masks.
+  const across = first ? (first.geometry?.contentWidth ?? content.offsetWidth) : 0;
+  const down = first ? (first.geometry?.contentHeight ?? content.offsetHeight) : 0;
   const from = surface.members.some((member) => !member.geometry || !!member.replaces?.length)
     ? content.getBoundingClientRect()
     : undefined;
@@ -1137,6 +1138,7 @@ function render(surface: Surface): void {
   const filter = `url("#${surface.graph.filter.id}")`;
   if (!content.style.filter.startsWith(filter)) content.style.filter = filter;
 
+  if (!standIn && !surface.originals.size) return;
   const replaced = new Set(shown.flatMap((member) => member.replaces ?? []));
   for (const [element, original] of surface.originals) {
     if (replaced.has(element)) continue;

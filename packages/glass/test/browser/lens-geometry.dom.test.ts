@@ -230,9 +230,11 @@ test.each(["Chrome/130", "AppleWebKit/605.1.15"])(
       } finally {
         bounds.disconnect();
       }
+      reads = 0;
       glass.style.setProperty("--lenso-glass-transparency", "0");
       await new Promise((resolve) => setTimeout(resolve, 10));
       expect(content.style.filter).toBe("");
+      expect(reads).toBe(0);
       glass.style.setProperty("--lenso-glass-transparency", "1");
       await new Promise((resolve) => setTimeout(resolve, 10));
       expect(content.style.filter).toContain("url(");

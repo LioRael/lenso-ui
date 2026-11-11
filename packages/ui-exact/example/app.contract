@@ -43,7 +43,7 @@ component App
   view
     Theme(appearance=appearance)
       Surface(id="example-page", variant="secondary")
-        column padding=24 gap=20 max-width="42.5rem" margin="0 auto"
+        column padding=24 gap=20 width="100%" max-width="42.5rem" margin="0 auto" box-sizing="border-box"
           text "Lenso for Exact" role="heading" aria-level=1
           text "Shared Lenso materials, Exact state and native button semantics."
           text `Count: ${count}` testId="count"

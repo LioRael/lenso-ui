@@ -51,13 +51,20 @@ independent cleanup.
 ## Verification and remaining work
 
 The compiled example and browser checks cover start/middle/end, unchanged-edge
-report suppression, native keyboard scrolling, retained draft text/selection,
+report suppression, retained draft text/selection,
 content and text growth, child resizing, overflow removal, size/offset updates,
 manual/disabled modes, horizontal RTL, hidden scrollbars, caller overrides,
 the observer fallback, reduced motion and unmount/remount. Captures cover both
 orientations, LTR/RTL, light/dark and 390/820px. Blocking stylesheet checks include
 typed-property declarations and native first-frame fade values when supported;
 affected recipe parity and Tabs regression accompany the family checks.
+
+Keyboard gates cover first entry before any programmatic scrolling and the
+already-scrolled viewport. Both Chromium and WebKit require an actual offset
+change. Native key gestures hold ArrowDown for 50ms so WebKit can process a
+scrolling frame before keyup. Zero-duration synthetic gestures were not a
+qualified native-scroll probe. The canonical browser suite includes the strict
+first-entry gate; diagnostic HTML comparisons do not replace it.
 
 The family remains Partial. A non-default dynamic size/offset reaches its private
 variables when the hatch initializes; the pre-hatch geometry still uses the

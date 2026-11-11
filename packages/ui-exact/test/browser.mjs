@@ -1,4 +1,4 @@
-import { checkScrollShadow } from "./scroll-shadow.mjs";
+import { checkScrollShadow, checkScrollShadowColdKeyboard } from "./scroll-shadow.mjs";
 import { checkPageControl } from "./page-control.mjs";
 import { checkButtonGroup } from "./button-group.mjs";
 import { checkSegmented } from "./segmented-control.mjs";
@@ -64,6 +64,7 @@ try {
         if (message.type() === "error") errors.push(message.text());
       });
       await checkInitialStyles(page, server.url.href, name);
+      await checkScrollShadowColdKeyboard(page);
       const presentationCount = await checkPresentationCases(page);
       const button = page.getByTestId("glass-action");
       await page.waitForFunction(() => {

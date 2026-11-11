@@ -2,10 +2,84 @@ import assert from "node:assert/strict";
 import path from "node:path";
 
 // Let WebKit process a native scrolling frame between keydown and keyup.
-const pressScrollArrow = (page) => page.keyboard.press("ArrowDown", { delay: 50 });
+const pressScrollArrow = (page, key = "ArrowDown") => page.keyboard.press(key, { delay: 50 });
+
+export async function checkScrollShadowHorizontalKeyboard(page) {
+  const root = page.getByTestId("shadow-sample");
+  await root.scrollIntoViewIfNeeded();
+  await page.waitForFunction(
+    () => document.getElementById("shadow-sample").getAttribute("data-right-scroll") === "true",
+  );
+  const rtl = await root.evaluate((n) => getComputedStyle(n).direction === "rtl");
+  await page.bringToFront();
+  await root.focus();
+  await pressScrollArrow(page, rtl ? "ArrowLeft" : "ArrowRight");
+  await page.waitForFunction(
+    () => Math.abs(document.getElementById("shadow-sample").scrollLeft) > 0,
+  );
+  await root.evaluate(
+    (n) =>
+      new Promise((resolve) => {
+        let previous = n.scrollLeft,
+          stable = 0;
+        const deadline = performance.now() + 1500;
+        const sample = () => {
+          const next = n.scrollLeft;
+          stable = next === previous ? stable + 1 : 0;
+          previous = next;
+          if (stable >= 8 || performance.now() >= deadline) resolve();
+          else requestAnimationFrame(sample);
+        };
+        requestAnimationFrame(sample);
+      }),
+  );
+  const offset = await root.evaluate((n) => n.scrollLeft);
+  assert.ok(rtl ? offset < 0 : offset > 0);
+  await root.evaluate((n) => (n.scrollLeft = 0));
+  await page.waitForFunction(
+    () => document.getElementById("shadow-sample").getAttribute("data-right-scroll") === "true",
+  );
+  return { direction: rtl ? "rtl" : "ltr", offset, qualified: true };
+}
+
+// Programmatic scrolling in the main fixture must not warm up this first-entry gate.
+export async function checkScrollShadowColdKeyboard(page) {
+  const root = page.getByTestId("shadow-sample");
+  await root.scrollIntoViewIfNeeded();
+  await page.waitForFunction(
+    () => document.getElementById("shadow-sample").getAttribute("data-bottom-scroll") === "true",
+  );
+  assert.equal(await root.evaluate((n) => n.scrollTop), 0);
+  await page.bringToFront();
+  await root.focus();
+  await pressScrollArrow(page);
+  await page.waitForFunction(() => document.getElementById("shadow-sample").scrollTop > 0);
+  await root.evaluate(
+    (n) =>
+      new Promise((resolve) => {
+        let previous = n.scrollTop,
+          stable = 0;
+        const deadline = performance.now() + 1500;
+        const sample = () => {
+          const next = n.scrollTop;
+          stable = next === previous ? stable + 1 : 0;
+          previous = next;
+          if (stable >= 8 || performance.now() >= deadline) resolve();
+          else requestAnimationFrame(sample);
+        };
+        requestAnimationFrame(sample);
+      }),
+  );
+  const offset = await root.evaluate((n) => n.scrollTop);
+  await root.evaluate((n) => (n.scrollTop = 0));
+  await page.waitForFunction(
+    () => document.getElementById("shadow-sample").getAttribute("data-bottom-scroll") === "true",
+  );
+  return { offset, qualified: offset > 0 };
+}
 
 // Scrolling, content changes and caller styles share one Exact-owned viewport.
-// Diagnostic callers can isolate the known WebKit keyboard failure; the canonical suite requires it.
+// Diagnostic callers can collect a native HTML comparison; canonical checks require keyboard scrolling.
 export async function checkScrollShadow(page, engine, { keyboard = true } = {}) {
   const viewport = page.viewportSize(),
     theme = await page.locator("[data-theme]").first().getAttribute("data-theme");
@@ -61,6 +135,8 @@ export async function checkScrollShadow(page, engine, { keyboard = true } = {}) 
   await edges("bottom");
   let keyboardEvidence = { qualified: true };
   if (keyboard) {
+    await page.bringToFront();
+    await root.scrollIntoViewIfNeeded();
     await root.focus();
     await pressScrollArrow(page);
     await page.waitForFunction(() => document.getElementById("shadow-sample").scrollTop > 0);
@@ -152,6 +228,7 @@ export async function checkScrollShadow(page, engine, { keyboard = true } = {}) 
   await toggle("orientation");
   await scroll(0);
   await edges("right");
+  if (keyboard) keyboardEvidence.horizontalLtr = await checkScrollShadowHorizontalKeyboard(page);
   assert.match(await style("mask-image"), /90deg/);
   await page.evaluate(() => (document.documentElement.dir = "rtl"));
   assert.match(await style("mask-image"), /90deg/);
@@ -163,6 +240,7 @@ export async function checkScrollShadow(page, engine, { keyboard = true } = {}) 
   await toggle("direction");
   await scroll(0);
   await edges("right");
+  if (keyboard) keyboardEvidence.horizontalRtl = await checkScrollShadowHorizontalKeyboard(page);
   assert.match(await style("mask-image"), /270deg/);
   await scroll(100);
   await edges("both");
@@ -187,9 +265,10 @@ export async function checkScrollShadow(page, engine, { keyboard = true } = {}) 
   await scroll(0);
   await edges("right");
   assert.equal(await style("border-radius"), "13px");
+  assert.equal(await style("animation-name"), "none");
   assert.equal((await style("--scroll-shadow-before")).trim(), "0px");
   assert.equal((await style("--scroll-shadow-after")).trim(), "40px");
-  await scroll(100);
+  await scroll(10);
   await edges("both");
   assert.equal((await style("--scroll-shadow-before")).trim(), "40px");
   assert.equal(await style("border-radius"), "13px");
@@ -219,6 +298,15 @@ export async function checkScrollShadow(page, engine, { keyboard = true } = {}) 
           await root.scrollIntoViewIfNeeded();
           await scroll(100);
           await edges("both");
+          assert.ok(
+            (await page.evaluate(() => document.documentElement.scrollWidth)) <= width + 1,
+            "horizontal content must scroll inside the viewport, not widen the page",
+          );
+          const bounds = await root.boundingBox();
+          assert.ok(
+            bounds.x >= -1 && bounds.x + bounds.width <= width + 1,
+            "the native scroll viewport must stay inside the page",
+          );
           await root.screenshot({
             path: path.resolve(
               import.meta.dirname,
@@ -264,6 +352,8 @@ export async function checkScrollShadow(page, engine, { keyboard = true } = {}) 
 export async function probeScrollShadowKeyboard(page) {
   const root = page.getByTestId("shadow-sample");
   const settled = () => page.waitForTimeout(400);
+  await page.bringToFront();
+  await root.scrollIntoViewIfNeeded();
   await root.evaluate((n) => {
     n.scrollTop = 0;
     n.focus();
@@ -279,6 +369,7 @@ export async function probeScrollShadowKeyboard(page) {
     clone.id = "scroll-keyboard-reference";
     n.after(clone);
     clone.scrollTop = 0;
+    clone.scrollIntoView({ block: "center" });
     clone.focus();
   });
   let reference;
@@ -289,6 +380,10 @@ export async function probeScrollShadowKeyboard(page) {
   } finally {
     await page.locator("#scroll-keyboard-reference").evaluate((n) => n.remove());
   }
-  assert.ok(reference > 0, "the plain HTML reference must establish keyboard scroll capability");
-  return { exact, reference, qualified: exact > 0 };
+  return {
+    exact,
+    reference,
+    referenceQualified: reference > 0,
+    qualified: exact > 0 && reference > 0,
+  };
 }

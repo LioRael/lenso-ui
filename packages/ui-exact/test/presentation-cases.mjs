@@ -85,6 +85,33 @@ export async function checkPresentationCases(page, kinds) {
             metadata: actual[property],
             classes: expected[property],
           }));
+        if (entry.kind === "scroll-shadow") {
+          for (const property of [
+            "mask-image",
+            "mask-size",
+            "mask-position",
+            "mask-repeat",
+            "overflow-x",
+            "overflow-y",
+            "scrollbar-width",
+            "animation-name",
+            "animation-duration",
+            "animation-timing-function",
+            "animation-fill-mode",
+            "animation-range",
+            "animation-timeline",
+            "--scroll-shadow-size",
+            "--scroll-shadow-offset",
+            "--scroll-shadow-before",
+            "--scroll-shadow-after",
+            "--scroll-shadow-observed-before",
+            "--scroll-shadow-observed-after",
+          ]) {
+            const metadata = actual.getPropertyValue(property),
+              classes = expected.getPropertyValue(property);
+            if (metadata !== classes) differences.push({ property, metadata, classes });
+          }
+        }
         if (entry.kind === "button") {
           const radius = actual.borderRadius;
           node.dataset.lensoReady = "";
