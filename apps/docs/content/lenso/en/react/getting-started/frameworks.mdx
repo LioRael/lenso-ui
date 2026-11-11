@@ -7,20 +7,132 @@ navigationOrder: 3
 
 ## Vite and Rolldown
 
-Use `@stylexjs/unplugin` directly. Lenso ships ordinary modules containing StyleX declarations. The application compiler sees library and application styles in one graph. Import `@lenso/tokens/styles.css` for theme/base CSS. No package metadata artifact or Lenso build adapter is required.
+For a new React TypeScript application, start with the official Vite template. Existing applications can skip these scaffold commands:
 
-```ts
-import stylex from "@stylexjs/unplugin";
-const plugins = [stylex.vite({
-  dev: false,
-  runtimeInjection: false,
-  useCSSLayers: false,
-  lightningcssOptions: { exclude: 4 },
-  unstable_moduleResolution: { type: "commonJS" },
-})];
+```sh
+bunx create-vite@9.3.4 my-app --template react-ts
+cd my-app
+bun install
 ```
 
-Use `stylex.rolldown` for Rolldown. Preserve `:dir()` when choosing Lightning CSS targets.
+From the application root, install Lenso and the official StyleX integration:
+
+```sh
+bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+bun add -d @stylexjs/unplugin@0.19.1
+```
+
+This setup was verified with Vite 8.3.8, React 19.3.1 and `@vitejs/plugin-react` 6.3.0. Lenso ships ordinary modules containing StyleX declarations; the plugin compiles library and application styles together.
+
+### Vite configuration
+
+Replace the template's `vite.config.ts` with this complete configuration, or merge its StyleX plugin before your existing React plugin. Keep any other application-specific settings. `rootDir` identifies the application root for resolving imported StyleX constants.
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { unplugin as stylex } from "@stylexjs/unplugin";
+
+export default defineConfig({
+  optimizeDeps: {
+    exclude: ["@lenso/ui", "@lenso/tokens", "@lenso/glass"],
+    include: ["use-sync-external-store/shim", "use-sync-external-store/shim/with-selector"],
+  },
+  plugins: [
+    stylex.vite({
+      dev: false,
+      runtimeInjection: false,
+      useCSSLayers: false,
+      lightningcssOptions: { exclude: 4 },
+      unstable_moduleResolution: {
+        type: "commonJS",
+        rootDir: import.meta.dirname,
+      },
+    }),
+    react(),
+  ],
+});
+```
+
+The named `unplugin` export also typechecks with the template's NodeNext configuration. `optimizeDeps.exclude` keeps Lenso declarations in StyleX compilation during development. The `optimizeDeps.include` entries pre-bundle Base UI's CommonJS dependencies while Lenso remains unbundled for style compilation; see [Vite dependency optimization](https://vite.dev/config/dep-optimization-options#optimizedeps-exclude).
+
+### Vite entry and example
+
+Replace the template's `src/main.tsx` and `src/App.tsx`. The entry loads theme/base CSS and supplies a theme scope, which Lenso portals inherit. Use `theme="dark"` for a dark scope. These examples omit the template's `index.css` and `App.css` imports; those starter styles constrain the page and restyle buttons. Keep your own global CSS when integrating into an existing app.
+
+```tsx
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ThemeScope } from "@lenso/ui";
+import "@lenso/tokens/styles.css";
+import App from "./App";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode><ThemeScope theme="light"><App /></ThemeScope></StrictMode>,
+);
+```
+
+Import tokens directly from `@lenso/tokens/tokens.stylex.const` when referencing them inside `stylex.create`. This example verifies a local `xstyle` override, state updates and a portalled Glass menu:
+
+```tsx
+// src/App.tsx
+import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "@lenso/tokens/tokens.stylex.const";
+import { Button, GlassButton, Menu } from "@lenso/ui";
+
+const styles = stylex.create({
+  page: {
+    minHeight: "100vh",
+    padding: 32,
+    backgroundColor: tokens.backgroundGroupedPrimary,
+    color: tokens.labelPrimary,
+  },
+  action: { minWidth: 180 },
+});
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  return (
+    <main {...stylex.props(styles.page)}>
+      <Button variant="prominent" xstyle={styles.action} onClick={() => setCount(count + 1)}>
+        Count {count}
+      </Button>
+      <Menu.Root morphTrigger={false}>
+        <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Positioner>
+            <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
+    </main>
+  );
+}
+```
+
+### Verify Vite
+
+Start the development server and open its printed URL:
+
+```sh
+bun run dev
+```
+
+Then stop it, build the application, and open the production preview URL:
+
+```sh
+bun run build
+bun run preview
+```
+
+In both modes the Count button should be blue, rounded and at least 180px wide. Clicking it increments the value; Actions opens a styled menu and Reset count resets it. Check the dark scope as well. A successful build alone does not prove stylesheet delivery: missing theme/base CSS or an unconnected StyleX plugin can leave controls unstyled. No Lenso build adapter or generated package metadata is required.
+
+### Rolldown and SSR
+
+Rolldown uses `stylex.rolldown`. Preserve `:dir()` when choosing Lightning CSS targets. The runnable setup above verifies the Vite client application; it does not configure a Rolldown or SSR host.
 
 For Vite SSR, compile the source packages instead of externalizing them:
 

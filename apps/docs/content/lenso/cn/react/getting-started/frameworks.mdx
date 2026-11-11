@@ -7,20 +7,132 @@ navigationOrder: 3
 
 ## Vite 与 Rolldown
 
-直接使用 `@stylexjs/unplugin`。Lenso 发布包含 StyleX 声明的普通模块，应用编译器在同一个依赖图中处理库与应用的样式。导入 `@lenso/tokens/styles.css` 加载主题和基础 CSS，不再需要私有 metadata 产物或 Lenso 构建适配器。
+新建 React TypeScript 应用时使用官方 Vite 模板；已有应用可跳过以下创建命令：
 
-```ts
-import stylex from "@stylexjs/unplugin";
-const plugins = [stylex.vite({
-  dev: false,
-  runtimeInjection: false,
-  useCSSLayers: false,
-  lightningcssOptions: { exclude: 4 },
-  unstable_moduleResolution: { type: "commonJS" },
-})];
+```sh
+bunx create-vite@9.3.4 my-app --template react-ts
+cd my-app
+bun install
 ```
 
-Rolldown 使用 `stylex.rolldown`。配置 Lightning CSS 目标时保留原生 `:dir()`。
+在应用根目录安装 Lenso 与官方 StyleX 集成：
+
+```sh
+bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+bun add -d @stylexjs/unplugin@0.19.1
+```
+
+这套配置已在 Vite 8.3.8、React 19.3.1 和 `@vitejs/plugin-react` 6.3.0 中验证。Lenso 发布包含 StyleX 声明的普通模块，插件统一编译库与应用的样式。
+
+### Vite 配置
+
+用下面的完整配置替换模板的 `vite.config.ts`，或将 StyleX 插件合并到现有 React 插件之前，保留其他应用配置。`rootDir` 指定应用根目录，供编译器解析导入的 StyleX 常量。
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { unplugin as stylex } from "@stylexjs/unplugin";
+
+export default defineConfig({
+  optimizeDeps: {
+    exclude: ["@lenso/ui", "@lenso/tokens", "@lenso/glass"],
+    include: ["use-sync-external-store/shim", "use-sync-external-store/shim/with-selector"],
+  },
+  plugins: [
+    stylex.vite({
+      dev: false,
+      runtimeInjection: false,
+      useCSSLayers: false,
+      lightningcssOptions: { exclude: 4 },
+      unstable_moduleResolution: {
+        type: "commonJS",
+        rootDir: import.meta.dirname,
+      },
+    }),
+    react(),
+  ],
+});
+```
+
+具名 `unplugin` 导出兼容模板的 NodeNext 类型配置。`optimizeDeps.exclude` 保证开发模式中的 Lenso 声明经过 StyleX 编译。`optimizeDeps.include` 则预构建 Base UI 使用的 CommonJS 依赖，同时保留 Lenso 声明供样式编译，详见 [Vite 依赖优化](https://vite.dev/config/dep-optimization-options#optimizedeps-exclude)。
+
+### Vite 入口与示例
+
+替换模板的 `src/main.tsx` 和 `src/App.tsx`。入口加载主题与基础 CSS，并提供主题作用域；Lenso 的 Portal 会继承它。深色主题使用 `theme="dark"`。示例移除了模板的 `index.css` 和 `App.css` 导入，这些初始样式会限制页面尺寸并覆盖按钮外观；接入已有应用时保留自己需要的全局样式。
+
+```tsx
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ThemeScope } from "@lenso/ui";
+import "@lenso/tokens/styles.css";
+import App from "./App";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode><ThemeScope theme="light"><App /></ThemeScope></StrictMode>,
+);
+```
+
+在 `stylex.create` 中使用 token 时，从 `@lenso/tokens/tokens.stylex.const` 直接导入。下面的示例同时验证本地 `xstyle` 覆盖、状态更新和通过 Portal 展开的 Glass 菜单：
+
+```tsx
+// src/App.tsx
+import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "@lenso/tokens/tokens.stylex.const";
+import { Button, GlassButton, Menu } from "@lenso/ui";
+
+const styles = stylex.create({
+  page: {
+    minHeight: "100vh",
+    padding: 32,
+    backgroundColor: tokens.backgroundGroupedPrimary,
+    color: tokens.labelPrimary,
+  },
+  action: { minWidth: 180 },
+});
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  return (
+    <main {...stylex.props(styles.page)}>
+      <Button variant="prominent" xstyle={styles.action} onClick={() => setCount(count + 1)}>
+        Count {count}
+      </Button>
+      <Menu.Root morphTrigger={false}>
+        <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Positioner>
+            <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
+    </main>
+  );
+}
+```
+
+### 验证 Vite
+
+启动开发服务器并打开输出的地址：
+
+```sh
+bun run dev
+```
+
+随后停止开发服务器，构建应用并打开生产预览地址：
+
+```sh
+bun run build
+bun run preview
+```
+
+两种模式下，Count 都应为蓝色圆角按钮，宽度至少 180px。点击后数值递增；Actions 打开带样式的菜单，Reset count 将数值归零。也应检查深色主题。构建成功不能单独证明样式已交付：遗漏主题与基础 CSS，或未真正接入 StyleX 插件，都可能让控件失去样式。不需要 Lenso 构建适配器或生成包 metadata。
+
+### Rolldown 与 SSR
+
+Rolldown 使用 `stylex.rolldown`。配置 Lightning CSS 目标时保留原生 `:dir()`。上面的可运行流程验证的是 Vite 客户端应用，不包含 Rolldown 或 SSR 宿主配置。
 
 Vite SSR 需要编译这些源码包，不能将它们作为外部依赖跳过编译：
 
