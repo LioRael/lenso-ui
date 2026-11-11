@@ -58,7 +58,7 @@ its newest state. The live contour and decoded-field publication remain on the
 rendering thread. Worker and synchronous paths use the same material equations
 and optical resolution; unavailable or blocked workers retain the synchronous
 path. The last active plane releases the worker. Consumer bundlers must retain
-the packaged `react/fusion-worker.js` entry referenced by the React runtime's
+the packaged root `fusion-worker.js` entry referenced by the shared runtime's
 standard `new Worker(new URL(..., import.meta.url))` expression. No component
 prop or application setup changes are required with the supported Vite pipeline.
 
@@ -100,6 +100,23 @@ The element needs measurable layout; `display: none` and detached elements retur
 when it completes. Prewarming does **not** prepare a background capture, GPU upload
 or shader pipeline, and is not proof that a frame has appeared on screen. Do not
 await it in the menu's activation path.
+
+## Non-React fusion ownership
+
+`@lenso/glass/fusion` exports `attachFusion`, the `FusionGroup` type,
+`glassIsOpaque`, `observeGlassPreferences` and `trackPressHighlight` without a
+React runtime. A renderer owns its container/surface nodes and its mutable member
+set. Call `attachFusion(root, surface, group, spacing)` only while the container
+is enabled and transparent, call `group.update()` when membership changes, and
+release the returned cleanup before removing or rebinding member optics.
+Preference and press-light subscriptions return their own cleanup functions.
+This entry supplies rendering mechanics; the consuming renderer owns native
+interaction, layout, member registration and lifecycle ordering.
+
+The module-worker URL lives in a shared root chunk; keep the packaged root
+`fusion-worker.js` and its imports together. The legacy React worker entry is
+also shipped. Bundlers may rewrite these into their own worker assets. The Exact
+adapter verifies relative worker URLs after staging into a nested consumer path.
 
 ## React binding
 

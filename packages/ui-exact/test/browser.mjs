@@ -1,3 +1,5 @@
+import { checkToolbarFusion } from "./toolbar-fusion.mjs";
+import { checkGlassContainer } from "./glass-container.mjs";
 import { checkToolbar } from "./toolbar.mjs";
 import { checkPagination } from "./pagination.mjs";
 import { checkSearchField } from "./search-field.mjs";
@@ -156,6 +158,8 @@ try {
       await checkNavigation(page, name);
       await checkPagination(page, name);
       await checkToolbar(page, name);
+      await checkGlassContainer(page, name);
+      await checkToolbarFusion(page, name);
       await checkDisclosure(page, name);
       for (const width of [390, 820]) {
         await page.setViewportSize({ width, height: 844 });

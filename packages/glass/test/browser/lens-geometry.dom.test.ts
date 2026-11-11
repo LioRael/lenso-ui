@@ -4,11 +4,13 @@ import { observeGlassPreferences } from "../../src/preferences.js";
 
 // Channel packing must preserve both displacement bytes and mask coverage;
 // a refit must not reuse the packed cache entry for spectral rays.
-// At 126 × 11 and DPR 1.5, unconditionally mirroring rows changes 175 mask bytes.
+// At DPR 1.5, unconditionally mirroring the short axis of the 126 × 11 and 11 × 126
+// fixtures changes 175 coverage bytes.
 test.each([
   ["AppleWebKit/605.1.15", 1, 17, 29],
   ["AppleWebKit/605.1.15", 2, 17, 29],
   ["AppleWebKit/605.1.15", 1.5, 126, 11],
+  ["AppleWebKit/605.1.15", 1.5, 11, 126],
   ["Chrome/156", 1, 17, 29],
   ["Chrome/156", 2, 17, 29],
 ] as const)("%s exact ink bytes at DPR %s, %s × %s", (agent, density, width, height) => {

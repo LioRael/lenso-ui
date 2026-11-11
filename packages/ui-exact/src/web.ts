@@ -1,10 +1,11 @@
+import { trackPressHighlight } from "@lenso/glass/fusion";
 import {
   updateGlassContainer,
   updateFusionMember,
   refreshFusionMember,
   endGlassContainer,
 } from "./glass-container.js";
-import { updateToolbar, endToolbar } from "./toolbar.js";
+import { updateToolbar, endToolbar, updateToolbarFusion, endToolbarFusion } from "./toolbar.js";
 import { updateSearchField, endSearchField } from "./search-field.js";
 import { scrollShadowData, updateScrollShadow, endScrollShadow } from "./scroll-shadow.js";
 import { updatePageControl, endPageControl } from "./page-control.js";
@@ -35,7 +36,10 @@ export interface ExactElement {
 
 interface Owner {
   readonly classes: string[];
-  release(removeClasses: boolean): void;
+  readonly opticsKey?: string;
+  readonly opticsStop?: () => void;
+  readonly lightStop?: () => void;
+  release(removeClasses: boolean, preserveOptics?: boolean): void;
 }
 const owners = new WeakMap<HTMLElement | SVGElement, Owner>();
 
@@ -87,30 +91,68 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
         : "default"
       : "glass-small";
 
-  refreshFusionMember(node);
   const previousOwner = owners.get(node);
-  previousOwner?.release(false);
+  const opticsKey = optics
+    ? [
+        kind,
+        profileKey,
+        ...[
+          "lensoSize",
+          "lensoVariant",
+          "orientation",
+          "lensoGlass",
+          "lensoDetachable",
+          "lensoTint",
+          "lensoDestructive",
+          "lensoDisabled",
+          "lensoLoading",
+        ].map((key) => handle.data[key] ?? ""),
+      ].join("|")
+    : undefined;
+  // Detachment changes motion ownership, not the member's optical recipe.
+  // Keep the shared field and the existing member lens alive through reversals.
+  const preserveOptics =
+    kind === "toolbar-button" &&
+    handle.data["lensoDetachable"] === "true" &&
+    Boolean(opticsKey && previousOwner?.opticsKey === opticsKey);
+  if (!preserveOptics) refreshFusionMember(node);
+  previousOwner?.release(false, preserveOptics);
   const disconnectNative = connectNative(node, handle.data);
   const disconnectAccordion = connectAccordion(node, handle.data);
   let classes = replaceClasses(node, previousOwner?.classes ?? [], compiled.className);
-  let stop: (() => void) | undefined;
-  if (optics) {
+  let stop: (() => void) | undefined = preserveOptics ? previousOwner?.opticsStop : undefined;
+  let stopLight: (() => void) | undefined = preserveOptics ? previousOwner?.lightStop : undefined;
+  if (optics && !preserveOptics) {
     if (!(node instanceof HTMLElement)) throw new TypeError("Lenso Glass requires an HTML element");
     stop = attachGlass(node, {
       profileKey:
         kind === "switch-knob-lens" || kind === "slider-knob-lens" || kind === "tabs-knob-lens"
           ? undefined
           : profileKey,
+      liveGeometry: kind === "toolbar-button" && handle.data["lensoDetachable"] === "true",
       liveBackdrop:
         kind !== "switch-knob-lens" && kind !== "slider-knob-lens" && kind !== "tabs-knob-lens",
     });
   }
+  if (
+    optics &&
+    !preserveOptics &&
+    node instanceof HTMLElement &&
+    !["tabs-knob-lens", "slider-knob-lens", "switch-knob-lens"].includes(kind ?? "")
+  )
+    stopLight = trackPressHighlight(node);
   owners.set(node, {
+    opticsKey,
+    opticsStop: stop,
+    lightStop: stopLight,
     get classes() {
       return classes;
     },
-    release(removeClasses) {
-      stop?.();
+    release(removeClasses, preserveOptics = false) {
+      if (!preserveOptics) {
+        stopLight?.();
+        stop?.();
+      }
       disconnectNative();
       disconnectAccordion?.();
       if (removeClasses) node.classList.remove(...classes);
@@ -126,6 +168,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
       throw new Error("Lenso caller styles need a declarative adapter for inline values");
     classes = replaceClasses(node, classes, next.className);
   });
+  updateToolbarFusion(node, handle.data);
   updateGlassContainer(node, handle.data);
   updateFusionMember(
     node,
@@ -155,6 +198,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
 export function elementEnded(handle: ExactElement) {
   if (handle.hatch !== "lenso-ui") return;
   endGlassContainer(handle.element);
+  endToolbarFusion(handle.element);
   endToolbar(handle.element);
   endSearchField(handle.element);
   endScrollShadow(handle.element);

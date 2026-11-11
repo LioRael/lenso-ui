@@ -68,14 +68,14 @@ component ToolbarExample
       text `Actions: ${clicks}` testId="toolbar-count"
       if visible
         Toolbar(state=bar)
-          ToolbarGroup(state=bar, id="toolbar-clipboard", label="Clipboard", glass=glass, disabled=groupDisabled)
+          ToolbarGroup(state=bar, id="toolbar-clipboard", label="Clipboard", glass=glass, disabled=groupDisabled, detachable=false, detached=false)
             if showCopy
-              ToolbarButton(state=bar, id="toolbar-copy", label="Copy", size=size, variant=variant, groupDisabled=groupDisabled, grouped=true, surface=true, glass=glass, iconOnly=false, elastic=elastic, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=false, press=activate)
+              ToolbarButton(state=bar, id="toolbar-copy", label="Copy", size=size, variant=variant, groupDisabled=groupDisabled, grouped=true, surface=true, detachable=false, detached=false, glass=glass, iconOnly=false, elastic=elastic, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=false, press=activate)
                 text "Copy"
-            ToolbarButton(state=bar, id="toolbar-paste", label="Paste", size=size, variant=variant, groupDisabled=groupDisabled, grouped=true, surface=true, glass=glass, iconOnly=false, elastic=elastic, destructive=false, tint="", disabled=true, focusableWhenDisabled=focusable, loading=false, press=activate)
+            ToolbarButton(state=bar, id="toolbar-paste", label="Paste", size=size, variant=variant, groupDisabled=groupDisabled, grouped=true, surface=true, detachable=false, detached=false, glass=glass, iconOnly=false, elastic=elastic, destructive=false, tint="", disabled=true, focusableWhenDisabled=focusable, loading=false, press=activate)
               text "Paste"
           ToolbarSeparator(orientation=(vertical ? "horizontal" : "vertical"))
-          ToolbarButton(state=bar, id="toolbar-save", label="Save", size=size, variant=variant, groupDisabled=false, grouped=false, surface=false, glass=glass, iconOnly=true, elastic=elastic, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=loading, press=activate)
+          ToolbarButton(state=bar, id="toolbar-save", label="Save", size=size, variant=variant, groupDisabled=false, grouped=false, surface=false, detachable=false, detached=false, glass=glass, iconOnly=true, elastic=elastic, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=loading, press=activate)
             ToolbarButtonIcon()
               svg width=18 height=18 viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width=1.5
                 path d="M3 2h8l2 2v10H3zM5 2v4h5V2M5 14V9h6v5"

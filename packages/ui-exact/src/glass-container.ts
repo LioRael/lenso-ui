@@ -1,3 +1,4 @@
+import { press } from "@lenso/glass/motion";
 import {
   attachFusion,
   glassIsOpaque,
@@ -5,7 +6,7 @@ import {
   type FusionGroup,
 } from "@lenso/glass/fusion";
 
-const selector = '[data-slot="glass-container"]';
+const selector = '[data-slot="glass-container"], [data-lenso-kind="toolbar-fusion-group"]';
 const containers = new WeakMap<HTMLElement, Container>();
 const eligible = new WeakSet<HTMLElement>();
 const membership = new WeakMap<HTMLElement, Container>();
@@ -65,7 +66,7 @@ function createContainer(root: HTMLElement, data: DOMStringMap): Container {
       }
       active =
         root.isConnected &&
-        owner.data["lensoDisabled"] !== "true" &&
+        owner.data["lensoFusionDisabled"] !== "true" &&
         !glassIsOpaque(root) &&
         Boolean(next);
       const members = active
@@ -116,7 +117,12 @@ function createContainer(root: HTMLElement, data: DOMStringMap): Container {
 }
 
 export function updateGlassContainer(node: HTMLElement | SVGElement, data: DOMStringMap) {
-  if (!(node instanceof HTMLElement) || data["lensoKind"] !== "glass-container") return;
+  if (!(node instanceof HTMLElement)) return;
+  if (!["glass-container", "toolbar-fusion-group"].includes(data["lensoKind"] ?? "")) {
+    containers.get(node)?.end();
+    containers.delete(node);
+    return;
+  }
   let owner = containers.get(node);
   if (!owner) {
     owner = createContainer(node, data);
@@ -155,4 +161,14 @@ export function endGlassContainer(node: HTMLElement | SVGElement) {
   const owner = containers.get(node);
   owner?.end();
   containers.delete(node);
+}
+
+export function connectFusionItem(node: HTMLElement | SVGElement, data: DOMStringMap) {
+  if (
+    node instanceof HTMLElement &&
+    data["lensoKind"] === "glass-container-item" &&
+    data["lensoElastic"] === "true"
+  )
+    return press(node);
+  return undefined;
 }

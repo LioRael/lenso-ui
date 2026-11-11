@@ -5,6 +5,12 @@ control motion and optical profiles (MIT), retaining their file-level notices.
 Their MIT license and shared token attributions are included in the workspace
 THIRD_PARTY_NOTICES.md copied into the distributable.
 
+`src/glass-container.ts` adapts membership and preference ownership from Lenso
+GlassContainer, using the shared non-React fusion API. `src/web.ts` connects
+its shared press-light API independently of elastic motion.
+Fusion optics, field preparation and their retained notices remain in the shared
+glass implementation; the worker is bundled into the distributable assets.
+
 `src/toolbar.ts` follows Lenso's Toolbar and installed Base UI interaction
 contracts and reuses the attributed non-React glass press model. Its source
 Toolbar, GlassButton, Link and material token maps remain shared imports.

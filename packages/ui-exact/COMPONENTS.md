@@ -94,14 +94,14 @@ Publication and repository landing require separate user instructions.
 | `toggle-button`        | Partial               | Registered style/tint composition verified; dynamic inline values and Toolbar composition remain                                                                                      |
 | `glass-toggle-button`  | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `toggle-button-group`  | Partial               | Registered style/tint composition verified; dynamic inline values and Toolbar composition remain                                                                                      |
-| `toolbar`              | Partial               | Native roving focus, groups, shared surfaces, button variants and browser behavior verified; fusion/edge/Menu/native and optical gates remain (TOOLBAR.md)                            |
+| `toolbar`              | Partial               | Native focus, shared surfaces and detachable fusion verified; sticky edge/Menu/native and optical gates remain (TOOLBAR.md)                                                           |
 | `navigation-bar`       | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `swipe-actions`        | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `wheel-picker`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `tooltip`              | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `typography`           | Pending               | Native paragraph/code and full Prose/polymorphic semantics remain open on unchanged upstream (SEMANTIC_GAPS.md)                                                                       |
 | `glass`                | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                                                                                            |
-| `glass-container`      | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
+| `glass-container`      | Partial               | Shared fusion engine, member lifecycle, worker/GPU and CPU fallback verified; broader membership, native forwarding and optical/device gates remain (GLASS_CONTAINER.md)              |
 | `glass-magnifier`      | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `glass-button`         | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                                                                                            |
 | `context-menu`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
@@ -137,11 +137,13 @@ acceptance alongside the families that consume them.
 
 ## Current build and focused acceptance
 
-The Toolbar checkpoint builds 3526 core recipes (1112585 CSS bytes / 67164 gzip)
-and 4464 consumer recipes (1211439 CSS bytes). Its browser cohort checks 1169
-Toolbar recipes plus linked first-frame styles and the named component/navigation
-regressions. This is not a rerun of the entire catalog. Earlier cohort counts
-below retain their historical verification scope.
+The detachable Toolbar checkpoint builds 4111 core recipes and 5625 consumer
+recipes. Its focused browser cohort checks 2325 affected Toolbar recipes,
+linked first-frame joined geometry, intermediate/reversed fusion transitions,
+32 layout endpoints and standard Toolbar, GlassContainer and navigation
+regressions in Chromium and WebKit. The preceding GlassContainer cohort checked
+5 affected recipes and worker/main-thread fallbacks. This is not a rerun of the
+entire catalog. Earlier cohort counts below retain their historical scope.
 
 ## Verified integration slice (2026-11-10)
 

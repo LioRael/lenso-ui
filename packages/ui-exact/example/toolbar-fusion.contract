@@ -1,0 +1,66 @@
+use ToolbarState, Toolbar, ToolbarGroup, ToolbarButton, Button from "@lenso/ui-exact"
+
+component ToolbarFusionExample
+  state detached = false
+  state enabled = true
+  state attached = false
+  state vertical = false
+  state rtl = false
+  state size = "md"
+  state elastic = true
+  state disabled = false
+  state loading = false
+  state third = true
+  state visible = true
+  state actions = 0
+  derive bar = ToolbarState(id="morph-toolbar", label="Clipboard actions", orientation=(vertical ? "vertical" : "horizontal"), direction=(rtl ? "rtl" : "ltr"), disabled=false, loopFocus=true, attached=attached, elastic=elastic)
+  action split
+    detached = not detached
+  action mode
+    enabled = not enabled
+  action parentSurface
+    attached = not attached
+  action orientation
+    vertical = not vertical
+  action direction
+    rtl = not rtl
+  action cycleSize
+    size = size == "md" ? "lg" : (size == "lg" ? "sm" : "md")
+  action toggleElastic
+    elastic = not elastic
+  action toggleDisabled
+    disabled = not disabled
+  action toggleLoading
+    loading = not loading
+  action toggleThird
+    third = not third
+  action toggleVisible
+    visible = not visible
+  action activate
+    actions = actions + 1
+  view
+    column gap=12
+      text "Shared clipboard group" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Join or separate", press=split, disabled=false, size="sm", variant="bordered", testId="morph-split")
+        Button(label="Morph mode", press=mode, disabled=false, size="sm", variant="bordered", testId="morph-mode")
+        Button(label="Parent surface", press=parentSurface, disabled=false, size="sm", variant="bordered", testId="morph-attached")
+        Button(label="Morph axis", press=orientation, disabled=false, size="sm", variant="bordered", testId="morph-axis")
+        Button(label="Morph direction", press=direction, disabled=false, size="sm", variant="bordered", testId="morph-direction")
+        Button(label="Morph size", press=cycleSize, disabled=false, size="sm", variant="bordered", testId="morph-size")
+        Button(label="Morph elastic", press=toggleElastic, disabled=false, size="sm", variant="bordered", testId="morph-elastic")
+        Button(label="Clipboard unavailable", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="morph-disabled")
+        Button(label="Clipboard busy", press=toggleLoading, disabled=false, size="sm", variant="bordered", testId="morph-loading")
+        Button(label="Toggle Paste", press=toggleThird, disabled=false, size="sm", variant="bordered", testId="morph-third")
+        Button(label="Toggle clipboard", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="morph-visible")
+      text `Clipboard actions: ${actions}` testId="morph-actions"
+      if visible
+        Toolbar(state=bar)
+          ToolbarGroup(state=bar, id="morph-group", label="Clipboard", glass=true, disabled=disabled, detachable=enabled, detached=detached)
+            ToolbarButton(state=bar, id="morph-cut", label="Cut", size=size, variant="auto", groupDisabled=disabled, grouped=true, surface=true, detachable=enabled, detached=detached, glass=true, iconOnly=false, elastic=elastic, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=loading, press=activate)
+              text "Cut"
+            ToolbarButton(state=bar, id="morph-copy", label="Copy", size=size, variant="auto", groupDisabled=disabled, grouped=true, surface=true, detachable=enabled, detached=detached, glass=true, iconOnly=false, elastic=elastic, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=false, press=activate)
+              text "Copy"
+            if third
+              ToolbarButton(state=bar, id="morph-paste", label="Paste", size=size, variant="auto", groupDisabled=disabled, grouped=true, surface=true, detachable=enabled, detached=detached, glass=true, iconOnly=false, elastic=elastic, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=false, press=activate)
+                text "Paste"

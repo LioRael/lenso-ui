@@ -168,6 +168,17 @@ export async function checkInitialStyles(page, url, engine) {
         .evaluate((node) => getComputedStyle(node).display),
       "none",
     );
+    const morphInitial = await page.evaluate(() => {
+      const ids = ["morph-cut", "morph-copy", "morph-paste"];
+      const rects = ids.map((id) => document.getElementById(id).getBoundingClientRect());
+      return {
+        supported: CSS.supports("width", "calc(sibling-count() * 1px)"),
+        gaps: rects.slice(1).map((rect, index) => rect.left - rects[index].right),
+      };
+    });
+    if (morphInitial.supported)
+      for (const gap of morphInitial.gaps)
+        assert.ok(Math.abs(gap) < 0.5, `${engine}: joined Toolbar must touch before hatches`);
     const scrollInitial = await page.evaluate(() => {
       const node = document.getElementById("shadow-sample"),
         style = getComputedStyle(node);

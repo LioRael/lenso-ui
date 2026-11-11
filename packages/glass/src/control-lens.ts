@@ -288,7 +288,11 @@ function drawMap(
     const x = ((column + 0.5) / columns) * width - halfWidth;
     const ax = Math.abs(x);
     const inner = ax - innerWidth + innerRadius;
+    // Fractional CSS dimensions can put opposite samples on different byte-rounding boundaries.
+    const opposite = columns - 1 - column;
+    const reflected = packed && x === halfWidth - ((opposite + 0.5) / columns) * width;
     return {
+      mirrorBytes: reflected ? (opposite - column) * 4 : 0,
       outer: ax - halfWidth + radius,
       inner,
       fade: fade(inner - innerRadius),
@@ -297,6 +301,12 @@ function drawMap(
       facing: clamp(x / halfWidth, -1, 1) * cos,
     };
   });
+  const writePackedPixel = (i: number, red: number, green: number, alpha: number) => {
+    field![i] = red;
+    field![i + 1] = green;
+    field![i + 3] = 255;
+    caught[i + 3] = alpha;
+  };
   for (let row = 0; row < rows; row++) {
     const y = ((row + 0.5) / rows) * height - halfHeight;
     // Packed ink has symmetric coverage. Fractional fits can put opposite
@@ -315,8 +325,9 @@ function drawMap(
     const rowFade = fade(innerY - innerRadius);
     const facingY = clamp(y / halfHeight, -1, 1) * sin;
     for (let column = 0; column < columns; column++) {
-      const i = (row * columns + column) * 4;
       const axis = horizontal[column]!;
+      if (packed && axis.mirrorBytes < 0) continue;
+      const i = (row * columns + column) * 4;
       // Only the corner quadrant needs Euclidean distance; either straight
       // side is exactly a one-dimensional signed distance.
       const edge =
@@ -328,11 +339,12 @@ function drawMap(
       if (shapeMask) grey(shapeMask, i, 0, inside);
       if (edge >= 0) {
         if (field) {
-          field[i] = field[i + 1] = 128;
-          field[i + 3] = 255;
+          writePackedPixel(i, 128, 128, 0);
+          if (axis.mirrorBytes) writePackedPixel(i + axis.mirrorBytes, 128, 128, 0);
           if (mirrorOffset) {
-            field[i + mirrorOffset] = field[i + mirrorOffset + 1] = 128;
-            field[i + mirrorOffset + 3] = 255;
+            writePackedPixel(i + mirrorOffset, 128, 128, 0);
+            if (axis.mirrorBytes)
+              writePackedPixel(i + mirrorOffset + axis.mirrorBytes, 128, 128, 0);
           }
         } else {
           grey(pullAcross!, i, 128);
@@ -368,17 +380,23 @@ function drawMap(
             ? axis.fade
             : rowFade;
       if (field) {
-        field[i] = Math.round((0.5 - 0.5 * dx * falloff) * 255);
-        field[i + 1] = Math.round((0.5 - 0.5 * dy * falloff) * 255);
-        field[i + 3] = 255;
-        // Ink that paints its own light only consumes the coverage, not its colour.
-        caught[i + 3] = Math.round(255 * Math.min(1, falloff * 20, -edge));
+        // Reflect the continuous pull before byte rounding on each equivalent axis.
+        const red = Math.round((0.5 - 0.5 * dx * falloff) * 255);
+        const green = Math.round((0.5 - 0.5 * dy * falloff) * 255);
+        const alpha = Math.round(255 * Math.min(1, falloff * 20, -edge));
+        writePackedPixel(i, red, green, alpha);
+        const reflectedRed = axis.mirrorBytes ? Math.round((0.5 + 0.5 * dx * falloff) * 255) : red;
+        if (axis.mirrorBytes) writePackedPixel(i + axis.mirrorBytes, reflectedRed, green, alpha);
         if (mirrorOffset) {
-          field[i + mirrorOffset] = field[i]!;
-          // Reverse the pull before rounding to preserve the neutral half-step.
-          field[i + mirrorOffset + 1] = Math.round((0.5 + 0.5 * dy * falloff) * 255);
-          field[i + mirrorOffset + 3] = 255;
-          caught[i + mirrorOffset + 3] = caught[i + 3]!;
+          const reflectedGreen = Math.round((0.5 + 0.5 * dy * falloff) * 255);
+          writePackedPixel(i + mirrorOffset, red, reflectedGreen, alpha);
+          if (axis.mirrorBytes)
+            writePackedPixel(
+              i + mirrorOffset + axis.mirrorBytes,
+              reflectedRed,
+              reflectedGreen,
+              alpha,
+            );
         }
         continue;
       }

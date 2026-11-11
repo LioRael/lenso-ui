@@ -9,9 +9,8 @@ export const glassContainerKinds = [
   "glass-container",
   "glass-container-surface",
   "glass-container-rim",
-  "glass-container-item",
 ];
-export function glassContainerPresentation(kind: string) {
+export function glassContainerPresentation(kind: string, data: DOMStringMap) {
   switch (kind) {
     case "glass-container":
       return [glassContainerStyles.root, native.tint];
@@ -20,7 +19,13 @@ export function glassContainerPresentation(kind: string) {
     case "glass-container-rim":
       return [glassContainerStyles.rim];
     case "glass-container-item":
-      return [glassStyles.root, glassStyles.optics, glassStyles.foreground, glassStyles.hotspot];
+      return [
+        glassStyles.root,
+        glassStyles.optics,
+        glassStyles.foreground,
+        glassStyles.hotspot,
+        data["lensoElastic"] === "true" && glassStyles.elastic,
+      ];
     default:
       return undefined;
   }

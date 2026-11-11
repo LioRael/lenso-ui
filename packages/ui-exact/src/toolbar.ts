@@ -187,16 +187,34 @@ export function endToolbar(node: HTMLElement | SVGElement) {
 export function connectToolbar(node: HTMLElement | SVGElement, data: DOMStringMap) {
   if (
     !(node instanceof HTMLElement) ||
-    !["toolbar", "toolbar-group", "toolbar-button"].includes(data["lensoKind"] ?? "")
+    !["toolbar", "toolbar-group", "toolbar-fusion-group", "toolbar-button"].includes(
+      data["lensoKind"] ?? "",
+    )
   )
     return;
   const kind = data["lensoKind"],
     surface = kind !== "toolbar-button";
   const ownsMotion =
-    kind === "toolbar" ? data["lensoAttached"] === "true" : data["lensoSurface"] !== "true";
+    kind === "toolbar"
+      ? data["lensoAttached"] === "true"
+      : data["lensoSurface"] !== "true" &&
+        (kind === "toolbar-fusion-group"
+          ? data["lensoDetached"] !== "true"
+          : kind !== "toolbar-button" ||
+            data["lensoDetachable"] !== "true" ||
+            data["lensoDetached"] === "true");
   const shouldStart = (event: PointerEvent) => {
     const target = event.target instanceof Element ? event.target : null;
     if (target?.closest(rootSelector) !== node.closest(rootSelector)) return false;
+    const owner = target?.closest("[data-toolbar-detachable]");
+    if (
+      surface &&
+      owner &&
+      owner !== node &&
+      (owner.hasAttribute("data-toolbar-elastic-surface") ||
+        owner.getAttribute("data-toolbar-detached") === "true")
+    )
+      return false;
     if (
       target?.closest(
         '[data-slot="toolbar-button"][data-lenso-loading="true"], [data-slot="toolbar-button"][data-lenso-elastic="false"]',
@@ -208,7 +226,19 @@ export function connectToolbar(node: HTMLElement | SVGElement, data: DOMStringMa
     );
   };
   const stop = ownsMotion
-    ? press(node, shouldStart, surface ? "--toolbar-press" : "--lg-press")
+    ? press(
+        node,
+        shouldStart,
+        surface ? "--toolbar-press" : "--lg-press",
+        data["lensoDetachable"] === "true" && !surface
+          ? {
+              grow: Math.round(
+                (data["lensoSize"] === "sm" ? 36 : data["lensoSize"] === "lg" ? 48 : 44) * 0.4,
+              ),
+              release: [230, 31],
+            }
+          : {},
+      )
     : undefined;
   if (!(node instanceof HTMLButtonElement) || kind !== "toolbar-button") return () => stop?.();
   const tint = data["lensoTint"] ?? "";
@@ -279,4 +309,69 @@ export function connectToolbar(node: HTMLElement | SVGElement, data: DOMStringMa
     if (pending === null) node.removeAttribute("data-pending");
     else node.setAttribute("data-pending", pending);
   };
+}
+
+interface Morph {
+  sync(): void;
+  end(): void;
+}
+const morphs = new WeakMap<HTMLElement, Morph>();
+function createMorph(root: HTMLElement): Morph {
+  const property = "--lenso-exact-toolbar-joined-offset";
+  const originals = new Map<HTMLElement, [string, string]>();
+  const ready = root.getAttribute("data-toolbar-morph-ready");
+  let ended = false;
+  const restore = (node: HTMLElement) => {
+    const original = originals.get(node);
+    if (!original) return;
+    if (original[0]) node.style.setProperty(property, ...original);
+    else node.style.removeProperty(property);
+    originals.delete(node);
+  };
+  const sync = () => {
+    if (ended) return;
+    const members = [...root.querySelectorAll<HTMLElement>(":scope > [data-toolbar-item]")];
+    for (const node of originals.keys()) if (!members.includes(node)) restore(node);
+    members.forEach((node, index) => {
+      if (!originals.has(node))
+        originals.set(node, [
+          node.style.getPropertyValue(property),
+          node.style.getPropertyPriority(property),
+        ]);
+      const offset = `${((members.length - 1) / 2 - index) * 40}px`;
+      if (node.style.getPropertyValue(property) !== offset)
+        node.style.setProperty(property, offset);
+    });
+  };
+  sync();
+  root.getBoundingClientRect();
+  root.setAttribute("data-toolbar-morph-ready", "");
+  const observer = new MutationObserver(sync);
+  observer.observe(root, { childList: true, subtree: true });
+  return {
+    sync,
+    end() {
+      ended = true;
+      observer.disconnect();
+      for (const node of originals.keys()) restore(node);
+      if (ready === null) root.removeAttribute("data-toolbar-morph-ready");
+      else root.setAttribute("data-toolbar-morph-ready", ready);
+    },
+  };
+}
+export function updateToolbarFusion(node: HTMLElement | SVGElement, data: DOMStringMap) {
+  if (!(node instanceof HTMLElement)) return;
+  if (data["lensoKind"] === "toolbar-fusion-group") {
+    const owner = morphs.get(node);
+    if (owner) owner.sync();
+    else morphs.set(node, createMorph(node));
+  } else if (morphs.has(node)) {
+    morphs.get(node)?.end();
+    morphs.delete(node);
+  }
+}
+export function endToolbarFusion(node: HTMLElement | SVGElement) {
+  if (!(node instanceof HTMLElement)) return;
+  morphs.get(node)?.end();
+  morphs.delete(node);
 }

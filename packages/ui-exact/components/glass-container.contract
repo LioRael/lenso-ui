@@ -10,7 +10,7 @@ component GlassContainer
   slot
   view
     box id=state.id testId=state.id hatch="lenso-ui" data-lenso-kind="glass-container" data-slot="glass-container"
-      data-lenso-spacing=state.spacing data-lenso-disabled=state.disabled data-lenso-tint=state.tint
+      data-lenso-spacing=state.spacing data-lenso-fusion-disabled=state.disabled data-lenso-tint=state.tint
       children
       box id=`${state.id}-fusion` testId=`${state.id}-fusion` aria-hidden=true
         hatch="lenso-ui" data-lenso-kind="glass-container-surface" data-slot="glass-container-surface"
@@ -19,7 +19,8 @@ component GlassContainer
 component GlassContainerItem
   props
     id: string
+    elastic: bool
   slot
   view
-    box id=id testId=id hatch="lenso-ui" data-lenso-kind="glass-container-item" data-slot="glass"
+    box id=id testId=id hatch="lenso-ui" data-lenso-kind="glass-container-item" data-slot="glass" data-lenso-elastic=elastic
       children

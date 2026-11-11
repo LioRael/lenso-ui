@@ -3,6 +3,7 @@
     "lenso-ui": ["web"]
   },
   "data": [
+    "glass",
     "knob-material",
     "layout",
     "lenso-activate-on-focus",
@@ -18,6 +19,7 @@
     "lenso-count",
     "lenso-current",
     "lenso-destructive",
+    "lenso-detachable",
     "lenso-detached",
     "lenso-direction",
     "lenso-disabled",
@@ -29,8 +31,10 @@
     "lenso-for",
     "lenso-form",
     "lenso-full-width",
+    "lenso-fusion-disabled",
     "lenso-gap",
     "lenso-glass",
+    "lenso-glass-state",
     "lenso-grid",
     "lenso-group-item",
     "lenso-hide-scrollbar",
@@ -86,6 +90,9 @@
     "skeleton-animation",
     "slot",
     "theme",
+    "toolbar-detached",
+    "toolbar-direction",
+    "toolbar-item",
     "variant"
   ]
 }

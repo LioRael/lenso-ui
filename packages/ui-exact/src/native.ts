@@ -1,3 +1,4 @@
+import { connectFusionItem } from "./glass-container.js";
 import { connectToolbar } from "./toolbar.js";
 import { connectSearchField } from "./search-field.js";
 import { connectGroupAction } from "./button-group.js";
@@ -38,6 +39,25 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
       node.hidden = hidden;
     });
   }
+  if (node instanceof HTMLElement && data["lensoKind"] === "toolbar-fusion-group") {
+    for (const [name, enabled] of [
+      ["data-toolbar-detachable", true],
+      ["data-lenso-glass-group", true],
+      [
+        "data-toolbar-elastic-surface",
+        data["lensoSurface"] !== "true" && data["lensoDetached"] !== "true",
+      ],
+    ] as const) {
+      const original = node.getAttribute(name);
+      node.toggleAttribute(name, enabled);
+      restores.push(() => {
+        if (original === null) node.removeAttribute(name);
+        else node.setAttribute(name, original);
+      });
+    }
+  }
+  const disconnectFusionItem = connectFusionItem(node, data);
+  if (disconnectFusionItem) restores.push(disconnectFusionItem);
   const disconnectToolbar = connectToolbar(node, data);
   if (disconnectToolbar) restores.push(disconnectToolbar);
   const disconnectSearch = connectSearchField(node, data);

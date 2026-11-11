@@ -98,7 +98,7 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           searchFieldPresentation(kind, data) ??
           paginationPresentation(kind, data) ??
           toolbarPresentation(kind, data) ??
-          glassContainerPresentation(kind));
+          glassContainerPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -174,6 +174,12 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     "glass",
   ])
     add(kind);
+  for (const elastic of [false, true])
+    add(
+      "glass-container-item",
+      { lensoElastic: String(elastic) },
+      `[data-lenso-elastic="${elastic}"]`,
+    );
   for (const orientation of ["horizontal", "vertical"]) {
     add("toolbar-separator", { orientation }, `[data-orientation="${orientation}"]`);
     for (const attached of [false, true])
@@ -183,32 +189,39 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
         `[data-orientation="${orientation}"][data-lenso-attached="${attached}"]`,
       );
     for (const surface of [false, true]) {
+      add(
+        "toolbar-fusion-group",
+        { orientation, lensoSurface: String(surface) },
+        `[data-orientation="${orientation}"][data-lenso-surface="${surface}"]`,
+      );
       for (const glass of [false, true])
         add(
           "toolbar-group",
           { orientation, lensoSurface: String(surface), lensoGlass: String(glass) },
           `[data-orientation="${orientation}"][data-lenso-surface="${surface}"][data-lenso-glass="${glass}"]`,
         );
-      for (const size of ["sm", "md", "lg"])
-        for (const variant of ["glass", "filled", "plain"])
-          for (const glass of [false, true])
-            for (const icon of [false, true])
-              for (const destructive of [false, true])
-                for (const tinted of [false, true])
-                  add(
-                    "toolbar-button",
-                    {
-                      orientation,
-                      lensoSurface: String(surface),
-                      lensoSize: size,
-                      lensoVariant: variant,
-                      lensoGlass: String(glass),
-                      lensoIconOnly: String(icon),
-                      lensoDestructive: String(destructive),
-                      lensoTinted: String(tinted),
-                    },
-                    `[data-orientation="${orientation}"][data-lenso-surface="${surface}"][data-lenso-size="${size}"][data-lenso-variant="${variant}"][data-lenso-glass="${glass}"][data-lenso-icon-only="${icon}"][data-lenso-destructive="${destructive}"][data-lenso-tinted="${tinted}"]`,
-                  );
+      for (const detachable of [false, true])
+        for (const size of ["sm", "md", "lg"])
+          for (const variant of ["glass", "filled", "plain"])
+            for (const glass of [false, true])
+              for (const icon of [false, true])
+                for (const destructive of [false, true])
+                  for (const tinted of [false, true])
+                    add(
+                      "toolbar-button",
+                      {
+                        orientation,
+                        lensoSurface: String(surface),
+                        lensoDetachable: String(detachable),
+                        lensoSize: size,
+                        lensoVariant: variant,
+                        lensoGlass: String(glass),
+                        lensoIconOnly: String(icon),
+                        lensoDestructive: String(destructive),
+                        lensoTinted: String(tinted),
+                      },
+                      `[data-orientation="${orientation}"][data-lenso-surface="${surface}"][data-lenso-detachable="${detachable}"][data-lenso-size="${size}"][data-lenso-variant="${variant}"][data-lenso-glass="${glass}"][data-lenso-icon-only="${icon}"][data-lenso-destructive="${destructive}"][data-lenso-tinted="${tinted}"]`,
+                    );
     }
   }
   for (const size of ["sm", "md", "lg"]) {

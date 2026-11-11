@@ -10,12 +10,15 @@ component GlassContainerExample
   state visible = true
   state second = true
   state nested = false
+  state elastic = false
   state actions = 0
   state draft = "Draft"
   derive group = GlassContainerState(id="fusion-demo", spacing=spacing, disabled=disabled, tint=tint)
   derive inner = GlassContainerState(id="fusion-inner", spacing=20, disabled=false, tint="")
   action edit(next: string)
     draft = next
+  action toggleElastic
+    elastic = not elastic
   action activate
     actions = actions + 1
   action toggleGap
@@ -52,16 +55,17 @@ component GlassContainerExample
         Button(label="Toggle fusion", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="fusion-visible")
         Button(label="Toggle member", press=toggleSecond, disabled=false, size="sm", variant="bordered", testId="fusion-member")
         Button(label="Nested container", press=toggleNested, disabled=false, size="sm", variant="bordered", testId="fusion-nested")
+      Button(label="Fusion item elastic", press=toggleElastic, disabled=false, size="sm", variant="bordered", testId="fusion-elastic")
       text `Fusion actions: ${actions}` testId="fusion-actions"
       if visible
         GlassContainer(state=group)
           row gap=gap flex-direction=(vertical ? "column" : "row") direction=(rtl ? "rtl" : "ltr") flex-wrap="wrap"
-            GlassContainerItem(id="fusion-first")
+            GlassContainerItem(id="fusion-first", elastic=elastic)
               button appearance="none" press=activate testId="fusion-action" aria-label="Select first tile" tabindex=0
                 text "First"
-              input type="text" value=draft input=edit aria-label="Tile draft" testId="fusion-draft" width=56 height=28 font-size=12
+              input type="text" value=draft input=edit aria-label="Tile draft" testId="fusion-draft" width=56 height=28 font-size=12 box-sizing="border-box"
             if second
-              GlassContainerItem(id="fusion-second")
+              GlassContainerItem(id="fusion-second", elastic=false)
                 text "Second"
             if nested
               GlassContainer(state=inner)

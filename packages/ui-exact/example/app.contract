@@ -1,3 +1,4 @@
+use ToolbarFusionExample from "./toolbar-fusion.contract"
 use GlassContainerExample from "./glass-container.contract"
 use ToolbarExample from "./toolbar.contract"
 use PaginationExample from "./pagination.contract"
@@ -90,3 +91,4 @@ component App
           PaginationExample()
           ToolbarExample()
           GlassContainerExample()
+          ToolbarFusionExample()
