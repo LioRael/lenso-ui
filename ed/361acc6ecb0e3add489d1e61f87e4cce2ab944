@@ -1,0 +1,384 @@
+docs/research/evidence/native-action-sheet-2026-11-11/android/authoritative-results.json
+  s_ab5c95a3492695::t_7938941caddcc5 1-36,39-79,81-119
+  s_ab5c95a3492695::t_b709255e14e525 37-38,80
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-6
+docs/research/evidence/native-action-sheet-2026-11-11/android/built-host.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-4
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-12
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone1/binary-provenance.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4-32,35
+  s_ab5c95a3492695::t_586f02c7ae3bc9 3,33-34
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/result-summary.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-9
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/App.tsx.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-256
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-6
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/ipad-native-selection-measured-owner-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-focus3/phone-native-popover-implicit-focus-return-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-179
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/native-sheet-Draft-actions-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-139
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/action-sheet-host.ios.tsx.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-32
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/ActionSheetExample.tsx.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-237
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/binary-provenance.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4-32,35
+  s_ab5c95a3492695::t_586f02c7ae3bc9 3,33-34
+docs/design/native-components.md
+  s_ab5c95a3492695::t_481cba948f8486 123-125
+  s_ab5c95a3492695::t_502a3b6984a2db 111-122,126-128
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-2.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+apps/native-example/README.md
+  s_ab5c95a3492695::t_481cba948f8486 18-19
+  s_ab5c95a3492695::t_502a3b6984a2db 13-17,20
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/ActionSheetQA.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-58
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/result-summary.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-11
+docs/research/evidence/native-action-sheet-2026-11-11/checks/lint.log
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1.log
+  s_ab5c95a3492695::t_7938941caddcc5 1-14
+docs/research/evidence/native-action-sheet-2026-11-11/checks/doctor-ui-native-before-including-new-boundary.log
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-5,7-40
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 6
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/native-confirmation-after-sheet-hierarchy.txt
+  s_ab5c95a3492695::t_586f02c7ae3bc9 1-135
+docs/research/native-action-sheet-2026-11-11.md
+  s_ab5c95a3492695::t_7938941caddcc5 52
+  s_ab5c95a3492695::t_1cb61d9a0d0b00 3,72-86
+  s_ab5c95a3492695::t_224062a908c087 7,117-155
+  s_ab5c95a3492695::t_e74646633d8f19 1-2,4-6,8-27,33-51,53-54,56-64,68-71,156-163
+  s_ab5c95a3492695::t_481cba948f8486 28-32,55
+  s_ab5c95a3492695::t_4d64ddaf483e93 65-67
+  s_ab5c95a3492695::t_c7d886da4ccb38 87-116
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/action-sheet.tsx.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-32
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/results.json
+  s_ab5c95a3492695::t_b709255e14e525 11-12
+  s_ab5c95a3492695::t_7938941caddcc5 1-10,13-35
+docs/research/evidence/native-action-sheet-2026-11-11/android/readiness-failed1.log
+  s_ab5c95a3492695::t_7938941caddcc5 1-5
+docs/research/evidence/native-action-sheet-2026-11-11/android/build-log-provenance.json
+  s_ab5c95a3492695::t_4d64ddaf483e93 1-6
+docs/research/evidence/native-action-sheet-2026-11-11/android/readiness-failed1/current.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/build-terminal.txt
+  s_ab5c95a3492695::t_4d64ddaf483e93 1-12
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-focus3/qa-terminal.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-3
+docs/research/evidence/native-action-sheet-2026-11-11/checks/doctor-ui-native-npm-workspace-rejected.log
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-4
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-6.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/case-1.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance2/ActionSheetQA.py.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-106
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/qa-terminal.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-5
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-12
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/case-2.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-focus3/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-12
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3-capture-rejected.log
+  s_ab5c95a3492695::t_7938941caddcc5 1-8
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_e74646633d8f19 72-79
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/qa-terminal.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-7
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_e74646633d8f19 20,59-66,69,92,105,114,165
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/phone-restored-host-works-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone1/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-18
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/phone-native-archive-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/native-sheet-presentation-precondition-failed-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-187
+packages/ui-native/test/action-sheet-model.test.ts
+  s_ab5c95a3492695::t_e74646633d8f19 1-68
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/phone-owner-aborted-no-overlay-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-76
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/metro.config.cjs.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-18
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/ActionSheetQA.py.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-102
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/ActionSheetQA.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-62
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/diagnostic-receipt.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-10
+docs/research/evidence/native-action-sheet-2026-11-11/android/final-anr-events.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-4
+docs/research/evidence/native-action-sheet-2026-11-11/checks/doctor-native-example.log
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 6
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-5,7-40
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-focus3/phone-focused-trigger-actually-visible-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-175
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance2.log
+  s_ab5c95a3492695::t_7938941caddcc5 1-7
+docs/research/evidence/native-action-sheet-2026-11-11/android/launcher-ready.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/build-command.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-19
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/result-summary.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-10
+packages/ui-native/src/modal.tsx
+  s_ab5c95a3492695::t_e74646633d8f19 108-109,128,153-161,173-179,198,301
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/Podfile.lock.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2480
+docs/research/evidence/native-action-sheet-2026-11-11/checks/hermes-android.log
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 3,5,8,11,14
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4,6-7,9-10,12-13,15-16
+docs/research/evidence/native-action-sheet-2026-11-11/checks/results.json
+  s_ab5c95a3492695::t_4d9ef09810e6f5 123,134-137
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-118,120-122,124-133,139-140
+  s_ab5c95a3492695::t_b709255e14e525 119,138
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/ActionSheetView.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-138
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/action-sheet-host.ios.tsx.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-33
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/ActionSheetQA.py.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-114
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-120
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/phone-native-popover-outside-cancel-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/checks/hermes-ios.log
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4-6,8-9,11-12,14-15,17-18
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 3,7,10,13,16
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/ipad-real-anchored-native-popover-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-139
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/geometry-receipt.json
+  s_ab5c95a3492695::t_586f02c7ae3bc9 1,3,6,9-11
+  s_ab5c95a3492695::t_b709255e14e525 2,4-5,7-8
+docs/research/evidence/native-action-sheet-2026-11-11/checks/final-tests.log
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 2,7,13,19,22,25,29,34,39,44
+  s_ab5c95a3492695::t_4d9ef09810e6f5 1,3-6,8-12,14-18,20-21,23-24,26-28,30-33,35-38,40-43,45-49
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-12
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/ActionSheetQA.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-58
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/results.json
+  s_ab5c95a3492695::t_7938941caddcc5 1-5,7-43
+  s_ab5c95a3492695::t_b709255e14e525 6
+packages/ui-native/src/action-sheet-request.ts
+  s_ab5c95a3492695::t_45ac0e4bff12e5 1-14
+docs/research/evidence/native-action-sheet-2026-11-11/android/device-provenance.json
+  s_ab5c95a3492695::t_586f02c7ae3bc9 1-9
+docs/research/evidence/native-action-sheet-2026-11-11/checks/doctor-ui-native.log
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 6
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-5,7-40
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/ipad-unanchored-center-native-fallback-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-139
+packages/ui-native/test/action-sheet-request.test.ts
+  s_ab5c95a3492695::t_45ac0e4bff12e5 1-32
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/ipad-popover-outside-cancel-once-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/qa-terminal.txt
+  s_ab5c95a3492695::t_586f02c7ae3bc9 1-3
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/result-summary.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-9
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/binary-provenance.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4-32,35
+  s_ab5c95a3492695::t_586f02c7ae3bc9 3,33-34
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance2/case-3.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_586f02c7ae3bc9 1-204
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/case-5.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/build-receipt.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-16
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/phone-confirmed-native-delete-once-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/ActionSheetView.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-138
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance2/case-2.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/phone-queue-distinct-results-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/checks/test-types.log
+  s_ab5c95a3492695::t_214a4e6c9dcada 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/phone-sheet-confirmation-cancel-preserves-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/android/build-result.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-3
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/binary-provenance.json
+  s_ab5c95a3492695::t_586f02c7ae3bc9 3,33-34
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4-32,35
+docs/research/evidence/native-action-sheet-2026-11-11/android/shutdown.json
+  s_ab5c95a3492695::t_7938941caddcc5 1-9
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/owned-ipad-id.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/diagnostic-settled-after-show-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-86
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/source-hashes-before.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-12
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/driver-before-current-capture.py.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-102
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_e74646633d8f19 32-50
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/command-and-compile.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-11
+packages/ui-native/src/action-sheet-host.android.tsx
+  s_ab5c95a3492695::t_e74646633d8f19 1-65
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/phone-back-glass-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-185
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/ipad-back-glass-no-overlay-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-185
+docs/research/evidence/native-action-sheet-2026-11-11/README.md
+  s_ab5c95a3492695::t_e203d624c4dbb5 1-31,33-34,37-43
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 32,35-36
+docs/research/evidence/native-action-sheet-2026-11-11/android/after-system-wait.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_be34d8bd12bf18 8,10,13-14,56,58-62,64-68
+  s_ab5c95a3492695::t_224062a908c087 37
+  s_ab5c95a3492695::t_7938941caddcc5 36
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-focus3/result-summary.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-9
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance2/results.json
+  s_ab5c95a3492695::t_7938941caddcc5 1-17
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-supplement2/phone-native-dark-sheet-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-139
+docs/research/evidence/native-action-sheet-2026-11-11/android/launch.json
+  s_ab5c95a3492695::t_586f02c7ae3bc9 1-15
+docs/research/evidence/native-action-sheet-2026-11-11/archive-index.json
+  s_ab5c95a3492695::t_4d9ef09810e6f5 565-571,575-576
+  s_ab5c95a3492695::t_b709255e14e525 395-397,427-429,600-602,642-644,754-756,891-893
+  s_ab5c95a3492695::t_586f02c7ae3bc9 115,135,155,175,195,343-352,391-394,398-402,412,425-426,430-431,525-531,623-632
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-114,116-134,136-154,156-174,176-194,196-342,353-390,403-411,413-424,432-524,532-540,544-547,551-559,563-564,577-578,582-585,589-592,596-599,603-622,929-930
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 541-543,548-550,560-562,572-574,579-581,586-588,593-595
+  s_ab5c95a3492695::t_7938941caddcc5 633-641,645-753,757-890,894-928
+docs/research/evidence/native-action-sheet-2026-11-11/android/readiness-failed1/ActionSheetQA.py.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-113
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/action-sheet-request.ts.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-14
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-3.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_45ac0e4bff12e5 19
+  s_ab5c95a3492695::t_e74646633d8f19 16-18,20-22
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/build-receipt.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-8
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-1.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/lastanr.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-2
+docs/research/evidence/native-action-sheet-2026-11-11/source/runtime-source-snapshot.json
+  s_ab5c95a3492695::t_4d64ddaf483e93 1-109
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-8.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-7.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-focus3/binary-provenance.json
+  s_ab5c95a3492695::t_586f02c7ae3bc9 3,33-34
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4-32,35
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance2/case-1.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/manifest.json
+  s_ab5c95a3492695::t_d90b2b6d1ac5c7 3-4,267-268,275-276,279-280,287-288,295-296,299-300,303-304,307-308
+  s_ab5c95a3492695::t_b709255e14e525 1-2,5-266,269-274,277-278,281-286,289-294,297-298,301-302,305-306,309-742
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/AlertDialogView.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-103
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/Podfile.lock.before.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2480
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/native-gate-log.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-12
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/ActionSheetQA.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-73
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/ActionSheetView.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-141
+docs/research/evidence/native-action-sheet-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_b709255e14e525 41,54,67,80,95,109,122,135,169,171-172,174-175
+  s_ab5c95a3492695::t_586f02c7ae3bc9 1-40,42-53,55-66,68-79,81-94,96-108,110-121,123-134,136-168,170,173,176-186
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-120
+docs/research/evidence/native-action-sheet-2026-11-11/source/final-hashes.json
+  s_ab5c95a3492695::t_4d64ddaf483e93 1-109
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone1/result-summary.json
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-11
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/phone-reversed-key-copy-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-129
+docs/research/evidence/native-action-sheet-2026-11-11/checks/doctor-native-example-npm-workspace-rejected.log
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-4
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3.log
+  s_ab5c95a3492695::t_7938941caddcc5 1-9
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_224062a908c087 1045
+  s_ab5c95a3492695::t_e74646633d8f19 1041-1042
+  s_ab5c95a3492695::t_7938941caddcc5 1040
+  s_ab5c95a3492695::t_c7d886da4ccb38 1044,1047
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-4.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/checks/final-boundaries.log
+  s_ab5c95a3492695::t_4d9ef09810e6f5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/ipad-production1/ipad-measured-trigger-before-open-hierarchy.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-89
+packages/ui-native/src/action-sheet.tsx
+  s_ab5c95a3492695::t_e74646633d8f19 1-32
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/compile-receipt.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-3
+docs/research/evidence/native-action-sheet-2026-11-11/ios/build/AlertDialogView.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-103
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/case-3.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-focus3/ActionSheetQA.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-67
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone-production1/binary-provenance.json
+  s_ab5c95a3492695::t_586f02c7ae3bc9 3,33-34
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-2,4-32,35
+apps/native-example/ActionSheetExample.tsx
+  s_ab5c95a3492695::t_e74646633d8f19 1-237
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone1/ActionSheetQA.swift.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-55
+docs/research/evidence/native-action-sheet-2026-11-11/android/anr-events.txt
+  s_ab5c95a3492695::t_7938941caddcc5 1-4
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/case-4.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+packages/ui-native/ios/ActionSheetView.swift
+  s_ab5c95a3492695::t_e74646633d8f19 1-138
+packages/ui-native/src/action-sheet-host.ios.tsx
+  s_ab5c95a3492695::t_e74646633d8f19 1-3,6-8,10-19,21-32
+  s_ab5c95a3492695::t_45ac0e4bff12e5 4-5,9,20
+docs/research/evidence/native-action-sheet-2026-11-11/ios/diagnostic3/qa-terminal.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-3
+docs/research/evidence/native-action-sheet-2026-11-11/ios/production-build/action-sheet-model.ts.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-136
+docs/research/evidence/native-action-sheet-2026-11-11/android/partial1/case-6.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/android/acceptance3/case-5.xml
+  s_ab5c95a3492695::t_7938941caddcc5 1
+docs/research/evidence/native-action-sheet-2026-11-11/ios/phone1/qa-terminal.txt
+  s_ab5c95a3492695::t_214a4e6c9dcada 1-7
+packages/ui-native/src/action-sheet-model.ts
+  s_ab5c95a3492695::t_e74646633d8f19 1-136
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ed361acc6ecb0e3add489d1e61f87e4cce2ab944",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
