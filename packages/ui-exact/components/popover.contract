@@ -32,12 +32,16 @@ component PopoverTrigger
     disabled: bool
     size: string
     variant: string
+    openOnHover: bool
+    delay: number
+    closeDelay: number
   slot
   view
     button id=id testId=id appearance="none" tabindex=0 aria-label=label aria-haspopup="dialog"
       disabled=disabled popovertarget=target popovertargetaction="toggle"
       hatch="lenso-ui" data-lenso-kind="popover-trigger" data-slot="popover-trigger"
       data-lenso-size=size data-lenso-variant=variant
+      data-lenso-open-on-hover=openOnHover data-lenso-hover-delay=delay data-lenso-close-delay=closeDelay
       children
 
 component PopoverPositioner

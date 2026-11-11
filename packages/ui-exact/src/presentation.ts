@@ -1,3 +1,4 @@
+import { tooltipPresentation, tooltipKinds } from "./tooltip-presentation.js";
 import { popoverPresentation, popoverKinds } from "./popover-presentation.js";
 import { glassContainerPresentation, glassContainerKinds } from "./glass-container-presentation.js";
 import { toolbarPresentation, toolbarKinds } from "./toolbar-presentation.js";
@@ -100,7 +101,8 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           paginationPresentation(kind, data) ??
           toolbarPresentation(kind, data) ??
           glassContainerPresentation(kind, data) ??
-          popoverPresentation(kind, data));
+          popoverPresentation(kind, data) ??
+          tooltipPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -154,6 +156,7 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     });
   };
   for (const kind of [
+    ...tooltipKinds,
     ...popoverKinds,
     ...glassContainerKinds,
     ...toolbarKinds,
@@ -182,6 +185,14 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
       for (const direction of ["ltr", "rtl"])
         add(
           "popover-positioner",
+          { lensoSide: side, lensoAlign: align, lensoDirection: direction },
+          `[data-lenso-side="${side}"][data-lenso-align="${align}"][data-lenso-direction="${direction}"]`,
+        );
+  for (const side of ["top", "bottom", "left", "right", "inline-start", "inline-end"])
+    for (const align of ["start", "center", "end"])
+      for (const direction of ["ltr", "rtl"])
+        add(
+          "tooltip-positioner",
           { lensoSide: side, lensoAlign: align, lensoDirection: direction },
           `[data-lenso-side="${side}"][data-lenso-align="${align}"][data-lenso-direction="${direction}"]`,
         );

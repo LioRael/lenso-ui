@@ -1,4 +1,12 @@
 import {
+  blockPopoverHover,
+  clearPopoverHover,
+  hoverPopoverTrigger,
+  isHoverPopover,
+  popoverInputType,
+  registerPopoverHoverHost,
+} from "./popover-hover.js";
+import {
   arrow as arrowMiddleware,
   autoUpdate,
   computePosition,
@@ -9,7 +17,7 @@ import {
   type Placement,
 } from "@floating-ui/dom";
 import { anchoredMaterial } from "./anchored-material.js";
-import { popoverTabbables } from "./modal-focus.js";
+import { modalOwner, popoverTabbables } from "./modal-focus.js";
 
 interface Controller {
   update(data: DOMStringMap): void;
@@ -28,8 +36,10 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
   let epoch = 0;
   let disposed = false;
   let closing = false;
+  let touchPress = false;
   let focusOnPosition = false;
   let focusOrigin: Element | null = null;
+  let nativeFocusOrigin: Element | null = null;
   const attributes = new Map<Element, Map<string, string | null>>();
   const styles = new Map<HTMLElement, Map<string, [string, string]>>();
   const attr = (node: Element, name: string, value: string | null) => {
@@ -52,6 +62,17 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
   };
   const popup = () => root.querySelector<HTMLElement>(':scope > [data-slot="popover-popup"]');
   const isOpen = () => !closing && root.matches(":popover-open");
+  const markTriggers = (shown: boolean) => {
+    const content = popup();
+    for (const node of root.ownerDocument.querySelectorAll<HTMLElement>("button[popovertarget]"))
+      if (
+        node.getAttribute("popovertarget") === root.id &&
+        node.getAttribute("popovertargetaction") !== "hide"
+      ) {
+        attr(node, "aria-expanded", String(shown && node === opener));
+        if (content?.id) attr(node, "aria-controls", content.id);
+      }
+  };
   const accessible = (open: boolean) => {
     const content = popup();
     if (!content) return;
@@ -181,7 +202,7 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
       focusOnPosition = false;
       const active = document.activeElement;
       if (active === focusOrigin || active === opener || active === document.body) {
-        const target = popoverTabbables(content)[0] ?? content;
+        const target = touchPress ? content : (popoverTabbables(content)[0] ?? content);
         target.focus({ preventScroll: true });
       }
     }
@@ -197,6 +218,7 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
     stopTracking?.();
     stopTracking = undefined;
     if (!isOpen()) return;
+    if (!opener?.isConnected) opener = hoverPopoverTrigger(root);
     if (!opener?.isConnected)
       opener = [...document.querySelectorAll<HTMLButtonElement>("button[popovertarget]")].find(
         (node) =>
@@ -222,7 +244,8 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
       accessible(true);
       attr(root, "data-lenso-positioned", "");
       document.addEventListener("focusin", focusOut);
-      const source = (event as ToggleEvent & { source?: Element | null }).source;
+      const source =
+        hoverPopoverTrigger(root) ?? (event as ToggleEvent & { source?: Element | null }).source;
       const active = document.activeElement;
       opener =
         source instanceof HTMLElement
@@ -240,8 +263,12 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
             node.getAttribute("popovertargetaction") !== "hide" &&
             !node.disabled,
         );
+      touchPress = !isHoverPopover(root) && popoverInputType(opener) === "touch";
+      attr(root, "data-lenso-open-reason", isHoverPopover(root) ? "hover" : "press");
       focusOrigin = document.activeElement;
-      focusOnPosition = true;
+      nativeFocusOrigin = focusOrigin;
+      focusOnPosition = !isHoverPopover(root);
+      markTriggers(true);
       attr(content, "data-ending-style", null);
       attr(
         content,
@@ -252,9 +279,14 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
       preferences();
     } else {
       const restoreFocus =
-        root.contains(document.activeElement) || document.activeElement === document.body;
+        !isHoverPopover(root) &&
+        (root.contains(document.activeElement) || document.activeElement === document.body);
+      blockPopoverHover(opener);
+      clearPopoverHover(root);
+      markTriggers(false);
       accessible(false);
       const returnTarget = opener;
+      const nativeReturnTarget = nativeFocusOrigin;
       const closedAt = epoch;
       // The native dispatch can drain microtasks before hiding and focus cleanup finish.
       returnTimer = window.setTimeout(() => {
@@ -265,7 +297,9 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
           !isOpen() &&
           restoreFocus &&
           returnTarget?.isConnected &&
-          (active === document.body || (active !== null && root.contains(active)))
+          (active === document.body ||
+            active === nativeReturnTarget ||
+            (active !== null && root.contains(active)))
         )
           returnTarget.focus({ preventScroll: true });
       });
@@ -284,18 +318,54 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
     if (isOpen()) track();
   };
   const focusOut = (event: FocusEvent) => {
-    if (!isOpen() || !(event.target instanceof Element)) return;
+    if (!isOpen() || isHoverPopover(root) || !(event.target instanceof Element)) return;
     if (root.contains(event.target) || opener?.contains(event.target)) return;
     root.hidePopover();
   };
   const keydown = (event: KeyboardEvent) => {
-    if (event.key !== "Tab" || !event.shiftKey || event.defaultPrevented || !isOpen()) return;
+    if (
+      event.key !== "Tab" ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.defaultPrevented ||
+      !isOpen() ||
+      isHoverPopover(root)
+    )
+      return;
     const content = popup();
-    if (!content || event.target !== popoverTabbables(content)[0]) return;
-    event.preventDefault();
-    root.hidePopover();
-    opener?.focus();
+    if (!content) return;
+    const items = popoverTabbables(content);
+    if (event.shiftKey && event.target === items[0]) {
+      event.preventDefault();
+      root.hidePopover();
+      opener?.focus();
+    } else if (!event.shiftKey && event.target === items.at(-1) && opener) {
+      const outside = popoverTabbables(modalOwner(root) ?? root.ownerDocument.body).filter(
+        (node) => !root.contains(node),
+      );
+      const index = outside.indexOf(opener);
+      if (index < 0) return;
+      const next = outside[index + 1] ?? outside[0];
+      event.preventDefault();
+      next?.focus();
+      if (isOpen()) root.hidePopover();
+    }
   };
+  const stopHoverHost = registerPopoverHoverHost(root, {
+    info: () => ({ trigger: opener, touchPress }),
+    sync: () => markTriggers(isOpen()),
+    activate(trigger, focus) {
+      opener = trigger;
+      touchPress = !isHoverPopover(root) && popoverInputType(trigger) === "touch";
+      focusOrigin = document.activeElement;
+      focusOnPosition = focus;
+      attr(root, "data-lenso-open-reason", isHoverPopover(root) ? "hover" : "press");
+      accessible(true);
+      markTriggers(isOpen());
+      if (isOpen()) track();
+    },
+  });
   root.addEventListener("beforetoggle", beforeToggle);
   root.addEventListener("toggle", toggle);
   root.addEventListener("keydown", keydown);
@@ -313,6 +383,7 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
     update(next) {
       data = next;
       accessible(isOpen());
+      markTriggers(isOpen());
       style(root, "direction", data["lensoDirection"] ?? "ltr");
       preferences();
       if (isOpen()) track();
@@ -322,6 +393,7 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
       ++epoch;
       cancelAnimationFrame(frame);
       clearTimeout(returnTimer);
+      stopHoverHost();
       stopTracking?.();
       stopMaterial?.();
       observer.disconnect();
@@ -343,7 +415,11 @@ function createPopover(root: HTMLElement, initial: DOMStringMap): Controller {
 }
 
 export function updatePopover(node: HTMLElement | SVGElement, data: DOMStringMap) {
-  if (!(node instanceof HTMLElement) || data["lensoKind"] !== "popover-positioner") return;
+  if (!(node instanceof HTMLElement)) return;
+  if (data["lensoKind"] !== "popover-positioner") {
+    endPopover(node);
+    return;
+  }
   let owner = controllers.get(node);
   if (!owner) {
     owner = createPopover(node, data);

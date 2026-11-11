@@ -98,7 +98,7 @@ Publication and repository landing require separate user instructions.
 | `navigation-bar`       | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `swipe-actions`        | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `wheel-picker`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
-| `tooltip`              | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
+| `tooltip`              | Partial               | Native descriptions, timing, grouped triggers and thick material implemented; extended/native and optical gates remain (TOOLTIP.md)                                                   |
 | `typography`           | Pending               | Native paragraph/code and full Prose/polymorphic semantics remain open on unchanged upstream (SEMANTIC_GAPS.md)                                                                       |
 | `glass`                | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                                                                                            |
 | `glass-container`      | Partial               | Shared fusion engine, member lifecycle, worker/GPU and CPU fallback verified; broader membership, native forwarding and optical/device gates remain (GLASS_CONTAINER.md)              |
@@ -137,10 +137,18 @@ acceptance alongside the families that consume them.
 
 ## Current build and focused acceptance
 
-The Popover checkpoint builds 4177 core recipes and 5691 consumer recipes.
+The Tooltip checkpoint builds 4225 core recipes and 5739 consumer recipes.
+Its focused Chromium/WebKit cohort checks 48 affected recipes, 36 placement
+endpoints, native descriptions and actions, grouping, focus, timing and cleanup.
+Touch is checked in emulated mobile contexts. The preceding Popover checkpoint
+built 4177 core recipes and 5691 consumer recipes.
 Its focused Chromium/WebKit cohort checks 66 affected recipes, linked first-frame
 styles/native opening, keyboard and nested dismissal, 36 placement endpoints,
 caller styles, scrolling/tracking opt-out, preference fallbacks and teardown.
+Hover checks cover eight physical-side/direction routes with shared and diagonal
+gap travel, rest delays, click promotion, active-invoker switching and cleanup.
+Touch activation is checked in emulated mobile contexts, including popup focus
+and suppression of compatibility hover. Browser shortcut modifiers remain native.
 Modal, AlertDialog and navigation regressions cover the shared focus traversal.
 The preceding Toolbar cohort checked 2325 affected recipes and 32 endpoints;
 GlassContainer checked 5 affected recipes and worker/main-thread fallbacks.

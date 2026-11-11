@@ -1,3 +1,5 @@
+import { checkPopoverHover, checkPopoverTouch } from "./popover-hover.mjs";
+import { checkTooltip, checkTooltipTouch } from "./tooltip.mjs";
 import { checkPopover } from "./popover.mjs";
 import { checkToolbarFusion } from "./toolbar-fusion.mjs";
 import { checkGlassContainer } from "./glass-container.mjs";
@@ -162,6 +164,28 @@ try {
       await checkGlassContainer(page, name);
       await checkToolbarFusion(page, name);
       await checkPopover(page, name);
+      await checkPopoverHover(page, name);
+      const tooltip = await checkTooltip(page, name);
+      const touchContext = await browser.newContext({
+        viewport: { width: 390, height: 844 },
+        hasTouch: true,
+        isMobile: true,
+      });
+      let popoverTouch;
+      let tooltipTouch;
+      try {
+        const touchPage = await touchContext.newPage();
+        touchPage.on("pageerror", (error) => errors.push(String(error)));
+        touchPage.on("console", (message) => {
+          if (message.type() === "error") errors.push(message.text());
+        });
+        await touchPage.goto(server.url.href);
+        popoverTouch = await checkPopoverTouch(touchPage, name);
+        tooltipTouch = await checkTooltipTouch(touchPage);
+      } finally {
+        await touchContext.close();
+      }
+      await page.bringToFront();
       await checkDisclosure(page, name);
       for (const width of [390, 820]) {
         await page.setViewportSize({ width, height: 844 });
@@ -231,6 +255,9 @@ try {
         alertDialogMotion,
         visualCapture,
         layoutSemantics,
+        popoverTouch,
+        tooltip,
+        tooltipTouch,
       });
       await page.close();
     } finally {

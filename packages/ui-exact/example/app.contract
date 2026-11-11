@@ -1,3 +1,5 @@
+use TooltipExample from "./tooltip.contract"
+use PopoverHoverExample from "./popover-hover.contract"
 use PopoverExample from "./popover.contract"
 use ToolbarFusionExample from "./toolbar-fusion.contract"
 use GlassContainerExample from "./glass-container.contract"
@@ -94,3 +96,5 @@ component App
           GlassContainerExample()
           ToolbarFusionExample()
           PopoverExample()
+          PopoverHoverExample()
+          TooltipExample()

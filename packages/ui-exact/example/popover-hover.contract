@@ -1,0 +1,95 @@
+use PopoverState, Popover, PopoverPortal, PopoverTrigger, PopoverPositioner, PopoverPopup, PopoverArrow, PopoverTitle, PopoverDescription, PopoverViewport, PopoverClose, Button, Input, Label from "@lenso/ui-exact"
+
+component PopoverHoverExample
+  state enabled = true
+  state disabled = false
+  state mounted = true
+  state showTrigger = true
+  state openDelay = 300
+  state closeDelay = 0
+  state side = "bottom"
+  state rtl = false
+  state draft = "Please review the delivery address."
+  state email = "design@example.com"
+  state saved = ""
+  derive preview = PopoverState(id="hover-contact", label="Delivery address", labelledBy="hover-contact-title", describedBy="hover-contact-description", side=side, align="center", direction=(rtl ? "rtl" : "ltr"), sideOffset=16, alignOffset=0, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  derive details = PopoverState(id="hover-details", label="Delivery details", labelledBy="hover-details-title", describedBy="", side="inline-end", align="start", direction=(rtl ? "rtl" : "ltr"), sideOffset=16, alignOffset=0, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  action editDraft(value: string)
+    draft = value
+  action commitDraft(value: string)
+    draft = value
+  action submitDraft
+    draft = draft.trim()
+  action editEmail(value: string)
+    email = value
+  action commitEmail(value: string)
+    email = value
+  action save
+    saved = email
+    hidePopover("hover-contact")
+  action toggleEnabled
+    enabled = not enabled
+  action toggleDisabled
+    disabled = not disabled
+  action toggleMounted
+    mounted = not mounted
+  action toggleTrigger
+    showTrigger = not showTrigger
+  action cycleOpenDelay
+    openDelay = openDelay == 300 ? 80 : (openDelay == 80 ? 0 : 300)
+  action cycleCloseDelay
+    closeDelay = closeDelay == 0 ? 160 : 0
+  action cycleSide
+    side = side == "bottom" ? "right" : (side == "right" ? "top" : (side == "top" ? "left" : "bottom"))
+  action toggleDirection
+    rtl = not rtl
+  view
+    column id="hover-examples" gap=12
+      text "Delivery address" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Hover opening", press=toggleEnabled, disabled=false, size="sm", variant="bordered", testId="hover-enabled")
+        Button(label="Open delay", press=cycleOpenDelay, disabled=false, size="sm", variant="bordered", testId="hover-open-delay")
+        Button(label="Close delay", press=cycleCloseDelay, disabled=false, size="sm", variant="bordered", testId="hover-close-delay")
+        Button(label="Disable trigger", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="hover-disabled")
+        Button(label="Mount popup", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="hover-mounted")
+        Button(label="Mount trigger", press=toggleTrigger, disabled=false, size="sm", variant="bordered", testId="hover-trigger-mounted")
+        Button(label="Placement", press=cycleSide, disabled=false, size="sm", variant="bordered", testId="hover-side")
+        Button(label="Direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="hover-direction")
+      Label(id="hover-draft-label", controlId="hover-draft", label="Message", required=false)
+      Input(id="hover-draft", name="message", label="Message", labelledBy="hover-draft-label", describedBy="", value=draft, input=editDraft, change=commitDraft, submit=submitDraft, placeholder="Message", type="text", autocomplete="off", disabled=false, readOnly=false, required=false, invalid=false, variant="primary")
+      Popover()
+        row gap=24
+          if showTrigger
+            PopoverTrigger(id="hover-trigger", label="Address details", target="hover-contact", disabled=disabled, size="md", variant="bordered", openOnHover=enabled, delay=openDelay, closeDelay=closeDelay)
+              text "Address details"
+          PopoverTrigger(id="hover-second", label="Address details here", target="hover-contact", disabled=disabled, size="md", variant="bordered", openOnHover=enabled, delay=openDelay, closeDelay=closeDelay)
+            text "Address details here"
+        if mounted
+          PopoverPortal()
+            PopoverPositioner(state=preview)
+              PopoverPopup(state=preview)
+                PopoverArrow(state=preview)
+                PopoverViewport()
+                  column gap=16
+                    PopoverTitle(id="hover-contact-title", level=3)
+                      text "Delivery address"
+                    PopoverDescription(id="hover-contact-description")
+                      text "Review the address before sending your message."
+                    Label(id="hover-email-label", controlId="hover-email", label="Email", required=false)
+                    Input(id="hover-email", name="email", label="Email", labelledBy="hover-email-label", describedBy="", value=email, input=editEmail, change=commitEmail, submit=save, placeholder="Email", type="email", autocomplete="off", disabled=false, readOnly=false, required=false, invalid=false, variant="primary")
+                    row gap=8 flex-wrap="wrap"
+                      PopoverClose(id="hover-close", label="Close address details", target="hover-contact", disabled=false, size="sm", variant="bordered")
+                        text "Close"
+                      Button(label="Save address", press=save, disabled=false, size="sm", variant="prominent", testId="hover-save")
+                      PopoverTrigger(id="hover-child-trigger", label="Delivery details", target="hover-details", disabled=false, size="sm", variant="borderless", openOnHover=false, delay=300, closeDelay=0)
+                        text "Delivery details"
+                    PopoverPositioner(state=details)
+                      PopoverPopup(state=details)
+                        PopoverArrow(state=details)
+                        PopoverTitle(id="hover-details-title", level=4)
+                          text "Delivery details"
+                        PopoverDescription(id="hover-details-description")
+                          text "Messages are sent as accessible HTML and plain text."
+                        PopoverClose(id="hover-child-close", label="Close delivery details", target="hover-details", disabled=false, size="sm", variant="bordered")
+                          text "Done"
+      text saved testId="hover-saved"

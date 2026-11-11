@@ -56,9 +56,9 @@ component PopoverExample
         Button(label="Arrow", press=toggleArrow, disabled=false, size="sm", variant="bordered", testId="popover-arrow")
       Popover()
         row gap=24
-          PopoverTrigger(id="popover-open", label="Export options", target="export-popover", disabled=disabled, size="md", variant="bordered")
+          PopoverTrigger(id="popover-open", label="Export options", target="export-popover", disabled=disabled, size="md", variant="bordered", openOnHover=false, delay=300, closeDelay=0)
             text "Export options"
-          PopoverTrigger(id="popover-secondary", label="Export elsewhere", target="export-popover", disabled=false, size="md", variant="bordered")
+          PopoverTrigger(id="popover-secondary", label="Export elsewhere", target="export-popover", disabled=false, size="md", variant="bordered", openOnHover=false, delay=300, closeDelay=0)
             text "Export elsewhere"
         if mounted
           PopoverPortal()
@@ -79,7 +79,7 @@ component PopoverExample
                       PopoverClose(id="popover-cancel", label="Cancel export", target="export-popover", disabled=false, size="sm", variant="bordered")
                         text "Cancel"
                       Button(label="Export", press=save, disabled=false, size="sm", variant="prominent", testId="popover-save")
-                      PopoverTrigger(id="popover-format", label="Document format", target="format-popover", disabled=false, size="sm", variant="borderless")
+                      PopoverTrigger(id="popover-format", label="Document format", target="format-popover", disabled=false, size="sm", variant="borderless", openOnHover=false, delay=300, closeDelay=0)
                         text "Format"
                     PopoverPositioner(state=nested)
                       PopoverPopup(state=nested)

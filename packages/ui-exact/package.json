@@ -39,7 +39,8 @@
     "PAGINATION.md",
     "TOOLBAR.md",
     "GLASS_CONTAINER.md",
-    "POPOVER.md"
+    "POPOVER.md",
+    "TOOLTIP.md"
   ],
   "type": "module",
   "exports": {

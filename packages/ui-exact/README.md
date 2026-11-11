@@ -40,9 +40,14 @@ and the [runnable example](example/disclosure.contract). These use explicit shar
 state shapes because Exact's slots retain the caller's provider scope.
 
 Popover adds native non-modal top-layer content, anchored thick material,
-collision-aware positioning and nested keyboard/focus behavior. See
+collision-aware positioning, hover previews and nested keyboard/focus behavior. See
 [Popover](POPOVER.md) and its [compiled export example](example/popover.contract)
-for the API and remaining modal, hover, portal and native integration work.
+for the API, [hover example](example/popover-hover.contract) and remaining modal,
+portal and native integration work.
+
+Tooltip adds supplementary descriptions with hover/focus timing, grouped delays,
+native trigger actions and anchored thick material. See [Tooltip](TOOLTIP.md) and
+its [compiled example](example/tooltip.contract) for composition and open gaps.
 
 GlassContainer adds shared fusion ownership for small Glass members, preference
 fallback and packaged worker preparation through the non-React renderer API.

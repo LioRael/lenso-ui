@@ -50,12 +50,10 @@ function present(
       decoration.remove();
   };
   if (morph) updateGlyph();
-  // Fix the final lens dimensions once. Only the output shell morphs;
-  // the live trigger can continue its independent press/release motion.
+  // The shell morphs inside the popup's layout box. The trigger moves independently.
   const source = trigger.getBoundingClientRect();
   const target = card.getBoundingClientRect();
-  const positioner = card.parentElement!;
-  const positioned = positioner.getBoundingClientRect();
+  let measuredBox = target;
   const from = { width: source.width, height: source.height };
   const iconOnly =
     trigger.matches('[data-icon="only"]') ||
@@ -73,12 +71,16 @@ function present(
   const contentScale =
     parseFloat(getComputedStyle(card).getPropertyValue("--lg-menu-content-start-scale")) || 0.5;
   surface.style.setProperty("--lg-map-radius", `${radius}px`);
-  const origin =
-    family === "menu" || !morph
-      ? { x: to.width / 2, y: to.height / 2 }
-      : { x: start.x + from.width / 2, y: start.y + from.height / 2 };
-  card.style.setProperty("--lg-menu-origin", `${origin.x}px ${origin.y}px`);
-  content.style.transformOrigin = `${origin.x}px ${origin.y}px`;
+  const origin = { x: 0, y: 0 };
+  const updateOrigin = () => {
+    const centered = family === "menu" || !morph;
+    origin.x = centered ? to.width / 2 : start.x + from.width / 2;
+    origin.y = centered ? to.height / 2 : start.y + from.height / 2;
+    const value = `${origin.x}px ${origin.y}px`;
+    card.style.setProperty("--lg-menu-origin", value);
+    content.style.transformOrigin = value;
+  };
+  updateOrigin();
   const mask = {
     previousOpacity: sourceMasks.get(trigger)?.previousOpacity ?? trigger.style.opacity,
     previousTransform: sourceMasks.get(trigger)?.previousTransform ?? trigger.style.transform,
@@ -136,25 +138,25 @@ function present(
     (getComputedStyle(trigger).transform === "none" ? "" : getComputedStyle(trigger).transform);
   const measureAnchor = () => {
     const anchor = trigger.getBoundingClientRect();
-    const positionedNow = positioner.getBoundingClientRect();
-    if (!morph) {
+    const box = card.getBoundingClientRect();
+    if (morph) {
+      from.width = anchor.width / returnScale;
+      from.height = anchor.height / (iconMenu ? returnScale : 1);
+    } else {
       from.width = from.height = Math.min(44, anchor.width, anchor.height);
-      start.x =
-        anchor.x + (anchor.width - from.width) / 2 - target.x - (positionedNow.x - positioned.x);
-      start.y =
-        anchor.y + (anchor.height - from.height) / 2 - target.y - (positionedNow.y - positioned.y);
-      return;
     }
-    from.width = anchor.width / returnScale;
-    from.height = anchor.height / (iconMenu ? returnScale : 1);
-    start.x =
-      anchor.x + (anchor.width - from.width) / 2 - target.x - (positionedNow.x - positioned.x);
-    start.y =
-      anchor.y +
-      (anchor.height - from.height) / 2 -
-      returnLift -
-      target.y -
-      (positionedNow.y - positioned.y);
+    start.x = anchor.x + (anchor.width - from.width) / 2 - box.x;
+    start.y = anchor.y + (anchor.height - from.height) / 2 - returnLift - box.y;
+    if (box.width !== measuredBox.width || box.height !== measuredBox.height) {
+      measuredBox = box;
+      const width = card.offsetWidth;
+      const height = card.offsetHeight;
+      if (width > 0 && height > 0 && (width !== to.width || height !== to.height)) {
+        to.width = width;
+        to.height = height;
+        updateOrigin();
+      }
+    }
   };
   // Base UI waits for popup animations on external controlled closes. Keep its exit
   // pending until the geometry timeline finishes, without animating a CSS property.

@@ -4,6 +4,44 @@ import { mkdir, writeFile } from "node:fs/promises";
 const base = process.env.DOCS_URL ?? "http://127.0.0.1:4337";
 const out = process.env.MOTION_OUTPUT ?? "/tmp/lenso-menu-close/browser";
 await mkdir(out, { recursive: true });
+// A popup that resized while open should return along the same path as one
+// mounted at its final size. Fixed-size closing tests cannot detect stale bounds.
+async function checkResizedExit(page, trigger, slot) {
+  const popup = page.locator(`[data-slot="${slot}"]`);
+  const resizeRule = `[data-slot="${slot}"] { width: 480px !important; height: 280px !important; }`;
+  const trajectories = [];
+  for (const resizeWhileOpen of [true, false]) {
+    let style;
+    if (!resizeWhileOpen) style = await page.addStyleTag({ content: resizeRule });
+    await trigger.evaluate((node) => node.click());
+    await page.clock.runFor(720);
+    const initial = await popup.boundingBox();
+    if (resizeWhileOpen) style = await page.addStyleTag({ content: resizeRule });
+    await page.clock.runFor(160);
+    const final = await popup.boundingBox();
+    assert.equal(final.width, 480);
+    assert.equal(final.height, 280);
+    if (resizeWhileOpen) assert.notEqual(initial.width, final.width);
+    await page.keyboard.press("Escape");
+    const surface = popup.locator('[data-slot$="-surface"]');
+    const trajectory = [];
+    for (const interval of [16, 64, 112, 80]) {
+      await page.clock.runFor(interval);
+      trajectory.push(await surface.boundingBox());
+    }
+    trajectories.push(trajectory);
+    await page.clock.runFor(704);
+    assert.equal(await popup.isVisible(), false);
+    assert.equal(await trigger.evaluate((node) => node === document.activeElement), true);
+    await style.evaluate((node) => node.remove());
+  }
+  for (const [i, actual] of trajectories[0].entries())
+    for (const key of ["x", "y", "width", "height"])
+      assert.ok(
+        Math.abs(actual[key] - trajectories[1][i][key]) < 1,
+        `${slot} resized exit, frame ${i} ${key}: ${actual[key]} vs ${trajectories[1][i][key]}`,
+      );
+}
 for (const [engine, type] of [
   ["chromium", chromium],
   ["webkit", webkit],
@@ -113,6 +151,9 @@ for (const [engine, type] of [
         assert.equal(await handle.evaluate((e) => e.isConnected && e.checkVisibility()), false);
         assert.equal(await trigger.evaluate((e) => document.activeElement === e), true);
         assert.equal(await trigger.evaluate((e) => getComputedStyle(e).opacity), "1");
+        if (viewport === 1440 && (kind === "icon" || kind === "select")) {
+          await checkResizedExit(page, trigger, select ? "select-popover" : "menu-popup");
+        }
         console.log(
           `PASS ${engine} ${viewport} ${kind}: whole-panel contraction and source restoration`,
         );

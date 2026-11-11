@@ -199,6 +199,27 @@ export async function checkInitialStyles(page, url, engine) {
     await page.waitForFunction(
       () => !document.getElementById("export-popover").matches(":popover-open"),
     );
+    const tooltipInitial = await page.evaluate(() => {
+      const root = document.getElementById("tooltip-save");
+      const focused = document.activeElement;
+      root.showPopover();
+      const popup = document.getElementById("tooltip-save-popup");
+      const style = getComputedStyle(popup);
+      const result = {
+        role: popup.getAttribute("role"),
+        padding: style.paddingTop,
+        fontSize: style.fontSize,
+        focusRetained: document.activeElement === focused,
+      };
+      root.hidePopover();
+      return result;
+    });
+    assert.deepEqual(tooltipInitial, {
+      role: "tooltip",
+      padding: "8px",
+      fontSize: "12px",
+      focusRetained: true,
+    });
     const scrollInitial = await page.evaluate(() => {
       const node = document.getElementById("shadow-sample"),
         style = getComputedStyle(node);

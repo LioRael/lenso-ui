@@ -23,8 +23,15 @@ and group focus semantics. SearchField presentation reuses the attributed
 Kelvin Zhang / Glisse token maps from `@lenso/tokens`; the workspace notices
 are included in the distributable.
 
+`src/popover-hover.ts` and `src/popover-hover-corridor.ts` adapt Base UI 1.9.0
+Popover hover interactions and Floating UI safePolygon geometry to native elements.
+They retain the Material-UI and Floating UI MIT notices below.
+
 `src/anchored-material.ts` adapts the shared Lenso AnchoredMaterial shape without React.
 `src/popover.ts` uses Floating UI DOM 1.8.0 for native-element positioning.
+`src/tooltip.ts` adapts Base UI 1.9.0 Tooltip timing, grouping, focus and dismissal
+to native elements and uses the same Floating UI DOM positioning and safe polygon.
+Its retained Material-UI and Floating UI MIT notices are reproduced below.
 Floating UI core, DOM and utils are MIT licensed by the Floating UI contributors.
 
 `src/modal-focus.ts` adapts native focus traversal from Base UI 1.9.0.
