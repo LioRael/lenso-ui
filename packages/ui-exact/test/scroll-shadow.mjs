@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 
+// Let WebKit process a native scrolling frame between keydown and keyup.
+const pressScrollArrow = (page) => page.keyboard.press("ArrowDown", { delay: 50 });
+
 // Scrolling, content changes and caller styles share one Exact-owned viewport.
-export async function checkScrollShadow(page, engine) {
+// Diagnostic callers can isolate the known WebKit keyboard failure; the canonical suite requires it.
+export async function checkScrollShadow(page, engine, { keyboard = true } = {}) {
   const viewport = page.viewportSize(),
     theme = await page.locator("[data-theme]").first().getAttribute("data-theme");
   const root = page.getByTestId("shadow-sample"),
@@ -55,28 +59,35 @@ export async function checkScrollShadow(page, engine) {
   assert.equal(await root.getAttribute("data-top-scroll"), "true");
   await scroll(0);
   await edges("bottom");
-  await root.focus();
-  await page.keyboard.press("ArrowDown");
-  await page.waitForFunction(() => document.getElementById("shadow-sample").scrollTop > 0);
-  await edges("both");
-  await root.evaluate(
-    (n) =>
-      new Promise((resolve) => {
-        let previous = n.scrollTop,
-          stable = 0;
-        const deadline = performance.now() + 1500;
-        const sample = () => {
-          const next = n.scrollTop;
-          stable = next === previous ? stable + 1 : 0;
-          previous = next;
-          if (stable >= 8 || performance.now() >= deadline) resolve();
-          else requestAnimationFrame(sample);
-        };
-        requestAnimationFrame(sample);
-      }),
-  );
-  await scroll(0);
-  await edges("bottom");
+  let keyboardEvidence = { qualified: true };
+  if (keyboard) {
+    await root.focus();
+    await pressScrollArrow(page);
+    await page.waitForFunction(() => document.getElementById("shadow-sample").scrollTop > 0);
+    await edges("both");
+    await root.evaluate(
+      (n) =>
+        new Promise((resolve) => {
+          let previous = n.scrollTop,
+            stable = 0;
+          const deadline = performance.now() + 1500;
+          const sample = () => {
+            const next = n.scrollTop;
+            stable = next === previous ? stable + 1 : 0;
+            previous = next;
+            if (stable >= 8 || performance.now() >= deadline) resolve();
+            else requestAnimationFrame(sample);
+          };
+          requestAnimationFrame(sample);
+        }),
+    );
+    await scroll(0);
+    await edges("bottom");
+  } else {
+    keyboardEvidence = await probeScrollShadowKeyboard(page);
+    await scroll(0);
+    await edges("bottom");
+  }
   await toggle("few");
   await edges("none");
   assert.equal(await style("mask-image"), "none");
@@ -246,5 +257,38 @@ export async function checkScrollShadow(page, engine) {
   return {
     nativeTimeline: await page.evaluate(() => CSS.supports("animation-timeline", "scroll(self)")),
     observerFallback: true,
+    keyboard: keyboardEvidence,
   };
+}
+
+export async function probeScrollShadowKeyboard(page) {
+  const root = page.getByTestId("shadow-sample");
+  const settled = () => page.waitForTimeout(400);
+  await root.evaluate((n) => {
+    n.scrollTop = 0;
+    n.focus();
+  });
+  await pressScrollArrow(page);
+  await settled();
+  const exact = await root.evaluate((n) => n.scrollTop);
+  await root.evaluate((n) => {
+    const clone = n.cloneNode(true);
+    for (const node of [clone, ...clone.querySelectorAll("*")])
+      for (const name of node.getAttributeNames())
+        if (name === "id" || name.startsWith("data-")) node.removeAttribute(name);
+    clone.id = "scroll-keyboard-reference";
+    n.after(clone);
+    clone.scrollTop = 0;
+    clone.focus();
+  });
+  let reference;
+  try {
+    await pressScrollArrow(page);
+    await settled();
+    reference = await page.locator("#scroll-keyboard-reference").evaluate((n) => n.scrollTop);
+  } finally {
+    await page.locator("#scroll-keyboard-reference").evaluate((n) => n.remove());
+  }
+  assert.ok(reference > 0, "the plain HTML reference must establish keyboard scroll capability");
+  return { exact, reference, qualified: exact > 0 };
 }
