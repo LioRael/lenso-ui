@@ -89,3 +89,9 @@ RTL chevrons, reduced motion and hatch listener cleanup on removal. Screenshots
 cover light/dark at 390 and 820 px and an RTL trail. The wider first-frame suite
 compares the initial and initialized presentation and every registered recipe.
 This does not establish physical-device Safari behavior or native Exact support.
+
+The initialized hatch restores `role="link"` on disabled anchors: the pinned
+Exact host omits the redundant authored role even after removing href. Guard
+cleanup restores the previous role. Before the Web hatch starts, href and Tab
+suppression work but the disabled link's explicit role is absent. This is an
+open first-frame semantic boundary, also recorded by the Pagination checks.

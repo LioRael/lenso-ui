@@ -12,6 +12,7 @@ export async function checkNavigation(page, engine) {
   const current = page.getByTestId("trail-current");
   assert.equal(await local.evaluate((node) => node.tagName), "A");
   assert.equal(await locked.getAttribute("href"), null);
+  assert.equal(await locked.getAttribute("role"), "link");
   assert.equal(await locked.getAttribute("aria-disabled"), "true");
   assert.equal(await locked.getAttribute("tabindex"), "-1");
   assert.equal(await current.getAttribute("aria-current"), "page");

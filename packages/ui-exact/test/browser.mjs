@@ -1,3 +1,6 @@
+import { checkToolbar } from "./toolbar.mjs";
+import { checkPagination } from "./pagination.mjs";
+import { checkSearchField } from "./search-field.mjs";
 import { checkScrollShadow, checkScrollShadowColdKeyboard } from "./scroll-shadow.mjs";
 import { checkPageControl } from "./page-control.mjs";
 import { checkButtonGroup } from "./button-group.mjs";
@@ -138,7 +141,10 @@ try {
       await checkToggle(page, name);
       await checkFeedback(page, name);
       await checkForms(page);
+      await checkSearchField(page, name);
       await checkNavigation(page, name);
+      await checkPagination(page, name);
+      await checkToolbar(page, name);
       await checkDisclosure(page, name);
       for (const width of [390, 820]) {
         await page.setViewportSize({ width, height: 844 });

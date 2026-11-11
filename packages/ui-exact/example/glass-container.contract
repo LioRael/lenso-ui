@@ -1,0 +1,70 @@
+use GlassContainerState, GlassContainer, GlassContainerItem, GlassButton, Button from "@lenso/ui-exact"
+
+component GlassContainerExample
+  state gap = 8
+  state spacing = 20
+  state disabled = false
+  state tint = ""
+  state vertical = false
+  state rtl = false
+  state visible = true
+  state second = true
+  state nested = false
+  state actions = 0
+  state draft = "Draft"
+  derive group = GlassContainerState(id="fusion-demo", spacing=spacing, disabled=disabled, tint=tint)
+  derive inner = GlassContainerState(id="fusion-inner", spacing=20, disabled=false, tint="")
+  action edit(next: string)
+    draft = next
+  action activate
+    actions = actions + 1
+  action toggleGap
+    gap = gap == 8 ? 56 : 8
+  action toggleSpacing
+    spacing = spacing == 20 ? 0 : 20
+  action negativeSpacing
+    spacing = -10
+  action toggleDisabled
+    disabled = not disabled
+  action toggleTint
+    tint = tint == "" ? "rgb(100 80 180 / .25)" : ""
+  action toggleAxis
+    vertical = not vertical
+  action toggleDirection
+    rtl = not rtl
+  action toggleVisible
+    visible = not visible
+  action toggleSecond
+    second = not second
+  action toggleNested
+    nested = not nested
+  view
+    column gap=12
+      text "Glass container" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Fusion gap", press=toggleGap, disabled=false, size="sm", variant="bordered", testId="fusion-gap")
+        Button(label="Fusion spacing", press=toggleSpacing, disabled=false, size="sm", variant="bordered", testId="fusion-spacing")
+        Button(label="Negative spacing", press=negativeSpacing, disabled=false, size="sm", variant="bordered", testId="fusion-negative")
+        Button(label="Disable fusion", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="fusion-disabled")
+        Button(label="Tint bridges", press=toggleTint, disabled=false, size="sm", variant="bordered", testId="fusion-tint")
+        Button(label="Fusion axis", press=toggleAxis, disabled=false, size="sm", variant="bordered", testId="fusion-axis")
+        Button(label="Fusion direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="fusion-direction")
+        Button(label="Toggle fusion", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="fusion-visible")
+        Button(label="Toggle member", press=toggleSecond, disabled=false, size="sm", variant="bordered", testId="fusion-member")
+        Button(label="Nested container", press=toggleNested, disabled=false, size="sm", variant="bordered", testId="fusion-nested")
+      text `Fusion actions: ${actions}` testId="fusion-actions"
+      if visible
+        GlassContainer(state=group)
+          row gap=gap flex-direction=(vertical ? "column" : "row") direction=(rtl ? "rtl" : "ltr") flex-wrap="wrap"
+            GlassContainerItem(id="fusion-first")
+              button appearance="none" press=activate testId="fusion-action" aria-label="Select first tile" tabindex=0
+                text "First"
+              input type="text" value=draft input=edit aria-label="Tile draft" testId="fusion-draft" width=56 height=28 font-size=12
+            if second
+              GlassContainerItem(id="fusion-second")
+                text "Second"
+            if nested
+              GlassContainer(state=inner)
+                row gap=8
+                  GlassButton(label="A", press=activate, disabled=false, size="sm", variant="default", testId="fusion-inner-a")
+                  GlassButton(label="B", press=activate, disabled=false, size="sm", variant="default", testId="fusion-inner-b")

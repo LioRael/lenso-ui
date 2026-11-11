@@ -1,3 +1,5 @@
+import { connectToolbar } from "./toolbar.js";
+import { connectSearchField } from "./search-field.js";
 import { connectGroupAction } from "./button-group.js";
 /** Presence selectors in shared tokens must not see data-invalid="false". */
 export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap) {
@@ -29,6 +31,17 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
       });
     }
   }
+  if (node instanceof HTMLElement && data["lensoKind"] === "glass-container-surface") {
+    const hidden = node.hidden;
+    node.hidden = true;
+    restores.push(() => {
+      node.hidden = hidden;
+    });
+  }
+  const disconnectToolbar = connectToolbar(node, data);
+  if (disconnectToolbar) restores.push(disconnectToolbar);
+  const disconnectSearch = connectSearchField(node, data);
+  if (disconnectSearch) restores.push(disconnectSearch);
   const disconnectGroupAction = connectGroupAction(node, data);
   if (disconnectGroupAction) restores.push(disconnectGroupAction);
   if (data["lensoKind"] === "card") {
@@ -171,6 +184,7 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
     ["lensoIndeterminate", "data-indeterminate"],
     ["lensoOpen", "data-open"],
     ["lensoActive", "data-active"],
+    ["lensoAttached", "data-attached"],
     ["lensoPanelOpen", "data-panel-open"],
   ] as const) {
     if (data[key] === undefined) continue;
@@ -225,7 +239,22 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
 
 /** ARIA-disabled anchors retain no href; suppress synthetic activation as well. */
 export function connectLink(node: HTMLElement | SVGElement, data: DOMStringMap) {
-  if (data["lensoKind"] !== "link" && data["lensoKind"] !== "breadcrumbs-link") return;
+  if (
+    ![
+      "link",
+      "breadcrumbs-link",
+      "pagination-link",
+      "pagination-previous",
+      "pagination-next",
+      "toolbar-link",
+    ].includes(data["lensoKind"] ?? "")
+  )
+    return;
+  // Exact omits the redundant role on native anchors, including href-less
+  // disabled links. Restore their link semantics while this hatch owns them.
+  const originalRole = node.getAttribute("role");
+  if (originalRole === null && node.getAttribute("aria-disabled") === "true")
+    node.setAttribute("role", "link");
   const guard = (event: Event) => {
     if (node.getAttribute("aria-disabled") !== "true") return;
     if (event instanceof KeyboardEvent && event.key !== "Enter" && event.key !== " ") return;
@@ -239,6 +268,8 @@ export function connectLink(node: HTMLElement | SVGElement, data: DOMStringMap) 
     node.removeEventListener("click", guard, true);
     node.removeEventListener("auxclick", guard, true);
     node.removeEventListener("keydown", guard, true);
+    if (originalRole === null) node.removeAttribute("role");
+    else node.setAttribute("role", originalRole);
   };
 }
 

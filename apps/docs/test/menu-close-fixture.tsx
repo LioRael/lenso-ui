@@ -11,14 +11,18 @@ export type CloseCase =
   | "menu-anchored"
   | "select-anchored"
   | "above";
-export function mount(host: HTMLElement, kind: CloseCase, theme: "light" | "dark" = "light") {
-  const root = createRoot(host);
+function example(
+  kind: CloseCase,
+  theme: "light" | "dark",
+  open?: boolean,
+  onOpenChange?: (open: boolean) => void,
+) {
   const choices = Array.from({ length: 12 }, (_, i) => ({
     value: String(i),
     label: `Action ${i + 1}`,
   }));
   const select = kind.startsWith("select");
-  root.render(
+  return (
     <ThemeScope theme={theme}>
       <main
         style={{
@@ -31,7 +35,13 @@ export function mount(host: HTMLElement, kind: CloseCase, theme: "light" | "dark
         {kind === "demo" ? (
           <Default />
         ) : select ? (
-          <Select defaultValue="5" items={choices} morphTrigger={kind !== "select-anchored"}>
+          <Select
+            open={open}
+            onOpenChange={onOpenChange}
+            defaultValue="5"
+            items={choices}
+            morphTrigger={kind !== "select-anchored"}
+          >
             <Select.Trigger aria-label="Case select" style={{ width: 240, height: 44 }}>
               <Select.Value />
               <Select.Indicator />
@@ -52,7 +62,7 @@ export function mount(host: HTMLElement, kind: CloseCase, theme: "light" | "dark
             </Select.Portal>
           </Select>
         ) : (
-          <Menu morphTrigger={kind !== "menu-anchored"}>
+          <Menu open={open} onOpenChange={onOpenChange} morphTrigger={kind !== "menu-anchored"}>
             {kind === "icon" ? (
               <Menu.Trigger aria-label="Case menu" style={{ width: 44, height: 44 }} />
             ) : (
@@ -90,7 +100,19 @@ export function mount(host: HTMLElement, kind: CloseCase, theme: "light" | "dark
           </Menu>
         )}
       </main>
-    </ThemeScope>,
+    </ThemeScope>
   );
-  return () => root.unmount();
+}
+
+export function mount(
+  host: HTMLElement,
+  kind: CloseCase,
+  theme: "light" | "dark" = "light",
+  controlled = false,
+) {
+  const root = createRoot(host);
+  const render = (open?: boolean): void =>
+    root.render(example(kind, theme, open, controlled ? render : undefined));
+  render(controlled ? false : undefined);
+  return Object.assign(() => root.unmount(), { setOpen: render });
 }

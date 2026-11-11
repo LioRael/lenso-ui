@@ -1,0 +1,68 @@
+use SearchFieldState, SearchField, SearchFieldRoot, SearchFieldGroup, SearchFieldInput, SearchFieldSearchIcon, SearchFieldClearButton, SearchFieldClearIcon, Button, Label, Description, FieldError from "@lenso/ui-exact"
+
+component SearchFieldExample
+  state query = ""
+  state commits = ""
+  state submitted = ""
+  state inputs = 0
+  state disabled = false
+  state readOnly = false
+  state invalid = false
+  state full = false
+  state secondary = false
+  state visible = true
+  state direction = "ltr"
+  derive search = SearchFieldState(id="search-demo", name="query", label="Search documents", labelledBy="search-label", describedBy=invalid ? "search-error" : "search-help", value=query, placeholder="Search documents", autocomplete="off", variant=secondary ? "secondary" : "primary", fullWidth=full, disabled=disabled, readOnly=readOnly, required=true, invalid=invalid)
+  derive quick = SearchFieldState(id="search-quick", name="quick", label="Quick search", labelledBy="", describedBy="", value=query, placeholder="Quick search", autocomplete="off", variant="secondary", fullWidth=false, disabled=false, readOnly=false, required=false, invalid=false)
+  action edit(value: string)
+    query = value
+    inputs = inputs + 1
+  action commit(value: string)
+    commits = value
+  action submit
+    submitted = query
+  action toggleDisabled
+    disabled = not disabled
+  action toggleReadOnly
+    readOnly = not readOnly
+  action toggleInvalid
+    invalid = not invalid
+  action toggleFull
+    full = not full
+  action toggleVariant
+    secondary = not secondary
+  action toggleVisible
+    visible = not visible
+  action toggleDirection
+    direction = direction == "ltr" ? "rtl" : "ltr"
+  action seed
+    query = "Quarterly report"
+  view
+    column gap=12 direction=direction
+      text "Search" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Seed search", press=seed, disabled=false, size="sm", variant="bordered", testId="search-seed")
+        Button(label="Disable search", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="search-disable")
+        Button(label="Read only", press=toggleReadOnly, disabled=false, size="sm", variant="bordered", testId="search-readonly")
+        Button(label="Invalid search", press=toggleInvalid, disabled=false, size="sm", variant="bordered", testId="search-invalid")
+        Button(label="Full width", press=toggleFull, disabled=false, size="sm", variant="bordered", testId="search-full")
+        Button(label="Secondary search", press=toggleVariant, disabled=false, size="sm", variant="bordered", testId="search-variant")
+        Button(label="Search direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="search-direction")
+        Button(label="Toggle search", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="search-visible")
+      if visible
+        SearchFieldRoot(state=search)
+          Label(id="search-label", controlId="search-demo-input", label="Search documents", required=true)
+          SearchFieldGroup(state=search)
+            SearchFieldSearchIcon()
+            SearchFieldInput(state=search, input=edit, change=commit, submit=submit)
+            SearchFieldClearButton(state=search, label="Clear document search")
+              SearchFieldClearIcon()
+          if invalid
+            FieldError(id="search-error", message="Try a more specific search.")
+          else
+            Description(id="search-help", label="Search titles and document text.")
+      text `Query: ${query}` testId="search-value"
+      text `Edits: ${inputs}` testId="search-edits"
+      text `Committed: ${commits}` testId="search-committed"
+      text `Submitted: ${submitted}` testId="search-submitted"
+      SearchField(state=quick, input=edit, change=commit, submit=submit, clearLabel="Clear quick search")

@@ -33,14 +33,25 @@ export async function checkPresentationCases(page, kinds) {
           "modal-close-glyph",
           "alert-icon",
           "close-button-icon",
+          "search-field-icon",
+          "search-field-clear-icon",
         ].includes(entry.kind);
-        const tag = entry.kind.includes("button")
-          ? "button"
-          : entry.kind === "input" || entry.kind === "choice-input"
-            ? "input"
-            : entry.kind === "textarea"
-              ? "textarea"
-              : "div";
+        let tag =
+          entry.kind.includes("button") || entry.kind === "search-field-clear"
+            ? "button"
+            : entry.kind === "input" ||
+                entry.kind === "choice-input" ||
+                entry.kind === "search-field-input"
+              ? "input"
+              : entry.kind === "textarea"
+                ? "textarea"
+                : "div";
+        if (
+          ["pagination-link", "pagination-previous", "pagination-next", "toolbar-link"].includes(
+            entry.kind,
+          )
+        )
+          tag = "a";
         const node = svg
           ? document.createElementNS(
               "http://www.w3.org/2000/svg",
@@ -50,6 +61,11 @@ export async function checkPresentationCases(page, kinds) {
         for (const [key, value] of Object.entries(entry.data)) node.dataset[key] = value;
         for (const [key, value] of Object.entries(entry.attributes ?? {}))
           node.setAttribute(key, value);
+        if (entry.kind === "glass-container-surface") node.setAttribute("hidden", "");
+        if (entry.kind === "search-field-input") {
+          node.setAttribute("type", "search");
+          node.setAttribute("data-native", "");
+        }
         if (node instanceof HTMLTextAreaElement) node.rows = Number(entry.data.lensoRows);
         if (node instanceof HTMLInputElement) node.value = "Sample";
         else if (!svg) node.textContent = "Sample";
@@ -76,6 +92,8 @@ export async function checkPresentationCases(page, kinds) {
           "opacity",
           "strokeWidth",
         ];
+        if (entry.kind === "search-field-input")
+          properties.push("borderTopWidth", "appearance", "lineHeight");
         const actual = getComputedStyle(node);
         const expected = getComputedStyle(reference);
         const differences = properties

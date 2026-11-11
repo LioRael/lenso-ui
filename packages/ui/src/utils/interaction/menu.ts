@@ -156,6 +156,9 @@ function present(
       target.y -
       (positionedNow.y - positioned.y);
   };
+  // Base UI waits for popup animations on external controlled closes. Keep its exit
+  // pending until the geometry timeline finishes, without animating a CSS property.
+  let exit: Animation | undefined;
   const paintShape = (value: number, liquid?: MenuPose, finished = false) => {
     const t = clamp(value),
       settled = liquid ? finished && !leaving : t === 1;
@@ -232,7 +235,10 @@ function present(
       ? ""
       : `inset(${local(top, origin.y, shiftY)}px ${to.width - local(left + width, origin.x, shiftX)}px ${to.height - local(top + height, origin.y, shiftY)}px ${local(left, origin.x, shiftX)}px round ${corner / scale}px)`;
     card.toggleAttribute("data-menu-morphing", liquid ? !finished : !settled && value !== 0);
-    if (leaving && (liquid ? finished : value === 0)) unmount();
+    if (leaving && (liquid ? finished : value === 0)) {
+      exit?.finish();
+      unmount();
+    }
   };
   const shape = createMenuTimeline(
     (time, open) => {
@@ -269,6 +275,9 @@ function present(
     const next = card.hasAttribute("data-open") && !card.hasAttribute("data-ending-style");
     if (!next && card.hasAttribute("data-menu-child-count")) return;
     if (next !== opened) {
+      exit?.cancel();
+      exit = opened && !next ? card.animate?.([], 1) : undefined;
+      exit?.pause();
       opened = next;
       if (!next && family === "select" && morph) {
         updateGlyph();
@@ -290,6 +299,7 @@ function present(
     card.removeAttribute("data-menu-plate-active");
     card.removeAttribute("data-menu-motion");
     shape.stop();
+    exit?.cancel();
     surface.setAttribute("data-material-hidden", "");
     surface.removeAttribute("data-material-resting");
     if (sourceMasks.get(trigger) === mask) {
@@ -415,7 +425,7 @@ export function useMenuPopupRef(
       family === "select"
         ? new MutationObserver(() => {
             const next = element.hasAttribute("data-open");
-            if (next && !opened) start();
+            if (next && !opened && !element.hasAttribute("data-menu-morphing")) start();
             opened = next;
           })
         : null;

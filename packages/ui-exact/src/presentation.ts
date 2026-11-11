@@ -1,3 +1,7 @@
+import { glassContainerPresentation, glassContainerKinds } from "./glass-container-presentation.js";
+import { toolbarPresentation, toolbarKinds } from "./toolbar-presentation.js";
+import { paginationPresentation, paginationKinds } from "./pagination-presentation.js";
+import { searchFieldPresentation, searchFieldKinds } from "./search-field-presentation.js";
 import { scrollShadowPresentation, scrollShadowKinds } from "./scroll-shadow-presentation.js";
 export { scrollShadowProperties } from "./scroll-shadow-presentation.js";
 import { pageControlPresentation, pageControlKinds } from "./page-control-presentation.js";
@@ -90,7 +94,11 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           segmentedPresentation(kind, data) ??
           buttonGroupPresentation(kind, data) ??
           pageControlPresentation(kind, data) ??
-          scrollShadowPresentation(kind, data));
+          scrollShadowPresentation(kind, data) ??
+          searchFieldPresentation(kind, data) ??
+          paginationPresentation(kind, data) ??
+          toolbarPresentation(kind, data) ??
+          glassContainerPresentation(kind));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -144,6 +152,10 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     });
   };
   for (const kind of [
+    ...glassContainerKinds,
+    ...toolbarKinds,
+    ...paginationKinds,
+    ...searchFieldKinds,
     ...formKinds,
     ...disclosureKinds,
     ...navigationKinds,
@@ -162,6 +174,63 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     "glass",
   ])
     add(kind);
+  for (const orientation of ["horizontal", "vertical"]) {
+    add("toolbar-separator", { orientation }, `[data-orientation="${orientation}"]`);
+    for (const attached of [false, true])
+      add(
+        "toolbar",
+        { orientation, lensoAttached: String(attached) },
+        `[data-orientation="${orientation}"][data-lenso-attached="${attached}"]`,
+      );
+    for (const surface of [false, true]) {
+      for (const glass of [false, true])
+        add(
+          "toolbar-group",
+          { orientation, lensoSurface: String(surface), lensoGlass: String(glass) },
+          `[data-orientation="${orientation}"][data-lenso-surface="${surface}"][data-lenso-glass="${glass}"]`,
+        );
+      for (const size of ["sm", "md", "lg"])
+        for (const variant of ["glass", "filled", "plain"])
+          for (const glass of [false, true])
+            for (const icon of [false, true])
+              for (const destructive of [false, true])
+                for (const tinted of [false, true])
+                  add(
+                    "toolbar-button",
+                    {
+                      orientation,
+                      lensoSurface: String(surface),
+                      lensoSize: size,
+                      lensoVariant: variant,
+                      lensoGlass: String(glass),
+                      lensoIconOnly: String(icon),
+                      lensoDestructive: String(destructive),
+                      lensoTinted: String(tinted),
+                    },
+                    `[data-orientation="${orientation}"][data-lenso-surface="${surface}"][data-lenso-size="${size}"][data-lenso-variant="${variant}"][data-lenso-glass="${glass}"][data-lenso-icon-only="${icon}"][data-lenso-destructive="${destructive}"][data-lenso-tinted="${tinted}"]`,
+                  );
+    }
+  }
+  for (const size of ["sm", "md", "lg"]) {
+    for (const kind of ["pagination-summary", "pagination-ellipsis"])
+      add(kind, { lensoSize: size }, `[data-lenso-size="${size}"]`);
+    for (const kind of ["pagination-link", "pagination-previous", "pagination-next"])
+      for (const active of [false, true])
+        add(
+          kind,
+          { lensoSize: size, lensoActive: String(active) },
+          `[data-lenso-size="${size}"][data-lenso-active="${active}"]`,
+        );
+  }
+  for (const full of [false, true]) {
+    add("search-field", { lensoFullWidth: String(full) }, `[data-lenso-full-width="${full}"]`);
+    for (const variant of ["primary", "secondary"])
+      add(
+        "search-field-group",
+        { lensoFullWidth: String(full), lensoVariant: variant },
+        `[data-lenso-full-width="${full}"][data-lenso-variant="${variant}"]`,
+      );
+  }
   for (const orientation of ["horizontal", "vertical"]) {
     add("button-group-separator", { orientation }, `[data-orientation="${orientation}"]`);
     for (const full of [false, true])

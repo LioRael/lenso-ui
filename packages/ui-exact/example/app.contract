@@ -1,3 +1,7 @@
+use GlassContainerExample from "./glass-container.contract"
+use ToolbarExample from "./toolbar.contract"
+use PaginationExample from "./pagination.contract"
+use SearchFieldExample from "./search-field.contract"
 use ScrollShadowExample from "./scroll-shadow.contract"
 use PageControlExample from "./page-control.contract"
 use ButtonGroupExample from "./button-group.contract"
@@ -82,3 +86,7 @@ component App
           ButtonGroupExample()
           PageControlExample()
           ScrollShadowExample()
+          SearchFieldExample()
+          PaginationExample()
+          ToolbarExample()
+          GlassContainerExample()

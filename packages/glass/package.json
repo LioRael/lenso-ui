@@ -27,7 +27,11 @@
       "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./fusion": {
+      "types": "./dist/fusion-entry.d.ts",
+      "import": "./dist/fusion/index.js"
+    }
   },
   "scripts": {
     "build": "bun ./node_modules/tsdown/dist/run.mjs --config tsdown.config.ts && bun ./node_modules/typescript/bin/tsc -p tsconfig.build.json --emitDeclarationOnly --noEmit false --outDir dist && bun scripts/copy-notices.ts",

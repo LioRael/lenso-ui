@@ -1,3 +1,11 @@
+import {
+  updateGlassContainer,
+  updateFusionMember,
+  refreshFusionMember,
+  endGlassContainer,
+} from "./glass-container.js";
+import { updateToolbar, endToolbar } from "./toolbar.js";
+import { updateSearchField, endSearchField } from "./search-field.js";
 import { scrollShadowData, updateScrollShadow, endScrollShadow } from "./scroll-shadow.js";
 import { updatePageControl, endPageControl } from "./page-control.js";
 import { updateSegmented, endSegmented } from "./segmented-control.js";
@@ -63,6 +71,13 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     kind === "slider-knob-lens" ||
     kind === "switch-knob-lens" ||
     kind === "glass" ||
+    kind === "glass-container-item" ||
+    (kind === "toolbar" && handle.data["lensoAttached"] === "true") ||
+    (kind === "toolbar-group" &&
+      handle.data["lensoGlass"] === "true" &&
+      handle.data["lensoSurface"] !== "true") ||
+    (kind === "toolbar-button" && handle.data["lensoGlass"] === "true" && variant !== "plain") ||
+    kind === "search-field-group" ||
     (kind === "page-control-track" && variant === "prominent") ||
     ((kind === "glass-button" || kind === "glass-button-group-item") && !node.matches(":disabled"));
   const profileKey =
@@ -72,6 +87,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
         : "default"
       : "glass-small";
 
+  refreshFusionMember(node);
   const previousOwner = owners.get(node);
   previousOwner?.release(false);
   const disconnectNative = connectNative(node, handle.data);
@@ -110,6 +126,15 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
       throw new Error("Lenso caller styles need a declarative adapter for inline values");
     classes = replaceClasses(node, classes, next.className);
   });
+  updateGlassContainer(node, handle.data);
+  updateFusionMember(
+    node,
+    Boolean(
+      optics && !["tabs-knob-lens", "slider-knob-lens", "switch-knob-lens"].includes(kind ?? ""),
+    ),
+  );
+  updateToolbar(node, handle.data);
+  updateSearchField(node, handle.data);
   updatePageControl(node, handle.data);
   updateSegmented(node, handle.data);
   updateTabs(node, handle.data);
@@ -129,6 +154,9 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
 /** Called before Exact removes or recycles a node. */
 export function elementEnded(handle: ExactElement) {
   if (handle.hatch !== "lenso-ui") return;
+  endGlassContainer(handle.element);
+  endToolbar(handle.element);
+  endSearchField(handle.element);
   endScrollShadow(handle.element);
   endPageControl(handle.element);
   endSegmented(handle.element);

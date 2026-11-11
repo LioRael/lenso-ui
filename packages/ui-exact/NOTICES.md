@@ -5,8 +5,17 @@ control motion and optical profiles (MIT), retaining their file-level notices.
 Their MIT license and shared token attributions are included in the workspace
 THIRD_PARTY_NOTICES.md copied into the distributable.
 
+`src/toolbar.ts` follows Lenso's Toolbar and installed Base UI interaction
+contracts and reuses the attributed non-React glass press model. Its source
+Toolbar, GlassButton, Link and material token maps remain shared imports.
+
 `src/scroll-shadow.ts` adapts the shared Lenso scroll edge observation model.
 Its styles and typed property declarations continue to come from `@lenso/tokens`.
+
+`src/search-field.ts` adapts Lenso SearchField native clearing, Escape handling
+and group focus semantics. SearchField presentation reuses the attributed
+Kelvin Zhang / Glisse token maps from `@lenso/tokens`; the workspace notices
+are included in the distributable.
 
 `src/modal-focus.ts` adapts native focus traversal from Base UI 1.9.0.
 The retained notice is reproduced below. Other retained adaptations are covered

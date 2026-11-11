@@ -57,10 +57,12 @@ manual/disabled modes, horizontal RTL, hidden scrollbars, caller overrides,
 the observer fallback, reduced motion and unmount/remount. Captures cover both
 orientations, LTR/RTL, light/dark and 390/820px. Blocking stylesheet checks include
 typed-property declarations and native first-frame fade values when supported;
-affected recipe parity and Tabs regression accompany the family checks.
+affected recipe parity includes masks, timelines and fade variables. Tabs and
+shared caller-style/control regressions accompany the family checks.
 
 Keyboard gates cover first entry before any programmatic scrolling and the
-already-scrolled viewport. Both Chromium and WebKit require an actual offset
+already-scrolled viewport, plus horizontal LTR/RTL operation. Both Chromium and
+WebKit require an actual offset
 change. Native key gestures hold ArrowDown for 50ms so WebKit can process a
 scrolling frame before keyup. Zero-duration synthetic gestures were not a
 qualified native-scroll probe. The canonical browser suite includes the strict

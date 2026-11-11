@@ -16,15 +16,19 @@ for (const [engine, type] of [
       page.on("pageerror", (error) => errors.push(error.message));
       await page.goto(`${base}/cn/docs/react/components/menu`, { waitUntil: "domcontentloaded" });
       await page.getByRole("button", { name: "Actions", exact: true }).waitFor();
+      await page.waitForFunction(() => {
+        const trigger = document.querySelector('button[aria-label="Actions"]');
+        return trigger && Object.keys(trigger).some((key) => key.startsWith("__reactProps$"));
+      });
       await page.evaluate(async () => {
         const { mount } = await import("/test/menu-close-fixture.tsx");
         for (const child of document.body.children)
           if (child instanceof HTMLElement) child.hidden = true;
         const host = document.createElement("div");
         document.body.append(host);
-        window.mountCase = (kind) => {
+        window.mountCase = (kind, controlled = false) => {
           window.dispose?.();
-          window.dispose = mount(host, kind);
+          window.dispose = mount(host, kind, "light", controlled);
         };
       });
       const now = Date.now();
@@ -71,6 +75,43 @@ for (const [engine, type] of [
         await page.clock.runFor(700);
         assert.equal(await trigger.evaluate((e) => document.activeElement === e), true);
         console.log("PASS", engine, width, kind, "interrupted return retains its visible pose");
+      }
+      // An external prop update never calls Base UI's onOpenChange dismissal hook.
+      for (const kind of ["icon", "select"]) {
+        await page.evaluate((kind) => window.mountCase(kind, true), kind);
+        const trigger = page.getByRole(kind === "select" ? "combobox" : "button", {
+          name: kind === "select" ? "Case select" : "Case menu",
+          exact: true,
+        });
+        await trigger.waitFor();
+        await trigger.evaluate((node) => {
+          node.focus();
+          node.click();
+        });
+        await page.clock.runFor(160);
+        const surface = page.locator(
+          `[data-slot="${kind === "select" ? "select" : "menu"}-surface"]`,
+        );
+        const handle = await surface.elementHandle();
+        await page.evaluate(() => window.dispose.setOpen(false));
+        await page.clock.runFor(64);
+        const closing = await handle.boundingBox();
+        assert.ok(closing && closing.height > 0, "controlled exit must remain visible");
+        assert.equal(await trigger.getAttribute("aria-expanded"), "false");
+        await page.evaluate(() => window.dispose.setOpen(true));
+        assert.equal(await trigger.getAttribute("aria-expanded"), "true");
+        const reopened = await handle.boundingBox();
+        assert.ok(
+          reopened && Math.abs(reopened.height - closing.height) < 1,
+          "reopen must keep the current glass geometry",
+        );
+        assert.equal(await handle.getAttribute("data-material-hidden"), null);
+        await page.clock.runFor(700);
+        await page.evaluate(() => window.dispose.setOpen(false));
+        await page.clock.runFor(700);
+        assert.equal(await surface.isVisible(), false);
+        assert.equal(await trigger.evaluate((node) => node === document.activeElement), true);
+        console.log("PASS", engine, width, kind, "external close and reopen");
       }
       assert.deepEqual(errors, []);
       await page.close();

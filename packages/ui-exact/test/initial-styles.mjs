@@ -27,6 +27,26 @@ export async function checkInitialStyles(page, url, engine) {
     );
     return page.evaluate(() => {
       const ids = [
+        "fusion-demo",
+        "fusion-first",
+        "fusion-second",
+        "toolbar-demo",
+        "toolbar-clipboard",
+        "toolbar-copy",
+        "toolbar-paste",
+        "toolbar-save",
+        "toolbar-help",
+        "pagination-demo",
+        "pagination-demo-summary",
+        "pagination-one",
+        "pagination-two",
+        "pagination-prev",
+        "pagination-next",
+        "pagination-eight",
+        "search-demo",
+        "search-demo-group",
+        "search-demo-input",
+        "search-demo-clear",
         "shadow-sample",
         "shadow-draft",
         "pages",
@@ -109,6 +129,25 @@ export async function checkInitialStyles(page, url, engine) {
       );
     });
   };
+  const attachedToolbar = () =>
+    page.getByTestId("toolbar-demo").evaluate((node) => {
+      const root = getComputedStyle(node),
+        group = getComputedStyle(document.getElementById("toolbar-clipboard")),
+        action = getComputedStyle(document.getElementById("toolbar-save"));
+      return {
+        padding: root.paddingTop,
+        groupPadding: group.paddingTop,
+        actionHeight: action.height,
+      };
+    });
+  const disabledPagination = () =>
+    page.getByTestId("pagination-eight").evaluate((node) => ({
+      tag: node.tagName,
+      href: node.getAttribute("href"),
+      role: node.getAttribute("role"),
+      tabIndex: node.tabIndex,
+      disabled: node.getAttribute("aria-disabled"),
+    }));
   try {
     await page.goto(url, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => {
@@ -122,6 +161,12 @@ export async function checkInitialStyles(page, url, engine) {
       await page.locator("[data-lenso-ready]").count(),
       0,
       "hatches must remain blocked for this capture",
+    );
+    assert.equal(
+      await page
+        .getByTestId("fusion-demo-fusion")
+        .evaluate((node) => getComputedStyle(node).display),
+      "none",
     );
     const scrollInitial = await page.evaluate(() => {
       const node = document.getElementById("shadow-sample"),
@@ -262,7 +307,22 @@ export async function checkInitialStyles(page, url, engine) {
       () =>
         getComputedStyle(document.querySelector('[data-testid="delete-alert"]')).display === "none",
     );
-    const initial = { light: await snapshot(), dark: null };
+    await page.getByTestId("toolbar-attached").click();
+    const toolbarAttachedInitial = await attachedToolbar();
+    assert.deepEqual(toolbarAttachedInitial, {
+      padding: "4px",
+      groupPadding: "0px",
+      actionHeight: "36px",
+    });
+    await page.getByTestId("toolbar-attached").click();
+    const initial = {
+      light: await snapshot(),
+      dark: null,
+      disabledPagination: await disabledPagination(),
+    };
+    assert.equal(initial.disabledPagination.href, null);
+    assert.equal(initial.disabledPagination.tabIndex, -1);
+    assert.equal(initial.disabledPagination.disabled, "true");
     await page.screenshot({
       path: path.resolve(import.meta.dirname, `../.cache/example/${engine}-before-hatches.png`),
       fullPage: true,
@@ -293,7 +353,12 @@ export async function checkInitialStyles(page, url, engine) {
         node.hasAttribute("data-lenso-ready"),
       ),
     );
-    const enhanced = { light: await snapshot(), dark: null };
+    const enhanced = {
+      light: await snapshot(),
+      dark: null,
+      disabledPagination: await disabledPagination(),
+    };
+    assert.equal(enhanced.disabledPagination.role, "link");
     await page.getByTestId("theme").click();
     enhanced.dark = await snapshot();
     await page.getByTestId("theme").click();
@@ -308,10 +373,23 @@ export async function checkInitialStyles(page, url, engine) {
             );
           else assert.equal(after, before, `${id}.${property}`);
         }
+    await page.getByTestId("toolbar-attached").click();
+    const toolbarAttachedEnhanced = await attachedToolbar();
+    assert.deepEqual(toolbarAttachedEnhanced, toolbarAttachedInitial);
+    await page.getByTestId("toolbar-attached").click();
     assert.equal(stylesheets.length, 1, "the hatch must reuse the blocking stylesheet");
     await Bun.write(
       path.resolve(import.meta.dirname, `../.cache/example/${engine}-initial-styles.json`),
-      JSON.stringify({ initial, enhanced, stylesheets }, null, 2),
+      JSON.stringify(
+        {
+          initial,
+          enhanced,
+          stylesheets,
+          toolbarAttached: { initial: toolbarAttachedInitial, enhanced: toolbarAttachedEnhanced },
+        },
+        null,
+        2,
+      ),
     );
   } finally {
     release();

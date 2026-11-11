@@ -1,0 +1,98 @@
+shape ToolbarState
+  id: string
+  label: string
+  orientation: string
+  direction: string
+  disabled: bool
+  loopFocus: bool
+  attached: bool
+  elastic: bool
+
+component Toolbar
+  props
+    state: ToolbarState
+  slot
+  view
+    box id=state.id testId=state.id role="toolbar" aria-label=state.label aria-orientation=state.orientation aria-disabled=state.disabled direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="toolbar" data-slot="toolbar" data-orientation=state.orientation data-lenso-direction=state.direction
+      data-lenso-disabled=state.disabled data-lenso-loop-focus=state.loopFocus data-lenso-attached=state.attached data-lenso-elastic=state.elastic
+      if state.attached
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="toolbar-highlight" data-slot="glass-press-highlight"
+      children
+
+component ToolbarGroup
+  props
+    state: ToolbarState
+    id: string
+    label: string
+    glass: bool
+    disabled: bool
+  slot
+  view
+    box id=id testId=id role="group" aria-label=label aria-disabled=(state.disabled or disabled)
+      hatch="lenso-ui" data-lenso-kind="toolbar-group" data-slot="toolbar-group" data-orientation=state.orientation
+      data-lenso-glass=glass data-lenso-surface=state.attached data-lenso-disabled=(state.disabled or disabled) data-lenso-elastic=state.elastic
+      if glass and not state.attached
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="toolbar-highlight" data-slot="glass-press-highlight"
+      children
+
+component ToolbarButton
+  props
+    state: ToolbarState
+    id: string
+    label: string
+    size: string
+    variant: string
+    groupDisabled: bool
+    grouped: bool
+    surface: bool
+    glass: bool
+    iconOnly: bool
+    elastic: bool
+    destructive: bool
+    tint: string
+    disabled: bool
+    focusableWhenDisabled: bool
+    loading: bool
+    press: action
+  derive effectiveVariant = variant == "auto" ? (grouped ? "plain" : "glass") : variant
+  action activate
+    if not disabled and not state.disabled and not groupDisabled and not loading
+      press()
+  slot
+  view
+    button id=id testId=id appearance="none" type="button" tabindex=0 aria-label=label aria-disabled=(state.disabled or groupDisabled or disabled) aria-busy=loading
+      disabled=((state.disabled or groupDisabled or disabled) and not focusableWhenDisabled) press=activate
+      hatch="lenso-ui" data-lenso-kind="toolbar-button" data-slot="toolbar-button" data-orientation=state.orientation
+      data-lenso-size=size data-lenso-variant=effectiveVariant data-lenso-surface=(state.attached or surface) data-lenso-glass=glass data-lenso-icon-only=iconOnly
+      data-lenso-elastic=elastic data-lenso-destructive=destructive data-lenso-tint=tint data-lenso-tinted=(tint != "")
+      data-lenso-own-disabled=disabled data-lenso-focusable-disabled=focusableWhenDisabled data-lenso-loading=loading
+      data-lenso-disabled=(state.disabled or groupDisabled or disabled)
+      if glass and effectiveVariant != "plain" and not state.attached and not surface
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="toolbar-highlight" data-slot="glass-press-highlight"
+      children
+
+component ToolbarLink
+  props
+    id: string
+    label: string
+    href: string
+    target: string
+    disabled: bool
+  slot
+  view
+    link id=id testId=id role="link" aria-label=label href=(disabled ? "" : href) target=target aria-disabled=disabled tabindex=(disabled ? -1 : 0)
+      hatch="lenso-ui" data-lenso-kind="toolbar-link" data-slot="toolbar-link"
+      children
+
+component ToolbarSeparator
+  props
+    orientation: string
+  view
+    box role="separator" aria-orientation=orientation hatch="lenso-ui" data-lenso-kind="toolbar-separator" data-slot="toolbar-separator" data-orientation=orientation
+
+component ToolbarButtonIcon
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="toolbar-button-icon" data-slot="button-icon"
+      children

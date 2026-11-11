@@ -9,6 +9,7 @@ const source = (file: string) => path.resolve(root, "..", file);
 
 await build({
   configFile: false,
+  base: "./",
   root,
   plugins: [
     stylex({
@@ -21,6 +22,7 @@ await build({
   ],
   resolve: {
     alias: [
+      { find: /^@lenso\/glass\/fusion$/, replacement: source("glass/src/fusion-entry.ts") },
       { find: /^@lenso\/glass\/motion$/, replacement: source("glass/src/motion/index.ts") },
       { find: /^@lenso\/glass$/, replacement: source("glass/src/index.ts") },
       { find: /^@lenso\/tokens\/styles\.css$/, replacement: source("tokens/styles.css") },

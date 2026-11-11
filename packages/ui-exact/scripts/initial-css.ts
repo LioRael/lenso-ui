@@ -89,6 +89,7 @@ export function initialCSS(css: string, cases: PresentationCase[]) {
     ["data-disabled", "lenso-disabled"],
     ["data-checked", "lenso-checked"],
     ["data-active", "lenso-active"],
+    ["data-attached", "lenso-attached"],
     ["data-pending", "lenso-loading"],
     ["data-indeterminate", "lenso-indeterminate"],
     ["data-open", "lenso-open"],

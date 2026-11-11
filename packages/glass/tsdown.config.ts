@@ -5,6 +5,8 @@ export default defineConfig({
   entry: {
     index: "src/index.ts",
     "motion/index": "src/motion/index.ts",
+    "fusion/index": "src/fusion-entry.ts",
+    "fusion-worker": "src/fusion-worker.ts",
     "react/index": "src/react/index.ts",
     "react/fusion-worker": "src/fusion-worker.ts",
   },

@@ -30,10 +30,23 @@ currently supports the ordinary `default`, `secondary`, `tertiary` and
 `Surface(id="page", variant="secondary")` accepts children; `id` supplies its
 DOM and Exact test id.
 
+SearchField adds a native search input, small Glass group, rich clear control,
+labels and explicit Exact value ownership. See [SearchField](SEARCH_FIELD.md) and
+the [compiled example](example/search-field.contract).
+
 Expandable content adds `Disclosure` and `Accordion` with heading, trigger,
 indicator, body and panel parts. See [composition and state models](DISCLOSURE.md)
 and the [runnable example](example/disclosure.contract). These use explicit shared
 state shapes because Exact's slots retain the caller's provider scope.
+
+Toolbar adds named action groups, native roving keyboard focus, shared Glass
+surfaces and explicit state for attached/grouped controls. See
+[Toolbar](TOOLBAR.md) and its [compiled example](example/toolbar.contract), including
+remaining fusion, Menu and native integration work.
+
+Pagination adds ordinary native page links, summary/list/item composition,
+localized rich Previous/Next content, decorative ellipsis and source size maps.
+See [Pagination](PAGINATION.md) and its [compiled example](example/pagination.contract).
 
 Content navigation adds `Link`, rich-content icon parts, `Breadcrumbs` with
 explicit trail state and item/link/separator parts, and semantic/decorative

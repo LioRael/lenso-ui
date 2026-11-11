@@ -53,3 +53,13 @@ Future upstream support can close these gates. Do not replace Exact-owned DOM,
 change the shared compiler checkout or silently add a fork to consumer setup.
 The full Web catalog target remains in COMPONENTS.md; these are explicit
 coverage gaps rather than removed requirements.
+
+## Disabled native links
+
+The pinned Web host omits the authored `role="link"` on native anchors. A disabled
+link also has no href, so its implicit link role is absent. The initialized
+adapter restores the explicit role for Link, Breadcrumbs and Pagination, and
+restores the prior role when its hatch ends. Blocking-hatch evidence records
+href=null, tabindex=-1 and aria-disabled=true before initialization, plus the
+actual role before and after initialization. The pre-hatch role gap remains open;
+no compiler or DOM node replacement is involved.
