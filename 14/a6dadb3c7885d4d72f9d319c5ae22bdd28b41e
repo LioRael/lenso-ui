@@ -1,0 +1,489 @@
+packages/ui-native/src/color-slider-native.android.tsx
+  s_ab5c95a3492695::t_31e1948a510f6b 1-3
+  s_ab5c95a3492695::t_2204e30d5970f2 4-7
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-lightness-black-red-white-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-70
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-runtime.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-5
+docs/research/evidence/native-color-slider-2026-11-12/README.md
+  s_ab5c95a3492695::t_854db8c62e6ea1 20-27
+  s_ab5c95a3492695::t_ae36b20c8da7b2 1-19,28-33
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/bun.lock.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-2998
+docs/research/evidence/native-color-slider-2026-11-12/boundaries.log
+  s_ab5c95a3492695::t_a92dac801d1542 1
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/provider.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-82
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/shutdown.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-18
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_d78cbbd08f3ef0 488-524
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-accepted-alpha-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-disable-mid-drag-no-end-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/color-slider.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-108
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/ColorSliderQA.swift.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-62
+docs/research/evidence/native-color-slider-2026-11-12/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-141
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/index.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-115
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/input-hashes-before.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-20
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/after-launch-0.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-86
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/apk-identity-after.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-15
+docs/design/native-components.md
+  s_ab5c95a3492695::t_d78cbbd08f3ef0 272-287
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-terminal-observe.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-2
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/OS-dialog-instrument.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-23
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/OS-dialog.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-56
+docs/research/evidence/native-color-slider-2026-11-12/export-ios.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-20
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-21
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-observe.py.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-2
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-20
+docs/research/evidence/native-color-slider-2026-11-12/android/delivery-selection.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-111
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/install-receipt.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-4
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/authoritative-results.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-257
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-disable-mid-drag-no-end-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/initial-render-pixels.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-42
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-179
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-held-thumb-restored-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-31
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-7
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-20
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/probe-uninstall.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-14
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source-hashes-before.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-24
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/observe/captures/cf1794433599027171.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-56
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-vertical-accepted-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-108
+docs/research/evidence/native-color-slider-2026-11-12/ios/shutdown-receipt.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-7
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-7
+docs/research/native-delivery-2026-11-12.md
+  s_ab5c95a3492695::t_ae36b20c8da7b2 1-16,27-50,54-73
+  s_ab5c95a3492695::t_a11ebab725c637 17-26
+  s_ab5c95a3492695::t_5813d16e2d628c 51-53
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/post-Wait-focus-0.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-16
+docs/research/evidence/native-color-slider-2026-11-12/ios/delivery-selection.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-185
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/Wait-once-action.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-17
+docs/research/evidence/native-color-slider-2026-11-12/typecheck-example.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-2
+docs/research/evidence/native-color-slider-2026-11-12/ios/build/pods-receipt.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-8
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/observe/captures/cf1794433599027171-read-json.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-18
+docs/research/evidence/native-color-slider-2026-11-12/doctor-package.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-63
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/color-field-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-82
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-187
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-block-recovery-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-block-recovery-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-RTL-gradient-thumb-right-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-7
+docs/research/evidence/native-color-slider-2026-11-12/source-hashes.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-24
+docs/research/evidence/native-color-slider-2026-11-12/typecheck-package.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-2
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-33
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/authorized-Wait-target.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-23
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-70
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/logger-stop.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-6
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-RTL-accepted-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-84
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-213
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/Wait-readiness-budget.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-4
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/apk-identity.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-15
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/initial/source-hashes-before.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-24
+docs/research/evidence/native-color-slider-2026-11-12/final-source-hashes.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-24
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/number-field-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-84
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/new-client-install.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-15
+apps/native-example/ColorSliderExample.tsx
+  s_ab5c95a3492695::t_4fa06938688266 2,18-19,32,34-35,45-46,51,141
+  s_ab5c95a3492695::t_2204e30d5970f2 3-17,20-31,39-41,43-44,47-50,52-103,105-112,114-140
+  s_ab5c95a3492695::t_6b85f9e1761e64 1,33,36-38,42,104,113
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-28
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/post-Wait-terminal-identity.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-54
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-196
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-close.log
+  s_ab5c95a3492695::t_5b26a95128879a 1
+docs/research/evidence/native-color-slider-2026-11-12/format-source.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-4
+packages/ui-native/src/color-slider-native.ios.tsx
+  s_ab5c95a3492695::t_31e1948a510f6b 1-3
+  s_ab5c95a3492695::t_2204e30d5970f2 4-7
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/compiler-summary.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-2
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-141
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-initial-rainbow-alpha-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/initial/binary-provenance.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-7
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-187
+packages/ui-native/test/color-slider-bridge.test.ts
+  s_ab5c95a3492695::t_920eddf69fc921 1-10,13-22,30,37,40,47,50-55
+  s_ab5c95a3492695::t_faaa27f082b0f4 11-12,23-29,31-36,38-39,41-46,48-49
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt
+  s_ab5c95a3492695::t_7e4b0b01f01b52 18-34
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-21
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-200
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/logger.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-14
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/closeout-identity.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-49
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-os-recovery.py.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-10
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/styles.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-20
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/use-value.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-16
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-16
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-close.py.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-7
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-Wait-once.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-6
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-315
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/Wait-before.xml
+  s_ab5c95a3492695::t_5b26a95128879a 1
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/probe-package-after.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-16
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/App.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-315
+docs/research/evidence/native-color-slider-2026-11-12/doctor-example-final.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-54
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-RTL-gradient-thumb-right-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/toolchain-inputs.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-5
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/diagnostic-excerpts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-194
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/visible-recheck.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-86
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/source-hashes-after.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-24
+packages/ui-native/src/color-slider.tsx
+  s_ab5c95a3492695::t_31e1948a510f6b 2-7,9-13,19-20,26,45-47,50,53,57,108
+  s_ab5c95a3492695::t_51f94c0e669e86 1,8,51-52,54-56,78
+  s_ab5c95a3492695::t_2204e30d5970f2 14-18,21-25,27-44,48-49,58-77,79-107
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-7
+docs/research/evidence/native-color-slider-2026-11-12/archive-index.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-2,389-424,429-511,515-749,753-870
+  s_ab5c95a3492695::t_5b26a95128879a 3-388,425-428,512-514,750-752
+  s_ab5c95a3492695::t_9ef94f310f33f2 871-872
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-82
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_2bd87fa647810b 6-22
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-external-cancel-no-end-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-initial.py.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-3
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/probe-install.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-15
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-179
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/use-native-color.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-28
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-28
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-accepted-native-hue-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/observe/captures/cf1794433599027171-screen.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-16
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-82
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-115
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-200
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-vertical-gradient-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/source/bun.lock.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-2998
+docs/research/evidence/native-delivery-2026-11-12/README.md
+  s_ab5c95a3492695::t_02d34c97b5fff0 1-16
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/launch.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-16
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-initial-rainbow-alpha-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/models.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-106
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/bun.lock.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-2998
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-70
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/types.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-213
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_2204e30d5970f2 22,70,116,139,158,219
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-dark-readable-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/doctor-example.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-56
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-runtime.py.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-61
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-terminal-observe.py.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-2
+docs/research/evidence/native-color-slider-2026-11-12/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-315
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt
+  s_ab5c95a3492695::t_b5a266b2cbc8e3 25,33,144,169,194-196
+  s_ab5c95a3492695::t_860cb2a1e67491 1-22,24,26-32,34-124,126-143,145-168,170-193,197-200
+  s_ab5c95a3492695::t_6b85f9e1761e64 23,125
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-31
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-9
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_b5a266b2cbc8e3 113-115
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/initial.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-3
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/OS-dialog-read-xml.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-17
+docs/research/evidence/native-color-slider-2026-11-12/export-android.log
+  s_ab5c95a3492695::t_a92dac801d1542 1-20
+docs/research/evidence/native-color-slider-2026-11-12/ios/build/source-hashes-before.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-5
+docs/research/evidence/native-color-slider-2026-11-12/android/authoritative-results.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-257
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/build.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-604
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/exit-info-final.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-17
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-196
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-21
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/Wait-fresh-instrument.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-23
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-held-thumb-restored-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/color-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-33
+docs/research/evidence/native-delivery-2026-11-12/integrity.json
+  s_ab5c95a3492695::t_8289d1d4c7a9f2 1-145
+docs/research/evidence/native-color-slider-2026-11-12/ios/build/Podfile.lock.before.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-2480
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-Wait-once.py.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-23
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/logcat-retention.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-6
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/observe/captures/cf1794433599027171-instrument.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-25
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source-hashes-after.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-24
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-dark-readable-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/pixel-geometry-receipt.json
+  s_ab5c95a3492695::t_5b26a95128879a 9-11,19-21,29-31,39-41,49-51,59-61,69-71,79-81,89-91,99-101,109-111,119-121,129-131,139-141,149-151,159-160,163-164,173-174,177-178,187-188,191-192,201-202,205-206,214-215,222-223,230-231,238-239,250,258,274,290
+  s_ab5c95a3492695::t_a92dac801d1542 1-8,12-18,22-28,32-38,42-48,52-58,62-68,72-78,82-88,92-98,102-108,112-118,122-128,132-138,142-148,152-158,161-162,165-172,175-176,179-186,189-190,193-200,203-204,207-213,216-221,224-229,232-237,240-249,251-257,259-273,275-289,291-306
+docs/research/evidence/native-color-slider-2026-11-12/ios/build/LensoGlassModule.swift.before.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-187
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/before-launch.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-54
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-108
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/Wait-fresh-read.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-17
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-187
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-82
+docs/research/evidence/native-color-slider-2026-11-12/ios/build/source-hashes-after.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-5
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-33
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-82
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/package.json.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-31
+docs/research/native-color-slider-2026-11-12.md
+  s_ab5c95a3492695::t_ba935d66ab0df1 1-86,88-91
+  s_ab5c95a3492695::t_74e8aae1f2bb12 92-98,102-104
+  s_ab5c95a3492695::t_5813d16e2d628c 105-117
+  s_ab5c95a3492695::t_0d06becd83fbda 87,99-101,118-127
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/input-hashes-after.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-20
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/lenso-native-color-slider-os-recovery.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-5
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_74e8aae1f2bb12 43,154-161
+  s_ab5c95a3492695::t_0676a0fabcfba1 3-5
+docs/research/evidence/native-color-slider-2026-11-12/exports-receipt.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-42
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-7
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-accepted-native-hue-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+packages/ui-native/src/color-slider-model.ts
+  s_ab5c95a3492695::t_51f94c0e669e86 180-185
+  s_ab5c95a3492695::t_31e1948a510f6b 1,7,21,32,47-51,64,75-76,98-99,105-110,117-118,124-125,129-131,140-146,151-156,165-166,170-171
+  s_ab5c95a3492695::t_8631ba673e71a1 172-179,186-196
+  s_ab5c95a3492695::t_2204e30d5970f2 2-6,8-20,22-31,33-46,52-63,65-74,77-97,100-104,111-116,119-123,126-128,132-139,147-150,157-164,167-169
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-RTL-accepted-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/ios/interaction-receipt.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-2,4-374
+  s_ab5c95a3492695::t_5b26a95128879a 3
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-7
+apps/native-example/README.md
+  s_ab5c95a3492695::t_d78cbbd08f3ef0 142-148
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-vertical-accepted-metrics.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-25
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-accepted-alpha-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/ios/build/ColorSliderView.swift.before.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-179
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/frozen-native-source-hashes.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-4
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-84
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/post-Wait-terminal-focus.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-16
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/build-command.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-23
+packages/ui-native/src/color-slider-native-types.ts
+  s_ab5c95a3492695::t_31e1948a510f6b 1-3,17-21
+  s_ab5c95a3492695::t_2204e30d5970f2 4-16
+packages/ui-native/test/color-slider-model.test.ts
+  s_ab5c95a3492695::t_2204e30d5970f2 9-15,19-23,26-29,51-52,55-56,58-59,63-64,66-77
+  s_ab5c95a3492695::t_50884594c3bfc0 1-8,16-18,24-25,30-31,33-50,53-54,57,60-62,65,78-79
+  s_ab5c95a3492695::t_6b85f9e1761e64 32
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/observe/current.xml
+  s_ab5c95a3492695::t_5b26a95128879a 1
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-16
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-vertical-gradient-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-200
+docs/research/evidence/native-color-slider-2026-11-12/android/build2/build-result.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-21
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/systemui-exit-info-final.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-17
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_5813d16e2d628c 265
+  s_ab5c95a3492695::t_a11ebab725c637 260
+  s_ab5c95a3492695::t_0d06becd83fbda 264,267
+  s_ab5c95a3492695::t_d78cbbd08f3ef0 261-262
+docs/research/evidence/native-color-slider-2026-11-12/ios/authoritative-results.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-22
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-24
+docs/research/evidence/native-color-slider-2026-11-12/lint.log
+  s_ab5c95a3492695::t_a92dac801d1542 1
+packages/ui-native/ios/ColorSliderView.swift
+  s_ab5c95a3492695::t_58cd76a9775158 1-9,11-84,86-131,133-136,138-144,149-153,156-169,172-174,177-179
+  s_ab5c95a3492695::t_fe23151ab30f0c 10,85,132,137,145-148,154-155,170-171,175-176
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-lightness-black-red-white-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-115
+docs/research/evidence/native-delivery-2026-11-12/manifest.json
+  s_ab5c95a3492695::t_8289d1d4c7a9f2 1-6,9-14
+  s_ab5c95a3492695::t_7bd996bf00cd5f 7-8
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-179
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-final-home-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-212
+docs/research/evidence/native-color-slider-2026-11-12/ios/build/build-receipt.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-16
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-196
+docs/research/evidence/native-color-slider-2026-11-12/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-213
+docs/research/evidence/native-delivery-2026-11-12/checks.json
+  s_ab5c95a3492695::t_dd8cbc210ddb56 1-24,35
+  s_ab5c95a3492695::t_7bd996bf00cd5f 25-34
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/emulator.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-97
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/slider-external-cancel-no-end-hierarchy.txt
+  s_ab5c95a3492695::t_a92dac801d1542 1-109
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/observe/captures/cf1794433599027171-read-xml.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-18
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/observe.log
+  s_ab5c95a3492695::t_5b26a95128879a 1-74
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/OS-dialog-read-json.json
+  s_ab5c95a3492695::t_5b26a95128879a 1-17
+docs/research/evidence/native-color-slider-2026-11-12/android/runtime/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_5b26a95128879a 1-141
+docs/research/evidence/native-color-slider-2026-11-12/ios/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_a92dac801d1542 1-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "14a6dadb3c7885d4d72f9d319c5ae22bdd28b41e",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
