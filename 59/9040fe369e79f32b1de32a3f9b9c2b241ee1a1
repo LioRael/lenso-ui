@@ -1,0 +1,69 @@
+packages/glass/README.md
+  s_10c7d362cf24b2::t_b71977cac79464 61,104-120
+packages/glass/src/control-lens.ts
+  s_10c7d362cf24b2::t_218624f8e5349b 291-293,295,304-309,329-330,342-343,345-347,383-389,391-399
+packages/glass/test/browser/lens-geometry.dom.test.ts
+  s_10c7d362cf24b2::t_9333ff8ad7b855 7-8,13
+packages/ui-exact/COMPONENTS.md
+  s_10c7d362cf24b2::t_c9efa996dc2d17 97,104,140-146
+packages/ui-exact/GLASS_CONTAINER.md
+  s_10c7d362cf24b2::t_264eb977b6ef62 14-16,19-20,24-42
+packages/ui-exact/NOTICES.md
+  s_10c7d362cf24b2::t_1005eb6ebf1a1c 8-13
+packages/ui-exact/README.md
+  s_10c7d362cf24b2::t_73951e97884d69 42-45,49-50
+packages/ui-exact/TOOLBAR.md
+  s_10c7d362cf24b2::t_322de0e267f3da 9,15,56,67-68,75-112
+packages/ui-exact/components/glass-container.contract
+  s_10c7d362cf24b2::t_94ac2ad3b921d3 13,22,25
+packages/ui-exact/components/toolbar.contract
+  s_10c7d362cf24b2::t_93f403b9e267a3 30-32,36,38-40,43-45,57-58,68-69,78-79,83
+packages/ui-exact/example/app.contract
+  s_10c7d362cf24b2::t_0591833538f7d5 1,94
+packages/ui-exact/example/glass-container.contract
+  s_10c7d362cf24b2::t_4f47caebba19b7 13,20-21,58,63,66,68
+packages/ui-exact/example/toolbar-fusion.contract
+  s_10c7d362cf24b2::t_04c4d0644b945e 1-66
+packages/ui-exact/example/toolbar.contract
+  s_10c7d362cf24b2::t_7cd2d4ded2fa37 71,73,75,78
+packages/ui-exact/manifest.json
+  s_10c7d362cf24b2::t_6912702ea05ccc 6,22,34,37,93-95
+packages/ui-exact/src/glass-container-presentation.ts
+  s_10c7d362cf24b2::t_71d490b45f55a3 13,22-28
+packages/ui-exact/src/glass-container.ts
+  s_10c7d362cf24b2::t_47ba15b08947c5 1,9,69,120-125,165-174
+packages/ui-exact/src/native.ts
+  s_10c7d362cf24b2::t_2483184784839c 1,42-60
+packages/ui-exact/src/presentation.ts
+  s_10c7d362cf24b2::t_b34c38172caa32 101,177-182,192-196,203-224
+packages/ui-exact/src/toolbar-presentation.ts
+  s_10c7d362cf24b2::t_a4ecbc3fe86ca1 6,11-31,39-47,68-75,109-113
+packages/ui-exact/src/toolbar.ts
+  s_10c7d362cf24b2::t_7271097c34ccac 190-192,198-205,209-217,229-241,313-377
+packages/ui-exact/src/web.ts
+  s_10c7d362cf24b2::t_4520eed4ec55a2 1,8,39-42,95-119,123-125,132,137-143,145-147,151-155,171,201
+packages/ui-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_e0d5a9b0567f33 1-2,161-162
+packages/ui-exact/test/glass-container.mjs
+  s_10c7d362cf24b2::t_35a2d2097d0958 1-260
+packages/ui-exact/test/initial-styles.mjs
+  s_10c7d362cf24b2::t_782483b26c6422 171-181
+packages/ui-exact/test/toolbar-fusion.mjs
+  s_10c7d362cf24b2::t_743efa2d6681d2 1-375
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "599040fe369e79f32b1de32a3f9b9c2b241ee1a1",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
