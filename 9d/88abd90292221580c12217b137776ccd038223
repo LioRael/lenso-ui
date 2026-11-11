@@ -1,0 +1,31 @@
+docs/design/component-conventions.md
+  s_9f86fbdae2d09f::t_23c3860221acad 54-58
+packages/tokens/src/components/command/command.styles.ts
+  s_9f86fbdae2d09f::t_1e692236a5ec22 33-37
+apps/docs/test/search-material.mjs
+  s_f68ad3a859106e::t_8e04873f798ff2 26-33,38-94,159
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9d88abd90292221580c12217b137776ccd038223",
+  "prompts": {},
+  "sessions": {
+    "s_9f86fbdae2d09f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c474-4440-7663-9158-135122f4ec2c",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_f68ad3a859106e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c5d0-0baa-76d0-a79e-3ab02e1ed2a6",
+        "model": "unknown"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
