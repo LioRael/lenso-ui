@@ -1,0 +1,799 @@
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/after-accessibility-decrement-after-cancel-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435771073094-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/native-color-slider-recovery-2026-11-12.md
+  s_ab5c95a3492695::t_8df23f270ad8a9 44-49,53-57
+  s_ab5c95a3492695::t_49aa89df624178 27-31,67-89
+  s_ab5c95a3492695::t_cba79a173d7ca9 58-59,90-105
+  s_ab5c95a3492695::t_f9335d2c3b7474 35-43,50-52,60-66
+  s_ab5c95a3492695::t_cfb37e482e834c 1-26,32-34
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/apk-identity-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/guest-memory-before-launch.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source/PageControlView.baseline.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-216
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435753603994.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/raw-logcat-digest.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/case-5.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus-before-Wait.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/runnable/RecoveryHost.swift
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-8
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source/PageControlView.candidate.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-216
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/NativeColorSliderView.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-186
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-paging.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-11
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cleanup-confirmed.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-34
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435434166687-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/logger-stop.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/results.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-107
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/before-launch.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-54
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/apk-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-200
+docs/design/native-components.md
+  s_ab5c95a3492695::t_cba79a173d7ca9 27-32
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436905579263-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/after-accessibility-increment-after-cancel-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/RecoveryQA.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-39
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436837048859-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/delivery-selection.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-113
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436903167410-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-82
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/visible-check-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435765555624.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-20
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435768328998-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435765555624-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436903167410.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435453483555-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/gradlew.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-248
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/authoritative-results.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-139
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/reverse.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-28
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/OS-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-23
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435771073094-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/boot-observations.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-107
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436837048859-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435434166687-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/settings.gradle.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-39
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/results.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-77
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435453483555-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/post-Wait-identity-0.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-54
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-close.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/runtime-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-48
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435451910822.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435436003524-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-5.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435451910822-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/native-color-slider-2026-11-12.md
+  s_ab5c95a3492695::t_cba79a173d7ca9 3-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-70
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435753603994-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/after-launch-0.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-86
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/case-2.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/input-hashes-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-21
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/gradle.properties.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-78
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436836100633-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/case-1.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-qa.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-117
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source-stage-receipt.json
+  s_ab5c95a3492695::t_d5fe0b835a2343 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436903167410-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435436003524-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435448313341-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435753603994-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/case-3.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/bun.lock.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-2998
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/readiness-budget.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/source-hashes-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-6.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/after-launch-1.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-86
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/logger.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-14
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/source-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/Wait-before-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt
+  s_ab5c95a3492695::t_7ff06e42a5fbb0 144
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/case-3.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435455564540-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/case-4.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/probe-package-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436905579263.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/delivery-selection.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-290
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/runnable/candidate/NativeColorSliderView.swift
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-186
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/case-2.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/closeout-identity.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-49
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/after-launch-0.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-86
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/build.gradle.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-cases.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-4
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/cohort-source-hashes.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/post-Wait-identity-1.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-54
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435451910822-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435765555624-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435768328998-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435768328998.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-28
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435765555624-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436901718714-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435434166687-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-187
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435772548924-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/installed-path.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-start.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-61
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435440867449-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/source-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435445585912-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-close.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/after-non-touch-while-active-quiet-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435771073094-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/authoritative-results.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-39
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/build-result.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/RecoveryHost.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-8
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-196
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/create_project.rb.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/baseline-identity.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-141
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/runnable/RecoveryQA.swift
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-39
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435453483555-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435771073094-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436836100633-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435434166687-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436903167410-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/external-host-preflight-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/NativeColorSliderView.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-179
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-187
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435772548924-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/case-4.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/packages/ui-native/expo-module.config.json.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/Wait-action.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-4.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/probe-package-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/apk-identity-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435753603994-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436837048859-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435445585912-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436901718714-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435451910822-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436835150471-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435768328998-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/runtime-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-26
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-70
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/new-client-install.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436835150471-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436835150471-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/exit-info-final.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435455564540-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-84
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/guest-memory-before-launch.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436906431605-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436906431605-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/shutdown.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-14
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/RecoveryQA.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-39
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-close.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source/ColorSliderView.baseline.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-179
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-196
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/boot-observations.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-152
+docs/research/evidence/native-color-slider-recovery-2026-11-12/README.md
+  s_ab5c95a3492695::t_09cfcffdcb068b 42-44
+  s_ab5c95a3492695::t_94e857e76f4f4f 1-4,6-28,35-41,45-48
+  s_ab5c95a3492695::t_0b1c550bfbd5d2 5,29-34
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435455564540-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436904605064-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/input-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-21
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436904605064-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435455564540-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/gradle/wrapper/gradle-wrapper.properties.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/exit-info-final.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/logger.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-14
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/before-launch.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-54
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-1.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436837048859-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/post-Wait-ready-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/visible-recheck-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/visible-window.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/runnable/README.md
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/app/build.gradle.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-182
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-9
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/after-launch-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-cases.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-10
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/apps/native-example/PageControlExample.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-194
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/launch.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/Wait-before.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/baseline-identity.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/readiness-budget.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/final-source-hashes.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/package-readiness.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-36
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436835150471-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/probe-install.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435440867449-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436901718714.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-31
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/before-Wait.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-54
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435772548924.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/real-Expo-dependency-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-33
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-31
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/runnable/baseline/NativeColorSliderView.swift
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-179
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436837048859.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging-input-hashes.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/logcat-bounded-excerpts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-51
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/page-control.android.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-104
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-Wait.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-19
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/binary-provenance.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-31
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-33
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435436003524.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/build-process.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-4
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-213
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/cleanup-confirmed.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-34
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435765555624-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/release.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-19
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435440867449.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/launch.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/bun.lock.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-2998
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436905579263-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436906431605.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-31
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/probe-uninstall.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-14
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/shutdown.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-14
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cohort-source-hashes.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435440867449-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435772548924-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436904605064-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436905579263-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436905579263-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/closeout-identity.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-49
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-216
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/build.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-605
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-82
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-108
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/systemui-exit-info-final.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-2.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/after-public-touch-cancel-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/case-1.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/source-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-lib.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-29
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source/ColorSliderView.candidate.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-200
+docs/research/evidence/native-color-slider-recovery-2026-11-12/checks-receipt.json
+  s_ab5c95a3492695::t_d5fe0b835a2343 2,16-17
+  s_ab5c95a3492695::t_a12bce3858c4eb 1,3-15,18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435448313341-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436904605064.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-20
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-216
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436836100633-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/focus-pixels.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-19
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/after-old-touch-still-suppressed-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/source-hashes-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/reverse.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-200
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-close.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/archive-index.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-1698,1711-1712
+  s_ab5c95a3492695::t_d5fe0b835a2343 1706,1709-1710
+  s_ab5c95a3492695::t_a12bce3858c4eb 1699-1705,1707-1708
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/bun.lock.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-2998
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-start.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/apk-identity.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436906431605-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/package-readiness.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-36
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/actual-app-build-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-14
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/source-native-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-paging.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-7.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-8.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/case-3.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-141
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/after-reattached-adjustment-recovers-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435768328998-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/cleanup-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-10
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-315
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435453483555-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/after-synchronous-start-cancellation-safe-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/use-page-control.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-23
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source/ColorSliderView.baseline.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-200
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435448313341-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/case-1.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/post-Wait-window-1.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+packages/ui-native/ios/ColorSliderView.swift
+  s_ab5c95a3492695::t_c78b878f281b45 149-151,159-161,182-183
+  s_ab5c95a3492695::t_6c26b89aad5655 162
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt
+  s_ab5c95a3492695::t_7ff06e42a5fbb0 132
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-115
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/OS-read.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainActivity.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-61
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/probe-install.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/Wait-recovery.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/create_project.rb.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/after-accessibility-increment-after-cancel-hierarchy.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/logger-stop.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-200
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/before-probe.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-86
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/visible-check.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-86
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/host-before-start.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/change-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-23
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/logcat-bounded-excerpts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-91
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/case-2.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/results.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-31
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/install-receipt.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-6
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-186
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/repositories.init.gradle.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-29
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/source-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/baseline/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-179
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435753603994-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source-hashes-after.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source/ColorSliderView.candidate.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-186
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/raw-logcat-digest.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-10
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435451910822-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-82
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/host-before-start.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/launch-intent.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-21
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436903167410-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435440867449-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436906431605-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/case-3.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435434166687.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/apk-identity.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435436003524-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435445585912-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435455564540.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436904605064-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainApplication.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-45
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/authoritative-results.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-265
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436836100633.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/post-Wait-window-0.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-curate.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-47
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-lib.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-29
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/visible-recheck.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-54
+docs/research/evidence/native-color-slider-recovery-2026-11-12/source-hashes.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/apps/native-example/android/app/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-32
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435445585912.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/candidate/RecoveryHost.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-8
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/installed-toolchain.init.gradle.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-12
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435448313341-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/source-hashes-before.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/ios/runnable/create_project.rb
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-24
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435448313341.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435445585912-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436836100633-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-21
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-start.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-61
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435771073094.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436901718714-instrument.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-25
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/results.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-49
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/build-command.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-23
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-186
+docs/research/native-delivery-2026-11-12.md
+  s_ab5c95a3492695::t_cba79a173d7ca9 3-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-70
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/installed-path.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/focus-pixels.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-22
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/binary-provenance.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/qa/lenso-native-slider-focus-build.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-19
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-115
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-108
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-84
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435436003524-read-json.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-213
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/launch-intent.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-21
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-qa.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-117
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/probe-uninstall.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-14
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-Wait.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-4
+docs/research/evidence/native-color-slider-recovery-2026-11-12/swift-parse.log
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/captures/cf1794436835150471.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/delivery-selection.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-235
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/paging/captures/cf1794436901718714-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-extension.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-38
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/Wait-target.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-21
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/after-launch-screen.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/build/toolchain-inputs.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-5
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/binary-provenance.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/after-launch-1.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-86
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-21
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/captures/cf1794435772548924-read-xml.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-18
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/systemui-exit-info-final.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-17
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/cases/binary-provenance.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-7
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/captures/cf1794435453483555.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-56
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_95585a81a0db90 264-265,267,1093
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/new-client-install.json
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-15
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-82
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/focus/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-16
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/qa/lenso-native-color-slider-recovery-core.py
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-30
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/core/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1-315
+docs/research/evidence/native-color-slider-recovery-2026-11-12/android/extension/case-5.xml
+  s_ab5c95a3492695::t_5632e0ac56f1d7 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "144832741d8f7954a08799554833e1327fea7f3e",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
