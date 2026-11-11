@@ -1,0 +1,19 @@
+apps/docs/src/lib/route-head.ts
+  s_fabf2ab98d9b30::t_afa544a70b8a87 10-11,21-31,45-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d2bc5777a62ca2c65f0de261d10ffb644a5db7eb",
+  "prompts": {},
+  "sessions": {
+    "s_fabf2ab98d9b30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c4d3-243e-7db1-aa3a-35781aad4814",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
