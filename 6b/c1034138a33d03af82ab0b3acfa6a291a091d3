@@ -1,0 +1,710 @@
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/results.json
+  s_ab5c95a3492695::t_027cfb0b447681 4,10,16,38,44
+  s_ab5c95a3492695::t_0714e10d644bbd 1-3,5-9,11-15,17-37,39-43,45-139
+docs/research/evidence/native-number-field-2026-11-11/checks/lint.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-5.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/results.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-3,5-9,11-15,17-37,39-43,45-139
+  s_ab5c95a3492695::t_027cfb0b447681 4,10,16,38,44
+docs/research/evidence/native-number-field-2026-11-11/ios/host-reuse-receipt.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-6
+docs/research/evidence/native-number-field-2026-11-11/ios/post-ios-android-only-fixture.patch
+  s_ab5c95a3492695::t_0714e10d644bbd 1-19
+docs/research/evidence/native-number-field-2026-11-11/checks/boundaries.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/example-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-2
+apps/native-example/NumberFieldExample.tsx
+  s_ab5c95a3492695::t_ee77f16d5b05ed 2,31-33
+  s_ab5c95a3492695::t_f9b16742d13024 3-8,12-18
+  s_ab5c95a3492695::t_ca1516c469e4c0 19,35-38,40-68,105-127
+  s_ab5c95a3492695::t_6020de7e2bac72 1,9-11,20-30,34,39,128-130,145
+  s_ab5c95a3492695::t_be7094c6f61dfe 69-104,131-144
+docs/research/native-number-field-2026-11-11.md
+  s_ab5c95a3492695::t_7263b5f1e7ced4 1-34,38-49,54-62,70-74,89-94,120,168-170,172-174
+  s_ab5c95a3492695::t_252dcdc93b8b0e 50-53
+  s_ab5c95a3492695::t_80c3ac152e4f86 35-37
+  s_ab5c95a3492695::t_97d42a6c1598b5 95-103,108,110-113
+  s_ab5c95a3492695::t_23d6ab1a857528 104-107
+  s_ab5c95a3492695::t_0bd85b9e67041b 114-119
+  s_ab5c95a3492695::t_f6a5860ef79244 75-81,86-88
+  s_ab5c95a3492695::t_01a76aff4f4339 121-140,146,164-167
+  s_ab5c95a3492695::t_3619b55c3fc5a5 63-69
+  s_ab5c95a3492695::t_0b31bacf900bbc 82-85
+  s_ab5c95a3492695::t_a4de59ea799b4f 109,141-145,147-163,171
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/doctor-native-example.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-40
+docs/research/evidence/native-number-field-2026-11-11/android/provider-rejection2/missing-provider.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/shutdown-observation.json
+  s_ab5c95a3492695::t_bf96b99b2c4b3d 1-5
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/test-types.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/final-new-epoch-held-step-restored-hierarchy.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-173
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/generation.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/number-field-model.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-84
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/number-field-dark-native-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-135
+docs/research/evidence/native-number-field-2026-11-11/checks/test-types.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight2/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-123
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/final-readonly-allow-discards-old-draft-hierarchy.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-106
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-131
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-122
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/generation.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/number-field.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-164
+"docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/after-2-tap-Open number field example-hierarchy.txt"
+  s_ab5c95a3492695::t_0714e10d644bbd 1-127
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/runtime-failure-receipt.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-11
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/disabled-field-and-step-quiet-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-103
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/input.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-152
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/results.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-32
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/results.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-8,10,12-13,15-18,20-23,25-28,30-42,44,46-47,49-52,54-57,59-62,64-75
+  s_ab5c95a3492695::t_027cfb0b447681 9,11,14,19,24,29,43,45,48,53,58,63
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/use-value.ts.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-16
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight2/current.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-12
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-16.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-5.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/models.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-60
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/german-native-comma-commit-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-153
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight2/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/case-6.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-3.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight3/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/example-types.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-2
+docs/research/evidence/native-number-field-2026-11-11/android/final-bar4/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-128
+docs/research/evidence/native-number-field-2026-11-11/android/null-root-preflight3/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/android/capture-preflight6/QA.py.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-131
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/source-hashes-before.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-10
+docs/research/evidence/native-number-field-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-12,20-21,29-145,182-222,236,238
+  s_ab5c95a3492695::t_68ae6c60facdaf 13-19,22-28,146-181,223-235,237
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/acceptance2.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-14
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/lint.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/input.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-152
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/package-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-2
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-9.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-25
+docs/research/evidence/native-number-field-2026-11-11/checks/results.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-3,5-9,11-15,17-27,30-39,41-45,47-110,116-124,127-143,145-149
+  s_ab5c95a3492695::t_68ae6c60facdaf 28-29,111-115,125-126,144
+  s_ab5c95a3492695::t_027cfb0b447681 4,10,16,40,46
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/boundaries.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/native-end-editing-committed-once-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-153
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/final-owner-away-back-discards-and-consumes-quietly-hierarchy.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-173
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/boundaries.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+apps/native-example/README.md
+  s_ab5c95a3492695::t_2116a51944c00f 89-94
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-2.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/apk-read-timeout-preflight5/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-125
+docs/research/evidence/native-number-field-2026-11-11/android/final-bar4/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/native-negative-local-commit-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-106
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/results.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-3,5-9,11-15,17-37,39-43,45-110
+  s_ab5c95a3492695::t_027cfb0b447681 4,10,16,38,44
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/hermes-ios.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-20
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-6.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/final-fixture-example-types.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-2
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/binary-provenance.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/capture-preflight6/source-hashes-before.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-8
+docs/research/evidence/native-number-field-2026-11-11/android/provider-rejection2/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/checks/hermes-android.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 4,6,12
+  s_ab5c95a3492695::t_0714e10d644bbd 1-3,5,7-11,13-18
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/readonly-field-and-step-quiet-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-103
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/results.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-3,5-9,11-15,17-37,39-43,45-140,142-223
+  s_ab5c95a3492695::t_027cfb0b447681 4,10,16,38,44,141
+packages/ui-native/src/number-field.tsx
+  s_ab5c95a3492695::t_311b855bace9b2 2-6,8-12,25-44,64-71,76,80-83,96-103,111-117,119,121-123,138,150-154
+  s_ab5c95a3492695::t_ed8172172ccb5d 74-75,125,132
+  s_ab5c95a3492695::t_6020de7e2bac72 13-24,45-63,86-95,104-110,124,126-131,133-137,139-149
+  s_ab5c95a3492695::t_43e186c04d7b4d 1,7,72-73,77-79,84-85,118,120
+docs/research/evidence/native-number-field-2026-11-11/checks/final-fixture-hermes-ios.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/keyboard-occlusion-after-scroll.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks/package-types.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+  s_ab5c95a3492695::t_0714e10d644bbd 2
+docs/design/native-components.md
+  s_ab5c95a3492695::t_2116a51944c00f 178-189
+docs/research/evidence/native-number-field-2026-11-11/android/boot-readiness-preflight5/source-hashes-before.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-8
+docs/research/evidence/native-number-field-2026-11-11/archive-index.json
+  s_ab5c95a3492695::t_c2e66b422c324c 289-290,667-668,744-745,856-857,961-962,1045-1046,2137-2138,2630-2720
+  s_ab5c95a3492695::t_bf96b99b2c4b3d 1119-1125
+  s_ab5c95a3492695::t_0714e10d644bbd 1-19,24-26,31-33,38-40,45-226,262-264,286-287,291-553,631-632,640-644,647-666,669-728,820-824,827-831,834-838,841-845,848-852,855,858-859,862-866,869-873,876-880,883-887,890-894,897-901,904-908,911-915,918-922,925-929,932-936,939-960,963-1044,1047-1118,1126-1157,1165-1207,1215-1389,1397-1409,1424-1426,1441-1445,1453-1790,1798-1808,1816-1820,2005-2046,2089-2091,2162-2441,2449-2558,2567-2606,2615-2626,2629,2721-2723
+  s_ab5c95a3492695::t_68ae6c60facdaf 20-23,27-30,34-37,41-44,227-261,265-285,288,554-630,633-639,645-646,729-743,746-819,825-826,832-833,839-840,846-847,853-854,860-861,867-868,874-875,881-882,888-889,895-896,902-903,909-910,916-917,923-924,930-931,937-938,1158-1164,1208-1214,1390-1396,1410-1423,1427-1440,1446-1452,1791-1797,1809-1815,1821-2004,2047-2088,2092-2136,2139-2161,2442-2448,2559-2566,2607-2614,2627-2628
+docs/research/evidence/native-number-field-2026-11-11/checks/final-fixture-hermes-android.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/android/final-bar4/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/doctor-native-example.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-45
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-14.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks/models.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 4-6,9-12,15-16,18,21,24,27,31-33,36-38,41-44,47-49,51-53,55-59,61-62
+  s_ab5c95a3492695::t_0714e10d644bbd 1-3,7-8,13-14,17,19-20,22-23,25-26,28-30,34-35,39-40,45-46,50,54,60,63
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/case-3.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-13.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-1.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/compressed-root-preflight4.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-16
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-10.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/package-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-2
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-6.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/use-value.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-16
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-12
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/boundaries.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/null-root-preflight3/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/number-field-model.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-77
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/input.tsx.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-152
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/light-native-os-color.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/number-field-model.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-76
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/final-fixture-hermes-android.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-18
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/number-field-model.ts.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-84
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-12.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/lint.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/number-field.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-164
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/final-disable-enable-discards-old-draft-hierarchy.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-106
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-2.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/final-fixture-doctor-native-example.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-40
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/results.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-92
+docs/research/evidence/native-number-field-2026-11-11/android/compressed-root-preflight4/current.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-6
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-8.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/use-value.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-16
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-13.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-8.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/boot-readiness-preflight5/QA.py.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-131
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/NumberFieldQA.swift.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-70
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/package-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-2
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-98
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/result-summary.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-9
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-12.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-2.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/compressed-root-preflight4/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-122
+docs/research/evidence/native-number-field-2026-11-11/checks/doctor-ui-native.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-21,23-27,29-40
+  s_ab5c95a3492695::t_68ae6c60facdaf 22,28
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/hermes-android.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-20
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/results.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-77
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/metro.config.cjs.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/number-field-light-native-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-135
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-6
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-110
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/case-2.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/apk-read-timeout-preflight5/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/compact-native-observations.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/android/boot-readiness-preflight5/result-summary.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-6.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks/doctor-native-example.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-21,23-27,29-40
+  s_ab5c95a3492695::t_68ae6c60facdaf 22,28
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/fixture-failure-receipt.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-8
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_bf96b99b2c4b3d 560
+  s_ab5c95a3492695::t_01a76aff4f4339 564-565
+  s_ab5c95a3492695::t_2116a51944c00f 561-562,567
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/results.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-52
+docs/research/evidence/native-number-field-2026-11-11/android/provider-rejection2/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-6
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/doctor-native-example.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-45
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/test-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-7.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight2/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/result-summary.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-7
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_6020de7e2bac72 20,70,73,100,115,126,179
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/doctor-ui-native.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-40
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-17.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/NumberFieldQA.swift.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-70
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/draft-lifecycle4.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-3
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/final-fixture-lint.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/hermes-ios.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-20
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-18.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-8.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-34
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/App.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-270
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-34
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-4
+docs/research/evidence/native-number-field-2026-11-11/android/provider-rejection2.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-12
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/NumberFieldQA.swift.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-70
+"docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/after-2-tap-Open number field example-hierarchy.txt"
+  s_ab5c95a3492695::t_0714e10d644bbd 1-129
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/accepted-half-step-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-103
+docs/research/evidence/native-number-field-2026-11-11/android/emulator-lifecycle5.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-97
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/metro.config.cjs.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-18
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/generation.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-9
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/doctor-ui-native.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-40
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/case-5.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-1.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/hermes-ios.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-20
+docs/research/evidence/native-number-field-2026-11-11/android/system-ui-anr-preflight5/before-wait.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-3.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/input.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-152
+docs/research/evidence/native-number-field-2026-11-11/android/provider-rejection2/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-6
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/case-1.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/generation.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/android/capture-preflight6.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-12
+docs/research/evidence/native-number-field-2026-11-11/checks/generation.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-26,28-43,45-60,76-77,79-100,103-110,155
+  s_ab5c95a3492695::t_68ae6c60facdaf 62-74,78,101-102,111-154
+  s_ab5c95a3492695::t_027cfb0b447681 27,44,61,75
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/acceptance1.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-14
+docs/research/evidence/native-number-field-2026-11-11/android/lifecycle5-readiness.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-7
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-142
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight2.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-4
+docs/research/evidence/native-number-field-2026-11-11/android/system-ui-anr-preflight5/after-wait.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/use-number-field-draft.ts.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-26
+docs/research/evidence/native-number-field-2026-11-11/final-source-hashes.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1,4-15
+  s_ab5c95a3492695::t_68ae6c60facdaf 2-3
+docs/research/evidence/native-number-field-2026-11-11/android/compressed-root-preflight4/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-10.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-9.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-1.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_7263b5f1e7ced4 4,38-39
+docs/research/evidence/native-number-field-2026-11-11/checks/final-fixture-doctor-native-example.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-40
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/clamped-display-with-unclamped-owner-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-103
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/test-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/case-4.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/checks/hermes-ios.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 4,6,12
+  s_ab5c95a3492695::t_0714e10d644bbd 1-3,5,7-11,13-18
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-5.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/compressed-root-preflight4/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/doctor-ui-native.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-40
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/App.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-270
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/invalid-partial-reverted-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-153
+docs/research/evidence/native-number-field-2026-11-11/android/system-ui-anr-preflight5/wait-action.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-34
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/final-fixture-hermes-ios.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-18
+docs/research/evidence/native-number-field-2026-11-11/android/boot-readiness-preflight5/binary-provenance.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/shutdown.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-11
+packages/ui-native/test/number-field-model.test.ts
+  s_ab5c95a3492695::t_ca1516c469e4c0 23,25
+  s_ab5c95a3492695::t_ed8172172ccb5d 10,18-19
+  s_ab5c95a3492695::t_be7094c6f61dfe 1,52-66
+  s_ab5c95a3492695::t_311b855bace9b2 2-5,9,12-17,20-22,27-35,39-43,51,67
+  s_ab5c95a3492695::t_6020de7e2bac72 6-8,11,24,26,36-38,44-50
+docs/research/evidence/native-number-field-2026-11-11/android/provider-rejection2/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-131
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-12
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/hermes-android.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-20
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/number-field.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-164
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+packages/ui-native/test/number-field-draft.test.ts
+  s_ab5c95a3492695::t_43e186c04d7b4d 1-54
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/hermes-android.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-20
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_311b855bace9b2 88-89
+docs/research/evidence/native-number-field-2026-11-11/android/null-root-preflight3/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-122
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/window-after-light-failure.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-393
+docs/research/evidence/native-number-field-2026-11-11/checks/example-types.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+  s_ab5c95a3492695::t_0714e10d644bbd 2
+docs/research/evidence/native-number-field-2026-11-11/android/shutdown-lifecycle5-observation.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-4
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/lint.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/checks/final-fixture-doctor-cwd-rejection.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-4
+docs/research/evidence/native-number-field-2026-11-11/android/capture-preflight6/binary-provenance.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-5
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/example-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-2
+docs/research/evidence/native-number-field-2026-11-11/android/capture-preflight6/result-summary.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/QA.py.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-131
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/source-hashes-before.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-8
+docs/research/evidence/native-number-field-2026-11-11/android/launch.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-15
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/metro.config.cjs.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/final-fixture-platform-delta.diff
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-145
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-3.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/acceptance1-export.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-4.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-7.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-122
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight3/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-34
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/models.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-59
+docs/research/evidence/native-number-field-2026-11-11/android/final-bar4.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-90
+docs/research/evidence/native-number-field-2026-11-11/checks/test-types-without-dom-lib.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-2
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_80c3ac152e4f86 337-338
+  s_ab5c95a3492695::t_2116a51944c00f 320-336,339-341
+  s_ab5c95a3492695::t_d9b221a0789817 342-343
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-10.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-15.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/hermes-android.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/held-edit-restores-text-owner-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-153
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-9.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/doctor-native-example.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-40
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/binary-provenance.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-34
+docs/research/evidence/native-number-field-2026-11-11/android/apk-read-timeout-preflight5.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-16
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/boundaries.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+packages/ui-native/src/number-field-model.ts
+  s_ab5c95a3492695::t_ca1516c469e4c0 32-33
+  s_ab5c95a3492695::t_be7094c6f61dfe 46-59,65,74
+  s_ab5c95a3492695::t_311b855bace9b2 6-18,27-31,34,38-40,42-45,60,64,66-68,72-73,75-84
+  s_ab5c95a3492695::t_6020de7e2bac72 1-5,19-26,35-37,61-63
+  s_ab5c95a3492695::t_ed8172172ccb5d 41,69-71
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/App.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-270
+docs/research/evidence/native-number-field-2026-11-11/android/compressed-root-preflight4/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-7
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/source-hashes-before.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-8
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/number-field.tsx.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-154
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-7.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight3/current.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/models.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-59
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/example-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-2
+docs/research/evidence/native-number-field-2026-11-11/android/authoritative-results.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 15-31,33,39-46
+  s_ab5c95a3492695::t_0714e10d644bbd 1-14,32,34-38,47
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/case-3.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/empty-commits-null-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-153
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/NumberFieldQA.swift.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-76
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/acceptance2-export.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/doctor-ui-native.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-40
+docs/research/evidence/native-number-field-2026-11-11/checks-before-provider/lint.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/null-root-preflight3/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/uncontrolled-empty-first-zero-then-five-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-153
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/metro.config.cjs.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/final-new-epoch-native-commit-once-hierarchy.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-173
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/acceptance3-export.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/result-summary.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-6
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-11.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-11.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/launch-lifecycle5.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-16
+docs/research/evidence/native-number-field-2026-11-11/android/shutdown-lifecycle5.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-14
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/case-1.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight3/QA.py.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-127
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-4.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-11
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/App.tsx.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-270
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-110
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/use-value.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-16
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/tiny-positive-decrement-to-zero-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-135
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/acceptance3.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5/binary-provenance.json
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-5
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance1/case-15.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-19
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight3.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/final-fixture-doctor-cwd-rejection.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-4
+docs/research/evidence/native-number-field-2026-11-11/checks/final-fixture-lint.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-12
+docs/research/evidence/native-number-field-2026-11-11/checks/final-fixture-example-types.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-2
+docs/research/evidence/native-number-field-2026-11-11/checks-before-intl/hermes-ios.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-18
+docs/research/evidence/native-number-field-2026-11-11/README.md
+  s_ab5c95a3492695::t_027cfb0b447681 8,10-14,16-38,41-44,46-50,52-57
+  s_ab5c95a3492695::t_bf96b99b2c4b3d 1-7,9,15,39-40,45,51
+packages/ui-native/src/use-number-field-draft.ts
+  s_ab5c95a3492695::t_b3df84219cbf71 5
+  s_ab5c95a3492695::t_43e186c04d7b4d 1-4,6-26
+docs/research/evidence/native-number-field-2026-11-11/android/final-codec3/case-4.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/checks-candidate1/models.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-59
+docs/research/evidence/native-number-field-2026-11-11/ios/terminals/draft-lifecycle4-export.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/number-field-model.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-77
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/source-hashes-before.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-9
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance2/number-field-model.ts.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-77
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/QA.py.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-111
+docs/research/evidence/native-number-field-2026-11-11/checks-before-draft-epoch/package-types.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-2
+docs/research/evidence/native-number-field-2026-11-11/android/launcher-preflight3/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-5
+docs/research/evidence/native-number-field-2026-11-11/ios/acceptance3/draft-without-owner-callback-hierarchy.txt
+  s_ab5c95a3492695::t_0714e10d644bbd 1-128
+docs/research/evidence/native-number-field-2026-11-11/ios/draft-lifecycle4/draft-final-accepted-three-half-hierarchy.txt
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-133
+docs/research/evidence/native-number-field-2026-11-11/android/acceptance2/case-14.xml
+  s_ab5c95a3492695::t_0714e10d644bbd 1
+docs/research/evidence/native-number-field-2026-11-11/android/final-bar4/binary-provenance.json
+  s_ab5c95a3492695::t_0714e10d644bbd 1-8
+docs/research/evidence/native-number-field-2026-11-11/android/boot-readiness-preflight5.log
+  s_ab5c95a3492695::t_68ae6c60facdaf 1-12
+docs/research/evidence/native-number-field-2026-11-11/android/null-root-preflight3.log
+  s_ab5c95a3492695::t_0714e10d644bbd 1-14
+docs/research/evidence/native-number-field-2026-11-11/android/draft-lifecycle5b/case-2.xml
+  s_ab5c95a3492695::t_68ae6c60facdaf 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6bc1034138a33d03af82ab0b3acfa6a291a091d3",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
