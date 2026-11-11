@@ -1,0 +1,23 @@
+apps/docs/content/lenso/cn/react/getting-started/frameworks.mdx
+  s_fabf2ab98d9b30::t_2b124a901a1f5b 35-44,63,75,88-93,95,100-106,108-111,114-125,127-140,143-153,156-165,167
+  s_fabf2ab98d9b30::t_d2dc28587b85ef 107,112-113,126,141-142,154-155
+apps/docs/content/lenso/en/react/getting-started/frameworks.mdx
+  s_fabf2ab98d9b30::t_2b124a901a1f5b 35-44,63,75,88-93,95,100-106,108-111,114-125,127-140,143-153,156-165,167
+  s_fabf2ab98d9b30::t_7dad1baaf2a694 107,112-113,126,141-142,154-155
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "508d79ce0fbf2f0178e946435886805031653467",
+  "prompts": {},
+  "sessions": {
+    "s_fabf2ab98d9b30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c4d3-243e-7db1-aa3a-35781aad4814",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
