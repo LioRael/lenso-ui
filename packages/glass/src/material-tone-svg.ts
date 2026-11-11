@@ -44,9 +44,11 @@ export function appendMaterialTone(
     linear("material-face", tone.clarity);
     return;
   }
-  // This is a backdrop material, clipped by its lens rather than input alpha.
-  // Blur can leave partial coverage at the sampling boundary; multiplying that
-  // alpha through the fitted RGB arithmetic produces opaque black bands.
+  // Calculate the nonlinear RGB transfer at full coverage so partial input
+  // alpha cannot enter the arithmetic and create black bands. Restore that
+  // coverage afterwards: nested backdrop roots can supply transparent input,
+  // which must not become an opaque dark material face.
+  const coverage = source;
   const opaque = node("feComponentTransfer", { in: source, result: "tone-input" });
   opaque.append(node("feFuncA", { type: "linear", slope: 0, intercept: 1 }));
   filter.append(opaque);
@@ -104,7 +106,7 @@ export function appendMaterialTone(
       k2: 2,
       k3: 1,
       k4: -1,
-      result: tone.clarity === 0 ? "material-face" : "tone-regular",
+      result: tone.clarity === 0 ? "tone-opaque" : "tone-regular",
     }),
   );
   if (tone.clarity > 0) {
@@ -116,8 +118,16 @@ export function appendMaterialTone(
         operator: "arithmetic",
         k2: 1 - tone.clarity,
         k3: tone.clarity,
-        result: "material-face",
+        result: "tone-opaque",
       }),
     );
   }
+  filter.append(
+    node("feComposite", {
+      in: "tone-opaque",
+      in2: coverage,
+      operator: "in",
+      result: "material-face",
+    }),
+  );
 }

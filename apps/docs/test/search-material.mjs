@@ -23,6 +23,52 @@ async function detailVariation(page, target) {
   }, png);
 }
 
+// Panel blur can hide a nested action's missing backdrop input. A coloured
+// scene distinguishes preserved transparency from a fabricated #202020 face.
+async function assertActionBackdrop(page, dialog) {
+  await dialog.evaluate((element) => {
+    const backdrop = document.createElement("div");
+    backdrop.setAttribute("data-search-action-backdrop", "");
+    Object.assign(backdrop.style, {
+      position: "fixed",
+      inset: "0",
+      zIndex: "45",
+      background: "rgb(30 100 210)",
+      pointerEvents: "none",
+    });
+    element.before(backdrop);
+  });
+  const action = dialog.locator('[data-slot="command-action"]');
+  await action.waitFor();
+  const box = await action.boundingBox();
+  const panel = await dialog.boundingBox();
+  const png = (await dialog.screenshot()).toString("base64");
+  const sample = await page.evaluate(
+    async ({ png, x, y, width, height }) => {
+      const image = new Image();
+      image.src = `data:image/png;base64,${png}`;
+      await image.decode();
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0);
+      return [
+        ...context.getImageData((x * image.width) / width, (y * image.height) / height, 1, 1).data,
+      ];
+    },
+    {
+      png,
+      x: box.x - panel.x + box.width / 2,
+      y: box.y - panel.y + box.height - 5,
+      width: panel.width,
+      height: panel.height,
+    },
+  );
+  assert.ok(sample[2] - sample[0] > 15, `Search action lost its blue backdrop: ${sample}`);
+  await page.locator("[data-search-action-backdrop]").evaluate((element) => element.remove());
+}
+
 // Flat docs backgrounds hide backdrop-ownership failures; exercise the home
 // image and a high-frequency source, with a native blur control for the backend.
 for (const [name, engine] of [
@@ -85,6 +131,7 @@ for (const [name, engine] of [
           false,
           "Fallback paint must remain outside the panel's backdrop root",
         );
+        await assertActionBackdrop(page, dialog);
         await dialog.evaluate((element) => {
           const backdrop = document.createElement("div");
           Object.assign(backdrop.style, {

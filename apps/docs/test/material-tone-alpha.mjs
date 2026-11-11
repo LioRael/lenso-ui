@@ -6,8 +6,9 @@ const base = process.env.DOCS_URL ?? "http://127.0.0.1:3000";
 const moduleURL = (file) =>
   `/@fs${fileURLToPath(new URL(`../../../packages/glass/src/${file}.ts`, import.meta.url))}`;
 
-// Blurred backdrop edges have partial coverage. RGB-only unit tests cannot catch
-// alpha entering the SVG arithmetic and turning the finished material black.
+// Blurred edges have partial coverage; nested backdrop roots can have none.
+// RGB-only tests miss both black arithmetic fringes and an opaque dark face
+// fabricated from transparent input. Check the colour and original coverage.
 for (const [name, engine] of [
   ["chromium", chromium],
   ["webkit", webkit],
@@ -33,6 +34,7 @@ for (const [name, engine] of [
               svg.setAttribute("width", "480");
               svg.setAttribute("height", "80");
               svg.style.cssText = "position:fixed;inset:0;z-index:99999";
+              svg.style.backgroundColor = "white";
               const filter = document.createElementNS(ns, "filter");
               filter.id = "tone-test";
               filter.setAttribute("color-interpolation-filters", "sRGB");
@@ -40,11 +42,11 @@ for (const [name, engine] of [
               svg.append(filter);
               const group = document.createElementNS(ns, "g");
               group.setAttribute("filter", "url(#tone-test)");
-              for (const [i, alpha] of [0.25, 0.5, 0.75, 1].entries()) {
+              for (const [i, alpha] of [0, 0.25, 0.5, 0.75, 1].entries()) {
                 const rect = document.createElementNS(ns, "rect");
                 for (const [key, value] of Object.entries({
-                  x: i * 120,
-                  width: 120,
+                  x: i * 96,
+                  width: 96,
                   height: 80,
                   fill: "rgb(51 128 179)",
                   "fill-opacity": alpha,
@@ -78,20 +80,23 @@ for (const [name, engine] of [
             canvas.height = image.height;
             const ctx = canvas.getContext("2d");
             ctx.drawImage(image, 0, 0);
-            return [0, 1, 2, 3].map((i) =>
+            return [0, 1, 2, 3, 4].map((i) =>
               [
-                ...ctx.getImageData(((i + 0.5) / 4) * image.width, image.height / 2, 1, 1).data,
+                ...ctx.getImageData(((i + 0.5) / 5) * image.width, image.height / 2, 1, 1).data,
               ].slice(0, 3),
             );
           }, png);
-          for (const sample of samples)
+          for (const [index, sample] of samples.entries()) {
+            const alpha = index / 4;
+            const composited = expected.map((n) => n * alpha + 255 * (1 - alpha));
             assert.ok(
-              sample.every((n, i) => Math.abs(n - expected[i]) <= 8),
-              `${name} DPR=${dpr} size=${size} clarity=${clarity}: ${sample} expected ${expected}`,
+              sample.every((n, i) => Math.abs(n - composited[i]) <= 8),
+              `${name} DPR=${dpr} size=${size} clarity=${clarity} alpha=${alpha}: ${sample} expected ${composited}`,
             );
+          }
         }
       }
-      console.log(`${name} DPR=${dpr}: partial-coverage material matches the RGB reference`);
+      console.log(`${name} DPR=${dpr}: material preserves colour and transparent/partial coverage`);
       await page.close();
     }
   } finally {
