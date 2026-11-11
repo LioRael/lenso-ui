@@ -1,0 +1,149 @@
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/otp-fixed-readonly-no-keyboard-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-110
+docs/research/evidence/native-otp-2026-11-11/doctor-0.log
+  s_ab5c95a3492695::t_04c2280802453d 6
+  s_ab5c95a3492695::t_6509932e79a599 1-5,7-60
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/otp-model.ts.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-21
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_6509932e79a599 1-7
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/otp-middle-replacement-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-142
+apps/native-example/OTPExample.tsx
+  s_ab5c95a3492695::t_a8cce63731a4a0 1-19,22-55
+  s_ab5c95a3492695::t_f6537791110c66 20-21
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/input-otp.tsx.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-119
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/App.tsx.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-291
+packages/ui-native/test/otp-model.test.ts
+  s_ab5c95a3492695::t_5dbeddd8f54edb 1-18
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/OTPExample.tsx.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-55
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_26f1fcd21c5ffe 40,118-121
+docs/research/native-otp-2026-11-11.md
+  s_ab5c95a3492695::t_6b828480f53624 1,47,52-53,70,72-77
+  s_ab5c95a3492695::t_9059edbaeaefbe 2-43,45-46,48
+  s_ab5c95a3492695::t_26f1fcd21c5ffe 44,66,68-69,71
+  s_ab5c95a3492695::t_6eecd3037fc695 49-51,54-65,67
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/otp-fixed-reenabled-edit-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-142
+packages/ui-native/src/input-otp.tsx
+  s_ab5c95a3492695::t_383c8d1906be04 83
+  s_ab5c95a3492695::t_f6537791110c66 1,43-45,72,86-89
+  s_ab5c95a3492695::t_5dbeddd8f54edb 3-42,46-71,73-77,81,84-85,90-126
+  s_ab5c95a3492695::t_a8cce63731a4a0 2,78-80
+  s_ab5c95a3492695::t_9504c642fa2053 82
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/after-29-disabled-digit-center-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-142
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/otp-local-012-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-135
+docs/research/evidence/native-otp-2026-11-11/models.log
+  s_ab5c95a3492695::t_04c2280802453d 1-77
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_5dbeddd8f54edb 95-96
+docs/research/evidence/native-otp-2026-11-11/fixed-source-hashes.json
+  s_ab5c95a3492695::t_6509932e79a599 1-7
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_a8cce63731a4a0 20,76,79,110,128,142,198
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/binary-provenance.json
+  s_ab5c95a3492695::t_6509932e79a599 1-34
+docs/research/evidence/native-otp-2026-11-11/archive-index.json
+  s_ab5c95a3492695::t_04c2280802453d 220-222,226-234
+  s_ab5c95a3492695::t_6509932e79a599 1-219,223-225,241-242
+  s_ab5c95a3492695::t_53e830a2e98214 235-240
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/App.tsx.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-291
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/otp-leading-zero-complete-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-140
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/OTPQA.swift.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-64
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_2d8782dc685c1c 377-382,384-389
+  s_ab5c95a3492695::t_6b828480f53624 383
+docs/design/native-components.md
+  s_ab5c95a3492695::t_26f1fcd21c5ffe 209-217
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/source-hashes-before.json
+  s_ab5c95a3492695::t_6509932e79a599 1-7
+docs/research/evidence/native-otp-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_6509932e79a599 1-138
+packages/ui-native/src/otp-model.ts
+  s_ab5c95a3492695::t_5dbeddd8f54edb 1-21
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/OTPExample.tsx.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-53
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/otp-fixed-dark-readable-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-113
+docs/research/evidence/native-otp-2026-11-11/export-android.log
+  s_ab5c95a3492695::t_6509932e79a599 1-20
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/OTPQA.swift.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-57
+docs/research/evidence/native-otp-2026-11-11/ios/geometry-receipt.json
+  s_ab5c95a3492695::t_6509932e79a599 1-43
+docs/research/evidence/native-otp-2026-11-11/README.md
+  s_ab5c95a3492695::t_6b828480f53624 1-18
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/otp-held-reject-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-142
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/otp-backspace-empty-moves-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-140
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/otp-model.ts.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-21
+docs/research/evidence/native-otp-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_6509932e79a599 1-48
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/index.ts.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-96
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/result-summary.json
+  s_ab5c95a3492695::t_6509932e79a599 1-9
+docs/research/evidence/native-otp-2026-11-11/source-hashes.json
+  s_ab5c95a3492695::t_6509932e79a599 1-7
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/input-otp.tsx.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-126
+docs/research/evidence/native-otp-2026-11-11/export-fixed-android.log
+  s_ab5c95a3492695::t_6509932e79a599 1-20
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/index.ts.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-96
+docs/research/evidence/native-otp-2026-11-11/export-ios.log
+  s_ab5c95a3492695::t_6509932e79a599 1-20
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/disabled-focus-red-receipt.json
+  s_ab5c95a3492695::t_6509932e79a599 1-34
+docs/research/evidence/native-otp-2026-11-11/doctor-1.log
+  s_ab5c95a3492695::t_04c2280802453d 6
+  s_ab5c95a3492695::t_6509932e79a599 1-5,7-46
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_6509932e79a599 1-34
+docs/research/evidence/native-otp-2026-11-11/export-fixed-ios.log
+  s_ab5c95a3492695::t_6509932e79a599 1-20
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/otp-fixed-back-glass-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-200
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/otp-fixed-disabled-no-keyboard-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-110
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_6b828480f53624 468,471
+  s_ab5c95a3492695::t_9059edbaeaefbe 464-466,469
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/otp-initial-hierarchy.txt
+  s_ab5c95a3492695::t_6509932e79a599 1-110
+docs/research/evidence/native-otp-2026-11-11/ios/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_6509932e79a599 1-9
+docs/research/evidence/native-otp-2026-11-11/ios/fixed2/source-hashes-after.json
+  s_ab5c95a3492695::t_6509932e79a599 1-7
+docs/research/evidence/native-otp-2026-11-11/ios/shutdown-receipt.json
+  s_ab5c95a3492695::t_6509932e79a599 1-5
+docs/research/evidence/native-otp-2026-11-11/doctor-fixed.log
+  s_ab5c95a3492695::t_276b07479aded8 1-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "18c32ea6134f4a127d8bbbf10a48572d3c2c9aa8",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
