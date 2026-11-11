@@ -114,15 +114,26 @@ try {
         ),
         labelColor,
       );
+      // Other examples keep their own filters alive when these two surfaces unmount.
+      const surfaceFilters = () => {
+        const ids = ["glass-panel", "glass-action"].map((testId) => {
+          const node = document.querySelector(`[data-testid="${testId}"]`);
+          const filter = node?.style.getPropertyValue("--lg-filter");
+          return filter?.match(/#([\w-]+)/)?.[1];
+        });
+        return ids.every((id) => id && document.getElementById(id)?.localName === "filter")
+          ? ids
+          : null;
+      };
+      const beforeHide = await (await page.waitForFunction(surfaceFilters)).jsonValue();
       await page.getByTestId("visibility").click();
       assert.equal(await page.getByTestId("glass-panel").count(), 0);
       await page.waitForFunction(
-        () => document.querySelectorAll("[data-lenso-glass-optics] filter").length === 0,
+        (ids) => ids.every((id) => !document.getElementById(id)),
+        beforeHide,
       );
       await page.getByTestId("visibility").click();
-      await page.waitForFunction(
-        () => document.querySelectorAll("[data-lenso-glass-optics] filter").length > 0,
-      );
+      await page.waitForFunction(surfaceFilters);
       await page.getByTestId("glass-action").click();
       assert.equal(await page.getByTestId("count").textContent(), "Count: 4");
       const modalMotion = await checkModal(page, name);
