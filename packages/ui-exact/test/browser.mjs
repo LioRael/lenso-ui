@@ -64,7 +64,15 @@ try {
         if (message.type() === "error") errors.push(message.text());
       });
       await checkInitialStyles(page, server.url.href, name);
-      await checkScrollShadowColdKeyboard(page);
+      // First-entry scrolling activates offscreen materials. Keep the glass teardown fixture fresh.
+      const firstEntry = await browser.newPage({ viewport: page.viewportSize() });
+      try {
+        await firstEntry.goto(server.url.href);
+        await checkScrollShadowColdKeyboard(firstEntry);
+      } finally {
+        await firstEntry.close();
+      }
+      await page.bringToFront();
       const presentationCount = await checkPresentationCases(page);
       const button = page.getByTestId("glass-action");
       await page.waitForFunction(() => {
