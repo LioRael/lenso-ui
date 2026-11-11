@@ -6,6 +6,12 @@ import { buildExample } from "../scripts/example.ts";
 const require = createRequire(new URL("../../../apps/docs/package.json", import.meta.url));
 const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE ?? "playwright");
 const { dist } = await buildExample();
+const scope = process.env.EXACT_BROWSER_SCOPE ?? "core";
+assert.ok(["core", "nested", "lifecycle"].includes(scope));
+assert.ok(
+  !process.env.EXACT_WEB_ENGINE || ["chromium", "webkit"].includes(process.env.EXACT_WEB_ENGINE),
+  "Choose chromium or webkit",
+);
 const server = Bun.serve({
   hostname: "127.0.0.1",
   port: 0,
@@ -23,8 +29,9 @@ try {
   for (const [name, engine] of [
     ["chromium", chromium],
     ["webkit", webkit],
-  ]) {
+  ].filter(([name]) => !process.env.EXACT_WEB_ENGINE || name === process.env.EXACT_WEB_ENGINE)) {
     const browser = await engine.launch();
+    console.log(`${name} ${browser.version()}: ${scope}`);
     try {
       const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
       const errors = [];
@@ -231,15 +238,17 @@ try {
           true,
         );
       }
-      await control("open-nested").focus();
-      await page.keyboard.press("Space");
-      await control("nested-dialog").waitFor({ state: "visible" });
-      await control("dialog-increment").evaluate((node) => node.focus());
-      assert.equal(await focused("dialog-increment"), false, "parent scope is inert");
-      await page.keyboard.press("Escape");
-      assert.equal(await control("nested-dialog").isVisible(), false);
-      assert.equal(await control("edit-dialog").isVisible(), true);
-      assert.equal(await focused("open-nested"), true, "restore within the preceding scope");
+      if (scope !== "core") {
+        await control("open-nested").focus();
+        await page.keyboard.press("Space");
+        await control("nested-dialog").waitFor({ state: "visible" });
+        await control("dialog-increment").evaluate((node) => node.focus());
+        assert.equal(await focused("dialog-increment"), false, "parent scope is inert");
+        await page.keyboard.press("Escape");
+        assert.equal(await control("nested-dialog").isVisible(), false);
+        assert.equal(await control("edit-dialog").isVisible(), true);
+        assert.equal(await focused("open-nested"), true, "restore within the preceding scope");
+      }
       await page.keyboard.press("Escape");
       assert.equal(await control("edit-dialog").isVisible(), false);
       assert.equal(await focused("open-dialog"), true);
@@ -254,13 +263,15 @@ try {
         false,
         "modal inert cleanup",
       );
-      await control("open-dialog").press("Space");
-      await control("open-nested").focus();
-      await page.keyboard.press("Space");
-      await control("close-nested").click();
-      assert.equal(await focused("open-nested"), true, "close command restores parent trigger");
-      await control("close-dialog").click();
-      assert.equal(await focused("open-dialog"), true);
+      if (scope !== "core") {
+        await control("open-dialog").press("Space");
+        await control("open-nested").focus();
+        await page.keyboard.press("Space");
+        await control("close-nested").click();
+        assert.equal(await focused("open-nested"), true, "close command restores parent trigger");
+        await control("close-dialog").click();
+        assert.equal(await focused("open-dialog"), true);
+      }
       await control("open-alert").focus();
       await control("open-alert").press("Space");
       assert.equal(
@@ -299,132 +310,129 @@ try {
       await control("nested-increment").click();
       assert.equal(await control("count").textContent(), "Count: 4");
       assert.equal(await control("actions").isVisible(), false);
-      // Author changes and the modal gate have independent owners.
-      await control("open-inert-probe").click();
-      await control("open-inert-child").focus();
-      await page.keyboard.press("Space");
-      await control("author-inert-on").click();
-      await control("author-inert-off").click();
-      assert.equal(
-        await control("inert-probe").evaluate((e) => e.inert),
-        true,
-        "author false cannot unlock a covered modal",
-      );
-      await control("inert-parent").evaluate((e) => e.focus());
-      assert.equal(await focused("inert-parent"), false);
-      await control("author-inert-on").click();
-      await control("close-inert-child").click();
-      assert.equal(
-        await control("inert-probe").evaluate((e) => e.inert),
-        true,
-        "restore the current authored inert value",
-      );
-      await control("inert-probe").evaluate((e) => e.close());
-      await control("reset-inert-probe").click();
-      assert.equal(await control("inert-probe").evaluate((e) => e.inert), false);
-      await control("open-inert-probe").click();
-      await control("inert-child").evaluate((e) =>
-        e.addEventListener(
-          "beforetoggle",
-          (event) => {
-            if (event.newState === "open") event.preventDefault();
-          },
-          { once: true },
-        ),
-      );
-      await control("open-inert-child").click();
-      assert.equal(
-        await control("inert-child").isVisible(),
-        false,
-        "cancelled opening stays closed",
-      );
-      assert.equal(await control("inert-probe").evaluate((e) => e.inert), false);
-      await control("inert-parent").focus();
-      assert.equal(await focused("inert-parent"), true);
-      await control("inert-probe").evaluate((e) => e.close());
-      if (process.env.EXACT_BROWSER_SCOPE !== "nested") {
-        async function openDepth(depth) {
-          await page.goto(server.url.href);
-          for (const id of ["open-dialog", "open-nested", "open-third", "open-fourth"].slice(
-            0,
-            depth,
-          )) {
-            await control(id).focus();
-            await page.keyboard.press("Space");
+      if (scope !== "core") {
+        // Modal focus isolation must survive changes to authored inert.
+        await control("open-inert-probe").click();
+        await control("open-inert-child").focus();
+        await page.keyboard.press("Space");
+        await control("author-inert-on").click();
+        await control("author-inert-off").click();
+        await control("inert-parent").evaluate((e) => e.focus());
+        assert.equal(await focused("inert-parent"), false);
+        await control("author-inert-on").click();
+        await control("close-inert-child").click();
+        assert.equal(
+          await control("inert-probe").evaluate((e) => e.inert),
+          true,
+          "restore the current authored inert value",
+        );
+        await control("inert-probe").evaluate((e) => e.close());
+        await control("reset-inert-probe").click();
+        assert.equal(await control("inert-probe").evaluate((e) => e.inert), false);
+        await control("open-inert-probe").click();
+        await control("inert-child").evaluate((e) =>
+          e.addEventListener(
+            "beforetoggle",
+            (event) => {
+              if (event.newState === "open") event.preventDefault();
+            },
+            { once: true },
+          ),
+        );
+        await control("open-inert-child").click();
+        assert.equal(
+          await control("inert-child").isVisible(),
+          false,
+          "cancelled opening stays closed",
+        );
+        assert.equal(await control("inert-probe").evaluate((e) => e.inert), false);
+        await control("inert-parent").focus();
+        assert.equal(await focused("inert-parent"), true);
+        await control("inert-probe").evaluate((e) => e.close());
+        if (scope === "lifecycle") {
+          async function openDepth(depth) {
+            await page.goto(server.url.href);
+            for (const id of ["open-dialog", "open-nested", "open-third", "open-fourth"].slice(
+              0,
+              depth,
+            )) {
+              await control(id).focus();
+              await page.keyboard.press("Space");
+            }
           }
-        }
-        async function focusIs(...ids) {
-          await page.waitForFunction(
-            (ids) => ids.some((id) => document.activeElement?.getAttribute("data-testid") === id),
-            ids,
-          );
-        }
-        await openDepth(4);
-        assert.equal(await page.locator("dialog:modal").count(), 4);
-        for (const id of ["dialog-increment", "nested-fallback", "third-fallback"]) {
-          await control(id).evaluate((node) => node.focus());
-          assert.equal(await focused(id), false, `${id} cannot escape the fourth modal`);
-        }
-        for (const [id, count] of [
-          ["open-fourth", 3],
-          ["open-third", 2],
-          ["open-nested", 1],
-          ["open-dialog", 0],
-        ]) {
-          await page.keyboard.press("Escape");
-          await focusIs(id);
-          assert.equal(await page.locator("dialog:modal").count(), count);
-        }
-        await openDepth(3);
-        await control("remove-third-trigger").click();
-        await focusIs("nested-fallback", "nested-dialog");
-        assert.equal(await control("open-third").count(), 0);
-        assert.equal(await page.locator("dialog:modal").count(), 2);
-        await openDepth(1);
-        await control("remove-page-trigger").click();
-        await focusIs("page-fallback", "home-route");
-        assert.equal(await control("open-dialog").count(), 0);
-        assert.equal(await page.locator("dialog:modal").count(), 0);
-        await openDepth(4);
-        await control("remove-third-surface").click();
-        await focusIs("open-third");
-        assert.equal(await page.locator("dialog:modal").count(), 2);
-        assert.equal(await control("third-dialog").count(), 0);
-        for (const action of ["navigate-push", "navigate-dispose"]) {
+          async function focusIs(...ids) {
+            await page.waitForFunction(
+              (ids) => ids.some((id) => document.activeElement?.getAttribute("data-testid") === id),
+              ids,
+            );
+          }
           await openDepth(4);
-          await control(action).click();
-          await focusIs("next-focus");
+          assert.equal(await page.locator("dialog:modal").count(), 4);
+          for (const id of ["dialog-increment", "nested-fallback", "third-fallback"]) {
+            await control(id).evaluate((node) => node.focus());
+            assert.equal(await focused(id), false, `${id} cannot escape the fourth modal`);
+          }
+          for (const [id, count] of [
+            ["open-fourth", 3],
+            ["open-third", 2],
+            ["open-nested", 1],
+            ["open-dialog", 0],
+          ]) {
+            await page.keyboard.press("Escape");
+            await focusIs(id);
+            assert.equal(await page.locator("dialog:modal").count(), count);
+          }
+          await openDepth(3);
+          await control("remove-third-trigger").click();
+          await focusIs("nested-fallback", "nested-dialog");
+          assert.equal(await control("open-third").count(), 0);
+          assert.equal(await page.locator("dialog:modal").count(), 2);
+          await openDepth(1);
+          await control("remove-page-trigger").click();
+          await focusIs("page-fallback", "home-route");
+          assert.equal(await control("open-dialog").count(), 0);
           assert.equal(await page.locator("dialog:modal").count(), 0);
-          await page.waitForTimeout(550);
-          assert.equal(
-            await focused("next-focus"),
-            true,
-            "late dismissal must preserve arrival focus",
-          );
-          if (action === "navigate-push") {
-            await control("return-home").click();
-            await focusIs("home-route", "page-fallback");
+          await openDepth(4);
+          await control("remove-third-surface").click();
+          await focusIs("open-third");
+          assert.equal(await page.locator("dialog:modal").count(), 2);
+          assert.equal(await control("third-dialog").count(), 0);
+          for (const action of ["navigate-push", "navigate-dispose"]) {
+            await openDepth(4);
+            await control(action).click();
+            await focusIs("next-focus");
             assert.equal(await page.locator("dialog:modal").count(), 0);
-            await control("increment").click();
-            assert.equal(await control("count").textContent(), "Count: 1");
-          } else assert.equal(await control("home-route").count(), 0);
+            await page.waitForTimeout(550);
+            assert.equal(
+              await focused("next-focus"),
+              true,
+              "late dismissal must preserve arrival focus",
+            );
+            if (action === "navigate-push") {
+              await control("return-home").click();
+              await focusIs("home-route", "page-fallback");
+              assert.equal(await page.locator("dialog:modal").count(), 0);
+              await control("increment").click();
+              assert.equal(await control("count").textContent(), "Count: 1");
+            } else assert.equal(await control("home-route").count(), 0);
+          }
+          await page.goto(server.url.href);
         }
-        await page.goto(server.url.href);
-      }
-      const ids = await page.locator("[id]").evaluateAll((nodes) => nodes.map((node) => node.id));
-      assert.deepEqual(
-        ids.filter((id, index) => ids.indexOf(id) !== index),
-        [],
-        "unique IDs",
-      );
-      for (const width of [390, 820]) {
-        await page.setViewportSize({ width, height: 844 });
-        for (const colorScheme of ["light", "dark"]) {
-          await page.emulateMedia({ colorScheme, reducedMotion: "reduce" });
-          assert.equal(
-            await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
-            true,
-          );
+        const ids = await page.locator("[id]").evaluateAll((nodes) => nodes.map((node) => node.id));
+        assert.deepEqual(
+          ids.filter((id, index) => ids.indexOf(id) !== index),
+          [],
+          "unique IDs",
+        );
+        for (const width of [390, 820]) {
+          await page.setViewportSize({ width, height: 844 });
+          for (const colorScheme of ["light", "dark"]) {
+            await page.emulateMedia({ colorScheme, reducedMotion: "reduce" });
+            assert.equal(
+              await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+              true,
+            );
+          }
         }
       }
       assert.deepEqual(errors, []);

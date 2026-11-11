@@ -1,3 +1,4 @@
+import { menuPresentation, menuKinds } from "./menu-presentation.js";
 import { tooltipPresentation, tooltipKinds } from "./tooltip-presentation.js";
 import { popoverPresentation, popoverKinds } from "./popover-presentation.js";
 import { glassContainerPresentation, glassContainerKinds } from "./glass-container-presentation.js";
@@ -102,7 +103,8 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           toolbarPresentation(kind, data) ??
           glassContainerPresentation(kind, data) ??
           popoverPresentation(kind, data) ??
-          tooltipPresentation(kind, data));
+          tooltipPresentation(kind, data) ??
+          menuPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -155,7 +157,10 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
       inputGroup,
     });
   };
+  add("menu-bar", { lensoElastic: "false" }, '[data-lenso-elastic="false"]');
+  add("menu-bar", { lensoElastic: "true" }, '[data-lenso-elastic="true"]');
   for (const kind of [
+    ...menuKinds,
     ...tooltipKinds,
     ...popoverKinds,
     ...glassContainerKinds,
@@ -196,6 +201,19 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
           { lensoSide: side, lensoAlign: align, lensoDirection: direction },
           `[data-lenso-side="${side}"][data-lenso-align="${align}"][data-lenso-direction="${direction}"]`,
         );
+  for (const side of ["top", "bottom", "left", "right", "inline-start", "inline-end"])
+    for (const align of ["start", "center", "end"])
+      for (const direction of ["ltr", "rtl"])
+        add(
+          "menu-positioner",
+          { lensoSide: side, lensoAlign: align, lensoDirection: direction },
+          `[data-lenso-side="${side}"][data-lenso-align="${align}"][data-lenso-direction="${direction}"]`,
+        );
+  for (const iconOnly of ["true", "false"])
+    add("menu-trigger", { lensoIconOnly: iconOnly }, `[data-lenso-icon-only="${iconOnly}"]`);
+  for (const kind of ["menu-item", "menu-action"])
+    for (const variant of ["default", "danger"])
+      add(kind, { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
   for (const kind of ["popover-trigger", "popover-close"])
     for (const size of ["sm", "md", "lg"])
       for (const variant of ["prominent", "bordered", "borderless"])

@@ -2,7 +2,7 @@
   "name": "@lenso/primitives-exact",
   "version": "0.1.0",
   "private": true,
-  "description": "Accessible, platform-native Contract primitives for Expo Exact.",
+  "description": "Composable Contract controls for unmodified Expo Exact.",
   "license": "MIT",
   "files": [
     "index.contract",
@@ -10,7 +10,6 @@
     "COMPOSITION.md",
     "TOOLTIP.md",
     "VERIFICATION.md",
-    "patches",
     "README.md",
     "LICENSE",
     "API.md",
@@ -36,6 +35,10 @@
     "test:agent": "bun scripts/agent.ts web",
     "test:native": "bun scripts/native.ts",
     "test:contracts": "bun scripts/contracts.ts",
-    "test:host-patches": "bun scripts/host-patches.ts"
+    "test:baseline": "bun scripts/baseline.ts",
+    "research:host-patches": "bun scripts/host-patches.ts",
+    "research:contracts": "bun scripts/contracts.ts --proposal",
+    "test:agent:experimental": "EXACT_AGENT_SCOPE=all bun scripts/agent.ts web",
+    "test:browser:experimental": "EXACT_BROWSER_SCOPE=lifecycle bun test/browser.mjs"
   }
 }

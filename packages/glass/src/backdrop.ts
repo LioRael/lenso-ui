@@ -2,7 +2,14 @@
 // Modified: StyleX copy layers, bounded Apple input and shared observation/reads.
 import * as stylex from "@stylexjs/stylex";
 import { glassStyles } from "@lenso/tokens/glass";
-import { BackdropReads, observeBackdrop } from "./backdrop-scheduler.js";
+import {
+  BackdropReads,
+  type BackdropChange,
+  isBackdropTextField,
+  observeBackdrop,
+  type TextField,
+  type TextSnapshot,
+} from "./backdrop-scheduler.js";
 import type { SharedBackdropRegistration } from "./gpu-backdrop.js";
 
 const MARK = "data-lenso-backdrop";
@@ -104,6 +111,37 @@ interface Copy {
   root: HTMLElement;
   /** Each element of the original, with its copy. */
   pairs: Map<Element, HTMLElement>;
+  fields: [TextField, TextField][];
+}
+
+const scrolledFields = new WeakSet<TextField>();
+
+function syncText(target: TextField, state: TextSnapshot): void {
+  if (target.value !== state.value) target.value = state.value;
+  if (state.left || state.top) {
+    target.scrollTo(state.left, state.top);
+    scrolledFields.add(target);
+  } else if (scrolledFields.delete(target)) {
+    target.scrollTo(0, 0);
+  }
+}
+
+// In one scheduler flush, copies with the same inline declarations receive the
+// same computed writes. Root placement and descendant styles have different rules.
+const rootWrites = new WeakMap<Map<string, string>, Map<string, string>>();
+const childWrites = new WeakMap<Map<string, string>, Map<string, string>>();
+
+// WebKit can serialize logical and physical corners as shorthands that its
+// parser drops on reassignment. Preserve the individual declarations and order.
+function serializeDeclarations(style: CSSStyleDeclaration): string {
+  let text = "";
+  for (let index = 0; index < style.length; index++) {
+    const name = style.item(index);
+    const property = name.startsWith("--") ? CSS.escape(name) : name;
+    const priority = style.getPropertyPriority(name);
+    text += `${property}: ${style.getPropertyValue(name)}${priority ? " !important" : ""};`;
+  }
+  return text;
 }
 
 // Writes an element's computed style onto its copy: every property, or only
@@ -113,24 +151,78 @@ function inline(
   copy: HTMLElement,
   root: boolean,
   reads: BackdropReads,
-  names?: Iterable<string>,
+  names?: ReadonlySet<string>,
+  parentValues?: ReadonlyMap<string, string>,
 ): () => void {
-  const values = reads.values(original, names);
-  const selected = names ? new Set(names) : undefined;
+  const values = names ? reads.animationValues(original, names) : reads.values(original);
   const size = root ? reads.size(original as HTMLElement) : undefined;
+  const cache = root ? rootWrites : childWrites;
+  let writes: Map<string, string> | undefined;
+  // A custom element can run author code on each style attribute change.
+  if (
+    !names &&
+    reads.sharedSource &&
+    !original.localName.includes("-") &&
+    !original.hasAttribute("is")
+  ) {
+    writes = cache.get(values);
+    if (!writes) cache.set(values, (writes = new Map()));
+  }
   return () => {
+    const before = writes ? (copy.getAttribute("style") ?? "") : "";
+    const after = writes?.get(before);
+    if (after !== undefined) {
+      if (before !== after) copy.setAttribute("style", after);
+      return;
+    }
     for (const [name, value] of values) {
-      if (selected && !selected.has(name)) continue;
       if (STILL.test(name) || (root && (name in PLACED || name === "width" || name === "height")))
         continue;
-      if (copy.style.getPropertyValue(name) !== value) copy.style.setProperty(name, value);
+      const current = copy.style.getPropertyValue(name);
+      if (current === value) continue;
+      const inherit =
+        (name === "opacity" || name === "background-color") && parentValues?.get(name) === value;
+      const next = inherit ? "inherit" : value;
+      if (current !== next)
+        copy.style.setProperty(name, next, names ? copy.style.getPropertyPriority(name) : "");
     }
-    if (!size) return;
-    for (const [name, value] of Object.entries(PLACED))
-      if (copy.style.getPropertyValue(name) !== value) copy.style.setProperty(name, value);
-    if (copy.style.width !== `${size.width}px`) copy.style.width = `${size.width}px`;
-    if (copy.style.height !== `${size.height}px`) copy.style.height = `${size.height}px`;
+    if (size) {
+      for (const [name, value] of Object.entries(PLACED))
+        if (copy.style.getPropertyValue(name) !== value) copy.style.setProperty(name, value);
+      if (copy.style.width !== `${size.width}px`) copy.style.width = `${size.width}px`;
+      if (copy.style.height !== `${size.height}px`) copy.style.height = `${size.height}px`;
+    }
+    if (writes) {
+      const after = copy.getAttribute("style") ?? "";
+      writes.set(before, before === after ? before : serializeDeclarations(copy.style));
+    }
   };
+}
+
+function animatedStyles(
+  copy: Copy,
+  source: HTMLElement,
+  change: BackdropChange,
+  reads: BackdropReads,
+) {
+  const writes: (() => void)[] = [];
+  for (const [original, names] of change.animated) {
+    const target = copy.pairs.get(original);
+    if (!target) continue;
+    const parent = original.parentElement;
+    // Both nodes are sampled in this batch. A fixed child can coincide with
+    // its parent for one frame, then switch back to its own literal value.
+    const parentNames =
+      parent && original !== source && !change.animationSetChanged
+        ? change.animated.get(parent)
+        : undefined;
+    const parentValues =
+      parent && parentNames && !original.localName.includes("-") && !original.hasAttribute("is")
+        ? reads.animationValues(parent, parentNames)
+        : undefined;
+    writes.push(inline(original, target, original === source, reads, names, parentValues));
+  }
+  return writes;
 }
 
 // A deep copy that renders like the original wherever it's placed: each
@@ -141,10 +233,12 @@ function copyOf(source: HTMLElement, reads: BackdropReads): Copy {
   const originals = [source, ...source.querySelectorAll("*")];
   const copies = [root, ...root.querySelectorAll<HTMLElement>("*")];
   const pairs = new Map<Element, HTMLElement>();
+  const fields: Copy["fields"] = [];
   originals.forEach((original, index) => {
     const copy = copies[index];
     if (!copy) return;
     pairs.set(original, copy);
+    if (isBackdropTextField(original) && isBackdropTextField(copy)) fields.push([original, copy]);
     copy.removeAttribute("id");
     // Detached, a lazy image would never load.
     if (copy instanceof HTMLImageElement) copy.loading = "eager";
@@ -153,7 +247,7 @@ function copyOf(source: HTMLElement, reads: BackdropReads): Copy {
     inline(original, copy, original === source, reads)();
   });
   root.removeAttribute(MARK);
-  return { root, pairs };
+  return { root, pairs, fields };
 }
 
 // Where the live backdrop can't be filtered, a copy of the marked content is
@@ -214,12 +308,18 @@ export function copyBackdrop(
   let shared: SharedBackdropRegistration | undefined;
   let nativeStylesStale = false;
   let sourceVisible = true;
+  let wasHidden = false;
 
   const subscription = observeBackdrop({
     element,
     source,
     layer,
+    editText(field, state) {
+      const target = copy?.pairs.get(field);
+      if (target && isBackdropTextField(target)) syncText(target, state);
+    },
     prepare() {
+      wasHidden = layer.style.display === "none";
       if (layer.style.display) layer.style.display = "";
     },
     read(change, reads, geometry) {
@@ -233,6 +333,7 @@ export function copyBackdrop(
           visible.bottom >= box.bottom - 1;
         if (!covered) {
           stale ||= change.content || change.styles;
+          nativeStylesStale ||= change.animated.size > 0;
           return () => {
             if (stopped) return;
             if (sourceVisible) shared?.visible(false);
@@ -244,9 +345,27 @@ export function copyBackdrop(
       }
       if (!geometry && !change.content && !change.styles) {
         const updateSource = shared?.updateSource(change, reads);
-        if (updateSource) {
+        if (typeof updateSource === "function") {
           nativeStylesStale = true;
           return updateSource;
+        }
+        if (
+          (!shared || updateSource === "native") &&
+          change.paintOnly &&
+          copy?.root.parentElement === frame &&
+          !ready &&
+          !stale &&
+          !nativeStylesStale &&
+          !fusionHidden &&
+          !wasHidden &&
+          sourceVisible &&
+          !overlay
+        ) {
+          const writes = animatedStyles(copy, source, change, reads);
+          return () => {
+            if (!active || stopped) return;
+            for (const write of writes) write();
+          };
         }
       }
       const style = reads.style(element);
@@ -254,6 +373,8 @@ export function copyBackdrop(
         return () => {
           clearTimeout(fade);
           fusionHidden = true;
+          stale ||= change.content;
+          nativeStylesStale ||= change.styles || change.animated.size > 0;
           styled = "";
           layer.style.transition = "none";
           layer.style.opacity = "0";
@@ -321,31 +442,44 @@ export function copyBackdrop(
           ready = undefined;
         }
         const install = copy && !copy.root.isConnected;
-        if (!copy) copy = copyOf(source, reads);
-        else if (change.content || stale) {
+        let freshlyStyled = false;
+        if (!copy || change.content || stale) {
           stale = false;
           const next = copyOf(source, reads);
           const id = ++version;
-          const images = [...next.root.querySelectorAll("img")];
-          if (next.root instanceof HTMLImageElement) images.push(next.root);
-          void Promise.all(images.map((image) => image.decode().catch(() => undefined))).then(
-            () => {
-              if (stopped || id !== version) return;
-              ready = next;
-              subscription.invalidate();
-            },
-          );
-        }
-        if (change.styles || install || nativeStylesStale) {
-          nativeStylesStale = false;
-          for (const [original, target] of copy.pairs)
-            updates.push(inline(original, target, original === source, reads));
-        } else {
-          for (const [original, names] of change.animated) {
-            const target = copy.pairs.get(original);
-            if (target) updates.push(inline(original, target, original === source, reads, names));
+          // Keep the previous view while replacement images decode. Text and SVG
+          // edits can be installed in the same write as the rest of this batch.
+          const images = copy ? [...next.root.querySelectorAll("img")] : [];
+          if (copy && next.root instanceof HTMLImageElement) images.push(next.root);
+          if (images.length) {
+            void Promise.all(images.map((image) => image.decode().catch(() => undefined))).then(
+              () => {
+                if (stopped || id !== version) return;
+                ready = next;
+                subscription.invalidate();
+              },
+            );
+          } else {
+            copy = next;
+            freshlyStyled = true;
           }
         }
+        if (copy && (freshlyStyled || change.styles || install || nativeStylesStale)) {
+          // Detached controls cannot scroll. Restore their view after insertion.
+          for (const [field, target] of copy.fields) {
+            const state = reads.text(field);
+            updates.push(() => syncText(target, state));
+          }
+        }
+        if (copy && !freshlyStyled) {
+          if (change.styles || install || nativeStylesStale) {
+            for (const [original, target] of copy.pairs)
+              updates.push(inline(original, target, original === source, reads));
+          } else {
+            for (const write of animatedStyles(copy, source, change, reads)) updates.push(write);
+          }
+        }
+        nativeStylesStale = false;
       } else {
         nativeStylesStale = true;
         if (change.content) stale = true;

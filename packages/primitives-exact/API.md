@@ -1,8 +1,38 @@
 # Primitive API boundary
 
 This is the supported v0.1 surface. It targets Exact
-`956ae33a35ffa5313d7be3cebc55ed84f9480e0a` plus the documented Host series.
+**unmodified** `956ae33a35ffa5313d7be3cebc55ed84f9480e0a`.
+No SDK patch or replacement runtime is required.
 It is still private; this is not a promise of compatibility with newer Exact.
+
+## Support and experimental behavior
+
+The exports below are Contract building blocks, not a guarantee that every Host
+implements every accessibility or focus behavior. The [stock validation
+matrix](VERIFICATION.md) defines the tested platform scope.
+
+The default agent suite contains eight core scenarios: controlled fields and
+buttons, disclosure/accordion, both Tabs orientations, explicit Dialog/alert
+commands, popover/menu commands and Tooltip intent/cleanup. The complete
+seventeen-scenario fixture is retained. Nine scenarios are explicitly
+experimental: the combined keyboard/Dialog-Escape probe, nested Dialog
+unwind/reopen, four-level focus restoration, missing invokers, active subtree
+removal and navigation-owned modal cleanup. `EXACT_AGENT_SCOPE=all` runs every
+assertion; failures are reported, not converted to passes. This split describes
+scope, not platform acceptance: core native AX can still fail on an affected
+Host, and such failures remain visible in the matrix.
+
+The package supplies roles, names, IDs and native commands. AppKit role/state
+projection, iOS agent delivery of native Dialog Escape, covered modal AX
+isolation and lifecycle focus restoration remain Host responsibilities. No
+library focus trap, Host monkey-patch or alternate event dispatcher is added.
+
+Core stock usage keeps a modal's source route and trigger mounted until native
+dismissal has completed. Concurrent owner removal or navigation during
+presentation/dismissal remains experimental.
+Nested modal isolation and fallback after owner/invoker removal are not core
+cross-platform guarantees. AppKit Switch/Tab AX and covered-modal exposure are
+explicitly unaccepted even though their state/agent interactions may pass.
 
 ## Shared rules
 
@@ -78,6 +108,10 @@ re-exports `TooltipIntent`. [The complete connection](TOOLTIP.md) is compiled.
 No existing selection names or state shapes were renamed. `description` keeps
 its ID-list meaning. Compiler probes enforce the Input enum and compile the
 close-button subpath API; the copied consumer exercises every exported part.
-The [compiler patch](COMPILER.md) rejects statically missing names/targets and
-wrong command kinds. Dynamic references/lifetimes and incompatible combined
-commands still need runtime checks or further compiler work.
+The stock compiler checks the declared Input/orientation types and existing
+lowering restrictions. It does **not** enforce nonempty Dialog names, command
+identity/kind or ARIA reference integrity. Those are application obligations,
+checked where observable by agent/browser/AX tests. A string prop does not prove
+an ID exists or is unique. [Compiler boundaries](COMPILER.md) record accepted
+invalid compositions and the optional repository-only upstream proposals.
+Dynamic lifetimes and competing commands also remain unproved.

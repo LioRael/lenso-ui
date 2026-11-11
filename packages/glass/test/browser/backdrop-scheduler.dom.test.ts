@@ -30,6 +30,8 @@ test("paused backdrop consumers retain source edits consumed by a visible siblin
     await settle();
     paused.visible(false);
     source.textContent = "Updated while offscreen";
+    // A following style-only mutation in the same batch cannot replace the structural edit.
+    source.className = "updated";
     await settle();
     paused.visible(true);
     await settle();
@@ -115,6 +117,7 @@ test("press mutations update every owner of the lens without updating unrelated 
     lens = document.createElement("button"),
     other = document.createElement("button");
   const layers = Array.from({ length: 3 }, () => document.createElement("div"));
+  lens.style.marginLeft = "3px";
   document.body.append(source, lens, other, ...layers);
   const reads = [0, 0, 0],
     geometry = [false, false, false];

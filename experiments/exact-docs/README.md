@@ -361,8 +361,14 @@ Control focus, pointer approach or pointer-down starts fetch hints for the share
 application, input helper and full Exact host stylesheet in parallel. Hints do not
 evaluate application modules, start root tasks or apply additional styling. There
 is no idle prefetch. Reading without control intent does not fetch the application.
-Search indexes use native imports after a nonempty query, without speculative
-module preloads: a failed index preload prevented reload recovery in WebKit.
+A nonempty query in an `input type="search"` inside `data-docs-part="search"`
+starts loading only the current scope's pure data module, in parallel with application
+activation. Its module script requests low fetch priority; that priority is a browser
+hint. Exact's search resource imports the same URL, reuses the module, and owns results,
+pending state and failures. Custom layouts can use that semantic markup to opt into
+the same loading path. Hover, focus, empty queries and buttons do not load search data.
+No search module preloads are added. Failure/reload recovery passes in Chromium and
+WebKit. [SEARCH_STARTUP.md](SEARCH_STARTUP.md) records the measurements and limits.
 
 Live search imports a separate JavaScript index module for the current
 `(locale, version)` only after a nonempty query. Empty queries load no index;
@@ -588,7 +594,24 @@ Exact is pre-1.0. This adapter currently targets `host/web-js/build.mjs` with
 
 ## Reproducible loading comparison
 
-[ASTRO_COMPARISON.md](ASTRO_COMPARISON.md) is the current 300-page comparison:
+[FUMADOCS_COMPARISON.md](FUMADOCS_COMPARISON.md) compares the same 300-page corpus
+with real Fumadocs Core and UI on Next.js static export. It includes native static
+search and a separate headless substring adapter matching Exact's search work,
+plus initial/cumulative transfer, cold-open-to-result time and persistent state.
+It is a static-to-static comparison, not a server-backed search benchmark.
+
+```sh
+# From this package, with the Exact/Playwright environment documented above:
+bun install --cwd bench/fumadocs --frozen-lockfile --ignore-scripts
+PERF_RUNS=5 bun run test:fumadocs
+```
+
+Generate the standard corpus first if absent, using the command below. The runner
+uses isolated dependencies, builds disposable projects under `.cache/fumadocs`,
+and keeps Exact headless. Its matched search adapter is a controlled benchmark
+integration, not Fumadocs' default engine. No product theme is added.
+
+[ASTRO_COMPARISON.md](ASTRO_COMPARISON.md) records the 300-page Astro comparison:
 Exact page-data loading, Astro static navigation, and Astro ClientRouter with a
 persisted counter. It measures cold search and a separate first counter action,
 then destination/Back body readiness and retained state under identical network

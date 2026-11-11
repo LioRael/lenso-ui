@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+body {
+  font-family: system-ui, sans-serif;
+}
+[data-benchmark-counter] {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  z-index: 100;
+}

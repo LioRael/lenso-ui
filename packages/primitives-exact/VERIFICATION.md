@@ -1,288 +1,171 @@
-# Platform verification
+# Unmodified Exact baseline
 
-Recorded 2026-11-11 against Expo Exact
-`956ae33a35ffa5313d7be3cebc55ed84f9480e0a`, with the four Host patches and the compiler relationship patch
-listed below. These results apply to the patched checkout.
+Recorded 2026-11-11 against **unmodified** Expo Exact
+`956ae33a35ffa5313d7be3cebc55ed84f9480e0a`. No local compiler or Host patch is a
+package dependency. The package's distributable files exclude `patches/`.
+The old modified-SDK results are repository-only historical research in
+`VERIFICATION-PATCHED.md`; its 17/17 platform results and full SDK/semantic
+runs do not establish this baseline.
 
-## Shared tests and native observations
+## Provenance and scope
 
-Every host receives the same `example/app.test.contract`: seventeen tests, no
-host-specific skips. The copied consumer imports only distributable files.
-Nested Dialog checks are now in the default suite; the separate experimental
-stack file/flag have been removed. The suite covers values/state, disclosure,
-horizontal/vertical Tabs, keyboard, dialogs/menus, Tooltip timing/cleanup and
-two-level Dialog Escape, explicit close and reopen, plus four-level unwind,
-removed child/page invokers, active subtree removal, route push/back and source
-route disposal. Both Apple runs explicitly select platform chrome and sheets.
+The SDK source snapshot is separate from the research checkout. Every present
+tracked SDK file is compared with the original Git blob before and after the
+run; unexpected Swift/analyzer source additions are also rejected. The current
+snapshot verifies 7,849 original files. It is partially hydrated (7,151 tracked
+files absent), so this is a primitive consumer baseline, not a complete Exact
+workspace/all-features acceptance. Missing sources needed by a build would fail
+that build. Original archive symlinks were restored from pinned Git data.
 
-| Surface                            | Shared agent suite    | Additional evidence                                                                                               |
-| ---------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Chrome 156.0.8078.4                | 17/17                 | Chromium browser assertions; real CDP AX descriptions, roles, states, hidden content, tooltip and nested modality |
-| Playwright WebKit 27.2             | 17/17                 | Same browser keyboard, focus, placement and relationship assertions                                               |
-| macOS 27.2 / AppKit                | 17/17                 | Native AX isolation and current responder checks: four levels, invoker/subtree removal and navigation             |
-| iOS 26.5 / iPhone 17 Pro Simulator | 17/17                 | Native AX isolation and current responder checks: four levels, invoker/subtree removal and navigation             |
-| Linux host on macOS                | Previous fixture: 6/7 | Not rerun for Tooltip/nested Dialog; not Linux OS acceptance                                                      |
-| Linux desktop / AT-SPI             | Not run               | Retained environment and upstream accessibility gaps                                                              |
+The stock and research SDKs also use separate build directories. An inherited
+shared `target` symlink was discovered and separated before final validation;
+the collector records the compiler hash and resolved artifact directory. The
+modified-source rejection guard was exercised independently. No patches are
+applied during the build or tests; no application-side Host workaround is added.
 
-Browser assertions now include parent programmatic-focus rejection, nested
-Escape, explicit close, reopen, focus return at both levels, and removing the
-Host inert gate after close. A native Contract dialog fixture changes authored
-`inert` while covered: setting it false cannot unlock the background; setting it
-true persists after uncovering. A cancelled opening leaves its parent live.
-These checks run on both engines, not a DOM simulation.
+Tests use Rust 1.97.0, Bun 1.4.4 and Playwright 1.64.1 with its already installed
+engines. Exact's setup reports Bun 1.4.2 as its pinned version; that tool-version
+difference is retained as an environment qualification. Browser test setup must
+select matching Playwright/browser versions with `PLAYWRIGHT_MODULE` when the
+docs workspace has been upgraded. A missing browser executable is an
+infrastructure failure, not a primitive result. Apple builds use the existing
+CoreGraphics/CoreImage fallbacks without a Metal toolchain.
 
-Chrome CDP and Apple AX checks use `test/accessibility.mjs`: four active levels,
-each surviving scope after close, removed invokers, subtree removal, departing
-routes and navigation back. Fresh sessions isolate destructive cases. Native
-checks compare the current logical responder against live node IDs; browser
-checks inspect `document.activeElement`, including delayed restoration. The
-shared Contract observes bubbled focus events across the authored hierarchy. The Chrome observation explicitly
-confirms the parent is inert. A diagnostic regression based on that observation
-also verifies that modal inert escape never suppresses `aria-hidden` findings.
-UIKit does not claim a DOM-style focus property or spoken reading order.
+## Observed compatibility
 
-The compiler probes include four API regressions: all six supported text modes compile, Input rejects `type="checkbox"`
-with `type-prop`, disabled close controls compile through the Dialog/Popover
-subpaths, and the retired root `TooltipIntent` import is rejected with
-`contract-use-unknown`. The eight existing probes retain their results: invalid orientation is
-`type-prop`, child timers are `type-child-resource`, computed waits are
-`lower-timer-literal`; the complete Tooltip root connection compiles. The additional [compiler relationship probes](COMPILER.md) reject unnamed/empty
-Dialogs, missing command/ARIA targets, wrong target kinds and disjoint branches;
-correct expanded compositions compile. Dynamic cases are runtime obligations.
-Competing invocations remain an accepted compiler gap.
+Eight named core agent scenarios cover fields, controlled controls/remounting,
+disclosure/accordion, both Tabs orientations, explicit Dialog/alert commands,
+popover/menu commands and Tooltip timing/cleanup. The original seventeen-test
+fixture is retained unchanged; the full run additionally exercises nine
+experimental scenarios. Core selection does not erase or xfail those assertions.
 
-## API consolidation regression
+| Surface                                      | Core agent          | Complete agent fixture | Independent checks                                               |
+| -------------------------------------------- | ------------------- | ---------------------- | ---------------------------------------------------------------- |
+| Exact Chrome agent                           | 8/8                 | 13/17                  | Core browser and base CDP AX pass; full focus/AX scope has gaps  |
+| Exact WebKit agent                           | 8/8                 | 13/17                  | Core browser passes; covered-parent focus rejection fails        |
+| macOS 27.2 / AppKit                          | 8/8                 | 15/17                  | Switch/Tab AX contract and covered-parent modal isolation fail   |
+| iOS 27.2 / dedicated iPhone 17 Pro Simulator | 8/8                 | 11/17                  | Base UIKit AX passes; lifecycle AX fails after recognized Escape |
+| Linux host on macOS                          | Historical 6/7 only | Not rerun              | No Tooltip/nested Dialog acceptance inferred                     |
+| Linux desktop / AT-SPI                       | Not run             | Not run                | Existing environment and upstream AX gaps retained               |
 
-The supported API and its private v0.1 migration are in [API.md](API.md).
-Disabled close controls are observed in the shared suite; Chromium/WebKit also
-attempt programmatic clicks and require their overlays to stay open.
+Chromium 156.0.8078.4 and WebKit 27.2 core browser checks use real keyboard
+input, field editing/selection, roles/names/ID relationships, inactive-panel
+focus rejection, Tooltip timing/placement/activation, single-modal containment
+and return, disabled close controls and native menu operation. This is browser
+coverage, not a DOM simulation or physical input/screen-reader speech claim.
 
-The focused review commands were run against the complete patched SDK:
+The strict browser and native AX probes inspect semantics and actual focus,
+not a required implementation of the earlier patches. A covered Dialog need
+not expose an explicit DOM `inert` attribute if the native modal mechanism
+already prevents focus and removes covered controls from AX. Two old assertions
+that required that implementation detail were replaced by the retained focus
+and native-AX isolation checks. Authored `inert` values still must be
+preserved. Every original agent assertion remains unchanged.
 
-| Change               | Focused run       | Additional check                                         |
-| -------------------- | ----------------- | -------------------------------------------------------- |
-| native-accessibility | AppKit 4/4        | Base native AX scope                                     |
-| agent-dialog-escape  | iOS Simulator 3/3 | Recognized key and normal command paths                  |
-| nested-dialogs       | Chrome 2/2        | Nested CDP AX and Chromium/WebKit browser checks         |
-| dialog-lifecycle     | Chrome 6/6        | Full lifecycle CDP AX and Chromium/WebKit browser checks |
+## Complete experimental scenario matrix
 
-These are focused subsets of the same seventeen tests, not extra independent
-coverage counts. Every cumulative patch checkpoint also passes apply and
-reverse checks. Regressions require byte-for-byte SDK equality; receipts record
-the base, checkpoint and patch hashes. Individual prefix builds were not run.
+These are the same nine additional agent scenarios on every surface. A pass in
+this state/event matrix does not replace the independent browser/AX checks.
 
-## Compiler relationship follow-up
+| Additional scenario                   | Chrome | WebKit | AppKit | UIKit |
+| ------------------------------------- | ------ | ------ | ------ | ----- |
+| Combined keyboard and Dialog Escape   | Pass   | Pass   | Pass   | Fail  |
+| Nested Escape and parent activation   | Pass   | Pass   | Pass   | Fail  |
+| Nested close/reopen and parent Escape | Pass   | Pass   | Pass   | Fail  |
+| Four-level focus notification/unwind  | Pass   | Pass   | Pass   | Fail  |
+| Removed child invoker fallback        | Fail   | Fail   | Pass   | Fail  |
+| Removed page invoker fallback         | Fail   | Fail   | Fail   | Pass  |
+| Active modal subtree removal          | Fail   | Fail   | Pass   | Pass  |
+| Push with retained source route       | Fail   | Fail   | Fail   | Fail  |
+| Push that disposes the source route   | Pass   | Pass   | Pass   | Pass  |
 
-The [compiler patch](COMPILER.md) adds an expanded-root analysis pass. All 26
-package probes match their expected outcomes, including native empty invoker
-targets, one deferred dynamic case and one accepted invocation-conflict gap.
-The imported empty-label diagnostic points to the caller's argument.
+## Affected and experimental behavior
 
-The complete Contract SDK default suite passes: **2,733 passed, 0 failed,
-10 existing ignored**, across 16 targets, with no test filters or new ignores:
+- **Missing invokers:** removing a child or page Dialog trigger does not satisfy
+  the focus fallback assertions in either Web agent.
+- **Active subtree removal:** removing the two deepest surfaces does not restore
+  the surviving invoker in either Web agent.
+- **Navigation:** pushing away from a retained source route leaves stale modal
+  ownership/focus in either Web agent. The source-disposal case happens to pass;
+  it is still kept in the experimental lifecycle family.
+- **Covered-modal isolation:** WebKit permits programmatic focus in the covered
+  parent. Agent state tests alone do not detect that failure. Chromium's native
+  isolation must not be called broken merely because an explicit `inert` flag
+  is absent; its remaining strict browser/AX lifecycle results are recorded by
+  the collector.
+- **Native roles/state, modal AX and recognized Escape:** AppKit projection and
+  iOS agent-delivered Dialog Escape remain independent Host responsibilities.
+  AppKit reports the Switch and Tabs as buttons in the initial native snapshot;
+  its separate modal probe exposes the covered outer Dialog. iOS does not
+  dismiss a Dialog from the agent-recognized Escape path; subsequent background
+  activation remains blocked. Hardware-key Escape and VoiceOver speech are not
+  inferred from that agent result.
+- **Compiler relationships:** stock Exact accepts missing/empty Dialog names,
+  missing command/ARIA targets, wrong target kinds and disjoint target branches.
+  Combined invocations and dynamic lifetimes remain unproved.
 
-```sh
-CARGO_INCREMENTAL=0 CARGO_PROFILE_TEST_DEBUG=0 CARGO_PROFILE_TEST_CODEGEN_UNITS=256 CARGO_BUILD_JOBS=1 \
-  cargo test -p contract -p contract-analyze --tests --no-fail-fast
-```
+The stock AppKit complete agent run fails the removed-page-invoker and retained
+source-route navigation scenarios. Its base AX probe fails `notifications`
+(`button` instead of `switch`). The raw native object has role `AXButton` and
+subrole `AXSwitch`; this is a common-role/normalization contract gap, not a
+claim about spoken output. Both Tabs are also reported as buttons without
+selected state; the initially selected Profile tab has native value `0`. The independently scoped modal AX probe
+reports `edit-dialog` outside the active child modal. Those are separate from
+the passing core state tests.
 
-These invocation-local settings bound compilation memory without changing
-optimization level or assertions. The focused relationship target contributes
-65 of these tests: five new grouped graph tests and 60 existing alert/menu,
-geometry and top-layer tests moved out of the large integration target, without
-duplication. The source sweep passes 132 app roots and 159 imported sources.
-This is the complete default suite for the two named Contract SDK packages;
-it is not an all-workspace, all-features or native-platform acceptance claim.
+UIKit passes base AX and single-modal checks. Its independent lifecycle AX
+probe reaches four levels, then cannot expose `third-fallback` after agent Escape
+because the expected child dismissal did not occur. The complete agent run also
+fails focus notifications/restoration during multi-level unwind, removed-child
+fallback and retained-source navigation. State-based focus observations and
+native current-responder/AX observations are reported separately; neither proves
+spoken reading order or hardware keyboard behavior.
 
-The initial full run exposed an actual compatibility regression: empty
-`commandfor` and `popovertarget` deliberately mean unbound/no-op in Exact. That
-behavior is preserved; whitespace-only/multiple IDs and missing nonempty targets
-still fail. Existing role/layout/warning fixtures now provide valid names and
-reference nodes while retaining their original assertions. The SDK harness,
-document reader, native fixture and orientation fixture now name their dialogs;
-the reader links its visible dynamic headings with `aria-labelledby`.
+The package can supply names, roles, IDs, commands and pure controlled behavior.
+It cannot repair a system accessibility projection, native input dispatcher,
+modal focus stack or departing route. Those capabilities need an upstream Exact
+implementation or a future public API. No particular local patch is prescribed
+as the supported solution.
 
-All **seven existing async checks pass** when invoked separately: five
-TypeScript checks, the no-tells documentation check, and every starter pattern's
-real browser tests. Two pre-existing validation inputs were corrected: the
-yielding guide snippet is self-contained, and a provider fixture accepts the
-storage API's existing JPEG/PNG union. No storage declaration or negative
-provider assertion changed. The site pattern requires `API_BASE_URL` pointing
-at an unused local `http://127.0.0.1:<port>`; Exact starts its own fixture server.
-An unset value prevents its build; an external placeholder does not provide the
-local API the tests need. The successful run used `http://127.0.0.1:61976`.
+## Compiler baseline
 
-Thus **2,740 tests were executed successfully** across the default and async
-runs. The default suite's ten ignored markers remain unchanged; seven were
-explicitly exercised afterward. Three remaining ignored tests are
-manual/benchmark probes: `stack_depth::probe_view_pass_on_a_small_stack`,
-`tamber::wide_mark_cost`, and
-`tamber_serve_slots::the_slot_check_alone_on_the_clone_with_the_real_packages`.
+All 26 probes match expected upstream outcomes: seven accepted compositions,
+five existing type/lowering refusals, thirteen accepted gaps and one runtime
+obligation. The disjoint-branch fixture now uses a valid `column` root so an
+unrelated root-region error cannot be counted as relationship checking.
+See [COMPILER.md](COMPILER.md) for details. Correct composition still requires
+application-owned nonempty names, valid IDs and compatible mounted lifetimes.
 
-The rebuilt final compiler passes the official `difftest quick` using pinned
-Lean **4.34.1**: **587 corpus cases, 40 random cases, 8 lowering cases**; seed
-`8265107218640133315`. Lowering records 1,347 agreeing runs and 97 identical
-bodies, with zero divergence, mismatched bodies, compile/boot refusals or
-undecoded bodies. Expected negative property outcomes in the corpus remain
-expected. This is the official quick differential scope, not the async lane's
-full semantic sweep.
+## Reproduce and inspect
 
-The archive's missing pinned fonts, sounds, design files, TypeScript/editor
-inputs and semantic sources were restored byte-for-byte from the original
-commit; these originals are not patch changes. A separate temporary Git
-directory backed by the pinned objects supplies the real base/working diff to
-`difftest quick`; absent archive files are sparse. No SDK source was rewritten
-to establish that comparison. The verified official Lean archive has SHA-256
-`65f22a4f047738ec742667b3247e836a86ebf06eabc12655c3dee00637e37866`.
-
-All five patches pass cumulative apply/reverse checks, and all 39 reconstructed
-SDK files match the tested SDK byte-for-byte. The four Host patches are unchanged.
-Standard pinned-toolchain `cargo check` and `cargo clippy` pass for
-`contract`/`contract-analyze` with `--all-targets --keep-going` (Clippy uses
-`-D warnings`); workspace `cargo fmt --check` also passes after restoring the
-archive's missing original Rust modules. Package TypeScript, lint and format
-checks pass. No accelerator result substitutes for standard Rust validation.
-`cargo doc -p contract-analyze --no-deps` succeeds with two pre-existing private
-intra-doc-link warnings in unchanged `shortcuts.rs`; these are documentation
-warnings, not test failures.
-
-The platform table above records the preceding API/Host acceptance. The earlier
-compiler follow-up reran the copied Web consumer and all seventeen Chrome agent
-tests. This full-SDK follow-up does not claim fresh Apple/WebKit runtime
-acceptance or Linux OS/AT-SPI validation. Compiler analysis does not change code
-generation or supply Host accessibility behavior.
-
-## Required Exact fixes
-
-[Per-change review and regression commands](patches/README.md) and
-[the series manifest](patches/series.json) make the four Host boundaries and independent compiler change explicit.
-`test:host-patches check` checks each cumulative checkpoint; `regress <id> <host>`
-also verifies the SDK bytes and runs the named shared tests plus the relevant
-AX/browser scope. A focused receipt is distinct from full platform acceptance.
-
-| Patch                                                                            | Responsibility                                                                                                                      | Needed for                                    |
-| -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| [exact-native-accessibility.patch](patches/exact-native-accessibility.patch)     | AppKit button-cell roles/states, tab mappings and switch/tab observation                                                            | Existing AppKit primitive AX acceptance       |
-| [exact-agent-dialog-escape.patch](patches/exact-agent-dialog-escape.patch)       | iOS agent recognized Escape uses the existing alert/sheet cancel path                                                               | Observable iOS Dialog Escape in agent tests   |
-| [exact-nested-dialogs.patch](patches/exact-nested-dialogs.patch)                 | AppKit hidden-element exposure, Web modal inert lifecycle, authored inert preservation, runtime staging, modal-aware AX diagnostics | Nested Dialog focus and AX acceptance         |
-| [exact-dialog-lifecycle.patch](patches/exact-dialog-lifecycle.patch)             | Authored route lifetime, eligible focus fallback, UIKit dismissal completion, focus event propagation and empty navigation focus    | Four-level, removal and navigation acceptance |
-| [exact-compiler-relationships.patch](patches/exact-compiler-relationships.patch) | Static command identity/kind, ARIA ID lists and Dialog name sources after expansion                                                 | Compile-time composition diagnostics          |
-
-The third patch changes seven SDK files:
-
-- `host/apple/Sources/ExactKit/Mac/NodeViewMac.swift`: respect
-  `accessibilityHiddenWritten` in `isAccessibilityElement()`. The Host already
-  hid the covered sheet, but its override still exposed the outer Dialog itself.
-  The observer and its outside-modal assertion remain intact.
-- `host/web/dialog-modality.js`: apply inert to lower open Dialogs by opening
-  order. Release the parent in closing `beforetoggle`, before browser focus
-  restoration. Apply completed openings on `toggle`; a microtask inside
-  `beforetoggle` is too early and can re-lock the parent during native close.
-- `host/web/navigation.js`: project the gate after app tree updates and retain
-  it alongside route inertness; re-export the existing `modalLayers` API.
-- `host/web-js/rt.js` and `host/web/glue.js`: combine authored inert with the
-  modal gate, preserving an author's latest value through stack transitions.
-- `host/web-js/glue.mjs`: stage the shared modality module with runtime inputs.
-- `scripts/agent-ax.mjs`: honor inert escape above an actually observed modal
-  boundary. The modal's own inert and all `aria-hidden` checks remain effective.
-
-WebKit's failure was reproduced with a minimal native HTML button-command
-stack as well as the Exact fixture. The correction uses native inert and Dialog
-lifecycle events; it adds no custom focus trap, React mechanism, Contract syntax
-or library-owned modal boolean. The extracted Host module keeps existing source
-files under Exact's 1,500-line limit.
-
-The fourth patch, [exact-dialog-lifecycle.patch](patches/exact-dialog-lifecycle.patch),
-adds lifecycle handling in nine SDK files:
-
-- Web modality tracks each opening's invoker and authored route. Removed or
-  inactive routes retire their modal stack. Closing with a missing invoker
-  chooses an eligible target in the surviving modal or selected page; it never
-  overrides an eligible destination focus. Navigation projects route gates
-  before reconciling modal ownership.
-- AppKit `SheetsMac.swift` retires descendants even in painted mode.
-  `DialogsMac.swift` detects inactive authored routes and provides a current
-  route/autofocus fallback when the invoker is gone. `NavigationMac.swift`
-  restores an arriving route scope only when no live control retains focus.
-- UIKit `KeyEvents.swift` follows the authored sheet parent for focus/key event
-  propagation. `DialogSheetIOS.swift` restores only after actual system
-  dismissal, avoids intermediate descendant restoration, validates source and
-  prior focus against the surviving scope/route, and does not announce a hidden
-  source route. `Accessibility.swift` permits arrival autofocus to supersede a
-  route placeholder or departed-route responder. `NavigationIOS.swift` supplies
-  a route fallback after a completed transition with no current/pending focus.
-
-These are Host responsibilities. The primitive keeps native command targets,
-accessible names/descriptions and slots; the application owns route state,
-conditional mounting and Tooltip cleanup. No library focus trap or duplicated
-modal state is introduced. The compiler still needs command/ARIA edge and
-behavior-conflict validation. Static command/ARIA edges and Dialog naming are
-now handled by the separate compiler patch, not these lifecycle fixes. No new
-Contract keywords are introduced.
-The source-disposal probe uses supported `push` plus conditional unmount;
-replacing the initial root visit with a sibling is not a supported route operation.
-
-Apply the patches in this order to a clean pinned checkout. The nested patch's
-agent diff builds on the first patch's existing normalizations:
+Use an initialized stock SDK and its platform dependencies. Normal commands
+never patch it. The baseline collector writes all phase logs, source proof and
+`results.json` under `.cache/upstream/baseline/<requested-hosts>/`. It runs every
+phase, records strict failures and returns nonzero if any phase fails. A result
+marked `observed` is a completed baseline, not an all-green acceptance receipt.
 
 ```sh
-git -C /absolute/path/to/exact apply /absolute/path/to/primitives-exact/patches/exact-native-accessibility.patch
-git -C /absolute/path/to/exact apply /absolute/path/to/primitives-exact/patches/exact-agent-dialog-escape.patch
-git -C /absolute/path/to/exact apply /absolute/path/to/primitives-exact/patches/exact-nested-dialogs.patch
-git -C /absolute/path/to/exact apply /absolute/path/to/primitives-exact/patches/exact-dialog-lifecycle.patch
-git -C /absolute/path/to/exact apply /absolute/path/to/primitives-exact/patches/exact-compiler-relationships.patch
+EXACT_ROOT=/absolute/path/to/stock-exact bun run test:contracts
+EXACT_ROOT=/absolute/path/to/stock-exact bun run test:baseline web
+EXACT_ROOT=/absolute/path/to/stock-exact EXACT_SIM=<dedicated-udid> bun run test:baseline macos ios
+EXACT_ROOT=/absolute/path/to/stock-exact EXACT_AGENT_SCOPE=all bun run test:agent
+EXACT_ROOT=/absolute/path/to/stock-exact bun run test:browser:experimental
 ```
 
-The harness does not silently patch another checkout. The ordered series is
-apply-checked against pinned originals and the reconstructed changed files are
-compared byte-for-byte with the tested SDK. Reverse-apply checks also pass.
-The series remains local and unpublished.
-
-## Reproduce
-
-Use initialized Exact with pinned Rust 1.97.0, Bun, verified Hermes and the
-platform SDK. Compiler probes use `target/debug/contract` unless
-`EXACT_CONTRACT_BIN` names another built binary. Local browser tests use
-Playwright 1.64.1 and matching engines via `PLAYWRIGHT_MODULE`.
+For a source archive, `EXACT_BASE_GIT` names the local object store containing
+the pinned commit. `EXACT_PRIMITIVES_CACHE` isolates another run's artifacts.
+Apple agent/AX runs select platform chrome. A dedicated simulator enables
+accessibility observation before launch:
 
 ```sh
-EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:contracts
-EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:agent
-EXACT_ROOT=/absolute/path/to/exact EXACT_WEB_BROWSER=webkit bun run --cwd packages/primitives-exact test:agent
-EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:browser
-EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:native macos
-EXACT_ROOT=/absolute/path/to/exact EXACT_SIM=<dedicated-simulator-udid> bun run --cwd packages/primitives-exact test:native ios
+xcrun simctl spawn <dedicated-udid> defaults write com.apple.Accessibility ApplicationAccessibilityEnabled -bool true
 ```
-
-For Chrome's native AX check, after a Web build/test, from the repository root:
-
-```sh
-EXACT_ROOT=/absolute/path/to/exact EXACT_WEB_DIST="$PWD/packages/primitives-exact/.cache/example/dist" bun packages/primitives-exact/test/accessibility.mjs web "$PWD/packages/primitives-exact/.cache/example/app"
-```
-
-On a fresh dedicated simulator, enable accessibility observation before launch:
-
-```sh
-xcrun simctl spawn <dedicated-simulator-udid> defaults write com.apple.Accessibility ApplicationAccessibilityEnabled -bool true
-```
-
-Receipts, observations and run logs are in `.cache/native/evidence`. The standard
-receipts include four-level, invoker-removal, subtree-removal and navigation
-observations. Earlier failed runs remain historical evidence, not current acceptance.
 
 ## Retained limits
 
-Linux's historical failure remains: windowless `tap open-menu` logs
-`Linux does not support popover presentation`, leaves the menu hidden and fails
-`tap menu-increment`. `presenter/alert.rs::alert_kind` excludes menu roles in
-neutral windowless mode. A real desktop shell is needed for that acceptance.
-AT-SPI separately remains unavailable (`no AT-SPI tree (LLP 1015 §7)`).
-
-The tested stack reaches four levels; this does not prove arbitrary depth.
-Navigation coverage is a retained source route with push/back and a pushed
-destination that disposes the source. Interactive navigation cancellation,
-multiple navigation roots, disabled/inert invoker mutation, VoiceOver speech,
-physical touch/hardware keyboard, RTL/removing an active tab, GPU/canvas, Android
-and Windows remain outside these results. The Wasm DOM setter was updated consistently but
-has no separate Wasm consumer acceptance. Apple builds use supported
-CoreGraphics/CoreImage fallbacks without a Metal toolchain.
+Linux retains the earlier windowless menu failure (`Linux does not support
+popover presentation`) and missing AT-SPI tree. No Linux OS validation, Docker
+repair or Linux menu workaround was attempted. Physical devices, VoiceOver
+speech, arbitrary modal depth, interactive navigation cancellation, multiple
+navigation roots, RTL/active-tab removal, GPU/canvas, Android, Windows and the
+separate Wasm consumer remain outside this acceptance.

@@ -12,7 +12,7 @@ const require = createRequire(new URL("../../../apps/docs/package.json", import.
 const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE ?? "playwright");
 const parent = await mkdtemp(path.join(tmpdir(), "exact-docs-production-"));
 const root = path.join(parent, "docs");
-let server;
+let server, appGate;
 try {
   await main(["new", root]);
   // Grouped text runs need duplicate-key and inline-markup coverage after activation.
@@ -27,7 +27,10 @@ try {
   server = Bun.serve({
     hostname: "127.0.0.1",
     port: 0,
-    fetch: (request) => staticResponse(request, out),
+    async fetch(request) {
+      if (appGate && new URL(request.url).pathname === "/app.js") await appGate;
+      return staticResponse(request, out);
+    },
   });
   for (const [name, engine] of [
     ["chromium", chromium],
@@ -95,6 +98,50 @@ try {
         false,
       );
       await control.close();
+      // Existing activation checks do not detect a search-index waterfall behind app.js.
+      const cold = await browser.newPage();
+      cold.on("pageerror", (error) => errors.push(String(error)));
+      const coldScopes = [];
+      cold.on("request", (request) => {
+        if (/\/scope-/.test(request.url())) coldScopes.push(new URL(request.url()).pathname);
+      });
+      let releaseApp;
+      appGate = new Promise((resolve) => {
+        releaseApp = resolve;
+      });
+      try {
+        await cold.goto(new URL("/zh/authoring", server.url).href);
+        const input = cold.getByRole("searchbox");
+        await input.focus();
+        await input.fill("   ");
+        assert.deepEqual(coldScopes, []);
+        assert.equal(await cold.locator('link[rel="modulepreload"][href*="/scope-"]').count(), 0);
+        const requested = cold.waitForRequest((request) => /\/scope-1-/.test(request.url()), {
+          timeout: 2000,
+        });
+        await input.fill("Exact");
+        await requested;
+        assert.equal(coldScopes.length, 1);
+        assert.equal(await cold.evaluate(() => Boolean(globalThis.exact?.state)), false);
+      } finally {
+        appGate = undefined;
+        releaseApp();
+      }
+      await cold.locator('[data-docs-part="search"] a').first().waitFor();
+      assert.equal(await cold.getByRole("searchbox").inputValue(), "Exact");
+      assert.equal(coldScopes.length, 1);
+      assert.equal(
+        await cold
+          .locator('[data-docs-part="search"] a')
+          .evaluateAll((links) =>
+            links.every(
+              (link) =>
+                link.getAttribute("href") === "/zh" || link.getAttribute("href").startsWith("/zh/"),
+            ),
+          ),
+        true,
+      );
+      await cold.close();
       assert.deepEqual(errors, []);
       console.log(
         `${name}: production hints fetch once without activation, nested search and root state pass`,

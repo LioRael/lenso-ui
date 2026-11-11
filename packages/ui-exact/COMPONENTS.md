@@ -62,7 +62,7 @@ Publication and repository landing require separate user instructions.
 | `label`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                                                                           |
 | `link`                 | Web behavior verified | Composition, initial styles and browser behavior verified; pre-hatch disabled-link role and broader delivery gates remain                                                             |
 | `list-box`             | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
-| `menu`                 | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
+| `menu`                 | Partial               | Anchored actions, checked items, submenus, compact edit bars and modal pointer/scroll ownership implemented; morph, extended/native and optical gates remain (MENU.md)                |
 | `meter`                | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                                                                           |
 | `modal`                | Partial               | Native Web composition verified; WebKit exit motion and focus/portal/control parity remain open (MODAL.md)                                                                            |
 | `number-field`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
@@ -137,7 +137,23 @@ acceptance alongside the families that consume them.
 
 ## Current build and focused acceptance
 
-The Tooltip checkpoint builds 4225 core recipes and 5739 consumer recipes.
+The compact Menu bar checkpoint builds 4296 core recipes and 5810 consumer recipes.
+Its focused cohort covers 71 affected recipes, ordinary button actions, disabled
+inheritance, shared material, source geometry, elastic press, expanded anchoring
+and pointer cutouts, RTL and removal. See MENU_BAR.md for API gaps and acceptance.
+The preceding modal Menu checkpoint built 4291 core recipes and 5805 consumer recipes.
+Its focused cohort covers pointer isolation, a moving trigger cutout, Tab exit,
+input-dependent scrolling, hot modality changes, removal and shared Dialog locks.
+See MENU_MODAL.md for proof boundaries. The preceding submenu checkpoint built
+4290 core recipes and 5804 consumer recipes.
+Its focused Chromium/WebKit cohort checks 65 affected recipes and 12
+presentation/direction/width combinations, three levels, tree dismissal and
+parent/focus ownership. The preceding Menu checkpoint built 4285 core recipes
+and 5799 consumer recipes.
+Its focused Chromium/WebKit cohort checks 60 affected recipes, 36 placement
+endpoints, native keyboard/actions, checked values, opaque fallback and cleanup.
+Touch activation is checked in emulated mobile contexts. The preceding Tooltip
+checkpoint built 4225 core recipes and 5739 consumer recipes.
 Its focused Chromium/WebKit cohort checks 48 affected recipes, 36 placement
 endpoints, native descriptions and actions, grouping, focus, timing and cleanup.
 Touch is checked in emulated mobile contexts. The preceding Popover checkpoint

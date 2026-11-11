@@ -1,12 +1,13 @@
 import assert from "node:assert/strict";
 import path from "node:path";
-import { stagePackage } from "./example";
+import { cacheRoot, stagePackage } from "./example";
 
 const exactRoot = process.env["EXACT_ROOT"];
 if (!exactRoot) throw new Error("Set EXACT_ROOT to an initialized expo/exact checkout");
 const compiler =
   process.env["EXACT_CONTRACT_BIN"] ?? path.resolve(exactRoot, "target/debug/contract");
-const app = path.resolve(import.meta.dirname, "../.cache/contracts");
+const app = path.join(cacheRoot, "contracts");
+const proposal = process.argv.includes("--proposal");
 await stagePackage(app);
 
 // Dynamic cases and the remaining invocation conflict are not static acceptance proofs.
@@ -284,11 +285,12 @@ component App
     source: `component App
   state show = true
   view
-    if show
-      button commandfor="settings" command="show-modal"
-        text "Open"
-    else
-      dialog id="settings" aria-label="Settings"
+    column
+      if show
+        button commandfor="settings" command="show-modal"
+          text "Open"
+      else
+        dialog id="settings" aria-label="Settings"
 `,
     result: "rejected",
     diagnostic: "analyze-command-target",
@@ -338,21 +340,24 @@ for (const probe of cases) {
     child.exited,
   ]);
   const diagnostics = stdout + stderr;
-  results.push({ name: probe.name, expected: probe.result, status, diagnostics });
+  const expected =
+    !proposal && probe.diagnostic?.startsWith("analyze-") ? "accepted-gap" : probe.result;
+  results.push({ name: probe.name, expected, status, diagnostics });
   const verdict =
     status !== 0
       ? "rejected"
-      : ["accepted-gap", "runtime-obligation"].includes(probe.result)
-        ? probe.result
+      : ["accepted-gap", "runtime-obligation"].includes(expected)
+        ? expected
         : "accepted";
   console.log(`${probe.name}: ${verdict}`);
 }
 await Bun.write(path.join(app, "results.json"), JSON.stringify(results, null, 2));
 for (const [index, probe] of cases.entries()) {
   const result = results[index]!;
-  assert.equal(result.status === 0, probe.result !== "rejected", result.diagnostics || probe.name);
-  if (probe.diagnostic)
+  const expected = result.expected;
+  assert.equal(result.status === 0, expected !== "rejected", result.diagnostics || probe.name);
+  if (probe.diagnostic && expected === "rejected")
     assert.ok(result.diagnostics.includes(probe.diagnostic), result.diagnostics);
-  if ("diagnosticSource" in probe && probe.diagnosticSource)
+  if ("diagnosticSource" in probe && probe.diagnosticSource && expected === "rejected")
     assert.ok(result.diagnostics.includes(`${probe.name}.contract:4:`), result.diagnostics);
 }

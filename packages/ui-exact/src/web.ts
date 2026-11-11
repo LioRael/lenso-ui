@@ -1,3 +1,5 @@
+import { updateMenuBar, endMenuBar } from "./menu-bar.js";
+import { updateMenu, endMenu } from "./menu.js";
 import { updateTooltip, endTooltip } from "./tooltip.js";
 import { updatePopoverHover, endPopoverHover } from "./popover-hover.js";
 import { updatePopover, endPopover } from "./popover.js";
@@ -86,7 +88,8 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     (kind === "toolbar-button" && handle.data["lensoGlass"] === "true" && variant !== "plain") ||
     kind === "search-field-group" ||
     (kind === "page-control-track" && variant === "prominent") ||
-    ((kind === "glass-button" || kind === "glass-button-group-item") && !node.matches(":disabled"));
+    ((kind === "glass-button" || kind === "glass-button-group-item" || kind === "menu-trigger") &&
+      !node.matches(":disabled"));
   const profileKey =
     kind === "glass-button" || kind === "glass-button-group-item"
       ? variant === "prominent"
@@ -195,6 +198,8 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   updatePopoverHover(node, handle.data);
   updatePopover(node, handle.data);
   updateTooltip(node, handle.data);
+  updateMenuBar(node, handle.data);
+  updateMenu(node, handle.data);
   updateModal(node, handle.data);
   updateMaterial(node, handle.data);
   node.setAttribute("data-lenso-ready", "");
@@ -222,6 +227,8 @@ export function elementEnded(handle: ExactElement) {
   endPopoverHover(handle.element);
   endPopover(handle.element);
   endTooltip(handle.element);
+  endMenuBar(handle.element);
+  endMenu(handle.element);
   endModal(handle.element);
   endMaterial(handle.element);
   owners.get(handle.element)?.release(true);

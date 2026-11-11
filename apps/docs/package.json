@@ -19,6 +19,8 @@
     "test:dev": "node test/start-dev.mjs",
     "test:dev-isolation": "node test/start-dev-isolation.mjs",
     "test:backdrop-prefetch": "node test/backdrop-prefetch.mjs",
+    "test:backdrop-paint-animation": "node test/backdrop-paint-animation.mjs",
+    "test:backdrop-edits": "node test/backdrop-edits.mjs",
     "test:backdrop-cache": "node test/backdrop-cache.mjs",
     "test:canvas-navigation": "node test/glass-canvas-navigation.mjs",
     "test:moving-glass-preferences": "node test/moving-glass-preferences.mjs",

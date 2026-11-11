@@ -2,7 +2,7 @@ const documents = new WeakMap<Document, { users: number; stop(): void }>();
 
 // Text editors match :focus-visible after pointer focus too. Share the source
 // modality rule so only keyboard navigation paints the enclosing group ring.
-function observeFocus(document: Document) {
+export function observeFocus(document: Document) {
   let owner = documents.get(document);
   if (!owner) {
     const root = document.documentElement;

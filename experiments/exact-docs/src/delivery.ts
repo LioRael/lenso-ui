@@ -3,6 +3,7 @@ import { escapeHtml } from "./renderers/html.ts";
 export interface DeliveryAssets {
   modules: string[];
   styles: string[];
+  search?: Record<string, string>;
 }
 
 /** WebKit resolves inline dynamic imports from the page URL, ignoring HTML's base.

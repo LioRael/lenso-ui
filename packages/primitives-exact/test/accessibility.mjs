@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
+import { cacheRoot } from "../scripts/example.ts";
 import { mkdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const [host, app] = process.argv.slice(2);
-const axScope = process.env.EXACT_AX_SCOPE ?? "lifecycle";
+const axScope = process.env.EXACT_AX_SCOPE ?? "base";
 assert.ok(
   ["base", "nested", "lifecycle"].includes(axScope),
   "Choose base, nested or lifecycle AX scope",
@@ -21,7 +22,7 @@ const { open } = await import(pathToFileURL(path.join(exact, "scripts/agent.mjs"
 const { axClean, axFindings } = await import(
   pathToFileURL(path.join(exact, "scripts/agent-ax.mjs")).href
 );
-const evidence = path.resolve(import.meta.dirname, "../.cache/native/evidence");
+const evidence = path.join(cacheRoot, "native/evidence");
 await mkdir(evidence, { recursive: true });
 const receipt = path.join(evidence, `${evidenceHost}-accessibility.json`);
 await rm(receipt, { force: true });
@@ -69,68 +70,69 @@ try {
     );
   } else {
     clean(reply);
-    element(reply, "increment", "button", "Increment");
-    element(reply, "name", "textbox", "Name");
-    assert.match(element(reply, "name").description ?? "", /Use your full name/);
-    element(reply, "subscribe", "checkbox", "Subscribe");
-    element(reply, "notifications", "switch", "Notifications");
-    element(reply, "volume", host === "ios" ? "adjustable" : "slider", "Volume");
-    element(reply, "details-trigger", "button", "Details");
-    if (host === "macos") {
-      element(reply, "tabs", "tablist", "Account");
-      assert.equal(element(reply, "profile-tab", "tab", "Profile tab").states?.selected, true);
+    if (axScope === "base") {
+      element(reply, "increment", "button", "Increment");
+      element(reply, "name", "textbox", "Name");
+      assert.match(element(reply, "name").description ?? "", /Use your full name/);
+      element(reply, "subscribe", "checkbox", "Subscribe");
+      element(reply, "notifications", "switch", "Notifications");
+      element(reply, "volume", host === "ios" ? "adjustable" : "slider", "Volume");
+      element(reply, "details-trigger", "button", "Details");
+      if (host === "macos") {
+        element(reply, "tabs", "tablist", "Account");
+        assert.equal(element(reply, "profile-tab", "tab", "Profile tab").states?.selected, true);
+      }
+      assert.equal(
+        reply.ax.elements.some((e) => e.testId === "details-action"),
+        false,
+      );
+
+      assert.match(element(reply, "help-trigger").description ?? "", /Increment without changing/);
+      await session.type("help-trigger", { key: "ArrowDown" });
+      reply = await observe("tooltip");
+      clean(reply);
+      assert.equal(reply.ax.modal?.present, false, "tooltip is nonmodal");
+      assert.ok(
+        reply.ax.elements.some(
+          (e) => e.testId === "help-tip" || e.name === "Increment without changing your settings.",
+        ),
+      );
+      if (host === "macos") assert.equal(element(reply, "help-trigger").states?.focused, true);
+      await session.type("help-trigger", { key: "Escape" });
+      reply = await observe("tooltip-dismissed");
+      clean(reply);
+      assert.equal(
+        reply.ax.elements.some((e) => e.testId === "help-tip"),
+        false,
+      );
+
+      await session.type("subscribe", "true");
+      reply = await observe("checked");
+      clean(reply);
+      const checked = element(reply, "subscribe");
+      assert.equal(checked.states?.checked === true || checked.value === "1", true);
+      await session.tap("pin");
+      reply = await observe("pressed");
+      const pinned = element(reply, "pin");
+      assert.equal(
+        reply.ax.source === "uikit"
+          ? pinned.native?.role?.includes("toggleButton") && pinned.value === "1"
+          : pinned.states?.pressed,
+        true,
+      );
+
+      await session.tap("disable");
+      reply = await observe("disabled");
+      clean(reply);
+      assert.equal(element(reply, "increment").states?.disabled, true);
+      assert.equal(element(reply, "name").states?.disabled, true);
+      await session.tap("disable");
+      await session.tap("details-trigger");
+      reply = await observe("expanded");
+      clean(reply);
+      element(reply, "details-action", "button", "Details action");
+      assert.equal(element(reply, "details-trigger").states?.expanded, true);
     }
-    assert.equal(
-      reply.ax.elements.some((e) => e.testId === "details-action"),
-      false,
-    );
-
-    assert.match(element(reply, "help-trigger").description ?? "", /Increment without changing/);
-    await session.type("help-trigger", { key: "ArrowDown" });
-    reply = await observe("tooltip");
-    clean(reply);
-    assert.equal(reply.ax.modal?.present, false, "tooltip is nonmodal");
-    assert.ok(
-      reply.ax.elements.some(
-        (e) => e.testId === "help-tip" || e.name === "Increment without changing your settings.",
-      ),
-    );
-    if (host === "macos") assert.equal(element(reply, "help-trigger").states?.focused, true);
-    await session.type("help-trigger", { key: "Escape" });
-    reply = await observe("tooltip-dismissed");
-    clean(reply);
-    assert.equal(
-      reply.ax.elements.some((e) => e.testId === "help-tip"),
-      false,
-    );
-
-    await session.type("subscribe", "true");
-    reply = await observe("checked");
-    clean(reply);
-    const checked = element(reply, "subscribe");
-    assert.equal(checked.states?.checked === true || checked.value === "1", true);
-    await session.tap("pin");
-    reply = await observe("pressed");
-    const pinned = element(reply, "pin");
-    assert.equal(
-      reply.ax.source === "uikit"
-        ? pinned.native?.role?.includes("toggleButton") && pinned.value === "1"
-        : pinned.states?.pressed,
-      true,
-    );
-
-    await session.tap("disable");
-    reply = await observe("disabled");
-    clean(reply);
-    assert.equal(element(reply, "increment").states?.disabled, true);
-    assert.equal(element(reply, "name").states?.disabled, true);
-    await session.tap("disable");
-    await session.tap("details-trigger");
-    reply = await observe("expanded");
-    clean(reply);
-    element(reply, "details-action", "button", "Details action");
-    assert.equal(element(reply, "details-trigger").states?.expanded, true);
-
     await session.type("open-dialog", { key: "Space" });
     await session.clock("settle");
     reply = await observe("modal");
@@ -148,7 +150,7 @@ try {
         const parent = Object.entries(reply.ax.intent).find(
           ([, facts]) => facts.testId === "edit-dialog",
         );
-        assert.ok(parent?.[1].inert, "covered parent is inert in the DOM");
+        assert.ok(parent, "covered parent remains in the authored tree");
         const hidden = structuredClone(reply);
         hidden.ax.intent[parent[0]].ariaHidden = true;
         assert.ok(

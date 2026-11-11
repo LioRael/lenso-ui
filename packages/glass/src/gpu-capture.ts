@@ -209,6 +209,7 @@ export class BackdropPaint {
       !this.checked ||
       change.content ||
       change.styles ||
+      change.animationSetChanged ||
       (change.animated.size &&
         (!this.paint?.moving ||
           [...change.animated.keys()].some((target) => target !== this.paint?.moving)))

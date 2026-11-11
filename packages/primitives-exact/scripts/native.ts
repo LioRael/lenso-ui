@@ -1,12 +1,12 @@
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import { stagePackage } from "./example";
+import { agentSuite, cacheRoot, stagePackage } from "./example";
 
 const root = path.resolve(import.meta.dirname, "..");
 const exactRoot = process.env["EXACT_ROOT"];
 if (!exactRoot) throw new Error("Set EXACT_ROOT to an initialized expo/exact checkout");
 const exact = path.resolve(exactRoot);
-const app = path.join(root, ".cache/native/primitives-fixture");
+const app = path.join(cacheRoot, "native/primitives-fixture");
 const host = process.argv[2];
 if (host !== "macos" && host !== "ios" && host !== "linux")
   throw new Error("Choose macos, ios, or linux");
@@ -49,7 +49,7 @@ if (!process.argv.includes("--build-only")) {
     cli,
     "test",
     host,
-    process.env["EXACT_AGENT_TEST"] ?? "app.test.contract",
+    await agentSuite(app),
     ...(host === "linux" ? [] : ["--chrome", "platform"]),
   ]);
   if (process.env["EXACT_AX_SCOPE"] !== "none")
