@@ -214,12 +214,31 @@ export async function checkSearchField(page, engine) {
     );
     const node = document.getElementById("search-quick-group");
     const handle = { hatch: "lenso-ui", element: node, data: node.dataset };
+    const numeric = Array.from(
+      document.querySelectorAll('[data-slot="number-field"],[data-slot="stepper"]'),
+      (element) => ({
+        hatch: "lenso-ui",
+        element,
+        data: element.dataset,
+      }),
+    );
+    const method = () => document.documentElement.getAttribute("data-lenso-focus-method");
+    const before = method();
     elementEnded(handle);
-    const method = document.documentElement.getAttribute("data-lenso-focus-method");
+    const shared = method();
+    for (const field of numeric) elementEnded(field);
+    const last = method();
+    for (const field of numeric) element(field);
     element(handle);
-    return method;
+    return { before, shared, last };
   });
-  assert.equal(restored, null, "last group restores the original modality attribute");
+  assert.ok(restored.before, "input establishes the focus method");
+  assert.equal(restored.shared, restored.before, "numeric controls retain the shared focus method");
+  assert.equal(
+    restored.last,
+    null,
+    "the last focus observer restores the original modality attribute",
+  );
   await toggle("visible");
   await value("Quarterly report");
   await clear.click();

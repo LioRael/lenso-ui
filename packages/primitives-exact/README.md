@@ -1,6 +1,6 @@
 # Exact primitives
 
-Accessible by default. Native on every platform. Agent-testable.
+Composable controls. Native semantics. Agent-testable.
 
 `@lenso/primitives-exact` is a private Contract component library for
 [Expo Exact](https://github.com/expo/exact). It follows Base UI's separation of
@@ -12,9 +12,12 @@ The [API boundary](API.md) lists supported names, payloads and migration steps.
 The [composition contract](COMPOSITION.md) defines behavior ownership and the
 Tabs, Dialog and Tooltip probes. Component count is not a composition guarantee.
 
-The source targets Exact `956ae33a35ffa5313d7be3cebc55ed84f9480e0a`.
-Exact is pre-1.0; newer revisions require revalidation. The slogan above is the
-design target; Web acceptance and native platform acceptance are separate.
+The source targets **unmodified** Exact `956ae33a35ffa5313d7be3cebc55ed84f9480e0a`.
+It requires no SDK patch; patch files are excluded from the package.
+Exact is pre-1.0; newer revisions require revalidation. Native semantics express
+intent; platform accessibility and focus guarantees require separate evidence.
+Nested Dialog/lifecycle behavior and native AX restrictions are explicit in the
+[stock verification matrix](VERIFICATION.md).
 
 ## Use
 
@@ -188,39 +191,53 @@ EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:
 EXACT_ROOT=/absolute/path/to/exact bun run --cwd packages/primitives-exact test:agent
 ```
 
-Build requires an already initialized Exact checkout and compiler. It does not
-install Rust, Bun, Hermes or native SDKs. Browser checks use the docs workspace's
-Playwright installation (`PLAYWRIGHT_MODULE` can override it). The agent uses
-Exact's installed Chrome. Generated consumer builds stay in `.cache/example`.
-The source-only package needs no asset build. These optional integration
-commands are separate from the repository's ordinary build and test loops.
+Build requires an initialized **stock** Exact checkout and compiler. These
+commands install no toolchains or SDK patches. Browser checks use the docs
+workspace's Playwright (`PLAYWRIGHT_MODULE` can override it); the agent uses
+Exact's installed Chrome. Generated builds and evidence default to
+`.cache/upstream`, isolated from the old modified-SDK research receipts.
+`EXACT_PRIMITIVES_CACHE` selects another cache root.
 
-Native hosts consume the same Contract package without hatches or a Web bridge.
-`test:native macos`, `test:native ios` and `test:native linux` create a native
-consumer, build it, run the same seventeen agent tests, and inspect native
-accessibility where the host supports it. Set `EXACT_SIM` to a dedicated iOS
-simulator. See [platform verification](VERIFICATION.md) for setup, the required
-AppKit accessibility, iOS agent Escape, nested Dialog and lifecycle patches, and the exact acceptance limits.
+Default agent tests run eight core scenarios. The complete original seventeen
+scenarios remain available with `EXACT_AGENT_SCOPE=all`; no experimental
+assertion was deleted or weakened. Browser tests similarly default to core;
+`test:browser:experimental` adds the original modal lifecycle checks. A core
+state/interaction pass does not establish native AX correctness.
 
-Verified on 2026-11-11 against the pinned SDK plus the supplied patches:
-seventeen shared agent tests passed on Chrome, WebKit, macOS and iOS Simulator.
-Nested Dialog checks now run by default: Escape, explicit close, reopen,
-background isolation and return through four scopes, removed invokers, subtree
-unmount, navigation push/back and source route disposal. Chromium/WebKit
-browser checks and Chrome/AppKit/UIKit native AX observations passed. Browser
-regressions also check author-owned `inert` updates and cancelled openings.
-The [compiler relationship patch](COMPILER.md) now rejects statically missing
-command/ARIA targets, wrong command kinds and absent/empty Dialog names.
-Dynamic relationships and competing invocations remain outside that proof.
-See the [report](VERIFICATION.md) for the required Host fixes, patch order and
-exact scope. Linux's earlier six-of-seven headless result is retained without
-claiming Tooltip, nested Dialog or Linux OS/AT-SPI acceptance. Spoken
-announcements and physical-device acceptance remain unverified. Local browsers
-use Playwright 1.64.1 through `PLAYWRIGHT_MODULE` with matching installed engines.
+```sh
+EXACT_ROOT=/absolute/path/to/stock-exact bun run --cwd packages/primitives-exact test:baseline web
+EXACT_ROOT=/absolute/path/to/stock-exact EXACT_SIM=<dedicated-udid> bun run --cwd packages/primitives-exact test:baseline macos ios
+EXACT_ROOT=/absolute/path/to/stock-exact bun run --cwd packages/primitives-exact test:agent:experimental
+EXACT_ROOT=/absolute/path/to/stock-exact bun run --cwd packages/primitives-exact test:browser:experimental
+```
 
-This is an initial primitive catalog, not full Base UI parity. Combobox,
-autocomplete, context menu, number field, multi-thumb slider, mixed
-checkbox, drag/drop and advanced form validation need their own implementation
-and platform acceptance. No package publication or changes to the existing React primitives are part
-of this work. The four Host patches and independent compiler relationship patch have
-[separate review notes and regression commands](patches/README.md).
+The baseline collector compares every present tracked SDK file with the pinned
+Git objects before and after execution and rejects changed sources. An archive
+may supply `EXACT_BASE_GIT=/path/to/object-store`. It records every phase and
+returns nonzero if any strict test fails; recorded experimental failures are
+not green acceptance. Results are grouped by requested hosts under
+`.cache/upstream/baseline`. The copied consumer contains only distributable
+library files, without SDK patches.
+
+`test:native macos` / `test:native ios` build the same source package, run the
+core agent scenarios and independently check native AX. Set `EXACT_SIM` to a
+dedicated simulator. Exact Host role/state projection, native Dialog Escape,
+covered-modal AX isolation and modal focus/route lifetimes can fail even when
+the components compile. Read [API.md](API.md) for ownership and experimental
+scope and [VERIFICATION.md](VERIFICATION.md) for actual stock results.
+
+Static ID/ARIA relationships and Dialog names remain application obligations:
+the stock compiler accepts invalid combinations demonstrated in [COMPILER.md](COMPILER.md).
+The library supplies semantic attributes and native commands, not a replacement
+focus manager, accessibility tree or compiler. Repository-only `patches/` and
+`VERIFICATION-PATCHED.md` preserve historical upstream research. They are not
+installation requirements or evidence of stock platform support.
+
+Linux's historical six-of-seven windowless result remains a gap, with no new
+Linux desktop/AT-SPI acceptance. Spoken announcements, physical-device input,
+arbitrary modal depth and interactive navigation cancellation remain unverified.
+
+This private catalog is not full Base UI parity. Combobox, autocomplete, context
+menu, number field, multi-thumb slider, mixed checkbox, drag/drop and advanced
+form validation need separate implementation and platform acceptance. No package
+publication or changes to the existing React primitives are part of this work.

@@ -1,3 +1,4 @@
+import { setPageScrollLock as lock } from "./page-scroll-lock.js";
 import { activeElement, modalOwner, modalTabbables } from "./modal-focus.js";
 
 interface ModalController {
@@ -5,28 +6,6 @@ interface ModalController {
   destroy(): void;
 }
 const modals = new WeakMap<HTMLDialogElement, ModalController>();
-const locks = new Set<HTMLDialogElement>();
-let originalOverflow: { value: string; priority: string } | undefined;
-
-function lock(node: HTMLDialogElement, active: boolean) {
-  if (active && !locks.has(node)) {
-    if (!locks.size) {
-      const style = document.documentElement.style;
-      originalOverflow = {
-        value: style.getPropertyValue("overflow"),
-        priority: style.getPropertyPriority("overflow"),
-      };
-      style.setProperty("overflow", "hidden", "important");
-    }
-    locks.add(node);
-  } else if (!active && locks.delete(node) && !locks.size) {
-    const style = document.documentElement.style;
-    if (originalOverflow?.value)
-      style.setProperty("overflow", originalOverflow.value, originalOverflow.priority);
-    else style.removeProperty("overflow");
-    originalOverflow = undefined;
-  }
-}
 
 function createModal(node: HTMLDialogElement): ModalController {
   const originalInert = node.getAttribute("inert");

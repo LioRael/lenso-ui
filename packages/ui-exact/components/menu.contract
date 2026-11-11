@@ -1,0 +1,349 @@
+shape MenuState
+  id: string
+  label: string
+  labelledBy: string
+  side: string
+  align: string
+  direction: string
+  sideOffset: number
+  alignOffset: number
+  collisionPadding: number
+  collisionAvoidance: bool
+  disableAnchorTracking: bool
+
+component Menu
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-root" data-slot="menu-root"
+      children
+
+component MenuPortal
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-portal" data-slot="menu-portal"
+      children
+
+component MenuTrigger
+  props
+    id: string
+    label: string
+    target: string
+    disabled: bool
+    iconOnly: bool
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=0 aria-label=label aria-haspopup="menu"
+      disabled=disabled popovertarget=target popovertargetaction="toggle"
+      hatch="lenso-ui" data-lenso-kind="menu-trigger" data-slot="menu-trigger" data-lenso-icon-only=iconOnly
+      children
+
+component MenuPositioner
+  props
+    state: MenuState
+    modal: bool
+  slot
+  view
+    box id=state.id testId=state.id popover="auto" role="menu" tabindex=-1
+      aria-label=state.label aria-labelledby=state.labelledBy
+      hatch="lenso-ui" data-lenso-kind="menu-positioner" data-slot="menu-positioner" data-lenso-modal=modal
+      data-lenso-side=state.side data-lenso-align=state.align data-lenso-direction=state.direction
+      data-lenso-side-offset=state.sideOffset data-lenso-align-offset=state.alignOffset
+      data-lenso-collision-padding=state.collisionPadding data-lenso-collision-avoidance=state.collisionAvoidance
+      data-lenso-disable-anchor-tracking=state.disableAnchorTracking
+      box aria-hidden=true role="presentation" hatch="lenso-ui" data-lenso-kind="menu-backdrop" data-slot="menu-backdrop"
+      children
+
+component MenuPopup
+  props
+    state: MenuState
+  slot
+  view
+    box id=`${state.id}-popup` testId=`${state.id}-popup` role="presentation"
+      hatch="lenso-ui" data-lenso-kind="menu-popup" data-slot="menu-popup" data-material="glass-medium"
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="menu-surface" data-slot="menu-surface"
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="menu-lens" data-slot="menu-lens" data-material-lens=""
+      box role="presentation" hatch="lenso-ui" data-lenso-kind="menu-content" data-slot="menu-content"
+        children
+
+component MenuItem
+  props
+    id: string
+    target: string
+    label: string
+    press: action
+    disabled: bool
+    variant: string
+    closeOnClick: bool
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=-1 role="menuitem" aria-label=label disabled=disabled aria-disabled=disabled
+      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
+      hatch="lenso-ui" data-lenso-kind="menu-item" data-slot="menu-item"
+      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+      children
+
+component MenuItemCheckbox
+  props
+    id: string
+    target: string
+    label: string
+    press: action
+    disabled: bool
+    variant: string
+    closeOnClick: bool
+    checked: bool
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=-1 role="menuitemcheckbox" aria-label=label disabled=disabled aria-disabled=disabled
+      aria-checked=checked
+      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
+      hatch="lenso-ui" data-lenso-kind="menu-item" data-slot="menu-item"
+      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+      children
+
+component MenuItemRadio
+  props
+    id: string
+    target: string
+    label: string
+    press: action
+    disabled: bool
+    variant: string
+    closeOnClick: bool
+    checked: bool
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=-1 role="menuitemradio" aria-label=label disabled=disabled aria-disabled=disabled
+      aria-checked=checked
+      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
+      hatch="lenso-ui" data-lenso-kind="menu-item" data-slot="menu-item"
+      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+      children
+
+component MenuAction
+  props
+    id: string
+    target: string
+    label: string
+    press: action
+    disabled: bool
+    variant: string
+    closeOnClick: bool
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=-1 role="menuitem" aria-label=label disabled=disabled aria-disabled=disabled
+      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
+      hatch="lenso-ui" data-lenso-kind="menu-action" data-slot="menu-item"
+      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+      children
+
+component MenuItemLink
+  props
+    id: string
+    href: string
+    label: string
+    disabled: bool
+    variant: string
+    closeOnClick: bool
+  slot
+  view
+    link id=id testId=id href=(disabled ? "" : href) role="menuitem" aria-label=label aria-disabled=disabled tabindex=-1
+      hatch="lenso-ui" data-lenso-kind="menu-item" data-slot="menu-item" data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+      children
+
+component MenuSection
+  props
+    label: string
+    labelledBy: string
+  slot
+  view
+    box role="group" aria-label=label aria-labelledby=labelledBy hatch="lenso-ui" data-lenso-kind="menu-section" data-slot="menu-section"
+      children
+
+component MenuSectionLabel
+  props
+    id: string
+  slot
+  view
+    box id=id hatch="lenso-ui" data-lenso-kind="menu-section-label" data-slot="menu-section-label"
+      children
+
+component MenuRadioGroup
+  props
+    label: string
+  slot
+  view
+    box role="group" aria-label=label hatch="lenso-ui" data-lenso-kind="menu-radio-group" data-slot="menu-radio-group"
+      children
+
+component MenuSeparator
+  view
+    box role="separator" hatch="lenso-ui" data-lenso-kind="menu-separator" data-slot="menu-separator"
+
+component MenuItemIndicator
+  props
+    checked: bool
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="menu-item-indicator" data-slot="menu-item-indicator" data-lenso-checked=checked
+      children
+
+component MenuItemLabel
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-item-label" data-slot="menu-item-label"
+      children
+
+component MenuItemDescription
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-item-description" data-slot="menu-item-description"
+      children
+
+component MenuItemIcon
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-item-icon" data-slot="menu-item-icon"
+      children
+
+component MenuItemContent
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-item-content" data-slot="menu-item-content"
+      children
+
+component MenuItemShortcut
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-item-shortcut" data-slot="menu-item-shortcut"
+      children
+
+component MenuActionGroup
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-action-group" data-slot="menu-action-group"
+      children
+
+component MenuViewport
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-viewport" data-slot="menu-viewport"
+      children
+
+component MenuSubmenuRoot
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-submenu-root" data-slot="menu-submenu-root"
+      children
+
+component MenuSubmenuPositioner
+  props
+    state: MenuState
+    presentation: string
+  slot
+  view
+    box id=state.id testId=state.id popover="auto" role="menu" tabindex=-1
+      aria-label=state.label aria-labelledby=state.labelledBy
+      hatch="lenso-ui" data-lenso-kind="menu-positioner" data-slot="menu-positioner"
+      data-lenso-side=state.side data-lenso-align=state.align data-lenso-direction=state.direction
+      data-lenso-side-offset=state.sideOffset data-lenso-align-offset=state.alignOffset
+      data-lenso-collision-padding=state.collisionPadding data-lenso-collision-avoidance=state.collisionAvoidance
+      data-lenso-disable-anchor-tracking=state.disableAnchorTracking data-lenso-submenu="true" data-lenso-presentation=presentation
+      children
+
+component MenuSubmenuTrigger
+  props
+    id: string
+    target: string
+    label: string
+    disabled: bool
+    openOnHover: string
+    delay: number
+    closeDelay: number
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=-1 role="menuitem" aria-label=label aria-haspopup="menu" disabled=disabled aria-disabled=disabled
+      popovertarget=target popovertargetaction="toggle" hatch="lenso-ui" data-lenso-kind="menu-submenu-trigger" data-slot="menu-submenu-trigger" data-lenso-for=target
+      data-lenso-disabled=disabled data-lenso-open-on-hover=openOnHover data-lenso-hover-delay=delay data-lenso-close-delay=closeDelay data-lenso-close-on-click="false"
+      children
+
+component MenuItemSubmenuIndicator
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="menu-item-submenu-indicator" data-slot="menu-item-submenu-indicator"
+      children
+
+component MenuSubmenuHeading
+  props
+    id: string
+    target: string
+    label: string
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=-1 role="menuitem" aria-label=label popovertarget=target popovertargetaction="hide"
+      hatch="lenso-ui" data-lenso-kind="menu-submenu-heading" data-slot="menu-submenu-heading" data-lenso-close-on-click="false"
+      children
+
+component MenuSubmenuBody
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="menu-submenu-body" data-slot="menu-submenu-body"
+      children
+
+component MenuBackdrop
+  slot
+  view
+    box aria-hidden=true role="presentation" hatch="lenso-ui" data-lenso-kind="menu-backdrop" data-slot="menu-backdrop"
+      children
+
+shape MenuBarState
+  id: string
+  label: string
+  direction: string
+  disabled: bool
+  elastic: bool
+
+component MenuBar
+  props
+    state: MenuBarState
+  slot
+  view
+    box id=state.id testId=state.id role="group" aria-label=state.label aria-disabled=state.disabled direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="menu-bar" data-slot="menu-bar" data-material="glass-medium"
+      data-lenso-disabled=state.disabled data-lenso-elastic=state.elastic
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="menu-bar-lens" data-material-lens=""
+      children
+
+component MenuBarItem
+  props
+    state: MenuBarState
+    id: string
+    label: string
+    disabled: bool
+    press: action
+  action activate
+    if not state.disabled and not disabled
+      press()
+  slot
+  view
+    button id=id testId=id type="button" appearance="none" tabindex=0 aria-label=label disabled=(state.disabled or disabled) press=activate
+      hatch="lenso-ui" data-lenso-kind="menu-bar-item" data-slot="menu-bar-item"
+      children
+
+component MenuExpandTrigger
+  props
+    state: MenuBarState
+    id: string
+    label: string
+    target: string
+    disabled: bool
+  slot
+  view
+    button id=id testId=id type="button" appearance="none" tabindex=0 aria-label=label aria-haspopup="menu" disabled=(state.disabled or disabled)
+      popovertarget=target popovertargetaction="toggle" hatch="lenso-ui" data-lenso-kind="menu-expand-trigger" data-slot="menu-trigger"
+      children
+
+component MenuExpandIcon
+  view
+    svg width=16 height=16 viewBox="0 0 16 16" aria-hidden=true
+      path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width=1.5

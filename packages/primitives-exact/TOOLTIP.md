@@ -6,6 +6,11 @@ authored native button alongside a Dialog command; see `open-dialog` in the
 [runnable fixture](example/app.contract). No wrapper, extra focus stop or
 JavaScript hatch is required for that composition.
 
+The package compiles against unmodified Exact. Basic Tooltip intent/cleanup is
+a core probe; shared-trigger composition with nested Dialog lifetimes is
+experimental. Host AX and focus behavior are limited to the observed
+[stock baseline](VERIFICATION.md); historical patched results are not a guarantee.
+
 ## Ownership
 
 The primitive owns the transition rules. The app owns one `TooltipState` for

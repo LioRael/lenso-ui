@@ -40,7 +40,11 @@
     "TOOLBAR.md",
     "GLASS_CONTAINER.md",
     "POPOVER.md",
-    "TOOLTIP.md"
+    "TOOLTIP.md",
+    "MENU.md",
+    "SUBMENUS.md",
+    "MENU_MODAL.md",
+    "MENU_BAR.md"
   ],
   "type": "module",
   "exports": {

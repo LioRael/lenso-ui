@@ -1,5 +1,7 @@
 # Shared route data follow-up
 
+Historical route/scope extraction measurement. The subsequent search-loading change and current comparison are in [SEARCH_STARTUP.md](SEARCH_STARTUP.md).
+
 Measured 2026-11-10T23:35:48.422Z after the native Apple integration. The saved baseline is the same 300-page fixture built immediately before this extraction. Native builds and functional browser suites had finished before the timed comparison started. Results are medians of three fresh-context trials, interleaved with reversed implementation order on alternate rounds: gzip, disabled cache, 80 ms latency, 200,000 bytes/second download and 4× CPU slowdown. [ASTRO_COMPARISON.md](ASTRO_COMPARISON.md) records both Astro modes and the full comparison limits. [STARTUP.md](STARTUP.md) retains the earlier metadata extraction measurements.
 
 ## Change

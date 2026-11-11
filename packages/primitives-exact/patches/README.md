@@ -1,3 +1,7 @@
+> Repository-only research. These patches are not dependencies, are excluded
+> from the package, and are never applied by the normal build or tests.
+> Current support is defined by [the stock baseline](../VERIFICATION.md).
+
 # Exact SDK review series
 
 Base: `956ae33a35ffa5313d7be3cebc55ed84f9480e0a`. These are local, unpublished
@@ -19,7 +23,7 @@ single-modal isolation). Before the fix, the corresponding native AX role/state
 assertions fail. The shared agent state checks alone are insufficient.
 
 ```sh
-bun run test:host-patches regress native-accessibility macos
+bun run research:host-patches regress native-accessibility macos
 ```
 
 ## 2. Recognized iOS Escape
@@ -35,7 +39,7 @@ Escape leaves the sheet open and subsequent background activation is blocked.
 No AX suite is attached to this input-only patch.
 
 ```sh
-bun run test:host-patches regress agent-dialog-escape ios
+bun run research:host-patches regress agent-dialog-escape ios
 ```
 
 ## 3. Covered modal isolation
@@ -57,9 +61,9 @@ cases. A real Chrome AX observation is also mutated to prove the independent
 outer Dialog element and WebKit focus trapped on the covered parent.
 
 ```sh
-bun run test:host-patches regress nested-dialogs web
-bun run test:host-patches regress nested-dialogs macos
-bun run test:host-patches regress nested-dialogs ios
+bun run research:host-patches regress nested-dialogs web
+bun run research:host-patches regress nested-dialogs macos
+bun run research:host-patches regress nested-dialogs ios
 ```
 
 ## 4. Dialog and route lifetime
@@ -79,9 +83,9 @@ fixes these cases exposed missing fallback, stale route ownership, restoration
 before UIKit dismissal, and empty focus on returning to the page.
 
 ```sh
-bun run test:host-patches regress dialog-lifecycle web
-bun run test:host-patches regress dialog-lifecycle macos
-bun run test:host-patches regress dialog-lifecycle ios
+bun run research:host-patches regress dialog-lifecycle web
+bun run research:host-patches regress dialog-lifecycle macos
+bun run research:host-patches regress dialog-lifecycle ios
 ```
 
 ## 5. Static command, ARIA and Dialog relationships
@@ -94,7 +98,7 @@ cases and dynamic boundaries. It changes the compiler, not primitive runtime
 state or platform presentation.
 
 ```sh
-bun run test:host-patches regress compiler-relationships compiler
+bun run research:host-patches regress compiler-relationships compiler
 # In Exact, using its pinned toolchain:
 cargo test -p contract --test relationships --no-fail-fast
 ```
@@ -118,7 +122,7 @@ Use Exact's pinned Rust toolchain, existing Bun/native SDKs and Playwright as in
 
 ```sh
 export EXACT_ROOT=/absolute/path/to/exact
-bun run test:host-patches check
+bun run research:host-patches check
 ```
 
 The check reads pinned Git objects from that checkout, recreates changed files

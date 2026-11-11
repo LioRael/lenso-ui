@@ -1,0 +1,23 @@
+{
+  "core": [
+    "native fields report values to their owner",
+    "controlled buttons and remounting preserve app state",
+    "disclosure and single and multiple accordion selection",
+    "tabs select their associated content",
+    "dialog cancel and confirmed actions",
+    "popover and menu commands",
+    "tooltip deadlines, hover persistence, dismissal and activation",
+    "vertical tabs have independent explicit selection"
+  ],
+  "experimental": [
+    "native keyboard activation and tab navigation",
+    "nested modal dismissal returns to its parent scope",
+    "nested modal close buttons release the preceding scope on reopen",
+    "four modal levels restore focus one scope at a time",
+    "a removed child invoker falls back inside the parent modal",
+    "a removed page invoker falls back to the live page",
+    "removing an active modal subtree returns to its surviving invoker",
+    "navigation push dismisses the old modal stack and preserves arrival focus",
+    "navigation with source disposal removes the old stack without stealing arrival focus"
+  ]
+}

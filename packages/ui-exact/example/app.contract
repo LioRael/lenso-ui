@@ -1,3 +1,8 @@
+use NumberFieldExample from "./number-field.contract"
+use MenuBarExample from "./menu-bar.contract"
+use ModalMenuExample from "./menu-modal.contract"
+use MenuSubmenuExample from "./menu-submenu.contract"
+use MenuExample from "./menu.contract"
 use TooltipExample from "./tooltip.contract"
 use PopoverHoverExample from "./popover-hover.contract"
 use PopoverExample from "./popover.contract"
@@ -98,3 +103,8 @@ component App
           PopoverExample()
           PopoverHoverExample()
           TooltipExample()
+          MenuExample()
+          MenuSubmenuExample()
+          ModalMenuExample()
+          MenuBarExample()
+          NumberFieldExample()

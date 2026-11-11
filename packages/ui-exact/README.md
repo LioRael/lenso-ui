@@ -45,6 +45,16 @@ collision-aware positioning, hover previews and nested keyboard/focus behavior. 
 for the API, [hover example](example/popover-hover.contract) and remaining modal,
 portal and native integration work.
 
+Menu adds native anchored actions, checkbox/radio items, rich rows and compact
+Glass material. See [Menu](MENU.md) and its [compiled example](example/menu.contract)
+for the implemented path and remaining morph work.
+[Menu modality](MENU_MODAL.md) adds pointer isolation and input-dependent page
+scrolling with shared Dialog ownership; Tab continues to exit the menu.
+[Compact edit bar](MENU_BAR.md) adds shared-material actions and a native expand
+trigger whose anchor and pointer cutout cover the entire bar.
+[Submenus](SUBMENUS.md) adds cascade/stacked composition and three-level keyboard
+and touch interaction; its shared-title spring motion remains open.
+
 Tooltip adds supplementary descriptions with hover/focus timing, grouped delays,
 native trigger actions and anchored thick material. See [Tooltip](TOOLTIP.md) and
 its [compiled example](example/tooltip.contract) for composition and open gaps.

@@ -60,3 +60,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+`src/menu.ts` uses Floating UI DOM 1.8.0 for native menu positioning and the
+shared Lenso Glass renderer for the compact material. Menu presentation reuses
+the attributed Lenso/Glisse maps; the retained workspace notices remain included.
+
+`src/menu-submenu.ts` adapts Base UI 1.9.0 submenu hover and the shared Lenso
+settled parent pose. It retains the Material-UI/Floating UI MIT notices above.
+
+`src/menu-pointer-focus.ts` bridges Exact native pointer focus with keyboard
+opening and submenu return focus; layout retargeting does not count as user movement.
+
+`src/number-parse.ts` and `src/number-value.ts` retain Base UI 1.9.0 NumberField
+locale parsing and validation utilities. `src/number-field.ts` adapts its native
+input, step and press/hold contracts to Exact. They retain the Material-UI and
+Floating UI MIT notices reproduced above; no React runtime is imported.

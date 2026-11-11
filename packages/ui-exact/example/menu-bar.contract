@@ -1,0 +1,57 @@
+use MenuBarState, MenuBar, MenuBarItem, MenuExpandTrigger, MenuExpandIcon, Menu, MenuState, MenuPositioner, MenuPopup, MenuItem, Button from "@lenso/ui-exact"
+
+component MenuBarExample
+  state disabled = false
+  state pasteDisabled = true
+  state elastic = true
+  state direction = "ltr"
+  state mounted = true
+  state copied = 0
+  state pasted = 0
+  state selected = 0
+  derive bar = MenuBarState(id="edit-bar", label="Edit actions", direction=direction, disabled=disabled, elastic=elastic)
+  derive settings = MenuState(id="edit-bar-menu", label="More edit actions", labelledBy="", side="bottom", align="end", direction=direction, sideOffset=8, alignOffset=0, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  action copy
+    copied = copied + 1
+  action paste
+    pasted = pasted + 1
+  action choose
+    selected = selected + 1
+  action toggleDisabled
+    disabled = not disabled
+  action togglePaste
+    pasteDisabled = not pasteDisabled
+  action toggleElastic
+    elastic = not elastic
+  action toggleDirection
+    direction = direction == "ltr" ? "rtl" : "ltr"
+  action toggleMounted
+    mounted = not mounted
+  view
+    column id="menu-bar-examples" gap=12
+      text "Edit menu" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable bar", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="edit-bar-disabled")
+        Button(label="Enable paste", press=togglePaste, disabled=false, size="sm", variant="bordered", testId="edit-bar-paste-disabled")
+        Button(label="Elastic", press=toggleElastic, disabled=false, size="sm", variant="bordered", testId="edit-bar-elastic")
+        Button(label="Direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="edit-bar-direction")
+        Button(label="Mount bar", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="edit-bar-mounted")
+      if mounted
+        Menu()
+          MenuBar(state=bar)
+            MenuBarItem(state=bar, id="edit-bar-copy", label="Copy", disabled=false, press=copy)
+              text "Copy"
+            MenuBarItem(state=bar, id="edit-bar-paste", label="Paste", disabled=pasteDisabled, press=paste)
+              text "Paste"
+            MenuExpandTrigger(state=bar, id="edit-bar-more", label="More actions", target=settings.id, disabled=false)
+              MenuExpandIcon()
+          MenuPositioner(state=settings, modal=true)
+            MenuPopup(state=settings)
+              MenuItem(id="edit-bar-select", label="Select all", target=settings.id, press=choose, disabled=false, variant="default", closeOnClick=true)
+                text "Select all"
+              MenuItem(id="edit-bar-replace", label="Replace", target=settings.id, press=choose, disabled=false, variant="default", closeOnClick=true)
+                text "Replace"
+      text `Copied: ${copied}` testId="edit-bar-copied"
+      text `Pasted: ${pasted}` testId="edit-bar-pasted"
+      text `Selected: ${selected}` testId="edit-bar-selected"
+      Button(label="Next action", press=copy, disabled=false, size="sm", variant="bordered", testId="edit-bar-next")

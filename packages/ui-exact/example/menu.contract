@@ -1,0 +1,108 @@
+use MenuState, Menu, MenuTrigger, MenuPortal, MenuPositioner, MenuPopup, MenuItem, MenuItemCheckbox, MenuItemRadio, MenuItemLink, MenuItemIndicator, MenuItemLabel, MenuItemDescription, MenuItemContent, MenuItemShortcut, MenuSection, MenuSectionLabel, MenuRadioGroup, MenuSeparator, MenuActionGroup, MenuAction, Button from "@lenso/ui-exact"
+
+component MenuExample
+  state action = "No action selected"
+  state count = 0
+  state grid = true
+  state sort = "name"
+  state unavailable = true
+  state disabled = false
+  state mounted = true
+  state rtl = false
+  state side = "bottom"
+  state align = "end"
+  state tracking = true
+  derive settings = MenuState(id="document-menu", label="Document actions", labelledBy="", side=side, align=align, direction=(rtl ? "rtl" : "ltr"), sideOffset=8, alignOffset=0, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=(not tracking))
+  action duplicate
+    action = "Document duplicated"
+    count = count + 1
+  action share
+    action = "Share document"
+    count = count + 1
+  action remove
+    action = "Document moved to Trash"
+    count = count + 1
+  action toggleGrid
+    grid = not grid
+  action byName
+    sort = "name"
+  action byDate
+    sort = "date"
+  action toggleUnavailable
+    unavailable = not unavailable
+  action toggleDisabled
+    disabled = not disabled
+  action toggleMounted
+    mounted = not mounted
+  action toggleDirection
+    rtl = not rtl
+  action toggleTracking
+    tracking = not tracking
+  action cycleSide
+    side = side == "bottom" ? "top" : (side == "top" ? "left" : (side == "left" ? "right" : (side == "right" ? "inline-start" : (side == "inline-start" ? "inline-end" : "bottom"))))
+  action cycleAlign
+    align = align == "end" ? "start" : (align == "start" ? "center" : "end")
+  view
+    column id="menu-examples" gap=12
+      text "Menu" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Placement", press=cycleSide, disabled=false, size="sm", variant="bordered", testId="menu-side")
+        Button(label="Alignment", press=cycleAlign, disabled=false, size="sm", variant="bordered", testId="menu-align")
+        Button(label="Direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="menu-direction")
+        Button(label="Disable trigger", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="menu-disabled")
+        Button(label="Available action", press=toggleUnavailable, disabled=false, size="sm", variant="bordered", testId="menu-unavailable")
+        Button(label="Mount popup", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="menu-mounted")
+        Button(label="Tracking", press=toggleTracking, disabled=false, size="sm", variant="bordered", testId="menu-tracking")
+      Menu()
+        MenuTrigger(id="menu-open", label="Document actions", target="document-menu", disabled=disabled, iconOnly=false)
+          text "Document actions"
+        if mounted
+          MenuPortal()
+            MenuPositioner(state=settings, modal=false)
+              MenuPopup(state=settings)
+                MenuActionGroup()
+                  MenuAction(id="menu-share", target="document-menu", label="Share", press=share, disabled=false, variant="default", closeOnClick=true)
+                    MenuItemLabel()
+                      text "Share"
+                  MenuAction(id="menu-duplicate", target="document-menu", label="Duplicate", press=duplicate, disabled=false, variant="default", closeOnClick=true)
+                    MenuItemLabel()
+                      text "Duplicate"
+                MenuSeparator()
+                MenuSection(label="View", labelledBy="view-menu-label")
+                  MenuSectionLabel(id="view-menu-label")
+                    text "View"
+                  MenuItemCheckbox(id="menu-grid", target="document-menu", label="Show grid", press=toggleGrid, disabled=false, variant="default", closeOnClick=false, checked=grid)
+                    MenuItemIndicator(checked=grid)
+                      text "✓"
+                    MenuItemLabel()
+                      text "Show grid"
+                  MenuItem(id="menu-unavailable-item", target="document-menu", label="Export", press=duplicate, disabled=unavailable, variant="default", closeOnClick=true)
+                    MenuItemLabel()
+                      text "Export"
+                  MenuRadioGroup(label="Sort documents")
+                    MenuItemRadio(id="menu-sort-name", target="document-menu", label="Name", press=byName, disabled=false, variant="default", closeOnClick=false, checked=(sort == "name"))
+                      MenuItemIndicator(checked=(sort == "name"))
+                        text "✓"
+                      MenuItemLabel()
+                        text "Name"
+                    MenuItemRadio(id="menu-sort-date", target="document-menu", label="Date", press=byDate, disabled=false, variant="default", closeOnClick=false, checked=(sort == "date"))
+                      MenuItemIndicator(checked=(sort == "date"))
+                        text "✓"
+                      MenuItemLabel()
+                        text "Date"
+                MenuSeparator()
+                MenuItemLink(id="menu-help", href="#menu-examples", label="Document help", disabled=false, variant="default", closeOnClick=true)
+                  MenuItemLabel()
+                    text "Document help"
+                MenuItem(id="menu-delete", target="document-menu", label="Move to Trash", press=remove, disabled=false, variant="danger", closeOnClick=true)
+                  MenuItemContent()
+                    MenuItemLabel()
+                      text "Move to Trash"
+                    MenuItemDescription()
+                      text "You can restore it later."
+                  MenuItemShortcut()
+                    text "⌘⌫"
+      text action testId="menu-result"
+      text `Actions: ${count}` testId="menu-count"
+      text `Sort: ${sort}` testId="menu-sort-result"
+      Button(label="Next action", press=share, disabled=false, size="sm", variant="bordered", testId="menu-next")

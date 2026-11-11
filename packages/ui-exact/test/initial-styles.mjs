@@ -220,6 +220,24 @@ export async function checkInitialStyles(page, url, engine) {
       fontSize: "12px",
       focusRetained: true,
     });
+    await page.getByTestId("menu-open").click();
+    await page.waitForFunction(() =>
+      document.getElementById("document-menu").matches(":popover-open"),
+    );
+    assert.equal(
+      await page
+        .getByTestId("document-menu-popup")
+        .evaluate((n) => getComputedStyle(n).borderRadius),
+      "34px",
+    );
+    assert.equal(
+      await page.getByTestId("menu-grid").evaluate((n) => getComputedStyle(n).paddingInlineStart),
+      "36px",
+    );
+    await page.keyboard.press("Escape");
+    await page.waitForFunction(
+      () => !document.getElementById("document-menu").matches(":popover-open"),
+    );
     const scrollInitial = await page.evaluate(() => {
       const node = document.getElementById("shadow-sample"),
         style = getComputedStyle(node);

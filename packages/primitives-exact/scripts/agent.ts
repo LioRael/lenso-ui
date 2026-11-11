@@ -1,5 +1,5 @@
 import path from "node:path";
-import { buildExample } from "./example";
+import { agentSuite, buildExample } from "./example";
 
 const host = process.argv[2] ?? "web";
 if (host !== "web")
@@ -8,13 +8,7 @@ if (host !== "web")
   );
 const { app, dist, exact } = await buildExample();
 const child = Bun.spawn(
-  [
-    "bun",
-    path.join(exact, "scripts/agent.mjs"),
-    host,
-    "--test",
-    process.env["EXACT_AGENT_TEST"] ?? path.join(app, "app.test.contract"),
-  ],
+  ["bun", path.join(exact, "scripts/agent.mjs"), host, "--test", await agentSuite(app)],
   {
     cwd: exact,
     env: { ...process.env, EXACT_APP_DIR: app, EXACT_WEB_DIST: dist, EXACT_FEEDBACK: "0" },

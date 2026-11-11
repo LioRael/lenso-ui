@@ -1,0 +1,108 @@
+use MenuState, Menu, MenuTrigger, MenuPortal, MenuPositioner, MenuPopup, MenuItem, MenuItemLabel, MenuItemSubmenuIndicator, MenuSubmenuRoot, MenuSubmenuPositioner, MenuSubmenuTrigger, MenuSubmenuHeading, MenuSubmenuBody, Button from "@lenso/ui-exact"
+
+component MenuSubmenuExample
+  state presentation = "auto"
+  state rtl = false
+  state disabled = false
+  state mounted = true
+  state triggerMounted = true
+  state delay = 100
+  state result = "No format selected"
+  state count = 0
+  derive parent = MenuState(id="submenu-document", label="Export document", labelledBy="", side="bottom", align="end", direction=(rtl ? "rtl" : "ltr"), sideOffset=8, alignOffset=0, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  derive format = MenuState(id="submenu-format", label="Format", labelledBy="", side="inline-end", align="start", direction=(rtl ? "rtl" : "ltr"), sideOffset=8, alignOffset=-10, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  derive layout = MenuState(id="submenu-layout", label="Layout", labelledBy="", side="inline-end", align="start", direction=(rtl ? "rtl" : "ltr"), sideOffset=8, alignOffset=-10, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  derive sharing = MenuState(id="submenu-sharing", label="Sharing", labelledBy="", side="inline-end", align="start", direction=(rtl ? "rtl" : "ltr"), sideOffset=8, alignOffset=-10, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  action pdf
+    result = "PDF selected"
+    count = count + 1
+  action markdown
+    result = "Markdown selected"
+    count = count + 1
+  action landscape
+    result = "Landscape selected"
+    count = count + 1
+  action share
+    result = "Sharing selected"
+    count = count + 1
+  action cyclePresentation
+    presentation = presentation == "auto" ? "cascade" : (presentation == "cascade" ? "stacked" : "auto")
+  action toggleDirection
+    rtl = not rtl
+  action toggleDisabled
+    disabled = not disabled
+  action toggleMounted
+    mounted = not mounted
+  action toggleTrigger
+    triggerMounted = not triggerMounted
+  action toggleDelay
+    delay = delay == 100 ? 500 : 100
+  view
+    column id="menu-submenu-examples" gap=12
+      text "Submenus" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Presentation", press=cyclePresentation, disabled=false, size="sm", variant="bordered", testId="submenu-presentation")
+        Button(label="Direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="submenu-direction")
+        Button(label="Disable format", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="submenu-disabled")
+        Button(label="Mount submenu", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="submenu-mounted")
+        Button(label="Mount trigger", press=toggleTrigger, disabled=false, size="sm", variant="bordered", testId="submenu-trigger-mounted")
+        Button(label="Hover delay", press=toggleDelay, disabled=false, size="sm", variant="bordered", testId="submenu-delay")
+      Menu()
+        MenuTrigger(id="submenu-open", target="submenu-document", label="Export document", disabled=false, iconOnly=false)
+          text "Export document"
+        MenuPortal()
+          MenuPositioner(state=parent, modal=false)
+            MenuPopup(state=parent)
+              if triggerMounted
+                MenuSubmenuTrigger(id="submenu-format-trigger", target="submenu-format", label="Format", disabled=disabled, openOnHover="auto", delay=delay, closeDelay=0)
+                  MenuItemLabel()
+                    text "Format"
+                  MenuItemSubmenuIndicator()
+                    text "›"
+              MenuSubmenuTrigger(id="submenu-sharing-trigger", target="submenu-sharing", label="Sharing", disabled=false, openOnHover="auto", delay=100, closeDelay=0)
+                MenuItemLabel()
+                  text "Sharing"
+                MenuItemSubmenuIndicator()
+                  text "›"
+              MenuItem(id="submenu-parent-action", target="submenu-document", label="Export PDF", press=pdf, disabled=false, variant="default", closeOnClick=true)
+                MenuItemLabel()
+                  text "Export PDF"
+            if mounted
+              MenuSubmenuRoot()
+                MenuSubmenuPositioner(state=format, presentation=presentation)
+                  MenuPopup(state=format)
+                    MenuSubmenuHeading(id="submenu-format-back", target="submenu-format", label="Back to Export document")
+                      text "Format"
+                    MenuSubmenuBody()
+                      MenuItem(id="submenu-pdf", target="submenu-format", label="PDF", press=pdf, disabled=false, variant="default", closeOnClick=true)
+                        MenuItemLabel()
+                          text "PDF"
+                      MenuItem(id="submenu-markdown", target="submenu-format", label="Markdown", press=markdown, disabled=false, variant="default", closeOnClick=true)
+                        MenuItemLabel()
+                          text "Markdown"
+                      MenuSubmenuTrigger(id="submenu-layout-trigger", target="submenu-layout", label="Layout", disabled=false, openOnHover="auto", delay=100, closeDelay=0)
+                        MenuItemLabel()
+                          text "Layout"
+                        MenuItemSubmenuIndicator()
+                          text "›"
+                  MenuSubmenuRoot()
+                    MenuSubmenuPositioner(state=layout, presentation=presentation)
+                      MenuPopup(state=layout)
+                        MenuSubmenuHeading(id="submenu-layout-back", target="submenu-layout", label="Back to Format")
+                          text "Layout"
+                        MenuSubmenuBody()
+                          MenuItem(id="submenu-landscape", target="submenu-layout", label="Landscape", press=landscape, disabled=false, variant="default", closeOnClick=true)
+                            MenuItemLabel()
+                              text "Landscape"
+            MenuSubmenuRoot()
+              MenuSubmenuPositioner(state=sharing, presentation=presentation)
+                MenuPopup(state=sharing)
+                  MenuSubmenuHeading(id="submenu-sharing-back", target="submenu-sharing", label="Back to Export document")
+                    text "Sharing"
+                  MenuSubmenuBody()
+                    MenuItem(id="submenu-share-action", target="submenu-sharing", label="Invite reviewers", press=share, disabled=false, variant="default", closeOnClick=true)
+                      MenuItemLabel()
+                        text "Invite reviewers"
+      text result testId="submenu-result"
+      text `Exports: ${count}` testId="submenu-count"
+      Button(label="Next action", press=share, disabled=false, size="sm", variant="bordered", testId="submenu-next")

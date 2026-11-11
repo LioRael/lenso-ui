@@ -435,7 +435,7 @@ class Manager {
 }
 
 export interface SharedBackdropRegistration {
-  updateSource(change: BackdropChange, reads: BackdropReads): (() => void) | undefined;
+  updateSource(change: BackdropChange, reads: BackdropReads): (() => void) | "native" | undefined;
   read(
     change: BackdropChange,
     reads: BackdropReads,
@@ -477,6 +477,7 @@ export function registerSharedBackdrop(
   paint.entries.add(entry);
   return {
     updateSource(change, reads) {
+      if (!entry.state && change.paintOnly && !paint.paint.read(change, reads)) return "native";
       if (
         !entry.state ||
         entry.state.native ||

@@ -6,9 +6,14 @@ const materials = new WeakMap<HTMLElement, () => void>();
 export function updateMaterial(node: HTMLElement | SVGElement, data: DOMStringMap) {
   if (
     !(node instanceof HTMLElement) ||
-    !["alert-dialog-lens", "alert-lens", "badge-lens", "card-lens", "tabs-track-lens"].includes(
-      data["lensoKind"] ?? "",
-    ) ||
+    ![
+      "alert-dialog-lens",
+      "alert-lens",
+      "badge-lens",
+      "card-lens",
+      "tabs-track-lens",
+      "menu-bar-lens",
+    ].includes(data["lensoKind"] ?? "") ||
     materials.has(node)
   )
     return;
@@ -32,7 +37,9 @@ export function updateMaterial(node: HTMLElement | SVGElement, data: DOMStringMa
     if (opaque) detach();
     else if (!dialog || dialog.open)
       stop ??= attachGlass(node, {
-        profileKey: ["badge-lens", "tabs-track-lens"].includes(data["lensoKind"] ?? "")
+        profileKey: ["badge-lens", "tabs-track-lens", "menu-bar-lens"].includes(
+          data["lensoKind"] ?? "",
+        )
           ? "glass-small"
           : "glass-medium",
         liveGeometry: data["lensoKind"] === "alert-dialog-lens",

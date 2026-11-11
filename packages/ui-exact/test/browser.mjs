@@ -1,5 +1,14 @@
+import {
+  checkMenuBarInitial,
+  checkMenuBar,
+  checkMenuBarTouch,
+  checkMenuBarThemes,
+} from "./menu-bar.mjs";
+import { checkMenuModal, checkMenuModalTouch } from "./menu-modal.mjs";
+import { checkMenuSubmenus, checkSubmenuTouch } from "./menu-submenu.mjs";
 import { checkPopoverHover, checkPopoverTouch } from "./popover-hover.mjs";
 import { checkTooltip, checkTooltipTouch } from "./tooltip.mjs";
+import { checkMenu, checkMenuTouch, checkMenuNarrow } from "./menu.mjs";
 import { checkPopover } from "./popover.mjs";
 import { checkToolbarFusion } from "./toolbar-fusion.mjs";
 import { checkGlassContainer } from "./glass-container.mjs";
@@ -81,6 +90,13 @@ try {
         await firstEntry.close();
       }
       await page.bringToFront();
+      const barInitialPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+      let menuBarInitial;
+      try {
+        menuBarInitial = await checkMenuBarInitial(barInitialPage, server.url.href);
+      } finally {
+        await barInitialPage.close();
+      }
       const presentationCount = await checkPresentationCases(page);
       const button = page.getByTestId("glass-action");
       await page.waitForFunction(() => {
@@ -166,6 +182,12 @@ try {
       await checkPopover(page, name);
       await checkPopoverHover(page, name);
       const tooltip = await checkTooltip(page, name);
+      const menu = await checkMenu(page, name);
+      const menuNarrow = await checkMenuNarrow(page, name);
+      const menuSubmenus = await checkMenuSubmenus(page, name);
+      const menuModal = await checkMenuModal(page, name);
+      const menuBar = await checkMenuBar(page, name);
+      const menuBarThemes = await checkMenuBarThemes(page, name);
       const touchContext = await browser.newContext({
         viewport: { width: 390, height: 844 },
         hasTouch: true,
@@ -173,6 +195,10 @@ try {
       });
       let popoverTouch;
       let tooltipTouch;
+      let menuTouch;
+      let submenuTouch;
+      let menuModalTouch;
+      let menuBarTouch;
       try {
         const touchPage = await touchContext.newPage();
         touchPage.on("pageerror", (error) => errors.push(String(error)));
@@ -182,6 +208,10 @@ try {
         await touchPage.goto(server.url.href);
         popoverTouch = await checkPopoverTouch(touchPage, name);
         tooltipTouch = await checkTooltipTouch(touchPage);
+        menuTouch = await checkMenuTouch(touchPage);
+        submenuTouch = await checkSubmenuTouch(touchPage);
+        menuModalTouch = await checkMenuModalTouch(touchPage);
+        menuBarTouch = await checkMenuBarTouch(touchPage);
       } finally {
         await touchContext.close();
       }
@@ -258,6 +288,17 @@ try {
         popoverTouch,
         tooltip,
         tooltipTouch,
+        menu,
+        menuTouch,
+        menuNarrow,
+        menuSubmenus,
+        submenuTouch,
+        menuModal,
+        menuModalTouch,
+        menuBarInitial,
+        menuBar,
+        menuBarTouch,
+        menuBarThemes,
       });
       await page.close();
     } finally {

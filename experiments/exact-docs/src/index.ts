@@ -463,7 +463,7 @@ component DocsContext
     docsContentFailed = contentFailed
     docsMarkdownUrl = ${platform === "web" ? 'page.custom ? "" : ("/_docs/markdown" + (page.path == "/" ? "" : page.path) + "/index.md")' : '""'}
   view
-    view lang=page.scope.language direction=page.scope.direction data-docs-part="context" data-docs-seo=(current ? content.seo : "")
+    view lang=page.scope.language direction=page.scope.direction data-docs-part="context"${platform === "web" ? " data-docs-search-index=page.scope.searchIndexUrl" : ""} data-docs-seo=(current ? content.seo : "")
       ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=(current ? content.toc : []), query=query, search=search, results=results)
         children
 `;
@@ -610,7 +610,16 @@ ${
         name: site.config.name,
         app: { id: "dev.lenso.exactdocs", name: site.config.name, ...application },
         host: { ...host, [platform]: host[platform] ?? {} },
-        data: [...new Set([...data, "docs-part", "docs-language", "docs-token", "docs-seo"])],
+        data: [
+          ...new Set([
+            ...data,
+            "docs-part",
+            "docs-language",
+            "docs-token",
+            "docs-seo",
+            ...(platform === "web" ? ["docs-search-index"] : []),
+          ]),
+        ],
       },
       null,
       2,
@@ -697,6 +706,11 @@ export async function buildSite(
     .filter((file) => /^(app|input-glue-[\w-]+|frames-[\w-]+)\.js$/.test(file))
     .map((file) => `./${file}`);
   const styles = files.includes("style.css") ? ["./style.css"] : [];
+  const search: Record<string, string> = {};
+  for (const [i, scope] of searchScopes(site).entries()) {
+    const file = files.find((file) => new RegExp(`^scope-${i}-[\\w-]+\\.js$`).test(file));
+    if (file) search[searchIndexUrl(scope)] = `./${file}`;
+  }
   for (const name of htmlFiles) {
     const file = Bun.file(path.join(staging, name));
     const doc = site.documents.find((item) => path.join(item.path.slice(1), "index.html") === name);
@@ -707,6 +721,7 @@ export async function buildSite(
           preparePageHtml(await file.text(), {
             modules,
             styles,
+            search,
           }),
           doc,
           site,

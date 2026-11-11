@@ -6,6 +6,8 @@ import path from "node:path";
 import series from "../patches/series.json" with { type: "json" };
 
 const root = path.resolve(import.meta.dirname, "..");
+process.env["EXACT_AGENT_SCOPE"] = "all";
+process.env["EXACT_PRIMITIVES_CACHE"] ??= path.join(root, ".cache/proposal");
 const exact = process.env["EXACT_ROOT"];
 if (!exact) throw new Error("Set EXACT_ROOT to an initialized Exact checkout");
 const original = process.env["EXACT_BASE_GIT"] ?? exact;
@@ -94,7 +96,7 @@ try {
 }
 if (mode === "regress" && selected && host) {
   if (host === "compiler") {
-    await command(["bun", "scripts/contracts.ts"], root);
+    await command(["bun", "scripts/contracts.ts", "--proposal"], root);
   } else {
     const source = await Bun.file(path.join(root, "example/app.test.contract")).text();
     const tests = source
@@ -111,9 +113,17 @@ if (mode === "regress" && selected && host) {
     );
     if (host === "web") {
       await command(
-        ["bun", "test/accessibility.mjs", host, path.join(root, ".cache/example/app")],
+        [
+          "bun",
+          "test/accessibility.mjs",
+          host,
+          path.join(process.env["EXACT_PRIMITIVES_CACHE"], "example/app"),
+        ],
         root,
-        { ...env, EXACT_WEB_DIST: path.join(root, ".cache/example/dist") },
+        {
+          ...env,
+          EXACT_WEB_DIST: path.join(process.env["EXACT_PRIMITIVES_CACHE"], "example/dist"),
+        },
       );
       await command(["bun", "test/browser.mjs"], root, {
         ...env,
