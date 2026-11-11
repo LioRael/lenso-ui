@@ -1,0 +1,41 @@
+experiments/exact-docs/ENTRY_ACTIVATION.md
+  s_10c7d362cf24b2::t_f7b4cec7172aa9 1-61
+experiments/exact-docs/README.md
+  s_f68ad3a859106e::t_f091dc45097cf4 360-371,623,626
+experiments/exact-docs/src/index.ts
+  s_f68ad3a859106e::t_bfa17e3d90e8e1 94
+packages/ui-exact/test/number-scrub.mjs
+  s_9f86fbdae2d09f::t_289606d4a84b7f 189,264,384
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c52c5f3753dab7bbea7e5273e91c3685bf7cab03",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_9f86fbdae2d09f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c474-4440-7663-9158-135122f4ec2c",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_f68ad3a859106e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c5d0-0baa-76d0-a79e-3ab02e1ed2a6",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
