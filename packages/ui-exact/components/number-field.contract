@@ -80,8 +80,16 @@ component NumericInput
   props
     state: NumberFieldState
     kind: string
+    change: action
+    commit: action
+  action edited(text: string)
+    if not state.disabled and not state.readOnly
+      change(parseNumber(text))
+  action committed(text: string)
+    if not state.disabled and not state.readOnly
+      commit(parseNumber(text))
   view
-    input id=`${state.id}-input` testId=`${state.id}-input` type="number" inputmode="decimal" value=numberFieldText(state.value)
+    input id=`${state.id}-input` testId=`${state.id}-input` type="number" inputmode="decimal" value=numberFieldText(state.value) input=edited change=committed
       min=state.min max=state.max step=state.step disabled=state.disabled readonly=state.readOnly
       aria-label=state.label aria-labelledby=state.labelledBy aria-describedby=state.describedBy aria-invalid=state.invalid
       aria-required=state.required data-lenso-required=state.required
@@ -90,8 +98,10 @@ component NumericInput
 component NumberFieldInput
   props
     state: NumberFieldState
+    change: action
+    commit: action
   view
-    NumericInput(state=state, kind="number-field-input")
+    NumericInput(state=state, kind="number-field-input", change=change, commit=commit)
 
 component NumericButton
   props
@@ -103,8 +113,9 @@ component NumericButton
     commit: action
   action activate
     if not numberFieldBlocked(state, direction)
-      change(some(numberFieldNext(state, direction)))
-      commit(some(numberFieldNext(state, direction)))
+      let next = numberFieldNext(state, direction)
+      change(some(next))
+      commit(some(next))
   slot
   view
     button id=`${state.id}-${direction > 0 ? "increment" : "decrement"}` testId=`${state.id}-${direction > 0 ? "increment" : "decrement"}` type="button" appearance="none" tabindex=-1
@@ -154,8 +165,10 @@ component StepperGroup
 component StepperInput
   props
     state: NumberFieldState
+    change: action
+    commit: action
   view
-    NumericInput(state=state, kind="stepper-input")
+    NumericInput(state=state, kind="stepper-input", change=change, commit=commit)
 
 component StepperIncrementButton
   props

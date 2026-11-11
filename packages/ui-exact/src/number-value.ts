@@ -11,9 +11,6 @@ const STEP_EPSILON_FACTOR = 1e-10;
 // Equal to `STEP_EPSILON_FACTOR` only by coincidence — the two are independent and may diverge.
 const MAX_FLOATING_POINT_CLEANUP_DELTA = 1e-10;
 
-// The repo compiles against es2022 Intl types, so model NumberFormat v3 options locally.
-// Delete this once tsconfig.base.json includes es2023.
-
 export function hasNumberFormatRoundingOptions(format?: Intl.NumberFormatOptions) {
   return (
     format?.maximumFractionDigits != null ||

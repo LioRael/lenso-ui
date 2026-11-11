@@ -23,7 +23,7 @@ function createNumberField(root: HTMLElement) {
     view = doc.defaultView!;
   const initial = root.dataset["lensoValue"] ?? "";
   const originalType = input.type;
-  const originalValidity = input.validationMessage;
+  const originalValidity = input.validity.customError ? input.validationMessage : "";
   const attributes = new Map<string, string | null>();
   const set = (name: string, value: string | null) => {
     if (!attributes.has(name)) attributes.set(name, input.getAttribute(name));
@@ -37,6 +37,7 @@ function createNumberField(root: HTMLElement) {
   let frame = 0,
     epoch = 0;
   let pending: { from: string; target: string } | undefined;
+  let previous = root.dataset["lensoValue"] ?? "";
   let holding:
     | {
         id: number;
@@ -83,7 +84,9 @@ function createNumberField(root: HTMLElement) {
       amount,
       number("lensoMin", Number.MIN_SAFE_INTEGER),
       number("lensoMax", Number.MAX_SAFE_INTEGER),
-      Math.max(0, number("lensoMin", Number.MIN_SAFE_INTEGER)),
+      number("lensoMin", Number.MIN_SAFE_INTEGER) === Number.MIN_SAFE_INTEGER
+        ? 0
+        : number("lensoMin", Number.MIN_SAFE_INTEGER),
       options,
       root.dataset["lensoSnap"] === "true",
       small,
@@ -340,9 +343,9 @@ function createNumberField(root: HTMLElement) {
   const compositionStart = () => {
     composing = true;
   };
-  const compositionEnd = () => {
+  const compositionEnd = (event: CompositionEvent) => {
     composing = false;
-    edited(new Event("input"));
+    edited(event);
   };
   const form = input.form;
   const reset = (event: Event) =>
@@ -370,7 +373,11 @@ function createNumberField(root: HTMLElement) {
   return {
     sync() {
       config();
-      if (pending && canonical() !== pending.from) pending = undefined;
+      if (canonical() !== previous) {
+        if (!pending || canonical() !== pending.target) dirty = false;
+        pending = undefined;
+      }
+      previous = canonical();
       if (stopped()) clearHold();
       paint();
     },

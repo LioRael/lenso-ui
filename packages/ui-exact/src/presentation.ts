@@ -1,3 +1,4 @@
+import { numberPresentation, numberKinds } from "./number-presentation.js";
 import { menuPresentation, menuKinds } from "./menu-presentation.js";
 import { tooltipPresentation, tooltipKinds } from "./tooltip-presentation.js";
 import { popoverPresentation, popoverKinds } from "./popover-presentation.js";
@@ -81,7 +82,8 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
     default: {
       const result =
         kind &&
-        (formPresentation(kind, data, inputGroup) ??
+        (numberPresentation(kind, data) ??
+          formPresentation(kind, data, inputGroup) ??
           disclosurePresentation(kind, data) ??
           navigationPresentation(kind, data) ??
           feedbackPresentation(kind, data) ??
@@ -159,7 +161,17 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
   };
   add("menu-bar", { lensoElastic: "false" }, '[data-lenso-elastic="false"]');
   add("menu-bar", { lensoElastic: "true" }, '[data-lenso-elastic="true"]');
+  for (const fullWidth of ["false", "true"]) {
+    add("number-field", { lensoFullWidth: fullWidth }, `[data-lenso-full-width="${fullWidth}"]`);
+    for (const variant of ["primary", "secondary"])
+      add(
+        "number-field-group",
+        { lensoFullWidth: fullWidth, lensoVariant: variant },
+        `[data-lenso-full-width="${fullWidth}"][data-lenso-variant="${variant}"]`,
+      );
+  }
   for (const kind of [
+    ...numberKinds,
     ...menuKinds,
     ...tooltipKinds,
     ...popoverKinds,

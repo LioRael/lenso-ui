@@ -1,3 +1,4 @@
+import { updateNumberField, endNumberField } from "./number-field.js";
 import { updateMenuBar, endMenuBar } from "./menu-bar.js";
 import { updateMenu, endMenu } from "./menu.js";
 import { updateTooltip, endTooltip } from "./tooltip.js";
@@ -87,6 +88,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
       handle.data["lensoSurface"] !== "true") ||
     (kind === "toolbar-button" && handle.data["lensoGlass"] === "true" && variant !== "plain") ||
     kind === "search-field-group" ||
+    kind === "number-field-group" ||
     (kind === "page-control-track" && variant === "prominent") ||
     ((kind === "glass-button" || kind === "glass-button-group-item" || kind === "menu-trigger") &&
       !node.matches(":disabled"));
@@ -184,6 +186,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   );
   updateToolbar(node, handle.data);
   updateSearchField(node, handle.data);
+  updateNumberField(node, handle.data);
   updatePageControl(node, handle.data);
   updateSegmented(node, handle.data);
   updateTabs(node, handle.data);
@@ -212,6 +215,7 @@ export function elementEnded(handle: ExactElement) {
   endToolbarFusion(handle.element);
   endToolbar(handle.element);
   endSearchField(handle.element);
+  endNumberField(handle.element);
   endScrollShadow(handle.element);
   endPageControl(handle.element);
   endSegmented(handle.element);

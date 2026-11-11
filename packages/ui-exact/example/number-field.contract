@@ -1,0 +1,91 @@
+use NumberFieldState, NumberField, NumberFieldGroup, NumberFieldInput, NumberFieldIncrementButton, NumberFieldDecrementButton, Stepper, StepperGroup, StepperInput, StepperIncrementButton, StepperDecrementButton, Label, Button from "@lenso/ui-exact"
+
+fn shown(value: option<number>): string = match value { case some(n) => `${n}`, case none => "empty" }
+
+component NumberFieldExample
+  state amount = some(1.2)
+  state count = some(1)
+  state disabled = false
+  state readOnly = false
+  state invalid = false
+  state format = ""
+  state locale = "en-US"
+  state direction = "ltr"
+  state variant = "primary"
+  state fullWidth = false
+  state mounted = true
+  state changed = 0
+  state committed = 0
+  state last = ""
+  derive field = NumberFieldState(id="numeric-amount", label="Amount", labelledBy="numeric-amount-label", describedBy="numeric-description", value=amount, min=-10, max=10, step=0.1, largeStep=1, smallStep=0.01, snapOnStep=true, allowOutOfRange=false, allowWheelScrub=true, disabled=disabled, readOnly=readOnly, required=true, invalid=invalid, name="amount", locale=locale, format=format, variant=variant, fullWidth=fullWidth, direction=direction)
+  derive counter = NumberFieldState(id="numeric-count", label="Item count", labelledBy="", describedBy="", value=count, min=0, max=5, step=1, largeStep=2, smallStep=0.5, snapOnStep=false, allowOutOfRange=false, allowWheelScrub=false, disabled=disabled, readOnly=readOnly, required=false, invalid=invalid, name="count", locale="en-US", format="", variant="primary", fullWidth=false, direction=direction)
+  action edit(value: option<number>)
+    amount = value
+    changed = changed + 1
+  action commit(value: option<number>)
+    committed = committed + 1
+    last = shown(value)
+  action editCount(value: option<number>)
+    count = value
+  action commitCount(value: option<number>)
+    last = shown(value)
+  action toggleDisabled
+    disabled = not disabled
+  action toggleReadOnly
+    readOnly = not readOnly
+  action toggleInvalid
+    invalid = not invalid
+  action toggleFormat
+    format = format == "" ? "{\"style\":\"currency\",\"currency\":\"EUR\",\"minimumFractionDigits\":2}" : ""
+  action toggleLocale
+    locale = locale == "en-US" ? "de-DE" : (locale == "de-DE" ? "ar-EG" : "en-US")
+  action toggleVariant
+    variant = variant == "primary" ? "secondary" : "primary"
+  action toggleWidth
+    fullWidth = not fullWidth
+  action toggleDirection
+    direction = direction == "ltr" ? "rtl" : "ltr"
+  action external
+    amount = some(3.25)
+  action clear
+    amount = none
+  action toggleMounted
+    mounted = not mounted
+  view
+    column id="number-field-examples" gap=12
+      text "Number field and stepper" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="numeric-disabled")
+        Button(label="Read only", press=toggleReadOnly, disabled=false, size="sm", variant="bordered", testId="numeric-readonly")
+        Button(label="Invalid", press=toggleInvalid, disabled=false, size="sm", variant="bordered", testId="numeric-invalid")
+        Button(label="Format", press=toggleFormat, disabled=false, size="sm", variant="bordered", testId="numeric-format")
+        Button(label="Locale", press=toggleLocale, disabled=false, size="sm", variant="bordered", testId="numeric-locale")
+        Button(label="Variant", press=toggleVariant, disabled=false, size="sm", variant="bordered", testId="numeric-variant")
+        Button(label="Width", press=toggleWidth, disabled=false, size="sm", variant="bordered", testId="numeric-width")
+        Button(label="Direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="numeric-direction")
+        Button(label="Set externally", press=external, disabled=false, size="sm", variant="bordered", testId="numeric-external")
+        Button(label="Clear", press=clear, disabled=false, size="sm", variant="bordered", testId="numeric-clear")
+        Button(label="Mount", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="numeric-mounted")
+      text "Arrow keys change the amount; Shift changes by 1 and Alt by 0.01." id="numeric-description"
+      if mounted
+        NumberField(state=field, change=edit, commit=commit)
+          Label(id="numeric-amount-label", controlId="numeric-amount-input", label="Amount", required=true)
+          NumberFieldGroup(state=field)
+            NumberFieldDecrementButton(state=field, label="Decrease amount", change=edit, commit=commit)
+              text "−"
+            NumberFieldInput(state=field, change=edit, commit=commit)
+            NumberFieldIncrementButton(state=field, label="Increase amount", change=edit, commit=commit)
+              text "+"
+        Stepper(state=counter, change=editCount, commit=commitCount)
+          StepperInput(state=counter, change=editCount, commit=commitCount)
+          StepperGroup()
+            StepperDecrementButton(state=counter, label="Decrease count", change=editCount, commit=commitCount)
+              text "−"
+            StepperIncrementButton(state=counter, label="Increase count", change=editCount, commit=commitCount)
+              text "+"
+      text `Amount: ${shown(amount)}` testId="numeric-value"
+      text `Count: ${shown(count)}` testId="numeric-count-value"
+      text `Changes: ${changed}` testId="numeric-changes"
+      text `Commits: ${committed}` testId="numeric-commits"
+      text `Last: ${last}` testId="numeric-last"
+      Button(label="Next action", press=external, disabled=false, size="sm", variant="bordered", testId="numeric-next")

@@ -70,3 +70,8 @@ settled parent pose. It retains the Material-UI/Floating UI MIT notices above.
 
 `src/menu-pointer-focus.ts` bridges Exact native pointer focus with keyboard
 opening and submenu return focus; layout retargeting does not count as user movement.
+
+`src/number-parse.ts` and `src/number-value.ts` retain Base UI 1.9.0 NumberField
+locale parsing and validation utilities. `src/number-field.ts` adapts its native
+input, step and press/hold contracts to Exact. They retain the Material-UI and
+Floating UI MIT notices reproduced above; no React runtime is imported.

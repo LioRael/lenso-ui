@@ -1,6 +1,6 @@
 # 300-page Fumadocs comparison
 
-Measured 2026-11-11T10:15:43.936Z. Fumadocs Core/UI 16.18.4, Next.js 16.4.6 (production Webpack build, static export), React 19.3.1, Tailwind 4.3.5, Bun 1.4.4, Chromium 156.0.8078.4.
+Measured 2026-11-11T10:22:56.451Z. Fumadocs Core/UI 16.18.4, Next.js 16.4.6 (production Webpack build, static export), React 19.3.1, Tailwind 4.3.5, Bun 1.4.4, Chromium 156.0.8078.4.
 
 This compares the current headless Exact framework with two Fumadocs Core integrations and Fumadocs UI. It does not change the Exact default theme. The same 300 authored URLs are English/Chinese × v2/v1 × 75 topics, with 24 paragraphs and one code block per page. Both use the same parsed document IR, HTML body and build-time syntax tokens; Fumadocs uses the documented [custom source API](https://www.fumadocs.dev/docs/headless/source-api/source). This deliberately excludes an end-to-end MDX/Markdown compilation-throughput comparison.
 
@@ -15,27 +15,27 @@ Fumadocs' [static search configuration](https://www.fumadocs.dev/docs/headless/s
 
 Values are medians of 5 fresh-context trials, interleaved across all four implementations with reversed order on alternate rounds. The same Bun static server uses gzip, no-store delivery, cache disabled, 80 ms latency, 200,000 download bytes/second and 4× CPU slowdown. Viewport is 1280×900; motion is reduced. Route prefetch is disabled and checked. No reading delay, idle warmup or network-idle wait is inserted before the first action. One Chromium process hosts separate contexts; this is not a new browser-process/device boot for every sample.
 
-The action clock begins after initial load/FCP observation. Since Next downloads and hydrates its client before interaction while Exact defers its application, action latency alone is incomplete. The tables also include elapsed time before that action, total navigation-start-to-result time, and cumulative transfer. UI search includes opening the default dialog; the headless inputs are inline. Render measurements observe real DOM changes and two animation frames through a binding, including across navigation, rather than locator-polling completion. These are body/result readiness measures, not pixel parity, equal viewport composition or a meaningful-paint score for the default theme.
+The action clock begins after initial load/FCP observation. Since Next downloads and hydrates its client before interaction while Exact defers its application, action latency alone is incomplete. The tables also include elapsed time before that action, total navigation-start-to-result time, and cumulative transfer. UI search includes opening the default dialog; the headless inputs are inline. Render measurements observe real DOM changes and two animation frames through a binding, including across navigation, rather than locator-polling completion. Navigation readiness also requires the final code block to match the destination route, not only the heading. These are body/result readiness measures, not pixel parity, equal viewport composition or a meaningful-paint score for the default theme.
 
 ## Timings
 
 | Metric                                      | Exact Docs | Fumadocs Core, native search | Fumadocs Core, matched search | Fumadocs UI, native search |
 | ------------------------------------------- | ---------: | ---------------------------: | ----------------------------: | -------------------------: |
-| First contentful paint, ms                  |        232 |                          292 |                           288 |                        996 |
-| Elapsed before first action, ms             |      326.5 |                       1476.7 |                        1281.2 |                     1723.6 |
-| First search action to result, ms           |      956.6 |                       2160.7 |                           427 |                     3120.1 |
-| Cold navigation start to search result, ms  |     1292.8 |                       3617.3 |                        1713.3 |                     4831.1 |
-| Repeat search, ms                           |       42.1 |                        133.8 |                          46.1 |                      155.6 |
-| First counter action, ms                    |      828.6 |                         85.5 |                          82.8 |                      184.8 |
-| Cold navigation start to counter result, ms |     1125.4 |                       1529.5 |                        1346.9 |                     1925.9 |
-| Cold destination body ready, ms             |      218.3 |                        212.3 |                           195 |                      256.5 |
-| Back body ready, ms                         |       48.5 |                         28.8 |                          33.3 |                       54.3 |
-| Script before first action, ms              |       10.7 |                        181.7 |                         175.5 |                      165.8 |
-| Script during first search, ms              |       37.3 |                         23.7 |                          20.6 |                      168.1 |
+| First contentful paint, ms                  |        204 |                          264 |                           256 |                        924 |
+| Elapsed before first action, ms             |      282.9 |                       1412.7 |                        1196.7 |                     1666.1 |
+| First search action to result, ms           |        934 |                       2102.1 |                         400.9 |                     3060.8 |
+| Cold navigation start to search result, ms  |     1218.4 |                       3506.5 |                        1601.3 |                     4735.7 |
+| Repeat search, ms                           |       41.7 |                        123.3 |                          42.9 |                      155.9 |
+| First counter action, ms                    |      808.8 |                         67.2 |                          80.4 |                      160.1 |
+| Cold navigation start to counter result, ms |     1093.5 |                       1470.2 |                        1281.9 |                     1850.2 |
+| Cold destination body ready, ms             |      191.1 |                        187.6 |                         189.8 |                      230.8 |
+| Back body ready, ms                         |       43.6 |                         27.8 |                            27 |                       49.2 |
+| Script before first action, ms              |       11.2 |                          150 |                         143.2 |                        144 |
+| Script during first search, ms              |       24.2 |                         16.5 |                          13.2 |                        123 |
 
 ## Transfer
 
-KB means decimal 1,000 bytes. Wire measurements include response headers and reflect exactly the requests in each fresh context, not the sum of every emitted chunk. Exact's search data is JavaScript while the native Fumadocs databases are JSON, so script-only transfer should be read alongside total transfer.
+KB means decimal 1,000 bytes. Wire measurements include response headers and reflect the requests in each fresh context, not the sum of every emitted chunk. Completed requests use CDP loadingFinished totals. Next can cancel a Flight stream after consuming its useful rows; these requests use observed response-header plus encoded dataReceived bytes and are lower bounds, rather than being incorrectly reported as zero. Bytes are credited at response completion/cancellation, so asynchronous dialog-code downloads can straddle the initial/action boundary; additional counter bytes are not necessarily caused by the counter. Exact's search data is JavaScript while the native Fumadocs databases are JSON, so script-only transfer should be read alongside total transfer.
 
 | Metric                                | Exact Docs | Fumadocs Core, native search | Fumadocs Core, matched search | Fumadocs UI, native search |
 | ------------------------------------- | ---------: | ---------------------------: | ----------------------------: | -------------------------: |
@@ -46,7 +46,7 @@ KB means decimal 1,000 bytes. Wire measurements include response headers and ref
 | Search index wire transfer, KB        |       28.0 |                        323.2 |                          28.0 |                      323.2 |
 | Additional repeat search, KB          |        0.0 |                          0.0 |                           0.0 |                        0.0 |
 | Additional first counter, KB          |      113.0 |                          0.0 |                           0.0 |                       49.8 |
-| Additional destination navigation, KB |        1.8 |                          4.4 |                           0.0 |                        0.0 |
+| Additional destination navigation, KB |        1.8 |                        ≥ 1.7 |                         ≥ 1.7 |                      ≥ 4.1 |
 | Additional Back, KB                   |        0.0 |                          0.0 |                           0.0 |                        0.0 |
 
 The first English/current-version index payloads, excluding response headers:
@@ -62,11 +62,13 @@ Native structured full-text indexing and plain substring matching have different
 
 ## State and acceptance
 
-All four increment the fixture counter once, retain Count: 1 on forward navigation and browser Back, and use only one document during the timed navigation. All four reuse exactly one current-scope index for repeated queries; a fresh counter-only context loads no search database. A separate acceptance pass verifies Chinese/archived deep links, English language switching, current-version switching, correct scoped body-query results, and preservation of the root counter through those changes. Uncaught page errors fail the harness. Validated screenshots are in .cache/fumadocs/*-validated.png.
+All four increment the fixture counter once, retain Count: 1 on forward navigation and browser Back, and use only one document during the timed navigation. Search-result selection must navigate to a different correct page in both versions and retain the counter; UI selection must also close its dialog. All four reuse exactly one current-scope index for repeated queries; a fresh counter-only context loads no search database. A separate acceptance pass verifies Chinese/archived deep links, English language switching, current-version switching, correct scoped body-query results, and preservation of the root counter through those changes. Uncaught page errors fail the harness. Validated screenshots are in .cache/fumadocs/*-validated.png.
 
 The persistent React counter lives in the common root layout; it is an explicit fixture integration. The language/version Source adapters, scope controls and counter are authored for this corpus, not evidence that either framework has identical configuration APIs. The dialog's query can reset on scope change; only the stated root counter persistence is asserted. The fixture does not reproduce Exact's resource/mutation/task systems, arbitrary custom-page code, or native AppKit/UIKit hosts.
 
-This run built all four production outputs from the fixture sources before timing. Build durations are excluded because common IR/highlighting, search-index generation, SDK compilation and Next builds are different pipelines. Source/lockfiles and generated-data adapters live under bench/fumadocs; generated projects and complete samples are under .cache/fumadocs. Production bundle structure, browser scheduling and local host load can influence small timing differences. This is not a comparison with the existing Lenso UI documentation site or a native/mobile performance result.
+This run reused the explicitly requested prebuilt production artifacts. Build durations are excluded because common IR/highlighting, search-index generation, SDK compilation and Next builds are different pipelines. Source/lockfiles and generated-data adapters live under bench/fumadocs; generated projects and complete samples are under .cache/fumadocs. Production bundle structure, browser scheduling and local host load can influence small timing differences. This is not a comparison with the existing Lenso UI documentation site or a native/mobile performance result.
+
+The corpus deliberately contains high-cardinality per-paragraph configuration identifiers. They increase a token index's size; this is not a general index-size budget for ordinary prose documentation. This is a **static-to-static** deployment comparison. Fumadocs also supports server-backed and hosted search, which do not require downloading the full database; those network/backend tradeoffs are not measured here.
 
 ## Reproduce
 
