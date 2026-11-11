@@ -1,0 +1,328 @@
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-3.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/case-1.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-8.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-10.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/android/diagnostics/serialized-launch.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-7
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/stable-visible-footer-layout-metrics.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-29
+docs/research/native-modal-2026-11-11.md
+  s_ab5c95a3492695::t_5528def676e286 1-2,16-17
+  s_ab5c95a3492695::t_7a8e6f4a156606 3,6,51,60,62-63,66-68,78,82,86-87,91,94,97,106-107,109,120
+  s_ab5c95a3492695::t_c0b6db5d8c4d3b 69,92
+  s_ab5c95a3492695::t_e5f34afc7a2008 4-5,7-15,18-50,52-59,61,64-65,70-77,79-81,83-85,88-90,93,95-96,98-105,108,110-119,121-125
+packages/ui-native/src/modal.tsx
+  s_ab5c95a3492695::t_9a9f0ff2d8684a 228,241
+  s_ab5c95a3492695::t_91e5f363b1f57f 293-294,296,300
+  s_ab5c95a3492695::t_1e8239198b7435 194,200,232
+  s_ab5c95a3492695::t_e2a281b5ffa316 23,116-124,132,150-175,196-199,201-205,215,252-253,257-260,264-266,283-292,295,297-299,301-333
+  s_ab5c95a3492695::t_97185ae6767477 231
+  s_ab5c95a3492695::t_d95eb9f2a79a94 1-5,7-22,24-67,73-115,125-131,133-138,149,176-193,223-227,229-230,233-240,242-251,254-256,261-263,267-282,334-346
+  s_ab5c95a3492695::t_435f4cbc96744f 6,68-72
+  s_ab5c95a3492695::t_5d83ff2d71a88b 195,206-214,216-222
+  s_ab5c95a3492695::t_4e65472981dfd4 139-148
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/ModalQA.py.txt
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-133
+packages/ui-native/src/input.tsx
+  s_ab5c95a3492695::t_2fe0bbda0e4d5e 68,84
+docs/research/evidence/native-modal-2026-11-11/ios/focus-diagnostic1/diagnostic-inner-closed-before-typing-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-124
+docs/research/evidence/native-modal-2026-11-11/ios/focus-diagnostic1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-184
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-continuation1/continuation-complete-footer-metrics.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-29
+docs/research/evidence/native-modal-2026-11-11/ios/focus-diagnostic1/README.md
+  s_ab5c95a3492695::t_a5988fef323698 1
+docs/research/evidence/native-modal-2026-11-11/ios/focus-diagnostic1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-5
+docs/research/evidence/native-modal-2026-11-11/ios/native-sheet-gesture1/native-sheet-held-proposal-preserved-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-123
+docs/research/evidence/native-modal-2026-11-11/ios/current-cleanup-final1/current-native-cancel-closed-owner-preserved-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-163
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-9.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/safe-system-sheet-no-double-top-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-219
+docs/research/evidence/native-modal-2026-11-11/checks/results.json
+  s_ab5c95a3492695::t_1afe8644183f76 1-97
+docs/research/evidence/native-modal-2026-11-11/ios/sheet-preflight1/dark-system-sheet-preflight-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-215
+docs/research/evidence/native-modal-2026-11-11/android/diagnostics/serialized-start.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-16
+docs/research/evidence/native-modal-2026-11-11/ios/busy-reopen-final1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/checks/hermes-ios.log
+  s_ab5c95a3492695::t_1afe8644183f76 1-2,4-8,10-11,13-14,16-17
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 3,9,12,15
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/stable-natural-content-before-scroll-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-208
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-1.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/android/README.md
+  s_ab5c95a3492695::t_1afe8644183f76 1-36
+docs/research/evidence/native-modal-2026-11-11/ios/busy-reopen-final1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-5
+docs/research/evidence/native-modal-2026-11-11/ios/busy-reopen-final1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-197
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-continuation1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-319
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/stable-after-inner-layout-metrics.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-29
+docs/research/evidence/native-modal-2026-11-11/README.md
+  s_ab5c95a3492695::t_1afe8644183f76 1-25
+packages/ui-native/package.json
+  s_ab5c95a3492695::t_e2a281b5ffa316 27-28
+docs/research/evidence/native-modal-2026-11-11/ios/dark-keyboard-final1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-5
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-continuation1/continuation-completely-visible-footer-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-215
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-261
+docs/research/evidence/native-modal-2026-11-11/checks/boundaries.log
+  s_ab5c95a3492695::t_1afe8644183f76 1
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-continuation1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-7
+docs/research/evidence/native-modal-2026-11-11/ios/current-cleanup-final1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+apps/native-example/README.md
+  s_ab5c95a3492695::t_5528def676e286 53-61
+docs/research/evidence/native-modal-2026-11-11/checks/react-doctor-package.log
+  s_ab5c95a3492695::t_75c851983b0a7c 1-5,7-40
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 6
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/case-3.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/ios/native-sheet-gesture1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-5
+docs/research/evidence/native-modal-2026-11-11/checks/generation.log
+  s_ab5c95a3492695::t_1afe8644183f76 1-9
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/package.json.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-30
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-5.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_a5988fef323698 1-270
+docs/research/evidence/native-modal-2026-11-11/ios/nested-focus-final1/README.md
+  s_ab5c95a3492695::t_a5988fef323698 1
+docs/research/evidence/native-modal-2026-11-11/ios/README.md
+  s_ab5c95a3492695::t_a5988fef323698 1-42
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/safe-nested-outer-restored-focus-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-215
+docs/research/evidence/native-modal-2026-11-11/ios/sheet-preflight1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-51
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-5
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/README.md
+  s_ab5c95a3492695::t_a5988fef323698 1
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/busy-job-blocks-cancel-repeat-backdrop-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-129
+docs/research/evidence/native-modal-2026-11-11/ios/nested-focus-final1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-184
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/provenance.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-17
+docs/research/evidence/native-modal-2026-11-11/ios/final-shutdown.json
+  s_ab5c95a3492695::t_a5988fef323698 1-9
+docs/research/evidence/native-modal-2026-11-11/ios/new-target-preflight.json
+  s_ab5c95a3492695::t_a5988fef323698 1-50
+docs/research/evidence/native-modal-2026-11-11/checks/hermes-artifacts.json
+  s_ab5c95a3492695::t_1afe8644183f76 1-10
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/controlled-cancel-accepted-no-save-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-166
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/android/diagnostics/serialized-qa-complete.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-15
+docs/research/evidence/native-modal-2026-11-11/ios/focus-diagnostic1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/checks/hermes-android.log
+  s_ab5c95a3492695::t_1afe8644183f76 1-2,4-8,10-11,13-14,16-17
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 3,9,12,15
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/source-hashes-after.json
+  s_ab5c95a3492695::t_a5988fef323698 1-8
+docs/research/evidence/native-modal-2026-11-11/ios/busy-reopen-final1/saved-owner-persists-after-real-root-scroll-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-217
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/results-final.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-42
+docs/research/evidence/native-modal-2026-11-11/ios/dark-keyboard-final1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-68
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-6.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_69e975adbb40d3 16
+  s_ab5c95a3492695::t_c0b6db5d8c4d3b 19-22
+  s_ab5c95a3492695::t_bb5d34f873ea85 23
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-7.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/ios/new-target-boot-retry1.log
+  s_ab5c95a3492695::t_a5988fef323698 1-6
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/result-summary.json
+  s_ab5c95a3492695::t_a5988fef323698 1-9
+docs/research/evidence/native-modal-2026-11-11/checks/tests.log
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 2,8,14,17,21,26
+  s_ab5c95a3492695::t_1afe8644183f76 1,3-7,9-13,15-16,18-20,22-25,27-31
+docs/research/evidence/native-modal-2026-11-11/ios/migration-failure-extract.log
+  s_ab5c95a3492695::t_a5988fef323698 1-7
+docs/research/evidence/native-modal-2026-11-11/ios/busy-reopen-final1/README.md
+  s_ab5c95a3492695::t_a5988fef323698 1
+docs/research/evidence/native-modal-2026-11-11/checks/lint.log
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 1
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_c0b6db5d8c4d3b 552-553,555
+  s_ab5c95a3492695::t_5528def676e286 548-550
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-2.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/source/final-hashes.json
+  s_ab5c95a3492695::t_1afe8644183f76 1-10
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-continuation1/result-summary.json
+  s_ab5c95a3492695::t_a5988fef323698 1-9
+docs/research/evidence/native-modal-2026-11-11/ios/dark-keyboard-final1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/ios/current-cleanup-final1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-5
+docs/research/evidence/native-modal-2026-11-11/ios/nested-focus-final1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-5
+docs/research/evidence/native-modal-2026-11-11/ios/native-sheet-gesture1/README.md
+  s_ab5c95a3492695::t_a5988fef323698 1
+docs/research/evidence/native-modal-2026-11-11/ios/sheet-preflight1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/ios/nested-focus-final1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/case-4.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/ios/focus-diagnostic1/metro-focus-events.log
+  s_ab5c95a3492695::t_a5988fef323698 1-10
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/safe-wrapper-backdrop-closed-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-166
+docs/research/evidence/native-modal-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_a5988fef323698 1-224
+docs/research/evidence/native-modal-2026-11-11/ios/native-sheet-gesture1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-224
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/input.tsx.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-152
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/ModalExample.tsx.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-148
+docs/research/evidence/native-modal-2026-11-11/android/diagnostics/own-stacks-root.txt
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-1423
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/cohort.log
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-11
+apps/native-example/metro.config.cjs
+  s_ab5c95a3492695::t_e2a281b5ffa316 4,9-10
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_5ee644d1c63fe7 17,55-57,59,76,86,92,140
+docs/research/evidence/native-modal-2026-11-11/ios/busy-reopen-final1/parent-trigger-actually-clear-of-keyboard-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-166
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/held-backdrop-preserves-center-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-124
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_c0b6db5d8c4d3b 4
+  s_ab5c95a3492695::t_59111c2c810d98 225-228
+  s_ab5c95a3492695::t_5528def676e286 198-209,214-219,223-224
+  s_ab5c95a3492695::t_ee37b573732862 210-213,220-222
+  s_ab5c95a3492695::t_8362e62b84b728 19,229-235
+docs/research/evidence/native-modal-2026-11-11/checks/metro-restart.json
+  s_ab5c95a3492695::t_1afe8644183f76 1-8
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/real-save-completes-once-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-166
+docs/research/evidence/native-modal-2026-11-11/ios/native-sheet-gesture1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-308
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_d95eb9f2a79a94 61-62
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/results-final.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-18
+docs/research/evidence/native-modal-2026-11-11/android/diagnostics/system-anr-recovery.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-17
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-8
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-8
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/stable-initial-layout-metrics.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-29
+docs/research/evidence/native-modal-2026-11-11/android/accepted-candidate/case-4.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/design/native-components.md
+  s_ab5c95a3492695::t_c0b6db5d8c4d3b 87,93
+  s_ab5c95a3492695::t_af8fbe3c984999 88-92,94
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/modal.tsx.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-346
+docs/research/evidence/native-modal-2026-11-11/ios/current-cleanup-final1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-224
+docs/research/evidence/native-modal-2026-11-11/ios/current-cleanup-final1/README.md
+  s_ab5c95a3492695::t_a5988fef323698 1
+docs/research/evidence/native-modal-2026-11-11/ios/native-sheet-gesture1/native-sheet-owner-accepted-dismiss-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-166
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/layout-overlap-receipt.json
+  s_ab5c95a3492695::t_a5988fef323698 1-124
+docs/research/evidence/native-modal-2026-11-11/manifest.json
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 1-638
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-continuation1/binary-provenance.json
+  s_ab5c95a3492695::t_a5988fef323698 1-34
+docs/research/evidence/native-modal-2026-11-11/checks/metro-singletons.json
+  s_ab5c95a3492695::t_1afe8644183f76 1-17
+docs/research/evidence/native-modal-2026-11-11/checks/example-typecheck.log
+  s_ab5c95a3492695::t_1afe8644183f76 1-2
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-final1/metro.config.cjs.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-18
+docs/research/evidence/native-modal-2026-11-11/ios/safe-area-final1/safe-dark-center-initial-keyboard-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-215
+docs/research/evidence/native-modal-2026-11-11/ios/content-layout-continuation1/continuation-return-focus-owner-updated-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-215
+docs/research/evidence/native-modal-2026-11-11/android/diagnostics/initial-ime-history.txt
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-52
+docs/research/evidence/native-modal-2026-11-11/log-normalization.json
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 1-44
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/cohort.log
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-5
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/provenance.json
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-17
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/final-light-centered-task-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-217
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/ModalQA.py.txt
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1-131
+docs/research/evidence/native-modal-2026-11-11/checks/test-typecheck.log
+  s_ab5c95a3492695::t_1afe8644183f76 1
+apps/native-example/ModalExample.tsx
+  s_ab5c95a3492695::t_59111c2c810d98 4,13,17-20,37-38,44-72,74-92,94-99,101-103,105-107,110,112-145
+  s_ab5c95a3492695::t_5528def676e286 32
+  s_ab5c95a3492695::t_9a9f0ff2d8684a 39-43
+  s_ab5c95a3492695::t_5ee644d1c63fe7 1-3,5-12,14-16,21-31,33-36,73,93,100,104,108-109,111,146-148
+docs/research/evidence/native-modal-2026-11-11/checks/react-doctor-example.log
+  s_ab5c95a3492695::t_fc4fb7e4c58af3 6
+  s_ab5c95a3492695::t_75c851983b0a7c 1-5,7-40
+docs/research/evidence/native-modal-2026-11-11/checks/package-typecheck.log
+  s_ab5c95a3492695::t_1afe8644183f76 1-2
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/ModalQA.swift.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-140
+docs/research/evidence/native-modal-2026-11-11/android/layout-focus/case-2.xml
+  s_ab5c95a3492695::t_fd470fd4f7f6e0 1
+docs/research/evidence/native-modal-2026-11-11/ios/sheet-preflight1/source-hashes-before.json
+  s_ab5c95a3492695::t_a5988fef323698 1-4
+docs/research/evidence/native-modal-2026-11-11/ios/formal-final1/controlled-held-cancel-restores-native-sheet-hierarchy.txt
+  s_ab5c95a3492695::t_a5988fef323698 1-123
+bun.lock
+  s_ab5c95a3492695::t_413606b7983b7b 334
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6fb1455eaf747f3e0a0f8ec6e054c95022c45b9",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
