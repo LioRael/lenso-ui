@@ -1,0 +1,23 @@
+packages/ui-exact/BUTTON_GROUP.md
+  s_10c7d362cf24b2::t_2dbc3e01f13c23 50-53
+packages/ui-exact/COMPONENTS.md
+  s_10c7d362cf24b2::t_d2119713073dea 20-120
+packages/ui-exact/test/button-group.mjs
+  s_10c7d362cf24b2::t_20f734feeac29d 158-160,227,234-288
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b400984e33cbe0ee6daf5a6cc215ee4ba4bf99c6",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
