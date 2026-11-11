@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 
+const artifacts =
+  process.env.LENSO_EXACT_TEST_ARTIFACTS ?? path.resolve(import.meta.dirname, "../.cache/example");
+
 const shown = (page, value) =>
   page.waitForFunction((expected) => {
     const text = document.querySelector('[data-testid="numeric-value"]').textContent;
@@ -270,10 +273,7 @@ export async function checkNumberField(page, engine) {
         )
           await direct(page, "variant");
         await page.locator("#number-field-examples").screenshot({
-          path: path.resolve(
-            import.meta.dirname,
-            `../.cache/example/${engine}-number-${appearance}-${variant}-${width}.png`,
-          ),
+          path: path.join(artifacts, `${engine}-number-${appearance}-${variant}-${width}.png`),
         });
         captures.push({ width, appearance, variant });
       }

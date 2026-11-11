@@ -102,18 +102,28 @@ try {
     },
     { action },
   );
+  await cdp.send("Performance.enable");
+  await cdp.send("Profiler.enable");
+  await cdp.send("Profiler.start");
   await page.goto(server.url.href);
   await page.getByRole("heading", { name: "Guide 000", exact: true }).waitFor();
   assert.equal(await page.evaluate(() => Boolean(globalThis.exact?.state)), false);
-  await cdp.send("Profiler.enable");
-  await cdp.send("Profiler.start");
   const start = await page.evaluate(() => performance.now());
   if (action === "counter") await page.getByTestId("comparison-counter").click();
   else
     await page
       .getByRole("searchbox", { name: "Search documentation" })
       .fill("acceptance-target-000");
-  const { paintMs } = await paint;
+  let timer;
+  const { paintMs } = await Promise.race([
+    paint,
+    new Promise((_, reject) => {
+      timer = setTimeout(
+        () => reject(Error(`Paint timed out; page errors: ${errors.join("; ")}`)),
+        15000,
+      );
+    }),
+  ]).finally(() => clearTimeout(timer));
   const durationMs = paintMs - start;
   const { profile } = await cdp.send("Profiler.stop");
   await page.waitForLoadState("networkidle");
@@ -140,10 +150,18 @@ try {
     response: Math.round((e.response - first) * 1000),
     end: Math.round((e.end - first) * 1000),
   }));
+  const metrics = await cdp.send("Performance.getMetrics");
+  const navStart = metrics.metrics.find((row) => row.name === "NavigationStart").value * 1000000;
+  const actionStart = navStart + start * 1000,
+    actionEnd = navStart + paintMs * 1000;
   const nodes = new Map(profile.nodes.map((node) => [node.id, node]));
   const self = new Map();
-  for (const [i, id] of profile.samples.entries())
-    self.set(id, (self.get(id) ?? 0) + profile.timeDeltas[i]);
+  let sampleTime = profile.startTime;
+  for (const [i, id] of profile.samples.entries()) {
+    sampleTime += profile.timeDeltas[i];
+    if (sampleTime >= actionStart && sampleTime <= actionEnd)
+      self.set(id, (self.get(id) ?? 0) + profile.timeDeltas[i]);
+  }
   const hot = [...self]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 15)
@@ -172,6 +190,16 @@ try {
     requests,
     resources,
     hot,
+  };
+  report.cost = {
+    measuredWaitMs: report.durationMs,
+    sampledNonIdleWallMs: Math.round(
+      [...self].reduce(
+        (sum, [id, value]) => sum + (nodes.get(id).callFrame.functionName === "(idle)" ? 0 : value),
+        0,
+      ) / 1000,
+    ),
+    actionResources: resources.filter((resource) => resource.end >= start),
   };
   const out = path.resolve(
     process.argv[3] ?? path.join(import.meta.dirname, "../.cache/startup-profile"),

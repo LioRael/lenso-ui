@@ -360,9 +360,10 @@ export async function checkPopover(page, engine, { capture = true } = {}) {
       bounds(await geometry());
       if (capture)
         await page.screenshot({
-          path: path.resolve(
-            import.meta.dirname,
-            `../.cache/example/${engine}-popover-${appearance}-${width}.png`,
+          path: path.join(
+            process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+              path.resolve(import.meta.dirname, "../.cache/example"),
+            `${engine}-popover-${appearance}-${width}.png`,
           ),
         });
     }
@@ -412,7 +413,11 @@ export async function checkPopover(page, engine, { capture = true } = {}) {
     .evaluate((n, v) => n.setAttribute("data-theme", v), theme);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-popover-geometry.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-popover-geometry.json`,
+    ),
     JSON.stringify({ endpoints }, null, 2) + "\n",
   );
   return { endpoints: endpoints.length };

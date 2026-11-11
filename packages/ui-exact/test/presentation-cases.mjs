@@ -40,6 +40,8 @@ export async function checkPresentationCases(page, kinds) {
           entry.kind.includes("button") ||
           entry.kind === "search-field-clear" ||
           [
+            "select-trigger",
+            "select-item",
             "number-field-increment",
             "number-field-decrement",
             "stepper-increment",
@@ -50,6 +52,9 @@ export async function checkPresentationCases(page, kinds) {
                 entry.kind === "choice-input" ||
                 [
                   "search-field-input",
+                  "select-reset",
+                  "select-validity",
+                  "select-form",
                   "number-field-input",
                   "stepper-input",
                   "number-form",

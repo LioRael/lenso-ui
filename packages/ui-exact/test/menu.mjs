@@ -315,9 +315,10 @@ export async function checkMenu(page, engine) {
         );
       }
       await page.screenshot({
-        path: path.resolve(
-          import.meta.dirname,
-          `../.cache/example/${engine}-menu-${appearance}-${width}.png`,
+        path: path.join(
+          process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+            path.resolve(import.meta.dirname, "../.cache/example"),
+          `${engine}-menu-${appearance}-${width}.png`,
         ),
       });
       await page.keyboard.press("Escape");
@@ -328,7 +329,11 @@ export async function checkMenu(page, engine) {
   await handle.dispose();
   await firstHandle.dispose();
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-menu-geometry.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-menu-geometry.json`,
+    ),
     JSON.stringify({ endpoints, collision, tracking: "passed" }, null, 2) + "\n",
   );
   return { endpoints: endpoints.length };
@@ -393,9 +398,10 @@ export async function checkMenuNarrow(page, engine) {
       );
       cases.push({ width, direction, positioner, panel });
       await page.screenshot({
-        path: path.resolve(
-          import.meta.dirname,
-          `../.cache/example/${engine}-menu-narrow-${direction}-${width}.png`,
+        path: path.join(
+          process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+            path.resolve(import.meta.dirname, "../.cache/example"),
+          `${engine}-menu-narrow-${direction}-${width}.png`,
         ),
       });
       await page.keyboard.press("Escape");
@@ -408,7 +414,11 @@ export async function checkMenuNarrow(page, engine) {
   }
   await page.setViewportSize(viewport);
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-menu-narrow-geometry.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-menu-narrow-geometry.json`,
+    ),
     JSON.stringify({ cases }, null, 2) + "\n",
   );
   return { cases: cases.length };

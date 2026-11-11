@@ -125,3 +125,14 @@ Before hatching, native open/close and linked presentation work; full state-driv
 placement/offsets, focus policy and the merged arrow mask start at hatch time.
 Literal native paragraph tags retain the agreed upstream gap. This implementation
 does not establish a performance advantage or bypass WebKit backdrop limitations.
+
+## Primitive migration qualification
+
+Positioner/Trigger/Close are now primitive-derived with explicit UI projections.
+Candidate-only geometry, hover and simulated touch checks passed. The former
+path-prefix comparison did not isolate old/new application resources; its baseline
+and pixel-parity claims are withdrawn. The intermediate Chromium right-side
+hover failure remains unexplained and open; former paired probes cannot establish
+whether it exists in the baseline. See the
+[migration record](../../docs/plans/exact-primitives-migration.md) for corrected
+independent-origin verification. Full quality and device acceptance remains open.

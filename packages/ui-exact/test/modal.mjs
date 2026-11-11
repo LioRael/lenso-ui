@@ -274,9 +274,10 @@ export async function checkModal(page, engine) {
         await page.getByTestId("theme").click();
       await open();
       await page.screenshot({
-        path: path.resolve(
-          import.meta.dirname,
-          `../.cache/example/${engine}-modal-${appearance}-${width}.png`,
+        path: path.join(
+          process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+            path.resolve(import.meta.dirname, "../.cache/example"),
+          `${engine}-modal-${appearance}-${width}.png`,
         ),
       });
       await canceled.click();
@@ -341,7 +342,11 @@ export async function checkModal(page, engine) {
     }
   });
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-modal-motion.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-modal-motion.json`,
+    ),
     JSON.stringify(motion, null, 2),
   );
   const enterAnimated = motion.enter.some((frame) => frame.opacity > 0 && frame.opacity < 1);

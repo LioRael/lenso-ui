@@ -257,12 +257,18 @@ test("compositor motion does not reread preferences but optical/theme inputs sti
     glass = document.createElement("div");
   root.append(glass);
   document.body.append(root);
+  const rootStyle = document.documentElement.getAttribute("style");
   let updates = 0;
   const stop = observeGlassPreferences(glass, () => {
     updates++;
   });
   const settle = () => new Promise((resolve) => setTimeout(resolve, 10));
   try {
+    document.documentElement.style.overflow = "hidden";
+    root.style.setProperty("--lg-switch-x", "10px");
+    root.style.setProperty("--lg-switch-fill", ".5");
+    root.style.setProperty("--lg-switch-lift-x", "1px");
+    root.style.setProperty("--lg-switch-lift-y", "2px");
     glass.style.opacity = ".7";
     root.style.transform = "translateX(10px)";
     root.style.borderRadius = "30px";
@@ -279,9 +285,17 @@ test("compositor motion does not reread preferences but optical/theme inputs sti
     glass.style.setProperty("--lg-blur", "8px");
     await settle();
     expect(updates).toBe(4);
+    root.style.overflow = "hidden";
+    await settle();
+    expect(updates).toBe(5);
+    document.documentElement.style.setProperty("--lenso-glass-tint-amount", ".8");
+    await settle();
+    expect(updates).toBe(6);
   } finally {
     stop();
     root.remove();
+    if (rootStyle === null) document.documentElement.removeAttribute("style");
+    else document.documentElement.setAttribute("style", rootStyle);
   }
 });
 

@@ -1,3 +1,9 @@
+import { checkPrimitiveInputModes } from "./primitive-input.mjs";
+import { checkPrimitiveChoiceValues } from "./primitive-composition.mjs";
+import { checkListPointer } from "./list-pointer.mjs";
+import { checkListReorder } from "./list-reorder.mjs";
+import { checkList } from "./list.mjs";
+import { checkSelectInitial, checkSelect, checkSelectForm } from "./select.mjs";
 import {
   checkNumberScrub,
   checkNumberScrubLock,
@@ -121,6 +127,24 @@ try {
         await numberInitialPage.close();
         await numberFormPage.close();
       }
+      let list, listReorder, listPointer;
+      let selectInitial, select, selectForm;
+      const selectPage = await browser.newPage({ viewport: { width: 390, height: 900 } });
+      selectPage.on("pageerror", (error) => errors.push(String(error)));
+      selectPage.on("console", (message) => {
+        if (message.type() === "error") errors.push(message.text());
+      });
+      try {
+        selectInitial = await checkSelectInitial(selectPage, server.url.href);
+        await selectPage.goto(server.url.href);
+        select = await checkSelect(selectPage, name);
+        list = await checkList(selectPage, name);
+        listReorder = await checkListReorder(selectPage);
+        listPointer = await checkListPointer(selectPage, name);
+        selectForm = await checkSelectForm(selectPage, server.url.href);
+      } finally {
+        await selectPage.close();
+      }
       const presentationCount = await checkPresentationCases(page);
       const button = page.getByTestId("glass-action");
       await page.waitForFunction(() => {
@@ -197,6 +221,8 @@ try {
       await checkToggle(page, name);
       await checkFeedback(page, name);
       await checkForms(page);
+      await checkPrimitiveInputModes(page);
+      await checkPrimitiveChoiceValues(page);
       await checkSearchField(page, name);
       await checkNavigation(page, name);
       await checkPagination(page, name);
@@ -364,6 +390,12 @@ try {
         numberScrubLock,
         numberScrubLateLock,
         numberScrubTouch,
+        list,
+        listReorder,
+        listPointer,
+        selectInitial,
+        select,
+        selectForm,
       });
       await page.close();
     } finally {

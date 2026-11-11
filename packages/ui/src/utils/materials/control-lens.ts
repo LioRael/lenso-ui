@@ -102,12 +102,10 @@ export function createKnobRefraction(
           : height * (vertical ? 1 : cross);
       Object.assign(track.style, {
         position: "absolute",
-        inset: "auto",
+        inset: `${24 + y + (height - h) / 2}px auto auto ${24 + x + (width - w) / 2}px`,
         transform: "none",
         margin: "0",
         maxWidth: "none",
-        left: `${24 + x + (width - w) / 2}px`,
-        top: `${24 + y + (height - h) / 2}px`,
         width: `${w}px`,
         height: `${h}px`,
         borderRadius: "999px",

@@ -1,3 +1,5 @@
+use StyledPopoverPositioner, StyledPopoverTrigger, StyledPopoverClose from "./generated/popover-parts.contract"
+
 shape PopoverState
   id: string
   label: string
@@ -37,11 +39,7 @@ component PopoverTrigger
     closeDelay: number
   slot
   view
-    button id=id testId=id appearance="none" tabindex=0 aria-label=label aria-haspopup="dialog"
-      disabled=disabled popovertarget=target popovertargetaction="toggle"
-      hatch="lenso-ui" data-lenso-kind="popover-trigger" data-slot="popover-trigger"
-      data-lenso-size=size data-lenso-variant=variant
-      data-lenso-open-on-hover=openOnHover data-lenso-hover-delay=delay data-lenso-close-delay=closeDelay
+    StyledPopoverTrigger(id=id, label=label, target=target, disabled=disabled, size=size, variant=variant, openOnHover=openOnHover, delay=delay, closeDelay=closeDelay)
       children
 
 component PopoverPositioner
@@ -49,12 +47,7 @@ component PopoverPositioner
     state: PopoverState
   slot
   view
-    box id=state.id testId=state.id popover="auto" role="presentation"
-      hatch="lenso-ui" data-lenso-kind="popover-positioner" data-slot="popover-positioner"
-      data-lenso-side=state.side data-lenso-align=state.align data-lenso-direction=state.direction
-      data-lenso-side-offset=state.sideOffset data-lenso-align-offset=state.alignOffset
-      data-lenso-collision-padding=state.collisionPadding data-lenso-collision-avoidance=state.collisionAvoidance
-      data-lenso-disable-anchor-tracking=state.disableAnchorTracking
+    StyledPopoverPositioner(id=state.id, side=state.side, align=state.align, direction=state.direction, sideOffset=state.sideOffset, alignOffset=state.alignOffset, collisionPadding=state.collisionPadding, collisionAvoidance=state.collisionAvoidance, disableAnchorTracking=state.disableAnchorTracking)
       children
 
 component PopoverPopup
@@ -113,8 +106,5 @@ component PopoverClose
     variant: string
   slot
   view
-    button id=id testId=id appearance="none" tabindex=0 aria-label=label disabled=disabled
-      popovertarget=target popovertargetaction="hide"
-      hatch="lenso-ui" data-lenso-kind="popover-close" data-slot="popover-close"
-      data-lenso-size=size data-lenso-variant=variant
+    StyledPopoverClose(id=id, label=label, target=target, disabled=disabled, size=size, variant=variant)
       children

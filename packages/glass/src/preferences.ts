@@ -25,12 +25,18 @@ export function glassIsOpaque(element: HTMLElement): boolean {
 
 export function observeGlassPreferences(element: HTMLElement, update: () => void): () => void {
   const presentation =
-    /^(?:transform(?:-origin)?|translate|scale|opacity|filter|clip-path|border(?:-(?:top-left|top-right|bottom-left|bottom-right))?-radius|--lg-(?:press-(?:scale|translate)|menu-(?:scale|translate|origin|(?:surface|trigger)-opacity)|light-(?:x|y|radius|label)))\s*:/;
-  const inputs = (style: string) =>
-    style
+    /^(?:transform(?:-origin)?|translate|scale|opacity|filter|clip-path|border(?:-(?:top-left|top-right|bottom-left|bottom-right))?-radius|--lg-(?:press-(?:scale|translate)|menu-(?:scale|translate|origin|(?:surface|trigger)-opacity)|switch-(?:x|fill|lift-[xy])|light-(?:x|y|radius|label)))\s*:/;
+  const inputs = (node: HTMLElement) =>
+    node.style.cssText
       .split(";")
       .map((rule) => rule.trim())
-      .filter((rule) => rule && !presentation.test(rule))
+      .filter(
+        (rule) =>
+          rule &&
+          !presentation.test(rule) &&
+          // Modal scroll locks change geometry, which the lens observers track separately.
+          !(node === node.ownerDocument.documentElement && /^overflow(?:-[xy])?\s*:/.test(rule)),
+      )
       .join(";");
   const signatures = new WeakMap<HTMLElement, string>();
   const observer = new MutationObserver((records) => {
@@ -41,14 +47,14 @@ export function observeGlassPreferences(element: HTMLElement, update: () => void
       else changed = true;
     }
     for (const node of targets) {
-      const next = inputs(node.style.cssText);
+      const next = inputs(node);
       if (next !== signatures.get(node)) changed = true;
       signatures.set(node, next);
     }
     if (changed) update();
   });
   for (let node: HTMLElement | null = element; node; node = node.parentElement) {
-    signatures.set(node, inputs(node.style.cssText));
+    signatures.set(node, inputs(node));
     observer.observe(node, {
       attributes: true,
       attributeFilter: ["style", "class", "data-theme", "data-contrast", "data-variant"],

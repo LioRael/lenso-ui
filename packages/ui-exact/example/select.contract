@@ -1,0 +1,111 @@
+use SelectState, SelectOption, Select, SelectRoot, SelectTrigger, SelectValue, SelectIndicator, SelectPortal, SelectPositioner, SelectPopover, SelectList, SelectItem, SelectItemText, SelectItemIndicator, SelectLabel, SelectGroup, SelectGroupLabel, SelectSeparator, Button from "@lenso/ui-exact"
+
+component SelectExample
+  state value = ["auto"]
+  state changes = 0
+  state disabled = false
+  state readOnly = false
+  state invalid = false
+  state multiple = false
+  state fullWidth = false
+  state variant = "primary"
+  state direction = "ltr"
+  state mounted = true
+  state editor = true
+  state grouped = false
+  state itemDisabled = true
+  state extra = false
+  derive options = [SelectOption(value="auto", label="Automatic", disabled=false), SelectOption(value="light", label="Light", disabled=false), SelectOption(value="dark", label="Dark", disabled=itemDisabled), SelectOption(value="contrast", label="High contrast", disabled=false), SelectOption(value="😀, 🌓", label="System colors", disabled=false)]
+  derive field = SelectState(id="appearance-select", label="Appearance", labelledBy="appearance-select-label", describedBy="appearance-description", value=value, defaultValue=["auto"], multiple=multiple, disabled=disabled, readOnly=readOnly, required=true, invalid=invalid, name="appearance", form="", variant=variant, fullWidth=fullWidth, direction=direction, side="bottom", align="start", sideOffset=4, collisionPadding=8)
+  derive summary = options.filter(item => value.includes(item.value)).map(item => item.label).join(", ")
+  action edit(next: string[])
+    value = next
+    changes = changes + 1
+  action toggleDisabled
+    disabled = not disabled
+  action toggleReadOnly
+    readOnly = not readOnly
+  action toggleInvalid
+    invalid = not invalid
+  action toggleMultiple
+    multiple = not multiple
+    value = ["auto"]
+  action toggleWidth
+    fullWidth = not fullWidth
+  action toggleVariant
+    variant = variant == "primary" ? "secondary" : "primary"
+  action toggleDirection
+    direction = direction == "ltr" ? "rtl" : "ltr"
+  action toggleMounted
+    mounted = not mounted
+  action toggleEditor
+    editor = not editor
+  action toggleGrouped
+    grouped = not grouped
+  action toggleItem
+    itemDisabled = not itemDisabled
+  action toggleExtra
+    extra = not extra
+  action clear
+    value = []
+  action external
+    value = ["light"]
+  view
+    column id="select-examples" gap=12
+      text "Select" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="select-disabled")
+        Button(label="Read only", press=toggleReadOnly, disabled=false, size="sm", variant="bordered", testId="select-readonly")
+        Button(label="Invalid", press=toggleInvalid, disabled=false, size="sm", variant="bordered", testId="select-invalid")
+        Button(label="Multiple", press=toggleMultiple, disabled=false, size="sm", variant="bordered", testId="select-multiple")
+        Button(label="Width", press=toggleWidth, disabled=false, size="sm", variant="bordered", testId="select-width")
+        Button(label="Variant", press=toggleVariant, disabled=false, size="sm", variant="bordered", testId="select-variant")
+        Button(label="Direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="select-direction")
+        Button(label="Mount", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="select-mounted")
+        Button(label="Trigger", press=toggleEditor, disabled=false, size="sm", variant="bordered", testId="select-editor")
+        Button(label="Groups", press=toggleGrouped, disabled=false, size="sm", variant="bordered", testId="select-grouped")
+        Button(label="Enable dark", press=toggleItem, disabled=false, size="sm", variant="bordered", testId="select-item-disabled")
+        Button(label="Extra option", press=toggleExtra, disabled=false, size="sm", variant="bordered", testId="select-extra")
+        Button(label="Clear", press=clear, disabled=false, size="sm", variant="bordered", testId="select-clear")
+        Button(label="Set externally", press=external, disabled=false, size="sm", variant="bordered", testId="select-external")
+      text "Choose how content appears. Type a name to find an option." id="appearance-description"
+      if mounted
+        SelectLabel(state=field, label="Appearance")
+        if not grouped and editor and not extra
+          Select(state=field, items=options, placeholder="Choose appearance", change=edit)
+        else
+          SelectRoot(state=field, change=edit)
+            if editor
+              SelectTrigger(state=field)
+                SelectValue(text=summary, empty=(value.length == 0), placeholder="Choose appearance")
+                SelectIndicator()
+            SelectPortal()
+              SelectPositioner(state=field)
+                SelectPopover()
+                  SelectList(state=field)
+                    if grouped
+                      SelectGroup(id="appearance-group", labelledBy="appearance-group-label")
+                        SelectGroupLabel(id="appearance-group-label", label="Built in")
+                        for item, index in options key=item.value
+                          AppearanceOption(state=field, item=item, index=index, change=edit)
+                    else
+                      for item, index in options key=item.value
+                        AppearanceOption(state=field, item=item, index=index, change=edit)
+                    if extra
+                      SelectSeparator()
+                      AppearanceOption(state=field, item=SelectOption(value="custom", label="Custom", disabled=false), index=5, change=edit)
+      text `Selected: ${value.join(" | ")}` testId="select-value"
+      text `Changes: ${changes}` testId="select-changes"
+      Button(label="Next action", press=external, disabled=false, size="sm", variant="bordered", testId="select-next")
+
+component AppearanceOption
+  props
+    state: SelectState
+    item: SelectOption
+    index: number
+    change: action
+  view
+    SelectItem(state=state, item=item, index=index, change=change)
+      SelectItemIndicator(selected=state.value.includes(item.value))
+      SelectItemText()
+        text item.label

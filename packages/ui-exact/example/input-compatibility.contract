@@ -1,0 +1,38 @@
+use Input from "@lenso/ui-exact"
+
+component InputCompatibilityExample
+  state mode = "text"
+  state value = ""
+  state committed = ""
+  state submitted = 0
+  state disabled = false
+  state readOnly = false
+  action chooseMode(next: string)
+    mode = next
+  action edit(next: string)
+    value = next
+  action commit(next: string)
+    committed = next
+  action submit
+    submitted = submitted + 1
+  action toggleDisabled
+    disabled = not disabled
+  action toggleReadOnly
+    readOnly = not readOnly
+  view
+    column id="input-compatibility" gap=8
+      row gap=8 flex-wrap="wrap"
+        for kind in ["text", "search", "email", "url", "tel", "password"] key=kind
+          button id=`mode-${kind}` testId=`mode-${kind}` press=chooseMode(kind)
+            text kind
+        button id="mode-disabled" testId="mode-disabled" press=toggleDisabled
+          text "Disabled"
+        button id="mode-readonly" testId="mode-readonly" press=toggleReadOnly
+          text "Read only"
+      Input(id="mode-input", name="mode", label="Mode input", labelledBy="", describedBy="", value=value, input=edit, change=commit, submit=submit, placeholder="Enter a value", type=(mode == "password" ? "password" : mode == "search" ? "search" : mode == "email" ? "email" : mode == "url" ? "url" : mode == "tel" ? "tel" : "text"), autocomplete="off", disabled=disabled, readOnly=readOnly, required=true, invalid=false, variant="primary")
+      button id="mode-blur" testId="mode-blur"
+        text "Next"
+      text `Live: ${value}` testId="mode-live"
+      text `Committed: ${committed}` testId="mode-committed"
+      text `Submitted: ${submitted}` testId="mode-submitted"
+      Input(id="legacy-number", name="legacy", label="Static numeric input", labelledBy="", describedBy="", value="7", input=edit, change=commit, submit=submit, placeholder="", type="number", autocomplete="off", disabled=false, readOnly=false, required=false, invalid=false, variant="primary")

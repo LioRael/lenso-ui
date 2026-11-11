@@ -28,6 +28,8 @@ async function reducedMotion(page, reduce) {
 }
 
 export async function checkDisclosure(page, engine) {
+  for (const name of ["Details", "Account", "Privacy"])
+    assert.equal(await page.getByRole("button", { name, exact: true }).count(), 1);
   const trigger = page.getByTestId("details-trigger");
   const panel = page.getByTestId("details-content");
   const draft = page.getByTestId("details-draft");
@@ -247,7 +249,11 @@ export async function checkDisclosure(page, engine) {
   assert.equal(await account.getAttribute("aria-expanded"), "true");
   await previous.dispose();
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-disclosure-motion.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-disclosure-motion.json`,
+    ),
     JSON.stringify(motion, null, 2),
   );
 }

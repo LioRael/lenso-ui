@@ -179,9 +179,10 @@ export async function checkMenuBar(page, engine) {
       }));
       assert.deepEqual(geometry, { height: 44, item: 44, expand: 36 });
       await page.screenshot({
-        path: path.resolve(
-          import.meta.dirname,
-          `../.cache/example/${engine}-menu-bar-${direction}-${width}.png`,
+        path: path.join(
+          process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+            path.resolve(import.meta.dirname, "../.cache/example"),
+          `${engine}-menu-bar-${direction}-${width}.png`,
         ),
       });
       captures.push({ direction, width, geometry });
@@ -240,9 +241,10 @@ export async function checkMenuBarThemes(page, engine) {
       await page.setViewportSize({ width, height: 900 });
       await bar.scrollIntoViewIfNeeded();
       await page.locator("#menu-bar-examples").screenshot({
-        path: path.resolve(
-          import.meta.dirname,
-          `../.cache/example/${engine}-menu-bar-${appearance}-${width}.png`,
+        path: path.join(
+          process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+            path.resolve(import.meta.dirname, "../.cache/example"),
+          `${engine}-menu-bar-${appearance}-${width}.png`,
         ),
       });
     }

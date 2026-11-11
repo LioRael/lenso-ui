@@ -1,3 +1,8 @@
+use InputCompatibilityExample from "./input-compatibility.contract"
+use ChoiceCompatibilityExample from "./choice-compatibility.contract"
+use SwipeExample from "./swipe-actions.contract"
+use ListExample from "./list.contract"
+use SelectExample from "./select.contract"
 use NumberFieldExample from "./number-field.contract"
 use MenuBarExample from "./menu-bar.contract"
 use ModalMenuExample from "./menu-modal.contract"
@@ -108,3 +113,8 @@ component App
           ModalMenuExample()
           MenuBarExample()
           NumberFieldExample()
+          SelectExample()
+          ListExample()
+          SwipeExample()
+          ChoiceCompatibilityExample()
+          InputCompatibilityExample()

@@ -1,3 +1,5 @@
+use StyledMenuPositioner, StyledMenuTrigger, StyledMenuItem, StyledMenuAction, StyledMenuItemCheckbox, StyledMenuItemRadio, StyledMenuSubmenuTrigger from "./generated/menu-parts.contract"
+
 shape MenuState
   id: string
   label: string
@@ -32,9 +34,7 @@ component MenuTrigger
     iconOnly: bool
   slot
   view
-    button id=id testId=id appearance="none" tabindex=0 aria-label=label aria-haspopup="menu"
-      disabled=disabled popovertarget=target popovertargetaction="toggle"
-      hatch="lenso-ui" data-lenso-kind="menu-trigger" data-slot="menu-trigger" data-lenso-icon-only=iconOnly
+    StyledMenuTrigger(id=id, label=label, target=target, disabled=disabled, iconOnly=iconOnly)
       children
 
 component MenuPositioner
@@ -43,13 +43,7 @@ component MenuPositioner
     modal: bool
   slot
   view
-    box id=state.id testId=state.id popover="auto" role="menu" tabindex=-1
-      aria-label=state.label aria-labelledby=state.labelledBy
-      hatch="lenso-ui" data-lenso-kind="menu-positioner" data-slot="menu-positioner" data-lenso-modal=modal
-      data-lenso-side=state.side data-lenso-align=state.align data-lenso-direction=state.direction
-      data-lenso-side-offset=state.sideOffset data-lenso-align-offset=state.alignOffset
-      data-lenso-collision-padding=state.collisionPadding data-lenso-collision-avoidance=state.collisionAvoidance
-      data-lenso-disable-anchor-tracking=state.disableAnchorTracking
+    StyledMenuPositioner(id=state.id, label=state.label, labelledBy=state.labelledBy, modal=modal, side=state.side, align=state.align, direction=state.direction, sideOffset=state.sideOffset, alignOffset=state.alignOffset, collisionPadding=state.collisionPadding, collisionAvoidance=state.collisionAvoidance, disableAnchorTracking=state.disableAnchorTracking)
       box aria-hidden=true role="presentation" hatch="lenso-ui" data-lenso-kind="menu-backdrop" data-slot="menu-backdrop"
       children
 
@@ -76,10 +70,7 @@ component MenuItem
     closeOnClick: bool
   slot
   view
-    button id=id testId=id appearance="none" tabindex=-1 role="menuitem" aria-label=label disabled=disabled aria-disabled=disabled
-      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
-      hatch="lenso-ui" data-lenso-kind="menu-item" data-slot="menu-item"
-      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+    StyledMenuItem(id=id, label=label, target=target, disabled=disabled, press=press, variant=variant, closeOnClick=closeOnClick)
       children
 
 component MenuItemCheckbox
@@ -94,11 +85,7 @@ component MenuItemCheckbox
     checked: bool
   slot
   view
-    button id=id testId=id appearance="none" tabindex=-1 role="menuitemcheckbox" aria-label=label disabled=disabled aria-disabled=disabled
-      aria-checked=checked
-      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
-      hatch="lenso-ui" data-lenso-kind="menu-item" data-slot="menu-item"
-      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+    StyledMenuItemCheckbox(id=id, label=label, target=target, disabled=disabled, press=press, variant=variant, closeOnClick=closeOnClick, checked=checked)
       children
 
 component MenuItemRadio
@@ -113,11 +100,7 @@ component MenuItemRadio
     checked: bool
   slot
   view
-    button id=id testId=id appearance="none" tabindex=-1 role="menuitemradio" aria-label=label disabled=disabled aria-disabled=disabled
-      aria-checked=checked
-      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
-      hatch="lenso-ui" data-lenso-kind="menu-item" data-slot="menu-item"
-      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+    StyledMenuItemRadio(id=id, label=label, target=target, disabled=disabled, press=press, variant=variant, closeOnClick=closeOnClick, checked=checked)
       children
 
 component MenuAction
@@ -131,10 +114,7 @@ component MenuAction
     closeOnClick: bool
   slot
   view
-    button id=id testId=id appearance="none" tabindex=-1 role="menuitem" aria-label=label disabled=disabled aria-disabled=disabled
-      press=press popovertarget=(closeOnClick ? target : "") popovertargetaction="hide"
-      hatch="lenso-ui" data-lenso-kind="menu-action" data-slot="menu-item"
-      data-lenso-variant=variant data-lenso-disabled=disabled data-lenso-close-on-click=closeOnClick
+    StyledMenuAction(id=id, label=label, target=target, disabled=disabled, press=press, variant=variant, closeOnClick=closeOnClick)
       children
 
 component MenuItemLink
@@ -262,9 +242,7 @@ component MenuSubmenuTrigger
     closeDelay: number
   slot
   view
-    button id=id testId=id appearance="none" tabindex=-1 role="menuitem" aria-label=label aria-haspopup="menu" disabled=disabled aria-disabled=disabled
-      popovertarget=target popovertargetaction="toggle" hatch="lenso-ui" data-lenso-kind="menu-submenu-trigger" data-slot="menu-submenu-trigger" data-lenso-for=target
-      data-lenso-disabled=disabled data-lenso-open-on-hover=openOnHover data-lenso-hover-delay=delay data-lenso-close-delay=closeDelay data-lenso-close-on-click="false"
+    StyledMenuSubmenuTrigger(id=id, target=target, label=label, disabled=disabled, openOnHover=openOnHover, delay=delay, closeDelay=closeDelay)
       children
 
 component MenuItemSubmenuIndicator

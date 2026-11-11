@@ -42,8 +42,9 @@ locale drafts, snapping/format policy and hold behavior start with initializatio
 
 ## Remaining work
 
-Both families remain Partial. NumberField ScrubArea and ScrubAreaCursor, pointer
-lock and drag scrubbing, cancellable event reason/direction payloads, custom input and button rendering,
+Drag adjustment and its decorative cursor are documented in [NumberField drag adjustment](NUMBER_SCRUB.md).
+
+Both families remain Partial. Cancellable event reason/direction payloads, custom input and button rendering,
 ref/event and native form/Field context forwarding and physical-device behavior remain open. Full
 native-platform adapters follow Web completion. Source React callbacks and
 optional/default prop syntax are not this flat Contract API. This slice does not

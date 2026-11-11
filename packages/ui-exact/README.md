@@ -48,8 +48,19 @@ portal and native integration work.
 NumberField and Stepper add a shared nullable numeric model, locale editing,
 keyboard/button/hold interaction and canonical form values. Stepper keeps the
 ordinary two-segment treatment; NumberField uses field materials. See
-[NumberField and Stepper](NUMBER_FIELD.md) for composition and remaining scrub,
-callback and native integration work.
+[NumberField and Stepper](NUMBER_FIELD.md) for composition and remaining callback
+and native integration work. [Drag adjustment](NUMBER_SCRUB.md) adds horizontal/vertical
+scrubbing and an optional cursor, with a pointer-lock fallback.
+
+[List](LIST.md) adds grouped/plain rows, named sections and native action buttons
+using ordinary list surfaces. Controlled editing selection and scoped select-all
+are implemented, along with keyboard/pointer reorder requests and bounded edge
+scrolling. Swipe actions and device acceptance remain open.
+
+Select adds single and multiple string selections, keyboard navigation and typeahead,
+native form values/reset/required validation, anchored medium Glass and dynamic items.
+See [Select](SELECT.md) and its [compiled example](example/select.contract) for
+composition, verified behavior and remaining API/motion gaps.
 
 Menu adds native anchored actions, checkbox/radio items, rich rows and compact
 Glass material. See [Menu](MENU.md) and its [compiled example](example/menu.contract)
@@ -269,3 +280,37 @@ See [Slider](SLIDER.md) for range values, collision policy, keyboard operation a
 See [Tabs](TABS.md) for selection, panel lifetime, keyboard contracts, source motion and remaining acceptance gates.
 
 See [SegmentedControl](SEGMENTED_CONTROL.md) for radio selection, native form values and shared selection presentation.
+
+`Description`, `TextArea`, `Checkbox` and `Radio` now derive their semantic Contracts from `@lenso/primitives-exact`
+at build time. The generated styled primitives retain the original nodes and
+add Lenso presentation metadata and the explicitly supported UI attributes; its source fingerprint and license ship in
+`components/generated`. See the [migration plan](../../docs/plans/exact-primitives-migration.md)
+for scope and remaining families. Rebuilding this package currently requires
+its monorepo primitive source; installed consumers use the generated Contract.
+
+Disclosure/Accordion roots, items and triggers now derive from primitive source,
+with existing Lenso IDs, slotted accessible names and state extensions preserved.
+The animated panels remain Lenso implementations; primitive display hiding is
+not substituted for the current height animation.
+
+TabsList also derives its semantic container from primitive source while retaining
+Lenso's layout, lenses and activation metadata. Tab and Panel native nodes are also primitive-derived, with explicit UI
+compatibility projections for disabled focus, dynamic targets and kept panels.
+Navigation, mounting policy and motion remain UI enhancements.
+
+Input now uses one primitive-derived styled node for its existing public type
+interface. A guarded identity projection preserves canonical text-mode behavior
+and legacy static types without a duplicate fallback renderer. The pinned
+compiler's restriction on arbitrary runtime input-kind strings still applies.
+
+Modal/AlertDialog roots, triggers and close controls also derive from primitive
+source. Validation actions and the UI focus/scroll/animation layer remain intact;
+they do not adopt the primitive's unconditional DialogAction close behavior.
+
+Popover's native positioner and open/close controls are primitive-derived, with
+explicit compatibility projections for the existing presentation container and
+hide invoker. Named Popup content, positioning, hover and Glass remain UI-owned.
+
+Menu's native positioner, invoker, item actions, checkbox/radio items and submenu
+invoker now derive from the canonical Menu parts in the primitive Popover source.
+Menu links, hover corridors, modality, navigation and Glass remain UI extensions.

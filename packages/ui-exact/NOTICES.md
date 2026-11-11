@@ -80,3 +80,9 @@ Floating UI MIT notices reproduced above; no React runtime is imported.
 coordinates and viewport wrapping. Its retained Material-UI and Floating UI MIT
 notices are reproduced above. The authored Exact cursor uses the native top
 layer rather than reparenting the framework-owned node.
+
+The Contract files in `components/generated` derive from canonical
+`@lenso/primitives-exact` FieldDescription, Input, Textarea, Checkbox, Radio, Disclosure, Accordion, TabsList, Tab, TabPanel, Dialog and Popover family sources
+(MIT, Copyright 2026 Lenso contributors). Full licenses and source fingerprints
+are retained in the generated files; `provenance.json` records each source and
+the presentation/attribute transform.

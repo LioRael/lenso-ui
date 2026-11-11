@@ -1,3 +1,4 @@
+import { generatePrimitiveBridge } from "./primitive-bridge.js";
 import { cp, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { build } from "vite";
@@ -6,6 +7,8 @@ import { initialCSS, type PresentationCase } from "./initial-css.js";
 
 const root = path.resolve(import.meta.dirname, "..");
 const source = (file: string) => path.resolve(root, "..", file);
+
+await generatePrimitiveBridge(root);
 
 await build({
   configFile: false,

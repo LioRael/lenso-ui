@@ -730,3 +730,17 @@ page-only requests, cached replies, delayed responses, widget/root state, user
 For a before/after scale comparison, retain the old 300-page output before changing
 the compiler, then set `SCALE_BASELINE_DIR` to that directory for `test:scale`.
 It must be the same synthetic fixture; the baseline is served without rebuilding.
+
+[LOCAL_ACTIVATION.md](LOCAL_ACTIVATION.md) records the opt-in compiler-output/runtime
+partition experiment for the same 300-page Fumadocs matched cohort. It preserves
+root signal identity while activating the counter and search surface separately.
+It remains a bounded prototype: navigation and first-paint regressions block
+default adoption, and arbitrary root mutations/tasks are not qualified.
+
+[RESOURCE_ACTIVATION.md](RESOURCE_ACTIVATION.md) records the native transaction/settlement
+module extraction, its remaining host dependency coupling, resource failure checks
+and a separate same-algorithm Fumadocs follow-up cohort.
+
+[PHYSICAL_ACTIVATION.md](PHYSICAL_ACTIVATION.md) records the host-command chunk
+boundary, native SSR adoption with DOM identity checks, and its separate matched
+Fumadocs cohort, including the fast-navigation regression.

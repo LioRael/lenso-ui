@@ -46,7 +46,9 @@
     "MENU_MODAL.md",
     "MENU_BAR.md",
     "NUMBER_FIELD.md",
-    "NUMBER_SCRUB.md"
+    "NUMBER_SCRUB.md",
+    "SELECT.md",
+    "LIST.md"
   ],
   "type": "module",
   "exports": {
@@ -66,6 +68,8 @@
   },
   "scripts": {
     "build": "bun scripts/build.ts",
+    "generate:primitives": "bun scripts/primitive-bridge.ts",
+    "probe:primitives": "bun scripts/probe-primitives.ts",
     "typecheck": "bun check --no-script -p tsconfig.json",
     "test": "bun test test/*.test.ts",
     "test:browser": "bun run build && bun test/browser.mjs",
@@ -81,6 +85,7 @@
     "postcss-selector-parser": "7.1.0"
   },
   "devDependencies": {
+    "@lenso/primitives-exact": "workspace:*",
     "@stylexjs/unplugin": "catalog:",
     "@types/bun": "^1.4.4",
     "@types/node": "catalog:",

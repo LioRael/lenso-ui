@@ -1,0 +1,46 @@
+{
+  "sourcePackage": "@lenso/primitives-exact",
+  "source": "components/field.contract",
+  "sourceSHA256": "d48aaacd6393a8d1ebbb5663b9914ef7d028af9099db2cb3ed80b8848e171c56",
+  "outputs": [
+    "description.contract",
+    "input.contract",
+    "textarea.contract",
+    "checkbox.contract",
+    "radio.contract",
+    "disclosure.contract",
+    "tabs-list.contract",
+    "tab.contract",
+    "tab-panel.contract",
+    "dialog-parts.contract",
+    "popover-parts.contract",
+    "menu-parts.contract"
+  ],
+  "sources": [
+    {
+      "source": "components/field.contract",
+      "sourceSHA256": "d48aaacd6393a8d1ebbb5663b9914ef7d028af9099db2cb3ed80b8848e171c56"
+    },
+    {
+      "source": "components/choice.contract",
+      "sourceSHA256": "3e1f74bdbdccdf3a6a91ffe8b8774e6a62bc21029cc6fbe100a681d7dc29716c"
+    },
+    {
+      "source": "components/disclosure.contract",
+      "sourceSHA256": "c49b8d2332b5809c71bebf0963d0ad0bd2f3c7179f04fc5f1e07cd7846053488"
+    },
+    {
+      "source": "components/tabs.contract",
+      "sourceSHA256": "7b8ce5be5c6c21162f87452d095969cde533e5d90361a10a292faed37adc2b1c"
+    },
+    {
+      "source": "components/dialog.contract",
+      "sourceSHA256": "9f0dd9fce8a022cb1253bc579228e8a8bbe4cd06d7348671c7d20f1a4b945b24"
+    },
+    {
+      "source": "components/popover.contract",
+      "sourceSHA256": "9392184fcfb21b5dc0b09436ec3f6a2ef3fbf0e40783b06f070fab5b4fce35af"
+    }
+  ],
+  "transform": "Preserve canonical native nodes, append literal Lenso presentation metadata and explicit additional props/attributes"
+}

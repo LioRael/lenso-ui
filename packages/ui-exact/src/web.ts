@@ -1,3 +1,5 @@
+import { updateSwipe, endSwipe } from "./swipe.js";
+import { updateSelect, endSelect } from "./select.js";
 import { updateNumberScrub, endNumberScrub } from "./number-scrub.js";
 import { updateNumberField, endNumberField } from "./number-field.js";
 import { updateMenuBar, endMenuBar } from "./menu-bar.js";
@@ -187,6 +189,8 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   );
   updateToolbar(node, handle.data);
   updateSearchField(node, handle.data);
+  updateSwipe(node);
+  updateSelect(node, handle.data);
   updateNumberField(node, handle.data);
   updateNumberScrub(node, handle.data);
   updatePageControl(node, handle.data);
@@ -218,6 +222,8 @@ export function elementEnded(handle: ExactElement) {
   endToolbar(handle.element);
   endSearchField(handle.element);
   endNumberScrub(handle.element);
+  endSwipe(handle.element);
+  endSelect(handle.element);
   endNumberField(handle.element);
   endScrollShadow(handle.element);
   endPageControl(handle.element);

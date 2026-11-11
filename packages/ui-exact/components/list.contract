@@ -1,0 +1,129 @@
+use Checkbox from "./forms.contract"
+
+shape ListState
+  id: string
+  label: string
+  variant: string
+  direction: string
+  disabled: bool
+  editing: bool
+  selectedKeys: string[]
+
+component List
+  props
+    state: ListState
+    selectAll: action
+  slot
+  view
+    box id=state.id testId=state.id role="list" aria-label=state.label direction=state.direction hatch="lenso-ui" data-lenso-kind="list-root" data-slot="list-root" data-lenso-variant=state.variant data-lenso-disabled=state.disabled data-lenso-active=state.editing
+      button appearance="none" press=selectAll disabled=(state.disabled or not state.editing) tabindex=-1 aria-hidden=true hatch="lenso-ui" data-lenso-kind="list-select-all" data-slot="list-select-all"
+        text "Select all"
+      children
+
+component ListItem
+  props
+    id: string
+    height: string
+  slot
+  view
+    row id=id testId=id role="listitem" hatch="lenso-ui" data-lenso-kind="list-item" data-slot="list-item" data-lenso-height=height
+      children
+
+component ListAction
+  props
+    state: ListState
+    id: string
+    disabled: bool
+    press: action
+  slot
+  view
+    button id=id testId=id appearance="none" disabled=(state.disabled or state.editing or disabled) press=press hatch="lenso-ui" data-lenso-kind="list-action" data-slot="list-action"
+      children
+
+component ListSection
+  props
+    id: string
+    title: string
+  slot
+  view
+    box role="listitem" hatch="lenso-ui" data-lenso-kind="list-section" data-slot="list-section"
+      text title id=id role="heading" aria-level=2 hatch="lenso-ui" data-lenso-kind="list-section-heading" data-slot="list-section-heading"
+      box role="list" aria-labelledby=id hatch="lenso-ui" data-lenso-kind="list-root" data-slot="list-root" data-lenso-variant="grouped"
+        children
+
+component ListSeparator
+  view
+    box role="presentation" hatch="lenso-ui" data-lenso-kind="list-separator" data-slot="list-separator"
+
+component ListContent
+  slot
+  view
+    column hatch="lenso-ui" data-lenso-kind="list-content" data-slot="list-content"
+      children
+
+component ListTitle
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="list-title" data-slot="list-title"
+      children
+
+component ListDescription
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="list-description" data-slot="list-description"
+      children
+
+component ListLeading
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="list-leading" data-slot="list-leading"
+      children
+
+component ListTrailing
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="list-trailing" data-slot="list-trailing"
+      children
+
+component ListEditItem
+  props
+    state: ListState
+    id: string
+    itemKey: string
+    label: string
+    disabled: bool
+    height: string
+    change: action
+  derive selected = state.selectedKeys.includes(itemKey)
+  action toggle(checked: bool)
+    change(checked ? (selected ? state.selectedKeys : state.selectedKeys.concat([itemKey])) : state.selectedKeys.filter(key => key != itemKey))
+  slot
+  view
+    row id=id testId=id role="listitem" hatch="lenso-ui" data-lenso-kind="list-item" data-slot="list-item" data-lenso-height=height
+      if state.editing
+        box hatch="lenso-ui" data-lenso-kind="list-selection" data-slot="list-selection" data-list-selection=""
+          Checkbox(id=`${id}-select`, name="", label=label, describedBy="", checked=selected, indeterminate=false, change=toggle, disabled=(state.disabled or disabled), required=false, invalid=false)
+      box hatch="lenso-ui" data-lenso-kind="list-body" data-slot="list-body"
+        children
+
+component ListReorderHandle
+  props
+    state: ListState
+    id: string
+    itemKey: string
+    label: string
+    disabled: bool
+    reorder: action
+  action before(target: string)
+    reorder(itemKey, target, "before")
+  action after(target: string)
+    reorder(itemKey, target, "after")
+  view
+    if state.editing
+      box hatch="lenso-ui" data-lenso-kind="list-reorder-owner"
+        button id=id testId=id appearance="none" disabled=(state.disabled or disabled) aria-label=label aria-pressed=false aria-describedby=`${id}-instructions` hatch="lenso-ui" data-lenso-kind="list-reorder" data-slot="list-reorder" data-lenso-value=itemKey
+          text "≡" aria-hidden=true
+        input type="hidden" value="" input=before hatch="lenso-ui" data-lenso-kind="list-select-all" data-slot="list-reorder-before"
+        input type="hidden" value="" input=after hatch="lenso-ui" data-lenso-kind="list-select-all" data-slot="list-reorder-after"
+        text "Press Space or Enter to move. Use Up or Down, Enter to place, Escape to cancel." id=`${id}-instructions` hatch="lenso-ui" data-lenso-kind="list-reorder-status"
+        box role="status" aria-live="polite" aria-atomic=true hatch="lenso-ui" data-lenso-kind="list-reorder-status" data-slot="list-reorder-status"

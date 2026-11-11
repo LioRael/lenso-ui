@@ -33,6 +33,9 @@ const outputs = Object.fromEntries(
   ]),
 );
 const activationBaseline = process.env.FUMA_ACTIVATION_BASELINE;
+const localActivation = process.env.FUMA_LOCAL_ACTIVATION;
+const localLabel = process.env.FUMA_LOCAL_ACTIVATION_LABEL ?? "local-activation";
+assert.ok(/^[a-z-]+$/.test(localLabel));
 const entryComparison = process.env.FUMA_ENTRY_COMPARISON === "1";
 assert.ok(
   !entryComparison || activationBaseline,
@@ -46,6 +49,13 @@ assert.ok(
 const latencyMs = fastActivation ? 0 : 80;
 const downloadBytesPerSecond = fastActivation ? 10000000 : 200000;
 if (activationBaseline) outputs.exactBefore = path.resolve(activationBaseline);
+if (localActivation) {
+  assert.ok(
+    activationBaseline && process.env.FUMA_MEASURE_ONLY === "1",
+    "Local prototype requires a baseline and reused builds",
+  );
+  outputs.exact = path.resolve(localActivation);
+}
 const cases = activationBaseline ? ["exactBefore", "exact", "matched"] : Object.keys(outputs);
 const isExact = (name) => name === "exact" || name === "exactBefore";
 const versions = {};
@@ -375,6 +385,7 @@ async function setup(name) {
     () => performance.getEntriesByName("first-contentful-paint").length > 0,
   );
   const initial = await page.evaluate(() => ({
+    timeOrigin: performance.timeOrigin,
     fcpMs: performance.getEntriesByName("first-contentful-paint")[0].startTime,
     beforeActionMs: performance.now(),
   }));
@@ -394,6 +405,7 @@ async function setup(name) {
       return {
         ms: Math.round((event.epoch - start) * 10) / 10,
         sinceNavigationMs: Math.round(event.sinceNavigationMs * 10) / 10,
+        sinceInitialNavigationMs: Math.round((event.epoch - initial.timeOrigin) * 10) / 10,
       };
     } finally {
       clearTimeout(timer);
@@ -565,7 +577,7 @@ try {
           await Bun.write(
             path.join(
               cache,
-              `${activationBaseline ? `${entryComparison ? "entry" : "activation"}-${fastActivation ? "fast" : "slow"}-` : ""}${name}-counter-network.json`,
+              `${localActivation ? `${localLabel}-` : ""}${activationBaseline ? `${entryComparison ? "entry" : "activation"}-${fastActivation ? "fast" : "slow"}-` : ""}${name}-counter-network.json`,
             ),
             JSON.stringify(tCounter.requests, null, 2),
           );
@@ -582,6 +594,51 @@ try {
         });
       } finally {
         await tCounter.context.close();
+      }
+      if (process.env.FUMA_NAV_FIRST === "1") {
+        const firstNav = await setup(name);
+        try {
+          const before = Object.fromEntries(
+            (await firstNav.cdp.send("Performance.getMetrics")).metrics.map((m) => [
+              m.name,
+              m.value,
+            ]),
+          );
+          const event = await firstNav.measure(
+            (e) => e.type === "body" && e.path === "/guide-001" && e.value === "Guide 001",
+            () => nav(firstNav, name).getByRole("link", { name: "Guide 001", exact: true }).click(),
+          );
+          const after = Object.fromEntries(
+            (await firstNav.cdp.send("Performance.getMetrics")).metrics.map((m) => [
+              m.name,
+              m.value,
+            ]),
+          );
+          await firstNav.page.waitForLoadState("networkidle");
+          assert.deepEqual(firstNav.errors, []);
+          const documentRequests = firstNav.requests.filter((r) => r.type === "Document").length;
+          if (name !== "exactBefore") assert.equal(documentRequests, 1);
+          assert.equal(
+            firstNav.requests.some(
+              (r) => r.path.startsWith("/_search/") || /^\/scope-\d+-/.test(r.path),
+            ),
+            false,
+            "A first navigation must not load search indexes",
+          );
+          assert.equal(
+            await firstNav.page.getByTestId("comparison-counter").textContent(),
+            "Count: 0",
+          );
+          Object.assign(sets[name].at(-1), {
+            firstNavigationMs: event.ms,
+            coldOpenToNavigationMs: event.sinceInitialNavigationMs,
+            firstNavigationDocumentRequests: documentRequests,
+            firstNavigationScriptMs: rounded((after.ScriptDuration - before.ScriptDuration) * 1000),
+            firstNavigationTotalBytes: firstNav.bytes(),
+          });
+        } finally {
+          await firstNav.context.close();
+        }
       }
     }
   }
@@ -706,6 +763,7 @@ try {
         cpuSlowdown: 4,
         gzip: true,
         cacheDisabled: true,
+        navigationFirst: process.env.FUMA_NAV_FIRST === "1",
         linkPrefetch: false,
         searchQuery: "Unique 16-hex token in a paragraph",
         fumadocsSearchDebounceMs: 100,
@@ -728,17 +786,20 @@ try {
       report.indexes[name] = { file, raw: bytes.length, gzip: gzipSync(bytes).length };
     }
     report.reusedBuilds = process.env.FUMA_MEASURE_ONLY === "1";
-    const reportFile = entryComparison
-      ? fastActivation
-        ? "entry-fast-results.json"
-        : "entry-results.json"
-      : fastActivation
-        ? "activation-fast-results.json"
-        : activationBaseline
-          ? "activation-results.json"
-          : "results.json";
+    const reportFile = localActivation
+      ? `${localLabel}-${fastActivation ? "fast" : "slow"}-results.json`
+      : entryComparison
+        ? fastActivation
+          ? "entry-fast-results.json"
+          : "entry-results.json"
+        : fastActivation
+          ? "activation-fast-results.json"
+          : activationBaseline
+            ? "activation-results.json"
+            : "results.json";
     await Bun.write(path.join(cache, reportFile), JSON.stringify(report, null, 2));
-    if (entryComparison && !fastActivation) await writeEntryReport(root, report);
+    if (localActivation) console.log("Local activation experiment: production reports unchanged");
+    else if (entryComparison && !fastActivation) await writeEntryReport(root, report);
     else if (activationBaseline && !fastActivation) await writeActivationReport(root, report);
     else if (!activationBaseline) await writeReport(root, report);
     console.log(

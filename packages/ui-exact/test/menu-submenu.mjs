@@ -287,9 +287,10 @@ export async function checkMenuSubmenus(page, engine) {
       await page.keyboard.press("ArrowRight");
       await opened(child);
       await page.screenshot({
-        path: path.resolve(
-          import.meta.dirname,
-          `../.cache/example/${engine}-submenu-${appearance}-${width}.png`,
+        path: path.join(
+          process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+            path.resolve(import.meta.dirname, "../.cache/example"),
+          `${engine}-submenu-${appearance}-${width}.png`,
         ),
       });
       await closeRoot();
@@ -298,7 +299,11 @@ export async function checkMenuSubmenus(page, engine) {
   await page.setViewportSize(viewport);
   await initialChild.dispose();
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-submenu-geometry.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-submenu-geometry.json`,
+    ),
     JSON.stringify({ cases, times, gap }, null, 2) + "\n",
   );
   return { cases: cases.length };

@@ -43,3 +43,31 @@ native render/ref/event/form/Field-context forwarding are still open. Before hat
 the label and numeric editor remain native; drag enhancement starts at initialization.
 Native-platform adapters follow Web completion. Physical touch/IME, Safari UI,
 zoom/device acceptance and comparative performance need their own evidence.
+
+## Focused acceptance
+
+The isolated compiled consumer passes Chromium 156.0.8078.4 and Playwright WebKit
+27.2, with 21 affected presentation recipes. Both cover horizontal/vertical
+movement, accumulated sensitivity, Shift/Alt steps, one release commit, unrelated
+pointer releases, click forwarding and cancellation on disabled/read-only changes
+or area/editor removal. The existing numeric interaction regression passes with
+eight light/dark, primary/secondary, 390/820px captures per engine.
+
+A separate headed Chromium run obtains real native body pointer lock. Its cursor
+escapes a transformed, clipped owner with zero measured offset, wraps within the
+configured area boundary, forwards a stationary click once, and cancels on Escape.
+WebKit makes zero lock requests and keeps ordinary dragging. Headless Chromium's
+native request fails with WrongDocumentError in this environment; the real-lock
+cohort therefore uses headed Chromium rather than substituting a mocked grant.
+
+Touch pointers use a mobile browser context and synthetic pointer events; inverse
+zoom scaling and delayed lock resolution use DOM property fixtures. These prove
+the adapter paths, not physical touch, browser zoom, Safari UI or device behavior.
+No comparative performance or Glass optical acceptance is claimed.
+
+The build contains 4315 core and 5831 consumer recipes; its only compiler warning
+is the existing Popover lower-dialog-role diagnostic. The pinned upstream archive
+and compiler fingerprint remain unchanged. The local receipt is
+`.cache/acceptance/number-scrub-acceptance.json`; candidate source/build output is
+isolated from concurrent workspace builds. The full catalog browser suite was not
+rerun for this change.

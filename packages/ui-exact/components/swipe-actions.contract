@@ -1,0 +1,65 @@
+shape SwipeActionsState
+  id: string
+  direction: string
+  disabled: bool
+  openSide: string
+
+component SwipeActions
+  props
+    state: SwipeActionsState
+    change: action
+  slot
+  view
+    box id=state.id testId=state.id direction=state.direction hatch="lenso-ui" data-lenso-kind="swipe-root" data-slot="swipe-actions" data-lenso-disabled=state.disabled data-lenso-value=state.openSide
+      input type="hidden" value="" input=change hatch="lenso-ui" data-lenso-kind="swipe-request" data-slot="swipe-request"
+      children
+
+component SwipeActionsContent
+  slot
+  view
+    row hatch="lenso-ui" data-lenso-kind="swipe-content" data-slot="swipe-actions-content"
+      children
+
+component SwipeActionsBody
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="swipe-body" data-slot="swipe-actions-body"
+      children
+
+component SwipeActionsTrigger
+  props
+    state: SwipeActionsState
+    side: string
+    label: string
+    change: action
+  action toggle
+    change(state.openSide == side ? "" : side)
+  view
+    button appearance="none" disabled=state.disabled press=toggle aria-label=label aria-expanded=(state.openSide == side) aria-controls=`${state.id}-${side}` hatch="lenso-ui" data-lenso-kind="swipe-trigger" data-slot="swipe-trigger" data-lenso-side=side
+      text "•••" aria-hidden=true
+
+component SwipeActionsActions
+  props
+    state: SwipeActionsState
+    side: string
+  slot
+  view
+    row id=`${state.id}-${side}` aria-hidden=(state.disabled or state.openSide != side) hatch="lenso-ui" data-lenso-kind="swipe-actions" data-slot="swipe-actions-actions" data-lenso-side=side
+      children
+
+component SwipeActionsAction
+  props
+    state: SwipeActionsState
+    id: string
+    disabled: bool
+    fullSwipe: bool
+    variant: string
+    change: action
+    press: action
+  action run
+    change("")
+    press()
+  slot
+  view
+    button id=id testId=id appearance="none" disabled=(state.disabled or disabled) press=run hatch="lenso-ui" data-lenso-kind="swipe-action" data-slot="swipe-action" data-lenso-variant=variant data-lenso-active=fullSwipe
+      children

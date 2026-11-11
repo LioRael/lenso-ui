@@ -1,29 +1,11 @@
-shape DisclosureState
-  id: string
-  open: bool
-  disabled: bool
-
-shape AccordionState
-  id: string
-  value: string[]
-  multiple: bool
-  disabled: bool
-  orientation: string
-  loopFocus: bool
-  variant: string
-  hideSeparator: bool
-
-shape AccordionItemState
-  id: string
-  value: string
-  disabled: bool
+use DisclosureState, AccordionState, AccordionItemState, StyledDisclosure, StyledDisclosureTrigger, StyledAccordion, StyledAccordionItem, StyledAccordionTrigger from "./generated/disclosure.contract"
 
 component Disclosure
   props
     state: DisclosureState
   slot
   view
-    column id=state.id testId=state.id hatch="lenso-ui" data-lenso-kind="disclosure" data-slot="disclosure"
+    StyledDisclosure(state=state)
       children
 
 component DisclosureHeading
@@ -40,11 +22,7 @@ component DisclosureTrigger
     change: action
   slot
   view
-    button appearance="none" tabindex=0 id=`${state.id}-trigger` testId=`${state.id}-trigger`
-      press=change(not state.open) disabled=state.disabled
-      aria-expanded=state.open aria-controls=`${state.id}-content`
-      hatch="lenso-ui" data-lenso-kind="disclosure-trigger" data-slot="disclosure-trigger"
-      data-lenso-panel-open=state.open
+    StyledDisclosureTrigger(state=state, change=change)
       children
 
 component DisclosureIndicator
@@ -77,8 +55,7 @@ component Accordion
     state: AccordionState
   slot
   view
-    column id=state.id testId=state.id hatch="lenso-ui" data-lenso-kind="accordion" data-slot="accordion"
-      data-orientation=state.orientation data-lenso-loop-focus=state.loopFocus data-lenso-variant=state.variant
+    StyledAccordion(state=state)
       children
 
 component AccordionItem
@@ -87,8 +64,7 @@ component AccordionItem
     item: AccordionItemState
   slot
   view
-    column id=item.id testId=item.id hatch="lenso-ui" data-lenso-kind="accordion-item" data-slot="accordion-item"
-      data-lenso-hide-separator=state.hideSeparator
+    StyledAccordionItem(state=state, item=item)
       children
 
 component AccordionHeading
@@ -104,20 +80,9 @@ component AccordionTrigger
     state: AccordionState
     item: AccordionItemState
     change: action
-  derive expanded = state.value.includes(item.value)
-  action toggle
-    if not state.disabled and not item.disabled
-      if expanded
-        change(state.value.filter(entry => entry != item.value))
-      else
-        change(state.multiple ? state.value.concat([item.value]) : [item.value])
   slot
   view
-    button appearance="none" tabindex=0 id=`${item.id}-trigger` testId=`${item.id}-trigger`
-      press=toggle disabled=(state.disabled or item.disabled)
-      aria-expanded=expanded aria-controls=`${item.id}-content`
-      hatch="lenso-ui" data-lenso-kind="accordion-trigger" data-slot="accordion-trigger"
-      data-lenso-panel-open=expanded data-lenso-variant=state.variant
+    StyledAccordionTrigger(state=state, item=item, change=change)
       children
 
 component AccordionIndicator

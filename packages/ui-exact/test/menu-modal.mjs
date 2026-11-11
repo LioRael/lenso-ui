@@ -173,9 +173,10 @@ export async function checkMenuModal(page, engine) {
       );
     });
     await page.screenshot({
-      path: path.resolve(
-        import.meta.dirname,
-        `../.cache/example/${engine}-menu-modal-${width}.png`,
+      path: path.join(
+        process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+          path.resolve(import.meta.dirname, "../.cache/example"),
+        `${engine}-menu-modal-${width}.png`,
       ),
     });
     await page.keyboard.press("Escape");

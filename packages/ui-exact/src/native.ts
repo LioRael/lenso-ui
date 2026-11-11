@@ -1,3 +1,4 @@
+import { connectListReorder } from "./list-reorder.js";
 import { connectFusionItem } from "./glass-container.js";
 import { connectToolbar } from "./toolbar.js";
 import { connectSearchField } from "./search-field.js";
@@ -5,6 +6,34 @@ import { connectGroupAction } from "./button-group.js";
 /** Presence selectors in shared tokens must not see data-invalid="false". */
 export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap) {
   const restores: Array<() => void> = [];
+  const endReorder = connectListReorder(node, data);
+  if (endReorder) restores.push(endReorder);
+  if (node instanceof HTMLElement && data["lensoKind"] === "list-root") {
+    const selectAll = (event: KeyboardEvent) => {
+      if (
+        event.defaultPrevented ||
+        (!event.ctrlKey && !event.metaKey) ||
+        event.key.toLowerCase() !== "a" ||
+        node.dataset["lensoActive"] !== "true" ||
+        node.dataset["lensoDisabled"] === "true"
+      )
+        return;
+      const target = event.target;
+      if (
+        !(target instanceof Element) ||
+        target.closest("[data-lenso-active]") !== node ||
+        target.closest('input:not([type="checkbox"]), textarea, select, [contenteditable]')
+      )
+        return;
+      const bridge = node.querySelector<HTMLButtonElement>('[data-slot="list-select-all"]');
+      if (!bridge || bridge.disabled) return;
+      event.preventDefault();
+      bridge.click();
+    };
+    node.addEventListener("keydown", selectAll);
+    restores.push(() => node.removeEventListener("keydown", selectAll));
+  }
+
   if (
     node instanceof HTMLInputElement &&
     ["page-control-request", "scroll-shadow-report"].includes(data["lensoKind"] ?? "")
@@ -220,7 +249,7 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
     node.indeterminate = data["lensoIndeterminate"] === "true";
     restores.push(() => (node.indeterminate = original));
   }
-  if (data["lensoKind"] === "label") {
+  if (data["lensoKind"] === "label" || data["lensoKind"] === "select-label") {
     const focus = () => {
       const control = document.getElementById(data["lensoFor"] ?? "");
       if (control instanceof HTMLInputElement && /^(checkbox|radio)$/.test(control.type))

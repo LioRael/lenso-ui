@@ -314,6 +314,7 @@
         "postcss-selector-parser": "7.1.0",
       },
       "devDependencies": {
+        "@lenso/primitives-exact": "workspace:*",
         "@stylexjs/unplugin": "catalog:",
         "@types/bun": "^1.4.4",
         "@types/node": "catalog:",

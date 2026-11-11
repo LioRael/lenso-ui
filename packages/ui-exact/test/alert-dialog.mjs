@@ -221,9 +221,10 @@ export async function checkAlertDialog(page, engine) {
       await open();
       assert.ok((await popup.boundingBox()).width <= width - 32);
       await page.screenshot({
-        path: path.resolve(
-          import.meta.dirname,
-          `../.cache/example/${engine}-alert-dialog-${appearance}-${width}.png`,
+        path: path.join(
+          process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+            path.resolve(import.meta.dirname, "../.cache/example"),
+          `${engine}-alert-dialog-${appearance}-${width}.png`,
         ),
       });
       await cancel.click();
@@ -306,7 +307,11 @@ export async function checkAlertDialog(page, engine) {
     );
   }
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-alert-dialog-motion.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-alert-dialog-motion.json`,
+    ),
     JSON.stringify(motion, null, 2) + "\n",
   );
   return {

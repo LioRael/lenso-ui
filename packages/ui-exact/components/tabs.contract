@@ -1,3 +1,7 @@
+use StyledTab from "./generated/tab.contract"
+use StyledTabPanel from "./generated/tab-panel.contract"
+use StyledTabsList from "./generated/tabs-list.contract"
+
 shape TabsState
   id: string
   label: string
@@ -34,8 +38,7 @@ component TabsList
     state: TabsState
   slot
   view
-    box id=`${state.id}-list` testId=`${state.id}-list` role="tablist" aria-label=state.label aria-orientation=state.orientation aria-disabled=state.disabled
-      hatch="lenso-ui" data-lenso-kind="tabs-list" data-slot="tabs-list" data-orientation=state.orientation data-lenso-direction=state.direction data-lenso-size=state.size data-lenso-elastic=state.elastic data-lenso-glass=state.glass data-lenso-lift=state.lift data-lenso-disabled=state.disabled data-lenso-activate-on-focus=state.activateOnFocus data-lenso-loop-focus=state.loopFocus
+    StyledTabsList(id=`${state.id}-list`, label=state.label, orientation=state.orientation, direction=state.direction, size=state.size, elastic=state.elastic, glass=state.glass, lift=state.lift, disabled=state.disabled, activateOnFocus=state.activateOnFocus, loopFocus=state.loopFocus)
       box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-glass" data-slot="tabs-glass" data-lenso-glass=state.glass
         if state.glass
           box hatch="lenso-ui" data-lenso-kind="tabs-track-lens" data-material-lens=""
@@ -50,14 +53,12 @@ component TabsTab
     label: string
     disabled: bool
     change: action
-  action select
+  action select(next: string)
     if not state.disabled and not disabled and state.value != value
-      change(value)
+      change(next)
   slot
   view
-    button id=id testId=id appearance="none" role="tab" aria-label=label aria-selected=(state.value == value) aria-controls=(state.value == value ? panelId : "") aria-disabled=(state.disabled or disabled)
-      tabindex=((state.value == value and not disabled and not state.disabled) ? 0 : -1) disabled=false press=select
-      hatch="lenso-ui" data-lenso-kind="tabs-tab" data-slot="tabs-tab" data-orientation=state.orientation data-lenso-align=state.align data-lenso-panel-id=panelId data-lenso-active=(state.value == value) data-lenso-disabled=(state.disabled or disabled)
+    StyledTab(id=id, label=label, panel=panelId, value=value, selected=state.value, disabled=false, inactive=(state.disabled or disabled), change=select, orientation=state.orientation, align=state.align)
       children
 
 component TabsPanel
@@ -70,8 +71,7 @@ component TabsPanel
   slot
   view
     if keepMounted or state.value == value
-      box id=id testId=id role="tabpanel" aria-labelledby=tabId aria-hidden=(state.value != value) tabindex=(state.value == value ? 0 : -1)
-        hatch="lenso-ui" data-lenso-kind="tabs-panel" data-slot="tabs-panel" data-orientation=state.orientation data-lenso-panel-open=(state.value == value)
+      StyledTabPanel(id=id, tab=tabId, value=value, selected=state.value, orientation=state.orientation)
         children
 
 component TabsIndicator

@@ -67,7 +67,7 @@ Earlier downloading reduces interaction-time waiting but spends bandwidth on rea
 | --- | ---: | ---: | ---: |
 ${rows}
 
-Fumadocs starts its client before the measured action; Exact still starts on the action. Action-only and cold-open metrics answer different questions. The matched fixture retains its counter, but does not reproduce Exact resource/mutation/task semantics or native hosts. Five local trials are a bounded comparison, not a framework-wide ranking.
+Fumadocs starts its client before the measured action; Exact still starts on the action. Action-only and cold-open metrics answer different questions. The matched fixture retains its counter, but does not reproduce Exact resource/mutation/task semantics or native hosts. Five local trials are a bounded comparison, not a framework-wide ranking. Cold-navigation difference (after minus before): ${(report.results.exact.median.coldNavMs - report.results.exactBefore.median.coldNavMs).toFixed(1)} ms in the main run${report.fastNetwork ? `, ${(report.fastNetwork.results.exact.median.coldNavMs - report.fastNetwork.results.exactBefore.median.coldNavMs).toFixed(1)} ms in the fast-network pass` : ""}. The added synchronous route resource changes update ordering and has admission/commit overhead; this result does not establish a consistent navigation improvement.
 
 ## Payload evidence
 
@@ -99,7 +99,7 @@ ${
     ? `
 ## Fast-network follow-up
 
-Five fresh-context trials, 0 ms injected latency, 10,000,000 bytes/second download, still 4× CPU slowdown and disabled cache. Counter action: ${names.map((n) => report.fastNetwork.results[n].median.firstCounterMs).join(" / ")} ms (before / after / matched). Cold-open-to-counter: ${names.map((n) => report.fastNetwork.results[n].median.coldOpenToCounterMs).join(" / ")} ms. First search: ${names.map((n) => report.fastNetwork.results[n].median.firstSearchMs).join(" / ")} ms. FCP: ${names.map((n) => report.fastNetwork.results[n].median.fcpMs).join(" / ")} ms. These conditions are separate from the main table; samples are in entry-fast-results.json.
+Five fresh-context trials, 0 ms injected latency, 10,000,000 bytes/second download, still 4× CPU slowdown and disabled cache. Counter action: ${names.map((n) => report.fastNetwork.results[n].median.firstCounterMs).join(" / ")} ms (before / after / matched). Cold-open-to-counter: ${names.map((n) => report.fastNetwork.results[n].median.coldOpenToCounterMs).join(" / ")} ms. First search: ${names.map((n) => report.fastNetwork.results[n].median.firstSearchMs).join(" / ")} ms. FCP: ${names.map((n) => report.fastNetwork.results[n].median.fcpMs).join(" / ")} ms. These conditions are separate from the main table; samples are in entry-fast-results.json. Fast-network FCP changes ${report.fastNetwork.results.exactBefore.median.fcpMs} → ${report.fastNetwork.results.exact.median.fcpMs} ms. Compare the cold-open total with the action-only improvement. Early module fetching/compilation is therefore a first-paint tradeoff on this network, not an across-the-board speedup. Intent-only preload remains available for deployments that prioritize avoiding reading-only downloads and early compilation work.
 `
     : ""
 }`.replaceAll("\\x60", "`"),

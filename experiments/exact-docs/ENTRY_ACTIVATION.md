@@ -28,7 +28,7 @@ Earlier downloading reduces interaction-time waiting but spends bandwidth on rea
 | Destination body ready, ms                      |        200.5 |       216.3 |                 197.2 |
 | Back body ready, ms                             |         51.9 |        54.3 |                  31.3 |
 
-Fumadocs starts its client before the measured action; Exact still starts on the action. Action-only and cold-open metrics answer different questions. The matched fixture retains its counter, but does not reproduce Exact resource/mutation/task semantics or native hosts. Five local trials are a bounded comparison, not a framework-wide ranking.
+Fumadocs starts its client before the measured action; Exact still starts on the action. Action-only and cold-open metrics answer different questions. The matched fixture retains its counter, but does not reproduce Exact resource/mutation/task semantics or native hosts. Five local trials are a bounded comparison, not a framework-wide ranking. Cold-navigation difference (after minus before): 15.8 ms in the main run, -4.3 ms in the fast-network pass. The added synchronous route resource changes update ordering and has admission/commit overhead; this result does not establish a consistent navigation improvement.
 
 ## Payload evidence
 
@@ -59,3 +59,7 @@ FUMA_ENTRY_COMPARISON=1 FUMA_ACTIVATION_BASELINE="$PWD/.cache/app-before-dist" F
 ```
 
 This writes entry-results.json and ENTRY_ACTIVATION.md without overwriting the earlier activation/four-way reports. Add FUMA_ACTIVATION_FAST=1 for a separate fast-network pass. Request evidence is prefixed entry-slow- or entry-fast-.
+
+## Fast-network follow-up
+
+Five fresh-context trials, 0 ms injected latency, 10,000,000 bytes/second download, still 4× CPU slowdown and disabled cache. Counter action: 209.3 / 170.2 / 107.4 ms (before / after / matched). Cold-open-to-counter: 403.3 / 403.1 / 506 ms. First search: 183.2 / 152.9 / 83.9 ms. FCP: 108 / 140 / 112 ms. These conditions are separate from the main table; samples are in entry-fast-results.json. Fast-network FCP changes 108 → 140 ms. Compare the cold-open total with the action-only improvement. Early module fetching/compilation is therefore a first-paint tradeoff on this network, not an across-the-board speedup. Intent-only preload remains available for deployments that prioritize avoiding reading-only downloads and early compilation work.

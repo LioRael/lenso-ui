@@ -226,9 +226,10 @@ export async function checkTabs(page, engine) {
         await page.setViewportSize({ width, height: 844 });
         await root.scrollIntoViewIfNeeded();
         await page.locator("#tabs-examples").screenshot({
-          path: path.resolve(
-            import.meta.dirname,
-            `../.cache/example/${engine}-tabs-${orientation}-${appearance}-${width}.png`,
+          path: path.join(
+            process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+              path.resolve(import.meta.dirname, "../.cache/example"),
+            `${engine}-tabs-${orientation}-${appearance}-${width}.png`,
           ),
         });
       }

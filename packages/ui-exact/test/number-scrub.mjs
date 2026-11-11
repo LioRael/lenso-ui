@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import path from "node:path";
+
+const artifacts =
+  process.env.LENSO_EXACT_TEST_ARTIFACTS ?? path.resolve(import.meta.dirname, "../.cache/example");
 const direct = (page, name) => page.getByTestId(`numeric-${name}`).evaluate((n) => n.click());
 const value = (page, n) =>
   page.waitForFunction(
@@ -215,10 +218,7 @@ export async function checkNumberScrubLock(page, engine) {
     "cursor escapes the transformed owner",
   );
   await page.screenshot({
-    path: path.resolve(
-      import.meta.dirname,
-      `../.cache/example/${engine}-number-scrub-native-cursor.png`,
-    ),
+    path: path.join(artifacts, `${engine}-number-scrub-native-cursor.png`),
   });
   await page.evaluate(() => {
     window.scrubScaleDescriptor = Object.getOwnPropertyDescriptor(visualViewport, "scale");

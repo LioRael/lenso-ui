@@ -1,3 +1,6 @@
+import { swipePresentation, swipeKinds } from "./swipe-presentation.js";
+import { listPresentation, listKinds } from "./list-presentation.js";
+import { selectPresentation, selectKinds } from "./select-presentation.js";
 import { numberPresentation, numberKinds } from "./number-presentation.js";
 import { menuPresentation, menuKinds } from "./menu-presentation.js";
 import { tooltipPresentation, tooltipKinds } from "./tooltip-presentation.js";
@@ -82,7 +85,8 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
     default: {
       const result =
         kind &&
-        (numberPresentation(kind, data) ??
+        (selectPresentation(kind, data) ??
+          numberPresentation(kind, data) ??
           formPresentation(kind, data, inputGroup) ??
           disclosurePresentation(kind, data) ??
           navigationPresentation(kind, data) ??
@@ -90,6 +94,8 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           togglePresentation(kind, data) ??
           modalPresentation(kind, data) ??
           alertDialogPresentation(kind, data) ??
+          swipePresentation(kind, data) ??
+          listPresentation(kind, data) ??
           contentPresentation(kind, data) ??
           layoutPresentation(kind, data) ??
           avatarPresentation(kind, data) ??
@@ -170,7 +176,29 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
         `[data-lenso-full-width="${fullWidth}"][data-lenso-variant="${variant}"]`,
       );
   }
+  for (const fullWidth of ["false", "true"]) {
+    add("select-root", { lensoFullWidth: fullWidth }, `[data-lenso-full-width="${fullWidth}"]`);
+    for (const variant of ["primary", "secondary"])
+      add(
+        "select-trigger",
+        { lensoFullWidth: fullWidth, lensoVariant: variant },
+        `[data-lenso-full-width="${fullWidth}"][data-lenso-variant="${variant}"]`,
+      );
+  }
+  for (const variant of ["primary", "secondary"])
+    add("select-item", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const variant of ["grouped", "plain"])
+    add("list-root", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const height of ["regular", "tall"])
+    add("list-item", { lensoHeight: height }, `[data-lenso-height="${height}"]`);
+  for (const side of ["start", "end"])
+    add("swipe-actions", { lensoSide: side }, `[data-lenso-side="${side}"]`);
+  for (const variant of ["default", "danger", "tint"])
+    add("swipe-action", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
   for (const kind of [
+    ...swipeKinds,
+    ...listKinds,
+    ...selectKinds,
     ...numberKinds,
     ...menuKinds,
     ...tooltipKinds,

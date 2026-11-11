@@ -1,3 +1,5 @@
+use StyledAlertRoot, StyledAlertTrigger, StyledAlertClose, StyledAlertCloseIcon from "./generated/dialog-parts.contract"
+
 shape AlertDialogState
   id: string
   label: string
@@ -12,8 +14,7 @@ component AlertDialog
     state: AlertDialogState
   slot
   view
-    dialog id=state.id testId=state.id role="alertdialog" aria-label=state.label aria-labelledby=state.labelledBy aria-describedby=state.describedBy
-      closedby="closerequest" hatch="lenso-ui" data-lenso-kind="alert-dialog" data-slot="alert-dialog" data-lenso-dismiss="closerequest"
+    StyledAlertRoot(id=state.id, label=state.label, description=state.describedBy, labelledBy=state.labelledBy)
       children
 
 component AlertDialogBackdrop
@@ -99,8 +100,7 @@ component AlertDialogTrigger
     variant: string
   slot
   view
-    button id=id testId=id appearance="none" tabindex=0 aria-label=label disabled=disabled commandfor=target command="show-modal"
-      hatch="lenso-ui" data-lenso-kind="alert-dialog-trigger" data-slot="alert-dialog-trigger" data-lenso-size=size data-lenso-variant=variant
+    StyledAlertTrigger(id=id, label=label, target=target, disabled=disabled, size=size, variant=variant)
       children
 
 component AlertDialogClose
@@ -112,8 +112,7 @@ component AlertDialogClose
     initialFocus: bool
   slot
   view
-    button id=id testId=id appearance="none" tabindex=0 autofocus=initialFocus aria-label=label disabled=disabled commandfor=target command="close"
-      hatch="lenso-ui" data-lenso-kind="alert-dialog-close" data-slot="alert-dialog-close"
+    StyledAlertClose(id=id, label=label, target=target, disabled=disabled, initialFocus=initialFocus)
       children
 
 component AlertDialogAction
@@ -136,8 +135,7 @@ component AlertDialogCloseIcon
     target: string
     disabled: bool
   view
-    button id=id testId=id appearance="none" tabindex=0 aria-label=label disabled=disabled commandfor=target command="close"
-      hatch="lenso-ui" data-lenso-kind="alert-dialog-close-icon" data-slot="alert-dialog-close"
+    StyledAlertCloseIcon(id=id, label=label, target=target, disabled=disabled)
       svg viewBox="0 0 16 16" fill="none" aria-hidden=true hatch="lenso-ui" data-lenso-kind="modal-close-glyph"
         path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width=1.5 stroke-linecap="round"
 

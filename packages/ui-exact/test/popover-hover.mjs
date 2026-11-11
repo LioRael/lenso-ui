@@ -445,9 +445,10 @@ export async function checkPopoverHover(page, engine, { capture = true } = {}) {
       await focused(outside);
       if (capture)
         await page.screenshot({
-          path: path.resolve(
-            import.meta.dirname,
-            `../.cache/example/${engine}-popover-hover-${appearance}-${width}.png`,
+          path: path.join(
+            process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+              path.resolve(import.meta.dirname, "../.cache/example"),
+            `${engine}-popover-hover-${appearance}-${width}.png`,
           ),
         });
       await leave();
@@ -463,7 +464,11 @@ export async function checkPopoverHover(page, engine, { capture = true } = {}) {
   await initialRoot.dispose();
   await old.dispose();
   await Bun.write(
-    path.resolve(import.meta.dirname, `../.cache/example/${engine}-popover-hover-trace.json`),
+    path.join(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ??
+        path.resolve(import.meta.dirname, "../.cache/example"),
+      `${engine}-popover-hover-trace.json`,
+    ),
     JSON.stringify({ routes, trace, leaseBaseline }, null, 2) + "\n",
   );
   return { routes: routes.length, transitions: trace.length };
