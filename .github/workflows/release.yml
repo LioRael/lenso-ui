@@ -17,7 +17,51 @@ permissions:
   contents: read
 
 jobs:
+  preflight:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.4.4
+      - name: Require successful verification of this exact main commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bun - <<'BUN'
+          import { execFileSync } from "node:child_process";
+          import assert from "node:assert/strict";
+          const runs = JSON.parse(execFileSync("gh", [
+            "run", "list", "--repo", process.env.GITHUB_REPOSITORY,
+            "--workflow", "verify.yml", "--commit", process.env.GITHUB_SHA,
+            "--branch", "main", "--event", "push", "--status", "success",
+            "--limit", "20", "--json", "headSha,conclusion",
+          ], { encoding: "utf8" }));
+          assert.ok(
+            runs.some((run) => run.headSha === process.env.GITHUB_SHA && run.conclusion === "success"),
+            "The exact main commit must pass Verify reconstruction before publication.",
+          );
+          BUN
+      - name: Validate release identities before requesting approval
+        env:
+          LENSO_RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          bun - <<'BUN'
+          import { execFileSync } from "node:child_process";
+          import { packages, validateContext } from "./scripts/publish-packages.ts";
+          const git = (...args) => execFileSync("git", args, { encoding: "utf8" }).trim();
+          const manifests = await Promise.all(packages.map(p => Bun.file(`${p.dir}/package.json`).json()));
+          validateContext(process.env, git("rev-parse", "HEAD"), git("ls-remote", "origin", "refs/heads/main").split(/\s/)[0], manifests);
+          BUN
+
   release:
+    needs: preflight
     if: github.ref == 'refs/heads/main'
     environment: npm
     runs-on: ubuntu-latest

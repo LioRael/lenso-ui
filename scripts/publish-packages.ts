@@ -307,10 +307,11 @@ async function publish() {
   const version = validateContext(env, head, remoteHead, manifests);
   const temp = await mkdtemp(join(env["RUNNER_TEMP"] ?? tmpdir(), "lenso-release-"));
   try {
+    // One dependency graph: shared dependencies build once, before packing any package.
+    run("bunx", ["turbo", "run", "build", ...packages.map((item) => `--filter=${item.name}`)]);
     const tarballs = [];
     for (const [i, item] of packages.entries()) {
       const packageVersion = item.version ?? version;
-      run("bun", ["run", "--cwd", item.dir, "build"]);
       run("bun", ["pm", "pack", "--cwd", item.dir, "--filename", join(temp, `${i}.tgz`)]);
       const tarball = join(temp, `${i}.tgz`);
       const listing = run("tar", ["-tzf", tarball]).split("\n");
