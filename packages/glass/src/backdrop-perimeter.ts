@@ -1,4 +1,5 @@
 import { coreOptics, readCoreOptics } from "./core-optics.js";
+import { lensFilter } from "./filter-split.js";
 import { readLens, refractsBackdrop } from "./refraction.js";
 import type { BackdropSnapshot } from "./backdrop-snapshot.js";
 
@@ -157,12 +158,10 @@ export async function prepareGlassBackdrop(
     if (prepared) return prepared;
     if (signal.aborted) return;
   }
-  const idList = style
-    .getPropertyValue("--lg-filter")
-    .trim()
-    .match(/^url\(["']?#([^)"'\s]+)["']?\)$/);
-  if (!idList) return;
-  const original = doc.getElementById(idList[1]!);
+  const lensValue = style.getPropertyValue("--lg-filter").trim();
+  if (!/^url\(["']?#[^)"'\s]+["']?\)(?: url\(["']?#[^)"'\s]+-material["']?\))?$/.test(lensValue))
+    return;
+  const original = lensFilter(lensValue, doc);
   if (!original || original.localName !== "filter" || original.namespaceURI !== SVG) return;
   const filter = original as unknown as SVGFilterElement;
   if (!["userSpaceOnUse", "objectBoundingBox"].includes(original.getAttribute("filterUnits") ?? ""))

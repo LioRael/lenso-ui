@@ -3,6 +3,7 @@
 import { toneShader, type MaterialTone } from "./material-tone.js";
 import { createPrimaryBlur } from "./gpu-blur.js";
 import { renderPipeline } from "./gpu-pipeline.js";
+import { lensFilter } from "./filter-split.js";
 import type { CaptureShape } from "./gpu-capture.js";
 
 export interface Optics {
@@ -27,8 +28,7 @@ const fittedFilters = new WeakMap<SVGFilterElement, FilterCache>();
 let nextFilter = 0;
 
 export function readOptics(filterValue: string): Optics | undefined {
-  const id = filterValue.match(/#([^")]+)/)?.[1];
-  const filter = id ? document.getElementById(id) : null;
+  const filter = lensFilter(filterValue);
   if (!(filter instanceof SVGFilterElement)) return;
   let cached = fittedFilters.get(filter);
   if (!cached) {

@@ -23,6 +23,7 @@ import { whenNearViewport } from "./initial-visibility.js";
 import { createResizableFilter } from "./resizable-filter.js";
 import { afterGeometrySettles } from "./settled-geometry.js";
 import { createLiveRim } from "./live-rim.js";
+import { splitFilter } from "./filter-split.js";
 
 // Refraction model: https://kube.io/blog/liquid-glass-css-svg/
 
@@ -38,6 +39,7 @@ interface Lens {
   rim: string;
   foregroundRim?: string;
   node?: SVGElement;
+  paint?: SVGElement[];
   users: number;
   sourceReach: number;
 }
@@ -66,6 +68,15 @@ function svg(name: string, attributes: Record<string, string | number>): SVGElem
   const element = document.createElementNS(SVG, name);
   for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, String(value));
   return element;
+}
+
+function mount(lens: Lens) {
+  if (lens.node) container().append(lens.node, ...(lens.paint ?? []));
+}
+
+function unmount(lens: Lens) {
+  lens.node?.remove();
+  for (const node of lens.paint ?? []) node.remove();
 }
 
 function container(): SVGDefsElement {
@@ -104,7 +115,7 @@ async function lens(
     spareLenses.delete(key);
     spareBytes -= spare.bytes;
     spare.users = 1;
-    if (spare.node) container().append(spare.node);
+    mount(spare);
     lenses.set(key, spare);
     return spare;
   }
@@ -478,7 +489,12 @@ async function buildLens(
     const input = coreOptics(width, height, radius, shape);
     if (input) registerCoreOptics(filter, input);
   }
-  container().append(filter);
+  for (const node of recycled?.paint ?? []) node.remove();
+  const paint =
+    filtered && shape.appleMode && refractsBackdrop()
+      ? splitFilter(filter, shape.saturation > 1 ? "optical-face" : "face")
+      : undefined;
+  container().append(filter, ...(paint?.nodes ?? []));
 
   const density = shape.appleMode ? 2 : Math.min(devicePixelRatio || 1, 2);
   const decodedBytes = Math.ceil(width * density) * Math.ceil(height * density) * 4;
@@ -497,10 +513,11 @@ async function buildLens(
         ? foreground.length * 2 +
           Math.ceil((width + 2) * density) * Math.ceil((height + 2) * density) * 4
         : 0),
-    filter: `url("#${id}")`,
+    filter: paint?.value ?? `url("#${id}")`,
     rim: `url("${highlight}")`,
     foregroundRim: foreground ? `url("${foreground}")` : undefined,
     node: filter,
+    paint: paint?.nodes,
     users: 0,
     sourceReach,
   };
@@ -538,7 +555,7 @@ export async function createGeometryLens(
     destroy: () => {
       if (!live) return;
       live = false;
-      lens.node?.remove();
+      unmount(lens);
       if (!lens.geometryRecipe || lens.bytes > GEOMETRY_SPARE_BYTES) return;
       while (
         geometryGraphs.length &&
@@ -724,7 +741,7 @@ async function fit(
 
 function release(fitted: Lens | undefined) {
   if (!fitted || --fitted.users > 0) return;
-  fitted.node?.remove();
+  unmount(fitted);
   lenses.delete(fitted.key);
   if (fitted.bytes <= SPARE_BYTES) {
     spareLenses.set(fitted.key, fitted);
