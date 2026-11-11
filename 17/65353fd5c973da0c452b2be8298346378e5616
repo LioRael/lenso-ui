@@ -1,0 +1,77 @@
+packages/glass/src/control-lens.ts
+  s_10c7d362cf24b2::t_fdd2f65aa57fa7 302-309,333-336,376-382
+packages/glass/src/refraction.ts
+  s_10c7d362cf24b2::t_74806209123028 266-285,296
+packages/glass/test/browser/lens-geometry.dom.test.ts
+  s_10c7d362cf24b2::t_e38977746dd417 7,9-14,39-40,56,78
+packages/ui-exact/BUTTON_GROUP.md
+  s_10c7d362cf24b2::t_6b9c123d3d69c0 1-54
+packages/ui-exact/COMPONENTS.md
+  s_10c7d362cf24b2::t_0fad979c4ed989 20-120
+packages/ui-exact/README.md
+  s_10c7d362cf24b2::t_750d42818af71b 54-57,218-219
+packages/ui-exact/SEGMENTED_CONTROL.md
+  s_10c7d362cf24b2::t_5d690e1705048b 1-72
+packages/ui-exact/components/button-group.contract
+  s_10c7d362cf24b2::t_f7b84a45db7ac8 1-62
+packages/ui-exact/components/segmented-control.contract
+  s_10c7d362cf24b2::t_a5200e0b9e4d56 1-90
+packages/ui-exact/components/tabs.contract
+  s_10c7d362cf24b2::t_e05de410885af1 38
+packages/ui-exact/example/app.contract
+  s_10c7d362cf24b2::t_001f3c1d7e4e80 1-2,79-80
+packages/ui-exact/example/button-group.contract
+  s_10c7d362cf24b2::t_cf0209bb1e0a87 1-87
+packages/ui-exact/example/segmented-control.contract
+  s_10c7d362cf24b2::t_3d350a254bca6f 1-94
+packages/ui-exact/example/styles.ts
+  s_10c7d362cf24b2::t_eb6103db5cc010 21,53-58
+packages/ui-exact/index.contract
+  s_10c7d362cf24b2::t_53dace2ba93d07 1-2
+packages/ui-exact/manifest.json
+  s_10c7d362cf24b2::t_0ed32b933c3327 25,56-57
+packages/ui-exact/package.json
+  s_10c7d362cf24b2::t_0de3991f14c039 33-35
+packages/ui-exact/src/button-group-presentation.ts
+  s_10c7d362cf24b2::t_10af2ca575946c 1-117
+packages/ui-exact/src/button-group.ts
+  s_10c7d362cf24b2::t_1a1d337892680f 1-44
+packages/ui-exact/src/native.ts
+  s_10c7d362cf24b2::t_c9bb18346db80f 1,5-6,16-20,55-58,75-115
+packages/ui-exact/src/presentation.ts
+  s_10c7d362cf24b2::t_07e009e343ff35 1-2,86-88,153-154,158-190,225-232
+packages/ui-exact/src/segmented-control.ts
+  s_10c7d362cf24b2::t_327289ef357a91 1-130
+packages/ui-exact/src/segmented-presentation.ts
+  s_10c7d362cf24b2::t_b62b4ce9265a20 1-43
+packages/ui-exact/src/tabs-motion.ts
+  s_10c7d362cf24b2::t_48ccdf29731638 632-633,648-653,667,670-673,679-682
+packages/ui-exact/src/web.ts
+  s_10c7d362cf24b2::t_cbbeaf8f006f40 1,45-51,77,95
+packages/ui-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_dab9e61d2a072f 1-2,122-123,188
+packages/ui-exact/test/button-group.mjs
+  s_10c7d362cf24b2::t_5c41f06402f36f 1-216
+packages/ui-exact/test/initial-styles.mjs
+  s_10c7d362cf24b2::t_5e698e6d88e4cd 30-38
+packages/ui-exact/test/segmented-control.mjs
+  s_10c7d362cf24b2::t_0525304e393316 1-253
+packages/ui-exact/test/tabs.mjs
+  s_10c7d362cf24b2::t_7913510d22eb11 28,98-103,240
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1765353fd5c973da0c452b2be8298346378e5616",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
