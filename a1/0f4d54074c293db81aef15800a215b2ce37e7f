@@ -1,0 +1,27 @@
+packages/ui-exact/BUTTON_GROUP.md
+  s_10c7d362cf24b2::t_64562cb05d9ccd 19-20
+packages/ui-exact/components/button-group.contract
+  s_10c7d362cf24b2::t_a40a4451308cea 41
+packages/ui-exact/scripts/initial-css.ts
+  s_10c7d362cf24b2::t_9e1f601c0c50e8 92
+packages/ui-exact/test/button-group.mjs
+  s_10c7d362cf24b2::t_c97d72cf9dc1a8 121-136
+packages/ui-exact/test/initial-css.test.ts
+  s_10c7d362cf24b2::t_426397ff3f7caa 90-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a10f4d54074c293db81aef15800a215b2ce37e7f",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
