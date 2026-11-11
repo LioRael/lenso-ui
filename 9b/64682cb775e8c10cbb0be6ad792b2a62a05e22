@@ -1,0 +1,33 @@
+packages/glass/src/control-lens.ts
+  s_10c7d362cf24b2::t_fecef1e059f547 1047-1050,1141
+packages/glass/test/browser/lens-geometry.dom.test.ts
+  s_10c7d362cf24b2::t_4a1ebf4b0083c0 233,237
+packages/ui-exact/COMPONENTS.md
+  s_10c7d362cf24b2::t_ceea6064594ef4 76
+packages/ui-exact/SCROLL_SHADOW.md
+  s_10c7d362cf24b2::t_4c85cabf3673db 54,62-68
+packages/ui-exact/example/app.contract
+  s_10c7d362cf24b2::t_77e6600a2aaed5 46
+packages/ui-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_0a52ab2a2c27ba 1,67
+packages/ui-exact/test/presentation-cases.mjs
+  s_10c7d362cf24b2::t_4d139fbc0cf5f7 88-114
+packages/ui-exact/test/scroll-shadow.mjs
+  s_10c7d362cf24b2::t_cdffe323e4d676 5-79,82,138-139,231,243,268,271,301-309,355-356,372,383-388
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9b64682cb775e8c10cbb0be6ad792b2a62a05e22",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
