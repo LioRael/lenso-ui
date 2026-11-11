@@ -629,6 +629,8 @@ function present(bar: HTMLElement, kind: SegmentedPresentationKind) {
       "hidden",
       "data-tabs-overflow",
       "data-orientation",
+      "data-lenso-direction",
+      "dir",
       "class",
     ],
   });
@@ -643,7 +645,12 @@ const owners = new WeakMap<
   { stop: () => void; elastic: boolean; stopElastic?: () => void }
 >();
 export function updateTabsMotion(node: HTMLElement | SVGElement, data: DOMStringMap) {
-  if (!(node instanceof HTMLElement) || data["lensoKind"] !== "tabs-list") return;
+  if (
+    !(node instanceof HTMLElement) ||
+    !["tabs-list", "segmented-control"].includes(data["lensoKind"] ?? "")
+  )
+    return;
+  const kind = data["lensoKind"] === "segmented-control" ? "segmented-control" : "tabs";
   let owner = owners.get(node);
   if (!owner) {
     let active = true;
@@ -657,16 +664,22 @@ export function updateTabsMotion(node: HTMLElement | SVGElement, data: DOMString
     };
     owners.set(node, owner);
     queueMicrotask(() => {
-      if (active) stop = present(node, "tabs");
+      if (active) stop = present(node, kind);
     });
   }
-  const enabled = data["lensoElastic"] === "true" && data["lensoDisabled"] !== "true";
+  const enabled =
+    data["lensoElastic"] === "true" &&
+    data["lensoDisabled"] !== "true" &&
+    data["lensoReadonly"] !== "true";
   if (owner.elastic !== enabled) {
     owner.stopElastic?.();
     owner.elastic = enabled;
     owner.stopElastic = enabled
       ? press(node, (event) => {
-          const tab = event.target instanceof Element ? event.target.closest('[role="tab"]') : null;
+          const tab =
+            event.target instanceof Element
+              ? event.target.closest(kind === "tabs" ? '[role="tab"]' : '[role="radio"]')
+              : null;
           return Boolean(tab && !tab.matches('[data-disabled], [aria-disabled="true"]'));
         })
       : undefined;

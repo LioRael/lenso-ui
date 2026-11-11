@@ -1,3 +1,4 @@
+import { updateSegmented, endSegmented } from "./segmented-control.js";
 import { updateTabsMotion, endTabsMotion } from "./tabs-motion.js";
 import { updateTabs, endTabs } from "./tabs.js";
 import { updateSliderLift, endSliderLift } from "./slider-lift.js";
@@ -41,8 +42,13 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     kind === "slider-knob-lens" ||
     kind === "switch-knob-lens" ||
     kind === "glass" ||
-    (kind === "glass-button" && !node.matches(":disabled"));
-  const profileKey = kind === "glass-button" ? variant : "glass-small";
+    ((kind === "glass-button" || kind === "glass-button-group-item") && !node.matches(":disabled"));
+  const profileKey =
+    kind === "glass-button" || kind === "glass-button-group-item"
+      ? variant === "prominent"
+        ? "prominent"
+        : "default"
+      : "glass-small";
 
   owners.get(node)?.();
   const disconnectNative = connectNative(node, handle.data);
@@ -68,6 +74,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     disconnectAccordion?.();
     node.classList.remove(...classes);
   });
+  updateSegmented(node, handle.data);
   updateTabs(node, handle.data);
   updateTabsMotion(node, handle.data);
   updateSlider(node, handle.data);
@@ -85,6 +92,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
 /** Called before Exact removes or recycles a node. */
 export function elementEnded(handle: ExactElement) {
   if (handle.hatch !== "lenso-ui") return;
+  endSegmented(handle.element);
   endTabsMotion(handle.element);
   endTabs(handle.element);
   endSlider(handle.element);

@@ -27,6 +27,15 @@ export async function checkInitialStyles(page, url, engine) {
     );
     return page.evaluate(() => {
       const ids = [
+        "actions-group",
+        "actions-save",
+        "actions-duplicate",
+        "actions-more",
+        "segments",
+        "segments-item-0",
+        "segments-item-0-input",
+        "segments-rich",
+        "segments-rich-auto",
         "tabs-demo-list",
         "tabs-account",
         "tabs-account-panel",

@@ -1,0 +1,90 @@
+shape SegmentedControlOption
+  value: string
+  label: string
+  disabled: bool
+
+shape SegmentedControlState
+  id: string
+  label: string
+  value: string
+  hasValue: bool
+  direction: string
+  size: string
+  lift: number
+  elastic: bool
+  glass: bool
+  disabled: bool
+  readOnly: bool
+  required: bool
+  name: string
+  form: string
+
+component SegmentedControl
+  props
+    state: SegmentedControlState
+    items: SegmentedControlOption[]
+    emptyLabel: string
+    change: action
+  view
+    SegmentedControlRoot(state=state)
+      if items.length == 0
+        SegmentedControlEmpty(label=emptyLabel)
+      for item, index in items key=item.value
+        SegmentedControlItem(state=state, id=`${state.id}-item-${index}`, value=item.value, label=item.label, disabled=item.disabled, change=change)
+          text item.label hatch="lenso-ui" data-lenso-kind="segmented-control-label-text"
+      SegmentedControlIndicator()
+
+component SegmentedControlRoot
+  props
+    state: SegmentedControlState
+  slot
+  view
+    box id=state.id testId=state.id role="radiogroup" aria-label=state.label aria-disabled=state.disabled aria-required=state.required direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="segmented-control" data-slot="segmented-control" data-orientation="horizontal" data-lenso-direction=state.direction data-lenso-size=state.size data-lenso-elastic=state.elastic data-lenso-glass=state.glass data-lenso-lift=state.lift data-lenso-disabled=state.disabled data-lenso-readonly=state.readOnly
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-glass" data-slot="segmented-control-glass" data-lenso-glass=state.glass
+        if state.glass
+          box hatch="lenso-ui" data-lenso-kind="tabs-track-lens" data-material-lens=""
+      children
+
+component SegmentedControlItem
+  props
+    state: SegmentedControlState
+    id: string
+    value: string
+    label: string
+    disabled: bool
+    change: action
+  derive checked = state.hasValue and state.value == value
+  action select
+    if not state.disabled and not state.readOnly and not disabled and not checked
+      change(value)
+  action nativeChange(next: string)
+    if not state.disabled and not state.readOnly and not disabled and not (state.hasValue and state.value == next)
+      change(next)
+  slot
+  view
+    button id=id testId=id appearance="none" role="radio" aria-label=label aria-checked=checked aria-disabled=(state.disabled or disabled) disabled=false tabindex=((checked and not disabled and not state.disabled) ? 0 : -1) press=select
+      hatch="lenso-ui" data-lenso-kind="segmented-control-item" data-slot="segmented-control-item" data-lenso-active=checked data-lenso-disabled=(state.disabled or disabled)
+      box hatch="lenso-ui" data-lenso-kind="segmented-control-label" data-slot="segmented-control-label"
+        children
+    input type="radio" id=`${id}-input` testId=`${id}-input` value=value checked=checked change=nativeChange disabled=(state.disabled or disabled) tabindex=-1 aria-hidden=true
+      hatch="lenso-ui" data-lenso-kind="segmented-control-input" data-lenso-name=state.name data-lenso-form=state.form data-lenso-for=id data-lenso-checked=checked data-lenso-required=state.required data-lenso-readonly=state.readOnly
+
+component SegmentedControlEmpty
+  props
+    label: string
+  view
+    text label hatch="lenso-ui" data-lenso-kind="segmented-control-empty" data-slot="segmented-control-empty"
+
+component SegmentedControlIndicator
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-tint" data-slot="segmented-control-tint"
+      box hatch="lenso-ui" data-lenso-kind="tabs-highlight-clip" data-slot="segmented-control-highlight-ring"
+        box hatch="lenso-ui" data-lenso-kind="tabs-highlight-optics" data-slot="segmented-control-highlight-optics"
+          box hatch="lenso-ui" data-lenso-kind="tabs-copy-row" data-slot="segmented-control-row" data-orientation="horizontal"
+      box hatch="lenso-ui" data-lenso-kind="tabs-highlight-clip" data-slot="segmented-control-highlight-centre"
+        box hatch="lenso-ui" data-lenso-kind="tabs-copy-row" data-slot="segmented-control-centre-row" data-orientation="horizontal"
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="segmented-control-indicator" data-slot="segmented-control-fallback" data-lg-tabs-lens="fallback"
+      box hatch="lenso-ui" data-lenso-kind="tabs-refraction" data-slot="segmented-control-refraction" data-lenso-backdrop="live"
+        box hatch="lenso-ui" data-lenso-kind="tabs-knob-lens" data-knob-material="toggle"
+        box hatch="lenso-ui" data-lenso-kind="tabs-knob-face"

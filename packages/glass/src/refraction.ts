@@ -263,6 +263,26 @@ async function buildLens(
     if (selection || shape.dispersion > 0) {
       const spread = selection && shape.dispersion === 0 ? 0.035 : shape.dispersion * 0.1;
       const alpha = selection ? "0 0 0 0 1" : "0 0 0 1 0";
+      // On a fitted circular button, WebKit needs the full blur margin for the
+      // copied backdrop. Each displaced colour only needs its maximum reach
+      // plus a guard for interpolation and the following 0.4 px blur.
+      const rayMargin = Math.ceil(sourceReach) + 4;
+      const rayRegion =
+        !selection &&
+        !geometry &&
+        shape.appleMode &&
+        shape.materialProfile === "small" &&
+        width === height &&
+        radius === width / 2 &&
+        /AppleWebKit\//.test(navigator.userAgent) &&
+        !refractsBackdrop()
+          ? {
+              x: -rayMargin,
+              y: -rayMargin,
+              width: width + 2 * rayMargin,
+              height: height + 2 * rayMargin,
+            }
+          : undefined;
       const channels = [
         ["r", 1 + spread, `1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ${alpha}`],
         ["g", 1, `0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 ${alpha}`],
@@ -273,6 +293,7 @@ async function buildLens(
           svg("feDisplacementMap", {
             in: zoom ? "magnified" : "SourceGraphic",
             in2: "field",
+            ...rayRegion,
             scale: scale * factor,
             xChannelSelector: "R",
             yChannelSelector: "G",

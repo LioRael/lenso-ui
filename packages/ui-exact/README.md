@@ -51,6 +51,10 @@ single/multiple selection, joined/detached layouts and roving keyboard focus.
 See [toggle composition](TOGGLES.md) and the [compiled example](example/toggle.contract).
 Registered caller maps support custom tint and StyleX composition; see [caller styling](STYLING.md).
 
+`ButtonGroup` adds rich ordinary/Glass actions, joined/detached geometry and native
+Tab order through explicit group state and item parts. See [grouped actions](BUTTON_GROUP.md)
+and the [compiled example](example/button-group.contract).
+
 Native `Modal` adds composable backdrop, viewport, popup, header/body/footer,
 icon, title/description and action/close parts. Browser commands own opening;
 Exact actions own validation and save. See [modal API and acceptance limits](MODAL.md)
@@ -211,3 +215,5 @@ See [Switch](SWITCH.md) for state, native forms, source motion and remaining acc
 See [Slider](SLIDER.md) for range values, collision policy, keyboard operation and remaining acceptance gates.
 
 See [Tabs](TABS.md) for selection, panel lifetime, keyboard contracts, source motion and remaining acceptance gates.
+
+See [SegmentedControl](SEGMENTED_CONTROL.md) for radio selection, native form values and shared selection presentation.

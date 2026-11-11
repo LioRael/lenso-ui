@@ -1,3 +1,5 @@
+use ButtonGroupExample from "./button-group.contract"
+use SegmentedControlExample from "./segmented-control.contract"
 use TabsExample from "./tabs.contract"
 use SliderExample from "./slider.contract"
 use SwitchExample from "./switch.contract"
@@ -74,3 +76,5 @@ component App
           SwitchExample()
           SliderExample()
           TabsExample()
+          SegmentedControlExample()
+          ButtonGroupExample()

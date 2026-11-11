@@ -18,6 +18,7 @@ const custom = stylex.create({
   clear: { backgroundColor: null, borderRadius: 0 },
   wideAction: { width: "100%" },
   cardTitle: { fontWeight: 600 },
+  groupTint: { "--lenso-control-tint": "rgb(130 50 180)" },
   tabsLift: { "--lg-lens-grow-x": "41px" },
   switchIcon: { color: "#151515" },
   chip: { borderRadius: 8 },
@@ -48,4 +49,10 @@ export const inlineRule = { kind: "button", xstyle: dynamic.radius(13) } satisfi
 export const tabsLiftRule = {
   kind: "tabs-list",
   xstyle: custom.tabsLift,
+} satisfies PresentationRule;
+
+export const buttonGroupTintRule = {
+  kind: "button-group-item",
+  testId: "actions-save",
+  xstyle: custom.groupTint,
 } satisfies PresentationRule;

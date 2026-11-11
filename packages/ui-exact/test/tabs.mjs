@@ -25,7 +25,7 @@ export async function checkTabs(page, engine) {
   };
   await list.scrollIntoViewIfNeeded();
   await page.waitForFunction(() =>
-    document.getElementById("tabs-demo-list").hasAttribute("data-ready"),
+    document.getElementById("tabs-demo-list").hasAttribute("data-lenso-ready"),
   );
   assert.equal(await page.getByRole("tablist", { name: "Workspace sections" }).count(), 1);
   assert.equal(await list.getByRole("tab").count(), 3);
@@ -95,6 +95,12 @@ export async function checkTabs(page, engine) {
   await page.keyboard.press("ArrowRight");
   await focused(billing);
   await button("rtl").click();
+  await page.waitForFunction(() => {
+    const root = document.getElementById("tabs-demo-list");
+    const active = root.querySelector('[role="tab"][aria-selected="true"]').getBoundingClientRect();
+    const lens = root.querySelector('[data-slot="tabs-indicator"]').getBoundingClientRect();
+    return Math.abs(active.x + active.width / 2 - lens.x - lens.width / 2) < 1;
+  });
   await account.focus();
   await page.keyboard.press("ArrowLeft");
   await focused(billing);
@@ -231,7 +237,7 @@ export async function checkTabs(page, engine) {
   const old = await list.elementHandle();
   await button("visible").click();
   assert.equal(await old.evaluate((n) => n.isConnected), false);
-  assert.equal(await old.evaluate((n) => n.hasAttribute("data-ready")), false);
+  assert.equal(await old.evaluate((n) => n.hasAttribute("data-lenso-ready")), false);
   await button("visible").click();
   await selected(billing);
   await original.dispose();

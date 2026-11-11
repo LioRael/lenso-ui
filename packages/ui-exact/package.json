@@ -30,7 +30,9 @@
     "AVATAR.md",
     "SWITCH.md",
     "SLIDER.md",
-    "TABS.md"
+    "TABS.md",
+    "SEGMENTED_CONTROL.md",
+    "BUTTON_GROUP.md"
   ],
   "type": "module",
   "exports": {

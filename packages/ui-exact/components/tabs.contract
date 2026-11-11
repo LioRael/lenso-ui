@@ -35,7 +35,7 @@ component TabsList
   slot
   view
     box id=`${state.id}-list` testId=`${state.id}-list` role="tablist" aria-label=state.label aria-orientation=state.orientation aria-disabled=state.disabled
-      hatch="lenso-ui" data-lenso-kind="tabs-list" data-slot="tabs-list" data-orientation=state.orientation data-lenso-size=state.size data-lenso-elastic=state.elastic data-lenso-glass=state.glass data-lenso-lift=state.lift data-lenso-disabled=state.disabled data-lenso-activate-on-focus=state.activateOnFocus data-lenso-loop-focus=state.loopFocus
+      hatch="lenso-ui" data-lenso-kind="tabs-list" data-slot="tabs-list" data-orientation=state.orientation data-lenso-direction=state.direction data-lenso-size=state.size data-lenso-elastic=state.elastic data-lenso-glass=state.glass data-lenso-lift=state.lift data-lenso-disabled=state.disabled data-lenso-activate-on-focus=state.activateOnFocus data-lenso-loop-focus=state.loopFocus
       box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-glass" data-slot="tabs-glass" data-lenso-glass=state.glass
         if state.glass
           box hatch="lenso-ui" data-lenso-kind="tabs-track-lens" data-material-lens=""

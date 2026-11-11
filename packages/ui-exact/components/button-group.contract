@@ -1,0 +1,62 @@
+shape ButtonGroupState
+  id: string
+  label: string
+  direction: string
+  orientation: string
+  size: string
+  variant: string
+  glass: bool
+  detached: bool
+  fullWidth: bool
+  disabled: bool
+  destructive: bool
+  tint: string
+
+component ButtonGroup
+  props
+    state: ButtonGroupState
+  slot
+  view
+    box id=state.id testId=state.id role="group" aria-label=state.label aria-disabled=state.disabled direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="button-group" data-slot="button-group"
+      data-orientation=state.orientation data-lenso-detached=state.detached data-lenso-full-width=state.fullWidth data-lenso-disabled=state.disabled
+      children
+
+component ButtonGroupItem
+  props
+    state: ButtonGroupState
+    id: string
+    label: string
+    disabled: bool
+    loading: bool
+    iconOnly: bool
+    elastic: bool
+    type: string
+    press: action
+  action activate
+    if not state.disabled and not disabled and not loading
+      press()
+  slot
+  view
+    button id=id testId=id appearance="none" type=type aria-label=label aria-busy=loading disabled=(state.disabled or disabled) press=activate
+      hatch="lenso-ui" data-lenso-kind=(state.glass ? "glass-button-group-item" : "button-group-item") data-slot=(state.glass ? "glass-button" : "button")
+      data-lenso-group-item="" data-lenso-size=state.size data-lenso-variant=state.variant data-orientation=state.orientation
+      data-lenso-detached=state.detached data-lenso-full-width=state.fullWidth data-lenso-disabled=(state.disabled or disabled)
+      data-lenso-destructive=state.destructive data-lenso-tint=state.tint data-lenso-tinted=(state.tint != "") data-lenso-loading=loading data-lenso-icon-only=iconOnly data-lenso-elastic=elastic
+      if state.glass
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="button-group-press-highlight" data-slot="glass-press-highlight"
+      children
+
+component ButtonGroupIcon
+  props
+    glass: bool
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind=(glass ? "glass-button-group-icon" : "button-group-icon") data-slot=(glass ? "glass-button-icon" : "button-icon")
+      children
+
+component ButtonGroupSeparator
+  props
+    state: ButtonGroupState
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="button-group-separator" data-slot="button-group-separator" data-orientation=state.orientation

@@ -299,6 +299,14 @@ function drawMap(
   });
   for (let row = 0; row < rows; row++) {
     const y = ((row + 0.5) / rows) * height - halfHeight;
+    // Packed ink has symmetric coverage. Fractional fits can put opposite
+    // samples on different rounding boundaries, so compare their coordinates.
+    const mirrorRow = rows - 1 - row;
+    const mirrorOffset =
+      packed && y === halfHeight - ((mirrorRow + 0.5) / rows) * height
+        ? (mirrorRow - row) * columns * 4
+        : 0;
+    if (mirrorOffset < 0) continue;
     const ay = Math.abs(y);
     const pull = down ? Math.sign(y) * slope(ay, down) : clamp(y / halfHeight, -1, 1);
     const keepX = Math.max(0, 1 - (halfHeight - ay) / reach) * (1 - splay);
@@ -322,6 +330,10 @@ function drawMap(
         if (field) {
           field[i] = field[i + 1] = 128;
           field[i + 3] = 255;
+          if (mirrorOffset) {
+            field[i + mirrorOffset] = field[i + mirrorOffset + 1] = 128;
+            field[i + mirrorOffset + 3] = 255;
+          }
         } else {
           grey(pullAcross!, i, 128);
           grey(pullDown!, i, 128);
@@ -361,6 +373,13 @@ function drawMap(
         field[i + 3] = 255;
         // Ink that paints its own light only consumes the coverage, not its colour.
         caught[i + 3] = Math.round(255 * Math.min(1, falloff * 20, -edge));
+        if (mirrorOffset) {
+          field[i + mirrorOffset] = field[i]!;
+          // Reverse the pull before rounding to preserve the neutral half-step.
+          field[i + mirrorOffset + 1] = Math.round((0.5 + 0.5 * dy * falloff) * 255);
+          field[i + mirrorOffset + 3] = 255;
+          caught[i + mirrorOffset + 3] = caught[i + 3]!;
+        }
         continue;
       }
       grey(shapeMask!, i, Math.round(255 * falloff), inside);

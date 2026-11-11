@@ -1,6 +1,9 @@
+import { connectGroupAction } from "./button-group.js";
 /** Presence selectors in shared tokens must not see data-invalid="false". */
 export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap) {
   const restores: Array<() => void> = [];
+  const disconnectGroupAction = connectGroupAction(node, data);
+  if (disconnectGroupAction) restores.push(disconnectGroupAction);
   if (data["lensoKind"] === "card") {
     const original = node.getAttribute("data-material");
     if (data["lensoVariant"] === "glass") node.setAttribute("data-material", "glass-medium");
@@ -10,7 +13,11 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
       else node.setAttribute("data-material", original);
     });
   }
-  if (data["lensoKind"] === "switch" || data["lensoKind"] === "slider-input") {
+  if (
+    data["lensoKind"] === "switch" ||
+    data["lensoKind"] === "slider-input" ||
+    data["lensoKind"] === "segmented-control"
+  ) {
     const original = node.getAttribute("aria-readonly");
     if (data["lensoReadonly"] === "true") node.setAttribute("aria-readonly", "true");
     else node.removeAttribute("aria-readonly");
@@ -45,7 +52,10 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
       node.inert = inert;
     });
   }
-  if (node instanceof HTMLElement && data["lensoKind"] === "tabs-list") {
+  if (
+    node instanceof HTMLElement &&
+    ["tabs-list", "segmented-control"].includes(data["lensoKind"] ?? "")
+  ) {
     const lift = Number(data["lensoLift"]);
     if (!Number.isFinite(lift) || lift < 0)
       throw new RangeError("Tabs lift must be finite and non-negative");
@@ -61,6 +71,47 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
         else node.style.removeProperty(name!);
       });
     }
+  }
+  if (node instanceof HTMLInputElement && data["lensoKind"] === "segmented-control-input") {
+    const originalChecked = node.defaultChecked,
+      originalForm = node.getAttribute("form");
+    node.defaultChecked = data["lensoChecked"] === "true";
+    if (data["lensoForm"]) node.setAttribute("form", data["lensoForm"]);
+    else node.removeAttribute("form");
+    const guard = (event: Event) => {
+      if (data["lensoReadonly"] === "true") {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      } else event.stopPropagation();
+    };
+    const focus = () => document.getElementById(data["lensoFor"] ?? "")?.focus();
+    const invalid = (event: Event) => {
+      event.preventDefault();
+      const group = node.closest('[data-slot="segmented-control"]');
+      const choices = Array.from(
+        group?.querySelectorAll<HTMLElement>('[role="radio"]') ?? [],
+      ).filter(
+        (item) =>
+          item.closest('[data-slot="segmented-control"]') === group &&
+          !item.matches(':disabled, [data-disabled], [aria-disabled="true"]'),
+      );
+      (
+        choices.find((item) => item.getAttribute("aria-checked") === "true") ??
+        choices[0] ??
+        document.getElementById(data["lensoFor"] ?? "")
+      )?.focus();
+    };
+    node.addEventListener("click", guard, true);
+    node.addEventListener("focus", focus);
+    node.addEventListener("invalid", invalid);
+    restores.push(() => {
+      node.removeEventListener("click", guard, true);
+      node.removeEventListener("focus", focus);
+      node.removeEventListener("invalid", invalid);
+      node.defaultChecked = originalChecked;
+      if (originalForm === null) node.removeAttribute("form");
+      else node.setAttribute("form", originalForm);
+    });
   }
   const disconnectSwitchInput = connectSwitchInput(node, data);
   if (disconnectSwitchInput) restores.push(disconnectSwitchInput);

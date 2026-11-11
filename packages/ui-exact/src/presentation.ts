@@ -1,3 +1,5 @@
+import { buttonGroupPresentation, buttonGroupKinds } from "./button-group-presentation.js";
+import { segmentedPresentation, segmentedKinds } from "./segmented-presentation.js";
 import { tabsPresentation, tabsKinds } from "./tabs-presentation.js";
 import { sliderPresentation, sliderKinds } from "./slider-presentation.js";
 import { switchPresentation, switchKinds } from "./switch-presentation.js";
@@ -81,7 +83,9 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           avatarPresentation(kind, data) ??
           switchPresentation(kind, data) ??
           sliderPresentation(kind) ??
-          tabsPresentation(kind, data));
+          tabsPresentation(kind, data) ??
+          segmentedPresentation(kind, data) ??
+          buttonGroupPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -146,9 +150,44 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     ...switchKinds,
     ...sliderKinds,
     ...tabsKinds,
+    ...segmentedKinds,
+    ...buttonGroupKinds,
     "glass",
   ])
     add(kind);
+  for (const orientation of ["horizontal", "vertical"]) {
+    add("button-group-separator", { orientation }, `[data-orientation="${orientation}"]`);
+    for (const full of [false, true])
+      for (const detached of [false, true]) {
+        const layout = {
+          orientation,
+          lensoFullWidth: String(full),
+          lensoDetached: String(detached),
+        };
+        const suffix = `[data-orientation="${orientation}"][data-lenso-full-width="${full}"][data-lenso-detached="${detached}"]`;
+        add("button-group", layout, suffix);
+        for (const kind of ["button-group-item", "glass-button-group-item"])
+          for (const size of ["sm", "md", "lg"])
+            for (const variant of kind === "button-group-item"
+              ? ["prominent", "bordered", "borderless", "default"]
+              : ["default", "prominent", "bordered", "borderless"])
+              for (const icon of [false, true])
+                for (const destructive of [false, true])
+                  for (const tinted of [false, true])
+                    add(
+                      kind,
+                      {
+                        ...layout,
+                        lensoSize: size,
+                        lensoVariant: variant,
+                        lensoIconOnly: String(icon),
+                        lensoDestructive: String(destructive),
+                        lensoTinted: String(tinted),
+                      },
+                      `${suffix}[data-lenso-size="${size}"][data-lenso-variant="${variant}"][data-lenso-icon-only="${icon}"][data-lenso-destructive="${destructive}"][data-lenso-tinted="${tinted}"]`,
+                    );
+      }
+  }
   for (const kind of ["switch", "switch-control", "switch-thumb"])
     for (const size of ["sm", "md", "lg"])
       add(kind, { lensoSize: size }, `[data-lenso-size="${size}"]`);
@@ -183,6 +222,14 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
             `[data-orientation="${orientation}"][data-lenso-size="${size}"][data-lenso-glass="${glass}"][data-lenso-elastic="${elastic}"]`,
           );
   }
+  for (const size of ["sm", "lg"])
+    for (const glass of [false, true])
+      for (const elastic of [false, true])
+        add(
+          "segmented-control",
+          { lensoSize: size, lensoGlass: String(glass), lensoElastic: String(elastic) },
+          `[data-lenso-size="${size}"][data-lenso-glass="${glass}"][data-lenso-elastic="${elastic}"]`,
+        );
   add("avatar-image");
   for (const grid of [false, true])
     add("avatar-group", { lensoGrid: String(grid) }, `[data-lenso-grid="${grid}"]`);

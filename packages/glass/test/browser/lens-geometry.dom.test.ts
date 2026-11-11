@@ -4,12 +4,14 @@ import { observeGlassPreferences } from "../../src/preferences.js";
 
 // Channel packing must preserve both displacement bytes and mask coverage;
 // a refit must not reuse the packed cache entry for spectral rays.
+// At 126 × 11 and DPR 1.5, unconditionally mirroring rows changes 175 mask bytes.
 test.each([
-  ["AppleWebKit/605.1.15", 1],
-  ["AppleWebKit/605.1.15", 2],
-  ["Chrome/156", 1],
-  ["Chrome/156", 2],
-] as const)("%s ink fields preserve their bytes at DPR %s", (agent, density) => {
+  ["AppleWebKit/605.1.15", 1, 17, 29],
+  ["AppleWebKit/605.1.15", 2, 17, 29],
+  ["AppleWebKit/605.1.15", 1.5, 126, 11],
+  ["Chrome/156", 1, 17, 29],
+  ["Chrome/156", 2, 17, 29],
+] as const)("%s exact ink bytes at DPR %s, %s × %s", (agent, density, width, height) => {
   const userAgent = Object.getOwnPropertyDescriptor(navigator, "userAgent");
   Object.defineProperty(navigator, "userAgent", { configurable: true, value: agent });
   const combined = agent.startsWith("AppleWebKit");
@@ -34,8 +36,8 @@ test.each([
   document.body.append(glass, content);
   for (const node of [glass, content])
     Object.defineProperties(node, {
-      offsetWidth: { value: 17 },
-      offsetHeight: { value: 29 },
+      offsetWidth: { value: width },
+      offsetHeight: { value: height },
     });
   const options = {
     strength: 0.16,
@@ -51,7 +53,7 @@ test.each([
   let lens: ReturnType<typeof createControlLens> | undefined;
   try {
     const reference = lensMap(
-      { width: 17, height: 29, radius: 5 },
+      { width, height, radius: 5 },
       options,
       {
         angle: 45,
@@ -73,7 +75,7 @@ test.each([
       mask[i + 3] = reference.light[i + 3]!;
     }
     lens = createControlLens(glass, content, options);
-    lens.update(1, { contentWidth: 17, contentHeight: 29, x: 0, y: 0, width: 17, height: 29 });
+    lens.update(1, { contentWidth: width, contentHeight: height, x: 0, y: 0, width, height });
     lens.setActive(true);
     expect(images).toHaveLength(count);
     if (combined) expect(images[0]).toEqual(field);

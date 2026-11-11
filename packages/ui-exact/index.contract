@@ -1,3 +1,5 @@
+use ButtonGroupState, ButtonGroup, ButtonGroupItem, ButtonGroupIcon, ButtonGroupSeparator from "./components/button-group.contract"
+use SegmentedControlOption, SegmentedControlState, SegmentedControl, SegmentedControlRoot, SegmentedControlItem, SegmentedControlIndicator, SegmentedControlEmpty from "./components/segmented-control.contract"
 use TabsState, Tabs, TabsListContainer, TabsList, TabsTab, TabsPanel, TabsIndicator, TabsSeparator from "./components/tabs.contract"
 use SliderState, Slider, SliderLabel, SliderOutput, SliderControl, SliderTrack, SliderFill, SliderThumb, SliderMarks from "./components/slider.contract"
 use SwitchState, Switch, SwitchContent, SwitchControl, SwitchThumb, SwitchIcon from "./components/switch.contract"
