@@ -51,6 +51,11 @@ Popup and Backdrop compose native Dialog placement and dismissal. Documentation
 search uses those parts without a private style map. Command is an owner-authorized additive primitive;
 existing primitive families remain unchanged.
 
+Glass buttons inside Command keep the shared Small Glass backing paint. The
+panel creates a Chromium backdrop root, so its buttons use the same blur/paint
+fallback as buttons inside a translucent Sheet. They must remain visibly raised
+over both coloured and neutral dark panels after fitted optics are ready.
+
 ## Grouped forms
 
 `Input` and `TextArea` are content-layer fields with ordinary form surfaces.
