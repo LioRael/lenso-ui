@@ -1,0 +1,587 @@
+docs/research/evidence/native-color-2026-11-11/android/routing3/visible-app-recheck-screen.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-5
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_ab23ad7289e980 40,131-136
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/color-swatch.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-77
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-17.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-193
+docs/research/evidence/native-color-2026-11-11/android/lenso-native-color-android-initial.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-2
+apps/native-example/README.md
+  s_ab5c95a3492695::t_e705716598addc 101-119
+docs/design/native-components.md
+  s_ab5c95a3492695::t_ab23ad7289e980 237-247
+docs/research/evidence/native-color-2026-11-11/android/routing3/boot-observations.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-392
+docs/research/evidence/native-color-2026-11-11/android/lenso-native-color-android-start.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-34
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-33
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/visible-app-gate.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-7
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-303
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-1.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-5.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/ios/routing3/routing-color-blue-once-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+packages/ui-native/ios/ColorButtonView.swift
+  s_ab5c95a3492695::t_438e551b9018d4 2,39
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1,3-31,33-38,40-42,44-61
+  s_ab5c95a3492695::t_3b499a0b3f1aa8 32
+  s_ab5c95a3492695::t_fb438b9dd1ac5a 43
+docs/research/evidence/native-color-2026-11-11/install.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-4
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/boot-observations.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-107
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-4.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/open/case-1.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+packages/ui-native/src/color-model.ts
+  s_ab5c95a3492695::t_438e551b9018d4 27-33
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1-26
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/color-button-types.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-7
+apps/native-example/ColorExample.tsx
+  s_ab5c95a3492695::t_1edc8197e3a8d2 1-119
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_15bbad6a8dda0c 103-108
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-blue-pixels-metrics.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-100
+docs/research/evidence/native-color-2026-11-11/build2/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-170
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-open.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-2
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/install-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-5
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/color-button.ios.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-45
+docs/research/evidence/native-color-2026-11-11/android/launch.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-15
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/delivery-selection.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-259
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/open.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-612
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/bun.lock.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-2998
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-15.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/color-swatch.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-77
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-dark-readable-metrics.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-100
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-predump.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-2
+docs/research/evidence/native-color-2026-11-11/android/routing3/authoritative-results.json
+  s_ab5c95a3492695::t_e7f6215e0f0f6d 23
+  s_ab5c95a3492695::t_12640b958d4c39 1-22,24-176
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-initial-circle-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/apps/native-example/ColorExample.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-119
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/bun.lock.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-2998
+docs/research/evidence/native-color-2026-11-11/android/package-readiness.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-6
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-33
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/ColorQA.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-56
+docs/research/evidence/native-color-2026-11-11/ios/acceptance1/qa-compile-failure-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-8
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/ios/ControlView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-149
+docs/research/evidence/native-color-2026-11-11/ios/routing3/App.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-303
+packages/ui-native/src/color-swatch-picker.tsx
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1-26,28-38,40-68,74-91
+  s_ab5c95a3492695::t_1edc8197e3a8d2 27,39,69-73
+docs/research/native-color-2026-11-11.md
+  s_ab5c95a3492695::t_839b9df7316466 12,18,31,34,37,68,70,73,84,86-95
+  s_ab5c95a3492695::t_131e91e16b5a45 82,138-143
+  s_ab5c95a3492695::t_32a759f121dbc9 96,144-147
+  s_ab5c95a3492695::t_ab23ad7289e980 129-137
+  s_ab5c95a3492695::t_4a4d5c4f83b0e6 1-11,13-17,19-30,32-33,35-36,38-67,69,71-72,74-81,83,85
+  s_ab5c95a3492695::t_a2680188412f9d 97-128
+docs/research/evidence/native-color-2026-11-11/ios/routing3/routing-final-home-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-206
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/shutdown.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/ios/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-61
+packages/ui-native/src/use-native-color.ts
+  s_ab5c95a3492695::t_438e551b9018d4 2-7,25
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1,8-24,26-28
+docs/research/evidence/native-color-2026-11-11/ios/routing3/binary-provenance.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-34
+docs/research/evidence/native-color-2026-11-11/android/routing3/logger.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-14
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-model.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-33
+docs/research/evidence/native-color-2026-11-11/android/routing3/logger-stop.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-7
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/index.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-108
+docs/research/evidence/native-color-2026-11-11/source-hashes.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/open/source-hashes-before.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/doctor-routing.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-5,7-50
+  s_ab5c95a3492695::t_32a759f121dbc9 6
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/reverse.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-15
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source-hashes-before.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/README.md
+  s_ab5c95a3492695::t_131e91e16b5a45 1-23,28-30
+  s_ab5c95a3492695::t_e7f6215e0f0f6d 24-27
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-28
+docs/research/evidence/native-color-2026-11-11/android/routing3/lenso-native-color-routing3.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-42
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/binary-provenance.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-7
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-half-red-pixels-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/use-native-color.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-28
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_1a5a7463a8df60 65-82,84,95-98
+  s_ab5c95a3492695::t_1edc8197e3a8d2 20,110,131,148,207
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-square-native-svg-metrics.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-100
+docs/research/evidence/native-color-2026-11-11/build1/build-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-9
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/color-button.ios.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-45
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-8.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/routing3/lenso-native-color-routing3-observe.log
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/routing-source-hashes.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/ios/routing3/routing-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-20
+docs/research/evidence/native-color-2026-11-11/android/lenso-native-color-android-qa.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-117
+docs/research/evidence/native-color-2026-11-11/android/source-hashes-before.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-170
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/open/binary-provenance.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-7
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/color-button.android.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-42
+docs/research/evidence/native-color-2026-11-11/android/routing3/planned-routing-smoke.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-14.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/build1/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-61
+docs/research/evidence/native-color-2026-11-11/ios/routing3/termination-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/result-summary.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-9
+docs/research/evidence/native-color-2026-11-11/android/source-hashes-after.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/color-button.ios.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-45
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-outside-no-selection-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/ios/routing3/source-hashes-before.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/routing3/emulator.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-18,20-44,46-80,82-97
+  s_ab5c95a3492695::t_32a759f121dbc9 19,45,81
+docs/research/evidence/native-color-2026-11-11/ios/acceptance1/ColorQA.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-56
+docs/research/evidence/native-color-2026-11-11/android/routing3/launch-intent.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-21
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_e705716598addc 423-450
+docs/research/evidence/native-color-2026-11-11/routing-equivalence.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-20,22
+  s_ab5c95a3492695::t_32a759f121dbc9 21
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-31
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/color-swatch-picker.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-91
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-dump.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-9
+docs/research/evidence/native-color-2026-11-11/android/routing3/systemui-exit-info.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-17
+docs/research/evidence/native-color-2026-11-11/ios/routing3/routing-color-default-red-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_4a4d5c4f83b0e6 272-274,284-286
+  s_ab5c95a3492695::t_ab23ad7289e980 276-277,279,288-289,291
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/package.json.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-31
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/package-readiness.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-36
+docs/research/evidence/native-color-2026-11-11/android/delivery-selection.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-39
+docs/research/evidence/native-color-2026-11-11/android/routing3/apk-identity.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-15
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/color-swatch.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-77
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-finish.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-6
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/source-hashes-after.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/preflight-diagnosis.md
+  s_ab5c95a3492695::t_12640b958d4c39 1-2,10-27
+  s_ab5c95a3492695::t_e7f6215e0f0f6d 3-9
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-108
+docs/research/evidence/native-color-2026-11-11/android/routing3/diagnostic-excerpts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-211
+docs/research/evidence/native-color-2026-11-11/ios/routing3/source-hashes-after.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/color-button.android.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-42
+docs/research/evidence/native-color-2026-11-11/android/source/bun.lock.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-2998
+docs/research/evidence/native-color-2026-11-11/build2/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-61
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-28
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-transparent-checker-metrics.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-100
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/readiness-sequence.md
+  s_ab5c95a3492695::t_12640b958d4c39 1-13
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-312
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source-hashes-after.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/routing3/visible-app-recheck.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/binary-provenance.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-34
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/ColorExample.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-119
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-half-red-pixels-metrics.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-100
+docs/research/evidence/native-color-2026-11-11/android/routing3/source-hashes-before.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/authoritative-results.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-91
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-back-glass-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-206
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-11.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-20
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-cases2.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-48
+packages/ui-native/src/color-button-types.ts
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1-10
+docs/research/evidence/native-color-2026-11-11/android/routing3/lenso-native-color-routing3-finish.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-2
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/color-button-types.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+docs/research/evidence/native-color-2026-11-11/android/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-312
+docs/research/evidence/native-color-2026-11-11/export-ios.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-20
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/native-size.ios.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-11
+docs/research/evidence/native-color-2026-11-11/android/source/apps/native-example/ColorExample.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-119
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-170
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/after-first-dump.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/ios/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-61
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-swatch.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-77
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/source-hashes-before.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/export-routing-ios.log
+  s_ab5c95a3492695::t_32a759f121dbc9 1-18
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-reenable-actual-blue-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-local-blue-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/initial.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/first-dump.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-16
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-dark-readable-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-2.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-33
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/App.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-312
+docs/research/evidence/native-color-2026-11-11/android/routing3/before-launch.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-31
+docs/research/evidence/native-color-2026-11-11/android/routing3/lenso-native-color-routing3-finish.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-6
+docs/research/evidence/native-color-2026-11-11/models.log
+  s_ab5c95a3492695::t_12640b958d4c39 1,3,8,13,15,19-21,25,28,31,35,38,41,46,51,55,61,66,70,74,78,81,83-84,86-88,90
+  s_ab5c95a3492695::t_32a759f121dbc9 2,4-7,9-12,14,16-18,22-24,26-27,29-30,32-34,36-37,39-40,42-45,47-50,52-54,56-60,62-65,67-69,71-73,75-77,79-80,82,85,89
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-readonly-restores-red-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/emulator.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-18,20-44,46-80,82-101
+  s_ab5c95a3492695::t_32a759f121dbc9 19,45,81
+docs/research/evidence/native-color-2026-11-11/export-routing-android.log
+  s_ab5c95a3492695::t_32a759f121dbc9 1-18
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/logger-stop.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-7
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-button.android.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-42
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/first-dump.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/routing3/lenso-native-color-routing3-observe.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-2
+packages/ui-native/src/color-button.ios.tsx
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1-45
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-square-native-svg-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/before-dump.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-transparent-checker-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/exit-info-final.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-17
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/before-launch.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/android/startup.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-19.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-108
+docs/research/evidence/native-color-2026-11-11/final-source-hashes.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/after-acceptance.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/doctor-package.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-5,7-62
+  s_ab5c95a3492695::t_32a759f121dbc9 6
+docs/research/evidence/native-color-2026-11-11/android/routing3/reverse.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-15
+docs/research/evidence/native-color-2026-11-11/android/routing3/package-readiness.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-36
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/exit-info-after-dump.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-17
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-31
+docs/research/evidence/native-color-2026-11-11/App.before-routing.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-312
+docs/research/evidence/native-color-2026-11-11/export-android.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-20
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-finish.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-2
+docs/research/evidence/native-color-2026-11-11/ios/pixel-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-8,10-11,13-17,20-25,27-28,30-33,35-39,41-42,44-47,49-53,57-62,64-65,67-70,72-76,81-86,88-89,91-94,96-100,105-110,112-113,115-118,120-124,129-134,136-137,139-142,144-148,153-158,160-161,163-166,168-172,177-182,184-185,187-190,192-198,201-202,205-211,214-215,218-227
+  s_ab5c95a3492695::t_e7f6215e0f0f6d 9,12,18-19,26,29,34,40,43,48,54-56,63,66,71,77-80,87,90,95,101-104,111,114,119,125-128,135,138,143,149-152,159,162,167,173-176,183,186,191,199-200,203-204,212-213,216-217
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_15bbad6a8dda0c 13-23
+docs/research/evidence/native-color-2026-11-11/build2/build-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-11
+packages/ui-native/src/color-swatch.tsx
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1-36,41-77
+  s_ab5c95a3492695::t_3b499a0b3f1aa8 37-40
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/launch-intent.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-21
+docs/research/evidence/native-color-2026-11-11/build1/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-170
+docs/research/evidence/native-color-2026-11-11/ios/routing3/ColorQA.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-61
+docs/research/evidence/native-color-2026-11-11/ios/routing3/result-summary.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-9
+docs/research/evidence/native-color-2026-11-11/build2/compile-excerpt.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-5
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-predump.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-4
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/authoritative-results.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-136,138-147,149-158,160-162,164-173,175-177,179-193,195-196,198-200,202-206,208-209,211-213,215-219,221-222,224-240,242-289,292-298,300-301,303-305,307-311,313-314,316-318,320-324,326-327,329-376
+  s_ab5c95a3492695::t_e7f6215e0f0f6d 137,148,159,163,174,178,194,197,201,207,210,214,220,223,241,290-291,299,302,306,312,315,319,325,328
+docs/research/evidence/native-color-2026-11-11/dependency-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-12
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-cases.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-43
+docs/research/evidence/native-color-2026-11-11/android/launch-intent.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-4
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-held-red-rejects-blue-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/shutdown.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-6
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/native-size.ios.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-11
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/bun.lock.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-2998
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-initial-circle-metrics.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-100
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-10.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/lenso-native-color-android-finalize.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/routing3/exit-info-final.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-17
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-8
+docs/research/evidence/native-color-2026-11-11/android/routing3/lenso-native-color-routing3.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-5
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-42
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/diagnostic-excerpts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-196
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-170
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-13.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/routing3/logcat-retention.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-7
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/ControlView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-149
+docs/research/evidence/native-color-2026-11-11/android/routing3/after-visible-gate-stop.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/android/routing3/launch.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-16
+docs/research/evidence/native-color-2026-11-11/android/apk-path.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-16.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/routing3/shutdown.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/color-swatch-picker.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-91
+docs/research/evidence/native-color-2026-11-11/archive-index.json
+  s_ab5c95a3492695::t_e7f6215e0f0f6d 318-320,670-672,924-926,934-936
+  s_ab5c95a3492695::t_12640b958d4c39 1-19,21-31,35-37,41-43,47-317,321-391,395-669,673-807,811-913,917-923,927-933,937-1031,1035-1049,1053-1155,1159-1174,1183-1184
+  s_ab5c95a3492695::t_675812d083ce93 32,34,38,40,44,46,392-394,914-916,1032-1034
+  s_ab5c95a3492695::t_32a759f121dbc9 20,33,39,45,808-810,1050-1052,1156-1158,1175-1182
+docs/research/evidence/native-color-2026-11-11/ios/routing3/routing-reopened-default-red-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/immediate-before-first-dump.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-18.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/ios/ControlView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-149
+docs/research/evidence/native-color-2026-11-11/ios/shutdown-receipt.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-5
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/native-size.ios.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-11
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-button.ios.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-45
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/color-button-types.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+docs/research/evidence/native-color-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-64
+packages/ui-native/src/color-button.android.tsx
+  s_ab5c95a3492695::t_15bbad6a8dda0c 1-42
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-12.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/native-size.ios.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-11
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-7.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-qa.py.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-117
+docs/research/evidence/native-color-2026-11-11/android/routing3/before-dump-screen.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-5
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/ios/ControlView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-149
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/packages/ui-native/src/color-swatch-picker.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-91
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/ios/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-61
+docs/research/evidence/native-color-2026-11-11/Podfile.lock.before
+  s_ab5c95a3492695::t_12640b958d4c39 1-2480
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/before-dump-screen.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-5
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/apk-identity.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-15
+docs/research/evidence/native-color-2026-11-11/android/routing3/before-dump.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-143
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/logcat-retention.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-8
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-swatch-picker.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-91
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-108
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-28
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-61
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/launch.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-16
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-9.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/preflight-receipts.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-8
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-6.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/source-hashes-before.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/routing3/delivery-selection.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-55
+docs/research/evidence/native-color-2026-11-11/android/routing3/source-hashes-after.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-18
+docs/research/evidence/native-color-2026-11-11/android/activity.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-152,154-351
+  s_ab5c95a3492695::t_675812d083ce93 153
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/lenso-native-color-instrumented2-dump.log
+  s_ab5c95a3492695::t_12640b958d4c39 1-3
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/acceptance2/case-3.xml
+  s_ab5c95a3492695::t_12640b958d4c39 1
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/src/color-button.android.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-42
+docs/research/evidence/native-color-2026-11-11/locked-pod-install-tail.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-25
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-blue-pixels-hierarchy.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-111
+docs/research/evidence/native-color-2026-11-11/doctor-example.log
+  s_ab5c95a3492695::t_32a759f121dbc9 6
+  s_ab5c95a3492695::t_12640b958d4c39 1-5,7-54
+docs/research/evidence/native-color-2026-11-11/build1/compile-excerpt.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+docs/research/evidence/native-color-2026-11-11/ios/acceptance2/color-button-types.ts.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-10
+packages/ui-native/package.json
+  s_ab5c95a3492695::t_19736e814f7c20 18
+packages/ui-native/test/color-model.test.ts
+  s_ab5c95a3492695::t_438e551b9018d4 1-47
+docs/research/evidence/native-color-2026-11-11/android/instrumented2/logger.json
+  s_ab5c95a3492695::t_12640b958d4c39 1-14
+docs/research/evidence/native-color-2026-11-11/android/routing3/source/apps/native-example/ColorExample.tsx.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-119
+docs/research/evidence/native-color-2026-11-11/android/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_12640b958d4c39 1-170
+bun.lock
+  s_ab5c95a3492695::t_0fe5870959b9da 324
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "63a64e5b3f5c631941ddfe03231120baaad1abf5",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
