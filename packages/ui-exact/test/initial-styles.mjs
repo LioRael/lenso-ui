@@ -27,6 +27,14 @@ export async function checkInitialStyles(page, url, engine) {
     );
     return page.evaluate(() => {
       const ids = [
+        "shadow-sample",
+        "shadow-draft",
+        "pages",
+        "pages-track",
+        "pages-page-0",
+        "pages-page-8",
+        "pages-rich",
+        "pages-rich-page-0",
         "actions-group",
         "actions-save",
         "actions-duplicate",
@@ -114,6 +122,32 @@ export async function checkInitialStyles(page, url, engine) {
       await page.locator("[data-lenso-ready]").count(),
       0,
       "hatches must remain blocked for this capture",
+    );
+    const scrollInitial = await page.evaluate(() => {
+      const node = document.getElementById("shadow-sample"),
+        style = getComputedStyle(node);
+      return {
+        timeline: CSS.supports("animation-timeline", "scroll(self)"),
+        start: style.getPropertyValue("--scroll-shadow-start-fade"),
+        end: style.getPropertyValue("--scroll-shadow-end-fade"),
+        properties: [...document.styleSheets]
+          .flatMap((sheet) => [...sheet.cssRules])
+          .filter((rule) => rule.cssText.startsWith("@property --scroll-shadow-"))
+          .map((rule) => rule.cssText),
+      };
+    });
+    assert.equal(
+      scrollInitial.properties.length,
+      2,
+      "typed scroll fades must be linked before the hatch",
+    );
+    if (scrollInitial.timeline) {
+      assert.equal(parseFloat(scrollInitial.start), 0);
+      assert.equal(parseFloat(scrollInitial.end), 40);
+    }
+    await Bun.write(
+      path.resolve(import.meta.dirname, `../.cache/example/${engine}-scroll-initial.json`),
+      JSON.stringify(scrollInitial, null, 2) + "\n",
     );
     assert.equal(
       await page

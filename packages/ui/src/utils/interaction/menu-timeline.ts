@@ -14,22 +14,29 @@ export function createMenuTimeline(
     duration = 0;
   let current = sample(durations.closing, false);
   let previousTime = 0;
-  let velocity = Object.fromEntries(
-    Object.keys(current).map((key) => [key, 0]),
-  ) as unknown as MenuPose;
-  let offset = { ...velocity },
-    drift = { ...velocity };
+  let velocityFrom = current,
+    velocityTo = current,
+    velocityInterval = 0;
+  let correction: { offset: MenuPose; drift: MenuPose } | undefined;
   const keys = Object.keys(current) as (keyof MenuPose)[];
   const tick = (time: number) => {
     frame = 0;
     const elapsed = Math.min(duration, Math.max(0, time - started));
     const pose = sample(elapsed, open);
-    const t = Math.min(1, elapsed / 120),
-      h0 = 2 * t * t * t - 3 * t * t + 1,
-      h1 = t * t * t - 2 * t * t + t;
-    for (const key of keys) pose[key] += offset[key] * h0 + drift[key] * 120 * h1;
+    if (correction && elapsed < 120) {
+      const t = elapsed / 120,
+        h0 = 2 * t * t * t - 3 * t * t + 1,
+        h1 = t * t * t - 2 * t * t + t;
+      for (const key of keys)
+        pose[key] += correction.offset[key] * h0 + correction.drift[key] * 120 * h1;
+    }
     const dt = time - previousTime;
-    if (dt > 0) for (const key of keys) velocity[key] = (pose[key] - current[key]) / dt;
+    // Consecutive reversals can share a timestamp. Keep the last pair with a measurable interval.
+    if (dt > 0) {
+      velocityFrom = current;
+      velocityTo = pose;
+      velocityInterval = dt;
+    }
     current = pose;
     previousTime = time;
     const settled = elapsed === duration;
@@ -47,20 +54,25 @@ export function createMenuTimeline(
     if (instant || document.hidden || prefersReducedMotion()) {
       frame = 0;
       current = sample(duration, open);
-      for (const key of keys) velocity[key] = 0;
+      velocityInterval = 0;
+      correction = undefined;
       paint(current, true, open);
       return;
     }
     if (moving) {
       const first = sample(0, open),
         after = sample(1, open);
+      const offset = { ...current },
+        drift = { ...current };
       for (const key of keys) {
         offset[key] = current[key] - first[key];
-        drift[key] = velocity[key] - (after[key] - first[key]);
+        const velocity = velocityInterval
+          ? (velocityTo[key] - velocityFrom[key]) / velocityInterval
+          : 0;
+        drift[key] = velocity - (after[key] - first[key]);
       }
-    } else {
-      for (const key of keys) offset[key] = drift[key] = 0;
-    }
+      correction = { offset, drift };
+    } else correction = undefined;
     started = previousTime = performance.now();
     tick(started);
   };

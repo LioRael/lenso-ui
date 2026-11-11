@@ -1,9 +1,12 @@
 # Additional notices
 
-`src/switch.ts`, `src/slider-lift.ts`, `src/tabs-motion.ts` and `src/control-lens.ts` adapt Lenso's Kelvin Zhang / Glisse
+`src/switch.ts`, `src/slider-lift.ts`, `src/tabs-motion.ts`, `src/page-control.ts` and `src/control-lens.ts` adapt Lenso's Kelvin Zhang / Glisse
 control motion and optical profiles (MIT), retaining their file-level notices.
 Their MIT license and shared token attributions are included in the workspace
 THIRD_PARTY_NOTICES.md copied into the distributable.
+
+`src/scroll-shadow.ts` adapts the shared Lenso scroll edge observation model.
+Its styles and typed property declarations continue to come from `@lenso/tokens`.
 
 `src/modal-focus.ts` adapts native focus traversal from Base UI 1.9.0.
 The retained notice is reproduced below. Other retained adaptations are covered

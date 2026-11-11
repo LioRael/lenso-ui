@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 
 /** Compare metadata-only styles with the compiled class branch for every recipe. */
-export async function checkPresentationCases(page) {
-  const results = await page.evaluate(async () => {
+export async function checkPresentationCases(page, kinds) {
+  const results = await page.evaluate(async (kinds) => {
     const { presentationCases } = await import(
       new URL("./modules/lenso-ui/presentation.js", document.baseURI).href
     );
@@ -17,6 +17,7 @@ export async function checkPresentationCases(page) {
     const results = [];
     try {
       for (const entry of presentationCases(styleRules)) {
+        if (kinds && !kinds.includes(entry.kind)) continue;
         const wrapper = document.createElement("div");
         if (entry.inputGroup) wrapper.dataset.slot = "input-group";
         const svg = [
@@ -102,7 +103,12 @@ export async function checkPresentationCases(page) {
       fixture.remove();
     }
     return results;
-  });
+  }, kinds);
+  for (const kind of kinds ?? [])
+    assert.ok(
+      results.some((entry) => entry.kind === kind),
+      `Missing presentation cases for ${kind}`,
+    );
   assert.deepEqual(
     results.filter((entry) => entry.differences.length),
     [],

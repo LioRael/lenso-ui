@@ -1,0 +1,97 @@
+use PageControlState, PageControl, PageControlRoot, PageControlTrack, PageControlItem, PageControlDot, Button from "@lenso/ui-exact"
+
+component PageControlExample
+  state count = 17
+  state page = 0
+  state requests = 0
+  state proposed = 0
+  state accept = true
+  state disabled = false
+  state plain = false
+  state rtl = false
+  state custom = false
+  state visible = true
+  state richPage = 0
+  derive labels = custom ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(index => `第 ${index + 1} 页`) : []
+  derive state = PageControlState(id="pages", label="Gallery pages", count=count, page=page, labels=labels, disabled=disabled, variant=(plain ? "plain" : "prominent"), direction=(rtl ? "rtl" : "ltr"))
+  derive rich = PageControlState(id="pages-rich", label="Article sections", count=3, page=richPage, labels=[], disabled=false, variant="plain", direction="ltr")
+  action change(next: number)
+    proposed = next
+    requests = requests + 1
+    if accept
+      page = next
+  action changeRich(next: number)
+    richPage = next
+  action toggleAccept
+    accept = not accept
+  action apply
+    page = proposed
+  action next
+    page = page + 1
+  action start
+    page = 0
+  action outside
+    page = 5000
+  action negativePage
+    page = -3
+  action fractionPage
+    page = 3.9
+  action normalCount
+    count = 17
+  action seven
+    count = 7
+  action single
+    count = 1
+  action empty
+    count = 0
+  action many
+    count = 1000
+  action fractionCount
+    count = 7.9
+  action negativeCount
+    count = -4
+  action toggleDisabled
+    disabled = not disabled
+  action togglePlain
+    plain = not plain
+  action toggleRtl
+    rtl = not rtl
+  action toggleLabels
+    custom = not custom
+  action toggleVisible
+    visible = not visible
+  view
+    column id="page-control-examples" gap=16
+      text "Page controls" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Pages accept", press=toggleAccept, disabled=false, size="sm", variant="bordered", testId="pages-accept")
+        Button(label="Apply requested page", press=apply, disabled=false, size="sm", variant="bordered", testId="pages-apply")
+        Button(label="Next page", press=next, disabled=false, size="sm", variant="bordered", testId="pages-next")
+        Button(label="First page", press=start, disabled=false, size="sm", variant="bordered", testId="pages-first")
+        Button(label="Outside page", press=outside, disabled=false, size="sm", variant="bordered", testId="pages-outside")
+        Button(label="Negative page", press=negativePage, disabled=false, size="sm", variant="bordered", testId="pages-negative-page")
+        Button(label="Fractional page", press=fractionPage, disabled=false, size="sm", variant="bordered", testId="pages-fraction-page")
+        Button(label="17 pages", press=normalCount, disabled=false, size="sm", variant="bordered", testId="pages-normal")
+        Button(label="Seven pages", press=seven, disabled=false, size="sm", variant="bordered", testId="pages-seven")
+        Button(label="One page", press=single, disabled=false, size="sm", variant="bordered", testId="pages-single")
+        Button(label="No pages", press=empty, disabled=false, size="sm", variant="bordered", testId="pages-empty")
+        Button(label="1000 pages", press=many, disabled=false, size="sm", variant="bordered", testId="pages-many")
+        Button(label="Fractional count", press=fractionCount, disabled=false, size="sm", variant="bordered", testId="pages-fraction-count")
+        Button(label="Negative count", press=negativeCount, disabled=false, size="sm", variant="bordered", testId="pages-negative-count")
+        Button(label="Pages disabled", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="pages-disabled")
+        Button(label="Pages material", press=togglePlain, disabled=false, size="sm", variant="bordered", testId="pages-plain")
+        Button(label="Pages direction", press=toggleRtl, disabled=false, size="sm", variant="bordered", testId="pages-rtl")
+        Button(label="Pages labels", press=toggleLabels, disabled=false, size="sm", variant="bordered", testId="pages-labels")
+        Button(label="Pages visible", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="pages-visible")
+      text `Owned page: ${page}` testId="pages-owned"
+      text `Page requests: ${requests}` testId="pages-requests"
+      if visible
+        PageControl(state=state, change=change)
+      PageControlRoot(state=rich, change=changeRich)
+        PageControlTrack(state=rich)
+          PageControlItem(state=rich, index=0, label="Introduction", change=changeRich)
+            PageControlDot(active=(richPage == 0), overflow=false)
+          PageControlItem(state=rich, index=1, label="Methods", change=changeRich)
+            PageControlDot(active=(richPage == 1), overflow=false)
+          PageControlItem(state=rich, index=2, label="Appendix", change=changeRich)
+            PageControlDot(active=(richPage == 2), overflow=false)

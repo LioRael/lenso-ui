@@ -2,6 +2,18 @@ import * as stylex from "@stylexjs/stylex";
 import type { PresentationRule } from "@lenso/ui-exact/presentation";
 
 const custom = stylex.create({
+  scrollViewport: {
+    height: 160,
+    width: "100%",
+    borderRadius: 8,
+    backgroundColor: "var(--lenso-fill-tertiary)",
+  },
+  scrollFallback: {
+    animationName: "none",
+    "--scroll-shadow-before": "var(--scroll-shadow-observed-before)",
+    "--scroll-shadow-after": "var(--scroll-shadow-observed-after)",
+    borderRadius: 13,
+  },
   count: {
     borderRadius: { default: 8, "@media (min-width: 700px)": 12 },
     fontWeight: 600,
@@ -26,6 +38,7 @@ const custom = stylex.create({
 });
 
 export const styleRules = [
+  { kind: "scroll-shadow", testId: "shadow-sample", xstyle: custom.scrollViewport },
   { kind: "switch-icon", xstyle: custom.switchIcon },
   { kind: "button", testId: "layout-create", xstyle: custom.wideAction },
   { kind: "button", testId: "layout-import", xstyle: custom.wideAction },
@@ -55,4 +68,10 @@ export const buttonGroupTintRule = {
   kind: "button-group-item",
   testId: "actions-save",
   xstyle: custom.groupTint,
+} satisfies PresentationRule;
+
+export const scrollFallbackRule = {
+  kind: "scroll-shadow",
+  testId: "shadow-sample",
+  xstyle: [custom.scrollViewport, custom.scrollFallback],
 } satisfies PresentationRule;

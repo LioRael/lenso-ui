@@ -32,7 +32,9 @@
     "SLIDER.md",
     "TABS.md",
     "SEGMENTED_CONTROL.md",
-    "BUTTON_GROUP.md"
+    "BUTTON_GROUP.md",
+    "PAGE_CONTROL.md",
+    "SCROLL_SHADOW.md"
   ],
   "type": "module",
   "exports": {

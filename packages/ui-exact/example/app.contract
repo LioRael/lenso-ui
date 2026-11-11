@@ -1,3 +1,5 @@
+use ScrollShadowExample from "./scroll-shadow.contract"
+use PageControlExample from "./page-control.contract"
 use ButtonGroupExample from "./button-group.contract"
 use SegmentedControlExample from "./segmented-control.contract"
 use TabsExample from "./tabs.contract"
@@ -78,3 +80,5 @@ component App
           TabsExample()
           SegmentedControlExample()
           ButtonGroupExample()
+          PageControlExample()
+          ScrollShadowExample()

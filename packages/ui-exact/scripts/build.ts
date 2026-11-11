@@ -44,9 +44,8 @@ await build({
     },
   },
 });
-const compiled: { presentationCases(): PresentationCase[] } = await import(
-  path.join(root, "dist/presentation.js")
-);
+const compiled: { presentationCases(): PresentationCase[]; scrollShadowProperties: string } =
+  await import(path.join(root, "dist/presentation.js"));
 const cases = compiled.presentationCases();
 const registered = new Set(cases.map((entry) => entry.kind));
 for (const file of ["index.contract", ...new Bun.Glob("components/**/*.contract").scanSync(root)]) {
@@ -57,7 +56,7 @@ for (const file of ["index.contract", ...new Bun.Glob("components/**/*.contract"
       throw new Error(`Missing initial Lenso presentation: ${match[1]}`);
 }
 const css = Bun.file(path.join(root, "dist/web.css"));
-const atomic = await css.text();
+const atomic = `${await css.text()}\n${compiled.scrollShadowProperties}`;
 await Bun.write(path.join(root, "dist/web.atomic.css"), atomic);
 const initial = initialCSS(atomic, cases);
 await Bun.write(css, initial);

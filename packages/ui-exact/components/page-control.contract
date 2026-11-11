@@ -1,0 +1,76 @@
+shape PageControlState
+  id: string
+  label: string
+  count: number
+  page: number
+  labels: string[]
+  disabled: bool
+  variant: string
+  direction: string
+
+// Subtraction from self is zero only for finite numbers.
+fn pageControlTotal(count: number): number = count - count == 0 ? max(0, floor(count)) : 0
+fn pageControlCurrent(state: PageControlState): number = max(0, min(pageControlTotal(state.count) - 1, state.page - state.page == 0 ? floor(state.page) : 0))
+fn pageControlStart(state: PageControlState): number = max(0, min(pageControlCurrent(state) - 4, pageControlTotal(state.count) - min(9, pageControlTotal(state.count))))
+fn pageControlLabel(state: PageControlState, index: number): string = match state.labels.at(index) { case some(label) => label, case none => `Page ${index + 1} of ${pageControlTotal(state.count)}` }
+
+component PageControl
+  props
+    state: PageControlState
+    change: action
+  derive total = pageControlTotal(state.count)
+  derive visible = min(9, total)
+  derive start = pageControlStart(state)
+  view
+    if total > 0
+      PageControlRoot(state=state, change=change)
+        PageControlTrack(state=state)
+          for index in [0, 1, 2, 3, 4, 5, 6, 7, 8].filter(offset => offset < visible).map(offset => start + offset) key=index
+            PageControlItem(state=state, index=index, label=pageControlLabel(state, index), change=change)
+              PageControlDot(active=(index == pageControlCurrent(state)), overflow=(index != pageControlCurrent(state) and ((index == start and start > 0) or (index == start + visible - 1 and index < total - 1))))
+
+component PageControlRoot
+  props
+    state: PageControlState
+    change: action
+  action propose(next: number)
+    if not state.disabled and next >= 0 and next < pageControlTotal(state.count) and next != pageControlCurrent(state)
+      change(next)
+  slot
+  view
+    box id=state.id testId=state.id role="navigation" aria-label=state.label aria-disabled=state.disabled direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="page-control" data-slot="page-control" data-lenso-count=pageControlTotal(state.count) data-lenso-page=pageControlCurrent(state) data-lenso-disabled=state.disabled
+      children
+      input type="range" min=0 max=max(0, pageControlTotal(state.count) - 1) step=1 value=pageControlCurrent(state) input=propose disabled=state.disabled tabindex=-1 aria-hidden=true
+        hatch="lenso-ui" data-lenso-kind="page-control-request" data-slot="page-control-request"
+
+component PageControlTrack
+  props
+    state: PageControlState
+  slot
+  view
+    box testId=`${state.id}-track` hatch="lenso-ui" data-lenso-kind="page-control-track" data-slot="page-control-track" data-lenso-count=pageControlTotal(state.count) data-lenso-variant=state.variant
+      children
+
+component PageControlItem
+  props
+    state: PageControlState
+    index: number
+    label: string
+    change: action
+  action select
+    if not state.disabled and index >= 0 and index < pageControlTotal(state.count) and index != pageControlCurrent(state)
+      change(index)
+  slot
+  view
+    button id=`${state.id}-page-${index}` testId=`${state.id}-page-${index}` type="button" appearance="none" press=select disabled=state.disabled tabindex=(index == pageControlCurrent(state) ? 0 : -1)
+      aria-label=label aria-current=(index == pageControlCurrent(state) ? "page" : "false")
+      hatch="lenso-ui" data-lenso-kind="page-control-item" data-slot="page-control-item" data-lenso-index=index data-lenso-count=pageControlTotal(state.count) data-lenso-edge=(min(9, pageControlTotal(state.count)) == 9 and (index == pageControlStart(state) or index == pageControlStart(state) + 8))
+      children
+
+component PageControlDot
+  props
+    active: bool
+    overflow: bool
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="page-control-dot" data-slot="page-control-dot" data-lenso-active=active data-lenso-overflow=overflow

@@ -1,3 +1,6 @@
+import { scrollShadowPresentation, scrollShadowKinds } from "./scroll-shadow-presentation.js";
+export { scrollShadowProperties } from "./scroll-shadow-presentation.js";
+import { pageControlPresentation, pageControlKinds } from "./page-control-presentation.js";
 import { buttonGroupPresentation, buttonGroupKinds } from "./button-group-presentation.js";
 import { segmentedPresentation, segmentedKinds } from "./segmented-presentation.js";
 import { tabsPresentation, tabsKinds } from "./tabs-presentation.js";
@@ -85,7 +88,9 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           sliderPresentation(kind) ??
           tabsPresentation(kind, data) ??
           segmentedPresentation(kind, data) ??
-          buttonGroupPresentation(kind, data));
+          buttonGroupPresentation(kind, data) ??
+          pageControlPresentation(kind, data) ??
+          scrollShadowPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -152,6 +157,8 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     ...tabsKinds,
     ...segmentedKinds,
     ...buttonGroupKinds,
+    ...pageControlKinds,
+    ...scrollShadowKinds,
     "glass",
   ])
     add(kind);
@@ -188,6 +195,67 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
                     );
       }
   }
+  for (const count of ["7", "other"]) {
+    const selector = count === "7" ? '[data-lenso-count="7"]' : ':not([data-lenso-count="7"])';
+    for (const variant of ["prominent", "plain"])
+      add(
+        "page-control-track",
+        { lensoCount: count, lensoVariant: variant },
+        `${selector}[data-lenso-variant="${variant}"]`,
+      );
+    for (const edge of [false, true])
+      add(
+        "page-control-item",
+        { lensoCount: count, lensoEdge: String(edge) },
+        `${selector}[data-lenso-edge="${edge}"]`,
+      );
+  }
+  for (const active of [false, true])
+    for (const overflow of [false, true])
+      add(
+        "page-control-dot",
+        { lensoActive: String(active), lensoOverflow: String(overflow) },
+        `[data-lenso-active="${active}"][data-lenso-overflow="${overflow}"]`,
+      );
+  for (const orientation of ["vertical", "horizontal"])
+    for (const direction of ["ltr", "rtl"])
+      for (const hidden of [false, true])
+        for (const visibility of ["auto", "both", "top", "bottom", "left", "right", "none"])
+          for (const enabled of [false, true]) {
+            const automatic = enabled && visibility === "auto";
+            const states = automatic
+              ? [false, true].flatMap((before) =>
+                  [false, true].flatMap((after) =>
+                    ["unknown", "true", "false"].map((overflow) => ({ before, after, overflow })),
+                  ),
+                )
+              : [
+                  {
+                    before:
+                      visibility === "both" ||
+                      visibility === (orientation === "vertical" ? "top" : "left"),
+                    after:
+                      visibility === "both" ||
+                      visibility === (orientation === "vertical" ? "bottom" : "right"),
+                    overflow: "unknown",
+                  },
+                ];
+            for (const state of states)
+              add(
+                "scroll-shadow",
+                {
+                  orientation,
+                  lensoDirection: direction,
+                  lensoHideScrollbar: String(hidden),
+                  lensoVisibility: visibility,
+                  lensoEnabled: String(enabled),
+                  lensoScrollBefore: String(state.before),
+                  lensoScrollAfter: String(state.after),
+                  lensoScrollOverflow: state.overflow,
+                },
+                `[data-orientation="${orientation}"][data-lenso-direction="${direction}"][data-lenso-hide-scrollbar="${hidden}"][data-lenso-visibility="${visibility}"][data-lenso-enabled="${enabled}"][data-lenso-scroll-before="${state.before}"][data-lenso-scroll-after="${state.after}"][data-lenso-scroll-overflow="${state.overflow}"]`,
+              );
+          }
   for (const kind of ["switch", "switch-control", "switch-thumb"])
     for (const size of ["sm", "md", "lg"])
       add(kind, { lensoSize: size }, `[data-lenso-size="${size}"]`);

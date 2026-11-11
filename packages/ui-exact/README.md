@@ -55,6 +55,14 @@ Registered caller maps support custom tint and StyleX composition; see [caller s
 Tab order through explicit group state and item parts. See [grouped actions](BUTTON_GROUP.md)
 and the [compiled example](example/button-group.contract).
 
+`PageControl` adds a controlled nine-dot window, native page buttons, full-range
+keyboard navigation and prominent/plain tracks. See [page-control behavior](PAGE_CONTROL.md)
+and the [compiled example](example/page-control.contract).
+
+`ScrollShadow` adds native scroll viewports with shared scroll-driven fades,
+observed overflow and explicit/manual visibility. See [scroll fades](SCROLL_SHADOW.md)
+and the [compiled example](example/scroll-shadow.contract).
+
 Native `Modal` adds composable backdrop, viewport, popup, header/body/footer,
 icon, title/description and action/close parts. Browser commands own opening;
 Exact actions own validation and save. See [modal API and acceptance limits](MODAL.md)

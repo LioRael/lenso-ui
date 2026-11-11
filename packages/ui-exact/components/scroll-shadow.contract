@@ -1,0 +1,30 @@
+shape ScrollShadowState
+  id: string
+  label: string
+  role: string
+  tabIndex: number
+  height: string
+  orientation: string
+  direction: string
+  size: number
+  offset: number
+  hideScrollBar: bool
+  visibility: string
+  enabled: bool
+
+fn scrollShadowBefore(state: ScrollShadowState): bool = state.visibility == "both" or state.visibility == (state.orientation == "vertical" ? "top" : "left")
+fn scrollShadowAfter(state: ScrollShadowState): bool = state.visibility == "both" or state.visibility == (state.orientation == "vertical" ? "bottom" : "right")
+
+component ScrollShadow
+  props
+    state: ScrollShadowState
+    change: action
+  slot
+  view
+    scroll id=state.id testId=state.id role=state.role aria-label=state.label tabindex=state.tabIndex height=state.height direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="scroll-shadow" data-slot="scroll-shadow" data-orientation=state.orientation data-lenso-direction=state.direction
+      data-lenso-size=state.size data-lenso-offset=state.offset data-lenso-hide-scrollbar=state.hideScrollBar data-lenso-visibility=state.visibility data-lenso-enabled=state.enabled
+      data-lenso-scroll-before=scrollShadowBefore(state) data-lenso-scroll-after=scrollShadowAfter(state) data-lenso-scroll-overflow="unknown"
+      children
+      input type="text" value="" input=change tabindex=-1 aria-hidden=true
+        hatch="lenso-ui" data-lenso-kind="scroll-shadow-report" data-slot="scroll-shadow-report"

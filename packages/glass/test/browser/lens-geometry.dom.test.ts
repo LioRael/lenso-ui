@@ -135,8 +135,18 @@ test.each(["Chrome/130", "AppleWebKit/605.1.15"])(
     const glass = document.createElement("div"),
       content = document.createElement("div");
     glass.style.borderRadius = "20px";
+    glass.style.setProperty("--lenso-glass-transparency", "0");
     document.body.append(glass, content);
-    Object.defineProperties(glass, { offsetWidth: { value: 120 }, offsetHeight: { value: 80 } });
+    let fits = 0;
+    Object.defineProperties(glass, {
+      offsetWidth: {
+        get: () => {
+          fits++;
+          return 120;
+        },
+      },
+      offsetHeight: { value: 80 },
+    });
     let reads = 0;
     Object.defineProperties(content, {
       offsetWidth: {
@@ -174,6 +184,12 @@ test.each(["Chrome/130", "AppleWebKit/605.1.15"])(
         .outerHTML.replace(/ id="[^"]*"/, "");
     try {
       lens.setActive(true);
+      lens.refit();
+      expect(fits).toBe(0);
+      expect(content.style.filter).toBe("");
+      glass.style.setProperty("--lenso-glass-transparency", "1");
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      expect(content.style.filter).toContain("url(");
       reads = 0;
       lens.update(0.6, {
         contentWidth: 200,

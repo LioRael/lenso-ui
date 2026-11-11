@@ -2,6 +2,33 @@ import { connectGroupAction } from "./button-group.js";
 /** Presence selectors in shared tokens must not see data-invalid="false". */
 export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap) {
   const restores: Array<() => void> = [];
+  if (
+    node instanceof HTMLInputElement &&
+    ["page-control-request", "scroll-shadow-report"].includes(data["lensoKind"] ?? "")
+  ) {
+    const form = node.getAttribute("form");
+    node.setAttribute("form", "");
+    restores.push(() => {
+      if (form === null) node.removeAttribute("form");
+      else node.setAttribute("form", form);
+    });
+  }
+  if (node instanceof HTMLElement && data["lensoKind"] === "scroll-shadow") {
+    for (const [key, name] of [
+      ["lensoSize", "--lenso-exact-scroll-size"],
+      ["lensoOffset", "--lenso-exact-scroll-offset"],
+    ]) {
+      const value = Number(data[key!]);
+      if (!Number.isFinite(value)) throw new RangeError(`ScrollShadow ${key} must be finite`);
+      const original = node.style.getPropertyValue(name!),
+        priority = node.style.getPropertyPriority(name!);
+      node.style.setProperty(name!, `${value}px`);
+      restores.push(() => {
+        if (original) node.style.setProperty(name!, original, priority);
+        else node.style.removeProperty(name!);
+      });
+    }
+  }
   const disconnectGroupAction = connectGroupAction(node, data);
   if (disconnectGroupAction) restores.push(disconnectGroupAction);
   if (data["lensoKind"] === "card") {
@@ -33,9 +60,10 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
       node.defaultValue = original;
     });
   }
-  if (data["lensoKind"] === "tabs-glass") {
+  if (data["lensoKind"] === "tabs-glass" || data["lensoKind"] === "page-control-track") {
     const original = node.getAttribute("data-material");
-    if (data["lensoGlass"] === "true") node.setAttribute("data-material", "glass-small");
+    if (data["lensoGlass"] === "true" || data["lensoVariant"] === "prominent")
+      node.setAttribute("data-material", "glass-small");
     else node.removeAttribute("data-material");
     restores.push(() => {
       if (original === null) node.removeAttribute("data-material");

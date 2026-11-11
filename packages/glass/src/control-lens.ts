@@ -445,12 +445,15 @@ function encode(
     else {
       // Chromium colour-matches coloured feImage inputs on wide-gamut displays.
       // Keep both pulls grey there, including when generation shares a buffer.
-      const down = map.field.slice();
-      for (let i = 0; i < down.length; i += 4) {
-        map.field[i + 1] = map.field[i + 2] = map.field[i]!;
-        down[i] = down[i + 2] = down[i + 1]!;
+      // Stage the horizontal pull in ImageData and reuse the source for the vertical pull.
+      const across = image.data;
+      across.set(map.field);
+      for (let i = 0; i < across.length; i += 4) {
+        across[i + 1] = across[i + 2] = across[i]!;
+        map.field[i] = map.field[i + 2] = map.field[i + 1]!;
       }
-      result = { across: png(map.field), down: png(down), light: png(map.light) };
+      context.putImageData(image, 0, 0);
+      result = { across: canvas.toDataURL(), down: png(map.field), light: png(map.light) };
     }
   } else
     result = {
@@ -1252,6 +1255,7 @@ export function createControlLens(
   let opaque = false;
 
   const prepare = () => {
+    if (opaque) return;
     member.fit = fit(glass, options, !!replaces || (options.blur ?? 0) > 0) ?? undefined;
   };
 

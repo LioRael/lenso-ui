@@ -1,3 +1,5 @@
+import { scrollShadowData, updateScrollShadow, endScrollShadow } from "./scroll-shadow.js";
+import { updatePageControl, endPageControl } from "./page-control.js";
 import { updateSegmented, endSegmented } from "./segmented-control.js";
 import { updateTabsMotion, endTabsMotion } from "./tabs-motion.js";
 import { updateTabs, endTabs } from "./tabs.js";
@@ -23,7 +25,26 @@ export interface ExactElement {
   data: DOMStringMap;
 }
 
-const owners = new WeakMap<HTMLElement | SVGElement, () => void>();
+interface Owner {
+  readonly classes: string[];
+  release(removeClasses: boolean): void;
+}
+const owners = new WeakMap<HTMLElement | SVGElement, Owner>();
+
+/** Keep viewport geometry present while replacing only the owned class set. */
+function replaceClasses(
+  node: HTMLElement | SVGElement,
+  previous: string[],
+  next: string | undefined,
+) {
+  const owned = new Set(previous);
+  const foreign = [...node.classList].filter((name) => !owned.has(name));
+  const retained = new Set(foreign);
+  const classes = next?.split(" ").filter((name) => name && !retained.has(name)) ?? [];
+  const value = [...foreign, ...classes].join(" ");
+  if ((node.getAttribute("class") ?? "") !== value) node.setAttribute("class", value);
+  return classes;
+}
 
 /** Decorate the existing node; Exact keeps ownership of its events and state. */
 export function element(handle: ExactElement, options?: { xstyle?: StyleInput }) {
@@ -31,7 +52,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   const node = handle.element;
   const { lensoKind: kind, lensoVariant: variant } = handle.data;
   const compiled = presentation(
-    handle.data,
+    scrollShadowData(node, handle.data),
     node.closest('[data-slot="input-group"]') !== null,
     options?.xstyle,
   );
@@ -42,6 +63,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     kind === "slider-knob-lens" ||
     kind === "switch-knob-lens" ||
     kind === "glass" ||
+    (kind === "page-control-track" && variant === "prominent") ||
     ((kind === "glass-button" || kind === "glass-button-group-item") && !node.matches(":disabled"));
   const profileKey =
     kind === "glass-button" || kind === "glass-button-group-item"
@@ -50,12 +72,11 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
         : "default"
       : "glass-small";
 
-  owners.get(node)?.();
+  const previousOwner = owners.get(node);
+  previousOwner?.release(false);
   const disconnectNative = connectNative(node, handle.data);
   const disconnectAccordion = connectAccordion(node, handle.data);
-  const classes =
-    compiled.className?.split(" ").filter((name) => name && !node.classList.contains(name)) ?? [];
-  node.classList.add(...classes);
+  let classes = replaceClasses(node, previousOwner?.classes ?? [], compiled.className);
   let stop: (() => void) | undefined;
   if (optics) {
     if (!(node instanceof HTMLElement)) throw new TypeError("Lenso Glass requires an HTML element");
@@ -68,12 +89,28 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
         kind !== "switch-knob-lens" && kind !== "slider-knob-lens" && kind !== "tabs-knob-lens",
     });
   }
-  owners.set(node, () => {
-    stop?.();
-    disconnectNative();
-    disconnectAccordion?.();
-    node.classList.remove(...classes);
+  owners.set(node, {
+    get classes() {
+      return classes;
+    },
+    release(removeClasses) {
+      stop?.();
+      disconnectNative();
+      disconnectAccordion?.();
+      if (removeClasses) node.classList.remove(...classes);
+    },
   });
+  updateScrollShadow(node, handle.data, (status) => {
+    const next = presentation(
+      { ...handle.data, ...status },
+      node.closest('[data-slot="input-group"]') !== null,
+      options?.xstyle,
+    );
+    if (next.style && Object.keys(next.style).length)
+      throw new Error("Lenso caller styles need a declarative adapter for inline values");
+    classes = replaceClasses(node, classes, next.className);
+  });
+  updatePageControl(node, handle.data);
   updateSegmented(node, handle.data);
   updateTabs(node, handle.data);
   updateTabsMotion(node, handle.data);
@@ -92,6 +129,8 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
 /** Called before Exact removes or recycles a node. */
 export function elementEnded(handle: ExactElement) {
   if (handle.hatch !== "lenso-ui") return;
+  endScrollShadow(handle.element);
+  endPageControl(handle.element);
   endSegmented(handle.element);
   endTabsMotion(handle.element);
   endTabs(handle.element);
@@ -104,7 +143,7 @@ export function elementEnded(handle: ExactElement) {
   endToggleGroup(handle.element);
   endModal(handle.element);
   endMaterial(handle.element);
-  owners.get(handle.element)?.();
+  owners.get(handle.element)?.release(true);
   owners.delete(handle.element);
   handle.element.removeAttribute("data-lenso-ready");
 }

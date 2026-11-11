@@ -1,3 +1,5 @@
+import { checkScrollShadow } from "./scroll-shadow.mjs";
+import { checkPageControl } from "./page-control.mjs";
 import { checkButtonGroup } from "./button-group.mjs";
 import { checkSegmented } from "./segmented-control.mjs";
 import { checkTabs } from "./tabs.mjs";
@@ -121,6 +123,8 @@ try {
       await checkTabs(page, name);
       await checkSegmented(page, name);
       await checkButtonGroup(page, name);
+      await checkPageControl(page, name);
+      await checkScrollShadow(page, name);
       await checkCallerStyles(page);
       await checkToggle(page, name);
       await checkFeedback(page, name);

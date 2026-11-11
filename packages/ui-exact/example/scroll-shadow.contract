@@ -1,0 +1,102 @@
+use ScrollShadowState, ScrollShadow, Button, Input, Surface from "@lenso/ui-exact"
+
+component ScrollShadowExample
+  state horizontal = false
+  state rtl = false
+  state enabled = true
+  state hidden = false
+  state mode = "auto"
+  state offset = 0
+  state size = 40
+  state count = 12
+  state tall = false
+  state long = false
+  state visible = true
+  state draft = "Keep this draft"
+  state last = "pending"
+  state reports = 0
+  derive state = ScrollShadowState(id="shadow-sample", label="Saved entries", role="region", tabIndex=0, height="10rem", orientation=(horizontal ? "horizontal" : "vertical"), direction=(rtl ? "rtl" : "ltr"), size=size, offset=offset, hideScrollBar=hidden, visibility=mode, enabled=enabled)
+  derive items = [0,1,2,3,4,5,6,7,8,9,10,11].filter(index => index < count)
+  action report(next: string)
+    last = next
+    reports = reports + 1
+  action edit(next: string)
+    draft = next
+  action noop
+    reports = reports
+  action orientation
+    horizontal = not horizontal
+  action direction
+    rtl = not rtl
+  action toggleEnabled
+    enabled = not enabled
+  action toggleBar
+    hidden = not hidden
+  action automatic
+    mode = "auto"
+  action both
+    mode = "both"
+  action before
+    mode = horizontal ? "left" : "top"
+  action after
+    mode = horizontal ? "right" : "bottom"
+  action hideFades
+    mode = "none"
+  action wrongAxis
+    mode = horizontal ? "top" : "left"
+  action toggleOffset
+    offset = offset == 0 ? 20 : 0
+  action toggleSize
+    size = size == 40 ? 24 : 40
+  action many
+    count = 12
+  action few
+    count = 1
+  action empty
+    count = 0
+  action toggleTall
+    tall = not tall
+  action toggleText
+    long = not long
+  action toggleVisible
+    visible = not visible
+  view
+    column id="scroll-shadow-examples" gap=16
+      text "Scroll fades" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Scroll orientation", press=orientation, disabled=false, size="sm", variant="bordered", testId="shadow-orientation")
+        Button(label="Scroll direction", press=direction, disabled=false, size="sm", variant="bordered", testId="shadow-direction")
+        Button(label="Scroll enabled", press=toggleEnabled, disabled=false, size="sm", variant="bordered", testId="shadow-enabled")
+        Button(label="Scroll bar", press=toggleBar, disabled=false, size="sm", variant="bordered", testId="shadow-bar")
+        Button(label="Scroll automatic", press=automatic, disabled=false, size="sm", variant="bordered", testId="shadow-auto")
+        Button(label="Scroll both", press=both, disabled=false, size="sm", variant="bordered", testId="shadow-both")
+        Button(label="Scroll before", press=before, disabled=false, size="sm", variant="bordered", testId="shadow-before")
+        Button(label="Scroll after", press=after, disabled=false, size="sm", variant="bordered", testId="shadow-after")
+        Button(label="Scroll none", press=hideFades, disabled=false, size="sm", variant="bordered", testId="shadow-none")
+        Button(label="Scroll wrong axis", press=wrongAxis, disabled=false, size="sm", variant="bordered", testId="shadow-wrong")
+        Button(label="Scroll offset", press=toggleOffset, disabled=false, size="sm", variant="bordered", testId="shadow-offset")
+        Button(label="Scroll size", press=toggleSize, disabled=false, size="sm", variant="bordered", testId="shadow-size")
+        Button(label="Many entries", press=many, disabled=false, size="sm", variant="bordered", testId="shadow-many")
+        Button(label="One entry", press=few, disabled=false, size="sm", variant="bordered", testId="shadow-few")
+        Button(label="No entries", press=empty, disabled=false, size="sm", variant="bordered", testId="shadow-empty")
+        Button(label="Entry height", press=toggleTall, disabled=false, size="sm", variant="bordered", testId="shadow-tall")
+        Button(label="Long text", press=toggleText, disabled=false, size="sm", variant="bordered", testId="shadow-text")
+        Button(label="Scroll visible", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="shadow-visible")
+      text `Edges: ${last}` testId="shadow-edges"
+      text `Reports: ${reports}` testId="shadow-reports"
+      if visible
+        ScrollShadow(state=state, change=report)
+          if horizontal
+            row id="shadow-content" width=`${count * 7.75 + 0.75}rem` gap=4 padding=8
+              for index in items key=index
+                Surface(id=`shadow-entry-${index}`, variant="tertiary")
+                  box width="7.5rem" height=(tall ? 144 : 112) flex-shrink=0 padding=12
+                    text `Entry ${index + 1}`
+          else
+            column id="shadow-content" gap=4 padding=8
+              Input(id="shadow-draft", name="saved-draft", label="Saved draft", labelledBy="", describedBy="", value=draft, input=edit, change=edit, submit=noop, placeholder="", type="text", autocomplete="off", disabled=false, readOnly=false, required=false, invalid=false, variant="primary")
+              text (long ? "A saved entry can contain several paragraphs of text. It should keep its natural reading order while the scroll viewport updates its fades. A saved entry can contain several paragraphs of text. It should keep its natural reading order while the scroll viewport updates its fades. A saved entry can contain several paragraphs of text. It should keep its natural reading order while the scroll viewport updates its fades. A saved entry can contain several paragraphs of text. It should keep its natural reading order while the scroll viewport updates its fades. A saved entry can contain several paragraphs of text. It should keep its natural reading order while the scroll viewport updates its fades." : "Saved entries") id="shadow-text-content" font-size=16 line-height="20px" white-space="normal"
+              for index in items key=index
+                Surface(id=`shadow-entry-${index}`, variant="tertiary")
+                  row height=(tall ? 96 : 56) flex-shrink=0 padding=12
+                    text `Entry ${index + 1}`
