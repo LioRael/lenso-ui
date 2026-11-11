@@ -141,8 +141,9 @@ action. DialogClose and PopoverClose require an explicit `disabled` prop.
 Disabling a close button does not block Escape or other dismissal paths.
 DialogAction runs `press` and closes: use it for synchronous confirmed
 actions. For async saves that must remain open on failure, use a native `button` inside
-Dialog and call Exact's `close(id)` only after success. Dialog permits platform
-cancel; AlertDialog preserves the native Cancel/Escape path. AlertDialog's title and message
+Dialog and call Exact's `close(id)` only after success. Dialog and AlertDialog delegate
+cancellation to the Host. Explicit Cancel/Close buttons are core; iOS
+agent-recognized Dialog Escape remains experimental. AlertDialog's title and message
 must fit the native alert model, with simple action buttons. It is not a general
 custom sheet. Labels/descriptions and native focus/dismissal belong to the host.
 

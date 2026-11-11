@@ -121,6 +121,12 @@ fallback and retained-source navigation. State-based focus observations and
 native current-responder/AX observations are reported separately; neither proves
 spoken reading order or hardware keyboard behavior.
 
+Chromium's strict browser run times out on an actual `document.activeElement`
+focus-restoration assertion. Its CDP AX lifecycle run
+reaches `navigate-push` and still observes the fourth Dialog over the departing,
+now-inert source route instead of the new page. WebKit's strict browser run
+fails earlier: the covered parent actually receives programmatic focus.
+
 The package can supply names, roles, IDs, commands and pure controlled behavior.
 It cannot repair a system accessibility projection, native input dispatcher,
 modal focus stack or departing route. Those capabilities need an upstream Exact
@@ -160,6 +166,22 @@ accessibility observation before launch:
 ```sh
 xcrun simctl spawn <dedicated-udid> defaults write com.apple.Accessibility ApplicationAccessibilityEnabled -bool true
 ```
+
+## Repository checks and evidence
+
+Package typecheck, lint and formatting checks pass. The copied Web and native
+consumers contain no SDK patch files, and all public component Contract sources
+are unchanged by this consolidation. All four surfaces pass the same eight core
+agent scenarios (32 executions). The complete fixture has 52 passes and 16
+failures across 68 executions; those include the core cases and are not an
+additional independent coverage count.
+
+The aggregate receipt is `.cache/upstream/baseline/summary.json`, with the exact
+scenario outcomes, source proofs, compiler/artifact identity and library source
+hashes. Each host's `baseline/<hosts>/` folder retains strict phase logs; AX
+snapshots are under `.cache/upstream/native/evidence`. The earlier shared-cache
+and browser-version setup failures are not counted as Host behavior failures.
+Historical modified-SDK receipts remain under the original `.cache/native`.
 
 ## Retained limits
 
