@@ -1,0 +1,19 @@
+packages/ui-exact/test/scroll-shadow.mjs
+  s_10c7d362cf24b2::t_ea6b6db42bb09d 4-6,8-9,62-90,260,263-294
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "904693881a87b44edf862683635fc2e2c69f0940",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
