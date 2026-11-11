@@ -91,7 +91,7 @@ export function parseConfig(value: unknown): DocsConfig {
     !value["pages"].length
   )
     throw new Error("docs.json requires a name and a nonempty pages array");
-  const preload = value["preload"] ?? "render";
+  const preload = value["preload"] === undefined ? "render" : value["preload"];
   if (preload !== "render" && preload !== "intent")
     throw new Error('preload must be "render" or "intent"');
   const paths = new Set<string>();

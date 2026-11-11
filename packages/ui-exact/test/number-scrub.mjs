@@ -186,7 +186,7 @@ export async function checkNumberScrubLock(page, engine) {
   );
   if (engine === "webkit") {
     await start(page);
-    assert.equal(await page.evaluate(() => document.pointerLockElement), null);
+    assert.equal(await page.evaluate(() => document.pointerLockElement ?? null), null);
     assert.equal(
       await page.getByTestId("numeric-scrub-cursor").evaluate((n) => n.matches(":popover-open")),
       false,
@@ -261,7 +261,7 @@ export async function checkNumberScrubLock(page, engine) {
     "teleport distance wraps at the expanded area edge",
   );
   await stop(page);
-  assert.equal(await page.evaluate(() => document.pointerLockElement), null);
+  assert.equal(await page.evaluate(() => document.pointerLockElement ?? null), null);
   assert.equal(await cursor.evaluate((n) => n.style.transform), "");
   await direct(page, "scrub-teleport");
   await page.getByTestId("numeric-scrub").evaluate((n) => {
@@ -381,7 +381,7 @@ export async function checkNumberScrubTouch(page) {
     ),
   );
   await value(page, 1.6);
-  assert.equal(await page.evaluate(() => document.pointerLockElement), null);
+  assert.equal(await page.evaluate(() => document.pointerLockElement ?? null), null);
   assert.equal(
     await page.getByTestId("numeric-scrub-cursor").evaluate((n) => n.matches(":popover-open")),
     false,

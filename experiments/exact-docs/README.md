@@ -357,13 +357,18 @@ throws when a component has no adapter.
 
 ## Search delivery and application state
 
-Control focus, pointer approach or pointer-down starts fetch hints for the shared
-application and full Exact host stylesheet. Exact's input-only helper stays on its
-post-paint import path instead of competing with startup downloads. Hints do not
-evaluate the application, start root tasks or apply additional styling. There is
-no idle prefetch; reading without control intent does not fetch the application.
-[ACTIVATION.md](ACTIVATION.md) records first-click costs and the matched Fumadocs
-comparison, including the evaluated stylesheet-delivery tradeoff.
+Web output defaults to `"preload": "render"` in `docs.json`: low-priority HTML hints
+start downloading the shared application and full Exact host stylesheet while the
+page streams. They do not evaluate the application, apply the full stylesheet or
+start root tasks. A real interaction still activates the single Exact application.
+Control intent promotes the same hints without duplicate downloads. Input-only
+helpers stay on Exact's post-paint import path.
+
+Reading visits therefore download application/style bytes even without interaction.
+Set `"preload": "intent"` to wait for control focus, pointer approach or pointer-down
+before fetching them. There is no idle activation under either policy.
+[ENTRY_ACTIVATION.md](ENTRY_ACTIVATION.md) records the smaller entry and early-download
+comparison; [ACTIVATION.md](ACTIVATION.md) retains the preceding input-deferral results.
 
 A nonempty query in an `input type="search"` inside `data-docs-part="search"`
 starts loading only the current scope's pure data module, in parallel with application
@@ -615,10 +620,10 @@ adapter, preserve the old Exact output outside `.cache/fumadocs`, rebuild the Ex
 candidate, then run:
 
 ```sh
-FUMA_ACTIVATION_BASELINE="$PWD/.cache/activation-before-dist" FUMA_MEASURE_ONLY=1 PERF_RUNS=5 bun run test:fumadocs
+FUMA_ENTRY_COMPARISON=1 FUMA_ACTIVATION_BASELINE="$PWD/.cache/app-before-dist" FUMA_MEASURE_ONLY=1 PERF_RUNS=5 bun run test:fumadocs
 ```
 
-This mode writes `.cache/fumadocs/activation-results.json` and [ACTIVATION.md](ACTIVATION.md),
+This mode writes `.cache/fumadocs/entry-results.json` and [ENTRY_ACTIVATION.md](ENTRY_ACTIVATION.md),
 preserving the earlier four-way report. It also checks pixel-identical static/focused
 appearance across light/dark and desktop/mobile fixtures.
 
