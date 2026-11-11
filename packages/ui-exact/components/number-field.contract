@@ -4,8 +4,8 @@ shape NumberFieldState
   labelledBy: string
   describedBy: string
   value: option<number>
-  min: number
-  max: number
+  min: option<number>
+  max: option<number>
   step: number
   largeStep: number
   smallStep: number
@@ -25,8 +25,10 @@ shape NumberFieldState
 
 fn numberFieldText(value: option<number>): string = match value { case some(n) => `${n}`, case none => "" }
 fn numberFieldAt(value: option<number>, fallback: number): number = match value { case some(n) => n, case none => fallback }
-fn numberFieldNext(state: NumberFieldState, direction: number): number = min(state.max, max(state.min, match state.value { case some(n) => n + direction * state.step, case none => 0 }))
-fn numberFieldBlocked(state: NumberFieldState, direction: number): bool = state.disabled or state.readOnly or (direction > 0 ? numberFieldAt(state.value, state.min - 1) >= state.max : numberFieldAt(state.value, state.max + 1) <= state.min)
+fn numberFieldMin(state: NumberFieldState): number = numberFieldAt(state.min, -9007199254740991)
+fn numberFieldMax(state: NumberFieldState): number = numberFieldAt(state.max, 9007199254740991)
+fn numberFieldNext(state: NumberFieldState, direction: number): number = min(numberFieldMax(state), max(numberFieldMin(state), match state.value { case some(n) => n + direction * state.step, case none => 0 }))
+fn numberFieldBlocked(state: NumberFieldState, direction: number): bool = state.disabled or state.readOnly or (direction > 0 ? numberFieldAt(state.value, numberFieldMin(state) - 1) >= numberFieldMax(state) : numberFieldAt(state.value, numberFieldMax(state) + 1) <= numberFieldMin(state))
 
 component NumericRoot
   props
@@ -44,7 +46,7 @@ component NumericRoot
   view
     box id=state.id testId=state.id role="group" aria-label=state.label direction=state.direction
       hatch="lenso-ui" data-lenso-kind=kind data-slot=kind
-      data-lenso-value=numberFieldText(state.value) data-lenso-min=state.min data-lenso-max=state.max data-lenso-step=state.step
+      data-lenso-value=numberFieldText(state.value) data-lenso-min=numberFieldText(state.min) data-lenso-max=numberFieldText(state.max) data-lenso-step=state.step
       data-lenso-large-step=state.largeStep data-lenso-small-step=state.smallStep data-lenso-snap=state.snapOnStep
       data-lenso-out-of-range=state.allowOutOfRange data-lenso-wheel=state.allowWheelScrub
       data-lenso-disabled=state.disabled data-lenso-readonly=state.readOnly data-lenso-required=state.required data-lenso-invalid=state.invalid
@@ -90,7 +92,7 @@ component NumericInput
       commit(parseNumber(text))
   view
     input id=`${state.id}-input` testId=`${state.id}-input` type="number" inputmode="decimal" value=numberFieldText(state.value) input=edited change=committed
-      min=state.min max=state.max step=state.step disabled=state.disabled readonly=state.readOnly
+      min=numberFieldMin(state) max=numberFieldMax(state) step=state.step disabled=state.disabled readonly=state.readOnly
       aria-label=state.label aria-labelledby=state.labelledBy aria-describedby=state.describedBy aria-invalid=state.invalid
       aria-required=state.required data-lenso-required=state.required
       hatch="lenso-ui" data-lenso-kind=kind data-slot="number-input" data-lenso-value=numberFieldText(state.value)
@@ -109,40 +111,43 @@ component NumericButton
     kind: string
     direction: number
     label: string
+    disabled: bool
     change: action
     commit: action
   action activate
-    if not numberFieldBlocked(state, direction)
+    if not disabled and not numberFieldBlocked(state, direction)
       let next = numberFieldNext(state, direction)
       change(some(next))
       commit(some(next))
   slot
   view
     button id=`${state.id}-${direction > 0 ? "increment" : "decrement"}` testId=`${state.id}-${direction > 0 ? "increment" : "decrement"}` type="button" appearance="none" tabindex=-1
-      aria-label=label aria-controls=`${state.id}-input` aria-disabled=numberFieldBlocked(state, direction) press=activate
-      hatch="lenso-ui" data-lenso-kind=kind data-slot="number-button" data-lenso-direction=direction data-lenso-disabled=numberFieldBlocked(state, direction)
+      aria-label=label aria-controls=`${state.id}-input` aria-disabled=(disabled or numberFieldBlocked(state, direction)) press=activate
+      hatch="lenso-ui" data-lenso-kind=kind data-slot="number-button" data-lenso-direction=direction data-lenso-disabled=(disabled or numberFieldBlocked(state, direction)) data-lenso-own-disabled=disabled
       children
 
 component NumberFieldIncrementButton
   props
     state: NumberFieldState
     label: string
+    disabled: bool
     change: action
     commit: action
   slot
   view
-    NumericButton(state=state, kind="number-field-increment", direction=1, label=label, change=change, commit=commit)
+    NumericButton(state=state, kind="number-field-increment", direction=1, label=label, disabled=disabled, change=change, commit=commit)
       children
 
 component NumberFieldDecrementButton
   props
     state: NumberFieldState
     label: string
+    disabled: bool
     change: action
     commit: action
   slot
   view
-    NumericButton(state=state, kind="number-field-decrement", direction=-1, label=label, change=change, commit=commit)
+    NumericButton(state=state, kind="number-field-decrement", direction=-1, label=label, disabled=disabled, change=change, commit=commit)
       children
 
 component Stepper
@@ -174,20 +179,44 @@ component StepperIncrementButton
   props
     state: NumberFieldState
     label: string
+    disabled: bool
     change: action
     commit: action
   slot
   view
-    NumericButton(state=state, kind="stepper-increment", direction=1, label=label, change=change, commit=commit)
+    NumericButton(state=state, kind="stepper-increment", direction=1, label=label, disabled=disabled, change=change, commit=commit)
       children
 
 component StepperDecrementButton
   props
     state: NumberFieldState
     label: string
+    disabled: bool
     change: action
     commit: action
   slot
   view
-    NumericButton(state=state, kind="stepper-decrement", direction=-1, label=label, change=change, commit=commit)
+    NumericButton(state=state, kind="stepper-decrement", direction=-1, label=label, disabled=disabled, change=change, commit=commit)
+      children
+
+component NumberFieldScrubArea
+  props
+    state: NumberFieldState
+    id: string
+    direction: string
+    pixelSensitivity: number
+    teleportDistance: option<number>
+  slot
+  view
+    box id=id testId=id role="presentation" hatch="lenso-ui" data-lenso-kind="number-scrub-area" data-slot="number-scrub-area"
+      data-lenso-direction=direction data-lenso-pixel-sensitivity=pixelSensitivity data-lenso-teleport=numberFieldText(teleportDistance)
+      children
+
+component NumberFieldScrubAreaCursor
+  props
+    id: string
+  slot
+  view
+    box id=id testId=id role="presentation" aria-hidden=true inert=true popover="manual" tabindex=-1
+      hatch="lenso-ui" data-lenso-kind="number-scrub-cursor" data-slot="number-scrub-cursor"
       children

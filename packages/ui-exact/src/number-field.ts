@@ -1,3 +1,4 @@
+import { registerNumberScrub } from "./number-scrub.js";
 // Native-element adaptation of Base UI 1.9.0 NumberField interaction contracts.
 // Copyright (c) 2019 Material-UI SAS; Floating UI contributors. MIT; see NOTICES.md.
 import {
@@ -16,9 +17,11 @@ import { observeFocus } from "./search-field.js";
 const roots = new WeakMap<HTMLElement, { sync(): void; end(): void }>();
 const rootSelector = '[data-slot="number-field"],[data-slot="stepper"]';
 function createNumberField(root: HTMLElement) {
-  const input = root.querySelector<HTMLInputElement>('[data-slot="number-input"]');
+  const owned = <T extends HTMLElement>(selector: string) =>
+    [...root.querySelectorAll<T>(selector)].filter((node) => node.closest(rootSelector) === root);
+  const input = owned<HTMLInputElement>('[data-slot="number-input"]')[0];
   if (!input) return;
-  const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-slot="number-button"]')];
+  const buttons = () => owned<HTMLButtonElement>('[data-slot="number-button"]');
   const doc = root.ownerDocument,
     view = doc.defaultView!;
   const initial = root.dataset["lensoValue"] ?? "";
@@ -35,7 +38,9 @@ function createNumberField(root: HTMLElement) {
     composing = false,
     draft = input.value;
   let frame = 0,
-    epoch = 0;
+    epoch = 0,
+    compositionTimer = 0;
+  let caret: { start: number; end: number; direction: "forward" | "backward" | "none" } | undefined;
   let pending: { from: string; target: string } | undefined;
   let previous = root.dataset["lensoValue"] ?? "";
   let holding:
@@ -54,7 +59,8 @@ function createNumberField(root: HTMLElement) {
     skipClick = false;
   let locale: string | undefined, options: Intl.NumberFormatOptions | undefined;
   const number = (name: string, fallback: number) => {
-    const value = Number(root.dataset[name] ?? fallback);
+    const raw = root.dataset[name];
+    const value = raw === undefined || raw === "" ? fallback : Number(raw);
     if (!Number.isFinite(value)) throw new RangeError(`NumberField ${name} must be finite`);
     return value;
   };
@@ -93,7 +99,7 @@ function createNumberField(root: HTMLElement) {
       clamp,
     );
   const send = (slot: string, n: number | null) => {
-    const bridge = root.querySelector<HTMLInputElement>(`[data-slot="${slot}"]`);
+    const bridge = owned<HTMLInputElement>(`[data-slot="${slot}"]`)[0];
     if (!bridge || disposed || stopped()) return;
     Object.getOwnPropertyDescriptor(view.HTMLInputElement.prototype, "value")!.set!.call(
       bridge,
@@ -102,21 +108,27 @@ function createNumberField(root: HTMLElement) {
     bridge.dispatchEvent(new view.Event("input", { bubbles: true }));
   };
   const paint = () => {
+    if (disposed) return;
     const n = decode(canonical());
     if (n !== null && !Number.isFinite(n))
       throw new RangeError("NumberField value must be finite or empty");
     if (input.type !== "text") input.type = "text";
     set("role", "spinbutton");
-    set("aria-valuemin", String(number("lensoMin", Number.MIN_SAFE_INTEGER)));
-    set("aria-valuemax", String(number("lensoMax", Number.MAX_SAFE_INTEGER)));
+    set("aria-valuemin", root.dataset["lensoMin"] || null);
+    set("aria-valuemax", root.dataset["lensoMax"] || null);
     set("aria-valuenow", n === null ? null : String(n));
     set("aria-valuetext", n === null ? null : format(n));
     set("aria-readonly", root.dataset["lensoReadonly"] === "true" ? "true" : null);
     const text = dirty ? draft : format(n);
-    if (input.value !== text) input.value = text;
+    if (!composing && input.value !== text) {
+      const selection = caret;
+      input.value = text;
+      if (dirty && selection && doc.activeElement === input)
+        input.setSelectionRange(selection.start, selection.end, selection.direction);
+    }
     input.setCustomValidity(
-      dirty && draft.trim() !== "" && parseNumber(draft, locale, options) === null
-        ? "Enter a number."
+      n === null && root.dataset["lensoRequired"] === "true" && input.value !== ""
+        ? "Enter a value."
         : n !== null &&
             (n < number("lensoMin", Number.MIN_SAFE_INTEGER) ||
               n > number("lensoMax", Number.MAX_SAFE_INTEGER))
@@ -129,6 +141,7 @@ function createNumberField(root: HTMLElement) {
     pending = { from: canonical(), target: next };
     const at = ++epoch;
     send("number-change", n);
+    if (disposed) return;
     cancelAnimationFrame(frame);
     frame = requestAnimationFrame(() => {
       frame = requestAnimationFrame(() => {
@@ -155,6 +168,14 @@ function createNumberField(root: HTMLElement) {
       (char) => isNumeralChar(char) || symbols.has(char) || FORMAT_CONTROL_DETECT_RE.test(char),
     );
   };
+  const selectionChanged = () => {
+    if (input.value === draft && input.selectionStart !== null && input.selectionEnd !== null)
+      caret = {
+        start: input.selectionStart,
+        end: input.selectionEnd,
+        direction: input.selectionDirection ?? "none",
+      };
+  };
   const edited = (event: Event) => {
     if (event.target !== input) return;
     event.stopImmediatePropagation();
@@ -166,6 +187,7 @@ function createNumberField(root: HTMLElement) {
     if (composing || (event instanceof InputEvent && event.isComposing)) {
       dirty = true;
       draft = text;
+      selectionChanged();
       return;
     }
     if (!allowed(text)) {
@@ -174,6 +196,7 @@ function createNumberField(root: HTMLElement) {
     }
     dirty = true;
     draft = text;
+    selectionChanged();
     if (text.trim() === "") propose(null);
     else {
       const parsed = parseNumber(text, locale, options);
@@ -182,33 +205,64 @@ function createNumberField(root: HTMLElement) {
     }
     paint();
   };
+  const pasted = (event: ClipboardEvent) => {
+    if (stopped()) return;
+    let text: string;
+    try {
+      text = event.clipboardData?.getData("text/plain") ?? "";
+    } catch {
+      return;
+    }
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const start = input.selectionStart ?? input.value.length,
+      end = input.selectionEnd ?? start;
+    const next = input.value.slice(0, start) + text + input.value.slice(end);
+    const parsed = parseNumber(next, locale, options);
+    if (parsed === null) return;
+    dirty = true;
+    draft = next;
+    caret = { start: start + text.length, end: start + text.length, direction: "none" };
+    input.value = next;
+    input.setSelectionRange(caret.start, caret.end);
+    propose(validate(parsed, undefined, false, root.dataset["lensoOutOfRange"] !== "true"));
+    paint();
+  };
   const finish = () => {
     if (!dirty || composing || stopped()) return;
     const parsed = draft.trim() === "" ? null : parseNumber(draft, locale, options);
-    const next =
-      parsed === null && draft.trim() !== ""
-        ? decode(canonical())
-        : validate(parsed, undefined, false, root.dataset["lensoOutOfRange"] !== "true");
+    if (parsed === null && draft.trim() !== "") return;
+    const next = validate(parsed, undefined, false, root.dataset["lensoOutOfRange"] !== "true");
     dirty = false;
     if (next !== value()) propose(next);
     commit(next);
     paint();
   };
+  const stepAmount = (event: { altKey?: boolean; shiftKey?: boolean }) =>
+    number(
+      event.altKey ? "lensoSmallStep" : event.shiftKey ? "lensoLargeStep" : "lensoStep",
+      event.altKey ? 0.1 : event.shiftKey ? 10 : 1,
+    );
   const step = (
     direction: number,
     event: { altKey?: boolean; shiftKey?: boolean },
     boundary?: number,
+    scrubAmount?: number,
   ) => {
     if (stopped()) return null;
-    const amount = number(
-      event.altKey ? "lensoSmallStep" : event.shiftKey ? "lensoLargeStep" : "lensoStep",
-      event.altKey ? 0.1 : event.shiftKey ? 10 : 1,
-    );
-    const current = dirty ? parseNumber(draft, locale, options) : value();
+    const amount = stepAmount(event);
+    const current = dirty
+      ? validate(
+          parseNumber(draft, locale, options) ?? value(),
+          undefined,
+          false,
+          root.dataset["lensoOutOfRange"] !== "true",
+        )
+      : value();
     const next =
       boundary ??
       validate(
-        current === null ? 0 : current + direction * amount,
+        current === null ? 0 : current + (scrubAmount ?? direction * amount),
         current === null ? undefined : direction * amount,
         !!event.altKey,
       );
@@ -229,6 +283,11 @@ function createNumberField(root: HTMLElement) {
       event.ctrlKey ||
       event.metaKey ||
       stopped()
+    )
+      return;
+    if (
+      (event.key === "Home" && !root.dataset["lensoMin"]) ||
+      (event.key === "End" && !root.dataset["lensoMax"])
     )
       return;
     if (["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
@@ -274,10 +333,10 @@ function createNumberField(root: HTMLElement) {
   };
   const down = (event: PointerEvent) => {
     const button = buttonFor(event);
-    if (!button || !buttons.includes(button) || event.button !== 0 || unavailable(button)) return;
+    if (!button || !buttons().includes(button) || event.button !== 0 || unavailable(button)) return;
     clearHold();
     skipClick = false;
-    if (event.pointerType !== "touch") {
+    if (event.pointerType !== "touch" && event.pointerType !== "pen") {
       event.preventDefault();
       input.focus({ preventScroll: true });
     }
@@ -286,7 +345,7 @@ function createNumberField(root: HTMLElement) {
       button,
       x: event.clientX,
       y: event.clientY,
-      touch: event.pointerType === "touch",
+      touch: event.pointerType === "touch" || event.pointerType === "pen",
       held: false,
       next: null,
     };
@@ -295,7 +354,7 @@ function createNumberField(root: HTMLElement) {
       holding.held = true;
       skipClick = true;
       const changed = step(Number(button.dataset["lensoDirection"]), event);
-      if (changed) holding.next = changed.next;
+      if (changed && holding) holding.next = changed.next;
     };
     holdTimer = view.setTimeout(() => {
       tick();
@@ -320,13 +379,14 @@ function createNumberField(root: HTMLElement) {
   };
   const click = (event: MouseEvent) => {
     const button = buttonFor(event);
-    if (!button || !buttons.includes(button)) return;
+    if (!button || !buttons().includes(button)) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    if (skipClick) {
+    if (skipClick && event.detail !== 0) {
       skipClick = false;
       return;
     }
+    skipClick = false;
     if (unavailable(button)) return;
     const changed = step(Number(button.dataset["lensoDirection"]), event);
     if (changed) commit(changed.next);
@@ -341,11 +401,16 @@ function createNumberField(root: HTMLElement) {
     }
   };
   const compositionStart = () => {
+    clearTimeout(compositionTimer);
     composing = true;
   };
   const compositionEnd = (event: CompositionEvent) => {
     composing = false;
     edited(event);
+    // Exact flushes held binding values in its composition-end task.
+    compositionTimer = view.setTimeout(() => {
+      if (!disposed && dirty && !composing) paint();
+    }, 0);
   };
   const form = input.form;
   const reset = (event: Event) =>
@@ -356,7 +421,20 @@ function createNumberField(root: HTMLElement) {
         paint();
       }
     });
+  const scrub = registerNumberScrub(root, {
+    blocked: () => disposed || stopped(),
+    focus: () => input.focus({ preventScroll: true }),
+    value,
+    commit,
+    increment(delta, event) {
+      dirty = false;
+      const raw = delta * stepAmount(event);
+      return raw === 0 ? null : step(raw >= 0 ? 1 : -1, event, undefined, raw);
+    },
+  });
   const stopFocus = observeFocus(doc);
+  input.addEventListener("paste", pasted, true);
+  input.addEventListener("select", selectionChanged);
   input.addEventListener("input", edited, true);
   input.addEventListener("change", change, true);
   input.addEventListener("blur", blur);
@@ -379,14 +457,19 @@ function createNumberField(root: HTMLElement) {
       }
       previous = canonical();
       if (stopped()) clearHold();
+      scrub.sync();
       paint();
     },
     end() {
       disposed = true;
+      scrub.end();
       cancelAnimationFrame(frame);
+      clearTimeout(compositionTimer);
       clearHold();
       stopFocus();
       form?.removeEventListener("reset", reset);
+      input.removeEventListener("paste", pasted, true);
+      input.removeEventListener("select", selectionChanged);
       input.removeEventListener("input", edited, true);
       input.removeEventListener("change", change, true);
       input.removeEventListener("blur", blur);
@@ -410,6 +493,8 @@ function createNumberField(root: HTMLElement) {
 }
 export function updateNumberField(node: HTMLElement | SVGElement, data: DOMStringMap) {
   if (!(node instanceof HTMLElement)) return;
+  if (roots.has(node) && !["number-field", "stepper"].includes(data["lensoKind"] ?? ""))
+    endNumberField(node);
   const root = node.matches(rootSelector) ? node : node.closest<HTMLElement>(rootSelector);
   if (
     !root ||
@@ -426,8 +511,14 @@ export function updateNumberField(node: HTMLElement | SVGElement, data: DOMStrin
   controller?.sync();
 }
 export function endNumberField(node: HTMLElement | SVGElement) {
-  if (node instanceof HTMLElement) {
-    roots.get(node)?.end();
-    roots.delete(node);
+  if (!(node instanceof HTMLElement)) return;
+  const root = roots.has(node)
+    ? node
+    : node.matches('[data-slot="number-input"]')
+      ? node.closest<HTMLElement>(rootSelector)
+      : null;
+  if (root) {
+    roots.get(root)?.end();
+    roots.delete(root);
   }
 }

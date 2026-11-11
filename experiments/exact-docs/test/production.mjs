@@ -12,7 +12,7 @@ const require = createRequire(new URL("../../../apps/docs/package.json", import.
 const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE ?? "playwright");
 const parent = await mkdtemp(path.join(tmpdir(), "exact-docs-production-"));
 const root = path.join(parent, "docs");
-let server, appGate;
+let server, renderServer, appGate, inputGate;
 try {
   await main(["new", root]);
   // Grouped text runs need duplicate-key and inline-markup coverage after activation.
@@ -22,13 +22,26 @@ try {
     (await authoring.text()) +
       '\n\nFirst compact paragraph.\n\nRepeated compact paragraph.\n\nThird compact paragraph.\n\nRepeated compact paragraph.\n\nLast compact paragraph.\n\n**Rich boundary.**\n\nLiteral "quoted" ${value}.\n\nFinal plain paragraph.\n',
   );
+  const configFile = Bun.file(path.join(root, "docs.json"));
+  const config = await configFile.json();
+  await Bun.write(configFile, JSON.stringify({ ...config, preload: "intent" }));
   const { out } = await buildSite(root);
+  await Bun.write(configFile, JSON.stringify(config));
+  const { out: renderOut } = await buildSite(root, {
+    out: path.join(path.dirname(out), "render-out"),
+  });
+  renderServer = Bun.serve({
+    hostname: "127.0.0.1",
+    port: 0,
+    fetch: (request) => staticResponse(request, renderOut),
+  });
   assert.equal(await Bun.file(path.join(out, "agent.js")).exists(), false);
   server = Bun.serve({
     hostname: "127.0.0.1",
     port: 0,
     async fetch(request) {
       if (appGate && new URL(request.url).pathname === "/app.js") await appGate;
+      if (inputGate && /\/input-glue-/.test(new URL(request.url).pathname)) await inputGate;
       return staticResponse(request, out);
     },
   });
@@ -38,6 +51,25 @@ try {
   ]) {
     const browser = await engine.launch();
     try {
+      // Reading may download dependencies, but must not execute user code or fetch page/search data.
+      const rendered = await browser.newPage();
+      const renderRequests = [];
+      rendered.on("request", (request) => renderRequests.push(new URL(request.url()).pathname));
+      await rendered.goto(new URL("/zh/authoring", renderServer.url).href);
+      await rendered.waitForLoadState("networkidle");
+      assert.equal(await rendered.evaluate(() => Boolean(globalThis.exact?.state)), false);
+      assert.equal(renderRequests.filter((url) => url === "/app.js").length, 1);
+      assert.equal(renderRequests.filter((url) => url === "/style.css").length, 1);
+      assert.equal(
+        renderRequests.some((url) => /\/(input-glue-|scope-|body-)/.test(url)),
+        false,
+      );
+      await rendered.getByRole("searchbox").fill("Exact");
+      await rendered.locator('[data-docs-part="search"] a').first().waitFor();
+      await rendered.waitForLoadState("networkidle");
+      assert.equal(renderRequests.filter((url) => url === "/app.js").length, 1);
+      assert.equal(renderRequests.filter((url) => url === "/style.css").length, 1);
+      await rendered.close();
       const page = await browser.newPage();
       const errors = [],
         requests = [];
@@ -55,11 +87,15 @@ try {
       const warmed = Promise.all([
         page.waitForResponse((response) => new URL(response.url()).pathname === "/app.js"),
         page.waitForResponse((response) => new URL(response.url()).pathname === "/style.css"),
-        page.waitForResponse((response) => /\/input-glue-[\w-]+\.js$/.test(response.url())),
       ]);
       await search.hover();
       await warmed;
       assert.equal(await page.evaluate(() => Boolean(globalThis.exact?.state)), false);
+      assert.equal(
+        requests.some((request) => /\/input-glue-/.test(request)),
+        false,
+        "Input-only runtime must not compete with application startup on hover",
+      );
       assert.equal(
         requests.some((request) => /\/scope-/.test(request)),
         false,
@@ -91,8 +127,21 @@ try {
       const counter = control.getByRole("button", { name: "Count: 0", exact: true });
       await counter.focus();
       assert.equal(await control.evaluate(() => Boolean(globalThis.exact?.state)), false);
-      await counter.press("Enter");
-      await control.getByRole("button", { name: "Count: 1", exact: true }).waitFor();
+      // The SDK can replay native button activation before its input-only module arrives.
+      let releaseInput;
+      inputGate = new Promise((resolve) => {
+        releaseInput = resolve;
+      });
+      try {
+        await counter.press("Enter");
+        await control.getByRole("button", { name: "Count: 1", exact: true }).waitFor();
+      } finally {
+        inputGate = undefined;
+        releaseInput();
+      }
+      await control.waitForLoadState("networkidle");
+      assert.equal(await control.getByRole("button", { name: "Count: 1", exact: true }).count(), 1);
+      assert.equal(controlRequests.filter((url) => /\/input-glue-/.test(url)).length, 1);
       assert.equal(
         controlRequests.some((url) => /\/scope-/.test(url)),
         false,
@@ -152,5 +201,6 @@ try {
   }
 } finally {
   if (server) await server.stop(true);
+  if (renderServer) await renderServer.stop(true);
   await rm(parent, { recursive: true, force: true });
 }

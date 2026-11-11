@@ -1,6 +1,7 @@
 import { escapeHtml } from "./renderers/html.ts";
 
 export interface DeliveryAssets {
+  preload?: "render" | "intent";
   modules: string[];
   styles: string[];
   search?: Record<string, string>;
@@ -20,10 +21,25 @@ export function preparePageHtml(html: string, assets?: DeliveryAssets) {
       );
     },
   );
+  const hinted =
+    assets?.preload === "render"
+      ? prepared.replace(
+          /(<base\b[^>]*>)/,
+          `$1${[
+            ...assets.modules.map(
+              (file) => `<link rel="modulepreload" href="${escapeHtml(file)}" fetchpriority="low">`,
+            ),
+            ...assets.styles.map(
+              (file) =>
+                `<link rel="preload" as="style" href="${escapeHtml(file)}" fetchpriority="low">`,
+            ),
+          ].join("")}`,
+        )
+      : prepared;
   return assets
-    ? prepared.replace(
+    ? hinted.replace(
         /(<script\b[^>]*type="application\/vnd\.exact\.checkpoint")/,
         `$1 data-docs-preload="${escapeHtml(JSON.stringify(assets))}"`,
       )
-    : prepared;
+    : hinted;
 }

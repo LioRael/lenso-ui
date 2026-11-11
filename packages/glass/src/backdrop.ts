@@ -228,9 +228,13 @@ function animatedStyles(
 // A deep copy that renders like the original wherever it's placed: each
 // element carries its computed style inline, minus anything that would animate
 // it or tie it to the original.
+const templates = new WeakMap<BackdropReads, Map<HTMLElement, Copy | null>>();
 function copyOf(source: HTMLElement, reads: BackdropReads): Copy {
-  const root = source.cloneNode(true) as HTMLElement;
-  const originals = [source, ...source.querySelectorAll("*")];
+  const template = templates.get(reads)?.get(source);
+  const root = (template?.root ?? source).cloneNode(true) as HTMLElement;
+  const originals = template
+    ? [...template.pairs.keys()]
+    : [source, ...source.querySelectorAll("*")];
   const copies = [root, ...root.querySelectorAll<HTMLElement>("*")];
   const pairs = new Map<Element, HTMLElement>();
   const fields: Copy["fields"] = [];
@@ -239,6 +243,7 @@ function copyOf(source: HTMLElement, reads: BackdropReads): Copy {
     if (!copy) return;
     pairs.set(original, copy);
     if (isBackdropTextField(original) && isBackdropTextField(copy)) fields.push([original, copy]);
+    if (template) return;
     copy.removeAttribute("id");
     // Detached, a lazy image would never load.
     if (copy instanceof HTMLImageElement) copy.loading = "eager";
@@ -247,7 +252,27 @@ function copyOf(source: HTMLElement, reads: BackdropReads): Copy {
     inline(original, copy, original === source, reads)();
   });
   root.removeAttribute(MARK);
-  return { root, pairs, fields };
+  const result = { root, pairs, fields };
+  // Only share the detached, fully styled recipe for this read batch. A custom
+  // element can change its own light DOM during construction or attribute updates.
+  if (
+    !template &&
+    reads.sharedSource &&
+    originals.every(
+      (node) =>
+        !node.localName.includes("-") &&
+        !node.hasAttribute("is") &&
+        !node.shadowRoot &&
+        !["script", "iframe", "object", "embed"].includes(node.localName),
+    )
+  ) {
+    let group = templates.get(reads);
+    if (!group) templates.set(reads, (group = new Map()));
+    // The first copy populated the declaration cache. The second already has
+    // the individual serialized longhands that WebKit needs when cloning styles.
+    group.set(source, group.has(source) ? result : null);
+  }
+  return result;
 }
 
 // Where the live backdrop can't be filtered, a copy of the marked content is

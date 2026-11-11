@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { chromium, webkit } from "playwright";
 
-// Changing a native field's value emits no DOM mutation. Check two independent
+// Changing a native field's value emits no DOM mutation. Check three independent
 // optical copies, including a replacement that is still waiting to decode.
 const base = process.env.DOCS_URL ?? "http://127.0.0.1:3000";
 const moduleUrl =
@@ -20,7 +20,7 @@ for (const engine of [chromium, webkit]) {
         #source .label { border-radius:11px 7px 5px 3px; --ink-note:"x;y" }
       </style><form id="owner"><div id="source" data-lenso-backdrop>
         <input class="field" value="initial"><textarea>initial area</textarea><span class="label">A</span>
-      </div></form><div class="lens"></div><div class="lens" style="left:120px"></div>`,
+      </div></form><div class="lens"></div><div class="lens" style="left:120px"></div><div class="lens" style="left:220px"></div>`,
       }),
     );
     await page.goto(base + "/__backdrop-edits");
@@ -33,7 +33,7 @@ for (const engine of [chromium, webkit]) {
       });
     }, moduleUrl);
     const copies = page.locator("[inert] .field");
-    await page.waitForFunction(() => document.querySelectorAll("[inert] .field").length === 2);
+    await page.waitForFunction(() => document.querySelectorAll("[inert] .field").length === 3);
     assert.deepEqual(
       await page
         .locator("[inert] .label")
@@ -45,6 +45,7 @@ for (const engine of [chromium, webkit]) {
           ]),
         ),
       [
+        ["11px", "5px", '"x;y"'],
         ["11px", "5px", '"x;y"'],
         ["11px", "5px", '"x;y"'],
       ],
@@ -131,19 +132,19 @@ for (const engine of [chromium, webkit]) {
         "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'/%3E";
       document.querySelector("#source").append(image);
     });
-    await page.waitForFunction(() => window.waiting.length >= 2);
+    await page.waitForFunction(() => window.waiting.length >= 3);
     await page.locator("#source input").fill("while decoding");
     await page.evaluate(() => window.waiting.splice(0).forEach((resolve) => resolve()));
     await page.waitForFunction(
       () =>
-        document.querySelectorAll("[inert] img.held").length === 2 &&
+        document.querySelectorAll("[inert] img.held").length === 3 &&
         [...document.querySelectorAll("[inert] .field")].every((n) => n.value === "WHILE DECODING"),
     );
     await page.evaluate(() => {
       const image = document.querySelector("#source img");
       image.replaceWith(image.cloneNode());
     });
-    await page.waitForFunction(() => window.waiting.length >= 2);
+    await page.waitForFunction(() => window.waiting.length >= 3);
     await page.evaluate(() => {
       document.querySelector("#source img").remove();
       const label = document.querySelector("#source .label");
@@ -162,7 +163,7 @@ for (const engine of [chromium, webkit]) {
       await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     });
     assert.equal(await page.locator("[inert] img.held").count(), 0);
-    assert.deepEqual(await page.locator("[inert] .label").allTextContents(), ["B", "B"]);
+    assert.deepEqual(await page.locator("[inert] .label").allTextContents(), ["B", "B", "B"]);
     console.log(
       engine.name(),
       "passed shared text edits, controlled values, reset, image replacement and restyling",

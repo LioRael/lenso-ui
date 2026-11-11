@@ -1,4 +1,16 @@
 import {
+  checkNumberScrub,
+  checkNumberScrubLock,
+  checkNumberScrubLateLock,
+  checkNumberScrubTouch,
+} from "./number-scrub.mjs";
+import {
+  checkNumberInitial,
+  checkNumberField,
+  checkNumberForm,
+  checkNumberTouch,
+} from "./number-field.mjs";
+import {
   checkMenuBarInitial,
   checkMenuBar,
   checkMenuBarTouch,
@@ -97,6 +109,18 @@ try {
       } finally {
         await barInitialPage.close();
       }
+      const numberInitialPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+      const numberFormPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+      let numberInitial, numberForm;
+      for (const fixture of [numberInitialPage, numberFormPage])
+        fixture.on("pageerror", (error) => errors.push(String(error)));
+      try {
+        numberInitial = await checkNumberInitial(numberInitialPage, server.url.href);
+        numberForm = await checkNumberForm(numberFormPage, server.url.href);
+      } finally {
+        await numberInitialPage.close();
+        await numberFormPage.close();
+      }
       const presentationCount = await checkPresentationCases(page);
       const button = page.getByTestId("glass-action");
       await page.waitForFunction(() => {
@@ -188,6 +212,34 @@ try {
       const menuModal = await checkMenuModal(page, name);
       const menuBar = await checkMenuBar(page, name);
       const menuBarThemes = await checkMenuBarThemes(page, name);
+      const numbers = await checkNumberField(page, name);
+      const scrubPage = await browser.newPage({ viewport: { width: 390, height: 900 } });
+      let numberScrub;
+      try {
+        await scrubPage.goto(server.url.href);
+        numberScrub = await checkNumberScrub(scrubPage, name);
+      } finally {
+        await scrubPage.close();
+      }
+      let numberScrubLock;
+      const lockBrowser = await engine.launch({ headless: name !== "chromium" });
+      try {
+        const p = await lockBrowser.newPage({ viewport: { width: 390, height: 900 } });
+        await p.goto(server.url.href);
+        numberScrubLock = await checkNumberScrubLock(p, name);
+      } finally {
+        await lockBrowser.close();
+      }
+      let numberScrubLateLock;
+      if (name === "chromium") {
+        const p = await browser.newPage({ viewport: { width: 390, height: 900 } });
+        try {
+          await p.goto(server.url.href);
+          numberScrubLateLock = await checkNumberScrubLateLock(p);
+        } finally {
+          await p.close();
+        }
+      }
       const touchContext = await browser.newContext({
         viewport: { width: 390, height: 844 },
         hasTouch: true,
@@ -199,6 +251,8 @@ try {
       let submenuTouch;
       let menuModalTouch;
       let menuBarTouch;
+      let numberTouch;
+      let numberScrubTouch;
       try {
         const touchPage = await touchContext.newPage();
         touchPage.on("pageerror", (error) => errors.push(String(error)));
@@ -212,6 +266,9 @@ try {
         submenuTouch = await checkSubmenuTouch(touchPage);
         menuModalTouch = await checkMenuModalTouch(touchPage);
         menuBarTouch = await checkMenuBarTouch(touchPage);
+        numberTouch = await checkNumberTouch(touchPage);
+        await touchPage.goto(server.url.href);
+        numberScrubTouch = await checkNumberScrubTouch(touchPage);
       } finally {
         await touchContext.close();
       }
@@ -299,6 +356,14 @@ try {
         menuBar,
         menuBarTouch,
         menuBarThemes,
+        numberInitial,
+        numberForm,
+        numbers,
+        numberTouch,
+        numberScrub,
+        numberScrubLock,
+        numberScrubLateLock,
+        numberScrubTouch,
       });
       await page.close();
     } finally {

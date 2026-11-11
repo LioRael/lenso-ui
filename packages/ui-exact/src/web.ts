@@ -1,3 +1,4 @@
+import { updateNumberScrub, endNumberScrub } from "./number-scrub.js";
 import { updateNumberField, endNumberField } from "./number-field.js";
 import { updateMenuBar, endMenuBar } from "./menu-bar.js";
 import { updateMenu, endMenu } from "./menu.js";
@@ -187,6 +188,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   updateToolbar(node, handle.data);
   updateSearchField(node, handle.data);
   updateNumberField(node, handle.data);
+  updateNumberScrub(node, handle.data);
   updatePageControl(node, handle.data);
   updateSegmented(node, handle.data);
   updateTabs(node, handle.data);
@@ -215,6 +217,7 @@ export function elementEnded(handle: ExactElement) {
   endToolbarFusion(handle.element);
   endToolbar(handle.element);
   endSearchField(handle.element);
+  endNumberScrub(handle.element);
   endNumberField(handle.element);
   endScrollShadow(handle.element);
   endPageControl(handle.element);

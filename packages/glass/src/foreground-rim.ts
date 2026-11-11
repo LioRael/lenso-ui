@@ -39,14 +39,18 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
   const innerWidth = width / 2 - (depth + 0.5),
     innerHeight = height / 2 - (depth + 0.5);
   const innerRadius = Math.max(0, radius - (depth + 0.5));
-  const sample = (px: number, py: number): readonly [number, number] => {
+  const halfDiagonal = Math.hypot(pitchX, pitchY) / 2;
+  // Accumulate premultiplied samples directly; the crest can need 256 per pixel.
+  let premult = 0,
+    alpha = 0;
+  const sample = (px: number, py: number) => {
     const qx = Math.abs(px) - (width / 2 - radius),
       qy = Math.abs(py) - (height / 2 - radius);
     const ox = Math.max(qx, 0),
       oy = Math.max(qy, 0),
-      length = Math.hypot(ox, oy);
+      length = Math.sqrt(ox * ox + oy * oy);
     const distance = radius - length - Math.min(Math.max(qx, qy), 0);
-    if (distance > depth) return [0, 0];
+    if (distance > depth || distance <= -0.75) return;
     const nx = length ? (ox / length) * Math.sign(px) : qx > qy ? Math.sign(px) : 0;
     const ny = length ? (oy / length) * Math.sign(py) : qx > qy ? 0 : Math.sign(py);
     const vertical = ny * cos - nx * sin;
@@ -69,8 +73,11 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
     } else shade = (side * 0.75 + end * 0.2) * Math.max(0, Math.min(1, 1 + distance / 0.75));
     light = Math.min(1, light * shine * (1 + clear * 1.1));
     shade = Math.min(1, shade * shine);
-    const alpha = light + shade - light * shade;
-    return alpha > 0 ? [(light / (light + shade)) * alpha, alpha] : [0, 0];
+    const coverage = light + shade - light * shade;
+    if (coverage > 0) {
+      premult += (light / (light + shade)) * coverage;
+      alpha += coverage;
+    }
   };
   // Beyond both the corner and the last inward band, translating a full
   // pixel footprint along a straight edge leaves every subpixel sample equal.
@@ -105,29 +112,25 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
       const px = (x + 0.5) * pitchX - 1 - width / 2;
       const qx = Math.abs(px) - (width / 2 - radius),
         qy = Math.abs(py) - (height / 2 - radius);
-      const distance =
-        radius - Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) - Math.min(Math.max(qx, qy), 0);
-      if (distance > depth) continue;
-      let premult = 0,
-        alpha = 0;
+      const ox = Math.max(qx, 0),
+        oy = Math.max(qy, 0);
+      const distance = radius - Math.sqrt(ox * ox + oy * oy) - Math.min(Math.max(qx, qy), 0);
+      // Even the nearest subpixel is beyond the outside hairline.
+      if (distance > depth || distance < -0.75 - halfDiagonal) continue;
+      premult = 0;
+      alpha = 0;
       // Integrate the narrow discontinuous band only. Averaging straight RGB
       // would turn transparent samples into dark fringes.
       const count =
-        Math.abs(distance) < Math.hypot(pitchX, pitchY) / 2
-          ? 16
-          : distance > -1.1 && distance < 1.7
-            ? 4
-            : 1;
+        Math.abs(distance) < halfDiagonal ? 16 : distance > -1.1 && distance < 1.7 ? 4 : 1;
       const samplesX = qx <= 0 && qy >= qx ? 1 : count;
       const samplesY = qy <= 0 && qx > qy ? 1 : count;
       for (let sy = 0; sy < samplesY; sy++)
         for (let sx = 0; sx < samplesX; sx++) {
-          const [p, a] = sample(
+          sample(
             px + ((sx + 0.5) / samplesX - 0.5) * pitchX,
             py + ((sy + 0.5) / samplesY - 0.5) * pitchY,
           );
-          premult += p;
-          alpha += a;
         }
       if (alpha <= 0) continue;
       const at = (y * image.width + x) * 4;

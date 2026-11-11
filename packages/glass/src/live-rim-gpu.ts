@@ -5,7 +5,7 @@ import type { Shape } from "./optical-fields.js";
 
 // Same signed-distance recipe and pixel-area coverage as foregroundRimPixels.
 // One offscreen context serves every live rim; consumers copy the completed frame.
-let renderer: ReturnType<typeof createRenderer> | null | undefined;
+let renderer: ReturnType<typeof prepareRenderer> | null | undefined;
 const owners = new Set<object>();
 function createRenderer() {
   const canvas = document.createElement("canvas");
@@ -15,6 +15,17 @@ function createRenderer() {
     antialias: false,
   });
   if (!gl) return;
+  const resources = prepareRenderer(canvas, gl);
+  if (resources || gl.isContextLost()) {
+    canvas.addEventListener("webglcontextlost", (event) => event.preventDefault());
+    canvas.addEventListener("webglcontextrestored", () => {
+      renderer = prepareRenderer(canvas, gl) ?? null;
+    });
+  }
+  return resources;
+}
+
+function prepareRenderer(canvas: HTMLCanvasElement, gl: WebGL2RenderingContext) {
   const shader = (type: number, source: string) => {
     const node = gl.createShader(type)!;
     gl.shaderSource(node, source);
@@ -88,7 +99,6 @@ function createRenderer() {
   gl.deleteShader(fragment);
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
     gl.deleteProgram(program);
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
     return;
   }
   const uniforms = Object.fromEntries(

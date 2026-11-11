@@ -25,6 +25,10 @@ describe("NumberField value model", () => {
   });
   test("step cleanup fixes binary noise without rounding entered precision", () => {
     expect(removeFloatingPointErrors(0.1 + 0.2)).toBe(0.3);
+    expect(toValidatedNumber(0.1, 0.1, -10, 10, -10, undefined, true, false, true)).toBeCloseTo(
+      0.1,
+      12,
+    );
     const entered = Number("0.12345678901234567");
     expect(toValidatedNumber(entered, undefined, -10, 10, -10, undefined, false, false, true)).toBe(
       entered,

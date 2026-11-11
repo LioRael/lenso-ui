@@ -82,6 +82,7 @@ const userKept: unknown = Reflect.get(user, "kept");`
     path.join(app, "app.ts"),
     `import type { Answer, Source, Args, Result } from "./app.contract.d.ts";
 ${user}
+${platform === "web" ? 'import {docsRoutes} from "./docs-routes.ts";' : ""}
 ${imports.join("\n")}
 type KeptArgs = {[S in Source]: [source:S,args:Args<S>,value:Result<S>]}[Source];
 const contentCache = new Map<string,Result<"docsReadPage">>();
@@ -117,6 +118,7 @@ export function answer<S extends Source>(source:S,args:Args<S>,store:Parameters<
 export function answer(...args:Parameters<Answer>):ReturnType<Answer> {
   if(args[0] === "docsSearchPages") return search(args[1]);
   if(args[0] === "docsReadPage") return readPage(args[1]);
+  ${platform === "web" ? 'if(args[0] === "docsReadRoute") { const name=args[1][0]; if(typeof name!=="string") throw new Error("Invalid documentation route arguments"); const page=docsRoutes.get(name); return {pages:page ? [page] : []}; }' : ""}
   ${platform === "web" ? "" : 'if(args[0] === "docsReadStack") return readStack(args[1]);'}
   ${module ? "return delegate(...args);" : "throw new Error(`Unknown source: ${args[0]}`);"}
 }

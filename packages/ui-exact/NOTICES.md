@@ -75,3 +75,8 @@ opening and submenu return focus; layout retargeting does not count as user move
 locale parsing and validation utilities. `src/number-field.ts` adapts its native
 input, step and press/hold contracts to Exact. They retain the Material-UI and
 Floating UI MIT notices reproduced above; no React runtime is imported.
+
+`src/number-scrub.ts` adapts Base UI 1.9.0 NumberField scrub interaction, cursor
+coordinates and viewport wrapping. Its retained Material-UI and Floating UI MIT
+notices are reproduced above. The authored Exact cursor uses the native top
+layer rather than reparenting the framework-owned node.

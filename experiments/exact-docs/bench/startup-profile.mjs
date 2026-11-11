@@ -7,6 +7,8 @@ import { staticResponse } from "../src/server.ts";
 const directory = path.resolve(
   process.argv[2] ?? path.join(import.meta.dirname, "../.cache/comparison/exact/dist"),
 );
+const action = process.env.PROFILE_ACTION ?? "search";
+assert.ok(["search", "counter"].includes(action), "PROFILE_ACTION must be search or counter");
 const cache = new Map();
 const server = Bun.serve({
   hostname: "127.0.0.1",
@@ -61,23 +63,73 @@ try {
   cdp.on("Network.loadingFinished", (e) =>
     Object.assign(network.get(e.requestId) ?? {}, { end: e.timestamp, bytes: e.encodedDataLength }),
   );
+  let rendered;
+  const paint = new Promise((resolve) => {
+    rendered = resolve;
+  });
+  await page.exposeBinding("__startupProfilePaint", (_source, event) => rendered(event));
+  await page.addInitScript(
+    ({ action }) => {
+      const events = [];
+      globalThis.__startupProfile = { events };
+      for (const type of ["pointerover", "focusin", "pointerdown", "click", "input"])
+        document.addEventListener(
+          type,
+          () => {
+            events.push({ type, ms: performance.now() });
+            if (events.length === 1)
+              requestAnimationFrame(function check() {
+                if (globalThis.exact?.state)
+                  globalThis.__startupProfile.readyObservedMs = performance.now();
+                else requestAnimationFrame(check);
+              });
+          },
+          true,
+        );
+      let sent = false;
+      new MutationObserver(() => {
+        const ready =
+          action === "counter"
+            ? document.querySelector('[data-testid="comparison-counter"]')?.textContent ===
+              "Count: 1"
+            : document.querySelector('[data-docs-part="search"] a')?.getAttribute("href") === "/";
+        if (!ready || sent) return;
+        sent = true;
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => window.__startupProfilePaint({ paintMs: performance.now() })),
+        );
+      }).observe(document, { childList: true, subtree: true, characterData: true });
+    },
+    { action },
+  );
   await page.goto(server.url.href);
   await page.getByRole("heading", { name: "Guide 000", exact: true }).waitFor();
   assert.equal(await page.evaluate(() => Boolean(globalThis.exact?.state)), false);
   await cdp.send("Profiler.enable");
   await cdp.send("Profiler.start");
   const start = await page.evaluate(() => performance.now());
-  await page.getByRole("searchbox", { name: "Search documentation" }).fill("acceptance-target-000");
-  await page.locator('[data-docs-part="search"] a').waitFor();
-  const durationMs = (await page.evaluate(() => performance.now())) - start;
+  if (action === "counter") await page.getByTestId("comparison-counter").click();
+  else
+    await page
+      .getByRole("searchbox", { name: "Search documentation" })
+      .fill("acceptance-target-000");
+  const { paintMs } = await paint;
+  const durationMs = paintMs - start;
   const { profile } = await cdp.send("Profiler.stop");
   await page.waitForLoadState("networkidle");
-  assert.deepEqual(
-    await page
-      .locator('[data-docs-part="search"] a')
-      .evaluateAll((links) => links.map((link) => link.getAttribute("href"))),
-    ["/"],
-  );
+  if (action === "counter") {
+    assert.equal(await page.getByTestId("comparison-counter").textContent(), "Count: 1");
+    assert.equal(
+      [...network.values()].some((request) => /\/scope-/.test(request.path)),
+      false,
+    );
+  } else
+    assert.deepEqual(
+      await page
+        .locator('[data-docs-part="search"] a')
+        .evaluateAll((links) => links.map((link) => link.getAttribute("href"))),
+      ["/"],
+    );
   assert.deepEqual(errors, []);
   const first = Math.min(
     ...[...network.values()].filter((e) => e.path === "/app.js").map((e) => e.start),
@@ -109,7 +161,18 @@ try {
       bytes: e.transferSize,
     })),
   );
-  const report = { directory, durationMs: Math.round(durationMs), requests, resources, hot };
+  const timeline = await page.evaluate(() => globalThis.__startupProfile);
+  const report = {
+    directory,
+    action,
+    startMs: start,
+    paintMs,
+    durationMs: Math.round(durationMs),
+    timeline,
+    requests,
+    resources,
+    hot,
+  };
   const out = path.resolve(
     process.argv[3] ?? path.join(import.meta.dirname, "../.cache/startup-profile"),
   );

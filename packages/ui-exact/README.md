@@ -45,6 +45,12 @@ collision-aware positioning, hover previews and nested keyboard/focus behavior. 
 for the API, [hover example](example/popover-hover.contract) and remaining modal,
 portal and native integration work.
 
+NumberField and Stepper add a shared nullable numeric model, locale editing,
+keyboard/button/hold interaction and canonical form values. Stepper keeps the
+ordinary two-segment treatment; NumberField uses field materials. See
+[NumberField and Stepper](NUMBER_FIELD.md) for composition and remaining scrub,
+callback and native integration work.
+
 Menu adds native anchored actions, checkbox/radio items, rich rows and compact
 Glass material. See [Menu](MENU.md) and its [compiled example](example/menu.contract)
 for the implemented path and remaining morph work.

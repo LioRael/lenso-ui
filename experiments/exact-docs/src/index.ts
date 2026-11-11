@@ -27,6 +27,7 @@ export type RootExtension = {
 };
 export type DocsConfig = VariantConfig & {
   name: string;
+  preload: "render" | "intent";
   pages: Page[];
   layout?: { source: string; component: string };
   root?: RootExtension;
@@ -90,6 +91,9 @@ export function parseConfig(value: unknown): DocsConfig {
     !value["pages"].length
   )
     throw new Error("docs.json requires a name and a nonempty pages array");
+  const preload = value["preload"] ?? "render";
+  if (preload !== "render" && preload !== "intent")
+    throw new Error('preload must be "render" or "intent"');
   const paths = new Set<string>();
   const variants = parseVariants(value);
   const identities = new Set<string>();
@@ -207,6 +211,7 @@ export function parseConfig(value: unknown): DocsConfig {
   return {
     ...variants,
     components,
+    preload,
     ...(origin ? { origin } : {}),
     name: value["name"],
     pages,
@@ -372,6 +377,7 @@ export async function generateApp(site: Site, platform: DocsPlatform = "web") {
                     DocsCustomPage${i}()`;
   });
   const scopePages = searchScopes(site);
+  const routeScopes: object[] = [];
   const scopes = scopePages.map((scope, i) => {
     const scoped = site.documents.filter((candidate) => sameScope(candidate, scope));
     const navigation = scoped
@@ -383,9 +389,21 @@ export async function generateApp(site: Site, platform: DocsPlatform = "web") {
       site.config.locales.find((locale) => locale.id === scope.locale)?.labels ?? defaultLabels;
     const seo = pageSeo(scope, site);
     const version = site.config.versions.find((item) => item.id === scope.version);
+    routeScopes.push({
+      locale: scope.locale,
+      language: seo.lang,
+      direction: seo.dir,
+      version: scope.version,
+      versionStatus: version?.status ?? "",
+      searchIndexUrl: searchIndexUrl(scope),
+      navigation,
+      groups,
+      labels,
+    });
     return `  state docsScope${i}: DocsScopeData = DocsScopeData(locale=${quote(scope.locale)}, language=${quote(seo.lang)}, direction=${quote(seo.dir)}, version=${quote(scope.version)}, versionStatus=${quote(version?.status ?? "")}, searchIndexUrl=${quote(platform === "web" ? searchIndexUrl(scope) : "")}, navigation=${records("DocsLink", navigation)}, groups=${groupValues}, labels=${constructor("DocsLabels", labels)})`;
   });
   const pageData = new Map<string, PageData>();
+  const routePages: object[] = [];
   const pages = site.documents.map((doc, i) => {
     const scoped = site.documents.filter((candidate) => sameScope(candidate, doc));
     const visible = scoped.filter((candidate) => candidate.nav !== false);
@@ -408,8 +426,21 @@ export async function generateApp(site: Site, platform: DocsPlatform = "web") {
       locales: choices(site.documents, doc, "locale", site.config.locales),
       versions: choices(site.documents, doc, "version", site.config.versions),
     });
+    routePages.push({
+      route: `page${i}`,
+      path: doc.path,
+      title: doc.title,
+      pageId: doc.id,
+      custom: Boolean(doc.component),
+      scope,
+    });
     return `DocsPageData(route="page${i}", path=${quote(doc.path)}, title=${quote(doc.title)}, pageId=${quote(doc.id)}, custom=${Boolean(doc.component)}, scope=docsScope${scope})`;
   });
+  if (platform === "web")
+    await Bun.write(
+      path.join(app, "docs-routes.ts"),
+      `const scopes = ${JSON.stringify(routeScopes)};\nexport const docsRoutes = new Map(${JSON.stringify(routePages)}.map(page => [page.route, {...page,scope:scopes[page.scope]!}]));\n`,
+    );
   const context = `shape DocsScopeData
   locale: string
   language: string
@@ -428,6 +459,9 @@ shape DocsPageData
   pageId: string
   custom: bool
   scope: DocsScopeData
+
+shape DocsRouteReply
+  pages: DocsPageData[]
 
 component DocsContext
   props
@@ -467,11 +501,6 @@ component DocsContext
       ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=(current ? content.toc : []), query=query, search=search, results=results)
         children
 `;
-  function selectPage(start: number, end: number): string {
-    if (end - start === 1) return `some(${pages[start]})`;
-    const middle = Math.floor((start + end) / 2);
-    return `(docsPageIndex < ${middle} ? ${selectPage(start, middle)} : ${selectPage(middle, end)})`;
-  }
   const native = platform !== "web";
   const contentRef = native ? "entry.content" : "docsContent";
   const contentResource = native ? "docsNativeContents" : "docsContent";
@@ -502,16 +531,21 @@ shape DocsNativeVisit
     : ""
 }
 component DocsApp
-${scopes.join("\n")}
+${native ? scopes.join("\n") : ""}
 ${
   native
     ? `  derive docsPages = [${pages.join(", ")}]
   state docsEmptyContent: DocsContent = DocsContent(path="", markdown="", blocks=[], description="", canonical="", robots="noindex,follow", seo="", toc=[], locales=[], versions=[], previous=[], next=[])`
     : ""
 }
-  state docsRouteNames: string[] = ${quote(site.documents.map((_, i) => `page${i}`))}
+${
+  native
+    ? `  state docsRouteNames: string[] = ${quote(site.documents.map((_, i) => `page${i}`))}
   derive docsPageIndex = docsRouteNames.indexOf(top(docsNav).name)
-  derive docsPage = docsPageIndex < 0 ? none : ${native ? "docsPages.at(docsPageIndex)" : selectPage(0, pages.length)}
+  derive docsPage = docsPageIndex < 0 ? none : docsPages.at(docsPageIndex)`
+    : `  resource docsRouteReply = docsReadRoute(top(docsNav).name) as shape DocsRouteReply else empty()
+  derive docsPage = first(docsRouteReply.pages)`
+}
   state docsQuery = ""
   derive docsPath = match docsPage { case some(page) => page.path, case none => "" }
   derive docsLocale = match docsPage { case some(page) => page.scope.locale, case none => "" }
@@ -702,8 +736,9 @@ export async function buildSite(
     ...site.documents.map((doc) => path.join(doc.path.slice(1), "index.html")),
   ]);
   const files = await readdir(staging);
+  // Leave input-only glue on the SDK's post-paint import path.
   const modules = files
-    .filter((file) => /^(app|input-glue-[\w-]+|frames-[\w-]+)\.js$/.test(file))
+    .filter((file) => /^(app|frames-[\w-]+)\.js$/.test(file))
     .map((file) => `./${file}`);
   const styles = files.includes("style.css") ? ["./style.css"] : [];
   const search: Record<string, string> = {};
@@ -721,6 +756,7 @@ export async function buildSite(
           preparePageHtml(await file.text(), {
             modules,
             styles,
+            preload: site.config.preload,
             search,
           }),
           doc,

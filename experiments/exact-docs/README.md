@@ -358,9 +358,13 @@ throws when a component has no adapter.
 ## Search delivery and application state
 
 Control focus, pointer approach or pointer-down starts fetch hints for the shared
-application, input helper and full Exact host stylesheet in parallel. Hints do not
-evaluate application modules, start root tasks or apply additional styling. There
-is no idle prefetch. Reading without control intent does not fetch the application.
+application and full Exact host stylesheet. Exact's input-only helper stays on its
+post-paint import path instead of competing with startup downloads. Hints do not
+evaluate the application, start root tasks or apply additional styling. There is
+no idle prefetch; reading without control intent does not fetch the application.
+[ACTIVATION.md](ACTIVATION.md) records first-click costs and the matched Fumadocs
+comparison, including the evaluated stylesheet-delivery tradeoff.
+
 A nonempty query in an `input type="search"` inside `data-docs-part="search"`
 starts loading only the current scope's pure data module, in parallel with application
 activation. Its module script requests low fetch priority; that priority is a browser
@@ -605,6 +609,18 @@ It is a static-to-static comparison, not a server-backed search benchmark.
 bun install --cwd bench/fumadocs --frozen-lockfile --ignore-scripts
 PERF_RUNS=5 bun run test:fumadocs
 ```
+
+To compare an Exact activation change with a saved output and Fumadocs' matched
+adapter, preserve the old Exact output outside `.cache/fumadocs`, rebuild the Exact
+candidate, then run:
+
+```sh
+FUMA_ACTIVATION_BASELINE="$PWD/.cache/activation-before-dist" FUMA_MEASURE_ONLY=1 PERF_RUNS=5 bun run test:fumadocs
+```
+
+This mode writes `.cache/fumadocs/activation-results.json` and [ACTIVATION.md](ACTIVATION.md),
+preserving the earlier four-way report. It also checks pixel-identical static/focused
+appearance across light/dark and desktop/mobile fixtures.
 
 Generate the standard corpus first if absent, using the command below. The runner
 uses isolated dependencies, builds disposable projects under `.cache/fumadocs`,

@@ -37,11 +37,24 @@ export async function checkPresentationCases(page, kinds) {
           "search-field-clear-icon",
         ].includes(entry.kind);
         let tag =
-          entry.kind.includes("button") || entry.kind === "search-field-clear"
+          entry.kind.includes("button") ||
+          entry.kind === "search-field-clear" ||
+          [
+            "number-field-increment",
+            "number-field-decrement",
+            "stepper-increment",
+            "stepper-decrement",
+          ].includes(entry.kind)
             ? "button"
             : entry.kind === "input" ||
                 entry.kind === "choice-input" ||
-                entry.kind === "search-field-input"
+                [
+                  "search-field-input",
+                  "number-field-input",
+                  "stepper-input",
+                  "number-form",
+                  "number-request",
+                ].includes(entry.kind)
               ? "input"
               : entry.kind === "textarea"
                 ? "textarea"
@@ -64,6 +77,17 @@ export async function checkPresentationCases(page, kinds) {
         if (entry.kind === "glass-container-surface") node.setAttribute("hidden", "");
         if (entry.kind === "search-field-input") {
           node.setAttribute("type", "search");
+          node.setAttribute("data-native", "");
+        }
+        if (
+          ["number-field-input", "stepper-input", "number-form", "number-request"].includes(
+            entry.kind,
+          )
+        ) {
+          node.setAttribute(
+            "type",
+            entry.kind === "number-form" || entry.kind === "number-request" ? "hidden" : "text",
+          );
           node.setAttribute("data-native", "");
         }
         if (node instanceof HTMLTextAreaElement) node.rows = Number(entry.data.lensoRows);
@@ -92,7 +116,7 @@ export async function checkPresentationCases(page, kinds) {
           "opacity",
           "strokeWidth",
         ];
-        if (entry.kind === "search-field-input")
+        if (["search-field-input", "number-field-input", "stepper-input"].includes(entry.kind))
           properties.push("borderTopWidth", "appearance", "lineHeight");
         const actual = getComputedStyle(node);
         const expected = getComputedStyle(reference);

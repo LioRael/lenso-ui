@@ -44,7 +44,9 @@
     "MENU.md",
     "SUBMENUS.md",
     "MENU_MODAL.md",
-    "MENU_BAR.md"
+    "MENU_BAR.md",
+    "NUMBER_FIELD.md",
+    "NUMBER_SCRUB.md"
   ],
   "type": "module",
   "exports": {

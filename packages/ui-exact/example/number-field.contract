@@ -1,4 +1,4 @@
-use NumberFieldState, NumberField, NumberFieldGroup, NumberFieldInput, NumberFieldIncrementButton, NumberFieldDecrementButton, Stepper, StepperGroup, StepperInput, StepperIncrementButton, StepperDecrementButton, Label, Button from "@lenso/ui-exact"
+use NumberFieldScrubArea, NumberFieldScrubAreaCursor, NumberFieldState, NumberField, NumberFieldGroup, NumberFieldInput, NumberFieldIncrementButton, NumberFieldDecrementButton, Stepper, StepperGroup, StepperInput, StepperIncrementButton, StepperDecrementButton, Label, Button from "@lenso/ui-exact"
 
 fn shown(value: option<number>): string = match value { case some(n) => `${n}`, case none => "empty" }
 
@@ -7,6 +7,7 @@ component NumberFieldExample
   state count = some(1)
   state disabled = false
   state readOnly = false
+  state ownDisabled = false
   state invalid = false
   state format = ""
   state locale = "en-US"
@@ -14,11 +15,20 @@ component NumberFieldExample
   state variant = "primary"
   state fullWidth = false
   state mounted = true
+  state editorMounted = true
+  state outOfRange = false
+  state bounded = true
+  state nested = false
+  state scrubMounted = true
+  state scrubDirection = "horizontal"
+  state sensitivity = 2
+  state teleport = none
+  state cursorMounted = true
   state changed = 0
   state committed = 0
   state last = ""
-  derive field = NumberFieldState(id="numeric-amount", label="Amount", labelledBy="numeric-amount-label", describedBy="numeric-description", value=amount, min=-10, max=10, step=0.1, largeStep=1, smallStep=0.01, snapOnStep=true, allowOutOfRange=false, allowWheelScrub=true, disabled=disabled, readOnly=readOnly, required=true, invalid=invalid, name="amount", locale=locale, format=format, variant=variant, fullWidth=fullWidth, direction=direction)
-  derive counter = NumberFieldState(id="numeric-count", label="Item count", labelledBy="", describedBy="", value=count, min=0, max=5, step=1, largeStep=2, smallStep=0.5, snapOnStep=false, allowOutOfRange=false, allowWheelScrub=false, disabled=disabled, readOnly=readOnly, required=false, invalid=invalid, name="count", locale="en-US", format="", variant="primary", fullWidth=false, direction=direction)
+  derive field = NumberFieldState(id="numeric-amount", label="Amount", labelledBy="numeric-amount-label", describedBy="numeric-description", value=amount, min=(bounded ? some(-10) : none), max=(bounded ? some(10) : none), step=0.1, largeStep=1, smallStep=0.01, snapOnStep=true, allowOutOfRange=outOfRange, allowWheelScrub=true, disabled=disabled, readOnly=readOnly, required=true, invalid=invalid, name="amount", locale=locale, format=format, variant=variant, fullWidth=fullWidth, direction=direction)
+  derive counter = NumberFieldState(id="numeric-count", label="Item count", labelledBy="", describedBy="", value=count, min=some(0), max=some(5), step=1, largeStep=2, smallStep=0.5, snapOnStep=false, allowOutOfRange=false, allowWheelScrub=false, disabled=disabled, readOnly=readOnly, required=false, invalid=invalid, name="count", locale="en-US", format="", variant="primary", fullWidth=false, direction=direction)
   action edit(value: option<number>)
     amount = value
     changed = changed + 1
@@ -31,6 +41,8 @@ component NumberFieldExample
     last = shown(value)
   action toggleDisabled
     disabled = not disabled
+  action toggleOwnDisabled
+    ownDisabled = not ownDisabled
   action toggleReadOnly
     readOnly = not readOnly
   action toggleInvalid
@@ -49,6 +61,24 @@ component NumberFieldExample
     amount = some(3.25)
   action clear
     amount = none
+  action toggleScrub
+    scrubMounted = not scrubMounted
+  action toggleScrubDirection
+    scrubDirection = scrubDirection == "horizontal" ? "vertical" : "horizontal"
+  action toggleSensitivity
+    sensitivity = sensitivity == 2 ? 8 : 2
+  action toggleTeleport
+    teleport = match teleport { case some(n) => none, case none => some(80) }
+  action toggleCursor
+    cursorMounted = not cursorMounted
+  action toggleNested
+    nested = not nested
+  action toggleEditor
+    editorMounted = not editorMounted
+  action toggleOutOfRange
+    outOfRange = not outOfRange
+  action toggleBounds
+    bounded = not bounded
   action toggleMounted
     mounted = not mounted
   view
@@ -56,6 +86,7 @@ component NumberFieldExample
       text "Number field and stepper" role="heading" aria-level=2
       row gap=8 flex-wrap="wrap"
         Button(label="Disable", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="numeric-disabled")
+        Button(label="Disable increase", press=toggleOwnDisabled, disabled=false, size="sm", variant="bordered", testId="numeric-own-disabled")
         Button(label="Read only", press=toggleReadOnly, disabled=false, size="sm", variant="bordered", testId="numeric-readonly")
         Button(label="Invalid", press=toggleInvalid, disabled=false, size="sm", variant="bordered", testId="numeric-invalid")
         Button(label="Format", press=toggleFormat, disabled=false, size="sm", variant="bordered", testId="numeric-format")
@@ -65,27 +96,59 @@ component NumberFieldExample
         Button(label="Direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="numeric-direction")
         Button(label="Set externally", press=external, disabled=false, size="sm", variant="bordered", testId="numeric-external")
         Button(label="Clear", press=clear, disabled=false, size="sm", variant="bordered", testId="numeric-clear")
+        Button(label="Drag area", press=toggleScrub, disabled=false, size="sm", variant="bordered", testId="numeric-scrub-mounted")
+        Button(label="Drag direction", press=toggleScrubDirection, disabled=false, size="sm", variant="bordered", testId="numeric-scrub-direction")
+        Button(label="Sensitivity", press=toggleSensitivity, disabled=false, size="sm", variant="bordered", testId="numeric-scrub-sensitivity")
+        Button(label="Cursor bounds", press=toggleTeleport, disabled=false, size="sm", variant="bordered", testId="numeric-scrub-teleport")
+        Button(label="Cursor", press=toggleCursor, disabled=false, size="sm", variant="bordered", testId="numeric-scrub-cursor-mounted")
+        Button(label="Nest counter", press=toggleNested, disabled=false, size="sm", variant="bordered", testId="numeric-nested")
+        Button(label="Editor", press=toggleEditor, disabled=false, size="sm", variant="bordered", testId="numeric-editor")
+        Button(label="Out of range", press=toggleOutOfRange, disabled=false, size="sm", variant="bordered", testId="numeric-out-of-range")
+        Button(label="Bounds", press=toggleBounds, disabled=false, size="sm", variant="bordered", testId="numeric-bounds")
         Button(label="Mount", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="numeric-mounted")
-      text "Arrow keys change the amount; Shift changes by 1 and Alt by 0.01." id="numeric-description"
+      text "Arrow keys change the amount; Shift uses a step of 1 and Alt a step of 0.01." id="numeric-description"
       if mounted
         NumberField(state=field, change=edit, commit=commit)
-          Label(id="numeric-amount-label", controlId="numeric-amount-input", label="Amount", required=true)
+          if scrubMounted
+            NumberFieldScrubArea(state=field, id="numeric-scrub", direction=scrubDirection, pixelSensitivity=sensitivity, teleportDistance=teleport)
+              Label(id="numeric-amount-label", controlId="numeric-amount-input", label="Amount", required=true)
+              if cursorMounted
+                NumberFieldScrubAreaCursor(id="numeric-scrub-cursor")
+                  svg width=24 height=24 viewBox="0 0 24 24" aria-hidden=true fill="none" stroke="currentColor" stroke-width=1.5
+                    if scrubDirection == "vertical"
+                      path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"
+                    else
+                      path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"
+          else
+            Label(id="numeric-amount-label", controlId="numeric-amount-input", label="Amount", required=true)
           NumberFieldGroup(state=field)
-            NumberFieldDecrementButton(state=field, label="Decrease amount", change=edit, commit=commit)
+            NumberFieldDecrementButton(state=field, label="Decrease amount", disabled=false, change=edit, commit=commit)
               text "−"
-            NumberFieldInput(state=field, change=edit, commit=commit)
-            NumberFieldIncrementButton(state=field, label="Increase amount", change=edit, commit=commit)
+            if editorMounted
+              NumberFieldInput(state=field, change=edit, commit=commit)
+            NumberFieldIncrementButton(state=field, label="Increase amount", disabled=ownDisabled, change=edit, commit=commit)
               text "+"
-        Stepper(state=counter, change=editCount, commit=commitCount)
-          StepperInput(state=counter, change=editCount, commit=commitCount)
-          StepperGroup()
-            StepperDecrementButton(state=counter, label="Decrease count", change=editCount, commit=commitCount)
-              text "−"
-            StepperIncrementButton(state=counter, label="Increase count", change=editCount, commit=commitCount)
-              text "+"
+          if nested
+            NumericCounter(state=counter, change=editCount, commit=commitCount)
+        if not nested
+          NumericCounter(state=counter, change=editCount, commit=commitCount)
       text `Amount: ${shown(amount)}` testId="numeric-value"
       text `Count: ${shown(count)}` testId="numeric-count-value"
       text `Changes: ${changed}` testId="numeric-changes"
       text `Commits: ${committed}` testId="numeric-commits"
       text `Last: ${last}` testId="numeric-last"
       Button(label="Next action", press=external, disabled=false, size="sm", variant="bordered", testId="numeric-next")
+
+component NumericCounter
+  props
+    state: NumberFieldState
+    change: action
+    commit: action
+  view
+    Stepper(state=state, change=change, commit=commit)
+      StepperInput(state=state, change=change, commit=commit)
+      StepperGroup()
+        StepperDecrementButton(state=state, label="Decrease count", disabled=false, change=change, commit=commit)
+          text "−"
+        StepperIncrementButton(state=state, label="Increase count", disabled=false, change=change, commit=commit)
+          text "+"

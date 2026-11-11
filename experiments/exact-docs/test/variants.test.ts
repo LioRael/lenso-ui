@@ -32,6 +32,11 @@ test("variant declarations reject unknown scopes, duplicate identities and inval
   const home = { id: "home", path: "/", source: "index.md" };
   const config = { name: "Docs", ...axes, pages: [home] };
   const legacy = parseConfig({ name: "Docs", pages: [home] });
+  expect(legacy.preload).toBe("render");
+  expect(parseConfig({ name: "Docs", pages: [home], preload: "intent" }).preload).toBe("intent");
+  expect(() => parseConfig({ name: "Docs", pages: [home], preload: "eager" })).toThrow(
+    "preload must be",
+  );
   expect(legacy.pages[0]).toMatchObject({ locale: "", version: "", id: "home" });
   expect(
     parseConfig({ name: "Docs", locales: axes.locales, pages: [home] }).pages[0],

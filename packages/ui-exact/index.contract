@@ -1,3 +1,4 @@
+use NumberFieldScrubArea, NumberFieldScrubAreaCursor from "./components/number-field.contract"
 use NumberFieldState, NumberField, NumberFieldGroup, NumberFieldInput, NumberFieldIncrementButton, NumberFieldDecrementButton, Stepper, StepperGroup, StepperInput, StepperIncrementButton, StepperDecrementButton from "./components/number-field.contract"
 use MenuBarState, MenuBar, MenuBarItem, MenuExpandTrigger, MenuExpandIcon from "./components/menu.contract"
 use MenuBackdrop from "./components/menu.contract"

@@ -9,10 +9,20 @@ export function prepareInteraction() {
   function hint(file: string, style = false) {
     if (hinted.has(file)) return;
     hinted.add(file);
+    const href = new URL(file, document.baseURI).href;
+    const existing = [
+      ...document.querySelectorAll<HTMLLinkElement>(
+        'link[rel="preload"],link[rel="modulepreload"]',
+      ),
+    ].find((link) => link.href === href);
+    if (existing) {
+      existing.fetchPriority = "high";
+      return;
+    }
     const link = document.createElement("link");
     link.rel = style ? "preload" : "modulepreload";
     if (style) link.as = "style";
-    link.href = new URL(file, document.baseURI).href;
+    link.href = href;
     document.head.append(link);
   }
   // A real query can fetch its scope while Exact downloads and replays the input.

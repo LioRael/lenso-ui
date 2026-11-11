@@ -2,6 +2,9 @@ import * as stylex from "@stylexjs/stylex";
 import type { PresentationRule } from "@lenso/ui-exact/presentation";
 
 const custom = stylex.create({
+  numericScrub: {
+    cursor: { default: "ew-resize", ':is([data-lenso-direction="vertical"])': "ns-resize" },
+  },
   popover: { width: 320, maxWidth: "calc(100vw - 16px)" },
   fusionRoot: { width: "fit-content", maxWidth: "100%" },
   fusionTile: { width: 88, height: 80, borderRadius: 24, padding: 16, boxSizing: "border-box" },
@@ -44,12 +47,14 @@ const custom = stylex.create({
 });
 
 export const styleRules = [
+  { kind: "number-scrub-area", testId: "numeric-scrub", xstyle: custom.numericScrub },
   { kind: "popover-popup", xstyle: custom.popover },
   { kind: "glass-container", xstyle: custom.fusionRoot },
   { kind: "glass-container-item", xstyle: custom.fusionTile },
   { kind: "toolbar-button", testId: "toolbar-copy", xstyle: custom.toolbarAction },
   { kind: "pagination-link", testId: "pagination-two", xstyle: custom.pageLink },
   { kind: "search-field-input", testId: "search-demo-input", xstyle: custom.searchInput },
+  { kind: "number-field-input", testId: "numeric-amount-input", xstyle: custom.searchInput },
   { kind: "scroll-shadow", testId: "shadow-sample", xstyle: custom.scrollViewport },
   { kind: "switch-icon", xstyle: custom.switchIcon },
   { kind: "button", testId: "layout-create", xstyle: custom.wideAction },

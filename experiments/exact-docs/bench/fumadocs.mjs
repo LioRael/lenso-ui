@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { writeReport } from "./fumadocs-report.mjs";
+import { writeActivationReport } from "./activation-report.mjs";
+import { writeEntryReport } from "./entry-report.mjs";
 import { cp, mkdir, readFile, readdir, rm, symlink } from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
@@ -30,6 +32,22 @@ const outputs = Object.fromEntries(
     path.join(cache, name, name === "exact" ? "dist" : "out"),
   ]),
 );
+const activationBaseline = process.env.FUMA_ACTIVATION_BASELINE;
+const entryComparison = process.env.FUMA_ENTRY_COMPARISON === "1";
+assert.ok(
+  !entryComparison || activationBaseline,
+  "FUMA_ENTRY_COMPARISON requires an activation baseline",
+);
+const fastActivation = process.env.FUMA_ACTIVATION_FAST === "1";
+assert.ok(
+  !fastActivation || activationBaseline,
+  "FUMA_ACTIVATION_FAST requires an activation baseline",
+);
+const latencyMs = fastActivation ? 0 : 80;
+const downloadBytesPerSecond = fastActivation ? 10000000 : 200000;
+if (activationBaseline) outputs.exactBefore = path.resolve(activationBaseline);
+const cases = activationBaseline ? ["exactBefore", "exact", "matched"] : Object.keys(outputs);
+const isExact = (name) => name === "exact" || name === "exactBefore";
 const versions = {};
 for (const name of ["fumadocs-core", "fumadocs-ui", "next", "react", "react-dom", "tailwindcss"])
   versions[name] = JSON.parse(
@@ -194,7 +212,16 @@ if (process.env.FUMA_MEASURE_ONLY !== "1") {
     JSON.stringify({ versions, buildTimes }, null, 2),
   );
 }
-for (const out of Object.values(outputs))
+if (process.env.FUMA_MEASURE_ONLY === "1") {
+  const built = await Bun.file(path.join(cache, "build.json")).json();
+  assert.deepEqual(
+    built.versions,
+    versions,
+    "Dependencies changed; rebuild the fixtures before reusing output",
+  );
+  Object.assign(buildTimes, built.buildTimes);
+}
+for (const out of cases.map((name) => outputs[name]))
   assert.ok(await Bun.file(path.join(out, "index.html")).exists(), `Missing built fixture ${out}`);
 if (process.env.FUMA_BUILD_ONLY === "1") process.exit(0);
 
@@ -248,8 +275,8 @@ async function setup(name) {
   await cdp.send("Network.setCacheDisabled", { cacheDisabled: true });
   await cdp.send("Network.emulateNetworkConditions", {
     offline: false,
-    latency: 80,
-    downloadThroughput: 200000,
+    latency: latencyMs,
+    downloadThroughput: downloadBytesPerSecond,
     uploadThroughput: 1000000,
   });
   await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
@@ -407,7 +434,7 @@ function nav(t, name) {
     : t.page.getByRole("navigation", { name: "Documentation", exact: true });
 }
 const rounded = (n) => Math.round(n * 10) / 10;
-const sets = { exact: [], headless: [], matched: [], ui: [] };
+const sets = Object.fromEntries(cases.map((name) => [name, []]));
 try {
   for (let run = 0; run < (process.env.FUMA_VALIDATE_ONLY === "1" ? 0 : runs); run++) {
     const names = Object.keys(sets);
@@ -514,9 +541,16 @@ try {
       const tCounter = await setup(name);
       try {
         const before = tCounter.bytes();
+        const initialCounterMetrics = Object.fromEntries(
+          (await tCounter.cdp.send("Performance.getMetrics")).metrics.map((m) => [m.name, m.value]),
+        );
         const count = await tCounter.measure(
           (e) => e.type === "counter" && e.value === "Count: 1",
           () => tCounter.page.getByTestId("comparison-counter").click(),
+        );
+        const throughPaintBytes = tCounter.bytes();
+        const counterMetrics = Object.fromEntries(
+          (await tCounter.cdp.send("Performance.getMetrics")).metrics.map((m) => [m.name, m.value]),
         );
         await tCounter.page.waitForLoadState("networkidle");
         assert.equal(
@@ -527,8 +561,22 @@ try {
           "Counter must not fetch a search database",
         );
         assert.deepEqual(tCounter.errors, []);
+        if (run === 0)
+          await Bun.write(
+            path.join(
+              cache,
+              `${activationBaseline ? `${entryComparison ? "entry" : "activation"}-${fastActivation ? "fast" : "slow"}-` : ""}${name}-counter-network.json`,
+            ),
+            JSON.stringify(tCounter.requests, null, 2),
+          );
         Object.assign(sets[name].at(-1), {
           firstCounterMs: count.ms,
+          counterInitialBytes: before,
+          counterThroughPaintBytes: throughPaintBytes,
+          counterTotalBytes: tCounter.bytes(),
+          counterScriptMs: rounded(
+            (counterMetrics.ScriptDuration - initialCounterMetrics.ScriptDuration) * 1000,
+          ),
           coldOpenToCounterMs: count.sinceNavigationMs,
           counterBytes: tCounter.bytes() - before,
         });
@@ -542,8 +590,7 @@ try {
     const t = await setup(name);
     try {
       await t.page.goto(
-        new URL(name === "exact" ? "/zh/v1/guide-001" : "/zh/v1/guide-001/", servers[name].url)
-          .href,
+        new URL(isExact(name) ? "/zh/v1/guide-001" : "/zh/v1/guide-001/", servers[name].url).href,
       );
       await t.page.getByTestId("comparison-counter").click();
       await t.page.getByTestId("comparison-counter").filter({ hasText: "Count: 1" }).waitFor();
@@ -587,6 +634,49 @@ try {
       await t.context.close();
     }
   }
+  let appearance;
+  if (activationBaseline) {
+    let pairs = 0;
+    for (const width of [1280, 390])
+      for (const colorScheme of ["light", "dark"]) {
+        const captures = [];
+        for (const name of ["exactBefore", "exact"]) {
+          const context = await browser.newContext({
+            viewport: { width, height: 900 },
+            colorScheme,
+            reducedMotion: "reduce",
+          });
+          try {
+            const page = await context.newPage();
+            await page.goto(servers[name].url.href);
+            await page.evaluate(() => document.fonts.ready);
+            await page.locator("main").scrollIntoViewIfNeeded();
+            const reading = await page.screenshot({ caret: "hide", animations: "disabled" });
+            await page.getByRole("searchbox").focus();
+            assert.equal(await page.evaluate(() => Boolean(globalThis.exact?.state)), false);
+            const focused = await page.screenshot({ caret: "hide", animations: "disabled" });
+            captures.push([reading, focused]);
+          } finally {
+            await context.close();
+          }
+        }
+        for (const [index, state] of ["reading", "focused"].entries()) {
+          assert.ok(
+            captures[0][index].equals(captures[1][index]),
+            `CSS appearance changed: ${width}px ${colorScheme} ${state}`,
+          );
+          pairs++;
+        }
+      }
+    appearance = {
+      pairs,
+      pixelIdentical: true,
+      widths: [1280, 390],
+      colorSchemes: ["light", "dark"],
+      states: ["reading", "focused"],
+    };
+    console.log(`activation: ${pairs} pixel-identical before/after screenshots`);
+  }
   if (process.env.FUMA_VALIDATE_ONLY !== "1") {
     const results = Object.fromEntries(
       Object.entries(sets).map(([name, samples]) => [
@@ -611,8 +701,8 @@ try {
         locales: 2,
         versions: 2,
         pagesPerScope: 75,
-        latencyMs: 80,
-        downloadBytesPerSecond: 200000,
+        latencyMs,
+        downloadBytesPerSecond,
         cpuSlowdown: 4,
         gzip: true,
         cacheDisabled: true,
@@ -623,22 +713,34 @@ try {
         uiDialogPreload: true,
       },
       buildTimes,
+      appearance,
+      outputs: Object.fromEntries(cases.map((name) => [name, outputs[name]])),
       results,
     };
     report.indexes = {};
-    for (const name of Object.keys(outputs)) {
-      const file =
-        name === "exact"
-          ? (await readdir(outputs[name])).find((file) => /^scope-0-/.test(file))
-          : name === "matched"
-            ? "_search/substring-0.js"
-            : "_search/0.json";
+    for (const name of cases) {
+      const file = isExact(name)
+        ? (await readdir(outputs[name])).find((file) => /^scope-0-/.test(file))
+        : name === "matched"
+          ? "_search/substring-0.js"
+          : "_search/0.json";
       const bytes = await Bun.file(path.join(outputs[name], file)).bytes();
       report.indexes[name] = { file, raw: bytes.length, gzip: gzipSync(bytes).length };
     }
     report.reusedBuilds = process.env.FUMA_MEASURE_ONLY === "1";
-    await Bun.write(path.join(cache, "results.json"), JSON.stringify(report, null, 2));
-    await writeReport(root, report);
+    const reportFile = entryComparison
+      ? fastActivation
+        ? "entry-fast-results.json"
+        : "entry-results.json"
+      : fastActivation
+        ? "activation-fast-results.json"
+        : activationBaseline
+          ? "activation-results.json"
+          : "results.json";
+    await Bun.write(path.join(cache, reportFile), JSON.stringify(report, null, 2));
+    if (entryComparison && !fastActivation) await writeEntryReport(root, report);
+    else if (activationBaseline && !fastActivation) await writeActivationReport(root, report);
+    else if (!activationBaseline) await writeReport(root, report);
     console.log(
       JSON.stringify(
         Object.fromEntries(Object.entries(results).map(([key, value]) => [key, value.median])),

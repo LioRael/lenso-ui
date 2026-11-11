@@ -65,7 +65,7 @@ Publication and repository landing require separate user instructions.
 | `menu`                 | Partial               | Anchored actions, checked items, submenus, compact edit bars and modal pointer/scroll ownership implemented; morph, extended/native and optical gates remain (MENU.md)                |
 | `meter`                | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                                                                           |
 | `modal`                | Partial               | Native Web composition verified; WebKit exit motion and focus/portal/control parity remain open (MODAL.md)                                                                            |
-| `number-field`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
+| `number-field`         | Partial               | Nullable model, locale drafts, keyboard/buttons/hold and native form fixture verified; scrub area/cursor, extended APIs and optical/native gates remain (NUMBER_FIELD.md)             |
 | `pagination`           | Partial               | Native links, all source sizes, rich parts, responsive/RTL and browser behavior verified; pre-hatch disabled role, structural HTML and native forwarding gates remain (PAGINATION.md) |
 | `popover`              | Partial               | Native non-modal interactions, anchored thick material, positioning and lifecycle verified; extended/modal/portal/native and optical gates remain (POPOVER.md)                        |
 | `progress-bar`         | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                                                                           |
@@ -107,7 +107,7 @@ Publication and repository landing require separate user instructions.
 | `context-menu`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `action-sheet`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `sheet`                | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
-| `stepper`              | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
+| `stepper`              | Partial               | Shared numeric model, 92 x 32 geometry, keyboard/touch/hold and lifecycle verified; extended/native forwarding gates remain (NUMBER_FIELD.md)                                         |
 | `list`                 | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `page-control`         | Partial               | Controlled page window, keyboard/focus and shared track implemented; extended native contracts and optical/touch gates remain (PAGE_CONTROL.md)                                       |
 | `popup-button`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
@@ -137,7 +137,11 @@ acceptance alongside the families that consume them.
 
 ## Current build and focused acceptance
 
-The compact Menu bar checkpoint builds 4296 core recipes and 5810 consumer recipes.
+The NumberField/Stepper checkpoint builds 4313 core recipes and 5828 consumer recipes.
+Its focused cohort covers 18 native-tag presentation recipes including a caller
+style, nullable values, locale/IME drafts and caret, limits and stepping, holding,
+form fixtures, preferences, source geometry and cleanup in Chromium/WebKit.
+The preceding compact Menu bar checkpoint built 4296 core recipes and 5810 consumer recipes.
 Its focused cohort covers 71 affected recipes, ordinary button actions, disabled
 inheritance, shared material, source geometry, elastic press, expanded anchoring
 and pointer cutouts, RTL and removal. See MENU_BAR.md for API gaps and acceptance.
