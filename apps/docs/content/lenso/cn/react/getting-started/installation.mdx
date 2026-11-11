@@ -16,8 +16,8 @@ navigationOrder: 1
 React 包名为 `@lenso/ui`，主题与组件样式映射由 `@lenso/tokens` 提供。UI 与 tokens 应使用匹配的 Lenso 版本。React 和 React DOM 必须满足 React 包公布的 peer 范围。
 
 ```sh
-bun add @lenso/ui @lenso/tokens @stylexjs/stylex
-bun add -d @stylexjs/unplugin
+bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+bun add -d @stylexjs/unplugin@0.19.1
 ```
 
 <details>
@@ -32,17 +32,27 @@ bun add -d @stylexjs/unplugin
 在实际渲染文档的布局中加载：
 
 ```tsx
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ThemeScope } from "@lenso/ui";
 import "@lenso/tokens/styles.css";
+import App from "./App";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode><ThemeScope theme="light"><App /></ThemeScope></StrictMode>,
+);
 ```
 
-在文档或所在表面设置主题的 `light` 或 `dark` 作用域。Portal 中的组件需要相同主题作用域；未指定自定义容器时，Lenso 的原生 portal 包装会保留它。仅在兄弟布局加载的样式表不能为此文档提供样式。
+入口提供 `light` 主题，深色主题使用 `theme="dark"`。替换 Vite 模板入口时移除模板的 `index.css` 与 `App.css` 导入，保留应用自己的样式。Portal 中的组件需要相同主题作用域；未指定自定义容器时，Lenso 的原生 portal 包装会保留它。仅在兄弟布局加载的样式表不能为此文档提供样式。
 
 可以从一个实际操作开始：
 
 ```tsx
+// src/App.tsx
 import { Button } from "@lenso/ui";
 
-export function App() {
+export default function App() {
   return <Button onClick={() => console.log("Saved")}>保存更改</Button>;
 }
 ```
@@ -54,25 +64,36 @@ export function App() {
 使用官方 StyleX 插件统一编译 Lenso 发布的声明和应用样式：
 
 ```ts
-import stylex from "@stylexjs/unplugin";
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { unplugin as stylex } from "@stylexjs/unplugin";
 
-const options = {
-  dev: false,
-  runtimeInjection: false,
-  useCSSLayers: false,
-  lightningcssOptions: { exclude: 4 },
-  unstable_moduleResolution: {
-    type: "commonJS" as const,
-    rootDir: import.meta.dirname,
+export default defineConfig({
+  optimizeDeps: {
+    exclude: ["@lenso/ui", "@lenso/tokens", "@lenso/glass"],
+    include: ["use-sync-external-store/shim", "use-sync-external-store/shim/with-selector"],
   },
-};
-
-// Vite 配置中的插件：
-const plugins = [stylex.vite(options)];
+  plugins: [
+    stylex.vite({
+      dev: false,
+      runtimeInjection: false,
+      useCSSLayers: false,
+      lightningcssOptions: { exclude: 4 },
+      unstable_moduleResolution: {
+        type: "commonJS",
+        rootDir: import.meta.dirname,
+      },
+    }),
+    react(),
+  ],
+});
 ```
+
+开发模式保留 `optimizeDeps.exclude` 与 CommonJS 的 `optimizeDeps.include` 配置；模板的 NodeNext 配置使用具名 `unplugin` 导出。在 StyleX 声明中使用应用 token 时，从 `@lenso/tokens/tokens.stylex.const` 导入。
 
 Rolldown 使用官方集成，Next 使用官方 Babel/PostCSS 配置。源码扫描、SSR 与样式表导入要求见[框架指南](/docs/react/getting-started/frameworks)。
 
 ## 验证消费者
 
-构建应用，打开生产路由，确认主题 CSS 与合并后的 StyleX 规则在控件呈现前已加载。检查本地 `xstyle` 覆盖与 portal 覆盖层。开发环境样式可能掩盖生产 CSS 交付缺失。
+完整的项目创建、交互示例和开发/预览命令见 [Vite 与 Rolldown](/docs/react/getting-started/frameworks#vite-and-rolldown)。构建应用，打开生产路由，确认主题 CSS 与合并后的 StyleX 规则在控件呈现前已加载。检查本地 `xstyle` 覆盖与 portal 覆盖层。开发环境样式可能掩盖生产 CSS 交付缺失。

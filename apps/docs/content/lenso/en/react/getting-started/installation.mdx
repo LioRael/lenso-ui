@@ -16,8 +16,8 @@ Choose the build integration for [Vite or Rolldown](./frameworks#vite-and-rolldo
 The React package is `@lenso/ui`; its theme and component style maps come from `@lenso/tokens`. Use a matching Lenso UI/tokens release. React and React DOM must satisfy the React package's published peer ranges.
 
 ```sh
-bun add @lenso/ui @lenso/tokens @stylexjs/stylex
-bun add -d @stylexjs/unplugin
+bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+bun add -d @stylexjs/unplugin@0.19.1
 ```
 
 <details>
@@ -32,17 +32,27 @@ Use the repository workspace or packed artifacts for an unpublished candidate. C
 Load the stylesheet from the layout that actually renders the document:
 
 ```tsx
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ThemeScope } from "@lenso/ui";
 import "@lenso/tokens/styles.css";
+import App from "./App";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode><ThemeScope theme="light"><App /></ThemeScope></StrictMode>,
+);
 ```
 
-Use the theme's `light` or `dark` scope on the document or containing surface. Portalled components need the same theme scope; Lenso's native portal wrappers preserve it unless you provide your own container. A stylesheet loaded only by a sibling layout does not style this document.
+This entry supplies the `light` theme. Use `theme="dark"` for a dark scope. If replacing the Vite template entry, omit its starter `index.css` and `App.css` imports; retain your own application styles. Portalled components need the same theme scope; Lenso's native portal wrappers preserve it unless you provide your own container. A stylesheet loaded only by a sibling layout does not style this document.
 
 The first screen can be a single native action:
 
 ```tsx
+// src/App.tsx
 import { Button } from "@lenso/ui";
 
-export function App() {
+export default function App() {
   return <Button onClick={() => console.log("Saved")}>Save changes</Button>;
 }
 ```
@@ -54,25 +64,36 @@ Complete the build integration below before relying on the component's productio
 Compile Lenso's shipped declarations and your application styles together with the official StyleX plugin:
 
 ```ts
-import stylex from "@stylexjs/unplugin";
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { unplugin as stylex } from "@stylexjs/unplugin";
 
-const options = {
-  dev: false,
-  runtimeInjection: false,
-  useCSSLayers: false,
-  lightningcssOptions: { exclude: 4 },
-  unstable_moduleResolution: {
-    type: "commonJS" as const,
-    rootDir: import.meta.dirname,
+export default defineConfig({
+  optimizeDeps: {
+    exclude: ["@lenso/ui", "@lenso/tokens", "@lenso/glass"],
+    include: ["use-sync-external-store/shim", "use-sync-external-store/shim/with-selector"],
   },
-};
-
-// Inside a Vite configuration:
-const plugins = [stylex.vite(options)];
+  plugins: [
+    stylex.vite({
+      dev: false,
+      runtimeInjection: false,
+      useCSSLayers: false,
+      lightningcssOptions: { exclude: 4 },
+      unstable_moduleResolution: {
+        type: "commonJS",
+        rootDir: import.meta.dirname,
+      },
+    }),
+    react(),
+  ],
+});
 ```
+
+Keep `optimizeDeps.exclude` and the CommonJS `optimizeDeps.include` entries for development. Use the named `unplugin` export with the template's NodeNext configuration. Import application tokens from `@lenso/tokens/tokens.stylex.const` inside StyleX declarations.
 
 Use the official Rolldown integration or Next Babel/PostCSS configuration for those frameworks. See [Frameworks](/docs/react/getting-started/frameworks) for source scanning, SSR and stylesheet ownership.
 
 ## Verify a consumer
 
-Build the application, open its production route, and check that both theme CSS and the combined StyleX rules load before the controls render. Exercise a local `xstyle` override and a portalled overlay. Development styling can conceal missing production CSS delivery.
+For a complete scaffold, interactive example and dev/preview commands, follow [Vite and Rolldown](./frameworks#vite-and-rolldown). Build the application, open its production route, and check that both theme CSS and the combined StyleX rules load before the controls render. Exercise a local `xstyle` override and a portalled overlay. Development styling can conceal missing production CSS delivery.
