@@ -1,0 +1,49 @@
+experiments/exact-docs/FUMADOCS_COMPARISON.md
+  s_7a75eff23b6779::t_e0e7f72b847954 3,18,24-34,38,49,65,69-71
+experiments/exact-docs/bench/fumadocs-report.mjs
+  s_7a75eff23b6779::t_981a3493f398ca 1-114
+experiments/exact-docs/bench/fumadocs.mjs
+  s_7a75eff23b6779::t_4ddad4dbf4c7d2 2,494,557-559,566,568-569,574-578,641
+packages/ui-exact/NOTICES.md
+  s_7a75eff23b6779::t_08999bcf7695c0 73-77
+packages/ui-exact/components/number-field.contract
+  s_7a75eff23b6779::t_58b8903184dd95 83-90,92,101-102,104,116-118,168-169,171
+packages/ui-exact/example/app.contract
+  s_7a75eff23b6779::t_231e704b651235 1,110
+packages/ui-exact/example/number-field.contract
+  s_7a75eff23b6779::t_12cb83c185e437 1-91
+packages/ui-exact/src/number-field.ts
+  s_7a75eff23b6779::t_e91fb309750c8f 26,40,87-89,346,348,376-380
+packages/ui-exact/src/number-presentation.ts
+  s_7a75eff23b6779::t_fdfda38498910d 1-64
+packages/ui-exact/src/presentation.ts
+  s_7a75eff23b6779::t_12bc07e699e26b 1,85-86,164-172,174
+packages/ui-exact/src/web.ts
+  s_7a75eff23b6779::t_59cb0c3dcc7d4a 1,91,189,218
+packages/ui-exact/test/number-value.test.ts
+  s_10c7d362cf24b2::t_810d0073245a5d 1-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "61c96b038c4bcc6d1fedeb32dbfb9f7caa805629",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_7a75eff23b6779": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c606-4121-7502-8ada-d3ed906e4317",
+        "model": "gpt-6-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
