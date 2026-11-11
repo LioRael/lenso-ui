@@ -38,7 +38,7 @@ component ButtonGroupItem
       press()
   slot
   view
-    button id=id testId=id appearance="none" type=type aria-label=label aria-busy=loading disabled=(state.disabled or disabled) press=activate
+    button id=id testId=id appearance="none" type=type tabindex=0 aria-label=label aria-busy=loading disabled=(state.disabled or disabled) press=activate
       hatch="lenso-ui" data-lenso-kind=(state.glass ? "glass-button-group-item" : "button-group-item") data-slot=(state.glass ? "glass-button" : "button")
       data-lenso-group-item="" data-lenso-size=state.size data-lenso-variant=state.variant data-orientation=state.orientation
       data-lenso-detached=state.detached data-lenso-full-width=state.fullWidth data-lenso-disabled=(state.disabled or disabled)

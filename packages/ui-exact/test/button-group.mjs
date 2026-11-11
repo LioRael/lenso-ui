@@ -118,7 +118,22 @@ export async function checkButtonGroup(page, engine) {
   const widths = await Promise.all(
     [save, duplicate, more].map(async (n) => (await n.boundingBox()).width),
   );
-  assert.ok(Math.max(...widths) - Math.min(...widths) < 1);
+  // Shared stretch distributes content space; icon-only members have no text padding.
+  const contentWidths = await Promise.all(
+    [save, duplicate, more].map((n) =>
+      n.evaluate((n) => {
+        const s = getComputedStyle(n);
+        return (
+          n.getBoundingClientRect().width -
+          parseFloat(s.paddingLeft) -
+          parseFloat(s.paddingRight) -
+          parseFloat(s.borderLeftWidth) -
+          parseFloat(s.borderRightWidth)
+        );
+      }),
+    ),
+  );
+  assert.ok(Math.max(...contentWidths) - Math.min(...contentWidths) < 1);
   assert.ok(Math.abs((await group.boundingBox()).width - widths.reduce((a, b) => a + b, 0)) < 1);
   await toggle("full");
   await toggle("rtl");

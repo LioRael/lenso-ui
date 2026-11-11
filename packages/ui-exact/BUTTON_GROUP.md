@@ -16,7 +16,8 @@ the caller's scope; this API does not depend on inherited React context.
 - Joined members use the shared outside corners, automatic internal seams and
   inset keyboard outline. A separator remains a hidden compatibility part.
   Detached groups have a 4px gap and preserve individual shapes.
-- Full-width groups stretch members equally. Group and own disabled states are
+- Full-width groups distribute available content space across members; icon-only
+  members retain their smaller padding. Group and own disabled states are
   combined. Destructive colors use the shared semantic tokens; tint is empty or
   a valid CSS color. Native tint data writes a private variable, leaving caller
   StyleX composition of public tint variables available.

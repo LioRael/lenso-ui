@@ -87,3 +87,17 @@ test("selected tab predicates use declared active metadata before hatch initiali
     ':is([data-active],:where(:not([data-lenso-ready]))[data-lenso-active="true"])',
   );
 });
+
+test("pending hover guards use true loading metadata before native markers connect", () => {
+  const css = initialCSS(".xA:hover:not([data-pending]) { color:red }", [
+    {
+      kind: "button-group-item",
+      selector: '[data-lenso-kind="button-group-item"]',
+      classes: ["xA"],
+    },
+  ]);
+  expect(css).toContain(
+    ':is([data-pending],:where(:not([data-lenso-ready]))[data-lenso-loading="true"])',
+  );
+  expect(css).not.toContain('[data-lenso-loading="false"]');
+});
