@@ -1,0 +1,37 @@
+apps/docs/content/lenso/en/react/getting-started/installation.mdx
+  s_fabf2ab98d9b30::t_0b17d9749cfcd4 94
+  s_fabf2ab98d9b30::t_790a222494c02d 19-20,35-38,40-44,47,52,55,67-69,72-75,77-90,99
+  s_fabf2ab98d9b30::t_d93f746ab3346c 70
+  s_fabf2ab98d9b30::t_00e83c5eb76798 71,93
+apps/docs/content/lenso/cn/react/getting-started/frameworks.mdx
+  s_fabf2ab98d9b30::t_0b17d9749cfcd4 59
+  s_fabf2ab98d9b30::t_d93f746ab3346c 25,35
+  s_fabf2ab98d9b30::t_790a222494c02d 10-24,26-29,32-34,36-57,60-74,77-135
+  s_fabf2ab98d9b30::t_fea0264b1427de 58
+apps/docs/content/lenso/en/react/getting-started/frameworks.mdx
+  s_fabf2ab98d9b30::t_790a222494c02d 10-24,26-29,32-34,36-57,60-74,77-135
+  s_fabf2ab98d9b30::t_d93f746ab3346c 25,35
+  s_fabf2ab98d9b30::t_0b17d9749cfcd4 59
+  s_fabf2ab98d9b30::t_8f0441f9d1c31e 58
+apps/docs/content/lenso/cn/react/getting-started/installation.mdx
+  s_fabf2ab98d9b30::t_790a222494c02d 19-20,35-38,40-44,47,52,55,67-69,72-75,77-90,99
+  s_fabf2ab98d9b30::t_0b17d9749cfcd4 94
+  s_fabf2ab98d9b30::t_d93f746ab3346c 70
+  s_fabf2ab98d9b30::t_b95dc0fd74be5e 71,93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e91528e408f8f9f87caa0ad5c5904e4dbb08ca34",
+  "prompts": {},
+  "sessions": {
+    "s_fabf2ab98d9b30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c4d3-243e-7db1-aa3a-35781aad4814",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
