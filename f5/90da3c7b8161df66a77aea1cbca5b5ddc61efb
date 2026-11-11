@@ -1,0 +1,28 @@
+apps/docs/test/material-tone-banding.mjs
+  s_506b8ea1d66a03::t_22f42b5d6f52eb 90
+  s_506b8ea1d66a03::t_c46ca85840c303 11-14,18-21,24-66,78-82,85-89,91-95
+  s_506b8ea1d66a03::t_ce1afc90d283d6 1-10,15-17,22-23,67-77,83-84,96-102
+packages/glass/src/material-tone-svg.ts
+  s_506b8ea1d66a03::t_85681b0a0b2440 73-75,83,91-92,101
+apps/docs/package.json
+  s_506b8ea1d66a03::t_b84c12e7ad2f93 30
+docs/research/chromium-material-banding-2026-11-12.md
+  s_506b8ea1d66a03::t_5eec967a5bc32a 1-46
+  s_506b8ea1d66a03::t_78061133124a0a 47-106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f590da3c7b8161df66a77aea1cbca5b5ddc61efb",
+  "prompts": {},
+  "sessions": {
+    "s_506b8ea1d66a03": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1cc8b-4be9-7a22-b8f4-e425b94f5daf",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
