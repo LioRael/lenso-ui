@@ -32,7 +32,16 @@ ssr: { noExternal: ["@lenso/ui", "@lenso/tokens", "@lenso/glass"] }
 
 ## Next.js App Router
 
-使用官方 Babel 和 PostCSS 插件，并将 tokens 加入 `transpilePackages`。
+在已有的 TypeScript App Router 项目根目录执行以下命令。这套配置已在 Next.js 16.4.6（默认 Turbopack 构建）、React 19.3.1 和以下包版本中验证，使用官方 StyleX Babel 与 PostCSS 插件。
+
+```sh
+bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+bun add -d @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
+```
+
+### 配置编译
+
+将 `transpilePackages` 合并到现有 Next 配置中。在项目根目录将 Babel 配置保存为 `babel.config.json`。
 
 ```ts
 // next.config.ts
@@ -51,11 +60,10 @@ export default { transpilePackages: ["@lenso/tokens"] };
 }
 ```
 
-将以上配置保存为 `babel.config.json`。从应用源码和发布包中的 tokens 模块生成 CSS：
+在同一根目录创建 `postcss.config.cjs`。已有 PostCSS 配置时合并插件，不要保留两份配置文件。显式的包路径会扫描已安装的各组件样式声明。
 
 ```js
 // postcss.config.cjs
-const path = require("node:path");
 const babel = require("./babel.config.json");
 module.exports = {
   plugins: {
@@ -64,7 +72,7 @@ module.exports = {
         "./src/**/*.{js,jsx,ts,tsx}",
         "./app/**/*.{js,jsx,ts,tsx}",
         "./components/**/*.{js,jsx,ts,tsx}",
-        path.join(path.dirname(require.resolve("@lenso/tokens/package.json")), "dist/**/*.js"),
+        "./node_modules/@lenso/tokens/dist/**/*.js",
       ],
       babelConfig: {
         babelrc: false,
@@ -77,14 +85,85 @@ module.exports = {
 };
 ```
 
+这些路径相对于包含 `node_modules` 的应用根目录；使用其他源码目录或仅服务端 StyleX 声明时，需要扩展 `include`。不要用 `require.resolve("@lenso/tokens/package.json")` 生成扫描路径，这个入口未公开导出。改为解析 `styles.css` 也不适用：Turbopack 可能将结果改写为虚拟 CSS 模块标识，导致构建成功却没有生成组件样式。
+
+### 加载 CSS 与主题
+
+创建全局样式表并从根布局导入。使用 `src/app` 的项目将这些文件放在对应目录中，保留现有布局元数据和其他 Provider。
+
 ```css
-/* globals.css */
+/* app/globals.css */
 @import "@lenso/tokens/styles.css";
 @stylex;
 ```
 
-每个根布局，以及替代布局的自定义 `global-error` 或 `global-not-found` 文档，都应导入这份样式表。CSS 交付、哈希和清单由 Next 管理。使用其他源码目录或仅服务端声明时，需要扩展 `include`。
+```tsx
+// app/layout.tsx
+import "./globals.css";
 
-`init --framework next` 生成这些普通配置文件。静态 `check` 诊断只提供提示，仍需验证框架构建和实际页面。仓库中的依赖补丁修复了上游 0.19.1 删除声明后遗留 CSS 和重复加载 Babel 配置的问题。常量值和媒体查询键的更新使用上游机制，不再添加本地重编译逻辑。独立安装的应用需验证所用上游版本。
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+根布局保持为 Server Component。将 `ThemeScope` 放在客户端边界内，如下面的页面示例；深色主题使用 `theme="dark"`。Lenso 的 Portal 会继承所在的 `ThemeScope`。每个根布局，以及替代布局的自定义 `global-error` 或 `global-not-found` 文档，都必须导入这份样式表。CSS 交付、哈希和清单由 Next 管理。
+
+### 渲染与验证
+
+下面的客户端页面同时演示应用 `xstyle` 覆盖、主题 token、状态更新和通过 Portal 展开的 Glass 菜单。在 StyleX 声明中从 `@lenso/tokens/tokens.stylex.const` 直接导入 token，供编译器解析常量。
+
+```tsx
+// app/page.tsx
+"use client";
+
+import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { tokens } from "@lenso/tokens/tokens.stylex.const";
+import { Button, GlassButton, Menu, ThemeScope } from "@lenso/ui";
+
+const styles = stylex.create({
+  page: {
+    minHeight: "100vh",
+    padding: 32,
+    backgroundColor: tokens.backgroundGroupedPrimary,
+    color: tokens.labelPrimary,
+  },
+  action: { minWidth: 180 },
+});
+
+export default function Page() {
+  const [count, setCount] = useState(0);
+  return (
+    <ThemeScope theme="light">
+      <main {...stylex.props(styles.page)}>
+        <Button variant="prominent" xstyle={styles.action} onClick={() => setCount(count + 1)}>
+          Count {count}
+        </Button>
+        <Menu.Root morphTrigger={false}>
+          <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
+          <Menu.Portal>
+            <Menu.Positioner>
+              <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.Root>
+      </main>
+    </ThemeScope>
+  );
+}
+```
+
+构建并启动生产应用：
+
+```sh
+bun run build
+bun run start
+```
+
+Count 按钮应为蓝色圆角按钮，宽度至少 180px。点击后数值递增；Actions 打开带样式的菜单，Reset count 将数值归零。即使构建成功，没有样式的页面也不能视为接入成功，应检查主题 CSS 导入和 PostCSS 的包扫描路径。修正 StyleX 编译错误后，如果下一次构建仍显示旧源码，先停止 Next，仅删除生成的 `.next` 目录，再重新构建。
 
 [官方 Next.js 集成](https://stylexjs.com/docs/learn/installation/nextjs/)、[官方 Vite 集成](https://stylexjs.com/docs/learn/installation/vite/)。
