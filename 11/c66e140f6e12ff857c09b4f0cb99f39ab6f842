@@ -1,0 +1,19 @@
+packages/ui-exact/test/browser.mjs
+  s_10c7d362cf24b2::t_85de6e27297305 117-128,132-133,136
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11c66e140f6e12ff857c09b4f0cb99f39ab6f842",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
