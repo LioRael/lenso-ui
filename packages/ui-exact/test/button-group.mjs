@@ -155,8 +155,9 @@ export async function checkButtonGroup(page, engine) {
   assert.equal(await style(duplicate, "border-start-start-radius"), "1000px");
   await toggle("detached");
   await toggle("glass");
-  await page.waitForFunction(() =>
-    document.getElementById("actions-save").hasAttribute("data-material-filter"),
+  await page.waitForFunction(
+    (marker) => document.getElementById("actions-save").hasAttribute(marker),
+    engine === "webkit" ? "data-material-paints" : "data-material-filter",
   );
   assert.equal(await save.getAttribute("data-lenso-kind"), "glass-button-group-item");
   assert.equal(await style(save, "scale"), "1");
@@ -223,9 +224,65 @@ export async function checkButtonGroup(page, engine) {
   assert.equal(await save.count(), 1);
   await old.dispose();
   await original.dispose();
+  await checkButtonGroupGlassLifecycle(page, engine);
   await page
     .locator("[data-theme]")
     .first()
     .evaluate((n, v) => n.setAttribute("data-theme", v), theme);
   await page.setViewportSize(viewport);
+}
+
+export async function checkButtonGroupGlassLifecycle(page, engine) {
+  const save = page.getByTestId("actions-save");
+  const marker = engine === "webkit" ? "data-material-paints" : "data-material-filter";
+  const toggle = (name) => page.getByTestId(`actions-${name}`).click();
+  const material = (attached) =>
+    page.waitForFunction(
+      ({ marker, attached }) =>
+        document.getElementById("actions-save").hasAttribute(marker) === attached,
+      { marker, attached },
+    );
+  await toggle("glass");
+  await material(true);
+  assert.deepEqual(
+    await save.evaluate((n) => {
+      const style = getComputedStyle(n);
+      return [style.borderStartStartRadius, style.borderStartEndRadius];
+    }),
+    ["1000px", "0px"],
+  );
+  assert.deepEqual(
+    await page.getByTestId("actions-more").evaluate((n) => {
+      const style = getComputedStyle(n);
+      return [style.borderStartStartRadius, style.borderStartEndRadius];
+    }),
+    ["0px", "1000px"],
+  );
+  await toggle("disabled");
+  assert.equal(await save.isDisabled(), true);
+  await material(false);
+  await toggle("disabled");
+  await material(true);
+  await toggle("detached");
+  const old = await save.elementHandle();
+  await save.hover();
+  await page.mouse.down();
+  await page.waitForFunction(() =>
+    document.getElementById("actions-save").hasAttribute("data-lenso-pressed"),
+  );
+  try {
+    await page.getByTestId("actions-visible").evaluate((n) => n.click());
+    assert.equal(await old.evaluate((n) => n.isConnected), false);
+    for (const name of [marker, "data-lenso-ready", "data-lenso-pressed"])
+      assert.equal(await old.evaluate((n, name) => n.hasAttribute(name), name), false);
+    assert.equal(await old.evaluate((n) => n.style.getPropertyValue("--lg-press-scale")), "");
+  } finally {
+    await page.mouse.up();
+    await old.dispose();
+  }
+  await toggle("visible");
+  await material(true);
+  await toggle("detached");
+  await toggle("glass");
+  await material(false);
 }

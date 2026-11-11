@@ -47,6 +47,10 @@ joined/detached/full-width composition, dynamic first-item removal, Glass
 elastic guards, forced colors and disposal. Initial stylesheet and registered
 recipe parity checks accompany browser acceptance.
 
+The lifecycle check also disables and re-enables Glass items, then removes a
+detached item during an active pointer press. It verifies optical markers,
+press state and motion variables are released before recreating the group.
+
 The family remains Partial: implicit inheritance through arbitrary Button or
 GlassButton wrappers, per-item option override precedence, native fieldset
 semantics, extended native/ref/render/event contracts, optical/motion reference
