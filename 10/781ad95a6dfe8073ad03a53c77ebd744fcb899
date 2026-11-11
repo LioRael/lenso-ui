@@ -1,0 +1,19 @@
+packages/ui-exact/test/search-field.mjs
+  s_10c7d362cf24b2::t_b94ac4bdc8f0e3 217-226,228-231,233,235-241
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "10781ad95a6dfe8073ad03a53c77ebd744fcb899",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
