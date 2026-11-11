@@ -1,0 +1,135 @@
+packages/ui-exact/components/popover.contract
+  s_9f86fbdae2d09f::t_01ada6430218b1 35-37,44
+packages/ui-exact/test/browser.mjs
+  s_9f86fbdae2d09f::t_63ddbf8dd98205 1,169-174,176-183,185-188,258
+  s_9f86fbdae2d09f::t_b03e29d1902b2d 167
+  s_9f86fbdae2d09f::t_f1228011bdb61a 2,168,175,184,259-260
+packages/ui-exact/components/tooltip.contract
+  s_9f86fbdae2d09f::t_edc5ca99f5df64 1-41,43-93
+  s_9f86fbdae2d09f::t_c2be8c865fbb6d 42
+packages/ui-exact/test/tooltip.mjs
+  s_9f86fbdae2d09f::t_34ed2813b1d2ae 39-42
+  s_9f86fbdae2d09f::t_118bad1f10398b 245-246
+  s_9f86fbdae2d09f::t_0536e244161e27 93,99,127,142-162,256-270,280,298,318,346
+  s_9f86fbdae2d09f::t_318afb95bc478b 1-38,43-92,94-98,100-111,113-121,123-126,128-132,134-141,163-236,252-255,277-279,281-297,299-317,319-345,347-357,375-394,396-397
+  s_9f86fbdae2d09f::t_dc456474773f37 237-241,243-244,247-251,358-360,362-372,374
+  s_9f86fbdae2d09f::t_50aa2becc26dec 271-276
+  s_9f86fbdae2d09f::t_792ce2501fa3e7 112
+  s_9f86fbdae2d09f::t_204ce20efbe2ee 122
+  s_9f86fbdae2d09f::t_8219231a6b74c9 133
+  s_9f86fbdae2d09f::t_9f8aa7ec4c41aa 242
+  s_9f86fbdae2d09f::t_67965e91d60df8 361
+  s_9f86fbdae2d09f::t_496f65ffbbb0b6 373
+  s_9f86fbdae2d09f::t_035c3e8712d9d8 395
+packages/ui-exact/manifest.json
+  s_9f86fbdae2d09f::t_01ada6430218b1 19,50,65
+  s_9f86fbdae2d09f::t_51c83a5d660f92 20,32,87
+packages/ui-exact/src/popover-hover.ts
+  s_9f86fbdae2d09f::t_054de5cd4e2563 301
+  s_9f86fbdae2d09f::t_a71c8fc0873fd3 1-10,12-18,20-53,56-64,68-73,76-119,126-130,133-147,150-151,159-160,165-171,174-193,196-209,216,223,228-229,232-238,240-248,257-260,263-264,271-281,283,285-292,299-300,306-307,309-311,314,318,328-329,334-336,338,350-354,357-359,371-375,380,385,390,393-396,399
+  s_9f86fbdae2d09f::t_01ada6430218b1 120-122,124-125,131-132,148-149,152-158,161-164,172-173,194-195,212-215,217-222,230-231,256,261-262,265-270,293-298,312-313,315-316,319,322,326-327,330,332-333,337,339-349,355-356,360-366,368-370,376-379,381-384,388-389,391-392,397-398
+  s_9f86fbdae2d09f::t_ce528c3cc1ce2c 19,65-67,210,224-227,239,249-255,284,305,320-321,323-325,331,367
+  s_9f86fbdae2d09f::t_07175c9212f8a1 211,282,302-304,308
+  s_9f86fbdae2d09f::t_a612f1a55f1c0c 11,54-55,74-75,123,317,386-387
+packages/ui-exact/src/popover-hover-corridor.ts
+  s_9f86fbdae2d09f::t_feb954d517a33a 1-408
+packages/ui-exact/example/popover-hover.contract
+  s_9f86fbdae2d09f::t_7b79d9e8669622 1-95
+packages/ui-exact/NOTICES.md
+  s_9f86fbdae2d09f::t_f1228011bdb61a 32-34
+  s_10c7d362cf24b2::t_98141f6eb07ea7 26-29
+packages/ui-exact/test/popover-hover.mjs
+  s_9f86fbdae2d09f::t_a6bc87b5cf0c9d 1-4,11-12,18-20,26,35-37,48,56-57,59-62,69-72,75,81,85,91-93,104-108,110,113,116,118,120,122-123,151,171,173,180,183,198-199,250,287-290,300,306,315,340,356,360,364-365,370,383,400,422,453-455,470-472,478,492,499
+  s_9f86fbdae2d09f::t_b03e29d1902b2d 5-10,13-17,21-25,27-34,38-47,49-55,58,63-68,73-74,76-80,82-84,86-90,94-103,111-112,114-115,117,119,121,124-150,152-156,165,174-179,181-182,184-197,202-203,207,209,212-249,251-255,272,282-285,291-299,301-305,307-314,318-320,322,324-329,331,333-339,341-355,357-359,361-363,366-369,371-382,384,389-399,401-421,423-452,456-469,473-477,479-491,493-498
+  s_9f86fbdae2d09f::t_6bb123b2fdf30e 256-271,273-281,286
+  s_9f86fbdae2d09f::t_b88bb91dfaca71 204,210,385-388
+  s_9f86fbdae2d09f::t_e130485a07c1df 109
+  s_9f86fbdae2d09f::t_9dd33f4b30335c 157-159,162-164
+  s_9f86fbdae2d09f::t_526d64a0f97bc9 166-170
+  s_9f86fbdae2d09f::t_c7ec7f083bdec5 172
+  s_9f86fbdae2d09f::t_0724f0e65f4027 200-201
+  s_9f86fbdae2d09f::t_ca7d0662e1c293 205-206
+  s_9f86fbdae2d09f::t_0c124d74c6c271 208
+  s_9f86fbdae2d09f::t_acf0a6d15d075f 211
+  s_9f86fbdae2d09f::t_0c338fd3109b6b 316-317
+  s_9f86fbdae2d09f::t_3938d3db523987 321
+  s_9f86fbdae2d09f::t_627d853f8fc95b 323
+  s_9f86fbdae2d09f::t_6f86c69bc3a923 330
+  s_9f86fbdae2d09f::t_2fda9e57b38ff3 332
+  s_9f86fbdae2d09f::t_03533ba25afc90 160-161
+packages/ui-exact/src/presentation.ts
+  s_9f86fbdae2d09f::t_eebf6269673aef 194-196
+  s_9f86fbdae2d09f::t_51c83a5d660f92 1,104-105,159,189-193
+packages/ui-exact/example/app.contract
+  s_9f86fbdae2d09f::t_11ed59fa12a0fd 1,100
+  s_10c7d362cf24b2::t_98141f6eb07ea7 2,99
+packages/ui-exact/src/tooltip-presentation.ts
+  s_9f86fbdae2d09f::t_51c83a5d660f92 1-32,34-68,74-81
+  s_9f86fbdae2d09f::t_eebf6269673aef 69-73
+  s_9f86fbdae2d09f::t_bcc3433de40e0d 33
+packages/ui-exact/src/tooltip.ts
+  s_9f86fbdae2d09f::t_eebf6269673aef 1-23,25-126,128-361,374-496,498-523,525-585
+  s_9f86fbdae2d09f::t_7f5b887b5e007a 24,362-373,524
+  s_9f86fbdae2d09f::t_2e01a9b172007b 127,497
+packages/ui-exact/test/initial-styles.mjs
+  s_9f86fbdae2d09f::t_c48dd02eab7947 202-222
+packages/ui-exact/package.json
+  s_9f86fbdae2d09f::t_18160c36aff950 42-43
+packages/ui-exact/src/popover.ts
+  s_9f86fbdae2d09f::t_01ada6430218b1 3-8,20,39,205,221,247-248,266-267,270,282-283,285,321,355-356,358-364,366-368,386,396
+  s_9f86fbdae2d09f::t_ce528c3cc1ce2c 2,42,269,284,289,300-302
+  s_9f86fbdae2d09f::t_300531ed5c8c6e 326-335
+  s_10c7d362cf24b2::t_0377af404eb5d3 1,65-75,271,286,337-353,357,365,418-422
+packages/ui-exact/POPOVER.md
+  s_9f86fbdae2d09f::t_7bc63e30a44995 10-11,56-63,66,69-90,119
+  s_9f86fbdae2d09f::t_054de5cd4e2563 64-65,67-68
+  s_9f86fbdae2d09f::t_f8cdf635819b6f 95-100
+packages/ui-exact/COMPONENTS.md
+  s_9f86fbdae2d09f::t_f8cdf635819b6f 148-151
+  s_9f86fbdae2d09f::t_77bf4e36b60a77 101,140-144
+packages/ui-exact/example/tooltip.contract
+  s_9f86fbdae2d09f::t_11ed59fa12a0fd 1-4,18-77,79
+  s_9f86fbdae2d09f::t_4a2ba54e3ab3fb 5-17,78
+packages/ui-exact/TOOLTIP.md
+  s_9f86fbdae2d09f::t_dcbd87457edb40 1-82,84-88
+  s_9f86fbdae2d09f::t_a18810eacd836b 83
+packages/ui-exact/README.md
+  s_9f86fbdae2d09f::t_f8cdf635819b6f 43,45-46
+  s_9f86fbdae2d09f::t_f1228011bdb61a 48-50
+  s_9f86fbdae2d09f::t_d6dae9981686a8 47
+packages/ui-exact/index.contract
+  s_9f86fbdae2d09f::t_51c83a5d660f92 1
+packages/ui-exact/src/web.ts
+  s_9f86fbdae2d09f::t_01ada6430218b1 2,195,222
+  s_9f86fbdae2d09f::t_eebf6269673aef 1,197,224
+packages/ui-exact/example/popover.contract
+  s_9f86fbdae2d09f::t_01ada6430218b1 59,61,82
+apps/docs/test/menu-close-motion.mjs
+  s_10c7d362cf24b2::t_bb884076dbaf4a 7-44,154-156
+packages/ui/src/utils/interaction/menu.ts
+  s_9f86fbdae2d09f::t_2bedb334f759a8 53,56,74-83,141-145,148-159
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ae0943297b994d0af4a4df75f6d3878c3d10e003",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_9f86fbdae2d09f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c474-4440-7663-9158-135122f4ec2c",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
