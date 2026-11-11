@@ -77,3 +77,13 @@ test("missing compiled style definitions fail before an unstyled recipe can pass
     ]),
   ).toThrow("Missing compiled StyleX CSS for missing");
 });
+
+// The tab's selection exists before native boolean markers are connected.
+test("selected tab predicates use declared active metadata before hatch initialization", () => {
+  const css = initialCSS(".xA:is([data-active]) { anchor-name: --lenso-tabs-active }", [
+    { kind: "tabs-tab", selector: '[data-lenso-kind="tabs-tab"]', classes: ["xA"] },
+  ]);
+  expect(css).toContain(
+    ':is([data-active],:where(:not([data-lenso-ready]))[data-lenso-active="true"])',
+  );
+});

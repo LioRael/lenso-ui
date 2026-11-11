@@ -1,3 +1,5 @@
+import { checkTabs } from "./tabs.mjs";
+import { checkSlider } from "./slider.mjs";
 import { checkSwitch } from "./switch.mjs";
 import { checkAvatar } from "./avatar.mjs";
 import { checkLayout } from "./layout.mjs";
@@ -113,6 +115,8 @@ try {
       const layoutSemantics = await checkLayout(page, name);
       await checkAvatar(page, name);
       await checkSwitch(page, name);
+      await checkSlider(page, name);
+      await checkTabs(page, name);
       await checkCallerStyles(page);
       await checkToggle(page, name);
       await checkFeedback(page, name);
@@ -177,7 +181,7 @@ try {
       const capture = path.resolve(import.meta.dirname, `../.cache/example/${name}.png`);
       await page.screenshot({ path: capture });
       console.log(
-        `${name} ${browser.version()}: actions, modal, alert dialog, content, layout, avatars, switches, toggles, feedback, forms, navigation, disclosure, accordion, keyboard, motion, theme and disposal passed`,
+        `${name} ${browser.version()}: actions, modal, alert dialog, content, layout, avatars, switches, sliders, tabs, toggles, feedback, forms, navigation, disclosure, accordion, keyboard, motion, theme and disposal passed`,
       );
       verifiedBrowsers.push({
         engine: name,

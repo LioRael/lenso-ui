@@ -1,3 +1,5 @@
+import { tabsPresentation, tabsKinds } from "./tabs-presentation.js";
+import { sliderPresentation, sliderKinds } from "./slider-presentation.js";
 import { switchPresentation, switchKinds } from "./switch-presentation.js";
 import { avatarPresentation } from "./avatar-presentation.js";
 import { layoutPresentation, layoutKinds } from "./layout-presentation.js";
@@ -77,7 +79,9 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           contentPresentation(kind, data) ??
           layoutPresentation(kind, data) ??
           avatarPresentation(kind, data) ??
-          switchPresentation(kind, data));
+          switchPresentation(kind, data) ??
+          sliderPresentation(kind) ??
+          tabsPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -140,12 +144,45 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     ...contentKinds,
     ...layoutKinds,
     ...switchKinds,
+    ...sliderKinds,
+    ...tabsKinds,
     "glass",
   ])
     add(kind);
   for (const kind of ["switch", "switch-control", "switch-thumb"])
     for (const size of ["sm", "md", "lg"])
       add(kind, { lensoSize: size }, `[data-lenso-size="${size}"]`);
+  for (const glass of [false, true])
+    add("tabs-glass", { lensoGlass: String(glass) }, `[data-lenso-glass="${glass}"]`);
+  for (const orientation of ["horizontal", "vertical"]) {
+    for (const kind of [
+      "tabs",
+      "tabs-list-container",
+      "tabs-panel",
+      "tabs-separator",
+      "tabs-copy-row",
+    ])
+      add(kind, { orientation }, `[data-orientation="${orientation}"]`);
+    for (const align of ["start", "center", "end"])
+      add(
+        "tabs-tab",
+        { orientation, lensoAlign: align },
+        `[data-orientation="${orientation}"][data-lenso-align="${align}"]`,
+      );
+    for (const size of ["sm", "lg"])
+      for (const glass of [false, true])
+        for (const elastic of [false, true])
+          add(
+            "tabs-list",
+            {
+              orientation,
+              lensoSize: size,
+              lensoGlass: String(glass),
+              lensoElastic: String(elastic),
+            },
+            `[data-orientation="${orientation}"][data-lenso-size="${size}"][data-lenso-glass="${glass}"][data-lenso-elastic="${elastic}"]`,
+          );
+  }
   add("avatar-image");
   for (const grid of [false, true])
     add("avatar-group", { lensoGrid: String(grid) }, `[data-lenso-grid="${grid}"]`);

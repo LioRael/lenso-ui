@@ -76,6 +76,8 @@ shape DocsContent
   toc: DocsHeading[]
   locales: DocsChoice[]
   versions: DocsChoice[]
+  previous: DocsLink[]
+  next: DocsLink[]
 
 fn docsString(values: string[], index: number): string = match values.at(index) { case some(value) => value, case none => "" }
 

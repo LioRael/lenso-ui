@@ -124,6 +124,24 @@ CARGO_INCREMENTAL=0 CARGO_PROFILE_TEST_DEBUG=0 CARGO_PROFILE_TEST_CODEGEN_UNITS=
 cargo run -p contract-difftest -- quick
 ```
 
+The recorded full default run passes 2,733 tests with ten existing ignored
+markers. Seven of those async checks were also run successfully, leaving only
+three manual/benchmark probes unexecuted. To run that async subset, choose an
+unused local port for the site's fixture API and use the same build settings:
+
+```sh
+CARGO_INCREMENTAL=0 CARGO_PROFILE_TEST_DEBUG=0 CARGO_PROFILE_TEST_CODEGEN_UNITS=256 CARGO_BUILD_JOBS=1 \
+  API_BASE_URL=http://127.0.0.1:49157 cargo test -p contract --test it -- \
+  --ignored typescript:: \
+  docs::the_readme_the_recipes_and_start_here_say_no_literal_colour_size_or_weight \
+  docs::every_pattern_passes_its_tests_on_the_web
+```
+
+The final rebuilt compiler's official `difftest quick` passes 587 corpus cases,
+40 random cases and eight lowering cases: 1,347 agreeing runs, 97 identical
+bodies, zero divergence. See [VERIFICATION.md](VERIFICATION.md) for limits and
+retained platform evidence.
+
 The semantic differential check needs the pinned `semantics/lean-toolchain`
 and Git metadata identifying the real base and working changes. The local
 archive used a separate temporary Git directory backed by the pinned original

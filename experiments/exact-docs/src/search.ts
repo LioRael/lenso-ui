@@ -13,6 +13,8 @@ export type PageData = PageContent & {
   toc: Heading[];
   locales: Choice[];
   versions: Choice[];
+  previous: { title: string; href: string }[];
+  next: { title: string; href: string }[];
 };
 
 export function searchScopes(site: Site) {
@@ -58,6 +60,18 @@ export async function writeDataEntry(
       `[${JSON.stringify(url)}, () => ${platform === "web" ? `import("./docs-content/body-${i}.ts").then(module => module.default)` : `Promise.resolve(body${i})`}]`,
     );
   }
+  const nativeStack =
+    platform === "web"
+      ? ""
+      : `const routePaths = new Map<string,string>(${JSON.stringify([...pages.keys()].map((path, i) => [`page${i}`, path]))});
+function readStack(args: unknown[]) {
+  const [names] = args;
+  if(!Array.isArray(names) || !names.every(name => typeof name === "string")) throw new Error("Invalid documentation stack arguments");
+  return Promise.all(names.flatMap(name => {
+    const path = routePaths.get(name);
+    return path === undefined ? [] : [Promise.resolve(readPage([path])).then(content => ({route:name,content}))];
+  }));
+}`;
   const user = module
     ? `import * as user from ${JSON.stringify(`./site/${module}`)};
 export * from ${JSON.stringify(`./site/${module}`)};
@@ -82,13 +96,14 @@ export function kept(...args:KeptArgs) {
 function readPage(args: unknown[]) {
   const [path] = args;
   if(typeof path!=="string") throw new Error("Invalid documentation content arguments");
-  if(path === "") return {path,markdown:"",blocks:[],description:"",canonical:"",robots:"noindex,follow",seo:"",toc:[],locales:[],versions:[]};
+  if(path === "") return {path,markdown:"",blocks:[],description:"",canonical:"",robots:"noindex,follow",seo:"",toc:[],locales:[],versions:[],previous:[],next:[]};
   const cached = contentCache.get(path);
   if(cached) return cached;
   const load = contentLoads.get(path);
   if(!load) throw new Error("Unknown documentation page: " + path);
   return load().then(value => {contentCache.set(path,value);return value;});
 }
+${nativeStack}
 async function search(args: unknown[]) {
   const [query,locale,version]=args;
   if(typeof query!=="string"||typeof locale!=="string"||typeof version!=="string") throw new Error("Invalid documentation search arguments");
@@ -102,6 +117,7 @@ export function answer<S extends Source>(source:S,args:Args<S>,store:Parameters<
 export function answer(...args:Parameters<Answer>):ReturnType<Answer> {
   if(args[0] === "docsSearchPages") return search(args[1]);
   if(args[0] === "docsReadPage") return readPage(args[1]);
+  ${platform === "web" ? "" : 'if(args[0] === "docsReadStack") return readStack(args[1]);'}
   ${module ? "return delegate(...args);" : "throw new Error(`Unknown source: ${args[0]}`);"}
 }
 `,

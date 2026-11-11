@@ -1,3 +1,5 @@
+use TabsExample from "./tabs.contract"
+use SliderExample from "./slider.contract"
 use SwitchExample from "./switch.contract"
 use AvatarExample from "./avatar.contract"
 use Theme, Button, Backdrop, Glass, GlassButton, Surface from "@lenso/ui-exact"
@@ -70,3 +72,5 @@ component App
           LayoutExample()
           AvatarExample()
           SwitchExample()
+          SliderExample()
+          TabsExample()

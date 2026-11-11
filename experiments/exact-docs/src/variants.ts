@@ -1,4 +1,5 @@
 export const defaultLabels = {
+  back: "Back",
   skipContent: "Skip to content",
   navigation: "Documentation",
   search: "Search documentation",

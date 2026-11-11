@@ -1,0 +1,98 @@
+shape TabsState
+  id: string
+  label: string
+  value: string
+  orientation: string
+  direction: string
+  size: string
+  align: string
+  lift: number
+  elastic: bool
+  glass: bool
+  disabled: bool
+  activateOnFocus: bool
+  loopFocus: bool
+
+component Tabs
+  props
+    state: TabsState
+  slot
+  view
+    box id=state.id testId=state.id direction=state.direction hatch="lenso-ui" data-lenso-kind="tabs" data-slot="tabs" data-orientation=state.orientation
+      children
+
+component TabsListContainer
+  props
+    state: TabsState
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="tabs-list-container" data-slot="tabs-list-container" data-orientation=state.orientation
+      children
+
+component TabsList
+  props
+    state: TabsState
+  slot
+  view
+    box id=`${state.id}-list` testId=`${state.id}-list` role="tablist" aria-label=state.label aria-orientation=state.orientation aria-disabled=state.disabled
+      hatch="lenso-ui" data-lenso-kind="tabs-list" data-slot="tabs-list" data-orientation=state.orientation data-lenso-size=state.size data-lenso-elastic=state.elastic data-lenso-glass=state.glass data-lenso-lift=state.lift data-lenso-disabled=state.disabled data-lenso-activate-on-focus=state.activateOnFocus data-lenso-loop-focus=state.loopFocus
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-glass" data-slot="tabs-glass" data-lenso-glass=state.glass
+        if state.glass
+          box hatch="lenso-ui" data-lenso-kind="tabs-track-lens" data-material-lens=""
+      children
+
+component TabsTab
+  props
+    state: TabsState
+    id: string
+    value: string
+    panelId: string
+    label: string
+    disabled: bool
+    change: action
+  action select
+    if not state.disabled and not disabled and state.value != value
+      change(value)
+  slot
+  view
+    button id=id testId=id appearance="none" role="tab" aria-label=label aria-selected=(state.value == value) aria-controls=(state.value == value ? panelId : "") aria-disabled=(state.disabled or disabled)
+      tabindex=((state.value == value and not disabled and not state.disabled) ? 0 : -1) disabled=false press=select
+      hatch="lenso-ui" data-lenso-kind="tabs-tab" data-slot="tabs-tab" data-orientation=state.orientation data-lenso-align=state.align data-lenso-panel-id=panelId data-lenso-active=(state.value == value) data-lenso-disabled=(state.disabled or disabled)
+      children
+
+component TabsPanel
+  props
+    state: TabsState
+    id: string
+    value: string
+    tabId: string
+    keepMounted: bool
+  slot
+  view
+    if keepMounted or state.value == value
+      box id=id testId=id role="tabpanel" aria-labelledby=tabId aria-hidden=(state.value != value) tabindex=(state.value == value ? 0 : -1)
+        hatch="lenso-ui" data-lenso-kind="tabs-panel" data-slot="tabs-panel" data-orientation=state.orientation data-lenso-panel-open=(state.value == value)
+        children
+
+component TabsIndicator
+  props
+    state: TabsState
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-tint" data-slot="tabs-tint"
+      box hatch="lenso-ui" data-lenso-kind="tabs-highlight-clip" data-slot="tabs-highlight-ring"
+        box hatch="lenso-ui" data-lenso-kind="tabs-highlight-optics" data-slot="tabs-highlight-optics"
+          box hatch="lenso-ui" data-lenso-kind="tabs-copy-row" data-slot="tabs-row" data-orientation=state.orientation
+      box hatch="lenso-ui" data-lenso-kind="tabs-highlight-clip" data-slot="tabs-highlight-centre"
+        box hatch="lenso-ui" data-lenso-kind="tabs-copy-row" data-slot="tabs-centre-row" data-orientation=state.orientation
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-indicator" data-slot="tabs-indicator" data-lg-tabs-lens="native"
+      box hatch="lenso-ui" data-lenso-kind="tabs-refraction" data-slot="tabs-refraction" data-lenso-backdrop="live"
+        box hatch="lenso-ui" data-lenso-kind="tabs-knob-lens" data-knob-material="toggle"
+        box hatch="lenso-ui" data-lenso-kind="tabs-knob-face"
+      children
+
+component TabsSeparator
+  props
+    state: TabsState
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tabs-separator" data-slot="tabs-separator" data-orientation=state.orientation

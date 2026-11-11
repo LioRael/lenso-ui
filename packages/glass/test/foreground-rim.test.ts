@@ -55,6 +55,36 @@ test("live rim tiles preserve the fitted rim pixels without scaling corners", ()
   }
 });
 
+// The small reference has the same pixel pitch and corner radius as the large
+// panel. Extending its straight edges must preserve the fractional corner coverage.
+test("extending a panel preserves every corner and straight-edge pixel", () => {
+  const width = 250.25,
+    height = 524.125,
+    radius = 24.75;
+  const material = { ...shape, materialProfile: "medium" as const, lightAngle: 37 };
+  const panel = foregroundRimPixels(width, height, radius, material);
+  const side = 107;
+  const reference = foregroundRimPixels(
+    side * ((width + 2) / panel.width) - 2,
+    side * ((height + 2) / panel.height) - 2,
+    radius,
+    material,
+  );
+  expect([reference.width, reference.height]).toEqual([side, side]);
+  const middle = (side - 1) / 2;
+  const source = (pixel: number, extent: number) =>
+    pixel < middle ? pixel : pixel >= extent - middle ? side - (extent - pixel) : middle;
+  const actual = new Uint32Array(panel.data.buffer);
+  const expected = new Uint32Array(reference.data.buffer);
+  let different = 0;
+  for (let y = 0; y < panel.height; y++) {
+    const row = side * source(y, panel.height);
+    for (let x = 0; x < panel.width; x++)
+      if (actual[y * panel.width + x] !== expected[row + source(x, panel.width)]) different++;
+  }
+  expect(different).toBe(0);
+});
+
 // These are image-code values sampled from the supplied Rex light screenshot,
 // not values derived from the implementation's highlight equation.
 test("light panel reflections follow the reference's white crest and inward decay", () => {

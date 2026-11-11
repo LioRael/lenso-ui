@@ -381,7 +381,9 @@ export async function generateApp(site: Site, platform: DocsPlatform = "web") {
     const groupValues = `[${groups.map((group) => `DocsGroup(id=${quote(group.id)}, title=${quote(group.title)}, items=${records("DocsLink", group.items)})`).join(", ")}]`;
     const labels =
       site.config.locales.find((locale) => locale.id === scope.locale)?.labels ?? defaultLabels;
-    return `  state docsScope${i}: DocsScopeData = DocsScopeData(navigation=${records("DocsLink", navigation)}, groups=${groupValues}, labels=${constructor("DocsLabels", labels)})`;
+    const seo = pageSeo(scope, site);
+    const version = site.config.versions.find((item) => item.id === scope.version);
+    return `  state docsScope${i}: DocsScopeData = DocsScopeData(locale=${quote(scope.locale)}, language=${quote(seo.lang)}, direction=${quote(seo.dir)}, version=${quote(scope.version)}, versionStatus=${quote(version?.status ?? "")}, searchIndexUrl=${quote(platform === "web" ? searchIndexUrl(scope) : "")}, navigation=${records("DocsLink", navigation)}, groups=${groupValues}, labels=${constructor("DocsLabels", labels)})`;
   });
   const pageData = new Map<string, PageData>();
   const pages = site.documents.map((doc, i) => {
@@ -389,13 +391,10 @@ export async function generateApp(site: Site, platform: DocsPlatform = "web") {
     const visible = scoped.filter((candidate) => candidate.nav !== false);
     const scope = scopePages.findIndex((candidate) => sameScope(candidate, doc));
     const seo = pageSeo(doc, site);
-    const version = site.config.versions.find((item) => item.id === doc.version);
     const position = visible.indexOf(doc);
     const neighbor = (offset: number) => {
       const other = position < 0 ? undefined : visible[position + offset];
-      return other
-        ? `some(DocsLink(title=${quote(other.title)}, href=${quote(other.path)}))`
-        : "none";
+      return other ? [{ title: other.title, href: other.path }] : [];
     };
     pageData.set(doc.path, {
       ...content.pages.get(doc.path)!,
@@ -404,12 +403,20 @@ export async function generateApp(site: Site, platform: DocsPlatform = "web") {
       robots: seo.robots,
       seo: JSON.stringify(seo),
       toc: doc.headings,
+      previous: neighbor(-1),
+      next: neighbor(1),
       locales: choices(site.documents, doc, "locale", site.config.locales),
       versions: choices(site.documents, doc, "version", site.config.versions),
     });
-    return `DocsPageData(route="page${i}", path=${quote(doc.path)}, title=${quote(doc.title)}, locale=${quote(doc.locale)}, language=${quote(seo.lang)}, direction=${quote(seo.dir)}, version=${quote(doc.version)}, pageId=${quote(doc.id)}, versionStatus=${quote(version?.status ?? "")}, searchIndexUrl=${quote(platform === "web" ? searchIndexUrl(doc) : "")}, custom=${Boolean(doc.component)}, markdownUrl=${quote(platform === "web" ? markdownUrl(doc) : "")}, scope=docsScope${scope}, previous=${neighbor(-1)}, next=${neighbor(1)})`;
+    return `DocsPageData(route="page${i}", path=${quote(doc.path)}, title=${quote(doc.title)}, pageId=${quote(doc.id)}, custom=${Boolean(doc.component)}, scope=docsScope${scope})`;
   });
   const context = `shape DocsScopeData
+  locale: string
+  language: string
+  direction: string
+  version: string
+  versionStatus: string
+  searchIndexUrl: string
   navigation: DocsLink[]
   groups: DocsGroup[]
   labels: DocsLabels
@@ -418,18 +425,9 @@ shape DocsPageData
   route: string
   path: string
   title: string
-  locale: string
-  language: string
-  direction: string
-  version: string
   pageId: string
-  versionStatus: string
-  searchIndexUrl: string
   custom: bool
-  markdownUrl: string
   scope: DocsScopeData
-  previous: option<DocsLink>
-  next: option<DocsLink>
 
 component DocsContext
   props
@@ -447,25 +445,25 @@ component DocsContext
   provide
     docsPlatform = ${quote(platform)}
     docsGroups = page.scope.groups
-    docsPrevious = page.previous
-    docsNext = page.next
+    docsPrevious = current ? first(content.previous) : none
+    docsNext = current ? first(content.next) : none
     docsLocales = current ? content.locales : []
     docsVersions = current ? content.versions : []
     docsLabels = page.scope.labels
-    docsLocale = page.locale
-    docsVersion = page.version
+    docsLocale = page.scope.locale
+    docsVersion = page.scope.version
     docsPageId = page.pageId
-    docsVersionStatus = page.versionStatus
-    docsSearchIndexUrl = page.searchIndexUrl
+    docsVersionStatus = page.scope.versionStatus
+    docsSearchIndexUrl = page.scope.searchIndexUrl
     docsSearchPending = pending
     docsSearchFailed = failed
     docsDescription = current ? content.description : ""
     docsMarkdown = content.path == page.path ? content.markdown : ""
     docsContentPending = contentPending
     docsContentFailed = contentFailed
-    docsMarkdownUrl = page.markdownUrl
+    docsMarkdownUrl = ${platform === "web" ? 'page.custom ? "" : ("/_docs/markdown" + (page.path == "/" ? "" : page.path) + "/index.md")' : '""'}
   view
-    view lang=page.language direction=page.direction data-docs-part="context" data-docs-seo=(current ? content.seo : "")
+    view lang=page.scope.language direction=page.scope.direction data-docs-part="context" data-docs-seo=(current ? content.seo : "")
       ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=(current ? content.toc : []), query=query, search=search, results=results)
         children
 `;
@@ -474,6 +472,12 @@ component DocsContext
     const middle = Math.floor((start + end) / 2);
     return `(docsPageIndex < ${middle} ? ${selectPage(start, middle)} : ${selectPage(middle, end)})`;
   }
+  const native = platform !== "web";
+  const contentRef = native ? "entry.content" : "docsContent";
+  const contentResource = native ? "docsNativeContents" : "docsContent";
+  const visits = native
+    ? `stack(docsNav).map(entry => DocsNativeVisit(id=entry.id, name=entry.name, page=(docsRouteNames.indexOf(entry.name) < 0 ? none : docsPages.at(docsRouteNames.indexOf(entry.name))), content=match first(docsNativeContents.filter(item => item.route == entry.name)) { case some(item) => item.content, case none => docsEmptyContent }))`
+    : "stack(docsNav).filter(item => item.id == top(docsNav).id)";
   const source = `${imports.join("\n")}
 
 routes docsNav
@@ -483,17 +487,38 @@ ${routes}
 shape DocsSearchReply
   items: DocsLink[]
 
+${
+  native
+    ? `shape DocsNativeContent
+  route: string
+  content: DocsContent
+
+shape DocsNativeVisit
+  id: number
+  name: string
+  page: option<DocsPageData>
+  content: DocsContent
+`
+    : ""
+}
 component DocsApp
 ${scopes.join("\n")}
+${
+  native
+    ? `  derive docsPages = [${pages.join(", ")}]
+  state docsEmptyContent: DocsContent = DocsContent(path="", markdown="", blocks=[], description="", canonical="", robots="noindex,follow", seo="", toc=[], locales=[], versions=[], previous=[], next=[])`
+    : ""
+}
   state docsRouteNames: string[] = ${quote(site.documents.map((_, i) => `page${i}`))}
   derive docsPageIndex = docsRouteNames.indexOf(top(docsNav).name)
-  derive docsPage = docsPageIndex < 0 ? none : ${selectPage(0, pages.length)}
+  derive docsPage = docsPageIndex < 0 ? none : ${native ? "docsPages.at(docsPageIndex)" : selectPage(0, pages.length)}
   state docsQuery = ""
   derive docsPath = match docsPage { case some(page) => page.path, case none => "" }
-  derive docsLocale = match docsPage { case some(page) => page.locale, case none => "" }
-  derive docsVersion = match docsPage { case some(page) => page.version, case none => "" }
+  derive docsLocale = match docsPage { case some(page) => page.scope.locale, case none => "" }
+  derive docsVersion = match docsPage { case some(page) => page.scope.version, case none => "" }
   derive docsPageId = match docsPage { case some(page) => page.pageId, case none => "" }
   resource docsContent = docsReadPage(docsPath) as shape DocsContent else empty()
+${native ? "  resource docsNativeContents = docsReadStack(stack(docsNav).map(entry => entry.name)) as shape DocsNativeContent[] else empty()" : ""}
   resource docsSearchReply = docsSearchPages(docsQuery, docsLocale, docsVersion) as shape DocsSearchReply else empty()
   derive docsResults = docsSearchReply.items
   action docsSearch(value: string)
@@ -507,35 +532,63 @@ ${
     else
       docsNav = push(docsNav, url)`
 }
+${platform === "web" ? "" : "  action docsNativeBack\n    docsNav = back(docsNav)"}
 ${rootMembers}
   view
-    ${platform === "web" ? "view" : 'scroll flex=1 min-height=0 height="100%" navigationBack=""'} navigationKey=top(docsNav).id.toString() navigate=docsFollow testId="docs-app"
-      for entry in stack(docsNav).filter(item => item.id == top(docsNav).id) key=entry.id
-        match docsPage
+    ${platform === "web" ? "view" : 'view height="100%" navigationBack="docs-back"'} navigationKey=top(docsNav).id.toString() navigate=docsFollow testId="docs-app"
+      for entry${native ? ", docsVisitIndex" : ""} in ${visits} key=entry.id
+        match ${native ? "entry.page" : "docsPage"}
           case some(page)
-            view navigationKey=entry.id.toString()
-              head title=(page.title + ${quote(` | ${site.config.name}`)}) description=(docsContent.path == page.path ? docsContent.description : "") canonical=(docsContent.path == page.path ? docsContent.canonical : "") robots=(docsContent.path == page.path ? docsContent.robots : "noindex,follow")
-              DocsContext(page=page, content=docsContent, contentPending=(docsContent.path != page.path and not failed(docsContent)), contentFailed=(docsContent.path != page.path and failed(docsContent)), query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))
-                if docsContent.path == page.path
+            ${platform === "web" ? "view navigationKey=entry.id.toString()" : "DocsNativeScreen(visitKey=entry.id.toString())"}
+${
+  platform === "web"
+    ? ""
+    : `              if docsVisitIndex > 0
+                button id="docs-back" testId="docs-back" press=docsNativeBack data-docs-part="back"
+                  text page.scope.labels.back`
+}
+              head title=(page.title + ${quote(` | ${site.config.name}`)}) description=(${contentRef}.path == page.path ? ${contentRef}.description : "") canonical=(${contentRef}.path == page.path ? ${contentRef}.canonical : "") robots=(${contentRef}.path == page.path ? ${contentRef}.robots : "noindex,follow")
+              DocsContext(page=page, content=${contentRef}, contentPending=(${contentRef}.path != page.path and not failed(${contentResource})), contentFailed=(${contentRef}.path != page.path and failed(${contentResource})), query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))
+                if ${contentRef}.path == page.path
 ${branches.join("\n")}
                   if not page.custom
-                    DocsBody(body=docsContent)
-                else if failed(docsContent)
+                    DocsBody(body=${contentRef})
+                else if failed(${contentResource})
                   text page.scope.labels.contentError role="alert" data-docs-part="content-error"
                 else
                   text page.scope.labels.contentLoading role="status" data-docs-part="content-loading"
           case none
             view
         if entry.name == "notfound"
-          main navigationKey=entry.id.toString() data-docs-part="content" tabindex=-1 data-docs-seo=${quote(JSON.stringify(pageSeo(undefined, site)))}
+          ${native ? "DocsNativeScreen(visitKey=entry.id.toString())" : `main navigationKey=entry.id.toString() data-docs-part="content" tabindex=-1 data-docs-seo=${quote(JSON.stringify(pageSeo(undefined, site)))}`}
+${
+  native
+    ? `            if docsVisitIndex > 0
+              button id="docs-back" testId="docs-back" press=docsNativeBack data-docs-part="back"
+                text ${quote(defaultLabels.back)}`
+    : ""
+}
             head title="Page not found" status=404 robots="noindex,follow"
-            h1
+            h1${native ? ' testId="docs-notfound"' : ""}
               text "Page not found"
             link href=${quote(site.documents[0]!.path)}
               text "Documentation home"
 
 ${context}
 ${content.contract}
+${
+  platform === "web"
+    ? ""
+    : `component DocsNativeScreen
+  props
+    visitKey: string
+  slot
+  view
+    column navigationKey=visitKey position="absolute" inset=0
+      scroll flex=1 min-height=0 testId="docs-scroll"
+        children
+`
+}
 `;
   await Bun.write(path.join(app, "app.contract"), source);
   await writeDataEntry(site, app, pageData, platform);

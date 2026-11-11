@@ -283,11 +283,15 @@ function drawMap(
   const glowStart = (1 - light.spread) * Math.SQRT2;
   const glowRange = light.spread * Math.SQRT2;
 
+  const fade = (signedDistance: number) => 0.5 * (1 + erf(signedDistance * ramp));
   const horizontal = Array.from({ length: columns }, (_, column) => {
     const x = ((column + 0.5) / columns) * width - halfWidth;
     const ax = Math.abs(x);
+    const inner = ax - innerWidth + innerRadius;
     return {
-      x,
+      outer: ax - halfWidth + radius,
+      inner,
+      fade: fade(inner - innerRadius),
       pull: across ? Math.sign(x) * slope(ax, across) : clamp(x / halfWidth, -1, 1),
       keep: Math.max(0, 1 - (halfWidth - ax) / reach) * (1 - splay),
       facing: clamp(x / halfWidth, -1, 1) * cos,
@@ -298,12 +302,19 @@ function drawMap(
     const ay = Math.abs(y);
     const pull = down ? Math.sign(y) * slope(ay, down) : clamp(y / halfHeight, -1, 1);
     const keepX = Math.max(0, 1 - (halfHeight - ay) / reach) * (1 - splay);
+    const outerY = ay - halfHeight + radius;
+    const innerY = ay - innerHeight + innerRadius;
+    const rowFade = fade(innerY - innerRadius);
     const facingY = clamp(y / halfHeight, -1, 1) * sin;
     for (let column = 0; column < columns; column++) {
       const i = (row * columns + column) * 4;
       const axis = horizontal[column]!;
-      const { x } = axis;
-      const edge = distance(x, y, halfWidth, halfHeight, radius);
+      // Only the corner quadrant needs Euclidean distance; either straight
+      // side is exactly a one-dimensional signed distance.
+      const edge =
+        axis.outer > 0 && outerY > 0
+          ? Math.hypot(axis.outer, outerY) - radius
+          : Math.max(axis.outer, outerY) - radius;
       // Smoothed over the last pixel at the edge.
       const inside = Math.round(255 * clamp(-edge, 0, 1));
       if (shapeMask) grey(shapeMask, i, 0, inside);
@@ -338,7 +349,12 @@ function drawMap(
         }
       }
 
-      const falloff = 0.5 * (1 + erf(distance(x, y, innerWidth, innerHeight, innerRadius) * ramp));
+      const falloff =
+        axis.inner > 0 && innerY > 0
+          ? fade(Math.hypot(axis.inner, innerY) - innerRadius)
+          : axis.inner > innerY
+            ? axis.fade
+            : rowFade;
       if (field) {
         field[i] = Math.round((0.5 - 0.5 * dx * falloff) * 255);
         field[i + 1] = Math.round((0.5 - 0.5 * dy * falloff) * 255);

@@ -1,3 +1,5 @@
+use TabsState, Tabs, TabsListContainer, TabsList, TabsTab, TabsPanel, TabsIndicator, TabsSeparator from "./components/tabs.contract"
+use SliderState, Slider, SliderLabel, SliderOutput, SliderControl, SliderTrack, SliderFill, SliderThumb, SliderMarks from "./components/slider.contract"
 use SwitchState, Switch, SwitchContent, SwitchControl, SwitchThumb, SwitchIcon from "./components/switch.contract"
 use AvatarState, Avatar, AvatarImage, AvatarFallback, AvatarGroup, AvatarGroupItem from "./components/avatar.contract"
 use CardState, Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, EmptyState, EmptyStateContent, EmptyStateIcon, EmptyStateMessage, EmptyStateTitle, EmptyStateDescription, EmptyStateActions from "./components/layout.contract"

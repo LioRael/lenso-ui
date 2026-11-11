@@ -1,0 +1,110 @@
+shape SliderState
+  id: string
+  label: string
+  labelledBy: string
+  describedBy: string
+  values: number[]
+  min: number
+  max: number
+  step: number
+  largeStep: number
+  minStepsBetweenValues: number
+  collision: string
+  orientation: string
+  direction: string
+  alignment: string
+  disabled: bool
+  readOnly: bool
+  name: string
+
+fn sliderAt(values: number[], index: number, fallback: number): number = match values.at(index) { case some(value) => value, case none => fallback }
+fn sliderGap(state: SliderState): number = max(0, state.minStepsBetweenValues) * state.step
+fn sliderPercent(state: SliderState, value: number): number = state.max > state.min ? min(100, max(0, (value - state.min) / (state.max - state.min) * 100)) : 0
+fn sliderTarget(state: SliderState, index: number, next: number): number = min(state.max - (state.values.length - 1 - index) * sliderGap(state), max(state.min + index * sliderGap(state), round((round((next - state.min) / state.step) * state.step + state.min) * 1000000000000) / 1000000000000))
+fn sliderBound(state: SliderState, index: number, next: number): number = min(index < state.values.length - 1 ? sliderAt(state.values, index + 1, state.max) - sliderGap(state) : state.max, max(index > 0 ? sliderAt(state.values, index - 1, state.min) + sliderGap(state) : state.min, sliderTarget(state, index, next)))
+fn sliderValues(state: SliderState, index: number, next: number): number[] = state.values.map((value, position) => position == index ? (state.collision == "none" ? sliderBound(state, index, next) : sliderTarget(state, index, next)) : (state.collision == "none" ? value : (position < index ? min(value, sliderTarget(state, index, next) - (index - position) * sliderGap(state)) : max(value, sliderTarget(state, index, next) + (position - index) * sliderGap(state)))))
+fn sliderPosition(state: SliderState, value: number): string = state.alignment == "edge" ? `calc(22px + (100% - 44px) * ${(state.orientation == "horizontal" and state.direction == "rtl" ? 100 - sliderPercent(state, value) : sliderPercent(state, value)) / 100})` : `${state.orientation == "horizontal" and state.direction == "rtl" ? 100 - sliderPercent(state, value) : sliderPercent(state, value)}%`
+
+component Slider
+  props
+    state: SliderState
+  slot
+  view
+    box id=state.id testId=state.id role="group" aria-label=state.label aria-labelledby=state.labelledBy aria-describedby=state.describedBy direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="slider" data-slot="slider" data-orientation=state.orientation data-lenso-disabled=state.disabled data-lenso-readonly=state.readOnly
+      data-lenso-values=state.values.map(value => `${value}`).join(",") data-lenso-min=state.min data-lenso-max=state.max data-lenso-step=state.step data-lenso-large-step=state.largeStep data-lenso-gap=sliderGap(state) data-lenso-direction=state.direction data-lenso-alignment=state.alignment data-lenso-collision=state.collision
+      children
+
+component SliderLabel
+  props
+    state: SliderState
+    label: string
+  view
+    text label id=state.labelledBy testId=state.labelledBy hatch="lenso-ui" data-lenso-kind="slider-label" data-slot="slider-label" data-lenso-for=state.id
+
+component SliderOutput
+  props
+    id: string
+  slot
+  view
+    text id=id testId=id hatch="lenso-ui" data-lenso-kind="slider-output" data-slot="slider-output"
+      children
+
+component SliderControl
+  props
+    state: SliderState
+  slot
+  view
+    box testId=`${state.id}-control` hatch="lenso-ui" data-lenso-kind="slider-control" data-slot="slider-control" data-orientation=state.orientation data-lg-slider-control=""
+      children
+
+component SliderTrack
+  props
+    state: SliderState
+  slot
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="slider-track" data-slot="slider-track" data-orientation=state.orientation
+      box hatch="lenso-ui" data-lenso-kind="slider-track-paint" data-slot="slider-track-paint"
+      children
+
+component SliderFill
+  props
+    state: SliderState
+  derive start = state.values.length > 1 ? sliderPercent(state, sliderAt(state.values, 0, state.min)) : 0
+  derive end = sliderPercent(state, sliderAt(state.values, state.values.length - 1, state.min))
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="slider-fill" data-slot="slider-fill"
+      background-image=`linear-gradient(${state.orientation == "vertical" ? "to top" : (state.direction == "rtl" ? "to left" : "to right")}, transparent 0% ${start}%, currentColor ${start}% ${end}%, transparent ${end}% 100%)`
+
+component SliderThumb
+  props
+    state: SliderState
+    index: number
+    label: string
+    valueText: string
+    change: action
+    commit: action
+  derive value = sliderAt(state.values, index, state.min)
+  action propose(next: number)
+    if not state.disabled and not state.readOnly and sliderValues(state, index, next) != state.values
+      change(sliderValues(state, index, next))
+  action committed(next: number)
+    if not state.disabled and not state.readOnly
+      commit(state.values)
+  slot
+  view
+    box testId=`${state.id}-thumb-${index}` position="absolute" left=(state.orientation == "vertical" ? "50%" : sliderPosition(state, value)) top=(state.orientation == "vertical" ? "auto" : "50%") bottom=(state.orientation == "vertical" ? sliderPosition(state, value) : "auto") transform=(state.orientation == "vertical" ? "translate(-50%, 50%)" : "translate(-50%, -50%)")
+      hatch="lenso-ui" data-lenso-kind="slider-thumb" data-slot="slider-thumb" data-orientation=state.orientation data-lg-slider-thumb="" data-lenso-disabled=state.disabled data-lenso-index=index
+      input type="range" id=`${state.id}-input-${index}` testId=`${state.id}-input-${index}` min=state.min max=state.max step=state.step value=value input=propose change=committed disabled=state.disabled data-lenso-name=state.name
+        aria-label=label aria-describedby=state.describedBy aria-valuemin=`${state.min}` aria-valuemax=`${state.max}` aria-valuenow=`${value}` aria-valuetext=valueText aria-orientation=state.orientation
+        hatch="lenso-ui" data-lenso-kind="slider-input" data-lenso-index=index data-lenso-value=value data-lenso-readonly=state.readOnly
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="slider-optical" data-slot="slider-optical"
+        box hatch="lenso-ui" data-lenso-kind="slider-knob-lens" data-knob-material="slider"
+        box hatch="lenso-ui" data-lenso-kind="slider-knob-face"
+      children
+
+component SliderMarks
+  slot
+  view
+    row aria-hidden=true hatch="lenso-ui" data-lenso-kind="slider-marks" data-slot="slider-marks"
+      children

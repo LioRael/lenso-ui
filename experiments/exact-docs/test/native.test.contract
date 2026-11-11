@@ -33,3 +33,9 @@ test "native documentation retains root reads, writes and tasks between pages"
   type "docs-app" "/data"
   clock data
   expect text "data-counter" == "Counter: 8"
+  type "docs-app" "/missing"
+  clock data
+  expect tree has "docs-notfound"
+  back
+  clock data
+  expect text "data-counter" == "Counter: 8"

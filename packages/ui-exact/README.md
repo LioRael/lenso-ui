@@ -207,3 +207,7 @@ Playwright image omits backdrop blur that native-window capture shows; see
 See [Avatar and AvatarGroup](AVATAR.md) for image fallback behavior and explicit group composition.
 
 See [Switch](SWITCH.md) for state, native forms, source motion and remaining acceptance gates.
+
+See [Slider](SLIDER.md) for range values, collision policy, keyboard operation and remaining acceptance gates.
+
+See [Tabs](TABS.md) for selection, panel lifetime, keyboard contracts, source motion and remaining acceptance gates.

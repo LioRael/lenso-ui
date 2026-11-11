@@ -73,31 +73,84 @@ the base, checkpoint and patch hashes. Individual prefix builds were not run.
 
 ## Compiler relationship follow-up
 
-The [compiler patch](COMPILER.md) adds an expanded-root analysis pass, not a
-primitive-side scanner. Its 25 package probes match their expected results,
-including one explicitly deferred dynamic case and one remaining invocation
-conflict gap. The imported empty-label case checks that the diagnostic points to
-the caller's argument. Correct slots/imports and native action targets compile.
+The [compiler patch](COMPILER.md) adds an expanded-root analysis pass. All 26
+package probes match their expected outcomes, including native empty invoker
+targets, one deferred dynamic case and one accepted invocation-conflict gap.
+The imported empty-label diagnostic points to the caller's argument.
 
-The focused Rust target passes 64 tests: four new grouped graph tests plus the
-60 existing alert/menu, geometry and top-layer tests moved out of the large
-integration target. They are not duplicated. Legacy fixtures now supply valid
-names/reference text; their geometry, cancellation and native grouping assertions
-remain intact. Standard pinned-toolchain `cargo check` and `cargo clippy` over
-`contract`/`contract-analyze` with `--all-targets --keep-going` pass, as does
-`cargo fmt --check`. No Rust accelerator result substitutes for those checks.
+The complete Contract SDK default suite passes: **2,733 passed, 0 failed,
+10 existing ignored**, across 16 targets, with no test filters or new ignores:
 
-The full SDK test run was stopped during the oversized integration-target
-compilation; it is not a full test-suite pass. `contract-difftest quick` was
-attempted after restoring the pinned corpus/sources, but cannot select its diff
-because this local SDK is an archive without Git metadata. Rerun it in a real
-Exact checkout before upstream landing. These are separate validation limits,
-not Linux acceptance.
+```sh
+CARGO_INCREMENTAL=0 CARGO_PROFILE_TEST_DEBUG=0 CARGO_PROFILE_TEST_CODEGEN_UNITS=256 CARGO_BUILD_JOBS=1 \
+  cargo test -p contract -p contract-analyze --tests --no-fail-fast
+```
 
-The platform table above records the preceding API/Host acceptance. With this
-compiler-only change, the copied Web consumer and all seventeen Chrome agent
-tests were rerun successfully. Apple/WebKit runtime acceptance was not repeated
-for this follow-up; the analysis pass does not change code generation.
+These invocation-local settings bound compilation memory without changing
+optimization level or assertions. The focused relationship target contributes
+65 of these tests: five new grouped graph tests and 60 existing alert/menu,
+geometry and top-layer tests moved out of the large integration target, without
+duplication. The source sweep passes 132 app roots and 159 imported sources.
+This is the complete default suite for the two named Contract SDK packages;
+it is not an all-workspace, all-features or native-platform acceptance claim.
+
+The initial full run exposed an actual compatibility regression: empty
+`commandfor` and `popovertarget` deliberately mean unbound/no-op in Exact. That
+behavior is preserved; whitespace-only/multiple IDs and missing nonempty targets
+still fail. Existing role/layout/warning fixtures now provide valid names and
+reference nodes while retaining their original assertions. The SDK harness,
+document reader, native fixture and orientation fixture now name their dialogs;
+the reader links its visible dynamic headings with `aria-labelledby`.
+
+All **seven existing async checks pass** when invoked separately: five
+TypeScript checks, the no-tells documentation check, and every starter pattern's
+real browser tests. Two pre-existing validation inputs were corrected: the
+yielding guide snippet is self-contained, and a provider fixture accepts the
+storage API's existing JPEG/PNG union. No storage declaration or negative
+provider assertion changed. The site pattern requires `API_BASE_URL` pointing
+at an unused local `http://127.0.0.1:<port>`; Exact starts its own fixture server.
+An unset value prevents its build; an external placeholder does not provide the
+local API the tests need. The successful run used `http://127.0.0.1:61976`.
+
+Thus **2,740 tests were executed successfully** across the default and async
+runs. The default suite's ten ignored markers remain unchanged; seven were
+explicitly exercised afterward. Three remaining ignored tests are
+manual/benchmark probes: `stack_depth::probe_view_pass_on_a_small_stack`,
+`tamber::wide_mark_cost`, and
+`tamber_serve_slots::the_slot_check_alone_on_the_clone_with_the_real_packages`.
+
+The rebuilt final compiler passes the official `difftest quick` using pinned
+Lean **4.34.1**: **587 corpus cases, 40 random cases, 8 lowering cases**; seed
+`8265107218640133315`. Lowering records 1,347 agreeing runs and 97 identical
+bodies, with zero divergence, mismatched bodies, compile/boot refusals or
+undecoded bodies. Expected negative property outcomes in the corpus remain
+expected. This is the official quick differential scope, not the async lane's
+full semantic sweep.
+
+The archive's missing pinned fonts, sounds, design files, TypeScript/editor
+inputs and semantic sources were restored byte-for-byte from the original
+commit; these originals are not patch changes. A separate temporary Git
+directory backed by the pinned objects supplies the real base/working diff to
+`difftest quick`; absent archive files are sparse. No SDK source was rewritten
+to establish that comparison. The verified official Lean archive has SHA-256
+`65f22a4f047738ec742667b3247e836a86ebf06eabc12655c3dee00637e37866`.
+
+All five patches pass cumulative apply/reverse checks, and all 39 reconstructed
+SDK files match the tested SDK byte-for-byte. The four Host patches are unchanged.
+Standard pinned-toolchain `cargo check` and `cargo clippy` pass for
+`contract`/`contract-analyze` with `--all-targets --keep-going` (Clippy uses
+`-D warnings`); workspace `cargo fmt --check` also passes after restoring the
+archive's missing original Rust modules. Package TypeScript, lint and format
+checks pass. No accelerator result substitutes for standard Rust validation.
+`cargo doc -p contract-analyze --no-deps` succeeds with two pre-existing private
+intra-doc-link warnings in unchanged `shortcuts.rs`; these are documentation
+warnings, not test failures.
+
+The platform table above records the preceding API/Host acceptance. The earlier
+compiler follow-up reran the copied Web consumer and all seventeen Chrome agent
+tests. This full-SDK follow-up does not claim fresh Apple/WebKit runtime
+acceptance or Linux OS/AT-SPI validation. Compiler analysis does not change code
+generation or supply Host accessibility behavior.
 
 ## Required Exact fixes
 

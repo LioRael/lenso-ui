@@ -171,6 +171,16 @@ test("Apple targets retain host settings and bundle offline pages/search with th
       { title: "Root data", href: "/data" },
     ]);
     expect(await data.answer("readCounter", [false])).toEqual({ value: 7 });
+    const stack = await data.answer("docsReadStack", [["page0", "page1", "notfound"]]);
+    expect(
+      stack.map((entry: { route: string; content: { path: string } }) => [
+        entry.route,
+        entry.content.path,
+      ]),
+    ).toEqual([
+      ["page0", "/"],
+      ["page1", "/authoring"],
+    ]);
   }
   expect(await Bun.file(path.join(web, "app.ts")).text()).toBe(webSource);
 });

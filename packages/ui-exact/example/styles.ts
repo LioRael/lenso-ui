@@ -18,6 +18,7 @@ const custom = stylex.create({
   clear: { backgroundColor: null, borderRadius: 0 },
   wideAction: { width: "100%" },
   cardTitle: { fontWeight: 600 },
+  tabsLift: { "--lg-lens-grow-x": "41px" },
   switchIcon: { color: "#151515" },
   chip: { borderRadius: 8 },
   ring: { stroke: "var(--lenso-label-tertiary)" },
@@ -43,3 +44,8 @@ const dynamic = stylex.create({
 
 // Exercise the unsupported inline-value boundary without using it in the UI.
 export const inlineRule = { kind: "button", xstyle: dynamic.radius(13) } satisfies PresentationRule;
+
+export const tabsLiftRule = {
+  kind: "tabs-list",
+  xstyle: custom.tabsLift,
+} satisfies PresentationRule;

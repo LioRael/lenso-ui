@@ -1,0 +1,98 @@
+use TabsState, Tabs, TabsListContainer, TabsList, TabsTab, TabsIndicator, TabsPanel, TabsSeparator, Button, Input from "@lenso/ui-exact"
+
+component TabsExample
+  state value = "account"
+  state manual = false
+  state loop = true
+  state vertical = false
+  state rtl = false
+  state disabled = false
+  state securityDisabled = true
+  state glass = false
+  state elastic = true
+  state large = false
+  state keep = true
+  state visible = true
+  state accept = true
+  state billingVisible = true
+  state changes = 0
+  state notes = "Saved draft"
+  derive tabs = TabsState(id="tabs-demo", label="Workspace sections", value=value, orientation=(vertical ? "vertical" : "horizontal"), direction=(rtl ? "rtl" : "ltr"), size=(large ? "lg" : "sm"), align="center", lift=20, elastic=elastic, glass=glass, disabled=disabled, activateOnFocus=(not manual), loopFocus=loop)
+  action change(next: string)
+    if accept
+      value = next
+      changes = changes + 1
+  action toggleManual
+    manual = not manual
+  action toggleLoop
+    loop = not loop
+  action toggleVertical
+    vertical = not vertical
+  action toggleRtl
+    rtl = not rtl
+  action toggleDisabled
+    disabled = not disabled
+  action toggleSecurity
+    securityDisabled = not securityDisabled
+  action toggleGlass
+    glass = not glass
+  action toggleElastic
+    elastic = not elastic
+  action toggleLarge
+    large = not large
+  action toggleKeep
+    keep = not keep
+  action toggleVisible
+    visible = not visible
+  action toggleAccept
+    accept = not accept
+  action toggleBilling
+    billingVisible = not billingVisible
+  action selectAccount
+    value = "account"
+  action submitDraft
+    notes = notes.trim()
+  action edit(next: string)
+    notes = next
+  view
+    column id="tabs-examples" gap=16
+      text "Tabs" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Tabs manual", press=toggleManual, disabled=false, size="sm", variant="bordered", testId="tabs-manual")
+        Button(label="Tabs loop", press=toggleLoop, disabled=false, size="sm", variant="bordered", testId="tabs-loop")
+        Button(label="Tabs vertical", press=toggleVertical, disabled=false, size="sm", variant="bordered", testId="tabs-vertical")
+        Button(label="Tabs direction", press=toggleRtl, disabled=false, size="sm", variant="bordered", testId="tabs-rtl")
+        Button(label="Tabs disabled", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="tabs-disabled")
+        Button(label="Tabs security", press=toggleSecurity, disabled=false, size="sm", variant="bordered", testId="tabs-security")
+        Button(label="Tabs glass", press=toggleGlass, disabled=false, size="sm", variant="bordered", testId="tabs-glass-toggle")
+        Button(label="Tabs elastic", press=toggleElastic, disabled=false, size="sm", variant="bordered", testId="tabs-elastic")
+        Button(label="Tabs size", press=toggleLarge, disabled=false, size="sm", variant="bordered", testId="tabs-size")
+        Button(label="Tabs keep mounted", press=toggleKeep, disabled=false, size="sm", variant="bordered", testId="tabs-keep")
+        Button(label="Tabs visibility", press=toggleVisible, disabled=false, size="sm", variant="bordered", testId="tabs-visible")
+        Button(label="Tabs accept changes", press=toggleAccept, disabled=false, size="sm", variant="bordered", testId="tabs-accept")
+        Button(label="Tabs billing", press=toggleBilling, disabled=false, size="sm", variant="bordered", testId="tabs-billing")
+        Button(label="Select account", press=selectAccount, disabled=false, size="sm", variant="bordered", testId="tabs-account-select")
+      text `Tab changes: ${changes}` testId="tabs-changes"
+      if visible
+        Tabs(state=tabs)
+          TabsListContainer(state=tabs)
+            TabsList(state=tabs)
+              TabsIndicator(state=tabs)
+              TabsTab(state=tabs, id="tabs-account", value="account", panelId="tabs-account-panel", label="Account", disabled=false, change=change)
+                text "Account"
+              TabsTab(state=tabs, id="tabs-security-tab", value="security", panelId="tabs-security-panel", label="Security", disabled=securityDisabled, change=change)
+                TabsSeparator(state=tabs)
+                text "Security"
+              if billingVisible
+                TabsTab(state=tabs, id="tabs-billing-tab", value="billing", panelId="tabs-billing-panel", label="Billing", disabled=false, change=change)
+                  TabsSeparator(state=tabs)
+                  text "Billing"
+          TabsPanel(state=tabs, id="tabs-account-panel", value="account", tabId="tabs-account", keepMounted=keep)
+            column gap=8
+              text "Account preferences"
+              Input(id="tabs-notes", name="notes", label="Account draft", labelledBy="", describedBy="", value=notes, input=edit, change=edit, submit=submitDraft, placeholder="Write a draft", autocomplete="off", type="text", disabled=false, readOnly=false, required=false, invalid=false, variant="primary")
+          TabsPanel(state=tabs, id="tabs-security-panel", value="security", tabId="tabs-security-tab", keepMounted=keep)
+            text "Security preferences"
+          if billingVisible
+            TabsPanel(state=tabs, id="tabs-billing-panel", value="billing", tabId="tabs-billing-tab", keepMounted=keep)
+              text "Billing preferences"

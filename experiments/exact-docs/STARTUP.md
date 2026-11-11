@@ -1,5 +1,7 @@
 # Shared application startup
 
+Historical metadata-extraction measurement. The subsequent route/scope extraction and current figures are in [ROUTING_STARTUP.md](ROUTING_STARTUP.md); the tables below describe the earlier compiler stage.
+
 Measured 2026-11-10T21:40:32.411Z. Same-run saved 300-page output versus the current metadata extraction, with both Astro modes measured alongside them. The corpus is English/Chinese × v2/v1 × 75 topics. All browser figures are medians of three fresh contexts with gzip, disabled cache, 80 ms latency, 200,000 bytes/second download and 4× CPU slowdown. Implementation order reverses on alternate rounds. Full Astro results, limits and reproduction are in [ASTRO_COMPARISON.md](ASTRO_COMPARISON.md).
 
 ## Entry analysis

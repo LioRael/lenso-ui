@@ -17,107 +17,107 @@ The inventory below comes from `packages/ui/src/components/index.ts`. A supporte
 component name with missing behavior or a placeholder wrapper does not pass.
 Publication and repository landing require separate user instructions.
 
-| Lenso family           | Exact Web status      | Remaining acceptance                                                                                                    |
-| ---------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `accordion`            | Web behavior verified | Linked-page initial styles and behavior verified; broader delivery gates remain                                         |
-| `alert-dialog`         | Partial               | Native confirmation/material verified; optical, focus/portal/control and device gates remain open (ALERT_DIALOG.md)     |
-| `alert`                | Partial               | Native status composition/material and browser behavior verified; glass capture/device gates remain (CONTENT.md)        |
-| `autocomplete`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `avatar`               | Partial               | Image/fallback and shared variants implemented; delay/callback/render parity remains (AVATAR.md)                        |
-| `avatar-group`         | Partial               | Explicit stack/grid/count composition; inheritance and automatic max/count remain (AVATAR.md)                           |
-| `badge`                | Partial               | Placement, variants, accessible counts and lifecycle verified; glass capture/device gates remain (CONTENT.md)           |
-| `breadcrumbs`          | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                |
-| `button`               | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                              |
-| `button-group`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `calendar`             | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `calendar-year-picker` | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `card`                 | Partial               | All variants, composition, actions and cleanup verified; glass optical/device gates remain (LAYOUT.md)                  |
-| `checkbox`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `checkbox-group`       | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `chip`                 | Web behavior verified | Ordinary composition, variants, caller styles and browser behavior verified; broader delivery gates remain (CONTENT.md) |
-| `close-button`         | Partial               | Native/loading behavior and rich content verified; shared Button-family integration remains (CONTENT.md)                |
-| `color-area`           | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `color-field`          | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `color-input-group`    | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `color-picker`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `color-slider`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `color-swatch`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `color-swatch-picker`  | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `combo-box`            | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `date-field`           | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `date-input-group`     | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `date-picker`          | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `date-range-picker`    | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `description`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `disclosure`           | Web behavior verified | Linked-page initial styles and behavior verified; broader delivery gates remain                                         |
-| `drawer`               | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `empty-state`          | Web behavior verified | Composition, actions, names, themes and RTL verified; native paragraph-tag gap retained (LAYOUT.md, SEMANTIC_GAPS.md)   |
-| `field-error`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `fieldset`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `form`                 | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `input`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `input-group`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `input-otp`            | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `kbd`                  | Pending               | Native kbd/abbr declaration path absent in pinned upstream; retained gap per owner choice (SEMANTIC_GAPS.md)            |
-| `label`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `link`                 | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                |
-| `list-box`             | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `menu`                 | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `meter`                | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                             |
-| `modal`                | Partial               | Native Web composition verified; WebKit exit motion and focus/portal/control parity remain open (MODAL.md)              |
-| `number-field`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `pagination`           | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `popover`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `progress-bar`         | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                             |
-| `progress-circle`      | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                             |
-| `radio`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `radio-group`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `range-calendar`       | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `scroll-shadow`        | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `search-field`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `select`               | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `separator`            | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                |
-| `skeleton`             | Web behavior verified | Shared motion, nesting and registered caller styles verified; broader delivery gates remain                             |
-| `slider`               | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `spinner`              | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                             |
-| `surface`              | Partial               | Ordinary variants implemented; thick glass background and variant matrix remain                                         |
-| `switch`               | Partial               | State, forms, keyboard and source motion implemented; optical, touch and extended API gates remain (SWITCH.md)          |
-| `table`                | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `tab-bar`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `tabs`                 | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `tag`                  | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `tag-group`            | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `textarea`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `textfield`            | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                             |
-| `time-field`           | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `toast`                | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `toggle-button`        | Partial               | Registered style/tint composition verified; dynamic inline values and Toolbar composition remain                        |
-| `glass-toggle-button`  | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `toggle-button-group`  | Partial               | Registered style/tint composition verified; dynamic inline values and Toolbar composition remain                        |
-| `toolbar`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `navigation-bar`       | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `swipe-actions`        | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `wheel-picker`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `tooltip`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `typography`           | Pending               | Native paragraph/code and full Prose/polymorphic semantics remain open on unchanged upstream (SEMANTIC_GAPS.md)         |
-| `glass`                | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                              |
-| `glass-container`      | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `glass-magnifier`      | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `glass-button`         | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                              |
-| `context-menu`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `action-sheet`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `sheet`                | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `stepper`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `list`                 | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `page-control`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `popup-button`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `sidebar`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `notification`         | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `share-sheet`          | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `segmented-control`    | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `section-index`        | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `refresh-control`      | Pending               | Implementation, runnable example, browser acceptance                                                                    |
-| `command`              | Pending               | Implementation, runnable example, browser acceptance                                                                    |
+| Lenso family           | Exact Web status      | Remaining acceptance                                                                                                        |
+| ---------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `accordion`            | Web behavior verified | Linked-page initial styles and behavior verified; broader delivery gates remain                                             |
+| `alert-dialog`         | Partial               | Native confirmation/material verified; optical, focus/portal/control and device gates remain open (ALERT_DIALOG.md)         |
+| `alert`                | Partial               | Native status composition/material and browser behavior verified; glass capture/device gates remain (CONTENT.md)            |
+| `autocomplete`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `avatar`               | Partial               | Image/fallback and shared variants implemented; delay/callback/render parity remains (AVATAR.md)                            |
+| `avatar-group`         | Partial               | Explicit stack/grid/count composition; inheritance and automatic max/count remain (AVATAR.md)                               |
+| `badge`                | Partial               | Placement, variants, accessible counts and lifecycle verified; glass capture/device gates remain (CONTENT.md)               |
+| `breadcrumbs`          | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                    |
+| `button`               | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                                  |
+| `button-group`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `calendar`             | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `calendar-year-picker` | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `card`                 | Partial               | All variants, composition, actions and cleanup verified; glass optical/device gates remain (LAYOUT.md)                      |
+| `checkbox`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `checkbox-group`       | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `chip`                 | Web behavior verified | Ordinary composition, variants, caller styles and browser behavior verified; broader delivery gates remain (CONTENT.md)     |
+| `close-button`         | Partial               | Native/loading behavior and rich content verified; shared Button-family integration remains (CONTENT.md)                    |
+| `color-area`           | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `color-field`          | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `color-input-group`    | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `color-picker`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `color-slider`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `color-swatch`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `color-swatch-picker`  | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `combo-box`            | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `date-field`           | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `date-input-group`     | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `date-picker`          | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `date-range-picker`    | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `description`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `disclosure`           | Web behavior verified | Linked-page initial styles and behavior verified; broader delivery gates remain                                             |
+| `drawer`               | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `empty-state`          | Web behavior verified | Composition, actions, names, themes and RTL verified; native paragraph-tag gap retained (LAYOUT.md, SEMANTIC_GAPS.md)       |
+| `field-error`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `fieldset`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `form`                 | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `input`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `input-group`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `input-otp`            | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `kbd`                  | Pending               | Native kbd/abbr declaration path absent in pinned upstream; retained gap per owner choice (SEMANTIC_GAPS.md)                |
+| `label`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `link`                 | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                    |
+| `list-box`             | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `menu`                 | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `meter`                | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                 |
+| `modal`                | Partial               | Native Web composition verified; WebKit exit motion and focus/portal/control parity remain open (MODAL.md)                  |
+| `number-field`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `pagination`           | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `popover`              | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `progress-bar`         | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                 |
+| `progress-circle`      | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                 |
+| `radio`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `radio-group`          | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `range-calendar`       | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `scroll-shadow`        | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `search-field`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `select`               | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `separator`            | Web behavior verified | Composition, initial styles and browser behavior verified; broader delivery gates remain                                    |
+| `skeleton`             | Web behavior verified | Shared motion, nesting and registered caller styles verified; broader delivery gates remain                                 |
+| `slider`               | Partial               | Single/range state, geometry and interaction implemented; swap, extended API, motion/optical/touch gates remain (SLIDER.md) |
+| `spinner`              | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                 |
+| `surface`              | Partial               | Ordinary variants implemented; thick glass background and variant matrix remain                                             |
+| `switch`               | Partial               | State, forms, keyboard and source motion implemented; optical, touch and extended API gates remain (SWITCH.md)              |
+| `table`                | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `tab-bar`              | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `tabs`                 | Partial               | Selection, panels, keyboard and source motion implemented; overflow, extended API and optical/touch gates remain (TABS.md)  |
+| `tag`                  | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `tag-group`            | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `textarea`             | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `textfield`            | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                 |
+| `time-field`           | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `toast`                | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `toggle-button`        | Partial               | Registered style/tint composition verified; dynamic inline values and Toolbar composition remain                            |
+| `glass-toggle-button`  | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `toggle-button-group`  | Partial               | Registered style/tint composition verified; dynamic inline values and Toolbar composition remain                            |
+| `toolbar`              | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `navigation-bar`       | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `swipe-actions`        | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `wheel-picker`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `tooltip`              | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `typography`           | Pending               | Native paragraph/code and full Prose/polymorphic semantics remain open on unchanged upstream (SEMANTIC_GAPS.md)             |
+| `glass`                | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                                  |
+| `glass-container`      | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `glass-magnifier`      | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `glass-button`         | Partial               | Complete API, motion and variant matrix beyond the initial consumer checks                                                  |
+| `context-menu`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `action-sheet`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `sheet`                | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `stepper`              | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `list`                 | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `page-control`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `popup-button`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `sidebar`              | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `notification`         | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `share-sheet`          | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `segmented-control`    | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `section-index`        | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `refresh-control`      | Pending               | Implementation, runnable example, browser acceptance                                                                        |
+| `command`              | Pending               | Implementation, runnable example, browser acceptance                                                                        |
 
 Supporting Exact components: `Theme` and `Backdrop` are implemented. Theme portal
 synchronization, contrast, transparency preferences and directionality still need

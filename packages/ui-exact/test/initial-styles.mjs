@@ -27,6 +27,14 @@ export async function checkInitialStyles(page, url, engine) {
     );
     return page.evaluate(() => {
       const ids = [
+        "tabs-demo-list",
+        "tabs-account",
+        "tabs-account-panel",
+        "tabs-security-panel",
+        "slider-range",
+        "slider-range-control",
+        "slider-range-input-0",
+        "slider-range-thumb-0",
         "layout-card",
         "layout-card-title",
         "layout-empty",

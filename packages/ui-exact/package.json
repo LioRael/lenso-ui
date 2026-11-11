@@ -28,7 +28,9 @@
     "LAYOUT.md",
     "SEMANTIC_GAPS.md",
     "AVATAR.md",
-    "SWITCH.md"
+    "SWITCH.md",
+    "SLIDER.md",
+    "TABS.md"
   ],
   "type": "module",
   "exports": {

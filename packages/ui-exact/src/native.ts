@@ -10,7 +10,7 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
       else node.setAttribute("data-material", original);
     });
   }
-  if (data["lensoKind"] === "switch") {
+  if (data["lensoKind"] === "switch" || data["lensoKind"] === "slider-input") {
     const original = node.getAttribute("aria-readonly");
     if (data["lensoReadonly"] === "true") node.setAttribute("aria-readonly", "true");
     else node.removeAttribute("aria-readonly");
@@ -18,6 +18,49 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
       if (original === null) node.removeAttribute("aria-readonly");
       else node.setAttribute("aria-readonly", original);
     });
+  }
+  if (data["lensoKind"] === "slider-input" && node instanceof HTMLInputElement) {
+    const original = node.defaultValue;
+    node.defaultValue = data["lensoValue"] ?? node.value;
+    restores.push(() => {
+      node.defaultValue = original;
+    });
+  }
+  if (data["lensoKind"] === "tabs-glass") {
+    const original = node.getAttribute("data-material");
+    if (data["lensoGlass"] === "true") node.setAttribute("data-material", "glass-small");
+    else node.removeAttribute("data-material");
+    restores.push(() => {
+      if (original === null) node.removeAttribute("data-material");
+      else node.setAttribute("data-material", original);
+    });
+  }
+  if (node instanceof HTMLElement && data["lensoKind"] === "tabs-panel") {
+    const hidden = node.hidden,
+      inert = node.inert;
+    node.hidden = data["lensoPanelOpen"] !== "true";
+    node.inert = node.hidden;
+    restores.push(() => {
+      node.hidden = hidden;
+      node.inert = inert;
+    });
+  }
+  if (node instanceof HTMLElement && data["lensoKind"] === "tabs-list") {
+    const lift = Number(data["lensoLift"]);
+    if (!Number.isFinite(lift) || lift < 0)
+      throw new RangeError("Tabs lift must be finite and non-negative");
+    for (const [name, value] of [
+      ["--lenso-exact-tabs-grow-x", `${Math.round((lift * 4) / 3)}px`],
+      ["--lenso-exact-tabs-grow-y", `${lift}px`],
+    ]) {
+      const original = node.style.getPropertyValue(name!),
+        priority = node.style.getPropertyPriority(name!);
+      node.style.setProperty(name!, value!);
+      restores.push(() => {
+        if (original) node.style.setProperty(name!, original, priority);
+        else node.style.removeProperty(name!);
+      });
+    }
   }
   const disconnectSwitchInput = connectSwitchInput(node, data);
   if (disconnectSwitchInput) restores.push(disconnectSwitchInput);
@@ -48,6 +91,7 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
     ["lensoChecked", "data-checked"],
     ["lensoIndeterminate", "data-indeterminate"],
     ["lensoOpen", "data-open"],
+    ["lensoActive", "data-active"],
     ["lensoPanelOpen", "data-panel-open"],
   ] as const) {
     if (data[key] === undefined) continue;

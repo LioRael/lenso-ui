@@ -20,6 +20,7 @@ shape DocsChoice
   exact: bool
 
 shape DocsLabels
+  back: string
   skipContent: string
   navigation: string
   search: string

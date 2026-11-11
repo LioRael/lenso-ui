@@ -83,9 +83,9 @@ Exact's local development configuration; these commands do not publish an app.
 
 `app.json` may set `app.id`, `app.name` and `host.macos`/`host.ios` options; existing
 host settings are preserved. Custom layouts/pages can inject `docsPlatform: string`
-(`web`, `macos`, `ios`). Native generation adds only a scrolling root, without a
-theme. The reference layout offers native Markdown copying; the static raw-source
-URL is Web-only. SEO, sitemap and HTML metadata synchronization remain Web features.
+(`web`, `macos`, `ios`). Native generation retains scrolling page screens and adds
+a semantic Back action, without a theme. The reference layout offers native
+Markdown copying; the static raw-source URL is Web-only. SEO, sitemap and HTML metadata synchronization remain Web features.
 Custom data modules still need native-compatible dependencies and grants.
 
 `dev` remains the Web watcher. Re-run a native build to incorporate content edits.
@@ -401,8 +401,12 @@ Markdown while content is pending or failed. A normal reload recovers a failed
 page through its complete static HTML and checkpoint.
 
 The application runtime still has a first-activation cost. Page data splitting
-reduces that cost's dependence on total prose volume; route/TOC metadata, native
+reduces that cost's dependence on total prose volume; route identities, shared scope data, native
 runtime, templates and custom Exact code remain part of the shared entry.
+TOC, SEO, language/version counterparts and adjacent-page links travel with the
+page body. Language, direction and version status remain available immediately
+from shared scope data. [ROUTING_STARTUP.md](ROUTING_STARTUP.md) records the latest
+300-page startup comparison.
 
 ## Document metadata and navigation
 
@@ -504,7 +508,7 @@ component also provides optional native injection bindings for custom layouts:
 | --------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
 | `docsPlatform`                          | `string`           | `web`, `macos`, or `ios`                                                |
 | `docsGroups`                            | `DocsGroup[]`      | Ordered groups with `id`, `title` and `items: DocsLink[]`               |
-| `docsPrevious`, `docsNext`              | `option<DocsLink>` | Adjacent visible pages, or `none`                                       |
+| `docsPrevious`, `docsNext`              | `option<DocsLink>` | Ready adjacent visible pages; `none` while pending/failed               |
 | `docsDescription`                       | `string`           | Resolved page description                                               |
 | `docsMarkdown`                          | `string`           | Current ready Markdown, empty for Exact pages or pending/failed content |
 | `docsMarkdownUrl`                       | `string`           | Static raw-source URL on Web, empty for native targets and Exact pages  |

@@ -140,6 +140,11 @@ export function kept(source: string, args: unknown[], value: unknown) {
       );
       assert.equal(await page.locator('[data-docs-part="article"]').count(), 0);
       assert.equal(await page.locator('[data-docs-part="toc"] a').count(), 0);
+      assert.equal(await page.locator('[data-docs-part="pagination"] a').count(), 0);
+      assert.equal(
+        await page.getByRole("link", { name: "Open Markdown", exact: true }).getAttribute("href"),
+        "/_docs/markdown/delayed/index.md",
+      );
       assert.equal(await page.locator('[data-docs-part="locales"] a').count(), 0);
       assert.equal(await page.locator('[data-docs-part="versions"] a').count(), 0);
       assert.equal(await page.locator('link[rel="canonical"]').count(), 0);
@@ -149,6 +154,12 @@ export function kept(source: string, args: unknown[], value: unknown) {
       release();
       release = undefined;
       await page.waitForLoadState("networkidle");
+      assert.deepEqual(
+        await page
+          .locator('[data-docs-part="pagination"] a')
+          .evaluateAll((links) => links.map((link) => link.getAttribute("href"))),
+        ["/delayed", "/fragment"],
+      );
       assert.equal(new URL(page.url()).pathname, "/fast");
       assert.equal(
         await page.locator('link[rel="canonical"]').getAttribute("href"),

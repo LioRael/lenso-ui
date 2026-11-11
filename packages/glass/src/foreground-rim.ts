@@ -72,17 +72,33 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
     const alpha = light + shade - light * shade;
     return alpha > 0 ? [(light / (light + shade)) * alpha, alpha] : [0, 0];
   };
+  // Beyond both the corner and the last inward band, translating a full
+  // pixel footprint along a straight edge leaves every subpixel sample equal.
+  const margin = Math.max(radius, depth + 1) + 1;
+  const left = Math.ceil((margin + 1) / pitchX);
+  const right = Math.floor((width - margin + 1) / pitchX) - 1;
+  const top = Math.ceil((margin + 1) / pitchY);
+  const bottom = Math.floor((height - margin + 1) / pitchY) - 1;
+  const packed = new Uint32Array(image.data.buffer);
   for (let y = 0; y < image.height; y++) {
+    if (y > top && y <= bottom) {
+      packed.copyWithin(y * columns, top * columns, (top + 1) * columns);
+      continue;
+    }
     const py = (y + 0.5) * pitchY - 1 - height / 2;
     const cornerY = Math.max(0, Math.abs(py) - (innerHeight - innerRadius));
     const span = innerWidth - innerRadius + Math.sqrt(Math.max(0, innerRadius ** 2 - cornerY ** 2));
     const skip = innerWidth > 0 && innerHeight > 0 && Math.abs(py) < innerHeight;
-    const skipStart = Math.ceil((width / 2 - span + 1) / pitchX - 0.5);
-    const skipEnd = Math.floor((width / 2 + span + 1) / pitchX - 0.5);
+    const repeat = !skip && right > left;
+    const skipStart = skip ? Math.ceil((width / 2 - span + 1) / pitchX - 0.5) : left + 1;
+    const skipEnd = skip ? Math.floor((width / 2 + span + 1) / pitchX - 0.5) : right;
     for (let x = 0; x < image.width; x++) {
-      // The inset contour is beyond every nonzero rim band. Leave its pixels
-      // transparent instead of sampling the whole interior of large panels.
-      if (skip && x >= skipStart && x <= skipEnd) {
+      // Skip the transparent interior or fill a straight edge from its first pixel.
+      if ((skip || repeat) && x >= skipStart && x <= skipEnd) {
+        if (repeat) {
+          const row = y * columns;
+          packed.fill(packed[row + left]!, row + x, row + right + 1);
+        }
         x = skipEnd;
         continue;
       }

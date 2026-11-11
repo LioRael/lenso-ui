@@ -1,6 +1,6 @@
 # Additional notices
 
-`src/switch.ts` and `src/control-lens.ts` adapt Lenso's Kelvin Zhang / Glisse
+`src/switch.ts`, `src/slider-lift.ts`, `src/tabs-motion.ts` and `src/control-lens.ts` adapt Lenso's Kelvin Zhang / Glisse
 control motion and optical profiles (MIT), retaining their file-level notices.
 Their MIT license and shared token attributions are included in the workspace
 THIRD_PARTY_NOTICES.md copied into the distributable.
