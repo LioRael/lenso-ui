@@ -67,7 +67,7 @@ Publication and repository landing require separate user instructions.
 | `modal`                | Partial               | Native Web composition verified; WebKit exit motion and focus/portal/control parity remain open (MODAL.md)                                                                            |
 | `number-field`         | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
 | `pagination`           | Partial               | Native links, all source sizes, rich parts, responsive/RTL and browser behavior verified; pre-hatch disabled role, structural HTML and native forwarding gates remain (PAGINATION.md) |
-| `popover`              | Pending               | Implementation, runnable example, browser acceptance                                                                                                                                  |
+| `popover`              | Partial               | Native non-modal interactions, anchored thick material, positioning and lifecycle verified; extended/modal/portal/native and optical gates remain (POPOVER.md)                        |
 | `progress-bar`         | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                                                                           |
 | `progress-circle`      | Web behavior verified | Shared presentation, semantics and browser behavior verified; broader delivery gates remain                                                                                           |
 | `radio`                | Partial               | Core behavior verified in Chromium/WebKit; complete family API and acceptance matrix remain                                                                                           |
@@ -137,13 +137,15 @@ acceptance alongside the families that consume them.
 
 ## Current build and focused acceptance
 
-The detachable Toolbar checkpoint builds 4111 core recipes and 5625 consumer
-recipes. Its focused browser cohort checks 2325 affected Toolbar recipes,
-linked first-frame joined geometry, intermediate/reversed fusion transitions,
-32 layout endpoints and standard Toolbar, GlassContainer and navigation
-regressions in Chromium and WebKit. The preceding GlassContainer cohort checked
-5 affected recipes and worker/main-thread fallbacks. This is not a rerun of the
-entire catalog. Earlier cohort counts below retain their historical scope.
+The Popover checkpoint builds 4177 core recipes and 5691 consumer recipes.
+Its focused Chromium/WebKit cohort checks 66 affected recipes, linked first-frame
+styles/native opening, keyboard and nested dismissal, 36 placement endpoints,
+caller styles, scrolling/tracking opt-out, preference fallbacks and teardown.
+Modal, AlertDialog and navigation regressions cover the shared focus traversal.
+The preceding Toolbar cohort checked 2325 affected recipes and 32 endpoints;
+GlassContainer checked 5 affected recipes and worker/main-thread fallbacks.
+This is not a rerun of the entire catalog. Earlier cohort counts below retain
+their historical scope.
 
 ## Verified integration slice (2026-11-10)
 

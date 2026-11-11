@@ -1,3 +1,4 @@
+import { updatePopover, endPopover } from "./popover.js";
 import { trackPressHighlight } from "@lenso/glass/fusion";
 import {
   updateGlassContainer,
@@ -189,6 +190,7 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   updateAvatar(node, handle.data);
   updatePanel(node, handle.data);
   updateToggleGroup(node, handle.data);
+  updatePopover(node, handle.data);
   updateModal(node, handle.data);
   updateMaterial(node, handle.data);
   node.setAttribute("data-lenso-ready", "");
@@ -213,6 +215,7 @@ export function elementEnded(handle: ExactElement) {
   endAvatar(handle.element);
   endPanel(handle.element);
   endToggleGroup(handle.element);
+  endPopover(handle.element);
   endModal(handle.element);
   endMaterial(handle.element);
   owners.get(handle.element)?.release(true);

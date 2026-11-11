@@ -76,7 +76,7 @@ function index(element: FocusElement) {
     : element.tabIndex;
 }
 
-export function modalTabbables(dialog: HTMLDialogElement): FocusElement[] {
+function tabbablesIn(container: HTMLElement, owner: HTMLDialogElement | null): FocusElement[] {
   const found: Element[] = [];
   const visit = (container: Element) => {
     const assigned =
@@ -91,10 +91,10 @@ export function modalTabbables(dialog: HTMLDialogElement): FocusElement[] {
       visit(child);
     }
   };
-  visit(dialog);
+  visit(container);
   const enabled = found
     .filter(eligible)
-    .filter((element) => modalOwner(element) === dialog && index(element) >= 0);
+    .filter((element) => modalOwner(element) === owner && index(element) >= 0);
   return enabled
     .filter((element) => {
       if (!(element instanceof HTMLInputElement) || element.type !== "radio" || !element.name)
@@ -115,4 +115,12 @@ export function activeElement(document: Document): Element | null {
   let active = document.activeElement;
   while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
   return active;
+}
+
+export function modalTabbables(dialog: HTMLDialogElement): FocusElement[] {
+  return tabbablesIn(dialog, dialog);
+}
+
+export function popoverTabbables(popup: HTMLElement): FocusElement[] {
+  return tabbablesIn(popup, modalOwner(popup));
 }

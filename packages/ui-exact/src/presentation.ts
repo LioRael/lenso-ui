@@ -1,3 +1,4 @@
+import { popoverPresentation, popoverKinds } from "./popover-presentation.js";
 import { glassContainerPresentation, glassContainerKinds } from "./glass-container-presentation.js";
 import { toolbarPresentation, toolbarKinds } from "./toolbar-presentation.js";
 import { paginationPresentation, paginationKinds } from "./pagination-presentation.js";
@@ -98,7 +99,8 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
           searchFieldPresentation(kind, data) ??
           paginationPresentation(kind, data) ??
           toolbarPresentation(kind, data) ??
-          glassContainerPresentation(kind, data));
+          glassContainerPresentation(kind, data) ??
+          popoverPresentation(kind, data));
       if (!result) throw new RangeError(`Unknown Lenso component: ${kind}`);
       return result;
     }
@@ -152,6 +154,7 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     });
   };
   for (const kind of [
+    ...popoverKinds,
     ...glassContainerKinds,
     ...toolbarKinds,
     ...paginationKinds,
@@ -174,6 +177,22 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     "glass",
   ])
     add(kind);
+  for (const side of ["top", "bottom", "left", "right", "inline-start", "inline-end"])
+    for (const align of ["start", "center", "end"])
+      for (const direction of ["ltr", "rtl"])
+        add(
+          "popover-positioner",
+          { lensoSide: side, lensoAlign: align, lensoDirection: direction },
+          `[data-lenso-side="${side}"][data-lenso-align="${align}"][data-lenso-direction="${direction}"]`,
+        );
+  for (const kind of ["popover-trigger", "popover-close"])
+    for (const size of ["sm", "md", "lg"])
+      for (const variant of ["prominent", "bordered", "borderless"])
+        add(
+          kind,
+          { lensoSize: size, lensoVariant: variant },
+          `[data-lenso-size="${size}"][data-lenso-variant="${variant}"]`,
+        );
   for (const elastic of [false, true])
     add(
       "glass-container-item",

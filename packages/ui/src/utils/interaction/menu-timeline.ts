@@ -6,23 +6,28 @@ export function createMenuTimeline(
   sample: (time: number, open: boolean) => MenuPose,
   paint: (pose: MenuPose, settled: boolean, open: boolean) => void,
   durations = menuDurations,
+  measure?: () => void,
 ) {
+  const sampleFrame = (time: number, opening: boolean) => {
+    measure?.();
+    return sample(time, opening);
+  };
   let open = false,
     frame = 0,
     stopped = false,
     started = 0,
     duration = 0;
-  let current = sample(durations.closing, false);
+  let current = sampleFrame(durations.closing, false);
   let previousTime = 0;
   let velocityFrom = current,
     velocityTo = current,
     velocityInterval = 0;
   let correction: { offset: MenuPose; drift: MenuPose } | undefined;
   const keys = Object.keys(current) as (keyof MenuPose)[];
-  const tick = (time: number) => {
+  const tick = (time: number, initial?: MenuPose) => {
     frame = 0;
     const elapsed = Math.min(duration, Math.max(0, time - started));
-    const pose = sample(elapsed, open);
+    const pose = initial ?? sampleFrame(elapsed, open);
     if (correction && elapsed < 120) {
       const t = elapsed / 120,
         h0 = 2 * t * t * t - 3 * t * t + 1,
@@ -53,15 +58,17 @@ export function createMenuTimeline(
     duration = open ? durations.opening : durations.closing;
     if (instant || document.hidden || prefersReducedMotion()) {
       frame = 0;
-      current = sample(duration, open);
+      current = sampleFrame(duration, open);
       velocityInterval = 0;
       correction = undefined;
       paint(current, true, open);
       return;
     }
+    let first: MenuPose | undefined;
     if (moving) {
-      const first = sample(0, open),
-        after = sample(1, open);
+      // Both samples describe the new trajectory against the same live anchor.
+      first = sampleFrame(0, open);
+      const after = sample(1, open);
       const offset = { ...current },
         drift = { ...current };
       for (const key of keys) {
@@ -74,7 +81,7 @@ export function createMenuTimeline(
       correction = { offset, drift };
     } else correction = undefined;
     started = previousTime = performance.now();
-    tick(started);
+    tick(started, first);
   };
   const visibility = () => {
     if (document.hidden) set(open ? 1 : 0, true);

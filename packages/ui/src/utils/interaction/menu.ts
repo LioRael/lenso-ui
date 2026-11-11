@@ -242,7 +242,6 @@ function present(
   };
   const shape = createMenuTimeline(
     (time, open) => {
-      measureAnchor();
       if (iconMenu) return sampleIconMenu(time, open, { ...from, ...start }, to, radius);
       return sampleMenu(
         time,
@@ -262,6 +261,7 @@ function present(
       : iconMenu
         ? iconMenuDurations
         : undefined,
+    measureAnchor,
   );
   const motion = {
     ...shape,

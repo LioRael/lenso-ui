@@ -179,6 +179,26 @@ export async function checkInitialStyles(page, url, engine) {
     if (morphInitial.supported)
       for (const gap of morphInitial.gaps)
         assert.ok(Math.abs(gap) < 0.5, `${engine}: joined Toolbar must touch before hatches`);
+    await page.getByTestId("popover-open").click();
+    await page.waitForFunction(() =>
+      document.getElementById("export-popover").matches(":popover-open"),
+    );
+    assert.equal(
+      await page
+        .getByTestId("export-popover-popup")
+        .evaluate((n) => getComputedStyle(n).paddingTop),
+      "24px",
+    );
+    assert.equal(
+      await page
+        .getByTestId("export-popover-popup")
+        .evaluate((n) => getComputedStyle(n).borderRadius),
+      "38px",
+    );
+    await page.keyboard.press("Escape");
+    await page.waitForFunction(
+      () => !document.getElementById("export-popover").matches(":popover-open"),
+    );
     const scrollInitial = await page.evaluate(() => {
       const node = document.getElementById("shadow-sample"),
         style = getComputedStyle(node);

@@ -1,3 +1,4 @@
+import { checkPopover } from "./popover.mjs";
 import { checkToolbarFusion } from "./toolbar-fusion.mjs";
 import { checkGlassContainer } from "./glass-container.mjs";
 import { checkToolbar } from "./toolbar.mjs";
@@ -160,6 +161,7 @@ try {
       await checkToolbar(page, name);
       await checkGlassContainer(page, name);
       await checkToolbarFusion(page, name);
+      await checkPopover(page, name);
       await checkDisclosure(page, name);
       for (const width of [390, 820]) {
         await page.setViewportSize({ width, height: 844 });

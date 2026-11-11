@@ -23,6 +23,10 @@ and group focus semantics. SearchField presentation reuses the attributed
 Kelvin Zhang / Glisse token maps from `@lenso/tokens`; the workspace notices
 are included in the distributable.
 
+`src/anchored-material.ts` adapts the shared Lenso AnchoredMaterial shape without React.
+`src/popover.ts` uses Floating UI DOM 1.8.0 for native-element positioning.
+Floating UI core, DOM and utils are MIT licensed by the Floating UI contributors.
+
 `src/modal-focus.ts` adapts native focus traversal from Base UI 1.9.0.
 The retained notice is reproduced below. Other retained adaptations are covered
 by the workspace THIRD_PARTY_NOTICES.md copied into the distributable notices.
@@ -30,6 +34,7 @@ by the workspace THIRD_PARTY_NOTICES.md copied into the distributable notices.
 MIT License
 
 Copyright (c) 2019 Material-UI SAS
+Copyright (c) 2021-present Floating UI contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

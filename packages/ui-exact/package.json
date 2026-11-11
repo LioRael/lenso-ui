@@ -38,7 +38,8 @@
     "SEARCH_FIELD.md",
     "PAGINATION.md",
     "TOOLBAR.md",
-    "GLASS_CONTAINER.md"
+    "GLASS_CONTAINER.md",
+    "POPOVER.md"
   ],
   "type": "module",
   "exports": {
@@ -65,6 +66,7 @@
     "test:glass-capture": "bun test/visual-capabilities.mjs"
   },
   "dependencies": {
+    "@floating-ui/dom": "1.8.0",
     "@lenso/glass": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@stylexjs/stylex": "catalog:",

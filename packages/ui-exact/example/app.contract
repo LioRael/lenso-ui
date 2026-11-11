@@ -1,3 +1,4 @@
+use PopoverExample from "./popover.contract"
 use ToolbarFusionExample from "./toolbar-fusion.contract"
 use GlassContainerExample from "./glass-container.contract"
 use ToolbarExample from "./toolbar.contract"
@@ -92,3 +93,4 @@ component App
           ToolbarExample()
           GlassContainerExample()
           ToolbarFusionExample()
+          PopoverExample()

@@ -39,15 +39,20 @@ indicator, body and panel parts. See [composition and state models](DISCLOSURE.m
 and the [runnable example](example/disclosure.contract). These use explicit shared
 state shapes because Exact's slots retain the caller's provider scope.
 
+Popover adds native non-modal top-layer content, anchored thick material,
+collision-aware positioning and nested keyboard/focus behavior. See
+[Popover](POPOVER.md) and its [compiled export example](example/popover.contract)
+for the API and remaining modal, hover, portal and native integration work.
+
 GlassContainer adds shared fusion ownership for small Glass members, preference
 fallback and packaged worker preparation through the non-React renderer API.
 See [GlassContainer](GLASS_CONTAINER.md) and its [compiled example](example/glass-container.contract).
 
 Toolbar adds named action groups, native roving keyboard focus, shared Glass
 surfaces and explicit state for attached/grouped controls. See
-[Toolbar](TOOLBAR.md) and its [compiled example](example/toolbar.contract), including
-detachable fusion in its [compiled example](example/toolbar-fusion.contract),
-and remaining sticky-edge, Menu and native integration work.
+[Toolbar](TOOLBAR.md), the [ordinary/attached example](example/toolbar.contract)
+and the [detachable fusion example](example/toolbar-fusion.contract).
+Sticky edges, Menu and native integration remain open.
 
 Pagination adds ordinary native page links, summary/list/item composition,
 localized rich Previous/Next content, decorative ellipsis and source size maps.

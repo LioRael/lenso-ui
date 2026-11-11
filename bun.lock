@@ -306,6 +306,7 @@
       "name": "@lenso/ui-exact",
       "version": "0.1.0",
       "dependencies": {
+        "@floating-ui/dom": "1.8.0",
         "@lenso/glass": "workspace:*",
         "@lenso/tokens": "workspace:*",
         "@stylexjs/stylex": "catalog:",

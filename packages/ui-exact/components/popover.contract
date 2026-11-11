@@ -1,0 +1,116 @@
+shape PopoverState
+  id: string
+  label: string
+  labelledBy: string
+  describedBy: string
+  side: string
+  align: string
+  direction: string
+  sideOffset: number
+  alignOffset: number
+  collisionPadding: number
+  collisionAvoidance: bool
+  disableAnchorTracking: bool
+
+component Popover
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="popover-root" data-slot="popover-root"
+      children
+
+component PopoverPortal
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="popover-portal" data-slot="popover-portal"
+      children
+
+component PopoverTrigger
+  props
+    id: string
+    label: string
+    target: string
+    disabled: bool
+    size: string
+    variant: string
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=0 aria-label=label aria-haspopup="dialog"
+      disabled=disabled popovertarget=target popovertargetaction="toggle"
+      hatch="lenso-ui" data-lenso-kind="popover-trigger" data-slot="popover-trigger"
+      data-lenso-size=size data-lenso-variant=variant
+      children
+
+component PopoverPositioner
+  props
+    state: PopoverState
+  slot
+  view
+    box id=state.id testId=state.id popover="auto" role="presentation"
+      hatch="lenso-ui" data-lenso-kind="popover-positioner" data-slot="popover-positioner"
+      data-lenso-side=state.side data-lenso-align=state.align data-lenso-direction=state.direction
+      data-lenso-side-offset=state.sideOffset data-lenso-align-offset=state.alignOffset
+      data-lenso-collision-padding=state.collisionPadding data-lenso-collision-avoidance=state.collisionAvoidance
+      data-lenso-disable-anchor-tracking=state.disableAnchorTracking
+      children
+
+component PopoverPopup
+  props
+    state: PopoverState
+  slot
+  view
+    column id=`${state.id}-popup` testId=`${state.id}-popup` role="dialog" tabindex=-1
+      aria-label=state.label aria-labelledby=state.labelledBy aria-describedby=state.describedBy
+      hatch="lenso-ui" data-lenso-kind="popover-popup" data-slot="popover-popup"
+      data-direction=state.direction data-material="thick"
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="popover-material" data-slot="popover-material"
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="popover-paint-blur"
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="popover-paint-upper"
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="popover-paint-lower"
+      children
+
+component PopoverArrow
+  props
+    state: PopoverState
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="popover-arrow" data-slot="popover-arrow"
+      data-side=state.side data-direction=state.direction
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="popover-arrow-material" data-slot="popover-arrow-material"
+
+component PopoverTitle
+  props
+    id: string
+    level: number
+  slot
+  view
+    box id=id role="heading" aria-level=level hatch="lenso-ui" data-lenso-kind="popover-title" data-slot="popover-title"
+      children
+
+component PopoverDescription
+  props
+    id: string
+  slot
+  view
+    box id=id role="paragraph" hatch="lenso-ui" data-lenso-kind="popover-description" data-slot="popover-description"
+      children
+
+component PopoverViewport
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="popover-viewport" data-slot="popover-viewport"
+      children
+
+component PopoverClose
+  props
+    id: string
+    label: string
+    target: string
+    disabled: bool
+    size: string
+    variant: string
+  slot
+  view
+    button id=id testId=id appearance="none" tabindex=0 aria-label=label disabled=disabled
+      popovertarget=target popovertargetaction="hide"
+      hatch="lenso-ui" data-lenso-kind="popover-close" data-slot="popover-close"
+      data-lenso-size=size data-lenso-variant=variant
+      children

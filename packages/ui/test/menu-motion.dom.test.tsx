@@ -1,4 +1,4 @@
-import { expect, test } from "bun:test";
+import { expect, mock, test } from "bun:test";
 import { sampleMenu, menuDurations } from "../src/utils/interaction/menu-shape.js";
 import { createMenuTimeline } from "../src/utils/interaction/menu-timeline.js";
 import { presentMenuFeedback } from "../src/utils/interaction/menu-feedback.js";
@@ -64,16 +64,30 @@ test("timeline preserves all channels when reversing and cancels pending frames"
     frames.delete(key);
   };
   let current = sample(0, true);
-  const timeline = createMenuTimeline(sample, (pose) => {
-    current = pose;
-  });
+  const measure = mock(() => {});
+  const samplePose = mock(sample);
+  const timeline = createMenuTimeline(
+    samplePose,
+    (pose) => {
+      current = pose;
+    },
+    menuDurations,
+    measure,
+  );
   try {
     timeline.set(1);
     const callback = frames.values().next().value!;
     frames.clear();
     callback(performance.now() + 95);
     const before = { ...current };
+    measure.mockClear();
+    samplePose.mockClear();
     timeline.set(0);
+    expect(measure).toHaveBeenCalledTimes(1);
+    expect(samplePose.mock.calls).toEqual([
+      [0, false],
+      [1, false],
+    ]);
     for (const key of Object.keys(before) as (keyof typeof before)[])
       expect(current[key]).toBeCloseTo(before[key], 6);
     timeline.set(1, true);

@@ -39,6 +39,8 @@ Geometry checks cover both axes, LTR/RTL, light/dark and 390/820px; final
 representative captures show light desktop/LTR and dark narrow/RTL output. These are field,
 behavior and geometry receipts, not a comparative rendering-performance gate.
 
+Detachable Toolbar groups now share this owner and renderer; see [Toolbar](TOOLBAR.md).
+
 The family remains Partial. Full native ref/render/event forwarding,
-all other family membership integrations, qualified optical/device acceptance,
+additional family membership integrations, qualified optical/device acceptance,
 native-platform adapters and performance comparisons remain open.
