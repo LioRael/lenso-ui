@@ -1,0 +1,21 @@
+packages/primitives-exact/README.md
+  s_bc7f547f67ab4c::t_5cc4977234b489 144-146
+packages/primitives-exact/VERIFICATION.md
+  s_bc7f547f67ab4c::t_9c3cae8a6483cf 124-129,170-185
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cab29363a1a733342287d366f3278a35917cf95a",
+  "prompts": {},
+  "sessions": {
+    "s_bc7f547f67ab4c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c5e2-210b-7c01-a9cd-1ba4c5daf4dd",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
