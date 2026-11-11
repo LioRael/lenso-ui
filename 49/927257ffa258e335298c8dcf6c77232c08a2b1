@@ -1,0 +1,610 @@
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0023-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427175850355-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-20
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427139935002-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427175850355.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427175850355-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/case-2.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/legacy-dump.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0022.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/readiness-state.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0023.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-85
+  s_ab5c95a3492695::t_d42cdb9629ed05 86
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0004.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-after/binary-provenance.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-6
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-color-field-public-cases.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-35
+apps/native-example/README.md
+  s_ab5c95a3492695::t_1a8e5238187d2b 133-141
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/exit-info-final.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-17
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427151492173-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-4.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/shutdown.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/captures/cf1794426764522868-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/case-2.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/source/apps/native-example/ColorFieldExample.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-141
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0004-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-7.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0030-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0022-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/keyboard-source-finding.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-22
+docs/research/evidence/native-android-color-field-2026-11-12/color-field.after.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-199
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0028.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0010-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0016-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/use-color-field.ts.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-67
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-color-field-cases.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-39
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-public-adapter.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-21
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-after/results.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-5,7-27
+  s_ab5c95a3492695::t_d42cdb9629ed05 6
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-after/source/packages/ui-native/src/color-field.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-199
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/binary-provenance.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/case-5.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427175850355-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/doctor-scope.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-9
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-1.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/source-hashes-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427151492173-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/current-avd-emu-launch-params.txt.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-12
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427175850355-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/after-keyboard-component-epoch-source-hashes-after.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/probe-uninstall.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-14
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/ready-displays.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427120567557.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-focus.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-3
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/binary-provenance.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0028-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/apps/native-example/ColorFieldExample.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-118
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-lib.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-29
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/public-probe-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-23
+docs/research/evidence/native-android-color-field-2026-11-12/models.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-98
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0010-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/after-launch.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-86
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-6.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0023-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/react-native-LICENSE.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-21
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0034-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/binary-provenance.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-33
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-probe.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/case-3.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0023-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/before-keyboard-fix-source-hashes-after.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-after-qa.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-117
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-ready.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-6
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/source-hashes-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427143042752-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427139935002-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427162366479-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427170510991-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427139935002-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_d823e07cc29b3a 144-150
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/captures/cf1794426764522868-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_027a9ed1feb326 229,231,241,243
+docs/research/native-android-color-field-2026-11-12.md
+  s_ab5c95a3492695::t_1a8e5238187d2b 40-48
+  s_ab5c95a3492695::t_7ebe5f99c97334 75-82
+  s_ab5c95a3492695::t_7404a11ad81218 117-118,124-131
+  s_ab5c95a3492695::t_fa541564239366 83-96
+  s_ab5c95a3492695::t_027a9ed1feb326 73,112-116,119-123
+  s_ab5c95a3492695::t_683ee12029a4d3 1-39,49-72,74
+  s_ab5c95a3492695::t_d823e07cc29b3a 97-111
+  s_ab5c95a3492695::t_aa28e4fc78b903 132-138
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0034-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-82
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-2.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-5.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-9.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/export-android.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source-hashes-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0004-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427120567557-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427170510991.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427170510991-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/results.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 28,32,36,40,44,110,114,118,122,126
+  s_ab5c95a3492695::t_7404a11ad81218 1-27,29-31,33-35,37-39,41-43,45-109,111-113,115-117,119-121,123-125,127-152
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/input-method-before.txt
+  s_ab5c95a3492695::t_a01042b3ff201e 227,252,300,346,350,353,379,447,450,518,521,589,592,595,598,601,604,607,610,613,616,619,622,625,628,2091,2185-2189,2244,2249,2251,2254,2259,2262,2265,2268,2271,2275,2278,2287,2290,2293,2296,2320,2323,2326,2329,2332,2338,2341,2344,2347,2350,2355,2358,2361,2364,2368,2372,2375,2378,2381,2384,2387,2390,2396,2401,2404,2407,2425,2428,2431,2434,2437,2441,2445,2448,2452,2455,2460,2463,2468,2471,2480,2483,2486,2489,2492,2495,2498,2501,2504,2507,2510,2513,2516,2519,2522,2525,2528,2531,2537,2540,2543,2546,2559,2566,2569,2572,2639,2643,2649,2653,2659,2663,2667,2672,2677,2682,2686,2690,2700,2704,2708,2715,2719,2723,2727,2731,2735,2739,2743,2755,2757,2761,2783,2787,2791,2796,2800,2804,2809,2813,2817,2926,2930,2934,2938,2942,2946,2950,2954,2991,3038,3044,3056,3072,3146,3149,3169,3173,3177,3182,3189,3193,3197,3202,3206,3210,3214,3218,3222,3226,3230,3245,3257,3261,3275,3279,3282,3284,3291,3308,3324,3328,3331-3332,3380,3715,3718,3723,3726,3730,3765,3773,3785-3786,3796-3797,3810-3812,3824-3825,3847,3857-3858,3866,3872,3883,4039-4040,4050-4051,4056,4069-4070,4079-4080,4105,4110-4111,4121-4122,4137-4138,4156-4157,4178-4181,4202-4203,4208-4209,4218-4220
+  s_ab5c95a3492695::t_7404a11ad81218 1-226,228-251,253-299,301-345,347-349,351-352,354-378,380-446,448-449,451-517,519-520,522-588,590-591,593-594,596-597,599-600,602-603,605-606,608-609,611-612,614-615,617-618,620-621,623-624,626-627,629-2090,2092-2184,2190-2243,2245-2248,2250,2252-2253,2255-2258,2260-2261,2263-2264,2266-2267,2269-2270,2272-2274,2276-2277,2279-2286,2288-2289,2291-2292,2294-2295,2297-2319,2321-2322,2324-2325,2327-2328,2330-2331,2333-2337,2339-2340,2342-2343,2345-2346,2348-2349,2351-2354,2356-2357,2359-2360,2362-2363,2365-2367,2369-2371,2373-2374,2376-2377,2379-2380,2382-2383,2385-2386,2388-2389,2391-2395,2397-2400,2402-2403,2405-2406,2408-2424,2426-2427,2429-2430,2432-2433,2435-2436,2438-2440,2442-2444,2446-2447,2449-2451,2453-2454,2456-2459,2461-2462,2464-2467,2469-2470,2472-2479,2481-2482,2484-2485,2487-2488,2490-2491,2493-2494,2496-2497,2499-2500,2502-2503,2505-2506,2508-2509,2511-2512,2514-2515,2517-2518,2520-2521,2523-2524,2526-2527,2529-2530,2532-2536,2538-2539,2541-2542,2544-2545,2547-2558,2560-2565,2567-2568,2570-2571,2573-2638,2640-2642,2644-2648,2650-2652,2654-2658,2660-2662,2664-2666,2668-2671,2673-2676,2678-2681,2683-2685,2687-2689,2691-2699,2701-2703,2705-2707,2709-2714,2716-2718,2720-2722,2724-2726,2728-2730,2732-2734,2736-2738,2740-2742,2744-2754,2756,2758-2760,2762-2782,2784-2786,2788-2790,2792-2795,2797-2799,2801-2803,2805-2808,2810-2812,2814-2816,2818-2925,2927-2929,2931-2933,2935-2937,2939-2941,2943-2945,2947-2949,2951-2953,2955-2990,2992-3037,3039-3043,3045-3055,3057-3071,3073-3145,3147-3148,3150-3168,3170-3172,3174-3176,3178-3181,3183-3188,3190-3192,3194-3196,3198-3201,3203-3205,3207-3209,3211-3213,3215-3217,3219-3221,3223-3225,3227-3229,3231-3244,3246-3256,3258-3260,3262-3274,3276-3278,3280-3281,3283,3285-3290,3292-3307,3309-3323,3325-3327,3329-3330,3333-3379,3381-3714,3716-3717,3719-3722,3724-3725,3727-3729,3731-3764,3766-3772,3774-3784,3787-3795,3798-3809,3813-3823,3826-3846,3848-3856,3859-3865,3867-3871,3873-3882,3884-4038,4041-4049,4052-4055,4057-4068,4071-4078,4081-4104,4106-4109,4112-4120,4123-4136,4139-4155,4158-4177,4182-4201,4204-4207,4210-4217,4221-4247
+docs/research/evidence/native-android-color-field-2026-11-12/export-final-android.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/public-probe.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-66
+  s_ab5c95a3492695::t_d42cdb9629ed05 67
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/probe-package-after.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-finish.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-2
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/source-hashes-final-verified.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-8.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-17
+docs/research/evidence/native-android-color-field-2026-11-12/ColorFieldExample.after-android-viewport.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-141
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427120567557-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-4.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-5.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-10
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/color-field.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-197
+docs/research/evidence/native-android-color-field-2026-11-12/probe-build-receipt.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-90
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0030.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0036.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-finish.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-8
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-driver.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-10
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0028-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/current-avd-config.ini.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-46
+docs/research/evidence/native-android-color-field-2026-11-12/source-hashes-before-keyboard.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-qa.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-117
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/public-probe-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-17
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0028-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/checks-receipt.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-26
+docs/research/evidence/native-android-color-field-2026-11-12/comparison.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-31,33-240,242-350
+  s_ab5c95a3492695::t_d42cdb9629ed05 32,241
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0008-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0008.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/export-ios.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0016-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/emulator.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-105
+docs/research/evidence/native-android-color-field-2026-11-12/exports-receipt.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-42
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0008-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-driver.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-52
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0010-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/input.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-152
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/public-probe.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/delivery-selection.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-483
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427134892123-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/local-focused-input-method.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-742,744-767,769-815,817-861,863-865,867-868,870-894,896-962,964-965,967-1033,1035-1036,1038-1104,1106-1107,1109-1110,1112-1113,1115-1116,1118-1119,1121-1122,1124-1125,1127-1128,1130-1131,1133-1134,1136-1137,1139-1140,1142-1143,1145-2606,2608-2748,2754-2807,2809-2812,2814,2816-2817,2819-2822,2824-2825,2827-2828,2830-2831,2833-2834,2836-2838,2840-2841,2843-2850,2852-2853,2855-2856,2858-2859,2861-2883,2885-2886,2888-2889,2891-2892,2894-2895,2897-2901,2903-2904,2906-2907,2909-2910,2912-2913,2915-2918,2920-2921,2923-2924,2926-2927,2929-2931,2933-2935,2937-2938,2940-2941,2943-2944,2946-2947,2949-2950,2952-2953,2955-2959,2961-2964,2966-2967,2969-2970,2972-2988,2990-2991,2993-2994,2996-2997,2999-3000,3002-3004,3006-3008,3010-3011,3013-3015,3017-3018,3020-3023,3025-3026,3028-3031,3033-3034,3036-3043,3045-3046,3048-3049,3051-3052,3054-3055,3057-3058,3060-3061,3063-3064,3066-3067,3069-3070,3072-3073,3075-3076,3078-3079,3081-3082,3084-3085,3087-3088,3090-3091,3093-3094,3096-3100,3102-3103,3105-3106,3108-3109,3111-3122,3124-3129,3131-3132,3134-3135,3137-3202,3204-3206,3208-3212,3214-3216,3218-3222,3224-3226,3228-3230,3232-3235,3237-3240,3242-3245,3247-3249,3251-3253,3255-3263,3265-3267,3269-3271,3273-3278,3280-3282,3284-3286,3288-3290,3292-3294,3296-3298,3300-3302,3304-3306,3308-3318,3320,3322-3324,3326-3346,3348-3350,3352-3354,3356-3359,3361-3363,3365-3367,3369-3372,3374-3376,3378-3380,3382-3489,3491-3493,3495-3497,3499-3501,3503-3505,3507-3509,3511-3513,3515-3517,3519-3554,3556-3601,3603-3607,3609-3619,3621-3636,3638-3710,3712-3713,3715-3733,3735-3737,3739-3741,3743-3746,3748-3753,3755-3757,3759-3761,3763-3766,3768-3770,3772-3774,3776-3778,3780-3782,3784-3786,3788-3790,3792-3794,3796-3810,3812-3822,3824-3826,3828-3840,3842-3844,3846-3847,3849,3851-3856,3858-3873,3875-3889,3891-3893,3895-3896,3899-3949,3951-4308,4310-4311,4313-4316,4318-4319,4321-4323,4325-4358,4360-4366,4368-4378,4381-4389,4392-4403,4407-4417,4420-4440,4442-4450,4453-4459,4461-4465,4467-4476,4478-4632,4635-4643,4646-4649,4651-4662,4665-4672,4675-4698,4700-4703,4706-4714,4717-4730,4733-4749,4752-4771,4776-4795,4798-4801,4804-4811,4815-4841
+  s_ab5c95a3492695::t_a01042b3ff201e 743,768,816,862,866,869,895,963,966,1034,1037,1105,1108,1111,1114,1117,1120,1123,1126,1129,1132,1135,1138,1141,1144,2607,2749-2753,2808,2813,2815,2818,2823,2826,2829,2832,2835,2839,2842,2851,2854,2857,2860,2884,2887,2890,2893,2896,2902,2905,2908,2911,2914,2919,2922,2925,2928,2932,2936,2939,2942,2945,2948,2951,2954,2960,2965,2968,2971,2989,2992,2995,2998,3001,3005,3009,3012,3016,3019,3024,3027,3032,3035,3044,3047,3050,3053,3056,3059,3062,3065,3068,3071,3074,3077,3080,3083,3086,3089,3092,3095,3101,3104,3107,3110,3123,3130,3133,3136,3203,3207,3213,3217,3223,3227,3231,3236,3241,3246,3250,3254,3264,3268,3272,3279,3283,3287,3291,3295,3299,3303,3307,3319,3321,3325,3347,3351,3355,3360,3364,3368,3373,3377,3381,3490,3494,3498,3502,3506,3510,3514,3518,3555,3602,3608,3620,3637,3711,3714,3734,3738,3742,3747,3754,3758,3762,3767,3771,3775,3779,3783,3787,3791,3795,3811,3823,3827,3841,3845,3848,3850,3857,3874,3890,3894,3897-3898,3950,4309,4312,4317,4320,4324,4359,4367,4379-4380,4390-4391,4404-4406,4418-4419,4441,4451-4452,4460,4466,4477,4633-4634,4644-4645,4650,4663-4664,4673-4674,4699,4704-4705,4715-4716,4731-4732,4750-4751,4772-4775,4796-4797,4802-4803,4812-4814
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427151492173-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/guest-memory-before-launch.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-15
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/legacy-later-failure.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-28
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-6.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/bun.lock.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-2998
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0034-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427143042752-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/after-final-supplement.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-54
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/before-keyboard-fix-summary.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-24
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0022-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+apps/native-example/ColorFieldExample.tsx
+  s_ab5c95a3492695::t_a62e1d2c074992 3-9,14,46-48,50,124,130-139
+  s_ab5c95a3492695::t_31df2b8181483f 2,140-141
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0004-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0022-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427120567557-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0023-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/case-4.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-2.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0010.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/captures/cf1794426764522868-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/public-probe-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-17
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0030-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/public-api-rationale.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-10
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0010-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/windows-after-final.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427139935002-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427162366479-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0016-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0016.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427162366479-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/after-legacy.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-54
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427143042752-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/recovery-proposal.md
+  s_ab5c95a3492695::t_7404a11ad81218 1-2,10-28
+  s_ab5c95a3492695::t_d42cdb9629ed05 3-9
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427162366479-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/color-field.before.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-197
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0034.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/binary-provenance.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/native-color-field-2026-11-12.md
+  s_ab5c95a3492695::t_027a9ed1feb326 161-167
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/after-public-probe.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-54
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0008-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/design/native-components.md
+  s_ab5c95a3492695::t_d823e07cc29b3a 262-271
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_6d24a798201665 477-479
+  s_ab5c95a3492695::t_d823e07cc29b3a 485-486
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-22
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-82
+docs/research/evidence/native-android-color-field-2026-11-12/exports-final-receipt.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-42
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/local-viewport-before-after.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 3
+  s_ab5c95a3492695::t_7404a11ad81218 1-2,4-35
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-3.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0034-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/before-public-probe.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-54
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/logcat-retention.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-6
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/probe-install.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-15
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/apk-identity.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-15
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/results.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-27
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-after/source-hashes-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/diagnostic-excerpts.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-219
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-after.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-2
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0030-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/use-number-field-draft.ts.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-26
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-after/case-1.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/README.md
+  s_ab5c95a3492695::t_61fb822435246a 1-38
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-probe.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-8
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427134892123.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-77
+  s_ab5c95a3492695::t_d42cdb9629ed05 78
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/component-epoch-sealed.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 81
+  s_ab5c95a3492695::t_7404a11ad81218 1-80,82-340
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/authoritative-results.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-90,92-390,392-394,396-398,400-402,404-406,408-472,474-476,478-480,482-484,486-488,490-640,642-644,646-648,650-652,654-656,658-683,685-687,689-691,693-695,697-699,701-707,709-865
+  s_ab5c95a3492695::t_d42cdb9629ed05 91,391,395,399,403,407,473,477,481,485,489,641,645,649,653,657,684,688,692,696,700,708
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/case-2.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/ColorFieldExample.before-android-viewport.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-118
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-8.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/apk-identity-after.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-15
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/host-before-start.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-5
+docs/research/evidence/native-android-color-field-2026-11-12/boundaries.log
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/probe-AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-5
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-legacy.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-3
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/statusbar-before-fix.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-22,24-50,52-54,56-58,60-62,64-66,68-70,72-78
+  s_ab5c95a3492695::t_d42cdb9629ed05 23,51,55,59,63,67,71
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0028-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/results.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-37
+docs/research/evidence/native-android-color-field-2026-11-12/typecheck-example-final.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-2
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/captures/cf1794426764522868-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/results.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-31
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-309
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/readiness-window.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/doctor-package.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-63
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/before-launch.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-54
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/local-focused-window-windows.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-421
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-after/input-method-after.txt
+  s_ab5c95a3492695::t_a01042b3ff201e 286,311,356,359,362,405,409,412,438,506,509,577,580,648,651,654,657,660,663,666,669,672,675,678,681,684,687,2150,2288-2292,2347,2352,2354,2357,2362,2365,2368,2371,2374,2378,2381,2390,2393,2396,2399,2423,2426,2429,2432,2435,2441,2444,2447,2450,2453,2458,2461,2464,2467,2471,2475,2478,2481,2484,2487,2490,2493,2499,2504,2507,2510,2528,2531,2534,2537,2540,2544,2548,2551,2555,2558,2563,2566,2571,2574,2583,2586,2589,2592,2595,2598,2601,2604,2607,2610,2613,2616,2619,2622,2625,2628,2631,2634,2640,2643,2646,2649,2659,2662,2665,2669,2672,2675,2742,2746,2752,2756,2762,2766,2770,2775,2780,2785,2789,2793,2803,2807,2811,2818,2822,2826,2830,2834,2838,2842,2846,2858,2860,2864,2886,2890,2894,2899,2903,2907,2912,2916,2920,3029,3033,3037,3041,3045,3049,3053,3057,3094,3141,3147,3159,3176,3250,3253,3273,3277,3281,3286,3293,3297,3301,3306,3310,3314,3318,3322,3326,3330,3334,3350,3362,3366,3380,3384,3387,3389,3396,3413,3429,3433,3436-3437,3485,3660,3663,3668,3671,3675,3710,3718,3730-3731,3741-3742,3755-3757,3769-3770,3792,3802-3803,3811,3817,3828,3984-3985,3995-3996,4001,4014-4015,4024-4025,4050,4055-4056,4066-4067,4082-4083,4101-4102,4123-4126,4147-4148,4153-4154,4163-4165
+  s_ab5c95a3492695::t_7404a11ad81218 1-285,287-310,312-355,357-358,360-361,363-404,406-408,410-411,413-437,439-505,507-508,510-576,578-579,581-647,649-650,652-653,655-656,658-659,661-662,664-665,667-668,670-671,673-674,676-677,679-680,682-683,685-686,688-2149,2151-2287,2293-2346,2348-2351,2353,2355-2356,2358-2361,2363-2364,2366-2367,2369-2370,2372-2373,2375-2377,2379-2380,2382-2389,2391-2392,2394-2395,2397-2398,2400-2422,2424-2425,2427-2428,2430-2431,2433-2434,2436-2440,2442-2443,2445-2446,2448-2449,2451-2452,2454-2457,2459-2460,2462-2463,2465-2466,2468-2470,2472-2474,2476-2477,2479-2480,2482-2483,2485-2486,2488-2489,2491-2492,2494-2498,2500-2503,2505-2506,2508-2509,2511-2527,2529-2530,2532-2533,2535-2536,2538-2539,2541-2543,2545-2547,2549-2550,2552-2554,2556-2557,2559-2562,2564-2565,2567-2570,2572-2573,2575-2582,2584-2585,2587-2588,2590-2591,2593-2594,2596-2597,2599-2600,2602-2603,2605-2606,2608-2609,2611-2612,2614-2615,2617-2618,2620-2621,2623-2624,2626-2627,2629-2630,2632-2633,2635-2639,2641-2642,2644-2645,2647-2648,2650-2658,2660-2661,2663-2664,2666-2668,2670-2671,2673-2674,2676-2741,2743-2745,2747-2751,2753-2755,2757-2761,2763-2765,2767-2769,2771-2774,2776-2779,2781-2784,2786-2788,2790-2792,2794-2802,2804-2806,2808-2810,2812-2817,2819-2821,2823-2825,2827-2829,2831-2833,2835-2837,2839-2841,2843-2845,2847-2857,2859,2861-2863,2865-2885,2887-2889,2891-2893,2895-2898,2900-2902,2904-2906,2908-2911,2913-2915,2917-2919,2921-3028,3030-3032,3034-3036,3038-3040,3042-3044,3046-3048,3050-3052,3054-3056,3058-3093,3095-3140,3142-3146,3148-3158,3160-3175,3177-3249,3251-3252,3254-3272,3274-3276,3278-3280,3282-3285,3287-3292,3294-3296,3298-3300,3302-3305,3307-3309,3311-3313,3315-3317,3319-3321,3323-3325,3327-3329,3331-3333,3335-3349,3351-3361,3363-3365,3367-3379,3381-3383,3385-3386,3388,3390-3395,3397-3412,3414-3428,3430-3432,3434-3435,3438-3484,3486-3659,3661-3662,3664-3667,3669-3670,3672-3674,3676-3709,3711-3717,3719-3729,3732-3740,3743-3754,3758-3768,3771-3791,3793-3801,3804-3810,3812-3816,3818-3827,3829-3983,3986-3994,3997-4000,4002-4013,4016-4023,4026-4049,4051-4054,4057-4065,4068-4081,4084-4100,4103-4122,4127-4146,4149-4152,4155-4162,4166-4192
+docs/research/evidence/native-android-color-field-2026-11-12/framework-timing-excerpts.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-144
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0022-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-type-proof.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-30
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-final-qa.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-117
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-ready.log
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/legacy-xml-read.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-15
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/presentation.tsx.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-287
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-7.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-focus.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-3
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427134892123-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427162366479.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+docs/research/evidence/native-android-color-field-2026-11-12/archive-index.json
+  s_ab5c95a3492695::t_a01042b3ff201e 760-762,812-814,848-850
+  s_ab5c95a3492695::t_d42cdb9629ed05 100-102,122-124,144-146,166-168,188-190,210-212,232-234,254-256,276-278,394-396,452-454,478-480,528-530,550-552,572-574,594-596,616-618,638-640,660-662,682-684,770-772,818-820,1032-1034,1082-1084,1120-1122,1146-1148,1228-1230
+  s_ab5c95a3492695::t_7404a11ad81218 1-99,103-121,125-143,147-165,169-187,191-209,213-231,235-253,257-275,279-393,397-451,455-477,481-527,531-549,553-571,575-593,597-615,619-637,641-659,663-681,685-759,763-769,773-811,815-817,821-847,851-1031,1035-1081,1085-1119,1123-1145,1149-1227,1231-1248
+packages/ui-native/src/color-field.tsx
+  s_ab5c95a3492695::t_943f6d718f7b84 2,118-120
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0030-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/captures/cf1794426764522868.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-31
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-3
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-color-field-tail.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-26
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/logger.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-14
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0004-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/source-hashes-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/case-3.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427120567557-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427151492173-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/source-hashes-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/logger-stop.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-6
+docs/research/evidence/native-android-color-field-2026-11-12/WindowProbe.java.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-120
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/legacy-validation.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/before-legacy.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-54
+docs/research/evidence/native-android-color-field-2026-11-12/export-final-ios.log
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/keyboard-before/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-112
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/final-fixture-source-hashes-after.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427151492173.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/results.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-83
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427170510991-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0016-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427143042752-read-json.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/source-hashes-after-keyboard.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/source-hashes-final.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-tail/binary-provenance.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-7
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/launch.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-fixture-supplement.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-17
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/case-6.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/guest-memory-after-final.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-15
+docs/research/evidence/native-android-color-field-2026-11-12/current-avd-hardware-qemu.ini.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-131
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-1.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/ReactTextInputManager.kt.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-1210
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance-probe/captures/colorfield0008-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427139935002.json
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427170510991-instrument.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-25
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/case-9.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/acceptance/case-7.xml
+  s_ab5c95a3492695::t_7404a11ad81218 1
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/probe-package-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/lenso-android-recovery-legacy.py.txt
+  s_ab5c95a3492695::t_7404a11ad81218 1-6
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/ready-focus-check.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-54
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427134892123-read-xml.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-18
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427143042752.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-55
+  s_ab5c95a3492695::t_d42cdb9629ed05 56
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/captures/cf1794427134892123-screen.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+docs/research/evidence/native-android-color-field-2026-11-12/attempt1/fixture-final/source-hashes-before.json
+  s_ab5c95a3492695::t_7404a11ad81218 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "49927257ffa258e335298c8dcf6c77232c08a2b1",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
