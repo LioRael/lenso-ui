@@ -1,0 +1,269 @@
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-accepted-selected-removal-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-110
+docs/research/evidence/native-tag-group-2026-11-11/android/authoritative-results.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-92
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/collection-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-11
+docs/research/native-tag-group-2026-11-11.md
+  s_ab5c95a3492695::t_68905c4c4b23a2 63-65,67-68,71-78,80
+  s_ab5c95a3492695::t_3f56dcfb41deee 57,66,69-70
+  s_ab5c95a3492695::t_0a99ebc18ad455 2-55,58-62
+  s_ab5c95a3492695::t_319518af47f2e4 1,79,81-87,89-91,93
+  s_ab5c95a3492695::t_c55cc7880e5524 56,88,92,94-96
+docs/research/evidence/native-tag-group-2026-11-11/android/activity.txt
+  s_ab5c95a3492695::t_f72239a49d9b63 76
+  s_ab5c95a3492695::t_96f1905b9278f1 1-75,77-179
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/button.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-62
+docs/research/evidence/native-tag-group-2026-11-11/android/lenso-native-tag-group-android-initial.py.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-2
+docs/research/evidence/native-tag-group-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-194
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/result-summary.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-9
+docs/research/evidence/native-tag-group-2026-11-11/android/lenso-native-tag-group-android-qa.py.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-117
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/tag-group.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-160
+docs/research/evidence/native-tag-group-2026-11-11/doctor-package.log
+  s_ab5c95a3492695::t_96f1905b9278f1 1-5,7-60
+  s_ab5c95a3492695::t_c55cc7880e5524 6
+docs/research/evidence/native-tag-group-2026-11-11/export-ios.log
+  s_ab5c95a3492695::t_96f1905b9278f1 1-20
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/source-hashes-after.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+docs/research/evidence/native-tag-group-2026-11-11/android/lenso-native-tag-group-android-cases.py.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-25
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-9
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/tag-group.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-160
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-group-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-32
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/tag-fixed-back-glass-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-203
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/tag-fixed-reenable-commits-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-118
+docs/research/evidence/native-tag-group-2026-11-11/models.log
+  s_ab5c95a3492695::t_96f1905b9278f1 1,3-6,8-12,14-18,20-21,23-24,26-28,30-34,36-39,41-44,46-48,50-54,56-59,61-63,65-67,69-71,73-74,76-79,81-85
+  s_ab5c95a3492695::t_c55cc7880e5524 2,7,13,19,22,25,29,35,40,45,49,55,60,64,68,72,75,80
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-102
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/tag-group-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-32
+docs/research/evidence/native-tag-group-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-56
+docs/research/evidence/native-tag-group-2026-11-11/android/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-305
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_319518af47f2e4 816,819
+  s_ab5c95a3492695::t_0a99ebc18ad455 812-814,817
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/tag-fixed-readonly-restores-commits-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-116
+apps/native-example/TagGroupExample.tsx
+  s_ab5c95a3492695::t_131493c26553f9 1-137
+docs/research/evidence/native-tag-group-2026-11-11/android/package-readiness.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-14
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-removal-commits-deselection-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-108
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/result-summary.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-9
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/selection-control.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-87
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/selector-failure-receipt.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-18
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/use-value.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-16
+docs/research/evidence/native-tag-group-2026-11-11/android/preflight-receipts.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-8
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-held-selection-reject-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-110
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/button.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-62
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/tag-static-wrap-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-106
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/button.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-64
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/TagGroupExample.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-137
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/selection-control.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-53
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/binary-provenance.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-34
+docs/research/evidence/native-tag-group-2026-11-11/android/lenso-native-tag-group-android-start.py.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-34
+packages/ui-native/src/tag-group.tsx
+  s_ab5c95a3492695::t_88aee59f5e6974 1-33,35-51,53-99,101-103,105-116,119-140,142-160
+  s_ab5c95a3492695::t_131493c26553f9 34,52,118
+  s_ab5c95a3492695::t_9fb430fef75cdd 100
+  s_ab5c95a3492695::t_54d124364357d5 104
+  s_ab5c95a3492695::t_3f669ad9a379e0 117,141
+docs/research/evidence/native-tag-group-2026-11-11/android/launch-intent.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-4
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_88aee59f5e6974 100-102
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-16
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-reverse-stable-key-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-116
+docs/research/evidence/native-tag-group-2026-11-11/android/startup.log
+  s_ab5c95a3492695::t_96f1905b9278f1 1-10
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/selection-control.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-87
+packages/ui-native/src/tag-group-model.ts
+  s_ab5c95a3492695::t_88aee59f5e6974 1-2,7-32
+  s_ab5c95a3492695::t_54d124364357d5 3-6
+docs/research/evidence/native-tag-group-2026-11-11/README.md
+  s_ab5c95a3492695::t_319518af47f2e4 1-18
+docs/research/evidence/native-tag-group-2026-11-11/doctor-example.log
+  s_ab5c95a3492695::t_c55cc7880e5524 1-46
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/tag-dark-readable-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-106
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/collection-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-11
+docs/research/evidence/native-tag-group-2026-11-11/android/lenso-native-tag-group-android-finalize.py.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-18
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/App.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-305
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/button.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-62
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/TagQA.swift.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-56
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/button.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-62
+docs/research/evidence/native-tag-group-2026-11-11/ios/shutdown-receipt.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-5
+docs/research/evidence/native-tag-group-2026-11-11/android/shutdown.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-6
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+docs/research/evidence/native-tag-group-2026-11-11/android/source-hashes-after.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/App.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-305
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/source-hashes-before.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-held-removal-retains-selected-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-110
+docs/research/evidence/native-tag-group-2026-11-11/android/source-hashes-before.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/selection-control.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-87
+docs/research/evidence/native-tag-group-2026-11-11/archive-index.json
+  s_ab5c95a3492695::t_c55cc7880e5524 12-14,480-492
+  s_ab5c95a3492695::t_96f1905b9278f1 1-11,15-389,393-479,493-494
+  s_ab5c95a3492695::t_f72239a49d9b63 390-392
+docs/research/evidence/native-tag-group-2026-11-11/ios/interaction-receipt.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-22
+docs/research/evidence/native-tag-group-2026-11-11/android/initial.log
+  s_ab5c95a3492695::t_96f1905b9278f1 1-10
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-required-single-priority-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-106
+docs/research/evidence/native-tag-group-2026-11-11/android/apk-path.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/App.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-305
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-local-empty-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-106
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/index.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-102
+docs/research/evidence/native-tag-group-2026-11-11/android/source/apps/native-example/TagGroupExample.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-137
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/reenable-red-receipt.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-16
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/use-value.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-16
+docs/research/evidence/native-tag-group-2026-11-11/export-fixed-android.log
+  s_ab5c95a3492695::t_c55cc7880e5524 1-20
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/selection-control.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-53
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/tag-fixed-dark-enabled-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-116
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/long-static-wrap-geometry.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/collection-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-11
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_3f56dcfb41deee 40,126-130
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/selection-control.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-53
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-initial-UIKit-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-116
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/TagGroupExample.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-137
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-group.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-160
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-34
+docs/research/evidence/native-tag-group-2026-11-11/android/delivery-selection.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-35
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/source-hashes-before.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/TagGroupExample.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-137
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/tag-group.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-160
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/button.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-64
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/selection-control.ios.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-53
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/use-value.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-16
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_131493c26553f9 20,80,83,116,136,152,210
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/button.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-64
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/tag-group-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-32
+docs/research/evidence/native-tag-group-2026-11-11/export-fixed-ios.log
+  s_ab5c95a3492695::t_96f1905b9278f1 1-18
+packages/ui-native/test/tag-group-model.test.ts
+  s_ab5c95a3492695::t_88aee59f5e6974 1-25,28-38
+  s_ab5c95a3492695::t_0a99ebc18ad455 26-27
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/collection-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-11
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/selection-control.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-87
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/TagQA.swift.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-61
+docs/research/evidence/native-tag-group-2026-11-11/fixed-source-hashes.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+docs/design/native-components.md
+  s_ab5c95a3492695::t_3f56dcfb41deee 228-236
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/tag-multiple-real-content-hierarchy.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-118
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/index.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-102
+docs/research/evidence/native-tag-group-2026-11-11/ios/reenable3/TagQA.swift.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-67
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/binary-provenance.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-34
+docs/research/evidence/native-tag-group-2026-11-11/android/source/packages/ui-native/src/button.android.tsx.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-64
+docs/research/evidence/native-tag-group-2026-11-11/ios/acceptance1/index.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-102
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_a68709fcacfde3 403-422
+docs/research/evidence/native-tag-group-2026-11-11/ios/wrap-dark2/tag-group-model.ts.txt
+  s_ab5c95a3492695::t_96f1905b9278f1 1-32
+docs/research/evidence/native-tag-group-2026-11-11/android/launch.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-15
+docs/research/evidence/native-tag-group-2026-11-11/source-hashes.json
+  s_ab5c95a3492695::t_96f1905b9278f1 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1ed3df5ac53f594415cdba77110d82d4d127669a",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
