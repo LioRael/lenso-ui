@@ -70,18 +70,17 @@ export function appendMaterialTone(
     filter.append(transfer);
   };
   const gain = tables.chroma.map((n) => n / range);
+  // An exactly representable neutral prevents 8-bit intermediate rounding
+  // from turning a smooth luminance ramp into alternating light/dark rings.
+  const neutral = 128 / 255;
   table(tables.brightness, "tone-brightness");
   table(gain, "tone-gain");
-  table(
-    gain.map((n) => 0.5 * (1 - n)),
-    "tone-offset",
-  );
   const row = (own: number) =>
     [r, g, b].map((weight, i) => (range / 2) * ((i === own ? 1 : 0) - weight)).join(" ");
   filter.append(
     node("feColorMatrix", {
       in: source,
-      values: `${row(0)} 0 .5 ${row(1)} 0 .5 ${row(2)} 0 .5 0 0 0 1 0`,
+      values: `${row(0)} 0 ${neutral} ${row(1)} 0 ${neutral} ${row(2)} 0 ${neutral} 0 0 0 1 0`,
       result: "tone-colour",
     }),
     node("feComposite", {
@@ -89,14 +88,8 @@ export function appendMaterialTone(
       in2: "tone-gain",
       operator: "arithmetic",
       k1: 1,
-      result: "tone-scaled",
-    }),
-    node("feComposite", {
-      in: "tone-scaled",
-      in2: "tone-offset",
-      operator: "arithmetic",
-      k2: 1,
-      k3: 1,
+      k3: -neutral,
+      k4: neutral,
       result: "tone-centred",
     }),
     node("feComposite", {
@@ -105,7 +98,7 @@ export function appendMaterialTone(
       operator: "arithmetic",
       k2: 2,
       k3: 1,
-      k4: -1,
+      k4: -2 * neutral,
       result: tone.clarity === 0 ? "tone-opaque" : "tone-regular",
     }),
   );
