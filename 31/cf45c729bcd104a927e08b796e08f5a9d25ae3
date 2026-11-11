@@ -1,0 +1,261 @@
+docs/research/evidence/native-combobox-2026-11-11/ios/interaction-receipt.json
+  s_ab5c95a3492695::t_49c564502c2880 1-22
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-multiword-MO-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-209
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_b8d6fe6324c14d 97-99
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-no-results-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-165
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/combo-box.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-169
+docs/research/evidence/native-combobox-2026-11-11/android/open/case-2.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/initial.log
+  s_ab5c95a3492695::t_49c564502c2880 1-7
+packages/ui-native/src/combo-box-model.ts
+  s_ab5c95a3492695::t_b8d6fe6324c14d 1-18
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/input.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-152
+docs/research/evidence/native-combobox-2026-11-11/android/lenso-native-combobox-android-open.py.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-2
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/source-hashes-before.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/modal.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-364
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/ComboQA.swift.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-55
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-back-glass-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-203
+docs/research/evidence/native-combobox-2026-11-11/android/wait/source-hashes-before.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/apps/native-example/ComboBoxExample.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-100
+docs/research/evidence/native-combobox-2026-11-11/android/open/case-1.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/doctor-package.log
+  s_ab5c95a3492695::t_49c564502c2880 1-5,7-60
+  s_ab5c95a3492695::t_8793e0331fbb2c 6
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/use-select.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-27
+docs/research/evidence/native-combobox-2026-11-11/android/source-hashes-after.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/models.log
+  s_ab5c95a3492695::t_8793e0331fbb2c 2,7,13,19,22,25,29,35,40,45,49,55,60,64,68,71,76
+  s_ab5c95a3492695::t_49c564502c2880 1,3-6,8-12,14-18,20-21,23-24,26-28,30-34,36-39,41-44,46-48,50-54,56-59,61-63,65-67,69-70,72-75,77-81
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_49c564502c2880 1-9
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-local-default-IL-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-183
+docs/research/evidence/native-combobox-2026-11-11/android/initial/current.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance/source-hashes-before.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/export-ios.log
+  s_ab5c95a3492695::t_49c564502c2880 1-20
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-held-Berlin-native-checked-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-186
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/packages/ui-native/src/input.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-152
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/modal.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-364
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/input.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-152
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/packages/ui-native/src/modal.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-364
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance/case-1.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/lenso-native-combobox-android-rest.py.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-36
+docs/research/evidence/native-combobox-2026-11-11/android/open/source-hashes-before.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-box.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-169
+apps/native-example/ComboBoxExample.tsx
+  s_ab5c95a3492695::t_e5df64da315ea0 1-100
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/after-29-disabled-field-center-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-76
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2.log
+  s_ab5c95a3492695::t_49c564502c2880 1-12
+docs/research/evidence/native-combobox-2026-11-11/android/startup.log
+  s_ab5c95a3492695::t_49c564502c2880 1-10
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/select-model.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-31
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/App.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-298
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-query-reset-checkedMO-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-186
+docs/research/evidence/native-combobox-2026-11-11/android/lenso-native-combobox-android-initial.py.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-4
+docs/research/evidence/native-combobox-2026-11-11/android/open.log
+  s_ab5c95a3492695::t_49c564502c2880 1-157
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-box-model.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-18
+docs/research/evidence/native-combobox-2026-11-11/android/launch-intent.json
+  s_ab5c95a3492695::t_49c564502c2880 1-4
+docs/research/evidence/native-combobox-2026-11-11/android/package-readiness.json
+  s_ab5c95a3492695::t_49c564502c2880 1-6
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-4.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-7.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-missing-owner-quiet-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-76
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-10.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/index.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-99
+docs/research/evidence/native-combobox-2026-11-11/android/lenso-native-combobox-android-cases.py.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-40
+docs/research/evidence/native-combobox-2026-11-11/ios/shutdown-receipt.json
+  s_ab5c95a3492695::t_49c564502c2880 1-5
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/source-hashes-after.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/binary-provenance.json
+  s_ab5c95a3492695::t_49c564502c2880 1-7
+docs/research/evidence/native-combobox-2026-11-11/android/wait/binary-provenance.json
+  s_ab5c95a3492695::t_49c564502c2880 1-7
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/combo-box-model.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-18
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/App.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-298
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance/case-2.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/initial/source-hashes-before.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+packages/ui-native/test/combo-box-model.test.ts
+  s_ab5c95a3492695::t_b8d6fe6324c14d 1-36
+docs/research/evidence/native-combobox-2026-11-11/android/launch.json
+  s_ab5c95a3492695::t_49c564502c2880 1-15
+docs/research/native-combobox-2026-11-11.md
+  s_ab5c95a3492695::t_bf0b665caa7513 1,50,57,62-81
+  s_ab5c95a3492695::t_bbe28551c40e63 15-16,54-56,58-61
+  s_ab5c95a3492695::t_7b90cebadcf192 2-14,17-49,51-53
+docs/research/evidence/native-combobox-2026-11-11/android/authoritative-results.json
+  s_ab5c95a3492695::t_49c564502c2880 1-161
+docs/research/evidence/native-combobox-2026-11-11/android/emulator.log
+  s_ab5c95a3492695::t_49c564502c2880 1-18,20-44,46-80,82-101
+  s_ab5c95a3492695::t_8793e0331fbb2c 19,45,81
+docs/research/evidence/native-combobox-2026-11-11/android/open/binary-provenance.json
+  s_ab5c95a3492695::t_49c564502c2880 1-7
+docs/research/evidence/native-combobox-2026-11-11/export-android.log
+  s_ab5c95a3492695::t_49c564502c2880 1-20
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/after-32-readonly-field-center-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-76
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/index.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-99
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/selector-failure-receipt.json
+  s_ab5c95a3492695::t_49c564502c2880 1-7
+docs/research/evidence/native-combobox-2026-11-11/source-hashes.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_49c564502c2880 1-146
+docs/research/evidence/native-combobox-2026-11-11/android/wait.log
+  s_ab5c95a3492695::t_49c564502c2880 1-4
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_49c564502c2880 1-34
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_e5df64da315ea0 20,78,81,113,132,147,204
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-5.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/android/shutdown.json
+  s_ab5c95a3492695::t_49c564502c2880 1-6
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_bf0b665caa7513 300-301,303
+  s_ab5c95a3492695::t_41c78272837c7c 296-298
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-11.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-6.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-99
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-disabled-delivery-stays-open-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-186
+docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/ComboBoxExample.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-100
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/ComboQA.swift.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-55
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/packages/ui-native/src/combo-box-model.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-18
+"docs/research/evidence/native-combobox-2026-11-11/ios/acceptance1/after-4-native-search-spring missouri-hierarchy.txt"
+  s_ab5c95a3492695::t_49c564502c2880 1-164
+docs/research/evidence/native-combobox-2026-11-11/android/lenso-native-combobox-android-start.py.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-34
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-9.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/archive-index.json
+  s_ab5c95a3492695::t_8793e0331fbb2c 16-18,418-420,536-538
+  s_ab5c95a3492695::t_49c564502c2880 1-15,19-417,421-535,539-540
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance.log
+  s_ab5c95a3492695::t_49c564502c2880 1-6
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/packages/ui-native/src/select-model.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-31
+docs/research/evidence/native-combobox-2026-11-11/android/lenso-native-combobox-android-wait.py.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-2
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/use-select.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-27
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/result-summary.json
+  s_ab5c95a3492695::t_49c564502c2880 1-9
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/combo-dark-sheet-readable-hierarchy.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-186
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/ComboBoxExample.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-100
+docs/research/evidence/native-combobox-2026-11-11/android/lenso-native-combobox-android-qa.py.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-117
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/binary-provenance.json
+  s_ab5c95a3492695::t_49c564502c2880 1-34
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-8.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source-hashes-before.json
+  s_ab5c95a3492695::t_49c564502c2880 1-11
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-3.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/packages/ui-native/src/use-select.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-27
+docs/research/evidence/native-combobox-2026-11-11/android/delivery-selection.json
+  s_ab5c95a3492695::t_49c564502c2880 1-190
+docs/research/evidence/native-combobox-2026-11-11/README.md
+  s_ab5c95a3492695::t_bf0b665caa7513 1-18
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_bbe28551c40e63 40,122-125
+docs/research/evidence/native-combobox-2026-11-11/ios/selectors2/select-model.ts.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-31
+packages/ui-native/src/combo-box.tsx
+  s_ab5c95a3492695::t_f2ab1a2b2658c5 52
+  s_ab5c95a3492695::t_b8d6fe6324c14d 1-51,53-169
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-1.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/case-2.xml
+  s_ab5c95a3492695::t_49c564502c2880 1
+docs/research/evidence/native-combobox-2026-11-11/android/initial/binary-provenance.json
+  s_ab5c95a3492695::t_49c564502c2880 1-7
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_69c86d5888a07e 390-402
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-298
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance/binary-provenance.json
+  s_ab5c95a3492695::t_49c564502c2880 1-7
+docs/design/native-components.md
+  s_ab5c95a3492695::t_bbe28551c40e63 218-227
+docs/research/evidence/native-combobox-2026-11-11/android/acceptance2/source/packages/ui-native/src/combo-box.tsx.txt
+  s_ab5c95a3492695::t_49c564502c2880 1-169
+docs/research/evidence/native-combobox-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_49c564502c2880 1-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31cf45c729bcd104a927e08b796e08f5a9d25ae3",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
