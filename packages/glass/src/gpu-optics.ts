@@ -18,17 +18,47 @@ export interface Optics {
   tone?: MaterialTone;
 }
 
-const fittedFilters = new WeakMap<SVGFilterElement, { signature: string; optics: Optics }>();
+interface FilterCache {
+  observer: MutationObserver;
+  parsed: boolean;
+  optics?: Optics;
+}
+const fittedFilters = new WeakMap<SVGFilterElement, FilterCache>();
 let nextFilter = 0;
 
 export function readOptics(filterValue: string): Optics | undefined {
   const id = filterValue.match(/#([^")]+)/)?.[1];
   const filter = id ? document.getElementById(id) : null;
   if (!(filter instanceof SVGFilterElement)) return;
+  let cached = fittedFilters.get(filter);
+  if (!cached) {
+    const entry: FilterCache = {
+      observer: new MutationObserver(() => {
+        entry.parsed = false;
+      }),
+      parsed: false,
+    };
+    entry.observer.observe(filter, {
+      attributes: true,
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+    fittedFilters.set(filter, (cached = entry));
+  }
+  // A resize can write and read in the same task, before observer delivery.
+  // Avoid serializing encoded feImage inputs on every scroll/cache lookup.
+  if (cached.observer.takeRecords().length) cached.parsed = false;
+  if (!cached.parsed) {
+    cached.optics = parseOptics(filter);
+    cached.parsed = true;
+  }
+  return cached.optics;
+}
+
+function parseOptics(filter: SVGFilterElement): Optics | undefined {
   if (filter.getAttribute("data-lenso-tone-transfer") === "linear") return;
-  const signature = filter.innerHTML;
-  const fitted = fittedFilters.get(filter);
-  if (fitted?.signature === signature) return fitted.optics;
+  const id = filter.id;
   const nodes = [...filter.children];
   const mode = filter.getAttribute("data-lenso-tone");
   if (mode === "light" || mode === "dark") {
@@ -78,7 +108,6 @@ export function readOptics(filterValue: string): Optics | undefined {
       material: "calibrated",
       tone: { mode, size, clarity },
     };
-    fittedFilters.set(filter, { signature, optics });
     return optics;
   }
 
@@ -184,7 +213,6 @@ export function readOptics(filterValue: string): Optics | undefined {
           ? ("medium-dark" as const)
           : ("matrix" as const),
   };
-  fittedFilters.set(filter, { signature, optics });
   return optics;
 }
 
