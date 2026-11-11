@@ -1,0 +1,366 @@
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-34
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-25-light-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-resumed-zero-hierarchy.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-57
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_9aa0a1c06e0990 608-610
+  s_ab5c95a3492695::t_98541fca5aec90 2,536-538,596-598
+  s_ab5c95a3492695::t_2735f9fb711511 540-541,543,600-601,603,612-613,615
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-94
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-100-light-metrics.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-56
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/packages/ui-native/src/linear-progress.android.tsx.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-4
+docs/research/evidence/native-progress-2026-11-11/android/qa-cases.py.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-48
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/range-model.ts.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-13
+docs/research/evidence/native-progress-2026-11-11/android/lenso-native-progress-android-cases.py.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-48
+packages/ui-native/src/range-model.ts
+  s_ab5c95a3492695::t_0dfc18c50144ce 1-7,12-13
+  s_ab5c95a3492695::t_ad0b2bcd27b3e4 8-11
+docs/research/evidence/native-progress-2026-11-11/android/lenso-native-progress-android-start.py.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-32
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-100-light-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/shutdown-receipt.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-6
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-159
+apps/native-example/ProgressExample.tsx
+  s_ab5c95a3492695::t_318bf1ad7f74fe 25
+  s_ab5c95a3492695::t_7a4ca5ec9f5fcf 1-7,9-24,26-43
+  s_ab5c95a3492695::t_b44a21c3e38dbb 8
+docs/research/evidence/native-progress-2026-11-11/android/liveness/current.xml
+  s_ab5c95a3492695::t_d7e62bb3806c84 1
+docs/research/evidence/native-progress-2026-11-11/android/shutdown.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-7
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-159
+docs/research/evidence/native-progress-2026-11-11/android/authoritative-results.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-149
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/source/packages/ui-native/src/progress.tsx.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-165
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-284
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/ProgressView.swift.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-25
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/ProgressQA.swift.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-52
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-50-light-hierarchy.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-9
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/ProgressQA.swift.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-61
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-resumed-zero-metrics.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/progress.tsx.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-175
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/initial-geometry.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-43
+docs/design/native-components.md
+  s_ab5c95a3492695::t_7df3c41285a650 201-204,207-208
+  s_ab5c95a3492695::t_3275af79f66c0e 205-206
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/App.tsx.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-284
+docs/research/native-delivery-2026-11-11.md
+  s_ab5c95a3492695::t_7df3c41285a650 40,113-117
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/binary-provenance.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-7
+docs/research/evidence/native-progress-2026-11-11/uikit-build/uikit-source-hashes.json
+  s_ab5c95a3492695::t_5c2e4720876600 1-11
+docs/research/evidence/native-progress-2026-11-11/export-android.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-20
+docs/research/evidence/native-progress-2026-11-11/ios-archive.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-3,5-82,139-215,217-256,357-358
+  s_ab5c95a3492695::t_28285f5998ecfc 4,83-138,216,257-356
+docs/research/evidence/native-progress-2026-11-11/android/acceptance.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-555
+docs/research/evidence/native-progress-2026-11-11/android/package-readiness.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-10
+docs/research/evidence/native-progress-2026-11-11/example-types.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-2
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-25-dark-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/source/packages/ui-native/src/range-model.ts.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-13
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/packages/ui-native/src/progress.tsx.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-179
+packages/ui-native/src/linear-progress.ios.tsx
+  s_ab5c95a3492695::t_52031a0a03f4f3 1-19
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-busy-native-spinners-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/measured-geometry.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-481
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/range-model.ts.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-13
+docs/research/evidence/native-progress-2026-11-11/ios/delivery-selection.json
+  s_ab5c95a3492695::t_28285f5998ecfc 83-145,178-203,205
+  s_ab5c95a3492695::t_51f9172bea5d51 1-82,146-177,204,206
+docs/research/evidence/native-progress-2026-11-11/uikit-build/uikit-build-receipt.json
+  s_ab5c95a3492695::t_5c2e4720876600 1-20
+docs/research/evidence/native-progress-2026-11-11/android/delivery-selection.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-50
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-43
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-100-light-hierarchy.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-50-light-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-25-dark-metrics.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/source-hashes-before.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-7
+packages/ui-native/src/progress.tsx
+  s_ab5c95a3492695::t_ad0b2bcd27b3e4 11-14,27-33,37,40-50,62-66,69-77,79-86,90-92,96-99,101-106,136-138,145-150,152-162,169-171,173,175
+  s_ab5c95a3492695::t_7330cede7d7ac5 53,107-110,112-116,118-132,177-179
+  s_ab5c95a3492695::t_b44a21c3e38dbb 2,51,111,117,133,176
+  s_ab5c95a3492695::t_0dfc18c50144ce 1,3-7,9-10,15-26,34-36,38-39,55-61,67-68,78,100,163-168,172
+  s_ab5c95a3492695::t_4760869d5911bc 8,52,54,134-135,174
+  s_ab5c95a3492695::t_d12f7950fbdff2 87-89,93-95,139-144,151
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_0821bd92fc4065 375-376
+  s_ab5c95a3492695::t_7df3c41285a650 364-373
+  s_ab5c95a3492695::t_3275af79f66c0e 374
+docs/research/evidence/native-progress-2026-11-11/android/current2/emulator.log
+  s_ab5c95a3492695::t_7d776629e6944c 19-81
+  s_ab5c95a3492695::t_79a5fc8d8f3244 1-18,82-95
+packages/ui-native/src/linear-progress.android.tsx
+  s_ab5c95a3492695::t_52031a0a03f4f3 1-4
+docs/research/evidence/native-progress-2026-11-11/android-archive.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-11,15-97,101-150
+  s_ab5c95a3492695::t_7d776629e6944c 12-14,98-100
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/measured-native-geometry.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-144
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-94
+docs/research/evidence/native-progress-2026-11-11/uikit-build/manifest.json
+  s_ab5c95a3492695::t_5c2e4720876600 1-54
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-284
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress.tsx.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-165
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/index.ts.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-94
+docs/research/evidence/native-progress-2026-11-11/uikit-build/locked-pod-install-tail.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-25
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-7
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-busy-hierarchy.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-57
+docs/research/evidence/native-progress-2026-11-11/android/launch-intent.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-4
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/source-hashes-before.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-7
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-resumed-zero-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/followup-light-readable-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-zero-no-circle-arc-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-25-light-metrics.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-restored-light-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-100-light-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/packages/ui-native/src/linear-progress.ios.tsx.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-19
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-busy-metrics.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-50-light-metrics.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-zero-metrics.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/linear-progress.ios.tsx.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-19
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-43
+docs/research/evidence/native-progress-2026-11-11/tests.log
+  s_ab5c95a3492695::t_7d776629e6944c 2,7,13,19,22,25,29,35,40,45,51,56,60,63,68
+  s_ab5c95a3492695::t_d7e62bb3806c84 1,3-6,8-12,14-18,20-21,23-24,26-28,30-34,36-39,41-44,46-50,52-55,57-59,61-62,64-67,69-73
+docs/research/evidence/native-progress-2026-11-11/ios/authoritative-results.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1,3-20,32-43,47
+  s_ab5c95a3492695::t_28285f5998ecfc 2,21-31,44-46
+docs/research/evidence/native-progress-2026-11-11/package-types.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-2
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/binary-provenance.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-34
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_0dfc18c50144ce 94
+  s_ab5c95a3492695::t_b44a21c3e38dbb 93
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/source-hashes-after.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-11
+packages/ui-native/test/range-model.test.ts
+  s_ab5c95a3492695::t_ad0b2bcd27b3e4 13-18
+  s_ab5c95a3492695::t_0dfc18c50144ce 1-12,19-21
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/result-summary.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-9
+docs/research/evidence/native-progress-2026-11-11/README.md
+  s_ab5c95a3492695::t_8eac407a24d2fd 1-13,18-21
+  s_ab5c95a3492695::t_2735f9fb711511 14-17
+docs/research/evidence/native-progress-2026-11-11/android/acceptance3.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-16
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_4760869d5911bc 6-12
+docs/research/evidence/native-progress-2026-11-11/android/launch.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-15
+docs/research/native-progress-2026-11-11.md
+  s_ab5c95a3492695::t_98541fca5aec90 1-4,6-15,18-26,29-31,33,37-49,51
+  s_ab5c95a3492695::t_0821bd92fc4065 16-17,27-28,32,35-36
+  s_ab5c95a3492695::t_9aa0a1c06e0990 5,50,52-58
+  s_ab5c95a3492695::t_1dfadf6b0e5e91 89,93-105
+  s_ab5c95a3492695::t_fa1ccec3cd4453 91-92,115-119
+  s_ab5c95a3492695::t_66920b9b9fb0dd 34
+  s_ab5c95a3492695::t_bd8a6e5275da0f 59-73
+  s_ab5c95a3492695::t_d437d513ed3cb6 106-114
+  s_ab5c95a3492695::t_d1705531fe4aea 74-88,90
+  s_ab5c95a3492695::t_2735f9fb711511 120-125
+docs/research/evidence/native-progress-2026-11-11/palette-fix-source-hashes.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-7
+docs/research/evidence/native-progress-2026-11-11/export-ios.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-30
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/install-receipt.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-5
+docs/research/evidence/native-progress-2026-11-11/android/liveness.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-230
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/progress.tsx.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-179
+packages/ui-native/ios/ProgressView.swift
+  s_ab5c95a3492695::t_52031a0a03f4f3 1-25
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/result-summary.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-9
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-zero-hierarchy.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-57
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_7a4ca5ec9f5fcf 20,74,77,107,124,137,192
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/dark-visual-red-receipt.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-14
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/apps/native-example/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-43
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/source-hashes-before.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-11
+docs/research/evidence/native-progress-2026-11-11/android/timeout-activity.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-203,205-404
+  s_ab5c95a3492695::t_7d776629e6944c 204
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/contrast-receipt.json
+  s_ab5c95a3492695::t_51f9172bea5d51 1-40
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-25-light-hierarchy.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/binary-provenance.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-34
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/followup-dark-readable-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/uikit-build/compile-excerpt.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-10
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/index.ts.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-94
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/ProgressQA.swift.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-55
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/uikit-25-dark-hierarchy.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-57
+docs/research/evidence/native-progress-2026-11-11/android/acceptance2.log
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-16
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-25-dark-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/App.tsx.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-284
+docs/research/evidence/native-progress-2026-11-11/android/timeout-process.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/native-build-receipt.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-14
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/followup-back-glass-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-194
+docs/research/evidence/native-progress-2026-11-11/android-current2-archive.json
+  s_ab5c95a3492695::t_7d776629e6944c 16-18
+  s_ab5c95a3492695::t_83193f48a36cbb 1-15,19-80
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/packages/ui-native/ios/ProgressView.swift.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-25
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/followup-restored-light-readable-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/source/apps/native-example/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-43
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/linear-progress.android.tsx.txt
+  s_ab5c95a3492695::t_28285f5998ecfc 1-4
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/followup-dark-readable-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/palette-followup2/followup-light-readable-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/uikit-build/source/packages/ui-native/src/range-model.ts.txt
+  s_ab5c95a3492695::t_5c2e4720876600 1-13
+docs/research/evidence/native-progress-2026-11-11/android/source-hashes-after.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-7
+docs/research/evidence/native-progress-2026-11-11/android/acceptance/case-1.xml
+  s_ab5c95a3492695::t_d7e62bb3806c84 1
+docs/research/evidence/native-progress-2026-11-11/android/lenso-native-progress-android-qa.py.txt
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-117
+docs/research/evidence/native-progress-2026-11-11/runtime-source-hashes.json
+  s_ab5c95a3492695::t_d7e62bb3806c84 1-7
+docs/research/evidence/native-progress-2026-11-11/ios/uikit3/shutdown-receipt.json
+  s_ab5c95a3492695::t_28285f5998ecfc 1-5
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-25-light-metrics.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-56
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-50-light-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-zero-no-circle-arc-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/ios/acceptance1/progress-busy-native-spinners-hierarchy.txt
+  s_ab5c95a3492695::t_51f9172bea5d51 1-57
+docs/research/evidence/native-progress-2026-11-11/android/current2/authoritative-results.json
+  s_ab5c95a3492695::t_a31f5418d2566c 1-59
+docs/research/evidence/native-progress-2026-11-11/android/current2/delivery-selection.json
+  s_ab5c95a3492695::t_694edde2b0a21e 1-24
+docs/research/evidence/native-progress-2026-11-11/android/current2/launch.json
+  s_ab5c95a3492695::t_fe5d6764811873 1-15
+docs/research/evidence/native-progress-2026-11-11/android/current2/lenso-native-progress-android-current2-cases.py.txt
+  s_ab5c95a3492695::t_d90bd806e53334 1-47
+docs/research/evidence/native-progress-2026-11-11/android/current2/lenso-native-progress-android-current2-qa.py.txt
+  s_ab5c95a3492695::t_0988ae055a9168 1-117
+docs/research/evidence/native-progress-2026-11-11/android/current2/lenso-native-progress-android-current2-start.py.txt
+  s_ab5c95a3492695::t_e688387a08e6cb 1-32
+docs/research/evidence/native-progress-2026-11-11/android/current2/shutdown.json
+  s_ab5c95a3492695::t_45cffdc25ebd37 1-7
+docs/research/evidence/native-progress-2026-11-11/android/current2/source-hashes-after.json
+  s_ab5c95a3492695::t_7360e9f0fc8840 1-11
+docs/research/evidence/native-progress-2026-11-11/android/current2/source-hashes-before.json
+  s_ab5c95a3492695::t_e5cadb883b6915 1-11
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_865ef605b2eff1 1-284
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/apps/native-example/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_b25bdb1eaf53cd 1-43
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_6921dfdb847321 1-159
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/packages/ui-native/ios/ProgressView.swift.txt
+  s_ab5c95a3492695::t_9f5e034210ff23 1-25
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_d814383f0ac30a 1-94
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/packages/ui-native/src/linear-progress.android.tsx.txt
+  s_ab5c95a3492695::t_080fa8dc045fcc 1-4
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/packages/ui-native/src/linear-progress.ios.tsx.txt
+  s_ab5c95a3492695::t_ee82b2a521e543 1-19
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/packages/ui-native/src/progress.tsx.txt
+  s_ab5c95a3492695::t_8eaf57d6369aa2 1-179
+docs/research/evidence/native-progress-2026-11-11/android/current2/source/packages/ui-native/src/range-model.ts.txt
+  s_ab5c95a3492695::t_25240fd6b8e400 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7e1ef2ede939402e54358d6fbf4004e501f1c501",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
