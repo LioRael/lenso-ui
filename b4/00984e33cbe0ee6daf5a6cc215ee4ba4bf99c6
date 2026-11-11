@@ -1,9 +1,14 @@
-packages/ui-exact/BUTTON_GROUP.md
-  s_10c7d362cf24b2::t_2dbc3e01f13c23 50-53
 packages/ui-exact/COMPONENTS.md
-  s_10c7d362cf24b2::t_d2119713073dea 20-120
+  s_9f86fbdae2d09f::t_45f696d84bf34f 20-120
 packages/ui-exact/test/button-group.mjs
-  s_10c7d362cf24b2::t_20f734feeac29d 158-160,227,234-288
+  s_9f86fbdae2d09f::t_62a57b10b60de4 158
+  s_9f86fbdae2d09f::t_def2894e8cd574 288
+  s_9f86fbdae2d09f::t_2f5253ecffd862 247-260
+  s_9f86fbdae2d09f::t_4713d0efaab493 227,234-238,245-246,261-269,273,276,279-287
+  s_9f86fbdae2d09f::t_2e6296b3183f88 239-244,270-272,274-275,277-278
+  s_9f86fbdae2d09f::t_76fcdf5de1960b 159-160
+packages/ui-exact/BUTTON_GROUP.md
+  s_9f86fbdae2d09f::t_c3c6028778baba 50-53
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -11,11 +16,11 @@ packages/ui-exact/test/button-group.mjs
   "base_commit_sha": "b400984e33cbe0ee6daf5a6cc215ee4ba4bf99c6",
   "prompts": {},
   "sessions": {
-    "s_10c7d362cf24b2": {
+    "s_9f86fbdae2d09f": {
       "agent_id": {
         "tool": "codex",
-        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
-        "model": "gpt-6-astra"
+        "id": "01a1c474-4440-7663-9158-135122f4ec2c",
+        "model": "gpt-6.1-sol"
       },
       "human_author": "LioRael <leo@lenso.dev>"
     }
