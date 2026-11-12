@@ -1,0 +1,635 @@
+docs/research/evidence/native-date-fields-2026-11-12/android/logger-stop.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-6
+docs/research/evidence/native-date-fields-2026-11-12/exports3.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-34
+docs/research/evidence/native-date-fields-2026-11-12/android/apk-identity.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-15
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/source-hashes-before.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-173
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/window-before.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/source4/packages/ui-native/src/date-field.tsx.txt
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-541
+docs/research/evidence/native-date-fields-2026-11-12/android/probe-install.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-15
+docs/research/evidence/native-date-fields-2026-11-12/android/before-Wait.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-54
+docs/research/evidence/native-date-fields-2026-11-12/boundaries3.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1
+docs/research/evidence/native-date-fields-2026-11-12/source2-diagnostic/apps/native-example/DateFieldExample.tsx.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-200
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479341542606-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/source2-diagnostic/packages/ui-native/src/use-date-field.ts.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-83
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-2.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/source1/packages/ui-native/src/date-field.tsx.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-538
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479446351086-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479446351086-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-11.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479446351086-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/typecheck-example.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2
+docs/research/evidence/native-date-fields-2026-11-12/candidate2-diagnostic-source-hashes.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-172
+docs/research/evidence/native-date-fields-2026-11-12/validation-red.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-24
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479263310352-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/android/install.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-15
+docs/research/evidence/native-date-fields-2026-11-12/android/package-readiness.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-36
+docs/research/evidence/native-date-fields-2026-11-12/ios/core1/draft-reminder-hour-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-187
+docs/research/evidence/native-date-fields-2026-11-12/ios/core1/segments-time-minute45-done-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-140
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/cleanup.json
+  s_ab5c95a3492695::t_4b3782c29d706e 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479299571722.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/authoritative-results.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-28
+docs/research/evidence/native-date-fields-2026-11-12/export-android3.log
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,12,15,18
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2,4-8,10-11,13-14,16-17,19-20
+docs/research/evidence/native-date-fields-2026-11-12/README.md
+  s_ab5c95a3492695::t_d2a86a127f53d5 22,28
+  s_ab5c95a3492695::t_6b9f7a2469f905 20-21,33,37
+  s_ab5c95a3492695::t_dec7b85e9bab02 8,10,12,15-16,19
+  s_ab5c95a3492695::t_9f7af2d2c6227f 5,17,23-24,27,29,34
+  s_ab5c95a3492695::t_3aa9575e23edf9 1-4,6-7,9,11,13-14,18,25-26,30-32,35-36,38-45
+docs/research/evidence/native-date-fields-2026-11-12/source3/packages/ui-native/src/use-date-field.ts.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-84
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_328fa79f4592cb 698-725,731-755
+  s_ab5c95a3492695::t_c5297bcc4d7643 726-730
+docs/research/evidence/native-date-fields-2026-11-12/candidate1-source-hashes.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-172
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479349178080-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/Wait-action.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-17
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479232633138-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/source1/packages/ui-native/src/use-date-field.ts.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-83
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-disable-enable-discards-draft-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-124
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-external-owner-discards-draft-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-124
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-15.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/export-android4.log
+  s_ab5c95a3492695::t_6b9f7a2469f905 1-2,4-8,10-11,13-14,16-17,19-20
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,12,15,18
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/source-hashes-after.json
+  s_ab5c95a3492695::t_4b3782c29d706e 1-173
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-1.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/binary-provenance.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-10
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3-source-hashes-after.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-173
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479267260811-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/source3/packages/ui-native/src/date-intl.ts.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-40
+docs/research/evidence/native-date-fields-2026-11-12/export-ios4.log
+  s_ab5c95a3492695::t_6b9f7a2469f905 1-2,4-8,10-11,13-14,16-17,19-20
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,12,15,18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479349178080.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479233903767-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/native-delivery-2026-11-12.md
+  s_ab5c95a3492695::t_9f7af2d2c6227f 90,93,99-101,103-104
+  s_ab5c95a3492695::t_dd22775478e105 97
+  s_ab5c95a3492695::t_cd3138cdc88fcf 5-8,48,85-86,88-89,91-92,95-96,98
+  s_ab5c95a3492695::t_d2a86a127f53d5 94,102
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/after-system-Wait-identity-0.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-54
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479341542606-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/authoritative-results.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479256818585.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-14.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/logger.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-14
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/captures/caller-style4-initial-native-geometry-hierarchy.txt
+  s_ab5c95a3492695::t_4b3782c29d706e 1-121
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/final-driver.log
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-3
+docs/research/evidence/native-date-fields-2026-11-12/android/post-Wait-identity-1.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-54
+docs/research/evidence/native-date-fields-2026-11-12/ios/intl-diagnostic2/receipt.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-9
+docs/research/evidence/native-date-fields-2026-11-12/ios/delivery-selection.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-140,144-146
+  s_ab5c95a3492695::t_6b9f7a2469f905 141-143
+docs/research/evidence/native-date-fields-2026-11-12/ios/intl-diagnostic2/actual-Intl-probe.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479233903767-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/after-launch-12.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-39
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479267260811-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479376692946-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/models3.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1,3,7,9-10,12,16,21,24,27,29,33,36,41,44-45,47,50,53,56,59,64-65,68-69,71-72,74-75,79,85,87-88,90-91,94,100,104,107,110,112,115-117,119,122,124,126,129,131,133,135,138,143-144,147
+  s_ab5c95a3492695::t_64032476fd4ca3 4-5,8,13-14,17-19,22,25,28,30-31,34,37-39,42-43,48,51,54,57,60-62,66,70,76-77,80-83,86,92,95-98,101-102,105,108,111,113,120,123,127-128,132,136,139-141,145-146
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 2,6,11,15,20,23,26,32,35,40,46,49,52,55,58,63,67,73,78,84,89,93,99,103,106,109,114,118,121,125,130,134,137,142
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479406127457-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+packages/ui-native/test/date-intl.test.ts
+  s_ab5c95a3492695::t_c51d781fe30dc9 1-74
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479376692946-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/bounded-logcat-excerpts.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-729
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479446351086.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-hour-draft-period-cycle-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-124
+docs/design/native-components.md
+  s_ab5c95a3492695::t_03dc4a27dd7bba 331-332
+  s_ab5c95a3492695::t_328fa79f4592cb 347-368
+  s_ab5c95a3492695::t_c5297bcc4d7643 369-380
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-5.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/shutdown.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-14
+packages/ui-native/src/date-field.tsx
+  s_ab5c95a3492695::t_2fe7061cc56ba3 14-22
+  s_ab5c95a3492695::t_6093e16172dc06 2,23,26-30,53-54,57,82,173,175,225-230,265,268,488-491
+  s_ab5c95a3492695::t_3fce5e5bbddbe7 24,61-71,458
+  s_ab5c95a3492695::t_7e7c4620809a45 12,60,81,188,276,336,340,344-352,418
+  s_ab5c95a3492695::t_5c6231644a3d15 1,3-11,13,25,31-52,55-56,59,72-80,92-99,128-166,174,177-181,183-187,189,191-192,204-217,232-238,242-247,257-264,266-267,269-275,277-281,283-294,299-335,337-339,341-343,353-364,381-383,397-401,407-410,412-416,419-425,428-451,454-457,459-471,473-487,492-541
+  s_ab5c95a3492695::t_e513208c5d4e16 83-84,102-111,190,194-201,218-224,365-380,406
+  s_ab5c95a3492695::t_6217faa0f87576 100,120-127,193,411,426
+  s_ab5c95a3492695::t_99f4b0f7b8b129 417
+  s_ab5c95a3492695::t_4d93ebec37c0da 85-91,101,112-119,167-172,176,202-203,231,239-241,427,452-453
+  s_ab5c95a3492695::t_e9d221310f2a64 472
+  s_ab5c95a3492695::t_b40c73f984b5c0 58,282,295-298,384-396,402
+  s_ab5c95a3492695::t_a70f39d64f2528 182,248-256,403-405
+docs/research/evidence/native-date-fields-2026-11-12/android/closeout-identity.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-49
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/results.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-82
+docs/research/evidence/native-date-fields-2026-11-12/ios/core1/segments-held-day-restored-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-140
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479299571722-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/source-hashes-before.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-173
+docs/research/evidence/native-date-fields-2026-11-12/android/Wait-before.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/post-Wait-window-1.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+packages/ui-native/test/date-field-state.test.ts
+  s_ab5c95a3492695::t_124067dd16c1b8 139,141-145,149-150,157-159
+  s_ab5c95a3492695::t_9a2c9870390d82 140,148,180
+  s_ab5c95a3492695::t_3319f0a97baa02 172
+  s_ab5c95a3492695::t_e9d221310f2a64 1-130
+  s_ab5c95a3492695::t_0f339f98041ba5 175-177
+  s_ab5c95a3492695::t_503922780c48c8 131-138,146-147,151-156,160-171,173-174,178-179,181-187
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/fresh-foreground-ready.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-86
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479232633138-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/driver-clear-label-history.log
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-7
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-3.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479201621944.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-German-native-layout-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-124
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479201621944-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/android/recipes/lenso-date3-live.py
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-14
+docs/research/evidence/native-date-fields-2026-11-12/models4.log
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 2,6,11,15,20,23,26,32,35,40,46,49,52,55,58,63,67,73,78,84,89,93,99,103,106,109,114,118,121,125,130,134,137,142
+  s_ab5c95a3492695::t_6b9f7a2469f905 1,3-5,7-10,12-14,16-19,21-22,24-25,27-31,33-34,36-39,41-45,47-48,50-51,53-54,56-57,59-62,64-66,68-72,74-77,79-83,85-88,90-92,94-98,100-102,104-105,107-108,110-113,115-117,119-120,122-124,126-129,131-133,135-136,138-141,143-147
+docs/research/evidence/native-date-fields-2026-11-12/source3/apps/native-example/DateFieldExample.tsx.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-182
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/source-hashes-before.json
+  s_ab5c95a3492695::t_4b3782c29d706e 1-173
+docs/research/native-date-fields-2026-11-12.md
+  s_ab5c95a3492695::t_9f7af2d2c6227f 72-73,83,97,99,101,103-105,107-111,113-119,125,128-130,134-135
+  s_ab5c95a3492695::t_cd3138cdc88fcf 54-55,61-63,84,88-92
+  s_ab5c95a3492695::t_a962cbd0be75f2 1-53,56-60,64-70,74-82,85-87,93-96,126-127,132-133,136-139
+  s_ab5c95a3492695::t_6b9f7a2469f905 121-124,140-146
+  s_ab5c95a3492695::t_03dc4a27dd7bba 131
+  s_ab5c95a3492695::t_d2a86a127f53d5 71,98,100,102,106,112,120
+docs/research/evidence/native-date-fields-2026-11-12/android/terminal-identity.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-48
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479268514569.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/ios/intl-diagnostic2/source-hashes-before.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-172
+docs/research/evidence/native-date-fields-2026-11-12/ios/intl-diagnostic2/DateFieldsQA.swift
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-52
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479299571722-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479406127457.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479201621944-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479300762380.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479341542606.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/typecheck-native4.log
+  s_ab5c95a3492695::t_6b9f7a2469f905 1-2
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479300762380-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+packages/ui-native/src/use-date-field.ts
+  s_ab5c95a3492695::t_bd87b1546cd028 63,82
+  s_ab5c95a3492695::t_6093e16172dc06 2-18,20-62,64-81,83-84
+  s_ab5c95a3492695::t_dc8bcd84d4bedd 1
+  s_ab5c95a3492695::t_e9d221310f2a64 19
+docs/research/evidence/native-date-fields-2026-11-12/ios/cleanup.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-17
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479256818585-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/typecheck-example3.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2
+docs/research/evidence/native-date-fields-2026-11-12/source1/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-150
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479268514569-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479446351086-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/create_project.rb
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-19
+docs/research/evidence/native-date-fields-2026-11-12/ios/intl-diagnostic2/terminal.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-6
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-4.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/typecheck-native3.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479376692946-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/models.log
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 2,6,11,15,20,23,26,32,35,40,46,49,52,55,59,63,69,74,80,85,89,95,99,102,105,110,114,117,121,126,130,133,138
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1,3-5,7-10,12-14,16-19,21-22,24-25,27-31,33-34,36-39,41-45,47-48,50-51,53-54,56-58,60-62,64-68,70-73,75-79,81-84,86-88,90-94,96-98,100-101,103-104,106-109,111-113,115-116,118-120,122-125,127-129,131-132,134-137,139-143
+docs/research/evidence/native-date-fields-2026-11-12/android/OS-blocked-before-second-recovery.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-8
+docs/research/evidence/native-date-fields-2026-11-12/typecheck-native.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-7.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479256818585-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/after-ready-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-5
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479268514569-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/ios/intl-diagnostic2/captures/actual-Hermes-Intl-diagnostic2-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-123
+docs/research/evidence/native-date-fields-2026-11-12/android/original-AVD-unchanged.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-7
+docs/research/evidence/native-date-fields-2026-11-12/android/recipes/lenso-native-color-slider-public-adapter.py
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-21
+docs/research/evidence/native-date-fields-2026-11-12/ios/DateFieldsQA.core1.swift
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-50
+docs/research/evidence/native-date-fields-2026-11-12/android/apk-identity-after.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-15
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479232633138-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/ios/core1/segments-initial-native-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-137
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479263310352-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479406127457-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/after-system-Wait-window-1.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/before-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-5
+docs/research/evidence/native-date-fields-2026-11-12/candidate4-source-hashes.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-173
+docs/research/evidence/native-date-fields-2026-11-12/android/source1-startup-sealed-hashes.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-172
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479349178080-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479268514569-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/android/effective-hardware-qemu.ini
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-132
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479232633138-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/ios/authoritative-results.json
+  s_ab5c95a3492695::t_6b9f7a2469f905 17-20
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-16,21-31
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479349178080-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/environment.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-28
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-dark-native-layout-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-124
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479376692946.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/completion-driver.log
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-688
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/source-hashes-after.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-173
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/readiness.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-6
+docs/research/evidence/native-date-fields-2026-11-12/android/Wait-target.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-19,21
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 20
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479406127457-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479406127457-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/public-process-before-second-Wait.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-17
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/delivery-selection.json
+  s_ab5c95a3492695::t_6b9f7a2469f905 1-23
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479300762380-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-23
+docs/research/evidence/native-date-fields-2026-11-12/ios/source-hashes-before.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-172
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479410070906-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/before.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/authoritative-results.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 9-11
+  s_ab5c95a3492695::t_6b9f7a2469f905 1-8,12-17
+apps/native-example/README.md
+  s_ab5c95a3492695::t_328fa79f4592cb 174-181
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479256818585-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-day-only-hidden-time-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-121
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479376692946-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/source1/packages/ui-native/src/date-field-model.ts.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-39
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479341542606-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/tests/date-field-state.test.ts.txt
+  s_ab5c95a3492695::t_64032476fd4ca3 140,148,180
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-139,141-147,149-179,181-187
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479263310352-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/launch.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-26
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/native-Wait-action.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-17
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-8.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+packages/ui-native/src/date-field-model.ts
+  s_ab5c95a3492695::t_5c6231644a3d15 1-39
+docs/research/evidence/native-date-fields-2026-11-12/ios/core1-terminal.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-7
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/native-Wait-target.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-19,21
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 20
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479232633138.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 56
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-55
+docs/research/evidence/native-date-fields-2026-11-12/payload-normalization.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 1-188
+docs/research/evidence/native-date-fields-2026-11-12/source4/apps/native-example/DateFieldExample.tsx.txt
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-186
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479267260811.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-55
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 56
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/binary-provenance.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-7
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479299571722-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/ios/intl-diagnostic2/source-hashes-after.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-172
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479300762380-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/native-build-linkage.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-27
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479410070906-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/after-system-Wait-identity-1.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-54
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/DateFieldsQA.swift
+  s_ab5c95a3492695::t_4b3782c29d706e 1-63
+docs/research/evidence/native-date-fields-2026-11-12/export-ios.log
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,12,15,18
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2,4-8,10-11,13-14,16-17,19-20
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-13.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/recipes/lenso-native-date-fields-close.py
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-8
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/terminal.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-6
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-readonly-allow-discards-draft-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-124
+docs/research/evidence/native-date-fields-2026-11-12/android/recipes/lenso-native-date-fields-system-Wait.py
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-20
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/before-system-Wait.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-54
+docs/research/evidence/native-date-fields-2026-11-12/ios/source-hashes-after.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-172
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479299571722-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/source1/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-339
+docs/research/evidence/native-date-fields-2026-11-12/retention.json
+  s_ab5c95a3492695::t_6b9f7a2469f905 235,245,1296-1340
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-234,236-244,246-274,276-314,316-399,401-405,1386-1387
+  s_ab5c95a3492695::t_4b3782c29d706e 1341-1385
+  s_ab5c95a3492695::t_dd855686c4f0fc 406-1295
+  s_ab5c95a3492695::t_64032476fd4ca3 275,315,400
+docs/research/evidence/native-date-fields-2026-11-12/tests/date-intl.test.ts.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-74
+docs/research/evidence/native-date-fields-2026-11-12/ios/core1-binary-provenance.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-10
+docs/research/evidence/native-date-fields-2026-11-12/source1/apps/native-example/DateFieldExample.tsx.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-181
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479263310352.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479201621944-read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/source-checks3.json
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,15,37
+  s_ab5c95a3492695::t_64032476fd4ca3 6
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2,4-5,7-8,10-14,16-36,38-42
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479341542606-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/export-ios3.log
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2,4-8,10-11,13-14,16-17,19-20
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,12,15,18
+docs/research/evidence/native-date-fields-2026-11-12/android/before-launch.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-54
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/captures/fields3-day18-preserves-hidden-time-hierarchy.txt
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-124
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479268514569-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479233903767-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-10.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-9.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/recipes/lenso-native-date-fields-Wait.py
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-19
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479233903767-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/terminal.txt
+  s_ab5c95a3492695::t_4b3782c29d706e 1-6
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479233903767.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-6.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/ios/core1-receipt.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-16
+apps/native-example/DateFieldExample.tsx
+  s_ab5c95a3492695::t_b40c73f984b5c0 28,47
+  s_ab5c95a3492695::t_bd87b1546cd028 82
+  s_ab5c95a3492695::t_a70f39d64f2528 1,3-27,29-30,33-46,48-49,51-81,83-186
+  s_ab5c95a3492695::t_3fce5e5bbddbe7 2,31-32,50
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479410070906.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-55
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 56
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/DateFieldsQA.swift
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-61
+docs/research/evidence/native-date-fields-2026-11-12/integrity.json
+  s_ab5c95a3492695::t_4b3782c29d706e 204-208
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 210-211
+  s_ab5c95a3492695::t_4c1821d8b7c60e 1-203,209,212
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/read-json.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-17
+docs/research/evidence/native-date-fields-2026-11-12/source-checks.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2,4-8,10-14,16-20
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,15
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479267260811-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/source-hashes-after.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-173
+docs/research/evidence/native-date-fields-2026-11-12/android/launch-intent.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-21
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-17
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479349178080-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/before.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-44
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 45
+docs/research/evidence/native-date-fields-2026-11-12/verify-archives.py
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 74-85
+  s_ab5c95a3492695::t_3aa9575e23edf9 1-35,37-57,59-62,64-73,86-90
+  s_ab5c95a3492695::t_dd855686c4f0fc 36,58,63
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479410070906-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479256818585-instrument.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-25
+docs/research/evidence/native-date-fields-2026-11-12/candidate3-source-hashes.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-173
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_9f7af2d2c6227f 313,325,853
+  s_ab5c95a3492695::t_e593e3f5f0e99d 308,320,848
+  s_ab5c95a3492695::t_cd3138cdc88fcf 309-310,312,321-322,324,849-850,852
+  s_ab5c95a3492695::t_6b9f7a2469f905 315,327,855
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate3/delivery-selection.json
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-85
+docs/research/evidence/native-date-fields-2026-11-12/android/public-lastanr-before-second-Wait.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/recipes/lenso-native-date-fields3-qa.py
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-117
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/case-12.xml
+  s_ab5c95a3492695::t_dd855686c4f0fc 1
+docs/research/evidence/native-date-fields-2026-11-12/android/probe-package-after.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/captures/caller-style4-native-bounds.txt
+  s_ab5c95a3492695::t_4b3782c29d706e 1-3
+docs/research/evidence/native-date-fields-2026-11-12/source-checks4.json
+  s_ab5c95a3492695::t_6b9f7a2469f905 1-2,4-8,10-14,16-68
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,15
+docs/research/evidence/native-date-fields-2026-11-12/android/system-dialog-recovery2/after-system-Wait-window-0.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_e9d221310f2a64 22,78,128,155,178,243
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_e9d221310f2a64 140-147,149-150
+  s_ab5c95a3492695::t_b40c73f984b5c0 148
+docs/research/evidence/native-date-fields-2026-11-12/typecheck-example4.log
+  s_ab5c95a3492695::t_6b9f7a2469f905 1-2
+packages/ui-native/src/date-intl.ts
+  s_ab5c95a3492695::t_dc8bcd84d4bedd 1-3,7-40
+  s_ab5c95a3492695::t_9fd8249960c764 4-6
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479201621944-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479300762380-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/ios/candidate4/binary-provenance.json
+  s_ab5c95a3492695::t_4b3782c29d706e 1-10
+docs/research/evidence/native-date-fields-2026-11-12/android/cleanup-terminal.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-20
+docs/research/evidence/native-date-fields-2026-11-12/export-android.log
+  s_ab5c95a3492695::t_04a0bcbedc7f1e 3,9,12,15,18
+  s_ab5c95a3492695::t_c8367ba9f6df6a 1-2,4-8,10-11,13-14,16-17,19-20
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479263310352-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479267260811-read-xml.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-18
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/captures/cf1794479410070906-screen.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-16
+docs/research/evidence/native-date-fields-2026-11-12/android/candidate3/driver-readonly-metadata-history.log
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-7
+docs/research/evidence/native-date-fields-2026-11-12/android/probe-uninstall.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-14
+docs/research/evidence/native-date-fields-2026-11-12/android/delivery-selection.json
+  s_ab5c95a3492695::t_dd855686c4f0fc 1-181
+docs/research/evidence/native-date-fields-2026-11-12/archive-index.json
+  s_ab5c95a3492695::t_b6363c2bbb219e 1-1146
+docs/research/evidence/native-date-fields-2026-11-12/boundaries4.log
+  s_ab5c95a3492695::t_3c268f53736c37 1
+docs/research/evidence/native-date-fields-2026-11-12/final-checks.json
+  s_ab5c95a3492695::t_3023b35c76dc44 1-47
+docs/research/evidence/native-date-fields-2026-11-12/format4.log
+  s_ab5c95a3492695::t_25a91602ccd9f4 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2a4011f0ac1c2c40c3cb9c742c68f8b4d992de22",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
