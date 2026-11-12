@@ -1,0 +1,25 @@
+packages/ui/README.md
+  s_fc9d04ec742532::t_a39b6e5a50ff0a 3-15,28
+docs/plans/ui-sdk-react-migration.md
+  s_fc9d04ec742532::t_a39b6e5a50ff0a 1-85
+apps/docs/scripts/workspace-aliases.ts
+  s_fc9d04ec742532::t_3a5976e045ccd2 18
+packages/ui/src/utils/action-button.ts
+  s_fc9d04ec742532::t_a39b6e5a50ff0a 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4a678850076304fbabc88d70761f11529f4ec8f",
+  "prompts": {},
+  "sessions": {
+    "s_fc9d04ec742532": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d132-30d4-7b91-ab51-ed03f8289424",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
