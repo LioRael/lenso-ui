@@ -1,0 +1,2003 @@
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/number-field.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-154
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-area.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-110
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-53
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/palette.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-61
+docs/research/evidence/native-color-picker-2026-11-12/android/exit-info-final.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-swatch-picker.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-91
+docs/research/evidence/native-color-picker-2026-11-12/android/boot-observations.json
+  s_ab5c95a3492695::t_1169f096501b41 1-197
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/source-hashes-after-readonly6.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/choice.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-146
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/after-Recents-hint-window.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/presentation.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-287
+docs/research/evidence/native-color-picker-2026-11-12/ios-selection-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-227
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/probe1-rejected-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-7
+docs/research/evidence/native-color-picker-2026-11-12/ios/build/pods-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451446473408-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451449008537.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451949610816-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/tabs.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-93
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/essential5/picker-held-native-RGB-owner-restored-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-313
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainApplication.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/readonly6/binary-provenance.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-34
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/alert-dialog-host.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/NavigationExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-374
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/settings.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-39
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/restored-existing-app.json
+  s_ab5c95a3492695::t_1169f096501b41 1-86
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-keyboard-visible.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-53
+docs/research/evidence/native-color-picker-2026-11-12/android/probe-package-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-140
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-value-context.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-9
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/current4/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-53
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/case-2.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_14ad3f971cf04e 119-125
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-33
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-213
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/before-launch.json
+  s_ab5c95a3492695::t_1169f096501b41 1-54
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-open.log
+  s_ab5c95a3492695::t_1169f096501b41 1-9
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/choice-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-21
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/gradle/wrapper/gradle-wrapper.properties.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-picker-native.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/AvatarExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-117
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/OTPExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-55
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/list.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-282
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ColorExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-119
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/metro.config.cjs.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+packages/ui-native/test/color-picker-model.test.ts
+  s_ab5c95a3492695::t_44dfd9185dbed5 3-8,20-25,27-31,38-43
+  s_ab5c95a3492695::t_0aa62f6949d52e 1-2,9-19,26,32-37,44-69
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/readonly6/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/number-field.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-154
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/icon.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-41
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ColorFieldExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-141
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-216
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/select-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/shield4/product-red-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-8,10-11
+  s_ab5c95a3492695::t_4ce2876b7e23d6 9
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/all-exposure-results-metrics.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-2,6,9-10,14-15,22-23,30-31,38
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3-5,7-8,11-13,16-21,24-29,32-37,39
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-ios-build1.log
+  s_ab5c95a3492695::t_1169f096501b41 1-2687,2689-2800,2802-2857,2859-3286,3288-3399,3401-3457,3459-3561,3563,3565-3568,3570,3572-3575,3577,3579-3582,3584,3586-3589,3591,3593-3596,3598,3600-3603,3605,3607-3610,3612,3614-3617,3619,3621-3624,3626,3628-3631,3633,3635-3638,3640,3642-3645,3647,3649-3652,3654,3656-3659,3661,3663-3666,3668,3670-5088,5090-5201,5203-5257,5259-5656,5658-5769,5771-5831,5833-6237,6239-6350,6352-6412,6414-6818,6820-6931,6933-6993,6995-7101,7103,7105-7408,7410-7521,7523-7583,7585-7986,7988-8099,8101-8161,8163-8565,8567-8678,8680-8740,8742-11431,11433-11544,11546-11606,11608-12009,12011-12122,12124-12184,12186-12588,12590-12701,12703-12763,12765-14046,14048-14386,14388-14499,14501-14561,14563-14891,14893-14984,14986-15097,15099-15159,15161-15271,15273,15275-15311,15313-15410,15412,15414-15427,15429,15431-15444,15446,15448-15459,15461,15463-15502,15504,15506-15513,15515,15517-15520,15522,15524-15541,15543,15545-15548,15550,15552-15555,15557,15559-15570,15572,15574-15585,15587,15589-15596,15598,15600-15611,15613,15615-15618,15620,15622-15633,15635,15637-15644,15646,15648-15659,15661,15663-15674,15676,15678-15681,15683,15685-15688,15690,15692-15703,15705,15707-15718,15720,15722-15733,15735,15737-15748,15750,15752-15763,15765,15767-15778,15780,15782-15793,15795,15797-15808,15810,15812-15823,15825,15827-15838,15840,15842-15853,15855,15857-15868,15870,15872-15883,15885,15887-15890,15892,15894-16016,16018,16020-16023,16025,16027-16030,16032,16034-16041,16043,16045-16345,16347-16458,16460-16520,16522-16645,16647-16648,16650-16656,16658-16664,16666-16672,16674-16676,16678-16684,16686-16693,16695-16701,16703-16717,16719-16723,16725-16728,16730-16731,16733-16735,16737-16739,16741-16821,16823-17021,17023-17026,17028-17029,17031-17033,17035-17037,17039-17072,17074,17076-17079,17081,17083-17086,17088,17090-17095,17097,17099-17118,17120,17122-17125,17127,17129-17151,17153,17155-17162,17164,17166-17188,17190,17192-17517,17519-17630,17632-17692,17694-17803,17805,17807-17810,17812,17814-17817,17819,17821-17824,17826,17828-17831,17833,17835-17855,17857,17859-18300,18302-18518,18520-18521,18523-18529,18531-18537,18539-18545,18547-18549,18551-18557,18559-18566,18568-18574,18576-18590,18592-18611,18613-18615,18617-18632,18634-18706,18708,18710-19165,19167-19811,19813-20139
+  s_ab5c95a3492695::t_dfe79f7773bda5 2688,2801,2858,3287,3400,3458,3562,3564,3569,3571,3576,3578,3583,3585,3590,3592,3597,3599,3604,3606,3611,3613,3618,3620,3625,3627,3632,3634,3639,3641,3646,3648,3653,3655,3660,3662,3667,3669,5089,5202,5258,5657,5770,5832,6238,6351,6413,6819,6932,6994,7102,7104,7409,7522,7584,7987,8100,8162,8566,8679,8741,11432,11545,11607,12010,12123,12185,12589,12702,12764,14047,14387,14500,14562,14892,14985,15098,15160,15272,15274,15312,15411,15413,15428,15430,15445,15447,15460,15462,15503,15505,15514,15516,15521,15523,15542,15544,15549,15551,15556,15558,15571,15573,15586,15588,15597,15599,15612,15614,15619,15621,15634,15636,15645,15647,15660,15662,15675,15677,15682,15684,15689,15691,15704,15706,15719,15721,15734,15736,15749,15751,15764,15766,15779,15781,15794,15796,15809,15811,15824,15826,15839,15841,15854,15856,15869,15871,15884,15886,15891,15893,16017,16019,16024,16026,16031,16033,16042,16044,16346,16459,16521,16646,16649,16657,16665,16673,16677,16685,16694,16702,16718,16724,16729,16732,16736,16740,16822,17022,17027,17030,17034,17038,17073,17075,17080,17082,17087,17089,17096,17098,17119,17121,17126,17128,17152,17154,17163,17165,17189,17191,17518,17631,17693,17804,17806,17811,17813,17818,17820,17825,17827,17832,17834,17856,17858,18301,18519,18522,18530,18538,18546,18550,18558,18567,18575,18591,18612,18616,18633,18707,18709,19166,19812
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/module.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/source-material-linkage.json
+  s_ab5c95a3492695::t_1169f096501b41 1-2,4-6
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451649428454-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/SelectView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-107
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451447910435-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/controls.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-296
+docs/research/evidence/native-color-picker-2026-11-12/android/source/bun.lock.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-2998
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/CollectionExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-377
+docs/research/evidence/native-color-picker-2026-11-12/doctor-package-final.log
+  s_ab5c95a3492695::t_dfe79f7773bda5 6
+  s_ab5c95a3492695::t_aff21166e753e4 1-5,7-64
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/ios/settled1/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-29
+docs/research/evidence/native-color-picker-2026-11-12/android/probe-install.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/design/native-components.md
+  s_ab5c95a3492695::t_d0bcb4952114af 304-311,314
+  s_ab5c95a3492695::t_89e4a0536f4d16 312-313
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-96
+docs/research/evidence/native-color-picker-2026-11-12/format-final.log
+  s_ab5c95a3492695::t_aff21166e753e4 1-4
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/tag-group-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-216
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/TagGroupExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-137
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/selection.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-184
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ConfirmationExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-176
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/baseline-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-number-field-draft.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-26
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/app.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/case-4.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/source-hashes-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-200
+docs/research/evidence/native-color-picker-2026-11-12/android/focus-before-Wait.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-84
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/source2-linkage.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3
+  s_ab5c95a3492695::t_1169f096501b41 1-2,4-5
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/essential5/picker-held-open-refused-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-73
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/readonly6/product-red-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-11
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451955980866-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/selection-control.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-53
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-226
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451206083618-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/image-source.properties
+  s_ab5c95a3492695::t_1169f096501b41 1-13
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/TagGroupExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-137
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/CollectionExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-377
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451447910435-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-125
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-33
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/core2/picker-initial-red-no-unsolicited-change-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-357
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/otp-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/verify-archive.py
+  s_ab5c95a3492695::t_9dc9201ce9a14b 1-27
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/action-sheet-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-136
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451953427853-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/tabs.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-93
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/probe-install.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-Wait.log
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/normalization.json
+  s_ab5c95a3492695::t_dfe79f7773bda5 1-320
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/captures/cf1794450859460906-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/authoritative-results.json
+  s_ab5c95a3492695::t_1169f096501b41 1-39
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-82
+docs/research/evidence/native-color-picker-2026-11-12/android/readiness-budget.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/raw-logcat-digest.json
+  s_ab5c95a3492695::t_1169f096501b41 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/navigation-bar.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-106
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-swatch.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-77
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/results.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 6,25,32
+  s_ab5c95a3492695::t_1169f096501b41 1-5,7-24,26-31,33-35
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ColorPickerExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-126
+docs/research/evidence/native-color-picker-2026-11-12/focused-checks.json
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-68,70-72
+  s_ab5c95a3492695::t_4ce2876b7e23d6 69
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/OTPExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-55
+docs/research/evidence/native-color-picker-2026-11-12/ios/build/color-picker.tsx.initial.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-175
+docs/research/evidence/native-color-picker-2026-11-12/android/logger-stop.json
+  s_ab5c95a3492695::t_1169f096501b41 1-6
+docs/research/evidence/native-color-picker-2026-11-12/typecheck-package-final.log
+  s_ab5c95a3492695::t_aff21166e753e4 1-2
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ios/Podfile.lock.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-2480
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/glass.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-74
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-picker-native-types.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-10
+docs/research/evidence/native-color-picker-2026-11-12/doctor-example-final.log
+  s_ab5c95a3492695::t_aff21166e753e4 1-5,7-56
+  s_ab5c95a3492695::t_dfe79f7773bda5 6
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/alert-dialog-host.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-number-field-draft.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-26
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/select-field.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-43
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/picker4-readonly-close-preserves-owner-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-76
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-number-field-draft.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-26
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/PageControlExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-194
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-226
+docs/research/evidence/native-color-picker-2026-11-12/android/systemui-exit-info-final.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ModalExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-148
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-qa.py
+  s_ab5c95a3492695::t_1169f096501b41 1-117
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-color-field.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-80
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-swatch.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-77
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-button-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/one354-metrics.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-2,6,9-10,14-15,22
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3-5,7-8,11-13,16-21,23
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/zero354-metrics.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-2,6,9-10,14
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3-5,7-8,11-13,15
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ChoiceView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-106
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents-hint-Back.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-build.py
+  s_ab5c95a3492695::t_1169f096501b41 1-19
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/choice.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-99
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-82
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/build/build-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/controls.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-296
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_d0c4715344bde9 219,231,252-253,255,267,291
+  s_ab5c95a3492695::t_9dc9201ce9a14b 248
+  s_ab5c95a3492695::t_043c9c7fef0689 2,249-250
+docs/research/evidence/native-color-picker-2026-11-12/source-candidate3/packages/ui-native/ios/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_cf6c810ad34967 1-140
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451644879932-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/selection-control.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-87
+docs/research/evidence/native-color-picker-2026-11-12/android/post-Wait-window-1.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451949610816-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/current.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/launch-intent.json
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/button.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-64
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/select.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-77
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/tab-bar.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-102
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shutdown.json
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/build/repositories.init.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-29
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/choice-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/range-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-13
+docs/research/evidence/native-color-picker-2026-11-12/android/baseline-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+packages/ui-native/src/color-picker.tsx
+  s_ab5c95a3492695::t_a22498a6e4da4e 9-15,18-21,25-33,35,38-40,54,74-77,82,84-87,91-92,110-112,118,143,167
+  s_ab5c95a3492695::t_8a943ede29b545 16-17,34,49-51,55,61-63,66-70,88,90
+  s_ab5c95a3492695::t_14ad3f971cf04e 1-8,22-24,36-37,41-48,52-53,56-60,64-65,71-73,78-81,83,89,93-102,104-109,113-114,116-117,119-133,135-142,144-166
+  s_ab5c95a3492695::t_7dc6a97b41ae8c 103
+  s_ab5c95a3492695::t_44dfd9185dbed5 115,134,168-183
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-picker-native.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-186
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/linear-progress.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-19
+docs/research/evidence/native-color-picker-2026-11-12/android/after-startup-failure-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451203455928-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-prepare.py
+  s_ab5c95a3492695::t_1169f096501b41 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/alert-dialog.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-33
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/action-sheet.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-32
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/select-types.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/BackdropView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-82
+docs/research/evidence/native-color-picker-2026-11-12/candidate4-source-hashes.json
+  s_ab5c95a3492695::t_cf6c810ad34967 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/icon.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-41
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/tabs.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-93
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/case-3.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451206083618-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/captures/cf1794450859460906.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-picker-native.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/native-size.ios.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-11
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-contracts2.log
+  s_ab5c95a3492695::t_1169f096501b41 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/alert-dialog-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-90
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/Backdrops.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-51
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/index.js.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/action-sheet-host.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-65
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-picker-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-108
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/BackdropView.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-82
+docs/research/evidence/native-color-picker-2026-11-12/android/before-Wait.json
+  s_ab5c95a3492695::t_1169f096501b41 1-54
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/geometry-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-3,5,11-14
+  s_ab5c95a3492695::t_4ce2876b7e23d6 4,6-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451939729156-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451446473408-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/case-1.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/choice.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-99
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoTone.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-42
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-swatch-picker.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-91
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-contracts.py
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451203455928.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-7
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/glass.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-138
+docs/research/evidence/native-color-picker-2026-11-12/android/build/release.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-19
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-192
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/progress.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-179
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/Backdrops.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-51
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/source2-linkage.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3
+  s_ab5c95a3492695::t_1169f096501b41 1-2,4-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451450182459-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ChoiceView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-106
+packages/ui-native/src/color-swatch-picker.tsx
+  s_ab5c95a3492695::t_fbef59308068da 46,48
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/page-control.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-104
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-keyboard-visible.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source-hashes-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-159
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/before-restore-existing-task.json
+  s_ab5c95a3492695::t_1169f096501b41 1-54
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451958362437-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+packages/ui-native/ios/ColorPickerView.swift
+  s_ab5c95a3492695::t_14ad3f971cf04e 1-3,14-18,20-28,47-48,50-53,59-64,109-127,129-144,153-154,156-170,177-200
+  s_ab5c95a3492695::t_805caf7a31e2e1 19,49
+  s_ab5c95a3492695::t_b1fad8c3fbc576 4-13,30,54-58,66-108,152,155
+  s_ab5c95a3492695::t_30b3f13fedde80 29,31-46,65,145-151,171-176
+  s_ab5c95a3492695::t_7dc6a97b41ae8c 128
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451958362437.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-213
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/refresh-control.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-128
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassShader.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-235
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451447910435-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-button.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-42
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451201592947-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/outer3/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-press.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-27
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/choice.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-146
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-21
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ColorPickerExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-126
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassGroupView.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-231
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/avatar.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-251
+docs/research/evidence/native-color-picker-2026-11-12/checks-final-receipt.json
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-49
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451933919447-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451445058179.json
+  s_ab5c95a3492695::t_1169f096501b41 1-55
+  s_ab5c95a3492695::t_4ce2876b7e23d6 56
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/refresh-control.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-128
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-96
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/binary-provenance.json
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-field.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-199
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/shield4/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-79
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/alert-dialog.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-33
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ColorFieldExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-141
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/page-control.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-71
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/install-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-page-control.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-23
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-200
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/native-size.ios.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-11
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451944341187-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ProgressView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/post-Wait-identity-0.json
+  s_ab5c95a3492695::t_1169f096501b41 1-54
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451204762704.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451933919447-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/window5/picker4-readonly-after-green-drag-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-116
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/source-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/shield4/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/build/input-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-22
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/action-sheet-host.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-65
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451955980866.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/default354-metrics.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-2,6,9-10,14-15,22-23,30
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3-5,7-8,11-13,16-21,24-29,31
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/app-exit-info.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-button.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-42
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451953427853-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/select-field.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-43
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451949610816-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/installed-path.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-125
+docs/research/evidence/native-color-picker-2026-11-12/ios/build/Podfile.lock.before.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-2480
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-108
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/case-7.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/palette.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/progress.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-179
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-30
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451447910435.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/collection-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-11
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/page-control-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-36
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/case-2.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/candidate3-change-receipt.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 4
+  s_ab5c95a3492695::t_967cf069ee0f90 1-3,5-9
+docs/research/native-color-picker-2026-11-12.md
+  s_ab5c95a3492695::t_d0c4715344bde9 82-89,91-119,122,125,127-132,136-139,144-151,153,155-158,165
+  s_ab5c95a3492695::t_72ecf63d2ecb41 1-29,33-45,48,51,53-61,159-162,166-168
+  s_ab5c95a3492695::t_d0bcb4952114af 30-32,46-47,49,62-67,72-76,78-81
+  s_ab5c95a3492695::t_a789e4f785d2df 50,52,68-71,77,90,120-121,123-124,126,133-135,140-143,152,154
+  s_ab5c95a3492695::t_89e4a0536f4d16 163-164
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/avatar.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-251
+docs/research/evidence/native-color-picker-2026-11-12/exports-final-receipt.json
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-31
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/alert-dialog-host.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/case-4.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-qa.py
+  s_ab5c95a3492695::t_1169f096501b41 1-117
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ConfirmationExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-176
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451450182459-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/modal.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-364
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-43
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451445058179-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/apk-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/build/build-process.json
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/presentation.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-287
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-200
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/icon.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-41
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/ColorPickerQA.essential5.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-62
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ComboBoxExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-100
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/select-field.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-43
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/index.js.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-4
+docs/research/evidence/native-color-picker-2026-11-12/android/post-Wait-window-0.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ColorFieldExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-141
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/color-picker.tsx.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-183
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-Wait.py
+  s_ab5c95a3492695::t_1169f096501b41 1-19
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/restore-native-card-action.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-inspect.log
+  s_ab5c95a3492695::t_1169f096501b41 1-506
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-value-context.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-9
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/select.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-134
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-picker-native.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-close.log
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/AvatarExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-117
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/delivery-selection.json
+  s_ab5c95a3492695::t_1169f096501b41 1-585
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-111
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/picker4-dark-native-controls-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-316
+docs/research/evidence/native-color-picker-2026-11-12/ios/delivery-selection.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-243
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-area-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-213
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-close-curate.py
+  s_ab5c95a3492695::t_1169f096501b41 1-33
+docs/research/evidence/native-color-picker-2026-11-12/android/Wait-target.json
+  s_ab5c95a3492695::t_1169f096501b41 1-19,21
+  s_ab5c95a3492695::t_4ce2876b7e23d6 20
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/icon-names.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/build/build.log
+  s_ab5c95a3492695::t_dfe79f7773bda5 2,87,95,103,114
+  s_ab5c95a3492695::t_1169f096501b41 1,3-86,88-94,96-102,104-113,115-601
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451944341187-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/refresh-control.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-128
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-tab-bar.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-39
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ConfirmationExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-176
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-186
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451206083618-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/Wait-before.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoTone.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-42
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassGroupView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-231
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/closeout-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-49
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-initial.log
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/select-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/build.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/binary-provenance.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-34
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ControlsExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-284
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/restored-existing-app-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/icon-xml.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/select-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/build/build-command.json
+  s_ab5c95a3492695::t_1169f096501b41 1-23
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/source2-linkage.json
+  s_ab5c95a3492695::t_1169f096501b41 1-2,4-5
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-color-field.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-80
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451644879932-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-20
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_043c9c7fef0689 523,565,567-618
+  s_ab5c95a3492695::t_89e4a0536f4d16 449-450
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/combo-box-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/alert-dialog-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-90
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-color-picker-state.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-27
+docs/research/evidence/native-color-picker-2026-11-12/android/build/toolchain-inputs.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451651680012-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451958362437-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/delivery-selection.json
+  s_ab5c95a3492695::t_1169f096501b41 1-267
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/core2/after-4-actual-native-grid-blue-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-357
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/first-picker-open-window.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/NavigationExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-374
+docs/research/evidence/native-color-picker-2026-11-12/android/cohort-source-hashes.json
+  s_ab5c95a3492695::t_1169f096501b41 1-159
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/input.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-152
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/linear-progress.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-19
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/essential5/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-62
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/modal.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-364
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/after-onboarding-driver-failure-window.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/native-size.ios.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-11
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/logcat-bounded-excerpts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-61
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/case-1.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-43
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/create_project.rb.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/authoritative-results.json
+  s_ab5c95a3492695::t_1169f096501b41 1-19,21-38,40-57,59-76,78-97,99-139,141-158,160-182,184-189,191-208,210-217,219-236,238-243,245-252,254-278,280-297,299-316,318-335,337-354,356-381,383-396,398-428
+  s_ab5c95a3492695::t_4ce2876b7e23d6 20,39,58,77,98,140,159,183,190,209,218,237,244,253,279,298,317,336,355,382,397
+docs/research/native-delivery-2026-11-12.md
+  s_ab5c95a3492695::t_a789e4f785d2df 6
+  s_ab5c95a3492695::t_89e4a0536f4d16 108,110,115-117
+  s_ab5c95a3492695::t_d0c4715344bde9 3-5,7,47
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/after-Recents-hint-Back-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/theme.css.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-40
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-page-control.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-23
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451204762704-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/candidate4-change-receipt.json
+  s_ab5c95a3492695::t_cf6c810ad34967 1-3,5-9
+  s_ab5c95a3492695::t_4ce2876b7e23d6 4
+docs/research/evidence/native-color-picker-2026-11-12/ios/build/LensoGlassModule.swift.before.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-226
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/avatar.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-251
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/theme.css.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-40
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451649428454-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/PageControlView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-123
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/core2/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/bun.lock.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-2998
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451949610816.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/navigation-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-20
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/boot-observations.json
+  s_ab5c95a3492695::t_1169f096501b41 1-182
+docs/research/evidence/native-color-picker-2026-11-12/android/OS-read.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-select.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-27
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-327
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents2-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-picker.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-175
+docs/research/evidence/native-color-picker-2026-11-12/android/OS-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-23
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/install.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/PageControlView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-123
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ActionSheetView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-138
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451445058179-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/linear-progress.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-4
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/case-4.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ModalExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-148
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-186
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451958362437-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-20
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-111
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/navigation-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-88
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/linear-progress.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/select.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-77
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/probe-cleanup-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-6
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-3,14-28,47-53,59-64,109-144,153-154,156-170,177-200
+  s_ab5c95a3492695::t_967cf069ee0f90 29,31-46,65,145-151,171-176
+  s_ab5c95a3492695::t_cf6c810ad34967 4-13,30,54-58,66-108,152,155
+apps/native-example/ColorPickerExample.tsx
+  s_ab5c95a3492695::t_0aa62f6949d52e 1-2,16-17,27-29,41-43,126
+  s_ab5c95a3492695::t_44dfd9185dbed5 3-15,18-26,30-40,44-125
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/tsconfig.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-89
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/probe-uninstall.json
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents2-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/avatar-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-30
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassShader.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-235
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/AlertDialogView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-103
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/SelectExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-196
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/action-sheet-request.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/glass.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-74
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/settled-native-visual-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1,3-4,7,9-35
+  s_ab5c95a3492695::t_4ce2876b7e23d6 2,5-6,8
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-picker-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-108
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/source-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/tag-group.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/selection-control.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-87
+docs/research/evidence/native-color-picker-2026-11-12/android/build/installed-toolchain.init.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451958362437-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/avatar-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-30
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451449008537-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/one402-metrics.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3-5,7-8,11-13,16-21,24-29,32-37,39
+  s_ab5c95a3492695::t_aff21166e753e4 1-2,6,9-10,14-15,22-23,30-31,38
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/NavigationExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-374
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/selection-control.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-53
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ActionSheetExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-237
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ios/Podfile.lock.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-2480
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/action-sheet-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-136
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-color-picker-state.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-27
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/case-3.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/Backdrops.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-51
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451955980866-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/action-sheet-host.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/case-3.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-lib.py
+  s_ab5c95a3492695::t_1169f096501b41 1-29
+docs/research/evidence/native-color-picker-2026-11-12/typecheck-example-final.log
+  s_ab5c95a3492695::t_aff21166e753e4 1-2
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451651680012.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/navigation-bar.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-106
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/navigation-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-88
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-192
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-lib.py
+  s_ab5c95a3492695::t_1169f096501b41 1-29
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-196
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_44dfd9185dbed5 22,74,122,147,168,231
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/shield4/picker3-readonly-before-green-drag-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-113
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451949610816-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451651680012-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451649428454-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/Shapes.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-110
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-96
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/cleanup-confirmed.json
+  s_ab5c95a3492695::t_1169f096501b41 1-38
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoTone.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-42
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-picker.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-183
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451204762704-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-196
+docs/research/evidence/native-color-picker-2026-11-12/android/launch-intent.json
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-contracts2.py
+  s_ab5c95a3492695::t_1169f096501b41 1-12
+docs/research/evidence/native-color-picker-2026-11-12/ios/settled1/picker-settled-same-scene-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-358
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/progress.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-179
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/page-control.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-104
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/apk-identity-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+packages/ui-native/src/color-area.tsx
+  s_ab5c95a3492695::t_fbef59308068da 30,59
+  s_ab5c95a3492695::t_14ad3f971cf04e 50-57
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451446473408-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/input-method-before-type.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-4222
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/select.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-134
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-picker-native-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/essential5/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/PageControlExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-194
+docs/research/evidence/native-color-picker-2026-11-12/ios/preflight1/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-29
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451944341187-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/current4/picker-reopen-retains-owner-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-355
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/action-sheet-host.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451449008537-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source-initial/packages/ui-native/ios/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-111
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/select.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-134
+docs/research/evidence/native-color-picker-2026-11-12/android/source-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-159
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-33
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents2-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451201592947-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/list.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-282
+docs/research/evidence/native-color-picker-2026-11-12/android-selection-receipt.json
+  s_ab5c95a3492695::t_1169f096501b41 1-844
+docs/research/evidence/native-color-picker-2026-11-12/archive-index.json
+  s_ab5c95a3492695::t_982e2bd4c502fd 1-3996
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared-swatch-pixels.json
+  s_ab5c95a3492695::t_1169f096501b41 1-26,29-31,34-36,39-64,67-69,72-74,77-102,105-107,110-112,115-120
+  s_ab5c95a3492695::t_4ce2876b7e23d6 27-28,32-33,37-38,65-66,70-71,75-76,103-104,108-109,113-114
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/alert-dialog-host.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-58
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/select.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-77
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-tab-bar.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-39
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/collection-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-11
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/case-2.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/case-5.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/source-hashes-before.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-160
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-178
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/linear-progress.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/controls.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-149
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/case-2.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+packages/ui-native/src/color-field.tsx
+  s_ab5c95a3492695::t_fbef59308068da 63,94-95
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-area-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-213
+docs/research/evidence/native-color-picker-2026-11-12/android/build/build-result.json
+  s_ab5c95a3492695::t_1169f096501b41 1-12,14-16
+  s_ab5c95a3492695::t_4ce2876b7e23d6 13
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-96
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-field.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-199
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-145
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ControlView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-149
+docs/research/evidence/native-color-picker-2026-11-12/ios/source-hashes-after-preflight1.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-159
+packages/ui-native/src/color-slider.tsx
+  s_ab5c95a3492695::t_fbef59308068da 46,48
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/navigation-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-88
+docs/research/evidence/native-color-picker-2026-11-12/source-candidate2/packages/ui-native/ios/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_967cf069ee0f90 1-111
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassGroupView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-231
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/PageControlExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-194
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents2-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-23
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-192
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/after-onboarding-driver-failure-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/otp-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-21
+packages/ui-native/src/use-color-picker-state.ts
+  s_ab5c95a3492695::t_3026126f5195ef 1-8,15-27
+  s_ab5c95a3492695::t_8a943ede29b545 9-14
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/BackdropView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-82
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451203455928-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-30
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/probe-package-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ControlView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-149
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/probe-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-19
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-61
+docs/research/evidence/native-color-picker-2026-11-12/source-initial/packages/ui-native/src/color-picker.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-175
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/PickerProbeQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/Wait-before-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ProgressView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/choice.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-146
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/input.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-152
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-close.log
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/glass.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-74
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-select.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-27
+docs/research/evidence/native-color-picker-2026-11-12/ios/authoritative-results.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-181
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/disclosure.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-215
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ModalExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-148
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/SelectView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-107
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/controls.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-296
+packages/ui-native/src/use-native-color.ts
+  s_ab5c95a3492695::t_14ad3f971cf04e 28-31
+  s_ab5c95a3492695::t_c77291538e9281 10,14-27,33-39,41-45,47-52
+  s_ab5c95a3492695::t_fbef59308068da 1,3
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/select-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/current4/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451939729156.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/case-1.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/PageControlView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-123
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-picker-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-108
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-243
+docs/research/evidence/native-color-picker-2026-11-12/android/post-Wait-identity-1.json
+  s_ab5c95a3492695::t_1169f096501b41 1-54
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/TagGroupExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-137
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-hex-close.py
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/restore-native-card-target.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 20
+  s_ab5c95a3492695::t_1169f096501b41 1-19,21
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/metro.config.cjs.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/select-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/source-hashes-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-145
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/input-otp.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-126
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/value.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainActivity.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-61
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/window5/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-85
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/expo-module.config.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/after-one-Wait-terminal-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/picker4-final-home-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-221
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/combo-box-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-start.py
+  s_ab5c95a3492695::t_1169f096501b41 1-61
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451649428454-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/ios/preflight1/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/case-1.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/combo-box.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-169
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/case-6.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/captures/cf1794450859460906-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-area-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-213
+docs/research/evidence/native-color-picker-2026-11-12/android/build/input-hashes-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-22
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/app/build.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-182
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-125
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/readonly6/after-1-readonly-real-native-green-thumb-drag-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-314
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-page-control.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-23
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/index.js.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/selection.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-184
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-picker-native.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-4
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/palette.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/host-before-start.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/disposable-config.ini
+  s_ab5c95a3492695::t_1169f096501b41 1-140
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/source-hashes-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+packages/ui-native/src/color-picker-model.ts
+  s_ab5c95a3492695::t_a22498a6e4da4e 7-8,13-15,22-24,38,41-42,46-49,55-64,71,74,77-84,86-87,96,98,101,103-108
+  s_ab5c95a3492695::t_14ad3f971cf04e 1-6,9-12,16-21,25-37,39-40,43-45,50-54,65-70,72-73,75-76,85,88-95,97,99-100,102
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/source-hashes-after.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/tab-bar.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-102
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/metro.config.cjs.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/button.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-62
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/button.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-64
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/icon.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-41
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/effective-hardware-qemu.ini
+  s_ab5c95a3492695::t_1169f096501b41 1-132
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/otp-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/android/new-client-install.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/collection-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-11
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/page-control.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-71
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-82
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/window5/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-home.py
+  s_ab5c95a3492695::t_1169f096501b41 1-3
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451446473408.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ActionSheetExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-237
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/SelectExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-196
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/public-Recents-action.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/build/build-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-button.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/reverse.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/Wait-action.json
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ColorExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-119
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/selection-control.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-53
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/range-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-13
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/native-build-linkage.json
+  s_ab5c95a3492695::t_1169f096501b41 1-27
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-restore.py
+  s_ab5c95a3492695::t_1169f096501b41 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/input.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-152
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-button-types.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-10
+packages/ui-native/test/color-owner.test.ts
+  s_ab5c95a3492695::t_c77291538e9281 1-18,25-27,29-32,38-40,47,50-75,80-84,91-113
+  s_ab5c95a3492695::t_14ad3f971cf04e 19-24,28,33-37,41-46,48-49,76-79,85-90
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-82
+docs/research/evidence/native-color-picker-2026-11-12/android/logger.json
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451206083618-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451649428454.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/combo-box.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-169
+docs/research/evidence/native-color-picker-2026-11-12/ios/observed-preflight-findings.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-9
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/icon-names.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-start.log
+  s_ab5c95a3492695::t_1169f096501b41 1-6
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/visible-check-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/tsconfig.json.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-10
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/recovery3/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-73
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/controls.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-149
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/window5/picker4-readonly-before-green-drag-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-116
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451939729156-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451933919447.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+packages/ui-native/src/use-color-field.ts
+  s_ab5c95a3492695::t_fbef59308068da 1-2,30,38-42,45,52-53,55,58-59,72-77
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/recovery3/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-color-field.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-80
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/launch.json
+  s_ab5c95a3492695::t_1169f096501b41 1-26
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/gradlew.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-248
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-141
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/page-control-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-36
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/module.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451204762704-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/source-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-178
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/logger.json
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/results.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 6,48,67,91,98,117
+  s_ab5c95a3492695::t_1169f096501b41 1-5,7-47,49-66,68-90,92-97,99-116,118-120
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451944341187.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-shared.py
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-hex-close.log
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/AlertDialogView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-103
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-23
+packages/ui-native/src/color-picker-native.ios.tsx
+  s_ab5c95a3492695::t_a22498a6e4da4e 1-3
+  s_ab5c95a3492695::t_14ad3f971cf04e 4-7
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-200
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/window-insets.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/use-color-picker-state.ts.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-27
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/NavigationView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-177
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/after-launch-0.json
+  s_ab5c95a3492695::t_1169f096501b41 1-86
+docs/research/evidence/native-color-picker-2026-11-12/README.md
+  s_ab5c95a3492695::t_9dc9201ce9a14b 11-16,56-58
+  s_ab5c95a3492695::t_a789e4f785d2df 1-10,17-55,59-63
+docs/research/evidence/native-color-picker-2026-11-12/source-hashes.json
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-159
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-keyboard-visible.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/action-sheet-host.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-65
+docs/research/evidence/native-color-picker-2026-11-12/android/probe-uninstall.json
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/babel.config.cjs.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-6
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassShader.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-235
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/models-final.log
+  s_ab5c95a3492695::t_aff21166e753e4 1,3-6,8-10,12-15,17-18,20-24,26-29,31-35,37-38,40-41,43-44,46-48,50-54,56-59,61-65,67-70,72-74,76-80,82-83,85-86,88-91,93-95,97-98,100-102,104-107,109-111,113-114,116-119,121-125
+  s_ab5c95a3492695::t_dfe79f7773bda5 2,7,11,16,19,25,30,36,39,42,45,49,55,60,66,71,75,81,84,87,92,96,99,103,108,112,115,120
+docs/research/evidence/native-color-picker-2026-11-12/candidate3-source-hashes.json
+  s_ab5c95a3492695::t_967cf069ee0f90 1-160
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-82
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451955980866-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/NavigationView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-177
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/after-launch-1.json
+  s_ab5c95a3492695::t_1169f096501b41 1-86
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/choice-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-21
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/Shapes.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-110
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-swatch-picker.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-91
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/glass.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-138
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/source-hashes-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-pods.log
+  s_ab5c95a3492695::t_1169f096501b41 1-135
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-press.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-27
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-curate.py
+  s_ab5c95a3492695::t_1169f096501b41 1-49
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents2.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/before-probe.json
+  s_ab5c95a3492695::t_1169f096501b41 1-86
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-picker-native.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/icon.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-41
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-home.log
+  s_ab5c95a3492695::t_1169f096501b41 1-75
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-picker.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-183
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/alert-dialog-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-90
+docs/research/evidence/native-color-picker-2026-11-12/ios/source-hashes-before.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-159
+docs/research/evidence/native-color-picker-2026-11-12/android/apk-identity-after.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ControlsExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-284
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-button.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-42
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/source-hashes-after-current4.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/navigation-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-20
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-start.py
+  s_ab5c95a3492695::t_1169f096501b41 1-27
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-swatch.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-77
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451939729156-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-area.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-110
+docs/research/evidence/native-color-picker-2026-11-12/ios/build/ColorPickerView.swift.before.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-111
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/visible-check.json
+  s_ab5c95a3492695::t_1169f096501b41 1-86
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/AvatarExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-117
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/source-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/candidate2-source-hashes.json
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451644879932-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/avatar-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-30
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451203455928-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/disclosure.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-215
+docs/research/evidence/native-color-picker-2026-11-12/android/after-startup-failure-window.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/page-control.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-104
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/button.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-62
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/apk-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/source2-linkage.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 3
+  s_ab5c95a3492695::t_1169f096501b41 1-2,4-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451201592947.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/combo-box-model.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-18
+packages/ui-native/src/color-picker-native.tsx
+  s_ab5c95a3492695::t_a22498a6e4da4e 1
+  s_ab5c95a3492695::t_14ad3f971cf04e 2-4
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/bun.lock.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-2998
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451953427853-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/linear-progress.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-19
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/readonly6/picker-readonly-before-physical-green-drag-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-313
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/tab-bar.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-102
+docs/research/evidence/native-color-picker-2026-11-12/android/build/apk-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/alert-dialog-host.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-58
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/input-otp.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-126
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/first-picker-open-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-restore2.py
+  s_ab5c95a3492695::t_1169f096501b41 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/launch.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/raw-logcat-digest.json
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451651680012-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/app.json.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-contracts.log
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/tab-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-90
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-build.log
+  s_ab5c95a3492695::t_1169f096501b41 1-2
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/picker4-readonly-settled-current-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-116
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/NumberFieldExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-145
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-button.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-45
+docs/research/evidence/native-color-picker-2026-11-12/android/reverse.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/number-field.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-154
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-start.log
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-button.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451644879932-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ControlsExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-284
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-173
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ProgressView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451449008537-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/disclosure.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-215
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-shared.log
+  s_ab5c95a3492695::t_1169f096501b41 1-43
+docs/research/evidence/native-color-picker-2026-11-12/source-stage-receipt.json
+  s_ab5c95a3492695::t_d6171673033db2 1-119
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451450182459.json
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/tag-group-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-84
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/value.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/AlertDialogView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-103
+docs/research/evidence/native-color-picker-2026-11-12/android/cleanup-confirmed.json
+  s_ab5c95a3492695::t_1169f096501b41 1-34
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/tag-group.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/alert-dialog-host.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-58
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/theme.css.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-40
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ActionSheetExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-237
+docs/research/evidence/native-color-picker-2026-11-12/android/package-readiness.json
+  s_ab5c95a3492695::t_1169f096501b41 1-36
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassView.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-243
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/use-press.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-27
+docs/research/evidence/native-color-picker-2026-11-12/android/after-startup-failure-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-48
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/choice.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-99
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-108
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/use-select.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-27
+docs/research/evidence/native-color-picker-2026-11-12/ios/cleanup-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-9
+docs/research/evidence/native-color-picker-2026-11-12/ios/ColorPickerQA.create_project.rb.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-19
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/tag-group.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/modal.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-364
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-inspect.py
+  s_ab5c95a3492695::t_1169f096501b41 1-3
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-field.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-199
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/case-5.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/navigation-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-20
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/captures/cf1794450859460906-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451953427853.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-84
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/ActionSheetView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-138
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/captures/cf1794450859460906-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ColorExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-119
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-213
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-value-context.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-9
+docs/research/evidence/native-color-picker-2026-11-12/candidate2-change-receipt.json
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-13
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-141
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-tab-bar.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-39
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-53
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/value.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/list.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-282
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/public-Recents2-action.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ComboBoxExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-100
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ControlView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-149
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/app/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451446473408-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-31
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/source-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/readonly6/native-visual-red-pixel-receipt.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 2-3
+  s_ab5c95a3492695::t_aff21166e753e4 1,4-8
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/source-hashes-after-shield4.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source-hashes-before.json
+  s_ab5c95a3492695::t_1169f096501b41 1-160
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/SelectView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-107
+docs/research/evidence/native-color-picker-2026-11-12/android/terminal-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-48
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/continuation2/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/source-hashes-before.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-160
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-200
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451651680012-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/logger-stop.json
+  s_ab5c95a3492695::t_1169f096501b41 1-6
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/essential5/picker-disabled-trigger-quiet-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-73
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451450182459-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-20
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-327
+docs/research/evidence/native-color-picker-2026-11-12/ios/native-probe2/PickerProbeHost.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/icon-xml.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451201592947-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451445058179-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-108
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/action-sheet-request.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451206083618.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/avd-create.json
+  s_ab5c95a3492695::t_1169f096501b41 1-19
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451450182459-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/range-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-13
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/shield4/picker3-readonly-after-green-drag-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-113
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451447910435-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ComboBoxExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-100
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/icon-xml.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-17
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/input-otp.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-126
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/icon-names.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/tag-group-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/export-ios-final.log
+  s_ab5c95a3492695::t_aff21166e753e4 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-216
+packages/ui-native/src/color-picker-native-types.ts
+  s_ab5c95a3492695::t_a22498a6e4da4e 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/qa/lenso-native-color-picker-close.py
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/navigation-bar.android.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-106
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-226
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/CollectionExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-377
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate4/remaining6/picker4-enabled-native-recovery-hierarchy.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-316
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/Shapes.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-110
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/results.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 6,25,44,63
+  s_ab5c95a3492695::t_1169f096501b41 1-5,7-24,26-43,45-62,64-78
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ColorPickerExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-126
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/disposable-config-after.ini
+  s_ab5c95a3492695::t_1169f096501b41 1-140
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ColorButtonView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-61
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/readonly6/ColorPickerQA.swift.txt
+  s_ab5c95a3492695::t_aff21166e753e4 1-67
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/environment.json
+  s_ab5c95a3492695::t_1169f096501b41 1-28
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate3/shield4/binary-provenance.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-34
+docs/research/evidence/native-color-picker-2026-11-12/export-android-final.log
+  s_ab5c95a3492695::t_aff21166e753e4 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/SelectExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-196
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/tsconfig.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/tab-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-90
+packages/ui-native/test/color-picker-state.test.ts
+  s_ab5c95a3492695::t_3026126f5195ef 1-13,15-16,19-40,42-47
+  s_ab5c95a3492695::t_8a943ede29b545 14,17-18,41
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-30
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451445058179-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/action-sheet.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/current4/binary-provenance.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-34
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/case-6.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/ios/settled1/result-summary.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-12
+apps/native-example/README.md
+  s_ab5c95a3492695::t_d0bcb4952114af 158-164
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ios/Podfile.lock.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-2480
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-226
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/button.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-62
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/tab-bar.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-90
+docs/research/evidence/native-color-picker-2026-11-12/android/guest-memory-before-launch.json
+  s_ab5c95a3492695::t_1169f096501b41 1-15
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-close.py
+  s_ab5c95a3492695::t_1169f096501b41 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/closeout-identity.json
+  s_ab5c95a3492695::t_1169f096501b41 1-49
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-216
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451203455928-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/source-hashes-before.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-160
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/package-readiness.json
+  s_ab5c95a3492695::t_1169f096501b41 1-36
+docs/research/evidence/native-color-picker-2026-11-12/android/build/source/apps/native-example/android/gradle.properties.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-78
+docs/research/evidence/native-color-picker-2026-11-12/android/before-launch.json
+  s_ab5c95a3492695::t_1169f096501b41 1-54
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-open.py
+  s_ab5c95a3492695::t_1169f096501b41 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-141
+docs/research/evidence/native-color-picker-2026-11-12/android/shutdown.json
+  s_ab5c95a3492695::t_1169f096501b41 1-14
+docs/research/evidence/native-color-picker-2026-11-12/ios/build/build-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-11
+packages/ui-native/src/color-value-context.ts
+  s_ab5c95a3492695::t_d1f5427d4a42f9 1-9
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/GlassView.kt.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-243
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/selection-control.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-87
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/action-sheet.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ActionSheetView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-138
+docs/research/evidence/native-color-picker-2026-11-12/android/logcat-bounded-excerpts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-33
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-178
+docs/research/evidence/native-color-picker-2026-11-12/source/bun.lock.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-2998
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451933919447-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents2.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451939729156-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-16
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/original-AVD-unchanged.json
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/after-launch-screen.json
+  s_ab5c95a3492695::t_1169f096501b41 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/action-sheet-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-136
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-192
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/OTPExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-55
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/action-sheet-request.ts.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-14
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-82
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/module.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-initial.py
+  s_ab5c95a3492695::t_1169f096501b41 1-4
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/action-sheet-host.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-32
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451933919447-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451953427853-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts/captures/cf1794451644879932.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/color-area.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-110
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/results.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 6,32,51,70,89,108
+  s_ab5c95a3492695::t_1169f096501b41 1-5,7-31,33-50,52-69,71-88,90-107,109-133
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/Recents.json
+  s_ab5c95a3492695::t_4ce2876b7e23d6 45
+  s_ab5c95a3492695::t_1169f096501b41 1-44
+docs/research/evidence/native-color-picker-2026-11-12/ios/candidate2/build/build-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/hex-close/captures/cf1794451449008537-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-327
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/case-1.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/ChoiceView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-106
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451204762704-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/ios/install-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-5
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/button.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-64
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/combo-box.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-169
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/page-control.ios.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-71
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/icon.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-41
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/selection.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-184
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-button-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-196
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/qa/lenso-native-color-picker2-common.py
+  s_ab5c95a3492695::t_1169f096501b41 1-35
+docs/research/evidence/native-color-picker-2026-11-12/ios/source-hashes-after-settled1.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-159
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/results.json
+  s_ab5c95a3492695::t_1169f096501b41 1-7
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/ios/NavigationView.swift.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-177
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/ProgressExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-43
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/controls.ios.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-149
+docs/research/evidence/native-color-picker-2026-11-12/android/source/apps/native-example/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-173
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451944341187-read-json.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/babel.config.cjs.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-6
+docs/research/evidence/native-color-picker-2026-11-12/source/apps/native-example/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-173
+docs/research/evidence/native-color-picker-2026-11-12/source/packages/ui-native/src/presentation.tsx.txt
+  s_ab5c95a3492695::t_5cd02a50bf2c17 1-287
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/color-picker-native-types.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-10
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/contracts2/captures/cf1794451955980866-read-xml.json
+  s_ab5c95a3492695::t_1169f096501b41 1-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/babel.config.cjs.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-6
+docs/research/evidence/native-color-picker-2026-11-12/ios/startup-receipt.json
+  s_ab5c95a3492695::t_aff21166e753e4 1-8
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/ios/ColorPickerView.swift.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-111
+docs/research/evidence/native-color-picker-2026-11-12/android/source/packages/ui-native/src/page-control-model.ts.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-36
+docs/research/evidence/native-color-picker-2026-11-12/android/after-launch-0.json
+  s_ab5c95a3492695::t_1169f096501b41 1-39
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/captures/cf1794451201592947-instrument.json
+  s_ab5c95a3492695::t_1169f096501b41 1-25
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/glass.android.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-138
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_805caf7a31e2e1 11
+  s_ab5c95a3492695::t_14ad3f971cf04e 6-10,12-18
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/apps/native-example/app.json.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-12
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/shared/case-3.xml
+  s_ab5c95a3492695::t_1169f096501b41 1
+docs/research/evidence/native-color-picker-2026-11-12/android/disposable2/initial/source/packages/ui-native/src/alert-dialog.tsx.txt
+  s_ab5c95a3492695::t_1169f096501b41 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f04dcc270385d0c25ae28d822d37800ad59691c4",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
