@@ -11,7 +11,12 @@ import {
 } from "react";
 import { GlassBackdropSourceContext } from "./backdrop-source.js";
 import { GlassFusionContext } from "./fusion.js";
-import { attachGlass, attachContentRefraction, refractsBackdrop } from "../refraction.js";
+import {
+  attachGlass,
+  attachGlassRim,
+  attachContentRefraction,
+  refractsBackdrop,
+} from "../refraction.js";
 import { assignRef } from "./ref.js";
 import { paintMovingMaterialBackdrop } from "../backdrop-paints.js";
 import { paintMovingBackdrop } from "../panel-backdrop.js";
@@ -39,6 +44,17 @@ export function useGlassRef<T extends HTMLElement>(
     if (!element || !enabled) return;
     let stop: (() => void) | undefined;
     const surface = element.parentElement;
+    const nativePaint =
+      (deferOptics ||
+        surface?.matches('[data-slot="menu-surface"], [data-slot="select-surface"]')) &&
+      liveBackdrop &&
+      !refractsBackdrop() &&
+      /AppleWebKit\//.test(navigator.userAgent)
+        ? paintMovingBackdrop(element)
+        : undefined;
+    let stopped = false;
+    let retainedPaint: (() => void) | undefined;
+    let fittedObserver: MutationObserver | undefined;
     let state: "resting" | "moving" | "hidden" | undefined;
     const sync = () => {
       const next = !deferOptics
@@ -49,10 +65,29 @@ export function useGlassRef<T extends HTMLElement>(
             ? "resting"
             : "moving";
       if (next === state) return;
+      const previousState = state;
       state = next;
-      stop?.();
+      fittedObserver?.disconnect();
+      fittedObserver = undefined;
+      if (refractsBackdrop() && previousState === "moving" && next === "resting" && liveBackdrop)
+        retainedPaint = stop;
+      else stop?.();
       stop = undefined;
-      if (next === "resting")
+      if (nativePaint) {
+        if (next === "hidden") {
+          // Install the first native recipe in the queued paint batch before
+          // pausing hidden work, so opening never exposes an unowned fallback.
+          queueMicrotask(() => {
+            if (!stopped && state === "hidden") nativePaint.setVisible(false);
+          });
+        } else nativePaint.setVisible(true);
+        if (next === "resting") stop = attachGlassRim(element, selection);
+        return;
+      }
+      if (next === "hidden") {
+        retainedPaint?.();
+        retainedPaint = undefined;
+      } else if (next === "resting") {
         stop = attachGlass(element, {
           selection,
           profileKey,
@@ -61,10 +96,31 @@ export function useGlassRef<T extends HTMLElement>(
           liveGeometry,
           backdropSource,
         });
-      else if (next === "moving" && liveBackdrop)
-        stop = refractsBackdrop()
-          ? paintMovingMaterialBackdrop(element)
-          : paintMovingBackdrop(element);
+        if (retainedPaint) {
+          const finish = () => {
+            // The synchronous material placeholder is not a decoded fitted lens.
+            if (
+              !element.style.getPropertyValue("--lg-rim") &&
+              !element.hasAttribute("data-lenso-glass-opaque")
+            )
+              return;
+            fittedObserver?.disconnect();
+            fittedObserver = undefined;
+            retainedPaint?.();
+            retainedPaint = undefined;
+          };
+          fittedObserver = new MutationObserver(finish);
+          fittedObserver.observe(element, { attributes: true, attributeFilter: ["style"] });
+          finish();
+        }
+      } else if (next === "moving" && liveBackdrop) {
+        stop =
+          retainedPaint ??
+          (refractsBackdrop()
+            ? paintMovingMaterialBackdrop(element)
+            : paintMovingBackdrop(element));
+        retainedPaint = undefined;
+      }
     };
     const observer = deferOptics ? new MutationObserver(sync) : undefined;
     if (surface)
@@ -74,8 +130,12 @@ export function useGlassRef<T extends HTMLElement>(
       });
     sync();
     return () => {
+      stopped = true;
       observer?.disconnect();
+      fittedObserver?.disconnect();
       stop?.();
+      retainedPaint?.();
+      nativePaint?.();
     };
   }, [
     element,

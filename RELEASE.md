@@ -44,6 +44,12 @@ the prepared versions or by pushing the source commits.
 
 These are source changes; use the migration details for the version you consume.
 
+- WebKit ordinary glass now uses native backdrop blur, tone and foreground rims
+  instead of automatically copying marked page backgrounds. Menu and Select retain
+  this material through movement, rest and submenus. Chromium keeps its moving
+  material until fitted optics finish decoding. Interactions and motion paths
+  are unchanged; copied-source refraction on WebKit is intentionally reduced.
+
 - Direct documentation visits with a trailing slash preload their article before
   hydration, including Cloudflare's directory redirects. No migration is required.
 

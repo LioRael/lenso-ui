@@ -21,10 +21,25 @@ function createBackdrop(
   container.setAttribute("inert", "");
   container.setAttribute("data-material-live-paints", "");
   container.className = stylex.props(liquidMaterialStyles.livePaintContainer).className ?? "";
+  // Floating navigation owns a stacking context inside the application. Hoisting
+  // its paints to body lets their z-index cover that entire isolated application.
+  let floating: HTMLElement | null = null;
+  for (
+    let node = element.parentElement;
+    node && node !== document.body;
+    node = node.parentElement
+  ) {
+    if (["fixed", "sticky"].includes(getComputedStyle(node).position)) {
+      floating = node;
+      break;
+    }
+  }
   // WebKit drops backdrop blur when the same layer also uses a blend mode.
   const createLayer = () => {
     const layer = document.createElement("div");
-    layer.className = stylex.props(liquidMaterialStyles.livePaint).className ?? "";
+    layer.className =
+      stylex.props(floating ? liquidMaterialStyles.localPaint : liquidMaterialStyles.livePaint)
+        .className ?? "";
     container.append(layer);
     return layer;
   };
@@ -35,7 +50,8 @@ function createBackdrop(
   if (portal === element)
     while (portal.parentElement && portal.parentElement !== document.body)
       portal = portal.parentElement;
-  portal.before(container);
+  if (floating) floating.prepend(container);
+  else portal.before(container);
   let previous = "",
     stopped = false;
   const subscription = observeBackdrop({
@@ -62,13 +78,14 @@ function createBackdrop(
       let zIndex = "auto";
       for (
         let node: HTMLElement | null = element;
-        node && node !== document.body;
+        node && node !== (floating ?? document.body);
         node = node.parentElement
       ) {
         const at = reads.style(node);
         opacity *= Number(at.opacity);
         if (at.zIndex !== "auto") zIndex = at.zIndex;
       }
+      if (floating) zIndex = "-1";
       const blur = preferred?.blur ?? (style.getPropertyValue("--lg-blur").trim() || "8px");
       const colors = [1, 2, 3]
         .map((index) => [
@@ -78,7 +95,19 @@ function createBackdrop(
         .filter(([color, blend]) => color !== "transparent" || blend !== "normal");
       const radius = style.borderRadius;
       const visibility = style.visibility;
-      const transform = `translate(${box.left}px, ${box.top}px) scale(${box.width / (size.width || 1)}, ${box.height / (size.height || 1)})`;
+      const parentBox = floating ? reads.box(floating) : null;
+      const parentSize = floating ? reads.size(floating) : null;
+      const sx = parentBox && parentSize?.width ? parentBox.width / parentSize.width : 1;
+      const sy = parentBox && parentSize?.height ? parentBox.height / parentSize.height : 1;
+      const x =
+        floating && parentBox
+          ? (box.left - parentBox.left) / sx + floating.scrollLeft - floating.clientLeft
+          : box.left;
+      const y =
+        floating && parentBox
+          ? (box.top - parentBox.top) / sy + floating.scrollTop - floating.clientTop
+          : box.top;
+      const transform = `translate(${x}px, ${y}px) scale(${box.width / sx / (size.width || 1)}, ${box.height / sy / (size.height || 1)})`;
       const signature = JSON.stringify([
         size,
         opacity,
@@ -129,6 +158,7 @@ function createBackdrop(
     },
     {
       setVisible(visible: boolean) {
+        subscription.visible(visible);
         container.style.display = visible ? "" : "none";
       },
     },

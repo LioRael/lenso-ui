@@ -139,6 +139,23 @@ function createMaterialBackdrop(
           previous = "";
         };
       const rootStyle = reads.style(foreground);
+      // A masked menu trigger still receives source changes while its popup is open.
+      if (
+        parseFloat(rootStyle.opacity) === 0 ||
+        (liquid && foreground !== element && parseFloat(style.opacity) === 0)
+      )
+        return () => {
+          if (stopped) return;
+          container.style.display = "none";
+          preference?.apply(preferred);
+          if (element.getAttribute("data-material-paints") !== paintId)
+            element.setAttribute("data-material-paints", paintId);
+          previous = "";
+          if (!notified) {
+            notified = true;
+            onReady?.();
+          }
+        };
       const anchorStyle = reads.style(anchor);
       const value = (name: string) => style.getPropertyValue(name).trim();
       const profile = value("--apple-material-profile");

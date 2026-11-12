@@ -592,6 +592,13 @@ do not verify later source revisions.
 
 ## Glass interaction review surface
 
+Ordinary WebKit glass uses native CSS backdrop blur, tone and foreground rims.
+It does not automatically copy marked page backgrounds. Menu and Select retain
+one native paint owner across moving, resting and submenu states; they do not
+switch to owned snapshots on WebKit. Chromium retains its moving paint until the
+fitted optical images decode. Other explicitly owned backdrop snapshots,
+foreground content lenses and Fusion remain separate rendering paths.
+
 Registered Menu scenes include the root and its native submenu ownership chain,
 including portals across a preview shadow root. A complete owned material retires
 the hoisted native panel paints until invalidation; the two must never stack.

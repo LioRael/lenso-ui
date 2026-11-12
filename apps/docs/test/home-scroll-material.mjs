@@ -47,7 +47,9 @@ for (const [name, engine] of [
           await page.evaluate(() => scrollTo(0, 0));
           if (name === "webkit")
             await page.waitForFunction(() =>
-              document.querySelector("header a[data-slot=glass]")?.hasAttribute("data-copy"),
+              document
+                .querySelector("header a[data-slot=glass]")
+                ?.hasAttribute("data-material-paints"),
             );
           await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
           await page.waitForTimeout(600);
@@ -103,9 +105,9 @@ for (const [name, engine] of [
         if (name === "webkit")
           await page.waitForFunction(() => {
             const e = document.querySelector("header a[data-slot=glass]");
-            return e?.hasAttribute("data-copy") && !e.hasAttribute("data-material-paints");
+            return e?.hasAttribute("data-material-paints") && !e.hasAttribute("data-copy");
           });
-        console.log(`${name} ${colorScheme} ${width}px: scroll handoff and return passed`);
+        console.log(`${name} ${colorScheme} ${width}px: material scroll and return passed`);
         await page.close();
       }
     }

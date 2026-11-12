@@ -1037,6 +1037,8 @@ function attachOptics(
   }: GlassOptions = {},
 ): () => void {
   const native = refractsBackdrop();
+  // Native WebKit paint avoids rebuilding marked page content on control changes.
+  const nativeBlur = !native && /AppleWebKit\//.test(navigator.userAgent);
   let ownedBackdrop: ReturnType<GlassBackdropSource>;
   if (backdropSource && liveBackdrop && !selection && !liveGeometry) {
     try {
@@ -1053,6 +1055,7 @@ function attachOptics(
     }
   }
   const canCopy =
+    !nativeBlur &&
     !selection &&
     !ownedBackdrop &&
     (!native || getComputedStyle(element).getPropertyValue("--lg-material").trim() === "apple");
@@ -1088,7 +1091,7 @@ function attachOptics(
   );
   // Hydrated/hidden previews can acquire layout after the ref is attached.
   const stopDiscovery = whenNearViewport(element, () => {
-    if (source || selection || ownedBackdrop) return;
+    if (nativeBlur || source || selection || ownedBackdrop) return;
     if (native && getComputedStyle(element).getPropertyValue("--lg-material").trim() !== "apple")
       return;
     const found = findBackdrop(sourceAnchor ?? element);
@@ -1126,6 +1129,23 @@ function attachOptics(
 /** Refract a transparent foreground layer without capturing the page backdrop. */
 export function attachContentRefraction(element: HTMLElement): () => void {
   return watchGlassPreferences(element, () => refract(element, true, true));
+}
+
+/** Fit foreground light while a persistent native backdrop owns the material. */
+export function attachGlassRim(element: HTMLElement, selection = false): () => void {
+  let opaque: boolean | undefined;
+  let stop: (() => void) | undefined;
+  const observe = observeGlassPreferences(element, () => {
+    const next = glassIsOpaque(element);
+    if (next === opaque) return;
+    opaque = next;
+    stop?.();
+    stop = next ? undefined : refract(element, selection, false);
+  });
+  return () => {
+    observe();
+    stop?.();
+  };
 }
 
 export function attachGlass(element: HTMLElement, options: GlassOptions = {}): () => void {

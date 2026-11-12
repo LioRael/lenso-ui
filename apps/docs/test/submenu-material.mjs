@@ -48,13 +48,25 @@ for (const [engine, type] of [
         let parent = page.locator('[data-slot="menu-popup"][data-open]').first();
         await parent.waitFor();
         parent = page.locator(`[id=${JSON.stringify(await parent.getAttribute("id"))}]`);
-        await parent.locator("[data-glass-backdrop-snapshot]").waitFor({ timeout: 20000 });
+        await parent
+          .locator(
+            engine === "webkit"
+              ? "[data-material-lens][data-material-paints]"
+              : "[data-glass-backdrop-snapshot]",
+          )
+          .waitFor({ timeout: 20000 });
         await page.getByRole("menuitem", { name: "Sort by", exact: true }).focus();
         await page.keyboard.press("ArrowRight");
         let child = page.locator('[data-slot="menu-popup"][data-open]').last();
         await child.waitFor();
         child = page.locator(`[id=${JSON.stringify(await child.getAttribute("id"))}]`);
-        await child.locator("[data-glass-backdrop-snapshot]").waitFor({ timeout: 20000 });
+        await child
+          .locator(
+            engine === "webkit"
+              ? "[data-material-lens][data-material-paints]"
+              : "[data-glass-backdrop-snapshot]",
+          )
+          .waitFor({ timeout: 20000 });
         const state = await child.evaluate((e) => ({
           id: e.id,
           tintAmount: Number(
@@ -97,7 +109,10 @@ for (const [engine, type] of [
           },
           { encoded: png.toString("base64"), box: state.box },
         );
-        assert.equal(await child.locator("[data-glass-backdrop-snapshot]").count(), 1);
+        assert.equal(
+          await child.locator("[data-glass-backdrop-snapshot]").count(),
+          engine === "webkit" ? 0 : 1,
+        );
         records.push({ engine, theme, tint, rgb, ...state });
         await writeFile(`${out}/samples.json`, JSON.stringify(records, null, 2));
         await page.keyboard.press("Escape");
@@ -113,7 +128,7 @@ for (const [engine, type] of [
         assert.equal(await trigger.evaluate((e) => e === e.getRootNode().activeElement), true);
         assert.deepEqual(errors, []);
         console.log(
-          `PASS ${engine} ${theme} tint=${tint}: parent and submenu use owned input; focus restored`,
+          `PASS ${engine} ${theme} tint=${tint}: parent and submenu preserve ${engine === "webkit" ? "native paint" : "owned input"}; focus restored`,
         );
         await page.close();
       }
@@ -121,14 +136,6 @@ for (const [engine, type] of [
     await browser.close();
   }
 }
-for (const sample of records.filter((x) => x.engine === "chromium")) {
-  const other = records.find(
-    (x) => x.engine === "webkit" && x.theme === sample.theme && x.tint === sample.tint,
-  );
-  if (!other) continue;
-  const diff = Math.max(
-    ...sample.rgb.flatMap((a, i) => a.map((n, k) => Math.abs(n - other.rgb[i][k]))),
-  );
-  console.log(`${sample.theme} tint=${sample.tint}: max interior RGB difference=${diff}`);
-  assert.ok(diff <= 6, JSON.stringify({ sample, other, diff }));
-}
+// WebKit now keeps native frosted paint while Chromium retains owned optics.
+// Record their interior samples, without requiring the two material models
+// to produce identical RGB values. Ownership, preferences and focus are checked above.
