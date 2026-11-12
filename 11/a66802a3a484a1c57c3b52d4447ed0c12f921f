@@ -1,0 +1,45 @@
+RELEASE.md
+  s_10c7d362cf24b2::t_e444c945aa974f 13-20
+  s_10c7d362cf24b2::t_7e8877071577bb 8-9
+  s_10c7d362cf24b2::t_39bc9f0a5f26bc 1,3-7,41
+.github/workflows/release.yml
+  s_10c7d362cf24b2::t_794af4dc912fec 9
+bun.lock
+  s_10c7d362cf24b2::t_d85c7d03e20093 130,150,191,265,278
+packages/create-docs/package.json
+  s_10c7d362cf24b2::t_37b55cd5b89fe1 3
+packages/create-docs/src/cli.ts
+  s_10c7d362cf24b2::t_0af61af115037c 6
+packages/create-docs/template/package.json
+  s_10c7d362cf24b2::t_1862102de245fe 11
+packages/create-docs/test/cli.test.ts
+  s_10c7d362cf24b2::t_08708ad80daa15 70,92
+packages/docs/package.json
+  s_10c7d362cf24b2::t_cdd05843e925c4 3
+packages/glass/package.json
+  s_10c7d362cf24b2::t_84991aba1c04a3 3
+packages/tokens/package.json
+  s_10c7d362cf24b2::t_657b9a1a11d114 3
+packages/ui/package.json
+  s_10c7d362cf24b2::t_c46762f65a22e8 3
+scripts/publish-packages.ts
+  s_10c7d362cf24b2::t_aeb11165aed02f 48,51-52
+tests/publish-packages.test.ts
+  s_10c7d362cf24b2::t_58e939a75af192 117,135,153,189,203-204,210,227,282,321,412,454,458,460,470,477,498,502,511,523,535,547
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11a66802a3a484a1c57c3b52d4447ed0c12f921f",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
