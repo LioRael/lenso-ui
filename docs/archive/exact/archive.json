@@ -1,0 +1,30 @@
+{
+  "retiredOn": "2026-11-13",
+  "checkpoint": "767da483ad146939cdb9c1dccbdae0c45168ec49",
+  "archiveBranch": "archive/exact-2026-11-13",
+  "localArchive": "/Users/leosouthey/Projects/framework/.archives/lenso-ui-exact-20261113",
+  "removedActivePaths": [
+    "packages/ui-exact",
+    "packages/primitives-exact",
+    "experiments/exact-docs",
+    "experiments/glass-comparison"
+  ],
+  "preservedDocumentCounts": {
+    "packages/ui-exact": 62,
+    "packages/primitives-exact": 9,
+    "experiments/exact-docs": 62
+  },
+  "status": "paused by owner; incomplete experiment, not a completed release",
+  "coverageAtStop": {
+    "total": 99,
+    "webBehaviorVerified": 12,
+    "partial": 71,
+    "pending": 16
+  },
+  "unfinishedAtStop": [
+    "CalendarYearPicker final selected-year styling change not accepted in a final compiled browser cohort",
+    "14 pending feature families plus accepted Kbd/Typography upstream gaps",
+    "71 partial families retain their recorded completion gates",
+    "Exact iOS/Android UI adapters not implemented"
+  ]
+}

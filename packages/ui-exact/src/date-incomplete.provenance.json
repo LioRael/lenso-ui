@@ -1,8 +1,0 @@
-{
-  "sourcePackage": "react-stately",
-  "version": "3.51.0",
-  "source": "packages/react-stately/src/datepicker/IncompleteDate.ts",
-  "sourceSHA256": "634e671d3e956b9190d0251fb6d8de5d8441f6ac3ca9f56f3c48e65c7fe96a60",
-  "license": "Apache-2.0",
-  "changes": "Public date type aliases replace hook-module type imports; unknown-index and bounded-era type refinements satisfy strict checking. Pure model algorithm retained."
-}

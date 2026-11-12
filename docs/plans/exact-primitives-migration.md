@@ -1,3 +1,5 @@
+> Archived direction: Exact development was paused on 2026-11-13. See the [retirement and recovery record](../archive/exact/README.md). The evidence below remains historical and cohort-specific.
+
 # Refactor Lenso Exact UI onto Exact primitives
 
 > Verification correction (2026-11-12): prior path-prefix before/after browser

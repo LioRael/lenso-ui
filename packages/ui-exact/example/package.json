@@ -1,8 +1,0 @@
-{
-  "name": "lenso-exact-example",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "@lenso/ui-exact": "file:.."
-  }
-}

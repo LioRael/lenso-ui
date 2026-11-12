@@ -117,3 +117,9 @@ describes the release process and current scope.
 Original Lenso work and preserved primitives retain their [MIT terms](LICENSE).
 Adapted components retain their applicable licenses. See
 [third-party notices](THIRD_PARTY_NOTICES.md) for attribution and license texts.
+
+## Archived experiments
+
+The Exact UI, primitives and documentation experiments were retired on
+2026-11-13. Their implementation checkpoint, research and recovery instructions
+are preserved in [the Exact archive](docs/archive/exact/README.md).

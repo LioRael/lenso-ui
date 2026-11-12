@@ -1,3 +1,5 @@
+> Archived direction: Exact development was paused on 2026-11-13. See the [retirement and recovery record](../archive/exact/README.md). The evidence below remains historical and cohort-specific.
+
 # Exact + Lenso Glass: local Web prototype
 
 Measured on 2026-11-10. The official Web hatch mounted the existing Lenso Glass renderer without changes to Exact runtime or Lenso component source. The tested desktop scene showed no meaningful frame-rate separation from its static DOM mirror. This does not establish a general framework speed ranking.

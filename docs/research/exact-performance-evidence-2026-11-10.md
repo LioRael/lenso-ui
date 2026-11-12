@@ -1,3 +1,5 @@
+> Archived direction: Exact development was paused on 2026-11-13. See the [retirement and recovery record](../archive/exact/README.md). The evidence below remains historical and cohort-specific.
+
 # Exact performance evidence
 
 Reviewed on 2026-11-10. This is an upstream evidence review, not a local reproduction. No Exact builds, toolchain installations or device benchmarks were run. Upstream main changes frequently; the partial repository-tree snapshot inspected identifies `956ae33a35ffa5313d7be3cebc55ed84f9480e0a`. The measurements below name their own older revisions and must not be attributed to that snapshot or current main.
