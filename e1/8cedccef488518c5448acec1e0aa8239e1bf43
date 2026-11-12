@@ -1,0 +1,43 @@
+docs/plans/webkit-native-blur-research.md
+  s_10c7d362cf24b2::t_4308a8db1ad83a 1-138
+RELEASE.md
+  s_10c7d362cf24b2::t_ca9c97efd8c665 47-52
+apps/docs/test/home-scroll-material.mjs
+  s_10c7d362cf24b2::t_7ca1ead787589e 50-52,108,110
+apps/docs/test/menu-material-handoff.mjs
+  s_10c7d362cf24b2::t_d453af57b153d1 1-88
+apps/docs/test/submenu-material.mjs
+  s_10c7d362cf24b2::t_f2b905b7a182f9 51-57,63-69,112-115,131,139-141
+docs/design/component-conventions.md
+  s_10c7d362cf24b2::t_5f00c207a1a520 595-601
+packages/glass/src/backdrop-paints.ts
+  s_10c7d362cf24b2::t_9b8d8bf03b0150 142-158
+packages/glass/src/panel-backdrop.ts
+  s_10c7d362cf24b2::t_dd7737482ba507 24-36,40-42,53-54,81,88,98-110,161
+packages/glass/src/react/refraction.ts
+  s_10c7d362cf24b2::t_4682b6690b9d50 14-19,47-57,68,70-74,76-90,99-123,133,135,137-138
+packages/glass/src/refraction.ts
+  s_10c7d362cf24b2::t_c87a2f3adb3c75 1040-1041,1058,1094,1134-1150
+packages/glass/test/browser/backdrop-ownership.dom.test.ts
+  s_10c7d362cf24b2::t_d545d1c5467cdf 4-47
+packages/glass/test/browser/native-paint-updates.dom.test.ts
+  s_10c7d362cf24b2::t_2082486b97debc 85-96,103-139
+packages/glass/test/browser/panel-backdrop-stacking.dom.test.ts
+  s_10c7d362cf24b2::t_ac21e62ec805d8 1-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e18cedccef488518c5448acec1e0aa8239e1bf43",
+  "prompts": {},
+  "sessions": {
+    "s_10c7d362cf24b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bada-c998-7850-9e85-360ce49b33f4",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
