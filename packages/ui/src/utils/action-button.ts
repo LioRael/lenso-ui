@@ -22,7 +22,7 @@ export function guardLoadingActivation<E extends SyntheticEvent>(
 
 export function protectLoadingRender(element: ReactElement) {
   const rendered = element as ReactElement<HTMLAttributes<HTMLElement>>;
-  // Base UI runs render-element handlers first, so guarding only the Root is too late.
+  // Rendered elements run their handlers first, so guarding only the Root is too late.
   return cloneElement(rendered, {
     onClickCapture: guardLoadingActivation(rendered.props.onClickCapture),
     onDoubleClickCapture: guardLoadingActivation(rendered.props.onDoubleClickCapture),

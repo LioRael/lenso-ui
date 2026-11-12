@@ -15,6 +15,7 @@ export function workspaceAliases(root: string) {
     { find: /^@lenso\/ui$/, replacement: file("packages/ui/src/index.ts") },
     { find: /^@lenso\/ui\/hooks$/, replacement: file("packages/ui/src/hooks/index.ts") },
     { find: /^@lenso\/ui\/icons$/, replacement: file("packages/ui/src/icons/index.tsx") },
+    { find: /^@lenso\/ui\/agent$/, replacement: file("packages/ui/src/agent.ts") },
     { find: /^@lenso\/ui\/(.+)$/, replacement: file("packages/ui/src/components/$1/index.ts") },
     {
       find: /^@lenso\/tokens\/(?:theme|styles)\.css$/,

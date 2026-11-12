@@ -1,8 +1,18 @@
 # @lenso/ui
 
-Components use Base UI and StyleX. Date, time and color
-families use native Base UI parts around pure internationalized value/state
-models, preserving their specialized functions.
+Components use StyleX. The React interaction migration to UI SDK is in progress;
+Base UI remains in the families not yet migrated. See
+[the migration status](../../docs/plans/ui-sdk-react-migration.md).
+
+Button, GlassButton, ToggleButton, GlassToggleButton, ToggleButtonGroup,
+Accordion, Disclosure, Avatar, Meter, ProgressBar, ProgressCircle and Separator
+now use UI SDK. Sidebar and Notification use its Collapsible behavior. Internal
+action buttons also use UI SDK; their enclosing fields, calendars and overlays
+may still use Base UI.
+
+Migrated components can be discovered through `createAgent`, `agentTools` and
+`registerTools` from `@lenso/ui/agent`. Create the agent in browser code.
+The snapshot currently covers migrated controls, not the entire library.
 
 Import themes and component styles once:
 
@@ -15,7 +25,7 @@ import { Button } from "@lenso/ui";
 </Button>;
 ```
 
-Components use native Base UI props such as `disabled`, `onClick` and `render`.
+Components retain native props such as `disabled`, `onClick` and `render`.
 Date/time/color parts compose native fields, inputs, number fields, sliders,
 radio groups, buttons and popovers. `xstyle` is a typed
 StyleX override; native runtime styles and state-dependent style callbacks
