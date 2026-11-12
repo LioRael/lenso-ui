@@ -1,0 +1,63 @@
+docs/research/evidence/native-delivery-final-2026-11-12/lint.log
+  s_ab5c95a3492695::t_59bbdf86e4aa9c 1-2
+apps/native-example/README.md
+  s_ab5c95a3492695::t_715e8df9cf8f5c 42
+docs/research/evidence/native-delivery-final-2026-11-12/models.log
+  s_ab5c95a3492695::t_9040788a772d69 1-139
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_715e8df9cf8f5c 6-8
+docs/research/native-delivery-2026-11-12.md
+  s_ab5c95a3492695::t_32481860bdaa85 23-34,36,56-64
+  s_ab5c95a3492695::t_baa1db08f4b6a9 35,47-55,65-97,101-105
+docs/research/evidence/native-delivery-final-2026-11-12/integrity.json
+  s_ab5c95a3492695::t_734c4b2ac72f84 1-177,179-183
+  s_ab5c95a3492695::t_32481860bdaa85 178
+docs/research/evidence/native-delivery-final-2026-11-12/format.log
+  s_ab5c95a3492695::t_59bbdf86e4aa9c 1-4
+docs/research/evidence/native-delivery-final-2026-11-12/verify-archives.py
+  s_ab5c95a3492695::t_baa1db08f4b6a9 1-60
+docs/research/evidence/native-delivery-final-2026-11-12/generated.log
+  s_ab5c95a3492695::t_9040788a772d69 1-9
+docs/research/evidence/native-delivery-final-2026-11-12/node.log
+  s_ab5c95a3492695::t_9040788a772d69 1
+docs/research/evidence/native-delivery-final-2026-11-12/boundaries.log
+  s_ab5c95a3492695::t_9040788a772d69 1
+docs/research/evidence/native-delivery-final-2026-11-12/typecheck-example.log
+  s_ab5c95a3492695::t_9040788a772d69 1-2
+docs/research/evidence/native-delivery-final-2026-11-12/README.md
+  s_ab5c95a3492695::t_32481860bdaa85 1-18,23-54
+  s_ab5c95a3492695::t_95f19a1f705e21 19-22
+docs/research/evidence/native-delivery-final-2026-11-12/editorial-checks.json
+  s_ab5c95a3492695::t_95f19a1f705e21 32-34,38-44,46-53,56
+  s_ab5c95a3492695::t_59bbdf86e4aa9c 1-31,35-37,45,54-55,57-59
+  s_ab5c95a3492695::t_ad0c091fcf8b2d 60-61
+docs/research/evidence/native-delivery-final-2026-11-12/checks.json
+  s_ab5c95a3492695::t_9040788a772d69 1-5,7-13,15-21,23-29,31-37,39-45,47-53,55-61
+  s_ab5c95a3492695::t_32481860bdaa85 6,14,22,30,38,46,54
+docs/research/evidence/native-delivery-final-2026-11-12/toolchain.log
+  s_ab5c95a3492695::t_9040788a772d69 1
+docs/research/evidence/native-delivery-final-2026-11-12/typecheck-native.log
+  s_ab5c95a3492695::t_9040788a772d69 1-2
+docs/research/evidence/native-delivery-final-2026-11-12/draft-preservation.json
+  s_ab5c95a3492695::t_32481860bdaa85 1-42
+docs/research/evidence/native-delivery-final-2026-11-12/implementation-signatures.json
+  s_ab5c95a3492695::t_b00ccfbf81828f 1-22
+docs/research/evidence/native-delivery-final-2026-11-12/manifest.json
+  s_ab5c95a3492695::t_d6eebecf8d8e67 1-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "be3a4e3308af3414c7fac47b634e99091926551a",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
