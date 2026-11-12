@@ -67,7 +67,7 @@ test("initializer creates a content-only project without installing dependencies
   }
   const manifest = JSON.parse(await readFile(path.join(target, "package.json"), "utf8"));
   assert.equal(manifest.name, "my-notes");
-  assert.equal(manifest.dependencies["@lenso/docs"], "0.2.0");
+  assert.equal(manifest.dependencies["@lenso/docs"], "0.2.1");
   assert.deepEqual(manifest.scripts, {
     dev: "lenso-docs dev --turbopack",
     build: "lenso-docs build",
@@ -89,5 +89,5 @@ test("initializer refuses nonempty targets without changing them", async () => {
 
 test("help and version are available without creating files", async () => {
   assert.match(run(["--help"], process.cwd()).stdout, /Usage:/);
-  assert.equal(run(["--version"], process.cwd()).stdout.trim(), "0.2.0");
+  assert.equal(run(["--version"], process.cwd()).stdout.trim(), "0.2.1");
 });

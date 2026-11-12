@@ -114,7 +114,7 @@ test("validates packed exports, required files, dependency protocols and release
     version: "0.8.0",
     dependencies: {
       "@lenso/tokens": "0.8.0",
-      "@lenso/glass": "0.1.0",
+      "@lenso/glass": "0.1.1",
       "@lenso/primitives": "0.8.0",
     },
     exports: { ".": { types: "./dist/index.d.ts", import: "./dist/index.js" } },
@@ -132,7 +132,7 @@ test("validates packed exports, required files, dependency protocols and release
           ...ui,
           dependencies: {
             "@lenso/tokens": "workspace:*",
-            "@lenso/glass": "0.1.0",
+            "@lenso/glass": "0.1.1",
             "@lenso/primitives": "0.8.0",
           },
         },
@@ -150,7 +150,7 @@ test("validates packed exports, required files, dependency protocols and release
           ...ui,
           dependencies: {
             "@lenso/tokens": "0.7.0",
-            "@lenso/glass": "0.1.0",
+            "@lenso/glass": "0.1.1",
             "@lenso/primitives": "0.8.0",
           },
         },
@@ -186,7 +186,7 @@ test("only skips an existing exact integrity and dependency pin", () => {
         dist: { integrity: "sha512-exact" },
         dependencies: {
           "@lenso/tokens": "0.8.0",
-          "@lenso/glass": "0.1.0",
+          "@lenso/glass": "0.1.1",
           "@lenso/primitives": "0.8.0",
         },
       },
@@ -200,14 +200,14 @@ test("only skips an existing exact integrity and dependency pin", () => {
       shouldSkipExisting(
         {
           versions: {
-            "0.1.0": {
-              version: "0.1.0",
+            "0.1.1": {
+              version: "0.1.1",
               dist: { integrity: "sha512-exact" },
               dependencies: { "@lenso/tokens": "0.7.0" },
             },
           },
         },
-        "0.1.0",
+        "0.1.1",
         "sha512-exact",
         glassEntry,
         "0.8.0",
@@ -224,7 +224,7 @@ test("only skips an existing exact integrity and dependency pin", () => {
               dist: { integrity: "sha512-exact" },
               dependencies: {
                 "@lenso/tokens": "0.7.0",
-                "@lenso/glass": "0.1.0",
+                "@lenso/glass": "0.1.1",
                 "@lenso/primitives": "0.8.0",
               },
             },
@@ -279,7 +279,7 @@ test("Command release requires distributable primitive entries and an exact UI d
   const ui = {
     name: uiEntry.name,
     version: "0.10.0",
-    dependencies: { "@lenso/tokens": "0.10.0", "@lenso/glass": "0.1.0" },
+    dependencies: { "@lenso/tokens": "0.10.0", "@lenso/glass": "0.1.1" },
   };
   const uiFiles = [
     "package/dist/index.js",
@@ -318,7 +318,7 @@ test("accepted publication waits for registry version and latest without republi
     dist: { integrity: "sha512-exact" },
     dependencies: {
       "@lenso/tokens": "0.8.0",
-      "@lenso/glass": "0.1.0",
+      "@lenso/glass": "0.1.1",
       "@lenso/primitives": "0.8.0",
     },
   };
@@ -409,7 +409,7 @@ test("waiting rejects wrong UI dependency and limits latest-tag lag to its deadl
             dist: { integrity: "sha512-exact" },
             dependencies: {
               "@lenso/tokens": "0.7.0",
-              "@lenso/glass": "0.1.0",
+              "@lenso/glass": "0.1.1",
               "@lenso/primitives": "0.8.0",
             },
           },
@@ -451,13 +451,13 @@ test("new package validation requires runtime binaries, templates and notices", 
   assert.ok(item?.version);
   const manifest = {
     name: item.name,
-    version: "0.1.0",
+    version: "0.1.1",
     bin: { "create-lenso-docs": "./src/cli.ts" },
   };
   const files = ["package/LICENSE", "package/template/package.json", "package/src/cli.ts"];
-  assert.doesNotThrow(() => validatePackage(manifest, files, {}, item, "0.1.0"));
+  assert.doesNotThrow(() => validatePackage(manifest, files, {}, item, "0.1.1"));
   assert.throws(
-    () => validatePackage(manifest, files.slice(0, 2), {}, item, "0.1.0"),
+    () => validatePackage(manifest, files.slice(0, 2), {}, item, "0.1.1"),
     /missing.*cli.ts/,
   );
   assert.throws(
@@ -467,14 +467,14 @@ test("new package validation requires runtime binaries, templates and notices", 
         files.filter((file) => !file.includes("template")),
         {},
         item,
-        "0.1.0",
+        "0.1.1",
       ),
     /missing.*template/,
   );
   const docs = entries.find((entry) => entry.kind === "docs");
   assert.ok(docs?.version);
   assert.throws(
-    () => validatePackage({ name: docs.name, version: "0.1.0" }, [], {}, docs, "0.1.0"),
+    () => validatePackage({ name: docs.name, version: "0.1.1" }, [], {}, docs, "0.1.1"),
     /missing.*LICENSE/,
   );
 });
@@ -495,11 +495,11 @@ test("glass distribution requires exact token pin, original source and LGPL noti
   };
   const manifest = {
     name: glassEntry.name,
-    version: "0.1.0",
+    version: "0.1.1",
     dependencies: { "@lenso/tokens": "0.8.0" },
   };
   assert.doesNotThrow(() =>
-    validatePackage(manifest, files, contents, glassEntry, "0.1.0", "0.8.0"),
+    validatePackage(manifest, files, contents, glassEntry, "0.1.1", "0.8.0"),
   );
   assert.throws(
     () =>
@@ -508,7 +508,7 @@ test("glass distribution requires exact token pin, original source and LGPL noti
         files,
         contents,
         glassEntry,
-        "0.1.0",
+        "0.1.1",
         "0.8.0",
       ),
     /released @lenso\/tokens/,
@@ -520,7 +520,7 @@ test("glass distribution requires exact token pin, original source and LGPL noti
         files.filter((file) => !file.endsWith("gpu-blur.ts")),
         contents,
         glassEntry,
-        "0.1.0",
+        "0.1.1",
         "0.8.0",
       ),
     /gpu-blur/,
@@ -532,7 +532,7 @@ test("glass distribution requires exact token pin, original source and LGPL noti
         files,
         { ...contents, "package/dist/react/index.js": "export {};" },
         glassEntry,
-        "0.1.0",
+        "0.1.1",
         "0.8.0",
       ),
     /use client/,
@@ -544,7 +544,7 @@ test("glass distribution requires exact token pin, original source and LGPL noti
         files,
         { ...contents, "package/dist/THIRD_PARTY_NOTICES.md": "missing" },
         glassEntry,
-        "0.1.0",
+        "0.1.1",
         "0.8.0",
       ),
     /LGPL notice/,
