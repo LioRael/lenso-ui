@@ -1,0 +1,117 @@
+use ComboBoxState, ComboBoxOption, ComboBox, ComboBoxRoot, ComboBoxLabel, ComboBoxInputGroup, ComboBoxInput, ComboBoxClearButton, ComboBoxTrigger, ComboBoxIndicator, ComboBoxPortal, ComboBoxPositioner, ComboBoxPopover, ComboBoxList, ComboBoxGroup, ComboBoxGroupLabel, ComboBoxItem, ComboBoxItemText, ComboBoxItemIndicator, ComboBoxSeparator, ComboBoxEmpty, ComboBoxStatus, Button from "@lenso/ui-exact"
+
+component ComboBoxExample
+  state selected = ["react"]
+  state query = "React"
+  state choices: string[] = []
+  state search = ""
+  state disabled = false
+  state readOnly = false
+  state reject = false
+  state rejectQuery = false
+  state mounted = true
+  state rtl = false
+  state variant = "primary"
+  state filter = "contains"
+  state removeReact = false
+  state externalForm = false
+  state requests = 0
+  state queries = 0
+  derive options = [ComboBoxOption(value="react", label="React", disabled=false), ComboBoxOption(value="disabled", label="Reason (unavailable)", disabled=true), ComboBoxOption(value="", label="Résumé", disabled=false), ComboBoxOption(value="a,b", label="Solid", disabled=false), ComboBoxOption(value="雪", label="Svelte", disabled=false)]
+  derive visibleOptions = options.filter(item => not removeReact or item.value != "react")
+  derive single = ComboBoxState(id="framework-combo", label="Framework", labelledBy="framework-combo-label", describedBy="combo-hint", value=selected, inputValue=query, defaultValue=["react"], defaultInputValue="React", multiple=false, disabled=disabled, readOnly=readOnly, required=true, invalid=false, name="framework", form=(externalForm ? "combo-external-form-fixture" : ""), placeholder="Search frameworks", variant=variant, fullWidth=true, direction=(rtl ? "rtl" : "ltr"), filter=filter, locale="en-US", autoHighlight=true, loop=true, side="bottom", align="start", sideOffset=4, collisionPadding=8)
+  derive multiple = ComboBoxState(id="frameworks-combo", label="Frameworks", labelledBy="frameworks-combo-label", describedBy="", value=choices, inputValue=search, defaultValue=[], defaultInputValue="", multiple=true, disabled=disabled, readOnly=readOnly, required=false, invalid=false, name="frameworks", form=(externalForm ? "combo-external-form-fixture" : ""), placeholder="Choose frameworks", variant=variant, fullWidth=true, direction=(rtl ? "rtl" : "ltr"), filter=filter, locale="en-US", autoHighlight=true, loop=true, side="bottom", align="start", sideOffset=4, collisionPadding=8)
+  action choose(value: string[], text: string)
+    requests = requests + 1
+    if not reject
+      selected = value
+      query = text
+  action edit(value: string)
+    queries = queries + 1
+    if not rejectQuery
+      query = value
+  action chooseMany(value: string[], text: string)
+    if not reject
+      choices = value
+      search = text
+  action editMany(value: string)
+    if not rejectQuery
+      search = value
+  action associate
+    externalForm = not externalForm
+  action disable
+    disabled = not disabled
+  action lock
+    readOnly = not readOnly
+  action veto
+    reject = not reject
+  action vetoQuery
+    rejectQuery = not rejectQuery
+  action remount
+    mounted = not mounted
+  action redirect
+    rtl = not rtl
+  action surface
+    variant = variant == "primary" ? "secondary" : "primary"
+  action filtering
+    filter = filter == "contains" ? "startsWith" : filter == "startsWith" ? "none" : "contains"
+  action external
+    selected = ["雪"]
+    query = "Svelte"
+  action remove
+    removeReact = not removeReact
+  view
+    column id="combo-box-examples" testId="combo-box-examples" gap=12
+      text "Combo box" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="External form", press=associate, disabled=false, size="sm", variant="bordered", testId="combo-form")
+        Button(label="Disable combos", press=disable, disabled=false, size="sm", variant="bordered", testId="combo-disabled")
+        Button(label="Read only combos", press=lock, disabled=false, size="sm", variant="bordered", testId="combo-readonly")
+        Button(label="Reject choice", press=veto, disabled=false, size="sm", variant="bordered", testId="combo-reject")
+        Button(label="Reject query", press=vetoQuery, disabled=false, size="sm", variant="bordered", testId="combo-reject-query")
+        Button(label="Mount combos", press=remount, disabled=false, size="sm", variant="bordered", testId="combo-mounted")
+        Button(label="Combo direction", press=redirect, disabled=false, size="sm", variant="bordered", testId="combo-direction")
+        Button(label="Combo surface", press=surface, disabled=false, size="sm", variant="bordered", testId="combo-variant")
+        Button(label="Filter method", press=filtering, disabled=false, size="sm", variant="bordered", testId="combo-filter")
+        Button(label="External choice", press=external, disabled=false, size="sm", variant="bordered", testId="combo-external")
+        Button(label="Remove React", press=remove, disabled=false, size="sm", variant="bordered", testId="combo-remove")
+      text "Choose a listed framework; typed text filters the available options." id="combo-hint"
+      if mounted
+        ComboBoxRoot(state=single, options=visibleOptions, change=choose)
+          ComboBoxLabel(state=single)
+          ComboBoxInputGroup(state=single)
+            ComboBoxInput(state=single, input=edit)
+            ComboBoxClearButton(state=single, label="Clear framework", change=choose)
+            ComboBoxTrigger(state=single, label="Show frameworks")
+              ComboBoxIndicator()
+          ComboBoxPortal()
+            ComboBoxPositioner(state=single)
+              ComboBoxPopover()
+                ComboBoxList(state=single)
+                  ComboBoxGroup(id="combo-main-group", labelledBy="combo-main-title")
+                    ComboBoxGroupLabel(id="combo-main-title")
+                      text "Main frameworks"
+                    for item, index in visibleOptions key=item.value
+                      if item.value != "雪"
+                        ComboBoxItem(state=single, item=item, index=index, change=choose)
+                          ComboBoxItemText()
+                            text item.label
+                          ComboBoxItemIndicator(selected=selected.includes(item.value))
+                  ComboBoxSeparator()
+                  ComboBoxGroup(id="combo-more-group", labelledBy="combo-more-title")
+                    ComboBoxGroupLabel(id="combo-more-title")
+                      text "More frameworks"
+                    for item, index in visibleOptions key=item.value
+                      if item.value == "雪"
+                        ComboBoxItem(state=single, item=item, index=index, change=choose)
+                          ComboBoxItemText()
+                            text item.label
+                          ComboBoxItemIndicator(selected=selected.includes(item.value))
+                ComboBoxEmpty(id="framework-combo-empty", label="No matching frameworks")
+          ComboBoxStatus(id="framework-combo-status", label="Matching options: {count}")
+        ComboBox(state=multiple, options=visibleOptions, input=editMany, change=chooseMany, triggerLabel="Show frameworks", clearLabel="Clear frameworks", emptyLabel="No matching frameworks", statusLabel="Matching options: {count}")
+      text `Selected: ${selected.join("|")}` testId="combo-value"
+      text `Multiple: ${choices.join("|")}` testId="combo-values"
+      text query testId="combo-query"
+      text `Requests: ${requests}` testId="combo-requests"
+      text `Queries: ${queries}` testId="combo-queries"

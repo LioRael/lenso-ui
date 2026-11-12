@@ -1,0 +1,94 @@
+use InputOTPState, InputOTPRoot, InputOTPGroup, InputOTPSlot, InputOTPSeparator, InputOTP, Button, Label from "@lenso/ui-exact"
+
+component InputOTPExample
+  state value = ""
+  state backup = ""
+  state completions = 0
+  state completed = ""
+  state disabled = false
+  state readOnly = false
+  state reject = false
+  state mounted = true
+  state rtl = false
+  state mask = false
+  state glass = false
+  state autoSubmit = false
+  state externalForm = false
+  state variant = "primary"
+  state validation = "numeric"
+  derive code = InputOTPState(id="otp-code", label="Verification code", describedBy="otp-hint", slotLabel="Code character {index} of {count}", value=value, defaultValue="", length=6, validationType=validation, validationMessage="Enter all six code characters.", disabled=disabled, readOnly=readOnly, required=true, invalid=false, mask=mask, autoSubmit=autoSubmit, variant=variant, glass=glass, direction=(rtl ? "rtl" : "ltr"), name="code", form=(externalForm ? "otp-external-form-fixture" : ""), autocomplete="one-time-code", placeholder="○")
+  derive other = InputOTPState(id="otp-backup", label="Backup code", describedBy="", slotLabel="Backup character {index} of {count}", value=backup, defaultValue="", length=4, validationType="alphanumeric", validationMessage="Enter four backup characters.", disabled=disabled, readOnly=readOnly, required=false, invalid=false, mask=false, autoSubmit=false, variant=variant, glass=glass, direction=(rtl ? "rtl" : "ltr"), name="backup", form=(externalForm ? "otp-external-form-fixture" : ""), autocomplete="off", placeholder="")
+  action edit(next: string)
+    if not reject
+      value = next
+  action editBackup(next: string)
+    if not reject
+      backup = next
+  action complete(next: string)
+    completions = completions + 1
+    completed = next
+  action ignore(next: string)
+    if false
+      completed = next
+  action disable
+    disabled = not disabled
+  action lock
+    readOnly = not readOnly
+  action veto
+    reject = not reject
+  action remount
+    mounted = not mounted
+  action redirect
+    rtl = not rtl
+  action conceal
+    mask = not mask
+  action floating
+    glass = not glass
+  action submitOnComplete
+    autoSubmit = not autoSubmit
+  action associate
+    externalForm = not externalForm
+  action surface
+    variant = variant == "primary" ? "secondary" : "primary"
+  action validate
+    validation = validation == "numeric" ? "alpha" : validation == "alpha" ? "alphanumeric" : validation == "alphanumeric" ? "none" : "numeric"
+    value = ""
+  action external
+    value = "987654"
+  action clear
+    value = ""
+  view
+    column id="input-otp-examples" testId="input-otp-examples" gap=16 width="100%"
+      text "Verification codes" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable codes", press=disable, disabled=false, size="sm", variant="bordered", testId="otp-disabled")
+        Button(label="Read only codes", press=lock, disabled=false, size="sm", variant="bordered", testId="otp-readonly")
+        Button(label="Reject code", press=veto, disabled=false, size="sm", variant="bordered", testId="otp-reject")
+        Button(label="Mount codes", press=remount, disabled=false, size="sm", variant="bordered", testId="otp-mounted")
+        Button(label="Reverse codes", press=redirect, disabled=false, size="sm", variant="bordered", testId="otp-direction")
+        Button(label="Mask code", press=conceal, disabled=false, size="sm", variant="bordered", testId="otp-mask")
+        Button(label="Floating codes", press=floating, disabled=false, size="sm", variant="bordered", testId="otp-glass")
+        Button(label="Submit complete code", press=submitOnComplete, disabled=false, size="sm", variant="bordered", testId="otp-submit")
+        Button(label="External code form", press=associate, disabled=false, size="sm", variant="bordered", testId="otp-form")
+        Button(label="Code surface", press=surface, disabled=false, size="sm", variant="bordered", testId="otp-variant")
+        Button(label="Code validation", press=validate, disabled=false, size="sm", variant="bordered", testId="otp-validation")
+        Button(label="External code value", press=external, disabled=false, size="sm", variant="bordered", testId="otp-external")
+        Button(label="Clear code", press=clear, disabled=false, size="sm", variant="bordered", testId="otp-clear")
+      text "Enter the six-character code to continue." id="otp-hint"
+      if mounted
+        Label(id="otp-label", controlId="otp-code-slot-0", label="Verification code", required=true)
+        InputOTPRoot(state=code, change=edit, complete=complete)
+          InputOTPGroup()
+            InputOTPSlot(state=code, index=0)
+            InputOTPSlot(state=code, index=1)
+            InputOTPSlot(state=code, index=2)
+          InputOTPSeparator()
+          InputOTPGroup()
+            InputOTPSlot(state=code, index=3)
+            InputOTPSlot(state=code, index=4)
+            InputOTPSlot(state=code, index=5)
+        InputOTP(state=other, indices=[0, 1, 2, 3], change=editBackup, complete=ignore)
+      text value id="otp-value" testId="otp-value"
+      text `${completions}` id="otp-completions" testId="otp-completions"
+      text completed id="otp-completed" testId="otp-completed"
+      text "After code" testId="otp-after" tabindex=0

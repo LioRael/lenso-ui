@@ -1,3 +1,4 @@
+import { ownMenuPopup } from "./menu-parts.js";
 import { isMenuPointerFocusGuarded } from "./menu-pointer-focus.js";
 /**
  * Native adaptation of Base UI 1.9.0 submenu hover and Lenso submenu parent poses.
@@ -9,7 +10,7 @@ import { createHoverCorridor } from "./popover-hover-corridor.js";
 export function submenuLayout(root: HTMLElement, trigger: HTMLElement | undefined) {
   if (root.dataset["lensoSubmenu"] !== "true" || !trigger) return;
   const parent = trigger.closest<HTMLElement>('[popover][role="menu"]');
-  const popup = parent?.querySelector<HTMLElement>(':scope > [data-slot="menu-popup"]');
+  const popup = parent ? ownMenuPopup(parent) : undefined;
   if (!parent || !popup || parent === root) return;
   const presentation = root.dataset["lensoPresentation"] ?? "auto";
   const stacked =
@@ -254,9 +255,7 @@ export function registerSubmenu(root: HTMLElement, host: Host): Owner {
     corridor = createHoverCorridor({
       x: event.clientX,
       y: event.clientY,
-      placement:
-        root.querySelector<HTMLElement>(':scope > [data-slot="menu-popup"]')?.dataset["side"] ??
-        "right",
+      placement: ownMenuPopup(root)?.dataset["side"] ?? "right",
       reference: () => opener,
       floating: root,
       hasOpenChild: () => Boolean(root.querySelector(":popover-open")),

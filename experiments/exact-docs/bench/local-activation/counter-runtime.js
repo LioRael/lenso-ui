@@ -59,6 +59,7 @@ export function activateCounter({ shared, effect, scope, end, action, text, sear
     if (url.origin !== location.origin) return;
     event.preventDefault();
     event.stopImmediatePropagation();
+    exact.prepareDestination?.(url.href);
     activate()
       .then((local) => local.follow(url.pathname + url.search + url.hash))
       .catch((error) => {

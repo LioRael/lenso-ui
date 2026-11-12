@@ -1,0 +1,72 @@
+use ColorFieldState, ColorField, ColorFieldLabel, ColorFieldDescription, ColorInputGroup, ColorInputGroupInput, ColorInputGroupPrefix, ColorInputGroupSuffix, ColorSwatch, Button from "@lenso/ui-exact"
+
+component ColorFieldExample
+  state value = "#0080FFFF"
+  state lastCommit = ""
+  state commits = 0
+  state disabled = false
+  state readOnly = false
+  state reject = false
+  state mounted = true
+  state hue = false
+  state locale = "en-US"
+  state variant = "primary"
+  derive hex = ColorFieldState(id="color-hex", label="Hex color", labelledBy="color-hex-label", describedBy="color-hex-hint", value=value, channel="hex", colorSpace="rgb", locale=locale, name="hex", disabled=disabled, readOnly=readOnly, required=true, invalid=false, variant=variant, fullWidth=true)
+  derive channel = ColorFieldState(id="color-channel", label=(hue ? "Hue" : "Red"), labelledBy="color-channel-label", describedBy="", value=value, channel=(hue ? "hue" : "red"), colorSpace=(hue ? "hsl" : "rgb"), locale=locale, name="channel", disabled=disabled, readOnly=readOnly, required=false, invalid=false, variant=variant, fullWidth=true)
+  derive alpha = ColorFieldState(id="color-alpha", label="Opacity", labelledBy="color-alpha-label", describedBy="", value=value, channel="alpha", colorSpace="rgb", locale=locale, name="opacity", disabled=disabled, readOnly=readOnly, required=false, invalid=false, variant=variant, fullWidth=true)
+  action change(next: string)
+    if not reject
+      value = next
+  action commit(next: string)
+    commits = commits + 1
+    lastCommit = next
+  action disable
+    disabled = not disabled
+  action lock
+    readOnly = not readOnly
+  action veto
+    reject = not reject
+  action remount
+    mounted = not mounted
+  action channelSpace
+    hue = not hue
+  action localize
+    locale = locale == "en-US" ? "fr-FR" : "en-US"
+  action surface
+    variant = variant == "primary" ? "secondary" : "primary"
+  action reset
+    value = "#0080FFFF"
+  view
+    column id="color-field-examples" testId="color-field-examples" gap=12
+      text "Color fields" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable fields", press=disable, disabled=false, size="sm", variant="bordered", testId="color-field-disabled")
+        Button(label="Read only fields", press=lock, disabled=false, size="sm", variant="bordered", testId="color-field-readonly")
+        Button(label="Reject color changes", press=veto, disabled=false, size="sm", variant="bordered", testId="color-field-reject")
+        Button(label="Mount fields", press=remount, disabled=false, size="sm", variant="bordered", testId="color-field-mounted")
+        Button(label="RGB or HSL", press=channelSpace, disabled=false, size="sm", variant="bordered", testId="color-field-space")
+        Button(label="Field locale", press=localize, disabled=false, size="sm", variant="bordered", testId="color-field-locale")
+        Button(label="Field surface", press=surface, disabled=false, size="sm", variant="bordered", testId="color-field-variant")
+        Button(label="Reset color", press=reset, disabled=false, size="sm", variant="bordered", testId="color-field-reset")
+      if mounted
+        ColorField(state=hex, change=change, commit=commit)
+          ColorFieldLabel(state=hex)
+          ColorInputGroup(state=hex)
+            ColorInputGroupPrefix()
+              text "Color"
+            ColorInputGroupInput(state=hex, change=change, commit=commit)
+          ColorFieldDescription(id="color-hex-hint", message="Enter a hexadecimal color.")
+        ColorField(state=channel, change=change, commit=commit)
+          ColorFieldLabel(state=channel)
+          ColorInputGroup(state=channel)
+            ColorInputGroupInput(state=channel, change=change, commit=commit)
+        ColorField(state=alpha, change=change, commit=commit)
+          ColorFieldLabel(state=alpha)
+          ColorInputGroup(state=alpha)
+            ColorInputGroupInput(state=alpha, change=change, commit=commit)
+            ColorInputGroupSuffix()
+              text "Opacity"
+        ColorSwatch(id="field-color-preview", color=value, label="Edited color", size="lg", shape="square")
+      text value testId="field-color-value"
+      text `Commits: ${commits}` testId="field-color-commits"
+      text lastCommit testId="field-color-committed"

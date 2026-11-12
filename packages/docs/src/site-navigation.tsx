@@ -72,7 +72,6 @@ function NavigationEntry({
   if (item.children?.length) {
     return (
       <Sidebar.Disclosure
-        defaultOpen={item.defaultOpen ?? containsCurrentUrl(item, currentUrl)}
         {...(desktopState
           ? {
               open:
@@ -81,7 +80,7 @@ function NavigationEntry({
                 containsCurrentUrl(item, currentUrl),
               onOpenChange: (open: boolean) => desktopState.setBranch(branchId, open),
             }
-          : {})}
+          : { defaultOpen: item.defaultOpen ?? containsCurrentUrl(item, currentUrl) })}
       >
         {link}
         <Sidebar.DisclosureTrigger

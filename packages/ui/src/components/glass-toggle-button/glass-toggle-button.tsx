@@ -1,7 +1,7 @@
 "use client";
 
-import { Toggle as BaseToggle } from "@base-ui/react/toggle";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { Toggle as BaseToggle } from "@ui-sdk/react/toggle";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import { useContext, type ComponentProps, type ReactNode } from "react";
 import {
   glassButtonStyles,
@@ -15,6 +15,7 @@ import { glassToggleButtonStyles } from "@lenso/tokens/glass-toggle-button";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { GlassFusionContext, useElasticRef, useGlassRef } from "@lenso/glass/react";
 import * as stylex from "@stylexjs/stylex";
+import { slotRender } from "../../utils/sdk-render.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { ToggleButtonGroupContext } from "../toggle-button-group/toggle-button-group.js";
 import {
@@ -96,17 +97,27 @@ export function GlassToggleButtonRoot({
       disabled={disabled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "glass-toggle-button"}
+      render={slotRender(
+        "button",
+        props["data-slot"] ?? "glass-toggle-button",
+        props.render,
+        group.disabled ? { disabled: true } : undefined,
+      )}
       data-glass="true"
       data-variant={variant}
       data-lenso-group-item={group.orientation ? "" : undefined}
     >
-      <span
-        aria-hidden="true"
-        data-slot="glass-press-highlight"
-        {...stylex.props(liquidMaterialStyles.pressHighlight)}
-      />
-      {icon != null && <GlassButtonIcon>{icon}</GlassButtonIcon>}
-      {children}
+      {(state) => (
+        <>
+          <span
+            aria-hidden="true"
+            data-slot="glass-press-highlight"
+            {...stylex.props(liquidMaterialStyles.pressHighlight)}
+          />
+          {icon != null && <GlassButtonIcon>{icon}</GlassButtonIcon>}
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
     </BaseToggle>
   );
 }

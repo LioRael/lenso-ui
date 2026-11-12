@@ -1,0 +1,67 @@
+use ToolbarState, ToolbarRootPresentation, ToolbarGroup, ToolbarButton from "./toolbar.contract"
+
+shape NavigationBarState
+  toolbar: ToolbarState
+  title: string
+  large: bool
+  level: number
+  edge: string
+  scrollport: string
+
+component NavigationBar
+  props
+    state: NavigationBarState
+  slot
+  view
+    ToolbarRootPresentation(state=state.toolbar, presentation="navigation-bar")
+      input type="hidden" value="" hatch="lenso-ui" data-lenso-kind="navigation-bar-owner" data-slot="navigation-bar-owner" data-lenso-large=state.large data-lenso-edge=state.edge data-lenso-scrollport=state.scrollport data-lenso-level=state.level
+      if state.edge != "none"
+        box aria-hidden=true hatch="lenso-ui" data-lenso-kind="navigation-bar-edge" data-slot="scroll-edge" data-lenso-variant=state.edge data-edge="top" data-scroll-bound=""
+          if state.edge == "soft"
+            NavigationBarSoftBand(band="0")
+            NavigationBarSoftBand(band="1")
+            NavigationBarSoftBand(band="2")
+            NavigationBarSoftBand(band="3")
+            NavigationBarSoftBand(band="4")
+            NavigationBarSoftBand(band="5")
+            NavigationBarSoftBand(band="tint")
+      children
+    if state.large
+      text state.title id=`${state.toolbar.id}-large-title` testId=`${state.toolbar.id}-large-title` role="heading" aria-level=state.level hatch="lenso-ui" data-lenso-kind="navigation-bar-large-title" data-slot="navigation-bar-large-title"
+
+component NavigationBarLeading
+  slot
+  view
+    box role="presentation" hatch="lenso-ui" data-lenso-kind="navigation-bar-leading" data-slot="navigation-bar-leading"
+      children
+
+component NavigationBarTrailing
+  slot
+  view
+    box role="presentation" hatch="lenso-ui" data-lenso-kind="navigation-bar-trailing" data-slot="navigation-bar-trailing"
+      children
+
+component NavigationBarTitle
+  props
+    state: NavigationBarState
+  view
+    text state.title id=`${state.toolbar.id}-title` testId=`${state.toolbar.id}-title` role=(state.large ? "presentation" : "heading") aria-hidden=state.large aria-level=state.level
+      hatch="lenso-ui" data-lenso-kind="navigation-bar-title" data-slot="navigation-bar-title" data-lenso-large=state.large
+
+component NavigationBarBack
+  props
+    state: NavigationBarState
+    label: string
+    disabled: bool
+    press: action
+  view
+    ToolbarGroup(state=state.toolbar, id=`${state.toolbar.id}-back-group`, label=label, glass=true, disabled=false, detachable=false, detached=false)
+      ToolbarButton(state=state.toolbar, id=`${state.toolbar.id}-back`, label=label, size="md", variant="auto", groupDisabled=false, grouped=true, surface=state.toolbar.attached, detachable=false, detached=false, glass=true, iconOnly=true, elastic=state.toolbar.elastic, destructive=false, tint="", disabled=disabled, focusableWhenDisabled=false, loading=false, press=press)
+        svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width=2.8 stroke-linecap="round" stroke-linejoin="round" aria-hidden=true hatch="lenso-ui" data-lenso-kind="navigation-bar-back-icon" data-slot="navigation-bar-back-icon" data-lenso-direction=state.toolbar.direction
+          path d="M15.75 5.5 8.25 13l7.5 7.5"
+
+component NavigationBarSoftBand
+  props
+    band: string
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="navigation-bar-soft-band" data-slot="navigation-bar-soft-band" data-lenso-band=band

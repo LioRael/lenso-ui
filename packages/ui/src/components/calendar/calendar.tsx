@@ -16,7 +16,7 @@ import {
   type KeyboardEvent,
   type PointerEvent,
 } from "react";
-import { Button } from "@base-ui/react/button";
+import { NativeButton as Button } from "../../utils/native-button.js";
 import { useRender } from "@base-ui/react/use-render";
 import { mergeProps } from "@base-ui/react/merge-props";
 import {
@@ -285,8 +285,8 @@ export function CalendarNavButton({
           (previous ? state.isPreviousVisibleRangeInvalid() : state.isNextVisibleRangeInvalid()))
       }
       aria-label={props["aria-label"] ?? (previous ? "Previous page" : "Next page")}
-      onClick={(event) => {
-        onClick?.(event);
+      onClick={(event, details) => {
+        onClick?.(event, details);
         if (!event.defaultPrevented) {
           state.setFocused(false);
           if (previous) state.focusPreviousPage();

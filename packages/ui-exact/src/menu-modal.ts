@@ -14,12 +14,20 @@ export function menuModal(root: HTMLElement) {
     outsideDown = false;
   const isTrigger = (target: EventTarget | null) =>
     target instanceof Element &&
-    target.closest("button[popovertarget]")?.getAttribute("popovertarget") === root.id;
+    (() => {
+      const trigger = target.closest<HTMLElement>(
+        'button[popovertarget],[data-slot="context-menu-trigger"][data-lenso-for]',
+      );
+      return (trigger?.getAttribute("popovertarget") ?? trigger?.dataset["lensoFor"]) === root.id;
+    })();
   const inputDown = (event: PointerEvent) => {
     if (isTrigger(event.target)) input = event.pointerType || "mouse";
   };
   const inputKey = (event: KeyboardEvent) => {
-    if (isTrigger(event.target) && ["Enter", " ", "ArrowDown", "ArrowUp"].includes(event.key))
+    if (
+      isTrigger(event.target) &&
+      ["Enter", " ", "ArrowDown", "ArrowUp", "ContextMenu", "F10"].includes(event.key)
+    )
       input = "keyboard";
   };
   const paint = () => {

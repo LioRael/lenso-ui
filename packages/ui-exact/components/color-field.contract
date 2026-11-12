@@ -1,0 +1,92 @@
+use StyledColorFieldInput from "./generated/color-field-input.contract"
+use Label from "./forms.contract"
+
+shape ColorFieldState
+  id: string
+  label: string
+  labelledBy: string
+  describedBy: string
+  value: string
+  channel: string
+  colorSpace: string
+  locale: string
+  name: string
+  disabled: bool
+  readOnly: bool
+  required: bool
+  invalid: bool
+  variant: string
+  fullWidth: bool
+
+component ColorField
+  props
+    state: ColorFieldState
+    change: action
+    commit: action
+  action changed(value: string)
+    if not state.disabled and not state.readOnly
+      change(value)
+  action committed(value: string)
+    if not state.disabled and not state.readOnly
+      commit(value)
+  slot
+  view
+    column id=state.id testId=state.id role="group" aria-label=state.label hatch="lenso-ui" data-lenso-kind="color-field" data-slot="color-field"
+      data-lenso-value=state.value data-lenso-channel=state.channel data-lenso-color-space=state.colorSpace data-lenso-locale=state.locale data-lenso-disabled=state.disabled data-lenso-readonly=state.readOnly data-lenso-full-width=state.fullWidth
+      children
+      input type="hidden" value=state.value input=changed disabled=state.disabled hatch="lenso-ui" data-lenso-kind="color-request" data-slot="color-field-change"
+      input type="hidden" value=state.value input=committed disabled=state.disabled hatch="lenso-ui" data-lenso-kind="color-request" data-slot="color-field-commit"
+      input type="hidden" value=state.value disabled=state.disabled data-lenso-name=state.name hatch="lenso-ui" data-lenso-kind="color-request" data-slot="color-field-form"
+
+component ColorFieldLabel
+  props
+    state: ColorFieldState
+  view
+    Label(id=`${state.id}-label`, controlId=`${state.id}-input`, label=state.label, required=state.required)
+
+component ColorFieldDescription
+  props
+    id: string
+    message: string
+  view
+    text message id=id testId=id hatch="lenso-ui" data-lenso-kind="color-field-description" data-slot="description"
+
+component ColorFieldError
+  props
+    id: string
+    message: string
+  view
+    if message != ""
+      text message id=id testId=id role="alert" hatch="lenso-ui" data-lenso-kind="color-field-error" data-slot="field-error"
+
+component ColorInputGroup
+  props
+    state: ColorFieldState
+  slot
+  view
+    box id=`${state.id}-group` testId=`${state.id}-group` role="group" hatch="lenso-ui" data-lenso-kind="color-input-group" data-slot="color-input-group"
+      data-lenso-variant=state.variant data-lenso-disabled=state.disabled data-lenso-invalid=state.invalid data-lenso-full-width=state.fullWidth
+      children
+
+component ColorInputGroupInput
+  props
+    state: ColorFieldState
+    change: action
+    commit: action
+  action submitted
+    if not state.disabled and not state.readOnly
+      commit(state.value)
+  view
+    StyledColorFieldInput(id=`${state.id}-input`, name="", label=state.label, labelledBy=state.labelledBy, description=state.describedBy, value=state.value, type="text", placeholder="", autocomplete="off", disabled=state.disabled, readOnly=true, invalid=state.invalid, required=state.required, variant="primary", input=change, change=commit, submit=submitted)
+
+component ColorInputGroupPrefix
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="color-input-prefix" data-slot="color-input-group-prefix"
+      children
+
+component ColorInputGroupSuffix
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="color-input-suffix" data-slot="color-input-group-suffix"
+      children

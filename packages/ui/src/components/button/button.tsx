@@ -1,7 +1,7 @@
 "use client";
 
-import { Button as BaseButton } from "@base-ui/react/button";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { Button as BaseButton } from "@ui-sdk/react/button";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import {
   cloneElement,
   createContext,
@@ -23,6 +23,7 @@ import * as stylex from "@stylexjs/stylex";
 import { ButtonGroupContext } from "../button-group/button-group.js";
 import { buttonGroupItemStyles } from "@lenso/tokens/button-group";
 import { guardLoadingActivation, protectLoadingRender } from "../../utils/action-button.js";
+import { slotRender } from "../../utils/sdk-render.js";
 
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonVariant = "prominent" | "bordered" | "borderless";
@@ -136,7 +137,7 @@ export function ButtonRoot({
         data-tint={tint ? "" : undefined}
         data-icon={isIconOnly ? "only" : icon != null ? "" : undefined}
         disabled={Boolean(ownDisabled || group.disabled)}
-        render={protectedRender}
+        render={slotRender("button", dataSlot ?? "button", protectedRender)}
         aria-busy={isLoading || undefined}
         data-pending={isLoading || undefined}
         onClickCapture={isLoading ? guardLoadingActivation(onClickCapture) : onClickCapture}
@@ -154,8 +155,12 @@ export function ButtonRoot({
           isLoading ? guardLoadingActivation(onPointerUpCapture) : onPointerUpCapture
         }
       >
-        {icon != null && <ButtonIcon>{icon}</ButtonIcon>}
-        {children}
+        {(state) => (
+          <>
+            {icon != null && <ButtonIcon>{icon}</ButtonIcon>}
+            {typeof children === "function" ? children(state) : children}
+          </>
+        )}
       </BaseButton>
     </ButtonSizeContext>
   );

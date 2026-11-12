@@ -1,6 +1,7 @@
 "use client";
 
-import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
+import * as BaseCollapsible from "@ui-sdk/react/collapsible";
+import { slotRender } from "../../utils/sdk-render.js";
 import { type ComponentProps } from "react";
 import { disclosureStyles } from "@lenso/tokens/disclosure";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
@@ -11,17 +12,18 @@ function Root({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseCollapsible.Root.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.Root>["ref"];
+  Omit<React.ComponentProps<typeof BaseCollapsible.Collapsible>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.Collapsible>["ref"];
   }
 > & { "data-slot"?: unknown }) {
   const compiled = stylex.props(disclosureStyles.root, xstyle);
   return (
-    <BaseCollapsible.Root
+    <BaseCollapsible.Collapsible
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "disclosure"}
+      render={slotRender("div", props["data-slot"] ?? "disclosure", props.render)}
     />
   );
 }
@@ -30,17 +32,18 @@ function Trigger({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseCollapsible.Trigger.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.Trigger>["ref"];
+  Omit<React.ComponentProps<typeof BaseCollapsible.CollapsibleTrigger>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.CollapsibleTrigger>["ref"];
   }
 > & { "data-slot"?: unknown }) {
   const compiled = stylex.props(disclosureStyles.trigger, xstyle);
   return (
-    <BaseCollapsible.Trigger
+    <BaseCollapsible.CollapsibleTrigger
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "disclosure-trigger"}
+      render={slotRender("button", props["data-slot"] ?? "disclosure-trigger", props.render)}
     />
   );
 }
@@ -49,17 +52,18 @@ function Content({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseCollapsible.Panel.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.Panel>["ref"];
+  Omit<React.ComponentProps<typeof BaseCollapsible.CollapsiblePanel>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseCollapsible.CollapsiblePanel>["ref"];
   }
 > & { "data-slot"?: unknown }) {
   const compiled = stylex.props(disclosureStyles.content, xstyle);
   return (
-    <BaseCollapsible.Panel
+    <BaseCollapsible.CollapsiblePanel
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "disclosure-content"}
+      render={slotRender("div", props["data-slot"] ?? "disclosure-content", props.render)}
     />
   );
 }

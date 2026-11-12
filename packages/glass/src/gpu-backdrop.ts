@@ -1,4 +1,5 @@
 import { readCoreOptics, type CoreOptics } from "./core-optics.js";
+import { supportsSharedBackdrop } from "./native-backdrop-candidate.js";
 
 import {
   BackdropPaint,
@@ -489,9 +490,23 @@ export function registerSharedBackdrop(
       return () => owner.request();
     },
     read(change, reads, margin) {
+      const style = reads.style(element);
+      const dpr = devicePixelRatio;
+      const blur = parseFloat(style.getPropertyValue("--lg-blur"));
+      // Reject impossible batches before walking/copying their source or reading
+      // geometry. Non-native browsers still retain their ordinary DOM copy.
+      if (!supportsSharedBackdrop(style, dpr))
+        return {
+          native: true,
+          write() {
+            const prepared = entry.state !== undefined;
+            entry.state = undefined;
+            native(entry, true);
+            if (prepared) owner.request();
+          },
+        };
       const capture = paint.paint.read(change, reads);
-      const style = reads.style(element),
-        size = reads.size(element),
+      const size = reads.size(element),
         box = reads.box(element);
       const from = reads.box(source),
         sourceSize = reads.size(source);
@@ -500,8 +515,6 @@ export function registerSharedBackdrop(
         style.getPropertyValue("--lg-filter").trim();
       const input = readCoreOptics(filter);
       const fitted = fittedOptics(filter, reads);
-      const dpr = devicePixelRatio;
-      const blur = parseFloat(style.getPropertyValue("--lg-blur"));
       const medium =
         input?.profile === "medium" ||
         fitted?.material === "medium-light" ||
@@ -545,8 +558,6 @@ export function registerSharedBackdrop(
       const qualified =
         capture &&
         (core || (!nativeFallback && navigator.gpu && fitted)) &&
-        (dpr === 1 || dpr === 2) &&
-        style.getPropertyValue("--lg-material").trim() === "apple" &&
         blur === (medium ? 8 : 3) &&
         [size.width, size.height, margin].every(Number.isInteger) &&
         size.width > 0 &&

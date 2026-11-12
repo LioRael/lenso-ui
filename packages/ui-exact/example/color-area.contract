@@ -1,0 +1,53 @@
+use ColorAreaState, ColorArea, ColorAreaThumb, ColorSwatch, Button from "@lenso/ui-exact"
+
+component ColorAreaExample
+  state value = "hsba(210, 50%, 50%, 0.5)"
+  state commits = 0
+  state disabled = false
+  state readOnly = false
+  state reject = false
+  state mounted = true
+  state rtl = false
+  state dots = false
+  state space = "hsb"
+  derive area = ColorAreaState(id="color-plane", label="Color plane", value=value, colorSpace=space, xChannel=(space == "rgb" ? "red" : "saturation"), yChannel=(space == "hsb" ? "brightness" : space == "hsl" ? "lightness" : "green"), locale="en-US", direction=(rtl ? "rtl" : "ltr"), xName="plane-x", yName="plane-y", disabled=disabled, readOnly=readOnly, showDots=dots)
+  action change(next: string)
+    if not reject
+      value = next
+  action commit(next: string)
+    commits = commits + 1
+  action disable
+    disabled = not disabled
+  action lock
+    readOnly = not readOnly
+  action veto
+    reject = not reject
+  action remount
+    mounted = not mounted
+  action redirect
+    rtl = not rtl
+  action decorate
+    dots = not dots
+  action model
+    space = space == "hsb" ? "hsl" : space == "hsl" ? "rgb" : "hsb"
+  action reset
+    value = "hsba(210, 50%, 50%, 0.5)"
+  view
+    column id="color-area-examples" testId="color-area-examples" gap=12
+      text "Color area" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable area", press=disable, disabled=false, size="sm", variant="bordered", testId="color-area-disabled")
+        Button(label="Read only area", press=lock, disabled=false, size="sm", variant="bordered", testId="color-area-readonly")
+        Button(label="Reject area changes", press=veto, disabled=false, size="sm", variant="bordered", testId="color-area-reject")
+        Button(label="Mount area", press=remount, disabled=false, size="sm", variant="bordered", testId="color-area-mounted")
+        Button(label="Area direction", press=redirect, disabled=false, size="sm", variant="bordered", testId="color-area-direction")
+        Button(label="Area dots", press=decorate, disabled=false, size="sm", variant="bordered", testId="color-area-dots")
+        Button(label="Area color space", press=model, disabled=false, size="sm", variant="bordered", testId="color-area-space")
+        Button(label="Reset area", press=reset, disabled=false, size="sm", variant="bordered", testId="color-area-reset")
+      if mounted
+        box padding=20 width=264
+          ColorArea(state=area, change=change, commit=commit)
+            ColorAreaThumb(state=area, change=change, commit=commit)
+        ColorSwatch(id="area-color-preview", color=value, label="Area color", size="lg", shape="square")
+      text value testId="area-color-value"
+      text `Commits: ${commits}` testId="color-area-commits"

@@ -110,3 +110,9 @@ is checked with the hatch script blocked. Representative final images are review
 the frame traces establish geometry and identity, not optical pixel parity.
 Full optical/per-frame reference comparison, sticky edges, Menu morph sources and
 native integration remain separate gates.
+
+NavigationBar now shares the same native root through the internal
+ToolbarRootPresentation composition and the same focus/motion controller. Its root
+is recognized as a distinct toolbar boundary so nested roots retain isolation.
+See NAVIGATION_BAR.md and its scoped browser receipts; the public Toolbar props
+remain unchanged and the ordinary Toolbar regression passes in both engines.

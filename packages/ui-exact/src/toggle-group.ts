@@ -4,7 +4,7 @@ interface ToggleGroup {
 }
 const groups = new WeakMap<HTMLElement, ToggleGroup>();
 const groupSelector = '[data-slot="toggle-button-group"]';
-const itemSelector = '[data-slot="toggle-button"]';
+const itemSelector = '[data-slot="toggle-button"],[data-slot="glass-toggle-button"]';
 
 function createGroup(node: HTMLElement): ToggleGroup {
   const originals = new Map<HTMLButtonElement, string | null>();
@@ -105,7 +105,9 @@ export function updateToggleGroup(element: HTMLElement | SVGElement, data: DOMSt
     const controller = groups.get(element);
     if (controller) controller.sync();
     else groups.set(element, createGroup(element));
-  } else if (data["lensoKind"] === "toggle-button-group-item") {
+  } else if (
+    ["toggle-button-group-item", "glass-toggle-button-group-item"].includes(data["lensoKind"] ?? "")
+  ) {
     const parent = element.closest<HTMLElement>(groupSelector);
     if (parent) groups.get(parent)?.sync();
   }

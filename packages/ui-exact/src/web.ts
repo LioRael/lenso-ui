@@ -1,3 +1,21 @@
+import { updateCalendar, endCalendar } from "./calendar.js";
+import { updateDateField, endDateField } from "./date-field.js";
+import { updateMagnifier, endMagnifier } from "./glass-magnifier.js";
+import { updateWheelPicker, endWheelPicker } from "./wheel-picker.js";
+import { updateNavigationBar, endNavigationBar } from "./navigation-bar.js";
+import { updateContextMenuPreview, endContextMenuPreview } from "./context-menu-preview.js";
+import { updateContextMenuBar, endContextMenuBar } from "./context-menu-bar.js";
+import { updateContextMenu, endContextMenu } from "./context-menu.js";
+import { updateRefresh, endRefresh } from "./refresh-control.js";
+import { updateTabBar, endTabBar } from "./tab-bar.js";
+import { updateSectionIndex, endSectionIndex } from "./section-index.js";
+import { updateOTP, endOTP } from "./input-otp.js";
+import { updateComboBox, endComboBox } from "./combo-box.js";
+import { updateListBox, endListBox } from "./list-box.js";
+import { updateColorArea, endColorArea } from "./color-area.js";
+import { updateColorSlider, endColorSlider } from "./color-slider.js";
+import { updateColorField, endColorField } from "./color-field.js";
+import { updateColor, endColor } from "./color.js";
 import { updateSwipe, endSwipe } from "./swipe.js";
 import { updateSelect, endSelect } from "./select.js";
 import { updateNumberScrub, endNumberScrub } from "./number-scrub.js";
@@ -84,23 +102,37 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     kind === "slider-knob-lens" ||
     kind === "switch-knob-lens" ||
     kind === "glass" ||
+    kind === "glass-magnifier" ||
+    (kind === "input-otp-slot" && handle.data["lensoGlass"] === "true") ||
     kind === "glass-container-item" ||
-    (kind === "toolbar" && handle.data["lensoAttached"] === "true") ||
+    ((kind === "toolbar" || kind === "navigation-bar") &&
+      handle.data["lensoAttached"] === "true") ||
     (kind === "toolbar-group" &&
       handle.data["lensoGlass"] === "true" &&
       handle.data["lensoSurface"] !== "true") ||
     (kind === "toolbar-button" && handle.data["lensoGlass"] === "true" && variant !== "plain") ||
     kind === "search-field-group" ||
+    kind === "combo-box-input-group" ||
     kind === "number-field-group" ||
     (kind === "page-control-track" && variant === "prominent") ||
-    ((kind === "glass-button" || kind === "glass-button-group-item" || kind === "menu-trigger") &&
-      !node.matches(":disabled"));
-  const profileKey =
-    kind === "glass-button" || kind === "glass-button-group-item"
-      ? variant === "prominent"
-        ? "prominent"
-        : "default"
-      : "glass-small";
+    ((kind === "glass-button" ||
+      kind === "glass-button-group-item" ||
+      kind === "glass-toggle-button" ||
+      kind === "glass-toggle-button-group-item" ||
+      kind === "menu-trigger" ||
+      kind === "color-picker-trigger") &&
+      !node.matches(":disabled") &&
+      handle.data["lensoPresentation"] !== "popup-button");
+  const profileKey = [
+    "glass-button",
+    "glass-button-group-item",
+    "glass-toggle-button",
+    "glass-toggle-button-group-item",
+  ].includes(kind ?? "")
+    ? variant === "prominent"
+      ? "prominent"
+      : "default"
+    : "glass-small";
 
   const previousOwner = owners.get(node);
   const opticsKey = optics
@@ -123,8 +155,10 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
   // Detachment changes motion ownership, not the member's optical recipe.
   // Keep the shared field and the existing member lens alive through reversals.
   const preserveOptics =
-    kind === "toolbar-button" &&
-    handle.data["lensoDetachable"] === "true" &&
+    ((kind === "toolbar-button" && handle.data["lensoDetachable"] === "true") ||
+      kind === "glass-toggle-button" ||
+      kind === "glass-toggle-button-group-item" ||
+      kind === "glass-magnifier") &&
     Boolean(opticsKey && previousOwner?.opticsKey === opticsKey);
   if (!preserveOptics) refreshFusionMember(node);
   previousOwner?.release(false, preserveOptics);
@@ -188,7 +222,25 @@ export function element(handle: ExactElement, options?: { xstyle?: StyleInput })
     ),
   );
   updateToolbar(node, handle.data);
+  updateNavigationBar(node);
   updateSearchField(node, handle.data);
+  updateComboBox(node);
+  updateOTP(node);
+  updateSectionIndex(node);
+  updateTabBar(node);
+  updateRefresh(node);
+  updateContextMenu(node);
+  updateContextMenuBar(node);
+  updateContextMenuPreview(node);
+  updateListBox(node);
+  updateWheelPicker(node);
+  updateMagnifier(node, handle.data);
+  updateDateField(node);
+  updateCalendar(node);
+  updateColorArea(node);
+  updateColorSlider(node);
+  updateColorField(node);
+  updateColor(node);
   updateSwipe(node);
   updateSelect(node, handle.data);
   updateNumberField(node, handle.data);
@@ -220,8 +272,26 @@ export function elementEnded(handle: ExactElement) {
   endGlassContainer(handle.element);
   endToolbarFusion(handle.element);
   endToolbar(handle.element);
+  endNavigationBar(handle.element);
   endSearchField(handle.element);
   endNumberScrub(handle.element);
+  endComboBox(handle.element);
+  endOTP(handle.element);
+  endSectionIndex(handle.element);
+  endTabBar(handle.element);
+  endRefresh(handle.element);
+  endContextMenu(handle.element);
+  endContextMenuBar(handle.element);
+  endContextMenuPreview(handle.element);
+  endDateField(handle.element);
+  endCalendar(handle.element);
+  endMagnifier(handle.element);
+  endWheelPicker(handle.element);
+  endListBox(handle.element);
+  endColorArea(handle.element);
+  endColorSlider(handle.element);
+  endColorField(handle.element);
+  endColor(handle.element);
   endSwipe(handle.element);
   endSelect(handle.element);
   endNumberField(handle.element);

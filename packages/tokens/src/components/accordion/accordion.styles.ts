@@ -106,7 +106,7 @@ export const accordionStyles = stylex.create({
     height: 16,
     flexShrink: 0,
     color: tokens.labelSecondary,
-    transform: { default: "rotate(0deg)", ":is([data-panel-open] *)": "rotate(-180deg)" },
+    transform: { default: "rotate(0deg)", ':is([aria-expanded="true"] *)': "rotate(-180deg)" },
     transitionProperty: "transform",
     transitionDuration: { default: "250ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
     transitionTimingFunction: tokens.motionEaseSmooth,

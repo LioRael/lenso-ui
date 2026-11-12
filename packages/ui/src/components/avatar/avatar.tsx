@@ -1,6 +1,6 @@
 "use client";
-// modified for Base UI and StyleX.
-import { Avatar as Primitive } from "@base-ui/react/avatar";
+import * as Primitive from "@ui-sdk/react/avatar";
+import { slotRender } from "../../utils/sdk-render.js";
 import { createContext, useContext, type ComponentProps } from "react";
 import {
   avatarStyles,
@@ -18,7 +18,8 @@ type Appearance = {
   variant: "default" | "soft";
 };
 const Context = createContext<Appearance>({ size: "md", color: "default", variant: "default" });
-export type AvatarRootProps = StyleXProps<Primitive.Root.Props> & Partial<Appearance>;
+export type AvatarRootProps = StyleXProps<ComponentProps<typeof Primitive.Avatar>> &
+  Partial<Appearance>;
 export function AvatarRoot({ size, color, variant, xstyle, style, ...props }: AvatarRootProps) {
   const group = useContext(AvatarGroupContext);
   const appearance: Appearance = {
@@ -34,11 +35,12 @@ export function AvatarRoot({ size, color, variant, xstyle, style, ...props }: Av
   );
   return (
     <Context.Provider value={appearance}>
-      <Primitive.Root
+      <Primitive.Avatar
         {...props}
         data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar"}
+        render={slotRender("span", props["data-slot"] ?? "avatar", props.render)}
         {...compiled}
-        style={mergeStyle<Primitive.Root.State>(compiled.style, style)}
+        style={mergeStyle<Primitive.AvatarState>(compiled.style, style)}
       />
     </Context.Provider>
   );
@@ -48,7 +50,9 @@ export function AvatarFallback({
   style,
   color: colorProp,
   ...props
-}: StyleXProps<Primitive.Fallback.Props> & { color?: keyof typeof avatarColors }) {
+}: StyleXProps<ComponentProps<typeof Primitive.AvatarFallback>> & {
+  color?: keyof typeof avatarColors;
+}) {
   const { size, color: rootColor, variant } = useContext(Context);
   const color = colorProp ?? rootColor;
   const group = useContext(AvatarGroupContext);
@@ -61,22 +65,28 @@ export function AvatarFallback({
     xstyle,
   );
   return (
-    <Primitive.Fallback
+    <Primitive.AvatarFallback
       {...props}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-fallback"}
+      render={slotRender("span", props["data-slot"] ?? "avatar-fallback", props.render)}
       {...compiled}
-      style={mergeStyle<Primitive.Fallback.State>(compiled.style, style)}
+      style={mergeStyle<Primitive.AvatarState>(compiled.style, style)}
     />
   );
 }
-export function AvatarImage({ xstyle, style, ...props }: StyleXProps<Primitive.Image.Props>) {
+export function AvatarImage({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<ComponentProps<typeof Primitive.AvatarImage>>) {
   const compiled = stylex.props(avatarStyles.image, xstyle);
   return (
-    <Primitive.Image
+    <Primitive.AvatarImage
       {...props}
       data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-image"}
+      render={slotRender("img", props["data-slot"] ?? "avatar-image", props.render)}
       {...compiled}
-      style={mergeStyle<Primitive.Image.State>(compiled.style, style)}
+      style={mergeStyle<Primitive.AvatarState>(compiled.style, style)}
     />
   );
 }

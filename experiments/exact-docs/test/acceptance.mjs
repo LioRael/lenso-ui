@@ -14,6 +14,7 @@ let server;
 try {
   await main(["new", root]);
   const config = await Bun.file(path.join(root, "docs.json")).json();
+  config.theme = "headless";
   config.origin = "https://docs.example.test";
   config.layout = { source: "layouts/reader.contract", component: "ReaderLayout" };
   config.locales.push({ id: "ar", label: "العربية", dir: "rtl" });

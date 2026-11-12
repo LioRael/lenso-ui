@@ -44,6 +44,7 @@ export function kept(source: string, args: unknown[], value: unknown) {
 `,
   );
   const config = await Bun.file(path.join(root, "docs.json")).json();
+  config.theme = "headless";
   config.origin = "https://docs.example.test";
   config.locales.push({ id: "ar", label: "العربية", dir: "rtl" });
   config.pages.push({ path: "/arabic", locale: "ar", title: "Arabic page", source: "arabic.md" });

@@ -71,8 +71,8 @@ export const sidebarStyles = stylex.create({
     transform: {
       default: "rotate(-90deg)",
       ":dir(rtl)": "rotate(90deg)",
-      ":is([data-panel-open] *)": "rotate(0deg)",
-      ":dir(rtl):is([data-panel-open] *)": "rotate(0deg)",
+      ':is([aria-expanded="true"] *)': "rotate(0deg)",
+      ':dir(rtl):is([aria-expanded="true"] *)': "rotate(0deg)",
     },
     transitionProperty: "transform",
     transitionDuration: { default: "250ms", "@media (prefers-reduced-motion: reduce)": "0ms" },

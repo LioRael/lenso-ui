@@ -1,7 +1,7 @@
 "use client";
 // Modified: Base UI button/render contracts and internationalized range state.
 import { use } from "react";
-import { Button } from "@base-ui/react/button";
+import { NativeButton as Button } from "../../utils/native-button.js";
 import { useRender } from "@base-ui/react/use-render";
 import { mergeProps } from "@base-ui/react/merge-props";
 import {

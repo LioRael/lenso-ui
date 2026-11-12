@@ -1,3 +1,4 @@
+import { connectGlassToggle } from "./glass-toggle-button.js";
 import { connectListReorder } from "./list-reorder.js";
 import { connectFusionItem } from "./glass-container.js";
 import { connectToolbar } from "./toolbar.js";
@@ -6,6 +7,8 @@ import { connectGroupAction } from "./button-group.js";
 /** Presence selectors in shared tokens must not see data-invalid="false". */
 export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap) {
   const restores: Array<() => void> = [];
+  const stopGlassToggle = connectGlassToggle(node, data);
+  if (stopGlassToggle) restores.push(stopGlassToggle);
   const endReorder = connectListReorder(node, data);
   if (endReorder) restores.push(endReorder);
   if (node instanceof HTMLElement && data["lensoKind"] === "list-root") {
@@ -249,7 +252,11 @@ export function connectNative(node: HTMLElement | SVGElement, data: DOMStringMap
     node.indeterminate = data["lensoIndeterminate"] === "true";
     restores.push(() => (node.indeterminate = original));
   }
-  if (data["lensoKind"] === "label" || data["lensoKind"] === "select-label") {
+  if (
+    data["lensoKind"] === "label" ||
+    data["lensoKind"] === "select-label" ||
+    data["lensoKind"] === "color-slider-label"
+  ) {
     const focus = () => {
       const control = document.getElementById(data["lensoFor"] ?? "");
       if (control instanceof HTMLInputElement && /^(checkbox|radio)$/.test(control.type))

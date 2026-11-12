@@ -841,7 +841,8 @@ export function TableExpandButton({
   onClick,
   children,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"button">>) {
+}: StyleXProps<Omit<React.ComponentPropsWithRef<"button">, "onClick">> &
+  Pick<React.ComponentProps<typeof ButtonRoot>, "onClick">) {
   const context = React.useContext(TableContext);
   const row = React.useContext(RowContext);
   if (!context || !row) throw new Error("Table.ExpandButton requires Table.Row");
@@ -855,9 +856,9 @@ export function TableExpandButton({
       {...props}
       aria-expanded={row.expanded}
       disabled={row.disabled || props.disabled}
-      onClick={(event) => {
+      onClick={(event, details) => {
         event.stopPropagation();
-        onClick?.(event);
+        onClick?.(event, details);
         if (!event.defaultPrevented) context.toggleExpanded(row.key);
       }}
     >

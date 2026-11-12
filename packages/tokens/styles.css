@@ -1,4 +1,4 @@
-@layer theme, base, components, utilities;
+@layer ui-sdk, theme, base, components, utilities;
 
 @import "./themes/default/index.css";
 @import "./base/base.css";

@@ -2,6 +2,44 @@ import * as stylex from "@stylexjs/stylex";
 import type { PresentationRule } from "@lenso/ui-exact/presentation";
 
 const custom = stylex.create({
+  magnifierStage: {
+    height: 300,
+    display: "block",
+    position: "relative",
+    overflow: "hidden",
+    borderRadius: 24,
+  },
+  magnifier: {
+    position: "absolute",
+    left: "calc(50% - 105px)",
+    top: "calc(50% - 75px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  navigationScroll: {
+    display: "block",
+    height: 320,
+    overflowY: "auto",
+    position: "relative",
+    borderRadius: 16,
+    backgroundColor: "var(--lenso-background-secondary)",
+    isolation: "isolate",
+  },
+  contextPreviewTarget: {
+    width: 280,
+    minHeight: 140,
+    padding: 24,
+    borderRadius: 24,
+    boxSizing: "border-box",
+    backgroundColor: "var(--lenso-background-secondary)",
+    color: "var(--lenso-label-primary)",
+    display: "grid",
+    alignItems: "center",
+    cursor: "context-menu",
+    userSelect: "none",
+  },
+  contextPreviewBody: { padding: 24, display: "grid", alignItems: "center" },
   numericScrub: {
     cursor: { default: "ew-resize", ':is([data-lenso-direction="vertical"])': "ns-resize" },
   },
@@ -47,6 +85,19 @@ const custom = stylex.create({
 });
 
 export const styleRules = [
+  { kind: "surface", testId: "magnifier-stage", xstyle: custom.magnifierStage },
+  { kind: "glass-magnifier", testId: "magnifier-lens", xstyle: custom.magnifier },
+  { kind: "surface", testId: "navigation-demo-scroll", xstyle: custom.navigationScroll },
+  {
+    kind: "context-menu-trigger",
+    testId: "context-preview-target",
+    xstyle: custom.contextPreviewTarget,
+  },
+  {
+    kind: "context-menu-preview",
+    testId: "context-preview-card",
+    xstyle: custom.contextPreviewBody,
+  },
   { kind: "number-scrub-area", testId: "numeric-scrub", xstyle: custom.numericScrub },
   { kind: "popover-popup", xstyle: custom.popover },
   { kind: "glass-container", xstyle: custom.fusionRoot },

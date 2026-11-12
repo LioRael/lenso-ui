@@ -107,6 +107,7 @@ test("new creates an independent project, preserves existing directories, and re
     "# Home\n\n[Authoring](authoring.md?q=hello#exact-pages)",
   );
   const site = await loadSite(root);
+  expect(site.config.theme).toBe("lenso");
   expect(site.documents[0]!.links).toEqual(["/authoring?q=hello#exact-pages"]);
   const app = await generateApp(site);
   expect(await Bun.file(path.join(app, "app.contract")).text()).toContain("DocsCustomPage2()");

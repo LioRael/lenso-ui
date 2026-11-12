@@ -28,6 +28,7 @@ export type RootExtension = {
 export type DocsConfig = VariantConfig & {
   name: string;
   preload: "render" | "intent";
+  theme: "headless" | "lenso";
   pages: Page[];
   layout?: { source: string; component: string };
   root?: RootExtension;
@@ -163,6 +164,8 @@ export function parseConfig(value: unknown): DocsConfig {
       ...(extension === ".contract" ? { component: String(page["component"]) } : {}),
     };
   });
+  const theme = value["theme"] === undefined ? "headless" : value["theme"];
+  if (theme !== "headless" && theme !== "lenso") throw new Error("theme must be headless or lenso");
   let layout: DocsConfig["layout"];
   if (value["layout"] !== undefined) {
     const candidate = value["layout"];
@@ -212,6 +215,7 @@ export function parseConfig(value: unknown): DocsConfig {
     ...variants,
     components,
     preload,
+    theme,
     ...(origin ? { origin } : {}),
     name: value["name"],
     pages,
@@ -358,6 +362,8 @@ export async function generateApp(site: Site, platform: DocsPlatform = "web") {
         .join("\n")
     : "";
   const layout = site.config.layout;
+  const themed = site.config.theme === "lenso" && platform === "web";
+  if (themed) imports.push('use LensoDocsLayout, LensoDocsNotFound from "./lenso-layout.contract"');
   if (layout)
     imports.push(
       `use ${layout.component} as DocsCustomLayout from ${quote(`./site/${layout.source}`)}`,
@@ -474,7 +480,7 @@ component DocsContext
     results: DocsLink[]
     pending: bool
     failed: bool
-  slot
+${themed ? "    appearance: string\n    toggleAppearance: action\n    copyMarkdown: action\n" : ""}  slot
   derive current = content.path == page.path
   provide
     docsPlatform = ${quote(platform)}
@@ -498,7 +504,7 @@ component DocsContext
     docsMarkdownUrl = ${platform === "web" ? 'page.custom ? "" : ("/_docs/markdown" + (page.path == "/" ? "" : page.path) + "/index.md")' : '""'}
   view
     view lang=page.scope.language direction=page.scope.direction data-docs-part="context"${platform === "web" ? " data-docs-search-index=page.scope.searchIndexUrl" : ""} data-docs-seo=(current ? content.seo : "")
-      ${layout ? "DocsCustomLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=(current ? content.toc : []), query=query, search=search, results=results)
+      ${layout ? "DocsCustomLayout" : themed ? "LensoDocsLayout" : "DocsLayout"}(siteName=${quote(site.config.name)}, pageTitle=page.title, currentPath=page.path, navigation=page.scope.navigation, toc=(current ? content.toc : []), query=query, search=search, results=results${themed && !layout ? ", appearance=appearance, toggleAppearance=toggleAppearance, copyMarkdown=copyMarkdown" : ""})
         children
 `;
   const native = platform !== "web";
@@ -546,6 +552,7 @@ ${
     : `  resource docsRouteReply = docsReadRoute(top(docsNav).name) as shape DocsRouteReply else empty()
   derive docsPage = first(docsRouteReply.pages)`
 }
+${themed ? '  state docsAppearance = "light"\n  action docsToggleAppearance\n    docsAppearance = docsAppearance == "light" ? "dark" : "light"\n  action docsCopyMarkdown(value: string)\n    copyText(value)' : ""}
   state docsQuery = ""
   derive docsPath = match docsPage { case some(page) => page.path, case none => "" }
   derive docsLocale = match docsPage { case some(page) => page.scope.locale, case none => "" }
@@ -582,7 +589,7 @@ ${
                   text page.scope.labels.back`
 }
               head title=(page.title + ${quote(` | ${site.config.name}`)}) description=(${contentRef}.path == page.path ? ${contentRef}.description : "") canonical=(${contentRef}.path == page.path ? ${contentRef}.canonical : "") robots=(${contentRef}.path == page.path ? ${contentRef}.robots : "noindex,follow")
-              DocsContext(page=page, content=${contentRef}, contentPending=(${contentRef}.path != page.path and not failed(${contentResource})), contentFailed=(${contentRef}.path != page.path and failed(${contentResource})), query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply))
+              DocsContext(page=page, content=${contentRef}, contentPending=(${contentRef}.path != page.path and not failed(${contentResource})), contentFailed=(${contentRef}.path != page.path and failed(${contentResource})), query=docsQuery, search=docsSearch, results=docsResults, pending=pending(docsSearchReply), failed=failed(docsSearchReply)${themed ? ", appearance=docsAppearance, toggleAppearance=docsToggleAppearance, copyMarkdown=docsCopyMarkdown" : ""})
                 if ${contentRef}.path == page.path
 ${branches.join("\n")}
                   if not page.custom
@@ -594,7 +601,7 @@ ${branches.join("\n")}
           case none
             view
         if entry.name == "notfound"
-          ${native ? "DocsNativeScreen(visitKey=entry.id.toString())" : `main navigationKey=entry.id.toString() data-docs-part="content" tabindex=-1 data-docs-seo=${quote(JSON.stringify(pageSeo(undefined, site)))}`}
+          ${native ? "DocsNativeScreen(visitKey=entry.id.toString())" : themed ? `LensoDocsNotFound(siteName=${quote(site.config.name)}, home=${quote(site.documents[0]!.path)}, visitKey=entry.id.toString())` : `main navigationKey=entry.id.toString() data-docs-part="content" tabindex=-1 data-docs-seo=${quote(JSON.stringify(pageSeo(undefined, site)))}`}
 ${
   native
     ? `            if docsVisitIndex > 0
@@ -666,12 +673,13 @@ ${
       if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error;
     }
   }
+  if (themed) await (await import("./theme.ts")).stageThemeContracts(app);
   return app;
 }
 
 export async function buildSite(
   directory: string,
-  options: { exactRoot?: string; out?: string; development?: boolean } = {},
+  options: { exactRoot?: string; out?: string; development?: boolean; themeAssets?: string } = {},
 ) {
   const site = await loadSite(directory);
   await highlightDocuments(site.documents);
@@ -706,6 +714,8 @@ export async function buildSite(
     if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error;
   }
   const app = await generateApp(site);
+  if (site.config.theme === "lenso")
+    await (await import("./theme.ts")).stageThemeAssets(app, options.themeAssets);
   const staging = path.join(site.root, ".exact-docs", `build-${crypto.randomUUID()}`);
   const child = Bun.spawn(
     [
@@ -729,6 +739,7 @@ export async function buildSite(
     await rm(staging, { recursive: true, force: true });
     throw new Error("Exact build failed; see compiler diagnostics above");
   }
+  if (site.config.theme === "lenso") await (await import("./theme.ts")).linkThemeStyles(staging);
   const htmlFiles = new Set([
     "index.html",
     "404.html",
@@ -758,6 +769,7 @@ export async function buildSite(
             styles,
             preload: site.config.preload,
             search,
+            routes: site.documents.map((page) => page.path),
           }),
           doc,
           site,

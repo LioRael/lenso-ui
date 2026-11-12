@@ -112,7 +112,7 @@ function OrderAccordion({
               renderParts
                 ? (props) => (
                     <h3 {...props} data-custom="heading">
-                      {props.children}
+                      {props["children"]}
                     </h3>
                   )
                 : undefined
@@ -169,7 +169,7 @@ export function Multiple() {
   );
 }
 export function Controlled() {
-  const [expanded, setExpanded] = useState<unknown[]>(["getting-started"]);
+  const [expanded, setExpanded] = useState<string[]>(["getting-started"]);
   const items = concepts.slice(0, 3);
   const index = items.findIndex((item) => item.id === expanded[0]);
   return (
@@ -218,7 +218,7 @@ export function Controlled() {
   );
 }
 export function CustomIndicator() {
-  const [expanded, setExpanded] = useState<unknown[]>([]);
+  const [expanded, setExpanded] = useState<string[]>([]);
   return (
     <Accordion value={expanded} onValueChange={setExpanded} variant="surface" xstyle={styles.root}>
       {[
@@ -266,7 +266,7 @@ export function Disabled() {
         <h3 {...stylex.props(styles.caption)}>整个手风琴禁用</h3>
         <Accordion disabled xstyle={styles.root}>
           {[1, 2].map((value) => (
-            <Accordion.Item key={value} value={value}>
+            <Accordion.Item key={value} value={String(value)}>
               <Accordion.Heading>
                 <Accordion.Trigger>
                   禁用项{value}

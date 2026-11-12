@@ -10,7 +10,7 @@ import {
   type ComponentPropsWithRef,
   type ReactNode,
 } from "react";
-import { Button } from "@base-ui/react/button";
+import { NativeButton as Button } from "../../utils/native-button.js";
 import { useRender } from "@base-ui/react/use-render";
 import { useLocale } from "../../utils/locale.js";
 import {
@@ -61,8 +61,8 @@ export function CalendarYearPickerTrigger({
         {...props}
         aria-expanded={isYearPickerOpen}
         aria-label={`${monthYear}, year selector`}
-        onClick={(event) => {
-          onClick?.(event);
+        onClick={(event, details) => {
+          onClick?.(event, details);
           if (!event.defaultPrevented) values.toggle();
         }}
         onKeyDown={(event) => {
@@ -371,8 +371,8 @@ export function CalendarYearPickerCell({
         onFocus?.(event);
         context.setActive(year);
       }}
-      onClick={(event) => {
-        onClick?.(event);
+      onClick={(event, details) => {
+        onClick?.(event, details);
         if (!event.defaultPrevented) context.select(year);
       }}
     >

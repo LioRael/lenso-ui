@@ -65,7 +65,7 @@ test("toggle selected styles use ARIA without claiming Exact's transient press m
     { kind: "toggle-button", selector: '[data-lenso-kind="toggle-button"]', classes: ["xA"] },
   ]);
   expect(css).toContain(
-    ':is([data-pressed]:not(:where([data-slot="toggle-button"])),:where([data-slot="toggle-button"])[aria-pressed="true"])',
+    ':is([data-pressed]:not(:where([data-slot="toggle-button"],[data-slot="glass-toggle-button"])),:where([data-slot="toggle-button"],[data-slot="glass-toggle-button"])[aria-pressed="true"])',
   );
   expect(css).not.toContain("data-lenso-pressed");
 });

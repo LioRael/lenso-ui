@@ -3,20 +3,51 @@
   "source": "components/field.contract",
   "sourceSHA256": "d48aaacd6393a8d1ebbb5663b9914ef7d028af9099db2cb3ed80b8848e171c56",
   "outputs": [
+    "toggle-button.contract",
+    "glass-toggle-button.contract",
+    "glass-toggle-group-item.contract",
+    "toggle-group-item.contract",
+    "link.contract",
+    "calendar-day.contract",
+    "calendar-year-trigger.contract",
+    "calendar-year-cell.contract",
+    "refresh-control-status.contract",
+    "section-index-link.contract",
+    "tab-bar-link.contract",
     "description.contract",
     "input.contract",
+    "date-segment-input.contract",
+    "input-otp-slot.contract",
+    "combo-box-input.contract",
+    "autocomplete-input.contract",
+    "autocomplete-parts.contract",
+    "combo-box-parts.contract",
+    "color-field-input.contract",
     "textarea.contract",
     "checkbox.contract",
     "radio.contract",
+    "color-slider-input.contract",
     "disclosure.contract",
     "tabs-list.contract",
     "tab.contract",
     "tab-panel.contract",
     "dialog-parts.contract",
     "popover-parts.contract",
-    "menu-parts.contract"
+    "menu-parts.contract",
+    "context-menu-positioner.contract",
+    "context-menu-bar-item.contract",
+    "popup-button-menu-trigger.contract",
+    "color-picker-trigger.contract"
   ],
   "sources": [
+    {
+      "source": "components/feedback.contract",
+      "sourceSHA256": "9665685e36b2c110604faae45c68281ed12a45cfd1f7e645781cb7ea2b976880"
+    },
+    {
+      "source": "components/button.contract",
+      "sourceSHA256": "33d8fed1a786481b12a1f31e43e1834a835c2df05fcd27e2c9d5bf7bd84725c3"
+    },
     {
       "source": "components/field.contract",
       "sourceSHA256": "d48aaacd6393a8d1ebbb5663b9914ef7d028af9099db2cb3ed80b8848e171c56"

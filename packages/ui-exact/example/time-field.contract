@@ -1,0 +1,53 @@
+use TimeFieldState, TimeField, Button from "@lenso/ui-exact"
+
+component TimeFieldExample
+  state value = "13:45:30"
+  state locale = "en-US"
+  state hourCycle = "h12"
+  state granularity = "minute"
+  state disabled = false
+  state readOnly = false
+  state rejected = false
+  state mounted = true
+  state secondary = false
+  state count = 0
+  derive field = TimeFieldState(id="time-demo", label="Departure time", description="Choose a departure time.", error="", value=value, placeholder="09:15:00", locale=locale, hourCycle=hourCycle, granularity=granularity, min="", max="", disabled=disabled, readOnly=readOnly, required=true, invalid=false, direction=(locale == "ar-EG" ? "rtl" : "ltr"), variant=(secondary ? "secondary" : "primary"), fullWidth=false, name="departureTime", form="time-demo-form")
+  action change(next: string)
+    count = count + 1
+    if not rejected
+      value = next
+  action cycleLocale
+    locale = (locale == "en-US" ? "ar-EG" : "en-US")
+  action cycleHours
+    hourCycle = (hourCycle == "h12" ? "h23" : "h12")
+  action toggleSeconds
+    granularity = (granularity == "minute" ? "second" : "minute")
+  action toggleDisabled
+    disabled = not disabled
+  action toggleReadOnly
+    readOnly = not readOnly
+  action toggleRejected
+    rejected = not rejected
+  action toggleMounted
+    mounted = not mounted
+  action toggleVariant
+    secondary = not secondary
+  action replace
+    value = (value == "23:59:58" ? "13:45:30" : "23:59:58")
+  view
+    column id="time-field-examples" gap=12
+      text "Time editing" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Time locale", press=cycleLocale, disabled=false, size="sm", variant="bordered", testId="time-locale")
+        Button(label="Hour cycle", press=cycleHours, disabled=false, size="sm", variant="bordered", testId="time-hours")
+        Button(label="Seconds", press=toggleSeconds, disabled=false, size="sm", variant="bordered", testId="time-seconds")
+        Button(label="Time availability", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="time-disabled")
+        Button(label="Time read only", press=toggleReadOnly, disabled=false, size="sm", variant="bordered", testId="time-readonly")
+        Button(label="Reject time", press=toggleRejected, disabled=false, size="sm", variant="bordered", testId="time-rejected")
+        Button(label="Mount time", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="time-mounted")
+        Button(label="Time surface", press=toggleVariant, disabled=false, size="sm", variant="bordered", testId="time-variant")
+        Button(label="Replace time", press=replace, disabled=false, size="sm", variant="bordered", testId="time-replace")
+      text value testId="time-value"
+      text `${count}` testId="time-count"
+      if mounted
+        TimeField(state=field, change=change)

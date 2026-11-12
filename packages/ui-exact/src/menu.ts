@@ -1,3 +1,4 @@
+import { ownMenuPopup } from "./menu-parts.js";
 import { menuModal } from "./menu-modal.js";
 import { menuPointerFocus } from "./menu-pointer-focus.js";
 import {
@@ -15,15 +16,17 @@ import {
   shift,
   size,
   type Placement,
+  type VirtualElement,
 } from "@floating-ui/dom";
 import { attachGlass } from "@lenso/glass";
 import { modalOwner, popoverTabbables } from "./modal-focus.js";
 
 interface MenuController {
   update(data: DOMStringMap): void;
-  open(trigger: HTMLElement, last: boolean, focus?: boolean): void;
+  open(trigger: HTMLElement, last: boolean, focus?: boolean, reference?: VirtualElement): void;
   trigger(): HTMLElement | undefined;
   armPointer(): void;
+  finishPreviewReturn(): void;
   end(): void;
 }
 const menus = new WeakMap<HTMLElement, MenuController>();
@@ -34,6 +37,7 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
   const modality = menuModal(root);
   let data = initial,
     opener: HTMLElement | undefined,
+    reference: VirtualElement | undefined,
     edgeLast = false,
     focusPending = false,
     closing = false,
@@ -67,11 +71,15 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
       saved.set(name, [node.style.getPropertyValue(name), node.style.getPropertyPriority(name)]);
     if (node.style.getPropertyValue(name) !== value) node.style.setProperty(name, value);
   };
-  const popup = () => root.querySelector<HTMLElement>(':scope > [data-slot="menu-popup"]');
+  const popup = () => ownMenuPopup(root);
   const isOpen = () => !closing && root.matches(":popover-open");
+  const contextBackdrop = () =>
+    root.querySelector<HTMLElement>(':scope > [data-lenso-kind="context-menu-backdrop"]');
   const rows = () =>
     [...root.querySelectorAll<HTMLElement>(rowSelector)].filter(
-      (node) => node.closest('[role="menu"]') === root,
+      (node) =>
+        node.closest('[role="menu"]') === root &&
+        !node.closest('[data-slot="context-menu-preview"]'),
     );
   const live = () =>
     rows().filter(
@@ -81,7 +89,7 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
     );
   const markTriggers = (shown: boolean) => {
     for (const node of root.ownerDocument.querySelectorAll<HTMLElement>(
-      "button[popovertarget],button[data-lenso-for]",
+      'button[popovertarget],button[data-lenso-for],[data-slot="context-menu-trigger"][data-lenso-for]',
     ))
       if (
         (node.getAttribute("popovertarget") ?? node.dataset["lensoFor"]) === root.id &&
@@ -139,7 +147,10 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
     if (disposed || !isOpen() || !opener?.isConnected || !content) return;
     const layout = submenuLayout(root, opener);
     const anchor =
-      layout?.anchor ?? opener.closest<HTMLElement>('[data-slot="menu-bar"]') ?? opener;
+      reference ??
+      layout?.anchor ??
+      opener.closest<HTMLElement>('[data-slot="menu-bar"]') ??
+      opener;
     const current = ++epoch;
     attr(root, "data-lenso-position-pending", "");
     let side = data["lensoSide"] ?? "bottom";
@@ -214,7 +225,11 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
     cancelAnimationFrame(frame);
     frame = requestAnimationFrame(() => {
       frame = requestAnimationFrame(() => {
-        if (!disposed && isOpen()) attr(content, "data-starting-style", null);
+        if (!disposed && isOpen()) {
+          attr(content, "data-starting-style", null);
+          const backdrop = contextBackdrop();
+          if (backdrop) attr(backdrop, "data-starting-style", null);
+        }
         frame = 0;
       });
     });
@@ -226,7 +241,8 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
     if (data["lensoDisableAnchorTracking"] === "true") void position();
     else
       stopTracking = autoUpdate(
-        submenuLayout(root, opener)?.anchor ??
+        reference ??
+          submenuLayout(root, opener)?.anchor ??
           opener.closest<HTMLElement>('[data-slot="menu-bar"]') ??
           opener,
         root,
@@ -263,10 +279,16 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
         attr(content, "data-ending-style", null);
         attr(content, "data-starting-style", "");
       }
+      const backdrop = contextBackdrop();
+      if (backdrop) {
+        attr(backdrop, "data-starting-style", "");
+        attr(backdrop, "data-ending-style", null);
+      }
       root.ownerDocument.addEventListener("focusin", focusIn);
       root.ownerDocument.addEventListener("keydown", keydown);
       preferences();
     } else {
+      reference = undefined;
       modality.sync(false, opener);
       pointerFocus.clear();
       const parentForFocus = root.parentElement?.closest<HTMLElement>('[popover][role="menu"]');
@@ -298,6 +320,11 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
         attr(content, "data-starting-style", null);
         attr(content, "data-ending-style", "");
       }
+      const backdrop = contextBackdrop();
+      if (backdrop) {
+        attr(backdrop, "data-starting-style", null);
+        attr(backdrop, "data-ending-style", "");
+      }
       root.ownerDocument.removeEventListener("focusin", focusIn);
       root.ownerDocument.removeEventListener("keydown", keydown);
       returnTimer = window.setTimeout(() => {
@@ -319,7 +346,11 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
       });
       clearTimeout(opticsTimer);
       if (matchMedia("(prefers-reduced-motion: reduce)").matches) detach();
-      else opticsTimer = window.setTimeout(detach, 160);
+      else
+        opticsTimer = window.setTimeout(
+          detach,
+          root.hasAttribute("data-context-preview-retain") ? 2000 : 160,
+        );
     }
   };
   const beforeToggle = (event: ToggleEvent) => {
@@ -480,6 +511,9 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
   const controller: MenuController = {
     trigger: () => opener,
     armPointer: () => pointerFocus.arm(),
+    finishPreviewReturn() {
+      if (!isOpen()) detach();
+    },
     update(next) {
       data = next;
       submenu?.sync(isOpen(), opener);
@@ -490,7 +524,8 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
       preferences();
       if (isOpen()) track();
     },
-    open(trigger, last, focus = true) {
+    open(trigger, last, focus = true, anchor) {
+      reference = anchor;
       if (trigger.dataset["lensoKind"] === "menu-submenu-trigger")
         trigger.setAttribute("popovertargetaction", "show");
       if (focus) {
@@ -501,8 +536,11 @@ function createMenu(root: HTMLElement, initial: DOMStringMap): MenuController {
       edgeLast = last;
       if (!root.matches(":popover-open")) root.showPopover({ source: trigger });
       else {
+        markTriggers(true);
+        modality.sync(true, opener);
+        root.dispatchEvent(new Event("lenso-menu-source-change"));
         focusPending = focus;
-        void position();
+        track();
       }
     },
     end() {
@@ -630,4 +668,32 @@ export function endMenu(node: HTMLElement | SVGElement) {
   triggers.delete(node);
   menus.get(node)?.end();
   menus.delete(node);
+}
+
+/** Open the existing native Menu at a context point without a second popup owner. */
+export function openContextMenu(
+  root: HTMLElement,
+  trigger: HTMLElement,
+  point: { x: number; y: number; touch: boolean },
+) {
+  const owner = menus.get(root);
+  if (!owner) return false;
+  trigger.focus({ preventScroll: true });
+  owner.open(trigger, false, true, {
+    contextElement: trigger,
+    getBoundingClientRect: () =>
+      new DOMRect(point.x, point.y, point.touch ? 10 : 0, point.touch ? 10 : 0),
+  });
+  return root.matches(":popover-open");
+}
+
+export function closeContextMenu(root: HTMLElement, trigger: HTMLElement) {
+  if (menus.get(root)?.trigger() === trigger && root.matches(":popover-open")) root.hidePopover();
+}
+
+export function menuSource(root: HTMLElement) {
+  return menus.get(root)?.trigger();
+}
+export function finishMenuPreviewReturn(root: HTMLElement) {
+  menus.get(root)?.finishPreviewReturn();
 }

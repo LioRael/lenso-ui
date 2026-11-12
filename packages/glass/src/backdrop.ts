@@ -11,6 +11,7 @@ import {
   type TextSnapshot,
 } from "./backdrop-scheduler.js";
 import type { SharedBackdropRegistration } from "./gpu-backdrop.js";
+import { watchNativeBackdropCandidate } from "./native-backdrop-candidate.js";
 
 const MARK = "data-lenso-backdrop";
 
@@ -293,6 +294,20 @@ export function copyBackdrop(
   fadeIn = 0,
   nativeFallback = false,
   inputOverlay?: () => BackdropOverlay,
+): () => void {
+  const attach = () =>
+    createBackdropCopy(element, source, clipMask, onReady, fadeIn, nativeFallback, inputOverlay);
+  return nativeFallback ? watchNativeBackdropCandidate(element, attach) : attach();
+}
+
+function createBackdropCopy(
+  element: HTMLElement,
+  source: HTMLElement,
+  clipMask: boolean,
+  onReady: (() => void) | undefined,
+  fadeIn: number,
+  nativeFallback: boolean,
+  inputOverlay: (() => BackdropOverlay) | undefined,
 ): () => void {
   const layer = document.createElement("div");
   const frame = document.createElement("div");

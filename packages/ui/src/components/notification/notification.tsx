@@ -1,13 +1,16 @@
 "use client";
 import type { ComponentProps } from "react";
-import { Collapsible } from "@base-ui/react/collapsible";
+import * as Collapsible from "@ui-sdk/react/collapsible";
+import { slotRender } from "../../utils/sdk-render.js";
 import { notificationStyles as s } from "@lenso/tokens/notification";
 import { materialStyles } from "@lenso/tokens/materials";
 import * as stylex from "@stylexjs/stylex";
 import { MaterialBackground } from "../../utils/materials/render.js";
 import { presentationMaterials } from "../../utils/materials/presentation.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-export type NotificationRootProps = StyleXProps<Collapsible.Root.Props> & {
+export type NotificationRootProps = StyleXProps<
+  React.ComponentProps<typeof Collapsible.Collapsible>
+> & {
   stackCount?: 1 | 2 | 3;
 };
 export function NotificationRoot({
@@ -19,52 +22,63 @@ export function NotificationRoot({
 }: NotificationRootProps) {
   const compiled = stylex.props(s.root, xstyle);
   return (
-    <Collapsible.Root
+    <Collapsible.Collapsible
       {...props}
       {...compiled}
-      style={mergeStyle<Collapsible.Root.State>(compiled.style, style)}
+      style={mergeStyle<Collapsible.CollapsibleState>(compiled.style, style)}
       data-slot="notification"
+      render={slotRender("div", "notification", props.render)}
     >
-      {Array.from({ length: stackCount - 1 }, (_, index) => (
-        <span
-          key={index}
-          aria-hidden="true"
-          {...stylex.props(materialStyles.root, s.layer(index + 1), materialStyles.accessible)}
-        >
-          <MaterialBackground variant={presentationMaterials.notification} />
-        </span>
-      ))}
-      <span
-        aria-hidden="true"
-        {...stylex.props(materialStyles.root, s.surface, materialStyles.accessible)}
-      >
-        <MaterialBackground variant={presentationMaterials.notification} />
-      </span>
-      {children}
-    </Collapsible.Root>
+      {(state) => (
+        <>
+          {Array.from({ length: stackCount - 1 }, (_, index) => (
+            <span
+              key={index}
+              aria-hidden="true"
+              {...stylex.props(materialStyles.root, s.layer(index + 1), materialStyles.accessible)}
+            >
+              <MaterialBackground variant={presentationMaterials.notification} />
+            </span>
+          ))}
+          <span
+            aria-hidden="true"
+            {...stylex.props(materialStyles.root, s.surface, materialStyles.accessible)}
+          >
+            <MaterialBackground variant={presentationMaterials.notification} />
+          </span>
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </Collapsible.Collapsible>
   );
 }
-export type NotificationTriggerProps = StyleXProps<Collapsible.Trigger.Props>;
+export type NotificationTriggerProps = StyleXProps<
+  React.ComponentProps<typeof Collapsible.CollapsibleTrigger>
+>;
 export function NotificationTrigger({ xstyle, style, ...props }: NotificationTriggerProps) {
   const compiled = stylex.props(s.header, s.trigger, xstyle);
   return (
-    <Collapsible.Trigger
+    <Collapsible.CollapsibleTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<Collapsible.Trigger.State>(compiled.style, style)}
+      style={mergeStyle<Collapsible.CollapsibleTriggerState>(compiled.style, style)}
       data-slot="notification-trigger"
+      render={slotRender("button", "notification-trigger", props.render)}
     />
   );
 }
-export type NotificationPanelProps = StyleXProps<Collapsible.Panel.Props>;
+export type NotificationPanelProps = StyleXProps<
+  React.ComponentProps<typeof Collapsible.CollapsiblePanel>
+>;
 export function NotificationPanel({ xstyle, style, ...props }: NotificationPanelProps) {
   const compiled = stylex.props(s.panel, xstyle);
   return (
-    <Collapsible.Panel
+    <Collapsible.CollapsiblePanel
       {...props}
       {...compiled}
-      style={mergeStyle<Collapsible.Panel.State>(compiled.style, style)}
+      style={mergeStyle<Collapsible.CollapsiblePanelState>(compiled.style, style)}
       data-slot="notification-panel"
+      render={slotRender("div", "notification-panel", props.render)}
     />
   );
 }

@@ -7,7 +7,7 @@ import * as stylex from "@stylexjs/stylex";
 import { nativeReferenceStyles as styles } from "./native-reference.stylex";
 
 export function NativeReferenceGroup({ withNavigation = true }: { withNavigation?: boolean }) {
-  const [expanded, setExpanded] = useState<unknown[]>(["preview"]);
+  const [expanded, setExpanded] = useState<string[]>(["preview"]);
   const items = [
     {
       id: "preview",
@@ -32,7 +32,7 @@ export function NativeReferenceGroup({ withNavigation = true }: { withNavigation
                 aria-label="Previous disclosure"
                 disabled={index <= 0}
                 size="sm"
-                onClick={() => setExpanded([items[index - 1]?.id])}
+                onClick={() => setExpanded([items[index - 1]!.id])}
               >
                 <GlassButton.Icon>
                   <ChevronUp />
@@ -42,7 +42,7 @@ export function NativeReferenceGroup({ withNavigation = true }: { withNavigation
                 aria-label="Next disclosure"
                 disabled={index >= items.length - 1}
                 size="sm"
-                onClick={() => setExpanded([items[index + 1]?.id])}
+                onClick={() => setExpanded([items[index + 1]!.id])}
               >
                 <GlassButton.Icon>
                   <ChevronDown />

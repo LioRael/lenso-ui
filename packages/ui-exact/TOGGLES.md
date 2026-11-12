@@ -98,8 +98,9 @@ content, icon-only and full-width composition, joined/detached and horizontal/
 vertical groups, single/multiple/empty selection, group/item disabling and
 keyboard/lifecycle behavior. Registered caller maps support static custom tint
 and StyleX composition before and after initialization; see STYLING.md. Dynamic
-inline-value adapters remain open. GlassToggleButton and Toolbar composition require their own adapters and
-acceptance. These ordinary families are therefore tracked as partial in
+inline-value adapters remain open. GlassToggleButton now has a dedicated primitive-backed
+adapter and acceptance record in GLASS_TOGGLE_BUTTON.md; full source API and Toolbar
+composition acceptance remain open. These ordinary families are therefore tracked as partial in
 COMPONENTS.md rather than declaring the complete source family API delivered.
 
 The installed-consumer browser suite passes in Chromium 156 and Playwright
@@ -108,3 +109,15 @@ all 1055 composed consumer cases (900 core recipes), light/dark at 390/820 px an
 screenshots. It also runs the existing forms, disclosure, navigation, progress
 and material regressions. This is Web evidence; native adapters and physical
 Safari/iPhone acceptance remain outstanding.
+
+## Primitive ownership
+
+ToggleButton and ToggleButtonGroupItem use generated derivatives of canonical
+`@lenso/primitives-exact` Toggle. The primitive supplies the native button,
+pressed state, disabled state, slot and boolean inversion. The group maps the
+requested boolean into its existing string-array selection model. Application
+state remains authoritative; group focus navigation and Lenso presentation stay
+in the UI adapter. No wrapper node or additional selected state is introduced.
+The stock compiler requires literal hatch metadata, so this is guarded build-time
+source composition rather than transparent attribute forwarding through imports.
+Both primitive packages and the pinned SDK remain unchanged.

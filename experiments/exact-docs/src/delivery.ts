@@ -1,3 +1,4 @@
+import { captureNavigation } from "./web/navigation.ts";
 import { escapeHtml } from "./renderers/html.ts";
 
 export interface DeliveryAssets {
@@ -5,6 +6,7 @@ export interface DeliveryAssets {
   modules: string[];
   styles: string[];
   search?: Record<string, string>;
+  routes?: string[];
 }
 
 /** WebKit resolves inline dynamic imports from the page URL, ignoring HTML's base.
@@ -36,10 +38,16 @@ export function preparePageHtml(html: string, assets?: DeliveryAssets) {
           ].join("")}`,
         )
       : prepared;
-  return assets
+  const routed = assets?.routes?.length
     ? hinted.replace(
+        /(<base\b[^>]*>)/,
+        `$1<script>(${captureNavigation.toString()})(${JSON.stringify(assets.routes).replaceAll("<", "\\u003c")})</script>`,
+      )
+    : hinted;
+  return assets
+    ? routed.replace(
         /(<script\b[^>]*type="application\/vnd\.exact\.checkpoint")/,
         `$1 data-docs-preload="${escapeHtml(JSON.stringify(assets))}"`,
       )
-    : hinted;
+    : routed;
 }

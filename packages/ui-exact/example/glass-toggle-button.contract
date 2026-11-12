@@ -1,0 +1,70 @@
+use GlassToggleButton, GlassToggleButtonIcon, GlassToggleButtonGroupItem, ToggleButtonGroup, ToggleButtonGroupState, ToggleButtonGroupItem, Button from "@lenso/ui-exact"
+
+component GlassToggleExample
+  state pressed = false
+  state disabled = false
+  state rejected = false
+  state mounted = true
+  state variant = "default"
+  state size = "md"
+  state tint = ""
+  state full = false
+  state detached = false
+  state vertical = false
+  state value = ["bold"]
+  derive group = ToggleButtonGroupState(id="glass-toggle-group", label="Text emphasis", value=value, multiple=true, disabled=disabled, size=size, variant=variant, fullWidth=full, detached=detached, orientation=(vertical ? "vertical" : "horizontal"), loopFocus=true)
+  action change(next: bool)
+    if not rejected
+      pressed = next
+  action select(next: string[])
+    if not rejected
+      value = next
+  action toggleDisabled
+    disabled = not disabled
+  action toggleRejected
+    rejected = not rejected
+  action toggleMounted
+    mounted = not mounted
+  action toggleVariant
+    variant = (variant == "default" ? "prominent" : "default")
+  action cycleSize
+    size = (size == "sm" ? "md" : size == "md" ? "lg" : "sm")
+  action toggleTint
+    tint = (tint == "" ? "#8350b5" : "")
+  action toggleFull
+    full = not full
+  action toggleDetached
+    detached = not detached
+  action toggleVertical
+    vertical = not vertical
+  view
+    column id="glass-toggle-examples" gap=12
+      text "Glass toggles" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable toggles", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="glass-toggle-disabled")
+        Button(label="Reject selection", press=toggleRejected, disabled=false, size="sm", variant="bordered", testId="glass-toggle-rejected")
+        Button(label="Mount toggles", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="glass-toggle-mounted")
+        Button(label="Toggle material", press=toggleVariant, disabled=false, size="sm", variant="bordered", testId="glass-toggle-variant")
+        Button(label="Toggle size", press=cycleSize, disabled=false, size="sm", variant="bordered", testId="glass-toggle-size")
+        Button(label="Toggle tint", press=toggleTint, disabled=false, size="sm", variant="bordered", testId="glass-toggle-tint")
+        Button(label="Full width", press=toggleFull, disabled=false, size="sm", variant="bordered", testId="glass-toggle-full")
+        Button(label="Detach toggles", press=toggleDetached, disabled=false, size="sm", variant="bordered", testId="glass-toggle-detached")
+        Button(label="Vertical toggles", press=toggleVertical, disabled=false, size="sm", variant="bordered", testId="glass-toggle-vertical")
+      text (pressed ? "Saved" : "Unsaved") testId="glass-toggle-value"
+      if mounted
+        GlassToggleButton(id="glass-toggle-save", label="Save draft", pressed=pressed, change=change, disabled=disabled, size=size, variant=variant, iconOnly=false, fullWidth=full, tint=tint, elastic=true)
+          GlassToggleButtonIcon()
+            svg width=16 height=16 viewBox="0 0 16 16" aria-hidden=true
+              path d="M4 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width=1.5
+          text "Save draft"
+        GlassToggleButton(id="glass-toggle-icon", label="Save icon", pressed=pressed, change=change, disabled=disabled, size=size, variant=variant, iconOnly=true, fullWidth=false, tint=tint, elastic=false)
+          GlassToggleButtonIcon()
+            svg width=16 height=16 viewBox="0 0 16 16" aria-hidden=true
+              path d="M4 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width=1.5
+        ToggleButtonGroup(state=group)
+          GlassToggleButtonGroupItem(state=group, id="glass-toggle-bold", value="bold", label="Bold", disabled=false, iconOnly=false, tint=tint, elastic=true, change=select)
+            text "Bold"
+          GlassToggleButtonGroupItem(state=group, id="glass-toggle-locked", value="locked", label="Unavailable", disabled=true, iconOnly=false, tint=tint, elastic=true, change=select)
+            text "Unavailable"
+          ToggleButtonGroupItem(state=group, id="glass-toggle-italic", value="italic", label="Italic", disabled=false, iconOnly=false, change=select)
+            text "Italic"

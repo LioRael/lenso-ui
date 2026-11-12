@@ -52,8 +52,17 @@ component MenuPopup
     state: MenuState
   slot
   view
+    MenuPopupPresentation(state=state, mode="full")
+      children
+
+component MenuPopupPresentation
+  props
+    state: MenuState
+    mode: string
+  slot
+  view
     box id=`${state.id}-popup` testId=`${state.id}-popup` role="presentation"
-      hatch="lenso-ui" data-lenso-kind="menu-popup" data-slot="menu-popup" data-material="glass-medium"
+      hatch="lenso-ui" data-lenso-kind="menu-popup" data-slot="menu-popup" data-lenso-mode=mode data-material="glass-medium"
       box aria-hidden=true hatch="lenso-ui" data-lenso-kind="menu-surface" data-slot="menu-surface"
         box aria-hidden=true hatch="lenso-ui" data-lenso-kind="menu-lens" data-slot="menu-lens" data-material-lens=""
       box role="presentation" hatch="lenso-ui" data-lenso-kind="menu-content" data-slot="menu-content"

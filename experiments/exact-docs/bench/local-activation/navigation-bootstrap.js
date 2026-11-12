@@ -1,5 +1,29 @@
 // Start the shared app for an internal document link before any interactive control has run.
-export function bootstrapNavigation() {
+export function bootstrapNavigation(targets = {}, ownerFiles = []) {
+  const exact = (globalThis.exact ??= {});
+  const pending = new Map();
+  exact.prepareDestination = (href) => {
+    const url = new URL(href, location.href),
+      file = targets[url.pathname];
+    if (url.origin !== location.origin || !file) return;
+    const ownerReady =
+      ownerFiles.length > 0 &&
+      ownerFiles.every((name) =>
+        performance
+          .getEntriesByName(new URL(name, document.baseURI).href)
+          .some((entry) => entry.responseEnd > 0),
+      );
+    exact.navigationPreparation = ownerReady ? "owner-ready" : "owner-pending";
+    if (ownerReady) return;
+    let promise = pending.get(file);
+    if (!promise) {
+      promise = import(new URL(file, document.baseURI).href);
+      pending.set(file, promise);
+      // A rejected speculative load is observed here; the native resource still owns error recovery.
+      promise.catch(() => pending.delete(file));
+    }
+    return promise;
+  };
   document.addEventListener(
     "click",
     (event) => {
@@ -24,6 +48,7 @@ export function bootstrapNavigation() {
         return;
       event.preventDefault();
       event.stopImmediatePropagation();
+      exact.prepareDestination(url.href);
       (exact.q ??= []).push({ type: "click", target: link });
       if (!exact.ready) {
         const checkpoint = document.querySelector(

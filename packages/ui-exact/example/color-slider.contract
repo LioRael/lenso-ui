@@ -1,0 +1,71 @@
+use ColorSliderState, ColorSlider, ColorSliderLabel, ColorSliderOutput, ColorSliderTrack, ColorSliderThumb, ColorSwatch, Button from "@lenso/ui-exact"
+
+component ColorSliderParts
+  props
+    state: ColorSliderState
+    change: action
+    commit: action
+  view
+    ColorSlider(state=state, change=change, commit=commit)
+      ColorSliderLabel(state=state)
+      ColorSliderOutput(state=state)
+      ColorSliderTrack(state=state)
+        ColorSliderThumb(state=state, change=change, commit=commit)
+
+component ColorSliderExample
+  state value = "hsla(210, 50%, 50%, 0.5)"
+  state commits = 0
+  state disabled = false
+  state readOnly = false
+  state reject = false
+  state mounted = true
+  state vertical = false
+  state rtl = false
+  state locale = "en-US"
+  derive hue = ColorSliderState(id="hue-slider", label="Color hue", value=value, channel="hue", colorSpace="hsl", locale=locale, name="hue", orientation=(vertical ? "vertical" : "horizontal"), direction=(rtl ? "rtl" : "ltr"), disabled=disabled, readOnly=readOnly)
+  derive alpha = ColorSliderState(id="alpha-slider", label="Color opacity", value=value, channel="alpha", colorSpace="hsl", locale=locale, name="opacity", orientation=(vertical ? "vertical" : "horizontal"), direction=(rtl ? "rtl" : "ltr"), disabled=disabled, readOnly=readOnly)
+  derive red = ColorSliderState(id="red-slider", label="Color red", value=value, channel="red", colorSpace="rgb", locale=locale, name="red", orientation=(vertical ? "vertical" : "horizontal"), direction=(rtl ? "rtl" : "ltr"), disabled=disabled, readOnly=readOnly)
+  action change(next: string)
+    if not reject
+      value = next
+  action commit(next: string)
+    commits = commits + 1
+  action disable
+    disabled = not disabled
+  action lock
+    readOnly = not readOnly
+  action veto
+    reject = not reject
+  action remount
+    mounted = not mounted
+  action orient
+    vertical = not vertical
+  action redirect
+    rtl = not rtl
+  action localize
+    locale = locale == "en-US" ? "fr-FR" : "en-US"
+  action reset
+    value = "hsla(210, 50%, 50%, 0.5)"
+  view
+    column id="color-slider-examples" testId="color-slider-examples" gap=12
+      text "Color sliders" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable sliders", press=disable, disabled=false, size="sm", variant="bordered", testId="color-slider-disabled")
+        Button(label="Read only sliders", press=lock, disabled=false, size="sm", variant="bordered", testId="color-slider-readonly")
+        Button(label="Reject slider changes", press=veto, disabled=false, size="sm", variant="bordered", testId="color-slider-reject")
+        Button(label="Mount sliders", press=remount, disabled=false, size="sm", variant="bordered", testId="color-slider-mounted")
+        Button(label="Slider orientation", press=orient, disabled=false, size="sm", variant="bordered", testId="color-slider-orientation")
+        Button(label="Slider direction", press=redirect, disabled=false, size="sm", variant="bordered", testId="color-slider-direction")
+        Button(label="Slider locale", press=localize, disabled=false, size="sm", variant="bordered", testId="color-slider-locale")
+        Button(label="Reset sliders", press=reset, disabled=false, size="sm", variant="bordered", testId="color-slider-reset")
+      if mounted
+        row gap=24 flex-wrap="wrap"
+          box width=(vertical ? 80 : 300) height=(vertical ? 260 : 80)
+            ColorSliderParts(state=hue, change=change, commit=commit)
+          box width=(vertical ? 80 : 300) height=(vertical ? 260 : 80)
+            ColorSliderParts(state=alpha, change=change, commit=commit)
+          box width=(vertical ? 80 : 300) height=(vertical ? 260 : 80)
+            ColorSliderParts(state=red, change=change, commit=commit)
+        ColorSwatch(id="slider-color-preview", color=value, label="Slider color", size="lg", shape="square")
+      text value testId="slider-color-value"
+      text `Commits: ${commits}` testId="color-slider-commits"

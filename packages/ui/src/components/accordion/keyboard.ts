@@ -3,7 +3,7 @@ import type { KeyboardEvent } from "react";
 const roots = '[data-slot="accordion"]';
 const triggers = '[data-slot="accordion-trigger"]';
 
-/** Base UI 1.7 owns expansion, but does not implement accordion arrow navigation. */
+// Lenso retains optional arrow navigation; UI SDK only owns expansion.
 export function navigateAccordion(
   event: KeyboardEvent<HTMLElement>,
   orientation: "horizontal" | "vertical",

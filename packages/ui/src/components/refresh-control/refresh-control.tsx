@@ -11,7 +11,7 @@ import {
 import { useMergedRefs } from "@base-ui/utils/useMergedRefs";
 import * as stylex from "@stylexjs/stylex";
 import { refreshControlStyles as s } from "@lenso/tokens/refresh-control";
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { Spinner } from "../spinner/index.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
@@ -310,8 +310,8 @@ export function RefreshControlTrigger({
       render={render}
       style={mergeStyle(compiled.style, style)}
       disabled={disabled || context.disabled || context.phase === "refreshing"}
-      onClick={(event) => {
-        onClick?.(event);
+      onClick={(event, details) => {
+        onClick?.(event, details);
         if (!event.defaultPrevented) context.refresh();
       }}
     >

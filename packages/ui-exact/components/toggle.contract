@@ -1,3 +1,6 @@
+use StyledToggleButton from "./generated/toggle-button.contract"
+use StyledToggleButtonGroupItem from "./generated/toggle-group-item.contract"
+
 component ToggleButton
   props
     id: string
@@ -11,11 +14,7 @@ component ToggleButton
     fullWidth: bool
   slot
   view
-    button id=id testId=id appearance="none" tabindex=0 aria-label=label aria-pressed=pressed
-      press=change(not pressed) disabled=disabled
-      hatch="lenso-ui" data-lenso-kind="toggle-button" data-slot="toggle-button"
-      data-lenso-size=size data-lenso-variant=variant
-      data-lenso-icon-only=iconOnly data-lenso-full-width=fullWidth
+    StyledToggleButton(id=id, label=label, pressed=pressed, disabled=disabled, change=change, size=size, variant=variant, iconOnly=iconOnly, fullWidth=fullWidth)
       children
 
 component ToggleButtonIcon
@@ -58,20 +57,15 @@ component ToggleButtonGroupItem
     iconOnly: bool
     change: action
   derive pressed = state.value.includes(value)
-  action toggle
+  action toggle(next: bool)
     if not disabled and not state.disabled
-      if pressed
+      if not next
         change(state.value.filter(entry => entry != value))
       else
         change(state.multiple ? state.value.concat([value]) : [value])
   slot
   view
-    button id=id testId=id appearance="none" tabindex=((state.disabled or disabled) ? -1 : 0)
-      aria-label=label aria-pressed=pressed press=toggle disabled=(state.disabled or disabled)
-      hatch="lenso-ui" data-lenso-kind="toggle-button-group-item" data-slot="toggle-button"
-      data-lenso-group-item="" data-lenso-size=state.size data-lenso-variant=state.variant
-      data-lenso-full-width=state.fullWidth data-lenso-icon-only=iconOnly
-      data-orientation=state.orientation data-lenso-detached=state.detached
+    StyledToggleButtonGroupItem(id=id, label=label, pressed=pressed, change=toggle, disabled=(state.disabled or disabled), size=state.size, variant=state.variant, fullWidth=state.fullWidth, iconOnly=iconOnly, orientation=state.orientation, detached=state.detached)
       children
 
 component ToggleButtonGroupSeparator

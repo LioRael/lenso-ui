@@ -52,6 +52,15 @@ ordinary two-segment treatment; NumberField uses field materials. See
 and native integration work. [Drag adjustment](NUMBER_SCRUB.md) adds horizontal/vertical
 scrubbing and an optional cursor, with a pointer-lock fallback.
 
+[DateField and DateInputGroup](DATE_FIELD.md) add date-only segmented native
+editing, localized calendar display with ISO identity, partial drafts and native
+scalar form validation. They reuse primitive Input and the pure source draft
+model. [TimeField](TIME_FIELD.md) reuses that owner for local time, hour cycles,
+day periods and optional seconds. [Calendar](CALENDAR.md) adds a localized month grid with native primitive-derived
+day buttons, selection and keyboard navigation. Range and date-picker families
+remain unfinished. [CalendarYearPicker](CALENDAR_YEAR_PICKER.md) adds a controlled
+year grid sharing Calendar browsing and bounds.
+
 [List](LIST.md) adds grouped/plain rows, named sections and native action buttons
 using ordinary list surfaces. Controlled editing selection and scoped select-all
 are implemented, along with keyboard/pointer reorder requests and bounded edge
@@ -104,6 +113,8 @@ Ordinary `ToggleButton` and `ToggleButtonGroup` add persistent selection with
 explicit Exact state, rich children and native button activation. Groups support
 single/multiple selection, joined/detached layouts and roving keyboard focus.
 See [toggle composition](TOGGLES.md) and the [compiled example](example/toggle.contract).
+`GlassToggleButton` and its grouped item reuse the same primitive state/activation
+with shared Glass material and elastic feedback; see [Glass toggles](GLASS_TOGGLE_BUTTON.md).
 Registered caller maps support custom tint and StyleX composition; see [caller styling](STYLING.md).
 
 `ButtonGroup` adds rich ordinary/Glass actions, joined/detached geometry and native
@@ -259,8 +270,8 @@ and per-frame samples are included in the same evidence directory.
 ## Current boundary
 
 This is an initial integration slice, not the full Lenso React component API.
-It does not yet include the full family catalog, elastic motion, icons, loading
-state, glass groups, overlays, or native adapters. Shared glass rendering retains its existing browser
+The full family catalog and capability matrix remain incomplete; see
+[component coverage](COMPONENTS.md). Native adapters follow Web completion. Shared glass rendering retains its existing browser
 limitations; using Exact Web does not bypass WebKit or establish a performance
 improvement. Generated assets include the repository's third-party notices.
 
@@ -281,7 +292,7 @@ See [Tabs](TABS.md) for selection, panel lifetime, keyboard contracts, source mo
 
 See [SegmentedControl](SEGMENTED_CONTROL.md) for radio selection, native form values and shared selection presentation.
 
-`Description`, `TextArea`, `Checkbox` and `Radio` now derive their semantic Contracts from `@lenso/primitives-exact`
+`ToggleButton`, `Link`, `Description`, `TextArea`, `Checkbox` and `Radio` now derive their semantic Contracts from `@lenso/primitives-exact`
 at build time. The generated styled primitives retain the original nodes and
 add Lenso presentation metadata and the explicitly supported UI attributes; its source fingerprint and license ship in
 `components/generated`. See the [migration plan](../../docs/plans/exact-primitives-migration.md)
@@ -314,3 +325,85 @@ hide invoker. Named Popup content, positioning, hover and Glass remain UI-owned.
 Menu's native positioner, invoker, item actions, checkbox/radio items and submenu
 invoker now derive from the canonical Menu parts in the primitive Popover source.
 Menu links, hover corridors, modality, navigation and Glass remain UI extensions.
+
+See [SwipeActions](SWIPE_ACTIONS.md) for controlled leading/trailing actions,
+keyboard alternatives, opt-in full swipe and gesture acceptance boundaries.
+
+See [Color components](COLOR.md) for named transparency samples, native-radio
+SwatchPicker composition, shared color-model identity and remaining color families.
+
+See [ColorField and ColorInputGroup](COLOR_FIELD.md) for live color/channel edits,
+localized percentages, controlled proposals, commits and native form projection.
+
+See [ColorSlider](COLOR_SLIDER.md) for primitive-backed color channels, ordinary
+gradient tracks, native form output and pointer/keyboard/touch acceptance.
+
+See [ColorArea](COLOR_AREA.md) for primitive-backed dual-axis color editing,
+atomic color proposals, keyboard/form semantics and cancellation behavior.
+
+See [ColorPicker](COLOR_PICKER.md) for a primitive-backed Glass popover combining
+ColorArea, ColorSlider, ColorField and a swatch palette under one application value.
+
+See [ListBox](LIST_BOX.md) for controlled single/multiple collections, rich grouped
+options, range selection, typeahead and dynamic-item focus cleanup.
+
+See [Tag and TagGroup](TAGS.md) for controlled selectable/removable tags, shared
+collection navigation and focus restoration after accepted removal.
+
+See [ComboBox](COMBO_BOX.md) for primitive-backed editable selection, grouped
+filtering, multiple chips, controlled query/value callbacks and native form values.
+
+See [Autocomplete](AUTOCOMPLETE.md) for external selected-value triggers with
+popup search, grouped options, removable multiple selections and native forms.
+It shares the editable collection controller with ComboBox while retaining a
+separate popup-query and trigger-focus policy.
+
+See [InputOTP](INPUT_OTP.md) for real native code slots, grouped/separated
+composition, paste/autofill, alphabet validation, completion and native forms.
+Ordinary primary/secondary fields and explicit floating Glass slots share the
+same controlled code model.
+
+See [PopupButton](POPUP_BUTTON.md) for the shared ordinary tint-colored button,
+its double-chevron indicator and direct Menu/Select trigger compositions. The
+menu trigger derives from the canonical primitive command on the actual button;
+popup selection and material stay with their existing owners.
+
+See [SectionIndex](SECTION_INDEX.md) for native fragment links, roving keyboard
+focus, pointer scrubbing and optional navigation inside a named scrollport. It
+reuses primitive Link nodes with shared narrow-index recipes and explicit
+application-owned current-location state.
+
+See [TabBar](TAB_BAR.md) for application navigation using native destination links
+and actions, phone/tablet Glass groups, source-derived draggable indicators,
+controlled minimization and scroll-triggered collapse. Its navigation semantics
+remain distinct from in-page Tabs.
+
+See [RefreshControl](REFRESH_CONTROL.md) for touch-only pull-to-refresh, a native
+keyboard/touch trigger, application-owned async results and localized status/error
+feedback. The runnable root example demonstrates timed, synchronous and rejected
+operations; the family remains Partial for broader APIs and platform coverage.
+
+See [ContextMenu](CONTEXT_MENU.md) for native right-click, keyboard context keys,
+long-press targets and pointer-origin Menu composition. The ordinary popup shares
+Menu semantics, items and submenus. Compact actions now expand into the full menu
+with controlled branch lifetimes and source spring geometry. Inert previews support
+vertical/horizontal and leading/trailing layouts. Chromium retains the closing
+return animation; tested WebKit restores the target immediately. Full motion/API
+and native/device acceptance remain open.
+
+See [NavigationBar](NAVIGATION_BAR.md) for shared Toolbar actions, a sticky title,
+large-heading collapse and uniform/soft scroll-bound edges. Explicit state selects
+heading level, scroll target, direction and toolbar presentation; WebKit/Chromium
+behavior and initial geometry are verified while broader API/material/native gates
+remain open.
+
+See [WheelPicker](WHEEL_PICKER.md) for controlled string options, native snap
+scrolling and cylindrical label projection. It shares ListBox interaction and
+supports disabled choices, external form values, value rejection and dynamic
+collections. Initial projection, broader APIs and native/device gates remain open.
+
+See [GlassMagnifier](GLASS_MAGNIFIER.md) for a pointer-driven lens using the shared
+Glass renderer and motion helper, with independent dragging/animation, optional
+elastic feedback and rich child controls. Behavior and lifecycle are verified in
+both browser engines; WebKit background magnification/refraction remains a known
+backend gap, and full API/optical/native-device acceptance remains open.

@@ -15,6 +15,7 @@ const entry = Object.fromEntries(
 export default defineConfig({
   entry: {
     index: "src/index.ts",
+    agent: "src/agent.ts",
     "hooks/index": "src/hooks/index.ts",
     "icons/index": "src/icons/index.tsx",
     // Workspace Docs uses this private entry; it is not a package export.
@@ -24,6 +25,8 @@ export default defineConfig({
   deps: {
     neverBundle: [
       "@base-ui/react",
+      "@ui-sdk/core",
+      "@ui-sdk/react",
       "@lenso/glass",
       "@lenso/primitives",
       "@lenso/tokens",

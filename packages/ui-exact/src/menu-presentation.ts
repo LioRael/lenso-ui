@@ -1,3 +1,5 @@
+import { contextMenuStyles } from "@lenso/tokens/context-menu";
+import { popupButtonStyles } from "@lenso/tokens/popup-button";
 import * as stylex from "@stylexjs/stylex";
 import {
   menuStyles as s,
@@ -38,7 +40,10 @@ const native = stylex.create({
     top: "var(--lenso-exact-menu-y, auto)",
     transitionProperty: "display, overlay",
     transitionBehavior: "allow-discrete",
-    transitionDuration: { default: "160ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
+    transitionDuration: {
+      default: "var(--lenso-context-return-duration, 160ms)",
+      "@media (prefers-reduced-motion: reduce)": "0ms",
+    },
     outline: "none",
   },
   backdrop: {
@@ -46,10 +51,23 @@ const native = stylex.create({
     inset: 0,
     zIndex: -1,
     userSelect: "none",
-    display: { default: "none", ":is([data-lenso-menu-modal-active] > *)": "block" },
+    display: {
+      default: "none",
+      ':is([data-lenso-menu-modal-active] > *, [data-lenso-modal="true"][data-context-preview-retain]:not(:popover-open) > *)':
+        "block",
+    },
     clipPath: "var(--lenso-exact-menu-backdrop-clip, none)",
   },
   popup: {
+    transform: {
+      default: "scale(var(--lg-menu-scale, 1))",
+      ":is([data-starting-style], [data-ending-style])":
+        "scale(calc(var(--lg-menu-scale, 1) * var(--lenso-context-appearance-scale, .96)))",
+    },
+    width: {
+      default: "max-content",
+      ':is([data-lenso-context-menu="true"] > *, [data-lenso-context-menu="true"] > [data-slot="context-menu-layout"] > *)': 250,
+    },
     display: "block",
     maxWidth: "min(var(--available-width, calc(100vw - 16px)), 100%)",
   },
@@ -101,6 +119,8 @@ export const menuKinds = [...parts.keys()].filter(
   (k) => k !== "menu-positioner" && k !== "menu-bar",
 );
 export function menuPresentation(kind: string, data: DOMStringMap): StyleInput | undefined {
+  if (kind === "menu-popup" && data["lensoMode"] === "compact")
+    return [parts.get(kind), contextMenuStyles.compactPopup];
   if (kind === "menu-bar")
     return [m.root, s.bar, data["lensoElastic"] === "true" && s.barElastic, m.accessible];
   if (
@@ -108,6 +128,8 @@ export function menuPresentation(kind: string, data: DOMStringMap): StyleInput |
     !["auto", "true", "false"].includes(data["lensoOpenOnHover"] ?? "auto")
   )
     throw new RangeError(`Unknown submenu hover policy: ${data["lensoOpenOnHover"]}`);
+  if (kind === "menu-trigger" && data["lensoPresentation"] === "popup-button")
+    return [popupButtonStyles.root];
   if (kind === "menu-trigger")
     return [
       glassButtonStyles.root,
@@ -125,6 +147,7 @@ export function menuPresentation(kind: string, data: DOMStringMap): StyleInput |
       native.disabled,
       data["lensoVariant"] === "danger" && item.danger,
       kind === "menu-action" && s.action,
+      data["lensoPresentation"] === "context-bar" && [s.barItem, contextMenuStyles.barItem],
     ];
   }
   if (kind === "menu-positioner") {

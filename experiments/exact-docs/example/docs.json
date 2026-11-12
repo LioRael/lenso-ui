@@ -1,5 +1,5 @@
 {
-  "name": "Exact Docs prototype",
+  "name": "Exact Docs",
   "components": { "CounterDemo": { "source": "widgets/counter.contract" } },
   "locales": [
     { "id": "en", "label": "English" },

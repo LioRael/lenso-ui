@@ -1,3 +1,23 @@
+import { calendarPresentation, calendarKinds } from "./calendar-presentation.js";
+import { dateFieldPresentation, dateFieldKinds } from "./date-field-presentation.js";
+import { magnifierPresentation } from "./glass-magnifier-presentation.js";
+import { wheelPickerPresentation, wheelPickerKinds } from "./wheel-picker-presentation.js";
+import { navigationBarPresentation, navigationBarKinds } from "./navigation-bar-presentation.js";
+import { contextMenuPresentation, contextMenuKinds } from "./context-menu-presentation.js";
+import { refreshPresentation, refreshKinds } from "./refresh-control-presentation.js";
+import { tabBarPresentation, tabBarKinds } from "./tab-bar-presentation.js";
+import { sectionIndexStyles } from "@lenso/tokens/section-index";
+import { popupButtonStyles } from "@lenso/tokens/popup-button";
+import { otpPresentation, otpKinds } from "./input-otp-presentation.js";
+import { autocompletePresentation, autocompleteKinds } from "./autocomplete-presentation.js";
+import { comboBoxPresentation, comboBoxKinds } from "./combo-box-presentation.js";
+import { tagPresentation, tagKinds } from "./tag-presentation.js";
+import { listBoxPresentation, listBoxKinds } from "./list-box-presentation.js";
+import { colorPickerPresentation, colorPickerKinds } from "./color-picker-presentation.js";
+import { colorAreaPresentation, colorAreaKinds } from "./color-area-presentation.js";
+import { colorSliderPresentation, colorSliderKinds } from "./color-slider-presentation.js";
+import { colorFieldPresentation, colorFieldKinds } from "./color-field-presentation.js";
+import { colorPresentation, colorKinds } from "./color-presentation.js";
 import { swipePresentation, swipeKinds } from "./swipe-presentation.js";
 import { listPresentation, listKinds } from "./list-presentation.js";
 import { selectPresentation, selectKinds } from "./select-presentation.js";
@@ -52,6 +72,17 @@ function sizeOf(value: string | undefined) {
 function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
   const { lensoKind: kind, lensoVariant: variant } = data;
   switch (kind) {
+    case "section-index":
+      return [
+        sectionIndexStyles.root,
+        data["lensoDisabled"] === "true" && sectionIndexStyles.disabled,
+      ];
+    case "section-index-item":
+      return [sectionIndexStyles.item];
+    case "popup-button":
+      return [popupButtonStyles.root];
+    case "popup-button-indicator":
+      return [popupButtonStyles.indicator];
     case "surface":
       if (
         variant !== "default" &&
@@ -85,7 +116,25 @@ function basePresentation(data: DOMStringMap, inputGroup = false): StyleInput {
     default: {
       const result =
         kind &&
-        (selectPresentation(kind, data) ??
+        (calendarPresentation(kind, data) ??
+          dateFieldPresentation(kind, data) ??
+          magnifierPresentation(kind, data) ??
+          wheelPickerPresentation(kind, data) ??
+          navigationBarPresentation(kind, data) ??
+          contextMenuPresentation(kind, data) ??
+          refreshPresentation(kind) ??
+          tabBarPresentation(kind, data) ??
+          otpPresentation(kind, data) ??
+          autocompletePresentation(kind, data) ??
+          comboBoxPresentation(kind, data) ??
+          tagPresentation(kind, data) ??
+          listBoxPresentation(kind, data) ??
+          colorPickerPresentation(kind, data) ??
+          colorAreaPresentation(kind, data) ??
+          colorSliderPresentation(kind, data) ??
+          colorFieldPresentation(kind, data) ??
+          colorPresentation(kind, data) ??
+          selectPresentation(kind, data) ??
           numberPresentation(kind, data) ??
           formPresentation(kind, data, inputGroup) ??
           disclosurePresentation(kind, data) ??
@@ -157,9 +206,16 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     const compiled = presentation({ ...data, lensoKind: kind }, inputGroup);
     if (compiled.style && Object.keys(compiled.style).length)
       throw new Error(`Lenso ${kind} needs a declarative adapter for its inline values`);
+    // Initial aliases use :where to preserve atomic specificity; replacement recipes need disjoint cases.
+    const replacementScope =
+      kind === "menu-popup" && data["lensoMode"] !== "compact"
+        ? ':not([data-lenso-mode="compact"])'
+        : kind === "menu-item" && data["lensoPresentation"] !== "context-bar"
+          ? ':not([data-lenso-presentation="context-bar"])'
+          : "";
     cases.push({
       kind,
-      selector: `[data-lenso-kind="${kind}"]${suffix}`,
+      selector: `[data-lenso-kind="${kind}"]${suffix}${replacementScope}`,
       classes: compiled.className?.split(" ").filter(Boolean) ?? [],
       data: { ...data, lensoKind: kind },
       inputGroup,
@@ -191,11 +247,195 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     add("list-root", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
   for (const height of ["regular", "tall"])
     add("list-item", { lensoHeight: height }, `[data-lenso-height="${height}"]`);
+  for (const disabled of ["false", "true"])
+    for (const dots of ["false", "true"])
+      add(
+        "color-area",
+        { lensoDisabled: disabled, lensoDots: dots },
+        `[data-lenso-disabled="${disabled}"][data-lenso-dots="${dots}"]`,
+      );
+  for (const orientation of ["horizontal", "vertical"]) {
+    add("color-slider-track", { orientation }, `[data-orientation="${orientation}"]`);
+    add("color-slider-thumb", { orientation }, `[data-orientation="${orientation}"]`);
+    for (const disabled of ["false", "true"])
+      add(
+        "color-slider",
+        { orientation, lensoDisabled: disabled },
+        `[data-orientation="${orientation}"][data-lenso-disabled="${disabled}"]`,
+      );
+  }
+  for (const full of ["false", "true"]) {
+    add("color-field", { lensoFullWidth: full }, `[data-lenso-full-width="${full}"]`);
+    for (const variant of ["primary", "secondary"])
+      for (const disabled of ["false", "true"])
+        for (const invalid of ["false", "true"])
+          add(
+            "color-input-group",
+            {
+              lensoFullWidth: full,
+              lensoVariant: variant,
+              lensoDisabled: disabled,
+              lensoInvalid: invalid,
+            },
+            `[data-lenso-full-width="${full}"][data-lenso-variant="${variant}"][data-lenso-disabled="${disabled}"][data-lenso-invalid="${invalid}"]`,
+          );
+  }
+  for (const variant of ["primary", "secondary"])
+    for (const full of ["true", "false"])
+      for (const chips of ["true", "false"])
+        for (const kind of [
+          "autocomplete-root",
+          "autocomplete-input-group",
+          "autocomplete-trigger",
+        ])
+          add(
+            kind,
+            { lensoVariant: variant, lensoFullWidth: full, lensoChips: chips },
+            `[data-lenso-variant="${variant}"][data-lenso-full-width="${full}"][data-lenso-chips="${chips}"]`,
+          );
+  for (const variant of ["primary", "secondary"])
+    for (const glass of ["true", "false"])
+      add(
+        "input-otp-slot",
+        { lensoVariant: variant, lensoGlass: glass },
+        `[data-lenso-variant="${variant}"][data-lenso-glass="${glass}"]`,
+      );
+  add(
+    "menu-trigger",
+    { lensoPresentation: "popup-button" },
+    '[data-lenso-presentation="popup-button"]',
+  );
+  for (const disabled of ["true", "false"])
+    add("section-index", { lensoDisabled: disabled }, `[data-lenso-disabled="${disabled}"]`);
+  for (const layout of ["phone", "tablet"]) {
+    for (const kind of ["tab-bar", "tab-bar-material", "tab-bar-fallback"])
+      add(kind, { layout }, `[data-layout="${layout}"]`);
+    for (const separate of ["true", "false"]) {
+      for (const kind of ["tab-bar-list", "tab-bar-item-container"])
+        add(
+          kind,
+          { layout, lensoSeparate: separate },
+          `[data-layout="${layout}"][data-lenso-separate="${separate}"]`,
+        );
+      for (const elastic of ["true", "false"])
+        add(
+          "tab-bar-group",
+          { layout, lensoSeparate: separate, lensoElastic: elastic },
+          `[data-layout="${layout}"][data-lenso-separate="${separate}"][data-lenso-elastic="${elastic}"]`,
+        );
+    }
+    for (const iconOnly of ["true", "false"]) {
+      for (const kind of ["tab-bar-icon", "tab-bar-button"])
+        add(
+          kind,
+          { layout, lensoIconOnly: iconOnly },
+          `[data-layout="${layout}"][data-lenso-icon-only="${iconOnly}"]`,
+        );
+      for (const current of ["true", "false"])
+        add(
+          "tab-bar-link",
+          { layout, lensoIconOnly: iconOnly, lensoCurrent: current },
+          `[data-layout="${layout}"][data-lenso-icon-only="${iconOnly}"][data-lenso-current="${current}"]`,
+        );
+    }
+  }
+  for (const iconOnly of ["true", "false"])
+    add("tab-bar-label", { lensoIconOnly: iconOnly }, `[data-lenso-icon-only="${iconOnly}"]`);
+  for (const size of ["xs", "sm", "md", "lg", "xl"])
+    for (const shape of ["circle", "square"]) {
+      add(
+        "color-swatch",
+        { lensoSize: size, lensoVariant: shape },
+        `[data-lenso-size="${size}"][data-lenso-variant="${shape}"]`,
+      );
+      for (const variant of ["primary", "secondary"]) {
+        add("combo-box-input", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+        for (const full of ["true", "false"]) {
+          for (const kind of ["combo-box-root", "combo-box-input-group"])
+            add(
+              kind,
+              { lensoVariant: variant, lensoFullWidth: full },
+              `[data-lenso-variant="${variant}"][data-lenso-full-width="${full}"]`,
+            );
+        }
+      }
+      for (const size of ["sm", "md", "lg"])
+        for (const variant of ["default", "surface"])
+          for (const checked of ["true", "false"])
+            for (const disabled of ["true", "false"])
+              add(
+                "tag",
+                {
+                  lensoSize: size,
+                  lensoVariant: variant,
+                  lensoChecked: checked,
+                  lensoDisabled: disabled,
+                },
+                `[data-lenso-size="${size}"][data-lenso-variant="${variant}"][data-lenso-checked="${checked}"][data-lenso-disabled="${disabled}"]`,
+              );
+      for (const variant of ["default", "danger"]) {
+        add("list-box-indicator", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+        for (const disabled of ["true", "false"])
+          add(
+            "list-box-item",
+            { lensoVariant: variant, lensoDisabled: disabled },
+            `[data-lenso-variant="${variant}"][data-lenso-disabled="${disabled}"]`,
+          );
+      }
+      for (const layout of ["grid", "stack", "palette"])
+        for (const disabled of ["false", "true"])
+          for (const active of ["false", "true"])
+            add(
+              "color-swatch-picker-item",
+              {
+                lensoSize: size,
+                lensoVariant: shape,
+                lensoLayout: layout,
+                lensoDisabled: disabled,
+                lensoActive: active,
+              },
+              `[data-lenso-size="${size}"][data-lenso-variant="${shape}"][data-lenso-layout="${layout}"][data-lenso-disabled="${disabled}"][data-lenso-active="${active}"]`,
+            );
+    }
+  for (const layout of ["grid", "stack", "palette"]) {
+    add("color-swatch-picker", { lensoLayout: layout }, `[data-lenso-layout="${layout}"]`);
+    add("color-swatch-picker-swatch", { lensoLayout: layout }, `[data-lenso-layout="${layout}"]`);
+  }
   for (const side of ["start", "end"])
     add("swipe-actions", { lensoSide: side }, `[data-lenso-side="${side}"]`);
   for (const variant of ["default", "danger", "tint"])
     add("swipe-action", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const layout of ["vertical", "horizontal"])
+    for (const align of ["leading", "trailing"])
+      add(
+        "context-menu-layout",
+        { lensoLayout: layout, lensoAlignment: align },
+        `[data-lenso-layout="${layout}"][data-lenso-alignment="${align}"]`,
+      );
+  add("menu-popup", { lensoMode: "compact" }, '[data-lenso-mode="compact"]');
+  for (const variant of ["default", "danger"])
+    add(
+      "menu-item",
+      { lensoVariant: variant, lensoPresentation: "context-bar" },
+      `[data-lenso-variant="${variant}"][data-lenso-presentation="context-bar"]`,
+    );
   for (const kind of [
+    "section-index-item",
+    "popup-button",
+    "popup-button-indicator",
+    ...contextMenuKinds,
+    ...refreshKinds,
+    ...tabBarKinds,
+    ...otpKinds,
+    ...autocompleteKinds,
+    ...comboBoxKinds,
+    ...tagKinds,
+    ...listBoxKinds,
+    ...colorPickerKinds,
+    ...colorAreaKinds,
+    ...colorSliderKinds,
+    ...colorFieldKinds,
+    ...colorKinds,
     ...swipeKinds,
     ...listKinds,
     ...selectKinds,
@@ -205,6 +445,10 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     ...popoverKinds,
     ...glassContainerKinds,
     ...toolbarKinds,
+    ...navigationBarKinds,
+    ...wheelPickerKinds,
+    ...dateFieldKinds,
+    ...calendarKinds,
     ...paginationKinds,
     ...searchFieldKinds,
     ...formKinds,
@@ -268,6 +512,99 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
       { lensoElastic: String(elastic) },
       `[data-lenso-elastic="${elastic}"]`,
     );
+  for (const open of [false, true])
+    for (const kind of ["calendar-year-picker-grid", "calendar-year-picker-indicator"])
+      add(kind, { lensoOpen: String(open) }, `[data-lenso-open="${open}"]`);
+  for (const selected of [false, true])
+    add(
+      "calendar-year-picker-cell",
+      { lensoSelected: String(selected) },
+      `[data-lenso-selected="${selected}"]`,
+    );
+  for (const direction of ["ltr", "rtl"])
+    add(
+      "calendar-nav-icon",
+      { lensoDirection: direction },
+      `[data-lenso-direction="${direction}"]`,
+    );
+  for (const selected of [false, true])
+    for (const today of [false, true])
+      for (const outside of [false, true])
+        for (const disabled of [false, true])
+          for (const unavailable of [false, true])
+            add(
+              "calendar-cell",
+              {
+                lensoSelected: String(selected),
+                lensoToday: String(today),
+                lensoOutside: String(outside),
+                lensoDisabled: String(disabled),
+                lensoUnavailable: String(unavailable),
+              },
+              `[data-lenso-selected="${selected}"][data-lenso-today="${today}"][data-lenso-outside="${outside}"][data-lenso-disabled="${disabled}"][data-lenso-unavailable="${unavailable}"]`,
+            );
+  for (const full of [false, true])
+    for (const kind of ["date-field", "time-field"])
+      add(kind, { lensoFullWidth: String(full) }, `[data-lenso-full-width="${full}"]`);
+  for (const invalid of [false, true]) {
+    add(
+      "date-field-description",
+      { lensoInvalid: String(invalid) },
+      `[data-lenso-invalid="${invalid}"]`,
+    );
+    add(
+      "date-input-segment",
+      { lensoInvalid: String(invalid) },
+      `[data-lenso-invalid="${invalid}"]`,
+    );
+    for (const disabled of [false, true])
+      for (const full of [false, true])
+        for (const variant of ["primary", "secondary"])
+          add(
+            "date-input-group",
+            {
+              lensoInvalid: String(invalid),
+              lensoDisabled: String(disabled),
+              lensoFullWidth: String(full),
+              lensoVariant: variant,
+            },
+            `[data-lenso-invalid="${invalid}"][data-lenso-disabled="${disabled}"][data-lenso-full-width="${full}"][data-lenso-variant="${variant}"]`,
+          );
+  }
+  for (const draggable of [false, true])
+    for (const animated of [false, true])
+      for (const elastic of [false, true])
+        add(
+          "glass-magnifier",
+          {
+            lensoDraggable: String(draggable),
+            lensoAnimated: String(animated),
+            lensoElastic: String(elastic),
+          },
+          `[data-lenso-draggable="${draggable}"][data-lenso-animated="${animated}"][data-lenso-elastic="${elastic}"]`,
+        );
+  for (const disabled of [false, true])
+    for (const kind of ["wheel-picker", "wheel-picker-viewport"])
+      add(kind, { lensoDisabled: String(disabled) }, `[data-lenso-disabled="${disabled}"]`);
+  add("wheel-picker-option", { lensoVariant: "default" }, '[data-lenso-variant="default"]');
+  for (const attached of [false, true])
+    add(
+      "navigation-bar",
+      { orientation: "horizontal", lensoAttached: String(attached) },
+      `[data-orientation="horizontal"][data-lenso-attached="${attached}"]`,
+    );
+  for (const large of [false, true])
+    add("navigation-bar-title", { lensoLarge: String(large) }, `[data-lenso-large="${large}"]`);
+  for (const direction of ["ltr", "rtl"])
+    add(
+      "navigation-bar-back-icon",
+      { lensoDirection: direction },
+      `[data-lenso-direction="${direction}"]`,
+    );
+  for (const variant of ["uniform", "soft"])
+    add("navigation-bar-edge", { lensoVariant: variant }, `[data-lenso-variant="${variant}"]`);
+  for (const band of ["0", "1", "2", "3", "4", "5", "tint"])
+    add("navigation-bar-soft-band", { lensoBand: band }, `[data-lenso-band="${band}"]`);
   for (const orientation of ["horizontal", "vertical"]) {
     add("toolbar-separator", { orientation }, `[data-orientation="${orientation}"]`);
     for (const attached of [false, true])
@@ -605,6 +942,27 @@ export function presentationCases(rules: readonly PresentationRule[] = []) {
     entry.selector = `circle[id$="--lenso-progress-${suffix}"]`;
     entry.attributes = { id: `sample--lenso-progress-${suffix}` };
   }
+  add("glass-toggle-button-icon");
+  for (const size of ["sm", "md", "lg"])
+    for (const variant of ["default", "prominent"])
+      for (const iconOnly of [false, true])
+        for (const fullWidth of [false, true]) {
+          const common = {
+            lensoSize: size,
+            lensoVariant: variant,
+            lensoIconOnly: String(iconOnly),
+            lensoFullWidth: String(fullWidth),
+          };
+          const suffix = `[data-lenso-size="${size}"][data-lenso-variant="${variant}"][data-lenso-icon-only="${iconOnly}"][data-lenso-full-width="${fullWidth}"]`;
+          add("glass-toggle-button", common, suffix);
+          for (const orientation of ["horizontal", "vertical"])
+            for (const detached of [false, true])
+              add(
+                "glass-toggle-button-group-item",
+                { ...common, orientation, lensoDetached: String(detached), lensoGroupItem: "" },
+                `${suffix}[data-orientation="${orientation}"][data-lenso-detached="${detached}"]`,
+              );
+        }
   add("toggle-button-icon");
   for (const orientation of ["horizontal", "vertical"])
     for (const detached of [false, true]) {

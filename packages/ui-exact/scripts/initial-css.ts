@@ -125,7 +125,7 @@ export function initialCSS(css: string, cases: PresentationCase[]) {
       if (node.attribute === "data-pressed" && !node.operator) {
         node.replaceWith(
           compound(
-            ':is([data-pressed]:not(:where([data-slot="toggle-button"])),:where([data-slot="toggle-button"])[aria-pressed="true"])',
+            ':is([data-pressed]:not(:where([data-slot="toggle-button"],[data-slot="glass-toggle-button"])),:where([data-slot="toggle-button"],[data-slot="glass-toggle-button"])[aria-pressed="true"])',
           ),
         );
         continue;

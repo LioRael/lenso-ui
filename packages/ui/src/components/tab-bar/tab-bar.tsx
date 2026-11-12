@@ -1,6 +1,6 @@
 "use client";
 
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { useRender } from "@base-ui/react/use-render";
 import { glassStyles } from "@lenso/tokens/glass";
 import { tabBarStyles } from "@lenso/tokens/tab-bar";

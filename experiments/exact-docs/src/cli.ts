@@ -48,6 +48,11 @@ export async function main(args = process.argv.slice(2)) {
       if (file.startsWith(".") || file === "dist") continue;
       await cp(path.join(example, file), path.join(root, file), { recursive: true });
     }
+    const configFile = Bun.file(path.join(root, "docs.json"));
+    await Bun.write(
+      configFile,
+      JSON.stringify({ ...(await configFile.json()), theme: "lenso" }, null, 2) + "\n",
+    );
     await Bun.write(
       path.join(root, "docs.ts"),
       `import { main } from ${JSON.stringify(path.resolve(import.meta.dirname, "cli.ts"))};\nawait main();\n`,

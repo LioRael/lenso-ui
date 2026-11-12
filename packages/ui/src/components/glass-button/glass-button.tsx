@@ -1,6 +1,6 @@
 "use client";
 
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { mergeProps } from "@base-ui/react/merge-props";
 import {
   cloneElement,
@@ -160,13 +160,17 @@ export function GlassButtonRoot({
         isLoading ? guardLoadingActivation(onPointerUpCapture) : onPointerUpCapture
       }
     >
-      <span
-        aria-hidden="true"
-        data-slot="glass-press-highlight"
-        {...stylex.props(liquidMaterialStyles.pressHighlight)}
-      />
-      {icon != null && <GlassButtonIcon>{icon}</GlassButtonIcon>}
-      {children}
+      {(state) => (
+        <>
+          <span
+            aria-hidden="true"
+            data-slot="glass-press-highlight"
+            {...stylex.props(liquidMaterialStyles.pressHighlight)}
+          />
+          {icon != null && <GlassButtonIcon>{icon}</GlassButtonIcon>}
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
     </BaseButton>
   );
 }

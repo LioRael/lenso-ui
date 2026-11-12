@@ -1,0 +1,101 @@
+use TabBarState, TabBar, TabBarGroup, TabBarLink, TabBarButton, TabBarIcon, TabBarLabel, Button from "@lenso/ui-exact"
+
+component TabBarExample
+  state current = "home"
+  state minimized = false
+  state reject = false
+  state disabled = false
+  state mounted = true
+  state layout = "phone"
+  state direction = "ltr"
+  state elastic = true
+  state autoMinimize = "none"
+  state activations = 0
+  state minimizedRequests = 0
+  state actions = 0
+  derive nav = TabBarState(id="app-navigation", label="Application destinations", layout=layout, direction=direction, elastic=elastic, lift=20, minimized=minimized, autoMinimize=autoMinimize, scrollTarget="tab-bar-scrollport", expandLabel="Expand application navigation")
+  action navigate(value: string)
+    activations = activations + 1
+    if not reject
+      current = value
+  action minimize(value: bool)
+    minimizedRequests = minimizedRequests + 1
+    if not reject
+      minimized = value
+  action collapse
+    minimize(not minimized)
+  action refuse
+    reject = not reject
+  action disable
+    disabled = not disabled
+  action mount
+    mounted = not mounted
+  action resize
+    layout = layout == "phone" ? "tablet" : "phone"
+  action redirect
+    direction = direction == "ltr" ? "rtl" : "ltr"
+  action spring
+    elastic = not elastic
+  action scrolling
+    autoMinimize = autoMinimize == "none" ? "down" : autoMinimize == "down" ? "up" : "none"
+  action act
+    actions = actions + 1
+  view
+    column id="tab-bar-examples" testId="tab-bar-examples" gap=16 width="100%"
+      text "Application navigation" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Minimize navigation", press=collapse, disabled=false, size="sm", variant="bordered", testId="tab-bar-minimize")
+        Button(label="Reject navigation changes", press=refuse, disabled=false, size="sm", variant="bordered", testId="tab-bar-reject")
+        Button(label="Disable library", press=disable, disabled=false, size="sm", variant="bordered", testId="tab-bar-disabled")
+        Button(label="Mount navigation", press=mount, disabled=false, size="sm", variant="bordered", testId="tab-bar-mounted")
+        Button(label="Navigation layout", press=resize, disabled=false, size="sm", variant="bordered", testId="tab-bar-layout")
+        Button(label="Navigation direction", press=redirect, disabled=false, size="sm", variant="bordered", testId="tab-bar-direction")
+        Button(label="Elastic navigation", press=spring, disabled=false, size="sm", variant="bordered", testId="tab-bar-elastic")
+        Button(label="Scroll minimization", press=scrolling, disabled=false, size="sm", variant="bordered", testId="tab-bar-scroll")
+      box id="tab-bar-scrollport" testId="tab-bar-scrollport" height=100 overflow-y="auto"
+        column height=600
+          text "Scroll to minimize or expand navigation."
+      if mounted
+        box id="tab-bar-stage" testId="tab-bar-stage" padding=8 width="100%" box-sizing="border-box"
+          TabBar(state=nav, minimize=minimize, activate=navigate)
+            TabBarGroup(state=nav, id="app-navigation-main", separate=false, minimize=minimize)
+              TabBarLink(state=nav, id="tab-bar-home", value="home", label="Home", href="#tab-bar-destination-home", current=(current == "home"), disabled=false, separate=false, iconOnly=false, hasIcon=true)
+                TabBarIcon(state=nav, iconOnly=false)
+                  svg width=24 height=24 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=1.8 aria-hidden=true
+                    path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"
+                TabBarLabel(iconOnly=false)
+                  text "Home"
+              TabBarLink(state=nav, id="tab-bar-library", value="library,雪", label="Library", href="#tab-bar-destination-library", current=(current == "library,雪"), disabled=disabled, separate=false, iconOnly=false, hasIcon=true)
+                TabBarIcon(state=nav, iconOnly=false)
+                  svg width=24 height=24 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=1.8 aria-hidden=true
+                    path d="M4 4h6v16H4zM14 4h6v16h-6z"
+                TabBarLabel(iconOnly=false)
+                  text "Library"
+              TabBarLink(state=nav, id="tab-bar-saved", value="saved", label="Saved items", href="#tab-bar-destination-saved", current=(current == "saved"), disabled=false, separate=false, iconOnly=false, hasIcon=true)
+                TabBarIcon(state=nav, iconOnly=false)
+                  svg width=24 height=24 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=1.8 aria-hidden=true
+                    path d="M6 3h12v18l-6-4-6 4z"
+                TabBarLabel(iconOnly=false)
+                  text "Saved items"
+              TabBarButton(state=nav, id="tab-bar-add", label="Add item", disabled=false, separate=false, iconOnly=false, hasIcon=true, press=act)
+                TabBarIcon(state=nav, iconOnly=false)
+                  svg width=24 height=24 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=1.8 aria-hidden=true
+                    path d="M12 4v16M4 12h16"
+                TabBarLabel(iconOnly=false)
+                  text "Add"
+            TabBarGroup(state=nav, id="app-navigation-search", separate=true, minimize=minimize)
+              TabBarButton(state=nav, id="tab-bar-search", label="Search", disabled=false, separate=true, iconOnly=true, hasIcon=true, press=act)
+                TabBarIcon(state=nav, iconOnly=true)
+                  svg width=24 height=24 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=1.8 aria-hidden=true
+                    circle cx=10 cy=10 r=6
+                    path d="m15 15 6 6"
+                TabBarLabel(iconOnly=true)
+                  text "Search"
+      text current testId="tab-bar-value"
+      text `${activations}` testId="tab-bar-activations"
+      text `${minimizedRequests}` testId="tab-bar-minimized-requests"
+      text `${actions}` testId="tab-bar-actions"
+      text "Home content" id="tab-bar-destination-home"
+      text "Library content" id="tab-bar-destination-library"
+      text "Saved content" id="tab-bar-destination-saved"
+      text "After navigation" testId="tab-bar-after" tabindex=0

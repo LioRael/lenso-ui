@@ -1,0 +1,74 @@
+html {
+  color-scheme: light;
+  font-family: Arial, sans-serif;
+  background: white;
+  color: black;
+}
+body {
+  margin: 0;
+  min-height: 6000px;
+}
+#exact-root {
+  isolation: isolate;
+  min-height: 6000px;
+}
+#exact-root#exact-root [data-testid="enable"] {
+  position: fixed;
+  left: 24px;
+  top: 16px;
+  z-index: 30;
+}
+#exact-root#exact-root [data-testid="bench-grid"] {
+  position: fixed;
+  top: 80px;
+  left: 40px;
+  display: grid !important;
+  grid-template-columns: repeat(4, 260px);
+  gap: 20px;
+  z-index: 20;
+}
+#exact-root#exact-root [data-testid^="panel-"] {
+  box-sizing: border-box;
+  width: 260px;
+  height: 120px;
+  padding: 16px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: black;
+}
+#exact-root#exact-root button {
+  font: 16px Arial;
+  padding: 5px 10px;
+}
+#exact-root#exact-root [data-testid^="panel-"] > div {
+  font: 16px Arial;
+}
+#exact-root#exact-root [data-testid^="panel-"] {
+  corner-shape: round;
+}
+#exact-root#exact-root button {
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: black;
+  line-height: normal;
+  cursor: pointer;
+}
+#exact-root#exact-root [data-testid^="count-"] {
+  width: 100%;
+}
+
+#exact-root#exact-root [data-testid="background"] {
+  min-height: 6000px;
+  background:
+    repeating-linear-gradient(
+      25deg,
+      transparent 0 80px,
+      #e3b2b2 80px 120px,
+      transparent 120px 180px
+    ),
+    repeating-linear-gradient(120deg, #acf 0 60px, #ffe3a8 60px 130px, #ddf 130px 220px);
+}

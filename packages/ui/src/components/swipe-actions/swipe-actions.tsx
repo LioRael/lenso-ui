@@ -10,7 +10,7 @@ import {
   type MouseEvent,
   type KeyboardEvent,
 } from "react";
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { useDirection } from "@base-ui/react/direction-provider";
 import { useRender } from "@base-ui/react/use-render";
 import * as stylex from "@stylexjs/stylex";

@@ -10,8 +10,39 @@ on:
 permissions:
   contents: read
 
+# Only superseded PR runs may be cancelled; candidate evidence and main remain stable.
+concurrency:
+  group: verify-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
-  verify:
+  checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.4.4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 26.10.0
+      - name: Look up a trusted exact-SHA candidate
+        id: candidate
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: bun .github/scripts/reuse-verification.ts reuse
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: bun install --frozen-lockfile
+        if: steps.candidate.outputs.found != 'true'
+      - run: bun run check
+        if: steps.candidate.outputs.found != 'true'
+
+  documentation:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -51,9 +82,7 @@ jobs:
           mv "$RUNNER_TEMP/docs-reuse" apps/docs/out
       - run: bun install --frozen-lockfile
         if: steps.restore.outcome != 'success'
-      - run: bun run check
-        if: steps.restore.outcome != 'success'
-      - run: bun run --filter @lenso/ui-docs build
+      - run: bunx turbo run build --filter=@lenso/ui-docs
         if: steps.restore.outcome != 'success'
         env:
           LENSO_DOCS_SITE: https://ui.lenso.dev
@@ -71,6 +100,20 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
+  # Keep the authoritative landing job name; skipped/cancelled dependencies fail closed.
+  verify:
+    if: always()
+    needs: [checks, documentation]
+    runs-on: ubuntu-latest
+    outputs:
+      docs-artifact-id: ${{ needs.documentation.outputs.docs-artifact-id }}
+    steps:
+      - name: Require every acceptance job
+        env:
+          CHECKS_RESULT: ${{ needs.checks.result }}
+          DOCS_RESULT: ${{ needs.documentation.result }}
+        run: test "$CHECKS_RESULT" = success && test "$DOCS_RESULT" = success
+
   deploy-docs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.workflow_sha == github.sha
     needs: verify
@@ -86,14 +129,6 @@ jobs:
       deployments: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
-        with:
-          artifact-ids: ${{ needs.verify.outputs.docs-artifact-id }}
-          merge-multiple: true
-          path: apps/docs/out
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
-        with:
-          bun-version: 1.4.4
       - name: Skip commits superseded on main
         id: current
         env:
@@ -107,6 +142,16 @@ jobs:
             echo "deploy=false" >> "$GITHUB_OUTPUT"
             echo "Skipping superseded docs commit $GITHUB_SHA; main is $head_sha."
           fi
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: steps.current.outputs.deploy == 'true'
+        with:
+          artifact-ids: ${{ needs.verify.outputs.docs-artifact-id }}
+          merge-multiple: true
+          path: apps/docs/out
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        if: steps.current.outputs.deploy == 'true'
+        with:
+          bun-version: 1.4.4
       - name: Deploy verified docs to the existing Cloudflare Pages project
         if: steps.current.outputs.deploy == 'true'
         run: bunx --bun wrangler@4.124.0 pages deploy apps/docs/out --project-name=lenso-ui --branch=main --commit-hash=${{ github.sha }}

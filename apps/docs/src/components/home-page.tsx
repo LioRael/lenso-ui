@@ -72,7 +72,6 @@ export function HomePage({ locale }: { locale: Locale }) {
                 </p>
                 <div {...stylex.props(s.ctas)}>
                   <Button
-                    nativeButton={false}
                     role="link"
                     size="lg"
                     variant="prominent"
@@ -83,7 +82,6 @@ export function HomePage({ locale }: { locale: Locale }) {
                   </Button>
                   <Button
                     xstyle={[s.heroAction, s.secondaryAction]}
-                    nativeButton={false}
                     role="link"
                     size="lg"
                     variant="bordered"

@@ -3,7 +3,9 @@
 An independent, private prototype of a headless documentation framework for Web,
 macOS and iOS
 on [Expo Exact](https://github.com/expo/exact). It does not replace this repository's
-Fumadocs site or depend on React, StyleX, Tailwind or Lenso UI.
+Fumadocs site. The headless path does not require React, StyleX, Tailwind or Lenso UI.
+The optional default Web theme composes the project’s Exact UI/Glass and Exact
+Primitives libraries with StyleX.
 
 The content compiler and CLI run in Bun. The generated website is a real Exact
 application: Contract owns navigation, search and interactive pages. Markdown is
@@ -32,6 +34,17 @@ mutations and a route-gated timer.
 the browser after a successful build. An invalid edit displays an error while
 keeping the last successful preview; the next valid edit recovers automatically.
 Compiler diagnostics stay in the terminal. The server binds to loopback only.
+
+With `theme: "lenso"`, `dev` also watches the workspace's `ui-exact`, Glass,
+tokens, Exact primitives and documentation theme sources. It builds UI browser
+assets automatically on startup and after library edits, then rebuilds the site.
+Document-only edits reuse those assets. Each project keeps its development assets
+under `.exact-docs/ui`, separate from the packages' production `dist` directories.
+Generated bridge files and build outputs are excluded to prevent rebuild loops.
+Updates reload the page; they do not preserve in-memory application state across
+edits. Browser development builds skip declaration emission; production builds
+and typechecks retain their existing checks. No Rust compiler rebuild is needed
+unless the Exact compiler's own Rust inputs change.
 
 ## CLI
 
@@ -546,7 +559,7 @@ Import `DocsGroup` from `@lenso/exact-docs/contract` when using grouped navigati
 Layouts choose which bindings to inject. Existing layouts need no new props or
 injections. Content status is available as optional `docsContentPending` / `docsContentFailed`
 boolean injections. The context also preserves inherited root-extension bindings for
-custom pages. This supplies behavior for the future Lenso UI theme; this package
+custom pages. This supplies behavior for the Lenso UI theme; the headless path of this package
 continues to ship no default theme stylesheet.
 
 Use absolute route paths for links and `currentPath + "#heading"` for fragments
@@ -744,3 +757,69 @@ and a separate same-algorithm Fumadocs follow-up cohort.
 [PHYSICAL_ACTIVATION.md](PHYSICAL_ACTIVATION.md) records the host-command chunk
 boundary, native SSR adoption with DOM identity checks, and its separate matched
 Fumadocs cohort, including the fast-navigation regression.
+
+[OWNERSHIP_ACTIVATION.md](OWNERSHIP_ACTIVATION.md) records the shared native resource
+owner and destination projection prototype, first-interaction navigation, retained
+root/widget identities and five-run matched Fumadocs cohorts. The standard-document
+path avoids starting the full view; arbitrary custom data/tasks remain outside
+this experiment’s qualification. The public build and default theme are unchanged.
+
+[FIRST_NAVIGATION.md](FIRST_NAVIGATION.md) traces the first-navigation dependency
+chain and its opt-in correction: prepare a clicked destination alongside pending
+owner downloads, keep the native route model separate from browser projection,
+and use the direct native path once owner downloads are complete. It records
+matched slow/fast Fumadocs cohorts and shared-state/failure-recovery acceptance.
+
+## Default Lenso theme
+
+New projects created with `new` select `"theme": "lenso"`. Existing projects without
+that field keep their headless output. To enable the theme in `docs.json`:
+
+```json
+{ "theme": "lenso" }
+```
+
+This is an additional field in the existing config; keep the name and pages.
+`dev` builds and watches the workspace UI assets automatically. For a production
+export, build them with `bun run --cwd packages/ui-exact build` from repository
+root before running the Exact Docs `build` command. The checked-in
+example remains headless as a reference; a new project uses the themed starter.
+
+The default theme uses actual `@lenso/ui-exact` Theme, SearchField, Button
+and Modal components and `@lenso/primitives-exact` Link. The styled Modal also
+composes the library’s generated primitive Dialog parts. Content stays in the
+normal reading surface. Desktop has navigation/article/TOC columns; narrow screens
+use native modal navigation, with the same language/version and content data.
+The shell matches the workspace Lenso Docs presentation: a 280px sidebar, a flat
+64px header (56px on mobile), Inter typography, rounded navigation rows and
+reading/action/code surfaces. SearchField retains its library Glass material.
+The Inter font, license and provenance are copied from `packages/docs/assets/fonts`.
+StyleX generates the structural and typography stylesheet; package and theme
+styles are linked before content so they work with JavaScript disabled.
+
+Light/dark appearance is Exact root state, retained across same-app navigation.
+It starts in light mode and is not stored across a reload. Search queries and
+resources retain their existing owners. `layout` continues to override the default
+layout. Set `"theme": "headless"` for a fully independent presentation. Apple
+builds continue using the headless native layout because these UI/Glass adapters
+currently target Web.
+
+The theme stages the workspace’s built UI distribution and composes any existing
+page-module hooks by hatch name. It reserves `modules/web/lenso-ui`,
+`modules/web/docs-theme` and `modules/web/__exact_docs_user_index__.js`; a conflict
+fails explicitly. No library source or public primitive API is modified.
+
+`test/theme-browser.mjs <output>` verifies themed SSR with JavaScript disabled,
+Chromium/WebKit desktop/mobile geometry, light/dark state across navigation,
+search, copy, language/version changes, custom Exact pages, root data/mutations/tasks,
+mobile modal focus/navigation and themed 404 output. Build a new themed project
+before running it. Earlier matched performance reports describe the headless
+prototypes; they do not establish the styled theme’s performance.
+
+[THEME_PERFORMANCE.md](THEME_PERFORMANCE.md) records the default-theme performance
+acceptance: ordinary headless/themed Exact builds plus Fumadocs Core/UI with the
+same scoped substring algorithm and zero debounce, five slow/fast samples per
+action, article-readiness observations, native root-slot identity checks and a
+separate style/layout/node-churn diagnostic. These are separate from the earlier
+opt-in compiler-output activation experiments. The preflight also covers the
+shared-app first-link startup fix in Chromium/WebKit.

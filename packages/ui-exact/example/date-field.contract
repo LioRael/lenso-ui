@@ -1,0 +1,45 @@
+use DateFieldState, DateField, Button from "@lenso/ui-exact"
+
+component DateFieldExample
+  state value = "2024-02-29"
+  state locale = "en-US"
+  state disabled = false
+  state readOnly = false
+  state rejected = false
+  state mounted = true
+  state secondary = false
+  state count = 0
+  derive field = DateFieldState(id="date-demo", label="Departure date", description="Choose a departure date.", error="", value=value, placeholder="2026-11-12", locale=locale, calendar="", min="", max="", disabled=disabled, readOnly=readOnly, required=true, invalid=false, direction=(locale == "fa-IR" ? "rtl" : "ltr"), variant=(secondary ? "secondary" : "primary"), fullWidth=false, name="departure", form="date-demo-form")
+  action change(next: string)
+    count = count + 1
+    if not rejected
+      value = next
+  action cycleLocale
+    locale = (locale == "en-US" ? "en-GB" : locale == "en-GB" ? "fa-IR" : "en-US")
+  action toggleDisabled
+    disabled = not disabled
+  action toggleReadOnly
+    readOnly = not readOnly
+  action toggleRejected
+    rejected = not rejected
+  action toggleMounted
+    mounted = not mounted
+  action toggleVariant
+    secondary = not secondary
+  action replace
+    value = (value == "2026-11-12" ? "2024-02-29" : "2026-11-12")
+  view
+    column id="date-field-examples" gap=12
+      text "Date editing" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Date locale", press=cycleLocale, disabled=false, size="sm", variant="bordered", testId="date-locale")
+        Button(label="Date availability", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="date-disabled")
+        Button(label="Date read only", press=toggleReadOnly, disabled=false, size="sm", variant="bordered", testId="date-readonly")
+        Button(label="Reject date", press=toggleRejected, disabled=false, size="sm", variant="bordered", testId="date-rejected")
+        Button(label="Mount date", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="date-mounted")
+        Button(label="Date surface", press=toggleVariant, disabled=false, size="sm", variant="bordered", testId="date-variant")
+        Button(label="Replace date", press=replace, disabled=false, size="sm", variant="bordered", testId="date-replace")
+      text value testId="date-value"
+      text `${count}` testId="date-count"
+      if mounted
+        DateField(state=field, change=change)

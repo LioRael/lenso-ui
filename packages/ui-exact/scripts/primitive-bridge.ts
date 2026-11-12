@@ -51,6 +51,160 @@ export function descriptionBridge(source: string, license: string) {
     'hatch="lenso-ui" data-lenso-kind="description" data-slot="description"',
   );
 }
+export function toggleButtonBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "Toggle",
+    "    button id=id testId=id aria-label=label aria-pressed=pressed disabled=disabled press=change(not pressed)",
+    'appearance="none" tabindex=0 hatch="lenso-ui" data-lenso-kind="toggle-button" data-slot="toggle-button" data-lenso-size=size data-lenso-variant=variant data-lenso-icon-only=iconOnly data-lenso-full-width=fullWidth',
+    "    size: string\n    variant: string\n    iconOnly: bool\n    fullWidth: bool\n",
+    "components/button.contract",
+  );
+  result.contract = result.contract.replace(
+    "component StyledToggle",
+    "component StyledToggleButton",
+  );
+  return result;
+}
+export function toggleGroupItemBridge(source: string, license: string) {
+  const result = toggleButtonBridge(source, license);
+  result.contract = result.contract
+    .replace("component StyledToggleButton", "component StyledToggleButtonGroupItem")
+    .replace(
+      "    fullWidth: bool\n",
+      "    fullWidth: bool\n    orientation: string\n    detached: bool\n",
+    )
+    .replace("tabindex=0", "tabindex=(disabled ? -1 : 0)")
+    .replace('data-lenso-kind="toggle-button"', 'data-lenso-kind="toggle-button-group-item"')
+    .replace(
+      'data-slot="toggle-button"',
+      'data-slot="toggle-button" data-lenso-group-item="" data-orientation=orientation data-lenso-detached=detached',
+    );
+  return result;
+}
+export function glassToggleBridge(source: string, license: string, grouped = false) {
+  const result = grouped
+    ? toggleGroupItemBridge(source, license)
+    : toggleButtonBridge(source, license);
+  result.contract = result.contract
+    .replace(
+      grouped ? "component StyledToggleButtonGroupItem" : "component StyledToggleButton",
+      grouped ? "component StyledGlassToggleButtonGroupItem" : "component StyledGlassToggleButton",
+    )
+    .replace("    fullWidth: bool\n", "    fullWidth: bool\n    tint: string\n    elastic: bool\n")
+    .replace(
+      grouped ? 'data-lenso-kind="toggle-button-group-item"' : 'data-lenso-kind="toggle-button"',
+      grouped
+        ? 'data-lenso-kind="glass-toggle-button-group-item"'
+        : 'data-lenso-kind="glass-toggle-button"',
+    )
+    .replace(
+      'data-slot="toggle-button"',
+      'data-slot="glass-toggle-button" data-glass="true" data-variant=variant data-lenso-disabled=disabled data-lenso-tint=tint data-lenso-elastic=elastic',
+    )
+    .replace(
+      "      children",
+      '      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="button-group-press-highlight" data-slot="glass-press-highlight"\n      children',
+    );
+  return result;
+}
+export function calendarDayBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "Toggle",
+    "    button id=id testId=id aria-label=label aria-pressed=pressed disabled=disabled press=change(not pressed)",
+    'type="button" appearance="none" tabindex=-1 hatch="lenso-ui" data-lenso-kind="calendar-cell" data-slot="calendar-cell" data-calendar-date=date',
+    "    date: string\n",
+    "components/button.contract",
+  );
+  result.contract = result.contract.replace(
+    "component StyledToggle",
+    "component StyledCalendarDay",
+  );
+  return result;
+}
+export function calendarYearTriggerBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "Toggle",
+    "    button id=id testId=id aria-label=label aria-pressed=pressed disabled=disabled press=change(not pressed)",
+    'type="button" appearance="none" aria-expanded=pressed aria-controls=target hatch="lenso-ui" data-lenso-kind="calendar-year-picker-trigger" data-slot="calendar-year-picker-trigger"',
+    "    target: string\n",
+    "components/button.contract",
+  );
+  result.contract = result.contract.replace(
+    "component StyledToggle",
+    "component StyledCalendarYearPickerTrigger",
+  );
+  return result;
+}
+export function calendarYearCellBridge(source: string, license: string) {
+  const result = calendarDayBridge(source, license);
+  result.contract = result.contract
+    .replace("component StyledCalendarDay", "component StyledCalendarYearPickerCell")
+    .replaceAll(
+      'data-lenso-kind="calendar-cell" data-slot="calendar-cell" data-calendar-date=date',
+      'data-lenso-kind="calendar-year-picker-cell" data-slot="calendar-year-picker-year-cell" data-lenso-year-date=date',
+    );
+  return result;
+}
+export function linkBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "Link",
+    "    link id=id testId=id aria-label=label href=href",
+    'target=target role="link" aria-disabled=disabled tabindex=(disabled ? -1 : 0) hatch="lenso-ui" data-lenso-kind="link" data-slot="link"',
+    "    target: string\n    disabled: bool\n",
+    "components/button.contract",
+  );
+  result.contract = result.contract.replace("href=href", 'href=(disabled ? "" : href)');
+  return result;
+}
+export function sectionIndexLinkBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "Link",
+    "    link id=id testId=id aria-label=label href=href",
+    'role="link" aria-disabled=disabled aria-current=(current ? "location" : "false") tabindex=(tabStop ? 0 : -1) hatch="lenso-ui" data-lenso-kind="section-index-item" data-slot="section-index-item" data-lenso-value=value data-lenso-disabled=disabled',
+    "    value: string\n    disabled: bool\n    current: bool\n    tabStop: bool\n",
+    "components/button.contract",
+  );
+  result.contract = result.contract
+    .replace("component StyledLink", "component StyledSectionIndexLink")
+    .replace("href=href", 'href=(disabled ? "" : href)');
+  return result;
+}
+export function tabBarLinkBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "Link",
+    "    link id=id testId=id aria-label=label href=href",
+    'role="link" aria-disabled=disabled aria-current=(current ? "page" : "false") tabindex=(disabled ? -1 : 0) hatch="lenso-ui" data-lenso-kind="tab-bar-link" data-slot="tab-bar-link" data-tab-bar-item="" data-tab-bar-destination="" data-lenso-value=value data-lenso-current=current data-lenso-has-icon=hasIcon data-lenso-icon-only=iconOnly data-layout=layout data-lenso-disabled=disabled',
+    "    value: string\n    disabled: bool\n    current: bool\n    hasIcon: bool\n    iconOnly: bool\n    layout: string\n",
+    "components/button.contract",
+  );
+  result.contract = result.contract
+    .replace("component StyledLink", "component StyledTabBarLink")
+    .replace("href=href", 'href=(disabled ? "" : href)');
+  return result;
+}
+export function refreshStatusBridge(source: string, license: string) {
+  return bridge(
+    source,
+    license,
+    "Status",
+    '    text message id=id testId=id role="status" aria-live="polite" aria-atomic=true',
+    'hatch="lenso-ui" data-lenso-kind="refresh-control-status" data-slot="refresh-control-status"',
+    "",
+    "components/feedback.contract",
+  );
+}
 export function inputBridge(source: string, license: string) {
   const mode =
     '(type == "password" ? "password" : type == "search" ? "search" : type == "email" ? "email" : type == "url" ? "url" : type == "tel" ? "tel" : "text")';
@@ -74,6 +228,127 @@ export function inputBridge(source: string, license: string) {
       .replace(`type=${mode}`, "type=type"),
   };
 }
+export function dateSegmentBridge(source: string, license: string) {
+  const result = inputBridge(source, license);
+  result.contract = result.contract
+    .replace("component StyledInput", "component StyledDateSegmentInput")
+    .replace("    name: string\n", "    part: string\n    name: string\n")
+    .replace(
+      'data-lenso-kind="input"',
+      'role="spinbutton" data-lenso-kind="date-input-segment" data-slot="date-input-group-segment" data-lenso-date-part=part data-date-segment=part',
+    )
+    .replace("    submit: action\n", "")
+    .replace(" submit=submit", "")
+    .replace("data-lenso-required=required ", "");
+  return result;
+}
+export function otpInputBridge(source: string, license: string) {
+  const result = inputBridge(source, license);
+  result.contract = result.contract
+    .replace("component StyledInput", "component StyledOTPSlot")
+    .replace(
+      'data-lenso-kind="input"',
+      'data-lenso-kind="input-otp-slot" data-slot="input-otp-slot" data-lenso-index=index data-lenso-glass=glass',
+    )
+    .replace("    name: string\n", "    index: number\n    glass: bool\n    name: string\n")
+    .replace("    submit: action\n", "")
+    .replace(" submit=submit", "")
+    .replace("data-lenso-required=required ", "");
+  return result;
+}
+export function colorFieldInputBridge(source: string, license: string) {
+  const generated = inputBridge(source, license);
+  return {
+    ...generated,
+    contract: generated.contract
+      .replace("component StyledInput", "component StyledColorFieldInput")
+      .replace('data-lenso-kind="input"', 'data-lenso-kind="color-field-input"'),
+  };
+}
+export function comboBoxInputBridge(source: string, license: string) {
+  const result = inputBridge(source, license);
+  result.contract = result.contract
+    .replace("component StyledInput", "component StyledComboBoxInput")
+    .replace("    submit: action\n", "")
+    .replace(" submit=submit", "")
+    .replace(
+      'data-lenso-kind="input"',
+      'data-lenso-kind="combo-box-input" data-slot="combo-box-input" role="combobox" aria-haspopup="listbox" aria-expanded=false aria-controls=listId',
+    )
+    .replace("data-lenso-required=required ", "")
+    .replace("    name: string\n", "    listId: string\n    name: string\n");
+  return result;
+}
+export function autocompleteInputBridge(source: string, license: string) {
+  const result = comboBoxInputBridge(source, license);
+  result.contract = result.contract
+    .replaceAll("ComboBox", "Autocomplete")
+    .replaceAll("combo-box", "autocomplete");
+  return result;
+}
+export function autocompletePartsBridge(source: string, license: string) {
+  const result = comboBoxPartsBridge(source, license);
+  result.contract = result.contract
+    .replaceAll("ComboBox", "Autocomplete")
+    .replaceAll("combo-box", "autocomplete")
+    .replace('tabindex=-1 aria-haspopup="listbox"', 'tabindex=0 aria-haspopup="listbox"')
+    .replace(
+      "component StyledAutocompleteTrigger\n  props\n",
+      "component StyledAutocompleteTrigger\n  props\n    variant: string\n    fullWidth: bool\n    labelledBy: string\n    describedBy: string\n    invalid: bool\n    chips: bool\n",
+    )
+    .replace(
+      'data-lenso-kind="autocomplete-trigger"',
+      'data-lenso-kind="autocomplete-trigger" aria-labelledby=labelledBy aria-describedby=describedBy aria-invalid=invalid data-lenso-variant=variant data-lenso-full-width=fullWidth data-lenso-chips=chips',
+    );
+  return result;
+}
+export function comboBoxPartsBridge(source: string, license: string) {
+  const root = bridge(
+    source,
+    license,
+    "Popover",
+    '    column id=id testId=id popover="auto" role="dialog" aria-label=label',
+    'tabindex=-1 hatch="lenso-ui" data-lenso-kind="combo-box-positioner" data-slot="combo-box-positioner" data-lenso-direction=direction direction=direction data-lenso-side=side data-lenso-align=align data-lenso-side-offset=sideOffset data-lenso-collision-padding=collisionPadding',
+    "    direction: string\n    side: string\n    align: string\n    sideOffset: number\n    collisionPadding: number\n",
+    "components/popover.contract",
+  );
+  root.contract = root.contract
+    .replace("component StyledPopover", "component StyledComboBoxPositioner")
+    .replace("    label: string\n", "")
+    .replace("    column id=id", "    box id=id")
+    .replace('role="dialog" aria-label=label', 'role="presentation"');
+  const trigger = bridge(
+    source,
+    license,
+    "PopoverTrigger",
+    "    button id=id testId=id aria-label=label popovertarget=target disabled=disabled",
+    'type="button" appearance="none" tabindex=-1 aria-haspopup="listbox" popovertargetaction="toggle" hatch="lenso-ui" data-lenso-kind="combo-box-trigger" data-slot="combo-box-trigger"',
+    "",
+    "components/popover.contract",
+  );
+  trigger.contract = trigger.contract.replace(
+    "component StyledPopoverTrigger",
+    "component StyledComboBoxTrigger",
+  );
+  const item = bridge(
+    source,
+    license,
+    "MenuItem",
+    '    button id=id testId=id role="menuitem" aria-label=label disabled=disabled press=press\n      commandfor=target command="hide-popover"',
+    'type="button" appearance="none" tabindex=-1 aria-selected=selected aria-disabled=disabled hatch="lenso-ui" data-lenso-kind="combo-box-item" data-slot="combo-box-item" data-lenso-value=value data-lenso-disabled=disabled',
+    "    value: string\n    selected: bool\n",
+    "components/popover.contract",
+  );
+  item.contract = item.contract
+    .replace("component StyledMenuItem", "component StyledComboBoxItem")
+    .replace('role="menuitem"', 'role="option"')
+    .replace("    target: string\n", "")
+    .replace('      commandfor=target command="hide-popover" ', "      ");
+  return {
+    sourceSHA256: root.sourceSHA256,
+    contract: [root.contract, trigger.contract, item.contract].join("\n"),
+  };
+}
 export function textareaBridge(source: string, license: string) {
   const native =
     "    textarea id=id testId=id aria-label=label aria-describedby=description aria-invalid=invalid\n      value=value placeholder=placeholder disabled=disabled readonly=readOnly input=input change=change";
@@ -94,6 +369,17 @@ export function checkboxBridge(source: string, license: string) {
     '    input type="checkbox" id=id testId=id aria-label=label aria-describedby=description\n      checked=checked disabled=disabled change=change',
     'data-lenso-name=name data-lenso-required=required aria-required=required aria-invalid=invalid hatch="lenso-ui" data-lenso-kind="choice-input" data-lenso-indeterminate=indeterminate',
     "    name: string\n    required: bool\n    invalid: bool\n    indeterminate: bool\n",
+    "components/choice.contract",
+  );
+}
+export function colorSliderInputBridge(source: string, license: string) {
+  return bridge(
+    source,
+    license,
+    "Slider",
+    '    input type="range" id=id testId=id aria-label=label aria-describedby=description\n      value=value min=min max=max step=step disabled=disabled input=input change=change',
+    'hatch="lenso-ui" data-lenso-kind="slider-input" data-lenso-index=0 data-lenso-value=value',
+    "",
     "components/choice.contract",
   );
 }
@@ -303,6 +589,22 @@ export function dialogPartsBridge(source: string, license: string) {
     contract: contracts.join("\n"),
   };
 }
+export function colorPickerTriggerBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "PopoverTrigger",
+    "    button id=id testId=id aria-label=label popovertarget=target disabled=disabled",
+    'appearance="none" tabindex=0 aria-haspopup="dialog" popovertargetaction="toggle" hatch="lenso-ui" data-lenso-kind="color-picker-trigger" data-slot="popover-trigger"',
+    "",
+    "components/popover.contract",
+  );
+  result.contract = result.contract.replace(
+    "component StyledPopoverTrigger",
+    "component StyledColorPickerTrigger",
+  );
+  return result;
+}
 export function popoverPartsBridge(source: string, license: string) {
   const root = bridge(
     source,
@@ -344,6 +646,58 @@ export function popoverPartsBridge(source: string, license: string) {
     sourceSHA256: root.sourceSHA256,
     contract: [root.contract, trigger.contract, close.contract].join("\n"),
   };
+}
+export function contextMenuBarItemBridge(source: string, license: string) {
+  const result = menuPartsBridge(source, license);
+  const header = result.contract.slice(
+    0,
+    result.contract.indexOf("component StyledMenuPositioner"),
+  );
+  const item = declaration(result.contract, "component", "StyledMenuItem")
+    .replace("component StyledMenuItem", "component StyledContextMenuBarItem")
+    .replace(
+      'data-slot="menu-item"',
+      'data-slot="menu-item" data-lenso-presentation="context-bar"',
+    );
+  const expand = item
+    .replace("component StyledContextMenuBarItem", "component StyledContextMenuExpand")
+    .replace(
+      'data-lenso-presentation="context-bar"',
+      'data-lenso-presentation="context-bar" data-lenso-context-expand=""',
+    );
+  result.contract = header + item + "\n\n" + expand + "\n";
+  return result;
+}
+export function contextMenuPositionerBridge(source: string, license: string) {
+  const result = menuPartsBridge(source, license);
+  const name = "StyledMenuPositioner";
+  result.contract =
+    result.contract.slice(0, result.contract.indexOf(`component ${name}`)) +
+    declaration(result.contract, "component", name) +
+    "\n";
+  result.contract = result.contract
+    .replace(`component ${name}`, "component StyledContextMenuPositioner")
+    .replace(
+      'data-slot="menu-positioner"',
+      'data-slot="menu-positioner" data-lenso-context-menu="true"',
+    );
+  return result;
+}
+export function popupButtonMenuBridge(source: string, license: string) {
+  const result = bridge(
+    source,
+    license,
+    "PopoverTrigger",
+    "    button id=id testId=id aria-label=label popovertarget=target disabled=disabled",
+    'type="button" appearance="none" tabindex=0 aria-haspopup="menu" popovertargetaction="toggle" hatch="lenso-ui" data-lenso-kind="menu-trigger" data-slot="popup-button" data-popup-button="" data-lenso-presentation="popup-button"',
+    "",
+    "components/popover.contract",
+  );
+  result.contract = result.contract.replace(
+    "component StyledPopoverTrigger",
+    "component StyledPopupButtonMenuTrigger",
+  );
+  return result;
 }
 export function menuPartsBridge(source: string, license: string) {
   const root = bridge(
@@ -414,6 +768,8 @@ export async function generatePrimitiveBridge(root = path.resolve(import.meta.di
   const primitives = path.resolve(root, "../primitives-exact");
   const source = await Bun.file(path.join(primitives, "components/field.contract")).text();
   const choices = await Bun.file(path.join(primitives, "components/choice.contract")).text();
+  const feedback = await Bun.file(path.join(primitives, "components/feedback.contract")).text();
+  const buttons = await Bun.file(path.join(primitives, "components/button.contract")).text();
   const popoverSource = await Bun.file(path.join(primitives, "components/popover.contract")).text();
   const dialogSource = await Bun.file(path.join(primitives, "components/dialog.contract")).text();
   const tabsSource = await Bun.file(path.join(primitives, "components/tabs.contract")).text();
@@ -422,10 +778,29 @@ export async function generatePrimitiveBridge(root = path.resolve(import.meta.di
   ).text();
   const license = await Bun.file(path.join(primitives, "LICENSE")).text();
   const generated = descriptionBridge(source, license);
+  const toggleButton = toggleButtonBridge(buttons, license);
+  const toggleGroupItem = toggleGroupItemBridge(buttons, license);
+  const glassToggle = glassToggleBridge(buttons, license);
+  const glassToggleGroup = glassToggleBridge(buttons, license, true);
+  const link = linkBridge(buttons, license);
+  const calendarDay = calendarDayBridge(buttons, license);
+  const yearTrigger = calendarYearTriggerBridge(buttons, license);
+  const yearCell = calendarYearCellBridge(buttons, license);
+  const refreshStatus = refreshStatusBridge(feedback, license);
+  const sectionLink = sectionIndexLinkBridge(buttons, license);
+  const tabBarLink = tabBarLinkBridge(buttons, license);
   const input = inputBridge(source, license);
+  const dateSegment = dateSegmentBridge(source, license);
+  const colorInput = colorFieldInputBridge(source, license);
+  const otp = otpInputBridge(source, license);
+  const comboInput = comboBoxInputBridge(source, license);
+  const comboParts = comboBoxPartsBridge(popoverSource, license);
+  const autocompleteInput = autocompleteInputBridge(source, license);
+  const autocompleteParts = autocompletePartsBridge(popoverSource, license);
   const textarea = textareaBridge(source, license);
   const checkbox = checkboxBridge(choices, license);
   const radio = radioBridge(choices, license);
+  const colorSlider = colorSliderInputBridge(choices, license);
   const disclosure = disclosureBridge(disclosureSource, license);
   const tabs = tabsListBridge(tabsSource, license);
   const tab = tabBridge(tabsSource, license);
@@ -433,13 +808,48 @@ export async function generatePrimitiveBridge(root = path.resolve(import.meta.di
   const dialogs = dialogPartsBridge(dialogSource, license);
   const popovers = popoverPartsBridge(popoverSource, license);
   const menus = menuPartsBridge(popoverSource, license);
+  const contextMenu = contextMenuPositionerBridge(popoverSource, license);
+  const contextBar = contextMenuBarItemBridge(popoverSource, license);
+  const popupButton = popupButtonMenuBridge(popoverSource, license);
+  const pickerTrigger = colorPickerTriggerBridge(popoverSource, license);
   const destination = path.join(root, "components/generated");
   await mkdir(destination, { recursive: true });
   await Bun.write(path.join(destination, "description.contract"), generated.contract);
+  await Bun.write(path.join(destination, "glass-toggle-button.contract"), glassToggle.contract);
+  await Bun.write(
+    path.join(destination, "glass-toggle-group-item.contract"),
+    glassToggleGroup.contract,
+  );
+  await Bun.write(path.join(destination, "toggle-button.contract"), toggleButton.contract);
+  await Bun.write(path.join(destination, "toggle-group-item.contract"), toggleGroupItem.contract);
+  await Bun.write(path.join(destination, "link.contract"), link.contract);
+  await Bun.write(path.join(destination, "calendar-day.contract"), calendarDay.contract);
+  await Bun.write(path.join(destination, "calendar-year-trigger.contract"), yearTrigger.contract);
+  await Bun.write(path.join(destination, "calendar-year-cell.contract"), yearCell.contract);
+  await Bun.write(
+    path.join(destination, "refresh-control-status.contract"),
+    refreshStatus.contract,
+  );
+  await Bun.write(path.join(destination, "section-index-link.contract"), sectionLink.contract);
+  await Bun.write(path.join(destination, "tab-bar-link.contract"), tabBarLink.contract);
   await Bun.write(path.join(destination, "input.contract"), input.contract);
+  await Bun.write(path.join(destination, "date-segment-input.contract"), dateSegment.contract);
+  await Bun.write(path.join(destination, "input-otp-slot.contract"), otp.contract);
+  await Bun.write(path.join(destination, "combo-box-input.contract"), comboInput.contract);
+  await Bun.write(
+    path.join(destination, "autocomplete-input.contract"),
+    autocompleteInput.contract,
+  );
+  await Bun.write(
+    path.join(destination, "autocomplete-parts.contract"),
+    autocompleteParts.contract,
+  );
+  await Bun.write(path.join(destination, "combo-box-parts.contract"), comboParts.contract);
+  await Bun.write(path.join(destination, "color-field-input.contract"), colorInput.contract);
   await Bun.write(path.join(destination, "textarea.contract"), textarea.contract);
   await Bun.write(path.join(destination, "checkbox.contract"), checkbox.contract);
   await Bun.write(path.join(destination, "radio.contract"), radio.contract);
+  await Bun.write(path.join(destination, "color-slider-input.contract"), colorSlider.contract);
   await Bun.write(path.join(destination, "disclosure.contract"), disclosure.contract);
   await Bun.write(path.join(destination, "tabs-list.contract"), tabs.contract);
   await Bun.write(path.join(destination, "tab.contract"), tab.contract);
@@ -447,6 +857,13 @@ export async function generatePrimitiveBridge(root = path.resolve(import.meta.di
   await Bun.write(path.join(destination, "dialog-parts.contract"), dialogs.contract);
   await Bun.write(path.join(destination, "popover-parts.contract"), popovers.contract);
   await Bun.write(path.join(destination, "menu-parts.contract"), menus.contract);
+  await Bun.write(path.join(destination, "context-menu-positioner.contract"), contextMenu.contract);
+  await Bun.write(path.join(destination, "context-menu-bar-item.contract"), contextBar.contract);
+  await Bun.write(
+    path.join(destination, "popup-button-menu-trigger.contract"),
+    popupButton.contract,
+  );
+  await Bun.write(path.join(destination, "color-picker-trigger.contract"), pickerTrigger.contract);
   await Bun.write(
     path.join(destination, "provenance.json"),
     JSON.stringify(
@@ -455,11 +872,30 @@ export async function generatePrimitiveBridge(root = path.resolve(import.meta.di
         source: "components/field.contract",
         sourceSHA256: generated.sourceSHA256,
         outputs: [
+          "toggle-button.contract",
+          "glass-toggle-button.contract",
+          "glass-toggle-group-item.contract",
+          "toggle-group-item.contract",
+          "link.contract",
+          "calendar-day.contract",
+          "calendar-year-trigger.contract",
+          "calendar-year-cell.contract",
+          "refresh-control-status.contract",
+          "section-index-link.contract",
+          "tab-bar-link.contract",
           "description.contract",
           "input.contract",
+          "date-segment-input.contract",
+          "input-otp-slot.contract",
+          "combo-box-input.contract",
+          "autocomplete-input.contract",
+          "autocomplete-parts.contract",
+          "combo-box-parts.contract",
+          "color-field-input.contract",
           "textarea.contract",
           "checkbox.contract",
           "radio.contract",
+          "color-slider-input.contract",
           "disclosure.contract",
           "tabs-list.contract",
           "tab.contract",
@@ -467,8 +903,14 @@ export async function generatePrimitiveBridge(root = path.resolve(import.meta.di
           "dialog-parts.contract",
           "popover-parts.contract",
           "menu-parts.contract",
+          "context-menu-positioner.contract",
+          "context-menu-bar-item.contract",
+          "popup-button-menu-trigger.contract",
+          "color-picker-trigger.contract",
         ],
         sources: [
+          { source: "components/feedback.contract", sourceSHA256: refreshStatus.sourceSHA256 },
+          { source: "components/button.contract", sourceSHA256: toggleButton.sourceSHA256 },
           { source: "components/field.contract", sourceSHA256: generated.sourceSHA256 },
           { source: "components/choice.contract", sourceSHA256: checkbox.sourceSHA256 },
           { source: "components/disclosure.contract", sourceSHA256: disclosure.sourceSHA256 },

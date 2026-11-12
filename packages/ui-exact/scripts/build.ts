@@ -1,11 +1,17 @@
 import { generatePrimitiveBridge } from "./primitive-bridge.js";
 import { cp, mkdir } from "node:fs/promises";
 import path from "node:path";
+import { parseArgs } from "node:util";
 import { build } from "vite";
 import stylex from "@stylexjs/unplugin/vite";
 import { initialCSS, type PresentationCase } from "./initial-css.js";
 
 const root = path.resolve(import.meta.dirname, "..");
+const { values } = parseArgs({
+  args: process.argv.slice(2),
+  options: { out: { type: "string" }, "browser-only": { type: "boolean" } },
+});
+const output = path.resolve(root, values.out ?? "dist");
 const source = (file: string) => path.resolve(root, "..", file);
 
 await generatePrimitiveBridge(root);
@@ -37,7 +43,7 @@ await build({
     ],
   },
   build: {
-    outDir: "dist",
+    outDir: output,
     lib: {
       entry: {
         web: path.join(root, "src/entry.ts"),
@@ -50,7 +56,7 @@ await build({
   },
 });
 const compiled: { presentationCases(): PresentationCase[]; scrollShadowProperties: string } =
-  await import(path.join(root, "dist/presentation.js"));
+  await import(path.join(output, "presentation.js"));
 const cases = compiled.presentationCases();
 const registered = new Set(cases.map((entry) => entry.kind));
 for (const file of ["index.contract", ...new Bun.Glob("components/**/*.contract").scanSync(root)]) {
@@ -60,25 +66,27 @@ for (const file of ["index.contract", ...new Bun.Glob("components/**/*.contract"
     if (!registered.has(match[1] ?? ""))
       throw new Error(`Missing initial Lenso presentation: ${match[1]}`);
 }
-const css = Bun.file(path.join(root, "dist/web.css"));
+const css = Bun.file(path.join(output, "web.css"));
 const atomic = `${await css.text()}\n${compiled.scrollShadowProperties}`;
-await Bun.write(path.join(root, "dist/web.atomic.css"), atomic);
+await Bun.write(path.join(output, "web.atomic.css"), atomic);
 const initial = initialCSS(atomic, cases);
 await Bun.write(css, initial);
 console.log(
   `Initial styles: ${cases.length} recipes, ${Buffer.byteLength(initial)} bytes (${Bun.gzipSync(initial).length} gzip)`,
 );
-const declarations = Bun.spawn(["bun", "run", "--bun", "tsc", "-p", "tsconfig.build.json"], {
-  cwd: root,
-  stdout: "inherit",
-  stderr: "inherit",
-});
-if ((await declarations.exited) !== 0) throw new Error("Exact adapter declarations failed");
-await cp(path.join(root, "src/browser.js"), path.join(root, "dist/browser.js"));
-await mkdir(path.join(root, "dist/notices"), { recursive: true });
-await cp(
-  source("../THIRD_PARTY_NOTICES.md"),
-  path.join(root, "dist/notices/THIRD_PARTY_NOTICES.md"),
-);
+if (!values["browser-only"]) {
+  const declarations = Bun.spawn(
+    ["bun", "run", "--bun", "tsc", "-p", "tsconfig.build.json", "--outDir", output],
+    {
+      cwd: root,
+      stdout: "inherit",
+      stderr: "inherit",
+    },
+  );
+  if ((await declarations.exited) !== 0) throw new Error("Exact adapter declarations failed");
+}
+await cp(path.join(root, "src/browser.js"), path.join(output, "browser.js"));
+await mkdir(path.join(output, "notices"), { recursive: true });
+await cp(source("../THIRD_PARTY_NOTICES.md"), path.join(output, "notices/THIRD_PARTY_NOTICES.md"));
 
-await cp(path.join(root, "NOTICES.md"), path.join(root, "dist/notices/EXACT_ADAPTATIONS.md"));
+await cp(path.join(root, "NOTICES.md"), path.join(output, "notices/EXACT_ADAPTATIONS.md"));

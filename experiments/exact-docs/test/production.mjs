@@ -23,7 +23,7 @@ try {
       '\n\nFirst compact paragraph.\n\nRepeated compact paragraph.\n\nThird compact paragraph.\n\nRepeated compact paragraph.\n\nLast compact paragraph.\n\n**Rich boundary.**\n\nLiteral "quoted" ${value}.\n\nFinal plain paragraph.\n',
   );
   const configFile = Bun.file(path.join(root, "docs.json"));
-  const config = await configFile.json();
+  const config = { ...(await configFile.json()), theme: "headless" };
   await Bun.write(configFile, JSON.stringify({ ...config, preload: "intent" }));
   const { out } = await buildSite(root);
   await Bun.write(configFile, JSON.stringify(config));

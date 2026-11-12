@@ -1,0 +1,96 @@
+use CollectionRequests from "./list-box.contract"
+
+shape TagGroupState
+  id: string
+  label: string
+  keys: string[]
+  value: string[]
+  mode: string
+  disabled: bool
+  readOnly: bool
+  direction: string
+  size: string
+  variant: string
+  removable: bool
+
+component TagGroup
+  props
+    state: TagGroupState
+    change: action
+    remove: action
+  action request(key: string)
+    if not state.disabled and not state.readOnly and state.removable
+      remove(key)
+  action removed(key: string)
+    change(state.value.filter(value => value != key))
+  action noAction(key: string)
+    if false
+      remove(key)
+  slot
+  view
+    box id=state.id testId=state.id role="grid" tabindex=0 aria-label=state.label aria-disabled=state.disabled direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="tag-group" data-slot="tag-group" data-lenso-mode=state.mode data-lenso-disabled=state.disabled data-lenso-readonly=state.readOnly data-lenso-direction=state.direction data-lenso-loop=true data-lenso-follow-focus=false data-lenso-removable=state.removable
+      children
+      CollectionRequests(keys=state.keys, value=state.value, mode=state.mode, disabled=state.disabled, readOnly=state.readOnly, change=change, activate=noAction)
+      input type="hidden" value="" input=request hatch="lenso-ui" data-lenso-kind="list-box-request" data-slot="tag-group-remove"
+      input type="hidden" value="" input=removed hatch="lenso-ui" data-lenso-kind="list-box-request" data-slot="tag-group-deselect"
+
+component TagGroupList
+  slot
+  view
+    box role="presentation" hatch="lenso-ui" data-lenso-kind="tag-group-list" data-slot="tag-group-list"
+      children
+
+component TagRoot
+  props
+    state: TagGroupState
+    id: string
+    itemKey: string
+    textValue: string
+    disabled: bool
+  slot
+  view
+    box id=id testId=id role="row" tabindex=-1 aria-label=textValue aria-selected=(state.mode != "none" and state.value.includes(itemKey)) aria-disabled=(state.disabled or disabled)
+      hatch="lenso-ui" data-lenso-kind="tag" data-slot="tag" data-lenso-value=itemKey data-lenso-size=state.size data-lenso-variant=state.variant data-lenso-checked=(state.mode != "none" and state.value.includes(itemKey)) data-lenso-disabled=(state.disabled or disabled)
+      box aria-hidden=true hatch="lenso-ui" data-lenso-kind="tag-lens" data-material-lens=""
+      children
+
+component TagContent
+  slot
+  view
+    box role="gridcell" hatch="lenso-ui" data-lenso-kind="tag-cell" data-slot="tag-cell"
+      children
+
+component TagRemoveButton
+  props
+    state: TagGroupState
+    id: string
+    itemKey: string
+    label: string
+    disabled: bool
+    remove: action
+  action request
+    if not state.disabled and not state.readOnly and not disabled and state.removable
+      remove(itemKey)
+  view
+    box role="gridcell" hatch="lenso-ui" data-lenso-kind="tag-cell" data-slot="tag-remove-cell"
+      button id=id testId=id appearance="none" type="button" tabindex=-1 aria-label=label disabled=(state.disabled or state.readOnly or disabled or not state.removable) press=request
+        hatch="lenso-ui" data-lenso-kind="tag-remove-button" data-slot="tag-remove-button"
+        svg width=12 height=12 viewBox="0 0 12 12" aria-hidden=true
+          path d="m3 3 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width=1.5
+
+component Tag
+  props
+    state: TagGroupState
+    id: string
+    itemKey: string
+    textValue: string
+    disabled: bool
+    remove: action
+  slot
+  view
+    TagRoot(state=state, id=id, itemKey=itemKey, textValue=textValue, disabled=disabled)
+      TagContent()
+        children
+      if state.removable
+        TagRemoveButton(state=state, id=`${id}-remove`, itemKey=itemKey, label=`Remove ${textValue}`, disabled=disabled, remove=remove)

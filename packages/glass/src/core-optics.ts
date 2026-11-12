@@ -1,3 +1,4 @@
+import { lensFilter } from "./filter-split.js";
 import type { Shape } from "./refraction.js";
 
 export interface CoreOptics {
@@ -54,7 +55,6 @@ export function registerCoreOptics(filter: Element, optics: CoreOptics) {
 }
 
 export function readCoreOptics(filter: string): CoreOptics | undefined {
-  const id = filter.match(/#([^"')]+)/)?.[1];
-  const node = id ? document.getElementById(id) : null;
+  const node = lensFilter(filter);
   return node ? inputs.get(node) : undefined;
 }

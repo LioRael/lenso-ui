@@ -1,3 +1,5 @@
+import { splitRouteState } from "./route-state.mjs";
+import { splitLaunchState } from "./launch-state.mjs";
 import { splitHostCommands } from "./host-commands.mjs";
 import { partition } from "./partition.mjs";
 import { destinations } from "./destinations.mjs";
@@ -165,7 +167,13 @@ await Bun.write(path.join(gen, "local-shared.js"), "export const shared={state:[
 await splitRuntime(gen);
 if (process.env.LOCAL_RESOURCE_SPLIT !== "0") await extractTransaction(gen);
 await splitHostCommands(gen);
-if (process.env.LOCAL_PARTITION === "1") await partition(gen);
+if (process.env.LOCAL_PARTITION === "1") {
+  await partition(gen);
+  if (process.env.LOCAL_LAUNCH_SPLIT !== "0") {
+    await splitLaunchState(gen);
+    await splitRouteState(gen);
+  }
+}
 if (process.env.LOCAL_PARTITION === "1")
   transformFromAstSync(rootAst, "", {
     configFile: false,
@@ -328,8 +336,12 @@ const b = await rolldown({
       async load(id) {
         if (
           process.env.LOCAL_PARTITION === "1" &&
-          path.basename(id).startsWith("unit-") &&
-          !["unit-setup.js", "unit-full-setup.js"].includes(path.basename(id))
+          ((path.basename(id).startsWith("unit-") &&
+            !["unit-setup.js", "unit-full-setup.js"].includes(path.basename(id))) ||
+            (process.env.LOCAL_LAUNCH_SPLIT !== "0" &&
+              ["navigation.js", "router.js", "document.js", "live-time.js"].some(
+                (name) => id === path.join(gen, name),
+              )))
         )
           return { code: await Bun.file(id).text(), moduleSideEffects: false };
       },
@@ -379,6 +391,16 @@ function visit(name) {
 }
 visit(searchChunk.fileName);
 const searchClosure = [...preloads];
+if (process.env.LOCAL_PARTITION === "1" && process.env.LOCAL_LAUNCH_SPLIT !== "0")
+  for (const name of searchClosure)
+    assert.ok(
+      !Object.keys(chunks.get(name).modules).some((id) =>
+        ["navigation.js", "document.js", "live-time.js", "router.js"].some(
+          (file) => id === path.join(gen, file),
+        ),
+      ),
+      "Browser projection must not re-enter the resource-owner closure",
+    );
 const hostCommandChunks = bundle.output
   .filter(
     (chunk) =>
@@ -398,6 +420,21 @@ assert.ok(viewChunk);
 if (process.env.LOCAL_RESOURCE_SPLIT !== "0" && process.env.LOCAL_DESTINATION !== "1")
   visit(viewChunk.fileName);
 // Match the approved render-preload policy: download dependencies early without executing the root.
+const destinationTargets = {};
+if (process.env.LOCAL_DESTINATION === "1") {
+  const appSource = await Bun.file(path.join(gen, "typescript/app.ts")).text();
+  for (const [, url, body] of appSource.matchAll(
+    /\["([^"]+)", \(\) => import\("\.\/docs-content\/(body-\d+\.ts)"\)/g,
+  )) {
+    const chunk = bundle.output.find(
+      (row) =>
+        row.type === "chunk" &&
+        row.facadeModuleId === path.join(gen, "typescript/docs-content", body),
+    );
+    assert.ok(chunk, `Missing target chunk for ${url}`);
+    destinationTargets[url] = "./" + chunk.fileName;
+  }
+}
 let hintedPages = 0;
 async function hint(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -406,11 +443,18 @@ async function hint(directory) {
       if (entry.name !== ".gen") await hint(file);
     } else if (entry.name.endsWith(".html")) {
       let html = await Bun.file(file).text();
-      if (process.env.LOCAL_DESTINATION === "1")
+      if (process.env.LOCAL_DESTINATION === "1") {
+        const visible = new Set(
+          [...html.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map((row) => row[1].split(/[?#]/)[0]),
+        );
+        const targets = Object.fromEntries(
+          Object.entries(destinationTargets).filter(([url]) => visible.has(url)),
+        );
         html = html.replace(
           /(<base\b[^>]*>)/,
-          `$1<script>(${bootstrapNavigation.toString()})()</script>`,
+          `$1<script>(${bootstrapNavigation.toString()})(${JSON.stringify(targets)},${JSON.stringify(searchClosure.map((name) => "./" + name))})</script>`,
         );
+      }
       if (!html.includes("application/vnd.exact.checkpoint")) continue;
       if (process.env.LOCAL_PARTITION === "1") {
         html = html.replace(
@@ -448,6 +492,13 @@ const result = {
   searchPreloads: [...preloads],
   searchClosure,
   counterClosure: [...counterClosure],
+  destinationTargets,
+  searchModules: Object.fromEntries(
+    searchClosure.map((name) => [
+      name,
+      Object.keys(chunks.get(name).modules).map((id) => path.relative(gen, id)),
+    ]),
+  ),
   hostCommandChunks,
   hintedPages,
   counter: hasCounter

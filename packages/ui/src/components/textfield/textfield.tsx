@@ -4,7 +4,7 @@ import { Input, type InputProps } from "../input/input.js";
 import { inputStyles } from "@lenso/tokens/input";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { useElasticRef, useGlassRef } from "@lenso/glass/react";
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { clearInput } from "../../utils/clear-input.js";
 import { Label } from "../label/label.js";
 import { Description } from "../description/description.js";

@@ -1,0 +1,82 @@
+use StyledOTPSlot from "./generated/input-otp-slot.contract"
+
+shape InputOTPState
+  id: string
+  label: string
+  describedBy: string
+  slotLabel: string
+  value: string
+  defaultValue: string
+  length: number
+  validationType: string
+  validationMessage: string
+  disabled: bool
+  readOnly: bool
+  required: bool
+  invalid: bool
+  mask: bool
+  autoSubmit: bool
+  variant: string
+  glass: bool
+  direction: string
+  name: string
+  form: string
+  autocomplete: string
+  placeholder: string
+
+component InputOTPRoot
+  props
+    state: InputOTPState
+    change: action
+    complete: action
+  action propose(text: string)
+    if not state.disabled and not state.readOnly
+      change(text)
+  action completed(text: string)
+    if not state.disabled and not state.readOnly and state.value == text
+      complete(text)
+  action reset(text: string)
+    change(state.defaultValue)
+  slot
+  view
+    box id=state.id testId=state.id role="group" aria-label=state.label aria-describedby=state.describedBy direction=state.direction
+      hatch="lenso-ui" data-lenso-kind="input-otp" data-slot="input-otp" data-lenso-value=state.value data-lenso-count=state.length data-lenso-mode=state.validationType data-lenso-disabled=state.disabled data-lenso-readonly=state.readOnly data-lenso-direction=state.direction data-lenso-label=state.slotLabel data-lenso-auto-submit=state.autoSubmit data-lenso-required=state.required data-lenso-form=state.form
+      children
+      input type="hidden" value=state.value input=propose hatch="lenso-ui" data-lenso-kind="select-reset" data-slot="input-otp-request"
+      input type="hidden" value=state.value input=completed hatch="lenso-ui" data-lenso-kind="select-reset" data-slot="input-otp-complete"
+      input type="hidden" value="" input=reset hatch="lenso-ui" data-lenso-kind="select-reset" data-slot="input-otp-reset"
+      input type="hidden" value=state.value disabled=state.disabled hatch="lenso-ui" data-lenso-kind="select-form" data-slot="input-otp-form" data-lenso-name=state.name data-lenso-form=state.form
+      input type="text" value=state.value disabled=state.disabled tabindex=-1 aria-hidden=true
+        hatch="lenso-ui" data-lenso-kind="select-validity" data-slot="input-otp-validity" data-lenso-required=state.required data-lenso-form=state.form data-lenso-label=state.validationMessage
+
+component InputOTPGroup
+  slot
+  view
+    box hatch="lenso-ui" data-lenso-kind="input-otp-group" data-slot="input-otp-group"
+      children
+
+component InputOTPSlot
+  props
+    state: InputOTPState
+    index: number
+  action noChange(text: string)
+    if false
+      close("")
+  view
+    StyledOTPSlot(id=`${state.id}-slot-${index}`, index=index, glass=state.glass, label=state.label, description=state.describedBy, value=state.value.slice(index, index + 1), type=(state.mask ? "password" : "text"), placeholder=state.placeholder, disabled=state.disabled, readOnly=state.readOnly, invalid=state.invalid, input=noChange, change=noChange, name="", labelledBy="", autocomplete=(index == 0 ? state.autocomplete : "off"), required=state.required, variant=state.variant)
+
+component InputOTPSeparator
+  view
+    box aria-hidden=true hatch="lenso-ui" data-lenso-kind="input-otp-separator" data-slot="input-otp-separator"
+
+component InputOTP
+  props
+    state: InputOTPState
+    indices: number[]
+    change: action
+    complete: action
+  view
+    InputOTPRoot(state=state, change=change, complete=complete)
+      InputOTPGroup()
+        for index in indices key=index
+          InputOTPSlot(state=state, index=index)

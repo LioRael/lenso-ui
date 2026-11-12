@@ -230,3 +230,23 @@ Base UI `mergeProps` event callbacks and `composeRefs` commit callbacks. Neither
 reads `ref.current` during render. They do not exempt other files or permit ref
 reads in JSX. Other exceptions keep their concrete integration reason beside
 the affected statement.
+
+### CI scheduling and release preparation
+
+The acceptance workflow runs the full repository check and documentation/consumer
+production checks on separate runners. The documentation runner uses Turbo's
+package dependency graph before building the site. The final `verify` job fails
+unless both jobs succeed; candidate SHA and artifact trust rules still apply.
+Only superseded PR runs are cancelled automatically. Main and candidate pushes
+retain their evidence. No cross-run build-output cache is trusted by this gate.
+
+Documentation deployment checks whether the commit is still main before fetching
+the verified output or installing deployment tooling. The deploy job still uses
+the protected docs environment and the artifact from its own successful gate.
+
+Manual package releases validate exact-main verification, version and package
+identities before requesting npm environment approval. Publication rechecks main
+and verification after approval. Packages build through one Turbo dependency graph,
+then all tarballs are validated before the first publish. OIDC provenance, ordered
+publication and registry integrity checks remain required. Dispatching a release
+still requires separate owner authorization.

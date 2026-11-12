@@ -56,7 +56,18 @@ export function updateSwipe(node: HTMLElement | SVGElement) {
       }
     | undefined;
   let suppressUntil = 0;
+  let returnSide = "";
   const paint = () => {
+    if (returnSide && !side()) {
+      const previous = returnSide;
+      returnSide = "";
+      queueMicrotask(() => {
+        if (root.isConnected && controllers.has(root) && !side() && !disabled())
+          triggers()
+            .find((n) => n.dataset["lensoSide"] === previous)
+            ?.focus({ preventScroll: true });
+      });
+    }
     const offset = disabled()
       ? 0
       : gesture?.axis === "x"
@@ -168,6 +179,12 @@ export function updateSwipe(node: HTMLElement | SVGElement) {
   };
   const click = (e: MouseEvent) => {
     if (e.defaultPrevented || !(e.target instanceof Element)) return;
+    const action = e.target.closest<HTMLButtonElement>('[data-slot="swipe-action"]');
+    if (action && !action.disabled && action.closest('[data-slot="swipe-actions"]') === root) {
+      const current = side();
+      if (current && area(current)?.contains(root.ownerDocument.activeElement))
+        returnSide = current;
+    }
     if (
       e.detail > 0 &&
       e.timeStamp < suppressUntil &&

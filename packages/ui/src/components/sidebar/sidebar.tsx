@@ -1,6 +1,7 @@
 "use client";
 import type { ComponentProps } from "react";
-import { Collapsible } from "@base-ui/react/collapsible";
+import * as Collapsible from "@ui-sdk/react/collapsible";
+import { slotRender } from "../../utils/sdk-render.js";
 import { sidebarStyles } from "@lenso/tokens/sidebar";
 import * as stylex from "@stylexjs/stylex";
 import { LinkRoot, type LinkRootProps } from "../link/link.js";
@@ -126,7 +127,9 @@ export function SidebarItem({ selected = false, indent = 0, xstyle, ...props }: 
     />
   );
 }
-export type SidebarDisclosureTriggerProps = StyleXProps<Collapsible.Trigger.Props>;
+export type SidebarDisclosureTriggerProps = StyleXProps<
+  React.ComponentProps<typeof Collapsible.CollapsibleTrigger>
+>;
 export function SidebarDisclosureTrigger({
   xstyle,
   style,
@@ -134,15 +137,18 @@ export function SidebarDisclosureTrigger({
 }: SidebarDisclosureTriggerProps) {
   const compiled = stylex.props(sidebarStyles.item, sidebarStyles.disclosureTrigger, xstyle);
   return (
-    <Collapsible.Trigger
+    <Collapsible.CollapsibleTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<Collapsible.Trigger.State>(compiled.style, style)}
+      style={mergeStyle<Collapsible.CollapsibleTriggerState>(compiled.style, style)}
       data-slot="sidebar-disclosure-trigger"
+      render={slotRender("button", "sidebar-disclosure-trigger", props.render)}
     />
   );
 }
-export type SidebarDisclosurePanelProps = StyleXProps<Collapsible.Panel.Props>;
+export type SidebarDisclosurePanelProps = StyleXProps<
+  React.ComponentProps<typeof Collapsible.CollapsiblePanel>
+>;
 export function SidebarDisclosurePanel({
   children,
   xstyle,
@@ -151,16 +157,19 @@ export function SidebarDisclosurePanel({
 }: SidebarDisclosurePanelProps) {
   const compiled = stylex.props(sidebarStyles.disclosurePanel, xstyle);
   return (
-    <Collapsible.Panel
+    <Collapsible.CollapsiblePanel
       {...props}
       {...compiled}
-      style={mergeStyle<Collapsible.Panel.State>(compiled.style, style)}
+      style={mergeStyle<Collapsible.CollapsiblePanelState>(compiled.style, style)}
       data-slot="sidebar-disclosure-panel"
+      render={slotRender("div", "sidebar-disclosure-panel", props.render)}
     >
-      <div {...stylex.props(sidebarStyles.disclosureBody)} data-slot="sidebar-disclosure-body">
-        {children}
-      </div>
-    </Collapsible.Panel>
+      {(state) => (
+        <div {...stylex.props(sidebarStyles.disclosureBody)} data-slot="sidebar-disclosure-body">
+          {typeof children === "function" ? children(state) : children}
+        </div>
+      )}
+    </Collapsible.CollapsiblePanel>
   );
 }
 export const Sidebar = Object.assign(SidebarRoot, {
@@ -174,7 +183,7 @@ export const Sidebar = Object.assign(SidebarRoot, {
   Icon: SidebarIcon,
   Text: SidebarText,
   Accessory: SidebarAccessory,
-  Disclosure: Collapsible.Root,
+  Disclosure: Collapsible.Collapsible,
   DisclosureTrigger: SidebarDisclosureTrigger,
   DisclosurePanel: SidebarDisclosurePanel,
 });

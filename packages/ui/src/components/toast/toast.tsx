@@ -349,7 +349,9 @@ export function ToastProgress({
   max = 100,
   xstyle,
   ...props
-}: React.ComponentProps<typeof ProgressCircle.Root>) {
+}: Omit<React.ComponentProps<typeof ProgressCircle.Root>, "children"> & {
+  children?: React.ReactNode;
+}) {
   const percentage =
     max > min
       ? Math.round(Math.max(0, Math.min(100, (((value ?? min) - min) / (max - min)) * 100)))

@@ -1,6 +1,7 @@
 "use client";
 
-import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
+import * as BaseAccordion from "@ui-sdk/react/accordion";
+import { slotRender } from "../../utils/sdk-render.js";
 import { createContext, useContext, type ComponentProps } from "react";
 import { accordionStyles } from "@lenso/tokens/accordion";
 import { groupStyles } from "@lenso/tokens/surface";
@@ -19,17 +20,18 @@ function Item({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseAccordion.Item.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Item>["ref"];
+  Omit<ComponentProps<typeof BaseAccordion.AccordionItem>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.AccordionItem>["ref"];
   }
 > & { "data-slot"?: unknown }) {
   const compiled = stylex.props(accordionStyles.item, xstyle);
   return (
-    <BaseAccordion.Item
+    <BaseAccordion.AccordionItem
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "accordion-item"}
+      render={slotRender("div", props["data-slot"] ?? "accordion-item", props.render)}
     />
   );
 }
@@ -38,17 +40,18 @@ function Trigger({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseAccordion.Trigger.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Trigger>["ref"];
+  Omit<ComponentProps<typeof BaseAccordion.AccordionTrigger>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.AccordionTrigger>["ref"];
   }
 > & { "data-slot"?: unknown }) {
   const compiled = stylex.props(accordionStyles.trigger, xstyle);
   return (
-    <BaseAccordion.Trigger
+    <BaseAccordion.AccordionTrigger
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "accordion-trigger"}
+      render={slotRender("button", props["data-slot"] ?? "accordion-trigger", props.render)}
     />
   );
 }
@@ -57,17 +60,18 @@ export function AccordionHeading({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseAccordion.Header.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Header>["ref"];
+  Omit<ComponentProps<typeof BaseAccordion.AccordionHeader>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.AccordionHeader>["ref"];
   }
 > & { "data-slot"?: unknown }) {
   const compiled = stylex.props(accordionStyles.heading, xstyle);
   return (
-    <BaseAccordion.Header
+    <BaseAccordion.AccordionHeader
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "accordion-heading"}
+      render={slotRender("h3", props["data-slot"] ?? "accordion-heading", props.render)}
     />
   );
 }
@@ -76,17 +80,18 @@ export function AccordionPanel({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseAccordion.Panel.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.Panel>["ref"];
+  Omit<ComponentProps<typeof BaseAccordion.AccordionPanel>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof BaseAccordion.AccordionPanel>["ref"];
   }
 > & { "data-slot"?: unknown }) {
   const compiled = stylex.props(accordionStyles.panel, xstyle);
   return (
-    <BaseAccordion.Panel
+    <BaseAccordion.AccordionPanel
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "accordion-panel"}
+      render={slotRender("div", props["data-slot"] ?? "accordion-panel", props.render)}
     />
   );
 }
@@ -120,10 +125,12 @@ function Indicator({
     />
   );
 }
-export type AccordionRootProps = StyleXProps<ComponentProps<typeof BaseAccordion.Root>> & {
+export type AccordionRootProps = StyleXProps<ComponentProps<typeof BaseAccordion.Accordion>> & {
   "data-slot"?: unknown;
   variant?: "default" | "surface";
   hideSeparator?: boolean;
+  orientation?: "horizontal" | "vertical";
+  loopFocus?: boolean;
 };
 export function AccordionRoot({
   variant = "default",
@@ -145,13 +152,13 @@ export function AccordionRoot({
   return (
     <Context value={{ variant, hideSeparator, grouped }}>
       <FieldGroupContext value={false}>
-        <BaseAccordion.Root
+        <BaseAccordion.Accordion
           {...props}
           {...compiled}
           style={mergeStyle(compiled.style, style)}
           data-slot={props["data-slot"] ?? "accordion"}
-          orientation={orientation}
-          loopFocus={loopFocus}
+          render={slotRender("div", props["data-slot"] ?? "accordion", props.render)}
+          data-orientation={orientation}
           onKeyDown={(event) => {
             onKeyDown?.(event);
             navigateAccordion(event, orientation, loopFocus);

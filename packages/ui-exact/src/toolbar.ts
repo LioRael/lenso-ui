@@ -1,6 +1,6 @@
 import { press } from "@lenso/glass/motion";
 
-const rootSelector = '[data-slot="toolbar"]';
+const rootSelector = '[data-slot="toolbar"],[data-slot="navigation-bar"]';
 const groupSelector = '[data-slot="toolbar-group"]';
 const itemSelector = '[data-slot="toolbar-button"], [data-slot="toolbar-link"]';
 interface Controller {
@@ -169,7 +169,7 @@ function createToolbar(root: HTMLElement): Controller {
 
 export function updateToolbar(node: HTMLElement | SVGElement, data: DOMStringMap) {
   if (!(node instanceof HTMLElement)) return;
-  if (data["lensoKind"] === "toolbar") {
+  if (["toolbar", "navigation-bar"].includes(data["lensoKind"] ?? "")) {
     const owner = roots.get(node);
     if (owner) owner.sync();
     else roots.set(node, createToolbar(node));
@@ -187,15 +187,19 @@ export function endToolbar(node: HTMLElement | SVGElement) {
 export function connectToolbar(node: HTMLElement | SVGElement, data: DOMStringMap) {
   if (
     !(node instanceof HTMLElement) ||
-    !["toolbar", "toolbar-group", "toolbar-fusion-group", "toolbar-button"].includes(
-      data["lensoKind"] ?? "",
-    )
+    ![
+      "toolbar",
+      "navigation-bar",
+      "toolbar-group",
+      "toolbar-fusion-group",
+      "toolbar-button",
+    ].includes(data["lensoKind"] ?? "")
   )
     return;
   const kind = data["lensoKind"],
     surface = kind !== "toolbar-button";
   const ownsMotion =
-    kind === "toolbar"
+    kind === "toolbar" || kind === "navigation-bar"
       ? data["lensoAttached"] === "true"
       : data["lensoSurface"] !== "true" &&
         (kind === "toolbar-fusion-group"

@@ -1,0 +1,86 @@
+use ContextMenuState, ContextMenu, ContextMenuTrigger, ContextMenuPositioner, ContextMenuPopup, MenuState, MenuItem, MenuItemLabel, MenuItemCheckbox, MenuItemIndicator, MenuSeparator, MenuSubmenuRoot, MenuSubmenuPositioner, MenuSubmenuTrigger, MenuItemSubmenuIndicator, MenuPopup, MenuSubmenuHeading, MenuSubmenuBody, Button from "@lenso/ui-exact"
+
+component ContextMenuExample
+  state disabled = false
+  state mounted = true
+  state second = true
+  state rtl = false
+  state modal = true
+  state checked = false
+  state result = "No action"
+  state count = 0
+  derive menu = MenuState(id="context-actions", label="Entry actions", labelledBy="", side="bottom", align="start", direction=(rtl ? "rtl" : "ltr"), sideOffset=2, alignOffset=0, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  derive state = ContextMenuState(menu=menu, disabled=disabled)
+  derive more = MenuState(id="context-more", label="More entry actions", labelledBy="", side="inline-end", align="start", direction=(rtl ? "rtl" : "ltr"), sideOffset=8, alignOffset=-10, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  action toggleSecond
+    second = not second
+  action toggleDisabled
+    disabled = not disabled
+  action toggleMounted
+    mounted = not mounted
+  action toggleDirection
+    rtl = not rtl
+  action toggleModal
+    modal = not modal
+  action toggleChecked
+    checked = not checked
+  action duplicate
+    result = "Entry duplicated"
+    count = count + 1
+  action remove
+    result = "Entry deleted"
+    count = count + 1
+  view
+    column id="context-menu-examples" gap=12
+      text "Entry actions" role="heading" aria-level=2
+      text "Right-click, press Shift+F10, or hold an entry."
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable context menu", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="context-disabled")
+        Button(label="Toggle context menu", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="context-mounted")
+        Button(label="Reverse context menu", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="context-direction")
+        Button(label="Toggle second entry", press=toggleSecond, disabled=false, size="sm", variant="bordered", testId="context-second-visible")
+        Button(label="Toggle modality", press=toggleModal, disabled=false, size="sm", variant="bordered", testId="context-modal")
+      text result testId="context-result"
+      text `${count}` testId="context-count"
+      if mounted
+        ContextMenu(state=state)
+          ContextMenuTrigger(state=state, id="context-entry", label="Saved draft")
+            column padding=16 gap=8
+              text "Saved draft" role="heading" aria-level=3
+              text "A place for thoughts, links and notes."
+          if second
+            ContextMenuTrigger(state=state, id="context-second", label="Archived draft")
+              column padding=16 gap=8
+                text "Archived draft" role="heading" aria-level=3
+                text "Keep the same actions available here."
+          ContextMenuPositioner(state=state, modal=modal)
+            ContextMenuPopup(state=state)
+              MenuItem(id="context-duplicate", target="context-actions", label="Duplicate", press=duplicate, disabled=false, variant="default", closeOnClick=true)
+                MenuItemLabel()
+                  text "Duplicate"
+              MenuItem(id="context-locked", target="context-actions", label="Export", press=duplicate, disabled=true, variant="default", closeOnClick=true)
+                MenuItemLabel()
+                  text "Export"
+              MenuItemCheckbox(id="context-pin", target="context-actions", label="Pin entry", press=toggleChecked, disabled=false, variant="default", closeOnClick=false, checked=checked)
+                MenuItemIndicator(checked=checked)
+                  text "✓"
+                MenuItemLabel()
+                  text "Pin entry"
+              MenuSubmenuTrigger(id="context-more-trigger", target="context-more", label="More", disabled=false, openOnHover="auto", delay=100, closeDelay=0)
+                MenuItemLabel()
+                  text "More"
+                MenuItemSubmenuIndicator()
+                  text "›"
+              MenuSeparator()
+              MenuItem(id="context-delete", target="context-actions", label="Delete", press=remove, disabled=false, variant="danger", closeOnClick=true)
+                MenuItemLabel()
+                  text "Delete"
+            MenuSubmenuRoot()
+              MenuSubmenuPositioner(state=more, presentation="auto")
+                MenuPopup(state=more)
+                  MenuSubmenuHeading(id="context-more-back", target="context-more", label="Back to Entry actions")
+                    text "More"
+                  MenuSubmenuBody()
+                    MenuItem(id="context-copy", target="context-more", label="Copy entry", press=duplicate, disabled=false, variant="default", closeOnClick=true)
+                      MenuItemLabel()
+                        text "Copy entry"

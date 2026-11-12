@@ -64,7 +64,10 @@ export async function checkToggle(page, engine) {
   await page.keyboard.press("ArrowLeft");
   await focusIs(italic);
   await page.locator("#toggle-examples").screenshot({
-    path: path.resolve(import.meta.dirname, `../.cache/example/${engine}-toggle-rtl.png`),
+    path: path.resolve(
+      process.env.LENSO_EXACT_TEST_ARTIFACTS ?? path.join(import.meta.dirname, "../.cache/example"),
+      `${engine}-toggle-rtl.png`,
+    ),
   });
   await page.getByTestId("toggle-direction").click();
   await page.getByTestId("toggle-orientation").click();

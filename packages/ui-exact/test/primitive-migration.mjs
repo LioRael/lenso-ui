@@ -64,9 +64,11 @@ try {
     ["chromium", chromium],
     ["webkit", webkit],
   ]) {
+    if (process.env.EXACT_MIGRATION_ENGINE && process.env.EXACT_MIGRATION_ENGINE !== engineName)
+      continue;
     const browser = await engine.launch();
     try {
-      const page = await browser.newPage({ viewport: { width: 390, height: 900 } });
+      let page = await browser.newPage({ viewport: { width: 390, height: 900 } });
       page.setDefaultTimeout(15000);
       const errors = [];
       page.on("pageerror", (e) => errors.push(String(e)));
@@ -80,7 +82,15 @@ try {
         for (const width of [390, 820])
           for (const theme of ["light", "dark"])
             for (const probe of cases) {
-              await page.setViewportSize({ width, height: 900 });
+              await page.close();
+              page = await browser.newPage({ viewport: { width, height: 900 } });
+              page.setDefaultTimeout(15000);
+              page.on("pageerror", (e) => errors.push(String(e)));
+              page.on("console", (m) => {
+                if (m.type() === "error") errors.push(m.text());
+              });
+              await page.emulateMedia({ reducedMotion: "reduce" });
+
               const network = await loadCohort(page, cohort);
               await page.waitForFunction(
                 (id) =>
@@ -93,6 +103,7 @@ try {
                 await page.getByTestId("theme").evaluate((n) => n.click());
               if (probe.toggle) await page.getByTestId(probe.toggle).click();
               if (probe.open) {
+                await page.getByTestId(probe.open).scrollIntoViewIfNeeded();
                 await page.getByTestId(probe.open).focus();
                 await page.keyboard.press("Enter");
               }
@@ -183,6 +194,10 @@ try {
             }
         records.push({ cohort: cohort.name, origin: new URL(cohort.url).origin, captures });
       }
+      await Bun.write(
+        path.join(artifacts, `${engineName}-captures.json`),
+        JSON.stringify(records, null, 2) + "\n",
+      );
       for (let i = 0; i < records[0].captures.length; i++) {
         const before = records[0].captures[i],
           after = records[1].captures[i];

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { popupButtonStyles } from "@lenso/tokens/popup-button";
 import * as stylex from "@stylexjs/stylex";
@@ -22,26 +22,30 @@ export function PopupButton({
   return (
     <BaseButton
       {...mergeProps(compiled, props)}
-      style={mergeStyle<BaseButton.State>(compiled.style, style)}
+      style={mergeStyle<import("@ui-sdk/react/button").ButtonState>(compiled.style, style)}
       data-slot={slot ?? "popup-button"}
       data-popup-button=""
     >
-      {children}
-      <span
-        aria-hidden="true"
-        data-slot="popup-button-indicator"
-        {...stylex.props(popupButtonStyles.indicator)}
-      >
-        <svg width="14" height="18" viewBox="0 0 16 16" fill="none">
-          <path
-            d="m5 5 3-3 3 3 M5 11l3 3 3-3"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
+      {(state) => (
+        <>
+          {typeof children === "function" ? children(state) : children}
+          <span
+            aria-hidden="true"
+            data-slot="popup-button-indicator"
+            {...stylex.props(popupButtonStyles.indicator)}
+          >
+            <svg width="14" height="18" viewBox="0 0 16 16" fill="none">
+              <path
+                d="m5 5 3-3 3 3 M5 11l3 3 3-3"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </>
+      )}
     </BaseButton>
   );
 }

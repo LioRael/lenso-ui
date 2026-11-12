@@ -1,7 +1,7 @@
 {
   "name": "@lenso/ui",
   "version": "0.10.0",
-  "description": "Lenso React components with StyleX and native Base UI interactions.",
+  "description": "Lenso React components with StyleX, UI SDK and Base UI interactions.",
   "license": "(Apache-2.0 AND MIT)",
   "repository": {
     "type": "git",
@@ -22,6 +22,10 @@
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.js"
+    },
+    "./agent": {
+      "types": "./dist/agent.d.ts",
+      "import": "./dist/agent.js"
     },
     "./icons": {
       "types": "./dist/icons/index.d.ts",
@@ -51,6 +55,8 @@
     "@lenso/primitives": "workspace:*",
     "@lenso/tokens": "workspace:*",
     "@stylexjs/stylex": "catalog:",
+    "@ui-sdk/core": "0.1.0-beta.1",
+    "@ui-sdk/react": "0.1.0-beta.1",
     "react-stately": "3.51.0"
   },
   "devDependencies": {

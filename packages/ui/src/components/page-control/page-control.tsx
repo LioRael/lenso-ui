@@ -3,7 +3,7 @@
 // Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz.
 // Modified for RTL, controlled selection and the sliding indicator window.
 import { useLayoutEffect, useRef, useState, type ComponentProps } from "react";
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import * as stylex from "@stylexjs/stylex";
 import { pageControlStyles } from "@lenso/tokens/page-control";
 import { Glass } from "../glass/index.js";

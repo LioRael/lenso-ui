@@ -2,7 +2,7 @@
 // Base UI owns navigation.
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { ContextMenu as BaseContextMenu } from "@base-ui/react/context-menu";
 import {
   ContextualMenu,

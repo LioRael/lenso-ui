@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { useMergedRefs } from "@base-ui/utils/useMergedRefs";
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { Checkbox } from "../checkbox/index.js";
 import { SwipeActions, type SwipeAction } from "../swipe-actions/index.js";
 import {

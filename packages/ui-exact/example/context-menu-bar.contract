@@ -1,0 +1,56 @@
+use ContextMenuState, ContextMenu, ContextMenuTrigger, ContextMenuPositioner, ContextMenuBarPopup, ContextMenuBar, ContextMenuBarItem, ContextMenuExpand, MenuState, MenuItem, MenuItemLabel, Button from "@lenso/ui-exact"
+
+component ContextMenuBarExample
+  state compact = true
+  state mounted = true
+  state rtl = false
+  state rejected = false
+  state count = 0
+  derive menu = MenuState(id="context-bar", label="Quick entry actions", labelledBy="", side="bottom", align="start", direction=(rtl ? "rtl" : "ltr"), sideOffset=2, alignOffset=0, collisionPadding=8, collisionAvoidance=true, disableAnchorTracking=false)
+  derive state = ContextMenuState(menu=menu, disabled=false)
+  action reset
+    compact = true
+  action expand
+    if not rejected
+      compact = false
+  action act
+    count = count + 1
+  action toggleMounted
+    mounted = not mounted
+  action toggleDirection
+    rtl = not rtl
+  action toggleRejected
+    rejected = not rejected
+  view
+    column id="context-menu-bar-examples" gap=12
+      text "Quick actions" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Toggle quick actions", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="context-bar-mounted")
+        Button(label="Reverse quick actions", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="context-bar-direction")
+        Button(label="Reject expansion", press=toggleRejected, disabled=false, size="sm", variant="bordered", testId="context-bar-rejected")
+      text `${count}` testId="context-bar-count"
+      if mounted
+        ContextMenu(state=state)
+          ContextMenuTrigger(state=state, id="context-bar-target", label="Quick actions for draft")
+            column padding=16 gap=8
+              text "Draft actions"
+              text "Right-click or hold for quick actions."
+          ContextMenuPositioner(state=state, modal=false)
+            ContextMenuBarPopup(state=state, compact=compact, reset=reset)
+              if compact
+                ContextMenuBar()
+                  ContextMenuBarItem(id="context-bar-copy", target="context-bar", label="Copy", press=act, disabled=false, variant="default", closeOnClick=true)
+                    text "Copy"
+                  ContextMenuBarItem(id="context-bar-locked", target="context-bar", label="Export", press=act, disabled=true, variant="default", closeOnClick=true)
+                    text "Export"
+                  ContextMenuExpand(state=state, label="More actions", expand=expand)
+              else
+                MenuItem(id="context-bar-full-copy", target="context-bar", label="Copy entry", press=act, disabled=false, variant="default", closeOnClick=true)
+                  MenuItemLabel()
+                    text "Copy entry"
+                MenuItem(id="context-bar-share", target="context-bar", label="Share entry", press=act, disabled=false, variant="default", closeOnClick=true)
+                  MenuItemLabel()
+                    text "Share entry"
+                MenuItem(id="context-bar-delete", target="context-bar", label="Delete entry", press=act, disabled=false, variant="danger", closeOnClick=true)
+                  MenuItemLabel()
+                    text "Delete entry"

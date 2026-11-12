@@ -1,0 +1,67 @@
+use NavigationBarState, NavigationBar, NavigationBarLeading, NavigationBarTitle, NavigationBarTrailing, NavigationBarBack, ToolbarState, ToolbarGroup, ToolbarButton, Button, Surface from "@lenso/ui-exact"
+
+component NavigationBarExample
+  state large = true
+  state rtl = false
+  state disabled = false
+  state mounted = true
+  state attached = false
+  state infer = false
+  state edge = "uniform"
+  state title = "Reading list"
+  state count = 0
+  derive toolbar = ToolbarState(id="navigation-demo", label="Reading navigation", orientation="horizontal", direction=(rtl ? "rtl" : "ltr"), disabled=disabled, loopFocus=true, attached=attached, elastic=true)
+  derive nav = NavigationBarState(toolbar=toolbar, title=title, large=large, level=2, edge=edge, scrollport=(infer ? "" : "navigation-demo-scroll"))
+  action back
+    count = count + 1
+  action changeTitle
+    title = (title == "Reading list" ? "Articles saved for a quiet weekend by the coast" : "Reading list")
+  action toggleLarge
+    large = not large
+  action toggleDirection
+    rtl = not rtl
+  action toggleDisabled
+    disabled = not disabled
+  action toggleMounted
+    mounted = not mounted
+  action toggleAttached
+    attached = not attached
+  action toggleInference
+    infer = not infer
+  action cycleEdge
+    edge = (edge == "uniform" ? "soft" : edge == "soft" ? "none" : "uniform")
+  view
+    column id="navigation-bar-examples" gap=12
+      text "Reading navigation" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Large title", press=toggleLarge, disabled=false, size="sm", variant="bordered", testId="navigation-bar-large")
+        Button(label="Long title", press=changeTitle, disabled=false, size="sm", variant="bordered", testId="navigation-bar-title-change")
+        Button(label="Navigation direction", press=toggleDirection, disabled=false, size="sm", variant="bordered", testId="navigation-bar-direction")
+        Button(label="Navigation availability", press=toggleDisabled, disabled=false, size="sm", variant="bordered", testId="navigation-bar-disabled")
+        Button(label="Mount navigation", press=toggleMounted, disabled=false, size="sm", variant="bordered", testId="navigation-bar-mounted")
+        Button(label="Attach navigation", press=toggleAttached, disabled=false, size="sm", variant="bordered", testId="navigation-bar-attached")
+        Button(label="Scroll edge", press=cycleEdge, disabled=false, size="sm", variant="bordered", testId="navigation-bar-edge")
+        Button(label="Infer scrollport", press=toggleInference, disabled=false, size="sm", variant="bordered", testId="navigation-bar-infer")
+      text `${count}` testId="navigation-bar-count"
+      Surface(id="navigation-demo-scroll", variant="secondary")
+        if mounted
+          NavigationBar(state=nav)
+            NavigationBarLeading()
+              NavigationBarBack(state=nav, label="Back to library", disabled=false, press=back)
+            NavigationBarTitle(state=nav)
+            NavigationBarTrailing()
+              ToolbarGroup(state=toolbar, id="navigation-actions", label="Reading actions", glass=true, disabled=false, detachable=false, detached=false)
+                ToolbarButton(state=toolbar, id="navigation-add", label="Add article", size="md", variant="auto", groupDisabled=false, grouped=true, surface=toolbar.attached, detachable=false, detached=false, glass=true, iconOnly=true, elastic=true, destructive=false, tint="", disabled=false, focusableWhenDisabled=false, loading=false, press=back)
+                  text "+"
+        column padding=16 gap=24
+          text "Field notes" role="heading" aria-level=3
+          text "Keep ideas, articles and places you want to revisit in one reading list."
+          column height=180 padding=16 gap=12
+            text "By the coast" role="heading" aria-level=3
+            text "A collection of walks, small towns and quiet afternoons."
+          column height=180 padding=16 gap=12
+            text "From the library" role="heading" aria-level=3
+            text "New essays and long reads to save for later."
+          column height=180 padding=16 gap=12
+            text "Weekend notebook" role="heading" aria-level=3
+            text "Writing, photographs and unfinished sketches."

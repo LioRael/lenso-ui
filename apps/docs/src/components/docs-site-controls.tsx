@@ -49,7 +49,6 @@ export function AppearanceControls({ locale }: { locale: Locale }) {
 export function RepositoryControl({ repository }: { repository: string }) {
   return (
     <GlassButton
-      nativeButton={false}
       // The render prop creates a real anchor; override Base Button’s default role.
       // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="link"

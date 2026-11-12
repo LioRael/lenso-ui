@@ -7,7 +7,7 @@ import * as stylex from "@stylexjs/stylex";
 import { nativeReferenceStyles as styles } from "../../en/accordion/native-reference.stylex";
 
 export function NativeReferenceGroup({ withNavigation = true }: { withNavigation?: boolean }) {
-  const [expanded, setExpanded] = useState<unknown[]>(["preview"]);
+  const [expanded, setExpanded] = useState<string[]>(["preview"]);
   const items = [
     { id: "preview", label: "使用提示", body: "使用键盘在控件之间移动，并按 Enter 或空格键操作。" },
     { id: "download", label: "主题与外观", body: "选择浅色或深色主题，让界面适合你的环境。" },
@@ -24,7 +24,7 @@ export function NativeReferenceGroup({ withNavigation = true }: { withNavigation
                 aria-label="上一个折叠项"
                 disabled={index <= 0}
                 size="sm"
-                onClick={() => setExpanded([items[index - 1]?.id])}
+                onClick={() => setExpanded([items[index - 1]!.id])}
               >
                 <GlassButton.Icon>
                   <ChevronUp />
@@ -34,7 +34,7 @@ export function NativeReferenceGroup({ withNavigation = true }: { withNavigation
                 aria-label="下一个折叠项"
                 disabled={index >= items.length - 1}
                 size="sm"
-                onClick={() => setExpanded([items[index + 1]?.id])}
+                onClick={() => setExpanded([items[index + 1]!.id])}
               >
                 <GlassButton.Icon>
                   <ChevronDown />

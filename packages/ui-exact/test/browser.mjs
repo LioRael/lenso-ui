@@ -1,3 +1,25 @@
+import { checkTabBar, checkTabBarTouch } from "./tab-bar.mjs";
+import { checkSectionIndex, checkSectionIndexTouch } from "./section-index.mjs";
+import {
+  checkPopupButtonInitial,
+  checkPopupButton,
+  checkPopupButtonTouch,
+} from "./popup-button.mjs";
+import { checkInputOTP, checkInputOTPForm, checkInputOTPTouch } from "./input-otp.mjs";
+import {
+  checkAutocomplete,
+  checkAutocompleteForm,
+  checkAutocompleteTouch,
+} from "./autocomplete.mjs";
+import { checkComboBox, checkComboBoxForm, checkComboBoxTouch } from "./combo-box.mjs";
+import { checkTags, checkTagsTouch } from "./tag.mjs";
+import { checkListBox, checkListBoxTouch } from "./list-box.mjs";
+import { checkColorPicker, checkColorPickerTouch } from "./color-picker.mjs";
+import { checkColorArea, checkColorAreaForm, checkColorAreaTouch } from "./color-area.mjs";
+import { checkColorSlider, checkColorSliderForm, checkColorSliderTouch } from "./color-slider.mjs";
+import { checkColorField, checkColorFieldForm, checkColorFieldTouch } from "./color-field.mjs";
+import { checkColor, checkColorInitial, checkColorTouch } from "./color.mjs";
+import { checkSwipe, checkSwipeTouch } from "./swipe.mjs";
 import { checkPrimitiveInputModes } from "./primitive-input.mjs";
 import { checkPrimitiveChoiceValues } from "./primitive-composition.mjs";
 import { checkListPointer } from "./list-pointer.mjs";
@@ -127,7 +149,37 @@ try {
         await numberInitialPage.close();
         await numberFormPage.close();
       }
-      let list, listReorder, listPointer;
+      const colorInitialPage = await browser.newPage({ viewport: { width: 390, height: 900 } });
+      let colorInitial;
+      try {
+        colorInitial = await checkColorInitial(colorInitialPage, server.url.href);
+      } finally {
+        await colorInitialPage.close();
+      }
+      let list,
+        listReorder,
+        listPointer,
+        swipe,
+        color,
+        colorField,
+        colorFieldForm,
+        colorSlider,
+        colorSliderForm,
+        colorArea,
+        colorAreaForm,
+        colorPicker,
+        listBox,
+        tags,
+        comboBox,
+        comboBoxForm,
+        autocomplete,
+        autocompleteForm,
+        inputOTP,
+        inputOTPForm,
+        popupButtonInitial,
+        popupButton,
+        sectionIndex,
+        tabBar;
       let selectInitial, select, selectForm;
       const selectPage = await browser.newPage({ viewport: { width: 390, height: 900 } });
       selectPage.on("pageerror", (error) => errors.push(String(error)));
@@ -135,13 +187,34 @@ try {
         if (message.type() === "error") errors.push(message.text());
       });
       try {
+        popupButtonInitial = await checkPopupButtonInitial(selectPage, server.url.href);
         selectInitial = await checkSelectInitial(selectPage, server.url.href);
         await selectPage.goto(server.url.href);
         select = await checkSelect(selectPage, name);
         list = await checkList(selectPage, name);
         listReorder = await checkListReorder(selectPage);
         listPointer = await checkListPointer(selectPage, name);
+        swipe = await checkSwipe(selectPage, name);
+        color = await checkColor(selectPage, name);
+        colorField = await checkColorField(selectPage, name);
+        colorSlider = await checkColorSlider(selectPage, name);
+        colorArea = await checkColorArea(selectPage, name);
+        colorPicker = await checkColorPicker(selectPage, name);
+        listBox = await checkListBox(selectPage, name);
+        tags = await checkTags(selectPage, name);
+        comboBox = await checkComboBox(selectPage, name);
+        autocomplete = await checkAutocomplete(selectPage, name);
+        inputOTP = await checkInputOTP(selectPage, name);
+        popupButton = await checkPopupButton(selectPage, name);
+        sectionIndex = await checkSectionIndex(selectPage, name);
+        tabBar = await checkTabBar(selectPage, name);
         selectForm = await checkSelectForm(selectPage, server.url.href);
+        colorFieldForm = await checkColorFieldForm(selectPage, server.url.href);
+        colorSliderForm = await checkColorSliderForm(selectPage, server.url.href);
+        colorAreaForm = await checkColorAreaForm(selectPage, server.url.href);
+        comboBoxForm = await checkComboBoxForm(selectPage, server.url.href);
+        autocompleteForm = await checkAutocompleteForm(selectPage, server.url.href);
+        inputOTPForm = await checkInputOTPForm(selectPage, server.url.href);
       } finally {
         await selectPage.close();
       }
@@ -279,6 +352,15 @@ try {
       let menuBarTouch;
       let numberTouch;
       let numberScrubTouch;
+      let swipeTouch;
+      let colorTouch;
+      let colorFieldTouch;
+      let colorSliderTouch,
+        colorAreaTouch,
+        colorPickerTouch,
+        listBoxTouch,
+        tagsTouch,
+        comboBoxTouch;
       try {
         const touchPage = await touchContext.newPage();
         touchPage.on("pageerror", (error) => errors.push(String(error)));
@@ -295,9 +377,27 @@ try {
         numberTouch = await checkNumberTouch(touchPage);
         await touchPage.goto(server.url.href);
         numberScrubTouch = await checkNumberScrubTouch(touchPage);
+        await touchPage.goto(server.url.href);
+        await touchPage.waitForFunction(() =>
+          document.getElementById("message-swipe")?.hasAttribute("data-lenso-ready"),
+        );
+        swipeTouch = await checkSwipeTouch(touchPage, name);
+        colorTouch = await checkColorTouch(touchPage);
+        colorFieldTouch = await checkColorFieldTouch(touchPage);
+        colorSliderTouch = await checkColorSliderTouch(touchPage, name);
+        colorAreaTouch = await checkColorAreaTouch(touchPage, name);
+        colorPickerTouch = await checkColorPickerTouch(touchPage, name);
+        listBoxTouch = await checkListBoxTouch(touchPage, name);
+        tagsTouch = await checkTagsTouch(touchPage, name);
+        comboBoxTouch = await checkComboBoxTouch(touchPage, name);
       } finally {
         await touchContext.close();
       }
+      const autocompleteTouch = await checkAutocompleteTouch(browser, server.url.href);
+      const inputOTPTouch = await checkInputOTPTouch(browser, server.url.href);
+      const popupButtonTouch = await checkPopupButtonTouch(browser, server.url.href);
+      const sectionIndexTouch = await checkSectionIndexTouch(browser, server.url.href, name);
+      const tabBarTouch = await checkTabBarTouch(browser, server.url.href, name);
       await page.bringToFront();
       await checkDisclosure(page, name);
       for (const width of [390, 820]) {
@@ -393,6 +493,42 @@ try {
         list,
         listReorder,
         listPointer,
+        swipe,
+        swipeTouch,
+        color,
+        colorInitial,
+        colorTouch,
+        colorField,
+        colorFieldForm,
+        colorFieldTouch,
+        colorSlider,
+        colorSliderForm,
+        colorSliderTouch,
+        colorArea,
+        colorAreaForm,
+        colorAreaTouch,
+        colorPicker,
+        colorPickerTouch,
+        listBox,
+        listBoxTouch,
+        tags,
+        tagsTouch,
+        comboBox,
+        comboBoxForm,
+        comboBoxTouch,
+        autocomplete,
+        autocompleteForm,
+        autocompleteTouch,
+        inputOTP,
+        inputOTPForm,
+        inputOTPTouch,
+        popupButtonInitial,
+        popupButton,
+        popupButtonTouch,
+        sectionIndex,
+        sectionIndexTouch,
+        tabBar,
+        tabBarTouch,
         selectInitial,
         select,
         selectForm,

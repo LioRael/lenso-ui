@@ -13,6 +13,7 @@ const parent = await mkdtemp(path.join(tmpdir(), "exact-docs-browser-"));
 const root = path.join(parent, "docs");
 await main(["new", root]);
 const initialConfig = await Bun.file(path.join(root, "docs.json")).json();
+initialConfig.theme = "headless";
 initialConfig.origin = "https://docs.example.test";
 initialConfig.pages.push({
   path: "/reference",

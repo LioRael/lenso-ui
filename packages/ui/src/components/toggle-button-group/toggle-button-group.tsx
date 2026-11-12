@@ -1,11 +1,12 @@
 "use client";
 
-import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group";
+import { ToggleGroup as BaseToggleGroup } from "@ui-sdk/react/toggle";
 import { createContext, useContext, type ComponentProps } from "react";
 import { toggleButtonGroupStyles } from "@lenso/tokens/toggle-button-group";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import type * as React from "react";
 import * as stylex from "@stylexjs/stylex";
+import { slotRender } from "../../utils/sdk-render.js";
 import type { ButtonSize, ButtonVariant } from "../button/button.js";
 import type { GlassButtonVariant } from "../glass-button/glass-button.js";
 type GroupOptions = {
@@ -33,8 +34,10 @@ function Separator({
     />
   );
 }
-export type ToggleButtonGroupRootProps = StyleXProps<ComponentProps<typeof BaseToggleGroup>> &
-  GroupOptions & { "data-slot"?: unknown };
+export type ToggleButtonGroupRootProps = StyleXProps<
+  Omit<ComponentProps<typeof BaseToggleGroup>, "loop">
+> &
+  GroupOptions & { "data-slot"?: unknown; loopFocus?: boolean };
 export function ToggleButtonGroupRoot({
   children,
   disabled = false,
@@ -44,6 +47,7 @@ export function ToggleButtonGroupRoot({
   fullWidth = false,
   isDetached = false,
   orientation = "horizontal",
+  loopFocus = true,
   xstyle,
   style,
   ...props
@@ -62,10 +66,16 @@ export function ToggleButtonGroupRoot({
       {...compiled}
       style={mergeStyle(compiled.style, style)}
       data-slot={props["data-slot"] ?? "toggle-button-group"}
+      render={slotRender("div", props["data-slot"] ?? "toggle-button-group", props.render)}
       orientation={orientation}
+      loop={loopFocus}
       disabled={disabled}
     >
-      <ToggleButtonGroupContext value={options}>{children}</ToggleButtonGroupContext>
+      {(state) => (
+        <ToggleButtonGroupContext value={options}>
+          {typeof children === "function" ? children(state) : children}
+        </ToggleButtonGroupContext>
+      )}
     </BaseToggleGroup>
   );
 }

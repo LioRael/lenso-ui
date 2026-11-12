@@ -1,0 +1,85 @@
+use ListBoxState, ListBox, ListBoxItem, ListBoxItemIndicator, ListBoxSection, ListBoxSectionLabel, Button from "@lenso/ui-exact"
+
+component ListBoxExample
+  state selected: string[] = []
+  state betaDisabled = true
+  state mode = "multiple"
+  state disabled = false
+  state readOnly = false
+  state reject = false
+  state mounted = true
+  state removed = false
+  state rtl = false
+  state loop = true
+  state follow = false
+  state lastAction = ""
+  derive keys = removed ? ["", "a,b", "delta", "echo"] : ["", "a,b", "雪", "delta", "echo"]
+  derive list = ListBoxState(id="choices-list", label="Library choices", labelledBy="choices-title", describedBy="choices-description", keys=keys, value=selected, mode=mode, disabled=disabled, readOnly=readOnly, direction=(rtl ? "rtl" : "ltr"), loop=loop, selectionFollowsFocus=follow)
+  action select(value: string[])
+    if not reject
+      selected = value
+  action activate(key: string)
+    lastAction = `Action: ${key}`
+  action changeMode
+    mode = mode == "multiple" ? "single" : mode == "single" ? "none" : "multiple"
+    selected = []
+  action availability
+    betaDisabled = not betaDisabled
+  action disable
+    disabled = not disabled
+  action lock
+    readOnly = not readOnly
+  action veto
+    reject = not reject
+  action remount
+    mounted = not mounted
+  action remove
+    removed = not removed
+  action redirect
+    rtl = not rtl
+  action wrap
+    loop = not loop
+  action automatic
+    follow = not follow
+  action external
+    selected = ["雪"]
+  view
+    column id="list-box-examples" testId="list-box-examples" gap=12
+      text "List box" id="choices-title" role="heading" aria-level=2
+      text "Choose one or more library collections." id="choices-description"
+      row gap=8 flex-wrap="wrap"
+        Button(label="Beta availability", press=availability, disabled=false, size="sm", variant="bordered", testId="list-box-availability")
+        Button(label="Selection mode", press=changeMode, disabled=false, size="sm", variant="bordered", testId="list-box-mode")
+        Button(label="Disable list", press=disable, disabled=false, size="sm", variant="bordered", testId="list-box-disabled")
+        Button(label="Read only list", press=lock, disabled=false, size="sm", variant="bordered", testId="list-box-readonly")
+        Button(label="Reject selection", press=veto, disabled=false, size="sm", variant="bordered", testId="list-box-reject")
+        Button(label="Mount list", press=remount, disabled=false, size="sm", variant="bordered", testId="list-box-mounted")
+        Button(label="Remove collection", press=remove, disabled=false, size="sm", variant="bordered", testId="list-box-remove")
+        Button(label="List direction", press=redirect, disabled=false, size="sm", variant="bordered", testId="list-box-direction")
+        Button(label="Loop focus", press=wrap, disabled=false, size="sm", variant="bordered", testId="list-box-loop")
+        Button(label="Follow focus", press=automatic, disabled=false, size="sm", variant="bordered", testId="list-box-follow")
+        Button(label="External selection", press=external, disabled=false, size="sm", variant="bordered", testId="list-box-external")
+      if mounted
+        ListBox(state=list, change=select, activate=activate)
+          ListBoxItem(state=list, itemKey="", id="choice-alpha", textValue="Alpha", disabled=false, variant="default")
+            text "Alpha"
+            ListBoxItemIndicator(selected=selected.includes(""), variant="default")
+          ListBoxItem(state=list, itemKey="a,b", id="choice-beta", textValue="Beta", disabled=betaDisabled, variant="default")
+            text "Beta (unavailable)"
+            ListBoxItemIndicator(selected=selected.includes("a,b"), variant="default")
+          ListBoxSection(id="choices-shared", labelledBy="choices-shared-title")
+            ListBoxSectionLabel(id="choices-shared-title")
+              text "Shared"
+            if not removed
+              ListBoxItem(state=list, itemKey="雪", id="choice-charlie", textValue="Charlie", disabled=false, variant="default")
+                text "Charlie"
+                ListBoxItemIndicator(selected=selected.includes("雪"), variant="default")
+            ListBoxItem(state=list, itemKey="delta", id="choice-delta", textValue="Delta", disabled=false, variant="danger")
+              text "Delta"
+              ListBoxItemIndicator(selected=selected.includes("delta"), variant="danger")
+          ListBoxItem(state=list, itemKey="echo", id="choice-echo", textValue="Echo", disabled=false, variant="default")
+            text "Echo"
+            ListBoxItemIndicator(selected=selected.includes("echo"), variant="default")
+      text `Selection: ${selected.join("|")}` testId="list-box-value"
+      text mode testId="list-box-mode-value"
+      text lastAction testId="list-box-action"

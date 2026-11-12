@@ -3,7 +3,7 @@ import * as React from "react";
 import { clearInput } from "../../utils/clear-input.js";
 import { Field } from "@base-ui/react/field";
 import { Input as BaseInput } from "@base-ui/react/input";
-import { Button as BaseButton } from "@base-ui/react/button";
+import { NativeButton as BaseButton } from "../../utils/native-button.js";
 import { searchFieldStyles, searchFieldGroupStyles } from "@lenso/tokens/search-field";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { useGlassRef } from "@lenso/glass/react";
@@ -169,7 +169,7 @@ export function SearchFieldInput({
 }
 
 export type SearchFieldClearButtonProps = StyleXProps<
-  Omit<BaseButton.Props, "ref"> & React.RefAttributes<HTMLElement>
+  Omit<React.ComponentProps<typeof BaseButton>, "ref"> & React.RefAttributes<HTMLElement>
 > & { "data-slot"?: unknown };
 export function SearchFieldClearButton({
   children = (
@@ -201,15 +201,15 @@ export function SearchFieldClearButton({
       aria-label="Clear search"
       {...props}
       {...compiled}
-      style={mergeStyle<BaseButton.State>(compiled.style, style)}
+      style={mergeStyle<import("@ui-sdk/react/button").ButtonState>(compiled.style, style)}
       data-slot={slot ?? "search-field-clear-button"}
       disabled={disabled || empty || inputDisabled}
       onPointerDown={(event) => {
         onPointerDown?.(event);
         event.preventDefault();
       }}
-      onClick={(event) => {
-        onClick?.(event);
+      onClick={(event, details) => {
+        onClick?.(event, details);
         if (
           !event.defaultPrevented &&
           input.current &&

@@ -1,7 +1,8 @@
 import { watch } from "node:fs";
 import { realpath, rm } from "node:fs/promises";
 import path from "node:path";
-import { buildSite } from "./index.ts";
+import { buildSite, loadSite } from "./index.ts";
+import { buildDevelopmentUI, ignoredDevelopmentPath, watchThemeSources } from "./development.ts";
 
 const reloadScript = `<script>(()=>{const events=new EventSource('/__docs/events');events.addEventListener('reload',()=>location.reload());events.addEventListener('build-error',event=>{let message=document.getElementById('__docs-error');if(!message){message=document.createElement('pre');message.id='__docs-error';message.setAttribute('role','alert');document.body.prepend(message)}message.textContent=JSON.parse(event.data)})})();</script>`;
 
@@ -48,6 +49,9 @@ export async function startDev(directory: string, port = 3000) {
   let requested = false;
   let pending: Promise<void> | undefined;
   let closed = false;
+  let uiDirty = true;
+  let themed = false;
+  const themeAssets = path.join(root, ".exact-docs/ui");
   const send = (event: string, data: string) => {
     const bytes = new TextEncoder().encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
     for (const client of clients) client.enqueue(bytes);
@@ -56,8 +60,20 @@ export async function startDev(directory: string, port = 3000) {
     do {
       requested = false;
       try {
+        themed = (await loadSite(root)).config.theme === "lenso";
+        if (themed && uiDirty) {
+          uiDirty = false;
+          console.log("Building Lenso UI browser assets…");
+          try {
+            await buildDevelopmentUI(themeAssets);
+          } catch (cause) {
+            uiDirty = true;
+            throw cause;
+          }
+        }
         const result = await buildSite(root, {
           development: true,
+          themeAssets,
           out: path.join(root, ".exact-docs/previews", String(++revision)),
         });
         const previous = current;
@@ -82,16 +98,13 @@ export async function startDev(directory: string, port = 3000) {
   };
   let timer: ReturnType<typeof setTimeout> | undefined;
   const watcher = watch(root, { recursive: true }, (_event, filename) => {
-    if (
-      !filename ||
-      filename
-        .split(/[\\/]/)
-        .some(
-          (segment) =>
-            segment.startsWith(".") || ["dist", "node_modules", "target"].includes(segment),
-        )
-    )
-      return;
+    if (!filename || ignoredDevelopmentPath(filename)) return;
+    clearTimeout(timer);
+    timer = setTimeout(queue, 100);
+  });
+  const stopThemeWatch = watchThemeSources((kind) => {
+    if (kind === "ui") uiDirty = true;
+    if (!themed) return;
     clearTimeout(timer);
     timer = setTimeout(queue, 100);
   });
@@ -148,6 +161,7 @@ export async function startDev(directory: string, port = 3000) {
     async stop() {
       closed = true;
       watcher.close();
+      stopThemeWatch();
       clearTimeout(timer);
       for (const client of clients) client.close();
       clients.clear();

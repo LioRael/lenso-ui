@@ -1,3 +1,11 @@
+import {
+  glassButtonStyles,
+  glassButtonSizes,
+  glassButtonVariants,
+  glassButtonIconOnlySizes,
+} from "@lenso/tokens/glass-button";
+import { glassToggleButtonStyles } from "@lenso/tokens/glass-toggle-button";
+import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import type { StyleInput } from "./style-types.js";
 import {
   buttonStyles,
@@ -18,6 +26,33 @@ function orientationOf(data: DOMStringMap) {
 export function togglePresentation(kind: string, data: DOMStringMap): StyleInput | undefined {
   const fullWidth = data["lensoFullWidth"] === "true";
   const detached = data["lensoDetached"] === "true";
+  if (kind === "glass-toggle-button-icon") return [glassButtonStyles.icon];
+  if (kind === "glass-toggle-button" || kind === "glass-toggle-button-group-item") {
+    const size = data["lensoSize"],
+      variant = data["lensoVariant"];
+    if (size !== "sm" && size !== "md" && size !== "lg")
+      throw new RangeError(`Unknown GlassToggleButton size: ${size}`);
+    if (variant !== "default" && variant !== "prominent")
+      throw new RangeError(`Unknown GlassToggleButton variant: ${variant}`);
+    const icon = data["lensoIconOnly"] === "true",
+      grouped = kind === "glass-toggle-button-group-item";
+    return [
+      glassButtonStyles.root,
+      liquidMaterialStyles.small,
+      glassButtonStyles.backdrop,
+      glassButtonSizes[size],
+      glassButtonVariants[variant],
+      glassButtonStyles.interaction,
+      toggleButtonStyles.selected,
+      glassToggleButtonStyles.selectedMaterial,
+      variant === "prominent" && toggleButtonStyles.prominentSelected,
+      icon && glassButtonStyles.iconOnly,
+      icon && glassButtonIconOnlySizes[size],
+      fullWidth && glassButtonStyles.fullWidth,
+      grouped && !detached && buttonGroupItemStyles[orientationOf(data)],
+      grouped && fullWidth && buttonGroupItemStyles.stretch,
+    ];
+  }
   if (kind === "toggle-button-icon") return [buttonStyles.icon];
   if (kind === "toggle-button-group")
     return [

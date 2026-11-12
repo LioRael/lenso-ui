@@ -1,0 +1,90 @@
+use SectionIndexState, SectionIndexItem, SectionIndex, Button from "@lenso/ui-exact"
+
+component SectionIndexExample
+  state selected = "A"
+  state hasValue = true
+  state changes = 0
+  state local = "A"
+  state localChanges = 0
+  state disabled = false
+  state reject = false
+  state mounted = true
+  state rtl = false
+  state removeB = false
+  state disableB = false
+  derive items = [SectionIndexItem(value="A", label="A", href="#index-A", disabled=false), SectionIndexItem(value="B", label="B", href="#index-B", disabled=disableB), SectionIndexItem(value="blocked", label="C", href="#index-C", disabled=true), SectionIndexItem(value="", label="D", href="#index-D", disabled=false), SectionIndexItem(value="雪,🌕", label="雪", href="#index-snow", disabled=false)]
+  derive visible = items.filter(item => not removeB or item.value != "B")
+  derive state = SectionIndexState(id="section-navigation", label="Page sections", value=selected, hasValue=hasValue, disabled=disabled, direction=(rtl ? "rtl" : "ltr"), scrollport="", scrollOffset=0)
+  derive scoped = SectionIndexState(id="section-local", label="Contact sections", value=local, hasValue=true, disabled=disabled, direction=(rtl ? "rtl" : "ltr"), scrollport="index-scrollport", scrollOffset=12)
+  derive contacts = [SectionIndexItem(value="A", label="A", href="#contact-A", disabled=false), SectionIndexItem(value="B", label="B", href="#contact-B", disabled=false), SectionIndexItem(value="C", label="C", href="#contact-C", disabled=true), SectionIndexItem(value="D", label="D", href="#contact-D", disabled=false)]
+  action choose(value: string)
+    changes = changes + 1
+    if not reject
+      selected = value
+      hasValue = true
+  action chooseLocal(value: string)
+    localChanges = localChanges + 1
+    if not reject
+      local = value
+  action disable
+    disabled = not disabled
+  action veto
+    reject = not reject
+  action remount
+    mounted = not mounted
+  action redirect
+    rtl = not rtl
+  action remove
+    removeB = not removeB
+  action unavailable
+    disableB = not disableB
+  action clear
+    hasValue = false
+  action external
+    selected = "雪,🌕"
+    hasValue = true
+  view
+    column id="section-index-examples" testId="section-index-examples" gap=16 width="100%"
+      text "Section navigation" role="heading" aria-level=2
+      row gap=8 flex-wrap="wrap"
+        Button(label="Disable index", press=disable, disabled=false, size="sm", variant="bordered", testId="index-disabled")
+        Button(label="Reject index", press=veto, disabled=false, size="sm", variant="bordered", testId="index-reject")
+        Button(label="Mount index", press=remount, disabled=false, size="sm", variant="bordered", testId="index-mounted")
+        Button(label="Reverse index", press=redirect, disabled=false, size="sm", variant="bordered", testId="index-direction")
+        Button(label="Remove B", press=remove, disabled=false, size="sm", variant="bordered", testId="index-remove")
+        Button(label="Disable B", press=unavailable, disabled=false, size="sm", variant="bordered", testId="index-unavailable")
+        Button(label="Clear location", press=clear, disabled=false, size="sm", variant="bordered", testId="index-clear")
+        Button(label="External location", press=external, disabled=false, size="sm", variant="bordered", testId="index-external")
+      if mounted
+        SectionIndex(state=state, items=visible, change=choose)
+        row width="100%" max-width="22.5rem" gap=8 align-items="flex-start"
+          box id="index-scrollport" testId="index-scrollport" height=240 flex=1 min-width=0 overflow-y="auto"
+            column gap=8
+              box id="contact-A" testId="contact-A" height=160
+                text "A" role="heading" aria-level=3
+                text "Apricot"
+              box id="contact-B" testId="contact-B" height=160
+                text "B" role="heading" aria-level=3
+                text "Banana"
+              box id="contact-C" testId="contact-C" height=160
+                text "C" role="heading" aria-level=3
+                text "Cherry"
+              box id="contact-D" testId="contact-D" height=240
+                text "D" role="heading" aria-level=3
+                text "Dragon fruit"
+          SectionIndex(state=scoped, items=contacts, change=chooseLocal)
+      text selected id="index-value" testId="index-value"
+      text `${changes}` id="index-changes" testId="index-changes"
+      text local id="index-local-value" testId="index-local-value"
+      text `${localChanges}` id="index-local-changes" testId="index-local-changes"
+      box id="index-A" testId="index-A" height=80
+        text "A — Articles" role="heading" aria-level=3
+      box id="index-B" testId="index-B" height=80
+        text "B — Books" role="heading" aria-level=3
+      box id="index-C" testId="index-C" height=80
+        text "C — Unavailable" role="heading" aria-level=3
+      box id="index-D" testId="index-D" height=80
+        text "D — Downloads" role="heading" aria-level=3
+      box id="index-snow" testId="index-snow" height=80
+        text "雪 — Collections" role="heading" aria-level=3
+      text "After index" testId="index-after" tabindex=0

@@ -82,8 +82,57 @@ test("moving a native backdrop does not repeatedly mutate its paint marker", () 
         );
       }
       expect(markers).toBe(1);
+      stop.setVisible(false);
+      left = 90;
+      lens.style.marginLeft = "90px";
+      await settle();
+      expect((paints.firstElementChild as HTMLElement).style.transform).toContain(
+        "translate(60px, 20px)",
+      );
+      stop.setVisible(true);
+      await settle();
+      expect((paints.firstElementChild as HTMLElement).style.transform).toContain(
+        "translate(90px, 20px)",
+      );
     } finally {
       observer.disconnect();
+      stop();
+      lens.remove();
+    }
+  }));
+
+test("transparent material resumes with its latest geometry and recipe", () =>
+  withNativePaints(async () => {
+    const lens = document.createElement("div");
+    lens.dataset["variant"] = "filled";
+    lens.style.cssText = "opacity:1;--lg-blur:3px;--lenso-panel-paint-1:red";
+    let left = 10;
+    lens.getBoundingClientRect = () => new DOMRect(left, 20, 250, 524);
+    document.body.append(lens);
+    let ready = 0;
+    const stop = paintMaterialBackdrop(lens, true, false, () => ready++);
+    const paints = lens.previousElementSibling as HTMLElement;
+    try {
+      await settle();
+      expect(paints.style.display).not.toBe("none");
+      lens.style.opacity = "0";
+      await settle();
+      expect(paints.style.display).toBe("none");
+      left = 80;
+      lens.style.setProperty("--lg-blur", "8px");
+      lens.style.setProperty("--lenso-panel-paint-1", "blue");
+      await settle();
+      expect(paints.style.display).toBe("none");
+      lens.style.opacity = "1";
+      await settle();
+      expect(paints.style.display).not.toBe("none");
+      expect((paints.firstElementChild as HTMLElement).style.transform).toContain(
+        "translate(80px, 20px)",
+      );
+      expect((paints.firstElementChild as HTMLElement).style.backdropFilter).toContain("blur(8px)");
+      expect((paints.children[1] as HTMLElement).style.backgroundColor).toBe("blue");
+      expect(ready).toBe(1);
+    } finally {
       stop();
       lens.remove();
     }

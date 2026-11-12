@@ -17,6 +17,9 @@ const root = path.resolve(import.meta.dirname, "..");
 const cache = path.join(root, ".cache/fumadocs");
 const templates = path.join(root, "bench/fumadocs");
 const source = path.join(root, ".cache/scale/300");
+const themeBuild = process.env.FUMA_THEME_MANIFEST
+  ? await Bun.file(process.env.FUMA_THEME_MANIFEST).json()
+  : undefined;
 if (!(await Bun.file(path.join(source, "docs.json")).exists()))
   throw Error("Generate the corpus with SCALE_PAGES=300 PERF_RUNS=1 bun run test:scale first");
 const requireFuma = createRequire(path.join(templates, "package.json"));
@@ -43,7 +46,7 @@ assert.ok(
 );
 const fastActivation = process.env.FUMA_ACTIVATION_FAST === "1";
 assert.ok(
-  !fastActivation || activationBaseline,
+  !fastActivation || activationBaseline || themeBuild,
   "FUMA_ACTIVATION_FAST requires an activation baseline",
 );
 const latencyMs = fastActivation ? 0 : 80;
@@ -56,8 +59,14 @@ if (localActivation) {
   );
   outputs.exact = path.resolve(localActivation);
 }
-const cases = activationBaseline ? ["exactBefore", "exact", "matched"] : Object.keys(outputs);
-const isExact = (name) => name === "exact" || name === "exactBefore";
+if (themeBuild) Object.assign(outputs, themeBuild.outputs);
+const cases = themeBuild
+  ? ["exactHeadless", "exactTheme", "matched", "matchedUi"]
+  : activationBaseline
+    ? ["exactBefore", "exact", "matched"]
+    : Object.keys(outputs);
+const isExact = (name) => ["exact", "exactBefore", "exactHeadless", "exactTheme"].includes(name);
+const isUi = (name) => name === "ui" || name === "matchedUi";
 const versions = {};
 for (const name of ["fumadocs-core", "fumadocs-ui", "next", "react", "react-dom", "tailwindcss"])
   versions[name] = JSON.parse(
@@ -174,7 +183,7 @@ if (process.env.FUMA_MEASURE_ONLY !== "1") {
     );
     await cp(path.join(templates, "package.json"), path.join(directory, "package.json"));
     await cp(path.join(templates, "next.config.mjs"), path.join(directory, "next.config.mjs"));
-    if (name === "ui")
+    if (isUi(name))
       await cp(
         path.join(templates, "postcss.config.mjs"),
         path.join(directory, "postcss.config.mjs"),
@@ -266,9 +275,7 @@ function serve(out) {
     },
   });
 }
-const servers = Object.fromEntries(
-  Object.entries(outputs).map(([name, out]) => [name, serve(out)]),
-);
+const servers = Object.fromEntries(cases.map((name) => [name, serve(outputs[name])]));
 const require = createRequire(new URL("../../../apps/docs/package.json", import.meta.url));
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE ?? "playwright");
 const browser = await chromium.launch();
@@ -311,7 +318,10 @@ async function setup(name) {
   });
   cdp.on("Network.dataReceived", (e) => {
     const record = inflight.get(e.requestId);
-    if (record) record.bodyBytes += e.encodedDataLength;
+    if (record) {
+      record.bodyBytes += e.encodedDataLength;
+      record.bytes = record.headerBytes + record.bodyBytes;
+    }
   });
   cdp.on("Network.loadingFinished", (e) => {
     const record = inflight.get(e.requestId);
@@ -359,7 +369,9 @@ async function setup(name) {
           seen.set(type, key);
           requestAnimationFrame(() =>
             requestAnimationFrame(() => {
-              if (seen.get(type) === key)
+              if (seen.get(type) === key) {
+                if (type === "body" && pathname === "/" && !globalThis.__benchFirstBody)
+                  globalThis.__benchFirstBody = performance.now();
                 window.__fumadocsPaint({
                   type,
                   value,
@@ -367,6 +379,7 @@ async function setup(name) {
                   epoch: performance.timeOrigin + performance.now(),
                   sinceNavigationMs: performance.now(),
                 });
+              }
             }),
           );
         }
@@ -377,18 +390,31 @@ async function setup(name) {
         characterData: true,
       });
     },
-    { ui: name === "ui" },
+    { ui: isUi(name) },
   );
   await page.goto(servers[name].url.href, { waitUntil: "load" });
   await page.getByRole("heading", { name: "Guide 000", exact: true }).waitFor();
   await page.waitForFunction(
     () => performance.getEntriesByName("first-contentful-paint").length > 0,
   );
-  const initial = await page.evaluate(() => ({
-    timeOrigin: performance.timeOrigin,
-    fcpMs: performance.getEntriesByName("first-contentful-paint")[0].startTime,
-    beforeActionMs: performance.now(),
-  }));
+  if (themeBuild) await page.waitForFunction(() => globalThis.__benchFirstBody > 0);
+  const initial = await page.evaluate(
+    (themed) => ({
+      timeOrigin: performance.timeOrigin,
+      ...(themed
+        ? {
+            bodyObservedMs: globalThis.__benchFirstBody,
+            firstBodyMs: Math.max(
+              globalThis.__benchFirstBody,
+              performance.getEntriesByName("first-contentful-paint")[0].startTime,
+            ),
+          }
+        : {}),
+      fcpMs: performance.getEntriesByName("first-contentful-paint")[0].startTime,
+      beforeActionMs: performance.now(),
+    }),
+    Boolean(themeBuild),
+  );
   async function measure(test, action) {
     let timer;
     const paint = new Promise((resolve, reject) => {
@@ -425,7 +451,7 @@ async function setup(name) {
   };
 }
 async function search(t, name, query) {
-  if (name === "ui") {
+  if (isUi(name)) {
     if (!(await t.page.getByRole("combobox").isVisible()))
       await t.page
         .getByRole("button", { name: /Search|搜索/ })
@@ -435,13 +461,13 @@ async function search(t, name, query) {
   } else await t.page.getByRole("searchbox").fill(query);
 }
 async function closeSearch(t, name) {
-  if (name === "ui") {
+  if (isUi(name)) {
     await t.page.keyboard.press("Escape");
     await t.page.getByRole("dialog").waitFor({ state: "hidden" });
   }
 }
 function nav(t, name) {
-  return name === "ui"
+  return isUi(name)
     ? t.page.locator("#nd-sidebar")
     : t.page.getByRole("navigation", { name: "Documentation", exact: true });
 }
@@ -492,6 +518,11 @@ try {
         await closeSearch(t, name);
         await t.page.getByTestId("comparison-counter").click();
         await t.page.getByTestId("comparison-counter").filter({ hasText: "Count: 1" }).waitFor();
+        if (themeBuild && isExact(name))
+          await t.page.evaluate(() => {
+            globalThis.__benchRoot = exact.state;
+            globalThis.__benchSlots = exact.state[0].slice();
+          });
         const beforeNav = t.bytes();
         const forward = await t.measure(
           (e) => e.type === "body" && e.path === "/guide-001" && e.value === "Guide 001",
@@ -500,6 +531,16 @@ try {
         await t.page.waitForLoadState("networkidle");
         const coldNavBytes = t.bytes() - beforeNav;
         assert.equal(await t.page.getByTestId("comparison-counter").textContent(), "Count: 1");
+        if (themeBuild && isExact(name))
+          assert.equal(
+            await t.page.evaluate(
+              () =>
+                exact.state === __benchRoot &&
+                exact.state[0].every((slot, i) => slot === __benchSlots[i]),
+            ),
+            true,
+            "All Exact root slots must survive navigation",
+          );
         const beforeBack = t.bytes();
         const back = await t.measure(
           (e) => e.type === "body" && e.path === "/" && e.value === "Guide 000",
@@ -507,6 +548,16 @@ try {
         );
         await t.page.waitForLoadState("networkidle");
         assert.equal(await t.page.getByTestId("comparison-counter").textContent(), "Count: 1");
+        if (themeBuild && isExact(name))
+          assert.equal(
+            await t.page.evaluate(
+              () =>
+                exact.state === __benchRoot &&
+                exact.state[0].every((slot, i) => slot === __benchSlots[i]),
+            ),
+            true,
+            "All Exact root slots must survive Back",
+          );
         assert.deepEqual(t.errors, []);
         const sample = {
           ...t.initial,
@@ -520,6 +571,13 @@ try {
           searchIndexBytes: scopes.reduce((sum, request) => sum + request.bytes, 0),
           jsThroughSearch,
           initialScriptMs: rounded(metrics.ScriptDuration * 1000),
+          ...(themeBuild
+            ? {
+                initialStyleMs: rounded(metrics.RecalcStyleDuration * 1000),
+                initialLayoutMs: rounded(metrics.LayoutDuration * 1000),
+                initialTaskMs: rounded(metrics.TaskDuration * 1000),
+              }
+            : {}),
           searchScriptMs: rounded((afterMetrics.ScriptDuration - metrics.ScriptDuration) * 1000),
           repeatSearchMs: repeat.ms,
           repeatBytes,
@@ -533,7 +591,7 @@ try {
         assert.equal(sample.documentRequests, 1, "All four keep the document during navigation");
         if (run === 0)
           await Bun.write(
-            path.join(cache, `${name}-network.json`),
+            path.join(cache, `${themeBuild ? "theme-" : ""}${name}-network.json`),
             JSON.stringify(t.requests, null, 2),
           );
         sets[name].push(sample);
@@ -577,7 +635,7 @@ try {
           await Bun.write(
             path.join(
               cache,
-              `${localActivation ? `${localLabel}-` : ""}${activationBaseline ? `${entryComparison ? "entry" : "activation"}-${fastActivation ? "fast" : "slow"}-` : ""}${name}-counter-network.json`,
+              `${themeBuild ? "theme-" : ""}${localActivation ? `${localLabel}-` : ""}${activationBaseline ? `${entryComparison ? "entry" : "activation"}-${fastActivation ? "fast" : "slow"}-` : ""}${name}-counter-network.json`,
             ),
             JSON.stringify(tCounter.requests, null, 2),
           );
@@ -671,14 +729,13 @@ try {
         }
         const doc = corpus.documents.find((doc) => doc.path === target);
         await search(t, name, queryFor(doc));
-        const hit =
-          name === "ui"
-            ? t.page.getByRole("option").first()
-            : t.page.locator('[data-docs-part="search"] a').first();
+        const hit = isUi(name)
+          ? t.page.getByRole("option").first()
+          : t.page.locator('[data-docs-part="search"] a').first();
         await hit.filter({ hasText: doc.title }).waitFor();
         await hit.click();
         await t.page.waitForURL((url) => normal(url.pathname) === target);
-        if (name === "ui") await t.page.getByRole("dialog").waitFor({ state: "hidden" });
+        if (isUi(name)) await t.page.getByRole("dialog").waitFor({ state: "hidden" });
         await t.page.getByRole("heading", { name: doc.title, exact: true }).waitFor();
         assert.equal(await t.page.getByTestId("comparison-counter").textContent(), "Count: 1");
       }
@@ -692,7 +749,7 @@ try {
     }
   }
   let appearance;
-  if (activationBaseline) {
+  if (activationBaseline && !themeBuild) {
     let pairs = 0;
     for (const width of [1280, 390])
       for (const colorScheme of ["light", "dark"]) {
@@ -769,8 +826,16 @@ try {
         fumadocsSearchDebounceMs: 100,
         matchedSearchDebounceMs: 0,
         uiDialogPreload: true,
+        ...(themeBuild
+          ? {
+              themeComparison: true,
+              matchedUiSearchDebounceMs: 0,
+              initialGate: "Heading and paragraph-token body painted (two animation frames)",
+              rootSlotsPreserved: true,
+            }
+          : {}),
       },
-      buildTimes,
+      buildTimes: themeBuild ? { ...buildTimes, ...themeBuild.buildTimes } : buildTimes,
       appearance,
       outputs: Object.fromEntries(cases.map((name) => [name, outputs[name]])),
       results,
@@ -786,19 +851,23 @@ try {
       report.indexes[name] = { file, raw: bytes.length, gzip: gzipSync(bytes).length };
     }
     report.reusedBuilds = process.env.FUMA_MEASURE_ONLY === "1";
-    const reportFile = localActivation
-      ? `${localLabel}-${fastActivation ? "fast" : "slow"}-results.json`
-      : entryComparison
-        ? fastActivation
-          ? "entry-fast-results.json"
-          : "entry-results.json"
-        : fastActivation
-          ? "activation-fast-results.json"
-          : activationBaseline
-            ? "activation-results.json"
-            : "results.json";
+    const reportFile = themeBuild
+      ? `theme-${fastActivation ? "fast" : "slow"}-results.json`
+      : localActivation
+        ? `${localLabel}-${fastActivation ? "fast" : "slow"}-results.json`
+        : entryComparison
+          ? fastActivation
+            ? "entry-fast-results.json"
+            : "entry-results.json"
+          : fastActivation
+            ? "activation-fast-results.json"
+            : activationBaseline
+              ? "activation-results.json"
+              : "results.json";
     await Bun.write(path.join(cache, reportFile), JSON.stringify(report, null, 2));
-    if (localActivation) console.log("Local activation experiment: production reports unchanged");
+    if (themeBuild) console.log("Theme comparison: historical reports unchanged");
+    else if (localActivation)
+      console.log("Local activation experiment: production reports unchanged");
     else if (entryComparison && !fastActivation) await writeEntryReport(root, report);
     else if (activationBaseline && !fastActivation) await writeActivationReport(root, report);
     else if (!activationBaseline) await writeReport(root, report);
