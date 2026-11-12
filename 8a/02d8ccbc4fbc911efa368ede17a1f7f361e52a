@@ -1,0 +1,1598 @@
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/before-probe.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/android/logger.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/after-scroll-obstruction-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/baseline-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/raw-logcat-digest.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/failure-probe-report.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-142
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/ColorAreaQA.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-62
+docs/research/evidence/native-color-area-2026-11-12/android/build2/input-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441750444696-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/new-client-install.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-qa.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-117
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-area.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-103
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainActivity.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-61
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443352134854.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-area.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-103
+docs/research/evidence/native-color-area-2026-11-12/doctor-example.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-4
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-initial-HSB-plane-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-196
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/settings.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-30
+docs/research/evidence/native-color-area-2026-11-12/android/build/input-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/apk-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/cohort-source-hashes.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/visible-check-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442087858394-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/case-5.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-6.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441750444696-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/case-2.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-extension.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/provider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/first-touch-plane-pixels.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/authoritative-results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-1247
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441911548390-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443351167973-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/export-ios.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/endpoint-marker-red-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-9
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-173
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441843312072.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443352134854-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/plane-pixels.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-130
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441844423354-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-area-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/closeout-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-49
+docs/research/evidence/native-color-area-2026-11-12/boundaries.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/original-candidate/lenso-native-color-area-start.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/area-pure-vertical-native-not-parent-scroll-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-close.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-area-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/source-hashes.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442094078491-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-dark-readable-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-core.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-10
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/index.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-118
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442087858394-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/build/repositories.init.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-29
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-325
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/build3/build-result.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-disable-mid-noEnd-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/logger.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441845375550.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440605024512-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/doctor-package.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-4
+docs/research/evidence/native-color-area-2026-11-12/android/build/build-command.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-23
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441872837461-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-lib.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-29
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-141
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/plane-pixel-validation.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-145
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+packages/ui-native/src/index.ts
+  s_ab5c95a3492695::t_15ecabf49fc400 116-118
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/captures/cf1794441673143826-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441846258655-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/probe-uninstall.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441872837461-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-34
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/scroll-diagnostic-activity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/core/case-1.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+packages/ui-native/test/color-area-model.test.ts
+  s_ab5c95a3492695::t_a80a4cb549edf5 48
+  s_ab5c95a3492695::t_f89d7c0bc856e0 1-47,49-118
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/case-4.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-held-marker-owner-restored-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-312
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/marker-cardinal-pixels.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-138
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/android/after-shade-dismiss.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-slider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/authoritative-results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-361
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-initial-HSB-plane-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-RTL-drag-Y-up-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-build.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/provider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/doctor-package-final.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-63
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-321
+docs/research/evidence/native-color-area-2026-11-12/ios/build2/native-source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-178
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/provider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441738800274.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/styles.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20
+docs/research/evidence/native-color-area-2026-11-12/android/dismiss-notification-shade.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-186
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/probe-package-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/endpoint-bottom-right-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/build/installed-toolchain.init.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-12
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/exit-info-final.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-area.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-103
+docs/research/native-delivery-2026-11-12.md
+  s_ab5c95a3492695::t_42aa4abd9cf297 38-39,79-85
+apps/native-example/README.md
+  s_ab5c95a3492695::t_4614769e54d1ad 149-157
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/after-scroll-obstruction.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443348665451-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441749573419-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/source-candidate2/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-build2.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-19
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-gutter-scroll-no-color-events-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441957639068-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/after-controlled-launch-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441745669871-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441750444696-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/logcat-bounded-excerpts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-40
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-area-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/exports-final-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-38
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/exit-info-final.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/build3/build-command.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-23
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/endpoint-bottom-left-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/after-controlled-launch-0.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441745669871.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-pure-vertical-native-not-parent-scroll-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441843312072-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441844423354.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/case-3.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/original-candidate/lenso-native-color-area-core2.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/ios/build1/pods-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/result-summary.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-9
+docs/research/evidence/native-color-area-2026-11-12/archive-index.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-3352,3361-3362
+  s_ab5c95a3492695::t_ca1bede9ee9471 3353-3360
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441911548390-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/endpoint-top-left-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-block-recovery-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440602816443-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/captures/cf1794441673143826-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442094078491-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/probe-uninstall.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-curate.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-36
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-lib.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-29
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/installed-path.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443354002675-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/gradle.properties.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-78
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-remaining2.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-area.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-103
+docs/research/evidence/native-color-area-2026-11-12/android/delivery-selection.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-526
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/launch-intent.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/android/after-launch-1.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443351167973.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/result-summary.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-9
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441845375550-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/systemui-exit-info-final.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/apps/native-example/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-173
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-transparent-owner-opaque-plane-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+packages/ui-native/ios/LensoGlassModule.swift
+  s_ab5c95a3492695::t_f89d7c0bc856e0 7
+  s_ab5c95a3492695::t_15ecabf49fc400 6,8-31
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441745669871-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/case-3.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/case-5.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-area-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/source-candidate2/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-178
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/case-1.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2-source-hashes.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-slider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/build/native-source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440606577464-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-30
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-transparent-owner-opaque-plane-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-30
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainApplication.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-45
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/app/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-182
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/apk-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/use-native-color.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-28
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-area.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-103
+docs/research/evidence/native-color-area-2026-11-12/checks-receipt.json
+  s_ab5c95a3492695::t_ca1bede9ee9471 1-19
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-178
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/expo-module.config.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/paint-alpha-defect.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-start.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-61
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/styles.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-196
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-30
+docs/research/evidence/native-color-area-2026-11-12/android/boot-observations.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-122
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-178
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-84
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/probe-install.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/case-6.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443352134854-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/candidate2-install.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-ios-build2.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7249
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441900030797-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/shutdown.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441931691152-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/number-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-84
+docs/research/evidence/native-color-area-2026-11-12/android/original-candidate/lenso-native-color-area-start.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-61
+packages/ui-native/src/color-area-native-types.ts
+  s_ab5c95a3492695::t_f89d7c0bc856e0 4-25
+  s_ab5c95a3492695::t_93b8eb8f940413 1-3,26-30
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/use-native-color.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-28
+docs/research/evidence/native-color-area-2026-11-12/README.md
+  s_ab5c95a3492695::t_aa41649faceec3 1-9,15-26,29-31,33-38,40-55
+  s_ab5c95a3492695::t_1d8c6a946b8240 10-14,27-28,32,39
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-188
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/doctor-example-candidate2.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-54
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-tail.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-36
+docs/research/evidence/native-color-area-2026-11-12/ios/delivery-selection.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-282
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441750444696.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-remaining2.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/app/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-32
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainApplication.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-45
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441751326522-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/after-3-pure-vertical-parent-ownership-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-110
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-30
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-34
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443354002675-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441749573419-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-28
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/logger.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainActivity.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-61
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-lib.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-29
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-close.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/delivery-selection.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-105
+docs/research/evidence/native-color-area-2026-11-12/android/original-candidate/lenso-native-color-area-core.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-35
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440602816443-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-69
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/build/build-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/probe-install.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+apps/native-example/App.tsx
+  s_ab5c95a3492695::t_0efd52c2f84973 22,72,119,143,163,225
+packages/ui-native/src/color-area-native.ios.tsx
+  s_ab5c95a3492695::t_93b8eb8f940413 1-3
+  s_ab5c95a3492695::t_f89d7c0bc856e0 4-7
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-slider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441846258655.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/build2/build.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-612
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/build2/runtime31-source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/build3/input-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/source/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/styles.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20
+docs/research/evidence/native-color-area-2026-11-12/typecheck-package.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441957639068-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440606577464-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/candidate2-source-hashes.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/driver-scroll-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-8
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-173
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/after-controlled-launch-1.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443351167973-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/shutdown.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/settings.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441846258655-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-1.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/launch.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/build2/apk-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-area.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-103
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/build3/build.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-612
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442094078491.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-89
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443354002675-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/after-probe-failure-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/before-launch.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-54
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/endpoint-corner-geometry-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-122
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-173
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/index.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-118
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+packages/ui-native/src/color-area.tsx
+  s_ab5c95a3492695::t_f89d7c0bc856e0 5,12-25,27-102
+  s_ab5c95a3492695::t_93b8eb8f940413 1-4,6-11,26,103
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/App.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-321
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-28
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441957639068-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-8.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441751326522.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/build2/input-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/App.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-321
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/doctor-example-final.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-54
+docs/research/native-color-area-2026-11-12.md
+  s_ab5c95a3492695::t_07ff72c28fe545 90,96-100,102-105,107-111,113,115-124,128-137,140-141
+  s_ab5c95a3492695::t_1d8c6a946b8240 51,60,73,89,101,106,112,114,125-127,142
+  s_ab5c95a3492695::t_4614769e54d1ad 1-23,25-50,52-57,138-139,143
+  s_ab5c95a3492695::t_acd74ff1896d5b 58-59,61-72,74-88,91-95
+  s_ab5c95a3492695::t_ba9f6cc390ae54 24
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/visible-check-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/case-2.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/launch-intent.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/export-android.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/case-1.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/cleanup-confirmed.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-34
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cohort-source-hashes.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/apk-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442094078491-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-core.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-11
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-186
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-slider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-qa.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-117
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/expo-module.config.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443348665451-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-30
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-196
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443353067705.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-196
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/gradlew.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-248
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-321
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441843312072-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-area-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/candidate3-change-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-11
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-4.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441750444696-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/after-launch-1.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/raw-logcat-digest.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-8
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-slider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-166
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443353067705-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441751326522-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/build2/build-process.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-4
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443348665451-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441749573419.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/case-1.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441931691152-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-remaining3.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441911548390.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/gradlew.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-248
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-tail.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-3
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/apps/native-example/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-173
+docs/research/evidence/native-color-area-2026-11-12/android/build3/apk-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/package-readiness.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-36
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/result-summary.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-9
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-external10-90-noEnd-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-ios-build1.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20069
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-141
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443352134854-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/before-probe.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-3.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/number-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-84
+packages/ui-native/src/color-area-model.ts
+  s_ab5c95a3492695::t_0efd52c2f84973 30-31
+  s_ab5c95a3492695::t_f89d7c0bc856e0 11-18,26-27,35-42,44-60,64-66,68-73,75-90,92-96,98-119,126-146,148-159,161-169,171-180,182-183,185-189,192-211
+  s_ab5c95a3492695::t_a80a4cb549edf5 29,32-34
+  s_ab5c95a3492695::t_93b8eb8f940413 1-10,19-25,28,43,61-63,67,74,91,97,120-125,147,160,170,181,184,190-191,212-213
+docs/research/evidence/native-color-area-2026-11-12/android/after-probe-failure.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-54
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-2.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/apk-identity-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443355132759-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/guest-memory-before-launch.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443348665451.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-155
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441931691152.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/host-before-start.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/ios/authoritative-results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-45
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/use-value.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/build1/build-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440605024512.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-84
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441872837461-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/number-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-84
+docs/research/evidence/native-color-area-2026-11-12/android/build/toolchain-inputs.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/visible-check.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443351167973-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-remaining.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/styles.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20
+docs/research/evidence/native-color-area-2026-11-12/android/build/apk-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442087858394-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/source-stage-receipt.json
+  s_ab5c95a3492695::t_ca1bede9ee9471 1-49
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-area-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/after-launch-0.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+apps/native-example/ColorAreaExample.tsx
+  s_ab5c95a3492695::t_f13207d5d4c4fe 4-8,56-171
+  s_ab5c95a3492695::t_a80a4cb549edf5 1-2,42,173
+  s_ab5c95a3492695::t_0efd52c2f84973 3,9-41,43-55,172
+docs/research/evidence/native-color-area-2026-11-12/android/original-candidate/lenso-native-color-area-core2.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-remaining.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/area-initial-HSB-plane-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-110
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/captures/cf1794441673143826-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441845375550-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2-plane-pixel-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-168
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-141
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/ColorAreaQA.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-62
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/cleanup-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/captures/cf1794441673143826-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/candidate2-change-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-12
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441911548390-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/host-before-start.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/probe-package-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-external10-90-noEnd-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-141
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441738800274-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-build.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-19
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/new-client-install.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-install.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-3
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-extension.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-52
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-186
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-block-recovery-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/gradle/wrapper/gradle-wrapper.properties.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/logcat-bounded-excerpts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-66
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/number-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-84
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443355132759-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440602816443.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-155
+docs/research/evidence/native-color-area-2026-11-12/android/original-candidate/lenso-native-color-area-core.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-11
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440605024512-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-118
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-core.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-48
+docs/research/evidence/native-color-area-2026-11-12/android/reverse.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/apk-identity-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441751326522-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-186
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440606577464-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441931691152-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-diagonal-center-80404080-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-7.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443353067705-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440606577464-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/app/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-182
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-191
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/apps/native-example/App.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-321
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-start.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-install.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-13
+packages/ui-native/test/color-area-bridge.test.ts
+  s_ab5c95a3492695::t_0efd52c2f84973 1-60
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-start.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-61
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441846258655-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-118
+docs/research/evidence/native-color-area-2026-11-12/android/after-shade-dismiss-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-qa.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-117
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441738800274-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-186
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441957639068.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/typecheck-example.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440605024512-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441872837461-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441738800274-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441872837461.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/logger-stop.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/result-summary.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-9
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt
+  s_ab5c95a3492695::t_f89d7c0bc856e0 19
+  s_ab5c95a3492695::t_15ecabf49fc400 18,20-43
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441957639068-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-HSL-hue-lightness-plane-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-RTL-initial-mirrored-X-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441844423354-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainActivity.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-61
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/settings.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-64
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441846258655-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/build3/installed-toolchain.init.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-12
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/ColorAreaQA.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-63
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/delivery-selection.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-209
+docs/research/evidence/native-color-area-2026-11-12/source/apps/native-example/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-173
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/provider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+packages/ui-native/README.md
+  s_ab5c95a3492695::t_4614769e54d1ad 525-566
+docs/research/evidence/native-color-area-2026-11-12/android/package-readiness.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-36
+docs/research/evidence/native-color-area-2026-11-12/android/window-insets.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/install-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/visible-check.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/source-candidate1/apps/native-example/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-163
+docs/research/evidence/native-color-area-2026-11-12/android/failure-report-read.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/App.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-321
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/case-1.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/area-initial-HSB-plane-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441738800274-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441900030797-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441749573419-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-191
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/use-value.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/pure-vertical-red-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-13
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/provider.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/build3/build-process.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-4
+docs/research/evidence/native-color-area-2026-11-12/android/build/input-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-RTL-drag-Y-up-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442087858394.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/build2/build-result.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/build3/toolchain-inputs.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443352134854-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/ColorAreaQA.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/color-area-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/use-native-color.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-28
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-core2.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/stable-plane-pixels.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-48
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/launch-intent.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/build2/build-command.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-23
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-close.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441931691152-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/build2/installed-toolchain.init.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-12
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441845375550-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/export-final-android.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441745669871-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-9.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/index.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-118
+docs/research/evidence/native-color-area-2026-11-12/android/build/release.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-19
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443355132759-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-186
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-area.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-103
+docs/research/evidence/native-color-area-2026-11-12/android/build/build.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-625
+docs/research/evidence/native-color-area-2026-11-12/android/build/build-process.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-4
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443354002675.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/case-4.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/closeout-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-49
+docs/research/evidence/native-color-area-2026-11-12/ios/build2/build-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443353067705-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/focus-pixels.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-23
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/visible-check.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443348665451-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/original-candidate/authoritative-results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-197
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-178
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441844423354-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/final-source-hashes.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/models.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-115
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-disable-mid-noEnd-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442087858394-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/case-5.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441843312072-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/install-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-slider-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441900030797.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/ios/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/before-launch.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-54
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/area-initial-HSB-plane-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/src/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441911548390-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441900030797-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/visible-check-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/case-1.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/LensoGlassModule.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/ios/build2/native-source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/source-hashes-before-fix.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443351167973-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/endpoint-final-home-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-215
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/number-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-84
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-final-home-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-215
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/before-controlled-install.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-54
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/endpoint-initial-top-right-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/ios/ColorSliderView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-186
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/authoritative-results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-23
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-34
+packages/ui-native/src/color-area-native.android.tsx
+  s_ab5c95a3492695::t_93b8eb8f940413 1-3
+  s_ab5c95a3492695::t_f89d7c0bc856e0 4-7
+packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt
+  s_ab5c95a3492695::t_f13207d5d4c4fe 92
+  s_ab5c95a3492695::t_15ecabf49fc400 1-65,67-73,75-78,80-81,83-91,93-94,96-100,102-106,108,110-117,120-122,124-133,135-155,157-160,162-163,165-192
+  s_ab5c95a3492695::t_5502c90024a2b5 79
+  s_ab5c95a3492695::t_a80a4cb549edf5 161,164
+  s_ab5c95a3492695::t_f89d7c0bc856e0 66,74,82,95,101,107,109,118-119,123,134,156
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441745669871-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-area-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/source-candidate1/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-166
+docs/research/evidence/native-color-area-2026-11-12/android/installed-path.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/app/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-182
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/window-insets.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/endpoint-top-right-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/marker-containment-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-50
+docs/research/evidence/native-color-area-2026-11-12/ios/build1/native-source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/design/native-components.md
+  s_ab5c95a3492695::t_42aa4abd9cf297 294-303
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441751326522-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/build2/release.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-19
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/expo-module.config.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/case-2.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/logger-stop.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-pixels.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining3/captures/cf1794441749573419-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/failure-window.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-34
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/install-receipt.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-held-marker-owner-restored-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/export-ios-node-mismatch.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-14
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/results.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-560
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-RGB-red-green-plane-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/app/src/main/java/dev/lenso/nativeexample/MainApplication.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-45
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/marker-containment.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-83
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-196
+docs/research/evidence/native-color-area-2026-11-12/lint.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-141
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441900030797-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441845375550-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-build2.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440602816443-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/build2/repositories.init.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-29
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/android/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-diagonal-center-80404080-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/remaining2/captures/cf1794441673143826.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-RGB-red-green-plane-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/gradle.properties.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-78
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/gradlew.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-248
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/baseline-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/source-candidate1/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-191
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/binary-provenance.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/gradle/wrapper/gradle-wrapper.properties.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443355132759-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/styles.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-20
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-curate.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-60
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-178
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/reverse.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-area-native.ios.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/color-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/color-field-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-82
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/case-3.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/case-2.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-close.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/ColorAreaView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-192
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-cases.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/readiness-budget.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/baseline-identity.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/after-launch-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/ios/ColorAreaView.swift.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-178
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+packages/ui-native/ios/ColorAreaView.swift
+  s_ab5c95a3492695::t_f13207d5d4c4fe 53-65,136
+  s_ab5c95a3492695::t_5502c90024a2b5 76
+  s_ab5c95a3492695::t_a8ad08986e6474 1-52,66-75,77-85,87-88,90-135,137-169,171-178
+  s_ab5c95a3492695::t_f89d7c0bc856e0 170
+  s_ab5c95a3492695::t_15ecabf49fc400 86,89
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/apps/native-example/android/app/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-32
+docs/research/evidence/native-color-area-2026-11-12/android/build3/input-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-22
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/after-launch-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-slider-native.android.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/android/core/case-2.xml
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-core2.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/ColorSliderView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-200
+docs/research/evidence/native-color-area-2026-11-12/android/build3/release.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-19
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/App.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-321
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/build/native-source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-HSL-hue-lightness-plane-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/ios/build1/native-source-hashes-after.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area2-remaining3.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-39
+docs/research/evidence/native-color-area-2026-11-12/export-final-ios.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443353067705-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/design/native-component-coverage.json
+  s_ab5c95a3492695::t_97c073e8f6aadf 216-217,219
+  s_ab5c95a3492695::t_42aa4abd9cf297 212-214
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/tail/captures/cf1794442094078491-instrument.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-25
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/color-area-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-30
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-start.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-6
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440606577464.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/use-value.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/readiness-budget.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/typecheck-example-final.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-196
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443354002675-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/systemui-exit-info-final.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/after-launch-0.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-86
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cleanup-confirmed.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-34
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-core.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-35
+docs/research/evidence/native-color-area-2026-11-12/android/build2/toolchain-inputs.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-5
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/apps/native-example/android/app/src/main/AndroidManifest.xml.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-32
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/qa/lenso-native-color-area3-cases.py
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440602816443-screen.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/apps/native-example/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-141
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/use-native-color.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-28
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-slider-model.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-196
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/LensoGlassModule.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-96
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/area-dark-readable-metrics.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-17
+docs/research/evidence/native-color-area-2026-11-12/android/build/build-result.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/build2/source/bun.lock.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-2998
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/source/packages/ui-native/package.json.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-31
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/boot-observations.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-137
+docs/research/evidence/native-color-area-2026-11-12/android/build3/repositories.init.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-29
+docs/research/evidence/native-color-area-2026-11-12/android/qa/lenso-native-color-area-pods.log
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-135
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/ColorAreaExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-163
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/use-value.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/color-slider-native-types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-21
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441843312072-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/ColorSliderExample.tsx.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-141
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/types.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-213
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/guest-memory-before-launch.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/launch.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/build3/source/packages/ui-native/android/build.gradle.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-15
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/source-hashes-before.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-33
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/source/packages/ui-native/src/use-value.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-16
+docs/research/evidence/native-color-area-2026-11-12/android/endpoint3/cases/captures/cf1794443355132759.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-56
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/core/captures/cf1794440605024512-read-json.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/ios/acceptance1/index.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-118
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/index.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-118
+docs/research/evidence/native-color-area-2026-11-12/android/candidate2/extension/captures/cf1794441844423354-read-xml.json
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-18
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/gradle/wrapper/gradle-wrapper.properties.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-7
+docs/research/evidence/native-color-area-2026-11-12/ios/candidate2/area-pure-vertical-native-not-parent-scroll-hierarchy.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-108
+docs/research/evidence/native-color-area-2026-11-12/ios/endpoint3/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/apps/native-example/android/gradle.properties.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-78
+docs/research/evidence/native-color-area-2026-11-12/android/build/source/packages/ui-native/android/src/main/java/expo/modules/lensoglass/PageControlView.kt.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-216
+docs/research/evidence/native-color-area-2026-11-12/ios/gutter3/use-native-color.ts.txt
+  s_ab5c95a3492695::t_cad66c0eaa2abc 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8a02d8ccbc4fbc911efa368ede17a1f7f361e52a",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
