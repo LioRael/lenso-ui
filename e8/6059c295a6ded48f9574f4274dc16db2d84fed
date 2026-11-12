@@ -1,0 +1,39 @@
+docs/research/native-delivery-2026-11-12.md
+  s_ab5c95a3492695::t_dd95b1667f7f1f 3-8,48-61,68-76,102-111
+  s_ab5c95a3492695::t_db84c78453eebe 24-35,62-67
+docs/research/evidence/native-delivery-closeout-2026-11-12/integrity.json
+  s_ab5c95a3492695::t_db84c78453eebe 148
+  s_ab5c95a3492695::t_e39cf0c922ff6c 1-147,149-153
+docs/research/evidence/native-delivery-closeout-2026-11-12/verify-archives.py
+  s_ab5c95a3492695::t_e39cf0c922ff6c 1-58
+docs/research/evidence/native-delivery-closeout-2026-11-12/checks.json
+  s_ab5c95a3492695::t_db84c78453eebe 1-46
+docs/research/evidence/native-delivery-closeout-2026-11-12/manifest.json
+  s_ab5c95a3492695::t_20abaa077854ec 1-38
+docs/research/evidence/native-delivery-closeout-2026-11-12/README.md
+  s_ab5c95a3492695::t_db84c78453eebe 1-30
+docs/research/evidence/native-delivery-closeout-2026-11-12/generated.log
+  s_ab5c95a3492695::t_02f89a99af456e 1-9
+docs/research/evidence/native-delivery-closeout-2026-11-12/models.log
+  s_ab5c95a3492695::t_34584da195e9c5 1-115
+docs/research/evidence/native-delivery-closeout-2026-11-12/typecheck-example.log
+  s_ab5c95a3492695::t_afd4a9d645c1c3 1-2
+docs/research/evidence/native-delivery-closeout-2026-11-12/typecheck-package.log
+  s_ab5c95a3492695::t_05dc65da065fe3 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e86059c295a6ded48f9574f4274dc16db2d84fed",
+  "prompts": {},
+  "sessions": {
+    "s_ab5c95a3492695": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1c439-3ae6-74c2-8892-4bbddbb11f88",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
