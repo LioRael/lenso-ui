@@ -140,7 +140,7 @@ for (const [name, engine] of [
     await page.goto(`${base}/cn/docs/react/components/button`);
     await page.waitForFunction(() => document.documentElement.lang === "zh-CN");
     await page.locator("[data-example-mounted]").first().waitFor({ state: "attached" });
-    await page.getByRole("button", { name: "Change language", exact: true }).click();
+    await page.getByRole("button", { name: "切换语言", exact: true }).click();
     await page.getByRole("menuitemradio", { name: "English", exact: true }).click();
     await page.waitForURL("**/en/docs/react/components/button");
     await page.getByRole("button", { name: "Click me", exact: true }).first().waitFor();

@@ -7,6 +7,8 @@ import {
 } from "@tanstack/react-router";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@lenso/docs/presentation";
+import { getDocumentationMessages, resolveDocumentationLocale } from "@lenso/docs/client";
+import { documentationLocales } from "../lib/locale";
 import { Providers } from "../components/providers";
 import { DevStyleX } from "../components/dev-stylex";
 import globalCSS from "../styles/global.css?url";
@@ -27,20 +29,16 @@ function Root() {
     select: (state) => (state.location.pathname.split("/")[1] === "cn" ? "cn" : "en"),
   });
   const body = stylex.props(styles.body);
+  const language = resolveDocumentationLocale(locale, documentationLocales).language;
   return (
-    <html
-      lang={locale === "cn" ? "zh-CN" : "en"}
-      dir="ltr"
-      suppressHydrationWarning
-      style={{ overflow: "auto" }}
-    >
+    <html lang={language} dir="ltr" suppressHydrationWarning style={{ overflow: "auto" }}>
       <head>
         <HeadContent />
         <DevStyleX />
       </head>
       <body {...body} className={`${body.className} lenso-docs`}>
         <a href="#main-content" {...stylex.props(styles.skip)}>
-          {locale === "cn" ? "跳至内容" : "Skip to content"}
+          {getDocumentationMessages(language).skip}
         </a>
         <Providers locale={locale}>
           <Outlet />

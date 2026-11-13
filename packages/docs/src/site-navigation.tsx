@@ -8,6 +8,7 @@ import { ChevronDown } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
 import { sidebar } from "@lenso/docs/presentation";
 import { DesktopNavigationState, navigationBranchId } from "./sidebar-state";
+import { useDocumentationMessages } from "./i18n";
 
 // Navigation data and route identity belong to the application adapter.
 export interface DocumentationNavigationItem {
@@ -34,10 +35,11 @@ function containsCurrentUrl(item: DocumentationNavigationItem, currentUrl: strin
 }
 
 function Status({ item }: { item: DocumentationNavigationItem }): ReactNode {
+  const messages = useDocumentationMessages();
   if (!item.status || item.status === "new-dot") return null;
   return (
     <span {...stylex.props(sidebar.chip, sidebar[item.status])}>
-      {item.statusLabel ?? { new: "New", preview: "Preview", updated: "Updated" }[item.status]}
+      {item.statusLabel ?? messages[item.status]}
     </span>
   );
 }
@@ -53,6 +55,7 @@ function NavigationEntry({
   currentUrl: string;
   onNavigate?: (() => void) | undefined;
 }): ReactNode {
+  const messages = useDocumentationMessages();
   const desktopState = useContext(DesktopNavigationState);
   const selected = item.url === currentUrl;
   const link = item.url ? (
@@ -85,7 +88,7 @@ function NavigationEntry({
         {link}
         <Sidebar.DisclosureTrigger
           title={item.description}
-          aria-label={item.url ? `Toggle ${item.title} pages` : undefined}
+          aria-label={item.url ? messages.togglePages(item.title) : undefined}
           xstyle={[sidebar.row, sidebar.trigger]}
         >
           <Sidebar.Text>{item.title}</Sidebar.Text>
@@ -129,8 +132,9 @@ export function DocumentationNavigation({
   currentUrl,
   onNavigate,
 }: DocumentationNavigationProps): ReactNode {
+  const messages = useDocumentationMessages();
   return (
-    <Sidebar aria-label="Documentation pages" xstyle={sidebar.navigation}>
+    <Sidebar aria-label={messages.pages} xstyle={sidebar.navigation}>
       {navigation.map((item) => (
         <NavigationEntry
           key={item.url ?? item.title}

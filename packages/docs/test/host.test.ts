@@ -190,6 +190,10 @@ test("host generation emits Vite, page-local components and locale metadata", as
   assert.equal(tsOptions.allowImportingTsExtensions, true);
   const model = await import(path.join(directory, "model.ts"));
   assert.equal(model.pages[0].compiled, undefined);
+  assert.deepEqual(model.languageAlternates["en/start"], [
+    { code: "en", label: "English", language: "en", url: "/manual/en/learn" },
+    { code: "cn", label: "中文", language: "zh-CN", url: "/manual/cn/read" },
+  ]);
   assert.doesNotMatch(emittedContent(emitted, "model.ts"), /documents\/\d+\.js/);
 });
 

@@ -28,3 +28,6 @@ export type {
 } from "./customization";
 export { DocumentationRoot } from "./root";
 export { DocumentationPage } from "./view";
+export { DocumentationI18nProvider, useDocumentationMessages } from "./i18n";
+export { DocumentationLanguageToggle } from "./language-toggle";
+export { getDocumentationMessages, resolveDocumentationLocale } from "./language";

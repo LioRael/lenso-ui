@@ -118,8 +118,10 @@ static presentation; they are evaluated once when their page module loads.
 
 Local CSS imports and existing Lenso theme variables can customize appearance.
 StyleX declarations in local React modules compile automatically. The default header uses a compact Glass search button, the product docs' shared
-Glass theme picker/mode switch and Glass project links. A single collection has
-no section-tab row or platform badge; explicit `sections` can add navigation.
+Glass theme picker/mode switch and Glass project links. Explicit `sections` add
+destination links to the sidebar and mobile drawer, never a header tab row.
+The former `sectionTrailing` slot has been removed with that row; move any
+custom controls to `desktopActions`, `mobileActions` or `drawerActions`.
 MDX Tabs compose the public Lenso Tabs component. Product-specific controls such
 as a release selector remain slots.
 
@@ -129,9 +131,17 @@ logo receive it automatically; native HTML asset URLs in custom JSX remain
 author-owned.
 
 Declare `locales` and `defaultLocale` for language-specific content directories,
-HTML language, routes and search indexes. `language` alone sets the HTML language;
-it does not create translated routes. The framework supports locale-specific
-sources; a language-switch control is a consumer slot.
+HTML language, routes and search indexes. The framework owns the language provider,
+English/Chinese shell messages and desktop/mobile language menu. It uses each
+locale's `language` for interface text and native controls, independently of its
+route `code`. `language` alone localizes a single-language site without creating
+translated routes.
+
+Language menus use the source's actual alternates. Matching slugs link by default;
+set the same `translationKey` on pages with different translated slugs. A page
+without another translation has no language menu. Route prefixes and `basePath`
+are preserved. Custom action slots replace the default controls, so include
+`DocumentationLanguageToggle` when replacing desktop or drawer actions.
 
 MDX, configuration and local components are trusted executable project code.
 This is not a sandbox for uploaded or untrusted repositories. Source Markdown
@@ -173,7 +183,12 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for boundaries and customization.
 Existing React hosts can compose `DocumentationSiteLayout` and
 `DocumentationSearch` from `@lenso/docs/client`, and `DocumentationArticle` and
 MDX defaults from `@lenso/docs/react`. The host owns routing and one framework,
-theme and search provider. The article requires a notebook-compatible host grid
+theme and search provider. Wrap embedded content in `DocumentationI18nProvider`
+with the active locale and registry, and pass `source.getAlternates(page)` to
+`DocumentationLanguageToggle`. Remove independent language providers and URL-prefix
+switchers; both embedded and generated hosts then use the same framework messages.
+`DocumentationRoot` installs this language provider automatically, including when
+`getRootOptions` supplies custom outer providers. The article requires a notebook-compatible host grid
 and supplies its page context and responsive TOC; it is not a complete site shell.
 
 `createDocumentationSource` from `@lenso/docs/source` provides locale-aware lookup,

@@ -16,6 +16,9 @@ import {
 import { DocumentationSearch, DocumentationSearchRevision } from "./search";
 import { DocumentationArticle } from "./article";
 import { DocumentationPageActions } from "./page-actions";
+import { DocumentationLanguageToggle } from "./language-toggle";
+import { getDocumentationMessages, resolveDocumentationLocale } from "./language";
+import type { DocumentationLocale } from "./document-model";
 import { styles, headerControls } from "@lenso/docs/presentation";
 import type { DocsConfig } from "./config.ts";
 import type { DocsRuntimePage as ContentPage } from "./content.ts";
@@ -38,6 +41,7 @@ export function DocumentationPageLayout({
   siteOptions,
   pageOptions,
   searchRevision = "",
+  alternates = [],
 }: {
   config: DocsConfig;
   page: ContentPage;
@@ -49,9 +53,24 @@ export function DocumentationPageLayout({
   siteOptions?: DocumentationSiteOptions;
   pageOptions?: DocumentationPageOptions;
   searchRevision?: string;
+  alternates?: readonly (DocumentationLocale & { url: string })[];
 }): ReactNode {
   const basePath = config.basePath ?? "";
   const hasLocaleRegistry = config.locales !== undefined;
+  const locale = resolveDocumentationLocale(page.locale, config.locales);
+  const language = hasLocaleRegistry ? locale.language : (config.language ?? locale.language);
+  const messages = getDocumentationMessages(language);
+  const themeLocale = /^zh(?:-|$)/iu.test(language) || language === "cn" ? "cn" : "en";
+  const languageToggle = (
+    <DocumentationLanguageToggle
+      locale={page.locale}
+      alternates={alternates.map((alternate) => ({
+        ...alternate,
+        // Router links add the deployment prefix; source URLs already contain it.
+        url: alternate.url.slice(basePath.length) || "/",
+      }))}
+    />
+  );
   const local = (value: string) =>
     value.startsWith("/") &&
     !value.startsWith("//") &&
@@ -104,7 +123,7 @@ export function DocumentationPageLayout({
           brand={
             siteOptions?.brand ?? {
               title: config.title,
-              url: "/",
+              url: config.locales?.find((item) => item.code === page.locale)?.routePrefix ?? "/",
               ...(config.logo
                 ? { logo: <img src={local(config.logo)} alt="" width={28} height={28} /> }
                 : {}),
@@ -130,21 +149,21 @@ export function DocumentationPageLayout({
             ),
             desktopActions: (
               <>
-                <DocsThemePicker
-                  locale={page.locale === "cn" || page.locale.startsWith("zh") ? "cn" : "en"}
-                />
+                {languageToggle}
+                <DocsThemePicker locale={themeLocale} />
                 <DocumentationThemeSwitch />
                 {links}
               </>
             ),
-            drawerActions: <DocumentationThemeSwitch />,
-            mobileActions: (
-              <DocsThemePicker
-                locale={page.locale === "cn" || page.locale.startsWith("zh") ? "cn" : "en"}
-              />
+            drawerActions: (
+              <>
+                {languageToggle}
+                <DocumentationThemeSwitch />
+              </>
             ),
+            mobileActions: <DocsThemePicker locale={themeLocale} />,
             drawerFooter: (
-              <nav aria-label="Project links">
+              <nav aria-label={messages.projectLinks}>
                 {Object.entries(config.links ?? {}).map(([text, url]) => (
                   <Link
                     key={text}
@@ -166,15 +185,11 @@ export function DocumentationPageLayout({
             title={page.title}
             description={page.description}
             headings={document?.headings ?? page.headings}
-            locale={
-              config.locales?.find((item) => item.code === page.locale)?.language ??
-              config.language ??
-              page.locale
-            }
+            locale={language}
             actions={
               pageOptions?.actions ?? (
                 <DocumentationPageActions
-                  locale={page.locale}
+                  locale={language}
                   markdown={page.markdown}
                   markdownUrl={`${basePath}/_lenso/markdown/${page.id}.md`}
                 />

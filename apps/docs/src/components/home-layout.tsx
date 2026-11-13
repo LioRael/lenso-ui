@@ -9,7 +9,8 @@ import { Glass, GlassButton, Link, Popover, ThemeScope } from "@lenso/ui";
 import { ChevronDown, Sliders } from "@gravity-ui/icons";
 import { AppearanceControls, RepositoryControl } from "./docs-site-controls";
 import { CompactSearchTrigger, SearchDialog } from "./fumadocs/ui/search-dialog";
-import { LanguageToggle } from "./fumadocs/ui/language-toggle";
+import { DocumentationLanguageToggle } from "@lenso/docs/client";
+import { documentationLocales } from "@/lib/locale";
 import { homeLayout as s } from "@/styles/home-layout.stylex";
 import { headerControls } from "@/styles/header-controls.stylex";
 import { product } from "@/lib/product";
@@ -17,6 +18,10 @@ import type { Locale } from "@/lib/source";
 
 export function HomeShell({ locale, children }: { locale: Locale; children: ReactNode }) {
   const cn = locale === "cn";
+  const alternates = documentationLocales.map((language) => ({
+    ...language,
+    url: language.code === "en" ? "/" : "/cn",
+  }));
   const headerRef = useRef<HTMLElement>(null);
   const [overPhoto, setOverPhoto] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -99,7 +104,7 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
                         {cn ? "外观与语言" : "Appearance and language"}
                       </Popover.Title>
                       <div {...stylex.props(s.mobilePreferences)}>
-                        <LanguageToggle locale={locale} slug="" />
+                        <DocumentationLanguageToggle locale={locale} alternates={alternates} />
                         <AppearanceControls locale={locale} />
                       </div>
                     </Popover.Content>
@@ -134,7 +139,7 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
                       {navigation}
                     </nav>
                     <div {...stylex.props(s.mobilePreferences)}>
-                      <LanguageToggle locale={locale} slug="" />
+                      <DocumentationLanguageToggle locale={locale} alternates={alternates} />
                       <AppearanceControls locale={locale} />
                     </div>
                   </Popover.Content>

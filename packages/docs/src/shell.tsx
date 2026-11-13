@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
 import { useTreePath } from "fumadocs-ui/contexts/tree";
 import { useFooterItems } from "fumadocs-ui/utils/use-footer-items";
-import { useTranslations } from "@fuma-translate/react";
+import { useDocumentationMessages } from "./i18n";
 import type { FooterProps } from "fumadocs-ui/layouts/notebook/page/slots/footer";
 import { notebook } from "@lenso/docs/presentation";
 
@@ -21,11 +21,11 @@ export function DocumentationFooter({ items }: FooterProps): ReactNode {
   );
   const previous = items?.previous ?? (position >= 0 ? pages[position - 1] : undefined);
   const next = items?.next ?? (position >= 0 ? pages[position + 1] : undefined);
-  const translate = useTranslations({ note: "pagination" });
+  const messages = useDocumentationMessages();
   if (!previous && !next) return null;
   return (
     <nav
-      aria-label="Adjacent pages"
+      aria-label={messages.adjacentPages}
       {...stylex.props(notebook.pageFooter, !(previous && next) && notebook.footerSingle)}
     >
       {previous && (
@@ -40,7 +40,7 @@ export function DocumentationFooter({ items }: FooterProps): ReactNode {
             {previous.name}
           </span>
           <span {...stylex.props(notebook.footerDescription)}>
-            {previous.description ?? translate("Previous Page")}
+            {previous.description ?? messages.previousPage}
           </span>
         </Link>
       )}
@@ -56,7 +56,7 @@ export function DocumentationFooter({ items }: FooterProps): ReactNode {
             {next.name}
           </span>
           <span {...stylex.props(notebook.footerDescription)}>
-            {next.description ?? translate("Next Page")}
+            {next.description ?? messages.nextPage}
           </span>
         </Link>
       )}

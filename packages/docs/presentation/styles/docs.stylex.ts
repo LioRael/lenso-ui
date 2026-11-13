@@ -89,51 +89,12 @@ export const styles = stylex.create({
     textDecoration: "none",
     letterSpacing: "-0.04em",
   },
-  simpleShell: { "--docs-header-height": { default: "64px", "@media (max-width: 767px)": "56px" } },
   headerNavigationShell: {
     paddingBottom: {
       default: "calc(94px + env(safe-area-inset-bottom, 0px))",
       "@media (min-width: 768px)": 0,
     },
-    "--docs-header-height": {
-      default: "64px",
-      "@media (max-width: 767px)": "56px",
-    },
   },
-  sectionBarNarrow: { display: "none" },
-  navigationHeaderBody: {
-    height: { default: 64, "@media (max-width: 767px)": 56 },
-  },
-  sectionBar: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-    height: 48,
-    paddingInline: { default: 24, "@media (max-width: 767px)": 16 },
-    minWidth: 0,
-  },
-  sectionTabs: {
-    containerType: { default: "normal", "@media (max-width: 767px)": "inline-size" },
-    width: { default: "auto", "@media (max-width: 767px)": "100%" },
-    minWidth: 0,
-  },
-  sectionTabList: {
-    "--lg-tab-width": {
-      default: "128px",
-      "@media (max-width: 767px)": "calc((100cqw - 8px) / var(--docs-section-count))",
-    },
-    width: { default: "max-content", "@media (max-width: 767px)": "100%" },
-    boxSizing: "border-box",
-  },
-  sectionTabCount: (count: number) => ({ "--docs-section-count": String(count) }),
-  sectionTabContent: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    whiteSpace: "nowrap",
-  },
-  sectionPanel: { display: "contents" },
   row: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 16 },
   link: {
     color: "var(--lenso-label-primary)",
@@ -146,7 +107,7 @@ export const styles = stylex.create({
   muted: { color: "var(--docs-label-secondary, var(--lenso-label-secondary))", fontSize: 13 },
   shell: {
     "--fd-docs-height": "100dvh",
-    "--docs-header-height": { default: "112px", "@media (max-width: 767px)": "104px" },
+    "--docs-header-height": { default: "64px", "@media (max-width: 767px)": "56px" },
     "--fd-docs-row-3": "var(--docs-header-height)",
     display: "grid",
     gap: 0,

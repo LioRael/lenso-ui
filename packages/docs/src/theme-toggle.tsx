@@ -5,6 +5,7 @@ import { useTheme } from "fumadocs-ui/provider/base";
 import { Display, Moon, Sun } from "@gravity-ui/icons";
 import { Tabs } from "@lenso/ui/tabs";
 import { headerControls as s } from "@lenso/docs/presentation";
+import { useDocumentationMessages } from "./i18n";
 
 const subscribe = () => () => {};
 const options = [
@@ -14,6 +15,7 @@ const options = [
 ] as const;
 
 export function ThemeToggle() {
+  const messages = useDocumentationMessages();
   const { theme, setTheme } = useTheme();
   const mounted = useSyncExternalStore(
     subscribe,
@@ -31,13 +33,13 @@ export function ThemeToggle() {
       xstyle={s.themeGroup}
     >
       <Tabs.ListContainer>
-        <Tabs.List aria-label="Color theme" xstyle={s.themeList}>
+        <Tabs.List aria-label={messages.colorTheme} xstyle={s.themeList}>
           {options.map(([value, Icon]) => (
             <Tabs.Tab
               key={value}
               value={value}
-              title={`${value[0]?.toUpperCase()}${value.slice(1)} theme`}
-              aria-label={`${value[0]?.toUpperCase()}${value.slice(1)} theme`}
+              title={messages.theme[value]}
+              aria-label={messages.theme[value]}
             >
               <Icon width={16} height={16} aria-hidden="true" />
             </Tabs.Tab>

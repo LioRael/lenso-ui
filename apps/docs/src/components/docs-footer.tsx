@@ -2,6 +2,7 @@ import Link from "fumadocs-core/link";
 import * as stylex from "@stylexjs/stylex";
 import { ChevronLeft, ChevronRight } from "@gravity-ui/icons";
 import { notebook } from "@lenso/docs/presentation";
+import { getDocumentationMessages } from "@lenso/docs/client";
 
 interface Entry {
   label: string;
@@ -18,9 +19,10 @@ export function DocsFooter({
   next?: Entry | undefined;
   locale: "en" | "cn";
 }) {
+  const messages = getDocumentationMessages(locale);
   return (
     <nav
-      aria-label="Adjacent pages"
+      aria-label={messages.adjacentPages}
       {...stylex.props(notebook.pageFooter, !(previous && next) && notebook.footerSingle)}
     >
       {previous?.href && (
@@ -35,7 +37,7 @@ export function DocsFooter({
             {previous.label}
           </span>
           <span {...stylex.props(notebook.footerDescription)}>
-            {previous.description ?? (locale === "cn" ? "上一页" : "Previous page")}
+            {previous.description ?? messages.previousPage}
           </span>
         </Link>
       )}
@@ -51,7 +53,7 @@ export function DocsFooter({
             {next.label}
           </span>
           <span {...stylex.props(notebook.footerDescription)}>
-            {next.description ?? (locale === "cn" ? "下一页" : "Next page")}
+            {next.description ?? messages.nextPage}
           </span>
         </Link>
       )}

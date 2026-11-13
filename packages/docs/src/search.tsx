@@ -16,6 +16,7 @@ import { Magnifier } from "@gravity-ui/icons";
 import type { StaticOptions } from "fumadocs-core/search/client";
 import { SearchProvider, useSearchContext, type SearchLink } from "fumadocs-ui/contexts/search";
 import { notebook, headerControls } from "@lenso/docs/presentation";
+import { useDocumentationMessages } from "./i18n";
 
 // Fumadocs owns static search; Command and UI SDK own interactive behavior.
 export interface DocumentationSearchProps {
@@ -152,10 +153,12 @@ export function DocumentationSearch({
   initDB,
   compact = false,
   children,
-  labels,
+  labels: customLabels,
   allowEmpty = false,
   links,
 }: DocumentationSearchProps) {
+  const messages = useDocumentationMessages();
+  const labels = useMemo(() => ({ ...messages.search, ...customLabels }), [messages, customLabels]);
   const revision = useContext(SearchRevision);
   const [resource = source, fragment] = source.split("#", 2);
   const from = revision

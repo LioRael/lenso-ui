@@ -2,6 +2,7 @@ import { componentCategories } from "./component-categories";
 import { createDocumentationSource } from "@lenso/docs/source";
 import authoredIndex from "../generated/lenso-docs-index.json";
 import type { Locale } from "./locale";
+import { documentationLocales } from "./locale";
 
 export { isLocale, type Locale } from "./locale";
 export interface DocPage {
@@ -57,10 +58,7 @@ export async function readPage(page: Pick<DocPage, "markdownFile">) {
 }
 
 export const documentationSource = createDocumentationSource({
-  locales: [
-    { code: "en", label: "English", language: "en" },
-    { code: "cn", label: "中文", language: "zh-CN" },
-  ],
+  locales: documentationLocales,
   pages: source.pages.map((page) => ({
     ...page,
     url: pageUrl(page),

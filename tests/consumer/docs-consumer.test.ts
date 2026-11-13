@@ -171,13 +171,22 @@ test("packed Docs creates and serves a standalone Vite site outside the workspac
       config,
       (await readFile(config, "utf8")).replace(
         'title: "Field Notes",',
-        'title: "Field Notes", basePath: "/manual",',
+        `title: "Field Notes", basePath: "/manual", defaultLocale: "primary",
+        locales: [
+          { code: "primary", label: "中文", language: "zh-Hans", routePrefix: "/" },
+          { code: "en", label: "English", language: "en-US", routePrefix: "/en" },
+        ],`,
       ),
     );
     await run("bun", ["run", "build"], { cwd: project, maxBuffer: 4 * 1024 * 1024 });
     const prefixed = await readFile(join(output, "index.html"), "utf8");
     assert.match(prefixed, /\/manual\/assets\//);
     assert.match(prefixed, /href="\/manual\/guides\//);
+    assert.match(prefixed, /<html lang="zh-Hans"/);
+    assert.match(prefixed, /aria-label="搜索文档"/);
+    const english = await readFile(join(output, "en/index.html"), "utf8");
+    assert.match(english, /<html lang="en-US"/);
+    assert.match(english, /aria-label="Search documentation"/);
   } catch (error) {
     throw new Error(`${error instanceof Error ? error.stack : error}\n${log}`);
   } finally {

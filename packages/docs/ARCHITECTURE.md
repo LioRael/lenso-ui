@@ -34,6 +34,18 @@ navigation. Locale and slug remain separate identity keys. `translationKey`
 connects translated pages whose localized slugs differ. Custom `metadata` is JSON,
 not executable frontmatter.
 
+`DocumentationI18nProvider` owns the active locale and supplies the same language
+to Fumadocs, Lenso controls and framework messages. Generated roots install it;
+embedded hosts, including the product documentation, consume the public provider.
+Locale `language` selects English/Chinese messages, not the route code. Search
+labels, navigation, pagination, page actions and appearance controls share that
+selection. Content and search indexes remain source-owned per locale.
+
+The shared language menu renders actual source alternates as navigation links,
+including translated slugs and deployment prefixes. It does not invent missing
+translations or rewrite the current URL. Generated pages include this menu in
+desktop and drawer actions; embedded hosts pass their source alternates explicitly.
+
 ## Generated Vite host
 
 The CLI owns `.lenso/dev/` and `.lenso/build/` separately. Each has its own Vite

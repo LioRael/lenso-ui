@@ -35,7 +35,7 @@ export function DocumentationArticle({
   const article = (
     <DocsPage
       id="main-content"
-      lang={chinese ? "zh-CN" : locale}
+      lang={locale === "cn" ? "zh-CN" : locale}
       tabIndex={-1}
       data-documentation-kind={kind}
       slots={{ container: PageContainer }}
