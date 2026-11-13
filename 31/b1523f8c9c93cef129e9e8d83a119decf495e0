@@ -1,0 +1,23 @@
+packages/docs/src/i18n.tsx
+  s_c5695907fe744f::t_8d8d2e637cf08a 1-46
+packages/docs/src/language-toggle.tsx
+  s_c5695907fe744f::t_ac59ec58c0932d 3-9,11-19,24,28-42
+packages/docs/src/language.ts
+  s_c5695907fe744f::t_4b3b6dc11bff9e 1-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31b1523f8c9c93cef129e9e8d83a119decf495e0",
+  "prompts": {},
+  "sessions": {
+    "s_c5695907fe744f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d06d-149b-7062-aa67-3c0145df9d90",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
